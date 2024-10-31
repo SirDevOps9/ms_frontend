@@ -19,7 +19,17 @@
         "UOM":"UOM",
         "varient":"Varient",
         "price":"Price",
-        "priceVAT":"Price With VAT"
+        "priceVAT":"Price With VAT",
+        "action":"Action"
+
+    },
+    "messages":{
+        "success":"Success",
+        "error":"Error",
+        "priceRequired":"The price must be entered and cannot be zero.",
+        "noItemSelected":"No item selected for editing.",
+        "successfully":"Operation completed successfully.",
+        "duplicateItem":"There is a duplicated item with the same unit of measure."
 
     }
 }

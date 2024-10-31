@@ -7,8 +7,8 @@
             [appControl]="addForm.controls['code']"
         
             >
-            policy code 
-            </lib-label>
+            {{ 'pricePolicy.code' | translate }}    
+                  </lib-label>
             <lib-text-input
             formControlName="code"
             [readOnly]="true"
@@ -23,13 +23,18 @@
             [appControl]="addForm.controls['name']"
         
             >
-            policy name 
+            {{ 'pricePolicy.name' | translate }}           
             </lib-label>
             <lib-text-input
             formControlName="name"
             >
         
             </lib-text-input>
+            <lib-field-validations
+            [appControl]="addForm.controls['name']"
+            >
+
+            </lib-field-validations>
            </lib-form-group>
         </div>
 
@@ -43,6 +48,7 @@
             <div class="flex justify-content-between w-full ">
               <div class="">
                 <lib-text-input
+                (keyUp)="onSearch($event)"
                 [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
                 >
   
@@ -50,16 +56,17 @@
               </div>
              
               <div class="actions">
-                <lib-button-micro
+                <!-- <lib-button-micro
                 [title]="'update price policy'"
                 nameClass="outline"
                 iconName="pi pi-file-edit"
                 >
-                </lib-button-micro>
+                </lib-button-micro> -->
                 <lib-button-micro
                 [title]="'update price policy'"
                 nameClass="outline"
                 iconName="pi pi-file"
+                (click)="update()"
                 >
                 </lib-button-micro>
               </div>
@@ -83,6 +90,7 @@
                 <th>{{ 'pricePolicy.price' | translate }}</th>
                 <th>{{ 'pricePolicy.VAT' | translate }}</th>
                 <th>{{ 'pricePolicy.priceVAT' | translate }}</th>
+                <th>{{ 'pricePolicy.action' | translate }}</th>
                 
               </tr>
             </ng-template>
@@ -99,6 +107,7 @@
                         [customClass]="'add-journal'"
                         optionLabel="itemCode"
                         formControlName="itemId"
+                        
                         (valueChanged)="setRowData(rowIndex ,pricePolicy.controls['itemId'].value  )"
                         [selectedValue]="pricePolicy.controls['itemId'].value"
                         >
@@ -194,6 +203,7 @@
                         <lib-text-input
                           type="number"
                           formControlName="price"
+                          (keyUp)="setPriceWithVat( rowIndex ,$event )"
                         >
                         </lib-text-input>
                       </div>
@@ -208,12 +218,20 @@
              <td>
                 <lib-input-switch 
                 formControlName="isVatApplied"
+                (ngModelChange)="setPriceWithVat(rowIndex ,pricePolicy.get('price').value )"
+
                 >
 
                 </lib-input-switch>
              </td>
                <td class="readOnly">
                 {{ pricePolicy.get('priceWithVat').value }}
+               </td>
+               <td >
+               <lib-button-micro
+               nameClass="table_button_delete"
+               (click)="deleteRow(rowIndex)"
+               ></lib-button-micro>
                </td>
                
               </tr>
@@ -248,6 +266,7 @@
                   title="{{ 'Cancel' | translate }}"
                   nameClass="cancel"
                   widthNumber="100%"
+                  (click)="cancel()"
                 >
                 </lib-button-micro>
               </div>

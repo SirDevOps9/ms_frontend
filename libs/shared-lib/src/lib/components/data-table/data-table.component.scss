@@ -169,7 +169,7 @@ span {
             }
             &.p-highlight {
               background-color: #1a90b0;
-              color: #fff;
+              color: #fff !important;
             }
           }
         }
@@ -370,3 +370,7 @@ span {
 .custom-paginator {
   margin-top: 12px;
 }
+::ng-deep.p-paginator .p-highlight {
+  background-color: #1a90b0;
+  color: #fff !important;
+} 

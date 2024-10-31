@@ -12,7 +12,10 @@ export interface ItemDto {
   itemVariantName: string;
   itemCategoryNameAr: string;
   itemCategoryNameEn: string;
+  categoryType: string;
+  hasExpiryDate: boolean;
   categoryId: number;
   taxId: number;
+  taxRatio: number;
   itemsUOM:any[]
   }

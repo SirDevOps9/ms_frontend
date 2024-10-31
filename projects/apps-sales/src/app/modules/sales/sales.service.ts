@@ -499,11 +499,12 @@ export class SalesService {
     this.salesProxy.addPricePolicy(customer).subscribe({
       next: (res) => {
         this.toasterService.showSuccess(
-          this.languageService.transalte('addCustomerDefinition.success'),
-          this.languageService.transalte('openeingBalance.CustomerAdded')
+          this.languageService.transalte('messages.success'),
+          this.languageService.transalte('messages.successfully')
         );
         if (res) {
           this.loaderService.hide();
+          this.router.navigateTo('/masterdata/pricelist');
         }
       },
       error: (err) => {

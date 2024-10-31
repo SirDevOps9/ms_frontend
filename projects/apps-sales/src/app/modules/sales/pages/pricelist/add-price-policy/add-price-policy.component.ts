@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { customValidators, FormsService, LanguageService, PageInfo, ToasterService } from 'shared-lib';
-import * as XLSX from 'xlsx';
+import { customValidators, FormsService, LanguageService, RouterService, ToasterService } from 'shared-lib';
 import { MultiSelectItemsComponent } from '../../../components/multi-select-items/multi-select-items.component';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ItemDto } from '../../../models';
@@ -15,11 +14,12 @@ import { UpdetePricePolicyComponent } from '../../../components/updete-price-pol
 })
 export class AddPricePolicyComponent implements OnInit {
   rowDataMap: { [key: number]: { uomOptions: any[] } } = {};
-
+  duplicateLine:boolean;
   data: any;
   rowDuplicate: number;
   listOfExcel: any[] = [];
   items: ItemDto[] = [];
+  filteredPricePolicies:any;
 
   addForm: FormGroup;
   ngOnInit() {
@@ -42,7 +42,7 @@ export class AddPricePolicyComponent implements OnInit {
     return this.addForm.get('policyItemsList') as FormArray;
   }
   addNewRow() {
-
+if(!this.duplicateLine){
     if (!this.formsService.validForm(this.pricePolicyFormArray, false)) return;
 
 
@@ -56,84 +56,218 @@ export class AddPricePolicyComponent implements OnInit {
         uomName: new FormControl(''),
         itemVariantId: new FormControl(''),
         itemVariantName: new FormControl(''),
-        price: new FormControl( Number( 0), [customValidators.required]),
+        price: new FormControl( Number( ), [customValidators.required , customValidators.nonZero]),
         priceWithVat: new FormControl(0),
         taxId: new FormControl(''),
+        taxRatio: new FormControl(''),
         uomOptions: new FormControl(''),
-
-        ////
+        itemCategoryNameAr: new FormControl(''),
+        itemCategoryNameEn: new FormControl(''),
+        hasExpiryDate: new FormControl(''),
+        uomNameAr: new FormControl(''),
+        uomNameEn: new FormControl(''),
+        categoryType: new FormControl(''),
         name: new FormControl(''),
-        id: new FormControl(0),
+        id: new FormControl(),
 
       }
     );
     newLine.updateValueAndValidity();
     this.pricePolicyFormArray.push(newLine);
-
+    this.filteredPricePolicies=this.pricePolicyFormArray
+  }else{
+    this.toasterService.showError(
+      this.languageService.transalte('messages.error'),
+      this.languageService.transalte('messages.duplicateItem')
+    );
+  }
   }
 
-  setRowData(rowIndex: number, selectedItemId: number) {
-    const selectedItem = this.items.find(item => item.id === selectedItemId);
-    console.log(selectedItem, "0000000000");
+//   setRowData(rowIndex: number, selectedItemId: number) {
+//     const selectedItem = this.items.find(item => item.id === selectedItemId);
+//     console.log(  selectedItem, "0000000000");
 
-    if (selectedItem) {
+//     if (selectedItem) {
 
-      const uomOptions: any = selectedItem.itemsUOM
+//       const uomOptions: any = selectedItem.itemsUOM
     
-      console.log(uomOptions, "uomOptions");
-      const rowForm = this.pricePolicyFormArray.at(rowIndex) as FormGroup;
-      rowForm.get('uomOptions')?.setValue(uomOptions); // Store options for template access
-      rowForm.get('uomId')?.reset(); // Reset the UOM value to avoid conflicts
-      rowForm.get('uomId')?.setValue(selectedItem.uomId); // Optionally set the first UOM
-      rowForm.get('uomName')?.setValue(selectedItem.uomNameAr); // Optionally set the first UOM
-      rowForm.get('itemName')?.setValue(selectedItem.itemName); // Optionally set the first UOM
-      rowForm.get('itemVariantId')?.setValue(selectedItem.itemVariantId); // Optionally set the first UOM
-      rowForm.get('itemVariantName')?.setValue(selectedItem.itemVariantName); // Optionally set the first UOM
-      rowForm.get('itemId')?.setValue(selectedItem.itemId)
-      rowForm.get('itemCode')?.setValue(selectedItem.itemCode)
-      rowForm.get('taxId')?.setValue(selectedItem.taxId)
-      // this.pricePolicyFormArray.controls.forEach((element:any , index:number) => {
-      //   if(index != rowIndex){
-
-      //     if(element.value.uomId == rowForm.get('uomId')?.value && 
-      //     element.value.itemId == rowForm.get('itemId')?.value &&
-      //     element.value.itemVariantId == rowForm.get('itemVariantId')?.value
-      //   ){
-      //     this.toasterService.showError(
-      //       this.languageService.transalte('addCustomerDefinition.success'),
-      //       this.languageService.transalte('openeingBalance.CustomerAdded')
-      //     );
-      //     break
-      //   }
-      //   }
-      // });
-      const isDuplicate = this.pricePolicyFormArray.controls.some((element: any, index: number) => {
-        if (index !== rowIndex) {
-          const { uomId, itemId, itemVariantId } = element.value;
-          const rowUomId = rowForm.get('uomId')?.value;
-          const rowItemId = rowForm.get('itemId')?.value;
-          const rowItemVariantId = rowForm.get('itemVariantId')?.value;
+//       console.log(uomOptions, "uomOptions");
+//       const rowForm = this.pricePolicyFormArray.at(rowIndex) as FormGroup;
+//       rowForm.get('uomOptions')?.setValue(uomOptions); // Store options for template access
+//       rowForm.get('uomId')?.reset(); // Reset the UOM value to avoid conflicts
+//       rowForm.get('uomId')?.setValue(selectedItem.uomId); // Optionally set the first UOM
+//       rowForm.get('uomName')?.setValue(selectedItem.uomNameAr); // Optionally set the first UOM
+//       rowForm.get('itemName')?.setValue(selectedItem.itemName); // Optionally set the first UOM
+//       rowForm.get('itemVariantId')?.setValue(selectedItem.itemVariantId); // Optionally set the first UOM
+//       rowForm.get('itemVariantName')?.setValue(selectedItem.itemVariantName); // Optionally set the first UOM
+//       rowForm.get('itemId')?.setValue(selectedItem.itemId)
+//       rowForm.get('itemCode')?.setValue(selectedItem.itemCode)
+//       rowForm.get('taxId')?.setValue(selectedItem.taxId)
+//       rowForm.get('taxRatio')?.setValue(selectedItem.taxRatio)
+//       ///
+//       rowForm.get('itemCategoryNameAr')?.setValue(selectedItem.itemCategoryNameAr)
+//       rowForm.get('itemCategoryNameEn')?.setValue(selectedItem.itemCategoryNameEn)
+//       rowForm.get('hasExpiryDate')?.setValue(selectedItem.hasExpiryDate)
+//       rowForm.get('uomNameAr')?.setValue(selectedItem.uomNameAr)
+//       rowForm.get('uomNameEn')?.setValue(selectedItem.uomNameEn)
+//       rowForm.get('categoryType')?.setValue(selectedItem.categoryType)
+//       rowForm.get('id')?.setValue(selectedItem.id)
+    
+//       const isDuplicate = this.pricePolicyFormArray.controls.some((element: any, index: number) => {
+//         if (index !== rowIndex) {
+//           const { uomId, itemId, itemVariantId } = element.value;
+//           const rowUomId = rowForm.get('uomId')?.value;
+//           const rowItemId = rowForm.get('itemId')?.value;
+//           const rowItemVariantId = rowForm.get('itemVariantId')?.value;
       
-          if (uomId === rowUomId && itemId === rowItemId && itemVariantId === rowItemVariantId) {
-            this.toasterService.showError(
-              this.languageService.transalte('addCustomerDefinition.success'),
-              this.languageService.transalte('openeingBalance.CustomerAdded')
-            );
-            this.rowDuplicate= rowIndex
-            this.pricePolicyFormArray.markAsDirty(); // أو يمكنك استخدام markAsTouched() إذا كنت تفضل ذلك
+//           if (uomId === rowUomId && itemId === rowItemId && itemVariantId === rowItemVariantId) {
+//             this.toasterService.showError(
+//               this.languageService.transalte('messages.error'),
+//               this.languageService.transalte('messages.duplicateItem')
+//             );
+//             this.rowDuplicate= rowIndex
+//             this.duplicateLine=true
+//             return true; // يوقف التكرار عند أول تطابق
+//           }
+//           this.duplicateLine=false
 
-            return true; // يوقف التكرار عند أول تطابق
-          }
-          return false;
+//           return false;
+//         }
+//         this.duplicateLine=false
+
+//         return false;
+//       });
+      
+//     }else{
+// // Clear the row if selectedItem is not found
+// rowForm.reset(); // Reset all fields in the row to their initial state
+// // You may also want to set specific default values for certain fields
+// rowForm.get('uomOptions')?.setValue([]); // Set UOM options to empty if needed
+// // Reset any additional fields here if necessary
+// console.log("Selected item not found, row cleared");
+//     }
+  
+    
+//   }
+setRowData(rowIndex: number, selectedItemId: number) {
+  const selectedItem = this.items.find(item => item.id === selectedItemId);
+  console.log(selectedItem, "0000000000");
+
+  const rowForm = this.pricePolicyFormArray.at(rowIndex) as FormGroup;
+
+  if (selectedItem) {
+    const uomOptions: any = selectedItem.itemsUOM;
+    console.log(uomOptions, "uomOptions");
+
+    // Store options for template access
+    rowForm.get('uomOptions')?.setValue(uomOptions); 
+    rowForm.get('uomId')?.reset(); // Reset the UOM value to avoid conflicts
+    rowForm.get('uomId')?.setValue(selectedItem.uomId); 
+    rowForm.get('uomName')?.setValue(selectedItem.uomNameAr); 
+    rowForm.get('itemName')?.setValue(selectedItem.itemName); 
+    rowForm.get('itemVariantId')?.setValue(selectedItem.itemVariantId); 
+    rowForm.get('itemVariantName')?.setValue(selectedItem.itemVariantName); 
+    rowForm.get('itemId')?.setValue(selectedItem.itemId);
+    rowForm.get('itemCode')?.setValue(selectedItem.itemCode);
+    rowForm.get('taxId')?.setValue(selectedItem.taxId);
+    rowForm.get('taxRatio')?.setValue(selectedItem.taxRatio);
+    
+    // Additional fields
+    rowForm.get('itemCategoryNameAr')?.setValue(selectedItem.itemCategoryNameAr);
+    rowForm.get('itemCategoryNameEn')?.setValue(selectedItem.itemCategoryNameEn);
+    rowForm.get('hasExpiryDate')?.setValue(selectedItem.hasExpiryDate);
+    rowForm.get('uomNameAr')?.setValue(selectedItem.uomNameAr);
+    rowForm.get('uomNameEn')?.setValue(selectedItem.uomNameEn);
+    rowForm.get('categoryType')?.setValue(selectedItem.categoryType);
+    rowForm.get('id')?.setValue(selectedItem.id);
+
+    const isDuplicate = this.pricePolicyFormArray.controls.some((element: any, index: number) => {
+      if (index !== rowIndex) {
+        const { uomId, itemId, itemVariantId } = element.value;
+        const rowUomId = rowForm.get('uomId')?.value;
+        const rowItemId = rowForm.get('itemId')?.value;
+        const rowItemVariantId = rowForm.get('itemVariantId')?.value;
+
+        if (uomId === rowUomId && itemId === rowItemId && itemVariantId === rowItemVariantId) {
+          this.toasterService.showError(
+            this.languageService.transalte('messages.error'),
+            this.languageService.transalte('messages.duplicateItem')
+          );
+          this.rowDuplicate = rowIndex;
+          this.duplicateLine = true;
+          return true; // Stop checking on first match
         }
+        this.duplicateLine = false;
+
         return false;
-      });
+      }
+      this.duplicateLine = false;
+
+      return false;
+    });
+  } else {
+    if ( this.rowDuplicate == rowIndex) {
+      console.log(this.duplicateLine , this.rowDuplicate == rowIndex,"uuuuuuuuu");
       
+     this.rowDuplicate = 0
+ 
+   
     }
-  
+    rowForm.reset(); 
+    rowForm.get('uomOptions')?.setValue([]); 
+    console.log("Selected item not found, row cleared");
+    console.log(this.duplicateLine , this.rowDuplicate  , rowIndex,"vvvvvvvvvv");
+    const isDuplicate = this.pricePolicyFormArray.controls.some((element: any, index: number) => {
+      if (rowIndex !== index) {
+        const { uomId, itemId, itemVariantId } = element.value;
+        const rowUomId = rowForm.get('uomId')?.value;
+        const rowItemId = rowForm.get('itemId')?.value;
+        const rowItemVariantId = rowForm.get('itemVariantId')?.value;
     
-  }
+        if (uomId === rowUomId && itemId === rowItemId && itemVariantId === rowItemVariantId) {
+          this.toasterService.showError(
+            this.languageService.transalte('messages.error'),
+            this.languageService.transalte('messages.duplicateItem')
+          );
+          this.rowDuplicate= rowIndex
+          this.duplicateLine=true
+          return true; // يوقف التكرار عند أول تطابق
+        }
+        this.rowDuplicate=0
+        this.duplicateLine=false
+
+        return false;
+      }
+      return false;
+    });
   
+  }
+}
+
+  setPriceWithVat(index:number , price:any ){
+    const rowForm = this.pricePolicyFormArray.at(index) as FormGroup;
+    rowForm.get('priceWithVat')?.setValue(0); 
+    const taxRatio:any = rowForm.get('taxRatio')?.value
+    console.log(taxRatio ,"taxRatiotaxRatio");
+    
+    let priceWithVat= Number(price) +(Number(price) * taxRatio )
+    console.log( Number(price) +(Number(price) * taxRatio ));
+    if(rowForm.get('isVatApplied')?.value==true){
+      rowForm.get('priceWithVat')?.setValue(priceWithVat);  
+
+    }else{
+      rowForm.get('priceWithVat')?.setValue(price);  
+
+    }
+  }
+  async deleteRow(index:number){
+    const confirmed = await this.toasterService.showConfirm('Delete');
+    if (confirmed) {
+      this.pricePolicyFormArray.removeAt(index);
+
+    }
+  }
+
 
   // setRowData(index:number , event:any){
   //   console.log(index , event ,";;;;;;;;;;;;");
@@ -277,16 +411,53 @@ export class AddPricePolicyComponent implements OnInit {
     });
   }
   update() {
+    if(this.pricePolicyFormArray.value.length>0 ){
+
+  
+    if(!this.duplicateLine){
+
     const ref = this.dialog.open(UpdetePricePolicyComponent, {
       width: '1000px',
       height: '600px',
       data: this.pricePolicyFormArray
     });
+  
     ref.onClose.subscribe((selectedItems: any) => {
-     
-      
+      if (selectedItems) {
+        console.log(selectedItems, "selectedItems");
+    
+        // Iterate over the selected items and update the corresponding rows
+        selectedItems.value.forEach((item: any) => {
+          const index = this.pricePolicyFormArray.controls.findIndex(
+            (control) => control.get('id')?.value === item.id
+          );
+    
+          if (index !== -1) {
+            // Update the fields in the relevant row
+            this.pricePolicyFormArray.at(index).patchValue(item);
+            this.setPriceWithVat(index , item.price)
+          }
+        });
+    
+        // Log the updated form array for debugging
+        console.log(this.pricePolicyFormArray.value, "Updated Array");
+      }
     });
+  }else{
+    this.toasterService.showError(
+      this.languageService.transalte('messages.error'),
+      this.languageService.transalte('messages.duplicateItem')
+    );
+  
   }
+}else{
+  this.toasterService.showError(
+    this.languageService.transalte('messages.error'),
+    this.languageService.transalte('messages.noItemSelected')
+  );
+
+}
+}
   setUomIdValue(indexLine: number, e: any) {
     const rowForm = this.pricePolicyFormArray.at(indexLine) as FormGroup;
     const options = rowForm.get('uomOptions')?.value
@@ -302,13 +473,16 @@ export class AddPricePolicyComponent implements OnInit {
         
             if (uomId === rowUomId && itemId === rowItemId && itemVariantId === rowItemVariantId) {
               this.toasterService.showError(
-                this.languageService.transalte('addCustomerDefinition.success'),
-                this.languageService.transalte('openeingBalance.CustomerAdded')
+                this.languageService.transalte('messages.error'),
+                this.languageService.transalte('messages.duplicateItem')
               );
               this.rowDuplicate= indexLine
+              this.duplicateLine=true
               return true; // يوقف التكرار عند أول تطابق
             }
             this.rowDuplicate=0
+            this.duplicateLine=false
+
             return false;
           }
           return false;
@@ -317,22 +491,44 @@ export class AddPricePolicyComponent implements OnInit {
 
   }
   save() {
-    const transformedFormValue = {
-      ...this.addForm.value,
-      policyItemsList: this.addForm.value.policyItemsList.map((detail: any) => ({
-        price: Number(detail.price),  // Ensure price is a number
-        priceWithVat: Number(detail.priceWithVat),  // If applicable
-        itemId: detail.itemId,
-        uomId: detail.uomId,
-        itemVariantId: detail.itemVariantId,
-        isVatApplied: detail.isVatApplied , // Ensure it's a boolean
-        taxId: detail.taxId,
-      })),
-    };
-  
-    console.log(transformedFormValue, "addForm");
-    this.salesService.addPricePolicy(transformedFormValue)
-    // Proceed with saving the transformed values
+   
+    if(!this.duplicateLine){
+      if (!this.formsService.validForm(this.addForm, false)) return;
+
+      const transformedFormValue = {
+        ...this.addForm.value,
+        policyItemsList: this.addForm.value.policyItemsList.map((detail: any) => ({
+          price: Number(detail.price),  // Ensure price is a number
+          priceWithVat: Number(detail.priceWithVat),  // If applicable
+          itemId: detail.itemId,
+          uomId: detail.uomId,
+          itemVariantId: detail.itemVariantId,
+          isVatApplied: detail.isVatApplied , // Ensure it's a boolean
+          taxId: detail.taxId,
+        })),
+      };
+    
+      console.log(transformedFormValue, "addForm");
+      this.salesService.addPricePolicy(transformedFormValue)
+      // Proceed with saving the transformed values
+    }else{
+      this.toasterService.showError(
+        this.languageService.transalte('messages.error'),
+        this.languageService.transalte('messages.duplicateItem')
+      );
+    }
+  }
+  onSearch(event: any): void {
+    const searchValue = (event?.toLowerCase() || '');
+    console.log( this.pricePolicyFormArray.value,",,");
+    
+    this.pricePolicyFormArray.controls = this.pricePolicyFormArray.value.filter((item: any) =>
+      item.itemName.toLowerCase().includes(searchValue)
+    );
+  }
+  cancel(){
+    this.router.navigateTo('/masterdata/pricelist');
+
   }
   constructor(
     private formBuilder: FormBuilder,
@@ -341,6 +537,8 @@ export class AddPricePolicyComponent implements OnInit {
     private salesService: SalesService,
     private languageService: LanguageService,
     private toasterService: ToasterService,
+    private router: RouterService,
+
 
   ) { }
 }
