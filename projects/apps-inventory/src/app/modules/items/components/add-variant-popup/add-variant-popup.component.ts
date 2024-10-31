@@ -35,6 +35,16 @@ export class AddVariantPopupComponent implements OnInit {
   ngOnInit() {
     this.initializeitemDefinition();
     this. attributeGroups();
+    if(this.config.data) {
+      console.log(this.config.data)
+
+      this.itemDefinitionForm.get('attributeGroupId')?.setValue(this.config.data.attributeGroupId)
+      this.attributeGroupsValue(this.config.data.attributeGroupId)
+      let values = this.config.data.attributeGroupDetails.map((elem : any)=>Number(elem.detailName) )
+      console.log(values)
+
+      this.itemDefinitionForm.get('attributeGroupDetails')?.setValue(values)
+    }
 
     this.itemDefinitionForm.get('attributeGroupId')?.valueChanges.subscribe(res=>{
       if(res) {
@@ -42,7 +52,6 @@ export class AddVariantPopupComponent implements OnInit {
       }
     })
 
-    console.log(this.config.data)
 
   }
   attributeGroups() {
@@ -81,9 +90,10 @@ export class AddVariantPopupComponent implements OnInit {
     // this.itemsService.addVariantLine(data)
     // this.itemsService.addVariantLineDataObs.subscribe(res=>{
     //   if(res) {
+   let attributeValues =  this.attributeValues.filter((elem : any)=> this.itemDefinitionForm.get('attributeGroupDetails')?.value.includes(elem.id)).map((item : any)=>item.nameEn)
+    console.log(attributeValues)
         let attributeName : string = this.attributeName.find((elem : any)=>elem.id == this.itemDefinitionForm.value.attributeGroupId).nameEn
-        console.log(attributeName)
-        this.ref.close(attributeName)
+        this.ref.close({attributeName : attributeName , attributeDetails  :this.itemDefinitionForm.get('attributeGroupDetails')?.value , values :  attributeValues , attributeGroupId : this.itemDefinitionForm.get('attributeGroupId')?.value} )
       
     // })
 

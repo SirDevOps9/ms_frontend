@@ -21,7 +21,7 @@ title="{{ 'itemDefinition.Add' | translate }}"
                   [options]="attributeName"
                   optionLabel="nameEn"
                   optionValue="id"
-
+                  [selectedValue]="itemDefinitionForm.controls['attributeGroupId'].value"
                   class="form-control"
                 ></lib-select>
                 <lib-field-validations
@@ -41,6 +41,8 @@ title="{{ 'itemDefinition.Add' | translate }}"
                   optionLabel="nameEn"
                   optionValue="id"
                   formControlName="attributeGroupDetails"
+                  [selectedValue]="itemDefinitionForm.controls['attributeGroupDetails'].value"
+
                 ></lib-multi-select>
                 <lib-field-validations [appControl]="itemDefinitionForm.controls['attributeGroupDetails']">
                 </lib-field-validations>
