@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { HttpService } from 'shared-lib';
+import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
 import {
   AddDomainSpaceDto,
   ResponseSubdomainDto,
@@ -43,5 +43,15 @@ export class SubscriptionProxy {
     return this.baseService.get<TenantLicenseDto[]>(
       `Subdomain/GetSubdomainLicenses?subdomainId=${subdomain}`
     );
+  }
+  getWorkFlows(
+    searchTerm: string,
+    pageInfo: PageInfo
+  ): Observable<PaginationVm<any>> {
+    let query = `WorkflowActions?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+    return this.baseService.get<PaginationVm<any>>(query);
   }
 }

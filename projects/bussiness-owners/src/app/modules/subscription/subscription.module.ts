@@ -11,6 +11,7 @@ import { AddDomainSpaceComponent } from './components/add-domain-space/add-domai
 import { ManageAppsComponent } from './pages/manage-apps/manage-apps.component';
 import { LayoutModule } from '../layout/layout.module';
 import { BreadCrumbRoute } from '../../models';
+import { ListWorkflowComponent } from './pages/main-workflow/list-workflow/list-workflow.component';
 
 const routes: Routes = [
   {
@@ -38,6 +39,14 @@ const routes: Routes = [
         data: {
           breadcrumb: BreadCrumbRoute.app
         },
+      },
+      {
+        path: 'workflow',
+        component: ListWorkflowComponent,
+        canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadCrumbRoute.app
+        },
       }
     ],
   },
@@ -45,7 +54,7 @@ const routes: Routes = [
 
 @NgModule({
   providers: [],
-  declarations: [SubscriptionComponent, MySubscriptionsComponent, AddDomainSpaceComponent ,ManageAppsComponent],
+  declarations: [SubscriptionComponent, MySubscriptionsComponent, AddDomainSpaceComponent ,ManageAppsComponent, ListWorkflowComponent],
   imports: [
     MicrotecAuthLibModule,
     SharedLibModule,
