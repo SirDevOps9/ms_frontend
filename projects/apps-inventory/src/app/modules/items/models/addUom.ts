@@ -21,6 +21,7 @@ export interface addUOM {
 }
 
 export interface UoM {
+  id : string,
   code: string;
   nameAr: string;
   nameEn: string;
@@ -34,4 +35,6 @@ export interface UoM {
   fromUnitOfMeasureId: string;
   fromUnitOfMeasureNameEn? : string
   fromUnitOfMeasureNameAr? : string
+  baseCalculation? : string
+  baseReversal? : string
 }

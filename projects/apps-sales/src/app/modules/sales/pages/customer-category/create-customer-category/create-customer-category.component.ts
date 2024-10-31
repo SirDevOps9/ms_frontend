@@ -27,7 +27,7 @@ export class CreateCustomerCategoryComponent implements OnInit {
     salesAccountId : null,
     salesReturnAccountId : null,
     discountAccountId : null,
-    priceListId : null,
+    pricePolicyId : null,
     paymentTermId : null,
     marketType : null,
    

@@ -118,7 +118,7 @@ export class EditVendorDefinitionsComponent implements OnInit {
 
       vendorFinancial: this.fb.group({
         paymentTermId: new FormControl(null),
-        priceListId: new FormControl(null),
+        pricePolicyId: new FormControl(null),
         creditLimit: new FormControl(null),
         currencyId: new FormControl(null),
       }),
@@ -162,7 +162,7 @@ export class EditVendorDefinitionsComponent implements OnInit {
         this.returnedVendorInformation = res.vendorInformation;
         this.selectedVendorCategory = res.vendorCategory?.id;
         this.selectedPaymentTerm = res.vendorFinancial?.paymentTermId;
-        this.selectedPriceList = res.vendorFinancial?.priceListId;
+        this.selectedPriceList = res.vendorFinancial?.pricePolicyId;
         this.selectedCurrency = res.vendorFinancial?.currencyId;
         this.selectedPayableAccount = res.vendorAccounting?.payableAccountId;
         this.selectedPurchaseAccount = res.vendorAccounting?.purchaseAccountId;

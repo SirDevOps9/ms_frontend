@@ -1,122 +1,94 @@
-<lib-page-content>
-  <div class="user_page mt-4">
-    <p-table
-      #dt
-      [value]="branches"
-      [tableStyle]="{ 'min-width': '75rem' }"
-      [rowsPerPageOptions]="[5, 10, 15]"
-      [rowHover]="true"
-      dataKey="id"
-      class="flex flex-column"
-    >
-      <ng-template pTemplate="caption">
-        <div class="flex align-items-center justify-content-end">
-          <button
-            pButton
-            pRipple
-            label="Add New"
-            icon="pi pi-plus"
-            class="add_new mr-2"
-            (click)="addBranch()"
-          ></button>
-          <lib-export
-          (exportClick)="exportBranchesData()"
-          [exportData]="mappedExportData"
-          [exportColumns]="exportColumns"
-          [ExportName]="'Branches'"
-        >
+<div class="user_page mt-4">
+  <p-table #dt [value]="branches" [tableStyle]="{ 'min-width': '75rem' }" [rowsPerPageOptions]="[5, 10, 15]"
+    [rowHover]="true" dataKey="id" class="flex flex-column">
+    <ng-template pTemplate="caption">
+      <div class="flex align-items-center justify-content-end">
+        <button pButton pRipple label="Add New" icon="pi pi-plus" class="add_new mr-2" (click)="addBranch()"></button>
+        <lib-export (exportClick)="exportBranchesData()" [exportData]="mappedExportData" [exportColumns]="exportColumns"
+          [ExportName]="'Branches'">
         </lib-export>
-        </div>
-      </ng-template>
-      <ng-template pTemplate="header">
-        <tr>
-          <th pSortableColumn="name">
-            {{ "Company.Branch.Code" | translate }}
-          </th>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="name">
+          {{ "Company.Branch.Code" | translate }}
+        </th>
 
-          <th pSortableColumn="email">
-            {{ "Company.Branch.BranchName" | translate }}
-          </th>
-          <th pSortableColumn="category" style="min-width: 10rem">
-            {{ "Company.Branch.BranchRegion" | translate }}
-          </th>
-          <th pSortableColumn="rating">
-            {{ "Company.Branch.BranchCity" | translate }}
-          </th>
-          <th pSortableColumn="inventoryStatus" style="min-width: 10rem">
-            {{ "Company.Branch.BranchAddress" | translate }}
-          </th>
-          <th pSortableColumn="inventoryStatus" style="min-width: 10rem">
-            {{ "Company.Branch.Phone" | translate }}
-          </th>
-          <th pSortableColumn="inventoryStatus" style="min-width: 10rem">
-            {{ "Company.Branch.BranchEmail" | translate }}
-          </th>
-          <th pSortableColumn="inventoryStatus" style="min-width: 10rem">
-            {{ "Company.Branch.status" | translate }}
-          </th>
-          <th pSortableColumn="inventoryStatus" style="min-width: 10rem">
-            {{ "Company.Branch.Actions" | translate }}
-          </th>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-branch>
-        <tr>
-          <td>
-            <div class="user_info">
-              <p>{{ branch.code }}</p>
-            </div>
-          </td>
-          <td>{{ branch.branchName }}</td>
-          <td>
-            {{ branch.branchRegion }}
-          </td>
-          <td>
-            {{ branch.branchCity }}
-          </td>
-          <td>
-            {{ branch.branchAddress }}
-          </td>
-          <td>
-            {{ branch.mobileNumber }}
-          </td>
-          <td>
-            {{ branch.branchEmail }}
-          </td>
-          <td>
-            <div >
-             <lib-input-switch
-                [id]="branch.id"
-                (onChange)="toggle(branch.id, branch.isActive)"
-                [(ngModel)]="branch.isActive"
-              >
-             </lib-input-switch>
-              <p class="active" *ngIf="branch.isActive">
-                {{ "Company.Activate" | translate }}
-              </p>
-              <p class="inactive" *ngIf="!branch.isActive">
-                {{ "Company.Deactivate" | translate }}
-              </p>
-            </div>
-          </td>
-          <td>
-            <p-button
-              icon="pi pi-pencil"
-              (click)="editBranch(branch.id)"
-              [rounded]="true"
-              [text]="true"
-              severity="secondary "
-            ></p-button>
-            <p-button
-              icon="pi pi-trash"
-              [rounded]="true"
-              [text]="true"
-              severity="danger "
-              (click)="deleteBranch(branch.id)"
-            ></p-button>
-          </td>
-        </tr>
-      </ng-template>
-    </p-table>
-  </div>
-</lib-page-content>
+        <th pSortableColumn="email">
+          {{ "Company.Branch.BranchName" | translate }}
+        </th>
+        <th pSortableColumn="category" style="min-width: 10rem">
+          {{ "Company.Branch.BranchRegion" | translate }}
+        </th>
+        <th pSortableColumn="rating">
+          {{ "Company.Branch.BranchCity" | translate }}
+        </th>
+        <th pSortableColumn="inventoryStatus" style="min-width: 10rem">
+          {{ "Company.Branch.BranchAddress" | translate }}
+        </th>
+        <th pSortableColumn="inventoryStatus" style="min-width: 10rem">
+          {{ "Company.Branch.Phone" | translate }}
+        </th>
+        <th pSortableColumn="inventoryStatus" style="min-width: 10rem">
+          {{ "Company.Branch.BranchEmail" | translate }}
+        </th>
+        <th pSortableColumn="inventoryStatus" style="min-width: 10rem">
+          {{ "Company.Branch.status" | translate }}
+        </th>
+        <th pSortableColumn="inventoryStatus" style="min-width: 10rem">
+          {{ "Company.Branch.Actions" | translate }}
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-branch>
+      <tr>
+        <td>
+          <div class="user_info">
+            <p>{{ branch.code }}</p>
+          </div>
+        </td>
+        <td>{{ selectedLanguage === 'en' ? branch.nameEn: branch.nameAr }}</td>
+        <td>
+          {{ branch.branchRegion }}
+        </td>
+        <td>
+          {{ branch.branchCity }}
+        </td>
+        <td>
+          {{ branch.branchAddress }}
+        </td>
+        <td>
+          {{ branch.mobileNumber }}
+        </td>
+        <td>
+          {{ branch.branchEmail }}
+        </td>
+        <td>
+          <div class="checked">
+            <lib-input-switch [id]="branch.id" (onChange)="toggle(branch.id, branch.isActive)"
+              [(ngModel)]="branch.isActive">
+            </lib-input-switch>
+            <p class="active" *ngIf="branch.isActive">
+              {{ "Company.Activate" | translate }}
+            </p>
+            <p class="inactive" *ngIf="!branch.isActive">
+              {{ "Company.Deactivate" | translate }}
+            </p>
+          </div>
+        </td>
+        <td>
+
+          <div class="action flex align-items-center">
+
+            <lib-button-micro nameClass="table_button_edit" (click)="editBranch(branch.id)">
+            </lib-button-micro>
+            <lib-button-micro nameClass="table_button_delete" (click)="deleteBranch(branch.id)">
+
+            </lib-button-micro>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

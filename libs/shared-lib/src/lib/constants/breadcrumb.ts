@@ -45,7 +45,16 @@ export class BreadcrumbLabel {
   static readonly EMPLOYEE_VIEW='BreadCrumb.ViewEmployee';
   static readonly EMPLOYEE_EDIT='BreadCrumb.EditEmployee';
   static readonly COST_CENTER_REPORT = 'BreadCrumb.CostCenterReport';
-
+  ////////////// bussiness-owners ///////////////// 
+  static readonly SUBSCRIPTION = 'BreadCrumb.subscription';
+  static readonly USER = 'BreadCrumb.user';
+  static readonly COMPANIES = 'BreadCrumb.companies';
+  static readonly APP = 'BreadCrumb.app';
+  static readonly EDIT_COMPANIES = 'BreadCrumb.edit';
+  static readonly APP_STORE = 'BreadCrumb.appStore';
+  static readonly APP_DETAILS = 'BreadCrumb.appDetails';
+  static readonly CART = 'BreadCrumb.cart';
+/////////////
 
   static ADD_CUSTOMER_OPENEING_BALANCE ='BreadCrumb.AddCustomerOpeningBalance';
   static EDIT_CUSTOMER_OPENEING_BALANCE ='BreadCrumb.EditCustomerOpeningBalance';
@@ -56,16 +65,13 @@ export class BreadcrumbLabel {
 
 
 
-    static SUBSCRIPTION ='Subscription'
-    static USERS = 'Users';
+    static USERS = 'User.Users';
     static ADD_COMPANY = 'Add company';
     static COMPANY_LIST = 'Company list';
     static COMPANY_EDIT = 'Company Edit';
     static my_subscription = 'My Subscription';
     static ERP_USERS = 'ERP Users';
-    static APP_STORE = 'App Store';
     static APP_STORE_Details = ' Details';
-    static CART = 'Cart List';
     static DOMAIN = 'Domain Details';
     static Manage_Apps='Manage Apps';
     static BUSSINESS_OWNER ='Bussiness Owners';
@@ -115,7 +121,7 @@ export class BreadcrumbLabel {
     static  Add_Attribute_Definition = 'Add Attribute Definition';
     static  Edit_Attribute_Definition = 'Edit Attribute Definition';
     static  EDIT_WARE_HOUSE ='Edit Warehouse';
-    static  ITEMS_CATEGORY ='Items Category';
+    static  ITEMS_CATEGORY ='BreadCrumb.ItemsCategory';
     static  STOCKIN ='Stock In';
     static  ADD_STOCKIN ='Add Stock In';
 
@@ -151,6 +157,9 @@ export class BreadcrumbLabel {
     static TREASURY_STATEMENT ='BreadCrumb.TreasuryStatement';
     static VIEW_BANK_DEFINATION ='BreadCrumb.ViewBankDefination';
     static VIEW_PAYMENT_TERM ='BreadCrumb.ViewPaymentTerm';
+    static PRICE_POLICY ='BreadCrumb.PricePolicy';
+    static PRICE_POLICY_ADD ='BreadCrumb.add';
+
 
 
 
