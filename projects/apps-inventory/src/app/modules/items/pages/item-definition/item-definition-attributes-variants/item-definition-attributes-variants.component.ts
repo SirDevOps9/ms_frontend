@@ -144,7 +144,9 @@ export class ItemDefinitionAttributesVariantsComponent implements OnInit {
           
                 element.itemAttributeGroupDetails.forEach(item => {
                   const attributeNameGroup = this.fb.group({
-                    detailName: item.attributeId || '',
+                      detailName: item.nameEn || '',
+                   attributeId : item.attributeId,
+                    
                   });
                
                   // Cast to FormArray before pushing to avoid TypeScript errors
@@ -197,11 +199,31 @@ export class ItemDefinitionAttributesVariantsComponent implements OnInit {
     const dialogRef = this.dialog.open(AddVariantPopupComponent, {
       width: '50%',
       height: '430px',
-
-      data: form.value
+      data: form.value,
     });
+    
+    dialogRef.onClose.subscribe((res) => {
+      console.log(res);
+      if (res) {
+        // Clear the form array only once before adding new items
+        const attributeNameArray = form.get('attributeName') as FormArray;
+        attributeNameArray.clear();
+    
+        // Iterate over attributeDetails and push each item
+        res.values.forEach((item: any) => {
+          const attributeValues = this.fb.group({
+            detailName: item || '',
+            attributeId: item.attributeId || null,
+            // attributeGroupId
 
-    dialogRef.onClose.subscribe((res) => {});
+          });
+          attributeNameArray.push(attributeValues);
+        });
+        form.get('name')?.setValue(res.attributeName)
+        form.get('attributeGroupId')?.setValue(res.attributeGroupId)
+      }
+    });
+    
   }
 
   onDeleteAttribute(itemDefAttributeGroup: FormGroup) {

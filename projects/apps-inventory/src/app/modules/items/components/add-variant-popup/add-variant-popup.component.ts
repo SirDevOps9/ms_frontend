@@ -40,7 +40,7 @@ export class AddVariantPopupComponent implements OnInit {
 
       this.itemDefinitionForm.get('attributeGroupId')?.setValue(this.config.data.attributeGroupId)
       this.attributeGroupsValue(this.config.data.attributeGroupId)
-      let values = this.config.data.attributeGroupDetails.map((elem : any)=>Number(elem.detailName) )
+      let values = this.config.data.attributeGroupDetails.map((elem : any)=>Number(elem.attributeId) )
       console.log(values)
 
       this.itemDefinitionForm.get('attributeGroupDetails')?.setValue(values)
@@ -48,6 +48,7 @@ export class AddVariantPopupComponent implements OnInit {
 
     this.itemDefinitionForm.get('attributeGroupId')?.valueChanges.subscribe(res=>{
       if(res) {
+        this.itemDefinitionForm.get('attributeGroupDetails')?.setValue(null)
         this.attributeGroupsValue(res)
       }
     })
