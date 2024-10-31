@@ -178,6 +178,10 @@ export class ItemsProxyService {
   return this.httpService.get(`UOM/${id}`)//
  }
 
+ getItemVariants(id:number){
+  return this.httpService.get(`Item/GetItemVariants/${id}`)
+ }
+
  getUOMByCategoryID(id:number){
   return this.httpService.get(`UOMCategories/GetUOMCategoryWithUomsById/${id}`)//
  }
@@ -260,6 +264,9 @@ export class ItemsProxyService {
  ActivateVairiantGroup(obj:{id:number}) {
   return this.httpService.put(`AttributesVariants/ActivateAttributesVariants` , obj) // edit
  }
+
+
+
  ActivateUOM(obj:{id:number}) {
   return this.httpService.put(`UOM/ActivateUOM` , obj) // edit
  }

@@ -111,6 +111,8 @@ export class ItemsService {
   public UOMDropDownLookupByUomCategory = new BehaviorSubject<{ id: number; name: string }[]>([]);
   public UOMDropDownLookupByItemId = new BehaviorSubject<{ id: number; name: string }[]>([]);
   public ItemVariantsByItemIdDropDown = new BehaviorSubject<{ id: number; nameEn: string }[]>([]);
+
+  public ItemVariantsById  =  new BehaviorSubject<[]>([]);
   public addVariantLineData = new BehaviorSubject<any>('');
   public ActivateVairiantGroupData = new BehaviorSubject<boolean>(false);
   public sendAttributeVariantData = new BehaviorSubject<variantGroupById[]>([]);
@@ -158,6 +160,8 @@ export class ItemsService {
   wareHousesDropDownLookup = new BehaviorSubject<GetWarehouseList[]>([]);
   sendCitiesLookup = new BehaviorSubject<any>([]);
   sendCountriesLookup = new BehaviorSubject<any>([]);
+
+
   // sendCashSalesLookup = new BehaviorSubject<any>([]);
   // sendLookup = new BehaviorSubject<any>([]);
   // sendCreditSalesLookup = new BehaviorSubject<any>([]);
@@ -196,6 +200,8 @@ public userSubDomainModules =  new BehaviorSubject<any[]>([]);
   public sendItemCategoryDataSourceObs = this.sendItemCategoryDataSource.asObservable();
   public tagLookupObs = this.tagLookup.asObservable();
   public defaultUnitObs  = this.defaultUnit.asObservable()
+
+  public ItemVariantsByIdObs = this.ItemVariantsById.asObservable()
   public AccountsDropDownLookupObs = this.AccountsDropDownLookup.asObservable();
   public taxesLookupObs = this.taxesLookup.asObservable();
   public uomCodeLookupObs = this.uomCodeLookup.asObservable();
@@ -676,6 +682,13 @@ this.itemProxy.getUOMCategoryDropDown().subscribe({
     });
   }
 
+  getItemVariants(id:number){
+     this.itemProxy.getItemVariants(id).subscribe({
+      next: (res: any) => {
+        this.ItemVariantsById.next(res);
+      },
+    });
+  }
 
   getItemGetItemUomById(id: number){
     this.itemProxy.getItemGetItemUomById(id).subscribe({

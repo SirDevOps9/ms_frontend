@@ -16,6 +16,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 export class ItemDefinitionUomComponent implements OnInit, OnDestroy {
   itemUomForm: FormGroup;
   id: number;
+  unitUsagesName:[]
   uerSubDomainModulesLookupData : { id: number;  name: string }[] = []
   userSubDomainModulesLookupData : { id: number;  name: string }[] = []
   private subscription: Subscription;
@@ -59,7 +60,7 @@ export class ItemDefinitionUomComponent implements OnInit, OnDestroy {
   }
   test: string = '';
 
-  createUomFormGroup(item: any): FormGroup {
+  createUomFormGroup(item: any , usageName?:any): FormGroup {
 
     return this.fb.group({
       uomId: [item.uomId || ''],
@@ -68,8 +69,8 @@ export class ItemDefinitionUomComponent implements OnInit, OnDestroy {
       isActive: [item.isActive || false],
       isBaseUnit: [item.isBaseUnit || false],
       shortName: [item.shortName || ''],
-      unitUsages:[item.name || null]
-
+      unitUsages:[item.name || null],
+      unitUsagesName:[]
 
     });
   }
@@ -91,9 +92,13 @@ names:string=''
           });
 
           this.uoms.clear();
-          data.uoms.forEach((uom: any) => {
-            this.uoms.push(this.createUomFormGroup(uom));
+             data.uoms.forEach((uom: any) => {
 
+             this.uoms.push(this.createUomFormGroup(uom));
+             this.usercHN(uom.unitUsages , uom)
+            //  let data:any  = this.userSubDomainModulesLookupData.filter((elemet => data.unitUsages.includes(elemet.id)))
+            // uom.get('unitUsagesName')?.setValue(data)
+           console.log(data);
         });
 
         this.test = this.uoms.at(0).get('nameEn')?.value;
@@ -150,6 +155,14 @@ this.names =data.uomCategoryNameEn
 return data.uoMs;
   }
 
+  usercHN(e:any , fb:FormGroup)
+  {
+    console.log(e);
+    console.log(this.userSubDomainModulesLookupData);
+       let data  = this.userSubDomainModulesLookupData.filter((elemet => e.includes(elemet.id)))
+             fb.get('unitUsagesName')?.setValue(data)
+            console.log(data);
+   }
 
   submit() {
 

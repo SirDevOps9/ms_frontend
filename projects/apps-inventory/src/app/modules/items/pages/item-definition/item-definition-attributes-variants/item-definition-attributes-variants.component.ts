@@ -22,7 +22,7 @@ export class ItemDefinitionAttributesVariantsComponent implements OnInit {
   id: any;
   itemDefinitionForm: FormGroup = new FormGroup({});
   ItemVariantsByItemIdDropDown: { id: number; nameEn: string }[] = [];
-
+  dataItemVariantsById:any[]=[]
   constructor(
     private _router: RouterService,
     private fb: FormBuilder,
@@ -37,6 +37,7 @@ export class ItemDefinitionAttributesVariantsComponent implements OnInit {
     console.log(this._router.getCurrentUrl());
   }
   ngOnInit(): void {
+    this.getItemVariants()
     this.itemDefinitionForm = this.fb.group({
       id: this.id,
       code: [''],
@@ -98,6 +99,13 @@ export class ItemDefinitionAttributesVariantsComponent implements OnInit {
       id: null,
     });
   }
+
+    getItemVariants(){
+          this.itemService.getItemVariants(this.id)
+          this.itemService.ItemVariantsByIdObs.subscribe(data=>{
+              this.dataItemVariantsById = data
+          })
+    }
 
   getItemVariantsByItemIdDropDown() {
     this.itemService.getItemVariantsByItemIdDropDown(this.id);

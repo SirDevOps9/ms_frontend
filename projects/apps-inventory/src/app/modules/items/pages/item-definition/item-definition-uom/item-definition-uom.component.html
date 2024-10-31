@@ -110,13 +110,20 @@
                     optionLabel="name"
                     formControlName="unitUsages"
                     [selectedValue]="fg.controls['unitUsages'].value"
+                    (valueChanged)="usercHN($event, fg)"
                   ></lib-multi-select>
 
                     <i class="pi pi-search search-circle" ></i>
                   </div>
                 </ng-template>
                 <ng-template pTemplate="output">
-                  {{ fg.controls['unitUsages'].value}}
+
+                           <div class="d-flex"  *ngFor="let item of fg.controls['unitUsagesName']?.value ">
+                            <P >
+                              {{item?.name}}
+                            </P>
+                           </div>
+
                 </ng-template>
               </p-cellEditor>
               <lib-field-validations
