@@ -1,7 +1,7 @@
 <lib-popup-page
   title="{{ 'itemDefinition.uOMdefinitioncategory' | translate }}"
   [closeFunction]="close"
-  (Submit)="onChanged($event)"
+
 [save]="false"
 [showCancel]="false"
 >
@@ -28,5 +28,23 @@
         </div>
       </div>
     </form>
+
+
+
+    <div class=" grid flex-start justify-content-start">
+      <div class="md:col-12">
+        <lib-button-micro
+          title="{{ 'itemType.change' | translate }}"
+          nameClass="save"
+          widthNumber="100%"
+          iconName="pi pi-plus"
+          type="submit"
+          (click)="onSave()"
+        >
+        </lib-button-micro>
+      </div>
+    </div>
+
+
   </div>
 </lib-popup-page>

@@ -71,7 +71,7 @@ export class ItemDefinitionUomComponent implements OnInit, OnDestroy {
       isBaseUnit: [item.isBaseUnit || false],
       shortName: [item.shortName || ''],
       unitUsages: [item.unitUsages || null],
-      unitUsagesName: [initialUnitUsagesNames] 
+      unitUsagesName: [initialUnitUsagesNames]
     });
   }
 
@@ -90,7 +90,7 @@ getDataUomById() {
           uomCategoryId: data.uomCategoryId,
           name: data.name
         });
-
+            this.itemUomForm.updateValueAndValidity()
         this.uoms.clear();
         data.uoms.forEach((uom: any) => {
           this.uoms.push(this.createUomFormGroup(uom));
@@ -130,7 +130,12 @@ this.userSubDomainModulesLookupData= res
    this.uoms.patchValue(data.uoMs)
    this.test = this.uoms.at(0).get('nameEn')?.value;
 this.names =data.uomCategoryNameEn
-
+this.itemUomForm.patchValue({
+  
+  uomCategoryId: data.uomCategoryId,
+  name: data.name
+});
+this.itemUomForm.updateValueAndValidity()
         } else {
             this.getDataUomById();
         }
