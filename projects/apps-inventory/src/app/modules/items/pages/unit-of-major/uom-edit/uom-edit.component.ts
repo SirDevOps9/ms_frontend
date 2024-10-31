@@ -443,7 +443,7 @@ create_UOM_FormGroup(uomData: any = {}): FormGroup {
     BaseReversalShow: new FormControl(uomData?.BaseReversalShow || null),
     reversal: new FormControl(uomData?.reversal || null),
     isBaseUnit: false,
-    uomCategoryId: 0,
+    uomCategoryId: this.uomsData[0]?.uomCategoryId,
     systemUnitOfMeasureName: '',
     systemUnitOfMeasureId: new FormControl(uomData?.systemUnitOfMeasureId || null),
     fromUnitOfMeasureId: new FormControl(uomData?.fromUnitOfMeasureId || null , customValidators.required),
@@ -536,7 +536,7 @@ create_UOM_FormGroup(uomData: any = {}): FormGroup {
       calculation: '1',
       reversal: '1',
       BaseReversal: 1,
-      uomCategoryId: this.uomsData.uomCategoryId,
+      uomCategoryId: 0,
       systemUnitOfMeasureId: this.UOMFormGroup.get('systemUnitOfMeasureId')?.value,
       fromUnitOfMeasureId: ''
     };
