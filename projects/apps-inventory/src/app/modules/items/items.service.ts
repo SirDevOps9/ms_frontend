@@ -85,6 +85,7 @@ export class ItemsService {
   public taxesDataLookup = new BehaviorSubject<any[]>([]);
 
  public taxesEditDataLookup = new BehaviorSubject<any[]>([]);
+ public dataBarCodeById =new BehaviorSubject<any[]>([]);
   public uomCodeLookup = new BehaviorSubject<UomCodeLookup[]>([]);
   public getuomById = new BehaviorSubject<addUOM>({} as addUOM);
  public ItemGetItemUomById =  new BehaviorSubject<any[]>([])
@@ -278,13 +279,23 @@ public userSubDomainModules =  new BehaviorSubject<any[]>([]);
 public userSubDomainModulesObs = this.userSubDomainModules.asObservable()
 public taxesDataLookupObs = this.taxesDataLookup.asObservable()
 public taxesEditDataLookupObs = this.taxesEditDataLookup.asObservable()
-
+public dataBarCodeByIdObs = this.dataBarCodeById.asObservable()
 
   getItemType(quieries: string, pageInfo: PageInfo) {
     this.itemProxy.getItemType(quieries, pageInfo).subscribe((response) => {
       this.sendItemTypeDataSource.next(response.result);
       this.currentPageInfo.next(response.pageInfoResult);
     });
+  }
+
+  getItemBarcodeById(id:number){
+this.itemProxy.getItemBarcodeById(id).subscribe({
+  next: (res: any) => {
+    console.log(res);
+    this.dataBarCodeById.next(res);
+  },
+
+})
   }
   getItemDefinition(quieries: string, pageInfo: PageInfo) {
 

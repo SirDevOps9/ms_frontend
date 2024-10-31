@@ -1,73 +1,97 @@
-<form [formGroup]="itemDefinitionForm">
-  <div class="md:col-12">
-    <lib-fildest>
-      <div class="grid p-0 m-0">
-        <p class="md:col-6 m-0 p-0">
-          {{ 'itemType.vat' | translate }}
-        </p>
+<lib-page-content [title]="'itemDefinition.TaxList' | translate" [subTitle]="'itemDefinition.TaxList' | translate">
+  <div>
+    <div class="user_page">
+      <lib-data-table
+        [items]="tableData"
+        className="p-datatable-gridlines"
+        [currentPageResult]="currentPageInfo"
+        (pageChange)="onPageChange($event)"
 
-        <div class="md:col-12" *ngIf="itemDefinitionForm.get('isVatApplied')?.value == true">
-          <lib-select
-            formControlName="taxId"
-            [options]="taxesDropDropDownLookup"
-            optionValue="id"
-            optionLabel="taxId"
-            placeholder="{{ 'itemType.taxesValue' | translate }}"
-            [selectedValue]="itemDefinitionForm.controls['taxId'].value"
-          >
-          </lib-select>
-          <lib-field-validations
-            [appControl]="itemDefinitionForm.controls['taxId']"
-          ></lib-field-validations>
-        </div>
-        <div class="md:col-12">
+        [tableConfigs]="{
+          allowPagination: false,
+          allowServerPagination: true,
+          dataKey: 'id',
+          pageSize: 10,
+          columns: [
+            {
+              name: 'variant ID',
+              headerText: ('itemDefinition.variantID' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'variantName',
+              headerText: ('itemDefinition.variantName' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
 
+              {
+                name: 'id',
+              headerText: ('itemDefinition.actions' | translate),
+              template: actions
+            }
+          ]
+        }"
+      >
+
+
+
+        <ng-container search>
           <lib-form-group>
-            <div class="flex align-items-center gap-2">
-              <lib-input-switch formControlName="isVatApplied"></lib-input-switch>
-              <p>{{ 'itemType.priceIncludeVat' | translate }}</p>
-            </div>
+            <lib-text-input
+            type="text"
+            [placeholder]="'itemDefinition.search' | translate"
+            [(ngModel)]="searchTerm"
+            (keyUp)="onSearchChange()"
+          ></lib-text-input>
           </lib-form-group>
-        </div>
+          </ng-container>
+        <ng-container action>
 
-
-      </div>
-      <div class="grid">
-        <div class="md:col-12   flex justify-content-end">
-          <div class="md:col-4 grid flex justify-content-end">
-            <div class="md:col-6">
-              <lib-button-micro
-                title="{{ 'itemType.cancel' | translate }}"
-                nameClass="cancel"
-                widthNumber="100%"
-
-
-              >
-              </lib-button-micro>
-            </div>
-            <div  class="md:col-6">
-              <lib-button-micro
-                title="{{ 'itemType.save' | translate }}"
-                nameClass="save"
-                widthNumber="100%"
-                (click)="onAddVariants()"
-              >
-              </lib-button-micro>
-
-            </div>
+          <div>
+            <lib-export
+            (exportClick)="exportClick($event)"
+            [exportData]="exportData"
+            [exportColumns]="exportColumns"
+            [ExportName]="'Item Definition'"
+          >
+          </lib-export>
           </div>
+          <!--  -->
+          <div>
+            <lib-button-micro
+            [title]="'create' | translate"
+            nameClass="save"
+            iconName="pi pi-plus"
+
+          >
+          </lib-button-micro>
+          </div>
+          </ng-container>
 
 
-        </div>
-      </div>
-    </lib-fildest>
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <ng-template #actions let-action>
+          <div class="actions flex align-items-center">
+            <img src="assets/images/table/edit.svg" alt="" />
+            <img src="assets/images/table/delete.svg" alt="" />
+            <img src="assets//images/table/view.svg" alt=""  />
+          </div>
+        </ng-template>
+      </lib-data-table>
+    </div>
   </div>
-
-
-
-
-
-
-
-
-</form>
+</lib-page-content>

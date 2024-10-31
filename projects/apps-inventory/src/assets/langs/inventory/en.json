@@ -26,6 +26,7 @@
     "save" : "Save",
     "cancel" : "Cancel",
     "Add": "Create",
+    "change":"Change",
     "saveUom" : "Save UOM",
     "warantlyPeriod" : "Warantly Period",
     "search": "Search",
@@ -92,7 +93,8 @@
     "barcodesuccess": "Barcode Added Successfully",
     "generateVariant": "Generate Variant",
     "variantSuccess": "Variant Added Successfully",
-    "variants":"variants"
+    "variants":"variants",
+     "tax":"Tax"
   },
   "itemCategory": {
     "itemDefinition": "Item Definition",
@@ -141,7 +143,10 @@
     "baseUnit":"Base unit",
     "shortname":"Short Name",
     "conversionfactor":"Conversion factor",
-    "unitusage":"Unit usage"
+    "unitusage":"Unit usage",
+    "tax":"Tax",
+    "variantID":"variant ID",
+    "variantName":"variant name"
   },
   "warehouse": {
     "Add" : "Add",
