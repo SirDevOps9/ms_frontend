@@ -128,7 +128,7 @@
   <!--  -->
 
   <!--  -->
-  <div class="md:col-6 mainCountryOfOrigin">
+  <div class="md:col-12 mainCountryOfOrigin">
     <lib-fildest header="{{ 'itemType.countryOfOrigin' | translate }}" class="md:col-6 m-0 p-0">
       <div class="grid ">
         <div class="md:col-12">
@@ -150,36 +150,7 @@
       </div>
     </lib-fildest>
   </div>
-  <div class="md:col-6">
-    <lib-fildest header="{{ 'itemType.vat' | translate }}" class="md:col-6 m-0 p-0">
-      <div class="grid p-0 m-0">
-        <div class="md:col-12">
-          <lib-form-group>
-            <div class="flex align-items-center gap-2">
-              <lib-input-switch formControlName="isVatApplied"></lib-input-switch>
-              <p>{{ 'itemType.priceIncludeVat' | translate }}</p>
-            </div>
-          </lib-form-group>
-        </div>
-        <div class="md:col-12" *ngIf="itemDefinitionForm.get('isVatApplied')?.value == true">
-          <lib-select
-            formControlName="taxId"
-            [options]="taxesDropDropDownLookup"
-            optionValue="id"
-            optionLabel="name"
-            placeholder="{{ 'itemType.taxes' | translate }}"
-            [selectedValue]="itemDefinitionForm.controls['taxId'].value"
-          >
-          </lib-select>
-          <lib-field-validations
-            [appControl]="itemDefinitionForm.controls['taxId']"
-          ></lib-field-validations>
-        </div>
 
-
-      </div>
-    </lib-fildest>
-  </div>
 
   <div class="md:col-12">
     <lib-fildest header="{{ 'itemType.specialCareHead' | translate }}">
