@@ -75,12 +75,13 @@
       "Notes": "ملاحظات"
     },
     "Success": "نجاح",
-    "PaymentInAddedSuccessfully": "تمت إضافة PaymentIn بنجاح",
+    "PaymentInAddedSuccessfully": "تم إضافة الإيصال النقدي بنجاح",
     "addedError": "خطأ في الإضافة",
     "Error": "خطأ",
     "paymentMethodTypeNotAllowed": "نوع طريقة الدفع غير مسموح به",
     "paymentMethodTypeRequired": "تفاصيل طريقة الدفع مطلوبة في السطر",
-    "addpaymentin": "إضافة الدفع"
+    "addpaymentin": "إضافة الدفع",
+    "PaymentInEditedSuccessfully": "تم تعديل الإيصال النقدي بنجاح"
   },
   "PaymentOut": {
     "Title": "إيصال نقدي",

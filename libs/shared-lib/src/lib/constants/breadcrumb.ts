@@ -94,14 +94,18 @@ export class BreadcrumbLabel {
     static VIEW_JOURNAL_OPENING_BALANCE ='View Journal Entry Opening Balance';
     static  ITEM_DIFINITION ='item Definition';
     static  ADD_ITEM_DIFINITION ='Add Item Definition';
+    static  EDIT_ITEM_DIFINITION ='Edit Item Definition';
     static  ITEM_TYPE ='Item Type';
     static  ITEM_CATEGORY ='Item Category';
     static  WARE_HOUSE ='Warehouse';
+    static  UNITOFMEASURE = 'Unit Of Measure';
     static  ADD_WARE_HOUSE ='Add Warehouse';
-    static  UOM ='UOM';
+    static  UOM = 'UOM';
     static  UOM_LIST ='uom-list';
     static  ADD_UOM ='UOM Add';
     static  Edit_UOM ='edit uom';
+    static GENERAL_ITEMdEFINITION = 'General Item Defintion'
+    static attributes_ITEMdEFINITION = 'Attributes & Variants Item Defintion'
 
     // attr attribute-definition 
     static  Attribute_Definition = 'Attribute Definition';
@@ -147,7 +151,7 @@ export class BreadcrumbLabel {
     static TREASURY_STATEMENT ='BreadCrumb.TreasuryStatement';
     static VIEW_BANK_DEFINATION ='BreadCrumb.ViewBankDefination';
     static VIEW_PAYMENT_TERM ='BreadCrumb.ViewPaymentTerm';
-    static PRICELIST_LIST ='BreadCrumb.PriceList';
+    static PRICE_POLICY ='BreadCrumb.PricePolicy';
     static PRICE_POLICY_ADD ='BreadCrumb.add';
 
 

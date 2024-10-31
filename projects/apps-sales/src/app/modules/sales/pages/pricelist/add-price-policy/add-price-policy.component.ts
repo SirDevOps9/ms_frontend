@@ -200,7 +200,6 @@ export class AddPricePolicyComponent implements OnInit {
         }));
       },
     });
-   
 
 
   }
@@ -280,6 +279,8 @@ export class AddPricePolicyComponent implements OnInit {
               );
 
               if (index !== -1) {
+                console.log(item);
+                
                 this.pricePolicyFormArray.at(index).patchValue(item);
                 this.setPriceWithVat(index, item.price)
               }

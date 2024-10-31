@@ -26,6 +26,8 @@ import { TabViewModule } from 'primeng/tabview';
 import { MenuModule } from 'primeng/menu';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputGroupModule } from 'primeng/inputgroup';
+import { SplitButtonModule } from 'primeng/splitbutton';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 
 @NgModule({
   providers: [DialogService , MessageService],
@@ -55,7 +57,9 @@ import { InputGroupModule } from 'primeng/inputgroup';
     TabViewModule,
     MenuModule,
     InputGroupAddonModule,
-    InputGroupModule
+    InputGroupModule,
+    SplitButtonModule,
+    OverlayPanelModule
   ],
   exports: [
     TableModule,
@@ -83,7 +87,10 @@ import { InputGroupModule } from 'primeng/inputgroup';
     TabViewModule,
     InputGroupAddonModule,
     MenuModule,
-    InputGroupModule
+    InputGroupModule,
+    OverlayPanelModule,
+    
+    SplitButtonModule
   ],
 })
 export class PrimeSharedModule {}

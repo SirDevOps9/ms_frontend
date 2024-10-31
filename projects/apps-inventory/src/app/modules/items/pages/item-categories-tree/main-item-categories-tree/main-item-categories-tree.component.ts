@@ -50,6 +50,5 @@ export class MainItemCategoriesTreeComponent {
     private title: Title,
     private langService: LanguageService,
   ){
-    this.title.setTitle(this.langService.transalte('ChartOfAccount.Title'));
   }
 }

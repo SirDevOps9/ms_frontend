@@ -19,31 +19,31 @@
                 isSortable: true
               },
               {
-                name: 'name',
+                name: 'date',
                 headerText: ('stockIn.date' | translate),
                 isGlobalFilter: true,
                 isSortable: true
               },
               {
-                name: 'typeName',
+                name: 'note',
                 headerText: ('stockIn.description' | translate),
                 isGlobalFilter: true,
                 isSortable: true
               },
               {
-                name: 'itemCategoryName',
+                name: 'sourceDocumentNumber',
                 headerText: ('stockIn.sourseDoc' | translate),
                 isGlobalFilter: true,
                 isSortable: true
               },
               {
-                name: 'uomName',
+                name: 'warehouseName',
                 headerText: ('stockIn.warehouse' | translate),
                 isGlobalFilter: true,
                 isSortable: true
               },
               {
-                name: 'barCode',
+                name: 'transactionStatus',
                 headerText: ('stockIn.status' | translate),
                 isGlobalFilter: true,
                 isSortable: true
@@ -79,14 +79,9 @@
                   </lib-form-group>
                 </div>
                 <!--  -->
-                <div class="col-3">
-                  <lib-change-column
-                    [placeholder]="'stockIn.ChangeColumn' | translate"
-                    [dataTable]="tableData"
-                  ></lib-change-column>
-                </div>
+              
   
-                <div class="col-6 flex gap-2 justify-content-end align-items-center">
+                <div class="col-9 flex gap-2 justify-content-end align-items-center">
                   <div>
                     <lib-button-micro
                       [title]="'stockIn.Add' | translate"

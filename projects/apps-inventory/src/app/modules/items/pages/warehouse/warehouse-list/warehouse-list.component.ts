@@ -22,7 +22,6 @@ export class WarehouseListComponent implements OnInit {
     private langService: LanguageService,
     private itemsService : ItemsService
   ) {
-    this.title.setTitle(this.langService.transalte('itemCategory.itemDefinition'));
 
   }
 
@@ -90,6 +89,7 @@ export class WarehouseListComponent implements OnInit {
   }
 
   exportClick(e?: Event) {
+    console.log(e)
     this.exportWarehouseData(this.searchTerm);
   }
 

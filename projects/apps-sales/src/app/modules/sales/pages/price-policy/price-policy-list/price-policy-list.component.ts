@@ -4,11 +4,11 @@ import { lookupDto, PageInfo, PageInfoResult, RouterService } from 'shared-lib';
 import { PricelistDto } from '../../../models';
 
 @Component({
-  selector: 'app-Pricelist-list',
-  templateUrl: './Pricelist-list.component.html',
-  styleUrls: ['./Pricelist-list.component.scss']
+  selector: 'app-price-policy-list',
+  templateUrl: './price-policy-list.component.html',
+  styleUrls: ['./price-policy-list.component.scss']
 })
-export class PricelistListComponent implements OnInit {
+export class PricePolicyListComponent implements OnInit {
   tableData: PricelistDto[];
 
   currentPageInfo: PageInfoResult = {};
@@ -31,7 +31,7 @@ export class PricelistListComponent implements OnInit {
   }
 
   initPriceListData() {
-    this.salesService.getAllPriceList('', new PageInfo());
+    this.salesService.getAllPricePolicy('', new PageInfo());
   }
 
   subscribes() {
@@ -47,16 +47,16 @@ export class PricelistListComponent implements OnInit {
   }
 
   onPageChange(pageInfo: PageInfo) {
-    this.salesService.getAllPriceList('', pageInfo);
+    this.salesService.getAllPricePolicy('', pageInfo);
   }
 
   onSearchChange(event: any) {
-    this.salesService.getAllPriceList(event, new PageInfo());
+    this.salesService.getAllPricePolicy(event, new PageInfo());
   }
 
   routeToAdd() {
     this.routerService.navigateTo(
-      'masterdata/pricelist/add'
+      'masterdata/price-policy/add'
     );
   }
 
@@ -68,7 +68,7 @@ export class PricelistListComponent implements OnInit {
 
 
   onDelete(id: number) {
-    this.salesService.deleteCustomerOpeningBalanceHeader(id);
+    this.salesService.deletePricePolicy(id);
   }
   
 
@@ -78,7 +78,7 @@ export class PricelistListComponent implements OnInit {
     );  }
 
     export(searchTerm: string) {
-      this.salesService.exportPriceList(searchTerm);
+      this.salesService.exportPricePolicy(searchTerm);
       this.salesService.exportsPriceListObservable.subscribe((res) => {
         this.exportData = res;
       });

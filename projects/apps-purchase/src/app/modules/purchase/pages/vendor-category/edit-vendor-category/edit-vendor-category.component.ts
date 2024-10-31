@@ -34,7 +34,7 @@ export class EditVendorCategoryComponent implements OnInit {
       purchaseAccountId: 0,
       purchaseReturnAccountId: 0,
       discountAccountId: 0,
-      priceListId: 0,
+      pricePolicyId: 0,
       paymentTermId: 0,
       marketType: 0,
     });

@@ -34,9 +34,12 @@ export class SalesProxyService {
     searchTerm: string,
     pageInfo: PageInfo
   ): Observable<PaginationVm<CustomerCategoryDto>> {
-    const url = `CustomerCategory?SearchKey=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`;
+    let query = `CustomerCategory?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&SearchKey=${encodeURIComponent(searchTerm)}`;
+    }
 
-    return this.httpService.get<PaginationVm<CustomerCategoryDto>>(url);
+    return this.httpService.get<PaginationVm<CustomerCategoryDto>>(query);
   }
 
   addCustomerCategory(
@@ -69,9 +72,11 @@ export class SalesProxyService {
     searchTerm: string,
     pageInfo: PageInfo
   ): Observable<PaginationVm<CustomerDefinitionDto>> {
-    const url = `Customer?SearchKey=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`;
-
-    return this.httpService.get<PaginationVm<CustomerDefinitionDto>>(url);
+    let query = `Customer?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&SearchKey=${encodeURIComponent(searchTerm)}`;
+    }
+    return this.httpService.get<PaginationVm<CustomerDefinitionDto>>(query);
   }
   deleteCustomerDefinition(id: number): Observable<boolean> {
     return this.httpService.delete<boolean>(`Customer/${id}`);
@@ -94,7 +99,7 @@ export class SalesProxyService {
     return this.httpService.get('ChartOfAccounts/ChildrenAccountsDropDown');
   }
   getpriceListDropDown(): Observable<{ id: number; name: string }[]> {
-    return this.httpService.get('PriceList/PriceListDropDown');
+    return this.httpService.get('PricePolicy/DropDown');
   }
   getpaymentTermsListDropDown(): Observable<{ id: number; name: string }[]> {
     return this.httpService.get('PaymentTerms/PaymentTermsDropdown');
@@ -141,6 +146,7 @@ export class SalesProxyService {
   CustomerDropDownByAccountId(id: number): Observable<any[]> {
     return this.httpService.get<any[]>(`Customer/DropDownByAccountId/${id}`);
   }
+
   AddCustomerOpeningBalance(
     customer: AddCustomerOpeningBalanceDto
   ): Observable<AddCustomerOpeningBalanceDto> {
@@ -181,16 +187,19 @@ export class SalesProxyService {
     return this.httpService.get<PaginationVm<GetAllCustomerOpeningBalanceDto>>(query);
   }
 
-  getAllPriceList(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<PricelistDto>> {
-    let query = `Pricelist?${pageInfo.toQuery}`;
+  getAllPricePolicy(
+    searchTerm: string,
+    pageInfo: PageInfo
+  ): Observable<PaginationVm<PricelistDto>> {
+    let query = `PricePolicy?${pageInfo.toQuery}`;
     if (searchTerm) {
       query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
     }
     return this.httpService.get<PaginationVm<PricelistDto>>(query);
   }
 
-  exportPriceList(searchTerm: string | undefined): Observable<PricelistDto[]> {
-    let query = `Pricelist/Export?`;
+  exportPricePolicy(searchTerm: string | undefined): Observable<PricelistDto[]> {
+    let query = `PricePolicy/Export?`;
     if (searchTerm) {
       query += `searchTerm=${encodeURIComponent(searchTerm)}`;
     }
@@ -223,5 +232,10 @@ export class SalesProxyService {
   }
   addPricePolicy(policy: any): Observable<any> {
     return this.httpService.post(`PricePolicy`, policy, false);
+  }
+  deletePricePolicy(id: number): Observable<boolean> {
+    return this.httpService.delete<boolean>(
+      `PricePolicy/${id}`
+    );
   }
 }

@@ -10,7 +10,7 @@
     "AddCustomerOpeningBalance": "إضافة رصيد افتتاحي للعميل",
     "EditCustomerOpeningBalance": "تعديل الرصيد الافتتاحي للعميل",
     "ViewCustomerOpeningBalance": "عرض الرصيد الافتتاحي للعميل",
-    "PriceList": "قائمة الأسعار"
+    "PricePolicy": "سياسة التسعير"
   },
   "dir": "rtl",
   "Welcome": "مرحبا",
@@ -284,5 +284,11 @@
   "ItemVariant": "نوع الصنف",
   "ItemCategory": "فئة الصنف",
   "Confirm": "تأكيد"
+  },
+  "PricePolicy":{
+    "Code": "كود ",
+    "Name": "اسم ",
+    "PricePolicyDeleted":"تم حذف سياسة الأسعار"
+
 }
 }

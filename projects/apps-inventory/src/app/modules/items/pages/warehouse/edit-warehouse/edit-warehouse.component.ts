@@ -90,27 +90,27 @@ getWarehouseById() {
       warehouseType: this.warehouseType.find(elem=>elem.label == res.warehouseType)?.value,
       branchWarehouses: res?.branchWarehouses?.map((bw : any) => bw.branchId), // Assuming you want to patch warehouseId
       addressWarehouse: {
-        city: res?.addressWarehouse?.city,
-        addressLine: res?.addressWarehouse?.addressLine,
-        phone: res?.addressWarehouse?.phone, // Mapping phone to the correct form control
-        countryCode: res?.addressWarehouse?.countryCode, // Mapping phone to the correct form control
-        fax: res?.addressWarehouse?.fax,
-        postalCode: res?.addressWarehouse?.postalCode,
-        email: res?.addressWarehouse?.email,
-        longitude: res?.addressWarehouse?.longitude,
-        latitude: res?.addressWarehouse?.latitude,
-        radius: res?.addressWarehouse?.radius
+        city: res?.addressWarehouse?.city ?? null,
+        addressLine: res?.addressWarehouse?.addressLine ?? null,
+        phone: res?.addressWarehouse?.phone ?? null,  // Mapping phone to the correct form control
+        countryCode: res?.addressWarehouse?.countryCode ?? null,  // Mapping phone to the correct form control
+        fax: res?.addressWarehouse?.fax ?? null, 
+        postalCode: res?.addressWarehouse?.postalCode ?? null, 
+        email: res?.addressWarehouse?.email ?? null, 
+        longitude: res?.addressWarehouse?.longitude ?? 0, 
+        latitude: res?.addressWarehouse?.latitude ?? 0, 
+        radius: res?.addressWarehouse?.radius ?? 0
       },
       warehouseAccount: {
-        glAccountId: res?.warehouseAccount?.glAccountId,
-        cashSalesAccountId: res?.warehouseAccount?.cashSalesAccountId,
-        creditSalesAccountId: res?.warehouseAccount?.creditSalesAccountId,
-        salesReturnAccountId: res?.warehouseAccount?.salesReturnAccountId,
-        salesCostAccountId: res?.warehouseAccount?.salesCostAccountId,
-        discountAccountId: res?.warehouseAccount?.discountAccountId,
-        purchaseAccountId: res?.warehouseAccount?.purchaseAccountId,
-        evaluationAccountId: res?.warehouseAccount?.evaluationAccountId,
-        goodsInTransitAccountId: res?.warehouseAccount?.goodsInTransitAccountId,
+        glAccountId: res?.warehouseAccount?.glAccountId ?? null,
+        cashSalesAccountId: res?.warehouseAccount?.cashSalesAccountId ?? null,
+        creditSalesAccountId: res?.warehouseAccount?.creditSalesAccountId ?? null,
+        salesReturnAccountId: res?.warehouseAccount?.salesReturnAccountId ?? null,
+        salesCostAccountId: res?.warehouseAccount?.salesCostAccountId ?? null,
+        discountAccountId: res?.warehouseAccount?.discountAccountId ?? null,
+        purchaseAccountId: res?.warehouseAccount?.purchaseAccountId ?? null,
+        evaluationAccountId: res?.warehouseAccount?.evaluationAccountId ?? null,
+        goodsInTransitAccountId: res?.warehouseAccount?.goodsInTransitAccountId ?? null,
         adjustmentAccountId: res?.warehouseAccount?.adjustmentAccountId
       }
     });
@@ -198,18 +198,24 @@ getWarehouseById() {
     })
   }
 
+
   onSubmit() {
     if (!this.formService.validForm(this.warehouseForm, false)) return;
 
-    let warehouseData = this.warehouseForm.getRawValue();
+    let warehouseData = {...this.warehouseForm.getRawValue()}
+    // if(!Object.values(warehouseData.addressWarehouse).length) {
+    //   warehouseData.addressWarehouse = null;
+    // }
+    // if(!Object.values(warehouseData.warehouseAccount).length) {
+    //   warehouseData.warehouseAccount = null;
+    // }
 
-    // Safely check for addressWarehouse
-    if (!!warehouseData.addressWarehouse  ) {
+    let WarehouseCheck = Object.values(warehouseData.addressWarehouse).every(elem => elem == undefined || elem == null || elem == 0);
+    let warehouseAccountCheck = Object.values(warehouseData.warehouseAccount).every(elem => elem == undefined || elem == null || elem == 0);
+    if(WarehouseCheck) {
       warehouseData.addressWarehouse = null;
     }
-    
-    // Safely check for warehouseAccount
-    if (!!warehouseData.warehouseAccount ) {
+    if(warehouseAccountCheck) {
       warehouseData.warehouseAccount = null;
     }
     this.itemsService.editWarehouse(warehouseData)

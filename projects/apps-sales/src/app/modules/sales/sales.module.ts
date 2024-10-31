@@ -19,8 +19,8 @@ import { CustomerOpeningBalanceListComponent } from './pages/customer-opening-ba
 import { EditCustomerOpeningBalanceComponent } from './pages/customer-opening-balance/edit-customer-opening-balance/edit-customer-opening-balance.component';
 import { ViewCustomerOpeningBalanceComponent } from './pages/customer-opening-balance/view-customer-opening-balance/view-customer-opening-balance.component';
 import { CustomerObViewDistributionComponent } from './components/customer-ob-view-distribution/customer-ob-view-distribution.component';
-import { PricelistMainComponent } from './pages/pricelist/Pricelist-main/Pricelist-main.component';
-import { PricelistListComponent } from './pages/pricelist/Pricelist-list/Pricelist-list.component';
+import { PricePolicyMainComponent } from './pages/price-policy/price-policy-main/price-policy-main.component';
+import { PricePolicyListComponent } from './pages/price-policy/price-policy-list/price-policy-list.component';
 import { MultiSelectItem } from 'primeng/multiselect';
 import { MultiSelectItemsComponent } from './components/multi-select-items/multi-select-items.component';
 import { AddPricePolicyComponent } from './pages/pricelist/add-price-policy/add-price-policy.component';
@@ -165,18 +165,18 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'pricelist',
-        component: PricelistMainComponent,
+        path: 'price-policy',
+        component: PricePolicyMainComponent,
         //  canActivate: [AuthGuard],
         data: {
-          breadcrumb: BreadcrumbLabel.PRICELIST_LIST,
-          pageTitle: BreadcrumbLabel.PRICELIST_LIST,
+          breadcrumb: BreadcrumbLabel.PRICE_POLICY,
+          pageTitle: BreadcrumbLabel.PRICE_POLICY,
 
         },
         children:[
           {
             path: '',
-            component: PricelistListComponent,
+            component: PricePolicyListComponent,
             //  canActivate: [AuthGuard],
             data: {
               breadcrumb: '',
@@ -186,6 +186,7 @@ const routes: Routes = [
           {
             path: 'add',
             component: AddPricePolicyComponent,
+            //  canActivate: [AuthGuard],
             data: {
               breadcrumb: BreadcrumbLabel.PRICE_POLICY_ADD,
               pageTitle:BreadcrumbLabel.PRICE_POLICY_ADD,
@@ -215,8 +216,8 @@ const routes: Routes = [
     EditCustomerOpeningBalanceComponent,
     ViewCustomerOpeningBalanceComponent,
     CustomerObViewDistributionComponent,
-    PricelistListComponent,
-    PricelistMainComponent,
+    PricePolicyListComponent,
+    PricePolicyMainComponent,
     AddPricePolicyComponent,
     MultiSelectItemsComponent,
     UpdetePricePolicyComponent

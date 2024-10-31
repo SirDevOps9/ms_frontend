@@ -12,10 +12,14 @@
     "code": "الرمز",
     "nameEn": "الاسم (إنجليزي)",
     "nameAr": "الاسم (عربي)",
+    "main" : "المعلومات الرئيسية",
+
     "name": "الاسم",
     "category": "الفئة",
     "type": "النوع",
     "tag": "الوسم",
+    "save" : "حفظ",
+    "cancel" : "الغاء",
     "actions": "الإجراءات",
       "saveUom" : "حفظ وحدة القياس",
       "select" : "اختار الوحده",
@@ -33,6 +37,7 @@
     "vatApplied": "تطبيق ضريبة القيمة المضافة",
     "priceIncludeVat": "السعر شامل الضريبة",
     "specialCare": "يحتاج إلى عناية خاصة",
+    "specialCareHead": "عناية خاصة",
     "color": "اللون",
     "uom": "وحدة القياس",
     "uomCategory": "فئة وحدة القياس",
@@ -117,6 +122,8 @@
     "uom": "وحدة القياس",
     "barcode": "الرمز الشريطي",
     "actions": "الإجراءات",
+    "addItemDef" : "اضافة تعريف العنصر",
+
     "Add": "إضافة",
     "search": "بحث",
     "ChangeColumn": "تغيير العمود",
@@ -127,7 +134,9 @@
     "viewVariant": "عرض",
     "itemTracking": "تتبع العنصر",
     "SelectItemTracking": "اختر تتبع العنصر",
-    "hasExpiry": "له تاريخ انتهاء"
+    "hasExpiry": "له تاريخ انتهاء",
+    "delete" : "تم حذف تعريف العنصر بنجاح"
+
   },
   "warehouse": {
     "Add": "إضافة",
@@ -182,6 +191,7 @@
     "edit": "تعديل",
     "save": "حفظ",
     "cancel": "إلغاء",
+    "name" : "الاسم",
     "categoryCode": "رمز الفئة",
     "parentCategory": "الفئة الرئيسية",
     "isDetails": "تفاصيل",
@@ -195,32 +205,49 @@
     "edits": "تم تعديل فئة العنصر بنجاح",
     "code": "الرمز"
   },
-  "UOM": {
-    "Add": "إضافة",
+ "UOM": {
+    "Add": "إنشاء",
     "conversionRatio": "نسبة التحويل",
     "add_new": "إضافة جديد",
     "uomList": "قائمة وحدات القياس",
     "AddNew": "إضافة جديد",
     "Search": "بحث",
+    "delete": "تم الحذف",
     "CategoryCode": "رمز الفئة",
     "code": "رمز وحدة القياس",
     "categoryCode": "رمز فئة وحدة القياس",
     "name": "اسم وحدة القياس",
     "categoryname": "اسم فئة وحدة القياس",
     "save": "حفظ",
-    "discard": "تجاهل",
+    "uomEdit": "تم التعديل",
+    "discard": "إلغاء",
     "status": "الحالة",
     "factor": "معامل وحدة القياس",
-    "factors": "معاملات وحدة القياس",
+    "factors": "عوامل وحدة القياس",
     "actions": "الإجراءات",
-    "action": "الإجراء",
+    "action": "الإجراءات",
     "type": "نوع وحدة القياس",
     "uomType": "أنواع وحدة القياس",
-    "shortName": "اسم مختصر",
+    "shortName": "الاسم المختصر",
     "addUom": "إضافة وحدة قياس",
     "nameAr": "الاسم بالعربية",
+    "changeAttributrDifinitionStatus": "تغيير حالة تعريف السمة",
+    "success": "نجاح",
+    "uomSuccess": "تمت إضافة وحدة القياس بنجاح",
     "nameEn": "الاسم بالإنجليزية",
-    "conversionUOM": "تحويل وحدة القياس"
+    "conversionUOM": "تحويل وحدة القياس",
+    "categorynameEn": "اسم الفئة بالإنجليزية",
+    "categorynameAr": "اسم الفئة بالعربية",
+    "category" : "الفئة",
+    "baseUom" : "وحدة القياس الافتراضية",
+    "systemUnit" : "وحدة النظام",
+    "unitSystem" : "وحدة النظام",
+    "nameUom" : "الاسم",
+    "factorUOM": "عامل",
+    "calculation": "حساب",
+    "reversal": "عكس",
+    "from" : "من"
+
   },
   "attributeDefinition": {
     "Add": "إضافة",
@@ -246,7 +273,16 @@
     "factor": "المعامل",
     "factors": "المعاملات",
     "actions": "الإجراءات",
-    "type": "النوع"
+    "type": "النوع",
+    "attributeCode": "الكود",
+    "attributeName": "اسم السمات",
+    "attributeNameEn": "السمات بالإنجليزية",
+    "attributeNameAr": "السمات بالعربية",
+    "attributeId": "الكود",
+    "valueEn": " القيمة بالانجليزية",
+    "valueAr": "القيمة بالعربية",
+    "add_new_value": "اضف قيمة",
+    "delete": "تم الحذف"
   },
   "OperationalTag": {
   "Add": "إضافة",
@@ -269,7 +305,8 @@
   "status": "الحالة",
   "delete": "تم الحذف",
   "Success": "نجاح",
-  "actions": "الإجراءات"
+  "actions": "الإجراءات",
+  "glAccountId" : "حساب دفتر الأستاذ العام"
 }
 
 

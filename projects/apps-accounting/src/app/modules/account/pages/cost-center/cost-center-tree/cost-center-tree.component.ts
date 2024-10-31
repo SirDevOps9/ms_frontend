@@ -56,7 +56,6 @@ export class CostCenterTreeComponent implements OnInit {
     this.expanded = false;
   }
   mapToTreeNodes(data: any[]) {
-    debugger;
     data = data.map((item, index) => {
       return {
         id: item.id ?? '',
@@ -112,7 +111,6 @@ export class CostCenterTreeComponent implements OnInit {
   }
 
   handleTabClick(node: any) {
-    debugger;
     this.edit = false;
     this.add = false;
     this.view = false;
