@@ -60,7 +60,6 @@ export class ItemDefinitionUomComponent implements OnInit, OnDestroy {
   }
   test: string = '';
   createUomFormGroup(item: any): FormGroup {
-    // احصل على الأسماء باستخدام unitUsages
     const initialUnitUsagesNames = this.userSubDomainModulesLookupData
       .filter((element: any) => item.unitUsages.includes(element.id));
 
@@ -71,8 +70,8 @@ export class ItemDefinitionUomComponent implements OnInit, OnDestroy {
       isActive: [item.isActive || false],
       isBaseUnit: [item.isBaseUnit || false],
       shortName: [item.shortName || ''],
-      unitUsages: [item.unitUsages || null], // IDs للوحدات
-      unitUsagesName: [initialUnitUsagesNames] // الأسماء لتظهر مباشرة
+      unitUsages: [item.unitUsages || null],
+      unitUsagesName: [initialUnitUsagesNames] 
     });
   }
 
@@ -94,7 +93,6 @@ getDataUomById() {
 
         this.uoms.clear();
         data.uoms.forEach((uom: any) => {
-          // عند إضافة uom، تأكد من ربط الأسماء مباشرة
           this.uoms.push(this.createUomFormGroup(uom));
         });
 
@@ -150,19 +148,14 @@ return data.uoMs;
   }
 
   usercHN(e: any, fb: FormGroup) {
-    console.log(e); // Array of selected IDs
-    console.log(this.userSubDomainModulesLookupData);
 
-    // Filter and map selected IDs to their names
     let data = this.userSubDomainModulesLookupData.filter((element: any) =>
       e.includes(element.id)
     );
 
-    // Update both unitUsages and unitUsagesName with mapped names
-    fb.get('unitUsages')?.setValue(e); // Set selected IDs
-    fb.get('unitUsagesName')?.setValue(data); // Set mapped names for display
+    fb.get('unitUsages')?.setValue(e);
+    fb.get('unitUsagesName')?.setValue(data);
 
-    console.log(data); // Log mapped data
   }
 
   submit() {

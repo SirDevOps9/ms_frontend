@@ -1,53 +1,75 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { RouterService, } from 'shared-lib';
+import { AuthService } from 'microtec-auth-lib';
+import { DialogService } from 'primeng/dynamicdialog';
+import { LanguageService, lookupDto, MenuModule, PageInfo, PageInfoResult, RouterService, } from 'shared-lib';
 import { ItemsService } from '../../../items.service';
+import { itemDefinitionDto } from '../../../models';
 
 @Component({
   selector: 'app-item-defintion-vat',
   templateUrl: './item-defintion-vat.component.html',
   styleUrls: ['./item-defintion-vat.component.scss']
 })
-export class ItemDefintionVatComponent implements OnInit {
-  id: number;
-  itemDefinitionForm: FormGroup;
-  taxesDropDropDownLookup: any[] = [];
+export class ItemDefintionVatComponent {
 
+  tableData: any[] = [];
+  exportColumns: lookupDto[] = [
+
+  ];
+  exportSelectedCols: string[] = [];
+  exportData: itemDefinitionDto[] = [];
+  currentPageInfo: PageInfoResult = {};
+  modulelist: MenuModule[] = [];
+  searchTerm: string = '';
+  id:number
+  tableDataItemVariantsByI:any[]=[]
   constructor(
-    private _router: RouterService,
-    private fb: FormBuilder,
+    private routerService: RouterService,
+    public authService: AuthService,
+    private dialog: DialogService,
+    private title: Title,
+    private langService: LanguageService,
     private route: ActivatedRoute,
-    private itemService: ItemsService
+    private itemsService: ItemsService
   ) {
+
     this.id = this.route.snapshot.params['id'];
   }
 
-  ngOnInit(): void {
-    this.createForm();
-    this.taxesDropDropDown();
+  ngOnInit() {
+    this.fetchTableData();
+    this.getItemVariants()
+  }
+  onPageChange(pageInfo: PageInfo) {
+    this.itemsService.getItemDefinition('', pageInfo);
+  }
+  fetchTableData() {
+
   }
 
-  createForm() {
-    this.itemDefinitionForm = this.fb.group({
-      id: [this.id],
-      taxId: [null, ],
-      isVatApplied: [false, Validators.required]
+  onSearchChange() {
+    this.fetchTableData();
+  }
+
+  exportClick(e?: Event) {
+    this.exportBankData(this.searchTerm);
+  }
+
+  exportBankData(searchTerm: string) {
+    this.itemsService.exportsItemsDefinitionList(searchTerm);
+    this.itemsService.exportedItemDefinitionListDataSource.subscribe((res) => {
+      this.exportData = res;
     });
   }
 
-  taxesDropDropDown() {
-    this.itemService.gettaxesDropDropDown(this.id);
-    this.itemService.taxesDataLookupObs.subscribe(res => {
-      this.taxesDropDropDownLookup = res || [];  // Ensure `res` is an array
-      console.log(this.taxesDropDropDownLookup);
-    });
-  }
 
-  onAddVariants() {
-    if (this.itemDefinitionForm.valid) {
-      const payload = this.itemDefinitionForm.value;
-      this.itemService.editItemTax(payload)
-    }
+  getItemVariants(){
+    this.itemsService.getItemVariants(this.id)
+    this.itemsService.ItemVariantsByIdObs.subscribe((data)=>{
+this.tableDataItemVariantsByI = data
+    })
   }
 }

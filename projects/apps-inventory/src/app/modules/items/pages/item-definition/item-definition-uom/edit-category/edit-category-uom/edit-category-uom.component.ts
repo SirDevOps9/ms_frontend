@@ -43,7 +43,6 @@ export class EditCategoryUomComponent {
     if (this.config.data) {
       this.itemDefinitionForm.patchValue({ categoryId: this.config.data });
   }
-    console.log(this.config.data)
 
 
   }

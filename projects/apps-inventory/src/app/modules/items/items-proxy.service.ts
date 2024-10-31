@@ -193,6 +193,10 @@ ParentItemCategoriesDropDown(SearchTerm: string): Observable< {id:number , name:
 
  }
 
+ getItemBarcodeById(id:number){
+  return this.httpService.get(`Item/GetItemBarcode/${id}`)
+
+ }
  uomCodeDropDown(id:number) {
   return this.httpService.get(`UOM/GetUOMsByUOMCategoryId/${id}`)//
  }
