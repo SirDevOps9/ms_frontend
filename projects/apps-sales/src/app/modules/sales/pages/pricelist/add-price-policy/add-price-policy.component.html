@@ -34,10 +34,13 @@
       <div class="grid mb-3">
         <div class="flex justify-content-between w-full ">
           <div class="">
-            <lib-text-input (keyUp)="onSearch($event)"
-              [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'">
+            <lib-text-input 
+            
+            (input)="applyFilterGlobal($event, 'contains')"
+            [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'">
 
             </lib-text-input>
+          
           </div>
 
           <div class="actions">
@@ -55,8 +58,13 @@
 
 
       </div>
-      <p-table [resizableColumns]="true" [value]="pricePolicyFormArray.controls" dataKey="id"
+      <p-table
+      #dt
+      globalFilterFields="'itemVariantName'"
+
+      [resizableColumns]="true" [value]="pricePolicyFormArray.controls" dataKey="id"
         styleClass="p-datatable-gridlines p-datatable-striped" [tableStyle]="{ 'min-width': '50rem' }">
+    
         <ng-template pTemplate="header">
           <tr>
             <th>{{ 'pricePolicy.code' | translate }}</th>
@@ -72,8 +80,8 @@
         </ng-template>
         <ng-template pTemplate="body" let-pricePolicy let-rowIndex="rowIndex">
           <tr [formGroup]="pricePolicy">
-            <td [pEditableColumn]="pricePolicy.itemId" pEditableColumnField="itemId">
-              <p-cellEditor>
+            <td [pEditableColumn]="pricePolicy.itemId" pEditableColumnField="itemId" field="code">
+              <p-cellEditor >
                 <ng-template pTemplate="input">
                   <div class="flex gap-2 align-items-center">
 
@@ -87,14 +95,14 @@
 
                   </div>
                 </ng-template>
-                <ng-template pTemplate="output">
+                <ng-template pTemplate="output" >
                   {{ pricePolicy.get('itemCode').value }}
                 </ng-template>
               </p-cellEditor>
               <lib-field-validations [appControl]="pricePolicy.controls['itemId']">
               </lib-field-validations>
             </td>
-            <td>
+            <td field="name">
               <p> {{ pricePolicy.get('itemName').value }}
               </p>
             </td>
@@ -117,8 +125,8 @@
               </lib-field-validations>
             </td>
 
-            <td>
-              {{pricePolicy.get('itemVariantName').value}}
+            <td pSortableColumn="itemVariantName">
+              <p>{{pricePolicy.get('itemVariantName').value}}</p>
 
             </td>
             <td [pEditableColumn]="pricePolicy.price" pEditableColumnField="price">

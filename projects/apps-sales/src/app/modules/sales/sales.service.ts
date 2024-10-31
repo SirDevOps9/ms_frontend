@@ -536,6 +536,10 @@ export class SalesService {
       },
       error: (err) => {
         this.loaderService.hide();
+        this.toasterService.showError(
+          this.languageService.transalte('messages.error'),
+          (err.errorMessages)
+        );
       },
     });
   

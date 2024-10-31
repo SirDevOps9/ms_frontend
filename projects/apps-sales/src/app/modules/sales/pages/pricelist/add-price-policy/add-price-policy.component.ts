@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { customValidators, FormsService, LanguageService, RouterService, ToasterService } from 'shared-lib';
 import { MultiSelectItemsComponent } from '../../../components/multi-select-items/multi-select-items.component';
@@ -6,6 +6,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { ItemDto } from '../../../models';
 import { SalesService } from '../../../sales.service';
 import { UpdetePricePolicyComponent } from '../../../components/updete-price-policy/updete-price-policy.component';
+import { Table } from 'primeng/table'; // Import Table
 
 @Component({
   selector: 'app-add-price-policy',
@@ -22,6 +23,8 @@ export class AddPricePolicyComponent implements OnInit {
   filteredPricePolicies: any;
 
   addForm: FormGroup;
+  @ViewChild('dt') dt: any | undefined;
+
   ngOnInit() {
 
     this.subscribes()
@@ -44,6 +47,17 @@ export class AddPricePolicyComponent implements OnInit {
   }
   addNewRow() {
     if (!this.duplicateLine) {
+      const policyItemsList = this.addForm.get('policyItemsList') as FormArray;
+
+      // Assign validators for each item in the FormArray
+      policyItemsList.controls.forEach((control) => {
+        control.get('price')?.clearValidators();
+        control.get('price')?.updateValueAndValidity(); // Update each control after setting validators
+      
+      });
+      
+      // Update the main form's validity
+      this.addForm.updateValueAndValidity();
       if (!this.formsService.validForm(this.pricePolicyFormArray, false)) return;
 
 
@@ -57,7 +71,7 @@ export class AddPricePolicyComponent implements OnInit {
           uomName: new FormControl(''),
           itemVariantId: new FormControl(''),
           itemVariantName: new FormControl(''),
-          price: new FormControl(Number(), [customValidators.required, customValidators.nonZero]),
+          price: new FormControl(Number(), [customValidators.required]),
           priceWithVat: new FormControl(0),
           taxId: new FormControl(''),
           taxRatio: new FormControl(''),
@@ -335,9 +349,20 @@ export class AddPricePolicyComponent implements OnInit {
 
   }
   save() {
+if( this.addForm.value.policyItemsList.length>0){
+    if (!this.duplicateLine ) {
+      const policyItemsList = this.addForm.get('policyItemsList') as FormArray;
 
-    if (!this.duplicateLine) {
-      if (!this.formsService.validForm(this.addForm, false)) return;
+      // Assign validators for each item in the FormArray
+      policyItemsList.controls.forEach((control) => {
+        control.get('price')?.setValidators([customValidators.nonZero, customValidators.required]);
+        control.get('price')?.updateValueAndValidity(); // Update each control after setting validators
+      
+      });
+      
+      // Update the main form's validity
+      this.addForm.updateValueAndValidity();
+      if (!this.formsService.validForm(this.addForm , false)) return;
 
       const transformedFormValue = {
         ...this.addForm.value,
@@ -349,7 +374,8 @@ export class AddPricePolicyComponent implements OnInit {
           itemVariantId: detail.itemVariantId,
           isVatApplied: detail.isVatApplied, // Ensure it's a boolean
           taxId: detail.taxId,
-        })),
+        }
+      )),
       };
 
       this.salesService.addPricePolicy(transformedFormValue)
@@ -359,50 +385,20 @@ export class AddPricePolicyComponent implements OnInit {
         this.languageService.transalte('messages.duplicateItem')
       );
     }
+  } else {
+    this.toasterService.showError(
+      this.languageService.transalte('messages.error'),
+      this.languageService.transalte('messages.noItemsToAdd')
+    );
   }
-  onSearch(event: any): void {
-    console.log(event ,"eeee");
-    
-    const searchValue = (event?.toLowerCase() || '').trim(); // إزالة المسافات الزائدة
-  
-    // تأكد من أن `pricePolicyFormArray` هو FormArray
-    const allItems = this.pricePolicyFormArray.controls.map(control => control.value);
-    const x = this.pricePolicyFormArray.controls.map(control => control.value);
-  console.log(searchValue.length ,"searchValue.length");
-  
-    if (searchValue.length!=0) {
-      console.log(x,"all");
-      
-      // تصفية العناصر بناءً على القيمة المدخلة
-      const filteredItems = allItems.filter(item =>
-        item.itemName.toLowerCase().includes(searchValue)
-      );
-  
-      // إعادة تعيين FormArray باستخدام العناصر المصفاة
-      this.pricePolicyFormArray.clear();
-      filteredItems.forEach(item => {
-        this.pricePolicyFormArray.push(this.formBuilder.group(item));
-      });
-    } else {
-      console.log(x ,"mmmmmmmmmmmmmmm");
-      
-      // إذا كانت قيمة البحث فارغة أو تحتوي على مسافات، استرجع جميع العناصر
-      this.pricePolicyFormArray.clear();
-      x.forEach(item => {
-        this.pricePolicyFormArray.push(this.formBuilder.group(item));
-      });
-    }
-  
-    // استدعاء updateValueAndValidity فقط إذا لزم الأمر
-    this.pricePolicyFormArray.updateValueAndValidity();
-  }
-  
+}
 
-  
-  
-  
+
   cancel() {
     this.router.navigateTo('/masterdata/pricelist');
+  }
+  applyFilterGlobal($event: any, stringVal: any) {
+    this.dt.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
   }
   constructor(
     private formBuilder: FormBuilder,
