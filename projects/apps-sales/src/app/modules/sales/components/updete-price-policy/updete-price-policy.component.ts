@@ -4,7 +4,7 @@ import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dy
 import { customValidators, LanguageService, ToasterService } from 'shared-lib';
 import { ItemDto } from '../../models';
 import { SalesService } from '../../sales.service';
- 
+
 @Component({
   selector: 'app-updete-price-policy',
   templateUrl: './updete-price-policy.component.html',
@@ -22,8 +22,8 @@ export class UpdetePricePolicyComponent {
     private dialog: DialogService,
 
 
-    ) {
-    
+  ) {
+
   }
   addForm: FormGroup;
   policyItemsList: FormArray;
@@ -31,8 +31,8 @@ export class UpdetePricePolicyComponent {
   priceListUpdate: any[] = [];
   items: ItemDto[] = [];
   filteredItems: any[] = []; // Filtered items to display in the table
-  newPrice:number
-  duplicateLine:boolean;
+  newPrice: number
+  duplicateLine: boolean;
   rowDuplicate: number;
   categories: { id: any; nameAr: string; nameEn: string }[] = [];
   uoms: { id: any; nameAr: string; nameEn: string }[] = [];
@@ -43,10 +43,10 @@ export class UpdetePricePolicyComponent {
 
   ngOnInit() {
     this.initializeForm()
-    this.data=this.config.data.value   
-    this.patchPolicyItems(this.data); 
+    this.data = this.config.data.value
+    this.patchPolicyItems(this.data);
     this.listenToDropdownChanges()
-    
+
   }
   initializeForm() {
     this.addForm = this.fb.group({
@@ -65,7 +65,7 @@ export class UpdetePricePolicyComponent {
     });
 
     this.policyItemsList = this.addForm.get('policyItemsList') as FormArray;
-   
+
 
 
   }
@@ -87,14 +87,14 @@ export class UpdetePricePolicyComponent {
         taxId: new FormControl(item.taxId || ''),
         taxRatio: new FormControl(item.taxRatio || ''),
         uomOptions: new FormControl(item.uomOptions || ''),
-        itemCategoryNameAr: new FormControl(item.itemCategoryNameAr ||''),
-        itemCategoryNameEn: new FormControl(item.itemCategoryNameEn ||''),
-        hasExpiryDate: new FormControl(item.hasExpiryDate ||''),
-        uomNameAr: new FormControl(item.uomNameAr ||''),
-        uomNameEn: new FormControl(item.uomNameEn ||''),
-        categoryType: new FormControl(item.categoryType ||''),
+        itemCategoryNameAr: new FormControl(item.itemCategoryNameAr || ''),
+        itemCategoryNameEn: new FormControl(item.itemCategoryNameEn || ''),
+        hasExpiryDate: new FormControl(item.hasExpiryDate || ''),
+        uomNameAr: new FormControl(item.uomNameAr || ''),
+        uomNameEn: new FormControl(item.uomNameEn || ''),
+        categoryType: new FormControl(item.categoryType || ''),
         name: new FormControl(item.name || ''),
-        id: new FormControl(item.id )
+        id: new FormControl(item.id)
       });
 
       this.policyItemsList.push(group);
@@ -103,25 +103,20 @@ export class UpdetePricePolicyComponent {
     });
     this.filteredItems = [...this.policyItemsList.value]; // Initialize with all items
 
-    this.createLists(); 
+    this.createLists();
 
   }
-  cancel(){
+  cancel() {
     this.ref.close()
   }
 
-
-
- 
-
-  //////
   createLists() {
     // Use Maps to ensure uniqueness by ID
     const categoryMap = new Map();
     const uomMap = new Map();
     const variantMap = new Map();
 
-    this.policyItemsList.value.forEach((item:any) => {
+    this.policyItemsList.value.forEach((item: any) => {
       // Add unique categories
       if (!categoryMap.has(item.categoryType)) {
         categoryMap.set(item.categoryType, {
@@ -149,14 +144,9 @@ export class UpdetePricePolicyComponent {
       }
     });
 
-    // Convert Maps back to arrays
     this.categories = Array.from(categoryMap.values());
     this.uoms = Array.from(uomMap.values());
     this.variants = Array.from(variantMap.values());
-
-    console.log('Categories:', this.categories);
-    console.log('UOMs:', this.uoms);
-    console.log('Variants:', this.variants);
   }
   listenToDropdownChanges() {
     this.addForm.get('category')?.valueChanges.subscribe(() => this.filterTable());
@@ -169,9 +159,6 @@ export class UpdetePricePolicyComponent {
   }
 
   filterTable() {
-    console.log(this.addForm.get('isStorable')?.value, "isStorable"); // Log current state of isStorable
-    console.log(this.addForm.get('isService')?.value, "isService"); // Log current state of isService
-      
     const category = this.addForm.get('category')?.value;
     const uom = this.addForm.get('uom')?.value;
     const variant = this.addForm.get('variant')?.value;
@@ -179,42 +166,38 @@ export class UpdetePricePolicyComponent {
     const isService = this.addForm.get('isService')?.value;
     const isStorable = this.addForm.get('isStorable')?.value;
     const hasExpiryDate = this.addForm.get('hasExpiryDate')?.value;
-    this.filteredItems = this.policyItemsList.value.filter((item:any) => {
+    this.filteredItems = this.policyItemsList.value.filter((item: any) => {
 
       const matchesCategory = category ? item.categoryType === category : true;
       const matchesUOM = uom ? item.uomId === uom : true;
       const matchesVariant = variant ? item.itemVariantId === variant : true;
       const matchesSearch = search
-      ? item.itemCode.toLowerCase().includes(search) 
-      || item.itemName.toLowerCase().includes(search)
-      || item.uomName.toLowerCase().includes(search)
-      || item.itemVariantName.toLowerCase().includes(search)
-      || item.itemCategoryNameEn.toLowerCase().includes(search)
-      : true;
+        ? item.itemCode.toLowerCase().includes(search)
+        || item.itemName.toLowerCase().includes(search)
+        || item.uomName.toLowerCase().includes(search)
+        || item.itemVariantName.toLowerCase().includes(search)
+        || item.itemCategoryNameEn.toLowerCase().includes(search)
+        : true;
+      const matchesStorable = isStorable ? item.categoryType === 'Storable' : true;
+      const matchesService = isService ? item.categoryType === 'Service' : true;
+      const matchesExpiry = hasExpiryDate ? item.hasExpiryDate === true : true;
 
-    // return matchesCategory && matchesUOM && matchesVariant && matchesSearch;
-    console.log('Item:', item);
-
-    const matchesStorable = isStorable ? item.categoryType === 'Storable' : true;
-    const matchesService = isService? item.categoryType === 'Service' : true;
-    const matchesExpiry = hasExpiryDate ? item.hasExpiryDate === true  : true;
-
-    return (
-      matchesCategory &&
-      matchesUOM &&
-      matchesVariant &&
-      matchesSearch &&
-      matchesStorable &&
-      matchesService &&
-      matchesExpiry
-    );
+      return (
+        matchesCategory &&
+        matchesUOM &&
+        matchesVariant &&
+        matchesSearch &&
+        matchesStorable &&
+        matchesService &&
+        matchesExpiry
+      );
 
     });
   }
-  test(e:any){
-    this.newPrice=e    
+  test(e: any) {
+    this.newPrice = e
   }
-  updatePrice(e:any){
+  updatePrice(e: any) {
 
     const price = this.addForm.get('price')?.value;
     const priceType = this.addForm.get('priceType')?.value;
@@ -224,23 +207,20 @@ export class UpdetePricePolicyComponent {
       this.toasterService.showError(
         this.languageService.transalte('addCustomerDefinition.success'),
         this.languageService.transalte('openeingBalance.CustomerAdded')
-      );      return;
+      ); return;
     }
-    
+
     this.priceListUpdate.forEach((updatedItem: any) => {
       const index = this.policyItemsList.controls.findIndex(
         (control) => control.get('id')?.value === updatedItem.id
       );
-    
+
       if (index !== -1) {
-        console.log(updatedItem.id, e, "ddddddddd");
-    
         const control = this.policyItemsList.at(index);
         const originalPrice = updatedItem.price; // Use original price for calculations
-    
+
         if (price == 'fixed') {
           control.get('price')?.setValue(e);
-          console.log(this.policyItemsList, "eee");
         } else if (price == 'calculation') {
           if (priceType == 'amount') {
             if (priceCount == 'plus') {
@@ -249,15 +229,11 @@ export class UpdetePricePolicyComponent {
             } else if (priceCount == 'minus') {
               const newPrice = Number(originalPrice) - Number(e);
               control.get('price')?.setValue(newPrice);
-                      console.log(this.policyItemsList ,"eee");
-
             }
           } else if (priceType == 'percent') {
             if (priceCount == 'plus') {
               const newPrice = Number(originalPrice) + (Number(originalPrice) * Number(e)) / 100;
               control.get('price')?.setValue(newPrice);
-              console.log(this.policyItemsList ,"eee");
-
             } else if (priceCount == 'minus') {
               const newPrice = Number(originalPrice) - (Number(originalPrice) * Number(e)) / 100;
               control.get('price')?.setValue(newPrice);
@@ -266,43 +242,35 @@ export class UpdetePricePolicyComponent {
         }
       }
     });
-    
+
     this.toasterService.showSuccess(
       this.languageService.transalte('messages.success'),
       this.languageService.transalte('messages.successfully')
     );
-  
-  }
-  
-  onSelectedRowsChange(e:any){
-    console.log(e ,"lllll");
-    this.priceListUpdate=e
-  }
-  save(){
-if(this.priceListUpdate.length>0){
-  if(this.newPrice!=0 && this.newPrice!= undefined){
-    console.log(this.newPrice ,"this.newPrice");
-    console.log(this.policyItemsList ,"wwwwwwwwwww");
 
-    this.updatePrice(this.newPrice)
-    console.log(this.policyItemsList ,"this.policyItemsListthis.policyItemsList");
-    
-     this.ref.close(this.policyItemsList)
-   
-  }else{
-    console.log(this.newPrice ,"newPrice00000000");
-    this.toasterService.showError(
-      this.languageService.transalte('messages.error'),
-      this.languageService.transalte('messages.priceRequired')
-    );
   }
-}  else{
-  console.log(this.priceListUpdate ,"priceListUpdate00000000");
-  this.toasterService.showError(
-    this.languageService.transalte('messages.error'),
-    this.languageService.transalte('messages.noItemSelected')
-  );
 
-}  
+  onSelectedRowsChange(e: any) {
+    this.priceListUpdate = e
+  }
+  save() {
+    if (this.priceListUpdate.length > 0) {
+      if (this.newPrice != 0 && this.newPrice != undefined) {
+        this.updatePrice(this.newPrice)
+        this.ref.close(this.policyItemsList)
+
+      } else {
+        this.toasterService.showError(
+          this.languageService.transalte('messages.error'),
+          this.languageService.transalte('messages.priceRequired')
+        );
+      }
+    } else {
+      this.toasterService.showError(
+        this.languageService.transalte('messages.error'),
+        this.languageService.transalte('messages.noItemSelected')
+      );
+
+    }
   }
 }

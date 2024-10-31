@@ -1,7 +1,6 @@
 {
     "BreadCrumb": {
         "add": "إضافة"
-
     },
     "pricePolicy": {
         "code": "الكود",
@@ -22,7 +21,6 @@
         "price": "السعر",
         "priceVAT": "السعر مع ضريبة القيمة المضافة",
         "action": "إجراء"
-
     },
     "messages": {
         "success": "نجاح",
@@ -30,8 +28,16 @@
         "priceRequired": "يلزم إدخال قيمة للسعر ولا يجب أن تساوي صفرًا.",
         "noItemSelected": "لا يوجد عنصر محدد للتعديل عليه.",
         "successfully": "تمت العملية بنجاح.",
-        "duplicateItem" :"يوجد عنصر مكرر بنفس وحدة القياس."
-
+        "duplicateItem": "يوجد عنصر مكرر بنفس وحدة القياس."
+    },
+    "updatePrice": {
+        "storable": "قابل للتخزين",
+        "service": "خدمة",
+        "expiryDate": "لها تاريخ انتهاء",
+        "title": "تحديث قائمة الأسعار",
+        "fixed": "ثابت",
+        "calculation": "حساب",
+        "amount": "المبلغ",
+        "percent": "نسبة"
     }
-
 }
