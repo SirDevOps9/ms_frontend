@@ -8,6 +8,7 @@ import { DynamicDialogRef } from 'primeng/dynamicdialog';
 })
 export class PopupPageComponent {
   @Input() title: string;
+  @Input() btnTitle: string = "Save"
   @Input() save: boolean=true;
   @Input() export: boolean=true;
   
@@ -17,6 +18,7 @@ export class PopupPageComponent {
   @Input() saveFunction: () => void;
   @Input() showCancel : boolean = true
   @Input() showSave : boolean = true
+  @Input() titleSave :string
   @Input() showSecondSave : boolean = true
   @Output() Submit = new EventEmitter<boolean>();
   @Output() Cancel = new EventEmitter<boolean>();

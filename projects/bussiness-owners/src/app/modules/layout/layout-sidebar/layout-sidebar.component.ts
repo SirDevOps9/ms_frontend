@@ -10,14 +10,27 @@ import { Router } from '@angular/router';
 export class LayoutSidebarComponent implements OnInit {
   @Output() sidebaropend = new EventEmitter<boolean>();
   @Input() currentLanguage: Cultures | string;
+  @Input() isSidebarClosed:any;
   sidebarOpen: boolean = false;
   activeTag: string;
+  // isSidebarClosed = true;
 
+  
+  toggleSidebar(): void {
+    this.isSidebarClosed = !this.isSidebarClosed;
+  }
+
+  toggleSubMenu(item: any): void {
+    
+    item.open = !item.open;
+
+    
+  }
   ngOnInit(): void {
     this.currentLanguage = this.languageService.getLang();
-    console.log('currentlang from buissines', this.currentLanguage);
     // console.log(this.RouterService.snapshot, "currentId");
     //this.activeTag()
+    
   }
   // toggleSidebar() {
   //   if (this.sidebarOpen == true) {
@@ -45,6 +58,7 @@ export class LayoutSidebarComponent implements OnInit {
     // this.activeTag = tag;
     return false;
   }
+  
   constructor(
     public router: RouterService,
     private cdr: ChangeDetectorRef,

@@ -131,9 +131,21 @@ export class ItemsProxyService {
   
   
  }
+
+//  item category tree
+ParentItemCategoriesDropDown(SearchTerm: string): Observable< {id:number , name:string}[]> {
+    let query = `ItemCategory/ParentItemCategoriesDropDown`;
+    if (SearchTerm) {
+      query += `&SearchTerm=${encodeURIComponent(SearchTerm)}`;
+    }
+    return this.httpService.get< {id:number , name:string}[]>(query)
+  
+  
+ }
+//  #########################
  GetUOMCategories(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<UOMCategoryDto>> {
 
-    let query = `UOMCategories?${pageInfo.toQuery}`;
+    let query = `UOM?${pageInfo.toQuery}`;
     if (searchTerm) {
       query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
     }
@@ -141,8 +153,8 @@ export class ItemsProxyService {
   
   
  }
- getItemCategoryById(id : number){
-  return this.httpService.get(`ItemCategory/${id}`)
+ getItemCategoryById(id : number):Observable<any>{
+  return this.httpService.get<any>(`ItemCategory/${id}`)
 
  }
  getItemCategoryTreeList() {
@@ -166,6 +178,9 @@ export class ItemsProxyService {
  }
  getUomById(id:number) {
   return this.httpService.get(`UOM/${id}`)//
+ }
+ DeleteUomLine(id:number) {
+  return this.httpService.delete(`UOM/${id}`)//
  }
 
  getUOMByCategoryID(id:number){
@@ -236,6 +251,9 @@ export class ItemsProxyService {
  ActivateAttrDifinition(obj:{id:number , status : boolean}) {
   return this.httpService.put(`ItemAttribute/ItemAttributeActivation` , obj) // edit
  }
+ systemUnitLookup() : Observable<{ id: number; nameAr: string; nameEn: string;systemUnitOfMeasureCategoryId : number }[]> {
+  return this.httpService.get(`SystemUOM/DropDown` ) // edit
+ }
  ActivateOperationalTag
 (obj:{id:number , status : boolean}) {
   return this.httpService.put(`OperationalTag/ActivateOperationalTag` , obj) // edit
@@ -295,7 +313,13 @@ export class ItemsProxyService {
     return this.httpService.put('ItemUom' , obj)
   }
   addUOMCategory(obj:addUOM) {
-    return this.httpService.post('UOM' , obj)
+    return this.httpService.post('UOMCategories' , obj)
+  }
+  EditUOMCategory(obj:addUOM) {
+    return this.httpService.put('UOMCategories/Edit' , obj)
+  }
+  getUOMCategoryById(id : number) : Observable<addUOM> {
+    return this.httpService.get(`UOMCategories/GetUOMCategoryWithUomsById/${id}`)
   }
   //  add attr de
   addAttrDifinition(obj:addAttributeDifintion) {

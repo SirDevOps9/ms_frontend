@@ -1,15 +1,30 @@
-<lib-page-content>
   <div class="company_address">
     <form [formGroup]="companyLegalForm">
       <div class="actions">
-        <button type="button" class="save body_b16" (click)="onSubmit()">
+        <!-- <button type="button" class="save body_b16" (click)="onSubmit()">
           {{ editMode ? ('Company.Save' | translate) : ('Company.Edit' | translate) }}
         </button>
         <div *ngIf="editMode">
           <button type="button" class="cancel body_b16" (click)="onDiscard(editMode)">
             Discard
           </button>
-        </div>
+     
+        </div> -->
+        <lib-button-micro
+        (click)="onSubmit()"
+        nameClass="save"
+        title="{{ editMode ? ('Company.Save' | translate) : ('Company.Edit' | translate) }}"
+        >
+
+        </lib-button-micro>
+        <lib-button-micro
+        *ngIf="editMode"
+        (click)="onDiscard(editMode)" 
+               nameClass="cancel"
+               title="{{'Cancel'|translate}}"
+        >
+
+        </lib-button-micro>
       </div>
 
       <div class="contact_form">
@@ -218,4 +233,3 @@
       </div> -->
     </form>
   </div>
-</lib-page-content>

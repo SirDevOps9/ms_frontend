@@ -44,8 +44,22 @@ export class LayoutComponent implements OnInit {
     this.currentLang = event;
   }
 
-  toggleSidebar(event: boolean) {
-    this.sidebarOpen = event;
+  // toggleSidebar(event: boolean) {
+  //   this.sidebarOpen = event;
+  // }
+  toggleSidebar(open: any) {
+    console.log("88888888888888");
+    
+    console.log("00" , open);
+    
+    this.sidebarOpen = open;
+  }
+  toggleSidebars(open:any){
+    console.log("88888888888888");
+    
+    console.log("00" , open);
+    this.sidebarOpen = open;
+
   }
   activeTag(id: any) {
     const targetElementId = document.getElementById(id);

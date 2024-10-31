@@ -4,7 +4,8 @@ export interface AppDto {
   id: number;
   moduleId: number;
   categoryName?: string;
-  name: string;
+  nameEn: string;
+  nameAr: string;
   description: string;
   logoId: string;
   price: Money;
