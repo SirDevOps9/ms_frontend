@@ -63,8 +63,9 @@ export class DataTableComponent implements OnInit, OnChanges {
   searchColumnsControl = new FormControl([]);
   isRtl: boolean = false;
   showColumnFilter: boolean 
-
+  adminPortalTab : boolean = false
   ngOnInit(): void {
+this.adminPortalTab=this.routerService.getCurrentUrl().includes('/bussiness-owners/manage/')
     this.isRtl = this.languageService.ar;
     this.showColumnFilter = this.tableConfigs?.columns?.some(x=>x.name == 'id')
     this.filtered_columns = this.tableConfigs.columns

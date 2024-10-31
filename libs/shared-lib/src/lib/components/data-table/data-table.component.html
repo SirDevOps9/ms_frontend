@@ -50,7 +50,7 @@
 
           <ng-content select="[caption]"> </ng-content>
           <lib-columns-selection
-            [ngClass]="{ 'rtl-position': isRtl, 'ltr-position': !isRtl }"
+            [ngClass]="{ 'rtl-position': isRtl, 'ltr-position': !isRtl , 'none': adminPortalTab}"
             class=" col-selection"
             [formControl]="searchColumnsControl"
             [options]="filtered_columns.slice(0,-1)"

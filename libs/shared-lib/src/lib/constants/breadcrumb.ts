@@ -69,8 +69,11 @@ export class BreadcrumbLabel {
     static DOMAIN = 'Domain Details';
     static Manage_Apps='Manage Apps';
     static BUSSINESS_OWNER ='Bussiness Owners';
+    static HELP_PAGES='Help Pages';
     static MANAGE_BUSSINESS_OWNER ='Manage Bussiness Owners';
     static SUBDOMAIN_INFO ='Subdomain Info';
+    static Edit_Help_Page='Edit Help Page';
+    static Add_Help_Page='Add Help Page';
     static COMPANIES_INFO ='Company Info';
     static LICENCE_INFO ='licence Info';
     static USER_INFO ='USER Info';
