@@ -209,6 +209,7 @@
     "changeAttributrDifinitionStatus": "change Attributr Difinition Status",
     "success": "Success",
     "uomSuccess" : "UOM Added Successfully",
+    "uomSuccessEdit" : "UOM Edited Successfully",
     "nameEn": "Name En",
     "conversionUOM": "conversion UOM ",
     "categorynameEn" : "Name En",
