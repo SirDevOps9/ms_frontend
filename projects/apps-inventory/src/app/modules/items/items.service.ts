@@ -17,6 +17,8 @@ import {
   AddOperatioalTag,
   AddVariantLine,
   AddWarehouse,
+  AttributesVariants,
+  EditAttributes,
   EditWareHouse,
   GetItemById,
   GetItemCategoryDto,
@@ -116,6 +118,8 @@ export class ItemsService {
   public ItemVariantsByItemIdDropDown = new BehaviorSubject<{ id: number; nameEn: string }[]>([]);
 
   public ItemVariantsById  =  new BehaviorSubject<[]>([]);
+  public ItemAttributesById  =  new BehaviorSubject<AttributesVariants []>([]);
+  public EditItemAttributesData  =  new BehaviorSubject<EditAttributes>({} as EditAttributes);
   public addVariantLineData = new BehaviorSubject<any>('');
   public ActivateVairiantGroupData = new BehaviorSubject<boolean>(false);
   public sendAttributeVariantData = new BehaviorSubject<variantGroupById[]>([]);
@@ -205,6 +209,8 @@ public userSubDomainModules =  new BehaviorSubject<any[]>([]);
   public defaultUnitObs  = this.defaultUnit.asObservable()
 
   public ItemVariantsByIdObs = this.ItemVariantsById.asObservable()
+  public ItemAttributesById$ = this.ItemAttributesById.asObservable()
+  public EditItemAttributesData$ = this.EditItemAttributesData.asObservable()
   public AccountsDropDownLookupObs = this.AccountsDropDownLookup.asObservable();
   public taxesLookupObs = this.taxesLookup.asObservable();
   public uomCodeLookupObs = this.uomCodeLookup.asObservable();
@@ -733,6 +739,26 @@ this.itemProxy.getUOMCategoryDropDown().subscribe({
       },
     });
   }
+  getItemAttributes(id:number){
+     this.itemProxy.getItemAttributes(id).subscribe({
+      next: (res: any) => {
+        this.ItemAttributesById.next(res);
+      },
+    });
+  }
+  EditItemAttributes(obj :EditAttributes){
+     this.itemProxy.EditItemAttributes(obj).subscribe({
+      next: (res: any) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('itemType.success'),
+          this.languageService.transalte('itemType.AttributeAdded')
+        );
+        this.EditItemAttributesData.next(res);
+        this.ItemGetItemUomById.next(res);
+
+      },
+    });
+  }
 
   getItemGetItemUomById(id: number){
     this.itemProxy.getItemGetItemUomById(id).subscribe({
@@ -1115,12 +1141,7 @@ this.itemProxy.getUOMCategoryDropDown().subscribe({
       );
       this.sendAttrDefinition.next(res);
       this.router.navigateTo('/masterdata/attribute-definition')
-      let audio = new Audio();
-
-
-      audio.src = './assets/notification-sound/done.wav';
-      audio.load();
-      audio.play();
+     
 
     });
   }
@@ -1317,13 +1338,7 @@ this.itemProxy.getUOMCategoryDropDown().subscribe({
 
 
         );
-        let audio = new Audio();
-
-
-        audio.src = './assets/notification-sound/done.wav';
-        audio.load();
-        audio.play();
-
+      
 
         // this.router.navigateTo(`/masterdata/item-definition` )
       }

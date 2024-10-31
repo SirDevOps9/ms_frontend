@@ -122,11 +122,7 @@ export class EditAttributeDefinitionComponent implements OnInit {
         this.isLastLineSaved = true;
         this.updateDuplicateLines();
           this.attributeGroups();
-          let audio = new Audio();
-
-          audio.src = 'assets/notification-sound/done.wav';
-          audio.load();
-          audio.play();
+      
       }
     }
   }

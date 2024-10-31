@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
-import { addBarcode, AddGeneralDto, AddItemCategory, AddItemDefinitionDto, AddOperatioalTag, AddVariantLine, AddWarehouse, EditWareHouse, GetItemById, GetItemCategoryDto, getUomByItemId, GetWarehouseList, IOperationalTag, itemDefinitionDto, ItemTypeDto, Iuom, StockInDto, UOMCategoryDto, UomDefault } from './models';
+import { addBarcode, AddGeneralDto, AddItemCategory, AddItemDefinitionDto, AddOperatioalTag, AddVariantLine, AddWarehouse, AttributesVariants, EditAttributes, EditWareHouse, GetItemById, GetItemCategoryDto, getUomByItemId, GetWarehouseList, IOperationalTag, itemDefinitionDto, ItemTypeDto, Iuom, StockInDto, UOMCategoryDto, UomDefault } from './models';
 import { EditItemDefinitionDto } from './models/editItemDefinitionDto';
 import { variantGroupById } from './models/variantGroupById';
 import { itemAttributeValues, itemAttributeValuesByID } from './models/itemAttributeValues';
@@ -194,6 +194,12 @@ export class ItemsProxyService {
 
  getItemVariants(id:number){
   return this.httpService.get(`Item/GetItemVariants/${id}`)
+ }
+ getItemAttributes(id:number){
+  return this.httpService.get(`Item/GetItemAttributes/${id}`)
+ }
+ EditItemAttributes(obj : EditAttributes){
+  return this.httpService.put(`Item/EditItemAttributesVariant` , obj)
  }
 
  getUOMByCategoryID(id:number){
