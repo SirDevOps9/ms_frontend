@@ -538,7 +538,7 @@ export class SalesService {
         this.loaderService.hide();
         this.toasterService.showError(
           this.languageService.transalte('messages.error'),
-          (err.errorMessages)
+          (err.message)
         );
       },
     });

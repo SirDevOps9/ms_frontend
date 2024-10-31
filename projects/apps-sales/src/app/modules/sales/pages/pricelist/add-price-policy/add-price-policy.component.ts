@@ -378,7 +378,7 @@ if( this.addForm.value.policyItemsList.length>0){
       )),
       };
 
-      this.salesService.addPricePolicy(transformedFormValue)
+      this.salesService.addPricePolicy(transformedFormValue);
     } else {
       this.toasterService.showError(
         this.languageService.transalte('messages.error'),
