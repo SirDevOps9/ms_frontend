@@ -28,5 +28,6 @@ export * from './currencyRateDto';
 export * from './sharedEnums';
 export * from './view-payment-in-dto';
 export * from './view-payment-out-dto';
+export * from './priceListDto';
 
 

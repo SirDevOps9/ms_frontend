@@ -3,13 +3,14 @@
     "CustomerCategory": "Customer Category",
     "AddCustomerCategory": "Add Customer Category",
     "EditCustomerCategory": "Edit Customer Category",
-    "CustomerDefinition":"Customer Definition",
-    "AddCustomerDefinition":"Add Customer Definition",
-    "EditCustomerDefinition":"Edit Customer Definition",
-    "CustomerOpeningBalanceList":"Customer Opening Balance list",
+    "CustomerDefinition": "Customer Definition",
+    "AddCustomerDefinition": "Add Customer Definition",
+    "EditCustomerDefinition": "Edit Customer Definition",
+    "CustomerOpeningBalanceList": "Customer Opening Balance list",
     "AddCustomerOpeningBalance": "Add Customer Opening Balance",
     "EditCustomerOpeningBalance":"Edit Customer Opening Balance",
-    "ViewCustomerOpeningBalance":"View Customer Opening Balance"
+    "ViewCustomerOpeningBalance":"View Customer Opening Balance",
+    "PricePolicy":"Price Policy"
   },
   "dir": "ltr",
   "Welcome": "Welcome",
@@ -18,27 +19,25 @@
   "DeleteError": "Error in Delete",
   "LoadError": "Error in loading Data",
   "add_new_line": "Add New Line",
-  "total" : "Total",
-  "errorSum":"amount of journal line is not equal to sum amount of balance",
+  "total": "Total",
+  "errorSum": "amount of journal line is not equal to sum amount of balance",
   "Error": "Error",
-  "InvalidAmount":"please enter valid debit or credit amounts",
-  "Distribution":"cannot Distribution on credit",
+  "InvalidAmount": "please enter valid debit or credit amounts",
+  "Distribution": "cannot Distribution on credit",
   "DeletedSuccessfully": " Deleted Successfully",
-  "AlreadySelected":"customer Already Selected",
-  "deleted" : "Opening Balance Deleted Successfully",
-  "successAdd":"Opening Balance Added Successfully",
-  "dueDate" : "Due Date Distribution",
-  "Success":"Success",
-  "Cancel" : "Cancel",
-  "Save" : "Save",
-
-
+  "AlreadySelected": "customer Already Selected",
+  "deleted": "Opening Balance Deleted Successfully",
+  "successAdd": "Opening Balance Added Successfully",
+  "dueDate": "Due Date Distribution",
+  "Success": "Success",
+  "Cancel": "Cancel",
+  "Save": "Save",
   "Table": {
     "Actions": "Actions",
     "Edit": "Edit",
     "Delete": "Delete",
     "Add": "Create",
-    "Search":"Search"
+    "Search": "Search"
   },
   "Toaster": {
     "Confirm": {
@@ -47,8 +46,8 @@
       "ConfirmButtonTexttodelete": "Yes, delete it!",
       "CancelButtonText": "Cancel",
       "ConfirmButtonTexttochangstatus": "Yes",
-      "Activate":"Activate",
-      "Deactivate":"Deactivate"
+      "Activate": "Activate",
+      "Deactivate": "Deactivate"
     }
   },
   "Layout": {
@@ -272,7 +271,24 @@
       "DiscountAccount": "Discount Account",
       "Save" : "Save",
       "Discard":"Discard"
-    }
+    },
+    "PricePolicy":{
+    "Code": "Code ",
+    "Name": "Name ",
+    "PricePolicyDeleted":"Price Policy Deleted"
+  },
+  "ItemsAdvancedSearch": {
+    "ItemSearch": "Item Search",
+    "IsStorable": "IsStorable",
+    "IsService": "IsService",
+    "HasExpiryDate": "Has Expiry Date",
+    "ItemCode": "Item Code",
+    "ItemName": "Item Name",
+    "ItemUOM": "Item UOM",
+    "ItemVariant": "Item Variant",
+    "ItemCategory": "Item Category",
+    "Confirm": "Confirm"
+  }
 
 
 }

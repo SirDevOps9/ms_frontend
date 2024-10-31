@@ -10,8 +10,8 @@ export interface EditVendorCategoryDto {
     purchaseReturnAccountName: string
     discountAccountId: number
     discountAccountName: string
-    priceListId: number
-    priceListName: string
+    pricePolicyId: number
+    pricePolicyName: string
     paymentTermId: number
     paymentTermName: string
     marketType: string

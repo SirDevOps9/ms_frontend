@@ -58,8 +58,8 @@ export interface GetVendorById {
     id: number;
     paymentTermId?: number;
     paymentTermName?: string;
-    priceListId?: number;
-    priceListName?: string;
+    pricePolicyId?: number;
+    ppricePolicyName?: string;
     creditLimit?: number;
     currencyId?: number;
     currencyName?: string;
