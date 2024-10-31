@@ -68,7 +68,7 @@ export class ItemDefinitionUomComponent implements OnInit, OnDestroy {
       isActive: [item.isActive || false],
       isBaseUnit: [item.isBaseUnit || false],
       shortName: [item.shortName || ''],
-      unitUsages:[item.name || '']
+      unitUsages:[item.name || null]
 
 
     });
