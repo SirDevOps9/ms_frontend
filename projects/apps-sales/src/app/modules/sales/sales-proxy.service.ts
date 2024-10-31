@@ -185,7 +185,7 @@ export class SalesProxyService {
     return this.httpService.get<PaginationVm<GetAllCustomerOpeningBalanceDto>>(query);
   }
 
-  getAllPriceList(
+  getAllPricePolicy(
     searchTerm: string,
     pageInfo: PageInfo
   ): Observable<PaginationVm<PricelistDto>> {
@@ -196,11 +196,16 @@ export class SalesProxyService {
     return this.httpService.get<PaginationVm<PricelistDto>>(query);
   }
 
-  exportPriceList(searchTerm: string | undefined): Observable<PricelistDto[]> {
+  exportPricePolicy(searchTerm: string | undefined): Observable<PricelistDto[]> {
     let query = `PricePolicy/Export?`;
     if (searchTerm) {
       query += `searchTerm=${encodeURIComponent(searchTerm)}`;
     }
     return this.httpService.get<PricelistDto[]>(query);
+  }
+  deletePricePolicy(id: number): Observable<boolean> {
+    return this.httpService.delete<boolean>(
+      `PricePolicy/${id}`
+    );
   }
 }

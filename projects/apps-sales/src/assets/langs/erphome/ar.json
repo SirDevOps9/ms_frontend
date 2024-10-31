@@ -10,7 +10,7 @@
     "AddCustomerOpeningBalance": "إضافة رصيد افتتاحي للعميل",
     "EditCustomerOpeningBalance": "تعديل الرصيد الافتتاحي للعميل",
     "ViewCustomerOpeningBalance": "عرض الرصيد الافتتاحي للعميل",
-    "PriceList": "سياسة التسعير"
+    "PricePolicy": "سياسة التسعير"
   },
   "dir": "rtl",
   "Welcome": "مرحبا",
@@ -272,5 +272,11 @@
     "DiscountAccount": "حساب الخصم",
     "Discard": "تجاهل",
     "Save": "حفظ"
+  },
+  "PricePolicy":{
+    "Code": "كود ",
+    "Name": "اسم ",
+    "PricePolicyDeleted":"تم حذف سياسة الأسعار"
+
   }
 }

@@ -107,8 +107,8 @@ export class SalesService {
   public customerOpeningBalanceDataSource = new BehaviorSubject<GetAllCustomerOpeningBalanceDto[]>([]);
   customerOpeningBalanceObservable = this.customerOpeningBalanceDataSource.asObservable();
 
-  public priceListDataSource = new BehaviorSubject<PricelistDto[]>([]);
-  priceListDataSourceeObservable = this.priceListDataSource.asObservable();
+  public pricePolicyDataSource = new BehaviorSubject<PricelistDto[]>([]);
+  priceListDataSourceeObservable = this.pricePolicyDataSource.asObservable();
 
   private exportsPriceListDataSource = new BehaviorSubject<PricelistDto[]>([]);
   public exportsPriceListObservable = this.exportsPriceListDataSource.asObservable();
@@ -459,19 +459,46 @@ export class SalesService {
     });
   }
 
-  getAllPriceList(quieries: string, pageInfo: PageInfo) {
-    this.salesProxy.getAllPriceList(quieries, pageInfo).subscribe((response) => {
-      this.priceListDataSource.next(response.result);
+  getAllPricePolicy(quieries: string, pageInfo: PageInfo) {
+    this.salesProxy.getAllPricePolicy(quieries, pageInfo).subscribe((response) => {
+      this.pricePolicyDataSource.next(response.result);
       this.currentPageInfo.next(response.pageInfoResult);
     });
   }
 
-  exportPriceList(searchTerm: string | undefined) {
-    this.salesProxy.exportPriceList(searchTerm).subscribe({
+  exportPricePolicy(searchTerm: string | undefined) {
+    this.salesProxy.exportPricePolicy(searchTerm).subscribe({
       next: (res) => {
         this.exportsPriceListDataSource.next(res);
       },
     });
+  }
+
+  async deletePricePolicy(id: number) {
+    const confirmed = await this.toasterService.showConfirm('Delete');
+    if (confirmed) {
+      this.loaderService.show();
+
+      this.salesProxy.deletePricePolicy(id).subscribe({
+        next: (res) => {
+          this.toasterService.showSuccess(
+            this.languageService.transalte('Success'),
+            this.languageService.transalte('PricePolicy.PricePolicyDeleted')
+          );
+          this.loaderService.hide();
+          let data = this.pricePolicyDataSource.getValue();
+          const updatedOb = data.filter((elem) => elem.id !== id);
+          this.pricePolicyDataSource.next(updatedOb);
+        },
+        error: () => {
+          this.loaderService.hide();
+          this.toasterService.showError(
+            this.languageService.transalte('Error'),
+            this.languageService.transalte('DeleteError')
+          );
+        },
+      });
+    }
   }
 
 

@@ -10,7 +10,7 @@
     "AddCustomerOpeningBalance": "Add Customer Opening Balance",
     "EditCustomerOpeningBalance":"Edit Customer Opening Balance",
     "ViewCustomerOpeningBalance":"View Customer Opening Balance",
-    "PriceList":"Price Policy"
+    "PricePolicy":"Price Policy"
   },
   "dir": "ltr",
   "Welcome": "Welcome",
@@ -273,7 +273,12 @@
       "DiscountAccount": "Discount Account",
       "Save" : "Save",
       "Discard":"Discard"
-    }
+    },
+    "PricePolicy":{
+    "Code": "Code ",
+    "Name": "Name ",
+    "PricePolicyDeleted":"Price Policy Deleted"
+  }
 
 
 }
