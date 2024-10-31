@@ -179,6 +179,9 @@ ParentItemCategoriesDropDown(SearchTerm: string): Observable< {id:number , name:
  getUomById(id:number) {
   return this.httpService.get(`UOM/${id}`)//
  }
+ DeleteUomLine(id:number) {
+  return this.httpService.delete(`UOM/${id}`)//
+ }
 
  getUOMByCategoryID(id:number){
   return this.httpService.get(`UOMCategories/GetUOMCategoryWithUomsById/${id}`)//
@@ -248,7 +251,7 @@ ParentItemCategoriesDropDown(SearchTerm: string): Observable< {id:number , name:
  ActivateAttrDifinition(obj:{id:number , status : boolean}) {
   return this.httpService.put(`ItemAttribute/ItemAttributeActivation` , obj) // edit
  }
- systemUnitLookup() : Observable<{ id: number; nameAr: string; nameEn: string }[]> {
+ systemUnitLookup() : Observable<{ id: number; nameAr: string; nameEn: string;systemUnitOfMeasureCategoryId : number }[]> {
   return this.httpService.get(`SystemUOM/DropDown` ) // edit
  }
  ActivateOperationalTag
@@ -311,6 +314,9 @@ ParentItemCategoriesDropDown(SearchTerm: string): Observable< {id:number , name:
   }
   addUOMCategory(obj:addUOM) {
     return this.httpService.post('UOMCategories' , obj)
+  }
+  EditUOMCategory(obj:addUOM) {
+    return this.httpService.put('UOMCategories/Edit' , obj)
   }
   getUOMCategoryById(id : number) : Observable<addUOM> {
     return this.httpService.get(`UOMCategories/GetUOMCategoryWithUomsById/${id}`)

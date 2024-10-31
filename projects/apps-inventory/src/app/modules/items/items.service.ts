@@ -39,7 +39,7 @@ import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { variantGroupById } from './models/variantGroupById';
 import { itemAttributeValues } from './models/itemAttributeValues';
 import { getBarcodeById } from './models/getBarcodeById';
-import { addUOM, AddUom } from './models/addUom';
+import { addUOM, AddUom, UoM } from './models/addUom';
 import { addAttributeDifintion, IAttrributeDifinitionResult } from './models/AttrbuteDiffintion';
 import { OperationType } from './models/enums';
 import { VieItemDefinitionDto } from './models/VieItemDefinitionDto';
@@ -92,7 +92,7 @@ export class ItemsService {
   saveItemDefGeneral$ = this.saveItemDefGeneral.asObservable()
   getItemDefGeneral = new BehaviorSubject<AddGeneralDto>({} as AddGeneralDto);
   getItemDefGeneral$ = this.getItemDefGeneral.asObservable()
-  sendSystemUnitLookup = new BehaviorSubject<{ id: number; nameAr: string; nameEn: string }[]>([])
+  sendSystemUnitLookup = new BehaviorSubject<{ id: number; nameAr: string; nameEn: string ; systemUnitOfMeasureCategoryId : number }[]>([])
   sendSystemUnitLookup$ = this.sendSystemUnitLookup.asObservable()
 
 
@@ -851,9 +851,9 @@ export class ItemsService {
             this.languageService.transalte('UOM.success'),
             this.languageService.transalte('UOM.delete')
           );
-
+          
           const currentUom = this.GetUOMCategoriesDataSource.getValue();
-          const updatedUOM = currentUom.filter((c: any) => c.id !== id);
+          const updatedUOM = currentUom.filter((c: any) => c.uomCategoryId !== id);
           this.GetUOMCategoriesDataSource.next(updatedUOM);
         },
       });
@@ -877,6 +877,27 @@ export class ItemsService {
           const currentUom = this.uomCodeLookup.getValue();
           const updatedUOM = currentUom.filter((c: any) => c.id !== id);
           this.uomCodeLookup.next(updatedUOM);
+        },
+      });
+    }
+  }
+  async DeleteUomLine(id: number) {
+ 
+    const confirmed = await this.toasterService.showConfirm(
+      this.languageService.transalte('ConfirmButtonTexttodelete')
+    );
+    if (confirmed) {
+      this.itemProxy.DeleteUomLine(id).subscribe({
+        next: (res) => {
+      
+          this.toasterService.showSuccess(
+            this.languageService.transalte('UOM.success'),
+            this.languageService.transalte('UOM.delete')
+          );
+
+          const currentUom : any = this.getUOMCategoryByIdData.getValue();
+          const updatedUOM : addUOM = currentUom.uoMs.filter((c: any) => c.id !== id);
+          this.getUOMCategoryByIdData.next(updatedUOM);
         },
       });
     }
@@ -971,6 +992,17 @@ export class ItemsService {
   }
   addUOMCategory(obj: addUOM) {
     this.itemProxy.addUOMCategory(obj).subscribe((res) => {
+      this.router.navigateTo(`/masterdata/uom` )
+
+      this.toasterService.showSuccess(
+        this.languageService.transalte('UOM.success'),
+        this.languageService.transalte('UOM.uomSuccess')
+      );
+      this.sendUOMCategory.next(res);
+    });
+  }
+  EditUOMCategory(obj: addUOM) {
+    this.itemProxy.EditUOMCategory( obj).subscribe((res) => {
       this.router.navigateTo(`/masterdata/uom` )
 
       this.toasterService.showSuccess(
