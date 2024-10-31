@@ -70,12 +70,14 @@ export class ItemDefinitionAttributesVariantsComponent implements OnInit {
       }),
     });
 
-    // this.itemService.EditItemAttributesData.subscribe(res=>{
-    //   console.log(res)
-    //   if(!!res){
-    //     this.getItemVariants()
-    //   }
-    // });
+    this.itemService.ItemGetItemUomByIdObs.subscribe(res=>{
+      if(!!res ){
+        this.AttributeForm.clear()
+        console.log(res)
+
+        this.getItemVariants()
+      }
+    });
 
 
   }
@@ -127,6 +129,8 @@ export class ItemDefinitionAttributesVariantsComponent implements OnInit {
           this.itemService.getItemAttributes(this.id)
           this.itemService.ItemAttributesById$.subscribe(data => {
             if (!!data) {
+              this.AttributeForm.clear()
+
               console.log(data);
               this.dataItemVariantsById = data;
           
@@ -143,8 +147,9 @@ export class ItemDefinitionAttributesVariantsComponent implements OnInit {
                 this.AttributeForm.push(fg);
           
                 element.itemAttributeGroupDetails.forEach(item => {
+                  console.log(item)
                   const attributeNameGroup = this.fb.group({
-                      detailName: item.nameEn || '',
+                      detailName: item.attributeId || '',
                    attributeId : item.attributeId,
                     
                   });
@@ -206,11 +211,13 @@ export class ItemDefinitionAttributesVariantsComponent implements OnInit {
       console.log(res);
       if (res) {
         // Clear the form array only once before adding new items
-        const attributeNameArray = form.get('attributeName') as FormArray;
+        const attributeNameArray = form.get('attributeGroupDetails') as FormArray;
         attributeNameArray.clear();
+        const attributeNamesArray = form.get('attributeName') as FormArray;
+        attributeNamesArray.clear();
     
         // Iterate over attributeDetails and push each item
-        res.values.forEach((item: any) => {
+        res.attributeDetails.forEach((item: any) => {
           const attributeValues = this.fb.group({
             detailName: item || '',
             attributeId: item.attributeId || null,
@@ -219,6 +226,17 @@ export class ItemDefinitionAttributesVariantsComponent implements OnInit {
           });
           attributeNameArray.push(attributeValues);
         });
+        res.values.forEach((element : any) => {
+         const attributeValuesNames = this.fb.group({
+          detailName: element || '',
+          // attributeId: element || null,
+        });
+        attributeNamesArray.push(attributeValuesNames)
+        });
+      
+        
+
+
         form.get('name')?.setValue(res.attributeName)
         form.get('attributeGroupId')?.setValue(res.attributeGroupId)
       }
