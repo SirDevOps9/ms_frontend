@@ -19,7 +19,7 @@ export class EditCategoryUomComponent {
   UOMCategoryDropDown : UomCodeLookup[] = []
   @Output() dataFetched = new EventEmitter<any>();
   @Input() selectedName: string;
-
+  selectedData: any;
   constructor(
     public config: DynamicDialogConfig,
     public dialogService: DialogService,
@@ -74,15 +74,16 @@ export class EditCategoryUomComponent {
   }
 
   onChanged(selectedValue: any) {
-
-    this.itemsService.getUOMCategoryDropDownCategoryId(selectedValue)
+    this.itemsService.getUOMCategoryDropDownCategoryId(selectedValue);
     this.itemsService.uOMCategoryDropDownByIdObs.subscribe((data) => {
-
-      this.dataFetched.emit(data);
+      this.selectedData = data;
       console.log(data);
-      this.ref.close(data);
     });
+  }
 
+  onSave() {
+    this.dataFetched.emit(this.selectedData);
+    this.ref.close(this.selectedData);
   }
   onCancel() {
     this.ref.close();
