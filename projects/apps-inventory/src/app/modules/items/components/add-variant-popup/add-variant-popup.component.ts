@@ -78,14 +78,14 @@ export class AddVariantPopupComponent implements OnInit {
   onSubmit() {
     if (!this.formsService.validForm(this.itemDefinitionForm)) return;
     let data = {...this.itemDefinitionForm.value , itemId : this.config.data}
-    this.itemsService.addVariantLine(data)
-    this.itemsService.addVariantLineDataObs.subscribe(res=>{
-      if(res) {
+    // this.itemsService.addVariantLine(data)
+    // this.itemsService.addVariantLineDataObs.subscribe(res=>{
+    //   if(res) {
         let attributeName : string = this.attributeName.find((elem : any)=>elem.id == this.itemDefinitionForm.value.attributeGroupId).nameEn
         console.log(attributeName)
         this.ref.close(attributeName)
-      }
-    })
+      
+    // })
 
 
   }
