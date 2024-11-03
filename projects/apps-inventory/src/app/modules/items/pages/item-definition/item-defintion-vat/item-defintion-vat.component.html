@@ -1,0 +1,107 @@
+<lib-page-content [title]="'itemDefinition.TaxList' | translate" [subTitle]="'itemDefinition.TaxList' | translate">
+  <div>
+    <div class="user_page">
+      <lib-data-table
+        [items]="tableData"
+        className="p-datatable-gridlines"
+        [currentPageResult]="currentPageInfo"
+        (pageChange)="onPageChange($event)"
+
+        [tableConfigs]="{
+          allowPagination: false,
+          allowServerPagination: true,
+          dataKey: 'id',
+          pageSize: 10,
+          columns: [
+            {
+              name: 'variantCode',
+              headerText: ('itemDefinition.variantID' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'variantEnName',
+              headerText: ('itemDefinition.variantName' | translate),
+              isGlobalFilter: true,
+              isSortable: true,
+              template: variantName
+            },
+
+            
+          ]
+        }"
+      >
+
+      <!-- {
+        name: 'id',
+      headerText: ('itemDefinition.actions' | translate),
+      template: actions
+    } -->
+
+        <ng-container search>
+          <lib-form-group>
+            <!-- <lib-text-input
+            type="text"
+            [placeholder]="'itemDefinition.search' | translate"
+            [(ngModel)]="searchTerm"
+            (keyUp)="onSearchChange()"
+          ></lib-text-input> -->
+          </lib-form-group>
+          </ng-container>
+        <ng-container action>
+
+          <div>
+            <lib-export
+            (exportClick)="exportClick($event)"
+            [exportData]="exportData"
+            [exportColumns]="exportColumns"
+            [ExportName]="'Item Definition'"
+          >
+          </lib-export>
+          </div>
+          <!--  -->
+          <div>
+            <!-- <lib-button-micro
+            [title]="'create' | translate"
+            nameClass="save"
+            iconName="pi pi-plus"
+
+          >
+          </lib-button-micro> -->
+          </div>
+          </ng-container>
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+          <ng-template #variantName let-variantName>
+            <div class="actions flex align-items-end justify-content-start gap-6">
+
+              <p>{{variantName.variantEnName}}</p>
+              <p>{{variantName.variantArName}}</p>
+              
+            </div>
+          </ng-template>
+
+
+        <ng-template #actions let-action>
+          <div class="actions flex align-items-center">
+            <img src="assets/images/table/edit.svg" alt="" />
+            <img src="assets/images/table/delete.svg" alt="" />
+            <img src="assets//images/table/view.svg" alt=""  />
+          </div>
+        </ng-template>
+      </lib-data-table>
+    </div>
+  </div>
+</lib-page-content>

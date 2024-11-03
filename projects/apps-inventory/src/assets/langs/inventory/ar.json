@@ -26,6 +26,7 @@
     "actions": "الإجراءات",
       "saveUom" : "حفظ وحدة القياس",
       "select" : "اختار الوحده",
+      "AttributeAdded" : "تم اضافة الوحده",
 
     "Add": "إضافة",
     "search": "بحث",
@@ -80,6 +81,7 @@
     "variantSelect": "اختيار المتغير",
     "attributeCode": "رمز الخاصية",
     "attributeName": "اسم الخاصية",
+    "attributeValues": "ٌقيمة الخاصية",
     "success": "نجاح",
     "deleteVariant": "تم حذف مجموعة الخصائص بنجاح",
       "addVariant": "تم اضافه مجموعة الخصائص بنجاح",

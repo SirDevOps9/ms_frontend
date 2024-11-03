@@ -92,15 +92,15 @@ export class BreadcrumbLabel {
     static CURRENCY_DEFINITION ='Currency Definition';
     static ADD_CURRENCY_DEFINITION ='Add Currency Definition';
 
- 
+
 
     static JOURNAL_OPENING_BALANCE ='Journal Entry Opening Balance';
     static ADD_JOURNAL_OPENING_BALANCE ='Add Journal Entry Opening Balance';
     static EDIT_JOURNAL_OPENING_BALANCE ='Edit Journal Entry Opening Balance';
     static VIEW_JOURNAL_OPENING_BALANCE ='View Journal Entry Opening Balance';
-    static  ITEM_DIFINITION ='item Definition';
-    static  ADD_ITEM_DIFINITION ='Add Item Definition';
-    static  EDIT_ITEM_DIFINITION ='Edit Item Definition';
+    static  ITEM_DIFINITION ='Item catalog';
+    static  ADD_ITEM_DIFINITION ='Add Item catalog';
+    static  EDIT_ITEM_DIFINITION ='Edit Item catalog';
     static  ITEM_TYPE ='Item Type';
     static  ITEM_CATEGORY ='Item Category';
     static  WARE_HOUSE ='Warehouse';
@@ -112,8 +112,8 @@ export class BreadcrumbLabel {
     static  Edit_UOM ='edit uom';
     static GENERAL_ITEMdEFINITION = 'General Item Defintion'
     static attributes_ITEMdEFINITION = 'Attributes & Variants Item Defintion'
-
-    // attr attribute-definition 
+    static EditItembarcodedefinition = 'EditItembarcodedefinition'
+    // attr attribute-definition
     static  Attribute_Definition = 'Attribute Definition';
     static  Operational_Tag = 'Operational Tag';
     static  Add_Operational_Tag = 'Add Operational Tag';
@@ -124,7 +124,7 @@ export class BreadcrumbLabel {
     static  ITEMS_CATEGORY ='BreadCrumb.ItemsCategory';
     static  STOCKIN ='Stock In';
     static  ADD_STOCKIN ='Add Stock In';
-   
+
     static COST_CENTER ='Cost Center';
     static PAYMENT_TERM_ADD ='BreadCrumb.AddPaymentterm';
     static PAYMENT_TERM_EDIT ='BreadCrumb.EditPaymentterm';
@@ -132,8 +132,8 @@ export class BreadcrumbLabel {
     static PAYMENT_METHOD_ADD ='BreadCrumb.AddPaymentMethod';
     static PAYMENT_METHOD_EDIT ='BreadCrumb.EditPaymentMethod';
     static PAYMENT_METHOD_VIEW ='BreadCrumb.ViewPaymentMethod';
-    
-    
+
+
     static PAYMENT_IN ='BreadCrumb.PaymentIn';
     static ADD_PAYMENT_IN ='PaymentIn.addpaymentin';
     static EDIT_PAYMENT_IN ='BreadCrumb.EditPaymentIn';

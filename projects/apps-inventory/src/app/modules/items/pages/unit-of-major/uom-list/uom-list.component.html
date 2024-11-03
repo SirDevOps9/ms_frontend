@@ -42,8 +42,8 @@
                 isGlobalFilter: true,
                 isSortable: true
               },
-             
-  
+
+
               {
                 name: 'id',
                 headerText: ('UOM.actions' | translate),
@@ -85,18 +85,10 @@
                     ></lib-text-input>
                   </lib-form-group>
                 </div> -->
-              
-  
+
+
                 <div class=" flex flex-auto justify-content-end align-items-center gap-2">
-                  <div>
-                    <lib-button-micro
-                      [title]="'UOM.AddNew' | translate"
-                      nameClass="save"
-                      iconName="pi pi-plus"
-                      (click)="Add()"
-                    >
-                    </lib-button-micro>
-                  </div>
+
                   <!--  -->
                   <div>
                     <lib-export
@@ -104,16 +96,26 @@
                       [exportData]="exportData"
                       [exportColumns]="exportColumns"
                       [ExportName]="'Unit Of Measure'"
-                  
+
                     >
                     </lib-export>
+                  </div>
+
+                  <div>
+                    <lib-button-micro
+                      [title]="'create' | translate"
+                      nameClass="save"
+                      iconName="pi pi-plus"
+                      (click)="Add()"
+                    >
+                    </lib-button-micro>
                   </div>
                   <!--  -->
                 </div>
               </div>
             </div>
           </ng-container>
-  
+
           <ng-template #actions let-action>
             <div class="actions flex align-items-center">
               <lib-button-micro nameClass="table_button_edit" (click)="onEdit(action)">
@@ -126,4 +128,3 @@
       </div>
     </div>
   </lib-page-content>
- 

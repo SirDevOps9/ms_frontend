@@ -16,10 +16,9 @@ import { Title } from '@angular/platform-browser';
   styleUrl: './currency-conversion.component.scss',
 })
 export class CurrencyConversionComponent {
-  constructor(
-    private generalSettingService: GeneralSettingService
-  ) {
-  }
+  SortBy?: number;
+  SortColumn?: string;
+  constructor(private generalSettingService: GeneralSettingService) {}
   tableData: CurrencyConversionDto[];
   currencies: CountryDto[] = [];
   currentPageInfo: PageInfoResult = {};
@@ -63,11 +62,13 @@ export class CurrencyConversionComponent {
     this.getCurrencyConversionList();
     this.getCurrencies();
   }
-  exportClick(e?: Event) {
-    this.exportcurrencyData(this.searchTerm);
+  exportedColumns(obj: { SortBy: number; SortColumn: string }) {
+    this.SortBy = obj.SortBy;
+    this.SortColumn = obj.SortColumn;
   }
-  exportcurrencyData(searchTerm: string) {
-    this.generalSettingService.exportcurrencyData(searchTerm);
+
+  exportClick(){
+    this.generalSettingService.exportcurrencyData(this.searchTerm ,this.SortBy,this.SortColumn);
     this.generalSettingService.exportsCurrencyListDataSourceObservable.subscribe((res) => {
       this.exportData = res;
     });

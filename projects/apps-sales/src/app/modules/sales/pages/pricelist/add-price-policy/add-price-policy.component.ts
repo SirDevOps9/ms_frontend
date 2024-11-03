@@ -108,7 +108,7 @@ export class AddPricePolicyComponent implements OnInit {
       rowForm.get('uomOptions')?.setValue(uomOptions);
       rowForm.get('uomId')?.reset(); // Reset the UOM value to avoid conflicts
       rowForm.get('uomId')?.setValue(selectedItem.uomId);
-      rowForm.get('uomName')?.setValue(selectedItem.uomNameAr);
+      rowForm.get('uomName')?.setValue(selectedItem.uomNameEn);
       rowForm.get('itemName')?.setValue(selectedItem.itemName);
       rowForm.get('itemVariantId')?.setValue(selectedItem.itemVariantId);
       rowForm.get('itemVariantName')?.setValue(selectedItem.itemVariantName);
@@ -124,7 +124,7 @@ export class AddPricePolicyComponent implements OnInit {
       rowForm.get('uomNameAr')?.setValue(selectedItem.uomNameAr);
       rowForm.get('uomNameEn')?.setValue(selectedItem.uomNameEn);
       rowForm.get('categoryType')?.setValue(selectedItem.categoryType);
-      rowForm.get('id')?.setValue(selectedItem.id);
+      rowForm.get('id')?.setValue(rowIndex+1);
 
       const isDuplicate = this.pricePolicyFormArray.controls.some((element: any, index: number) => {
         if (index !== rowIndex) {
@@ -187,7 +187,7 @@ export class AddPricePolicyComponent implements OnInit {
     const rowForm = this.pricePolicyFormArray.at(index) as FormGroup;
     rowForm.get('priceWithVat')?.setValue(0);
     const taxRatio: any = rowForm.get('taxRatio')?.value
-    let priceWithVat = Number(price) + (Number(price) * taxRatio)
+    let priceWithVat = Number(price) +( (Number(price) * taxRatio)/100)
     if (rowForm.get('isVatApplied')?.value == true) {
       rowForm.get('priceWithVat')?.setValue(priceWithVat);
     } else {
@@ -269,6 +269,7 @@ export class AddPricePolicyComponent implements OnInit {
         rowForm.get('itemId')?.setValue(selectedItems.itemId)
         rowForm.get('itemCode')?.setValue(selectedItems.itemCode)
         rowForm.get('taxId')?.setValue(selectedItems.taxId)
+        rowForm.get('id')?.setValue(index+1)
       }
 
     });
@@ -378,7 +379,7 @@ if( this.addForm.value.policyItemsList.length>0){
       )),
       };
 
-      this.salesService.addPricePolicy(transformedFormValue)
+      this.salesService.addPricePolicy(transformedFormValue);
     } else {
       this.toasterService.showError(
         this.languageService.transalte('messages.error'),
@@ -395,7 +396,7 @@ if( this.addForm.value.policyItemsList.length>0){
 
 
   cancel() {
-    this.router.navigateTo('/masterdata/pricelist');
+    this.router.navigateTo('/masterdata/price-policy');
   }
   applyFilterGlobal($event: any, stringVal: any) {
     this.dt.filterGlobal(($event.target as HTMLInputElement).value, stringVal);

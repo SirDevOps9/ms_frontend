@@ -6,6 +6,7 @@
           className="p-datatable-gridlines"
           [currentPageResult]="currentPageInfo"
           (pageChange)="onPageChange($event)"
+          (exportObj)="exportedColumns($event)"
           [tableConfigs]="{
             allowPagination: false,
             allowServerPagination: true,
@@ -24,8 +25,8 @@
                 isGlobalFilter: true,
                 isSortable: true
               },
-            
-             
+
+
               {
                 name: 'warehouseType',
                 headerText: ('warehouse.warehouseType' | translate),
@@ -40,7 +41,7 @@
             ]
           }"
         >
-  
+
 
 
 
@@ -54,15 +55,15 @@
               type="text"
               [placeholder]="'warehouse.search' | translate"
               [(ngModel)]="searchTerm"
-              (keyUp)="onSearchChange()"
+              (keyUp)="onSearchChange($event)"
             ></lib-text-input>
             </lib-form-group>
             </ng-container>
           <ng-container action>
-            
+
             <div>
               <lib-export
-              (exportClick)="exportClick($event)"
+              (exportClick)="exportClick()"
               [exportData]="exportData"
               [exportColumns]="exportColumns"
               [ExportName]="'Warehouse'"
@@ -89,7 +90,7 @@
 
 
 
-  
+
           <ng-template #actions let-action>
             <div class="actions flex align-items-center">
               <img src="assets/images/table/edit.svg" alt="" (click)="onEdit(action)" />
@@ -100,4 +101,3 @@
       </div>
     </div>
   </lib-page-content>
-  

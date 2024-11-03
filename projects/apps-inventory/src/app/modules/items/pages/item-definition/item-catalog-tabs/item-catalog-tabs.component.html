@@ -7,21 +7,23 @@
             <li [class.active]="findRoute('general')" (click)="onRoute('general')">
               {{ 'itemType.general' | translate }}
             </li>
+            <li [class.active]="findRoute('tax')" (click)="onRoute('tax')">
+              {{ 'itemType.tax' | translate }}
+            </li>
+
+
+
             <li [class.active]="findRoute('uom')" (click)="onRoute('uom')">
               {{ 'itemType.uom' | translate }}
             </li>
+
             <li [class.active]="findRoute('attributes')" (click)="onRoute('attributes-variants')">
               {{ 'itemType.attributes' | translate }}
             </li>
-            <li [class.active]="findRoute('barcode')" (click)="onRoute('barcode')">
-              {{ 'itemType.barcode' | translate }}
+            <li [class.active]="findRoute('variants')" (click)="onRoute('variants')">
+              {{ 'itemType.variants' | translate }}
             </li>
-            <li [class.active]="findRoute('inventory')" (click)="onRoute('inventory')">
-              {{ 'itemType.inventory' | translate }}
-            </li>
-            <li [class.active]="findRoute('accounting')" (click)="onRoute('accounting')">
-              {{ 'itemType.accounting' | translate }}
-            </li>
+
           </ul>
         </div>
       </div>
