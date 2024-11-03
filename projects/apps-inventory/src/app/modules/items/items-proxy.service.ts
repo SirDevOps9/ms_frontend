@@ -176,6 +176,8 @@ export class ItemsProxyService {
   return this.httpService.get(`Item/GetTaxData/${id}`)
  }
 
+ 
+
  editItemTax(obj:any){
   return this.httpService.put(`Item/EditTax`,obj)
 
