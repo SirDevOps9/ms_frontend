@@ -80,7 +80,7 @@ export class AddHelpPageComponent implements OnInit {
   }
 
   onSave() {
-    debugger
+    
     if (!this.formService.validForm(this.formGroup, false)) return;
 
     let formVal = this.formGroup.value;

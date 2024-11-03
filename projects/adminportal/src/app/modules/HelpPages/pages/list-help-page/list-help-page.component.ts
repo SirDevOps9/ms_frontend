@@ -33,7 +33,7 @@ export class ListHelpPageComponent implements OnInit {
     this._helpService.helpsPageList$.subscribe({
       next: (res) => {
         this.tableData = res;
-        console.log(this.tableData);
+        
         
       },
     });
@@ -47,7 +47,7 @@ export class ListHelpPageComponent implements OnInit {
     this._helpService.getHelpPagesList('', pageInfo);
     this._helpService.helpsPageList$.subscribe({
       next: (res) => {
-        this.tableData = res;        console.log(this.tableData);
+        this.tableData = res;        
 
       },
     });
