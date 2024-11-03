@@ -13,7 +13,7 @@ export class ItemDefintionTaxComponent {
   id: number;
   itemDefinitionForm: FormGroup;
   taxesDropDropDownLookup: any[] = [];
-
+  taxesGetTaxDataById :any =[]
   constructor(
     private _router: RouterService,
     private fb: FormBuilder,
@@ -26,6 +26,7 @@ export class ItemDefintionTaxComponent {
   ngOnInit(): void {
     this.createForm();
     this.taxesDropDropDown();
+    this.getGetTaxDataById()
   }
 
   createForm() {
@@ -43,6 +44,14 @@ export class ItemDefintionTaxComponent {
       console.log(this.taxesDropDropDownLookup);
     });
   }
+
+   getGetTaxDataById(){
+    this.itemService.getTaxDataById(this.id);
+    this.itemService.taxesDataLookupObs.subscribe(res => {
+      this.taxesGetTaxDataById = res || [];
+      console.log(this.taxesGetTaxDataById);
+    });
+   }
 
   onAddVariants() {
     if (this.itemDefinitionForm.valid) {

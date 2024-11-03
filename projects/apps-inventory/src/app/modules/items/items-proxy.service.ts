@@ -149,8 +149,8 @@ ParentItemCategoriesDropDown(SearchTerm: string): Observable< {id:number , name:
       query += `&SearchTerm=${encodeURIComponent(SearchTerm)}`;
     }
     return this.httpService.get< {id:number , name:string}[]>(query)
-  
-  
+
+
  }
 //  #########################
  GetUOMCategories(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<UOMCategoryDto>> {
@@ -184,11 +184,11 @@ ParentItemCategoriesDropDown(SearchTerm: string): Observable< {id:number , name:
   return this.httpService.get(`GeneralSettings/GetTaxDropDown`)//
  }
 
- getTaxDataDropDropDown(id:number){
+ getTaxDataById(id:number){
   return this.httpService.get(`Item/GetTaxData/${id}`)
  }
 
- 
+
 
  editItemTax(obj:any){
   return this.httpService.put(`Item/EditTax`,obj)

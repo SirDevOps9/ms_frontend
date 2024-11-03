@@ -107,7 +107,7 @@ export class ItemsService {
 
   // end Edit form item Def
 
-  // item category tree 
+  // item category tree
   public parentItemCategoriesDropDown = new BehaviorSubject< {id:number , name:string}[]>([])
   parentItemCategoriesDropDown$ = this.parentItemCategoriesDropDown.asObservable()
   //transactions
@@ -630,8 +630,8 @@ this.itemProxy.getItemBarcodeById(id).subscribe({
     });
   }
 
-gettaxesDropDropDown(id: number) {
-  this.itemProxy.getTaxDataDropDropDown(id).subscribe({
+  getTaxDataById(id: number) {
+  this.itemProxy.getTaxDataById(id).subscribe({
     next: (res: any) => {
        const taxesData = Array.isArray(res) ? res : [];
        this.taxesDataLookup.next(taxesData);
@@ -1004,7 +1004,7 @@ this.itemProxy.getUOMCategoryDropDown().subscribe({
             this.languageService.transalte('UOM.success'),
             this.languageService.transalte('UOM.delete')
           );
-          
+
           const currentUom = this.GetUOMCategoriesDataSource.getValue();
           const updatedUOM = currentUom.filter((c: any) => c.uomCategoryId !== id);
           this.GetUOMCategoriesDataSource.next(updatedUOM);
@@ -1037,14 +1037,14 @@ this.itemProxy.getUOMCategoryDropDown().subscribe({
     }
   }
   async DeleteUomLine(id: number) {
- 
+
     const confirmed = await this.toasterService.showConfirm(
       this.languageService.transalte('ConfirmButtonTexttodelete')
     );
     if (confirmed) {
       this.itemProxy.DeleteUomLine(id).subscribe({
         next: (res) => {
-      
+
           this.toasterService.showSuccess(
             this.languageService.transalte('UOM.success'),
             this.languageService.transalte('UOM.delete')
