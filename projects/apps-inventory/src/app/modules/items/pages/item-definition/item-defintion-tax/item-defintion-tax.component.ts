@@ -15,6 +15,7 @@ export class ItemDefintionTaxComponent {
   taxesDropDropDownLookup: any[] = [];
   taxesGetTaxDataById: any = {};
   isVatApplied: boolean = false;
+  previousTaxId: any = null;
 
   constructor(
     private _router: RouterService,
@@ -56,18 +57,29 @@ export class ItemDefintionTaxComponent {
         }
       } else if (res && typeof res === 'object') {
         this.updateFormWithTaxData(res);
-      } 
+      }
     });
   }
 
   private updateFormWithTaxData(taxData: any) {
     this.taxesGetTaxDataById = taxData;
     this.isVatApplied = taxData.isVatApplied;
+    this.previousTaxId = taxData.taxId;
     this.itemDefinitionForm.patchValue({
       taxId: taxData.taxId,
       isVatApplied: taxData.isVatApplied
     });
   }
+
+  onVatAppliedChange(isApplied: boolean) {
+    if (isApplied) {
+      this.itemDefinitionForm.patchValue({ taxId: this.previousTaxId });
+    } else {
+      this.previousTaxId = this.itemDefinitionForm.get('taxId')?.value;
+      this.itemDefinitionForm.patchValue({ taxId: null });
+    }
+  }
+
 
   onAddVariants() {
     if (this.itemDefinitionForm.valid) {

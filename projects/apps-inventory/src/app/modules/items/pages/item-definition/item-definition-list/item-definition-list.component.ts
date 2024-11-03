@@ -104,7 +104,7 @@ export class ItemDefinitionListComponent implements OnInit {
       this.initItemDefinitionData();
     });
 
-    
+
   }
 
   onEdit(data: any) {
