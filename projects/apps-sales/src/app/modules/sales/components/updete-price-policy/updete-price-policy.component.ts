@@ -131,7 +131,7 @@ export class UpdetePricePolicyComponent {
         uomMap.set(item.uomId, {
           id: item.uomId,
           nameAr: item.uomNameAr || '',
-          nameEn: item.uomNameEn || ''
+          nameEn: item.uomName || ''
         });
       }
 
@@ -147,6 +147,8 @@ export class UpdetePricePolicyComponent {
     this.categories = Array.from(categoryMap.values());
     this.uoms = Array.from(uomMap.values());
     this.variants = Array.from(variantMap.values());
+    console.log(this.uoms ,"this.uoms");
+    
   }
   listenToDropdownChanges() {
     this.addForm.get('category')?.valueChanges.subscribe(() => this.filterTable());
