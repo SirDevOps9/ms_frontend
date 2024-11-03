@@ -45,7 +45,7 @@ export interface EditVendorCommand {
   export interface EditVendorFinancialDto {
     id: number
     paymentTermId?: number;
-    priceListId?: number;
+    pricePolicyId?: number;
     creditLimit?: number;
     currencyId?: number;
   }

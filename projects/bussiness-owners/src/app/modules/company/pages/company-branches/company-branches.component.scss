@@ -291,6 +291,17 @@
       color: #40444c;
     }
   }
+  [dir='rtl'] .checked {
+    position: relative;
+  }
+  
+  [dir='rtl'] .checked .active {
+    right: 80px !important;
+  }
+  
+  [dir='rtl'] .checked .inactive {
+    right: 10px !important;
+  }
   .resend {
     width: 148px;
     height: 50px;
@@ -321,4 +332,6 @@
     border: none !important;
     margin-inline-start: 30px;
   }
-  
+  .action{
+    gap: 8PX;
+  }

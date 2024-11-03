@@ -555,19 +555,19 @@
                       <div class="col-12 md:col-6">
                         <lib-form-group>
                           <lib-label
-                            [appControl]="addVendorForm.get('vendorFinancial')?.get('priceListId')"
+                            [appControl]="addVendorForm.get('vendorFinancial')?.get('pricePolicyId')"
                           >
                           {{ 'AddVendorDefinition.PriceList' | translate }}
                           </lib-label>
                           <lib-select
-                            formControlName="priceListId"
+                            formControlName="pricePolicyId"
                             [options]="priceList"
                             optionLabel="name"
                             optionValue="id"
                           >
                           </lib-select>
                           <lib-field-validations
-                            [appControl]="addVendorForm.get('vendorFinancial')?.get('priceListId')"
+                            [appControl]="addVendorForm.get('vendorFinancial')?.get('pricePolicyId')"
                           >
                           </lib-field-validations>
                         </lib-form-group>

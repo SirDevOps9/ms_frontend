@@ -1,110 +1,112 @@
-<div class="new_domain">
-  <div class="domain_header">
-    <div class="title">
-      <!-- <div class="plus_icon"></div> -->
-      {{ 'Subscription.Subdomain.AddDomainSpace' | translate }}
-    </div>
-    <div class="pi pi-times cancel" (click)="onCancel()"></div>
-  </div>
-  <form class="domain_form" [formGroup]="subdomainForm" (ngSubmit)="onSubmit()">
-    <div class="domain_content">
-      <div class="data_content">
-        <div class="grid">
-          <div class="col-12 md:col-8">
-            <lib-form-group>
-              <lib-label [appControl]="subdomainForm.controls['name']" class="body_b14">
-                {{ 'Subscription.Subdomain.YourDomainSpace' | translate }}
-              </lib-label>
-              <lib-text-input
-                type="text"
-                formControlName="name"
-                (keyup)="onNameInputKeyUp($event)"
-              />
-              <lib-field-validations [appControl]="subdomainForm.controls['name']">
-              </lib-field-validations>
-              <div class="domain_invalid body_b14" *ngIf="subdomainInValid">
-                {{ 'Subscription.Subdomain.already_exists' | translate }}
-              </div>
-              <div class="domain_valid body_b14" *ngIf="subdomainValid">
-                {{ 'Subscription.Subdomain.available' | translate }}
-              </div>
-            </lib-form-group>
-          </div>
-          <div class="col-12 md:col-4 domain_name">
-            <lib-form-group>
-              <lib-text-input
-                class="body_b14"
-                type="text"
-                placeholder=".microtecdev.com"
-                [readOnly]="true"
-              />
-            </lib-form-group>
-          </div>
-          <div class="col-12 md:col-8 duration_margin " >
-            <lib-form-group>
-              <lib-label
-                class="paragraph_b18"
-                [appControl]="subdomainForm.controls['purchasingPaymentCount']"
-              >
-                {{ 'Subscription.Subdomain.Duration' | translate }}
-              </lib-label>
-              <lib-text-input
-                type="number"
-                (keyUp)="calculateCost()"
-                formControlName="purchasingPaymentCount"
-              />
-              
-              <lib-field-validations
-                [appControl]="subdomainForm.controls['purchasingPaymentCount']"
-              >
-              </lib-field-validations>
-            </lib-form-group>
-          </div>
-          <div class="col-12 md:col-4 ">
-            <div class="button-row">
-              <button
-                type="button"
-                id="Monthly"
-                class="btn body_b13"
-                [ngClass]="{ btn_active: period === 'Monthly' }"
-                (click)="activeButton('Monthly')"
-              >
-                {{ 'Subscription.Subdomain.Monthly' | translate }}
-              </button>
-              <button
-                type="button"
-                id="Yearly"
-                class="btn body_b13"
-                [ngClass]="{ btn_active: period === 'Yearly' }"
-                (click)="activeButton('Yearly')"
-              >
-                {{ 'Subscription.Subdomain.Yearly' | translate }}
-              </button>
+
+<lib-popup-page
+  title="{{ 'Company.Branch.AddNewBranch' | translate }}"
+  [closeFunction]="onCancel"
+  [showCancel]="false"
+  (Submit)="onSubmit()"
+  [disabled]="!subdomainForm.valid"
+  titleSave="{{ 'Subscription.Subdomain.purchase' | translate }}"
+>
+<form class="domain_form" [formGroup]="subdomainForm" (ngSubmit)="onSubmit()">
+  <div class="domain_content">
+    <div class="data_content">
+      <div class="grid">
+        <div class="col-12 md:col-8">
+          <lib-form-group>
+            <lib-label [appControl]="subdomainForm.controls['name']" class="body_b14">
+              {{ 'Subscription.Subdomain.YourDomainSpace' | translate }}
+            </lib-label>
+            <lib-text-input
+              type="text"
+              formControlName="name"
+              (keyup)="onNameInputKeyUp($event)"
+            />
+            <lib-field-validations [appControl]="subdomainForm.controls['name']">
+            </lib-field-validations>
+            <div class="domain_invalid body_b14" *ngIf="subdomainInValid">
+              {{ 'Subscription.Subdomain.already_exists' | translate }}
             </div>
-          </div>
-          <div class="col-12 price ">
-            <p>
-              <sup class="currency body_b18">$</sup>
-              <span class="cost heading_b23">{{ cost }}</span>
-              <sub class="period body_b16">{{ period }}</sub>
-            </p>
+            <div class="domain_valid body_b14" *ngIf="subdomainValid">
+              {{ 'Subscription.Subdomain.available' | translate }}
+            </div>
+          </lib-form-group>
+        </div>
+        <div class="col-12 md:col-4 domain_name">
+          <lib-form-group>
+            <lib-text-input
+              class="body_b14"
+              type="text"
+              placeholder=".microtecdev.com"
+              [readOnly]="true"
+            />
+          </lib-form-group>
+        </div>
+        <div class="col-12 md:col-8 duration_margin " >
+          <lib-form-group>
+            <lib-label
+              class="paragraph_b18"
+              [appControl]="subdomainForm.controls['purchasingPaymentCount']"
+            >
+              {{ 'Subscription.Subdomain.Duration' | translate }}
+            </lib-label>
+            <lib-text-input
+              type="number"
+              (keyUp)="calculateCost()"
+              formControlName="purchasingPaymentCount"
+            />
+            
+            <lib-field-validations
+              [appControl]="subdomainForm.controls['purchasingPaymentCount']"
+            >
+            </lib-field-validations>
+          </lib-form-group>
+        </div>
+        <div class="col-12 md:col-4 ">
+          <div class="button-row">
+            <button
+              type="button"
+              id="Monthly"
+              class="btn body_b13"
+              [ngClass]="{ btn_active: period === 'Monthly' }"
+              (click)="activeButton('Monthly')"
+            >
+              {{ 'Subscription.Subdomain.Monthly' | translate }}
+            </button>
+            <button
+              type="button"
+              id="Yearly"
+              class="btn body_b13"
+              [ngClass]="{ btn_active: period === 'Yearly' }"
+              (click)="activeButton('Yearly')"
+            >
+              {{ 'Subscription.Subdomain.Yearly' | translate }}
+            </button>
           </div>
         </div>
-      </div>
-      <div class="actions">
-        <button
-          [disabled]="!subdomainForm.valid"
-          type="submit"
-          class="btn"
-          [ngClass]="{
-            'valid_btn ': subdomainForm.valid,
-            ' invaild_btn': !subdomainForm.valid
-          }"
-        >
-          {{ 'Subscription.Subdomain.purchase' | translate }}
-          <span class="pi pi-shopping-cart"></span>
-        </button>
+        <div class="col-12 price ">
+          <p>
+            <sup class="currency body_b18">$</sup>
+            <span class="cost heading_b23">{{ cost }}</span>
+            <sub class="period body_b16">{{ period }}</sub>
+          </p>
+        </div>
       </div>
     </div>
-  </form>
-</div>
+    <!-- <div class="actions">
+      <button
+        [disabled]="!subdomainForm.valid"
+        type="submit"
+        class="btn"
+        [ngClass]="{
+          'valid_btn ': subdomainForm.valid,
+          ' invaild_btn': !subdomainForm.valid
+        }"
+      >
+        {{ 'Subscription.Subdomain.purchase' | translate }}
+        <span class="pi pi-shopping-cart"></span>
+      </button>
+    </div> -->
+  </div>
+</form>
+
+</lib-popup-page>

@@ -1,0 +1,81 @@
+<lib-page-content
+  [title]="'openeingBalance.CustomerOpeningBalance' | translate"
+  [subTitle]="'openeingBalance.CustomerOpeningBalance' | translate"
+>
+  <div>
+    <div class="user_page">
+      <lib-data-table
+      [sequence]="true"
+        [items]="tableData"
+        className="p-datatable-gridlines"
+        [currentPageResult]="currentPageInfo"
+        (pageChange)="onPageChange($event)"
+        (addNew)="routeToAdd()"
+        [tableConfigs]="{
+              allowPagination: false,
+              allowServerPagination: true,
+              dataKey: 'id',
+              pageSize: 10,
+              columns: [
+                 
+                 {
+                   name: 'code',
+                   headerText: ('PricePolicy.Code' | translate),
+                   isGlobalFilter: true,
+                   isSortable: true
+                 },
+                 {
+                   name: 'name',
+                   headerText: ('PricePolicy.Name' | translate),
+                   isGlobalFilter: true,
+                   isSortable: true
+                 },
+                 {
+                   name: 'id',
+                   headerText: ('Table.Actions' | translate),
+                   template : actions
+                 },
+               ]
+            }"
+      >
+      <ng-container search>
+        <div>
+          <lib-text-input
+            type="text"
+            [placeholder]="'customerDefinition.Search' | translate"
+            (keyUp)="onSearchChange($event)"
+            [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
+          >
+          </lib-text-input></div
+      ></ng-container>
+      <ng-container action>
+        <lib-export
+          (exportClick)="export($event)"
+          [exportData]="exportData"
+          [exportColumns]="exportColumns"
+          [ExportName]="'PriceList'"
+        >
+        </lib-export>
+        <lib-button-micro
+          nameClass="save"
+          [title]="'customerDefinition.add' | translate"
+          (click)="routeToAdd()"
+          [iconName]="'pi pi-plus'"
+        >
+        </lib-button-micro>
+      </ng-container>
+
+        <ng-template #actions let-actions>
+          <div class="actions flex align-items-center">
+            <lib-button-micro nameClass="table_button_view" (click)="view(actions.id)">
+            </lib-button-micro>
+            <lib-button-micro nameClass="table_button_edit" (click)="routeToEdit(actions.id)">
+            </lib-button-micro>
+            <lib-button-micro nameClass="table_button_delete" (click)="onDelete(actions.id)">
+            </lib-button-micro>
+          </div>
+        </ng-template>
+      </lib-data-table>
+    </div>
+  </div>
+</lib-page-content>

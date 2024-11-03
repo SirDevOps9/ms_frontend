@@ -1,0 +1,44 @@
+{
+    "BreadCrumb": {
+        "add": "إضافة"
+    },
+    "pricePolicy": {
+        "code": "الكود",
+        "name": "الاسم",
+        "getPolicy": "جلب السياسة",
+        "uploadPolicy": "رفع السياسة",
+        "fromPolicy": "جلب من سياسة أخرى",
+        "applyPolicy": "تطبيق وتحديث السياسة",
+        "item": "العنصر",
+        "itemCategory": "فئة العنصر",
+        "value": "القيمة",
+        "valueType": "نوع القيمة",
+        "toDate": "حتى تاريخ",
+        "applyDate": "تاريخ التطبيق",
+        "VAT": "يشمل ضريبة القيمة المضافة",
+        "UOM": "وحدة القياس",
+        "varient": "المتغير",
+        "price": "السعر",
+        "priceVAT": "السعر مع ضريبة القيمة المضافة",
+        "action": "إجراء"
+    },
+    "messages": {
+        "success": "نجاح",
+        "error": "خطأ",
+        "priceRequired": "يلزم إدخال قيمة للسعر ولا يجب أن تساوي صفرًا.",
+        "noItemSelected": "لا يوجد عنصر محدد للتعديل عليه.",
+        "successfully": "تمت العملية بنجاح.",
+        "noItemsToAdd": "لا يوجد عناصر لاضافتها",
+        "duplicateItem": "يوجد عنصر مكرر بنفس وحدة القياس."
+    },
+    "updatePrice": {
+        "storable": "قابل للتخزين",
+        "service": "خدمة",
+        "expiryDate": "لها تاريخ انتهاء",
+        "title": "تحديث قائمة الأسعار",
+        "fixed": "ثابت",
+        "calculation": "حساب",
+        "amount": "المبلغ",
+        "percent": "نسبة"
+    }
+}

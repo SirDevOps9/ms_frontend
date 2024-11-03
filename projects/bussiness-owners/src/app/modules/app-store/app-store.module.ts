@@ -10,6 +10,7 @@ import { CartComponent } from './pages/cart/cart.component';
 import { CartItemDetailComponent } from './pages/cart-item-detail/cart-item-detail.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { PaymentSuccesfulComponent } from './pages/payment-succesful/payment-succesful.component';
+import { BreadCrumbRoute } from '../../models';
 
 const routes: Routes = [
   {
@@ -21,7 +22,7 @@ const routes: Routes = [
         component: ListAppsComponent,
         canActivate: [AuthGuard],
         data: {
-          breadcrumb: BreadcrumbLabel.APP_STORE,
+          breadcrumb: BreadCrumbRoute.appStore
         },
       },
       {
@@ -29,7 +30,7 @@ const routes: Routes = [
         component: AppDetailsComponent,
         canActivate: [AuthGuard],
         data: {
-          breadcrumb: BreadcrumbLabel.APP_STORE_Details,
+          breadcrumb: BreadCrumbRoute.appDetails
         },
       },
       {
@@ -37,7 +38,7 @@ const routes: Routes = [
         component: CartComponent,
         // canActivate: [AuthGuard],
         data: {
-          breadcrumb: BreadcrumbLabel.CART,
+          breadcrumb:  BreadCrumbRoute.cart
         },
       },
       {

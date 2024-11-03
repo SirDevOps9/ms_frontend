@@ -1,0 +1,39 @@
+.margin_end{
+    margin-inline-end: 20px !important;
+}
+::ng-deep.table .viewInWeb{
+        padding: 0 !important;
+    }
+::ng-deep .p-highlight {
+
+    color: #1a90b0 !important;
+    background: #EFF6FF;
+  }
+ 
+::ng-deep .p-checkbox .p-checkbox-box.p-highlight {
+    border-color: #1a90b0 !important;
+    background: #1a90b0 !important;
+    color: #EFF6FF;
+  }
+::ng-deep .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-focus {
+  
+    box-shadow: none !important;
+}
+::ng-deep.p-radiobutton .p-radiobutton-box.p-highlight {
+  border-color: #1a90b0 !important;
+  background: #ffffff !important;
+  
+}
+::ng-deep .p-radiobutton .p-radiobutton-box .p-radiobutton-icon {
+  background-color: #1a90b0 !important;
+}
+.select_price{
+  padding : 16px 0 ;
+
+}
+.group_type{
+  margin-top: 8px;
+}
+.add_price{
+  margin-inline-start: 40px;
+}

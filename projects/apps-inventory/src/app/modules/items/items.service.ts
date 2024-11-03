@@ -41,7 +41,7 @@ import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { variantGroupById } from './models/variantGroupById';
 import { itemAttributeValues } from './models/itemAttributeValues';
 import { getBarcodeById } from './models/getBarcodeById';
-import { addUOM, AddUom } from './models/addUom';
+import { addUOM, AddUom, UoM } from './models/addUom';
 import { addAttributeDifintion, IAttrributeDifinitionResult } from './models/AttrbuteDiffintion';
 import { OperationType } from './models/enums';
 import { VieItemDefinitionDto } from './models/VieItemDefinitionDto';
@@ -92,16 +92,24 @@ export class ItemsService {
   public defaultUnit = new BehaviorSubject<{ id: number; name: string }>({} as { id: number; name: string });
   // new Edits for item Def
 
+
+  // end Edit form item Def
+
+  // new Edits for item Def
+
   saveItemDefGeneral = new BehaviorSubject<AddGeneralDto>({} as AddGeneralDto);
   saveItemDefGeneral$ = this.saveItemDefGeneral.asObservable()
   getItemDefGeneral = new BehaviorSubject<AddGeneralDto>({} as AddGeneralDto);
   getItemDefGeneral$ = this.getItemDefGeneral.asObservable()
-  sendSystemUnitLookup = new BehaviorSubject<{ id: number; nameAr: string; nameEn: string }[]>([])
+  sendSystemUnitLookup = new BehaviorSubject<{ id: number; nameAr: string; nameEn: string ; systemUnitOfMeasureCategoryId : number }[]>([])
   sendSystemUnitLookup$ = this.sendSystemUnitLookup.asObservable()
 
 
   // end Edit form item Def
 
+  // item category tree 
+  public parentItemCategoriesDropDown = new BehaviorSubject< {id:number , name:string}[]>([])
+  parentItemCategoriesDropDown$ = this.parentItemCategoriesDropDown.asObservable()
   //transactions
 
   sendStockInDataSources = new BehaviorSubject<StockInDto[]>([]);
@@ -518,6 +526,13 @@ this.itemProxy.getItemBarcodeById(id).subscribe({
       },
     });
   }
+  ParentItemCategoriesDropDown(SearchTerm: string) {
+    this.itemProxy.ParentItemCategoriesDropDown(SearchTerm).subscribe({
+      next: (res: any) => {
+        this.parentItemCategoriesDropDown.next(res);
+      },
+    });
+  }
   getItemCategoryTreeList() {
     return this.itemProxy.getItemCategoryTreeList().pipe(
       map((res) => {
@@ -539,13 +554,14 @@ this.itemProxy.getItemBarcodeById(id).subscribe({
       this.currentPageInfo.next(response.pageInfoResult);
     });
   }
+
   addItemCategory(obj: AddItemCategory) {
     this.itemProxy.addItemCategory(obj).subscribe({
       next: (res: any) => {
-        setTimeout(() => {
-            location.reload()
-        }, 100);
-        this.AddItemCategoryLookup.next(obj);
+        // setTimeout(() => {
+        //     location.reload()
+        // }, 100);
+        this.AddItemCategoryLookup.next(res);
         this.toasterService.showSuccess(
           this.languageService.transalte('itemsCategory.success'),
           this.languageService.transalte('itemsCategory.add')
@@ -988,9 +1004,9 @@ this.itemProxy.getUOMCategoryDropDown().subscribe({
             this.languageService.transalte('UOM.success'),
             this.languageService.transalte('UOM.delete')
           );
-
+          
           const currentUom = this.GetUOMCategoriesDataSource.getValue();
-          const updatedUOM = currentUom.filter((c: any) => c.id !== id);
+          const updatedUOM = currentUom.filter((c: any) => c.uomCategoryId !== id);
           this.GetUOMCategoriesDataSource.next(updatedUOM);
         },
       });
@@ -1016,6 +1032,27 @@ this.itemProxy.getUOMCategoryDropDown().subscribe({
           const currentUom = this.uomCodeLookup.getValue();
           const updatedUOM = currentUom.filter((c: any) => c.id !== id);
           this.uomCodeLookup.next(updatedUOM);
+        },
+      });
+    }
+  }
+  async DeleteUomLine(id: number) {
+ 
+    const confirmed = await this.toasterService.showConfirm(
+      this.languageService.transalte('ConfirmButtonTexttodelete')
+    );
+    if (confirmed) {
+      this.itemProxy.DeleteUomLine(id).subscribe({
+        next: (res) => {
+      
+          this.toasterService.showSuccess(
+            this.languageService.transalte('UOM.success'),
+            this.languageService.transalte('UOM.delete')
+          );
+
+          const currentUom : any = this.getUOMCategoryByIdData.getValue();
+          const updatedUOM : addUOM = currentUom.uoMs.filter((c: any) => c.id !== id);
+          this.getUOMCategoryByIdData.next(updatedUOM);
         },
       });
     }
@@ -1116,6 +1153,17 @@ this.itemProxy.getUOMCategoryDropDown().subscribe({
   }
   addUOMCategory(obj: addUOM) {
     this.itemProxy.addUOMCategory(obj).subscribe((res) => {
+      this.router.navigateTo(`/masterdata/uom` )
+
+      this.toasterService.showSuccess(
+        this.languageService.transalte('UOM.success'),
+        this.languageService.transalte('UOM.uomSuccess')
+      );
+      this.sendUOMCategory.next(res);
+    });
+  }
+  EditUOMCategory(obj: addUOM) {
+    this.itemProxy.EditUOMCategory( obj).subscribe((res) => {
       this.router.navigateTo(`/masterdata/uom` )
 
       this.toasterService.showSuccess(

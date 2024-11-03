@@ -27,7 +27,7 @@ export class CreateVendorCategoryComponent implements OnInit {
     purchaseAccountId : null,
     purchaseReturnAccountId : null,
     discountAccountId : null,
-    priceListId : null,
+    pricePolicyId : null,
     paymentTermId : null,
     marketType : null,
    

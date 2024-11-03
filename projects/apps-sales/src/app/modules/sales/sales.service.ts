@@ -23,6 +23,8 @@ import {
   GetCustomerOpeningBalanceDto,
   GetCustomerOpeningBalanceViewDto,
   GetLineDropDownById,
+  ItemDto,
+  PricelistDto,
 } from './models';
 import { SalesProxyService } from './sales-proxy.service';
 import { BehaviorSubject } from 'rxjs';
@@ -106,13 +108,24 @@ export class SalesService {
   public customerOpeningBalanceDataSource = new BehaviorSubject<GetAllCustomerOpeningBalanceDto[]>(
     []
   );
-
   customerOpeningBalanceObservable = this.customerOpeningBalanceDataSource.asObservable();
+
+  public pricePolicyDataSource = new BehaviorSubject<PricelistDto[]>([]);
+  priceListDataSourceeObservable = this.pricePolicyDataSource.asObservable();
+
+  private exportsPriceListDataSource = new BehaviorSubject<PricelistDto[]>([]);
+  public exportsPriceListObservable = this.exportsPriceListDataSource.asObservable();
 
   private CustomerOpeningBalanceView = new BehaviorSubject<
     GetCustomerOpeningBalanceViewDto | undefined
   >(undefined);
   public CustomerOpeningBalanceViewObservable = this.CustomerOpeningBalanceView.asObservable();
+
+  private itemsDataSource = new BehaviorSubject<ItemDto[]>([]);
+  public itemsList = this.itemsDataSource.asObservable();
+  private latestItemsDataSource = new BehaviorSubject<ItemDto[]>([]);
+  public latestItemsList = this.latestItemsDataSource.asObservable();
+  public itemsPageInfo = new BehaviorSubject<PageInfoResult>({});
 
   constructor(
     private loaderService: LoaderService,
@@ -454,4 +467,81 @@ export class SalesService {
       this.currentPageInfo.next(response.pageInfoResult);
     });
   }
+
+  getAllPricePolicy(quieries: string, pageInfo: PageInfo) {
+    this.salesProxy.getAllPricePolicy(quieries, pageInfo).subscribe((response) => {
+      this.pricePolicyDataSource.next(response.result);
+      this.currentPageInfo.next(response.pageInfoResult);
+    });
+  }
+
+  exportPricePolicy(searchTerm: string | undefined) {
+    this.salesProxy.exportPricePolicy(searchTerm).subscribe({
+      next: (res) => {
+        this.exportsPriceListDataSource.next(res);
+      },
+    });
+  }
+
+  async deletePricePolicy(id: number) {
+    const confirmed = await this.toasterService.showConfirm('Delete');
+    if (confirmed) {
+      this.loaderService.show();
+
+      this.salesProxy.deletePricePolicy(id).subscribe({
+        next: (res) => {
+          this.toasterService.showSuccess(
+            this.languageService.transalte('Success'),
+            this.languageService.transalte('PricePolicy.PricePolicyDeleted')
+          );
+          this.loaderService.hide();
+          let data = this.pricePolicyDataSource.getValue();
+          const updatedOb = data.filter((elem) => elem.id !== id);
+          this.pricePolicyDataSource.next(updatedOb);
+        },
+        error: () => {
+          this.loaderService.hide();
+          this.toasterService.showError(
+            this.languageService.transalte('Error'),
+            this.languageService.transalte('DeleteError')
+          );
+        },
+      });
+    }
+  }
+
+  getItems(quieries: string, searchTerm: string, pageInfo: PageInfo) {
+    this.salesProxy.getItems(quieries, searchTerm, pageInfo).subscribe((res) => {
+      this.itemsDataSource.next(res.result);
+      this.itemsPageInfo.next(res.pageInfoResult);
+    });
+  }
+  getLatestItems( searchTerm: string,) {
+    this.salesProxy.GetLatestItems( searchTerm).subscribe((res:any) => {
+      this.latestItemsDataSource.next(res);
+    });
+  }
+  addPricePolicy(customer: any) {
+    this.loaderService.show();
+    this.salesProxy.addPricePolicy(customer).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('messages.success'),
+          this.languageService.transalte('messages.successfully')
+        );
+        if (res) {
+          this.loaderService.hide();
+          this.router.navigateTo('/masterdata/price-policy');
+        }
+      },
+      error: (err) => {
+        this.loaderService.hide();
+        this.toasterService.showError(
+          this.languageService.transalte('messages.error'),
+          (err.message)
+        );
+      },
+    });
+  
+}
 }
