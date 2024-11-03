@@ -15,6 +15,8 @@ export class ListAppsComponent implements OnInit {
   appInStore: number;
   subdomains: ResponseSubdomainDto[];
   cardList: boolean = false;
+  selectedLanguage: any 
+
   constructor(
     private appStoreService: AppStoreService,
     private dialog: DialogService,
@@ -25,9 +27,18 @@ export class ListAppsComponent implements OnInit {
     private languageService: LanguageService
   ) {}
 
+   
   ngOnInit(): void {
+    console.log(this.languageService.transalte('Welcome'));
+
+    this.languageService.language$.subscribe((lang) => {
+      this.selectedLanguage = lang
+
+    });
+    
     this.languageService.getTranslation('AppStore.Title').subscribe((title) => {
       this.titleService.setTitle(title);
+      
     });
 
     this.appStoreService.loadApps();
@@ -45,7 +56,7 @@ export class ListAppsComponent implements OnInit {
   }
 
   getAppDeps(app: AppDto) {
-    return app.dependencies.map((d) => d.name).join(' - ');
+    return app.dependencies.map((d) => d.nameEn).join(' - ');
   }
   
   toggelview() {

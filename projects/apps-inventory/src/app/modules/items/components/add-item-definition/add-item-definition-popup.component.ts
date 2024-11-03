@@ -35,16 +35,20 @@ export class AddItemDefinitionPopupComponent implements OnInit {
     this.initializeitemDefinition();
     this.initItemTypeLookupData()
     this.ItemCategoryDropDownData()
-   
+
   }
   uomCategoryChanged(e : any) {
     this.getUomDropDown(e)
-    
+    console.log(e);
+
+
   }
   initItemTypeLookupData() {
     this.itemsService.ItemCategoryDropDown()
     this.itemsService.itemCategoryLookupObs.subscribe(res=>{
       this.itemTypeLookupData = res
+
+
     })
   }
   getUomDropDown(id : number) {
@@ -60,7 +64,7 @@ export class AddItemDefinitionPopupComponent implements OnInit {
         this.itemDefinitionForm.get('uomId')?.setValue(defaultUnit?.id)
 
 
-    
+
     })
   }
 
@@ -72,24 +76,24 @@ export class AddItemDefinitionPopupComponent implements OnInit {
     this.itemsService.UOMCategoryDropDownLookupObs.subscribe(res=>{
       this.ItemCategoryDropDown = res
 
-    
+
+
     })
   }
 
 
-  
 
- 
+
+
 
   initializeitemDefinition() {
     this.itemDefinitionForm = this.fb.group({
       name: new FormControl('', [customValidators.required]),
-      typeId: new FormControl('', [customValidators.required]),
-      categoryId: new FormControl([],  [customValidators.required]),
-      uomId: new FormControl([],  [customValidators.required]),
-    
+      categoryId: new FormControl([], [customValidators.required]),
+      uomCategoryId: new FormControl('', [customValidators.required])  
     });
   }
+
 
   onCancel() {
     this.ref.close();
@@ -100,14 +104,14 @@ export class AddItemDefinitionPopupComponent implements OnInit {
   }
 
   onSubmit(text : string) {
-    if (!this.formsService.validForm(this.itemDefinitionForm)) return;   
+    if (!this.formsService.validForm(this.itemDefinitionForm)) return;
     const { typeId, ...arg } = this.itemDefinitionForm.value;
     this.itemsService.addItemDefinition(arg , this.ref , text)
 
   }
 
   onSaveConinue(text : string){
-    if (!this.formsService.validForm(this.itemDefinitionForm)) return;   
+    if (!this.formsService.validForm(this.itemDefinitionForm)) return;
     const { typeId, ...arg } = this.itemDefinitionForm.value;
 
     this.itemsService.addItemDefinition(arg , this.ref , text)

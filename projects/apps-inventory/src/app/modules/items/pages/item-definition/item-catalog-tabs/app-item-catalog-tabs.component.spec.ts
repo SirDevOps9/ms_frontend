@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddItemDefinitionComponent } from './add-item-definition.component';
+import { AddItemDefinitionComponent } from './item-catalog-tabs.component';
 
 describe('AddItemDefinitionComponent', () => {
   let component: AddItemDefinitionComponent;
@@ -11,7 +11,7 @@ describe('AddItemDefinitionComponent', () => {
       declarations: [AddItemDefinitionComponent]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(AddItemDefinitionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

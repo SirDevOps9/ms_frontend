@@ -1,4 +1,7 @@
 {
+  "BreadCrumb": {
+    "ItemsCategory":"فئة العناصر"
+   },
   "Toaster": {
     "Confirm": {
       "Title": "هل أنت متأكد؟",
@@ -151,6 +154,7 @@
     "actions": "الإجراءات",
     "warehouse": "المستودع",
     "account": "الحساب",
+    "costOfGoodsSold" : "حساب تكلفة البضاعة المباعة",
     "address": "العنوان",
     "city": "المدينة",
     "companyPhoneNumber": "رقم هاتف الشركة",
@@ -164,7 +168,7 @@
     "cashSalesAccount": "حساب المبيعات النقدية",
     "creditSalesAccount": "حساب المبيعات الآجلة",
     "salesReturnAccount": "حساب إرجاع المبيعات",
-    "purchaseAccount": "حساب الشراء",
+    "purchaseAccount": "حساب المشتريات",
     "salesCostCenter": "مركز تكلفة المبيعات",
     "discountAccount": "حساب الخصومات",
     "evaluationaccount": "حساب التقييم",
@@ -242,11 +246,16 @@
     "baseUom" : "وحدة القياس الافتراضية",
     "systemUnit" : "وحدة النظام",
     "unitSystem" : "وحدة النظام",
-    "nameUom" : "الاسم",
+    "nameUomEn" : "الاسم بالانجليزيه",
+    "nameUomAr" : "الاسم بالعربيه",
     "factorUOM": "عامل",
     "calculation": "حساب",
     "reversal": "عكس",
-    "from" : "من"
+    "from" : "من",
+    "uomCode": "كود وحدة القياس",
+    "uomName": "اسم وحدة القياس",
+    "uomCategory": "فئة وحدة القياس",
+    "uomFactor": "معامل وحدة القياس"
 
   },
   "attributeDefinition": {

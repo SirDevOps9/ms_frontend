@@ -26,6 +26,7 @@ export class UsersComponent implements OnInit {
   ExportUserData: ExportUserListResponse[];
 
   checked: boolean = true;
+  langAr: boolean = false;
   value: string | undefined;
   cols: any[] = [
    
@@ -63,6 +64,7 @@ export class UsersComponent implements OnInit {
 
 
   ngOnInit() {
+    this.subscribe()
     this.titleService.setTitle('Users');
     this.loadUsers();
     this.usersSubscription();
@@ -157,7 +159,16 @@ export class UsersComponent implements OnInit {
       this.exportData = res;
     });
   }
+  subscribe(){
+  this.languageService.language$.subscribe((lang:string)=>{
+if (lang=='ar'){
+this.langAr=true  
+}else{
+  this.langAr=false  
 
+}
+  })
+}
 
   constructor(
     public languageService: LanguageService,
