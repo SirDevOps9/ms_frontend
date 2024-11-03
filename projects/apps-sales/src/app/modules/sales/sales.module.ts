@@ -180,7 +180,7 @@ const routes: Routes = [
             //  canActivate: [AuthGuard],
             data: {
               breadcrumb: '',
-              pageTitle:''
+              pageTitle: BreadcrumbLabel.PRICE_POLICY,
             }
           },
           {

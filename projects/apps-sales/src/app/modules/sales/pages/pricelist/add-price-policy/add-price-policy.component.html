@@ -113,12 +113,12 @@
                   <div class="flex gap-2 align-items-center">
                     <lib-select formControlName="uomId" [options]="pricePolicy.get('uomOptions').value"
                       [customClass]="'add-journal'" [selectedValue]="pricePolicy.get('uomId').value"
-                      optionLabel="uomNameAr" optionValue="uomId"
+                      optionLabel="uomNameEn" optionValue="uomId"
                       (valueChanged)="setUomIdValue(rowIndex, $event)"></lib-select>
                   </div>
                 </ng-template>
                 <ng-template pTemplate="output">
-                  {{ pricePolicy.get('uomName').value }}
+                  {{ pricePolicy.get('uomName').value ||'' }}
                 </ng-template>
               </p-cellEditor>
               <lib-field-validations [appControl]="pricePolicy.controls['uomId']">

@@ -72,7 +72,7 @@ export class DataTableComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.isRtl = this.languageService.ar;
-    this.showColumnFilter = this.tableConfigs?.columns?.some(x=>x.name == 'id')
+    // this.showColumnFilter = this.tableConfigs?.columns?.some(x=>x.name == 'id')
     this.filtered_columns = this.tableConfigs.columns
     this.selected_filtered_columns = this.filtered_columns.map((option) => option.name);
     this.searchColumnsControl.setValue(this.selected_filtered_columns as any);
@@ -199,10 +199,6 @@ export class DataTableComponent implements OnInit, OnChanges {
         this.exportObj.emit({SortBy:this.currentSortOrder , SortColumn : this.currentSortColumn as string})
       }, 100);
     }
-
-    console.log(this.currentSortColumn);
-    console.log(this.currentSortOrder);
-    
   }
 
   constructor(
@@ -221,13 +217,13 @@ export class DataTableComponent implements OnInit, OnChanges {
       const filteredColumns = columns.filter((col) =>
         selectedColumns.some((sCol: string) => col.name === sCol)
       );
-      if(filteredColumns[filteredColumns.length - 1].name =="id"){
+      // if(filteredColumns[filteredColumns.length - 1].name =="id"){
 
         this.tableConfigs.columns = [...filteredColumns];
-      } else{
-        filteredColumns.push(this.clonedTableConfigs.columns[this.clonedTableConfigs.columns.length - 1])
-        this.tableConfigs.columns = [...filteredColumns];
-      }
+      // } else{
+      //   filteredColumns.push(this.clonedTableConfigs.columns[this.clonedTableConfigs.columns.length - 1])
+      //   this.tableConfigs.columns = [...filteredColumns];
+      // }
              
     }
   }

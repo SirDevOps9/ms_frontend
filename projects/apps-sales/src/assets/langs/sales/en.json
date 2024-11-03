@@ -1,6 +1,8 @@
 {
     "BreadCrumb": {
-        "add":"Add"
+        "add":"Add",
+        "sequence":"sequence"
+
     },
     "pricePolicy":{
         "code":"Code",
