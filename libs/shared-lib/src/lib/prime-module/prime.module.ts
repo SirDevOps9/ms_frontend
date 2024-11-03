@@ -26,6 +26,7 @@ import { TabViewModule } from 'primeng/tabview';
 import { MenuModule } from 'primeng/menu';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { TabMenuModule } from 'primeng/tabmenu';
 
 @NgModule({
   providers: [DialogService , MessageService],
@@ -55,7 +56,7 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
     TabViewModule,
     MenuModule,
     SplitButtonModule,
-    OverlayPanelModule
+    OverlayPanelModule,TabMenuModule
   ],
   exports: [
     TableModule,
@@ -84,7 +85,7 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
     MenuModule,
     OverlayPanelModule,
     
-    SplitButtonModule
+    SplitButtonModule,TabMenuModule
   ],
 })
 export class PrimeSharedModule {}

@@ -44,6 +44,8 @@ export class SubscriptionProxy {
       `Subdomain/GetSubdomainLicenses?subdomainId=${subdomain}`
     );
   }
+// #################
+  // workflows 
   getWorkFlows(
     searchTerm: string,
     pageInfo: PageInfo
@@ -54,16 +56,24 @@ export class SubscriptionProxy {
     }
     return this.baseService.get<PaginationVm<any>>(query);
   }
+  // add 
   addWorkflow(name: {name:string}): Observable<{name:string}> {
     return this.baseService.post<{name:string}>(`Workflows`, name);
   }
+  // edit
   editWorkflow(name: {name:string}): Observable<boolean> {
     return this.baseService.put<boolean>(`Workflows`, name);
   }
 
-
+// geit by id 
   getWorkFlowByID(id: number): Observable<any> {
     return this.baseService.get(`Workflows/${id}`);
   }
+
+  //  status dropdown
+  statusDropDown(workflowId: number): Observable<{id:number , name:string}[]> {
+    return this.baseService.get(`Workflows/${workflowId}/States/DropDown`);
+  }
+// #################
 
 }

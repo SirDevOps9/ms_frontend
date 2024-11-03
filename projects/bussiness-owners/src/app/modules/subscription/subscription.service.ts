@@ -20,9 +20,11 @@ export class SubscriptionService {
 // #########workflow###########
 public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
 public workwlowList = new BehaviorSubject<any>({} as any);
+public statusDropDownList = new BehaviorSubject<{id:number , name : string}[]>({} as {id:number , name : string}[]);
 public workflowObjByID = new BehaviorSubject<any>({} as any);
 workwlowList$ = this.workwlowList.asObservable()
 workflowObjByID$ = this.workflowObjByID.asObservable()
+statusDropDownList$ = this.statusDropDownList.asObservable()
 
 // #########workflow###########
 
@@ -117,6 +119,7 @@ workflowObjByID$ = this.workflowObjByID.asObservable()
       },
     });
   }
+  // edit 
   editWorkflow(tagDto: any, dialogRef: DynamicDialogRef) {
     this.subscriptionProxy.editWorkflow(tagDto).subscribe({
       next: (res) => {
@@ -131,7 +134,7 @@ workflowObjByID$ = this.workflowObjByID.asObservable()
       },
     });
   }
-
+// get by id 
   getWorkFlowByID(id : number) {
     this.subscriptionProxy.getWorkFlowByID(id).subscribe(res=>{
       if(res) {
@@ -139,6 +142,15 @@ workflowObjByID$ = this.workflowObjByID.asObservable()
         
       }
     })
+  }
+
+  // status dropdown 
+  statusDropDown(workflowId: number) {
+    this.subscriptionProxy.statusDropDown(workflowId).subscribe((res) => {
+      if (res) {
+        this.statusDropDownList.next(res);
+      }
+    });
   }
 
   constructor(

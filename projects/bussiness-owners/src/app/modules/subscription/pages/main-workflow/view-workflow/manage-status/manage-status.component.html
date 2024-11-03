@@ -1,0 +1,16 @@
+<div  class="new_employee">
+    <div class="grid mainGrid">
+      <div class="" style="width: 20%">
+        <div class="sidebar">
+          <ul>
+            <li *ngFor="let item of statusList" [class.active]="item.id" (click)="getStatus(item)">
+              {{ item.name }}
+            </li>
+           
+          </ul>
+        </div>
+      </div>
+
+     
+    </div>
+  </div>
