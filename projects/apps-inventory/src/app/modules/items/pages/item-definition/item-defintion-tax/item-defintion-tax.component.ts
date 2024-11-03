@@ -7,12 +7,14 @@ import { ItemsService } from '../../../items.service';
 @Component({
   selector: 'app-item-defintion-tax',
   templateUrl: './item-defintion-tax.component.html',
-  styleUrl: './item-defintion-tax.component.scss'
+  styleUrls: ['./item-defintion-tax.component.scss']
 })
 export class ItemDefintionTaxComponent {
   id: number;
   itemDefinitionForm: FormGroup;
   taxesDropDropDownLookup: any[] = [];
+  taxesGetTaxDataById: any = {};
+  isVatApplied: boolean = false;
 
   constructor(
     private _router: RouterService,
@@ -26,12 +28,13 @@ export class ItemDefintionTaxComponent {
   ngOnInit(): void {
     this.createForm();
     this.taxesDropDropDown();
+    this.getTaxDataById();
   }
 
   createForm() {
     this.itemDefinitionForm = this.fb.group({
       id: [this.id],
-      taxId: [null, ],
+      taxId: [null],
       isVatApplied: [false, Validators.required]
     });
   }
@@ -40,14 +43,36 @@ export class ItemDefintionTaxComponent {
     this.itemService.taxesDropDropDown();
     this.itemService.taxesLookupObs.subscribe(res => {
       this.taxesDropDropDownLookup = res || [];
-      console.log(this.taxesDropDropDownLookup);
+    });
+  }
+
+  getTaxDataById() {
+    this.itemService.getTaxDataById(this.id);
+    this.itemService.taxesDataLookupObs.subscribe(res => {
+      if (Array.isArray(res)) {
+        if (res.length > 0) {
+          const taxData = res[0];
+          this.updateFormWithTaxData(taxData);
+        }
+      } else if (res && typeof res === 'object') {
+        this.updateFormWithTaxData(res);
+      } 
+    });
+  }
+
+  private updateFormWithTaxData(taxData: any) {
+    this.taxesGetTaxDataById = taxData;
+    this.isVatApplied = taxData.isVatApplied;
+    this.itemDefinitionForm.patchValue({
+      taxId: taxData.taxId,
+      isVatApplied: taxData.isVatApplied
     });
   }
 
   onAddVariants() {
     if (this.itemDefinitionForm.valid) {
       const payload = this.itemDefinitionForm.value;
-      this.itemService.editItemTax(payload)
+      this.itemService.editItemTax(payload);
     }
   }
 }

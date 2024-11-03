@@ -54,9 +54,9 @@ export class EditWarehouseComponent implements OnInit {
       fax: [''],
       postalCode: [''],
       email: ['',Validators.email],
-      longitude: [0],
-      latitude: [0],
-      radius: [0],
+      longitude: [''],
+      latitude: [''],
+      radius: [''],
 
     }),
     warehouseAccount: this.fb.group({
@@ -96,9 +96,9 @@ getWarehouseById() {
         fax: res?.addressWarehouse?.fax ?? null,
         postalCode: res?.addressWarehouse?.postalCode ?? null,
         email: res?.addressWarehouse?.email ?? null,
-        longitude: res?.addressWarehouse?.longitude ?? 0,
-        latitude: res?.addressWarehouse?.latitude ?? 0,
-        radius: res?.addressWarehouse?.radius ?? 0
+        longitude: res?.addressWarehouse?.longitude ?? null,
+        latitude: res?.addressWarehouse?.latitude ?? null,
+        radius: res?.addressWarehouse?.radius ?? null
       },
       warehouseAccount: {
         glAccountId: res?.warehouseAccount?.glAccountId ?? null,

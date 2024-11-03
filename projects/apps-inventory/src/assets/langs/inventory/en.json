@@ -312,7 +312,7 @@
     "warehouseName": "Warehouse Name",
     "status": "Status",
     "delete": "Deleted",
-    "Success": "Success",
+    "Success": "Operational Tag updated  successfully",
     "actions": "Actions",
     "glAccountId" : "GL Account Code"
 
