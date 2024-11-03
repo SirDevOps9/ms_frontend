@@ -97,7 +97,6 @@ export class OperationTagEditComponent implements OnInit {
         }
       },
       (error: any) => {
-        console.error('Error fetching operational tag:', error);
       }
     );
   }
