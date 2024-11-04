@@ -5,11 +5,20 @@
         <p class="md:col-6 m-0 p-0">
           {{ 'itemType.vat' | translate }}
         </p>
+        <div class="md:col-12">
 
-        <div class="md:col-12" *ngIf="itemDefinitionForm.get('isVatApplied')?.value == true">
+          <lib-form-group>
+            <div class="flex align-items-center gap-2">
+              <lib-input-switch formControlName="isVatApplied" ></lib-input-switch>
+              <p>{{ 'itemType.priceIncludeVat' | translate }}</p>
+            </div>
+          </lib-form-group>
+        </div>
+
+        <div class="md:col-12" *ngIf="showTax">
           <lib-select
             formControlName="taxId"
-            [options]="taxesDropDropDownLookup"
+            [options]="taxesDropDropDownLookup || []"
             optionValue="id"
             optionLabel="name"
             placeholder="{{ 'itemType.taxesValue' | translate }}"
@@ -20,15 +29,7 @@
             [appControl]="itemDefinitionForm.controls['taxId']"
           ></lib-field-validations>
         </div>
-        <div class="md:col-12">
-
-          <lib-form-group>
-            <div class="flex align-items-center gap-2">
-              <lib-input-switch formControlName="isVatApplied"></lib-input-switch>
-              <p>{{ 'itemType.priceIncludeVat' | translate }}</p>
-            </div>
-          </lib-form-group>
-        </div>
+    
 
 
       </div>

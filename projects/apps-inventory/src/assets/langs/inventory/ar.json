@@ -13,6 +13,7 @@
     "nameEn": "الاسم (إنجليزي)",
     "nameAr": "الاسم (عربي)",
     "main" : "المعلومات الرئيسية",
+    "inventoryEdited" : "تم عتديل المخزن بنجاح",
 
     "name": "الاسم",
     "category": "الفئة",
@@ -135,6 +136,7 @@
     "attributeValues": "اختر قيم الخصائص",
     "viewVariant": "عرض",
     "itemTracking": "تتبع العنصر",
+    "tracking" : "التتبع",
     "SelectItemTracking": "اختر تتبع العنصر",
     "hasExpiry": "له تاريخ انتهاء",
     "delete" : "تم حذف تعريف العنصر بنجاح"

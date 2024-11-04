@@ -2,7 +2,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { DialogService } from 'primeng/dynamicdialog';
-import { customValidators, FormsService, RouterService, SharedLibraryEnums, ToasterService } from 'shared-lib';
+import { customValidators, FormsService, LanguageService, RouterService, SharedLibraryEnums, ToasterService } from 'shared-lib';
 import { AddVariantPopupComponent } from '../../../components/add-variant-popup/add-variant-popup.component';
 import { ViewVariantPopupComponent } from '../../../components/view-variant-popup/view-variant-popup.component';
 import { AddBarcodePopupComponent } from '../../../components/add-barcode-popup/add-barcode-popup.component';
@@ -24,18 +24,18 @@ export class ItemDefinitionBarcodeComponent {
   itemDefinitionForm: FormGroup = new FormGroup({})
   id: number
   uomLookup: { uomId: number; uomName: string }[] = []
+  currentLang = this.languageService.getLang()
 
 
   clonedUomCodeLookup: UomCodeLookup[] = []
   itemData: GetItemById
   codeData: { code: number; conversionRatio: string }
 
-  ItemVariantsByItemIdDropDown: { id: number; nameEn: string }[] = []
-  constructor(private _router: RouterService, private fb: FormBuilder, private formService: FormsService, public sharedLibEnums: SharedLibraryEnums, private dialog: DialogService, private route: ActivatedRoute, private toaserService: ToasterService, private itemService: ItemsService) {
+  ItemVariantsByItemIdDropDown: { variantId: number; variantEnName: string ;variantArName : string }[] = []
+  constructor(private languageService  :LanguageService , private _router: RouterService, private fb: FormBuilder, private formService: FormsService, public sharedLibEnums: SharedLibraryEnums, private dialog: DialogService, private route: ActivatedRoute, private toaserService: ToasterService, private itemService: ItemsService) {
     this.id = this.route.snapshot.params['id']
   }
   ngOnInit(): void {
-    this.getItemVariantsByItemIdDropDown()
     this.itemDefinitionForm = this.fb.group({
       id: this.id,
     
@@ -46,7 +46,7 @@ export class ItemDefinitionBarcodeComponent {
 
 
 
-
+    this.getItemVariants()
 
 
 
@@ -77,6 +77,13 @@ export class ItemDefinitionBarcodeComponent {
 
   }
 
+  getItemVariants(){
+    this.itemService.getItemVariants(this.id)
+    this.itemService.ItemVariantsByIdObs.subscribe((data)=>{
+    this.ItemVariantsByItemIdDropDown = data
+    })
+  }
+
 
 
 
@@ -100,15 +107,21 @@ export class ItemDefinitionBarcodeComponent {
   }
 
 
-  getItemVariantsByItemIdDropDown() {
-    this.itemService.getItemVariantsByItemIdDropDown(this.id)
-    this.itemService.ItemVariantsByItemIdDropDownObs.subscribe((data) => {
-      this.ItemVariantsByItemIdDropDown = data
+  // getItemVariantsByItemIdDropDown() {
+  //   this.itemService.getItemVariantsByItemIdDropDown(this.id)
+  //   this.itemService.ItemVariantsByItemIdDropDownObs.subscribe((data) => {
+  //     this.ItemVariantsByItemIdDropDown = data
 
-    })
+  //   })
+  // }
+
+  variantChanged(e : any , itemDefBarcodeGroup : FormGroup) {
+   let data =  this.ItemVariantsByItemIdDropDown.find(item=>item.variantId == e)
+   console.log(data)
+   console.log(e)
+
+   itemDefBarcodeGroup.get('itemVariantName')?.setValue(this.currentLang == 'en' ? data?.variantEnName : data?.variantArName)
   }
-
-
 
 
   uomChange(e: any, itemDefBarcodeGroup: FormGroup) {

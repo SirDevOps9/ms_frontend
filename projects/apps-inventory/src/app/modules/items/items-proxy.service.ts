@@ -180,6 +180,14 @@ export class ItemsProxyService {
   return this.httpService.put(`Item/EditTax`,obj)
 
  }
+ editInventory(obj:any){
+  return this.httpService.put(`Item/UpdateItemExpiryAndTracking`,obj)
+ }
+ getInvenrory(id:number) {
+  
+  return this.httpService.get(`Item/GetItemExpiryAndTracking/${id}`)
+
+ }
 
  getItemBarcodeById(id:number){
   return this.httpService.get(`Item/GetItemBarcode/${id}`)

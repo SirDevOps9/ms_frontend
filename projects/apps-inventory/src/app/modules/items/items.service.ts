@@ -85,6 +85,7 @@ export class ItemsService {
   public taxesDataLookup = new BehaviorSubject<any[]>([]);
 
  public taxesEditDataLookup = new BehaviorSubject<any[]>([]);
+ public getInventoryData = new BehaviorSubject<any>([]);
  public dataBarCodeById =new BehaviorSubject<any[]>([]);
   public uomCodeLookup = new BehaviorSubject<UomCodeLookup[]>([]);
   public getuomById = new BehaviorSubject<addUOM>({} as addUOM);
@@ -279,6 +280,7 @@ public userSubDomainModules =  new BehaviorSubject<any[]>([]);
 public userSubDomainModulesObs = this.userSubDomainModules.asObservable()
 public taxesDataLookupObs = this.taxesDataLookup.asObservable()
 public taxesEditDataLookupObs = this.taxesEditDataLookup.asObservable()
+public getInventoryData$ = this.getInventoryData.asObservable()
 public dataBarCodeByIdObs = this.dataBarCodeById.asObservable()
 
   getItemType(quieries: string, pageInfo: PageInfo) {
@@ -617,8 +619,7 @@ this.itemProxy.getItemBarcodeById(id).subscribe({
 gettaxesDropDropDown(id: number) {
   this.itemProxy.getTaxDataDropDropDown(id).subscribe({
     next: (res: any) => {
-       const taxesData = Array.isArray(res) ? res : [];
-       this.taxesDataLookup.next(taxesData);
+       this.taxesDataLookup.next(res);
     },
     error: (err) => {
       console.error("Failed to load tax data:", err);
@@ -641,6 +642,26 @@ editItemTax(obj:any){
 
       },
     });
+}
+editInventory(obj:any){
+   this.itemProxy.editInventory(obj).subscribe({
+      next: (res: any) => {
+        if (res) {
+          this.taxesEditDataLookup.next(res);
+          this.toasterService.showSuccess(
+            this.languageService.transalte('itemType.success'),
+            this.languageService.transalte('itemType.inventoryEdited')
+          );
+        }
+
+      },
+    });
+}
+getInvenrory(id:number){
+  
+  this.itemProxy.getInvenrory(id).subscribe(res=>{
+    this.getInventoryData.next(res)
+  })
 }
   uomCodeDropDown(id: number) {
     this.itemProxy.uomCodeDropDown(id).subscribe({

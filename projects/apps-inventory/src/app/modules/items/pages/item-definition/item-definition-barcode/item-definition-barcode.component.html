@@ -85,11 +85,13 @@
                     <lib-select
                       formControlName="itemVariantId"
                       [options]="ItemVariantsByItemIdDropDown"
-                      optionLabel="name"
-                      optionValue="id"
+                      [optionLabel]="currentLang == 'en' ? 'variantEnName' : 'variantArName'"
+                      optionValue="variantId"
+                      (valueChanged)="variantChanged($event , itemDefBarcodeGroup)"
+
   
                     ></lib-select>
-                  </ng-template>
+                  </ng-template>P
                   <ng-template pTemplate="output">
                     {{ itemDefBarcodeGroup.controls['itemVariantName']?.value }}
                   </ng-template>
@@ -124,7 +126,7 @@
   
               <td>
                 <p
-                  class="m-0 p-0 showtext"
+                  class="m-0 p-0 showText"
                   (click)="openQRcode(itemDefBarcodeGroup.controls['barcode']?.value)"
                 >
                   {{ 'itemType.show' | translate }}
@@ -134,7 +136,7 @@
   
               <td>
                 <p
-                  class="m-0 p-0 showtext"
+                  class="m-0 p-0 showText"
                   (click)="openBarcode(itemDefBarcodeGroup.controls['barcode']?.value)"
                 >
                   {{ 'itemType.show' | translate }}
