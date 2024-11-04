@@ -9,7 +9,7 @@ import { AddBarcodePopupComponent } from '../../../components/add-barcode-popup/
 import { ActivatedRoute } from '@angular/router';
 import { ItemsService } from '../../../items.service';
 import { ViewQRcodeComponent } from '../../../components/view-qrcode/view-qrcode.component';
-import { GetItemById, getUomByItemId, UomCodeLookup, UomDefault } from '../../../models';
+import { addBarcode, GetItemById, getUomByItemId, UomCodeLookup, UomDefault } from '../../../models';
 import { AddUom, ItemUom } from '../../../models/addUom';
 
 
@@ -23,7 +23,7 @@ export class ItemDefinitionBarcodeComponent {
 
   itemDefinitionForm: FormGroup = new FormGroup({})
   id: number
-  uomLookup: { id: number; name: string }[] = []
+  uomLookup: { uomId: number; uomName: string }[] = []
 
 
   clonedUomCodeLookup: UomCodeLookup[] = []
@@ -35,36 +35,13 @@ export class ItemDefinitionBarcodeComponent {
     this.id = this.route.snapshot.params['id']
   }
   ngOnInit(): void {
-    this.getUomDropDown(this.id)
     this.getItemVariantsByItemIdDropDown()
     this.itemDefinitionForm = this.fb.group({
       id: this.id,
-      code: [''],
-      name: ['', [customValidators.required]],
-      photo: [''],
-      categoryId: ['', [customValidators.required]],
-      countryId: [''],
-      tags: [''],
-      defaultUOMCategoryId: ['', [customValidators.required]],
-      taxId: [''],
-      shortName: [''],
-      warranty: [''],
-      isVatApplied: [''],
-      specialCare: [''],
-      lifeTime: [''],
-      color: [''],
-      uomId: [''],
-      uom: this.fb.array([]),
+    
       barcode: this.fb.array([]),
       attribute: this.fb.array([]),
-      hasExpiryDate: [''],
-      trackingId: [''],
-      itemAccounting: this.fb.group({
-        pAccount: 0,
-        prAccount: 0,
-        sAccount: 0,
-        srAccount: 0
-      })
+     
     })
 
 
@@ -74,22 +51,7 @@ export class ItemDefinitionBarcodeComponent {
 
 
     this.addLineBarcode()
-    this.itemService.sendAttributeVariantDataObs.subscribe(res => {
-      if (res) {
-        this.AttributeForm.clear()
-        res.forEach(element => {
-          let data = this.fb.group({
-            name: element.attributeGroupNameEn,
-            attributeGroupId: element.attributeGroupId,
-            status: element.isActive,
-            itemId: element.itemId,
-            id: element.id
-
-          })
-          this.AttributeForm.push(data)
-        });
-      }
-    })
+ 
 
     this.itemService.sendBarcode.subscribe(res => {
       if (res) {
@@ -151,9 +113,10 @@ export class ItemDefinitionBarcodeComponent {
 
   uomChange(e: any, itemDefBarcodeGroup: FormGroup) {
 
-    let data = this.uomLookup.find(elem => elem.id == e)
+    let data = this.uomLookup.find(elem => elem.uomId == e)
+ 
 
-    itemDefBarcodeGroup.get('uomName')?.setValue(data?.name)
+    itemDefBarcodeGroup.get('uomName')?.setValue(data?.uomName)
   }
 
 
@@ -164,11 +127,12 @@ export class ItemDefinitionBarcodeComponent {
   createbarcodeFormGroup(): FormGroup {
     return this.fb.group({
       id: null,
+      itemId : this.id,
       barcode: null,
       uomId: [null, [customValidators.required]],
       itemVariantId: null,
       sku: null,
-      status: true,
+      isActive: true,
       uomName: null,
       itemVariantName: null
     });
@@ -222,23 +186,7 @@ export class ItemDefinitionBarcodeComponent {
     }
 
   }
-  async confirmBarcodeChange(event: any, itemBarcodeGroup: FormGroup) {
-    const confirmed = await this.toaserService.showConfirm('ConfirmButtonTexttochangestatus');
-    if (confirmed) {
-      const command = {
-        id: itemBarcodeGroup.get('itemVariantId')?.value,
-        status: itemBarcodeGroup.get('status')?.value
 
-      };
-      this.itemService.ActivateBarcode(command);
-
-    } else {
-      // Properly toggle the status value
-      const currentStatus = itemBarcodeGroup.get('status')?.value;
-      itemBarcodeGroup.get('status')?.setValue(!currentStatus);
-    }
-
-  }
 
   onViewAttribute(form: FormGroup) {
     const dialogRef = this.dialog.open(ViewVariantPopupComponent, {
@@ -256,11 +204,15 @@ export class ItemDefinitionBarcodeComponent {
     });
   }
 
-  onSaveBarcode(itemDefBarcodeGroup: FormGroup) {
+  onSaveBarcode() {
     if (!this.formService.validForm(this.barcodeForm, false)) return;
 
-    let { barcode, sku, itemVariantId, uomId } = itemDefBarcodeGroup.value
-    return this.itemService.addBarcode({ barcode, sku, itemVariantId, uomId })
+    let data: addBarcode= {
+      id : this.id,
+      barcodes : this.barcodeForm.value 
+    } 
+
+    return this.itemService.addBarcode(data)
   }
 
   getBarcodeByItemId() {
@@ -272,11 +224,12 @@ export class ItemDefinitionBarcodeComponent {
         res.forEach(element => {
           let data = this.fb.group({
             id: element.id,
+            itemId : this.id,
             barcode: element.barcode,
             uomId: element.uomId,
             itemVariantId: element.itemVariantId,
             sku: element.sku,
-            status: element.isActive,
+            isActive: element.isActive,
             uomName: element.uomName,
             itemVariantName: element.itemVariantName
           })

@@ -352,7 +352,7 @@ export class ItemsProxyService {
   }
 
   addBarcode(obj:addBarcode) {
-    return this.httpService.post('Barcode' , obj)
+    return this.httpService.put('Item/EditItemBarcode' , obj)
   }
   addUOM(obj:AddUom) {
     return this.httpService.put('ItemUom' , obj)

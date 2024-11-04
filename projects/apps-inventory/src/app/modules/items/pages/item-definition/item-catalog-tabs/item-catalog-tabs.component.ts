@@ -17,6 +17,7 @@ export class ItemCatalogTabsComponent {
 
     this.route.firstChild?.params.subscribe(params => {
       this.id = params['id'];
+      console.log(this.id)
 
     });
 
@@ -26,6 +27,8 @@ export class ItemCatalogTabsComponent {
     if (!routeFragment) {
       return false;
     }
+    console.log(this._router.getCurrentUrl())
+    console.log(this._router.getCurrentUrl().includes(`/${routeFragment}`))
     return this._router.getCurrentUrl().includes(`/${routeFragment}`);
   }
   onRoute(path: string) {
