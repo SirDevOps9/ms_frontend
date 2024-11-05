@@ -1,0 +1,56 @@
+<lib-popup-page
+  title="{{ 'attributeDefinition.attributeValues' | translate }}"
+  [closeFunction]="onCancel"
+  [save]="false"
+  [showCancel]="false"
+>
+  <!-- Data Table -->
+  <lib-data-table
+    [items]="tableData"
+    className="p-datatable-gridlines"
+    [tableConfigs]="{
+      allowPagination: false,
+      columns: [
+        {
+          name: 'nameEn',
+          headerText: 'attributeDefinition.attribute' | translate,
+          isGlobalFilter: true,
+          isSortable: true
+        },
+        {
+          name: 'itemAttributes',
+          headerText: 'attributeDefinition.values' | translate,
+          isGlobalFilter: true,
+          isSortable: true,
+          template: itemAttributesTemplate
+        },
+        {
+          name: 'isActive',
+          headerText: 'attributeDefinition.status' | translate,
+          isGlobalFilter: true,
+          isSortable: true,
+          template: isActiveTemplate
+        }
+      ]
+    }"
+  ></lib-data-table>
+
+  <!-- Template for Item Attributes -->
+  <ng-template #itemAttributesTemplate let-row>
+    <div  *ngIf="row.itemAttributes && row.itemAttributes.length > 0"  class="itemAttributes">
+      <p class="itemAttributes-valuse"   *ngFor="let item of row.itemAttributes; let i = index">
+        {{ item.nameEn }}
+      </p>
+    </div>
+  </ng-template>
+
+  <!-- Template for Is Active -->
+  <ng-template #isActiveTemplate let-row>
+    <div *ngIf="row.isActive != null" class="flex align-items-center">
+      <lib-input-switch
+        [id]="row.id"
+        [ngModel]="row.isActive"
+      ></lib-input-switch>
+    </div>
+  </ng-template>
+</lib-popup-page>

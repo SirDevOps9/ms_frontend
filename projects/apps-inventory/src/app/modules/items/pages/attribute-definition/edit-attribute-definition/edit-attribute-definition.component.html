@@ -62,11 +62,11 @@
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-attrTableForm let-i="rowIndex">
-  <tr 
-    [formGroup]="attrTableForm" 
+  <tr
+    [formGroup]="attrTableForm"
     [ngClass]="{'duplicate-row': attrTableForm?.controls['isDuplicate']?.value}"
   >
-  
+
     <!-- Name in Arabic -->
     <td [pEditableColumn]="attrTableForm?.controls['nameAr']" pEditableColumnField="nameAr">
       <p-cellEditor>
@@ -108,12 +108,9 @@
     </td>
     <td>
       <div class="actions flex align-items-center">
-        <lib-button-micro
-          nameClass="cancel"
-          iconName="pi pi-trash"
-          type="button"
-          (click)="deleteLine(i)"
-        ></lib-button-micro>
+      
+
+      <img src="assets/images/table/delete.svg" alt=""   (click)="deleteLine(i)" />
       </div>
     </td>
   </tr>

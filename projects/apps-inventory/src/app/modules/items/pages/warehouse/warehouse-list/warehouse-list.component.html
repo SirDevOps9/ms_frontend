@@ -4,6 +4,7 @@
         <lib-data-table
         *ngIf="tableData.length>0"
           [items]="tableData"
+           
           className="p-datatable-gridlines"
           [currentPageResult]="currentPageInfo"
           (pageChange)="onPageChange($event)"
@@ -37,7 +38,8 @@
               {
                 name: 'id',
                 headerText: ('warehouse.actions' | translate),
-                template: actions
+                template: actions,
+                isSortable: true
               }
             ]
           }"
@@ -52,11 +54,13 @@
 
           <ng-container search>
             <lib-form-group>
+
               <lib-text-input
               type="text"
               [placeholder]="'warehouse.search' | translate"
               [(ngModel)]="searchTerm"
               (keyUp)="onSearchChange($event)"
+              [iconUrl]="'pi pi-search'"
             ></lib-text-input>
             </lib-form-group>
             </ng-container>
@@ -74,7 +78,7 @@
             <!--  -->
             <div>
               <lib-button-micro
-              [title]="'create' | translate"
+              [title]="'warehouse.AddNew' | translate"
               nameClass="save"
               iconName="pi pi-plus"
               (click)="onAdd()"

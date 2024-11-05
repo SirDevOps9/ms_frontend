@@ -1,0 +1,27 @@
+<lib-popup-page
+  title="{{ 'attributeDefinition.attributeValues' | translate }}"
+  [closeFunction]="onCancel"
+  [save]="false"
+  [showCancel]="false"
+>
+  <!-- First Data Table -->
+  <lib-data-table
+  [items]="tableData"
+  className="p-datatable-gridlines"
+  [tableConfigs]="{
+    allowPagination: false,
+    columns: [
+      {
+        name: 'nameEn',
+        headerText: 'attributeDefinition.values' | translate,
+        isGlobalFilter: false,
+        isSortable: false
+      }
+    ]
+  }"
+></lib-data-table>
+
+
+
+
+</lib-popup-page>

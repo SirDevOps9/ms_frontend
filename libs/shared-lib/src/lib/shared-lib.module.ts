@@ -119,7 +119,7 @@ import { NewBreadCrumbComponent } from './components/new-bread-crumb/new-bread-c
     ProgressSpinnerModule,
     QRCodeModule,
     InputTextareaModule
-    
+
   ],
   exports: [
     GetLookupPipe,
@@ -172,5 +172,6 @@ import { NewBreadCrumbComponent } from './components/new-bread-crumb/new-bread-c
     QRCodeModule,ColumnsSelectionComponent,
     InputTextareaModule
   ],
+
 })
 export class SharedLibModule {}

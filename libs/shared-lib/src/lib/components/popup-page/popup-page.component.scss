@@ -1,12 +1,12 @@
 .pop_up_page{
-  
-    
+
+
         align-items: center;
         justify-content: space-between;
         flex-direction: column;
         .pop_up_header{
             width: 100%;
-            background-image: url('../../../assets/images/pop-header.png');
+
             background-size: cover;
             position: sticky;
             top: 0;
@@ -22,13 +22,13 @@
             padding-bottom: 16px;
             // margin-bottom: 16px;
             border-bottom: 1px solid #E3E3E3;
-           
-        
+
+
             .title {
               display: flex;
               font-size: 18px;
               font-weight: 700;
-              color: #fff !important;
+              color: #333 !important;
 
               // color: #2E2E2E;
               // .plus_icon {
@@ -39,7 +39,7 @@
               //   background-size: contain;
               //   background-position: center;
               //   background-repeat: no-repeat;
-                
+
               // }
             }
             .cancel {
@@ -48,7 +48,7 @@
               font-weight: 700;
             }
         }
-           
+
         }
         .pop_up_content{
           padding: 24px;
@@ -57,7 +57,7 @@
             max-height: 400px;
             overflow: auto;
            // padding:50px 0 !important;
-    
+
             .title{
                 background: #fff;
                 padding: 8px;
@@ -80,14 +80,14 @@
             .card{
           // max-height: 400px;
           // overflow: auto;
-    
+
             }
-          
+
         }
         .pop_up_footer{
             position: fixed;
             bottom: 0;
-         
+
             align-items: center;
             justify-content: center;
             width: 100%;
@@ -96,10 +96,10 @@
             padding-bottom: 24px;
             // background: #f7f8f8;
             // padding: 10px;
-         
-         
+
+
         }
-       
+
     }
     .none{
       display: none;
@@ -111,9 +111,9 @@
     //             padding: 0 0 0 0 !important;
     //           }
     //         }
-            
-          
-            
+
+
+
     // }
     // .p-dialog {
     //     .p-dialog-content {
@@ -129,21 +129,21 @@
     //     border-top-left-radius: 15px !important;
     //     border-bottom-left-radius: 15px !important;
     //     overflow-x: hidden;
-      
+
     //   }
     // }
     //   .p-dialog {
     //     .p-dialog-header {
     //       display: none !important;
     //     }
-      
+
     //   }
     // }
-    
+
     // .cancel_btn , .save_btn {
     //   width: 49%;
     // }
-    
+
     // .view{
     //   font-size: 1rem;
     //   color: #4b5563;
@@ -171,12 +171,12 @@
        }
 }
 .cancel {
-    background: url('../../../assets/images/Close.png');
+    color: brown;
     background-repeat: no-repeat;
     cursor: pointer;
     font-size: 15px;
     font-weight: 700;
     width: 32px;
     height: 32px;
+
   }
- 

@@ -12,18 +12,23 @@
             dataKey: 'id',
             pageSize: 10,
             columns: [
-              {
-                name: 'nameAr',
-                headerText: ('attributeDefinition.nameAr' | translate),
-                isGlobalFilter: true,
-                isSortable: true
-              },
+
               {
                 name: 'nameEn',
-                headerText: ('attributeDefinition.nameEn' | translate),
+                headerText: ('attributeDefinition.attribute' | translate),
                 isGlobalFilter: true,
                 isSortable: true
               },
+
+              {
+                   name: 'itemAttributes',
+                headerText: ('attributeDefinition.values' | translate),
+                   isGlobalFilter: true,
+                   isSortable: true,
+                     template: itemAttributesTemplate
+              },
+
+
 
               {
                 name: 'isActive',
@@ -44,6 +49,27 @@
             ]
           }"
         >
+
+
+        <ng-template #itemAttributesTemplate let-row>
+
+
+
+          <div  class="itemAttributes" >
+            <p class="itemAttributes-valuse" *ngFor="let item of (row.itemAttributes) | slice:0:5 ; let i = index">
+              {{ row?.itemAttributes[i].nameEn }}<span *ngIf="i < 2"> </span>
+            </p>
+
+            <p *ngIf=" row?.itemAttributes.length > 4"  (click)="onViewttributeValues(row.id)"class="itemAttributes-valuse">
+              .... show More
+              <!-- <img src="assets/images/table/view.svg" alt="" (click)="onViewttributeValues(row.id)" /> -->
+            </p>
+
+
+          </div>
+        </ng-template>
+
+
           <ng-container caption>
             <div class="">
               <div class="grid grid-cols-4 gap-2" >
@@ -54,6 +80,7 @@
                       [placeholder]="'attributeDefinition.Search' | translate"
                       [(ngModel)]="searchTerm"
                       (keyUp)="onSearchChange()"
+                      [iconUrl]="'pi pi-search'"
                     ></lib-text-input>
                   </lib-form-group>
                 </div>
@@ -94,7 +121,7 @@
 
                   <div>
                     <lib-button-micro
-                      [title]="'create' | translate"
+                      [title]="'attributeDefinition.Add' | translate"
                       nameClass="save"
                       iconName="pi pi-plus"
                       (click)="Add()"
@@ -125,6 +152,8 @@
             <div class="actions flex align-items-center">
               <img src="assets/images/table/edit.svg" alt="" (click)="onEdit(action)" />
               <img src="assets/images/table/delete.svg" alt="" (click)="onDelete(action.id)" />
+              <img src="assets/images/table/view.svg" alt="" (click)="onViewttributeValuesList(action.id)" />
+
             </div>
           </ng-template>
         </lib-data-table>

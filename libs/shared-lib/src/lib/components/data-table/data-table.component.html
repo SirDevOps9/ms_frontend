@@ -53,17 +53,20 @@
           </div>
 
           <ng-content select="[caption]"> </ng-content>
-          <lib-columns-selection
-            [ngClass]="{ 'rtl-position': isRtl, 'ltr-position': !isRtl }"
-            class=" col-selection"
-            [formControl]="searchColumnsControl"
-            [options]="filtered_columns.slice(0,-1)"
-            [(ngModel)]="selected_filtered_columns"
-            optionLabel="name"
-            optionValue="name"
-            [className]="'pi pi-list'"
-            (filterColumns)="handleFilterColumns($event)"
-          />
+
+          <lib-columns-selection *ngIf="libColumns"
+
+          [ngClass]="{ 'rtl-position': isRtl, 'ltr-position': !isRtl }  "
+          class="col-selection"
+          [formControl]="searchColumnsControl"
+          [options]="filtered_columns.slice(0, -1)"
+          [(ngModel)]="selected_filtered_columns"
+          optionLabel="name"
+          optionValue="name"
+          [className]="'pi pi-list'"
+          (filterColumns)="handleFilterColumns($event)"
+          ></lib-columns-selection>
+
         </ng-template>
 
         <ng-template pTemplate="header">
@@ -154,7 +157,7 @@
             <ng-content select="[firstRow]"> </ng-content>
           </tr>
         </ng-template>
-      
+
         <ng-template pTemplate="body" let-row let-i="rowIndex">
           <tr [ngClass]="{ cssClass: i == selectedIndex }">
             <td *ngIf="showCheckBox" style="width: 4rem">
@@ -164,11 +167,11 @@
               <!-- Check if the column has children -->
               <ng-container *ngIf="col.children && col.children.length; else parentCol">
                 <ng-container *ngFor="let child of col.children">
-                  <td  
-            
-                  
-                  class="body_b16" [ngClass]="child.applyClass ? child['class'] : null"   
-                  
+                  <td
+
+
+                  class="body_b16" [ngClass]="child.applyClass ? child['class'] : null"
+
                   >
                     <ng-container *ngIf="!child.template; else customCellTemplate!">
                       <ng-container *ngIf="child.lookupKey">
@@ -222,9 +225,9 @@
               <!-- Check if the column has children -->
               <ng-container *ngIf="col.children && col.children.length; else parentCol">
                 <ng-container *ngFor="let child of col.children">
-                  <td   
-                   
-                  
+                  <td
+
+
                   class="body_b16">
                     <ng-container *ngIf="!child.template; else customCellTemplate!">
                       <ng-container *ngIf="child.lookupKey">
@@ -244,11 +247,11 @@
               </ng-container>
               <!-- Template for parent column -->
               <ng-template #parentCol>
-                <td   
+                <td
                 pFrozenColumn
                 [frozen]="col.name === 'id' ? true : false"
-                [alignFrozen]="isRtl ? 'left' : 'right'"   
-                
+                [alignFrozen]="isRtl ? 'left' : 'right'"
+
                 class="body_b16">
                   <ng-container *ngIf="!col.template; else customParentCellTemplate!">
                     <ng-container *ngIf="col.lookupKey">
