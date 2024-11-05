@@ -310,57 +310,92 @@ this.getUOMS.valueChanges.subscribe((res: any) => {
 
   onSave() {
 
-    if (!this.formService.validForm(this.getUOMS, false)) return;
+    if (!this.formService.validForm(this.UOMFormGroup, false)) return;
+
+    if(this.getUOMS.value.length) {
+      let base =  {
+        code: '',
+        nameAr: this.UOMFormGroup.get('baseUomAr')?.value,
+        nameEn: this.UOMFormGroup.get('baseUomEn')?.value,
+        shortName: this.UOMFormGroup.get('shortName')?.value,
+        isBaseUnit: true,
+        factor: 1,
+        calculation: '1',
+        reversal: '1',
+        uomCategoryId: 0,
+        systemUnitOfMeasureId: this.UOMFormGroup.get('systemUnitOfMeasureId')?.value,
+        fromUnitOfMeasureId: ''
+      }
+
+      this.getUOMS.controls[0].get('fromUnitOfMeasureId')?.setValue(this.UOMFormGroup.get('shortName')?.value)
 
 
-    let base =  {
-      code: '',
-      nameAr: this.UOMFormGroup.get('baseUomAr')?.value,
-      nameEn: this.UOMFormGroup.get('baseUomEn')?.value,
-      shortName: this.UOMFormGroup.get('shortName')?.value,
-      isBaseUnit: true,
-      factor: 1,
-      calculation: '1',
-      reversal: '1',
-      uomCategoryId: 0,
-      systemUnitOfMeasureId: this.UOMFormGroup.get('systemUnitOfMeasureId')?.value,
-      fromUnitOfMeasureId: ''
-    }
+      const formArray = this.getUOMS;
 
-    this.getUOMS.controls[0].get('fromUnitOfMeasureId')?.setValue(this.UOMFormGroup.get('shortName')?.value)
+      // Loop through the form array starting from the second item
+      for (let i = 1; i < formArray.length; i++) {
+        const currentGroup = formArray.at(i) as FormGroup;
+        const previousGroup = formArray.at(i - 1) as FormGroup;
+
+        // Set 'fromUnitOfMeasureId' of the current item to 'shortName' of the previous item
+        const previousShortName = previousGroup.get('shortName')?.value;
+        currentGroup.get('fromUnitOfMeasureId')?.setValue(previousShortName);
+      }
+
+      let unitOfMeasures = formArray.value
 
 
-    const formArray = this.getUOMS;
+      
 
-    // Loop through the form array starting from the second item
-    for (let i = 1; i < formArray.length; i++) {
-      const currentGroup = formArray.at(i) as FormGroup;
-      const previousGroup = formArray.at(i - 1) as FormGroup;
-  
-      // Set 'fromUnitOfMeasureId' of the current item to 'shortName' of the previous item
-      const previousShortName = previousGroup.get('shortName')?.value;
-      currentGroup.get('fromUnitOfMeasureId')?.setValue(previousShortName);
-    }
+      unitOfMeasures.unshift(base);
 
-    let unitOfMeasures = formArray.value
+      let uom = {
+        nameAr: this.UOMFormGroup.get('nameAr')?.value,
+        nameEn: this.UOMFormGroup.get('nameEn')?.value,
+        unitOfMeasures : unitOfMeasures
+      }
+      
 
 
+
+      
+
+      this._itemService.addUOMCategory(uom)
+    }else {
+      // Define base unit object with form values, default values, and fallback options
+      const base = {
+        code: '',
+        nameAr: this.UOMFormGroup.get('baseUomAr')?.value || '',
+        nameEn: this.UOMFormGroup.get('baseUomEn')?.value || '',
+        shortName: this.UOMFormGroup.get('shortName')?.value || '',
+        isBaseUnit: true,
+        factor: 1,
+        calculation: '1',
+        reversal: '1',
+        uomCategoryId: 0,
+        systemUnitOfMeasureId: this.UOMFormGroup.get('systemUnitOfMeasureId')?.value || null,
+      };
     
+      // Add the base unit to the beginning of the getUOMS array
+      this.getUOMS.value.unshift(base);
+    
+      // Set the 'fromUnitOfMeasureId' in the newly added base unit
+      if (this.getUOMS.controls[0]) {
+        this.getUOMS.controls[0].get('fromUnitOfMeasureId')?.setValue(base.shortName);
+      }
+    
+      // Define UOM category object with form values and unit measures array
+      const uom = {
+        nameAr: this.UOMFormGroup.get('nameAr')?.value || '',
+        nameEn: this.UOMFormGroup.get('nameEn')?.value || '',
+        unitOfMeasures: this.getUOMS.value
+      };
+    
+      // Call the service to add the UOM category
+      this._itemService.addUOMCategory(uom)
 
-    unitOfMeasures.unshift(base);
-
-    let uom = {
-      nameAr: this.UOMFormGroup.get('nameAr')?.value,
-      nameEn: this.UOMFormGroup.get('nameEn')?.value,
-      unitOfMeasures : unitOfMeasures
     }
-    
-
-
-
-    
-
-    this._itemService.addUOMCategory(uom)
+   
 
 
   }
