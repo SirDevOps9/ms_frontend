@@ -83,13 +83,13 @@ export class SubscriptionProxy {
     }[]>(query);
   }
   // add
-  addWorkflow(name: { name: string }): Observable<{ name: string }> {
-    return this.baseService.post<{ name: string }>(`Workflows`, name);
+  addWorkflow(name: any): Observable<{ name:any }> {
+    return this.baseService.post<{ name:any }>(`Workflows`, name);
   }
 
   // edit
-  editWorkflow(name: { name: string }): Observable<boolean> {
-    return this.baseService.put<boolean>(`Workflows`, name);
+  editWorkflow(name: any): Observable<any> {
+    return this.baseService.put<any>(`Workflows`, name);
   }
   deleteWorkflow(id: number) {
     return this.baseService.delete(`Workflows/${id}`);

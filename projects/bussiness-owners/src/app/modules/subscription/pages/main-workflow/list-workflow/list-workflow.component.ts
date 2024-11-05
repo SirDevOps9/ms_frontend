@@ -82,8 +82,8 @@ export class ListWorkflowComponent implements OnInit {
   }
   newWorkflow() {
     const dialogRef = this.dialog.open(AddWorkflowComponent, {
-      width: '400px',
-      height: '300px',
+      width: '500px',
+      height: '450px',
     });
 
     dialogRef.onClose.subscribe(() => {
@@ -105,8 +105,8 @@ export class ListWorkflowComponent implements OnInit {
   // }
   onEdit(data: any) {
     const dialogRef = this.dialog.open(EditWorkflowComponent, {
-      width: '400px',
-      height: '300px',
+      width: '500px',
+      height: '450px',
       data: data,
     });
 

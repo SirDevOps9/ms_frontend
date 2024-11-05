@@ -12,9 +12,7 @@ import { SubscriptionService } from '../../../subscription.service';
   styleUrl: './edit-workflow.component.scss'
 })
 export class EditWorkflowComponent implements OnInit {
-  tagForm: FormGroup;
-  modulelist: SubdomainModuleDto[];
-  selectedModules?: number[] = [];
+  workflowForm: FormGroup;
   get Id(): string {
     return this.config?.data?.id;
   }
@@ -31,28 +29,32 @@ export class EditWorkflowComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.initializeTagForm();
+    this.initializeworkflowForm();
     this.getWorkflowById();
   }
 
   getWorkflowById() {
     this._subService.getWorkFlowByID(parseInt(this.Id));
     this._subService.workflowObjByID$.subscribe((response) => {
-      this.tagForm.patchValue({
+      this.workflowForm.patchValue({
         id: response.id,
         name: response.name,
+        isActive: response.isActive ,
+        serviceId: response.serviceId,
+       
       
       });
-      this.selectedModules = response.modulesId;
     });
   }
 
  
 
-  initializeTagForm() {
-    this.tagForm = this.fb.group({
+  initializeworkflowForm() {
+    this.workflowForm = this.fb.group({
       id: ['', customValidators.required],
       name: ['', customValidators.required],
+      isActive: [false, ],
+      serviceId: [0],
     });
   }
 
@@ -61,8 +63,8 @@ export class EditWorkflowComponent implements OnInit {
   }
 
   onSubmit() {
-    if (!this.formsService.validForm(this.tagForm)) return;   
-    const tagDto: any = this.tagForm.value;
+    if (!this.formsService.validForm(this.workflowForm)) return;   
+    const tagDto: any = this.workflowForm.value;
     this._subService.editWorkflow(tagDto, this.ref);
   }
 }

@@ -52,6 +52,8 @@ export class AddWorkflowComponent implements OnInit {
   initializeWorkflowForm() {
     this.workflowForm = this.fb.group({
       name: new FormControl('', [customValidators.required]),
+      isActive: new FormControl(false, ),
+      serviceId: new FormControl(0, ),
     });
   }
 
@@ -61,7 +63,7 @@ export class AddWorkflowComponent implements OnInit {
 
   onSubmit() {
     if (!this.formsService.validForm(this.workflowForm)) return;   
-     const tagDto: AddTagDto = this.workflowForm.value;
+     const tagDto: any = this.workflowForm.value;
     this._subService.addWorkflow(tagDto, this.ref);
   }
 }
