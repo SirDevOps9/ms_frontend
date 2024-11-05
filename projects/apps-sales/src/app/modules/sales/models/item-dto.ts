@@ -17,5 +17,6 @@ export interface ItemDto {
   categoryId: number;
   taxId: number;
   taxRatio: number;
+  price: number;
   itemsUOM:any[]
   }

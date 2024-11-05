@@ -44,12 +44,13 @@
           </div>
 
           <div class="actions">
-            <!-- <lib-button-micro
-                [title]="'update price policy'"
+            <lib-button-micro
+                [title]="'upload Excel'"
                 nameClass="outline"
                 iconName="pi pi-file-edit"
+                (click)="getExcel()"
                 >
-                </lib-button-micro> -->
+                </lib-button-micro>
             <lib-button-micro [title]="'update price policy'" nameClass="outline" iconName="pi pi-file"
               (click)="update()">
             </lib-button-micro>

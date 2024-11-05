@@ -238,4 +238,7 @@ export class SalesProxyService {
       `PricePolicy/${id}`
     );
   }
+  ValidateExcel(excel: any ): Observable<any> {
+    return this.httpService.post(`PricePolicy/ValidateExcel`, excel, false);
+  }
 }

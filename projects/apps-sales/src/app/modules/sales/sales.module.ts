@@ -25,6 +25,7 @@ import { MultiSelectItem } from 'primeng/multiselect';
 import { MultiSelectItemsComponent } from './components/multi-select-items/multi-select-items.component';
 import { AddPricePolicyComponent } from './pages/pricelist/add-price-policy/add-price-policy.component';
 import { UpdetePricePolicyComponent } from './components/updete-price-policy/updete-price-policy.component';
+import { PopupExcelComponent } from './components/popup-excel/popup-excel.component';
 const routes: Routes = [
   {
     path: '',
@@ -230,7 +231,8 @@ const routes: Routes = [
     PricePolicyMainComponent,
     AddPricePolicyComponent,
     MultiSelectItemsComponent,
-    UpdetePricePolicyComponent
+    UpdetePricePolicyComponent,
+    PopupExcelComponent
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule 
   ],

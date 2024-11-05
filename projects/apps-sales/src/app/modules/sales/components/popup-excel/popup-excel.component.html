@@ -1,0 +1,35 @@
+<lib-popup-page 
+title="Item File" 
+[closeFunction]="cancel" 
+(Submit)="save()"
+>
+<div class="conent">
+
+    <div class="group_excel_button">
+        <h2 class="body_b16"> Open Excel File </h2>
+    
+    
+         
+                <lib-file-uploader class="file_uplode" [file]="true"
+                (valueChanged)="test($event)"
+                (data)="test($event)"
+                >
+
+
+                </lib-file-uploader>
+    
+                
+                <lib-button-micro
+                nameClass="outline"
+                widthNumber="100%"
+                title="Download File"
+                >
+            
+                </lib-button-micro>
+    
+    
+    
+    </div>
+</div>
+
+</lib-popup-page>

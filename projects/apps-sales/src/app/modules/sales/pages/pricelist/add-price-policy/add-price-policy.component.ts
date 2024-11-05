@@ -7,6 +7,7 @@ import { ItemDto } from '../../../models';
 import { SalesService } from '../../../sales.service';
 import { UpdetePricePolicyComponent } from '../../../components/updete-price-policy/updete-price-policy.component';
 import { Table } from 'primeng/table'; // Import Table
+import { PopupExcelComponent } from '../../../components/popup-excel/popup-excel.component';
 
 @Component({
   selector: 'app-add-price-policy',
@@ -73,7 +74,7 @@ export class AddPricePolicyComponent implements OnInit {
           itemVariantName: new FormControl(''),
           price: new FormControl(Number(), [customValidators.required]),
           priceWithVat: new FormControl(0),
-          taxId: new FormControl(''),
+          taxId: new FormControl(null),
           taxRatio: new FormControl(''),
           uomOptions: new FormControl(''),
           itemCategoryNameAr: new FormControl(''),
@@ -114,7 +115,7 @@ export class AddPricePolicyComponent implements OnInit {
       rowForm.get('itemVariantName')?.setValue(selectedItem.itemVariantName);
       rowForm.get('itemId')?.setValue(selectedItem.itemId);
       rowForm.get('itemCode')?.setValue(selectedItem.itemCode);
-      rowForm.get('taxId')?.setValue(selectedItem.taxId);
+      rowForm.get('taxId')?.setValue(selectedItem.taxId || null);
       rowForm.get('taxRatio')?.setValue(selectedItem.taxRatio);
 
       // Additional fields
@@ -125,6 +126,7 @@ export class AddPricePolicyComponent implements OnInit {
       rowForm.get('uomNameEn')?.setValue(selectedItem.uomNameEn);
       rowForm.get('categoryType')?.setValue(selectedItem.categoryType);
       rowForm.get('id')?.setValue(rowIndex+1);
+      rowForm.get('price')?.setValue(selectedItem.price);
 
       const isDuplicate = this.pricePolicyFormArray.controls.some((element: any, index: number) => {
         if (index !== rowIndex) {
@@ -181,6 +183,8 @@ export class AddPricePolicyComponent implements OnInit {
       });
 
     }
+    console.log(this.pricePolicyFormArray.value ,"pppppppppppppppp");
+    
   }
 
   setPriceWithVat(index: number, price: any) {
@@ -374,7 +378,7 @@ if( this.addForm.value.policyItemsList.length>0){
           uomId: detail.uomId,
           itemVariantId: detail.itemVariantId,
           isVatApplied: detail.isVatApplied, // Ensure it's a boolean
-          taxId: detail.taxId,
+          taxId: detail.taxId|| null,
         }
       )),
       };
@@ -401,6 +405,110 @@ if( this.addForm.value.policyItemsList.length>0){
   applyFilterGlobal($event: any, stringVal: any) {
     this.dt.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
   }
+  // getExcel(){
+  //   // PopupExcelComponent
+  //     const ref = this.dialog.open(PopupExcelComponent, {
+  //       width: '600px',
+  //       height: '450px',
+  //     });
+  //     ref.onClose.subscribe((selectedItems: any) => {
+  //       if (selectedItems) {
+  //         console.log(selectedItems ,"2222222222");
+  //       // Define the comparison function to check if two objects are identical
+  //     const areObjectsEqual = (obj1: any, obj2: any): boolean => {
+  //       return Object.keys(obj1).every(key => obj1[key] === obj2[key]) &&
+  //              Object.keys(obj2).every(key => obj1[key] === obj2[key]);
+  //     };
+
+  //     // Example usage to compare all items in selectedItems with each other
+  //     const uniqueItems = selectedItems.filter((item, index, self) =>
+  //       index === self.findIndex(otherItem => areObjectsEqual(item, otherItem))
+  //     );
+  //         const policyItemsList = selectedItems.map((item:any) => ({
+  //           itemCode: item.itemCode,
+  //           uomCode: item.uomCode,
+  //           itemVariantCode: item.itemVariantCode,
+  //           price: item.price
+  //         }));
+          
+  //         console.log({ policyItemsList } ,"0000");
+  //         this.salesService.validateExcel({ policyItemsList })
+  //         this.salesService.listOfExcelObser.subscribe((res:any)=>{
+  //           res.forEach((element:any, index:number) => {
+  //             console.log(element ,"55555");
+  //             this.addNewRow()
+  //             this.setRowData(index , element.itemId)
+
+  //             // this.pricePolicyFormArray.push(element)
+
+  //           });
+  //         })
+  //       }
+  // })}
+  getExcel() {
+    const ref = this.dialog.open(PopupExcelComponent, {
+      width: '600px',
+      height: '450px',
+    });
+  
+    ref.onClose.subscribe((selectedItems: any[]) => {
+      if (selectedItems) {
+        console.log(selectedItems, "Selected items:");
+  
+        // Helper function to compare two objects for equality
+        const areObjectsEqual = (obj1: any, obj2: any): boolean => {
+          return Object.keys(obj1).every(key => obj1[key] === obj2[key]) &&
+                 Object.keys(obj2).every(key => obj1[key] === obj2[key]);
+        };
+  
+        // Loop through selectedItems to find duplicates
+        const duplicates: any[] = [];
+        for (let i = 0; i < selectedItems.length; i++) {
+          for (let j = i + 1; j < selectedItems.length; j++) {
+            if (areObjectsEqual(selectedItems[i], selectedItems[j])) {
+              duplicates.push(selectedItems[i]);
+              // console.log('Duplicate found:', selectedItems[i]);
+            }
+          }
+        }
+  
+        // Proceed if there are no duplicates
+        if (duplicates.length === 0) {
+          console.log(selectedItems ,"888888888");
+          
+          const policyItemsList = selectedItems.map((item: any) => ({
+            itemCode: item.itemCode,
+            uomCode: item.uomCode,
+            itemVariantCode: item.itemVariantCode,
+            price: item.price,
+            taxId: item.taxId
+
+          }));
+  
+          console.log({ policyItemsList }, "Final policy items list:");
+          this.salesService.validateExcel({ policyItemsList });
+  
+          this.salesService.listOfExcelObser.subscribe((res: any) => {
+            console.log(this.pricePolicyFormArray.value.length ,"555555555");
+            const rowLength:number = this.pricePolicyFormArray.value.length
+            
+            res.forEach((element: any, index: number) => {
+              console.log(element, "Processed item:");
+              this.addNewRow();
+              this.setRowData(index+rowLength, element.itemId);
+            });
+          });
+        } else {
+          this.toasterService.showError(
+            this.languageService.transalte('messages.error'),
+            this.languageService.transalte('messages.duplicateItem')
+          );
+        }
+      }
+    });
+  }
+  
+  
   constructor(
     private formBuilder: FormBuilder,
     private formsService: FormsService,
