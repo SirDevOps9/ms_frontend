@@ -138,6 +138,14 @@ const routes: Routes = [
               pageTitle : BreadcrumbLabel.EditItembarcodedefinition
             },
           },
+          {
+            path: 'inventory/:id',
+            component: ItemDefinitionInventoryComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.INVENTORY,
+              pageTitle : BreadcrumbLabel.INVENTORY
+            },
+          },
         ],
 
       },
