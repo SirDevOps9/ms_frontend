@@ -105,11 +105,13 @@ export class TranscationsProxyService {
     return this.httpService.get<PaginationVm<GetAllPaymentInDto>>(query);
   }
 
-  exportsPaymentInList(searchTerm: string | undefined): Observable<GetAllPaymentInDto[]> {
+  exportsPaymentInList(searchTerm?: string ,SortBy?:number,SortColumn?:string): Observable<GetAllPaymentInDto[]> {
     let query = `PaymentIn/Export?`;
-    if (searchTerm) {
-      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
-    }
+    const params: string[] = [];
+    if (searchTerm) params.push(`searchTerm=${encodeURIComponent(searchTerm)}`);
+    if (SortBy) params.push(`SortBy=${SortBy}`);
+    if (SortColumn) params.push(`SortColumn=${SortColumn}`);
+    query += params.join('&'); 
     return this.httpService.get<GetAllPaymentInDto[]>(query);
   }
   deletePaymentIn(id: number) {

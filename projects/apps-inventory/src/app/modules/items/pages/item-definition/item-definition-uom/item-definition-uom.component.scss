@@ -1,0 +1,31 @@
+.card{
+  background-color: #ffffff;
+  border-radius: 7px;
+  margin: 5px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  min-height: 345px;
+
+}
+.heads{
+  font-weight: bold;
+}
+::ng-deep .mainCountryOfOrigin{
+ .p-fieldset{
+  height : 205px
+ }
+}
+
+.btn-save{
+  text-align: end;
+}
+
+
+.tb{
+  display: flex;
+}
+
+.nameUage{
+  margin: 0px 12px;
+}
+
+

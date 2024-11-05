@@ -18,6 +18,7 @@ export class ButtonMicroComponent {
     | 'export'
     | 'cancel'
     | 'btn_rounded'
+    |'savePoupUp'
     | 'disabled'
     | 'outline'| 'saveDisabled'|'table_button_view'|'table_button_edit'|'table_button_delete'| 'sequence'| 'table_button_statement'|any | 'table_button_Add'|'print';
   @Input() disabled: boolean = false;

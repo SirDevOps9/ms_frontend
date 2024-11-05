@@ -19,6 +19,7 @@ import { MainPaymentOutComponent } from './pages/paymentout/main-payment-out/mai
 import { PaymentOutListComponent } from './pages/paymentout/payment-out-list/payment-out-list.component';
 import { AddPaymentOutCostCenterComponent } from './components/paymentout/add-payment-out-cost-center/add-payment-out-cost-center.component';
 import { PaymentOutPaymentMethodComponent } from './components/paymentout/payment-out-payment-method/payment-out-payment-method.component';
+import { ReadExcelComponent } from './pages/read-excel/read-excel.component';
 
 const routes: Routes = [
   {
@@ -143,6 +144,9 @@ const routes: Routes = [
           },
         ],
       },
+      {
+        path:'read-excel',component:ReadExcelComponent
+      }
     ],
   },
 ];
@@ -164,6 +168,7 @@ const routes: Routes = [
     PaymentOutListComponent,
     AddPaymentOutCostCenterComponent,
     PaymentOutPaymentMethodComponent,
+    ReadExcelComponent,
   ],
   imports: [CommonModule, SharedLibModule, RouterModule.forChild(routes)],
 })

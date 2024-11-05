@@ -102,7 +102,7 @@ export class AddCustomerComponent implements OnInit {
 
       financialInfo: this.fb.group({
         paymentTermId: new FormControl(null),
-        priceListId: new FormControl(null),
+        pricePolicyId: new FormControl(null),
         creditLimit: new FormControl(null),
         currencyId: new FormControl(null),
       }),

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
-import { addBarcode, AddGeneralDto, AddItemCategory, AddItemDefinitionDto, AddOperatioalTag, AddVariantLine, AddWarehouse, EditWareHouse, GetItemById, GetItemCategoryDto, getUomByItemId, GetWarehouseList, IOperationalTag, itemDefinitionDto, ItemTypeDto, Iuom, StockInDto, UOMCategoryDto, UomDefault } from './models';
+import { addBarcode, AddGeneralDto, AddItemCategory, AddItemDefinitionDto, AddOperatioalTag, AddVariantLine, AddWarehouse, AttributesVariants, EditAttributes, EditWareHouse, GetItemById, GetItemCategoryDto, getUomByItemId, GetWarehouseList, IOperationalTag, itemDefinitionDto, ItemTypeDto, Iuom, StockInDto, UOMCategoryDto, UomDefault } from './models';
 import { EditItemDefinitionDto } from './models/editItemDefinitionDto';
 import { variantGroupById } from './models/variantGroupById';
 import { itemAttributeValues, itemAttributeValuesByID } from './models/itemAttributeValues';
@@ -9,6 +9,7 @@ import { getBarcodeById } from './models/getBarcodeById';
 import { addUOM, AddUom } from './models/addUom';
 import { addAttributeDifintion, IAttrributeDifinition } from './models/AttrbuteDiffintion';
 import { VieItemDefinitionDto } from './models/VieItemDefinitionDto';
+import { GetItemUom } from './models/GetItemUom';
 
 @Injectable({
   providedIn: 'root'
@@ -76,7 +77,7 @@ export class ItemsProxyService {
   addItemDefinition(obj : AddItemDefinitionDto){
     return this.httpService.post('Item',obj)
   }
- 
+
   ViewDefinitionById(id : number ): Observable<EditItemDefinitionDto>{
     return this.httpService.get(`Item/${id}`)
   }
@@ -84,22 +85,31 @@ export class ItemsProxyService {
     return this.httpService.get(`StorageInformation/${id}`)
   }
 
+
+
+  getGetItemUomonById(id: number) {
+    return this.httpService.get(`Item/GetItemUom/${id}`);
+  }
+
+
+
+
   deleteItemDefinition(id : number ){
     return this.httpService.delete(`Item/${id}`)
   }
   deleteUOM(id : number ) {
     return this.httpService.delete(`UOM/DeleteUOM/${id}` )
   }
-    
+
   deleteCategory(id : number ) {
     return this.httpService.delete(`UOMCategories/DeleteUOMCategory/${id}`  )
   }
-    
+
   deleteAttributeGroup(id:number) {
     return this.httpService.delete(`AttributeGroup/${id}`)
   }
   deleteAttrDifinition(id : number ) {
-    
+
     return this.httpService.delete(`ItemAttribute/${id}` )
   }
 
@@ -107,7 +117,7 @@ export class ItemsProxyService {
     return this.httpService.post('AttributesVariants',obj)
 
   }
-  
+
  itemTypeLookup() {
   return this.httpService.get(`ItemType/ItemTypeDropDown`)
  }
@@ -128,8 +138,8 @@ export class ItemsProxyService {
       query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
     }
     return this.httpService.get<PaginationVm<GetItemCategoryDto>>(query)
-  
-  
+
+
  }
 
 //  item category tree
@@ -139,8 +149,8 @@ ParentItemCategoriesDropDown(SearchTerm: string): Observable< {id:number , name:
       query += `&SearchTerm=${encodeURIComponent(SearchTerm)}`;
     }
     return this.httpService.get< {id:number , name:string}[]>(query)
-  
-  
+
+
  }
 //  #########################
  GetUOMCategories(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<UOMCategoryDto>> {
@@ -150,8 +160,8 @@ ParentItemCategoriesDropDown(SearchTerm: string): Observable< {id:number , name:
       query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
     }
     return this.httpService.get<PaginationVm<UOMCategoryDto>>(query)
-  
-  
+
+
  }
  getItemCategoryById(id : number):Observable<any>{
   return this.httpService.get<any>(`ItemCategory/${id}`)
@@ -173,11 +183,40 @@ ParentItemCategoriesDropDown(SearchTerm: string): Observable< {id:number , name:
  taxesDropDropDown() {
   return this.httpService.get(`GeneralSettings/GetTaxDropDown`)//
  }
+
+ getTaxDataById(id:number){
+  return this.httpService.get(`Item/GetTaxData/${id}`)
+ }
+
+
+
+ editItemTax(obj:any){
+  return this.httpService.put(`Item/EditTax`,obj)
+
+ }
+
+ getItemBarcodeById(id:number){
+  return this.httpService.get(`Item/GetItemBarcode/${id}`)
+
+ }
  uomCodeDropDown(id:number) {
   return this.httpService.get(`UOM/GetUOMsByUOMCategoryId/${id}`)//
  }
  getUomById(id:number) {
   return this.httpService.get(`UOM/${id}`)//
+ }
+ DeleteUomLine(id:number) {
+  return this.httpService.delete(`UOM/${id}`)//
+ }
+
+ getItemVariants(id:number){
+  return this.httpService.get(`Item/GetItemVariants/${id}`)
+ }
+ getItemAttributes(id:number){
+  return this.httpService.get(`Item/GetItemAttributes/${id}`)
+ }
+ EditItemAttributes(obj : EditAttributes){
+  return this.httpService.put(`Item/EditItemAttributesVariant` , obj)
  }
 
  getUOMByCategoryID(id:number){
@@ -214,7 +253,30 @@ ParentItemCategoriesDropDown(SearchTerm: string): Observable< {id:number , name:
   return this.httpService.get(`ItemVariant/ItemVariantsByItemIdDropDown?ItemId=${id}`)
 
  }
-  
+
+
+ getItemGetItemUomById(id:number){
+  return this.httpService.get(`Item/GetItemUom/${id}`)
+ }
+
+ updateItemGetItemUomById(obj:any) {
+  return this.httpService.put(`Item/EditUom` , obj)
+ }
+
+ getUOMCategoryDropDown(){
+  return this.httpService.get(`UOMCategories/UOMCategoryDropDown`)
+
+ }
+ getGetUOMsByUOMCategoryId(id:number){
+  return this.httpService.get(`UOM/GetUOMsByUOMCategoryId/${id}`)
+
+ }
+
+ getUserSubDomainModules(){
+  return this.httpService.get(`SideMenu/GetUserSubDomainModules`)
+
+ }
+
  attributeGroups(){
   return this.httpService.get(`AttributesVariants/GetAllAttributesGroups`)
  }
@@ -239,6 +301,9 @@ ParentItemCategoriesDropDown(SearchTerm: string): Observable< {id:number , name:
  ActivateVairiantGroup(obj:{id:number}) {
   return this.httpService.put(`AttributesVariants/ActivateAttributesVariants` , obj) // edit
  }
+
+
+
  ActivateUOM(obj:{id:number}) {
   return this.httpService.put(`UOM/ActivateUOM` , obj) // edit
  }
@@ -248,7 +313,7 @@ ParentItemCategoriesDropDown(SearchTerm: string): Observable< {id:number , name:
  ActivateAttrDifinition(obj:{id:number , status : boolean}) {
   return this.httpService.put(`ItemAttribute/ItemAttributeActivation` , obj) // edit
  }
- systemUnitLookup() : Observable<{ id: number; nameAr: string; nameEn: string }[]> {
+ systemUnitLookup() : Observable<{ id: number; nameAr: string; nameEn: string;systemUnitOfMeasureCategoryId : number }[]> {
   return this.httpService.get(`SystemUOM/DropDown` ) // edit
  }
  ActivateOperationalTag
@@ -291,7 +356,7 @@ ParentItemCategoriesDropDown(SearchTerm: string): Observable< {id:number , name:
     return this.httpService.get<any>(url)
 
   }
-  
+
   deleteVariant(id:number) {
     return this.httpService.delete(`api/ItemAttributesGroup/${id}`)
   }
@@ -312,6 +377,9 @@ ParentItemCategoriesDropDown(SearchTerm: string): Observable< {id:number , name:
   addUOMCategory(obj:addUOM) {
     return this.httpService.post('UOMCategories' , obj)
   }
+  EditUOMCategory(obj:addUOM) {
+    return this.httpService.put('UOMCategories/Edit' , obj)
+  }
   getUOMCategoryById(id : number) : Observable<addUOM> {
     return this.httpService.get(`UOMCategories/GetUOMCategoryWithUomsById/${id}`)
   }
@@ -319,11 +387,11 @@ ParentItemCategoriesDropDown(SearchTerm: string): Observable< {id:number , name:
   addAttrDifinition(obj:addAttributeDifintion) {
     return this.httpService.post('AttributeGroup/AddAttributeGroupWithAttributeValues' , obj)
   }
-  //  add operation tag 
+  //  add operation tag
   addOperationTag(obj:AddOperatioalTag) {
     return this.httpService.post('OperationalTag' , obj)
   }
- 
+
   getBarcodeByItemId(id:number) : Observable<getBarcodeById[]> {
     return this.httpService.get(`Barcode/GetBarCodeByItemId/${id}`)
   }
@@ -354,10 +422,10 @@ ParentItemCategoriesDropDown(SearchTerm: string): Observable< {id:number , name:
     return this.httpService.put(`OperationalTag` , obj)
   }
   updateUOM(obj:addUOM) {
-    return this.httpService.put(`UOM/Edit` , obj) 
+    return this.httpService.put(`UOM/Edit` , obj)
    }
   updateAttrDifinition(obj:addAttributeDifintion) {
-    return this.httpService.put(`AttributeGroup/EditAttributeGroupWithAttributeValues` , obj) 
+    return this.httpService.put(`AttributeGroup/EditAttributeGroupWithAttributeValues` , obj)
    }
 
   generateVariant(obj : any) {
@@ -398,15 +466,20 @@ getOperationalTagList(searchTerm: string, pageInfo: PageInfo): Observable<IOpera
     return this.httpService.get<IOperationalTag>(query)
   }
 
-  exportsWayehouseList(
-    searchTerm: string | undefined
-  ): Observable<GetWarehouseList[]> {
+  exportsWayehouseList(searchTerm?: string ,SortBy?:number,SortColumn?:string): Observable<GetWarehouseList[]> {
+
+
+
     let query = `WareHouse/ExportWareHouse?`;
-    if (searchTerm) {
-      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
-    }
+    const params: string[] = [];
+    if (searchTerm) params.push(`SearchTerm=${encodeURIComponent(searchTerm)}`);
+    if (SortBy) params.push(`SortBy=${SortBy}`);
+    if (SortColumn) params.push(`SortColumn=${SortColumn}`);
+    query += params.join('&');
      return this.httpService.get<GetWarehouseList[]>(query);
   }
+
+
   exportsItemCategoryList(
     searchTerm: string | undefined
   ): Observable<GetItemCategoryDto[]> {
@@ -429,7 +502,7 @@ getOperationalTagList(searchTerm: string, pageInfo: PageInfo): Observable<IOpera
   getWarehouseById(id : number) : Observable<AddWarehouse> {
     return this.httpService.get(`WareHouse/${id}`)
   }
-  // 
+  //
   // getGlAccountLookup() {
   //   return this.httpService.get<any>(`WareHouse/`);
   // }
@@ -482,13 +555,13 @@ getOperationalTagList(searchTerm: string, pageInfo: PageInfo): Observable<IOpera
   saveItemDefinitionGeneral(obj:AddGeneralDto) {
     return this.httpService.put('Item/EditGeneralData' , obj)
   }
- 
+
 
  getItemDefinitionGeneral(id : number) : Observable<AddGeneralDto> {
     return this.httpService.get(`Item/GetGeneralData/${id}`)
   }
- 
 
-  
+
+
 }
 

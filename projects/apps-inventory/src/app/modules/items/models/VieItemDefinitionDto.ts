@@ -1,4 +1,5 @@
 export interface VieItemDefinitionDto {
+    data: any
     id?: number
     itemId?: number
     attributeGroupId?: number

@@ -97,12 +97,14 @@ export class ItemDefinitionListComponent implements OnInit {
   onAdd() {
     const dialogRef = this.dialog.open(AddItemDefinitionPopupComponent, {
       width: '800px',
-      height: '600px',
+      height: '500px',
     });
 
     dialogRef.onClose.subscribe(() => {
       this.initItemDefinitionData();
     });
+
+    
   }
 
   onEdit(data: any) {

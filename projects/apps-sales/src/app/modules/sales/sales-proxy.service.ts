@@ -11,6 +11,8 @@ import {
   EditCustomerOpeningBalanceDto,
   GetCustomerOpeningBalanceDto,
   GetCustomerOpeningBalanceViewDto,
+  ItemDto,
+  PricelistDto,
 } from './models';
 import {
   CategoryDropdownDto,
@@ -97,7 +99,7 @@ export class SalesProxyService {
     return this.httpService.get('ChartOfAccounts/ChildrenAccountsDropDown');
   }
   getpriceListDropDown(): Observable<{ id: number; name: string }[]> {
-    return this.httpService.get('PriceList/PriceListDropDown');
+    return this.httpService.get('PricePolicy/DropDown');
   }
   getpaymentTermsListDropDown(): Observable<{ id: number; name: string }[]> {
     return this.httpService.get('PaymentTerms/PaymentTermsDropdown');
@@ -144,6 +146,7 @@ export class SalesProxyService {
   CustomerDropDownByAccountId(id: number): Observable<any[]> {
     return this.httpService.get<any[]>(`Customer/DropDownByAccountId/${id}`);
   }
+
   AddCustomerOpeningBalance(
     customer: AddCustomerOpeningBalanceDto
   ): Observable<AddCustomerOpeningBalanceDto> {
@@ -182,5 +185,57 @@ export class SalesProxyService {
       query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
     }
     return this.httpService.get<PaginationVm<GetAllCustomerOpeningBalanceDto>>(query);
+  }
+
+  getAllPricePolicy(
+    searchTerm: string,
+    pageInfo: PageInfo
+  ): Observable<PaginationVm<PricelistDto>> {
+    let query = `PricePolicy?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+    return this.httpService.get<PaginationVm<PricelistDto>>(query);
+  }
+
+  exportPricePolicy(searchTerm: string | undefined): Observable<PricelistDto[]> {
+    let query = `PricePolicy/Export?`;
+    if (searchTerm) {
+      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+    return this.httpService.get<PricelistDto[]>(query);
+  }
+
+  getItems(
+    quieries: string,
+    searchTerm: string,
+    pageInfo: PageInfo
+  ): Observable<PaginationVm<ItemDto>> {
+    let query = `PricePolicy/GetItemsList?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+    if (quieries) {
+      query += `&${quieries ? quieries : ''}`;
+    }
+    return this.httpService.get<PaginationVm<ItemDto>>(query);
+  }
+  GetLatestItems(
+    searchTerm: string,
+  ): Observable<ItemDto> {
+    let query = `PricePolicy/GetLatestItemsList`;
+    if (searchTerm) {
+      query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+   
+    return this.httpService.get<ItemDto>(query);
+  }
+  addPricePolicy(policy: any): Observable<any> {
+    return this.httpService.post(`PricePolicy`, policy, false);
+  }
+  deletePricePolicy(id: number): Observable<boolean> {
+    return this.httpService.delete<boolean>(
+      `PricePolicy/${id}`
+    );
   }
 }

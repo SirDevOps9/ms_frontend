@@ -11,6 +11,7 @@
         [currentPageResult]="currentPageInfo"
         (pageChange)="onPageChange($event)"
         (addNew)="routeToAdd()"
+        (exportObj)="exportedColumns($event)"
         [tableConfigs]="{
               allowPagination: false,
               allowServerPagination: true,

@@ -55,10 +55,7 @@
           ]
         }"
       >
-        <ng-container caption>
-          <div class="">
-            <div class="grid">
-              <div class="col-3">
+        <ng-container search>
                 <lib-form-group>
                   <lib-text-input
                     type="text"
@@ -67,11 +64,12 @@
                     (keyUp)="onSearchChange()"
                   ></lib-text-input>
                 </lib-form-group>
-              </div>
               <!--  -->
+                </ng-container>
 
-              <div class="col-9 flex gap-2 justify-content-end align-items-center">
                 <!--  -->
+                <ng-container action>
+                
                 <div>
                   <lib-export
                     (exportClick)="exportClick($event)"
@@ -91,10 +89,8 @@
                   >
                   </lib-button-micro>
                 </div>
-              </div>
-            </div>
-          </div>
-        </ng-container>
+              </ng-container>
+         
 
         <ng-template #actions let-action>
           <div class="actions flex align-items-center">

@@ -4,7 +4,7 @@ export interface AddVendorCategory {
     purchaseAccountId: number
     purchaseReturnAccountId: number
     discountAccountId: number
-    priceListId: number
+    pricePolicyId: number
     paymentTermId: number
     marketType: string
   }

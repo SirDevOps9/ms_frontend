@@ -24,6 +24,8 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { TabViewModule } from 'primeng/tabview';
 import { MenuModule } from 'primeng/menu';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { InputGroupModule } from 'primeng/inputgroup';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { EditorModule } from 'primeng/editor';
@@ -55,6 +57,8 @@ import { EditorModule } from 'primeng/editor';
     MessageModule,
     TabViewModule,
     MenuModule,
+    InputGroupAddonModule,
+    InputGroupModule,
     SplitButtonModule,
     OverlayPanelModule,EditorModule
   ],
@@ -82,7 +86,9 @@ import { EditorModule } from 'primeng/editor';
     ToastModule,
     MessageModule,
     TabViewModule,
+    InputGroupAddonModule,
     MenuModule,
+    InputGroupModule,
     OverlayPanelModule,EditorModule,
     
     SplitButtonModule
