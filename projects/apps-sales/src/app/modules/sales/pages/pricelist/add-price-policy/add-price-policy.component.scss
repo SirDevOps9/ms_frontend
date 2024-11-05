@@ -1,0 +1,35 @@
+.test{
+    display: flex;
+    align-items: center;
+}
+.tes{
+    display: flex;
+    align-items: flex-end;
+}
+.date{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+.margin_start{
+    margin-inline-start: 10px;
+}
+.readOnly{
+    // width: 100%;
+    // height: 100%;
+    background-color: #f9fafb !important;
+    color: #B6BAC3 !important;
+}
+.actions{
+    display: flex;
+    gap: 8px;
+}
+.error-field input {
+    border: 2px solid red;
+    background-color: #ffe6e6;
+  }
+.error{
+    border: 2px solid red !important;
+    background-color: #ffe6e6 !important;
+  }

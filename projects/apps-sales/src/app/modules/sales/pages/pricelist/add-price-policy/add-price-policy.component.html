@@ -1,0 +1,197 @@
+<lib-page-content>
+  <div class="card_micro">
+    <div class="grid" [formGroup]="addForm">
+      <div class="col-12 md:col-3">
+        <lib-form-group>
+          <lib-label [appControl]="addForm.controls['code']">
+            {{ 'pricePolicy.code' | translate }}
+          </lib-label>
+          <lib-text-input formControlName="code" [readOnly]="true">
+
+          </lib-text-input>
+        </lib-form-group>
+      </div>
+      <div class="col-12 md:col-3">
+        <lib-form-group>
+          <lib-label [appControl]="addForm.controls['name']">
+            {{ 'pricePolicy.name' | translate }}
+          </lib-label>
+          <lib-text-input formControlName="name">
+
+          </lib-text-input>
+          <lib-field-validations [appControl]="addForm.controls['name']">
+
+          </lib-field-validations>
+        </lib-form-group>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="entry_tableCont">
+    <div class="card">
+      <div class="grid mb-3">
+        <div class="flex justify-content-between w-full ">
+          <div class="">
+            <lib-text-input 
+            
+            (input)="applyFilterGlobal($event, 'contains')"
+            [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'">
+
+            </lib-text-input>
+          
+          </div>
+
+          <div class="actions">
+            <!-- <lib-button-micro
+                [title]="'update price policy'"
+                nameClass="outline"
+                iconName="pi pi-file-edit"
+                >
+                </lib-button-micro> -->
+            <lib-button-micro [title]="'update price policy'" nameClass="outline" iconName="pi pi-file"
+              (click)="update()">
+            </lib-button-micro>
+          </div>
+        </div>
+
+
+      </div>
+      <p-table
+      #dt
+      [globalFilterFields]="['itemVariantName']"
+
+      [resizableColumns]="true" [value]="pricePolicyFormArray.controls" dataKey="id"
+        styleClass="p-datatable-gridlines p-datatable-striped" [tableStyle]="{ 'min-width': '50rem' }">
+    
+        <ng-template pTemplate="header">
+          <tr>
+            <th>{{ 'pricePolicy.code' | translate }}</th>
+            <th>{{ 'pricePolicy.name' | translate }}</th>
+            <th>{{ 'pricePolicy.UOM' | translate }}</th>
+            <th>{{ 'pricePolicy.varient' | translate }}</th>
+            <th>{{ 'pricePolicy.price' | translate }}</th>
+            <th>{{ 'pricePolicy.VAT' | translate }}</th>
+            <th>{{ 'pricePolicy.priceVAT' | translate }}</th>
+            <th>{{ 'pricePolicy.action' | translate }}</th>
+
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-pricePolicy let-rowIndex="rowIndex">
+          <tr [formGroup]="pricePolicy">
+            <td [pEditableColumn]="pricePolicy.itemId" pEditableColumnField="itemId" field="code">
+              <p-cellEditor >
+                <ng-template pTemplate="input">
+                  <div class="flex gap-2 align-items-center">
+
+                    <lib-select [options]="items" optionValue="id" [customClass]="'add-journal'" optionLabel="itemCode"
+                      formControlName="itemId"
+                      (valueChanged)="setRowData(rowIndex ,pricePolicy.controls['itemId'].value  )"
+                      [selectedValue]="pricePolicy.controls['itemId'].value">
+
+                    </lib-select>
+                    <i class="pi pi-search search-circle" (click)="openDialog(rowIndex)"></i>
+
+                  </div>
+                </ng-template>
+                <ng-template pTemplate="output" >
+                  {{ pricePolicy.get('itemCode').value }}
+                </ng-template>
+              </p-cellEditor>
+              <lib-field-validations [appControl]="pricePolicy.controls['itemId']">
+              </lib-field-validations>
+            </td>
+            <td field="name">
+              <p> {{ pricePolicy.get('itemName').value }}
+              </p>
+            </td>
+            <td [pEditableColumn]="pricePolicy.uomId" pEditableColumnField="uomId"
+              [ngClass]=" {'error':rowIndex==rowDuplicate && rowDuplicate!=0}">
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <div class="flex gap-2 align-items-center">
+                    <lib-select formControlName="uomId" [options]="pricePolicy.get('uomOptions').value"
+                      [customClass]="'add-journal'" [selectedValue]="pricePolicy.get('uomId').value"
+                      optionLabel="uomNameEn" optionValue="uomId"
+                      (valueChanged)="setUomIdValue(rowIndex, $event)"></lib-select>
+                  </div>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ pricePolicy.get('uomName').value ||'' }}
+                </ng-template>
+              </p-cellEditor>
+              <lib-field-validations [appControl]="pricePolicy.controls['uomId']">
+              </lib-field-validations>
+            </td>
+
+            <td pSortableColumn="itemVariantName">
+              <p>{{pricePolicy.get('itemVariantName').value}}</p>
+
+            </td>
+            <td [pEditableColumn]="pricePolicy.price" pEditableColumnField="price">
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <div class="flex gap-2 align-items-center">
+                    <lib-text-input type="number" formControlName="price" (keyUp)="setPriceWithVat( rowIndex ,$event )">
+                    </lib-text-input>
+                  </div>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ pricePolicy.get('price').value }}
+                </ng-template>
+              </p-cellEditor>
+              <lib-field-validations [appControl]="pricePolicy.controls['price']">
+              </lib-field-validations>
+            </td>
+            <td>
+              <lib-input-switch formControlName="isVatApplied"
+                (ngModelChange)="setPriceWithVat(rowIndex ,pricePolicy.get('price').value )">
+
+              </lib-input-switch>
+            </td>
+            <td class="readOnly">
+              {{ pricePolicy.get('priceWithVat').value }}
+            </td>
+            <td>
+              <lib-button-micro nameClass="table_button_delete" (click)="deleteRow(rowIndex)"></lib-button-micro>
+            </td>
+
+          </tr>
+        </ng-template>
+
+      </p-table>
+      <div class="add_new">
+        <div class="grid">
+          <div class="md:col-3">
+            <div class="grid">
+              <div class="md:col-6">
+                <lib-button-micro nameClass="outline" widthNumber="100%" title="{{ 'add_new_line' | translate }}"
+                  (click)="addNewRow()">
+                </lib-button-micro>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="btn_group">
+    <div class="grid">
+      <div class="md:col-3">
+        <div class="grid">
+          <div class="md:col-6">
+            <lib-button-micro title="{{ 'Cancel' | translate }}" nameClass="cancel" widthNumber="100%"
+              (click)="cancel()">
+            </lib-button-micro>
+          </div>
+          <div class="md:col-6">
+            <lib-button-micro title="{{ 'Save' | translate }}" nameClass="save" widthNumber="100%" (click)="save()">
+            </lib-button-micro>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</lib-page-content>

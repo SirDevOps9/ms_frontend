@@ -1,0 +1,49 @@
+{
+    "BreadCrumb": {
+        "add":"Add",
+        "sequence":"sequence"
+
+    },
+    "pricePolicy":{
+        "code":"Code",
+        "name":"Name",
+        "getPolicy":"Get policy",
+        "uploadPolicy":"upload policy",
+        "fromPolicy":"get from other policy",
+        "applyPolicy":"Apply and Update Policy",
+        "item":"Item",
+        "itemCategory":"Item Category",
+        "value":"Value",
+        "valueType":"Value Type",
+        "toDate":"To Date",
+        "applyDate":"Apply Date",
+        "VAT":"VAT include",
+        "UOM":"UOM",
+        "varient":"Varient",
+        "price":"Price",
+        "priceVAT":"Price With VAT",
+        "action":"Action"
+
+    },
+    "messages":{
+        "success":"Success",
+        "error":"Error",
+        "priceRequired":"The price must be entered and cannot be zero.",
+        "noItemSelected":"No item selected for editing.",
+        "noItemsToAdd": "No items to add",
+        "successfully":"Operation completed successfully.",
+        "duplicateItem":"There is a duplicated item with the same unit of measure."
+
+    },
+    "updatePrice":{
+      "storable":"is storable" ,
+      "service":"is service" ,
+      "expiryDate":"has expiry date" ,
+      "title":"update Price List" ,
+      "fixed":"Fixed" ,
+      "calculation":"Calculation" ,
+      "amount":"Amount" ,
+      "percent":"Percent" 
+
+    }
+}
