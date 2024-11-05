@@ -24,7 +24,7 @@ import {
 export class TextInputComponent implements ControlValueAccessor, Validator, AfterViewInit {
   @Input() label: string;
   @Input() labelTest: any  = "input-text";
-  @Input() type: 'text' | 'number' | 'tel' | 'email' | 'date' | 'radio';
+  @Input() type: 'text' | 'number' | 'tel' | 'email' | 'date' | 'radio'|'checkbox' | 'file';
   @Input() readOnly: boolean;
   @Input() textbox: boolean;
   @Input() inputContainerClass: string;
@@ -89,7 +89,7 @@ export class TextInputComponent implements ControlValueAccessor, Validator, Afte
     const isNotWanted = key === 'e' || key === 'E'; // 'E' and 'e'
     return !isNotWanted;
   }
-  
+
   handlePaste(event: ClipboardEvent): void {
     const clipboardData = event.clipboardData || (window as any).clipboardData;
     const pastedData = clipboardData.getData('Text').toUpperCase();

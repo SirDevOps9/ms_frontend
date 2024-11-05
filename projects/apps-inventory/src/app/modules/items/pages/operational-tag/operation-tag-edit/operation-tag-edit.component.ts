@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { LayoutService } from 'apps-shared-lib';
 import { FormsService, RouterService, customValidators } from 'shared-lib';
 import { ItemsService } from '../../../items.service';
 import { AddOperatioalTag, GetWarehouseList } from '../../../models';
 import { OperationType } from '../../../models/enums';
 import { ActivatedRoute } from '@angular/router';
+import { ItemsProxyService } from '../../../items-proxy.service';
 
 @Component({
   selector: 'app-operation-tag-edit',
@@ -21,18 +22,20 @@ export class OperationTagEditComponent implements OnInit {
   get operationType(): OperationType {
     return this.operationType
   }
+
   operationTypeList = [
-    { id: OperationType.StockIn, name: OperationType.StockIn },
-    { id: OperationType.StockOut, name:  OperationType.StockOut },
-  
+    { id: OperationType.StockIn, name: 'StockIn' },
+    { id: OperationType.StockOut, name: 'StockOut' }
   ];
+
+
   constructor(
     private fb: FormBuilder,
     public layoutService: LayoutService,
     private itemsService : ItemsService,
     private routerService: RouterService,
     private _route : ActivatedRoute,
-
+  private itemProxy : ItemsProxyService,
     private formService: FormsService
 
   ) {
@@ -40,25 +43,29 @@ export class OperationTagEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    const id =this._route.snapshot.params['id']
-
+    const id = this._route.snapshot.params['id'];
     this.initForm();
-    this.initWareHouseLookupData()
-this.getAccount()
-    if(id){
+    this.initWareHouseLookupData();
+    this.getAccount();
 
-      this.getOperationalTagById(id)
+    if (id) {
+      this.getOperationalTagById(id);
     }
   }
- 
+
   initWareHouseLookupData() {
     this.itemsService.getWareHousesDropDown()
     this.itemsService.wareHousesDropDownLookup$.subscribe(res=>{
       this.warhouseLookupData = res
     })
   }
-
-  getAccount() { 
+  initWarehouseLookupData() {
+    this.itemsService.getWareHousesDropDown();
+    this.itemsService.wareHousesDropDownLookup$.subscribe(res => {
+      this.warhouseLookupData = res;
+    });
+  }
+  getAccount() {
     this.itemsService.AccountsDropDown()
     this.itemsService.AccountsDropDownLookupObs.subscribe(res=>{
       if(res.length) {
@@ -69,39 +76,50 @@ this.getAccount()
     })
   }
 
- 
-  getOperationalTagById(id: number){
-    this.itemsService.getOperationalTagById(id)
-    this.itemsService.getOperationalTagItemsById$.subscribe(
-      (res : AddOperatioalTag)=>{
-        setTimeout(() => {
-          console.log(res)
-          this.formGroup.patchValue(res)
-          let accountCode = String(res.glAccountId) 
+  getOperationalTagById(id: number) {
+    this.itemProxy.getOperationalTagById(id).subscribe(
+      (res: AddOperatioalTag) => {
+        console.log(res);
+        if (res) {
 
-          this.formGroup.get('glAccountId')?.setValue(accountCode)
+          const operationTypeValue = this.operationTypeList.find(
+            type => type.name === res.operationType
+          )?.id || '';
 
-
-        }, 1000);
+          this.formGroup.patchValue({
+            id: res.id,
+            code: res.code,
+            name: res.name,
+            operationType: operationTypeValue,
+            warehouseId: res.warehouseId,
+            glAccountId: String(res.glAccountId)
+          });
+        }
+      },
+      (error: any) => {
       }
-    )
-
+    );
   }
+
+
+
+
 
   initForm() {
       this.formGroup = this.fb.group({
         id: new FormControl(),
         code: new FormControl('', ),
-        name: new FormControl('', customValidators.required),
-        operationType: new FormControl('', customValidators.required),
-        warehouseId: new FormControl('', customValidators.required),
-        glAccountId: new FormControl(''),
+        name: ['', Validators.required],
+        operationType: ['', Validators.required],
+        warehouseId: ['', Validators.required],
+        glAccountId: ['', Validators.required],
       });
   }
 
+
   discard() {
     this.routerService.navigateTo('/masterdata/operational-tag')
-    
+
   }
 
   onSave() {
@@ -119,7 +137,5 @@ this.getAccount()
       }
     });
   }
-
-
 }
 

@@ -19,6 +19,10 @@
         [scrollable]="true"
         [resizableColumns]="resizableColumns"
         [ngClass]="{ empty: items.length <= 0, popup: popup }"
+        [(selection)]="selectedColumns"
+        (onRowSelect)="onRowSelect($event)"
+        (onRowUnselect)="onRowUnselect($event)"
+        (onHeaderCheckboxToggle)="onSelectAllRows($event)"
       >
         <ng-template pTemplate="caption">
           <div class="parent">
@@ -64,6 +68,9 @@
 
         <ng-template pTemplate="header">
           <tr>
+            <th *ngIf="showCheckBox" style="width: 4rem">
+              <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
             <ng-container *ngFor="let col of tableConfigs.columns">
               <ng-container *ngIf="col.children && col.children.length">
                 <th
@@ -150,6 +157,9 @@
       
         <ng-template pTemplate="body" let-row let-i="rowIndex">
           <tr [ngClass]="{ cssClass: i == selectedIndex }">
+            <td *ngIf="showCheckBox" style="width: 4rem">
+              <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </td>
             <ng-container *ngFor="let col of tableConfigs.columns">
               <!-- Check if the column has children -->
               <ng-container *ngIf="col.children && col.children.length; else parentCol">
@@ -202,7 +212,11 @@
         </ng-template>
 
         <ng-template pTemplate="body" let-row let-i="rowIndex">
-          <tr [ngClass]="{ cssClass: isSelected(i) }">
+          <tr [ngClass]="{ cssClass: isSelected(i) }" [pSelectableRow]="row">
+            <td *ngIf="showCheckBox" style="width: 4rem">
+              <p-tableCheckbox
+              [value]="row"
+            ></p-tableCheckbox>            </td>
             <!-- Updated to use isSelected(i) -->
             <ng-container *ngFor="let col of tableConfigs.columns">
               <!-- Check if the column has children -->

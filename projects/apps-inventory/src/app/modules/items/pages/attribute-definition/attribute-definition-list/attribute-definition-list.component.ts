@@ -144,11 +144,7 @@ async confirmChange(newValue: boolean, user: any) {
 
     
     this.itemService.editStatusAttributeGroup(command)
-    let audio = new Audio();
-          
-    audio.src = 'assets/notification-sound/done.wav';
-    audio.load();
-    audio.play();
+  
   } else {
     user.isActive =!user.isActive
 

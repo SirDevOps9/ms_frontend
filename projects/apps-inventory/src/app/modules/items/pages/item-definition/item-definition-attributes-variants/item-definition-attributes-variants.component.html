@@ -1,7 +1,5 @@
     <div class="add_new my-2 flex justify-content-end gap-2">
-      <lib-button (onClick)="generateVariant()" className="outline-primary">
-        {{ 'itemType.generateVariant' | translate }}
-      </lib-button>
+   
       <lib-button (onClick)="addLineAttribute()" className="outline-primary">
         {{ 'itemType.add_new' | translate }}
       </lib-button>
@@ -15,7 +13,9 @@
       >
         <ng-template pTemplate="header">
           <tr>
+            <th>{{ 'itemType.attributeCode' | translate }}</th>
             <th>{{ 'itemType.attributeName' | translate }}</th>
+            <th>{{ 'itemType.attributeValues' | translate }}</th>
             <th>{{ 'itemType.status' | translate }}</th>
 
             <th>{{ 'itemType.actions' | translate }}</th>
@@ -30,23 +30,32 @@
           <tr [formGroup]="itemDefAttributeGroup">
             <!--  -->
             <td>
+              <small>{{ itemDefAttributeGroup.get('id').value }}</small>
+            </td>
+            <td>
               <small>{{ itemDefAttributeGroup.get('name').value }}</small>
             </td>
+            <td>
+              <ng-container *ngFor="let detail of itemDefAttributeGroup.get('attributeName').value; let isLast = last">
+                <span>{{ detail.detailName }}</span><span *ngIf="!isLast">, </span>
+              </ng-container>     
+         </td>
             <!--  -->
+            <!-- (valueChanged)="confirmChange($event, itemDefAttributeGroup)" -->
+
 
             <td>
               <lib-input-switch
-                formControlName="status"
-                (valueChanged)="confirmChange($event, itemDefAttributeGroup)"
-                [(ngModel)]="itemDefAttributeGroup.get('status').value"
+                formControlName="isActive"
+                [(ngModel)]="itemDefAttributeGroup.get('isActive').value"
               ></lib-input-switch>
             </td>
             <!--  -->
             <td>
               <div class="flex align-items-center gap-4">
                 <i
-                  class="pi pi-eye pointer"
-                  (click)="onViewAttribute(itemDefAttributeGroup)"
+                  class="pi pi-pencil pointer"
+                  (click)="onEditAttribute(itemDefAttributeGroup)"
                 ></i>
                 <i
                   class="pi pi-trash pointer"
@@ -58,3 +67,25 @@
         </ng-template>
       </p-table>
     </div>
+
+
+    <div class="grid">
+      <div class="md:col-12 my-3 grid flex justify-content-end">
+        <div class="md:col-4 grid flex justify-content-end">
+        
+          <div  class="md:col-6">
+            <lib-button-micro
+              title="{{ 'itemType.save' | translate }}"
+              nameClass="save"
+              widthNumber="100%"
+              (click)="onSave()"
+            >
+            </lib-button-micro>
+    
+          </div>
+        </div>
+    
+    
+      </div>
+    </div>
+    

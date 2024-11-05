@@ -39,9 +39,15 @@ export class DataTableComponent implements OnInit, OnChanges {
 
   @Output() pageChange = new EventEmitter<PageInfo>();
   @Output() addNew = new EventEmitter<boolean>(false);
+  @Input() showCheckBox: boolean;
+
+  selectedRows: any[] = [];
+  
+  @Output() selectedRowsChange = new EventEmitter<any[]>();
 
   //  to fill the dropdown in the component
   @Output() fiteredDropdOwn = new EventEmitter<TableConfig>();
+  @Output() exportObj = new EventEmitter<{SortBy : number , SortColumn: string}>();
 
   sortingFields: string[];
   selectedColumns: any = [];
@@ -59,14 +65,14 @@ export class DataTableComponent implements OnInit, OnChanges {
   @ViewChild('customCellTemplate', { static: true })
   customCellTemplate?: TemplateRef<any>;
   customParentCellTemplate: TemplateRef<NgIfContext<boolean>> | null;
-  selected_filtered_columns: any[] = [];
+  rows: [];  selected_filtered_columns: any[] = [];
   searchColumnsControl = new FormControl([]);
   isRtl: boolean = false;
   showColumnFilter: boolean 
 
   ngOnInit(): void {
     this.isRtl = this.languageService.ar;
-    this.showColumnFilter = this.tableConfigs?.columns?.some(x=>x.name == 'id')
+    // this.showColumnFilter = this.tableConfigs?.columns?.some(x=>x.name == 'id')
     this.filtered_columns = this.tableConfigs.columns
     this.selected_filtered_columns = this.filtered_columns.map((option) => option.name);
     this.searchColumnsControl.setValue(this.selected_filtered_columns as any);
@@ -134,7 +140,6 @@ export class DataTableComponent implements OnInit, OnChanges {
   isSelected(index: number): boolean {
     if (this.selectedIndices) return this.selectedIndices.includes(index);
     return false;
-   
   }
 
   toggleSelection(index: number): void {
@@ -145,6 +150,29 @@ export class DataTableComponent implements OnInit, OnChanges {
       this.selectedIndices.splice(selectedIndex, 1);
     }
   }
+
+  onRowSelect(event: any) {
+    this.selectedRows.push(event.data);
+    this.selectedRowsChange.emit(this.selectedRows); 
+  }
+
+  onRowUnselect(event: any) {
+    const index = this.selectedRows.findIndex((row) => row === event.data);
+    if (index > -1) {
+      this.selectedRows.splice(index, 1);
+    }
+    this.selectedRowsChange.emit(this.selectedRows); 
+  }
+
+  onSelectAllRows(event: any) {
+    if (event.checked) {
+      this.selectedRows = [...this.items];
+    } else {
+      this.selectedRows = []; 
+    }
+    this.selectedRowsChange.emit(this.selectedRows); 
+  }
+
 
   onSortClick(columnName: string): void {
     if (columnName) {
@@ -157,6 +185,7 @@ export class DataTableComponent implements OnInit, OnChanges {
 
       this.currentSortColumn = columnName;
 
+
       setTimeout(() => {
         const pageInfo = new PageInfo(
           this.pageInfo?.pageNumber,
@@ -167,6 +196,7 @@ export class DataTableComponent implements OnInit, OnChanges {
         );
         console.log('page info', pageInfo);
         this.onPageChange(pageInfo);
+        this.exportObj.emit({SortBy:this.currentSortOrder , SortColumn : this.currentSortColumn as string})
       }, 100);
     }
   }
@@ -187,13 +217,13 @@ export class DataTableComponent implements OnInit, OnChanges {
       const filteredColumns = columns.filter((col) =>
         selectedColumns.some((sCol: string) => col.name === sCol)
       );
-      if(filteredColumns[filteredColumns.length - 1].name =="id"){
+      // if(filteredColumns[filteredColumns.length - 1].name =="id"){
 
         this.tableConfigs.columns = [...filteredColumns];
-      } else{
-        filteredColumns.push(this.clonedTableConfigs.columns[this.clonedTableConfigs.columns.length - 1])
-        this.tableConfigs.columns = [...filteredColumns];
-      }
+      // } else{
+      //   filteredColumns.push(this.clonedTableConfigs.columns[this.clonedTableConfigs.columns.length - 1])
+      //   this.tableConfigs.columns = [...filteredColumns];
+      // }
              
     }
   }

@@ -17,8 +17,8 @@ export class AddVariantPopupComponent implements OnInit {
   attributeName : any = []
   attributeValues : any = []
 
-  
- 
+
+
   constructor(
     public config: DynamicDialogConfig,
     public dialogService: DialogService,
@@ -35,14 +35,24 @@ export class AddVariantPopupComponent implements OnInit {
   ngOnInit() {
     this.initializeitemDefinition();
     this. attributeGroups();
+    if(this.config?.data?.attributeGroupDetails) {
+      console.log(this.config.data)
+
+      this.itemDefinitionForm.get('attributeGroupId')?.setValue(this.config.data.attributeGroupId)
+      this.attributeGroupsValue(this.config.data.attributeGroupId)
+      let values = this.config.data.attributeGroupDetails.map((elem : any)=>Number(elem.attributeId) )
+      console.log(values)
+
+      this.itemDefinitionForm.get('attributeGroupDetails')?.setValue(values)
+    }
 
     this.itemDefinitionForm.get('attributeGroupId')?.valueChanges.subscribe(res=>{
       if(res) {
+        this.itemDefinitionForm.get('attributeGroupDetails')?.setValue(null)
         this.attributeGroupsValue(res)
       }
     })
 
-    console.log(this.config.data)
 
   }
   attributeGroups() {
@@ -58,16 +68,16 @@ export class AddVariantPopupComponent implements OnInit {
       this.attributeValues = res.itemAttributes
     })
   }
- 
 
 
- 
+
+
 
   initializeitemDefinition() {
     this.itemDefinitionForm = this.fb.group({
       attributeGroupId: new FormControl(''),
       attributeGroupDetails: new FormControl('', [customValidators.required]),
-    
+
     });
   }
 
@@ -76,17 +86,18 @@ export class AddVariantPopupComponent implements OnInit {
   }
 
   onSubmit() {
-    if (!this.formsService.validForm(this.itemDefinitionForm)) return;   
+    if (!this.formsService.validForm(this.itemDefinitionForm)) return;
     let data = {...this.itemDefinitionForm.value , itemId : this.config.data}
-    this.itemsService.addVariantLine(data)
-    this.itemsService.addVariantLineDataObs.subscribe(res=>{
-      if(res) {
+    // this.itemsService.addVariantLine(data)
+    // this.itemsService.addVariantLineDataObs.subscribe(res=>{
+    //   if(res) {
+   let attributeValues =  this.attributeValues.filter((elem : any)=> this.itemDefinitionForm.get('attributeGroupDetails')?.value.includes(elem.id)).map((item : any)=>item.nameEn)
+    console.log(attributeValues)
         let attributeName : string = this.attributeName.find((elem : any)=>elem.id == this.itemDefinitionForm.value.attributeGroupId).nameEn
-        console.log(attributeName)
-        this.ref.close(attributeName)
-      }
-    })
-    
+        this.ref.close({attributeName : attributeName , attributeDetails  :this.itemDefinitionForm.get('attributeGroupDetails')?.value , values :  attributeValues , attributeGroupId : this.itemDefinitionForm.get('attributeGroupId')?.value} )
+      
+    // })
+
 
   }
 }

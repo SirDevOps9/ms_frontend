@@ -63,6 +63,34 @@
     border: 1px solid #1a90b0;
   }
 }
+
+.savePoupUp {
+  min-width: 150px;
+  background: #36A19B;
+  border: 1px solid #36A19B;
+  color: #fff;
+  &:hover {
+    background: #fff;
+    color: #1a90b0;
+    border: 1px solid #1a90b0;
+  }
+}
+
+.change {
+  min-width: 120px;
+  margin-top: 10px;
+  height: 46px;
+  text-align: center;
+  border: 1px solid #36A19B;
+  color: #36A19B;
+  &:hover {
+    background: #36A19B;
+    color: white;
+    border: 1px solid #1a90b0;
+  }
+}
+
+
 .print {
   background: #36a19b;
   border: 1px solid #36a19b;
@@ -246,4 +274,16 @@
   outline-color: transparent;
   height: fit-content;
   cursor: pointer;
+}
+.uploud_excel{
+  background-image: url(../../../assets/images/uploadeexcel.png);
+  background-repeat: no-repeat;
+  width: 25px;
+  height: 25px;
+  display: inline-block;
+  background-position: center;
+  
+}
+.update_excel{
+  background-image: url(../../../assets/images/updatepolicy.png);
 }
