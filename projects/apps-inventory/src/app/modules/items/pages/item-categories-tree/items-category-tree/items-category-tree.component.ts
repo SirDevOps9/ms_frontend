@@ -90,6 +90,7 @@ export class ItemsCategoryTreeComponent implements OnInit {
     this.view = true;
   }
   viewMode(event: number) {
+    debugger
     if (event === -1) {
       this.edit = false;
       this.add = false;

@@ -49,6 +49,12 @@
           </small>
           <lib-input-switch [ngModel]="parent?.isDetailed" [disabled]="true"> </lib-input-switch>
         </div>
+        <div class="md:col-6 flex gap-2 align-items-center">
+          <small>
+            {{ 'itemsCategory.status' | translate }}
+          </small>
+          <lib-input-switch [ngModel]="parent?.isActive" [disabled]="true"> </lib-input-switch>
+        </div>
         <div class="md:col-12" *ngIf="parent.categoryType && parent.isDetailed">
           <lib-form-group>
             <small>

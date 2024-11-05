@@ -69,7 +69,6 @@ export class AddItemsCategoryComponent {
     private itemService: ItemsService
   ) {}
   ngOnInit() {
-
     this.formGroup = this.formBuilder.group({
       code: [''],
       nameEn: new FormControl('', [customValidators.required]),
@@ -80,14 +79,13 @@ export class AddItemsCategoryComponent {
       categoryType: [null, [customValidators.required]],
 
       purchaseAccountId: [null],
-      costOfGoodSoldAccountId:[null]
+      costOfGoodSoldAccountId: [null],
     });
     this.getParentItemCategoriesDropDown();
 
     this.formGroup.get('isDetailed')?.valueChanges.subscribe((res) => {
       if (res == true) {
-        if(this.parentCategoryList.length > 0){
-
+        if (this.parentCategoryList.length > 0) {
           this.formGroup.get('parentCategoryId')?.setValidators(customValidators.required);
           this.formGroup.get('parentCategoryId')?.updateValueAndValidity();
         }
@@ -109,14 +107,13 @@ export class AddItemsCategoryComponent {
     this.formGroup.get('id')?.reset();
     this.formGroup.get('code')?.reset(null);
 
-    this.formGroup.get('parentCategoryId')?.reset(null); 
-    this.formGroup.get('isDetailed')?.reset(false); 
-    this.formGroup.get('categoryType')?.reset(null); 
+    this.formGroup.get('parentCategoryId')?.reset(null);
+    this.formGroup.get('isDetailed')?.reset(false);
+    this.formGroup.get('categoryType')?.reset(null);
 
     // Reset all the account-related fields to null
     this.formGroup.get('purchaseAccountId')?.reset(null);
     this.formGroup.get('costOfGoodSoldAccountId')?.reset(null);
-    
   }
 
   getParentItemCategoriesDropDown() {
@@ -125,8 +122,7 @@ export class AddItemsCategoryComponent {
       next: (res: { id: number; name: string }[]) => {
         this.parentCategoryList = res;
       },
-      error: (error: any) => {
-      },
+      error: (error: any) => {},
     });
   }
   AccountsDropDown() {
@@ -198,9 +194,11 @@ export class AddItemsCategoryComponent {
     this.itemService.addItemCategory(obj);
     setTimeout(() => {
       this.itemService.AddItemCategoryLookupObs.subscribe({
-        next: (res?: any | any) => {
+        next: (res?: any) => {
           if (res) {
             this.operationCompleted.emit(res);
+          } else {
+            return;
           }
         },
         error: (err: Error) => {
@@ -218,7 +216,6 @@ export class AddItemsCategoryComponent {
     }, 100);
 
     if (changes['newChiled']) {
-
       if (this.newChiled == true) {
         this.hasParentAccount = false;
         this.selectValue = false;

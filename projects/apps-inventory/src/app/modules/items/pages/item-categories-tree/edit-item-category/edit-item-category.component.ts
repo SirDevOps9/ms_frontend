@@ -111,10 +111,12 @@ export class EditItemCategoryComponent {
     });
   }
   getParentItemCategoriesDropDown() {
+    debugger
     this.itemService.ParentItemCategoriesDropDown('');
     this.itemService.parentItemCategoriesDropDown$.subscribe({
       next: (res: { id: number; name: string }[]) => {
-        this.parentCategoryList = res.filter(x=>x.id !== this.parentEditedId);
+       const idsToRemove = [...this.childrenParentsIdsInSubParent, this.parentEditedId]   
+       this.parentCategoryList = res.filter(x => !idsToRemove.includes(x.id));
       },
       error: (error: any) => {},
     });
@@ -128,6 +130,7 @@ export class EditItemCategoryComponent {
   }
 
   onAccountSectionChange(event: any) {
+    debugger
     const sectionId = event;
     if (!sectionId) return;
     this.accountService.getAccountTypes(sectionId);
@@ -157,21 +160,34 @@ export class EditItemCategoryComponent {
 
     this.itemService.editItemCategory(obj);
 
-    this.itemService.EditItemCategoryDataObs.subscribe((res) => {
-      if (res) {
-        this.operationCompleted.emit(this.parentEditedId);
+    this.itemService.EditItemCategoryDataObs.subscribe({
+      next:(res:any)=>{
+
+        if(res == true) {
+
+          this.operationCompleted.emit(this.parentEditedId)
+        }else{
+          return
+        }
+        
+      },
+      error:(err:any)=>{
+        return
       }
-    });
+    })
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['parentEditedId']) {
       this.getAccountById(this.parentEditedId);
     }
   }
+  childrenParentsIdsInSubParent :number[]= []
   getAccountById(id: any) {
+    debugger
     this.itemService.getItemCategoryById(id);
     this.itemService.getItemCategoryByIdDataObs.subscribe((res: any) => {
       this.parentAcountName = res;
+     this.childrenParentsIdsInSubParent = res.childCategoriesDtos.filter((x : any)=> x.isDetailed !=true).map((x: any)=>x.id)
 
       if (res.parentId != null) {
         this.hasParentAccount = true;
