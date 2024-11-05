@@ -64,14 +64,12 @@ export class ItemDefintionTaxComponent {
   getTaxData(){
     this.itemService.gettaxesDropDropDown(this.id)
     this.itemService.taxesDataLookupObs.subscribe((res : any)=>{
-      console.log(res)
       this.itemDefinitionForm.patchValue({
         id: res.id,
         isVatApplied:res.isVatApplied,
 
         taxId:res.taxId,
       })
-      console.log(this.itemDefinitionForm.value)
     })
   }
   

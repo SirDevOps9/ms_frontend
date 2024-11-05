@@ -660,7 +660,10 @@ editInventory(obj:any){
 getInvenrory(id:number){
   
   this.itemProxy.getInvenrory(id).subscribe(res=>{
-    this.getInventoryData.next(res)
+    if(res) {
+      this.getInventoryData.next(res)
+
+    }
   })
 }
   uomCodeDropDown(id: number) {
@@ -1106,9 +1109,11 @@ this.itemProxy.getUOMCategoryDropDown().subscribe({
             this.languageService.transalte('itemType.success'),
             this.languageService.transalte('itemType.deleteBarcode')
           );
-          const currentVariant = this.GetBarcode.getValue();
-          const updatedVariants = currentVariant.filter(c  => c.id !== id);
-          this.GetBarcode.next(updatedVariants);
+          const currentVariant : any = this.ItemVariantsById.getValue();
+          console.log(currentVariant)
+          console.log(id)
+          const updatedVariants = currentVariant.filter((c : any)  => c.variantId !== id);
+          this.ItemVariantsById.next(updatedVariants);
         },
 
 

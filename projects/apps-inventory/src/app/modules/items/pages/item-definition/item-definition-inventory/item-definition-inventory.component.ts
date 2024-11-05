@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { RouterService } from 'shared-lib';
+import { lookupDto, LookupEnum, LookupsService, RouterService } from 'shared-lib';
 import { ItemsService } from '../../../items.service';
 
 @Component({
@@ -14,48 +14,51 @@ export class ItemDefinitionInventoryComponent {
   itemDefinitionForm: FormGroup;
   trackingDropDown: any[] = [];
   showTracking : boolean = false
+  LookupEnum=LookupEnum;
+  lookups: { [key: string]: lookupDto[] };
   constructor(
     private _router: RouterService,
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private itemService: ItemsService,
     private cdr: ChangeDetectorRef,
+    private lookupservice : LookupsService
 
   ) {
     this.id = this.route.snapshot.params['id'];
+    
   }
 
   ngOnInit(): void {
     this.getInventoryData()
     this.createForm();
-    this.itemDefinitionForm.get('hasExpiryDate')?.valueChanges.subscribe(res=>{
-      if(res == true) {
-        this.showTracking = true
-        this.cdr.detectChanges(); // Trigger change detection manually
+    this.lookupservice.loadLookups([
+      LookupEnum.TrackingType
+    ]);
+    this.lookupservice.lookups.subscribe((l) => {
+      this.lookups = l;      
+    });
 
-        setTimeout(() => {
-          this.getTrackingDropDown();
-
-
-        }, 100);
-      } 
-      else {
-        this.showTracking = false
-        
-       } 
+    this.itemDefinitionForm.get('trackingType')?.valueChanges.subscribe(res=>{
+      if(res == 'Batch') {
+        this.itemDefinitionForm.get('hasExpiryDate')?.setValue(true)
+      }
     })
   }
   getInventoryData(){
     this.itemService.getInvenrory(this.id)
     this.itemService.getInventoryData$.subscribe(data=>{
-      this.itemDefinitionForm.patchValue({...data})
+      if(Object.keys(data)?.length) {
+        this.itemDefinitionForm.patchValue({...data})
+
+      }
     })
   }
 
   createForm() {
     this.itemDefinitionForm = this.fb.group({
       id: [this.id],
-      trackingId: [null ],
+      trackingType: [null ],
       hasExpiryDate: [false, Validators.required]
     });
   }

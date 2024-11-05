@@ -44,6 +44,11 @@ export class ItemDefinitionBarcodeComponent {
      
     })
 
+    this.itemService.ItemVariantsByIdObs.subscribe(res=>{
+      if(Object.keys(res)?.length){
+          this.getBarcodeByItemId()
+      }
+    })
 
 
     this.getItemVariants()
@@ -59,7 +64,6 @@ export class ItemDefinitionBarcodeComponent {
       }
     })
     this.itemService.sendUOMObs.subscribe(res => {
-      console.log("heey", res)
 
 
       this.getUomDropDown(this.id)
@@ -101,7 +105,6 @@ export class ItemDefinitionBarcodeComponent {
   getUomDropDown(id: number) {
     this.itemService.getUomDropDownByUomItemId(id)
     this.itemService.UOMDropDownLookupByItemIdObs.subscribe(res => {
-      console.log(res)
       this.uomLookup = res
     })
   }
@@ -117,8 +120,7 @@ export class ItemDefinitionBarcodeComponent {
 
   variantChanged(e : any , itemDefBarcodeGroup : FormGroup) {
    let data =  this.ItemVariantsByItemIdDropDown.find(item=>item.variantId == e)
-   console.log(data)
-   console.log(e)
+
 
    itemDefBarcodeGroup.get('itemVariantName')?.setValue(this.currentLang == 'en' ? data?.variantEnName : data?.variantArName)
   }
@@ -143,8 +145,8 @@ export class ItemDefinitionBarcodeComponent {
       itemId : this.id,
       barcode: null,
       uomId: [null, [customValidators.required]],
-      itemVariantId: null,
-      sku: null,
+      itemVariantId: [null, [customValidators.required]],
+      sku: [null, [customValidators.required]],
       isActive: true,
       uomName: null,
       itemVariantName: null
@@ -302,9 +304,6 @@ export class ItemDefinitionBarcodeComponent {
 
     let conversionRatioTemp = itemDefinition.get('tempConversionRatio')?.value;
 
-    console.log(conversionRatioTemp)
-    console.log(itemDefinition.get('conversionRatio')?.value)
-    console.log(e)
 
 
 

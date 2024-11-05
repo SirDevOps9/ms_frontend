@@ -35,7 +35,6 @@ export class ItemDefinitionAttributesVariantsComponent implements OnInit {
     private itemService: ItemsService
   ) {
     this.id = this.route.snapshot.params['id'];
-    console.log(this._router.getCurrentUrl());
   }
   ngOnInit(): void {
     this.getItemVariants()
@@ -73,7 +72,6 @@ export class ItemDefinitionAttributesVariantsComponent implements OnInit {
     this.itemService.ItemGetItemUomByIdObs.subscribe(res=>{
       if(!!res ){
         this.AttributeForm.clear()
-        console.log(res)
 
         this.getItemVariants()
       }
@@ -93,7 +91,6 @@ export class ItemDefinitionAttributesVariantsComponent implements OnInit {
 
     dialogRef.onClose.subscribe((res) => {
       if (res) {
-        console.log(res)
         this.AttributeForm.push(this.createAttributeFormGroup(res));
        
       }
@@ -131,7 +128,6 @@ export class ItemDefinitionAttributesVariantsComponent implements OnInit {
             if (!!data) {
               this.AttributeForm?.clear()
 
-              console.log(data);
               this.dataItemVariantsById = data;
           
               data.forEach(element => {
@@ -147,7 +143,6 @@ export class ItemDefinitionAttributesVariantsComponent implements OnInit {
                 this.AttributeForm.push(fg);
           
                 element.itemAttributeGroupDetails.forEach(item => {
-                  console.log(item)
                   const attributeNameGroup = this.fb.group({
                       detailName: item.attributeId || '',
                    attributeId : item.attributeId,
@@ -208,7 +203,6 @@ export class ItemDefinitionAttributesVariantsComponent implements OnInit {
     });
     
     dialogRef.onClose.subscribe((res) => {
-      console.log(res);
       if (res) {
         // Clear the form array only once before adding new items
         const attributeNameArray = form.get('attributeGroupDetails') as FormArray;
@@ -264,7 +258,6 @@ export class ItemDefinitionAttributesVariantsComponent implements OnInit {
       id : +this.id,
       itemAttributeGroups : formData
     }
-    console.log(obj)
     this.itemService.EditItemAttributes(obj)
   }
 }

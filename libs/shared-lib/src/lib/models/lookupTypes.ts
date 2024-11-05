@@ -26,4 +26,5 @@ export enum LookupEnum {
   SequenceType='SequenceType',
   Segment='Segment',
   Separator ='Separator',
+  TrackingType = 'TrackingType',
 }

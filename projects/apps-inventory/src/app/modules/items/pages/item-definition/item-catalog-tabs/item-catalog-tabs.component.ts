@@ -17,7 +17,6 @@ export class ItemCatalogTabsComponent {
 
     this.route.firstChild?.params.subscribe(params => {
       this.id = params['id'];
-      console.log(this.id)
 
     });
 
