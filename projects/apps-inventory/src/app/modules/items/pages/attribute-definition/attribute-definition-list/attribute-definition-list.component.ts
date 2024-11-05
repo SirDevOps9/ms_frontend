@@ -188,7 +188,7 @@ onViewttributeValues(selectedId: number) {
 onViewttributeValuesList(selectedId: number) {
   const selectedItem = this.tableData.find(item => item.id === selectedId);
   this.dialog.open(AttributeDefinitionListValuesComponent, {
-    width: '750px',
+    width: '950px',
     height: '700px',
     data: selectedItem
   });

@@ -1,5 +1,5 @@
 <lib-popup-page
-  title="{{ 'attributeDefinition.attributeValues' | translate }}"
+  title="{{ 'attributeDefinition.attributeValuesList' | translate }}"
   [closeFunction]="onCancel"
   [save]="false"
   [showCancel]="false"
@@ -13,7 +13,13 @@
       columns: [
         {
           name: 'nameEn',
-          headerText: 'attributeDefinition.attribute' | translate,
+          headerText: 'attributeDefinition.attributeNameEn' | translate,
+          isGlobalFilter: true,
+          isSortable: true
+        },
+        {
+          name: 'nameAr',
+          headerText: 'attributeDefinition.attributeNameAr' | translate,
           isGlobalFilter: true,
           isSortable: true
         },

@@ -1,7 +1,6 @@
-<div class="chart_add_page">
+<div class="">
   <form [formGroup]="formGroup">
     <div class="gird">
-      <lib-fildest header="{{ 'itemsCategory.Main' | translate }}" class="md:col-12">
         <div class="grid">
           <div class="md:col-4">
             <lib-form-group>
@@ -32,9 +31,8 @@
             </lib-form-group>
           </div>
         </div>
-      </lib-fildest>
 
-      <lib-fildest header="{{ 'itemsCategory.parentCategory' | translate }}" class="md:col-12">
+
         <div class="grid">
           <div class="md:col-12">
             <lib-form-group>
@@ -79,12 +77,12 @@
             </lib-form-group>
           </div>
         </div>
-      </lib-fildest>
+
     </div>
     <p-tabView *ngIf="showCategory"  >
       <p-tabPanel header="{{ 'warehouse.account' | translate }}">
         <div class="grid">
-     
+
           <!--purchaseAccountId  -->
           <div class="md:col-6">
             <lib-form-group>
@@ -119,7 +117,7 @@
               </lib-field-validations>
             </lib-form-group>
           </div>
-     
+
         </div>
       </p-tabPanel>
     </p-tabView>

@@ -79,10 +79,10 @@ export class TextInputComponent implements ControlValueAccessor, Validator, Afte
 
   keyupChange(m: any) {
     this.onChange(m.target.value);
-
     this.keyUp.emit(m.target.value);
-    this.keyUpFullEvent.emit(m);
+    this.keyUpFullEvent.emit(m);     
   }
+
 
   filterInput(event: KeyboardEvent): boolean {
     const key = event.key;

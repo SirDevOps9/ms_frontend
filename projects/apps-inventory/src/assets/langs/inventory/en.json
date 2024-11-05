@@ -136,6 +136,7 @@
     "add": "Item Definition Added Successfully",
     "attributeName": "Attribute Name",
     "attributeValues": "Select Attribute Values",
+    "attributeValuesList": "Select Attribute Values List",
     "viewVariant": "View",
     "itemTracking": "Item Tracking",
     "SelectItemTracking": "Select Item Tracking",
@@ -258,7 +259,8 @@
     "success": "Success",
     "Success": "Success",
     "attributeDefinition": "Attribute Definition",
-    "attributeValues": "Attribute Values",
+    "attributeValuesList": "Attribute Values List",
+    "attributeValues":"Attribute Values",
     "attribute": "Attribute",
     "AddNewLine": "Add New Line",
     "noItems": "No items in the attribute table.",
@@ -298,7 +300,7 @@
   },
   "OperationalTag": {
     "Add": "Add",
-    "action": "action",
+    "action": "actions",
     "value": "Value",
     "success": "Success",
     "nameAr": "Name Ar",
@@ -309,17 +311,19 @@
     "inActive": "inActive",
     "Search": "Search",
     "code": " Code",
-    "operationType": " Operation Type",
+    "operationType": "Operational Type",
     "name": " Name",
     "save": "Save",
     "discard": "Discard",
-    "warehouseName": "Warehouse Name",
+    "warehouseName": "Warehouse",
     "status": "Status",
     "delete": "Deleted",
     "Success": "Operational Tag updated  successfully",
     "actions": "Actions",
-    "glAccountId" : "GL Account Code"
-
+    "glAccountId" : "GL Account",
+     "create":"Add New",
+     "codeAuto":"Auto Generate",
+     "oneSelect":"One Select"
 
 
   },

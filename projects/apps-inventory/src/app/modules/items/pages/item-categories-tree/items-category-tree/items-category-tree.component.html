@@ -9,11 +9,12 @@
                   <img src="assets/images/tree/folder.png" alt="" />
                   <p class="text paragraph_b18">{{ 'itemsCategory.title' | translate }}</p>
                 </div>
+
                 <div class="flex justify-content-center align-content-center gap-1 ">
-        
+
                   @if(!expanded){
-                    <button class="btn_tree_item pi pi-expand"  (click)="expand_Collapse()">
-                    </button>   
+                    <!-- <button class="btn_tree_item pi pi-expand"  (click)="expand_Collapse()">
+                    </button> -->
                   }@else{
                     <button class="btn_tree_item "  (click)="expand_Collapse()">
                       <i class="fa-solid fa-compress"></i>
@@ -22,10 +23,10 @@
                   <button class="btn_tree_item btn_add pi pi-plus" (click)="newChild()"></button>
               </div>
               </div>
-      
+
               <p-tree
-              (onNodeExpand)="nodeExpand($event)" 
-        (onNodeCollapse)="nodeCollapse($event)" 
+              (onNodeExpand)="nodeExpand($event)"
+        (onNodeCollapse)="nodeCollapse($event)"
 
               [value]="nodes" [filter]="true" expanded="true" *ngIf="showTree">
                 <ng-template let-node pTemplate="default">
@@ -34,7 +35,7 @@
                     <div class="description">
                       <span class="folder" *ngIf="!node.isDetailed"></span>
                       <span class="file" *ngIf="node.isDetailed"></span>
-                      
+
                       <span id="label_tree" *ngIf="node.children" (click)="handleTabClick(node)">{{
                         node.label
                         }}</span>
@@ -46,10 +47,10 @@
                       <button class="btn_add btn_tree_item pi pi-plus" (click)="addChild(node)"
                         *ngIf="!node.isDetailed"></button>
                     </div>
-      
-      
-      
-      
+
+
+
+
                   </div>
                 </ng-template>
               </p-tree>
@@ -57,9 +58,9 @@
           </div>
           <div class="md:col-8">
             <app-add-items-category *ngIf="add" [newChiled]="newChiled" [parentAddedId]="parentAddedId"
-            (operationCompleted)="handleOperationCompleted($event)" > 
+            (operationCompleted)="handleOperationCompleted($event)" >
             </app-add-items-category>
-            
+
             <app-edit-item-category *ngIf="edit" [parentEditedId]="parentEditedId"
             (operationCompleted)="viewMode($event)">
 

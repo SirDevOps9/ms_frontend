@@ -3,11 +3,14 @@
       <div class="user_page">
         <lib-data-table
           [items]="tableData"
+          [showCheckBox]="true"
+
           className="p-datatable-gridlines"
           [currentPageResult]="currentPageInfo"
           (pageChange)="onPageChange($event)"
           [tableConfigs]="{
             allowPagination: false,
+
             allowServerPagination: true,
             dataKey: 'id',
             pageSize: 10,
@@ -137,13 +140,19 @@
 
 
           <ng-template #isActive let-row>
-            <div   *ngIf="row.isActive !=null" class="flex align-items-center">
+            <div   *ngIf="row.isActive !=null" class="flex m-1 align-items-center">
               <lib-input-switch
               [id]="row.id"
               [ngModel]="row.isActive"
               (valueChanged)="confirmChange($event, row)">
             </lib-input-switch>
+
+            <span  [ngClass]="{'active-true':row.isActive}" class="ml-2">
+              {{ row.isActive ? 'On' : 'Off' }}
+            </span>
+
             </div>
+
           </ng-template>
 
 
