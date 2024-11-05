@@ -42,8 +42,7 @@ export class ItemDefinitionInventoryComponent {
       else {
         this.showTracking = false
         
-        this.itemDefinitionForm.get('trackingId')?.setValue(null)
-      } 
+       } 
     })
   }
   getInventoryData(){

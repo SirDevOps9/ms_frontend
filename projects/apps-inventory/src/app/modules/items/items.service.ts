@@ -1085,9 +1085,9 @@ this.itemProxy.getUOMCategoryDropDown().subscribe({
             this.languageService.transalte('itemType.success'),
             this.languageService.transalte('itemType.deleteVariant')
           );
-          const currentVariant = this.sendAttributeVariantData.getValue();
+          const currentVariant = this.ItemAttributesById.getValue();
           const updatedVariants = currentVariant.filter((c) => c.id !== id);
-          this.sendAttributeVariantData.next(updatedVariants);
+          this.ItemAttributesById.next(updatedVariants);
         },
       });
     }

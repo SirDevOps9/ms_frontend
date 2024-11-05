@@ -88,7 +88,7 @@ export class ItemDefinitionAttributesVariantsComponent implements OnInit {
     const dialogRef = this.dialog.open(AddVariantPopupComponent, {
       width: '50%',
       height: '430px',
-      data: this.id,
+      data: {id:this.id , formValue : this.AttributeForm.value},
     });
 
     dialogRef.onClose.subscribe((res) => {
@@ -129,7 +129,7 @@ export class ItemDefinitionAttributesVariantsComponent implements OnInit {
           this.itemService.getItemAttributes(this.id)
           this.itemService.ItemAttributesById$.subscribe(data => {
             if (!!data) {
-              this.AttributeForm.clear()
+              this.AttributeForm?.clear()
 
               console.log(data);
               this.dataItemVariantsById = data;
