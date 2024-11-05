@@ -1,3 +1,6 @@
+<lib-page-content [title]="'bank.TaxList' | translate" [subTitle]="'bank.TaxList' | translate">
+    <div>
+      <div class="user_page">
         <lib-data-table
           [items]="tableData"
           className="p-datatable-gridlines"
@@ -53,6 +56,7 @@
         <ng-container search>
           <div>
             <span class="p-input-icon-left">
+              <i class="pi pi-search"></i>
               <lib-text-input
               type="text"
               [placeholder]="'itemCategory.search' | translate"
@@ -88,5 +92,7 @@
             </div>
           </ng-template>
         </lib-data-table>
-    
+      </div>
+    </div>
+  </lib-page-content>
   
