@@ -30,11 +30,8 @@ export class CalendarComponent implements ControlValueAccessor {
 
   handleInput(event: any): void {
     const inputDate = event.target.value;
+    const parsedDate = new Date(inputDate);
 
-    console.log(event)
-  
-    // Parse and validate the input value as a date based on your expected date format
-    const parsedDate =  new Date(inputDate)
     if (parsedDate) {
       const localDate = this.convert_to_local_date(parsedDate);
       this.value = localDate;
@@ -62,6 +59,7 @@ export class CalendarComponent implements ControlValueAccessor {
     // Implement if your component supports disabling
   }
 
+  
   handleDateChange(event: any): void {
     const parsedDate = new Date(event);
     const localDate = this.convert_to_local_date(parsedDate);
@@ -70,6 +68,7 @@ export class CalendarComponent implements ControlValueAccessor {
     this.onTouched();
     this.valueChanged.emit(localDate);
   }
+
 
   ngAfterViewInit() {
     if (this.controlDir) {
