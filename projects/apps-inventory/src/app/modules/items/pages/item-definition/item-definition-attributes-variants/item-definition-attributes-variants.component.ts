@@ -244,8 +244,13 @@ export class ItemDefinitionAttributesVariantsComponent implements OnInit {
     
   }
 
-  onDeleteAttribute(itemDefAttributeGroup: FormGroup) {
-    this.itemService.deleteVariant(itemDefAttributeGroup.get('id')?.value);
+  onDeleteAttribute(itemDefAttributeGroup: FormGroup , i : number) {
+    if(itemDefAttributeGroup.get('id')?.value !== 0) {
+      this.itemService.deleteVariant(itemDefAttributeGroup.get('id')?.value);
+
+    }else{
+      this.AttributeForm.removeAt(i)
+    }
   }
 
   onSave() {

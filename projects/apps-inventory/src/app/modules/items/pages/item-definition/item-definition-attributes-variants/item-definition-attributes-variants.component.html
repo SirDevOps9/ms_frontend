@@ -26,7 +26,7 @@
             <tr [formGroup]="itemDefAttributeGroup">
               <!--  -->
               <td>
-                <small>{{ itemDefAttributeGroup.get('id').value }}</small>
+                <small>{{ itemDefAttributeGroup.get('id').value && itemDefAttributeGroup.get('id').value !== 0 ? itemDefAttributeGroup.get('id').value : '' }}</small>
               </td>
               <td>
                 <small>{{ itemDefAttributeGroup.get('name').value }}</small>
@@ -55,7 +55,7 @@
                   ></i>
                   <i
                     class="pi pi-trash pointer"
-                    (click)="onDeleteAttribute(itemDefAttributeGroup)"
+                    (click)="onDeleteAttribute(itemDefAttributeGroup , i)"
                   ></i>
                 </div>
               </td>
