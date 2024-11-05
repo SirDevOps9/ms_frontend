@@ -18,12 +18,29 @@ export class CalendarComponent implements ControlValueAccessor {
   @Output() valueChanged = new EventEmitter<Date>();
   @Input() defaultDate: Date | null;
   value: Date;
+  
   onChange = (value: any) => {};
   onTouched = () => {};
 
   constructor(@Self() @Optional() public controlDir: NgControl) {
     if (this.controlDir) {
       this.controlDir.valueAccessor = this;
+    }
+  }
+
+  handleInput(event: any): void {
+    const inputDate = event.target.value;
+
+    console.log(event)
+  
+    // Parse and validate the input value as a date based on your expected date format
+    const parsedDate =  new Date(inputDate)
+    if (parsedDate) {
+      const localDate = this.convert_to_local_date(parsedDate);
+      this.value = localDate;
+      this.onChange(this.value);
+      this.onTouched();
+      this.valueChanged.emit(localDate);
     }
   }
 
