@@ -70,6 +70,7 @@ export class EditItemCategoryComponent {
       nameAr: ['', [customValidators.required]],
       parentCategoryId: [null],
       isDetailed: [false], // Assuming a boolean default of `false`
+      isActive: [false], // Assuming a boolean default of `false`
       categoryType: [null],
 
       purchaseAccountId: [null],
@@ -83,6 +84,7 @@ export class EditItemCategoryComponent {
         this.formGroup.get('nameEn')?.reset('', { emitEvent: false }); // Reset and retain validators
         this.formGroup.get('nameAr')?.reset('', { emitEvent: false }); // Reset and retain validators
         this.formGroup.get('parentCategoryId')?.reset(null); // Reset to null
+        this.formGroup.get('isActive')?.reset(false); // Reset to null
         this.formGroup.get('isDetailed')?.reset(false); // Reset to default false
         this.formGroup.get('categoryType')?.reset('', { emitEvent: false }); // Reset and retain validators
 
@@ -112,7 +114,7 @@ export class EditItemCategoryComponent {
     this.itemService.ParentItemCategoriesDropDown('');
     this.itemService.parentItemCategoriesDropDown$.subscribe({
       next: (res: { id: number; name: string }[]) => {
-        this.parentCategoryList = res;
+        this.parentCategoryList = res.filter(x=>x.id !== this.parentEditedId);
       },
       error: (error: any) => {},
     });

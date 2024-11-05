@@ -127,6 +127,7 @@ export class ItemsCategoryTreeComponent implements OnInit {
     this.edit = true;
   }
   getTreeList() {
+    debugger
     const activeNodeId = this.activeNode ? this.activeNode.id : null;
     this.itemsSevice.getItemCategoryTreeList().subscribe((res: any) => {
       this.nodes = this.mapToTreeNodes(res);

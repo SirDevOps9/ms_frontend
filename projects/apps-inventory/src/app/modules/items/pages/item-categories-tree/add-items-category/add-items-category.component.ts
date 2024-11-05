@@ -76,6 +76,7 @@ export class AddItemsCategoryComponent {
       nameAr: ['', [customValidators.required]],
       parentCategoryId: [null],
       isDetailed: [true], // Assuming a boolean default of `false`
+      isActive: [true], // Assuming a boolean default of `false`
       categoryType: [null, [customValidators.required]],
 
       purchaseAccountId: [null],
@@ -85,10 +86,17 @@ export class AddItemsCategoryComponent {
 
     this.formGroup.get('isDetailed')?.valueChanges.subscribe((res) => {
       if (res == true) {
+        if(this.parentCategoryList.length > 0){
+
+          this.formGroup.get('parentCategoryId')?.setValidators(customValidators.required);
+          this.formGroup.get('parentCategoryId')?.updateValueAndValidity();
+        }
         this.formGroup.get('categoryType')?.setValidators(customValidators.required);
         this.formGroup.get('categoryType')?.updateValueAndValidity();
         this.showCategory = true;
       } else {
+        this.formGroup.get('parentCategoryId')?.clearValidators();
+        this.formGroup.get('parentCategoryId')?.updateValueAndValidity();
         this.formGroup.get('categoryType')?.clearValidators();
         this.formGroup.get('categoryType')?.updateValueAndValidity();
         this.showCategory = false;
