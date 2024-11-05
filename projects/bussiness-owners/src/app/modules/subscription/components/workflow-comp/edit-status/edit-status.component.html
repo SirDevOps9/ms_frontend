@@ -1,11 +1,11 @@
 
 <lib-popup-page
-title=" {{ 'Add Workflow' | translate }}"
+title=" {{ 'AddNewWorkflow' | translate }}"
 [closeFunction]="onCancel"
 (Submit)="onSubmit()"
 >
 <div>
-  <form class="domain_form" [formGroup]="workflowForm" (ngSubmit)="onSubmit()">
+  <form class="domain_form" [formGroup]="statusForm" (ngSubmit)="onSubmit()">
     <div class="domain_content">
       <div class="grid m-0">
         <div class="col-12 my-2">
@@ -17,7 +17,7 @@ title=" {{ 'Add Workflow' | translate }}"
               placeholder="{{ 'tag.addtag.name' | translate }}"
             />
             <lib-field-validations
-              [appControl]="workflowForm.controls['name']"
+              [appControl]="statusForm.controls['name']"
             ></lib-field-validations>
           </lib-form-group>
         </div>

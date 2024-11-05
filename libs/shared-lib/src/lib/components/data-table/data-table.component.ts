@@ -66,7 +66,9 @@ export class DataTableComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.isRtl = this.languageService.ar;
-    this.showColumnFilter = this.tableConfigs?.columns?.some(x=>x.name == 'id')
+
+    
+    // this.showColumnFilter = this.tableConfigs?.columns?.some(x=>x.name == 'id')
     this.filtered_columns = this.tableConfigs.columns
     this.selected_filtered_columns = this.filtered_columns.map((option) => option.name);
     this.searchColumnsControl.setValue(this.selected_filtered_columns as any);

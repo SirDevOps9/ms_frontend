@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { LayoutService } from 'apps-shared-lib';
 import { DynamicDialogConfig, DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -7,6 +7,8 @@ import { GeneralSettingService } from 'projects/erp-home/src/app/modules/general
 import { SubdomainModuleDto } from 'projects/erp-home/src/app/modules/general-setting/models';
 import { FormsService, customValidators } from 'shared-lib';
 import { SubscriptionService } from '../../../subscription.service';
+import { ActivatedRoute } from '@angular/router';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-add-workflow',
@@ -15,8 +17,8 @@ import { SubscriptionService } from '../../../subscription.service';
 })
 export class AddWorkflowComponent implements OnInit {
   workflowForm: FormGroup;
-  modulelist: SubdomainModuleDto[];
-  selectedModules: number[] = [];
+  id: number;
+  route = inject(ActivatedRoute);
 
   constructor(
     public config: DynamicDialogConfig,
@@ -24,24 +26,28 @@ export class AddWorkflowComponent implements OnInit {
     private fb: FormBuilder,
     public layoutService: LayoutService,
     private ref: DynamicDialogRef,
-    private generalSettingService: GeneralSettingService,
     private formsService: FormsService,    private _subService: SubscriptionService,
 
   ) {
+    this.getId();
 
   }
 
   ngOnInit() {
-    this.moudlelist();
     this.initializeWorkflowForm();
   }
-
-  moudlelist() {
-    this.generalSettingService.getUserSubDomainModules();
-    this.generalSettingService.subdomainModuleDataSourceObservable.subscribe((res) => {
-      this.modulelist = res;
-    });
+  getId() {
+    this.route.params
+      .pipe(
+        map((params) => {
+          this.id = Number(params['id']);
+        })
+      )
+      .subscribe();
   }
+
+
+  
 
   initializeWorkflowForm() {
     this.workflowForm = this.fb.group({

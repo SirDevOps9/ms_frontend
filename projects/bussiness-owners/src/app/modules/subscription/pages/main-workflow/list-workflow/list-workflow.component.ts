@@ -113,11 +113,13 @@ export class ListWorkflowComponent implements OnInit {
     dialogRef.onClose.subscribe(() => {
       this.initworkFlowList();
     });    
-    // this.routerService.navigateTo(`/masterdata/operational-tag/edit-operational-tag/${data.id}`);
   }
   onView(id: number) {
        this.routerService.navigateTo(`/workflow/${id}`);
 
+  }
+  onDelete(id: number) {
+this._subService.deleteWorkflow(id)
   }
 
 

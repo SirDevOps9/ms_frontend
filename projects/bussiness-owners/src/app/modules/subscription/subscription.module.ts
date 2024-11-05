@@ -17,6 +17,11 @@ import { EditWorkflowComponent } from './components/workflow-comp/edit-workflow/
 import { ViewWorkflowComponent } from './pages/main-workflow/view-workflow/view-workflow.component';
 import { ManageStatusComponent } from './pages/main-workflow/view-workflow/manage-status/manage-status.component';
 import { ManageVariablesComponent } from './pages/main-workflow/view-workflow/manage-variables/manage-variables.component';
+import { AddStatusComponent } from './components/workflow-comp/add-status/add-status.component';
+import { EditStatusComponent } from './components/workflow-comp/edit-status/edit-status.component';
+import { ListActionsComponent } from './pages/main-workflow/view-workflow/manage-status/list-actions/list-actions.component';
+import { AddActionComponent } from './pages/main-workflow/view-workflow/manage-status/add-action/add-action.component';
+import { EditActionComponent } from './pages/main-workflow/view-workflow/manage-status/edit-action/edit-action.component';
 
 const routes: Routes = [
   {
@@ -67,7 +72,7 @@ const routes: Routes = [
 
 @NgModule({
   providers: [],
-  declarations: [SubscriptionComponent, MySubscriptionsComponent, AddDomainSpaceComponent ,ManageAppsComponent, ListWorkflowComponent, AddWorkflowComponent, EditWorkflowComponent, ViewWorkflowComponent, ManageStatusComponent, ManageVariablesComponent],
+  declarations: [SubscriptionComponent, MySubscriptionsComponent, AddDomainSpaceComponent ,ManageAppsComponent, ListWorkflowComponent, AddWorkflowComponent, EditWorkflowComponent, ViewWorkflowComponent, ManageStatusComponent, ManageVariablesComponent, AddStatusComponent, EditStatusComponent, ListActionsComponent, AddActionComponent, EditActionComponent],
   imports: [
     MicrotecAuthLibModule,
     SharedLibModule,

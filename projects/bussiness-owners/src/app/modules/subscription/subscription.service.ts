@@ -19,12 +19,26 @@ import { ResponseSubdomainListDto } from './models/responseSubdomainListDto';
 export class SubscriptionService {
 // #########workflow###########
 public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
-public workwlowList = new BehaviorSubject<any>({} as any);
-public statusDropDownList = new BehaviorSubject<{id:number , name : string}[]>({} as {id:number , name : string}[]);
+public workwlowList = new BehaviorSubject<any[]>([] as any);
+public workflowStatusActionsList = new BehaviorSubject<any[]>([]as any);
 public workflowObjByID = new BehaviorSubject<any>({} as any);
+public workFlowStatesActions = new BehaviorSubject<any>({} as any);
+public statusListView = new BehaviorSubject<{id:number , name : string}[]>({} as {id:number , name : string}[]);
+public statusDropDownList = new BehaviorSubject<{id:number , name : string}[]>({} as {id:number , name : string}[]);
+public variablesDropDownList = new BehaviorSubject<any[]>([] as any);
+public addAction= new BehaviorSubject<any>({} as any);
+public updateAction= new BehaviorSubject<any>({} as any);
+
+
 workwlowList$ = this.workwlowList.asObservable()
+workflowStatusActionsList$ = this.workflowStatusActionsList.asObservable()
 workflowObjByID$ = this.workflowObjByID.asObservable()
+statusListView$ = this.statusListView.asObservable()
 statusDropDownList$ = this.statusDropDownList.asObservable()
+addAction$ = this.addAction.asObservable()
+updateAction$ = this.updateAction.asObservable()
+workFlowStatesActions$ = this.workFlowStatesActions.asObservable()
+variablesDropDownList$ = this.variablesDropDownList.asObservable()
 
 // #########workflow###########
 
@@ -105,6 +119,25 @@ statusDropDownList$ = this.statusDropDownList.asObservable()
      this.currentPageInfo.next(response.pageInfoResult)
     });
   }
+    // status dropdown
+
+    getStatusDropDown(workflowId : number ,quieries: string, pageInfo: PageInfo)  {
+    this.subscriptionProxy.getStatusDropDown(workflowId ,quieries, pageInfo).subscribe((response) => {
+     this.statusDropDownList.next(response)
+    });
+  }
+  getWorkFlowsVariables(workflowId : number ,quieries: string, pageInfo: PageInfo)  {
+    this.subscriptionProxy.getWorkFlowsVariables(workflowId ,quieries, pageInfo).subscribe((response) => {
+     this.variablesDropDownList.next(response.result)
+    });
+  }
+  // get Workflow Status Actions
+  getWorkflowStatusActions(statusId : number ,quieries?: string, pageInfo?: PageInfo)  {
+    this.subscriptionProxy.getWorkflowStatusActions(statusId ,quieries, pageInfo).subscribe((response) => {
+     this.workflowStatusActionsList.next(response.result)
+     this.currentPageInfo.next(response.pageInfoResult)
+    });
+  }
   // add 
   addWorkflow(addTagDto: any, dialogRef: DynamicDialogRef) {
     this.subscriptionProxy.addWorkflow(addTagDto).subscribe({
@@ -120,8 +153,8 @@ statusDropDownList$ = this.statusDropDownList.asObservable()
     });
   }
   // edit 
-  editWorkflow(tagDto: any, dialogRef: DynamicDialogRef) {
-    this.subscriptionProxy.editWorkflow(tagDto).subscribe({
+  editWorkflow(name: any, dialogRef: DynamicDialogRef) {
+    this.subscriptionProxy.editWorkflow(name).subscribe({
       next: (res) => {
         this.toasterService.showSuccess(
           this.languageService.transalte('tag.addtag.success'),
@@ -143,19 +176,142 @@ statusDropDownList$ = this.statusDropDownList.asObservable()
       }
     })
   }
+//  WorkFlow States Actions
+  getWorkFlowStatesActionsByID(stateId: number) {
+    this.subscriptionProxy.getWorkFlowStatesActionsByID(stateId).subscribe(res=>{
+      if(res) {
+       this.workFlowStatesActions.next(res)
+        
+      }
+    })
+  }
+  // delete Action
+  async deleteAction(id: number) {
+    const confirmed = await this.toasterService.showConfirm(
+      this.languageService.transalte('ConfirmButtonTexttodelete')
+    );
+    if (confirmed) {
+      this.subscriptionProxy.deleteActions(id).subscribe({
+        next: (res) => {
+          
+          this.toasterService.showSuccess(
+            this.languageService.transalte('action.success'),
+            this.languageService.transalte('action.delete')
+          );
+          this.loaderService.hide();
+          const currentAction = this.workflowStatusActionsList.getValue();
+          const updatedAction = currentAction.filter((c) => c.id !== id);
+          this.workflowStatusActionsList.next(updatedAction);
+        },
+        
+      });
+    }
+  }
+  // delete workflow
+  async deleteWorkflow(id: number) {
+    const confirmed = await this.toasterService.showConfirm(
+      this.languageService.transalte('ConfirmButtonTexttodelete')
+    );
+    if (confirmed) {
+      this.subscriptionProxy.deleteWorkflow(id).subscribe({
+        next: (res) => {
+          
+          this.toasterService.showSuccess(
+            this.languageService.transalte('action.success'),
+            this.languageService.transalte('action.delete')
+          );
+          this.loaderService.hide();
+          const currentCostCenter = this.workwlowList.getValue();
+          const updatedCostCenter = currentCostCenter.filter((c) => c.id !== id);
+          this.workwlowList.next(updatedCostCenter);
+        },
+        
+      });
+    }
+  }
+  async deleteState(id: number) {
+    const confirmed = await this.toasterService.showConfirm(
+      this.languageService.transalte('ConfirmButtonTexttodelete')
+    );
+    if (confirmed) {
+      this.subscriptionProxy.deleteState(id).subscribe({
+        next: (res) => {
+          
+          this.toasterService.showSuccess(
+            this.languageService.transalte('action.success'),
+            this.languageService.transalte('action.delete')
+          );
+          this.loaderService.hide();
+          const currenState = this.statusListView.getValue();
+          const updatedState = currenState.filter((c) => c.id !== id);
+          this.statusListView.next(updatedState);
+        },
+        
+      });
+    }
+  }
 
   // status dropdown 
-  statusDropDown(workflowId: number) {
-    this.subscriptionProxy.statusDropDown(workflowId).subscribe((res) => {
+  statusListViews(workflowId: number) {
+    this.subscriptionProxy.statusListViews(workflowId).subscribe((res : any ) => {
       if (res) {
-        this.statusDropDownList.next(res);
+        this.statusListView.next(res.result);
       }
+    });
+  }
+  addStatus(workflowId: number, name: {name:string}, dialogRef: DynamicDialogRef) {
+    this.subscriptionProxy.addStatus(workflowId, name).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('tag.addtag.success'),
+          this.languageService.transalte('tag.addtag.success')
+        );
+        dialogRef.close(res);
+      },
+      error: (err) => {
+      },
+    });
+  }
+  // edit status 
+  EditStatus( obj: {id : number ,name:string}, dialogRef: DynamicDialogRef) {
+    this.subscriptionProxy.EditStatus(obj).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('tag.addtag.success'),
+          this.languageService.transalte('tag.addtag.success')
+        );
+        dialogRef.close(res);
+      },
+      error: (err) => {
+      },
+    });
+  }
+
+  // Add Actions 
+  addActions(statusId : number , obj: any) {
+    this.subscriptionProxy.addActions(statusId ,obj).subscribe((res) => {
+      this.addAction.next(res);
+      this.toasterService.showSuccess(
+        this.languageService.transalte('itemDefinition.success'),
+        this.languageService.transalte('itemDefinition.add')
+
+      );
+    });
+  }
+  // Edit Actions 
+  editActions(obj: any) {
+    this.subscriptionProxy.editActions(obj).subscribe((res) => {
+      this.updateAction.next(res);
+      this.toasterService.showSuccess(
+        this.languageService.transalte('itemDefinition.success'),
+        this.languageService.transalte('itemDefinition.add')
+
+      );
     });
   }
 
   constructor(
     private subscriptionProxy: SubscriptionProxy,
-    private routerService: RouterService,
     private toasterService: ToasterService,
     private languageService: LanguageService,
     private loaderService: LoaderService

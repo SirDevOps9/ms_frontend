@@ -44,36 +44,108 @@ export class SubscriptionProxy {
       `Subdomain/GetSubdomainLicenses?subdomainId=${subdomain}`
     );
   }
-// #################
-  // workflows 
-  getWorkFlows(
-    searchTerm: string,
-    pageInfo: PageInfo
-  ): Observable<PaginationVm<any>> {
+  // #################
+  // workflows
+  getWorkFlows(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<any>> {
     let query = `Workflows?${pageInfo.toQuery}`;
     if (searchTerm) {
       query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
     }
     return this.baseService.get<PaginationVm<any>>(query);
   }
-  // add 
-  addWorkflow(name: {name:string}): Observable<{name:string}> {
-    return this.baseService.post<{name:string}>(`Workflows`, name);
+  // workflowsVariables
+  getWorkFlowsVariables(workflowId : number ,searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<any>> {
+    let query = `Workflows/${workflowId}/Variables?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+    return this.baseService.get<PaginationVm<any>>(query);
   }
-  // edit
-  editWorkflow(name: {name:string}): Observable<boolean> {
-    return this.baseService.put<boolean>(`Workflows`, name);
+  // status dropdown
+
+  getStatusDropDown(
+    workflowId: number,
+    searchTerm: string,
+    pageInfo: PageInfo
+  ): Observable<
+      {
+        id: number;
+        name: string;
+      }[]
+  > {
+    let query = `Workflows/${workflowId}/States/DropDown?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+    return this.baseService.get<  {
+      id: number;
+      name: string;
+    }[]>(query);
+  }
+  // add
+  addWorkflow(name: { name: string }): Observable<{ name: string }> {
+    return this.baseService.post<{ name: string }>(`Workflows`, name);
   }
 
-// geit by id 
+  // edit
+  editWorkflow(name: { name: string }): Observable<boolean> {
+    return this.baseService.put<boolean>(`Workflows`, name);
+  }
+  deleteWorkflow(id: number) {
+    return this.baseService.delete(`Workflows/${id}`);
+  }
+  // delete actions
+  deleteActions(id: number) {
+    return this.baseService.delete(`Workflows/DeleteAction/${id}`);
+  }
+  // DeleteState
+  deleteState(id: number) {
+    return this.baseService.delete(`Workflows/DeleteState/${id}`);
+  }
+  // geit by id
   getWorkFlowByID(id: number): Observable<any> {
     return this.baseService.get(`Workflows/${id}`);
   }
-
-  //  status dropdown
-  statusDropDown(workflowId: number): Observable<{id:number , name:string}[]> {
-    return this.baseService.get(`Workflows/${workflowId}/States/DropDown`);
+  // get Work Flow States Actions
+  getWorkFlowStatesActionsByID(stateId: number): Observable<any> {
+    return this.baseService.get(`Workflows/States/${stateId}/Actions`);
   }
-// #################
+  
+  //  status view
+  statusListViews(workflowId: number): Observable<PaginationVm<{ id: number; name: string }[]>> {
+    return this.baseService.get<PaginationVm<{ id: number; name: string }[]>>(
+      `Workflows/${workflowId}/States`
+    );
+  }
+  // adding status
+  addStatus(workflowId: number, name: { name: string }): Observable<{ name: string }> {
+    return this.baseService.post<{ name: string }>(`Workflows/${workflowId}/States`, name);
+  }
+  // edit status
+  EditStatus(obj: { id: number; name: string }): Observable<{ id: number; name: string }> {
+    return this.baseService.put<{ id: number; name: string }>(`Workflows/EditState`, obj);
+  }
+  // actionList
+  getWorkflowStatusActions(
+    stateId: number,
+    searchTerm?: string,
+    pageInfo?: PageInfo
+  ): Observable<PaginationVm<any>> {
+    let query = `Workflows/States/${stateId}/Actions?${pageInfo?.toQuery}`;
+    if (searchTerm) {
+      query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+    return this.baseService.get<PaginationVm<any>>(query);
+  }
 
+
+    // Add Actions 
+    addActions(stateId : number ,obj :any){
+      return this.baseService.post(`Workflows/States/${stateId}/Actions`,obj)
+    }
+      // edit Actions
+  editActions(obj :any): Observable<any> {
+    return this.baseService.put<any>(`Workflows/EditAction`, obj);
+  }
+  // #################
 }

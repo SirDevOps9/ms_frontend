@@ -1,0 +1,209 @@
+<!-- <lib-page-content
+  [title]="'OperationalTag.TaxList' | translate"
+  [subTitle]="'OperationalTag.TaxList' | translate"
+>
+  <div>
+    <div class="user_page">
+      <lib-data-table
+        [items]="tableData"
+        className="p-datatable-gridlines"
+        [currentPageResult]="currentPageInfo"
+        (pageChange)="onPageChange($event)"
+        (addNew)="addNew($event)"
+        [tableConfigs]="{
+          allowPagination: false,
+          allowServerPagination: true,
+          dataKey: 'id',
+          pageSize: 10,
+          columns: [
+            {
+              name: 'name',
+              headerText: ('Action Name' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'toStateName',
+              headerText: ('To State' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'users',
+              headerText: ('Users' | translate),
+
+              template: usersTemplate
+            },
+
+            {
+              name: 'id',
+              headerText: ('Action' | translate),
+              template: actions
+            }
+          ]
+        }"
+      >
+        <ng-container caption>
+          <div class="">
+            <div class="grid grid-cols-4 gap-2">
+              <div class="col-span-1">
+                <lib-form-group>
+                  <lib-text-input
+                    type="text"
+                    [placeholder]="'OperationalTag.Search' | translate"
+                    [(ngModel)]="searchTerm"
+                    (keyUp)="onSearchChange()"
+                  ></lib-text-input>
+                </lib-form-group>
+              </div>
+
+              <ng-template #usersTemplate let-row>
+                <div *ngFor="let user of row.users">
+                  {{ user.userName }}
+                </div>
+              </ng-template>
+              <div class="flex flex-auto justify-content-end align-items-center gap-2">
+                <div>
+                  <lib-button-micro
+                    [title]="'Create' | translate"
+                    nameClass="save"
+                    iconName="pi pi-plus"
+                    (click)="addAction()"
+                  >
+                  </lib-button-micro>
+                </div>
+              
+              </div>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-template #actions let-action>
+          <div class="actions flex align-items-center">
+            <img src="assets/images/table/edit.svg" alt="" (click)="onEdit(action)" />
+            <img src="assets/images/table/view.svg" alt="" (click)="onView(action.id)" />
+          </div>
+        </ng-template>
+      </lib-data-table>
+    </div>
+  </div>
+</lib-page-content> -->
+
+<!-- ########################new one ###################### -->
+ <div class="flex justify-content-end">
+ 
+<lib-button-micro
+nameClass="save"
+title="{{ 'action.add_new_line' | translate }}"
+(click)="addLine()"
+>
+</lib-button-micro>
+</div>
+<form [formGroup]="itemUomForm">
+  <div class="grid w-100">
+    <div class="md:col-12 grid card my-2">
+      <div class="md:col-12 mt-4">
+        <p-table
+          [value]="uoms.controls"
+          dataKey="id"
+          styleClass="p-datatable-gridlines p-datatable-striped"
+          [tableStyle]="{ 'min-width': '50rem' }"
+        >
+          <ng-template pTemplate="header">
+            <tr>
+              <th>{{ 'action.ActionName' | translate }}</th>
+              <th>{{ 'action.ToState' | translate }}</th>
+              <th>{{ 'action.Users' | translate }}</th>
+              <th>{{ 'action.conditionexprition' | translate }}</th>
+              <th>{{ 'action.actions' | translate }}</th>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="body" let-fg let-editing="editing" let-i="rowIndex">
+            <tr [formGroup]="fg">
+              <td [pEditableColumn]="fg.controls['name']" pEditableColumnField="name">
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <lib-text-input formControlName="name" type="text"></lib-text-input>
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    {{ fg.controls['name'].value }}
+                  </ng-template>
+                </p-cellEditor>
+                <lib-field-validations [appControl]="fg.controls['name']"></lib-field-validations>
+              </td>
+
+              <td
+                [pEditableColumn]="fg.controls['toStateId']"
+                pEditableColumnField="attrTableForm.controls['toStateId']"
+              >
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <div class="flex gap-2 align-items-center">
+                      <lib-form-group>
+                        <lib-select
+                          formControlName="toStateId"
+                          [options]="statusDropdown"
+                          optionValue="id"
+                          optionLabel="name"
+                          placeholder="{{ 'bank.toStateId' | translate }}"
+                          (valueChanged)="displayState($event, fg)"
+                          [selectedValue]="fg?.controls['toStateId']?.value"
+                        >
+                        </lib-select>
+                      </lib-form-group>
+                    </div>
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    {{ fg.controls['toStateIdName']?.value }}
+                  </ng-template>
+                </p-cellEditor>
+                <lib-field-validations
+                  [appControl]="fg.controls['toStateId']"
+                ></lib-field-validations>
+              </td>
+              <td>
+                <!-- Display users as read-only in a comma-separated list -->
+                <ng-container *ngFor="let user of fg.controls['users'].value">
+                  {{ user.userName }}<span *ngIf="!isLast(i)">, </span>
+                </ng-container>
+              </td>
+              <!-- condition exprition -->
+              <td
+                [pEditableColumn]="fg.controls['conditionExpression']"
+                pEditableColumnField="conditionExpression"
+              >
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <lib-text-input
+                      placeholder="{{ 'actions.conditionExpression' | translate }}"
+                      formControlName="conditionExpression"
+                    ></lib-text-input>
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    {{ fg.controls['conditionExpression'].value }}
+                  </ng-template>
+                </p-cellEditor>
+              </td>
+
+              <td>
+                <div class="actions flex align-items-center">
+                  <lib-button-micro nameClass="table_button_edit" *ngIf="fg.value.id"  (click)="onUpdate(fg.value)" >
+                 </lib-button-micro>
+                 <lib-button-micro iconName="pi pi-check" *ngIf="!fg.value.id"  (click)="onSave(fg.value)" >
+                </lib-button-micro>
+                 <lib-button-micro nameClass="table_button_delete" *ngIf="!fg.value.id"  (click)="deleteLine(i)" >
+                </lib-button-micro>
+                 <lib-button-micro nameClass="table_button_delete" *ngIf="fg.value.id"  (click)="onDelete(i)" >
+                </lib-button-micro>
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+      
+  </div>
+</form>
+<!-- ########################new one ###################### -->
