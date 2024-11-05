@@ -14,11 +14,14 @@ import { AddItemCategoryComponent } from '../../../components/add-item-category/
 })
 export class ItemCategoryListComponent implements OnInit {
   constructor(
+    private routerService: RouterService,
     public authService: AuthService,
     private dialog: DialogService,
-  
+    private title: Title,
+    private langService: LanguageService,
     private itemsService : ItemsService
   ) {
+    this.title.setTitle(this.langService.transalte('bank.BankDefinitonsList'));
 
   }
 
