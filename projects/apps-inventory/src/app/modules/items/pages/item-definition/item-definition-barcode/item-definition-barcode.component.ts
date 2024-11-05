@@ -2,14 +2,14 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { DialogService } from 'primeng/dynamicdialog';
-import { customValidators, FormsService, RouterService, SharedLibraryEnums, ToasterService } from 'shared-lib';
+import { customValidators, FormsService, LanguageService, RouterService, SharedLibraryEnums, ToasterService } from 'shared-lib';
 import { AddVariantPopupComponent } from '../../../components/add-variant-popup/add-variant-popup.component';
 import { ViewVariantPopupComponent } from '../../../components/view-variant-popup/view-variant-popup.component';
 import { AddBarcodePopupComponent } from '../../../components/add-barcode-popup/add-barcode-popup.component';
 import { ActivatedRoute } from '@angular/router';
 import { ItemsService } from '../../../items.service';
 import { ViewQRcodeComponent } from '../../../components/view-qrcode/view-qrcode.component';
-import { GetItemById, getUomByItemId, UomCodeLookup, UomDefault } from '../../../models';
+import { addBarcode, GetItemById, getUomByItemId, UomCodeLookup, UomDefault } from '../../../models';
 import { AddUom, ItemUom } from '../../../models/addUom';
 
 
@@ -23,73 +23,40 @@ export class ItemDefinitionBarcodeComponent {
 
   itemDefinitionForm: FormGroup = new FormGroup({})
   id: number
-  uomLookup: { id: number; name: string }[] = []
+  uomLookup: { uomId: number; uomName: string }[] = []
+  currentLang = this.languageService.getLang()
 
 
   clonedUomCodeLookup: UomCodeLookup[] = []
   itemData: GetItemById
   codeData: { code: number; conversionRatio: string }
 
-  ItemVariantsByItemIdDropDown: { id: number; nameEn: string }[] = []
-  constructor(private _router: RouterService, private fb: FormBuilder, private formService: FormsService, public sharedLibEnums: SharedLibraryEnums, private dialog: DialogService, private route: ActivatedRoute, private toaserService: ToasterService, private itemService: ItemsService) {
+  ItemVariantsByItemIdDropDown: { variantId: number; variantEnName: string ;variantArName : string }[] = []
+  constructor(private languageService  :LanguageService , private _router: RouterService, private fb: FormBuilder, private formService: FormsService, public sharedLibEnums: SharedLibraryEnums, private dialog: DialogService, private route: ActivatedRoute, private toaserService: ToasterService, private itemService: ItemsService) {
     this.id = this.route.snapshot.params['id']
   }
   ngOnInit(): void {
-    this.getUomDropDown(this.id)
-    this.getItemVariantsByItemIdDropDown()
     this.itemDefinitionForm = this.fb.group({
       id: this.id,
-      code: [''],
-      name: ['', [customValidators.required]],
-      photo: [''],
-      categoryId: ['', [customValidators.required]],
-      countryId: [''],
-      tags: [''],
-      defaultUOMCategoryId: ['', [customValidators.required]],
-      taxId: [''],
-      shortName: [''],
-      warranty: [''],
-      isVatApplied: [''],
-      specialCare: [''],
-      lifeTime: [''],
-      color: [''],
-      uomId: [''],
-      uom: this.fb.array([]),
+    
       barcode: this.fb.array([]),
       attribute: this.fb.array([]),
-      hasExpiryDate: [''],
-      trackingId: [''],
-      itemAccounting: this.fb.group({
-        pAccount: 0,
-        prAccount: 0,
-        sAccount: 0,
-        srAccount: 0
-      })
+     
+    })
+
+    this.itemService.ItemVariantsByIdObs.subscribe(res=>{
+      if(Object.keys(res)?.length){
+          this.getBarcodeByItemId()
+      }
     })
 
 
-
-
+    this.getItemVariants()
 
 
 
     this.addLineBarcode()
-    this.itemService.sendAttributeVariantDataObs.subscribe(res => {
-      if (res) {
-        this.AttributeForm.clear()
-        res.forEach(element => {
-          let data = this.fb.group({
-            name: element.attributeGroupNameEn,
-            attributeGroupId: element.attributeGroupId,
-            status: element.isActive,
-            itemId: element.itemId,
-            id: element.id
-
-          })
-          this.AttributeForm.push(data)
-        });
-      }
-    })
+ 
 
     this.itemService.sendBarcode.subscribe(res => {
       if (res) {
@@ -97,7 +64,6 @@ export class ItemDefinitionBarcodeComponent {
       }
     })
     this.itemService.sendUOMObs.subscribe(res => {
-      console.log("heey", res)
 
 
       this.getUomDropDown(this.id)
@@ -113,6 +79,13 @@ export class ItemDefinitionBarcodeComponent {
     })
 
 
+  }
+
+  getItemVariants(){
+    this.itemService.getItemVariants(this.id)
+    this.itemService.ItemVariantsByIdObs.subscribe((data)=>{
+    this.ItemVariantsByItemIdDropDown = data
+    })
   }
 
 
@@ -132,28 +105,33 @@ export class ItemDefinitionBarcodeComponent {
   getUomDropDown(id: number) {
     this.itemService.getUomDropDownByUomItemId(id)
     this.itemService.UOMDropDownLookupByItemIdObs.subscribe(res => {
-      console.log(res)
       this.uomLookup = res
     })
   }
 
 
-  getItemVariantsByItemIdDropDown() {
-    this.itemService.getItemVariantsByItemIdDropDown(this.id)
-    this.itemService.ItemVariantsByItemIdDropDownObs.subscribe((data) => {
-      this.ItemVariantsByItemIdDropDown = data
+  // getItemVariantsByItemIdDropDown() {
+  //   this.itemService.getItemVariantsByItemIdDropDown(this.id)
+  //   this.itemService.ItemVariantsByItemIdDropDownObs.subscribe((data) => {
+  //     this.ItemVariantsByItemIdDropDown = data
 
-    })
+  //   })
+  // }
+
+  variantChanged(e : any , itemDefBarcodeGroup : FormGroup) {
+   let data =  this.ItemVariantsByItemIdDropDown.find(item=>item.variantId == e)
+
+
+   itemDefBarcodeGroup.get('itemVariantName')?.setValue(this.currentLang == 'en' ? data?.variantEnName : data?.variantArName)
   }
-
-
 
 
   uomChange(e: any, itemDefBarcodeGroup: FormGroup) {
 
-    let data = this.uomLookup.find(elem => elem.id == e)
+    let data = this.uomLookup.find(elem => elem.uomId == e)
+ 
 
-    itemDefBarcodeGroup.get('uomName')?.setValue(data?.name)
+    itemDefBarcodeGroup.get('uomName')?.setValue(data?.uomName)
   }
 
 
@@ -164,11 +142,12 @@ export class ItemDefinitionBarcodeComponent {
   createbarcodeFormGroup(): FormGroup {
     return this.fb.group({
       id: null,
+      itemId : this.id,
       barcode: null,
       uomId: [null, [customValidators.required]],
-      itemVariantId: null,
-      sku: null,
-      status: true,
+      itemVariantId: [null, [customValidators.required]],
+      sku: [null, [customValidators.required]],
+      isActive: true,
       uomName: null,
       itemVariantName: null
     });
@@ -222,23 +201,7 @@ export class ItemDefinitionBarcodeComponent {
     }
 
   }
-  async confirmBarcodeChange(event: any, itemBarcodeGroup: FormGroup) {
-    const confirmed = await this.toaserService.showConfirm('ConfirmButtonTexttochangestatus');
-    if (confirmed) {
-      const command = {
-        id: itemBarcodeGroup.get('itemVariantId')?.value,
-        status: itemBarcodeGroup.get('status')?.value
 
-      };
-      this.itemService.ActivateBarcode(command);
-
-    } else {
-      // Properly toggle the status value
-      const currentStatus = itemBarcodeGroup.get('status')?.value;
-      itemBarcodeGroup.get('status')?.setValue(!currentStatus);
-    }
-
-  }
 
   onViewAttribute(form: FormGroup) {
     const dialogRef = this.dialog.open(ViewVariantPopupComponent, {
@@ -256,11 +219,15 @@ export class ItemDefinitionBarcodeComponent {
     });
   }
 
-  onSaveBarcode(itemDefBarcodeGroup: FormGroup) {
+  onSaveBarcode() {
     if (!this.formService.validForm(this.barcodeForm, false)) return;
 
-    let { barcode, sku, itemVariantId, uomId } = itemDefBarcodeGroup.value
-    return this.itemService.addBarcode({ barcode, sku, itemVariantId, uomId })
+    let data: addBarcode= {
+      id : this.id,
+      barcodes : this.barcodeForm.value 
+    } 
+
+    return this.itemService.addBarcode(data)
   }
 
   getBarcodeByItemId() {
@@ -272,11 +239,12 @@ export class ItemDefinitionBarcodeComponent {
         res.forEach(element => {
           let data = this.fb.group({
             id: element.id,
+            itemId : this.id,
             barcode: element.barcode,
             uomId: element.uomId,
             itemVariantId: element.itemVariantId,
             sku: element.sku,
-            status: element.isActive,
+            isActive: element.isActive,
             uomName: element.uomName,
             itemVariantName: element.itemVariantName
           })
@@ -336,9 +304,6 @@ export class ItemDefinitionBarcodeComponent {
 
     let conversionRatioTemp = itemDefinition.get('tempConversionRatio')?.value;
 
-    console.log(conversionRatioTemp)
-    console.log(itemDefinition.get('conversionRatio')?.value)
-    console.log(e)
 
 
 

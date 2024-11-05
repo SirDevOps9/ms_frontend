@@ -24,7 +24,7 @@
                 isGlobalFilter: true,
                 isSortable: true
               },
-
+         
               {
                 name: 'isActive',
                 headerText: ('attributeDefinition.status' | translate),
@@ -40,7 +40,7 @@
                 template: actions
 
               },
-
+             
             ]
           }"
         >
@@ -77,10 +77,18 @@
                     ></lib-text-input>
                   </lib-form-group>
                 </div> -->
-
-
+              
+  
                 <div class=" flex flex-auto justify-content-end align-items-center gap-2">
-
+                  <div>
+                    <lib-button-micro
+                      [title]="'attributeDefinition.addAttribute' | translate"
+                      nameClass="save"
+                      iconName="pi pi-plus"
+                      (click)="Add()"
+                    >
+                    </lib-button-micro>
+                  </div>
                   <!--  -->
                   <div>
                     <lib-export
@@ -91,36 +99,26 @@
                     >
                     </lib-export>
                   </div>
-
-                  <div>
-                    <lib-button-micro
-                      [title]="'create' | translate"
-                      nameClass="save"
-                      iconName="pi pi-plus"
-                      (click)="Add()"
-                    >
-                    </lib-button-micro>
-                  </div>
                   <!--  -->
                 </div>
               </div>
             </div>
           </ng-container>
-
-
-
+    
+  
+       
           <ng-template #isActive let-row>
             <div   *ngIf="row.isActive !=null" class="flex align-items-center">
-              <lib-input-switch
+              <lib-input-switch 
               [id]="row.id"
-              [ngModel]="row.isActive"
+              [ngModel]="row.isActive" 
               (valueChanged)="confirmChange($event, row)">
             </lib-input-switch>
             </div>
           </ng-template>
-
-
-
+  
+          
+          
           <ng-template #actions let-action>
             <div class="actions flex align-items-center">
               <img src="assets/images/table/edit.svg" alt="" (click)="onEdit(action)" />
@@ -131,3 +129,4 @@
       </div>
     </div>
   </lib-page-content>
+  

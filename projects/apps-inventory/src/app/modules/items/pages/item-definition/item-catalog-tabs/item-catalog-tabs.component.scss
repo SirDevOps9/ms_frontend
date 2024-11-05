@@ -1,7 +1,7 @@
 .card {
   background-color: #ffffff;
   border-radius: 7px;
-  margin: 5px;
+  margin-top: 5px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   min-height: 265px;
 }
@@ -21,37 +21,52 @@
 
 .new_employee {
   display: flex;
-  margin: 8px;
+  // margin: 8px;
 
   .sidebar {
     ul {
       list-style: none;
-      border-radius: 8px;
+      // border-radius: 8px;
       overflow: hidden;
-      background-color: #fff;
-      color: #1a90b0;
-      padding: 0;
-      margin: 4px 8px 0px 0px;
+      // background-color: #fff;
+      color: #9a9696;
+      padding:0px 2px;
+      // margin: 8px 8px 0px 0px;
+      font-weight: 500;
+      
     }
 
     li {
+
       padding: 1rem;
-      border: 1px solid #1a90b0;
-      border-radius: 8px;
+      // border: 1px solid #1a90b0;
       margin: 10px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
 
-      &:hover {
-        background-color: #1a90b0;
-        color: #fff;
-      }
+            background-color: #fff;
+
+
+      // &:hover {
+      //   // background-color: #1a90b0;
+      //   color: #fff;
+      // }
+     
     }
+  
   }
+  
 }
 
 .mainGrid {
   width: 100%;
+}
+.active {
+
+  color: #000;
+  width: 302px;
+
+
 }

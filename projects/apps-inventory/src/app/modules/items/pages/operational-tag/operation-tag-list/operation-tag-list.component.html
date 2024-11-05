@@ -30,7 +30,7 @@
                 isGlobalFilter: true,
                 isSortable: true
               },
-
+         
               {
                 name: 'operationType',
                 headerText: ('OperationalTag.operationType' | translate),
@@ -61,7 +61,7 @@
                 template: actions
 
               },
-
+             
             ]
           }"
         >
@@ -98,10 +98,18 @@
                     ></lib-text-input>
                   </lib-form-group>
                 </div> -->
-
-
+              
+  
                 <div class=" flex flex-auto justify-content-end align-items-center gap-2">
-
+                  <div>
+                    <lib-button-micro
+                      [title]="'OperationalTag.Add' | translate"
+                      nameClass="save"
+                      iconName="pi pi-plus"
+                      (click)="Add()"
+                    >
+                    </lib-button-micro>
+                  </div>
                   <!--  -->
                   <div>
                     <lib-export
@@ -112,22 +120,12 @@
                     >
                     </lib-export>
                   </div>
-
-                  <div>
-                    <lib-button-micro
-                      [title]="'create' | translate"
-                      nameClass="save"
-                      iconName="pi pi-plus"
-                      (click)="Add()"
-                    >
-                    </lib-button-micro>
-                  </div>
                   <!--  -->
                 </div>
               </div>
             </div>
           </ng-container>
-
+    
           <ng-template #isActive let-row>
             <div   *ngIf="row.isActive !=null" class="flex align-items-center">
               <lib-input-switch
@@ -137,15 +135,15 @@
             </lib-input-switch>
             </div>
           </ng-template>
-
+       
           <!-- <ng-template #isActive let-isActive>
             <div *ngIf="isActive" class="actions flex align-items-center" >
              {{'OperationalTag.Active'| translate}}
-
+            
             </div>
             <div *ngIf="!isActive" class="actions flex align-items-center" >
              {{'OperationalTag.inActive'| translate}}
-
+            
             </div>
           </ng-template>  -->
           <ng-template #actions let-action>
@@ -158,3 +156,4 @@
       </div>
     </div>
   </lib-page-content>
+  
