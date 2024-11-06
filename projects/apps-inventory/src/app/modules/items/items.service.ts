@@ -102,6 +102,11 @@ export class ItemsService {
 
 
   // end Edit form item Def
+ // item category tree
+ public parentItemCategoriesDropDown = new BehaviorSubject< {id:number , name:string}[]>([])
+ parentItemCategoriesDropDown$ = this.parentItemCategoriesDropDown.asObservable()
+ //transactions
+
 
   //transactions
 
@@ -520,6 +525,14 @@ this.itemProxy.getItemBarcodeById(id).subscribe({
       },
     });
   }
+  ParentItemCategoriesDropDown(SearchTerm: string) {
+    this.itemProxy.ParentItemCategoriesDropDown(SearchTerm).subscribe({
+      next: (res: any) => {
+        this.parentItemCategoriesDropDown.next(res);
+      },
+    });
+  }
+
   getItemCategoryTreeList() {
     return this.itemProxy.getItemCategoryTreeList().pipe(
       map((res) => {

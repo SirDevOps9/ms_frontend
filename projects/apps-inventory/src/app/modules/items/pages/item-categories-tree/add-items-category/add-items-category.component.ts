@@ -22,9 +22,9 @@ export class AddItemsCategoryComponent {
   fitleredCurrencies: CurrencyDto[];
   accountSections: AccountSectionDropDownDto[];
   accountTypes: AccountTypeDropDownDto[];
-  ItemCategoryDropDown : { id: number; name : string }[]
-  AccountsDropDownLookup : { id: number; name: string}[] = []
-
+  ItemCategoryDropDown: { id: number; name: string }[];
+  AccountsDropDownLookup: { id: number; name: string }[] = [];
+@Input() resetParentCatId:boolean
   categoryType = [
     { label: 'Storable', value: 1 },
     { label: 'Service', value: 2 },
@@ -46,114 +46,90 @@ export class AddItemsCategoryComponent {
   @Input() newChiled?: boolean;
   showCategory : boolean = true
   @Output() operationCompleted = new EventEmitter<any>();
+  parentCategoryList: any[]= []
   private savedAddedAccountSubscription: Subscription;
 
   constructor(
     private formBuilder: FormBuilder,
     private accountService: AccountService,
-    private routerService: RouterService,
-    private currencyService: CurrencyService,
     private formsService: FormsService,
     private lookupsService: LookupsService,
     private toaserService: ToasterService,
-    private title: Title,
     private langService: LanguageService,
-    private currentUserService: CurrentUserService,
     private itemService : ItemsService
 
   ) {
 
   }
   ngOnInit() {
-    this.Subscribe();
-
-    // if (this.parentAddedId) {
-    //   this.onParentAccountChange(this.parentAddedId);
-    // }
-
-    // this.accountService.parentAccounts.subscribe((res) => {
-    //   if (res) {
-    //     this.parentAccounts = res;
-    //   }
-    // });
-
     this.formGroup = this.formBuilder.group({
       code: ['' ],
       nameEn: new FormControl('',[ customValidators.required]),
       nameAr: ['' , [customValidators.required]],
       parentCategoryId: [null],
       isDetailed: [true], // Assuming a boolean default of `false`
-      categoryType:  [null , [customValidators.required]],
+      isActive: [true], // Assuming a boolean default of `false`
+      categoryType: [null, [customValidators.required]],
 
       glAccountId: [null],
       cashSalesAccountId: [null],
       creditSalesAccountId: [null],
       salesReturnAccountId: [null],
       purchaseAccountId: [null],
-      salesCostAccountId: [null],
-      discountAccountId: [null],
-      evaluationAccountId: [null],
-      adjustmentAccountId: [null],
-      goodsInTransitAccountId: [null]
+      costOfGoodSoldAccountId: [null],
+    });
+    this.getParentItemCategoriesDropDown();
+    if(this.parentCategoryList.length == 0) {  
+      this.formGroup.get('isDetailed')?.patchValue(false)
+      this.formGroup.get('parentCategoryId')?.patchValue(0)
+      this.formGroup.get('categoryType')?.reset(null)
+      this.formGroup.get('categoryType')?.clearValidators();
+      this.formGroup.get('categoryType')?.updateValueAndValidity();
+    this.showCategory = false
+    }
+
+    this.formGroup.get('isDetailed')?.valueChanges.subscribe((res) => {
+      if (res == true) {
+        this.formGroup.get('categoryType')?.setValidators(customValidators.required);
+        this.formGroup.get('categoryType')?.updateValueAndValidity();
+        this.showCategory = true;
+      } else {
+        this.formGroup.get('categoryType')?.clearValidators();
+        this.formGroup.get('categoryType')?.reset(null);
+        this.formGroup.get('categoryType')?.updateValueAndValidity();
+        this.formGroup.get('costOfGoodSoldAccountId')?.reset();
+        this.formGroup.get('purchaseAccountId')?.reset();
+        this.showCategory = false;
+      }
     });
 
-    this.formGroup.get('isDetailed')?.valueChanges.subscribe(res=>{
-      console.log(res)
-      if(res== true) {
-        this.formGroup.get('categoryType')?.setValidators(customValidators.required)
-        this.formGroup.get('categoryType')?.updateValueAndValidity()
-        this.showCategory = true
-       }else{
-        this.formGroup.get('categoryType')?.clearValidators()
-        this.formGroup.get('categoryType')?.updateValueAndValidity()
-        this.showCategory = false
-
-       }
-    })
-    
-    this.AccountsDropDown()
-    
-
-
-    // if (this.routerService.currentId) this.onParentAccountChange(this.routerService.currentId);
-    this.ItemCategoryDropDownData()
-    this.itemService.AddItemCategoryLookupObs.subscribe(res=>{
-      console.log(res)
-      if(res) {
-        this.operationCompleted.emit(res);
-
-        setTimeout(() => {
-          this.resetForm()
-
-        }, 100);
-
-      //  this.ItemCategoryDropDownData()
-      //  this.AccountsDropDown()
-
-      }
-    
-    })
+    this.AccountsDropDown();
   }
   resetForm() {
     this.formGroup.get('id')?.reset();
-    this.formGroup.get('code')?.reset(null);  // Reset to an empty string
- 
-   
-    this.formGroup.get('parentCategoryId')?.reset(null);  // Reset to null
-    this.formGroup.get('isDetailed')?.reset(false);  // Reset to default false
-    this.formGroup.get('categoryType')?.reset(null);  // Reset and retain validators
-    
+    this.formGroup.get('code')?.reset(null);
+
+    this.formGroup.get('parentCategoryId')?.reset(null);
+    this.formGroup.get('isDetailed')?.reset(false);
+    this.formGroup.get('categoryType')?.reset(null);
+
     // Reset all the account-related fields to null
     this.formGroup.get('glAccountId')?.reset(null);
     this.formGroup.get('cashSalesAccountId')?.reset(null);
     this.formGroup.get('creditSalesAccountId')?.reset(null);
     this.formGroup.get('salesReturnAccountId')?.reset(null);
     this.formGroup.get('purchaseAccountId')?.reset(null);
-    this.formGroup.get('salesCostAccountId')?.reset(null);
-    this.formGroup.get('discountAccountId')?.reset(null);
-    this.formGroup.get('evaluationAccountId')?.reset(null);
-    this.formGroup.get('adjustmentAccountId')?.reset(null);
-    this.formGroup.get('goodsInTransitAccountId')?.reset(null);
+    this.formGroup.get('costOfGoodSoldAccountId')?.reset(null);
+  }
+
+  getParentItemCategoriesDropDown() {
+    this.itemService.ParentItemCategoriesDropDown('');
+    this.itemService.parentItemCategoriesDropDown$.subscribe({
+      next: (res: { id: number; name: string }[]) => {
+        this.parentCategoryList = res;
+      },
+      error: (error: any) => {},
+    });
   }
 
   AccountsDropDown() {
@@ -265,34 +241,31 @@ export class AddItemsCategoryComponent {
     let obj: AddItemCategory = this.formGroup.value;
 
     this.itemService.addItemCategory(obj);
-
+    setTimeout(() => {
+      this.itemService.AddItemCategoryLookupObs.subscribe({
+        next: (res?: any) => {
+          
+          if (res) {
+            this.operationCompleted.emit(res);
+          } else {
+            return;
+          }
+        },
+        error: (err: Error) => {
+          return;
+        },
+      });
+    }, 100);
   }
   ngOnChanges(changes: SimpleChanges): void {
-  //  this.formGroup.patchValue({
-  //   nameEn: [''],
-  //   nameAr: [''],
-  //   parentCategoryId: [null],
-  //   isDetailed: [false], // Assuming a boolean default of `false`
-  //   categoryType: [''],
+    if (changes['parentAddedId']) {
+      this.onParentAccountChange(this.parentAddedId);
+    }
+    
+    if(changes['resetParentCatId'] ){
 
-  //   glAccountId: [null],
-  //   cashSalesAccountId: [null],
-  //   creditSalesAccountId: [null],
-  //   salesReturnAccountId: [null],
-  //   purchaseAccountId: [null],
-  //   salesCostAccountId: [null],
-  //   discountAccountId: [null],
-  //   evaluationAccountId: [null],
-  //   adjustmentAccountId: [null],
-  //   goodsInTransitAccountId: [null]
-  //  })
-
-
-
-  if (changes['parentAddedId']) {
-    this.onParentAccountChange(this.parentAddedId);
-  }
-    console.log(this.parentAddedId)
+      this.getParentItemCategoriesDropDown()
+    }
     setTimeout(() => {
       this.formGroup.get('parentCategoryId')?.setValue(this.parentAddedId)
 
@@ -305,8 +278,6 @@ export class AddItemsCategoryComponent {
 
 
     if (changes['newChiled']) {
-      console.log(this.newChiled ,"11111")
-
       if (this.newChiled == true) {
         this.hasParentAccount = false
         this.selectValue = false
