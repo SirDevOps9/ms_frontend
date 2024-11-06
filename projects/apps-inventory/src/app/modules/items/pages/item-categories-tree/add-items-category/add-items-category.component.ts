@@ -46,19 +46,16 @@ export class AddItemsCategoryComponent {
   @Input() newChiled?: boolean;
   showCategory : boolean = true
   @Output() operationCompleted = new EventEmitter<any>();
+  parentCategoryList: any[]= []
   private savedAddedAccountSubscription: Subscription;
 
   constructor(
     private formBuilder: FormBuilder,
     private accountService: AccountService,
-    private routerService: RouterService,
-    private currencyService: CurrencyService,
     private formsService: FormsService,
     private lookupsService: LookupsService,
     private toaserService: ToasterService,
-    private title: Title,
     private langService: LanguageService,
-    private currentUserService: CurrentUserService,
     private itemService : ItemsService
 
   ) {
