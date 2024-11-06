@@ -189,6 +189,10 @@ export class ItemsProxyService {
 
  }
 
+ DeleteUomLine(id:number) {
+  return this.httpService.delete(`UOM/${id}`)//
+ }
+
  getItemBarcodeById(id:number){
   return this.httpService.get(`Item/GetItemBarcode/${id}`)
 
@@ -304,7 +308,7 @@ export class ItemsProxyService {
  ActivateAttrDifinition(obj:{id:number , status : boolean}) {
   return this.httpService.put(`ItemAttribute/ItemAttributeActivation` , obj) // edit
  }
- systemUnitLookup() : Observable<{ id: number; nameAr: string; nameEn: string }[]> {
+ systemUnitLookup() : Observable<{ id: number; nameAr: string; nameEn: string; systemUnitOfMeasureCategoryId: number; }[]> {
   return this.httpService.get(`SystemUOM/DropDown` ) // edit
  }
  ActivateOperationalTag
@@ -314,6 +318,9 @@ export class ItemsProxyService {
  editStatusAttributeGroup(modle:any){
   return this.httpService.put(`AttributeGroup/AttributeGroupActivation`,modle)
 
+}
+EditUOMCategory(obj:addUOM) {
+  return this.httpService.put('UOMCategories/Edit' , obj)
 }
  exportsItemsDefinitionList(
     searchTerm: string | undefined

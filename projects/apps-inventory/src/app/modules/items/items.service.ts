@@ -97,7 +97,7 @@ export class ItemsService {
   saveItemDefGeneral$ = this.saveItemDefGeneral.asObservable()
   getItemDefGeneral = new BehaviorSubject<AddGeneralDto>({} as AddGeneralDto);
   getItemDefGeneral$ = this.getItemDefGeneral.asObservable()
-  sendSystemUnitLookup = new BehaviorSubject<{ id: number; nameAr: string; nameEn: string }[]>([])
+  sendSystemUnitLookup = new BehaviorSubject<{ id: number; nameAr: string; nameEn: string; systemUnitOfMeasureCategoryId: number; }[]>([])
   sendSystemUnitLookup$ = this.sendSystemUnitLookup.asObservable()
 
 
@@ -884,6 +884,30 @@ this.itemProxy.getUOMCategoryDropDown().subscribe({
     });
   }
 
+  async DeleteUomLine(id: number) {
+ 
+    const confirmed = await this.toasterService.showConfirm(
+      this.languageService.transalte('ConfirmButtonTexttodelete')
+    );
+    if (confirmed) {
+      this.itemProxy.DeleteUomLine(id).subscribe({
+        next: (res) => {
+      
+          this.toasterService.showSuccess(
+            this.languageService.transalte('UOM.success'),
+            this.languageService.transalte('UOM.delete')
+          );
+
+          const currentUom : any = this.getUOMCategoryByIdData.getValue();
+          const updatedUOM : addUOM = currentUom.uoMs.filter((c: any) => c.id !== id);
+          this.getUOMCategoryByIdData.next(updatedUOM);
+        },
+      });
+    }
+  }
+
+
+
   systemUnitLookup() {
 
     this.itemProxy.systemUnitLookup().subscribe((res) => {
@@ -972,6 +996,18 @@ this.itemProxy.getUOMCategoryDropDown().subscribe({
     });
     */
 
+  }
+
+  EditUOMCategory(obj: addUOM) {
+    this.itemProxy.EditUOMCategory( obj).subscribe((res) => {
+      this.router.navigateTo(`/masterdata/uom` )
+
+      this.toasterService.showSuccess(
+        this.languageService.transalte('UOM.success'),
+        this.languageService.transalte('UOM.uomSuccess')
+      );
+      this.sendUOMCategory.next(res);
+    });
   }
   // attr difinition delete
   async deleteUOM(id: number) {
