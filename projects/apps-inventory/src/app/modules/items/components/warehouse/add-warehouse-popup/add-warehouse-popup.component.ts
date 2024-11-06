@@ -57,7 +57,9 @@ export class AddWarehousePopupComponent implements OnInit {
       warehouseType: new FormControl([],  [customValidators.required]),
     
     });
-  }
+    this.warehouseForm.get('warehouseType')?.patchValue(this.warehouseType[0].value);
+
+    console.log(this.warehouseForm.get('warehouseType')?.value);  }
 
   onCancel() {
     this.ref.close();

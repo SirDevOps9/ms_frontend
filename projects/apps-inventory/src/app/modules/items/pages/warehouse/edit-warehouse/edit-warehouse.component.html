@@ -96,7 +96,7 @@
                       optionLabel="label"
                       optionValue="value"
                       formControlName="warehouseType"
-                      [selectedValue]="warehouseForm.controls['warehouseType'].value"
+                      [selectedValue]="warehouseForm.controls['warehouseType']?.value"
                     ></lib-select>
                     <lib-field-validations [appControl]="warehouseForm.controls['warehouseType']">
                     </lib-field-validations>

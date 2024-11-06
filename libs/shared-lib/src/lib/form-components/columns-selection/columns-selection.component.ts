@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Input, Optional, Output, Self } from '@angular/core';
+import { Component, EventEmitter, Input, Optional, Output, Self, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 
 @Component({
   selector: 'lib-columns-selection',
   templateUrl: './columns-selection.component.html',
   styleUrls: ['./columns-selection.component.css'],
+  encapsulation: ViewEncapsulation.Emulated,
 })
 export class ColumnsSelectionComponent implements ControlValueAccessor {
   @Input() options: any[] = [];
