@@ -20,6 +20,7 @@ import {
 } from 'shared-lib';
 import { ItemsService } from '../../../items.service';
 import { AddItemCategory } from '../../../models';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-add-items-category',
@@ -199,13 +200,13 @@ export class AddItemsCategoryComponent {
     this.itemService.addItemCategory(obj);
     setTimeout(() => {
       this.itemService.AddItemCategoryLookupObs.subscribe({
-        next: (res?: any) => {
-          
-          if (res) {
-            this.operationCompleted.emit(res);
+        next: (res?: HttpResponse<any>) => {
+          if (res?.status === 200) {
+            this.operationCompleted.emit(res.body); 
           } else {
-            return;
+            return
           }
+       
         },
         error: (err: Error) => {
           return;

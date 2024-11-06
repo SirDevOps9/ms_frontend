@@ -39,7 +39,7 @@
 
      >
         <div class="grid">
-          <div *ngIf="parentCategoryList.length > 0" class="md:col-12">
+          <div *ngIf="parentCategoryList.length != 0" class="md:col-12">
             <lib-form-group>
               <lib-label [appControl]="formGroup.controls['parentCategoryId']">
                 {{ 'itemsCategory.parentCategory' | translate }}

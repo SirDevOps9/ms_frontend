@@ -35,6 +35,11 @@
                 template : isDetails
               },
               {
+                name: 'isActive',
+                headerText: ('itemsCategory.status' | translate),
+                template : isActive
+              },
+              {
                 name: 'categoryType',
                 headerText: ('itemsCategory.categoryType' | translate),
                 isGlobalFilter: true,
@@ -84,6 +89,12 @@
           <ng-template #isDetails let-isDetails>
             <div class="actions flex align-items-center">
               <lib-input-switch [disabled]="true" [(ngModel)]="isDetails.isDetailed"></lib-input-switch>
+          
+            </div>
+          </ng-template>
+          <ng-template #isActive let-isActive>
+            <div class="actions flex align-items-center">
+              <lib-input-switch [disabled]="true" [(ngModel)]="isActive.isActive "></lib-input-switch>
           
             </div>
           </ng-template>
