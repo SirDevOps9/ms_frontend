@@ -997,6 +997,18 @@ this.itemProxy.getUOMCategoryDropDown().subscribe({
     */
 
   }
+
+  EditUOMCategory(obj: addUOM) {
+    this.itemProxy.EditUOMCategory( obj).subscribe((res) => {
+      this.router.navigateTo(`/masterdata/uom` )
+
+      this.toasterService.showSuccess(
+        this.languageService.transalte('UOM.success'),
+        this.languageService.transalte('UOM.uomSuccess')
+      );
+      this.sendUOMCategory.next(res);
+    });
+  }
   // attr difinition delete
   async deleteUOM(id: number) {
 
