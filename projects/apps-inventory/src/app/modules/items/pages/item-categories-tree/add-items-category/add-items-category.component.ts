@@ -35,7 +35,7 @@ export class AddItemsCategoryComponent {
   accountTypes: AccountTypeDropDownDto[];
   ItemCategoryDropDown: { id: number; name: string }[];
   AccountsDropDownLookup: { id: number; name: string }[] = [];
-
+@Input() resetParentCatId:boolean
   categoryType = [
     { label: 'Storable', value: 1 },
     { label: 'Service', value: 2 },
@@ -82,21 +82,26 @@ export class AddItemsCategoryComponent {
       costOfGoodSoldAccountId: [null],
     });
     this.getParentItemCategoriesDropDown();
+    if(this.parentCategoryList.length == 0) {  
+      this.formGroup.get('isDetailed')?.patchValue(false)
+      this.formGroup.get('parentCategoryId')?.patchValue(0)
+      this.formGroup.get('categoryType')?.reset(null)
+      this.formGroup.get('categoryType')?.clearValidators();
+      this.formGroup.get('categoryType')?.updateValueAndValidity();
+    this.showCategory = false
+    }
 
     this.formGroup.get('isDetailed')?.valueChanges.subscribe((res) => {
       if (res == true) {
-        if (this.parentCategoryList.length > 0) {
-          this.formGroup.get('parentCategoryId')?.setValidators(customValidators.required);
-          this.formGroup.get('parentCategoryId')?.updateValueAndValidity();
-        }
         this.formGroup.get('categoryType')?.setValidators(customValidators.required);
         this.formGroup.get('categoryType')?.updateValueAndValidity();
         this.showCategory = true;
       } else {
-        this.formGroup.get('parentCategoryId')?.clearValidators();
-        this.formGroup.get('parentCategoryId')?.updateValueAndValidity();
         this.formGroup.get('categoryType')?.clearValidators();
+        this.formGroup.get('categoryType')?.reset(null);
         this.formGroup.get('categoryType')?.updateValueAndValidity();
+        this.formGroup.get('costOfGoodSoldAccountId')?.reset();
+        this.formGroup.get('purchaseAccountId')?.reset();
         this.showCategory = false;
       }
     });
@@ -195,6 +200,7 @@ export class AddItemsCategoryComponent {
     setTimeout(() => {
       this.itemService.AddItemCategoryLookupObs.subscribe({
         next: (res?: any) => {
+          
           if (res) {
             this.operationCompleted.emit(res);
           } else {
@@ -210,6 +216,11 @@ export class AddItemsCategoryComponent {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['parentAddedId']) {
       this.onParentAccountChange(this.parentAddedId);
+    }
+    
+    if(changes['resetParentCatId'] ){
+
+      this.getParentItemCategoriesDropDown()
     }
     setTimeout(() => {
       this.formGroup.get('parentCategoryId')?.setValue(this.parentAddedId);

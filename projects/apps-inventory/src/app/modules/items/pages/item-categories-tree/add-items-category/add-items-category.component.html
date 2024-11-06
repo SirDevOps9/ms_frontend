@@ -62,7 +62,7 @@
             <lib-label [appControl]="formGroup.controls['isDetailed']">
               {{ 'itemsCategory.isDetails' | translate }}
             </lib-label>
-            <lib-input-switch formControlName="isDetailed"> </lib-input-switch>
+            <lib-input-switch [disabled]="parentCategoryList.length == 0" formControlName="isDetailed"> </lib-input-switch>
           </div>
           <div class="md:col-6 flex gap-2 align-items-center">
             <lib-label [appControl]="formGroup.controls['isActive']">

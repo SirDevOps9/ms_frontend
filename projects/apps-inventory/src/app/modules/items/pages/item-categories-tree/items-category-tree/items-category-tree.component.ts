@@ -27,7 +27,7 @@ export class ItemsCategoryTreeComponent implements OnInit {
   test: any;
   activeNode: any = null;
   activeNodeId: number | null = null;
-
+  resetParentCatId : boolean = false
   constructor(private itemsSevice: ItemsService) {}
   ngOnInit() {
     this.getTreeList();
@@ -167,6 +167,7 @@ export class ItemsCategoryTreeComponent implements OnInit {
     this.itemsSevice.itemsCategoryDeletedObs.subscribe((res) => {
       if (res) {
         this.getTreeList();
+        this.resetParentCatId = true
         // if the deleted node is the active node
         if (this.activeNode && this.activeNode.id === id) {
           this.activeNode = null;
@@ -177,6 +178,8 @@ export class ItemsCategoryTreeComponent implements OnInit {
         if (parentNode) {
           // If the deleted node is a child, keep the parent expanded
           parentNode.expanded = true;
+          this.resetParentCatId == true
+
           this.activeNode = parentNode;
           this.getItemCategoryById(parentNode.id); 
           this.view = false;

@@ -28,6 +28,7 @@ export class EditItemCategoryComponent {
   accountTypes: AccountTypeDropDownDto[];
   accountTags: TagDropDownDto[];
   parentCategoryList: { id: number; name: string }[] = [];
+  @Input() resetParentCatId:boolean
 
   companyDropDown: companyDropDownDto[];
   AccountsDropDownLookup: { id: number; name: string }[] = [];
@@ -76,6 +77,15 @@ export class EditItemCategoryComponent {
       purchaseAccountId: [null],
       costOfGoodSoldAccountId: [null],
     });
+    if(this.parentCategoryList.length == 0) {  
+      this.formGroup.get('isDetailed')?.patchValue(false)
+      this.formGroup.get('parentCategoryId')?.patchValue(0)
+      this.formGroup.get('categoryType')?.reset(null)
+      this.formGroup.get('categoryType')?.clearValidators();
+      this.formGroup.get('categoryType')?.updateValueAndValidity();
+    this.showCategory = false
+    }
+
 
     this.itemService.EditItemCategoryDataObs.subscribe((res) => {
       if (res) {
@@ -111,7 +121,7 @@ export class EditItemCategoryComponent {
     });
   }
   getParentItemCategoriesDropDown() {
-    debugger
+    
     this.itemService.ParentItemCategoriesDropDown('');
     this.itemService.parentItemCategoriesDropDown$.subscribe({
       next: (res: { id: number; name: string }[]) => {
@@ -130,7 +140,7 @@ export class EditItemCategoryComponent {
   }
 
   onAccountSectionChange(event: any) {
-    debugger
+    
     const sectionId = event;
     if (!sectionId) return;
     this.accountService.getAccountTypes(sectionId);
@@ -180,10 +190,14 @@ export class EditItemCategoryComponent {
     if (changes['parentEditedId']) {
       this.getAccountById(this.parentEditedId);
     }
+    if(changes['resetParentCatId'] ){
+
+      this.getParentItemCategoriesDropDown()
+    }
   }
   childrenParentsIdsInSubParent :number[]= []
   getAccountById(id: any) {
-    debugger
+    
     this.itemService.getItemCategoryById(id);
     this.itemService.getItemCategoryByIdDataObs.subscribe((res: any) => {
       this.parentAcountName = res;

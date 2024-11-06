@@ -56,11 +56,11 @@
             </div>
           </div>
           <div class="md:col-8">
-            <app-add-items-category *ngIf="add" [newChiled]="newChiled" [parentAddedId]="parentAddedId"
+            <app-add-items-category *ngIf="add" [newChiled]="newChiled" [resetParentCatId]="resetParentCatId" [parentAddedId]="parentAddedId"
             (operationCompleted)="handleOperationCompleted($event)" > 
             </app-add-items-category>
             
-            <app-edit-item-category *ngIf="edit" [parentEditedId]="parentEditedId"
+            <app-edit-item-category [resetParentCatId]="resetParentCatId" *ngIf="edit" [parentEditedId]="parentEditedId"
             (operationCompleted)="viewMode($event)">
 
             </app-edit-item-category>
