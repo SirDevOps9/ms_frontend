@@ -1,113 +1,186 @@
 <div class="chart_add_page">
-  <div class="gird">
-    <lib-fildest header="{{ 'itemsCategory.Main' | translate }}" class="md:col-12">
-      <div class="grid">
-        <div class="md:col-4">
-          <lib-form-group>
-            <small>
-              {{ 'itemsCategory.categoryCode' | translate }}
-            </small>
-            <lib-text-input [readOnly]="true" [placeholder]="parent?.code!"> </lib-text-input>
-          </lib-form-group>
-        </div>
-        <div class="md:col-4">
-          <lib-form-group>
-            <small>
-              {{ 'itemsCategory.nameEn' | translate }}
-            </small>
-            <lib-text-input type="text" [readOnly]="true" [placeholder]="parent?.nameEn!" />
-          </lib-form-group>
-        </div>
-        <div class="md:col-4">
-          <lib-form-group>
-            <small>
-              {{ 'itemsCategory.nameAr' | translate }}
-            </small>
-            <lib-text-input type="text" [readOnly]="true" [placeholder]="parent?.nameAr!" />
-          </lib-form-group>
-        </div>
-      </div>
-    </lib-fildest>
+    <div class="gird">
 
-    <lib-fildest header="{{ 'itemsCategory.parentCategory' | translate }}" class="md:col-12">
-      <div class="grid">
-        <div class="md:col-12" >
-          <lib-form-group>
-            <small>
-              {{ 'itemsCategory.parentCategory' | translate }}
-            </small>
-            <lib-text-input
-              type="text"
-              [readOnly]="true"
-              [placeholder]="parent?.parentCategoryNameEn ?? ''"
-            />
-          </lib-form-group>
-        </div>
-        <div class="md:col-6 flex gap-2 align-items-center">
-          <small>
-            {{ 'itemsCategory.isDetails' | translate }}
-          </small>
-          <lib-input-switch [ngModel]="parent?.isDetailed" [disabled]="true"> </lib-input-switch>
-        </div>
-        <div class="md:col-12" *ngIf="parent.categoryType && parent.isDetailed">
-          <lib-form-group>
-            <small>
-              {{ 'itemsCategory.categoryType' | translate }}
-            </small>
-            <lib-text-input
-              type="text"
-              [readOnly]="true"
-              [placeholder]="parent?.categoryType ?? ''"
-            />
-          </lib-form-group>
-        </div>
-      </div>
-    </lib-fildest>
-  </div>
-  <p-tabView *ngIf="parent.isDetailed">
-    <p-tabPanel header="{{ 'warehouse.account' | translate }}">
-      <ng-container *ngIf="AccountsDropDownLookup.length">
+      <lib-fildest header="{{ 'itemsCategory.Main' | translate }}" class="md:col-12">
         <div class="grid">
-          <!-- Purchase account -->
-          <div class="md:col-6">
+          <div class="md:col-4">
             <lib-form-group>
-              <small>
-                {{ 'warehouse.purchaseAccount' | translate }}
+              <small >
+                {{ 'itemsCategory.categoryCode' | translate }}
               </small>
-              <lib-text-input
-                type="text"
-                [readOnly]="true"
-                [placeholder]="
-                  (parent?.purchaseAccountId | getElementByID : AccountsDropDownLookup)?.name ?? ''
-                "
-              />
-            </lib-form-group>
-          </div>
-          <!--  costOfGoodSoldAccountId-->
+              <lib-text-input [readOnly]="true" [placeholder]="parent?.code!"> </lib-text-input>
 
-          <div class="md:col-6">
-            <lib-form-group>
-              <small>
-                {{ 'warehouse.costOfGoodsSold' | translate }}
-              </small>
-              <lib-text-input
-                type="text"
-                [readOnly]="true"
-                [placeholder]="
-                  (parent.costOfGoodSoldAccountId | getElementByID : AccountsDropDownLookup)?.name ?? ''
-                "
-              />
             </lib-form-group>
           </div>
+          <div class="md:col-4">
+            <lib-form-group>
+              <small  >
+                {{ 'itemsCategory.nameEn' | translate }}
+              </small>
+              <lib-text-input  type="text"  [readOnly]="true"[placeholder]="parent?.nameEn!"/>
+
+            </lib-form-group>
+          </div>
+          <div class="md:col-4">
+            <lib-form-group>
+              <small  >
+                {{ 'itemsCategory.nameAr' | translate }}
+              </small>
+              <lib-text-input  type="text" [readOnly]="true" [placeholder]="parent?.nameAr!"/>
+
+            </lib-form-group>
+          </div>
+
 
 
         </div>
-      </ng-container>
-    </p-tabPanel>
-  </p-tabView>
 
-  <div class="flex justify-content-end w-full my-2 mr-2 pr-4">
-    <lib-button-micro title="{{ 'edit' | translate }}" (click)="routeToEdit()" nameClass="save">
-    </lib-button-micro>
-  </div>
+
+
+      </lib-fildest>
+
+      <lib-fildest header="{{ 'itemsCategory.parentCategory' | translate }}" class="md:col-12">
+        <div class="grid">
+          <div class="md:col-12" *ngIf="parent.parentCategoryId">
+            <lib-form-group>
+              <small >
+                {{ 'itemsCategory.parentCategory' | translate }}
+              </small>
+              <lib-text-input  type="text" [readOnly]="true" [placeholder]="parent?.parentCategoryNameEn ?? ''" />
+
+            </lib-form-group>
+          </div>
+          <div class="md:col-6 flex gap-2 align-items-center">
+              <small >
+                {{ 'itemsCategory.isDetails' | translate }}
+              </small>
+              <lib-input-switch  [ngModel]="parent?.isDetailed" [disabled]="true"> </lib-input-switch>
+
+          </div>
+          <div class="md:col-12" *ngIf="parent.categoryType">
+            <lib-form-group>
+              <small >
+              {{"itemsCategory.categoryType" | translate}}
+            </small>
+            <lib-text-input  type="text" [readOnly]="true" [placeholder]="parent?.categoryType  ?? ''" />
+
+            </lib-form-group>
+          </div>
+        </div>
+
+      </lib-fildest>
+
+    </div>
+    <p-tabView>
+      <p-tabPanel  header="{{'warehouse.account' | translate}}">
+        <ng-container *ngIf="AccountsDropDownLookup.length">
+
+       <div class="grid">
+          <div class="md:col-6">
+                  <lib-form-group>
+                      <small >
+                          {{ 'warehouse.glAccount' | translate }}
+                        </small>
+                        <lib-text-input  type="text"  [readOnly]="true"  [placeholder]="( parent?.glAccountId| getElementByID: AccountsDropDownLookup)?.name ?? ''"
+                        />
+
+
+                    </lib-form-group>
+          </div>
+
+          <div class="md:col-6">
+                  <lib-form-group>
+                      <small >
+                          {{ 'warehouse.cashSalesAccount' | translate }}
+                        </small>
+                        <lib-text-input  type="text"  [readOnly]="true"  [placeholder]="( parent?.cashSalesAccountId| getElementByID:  AccountsDropDownLookup)?.name ?? ''" />
+
+                    </lib-form-group>
+          </div>
+
+          <div class="md:col-6">
+                  <lib-form-group>
+                      <small >
+                          {{ 'warehouse.creditSalesAccount' | translate }}
+                        </small>
+                        <lib-text-input  type="text"  [readOnly]="true" [placeholder]="( parent?.creditSalesAccountId| getElementByID:  AccountsDropDownLookup)?.name ?? ''"/>
+
+                    </lib-form-group>
+          </div>
+
+          <div class="md:col-6">
+                  <lib-form-group>
+                      <small >
+                          {{ 'warehouse.salesReturnAccount' | translate }}
+                        </small>
+                        <lib-text-input  type="text"  [readOnly]="true" [placeholder]="( parent?.salesReturnAccountId| getElementByID:  AccountsDropDownLookup)?.name ?? ''"/>
+
+                    </lib-form-group>
+          </div>
+
+          <div class="md:col-6">
+                  <lib-form-group>
+                      <small >
+                          {{ 'warehouse.purchaseAccount' | translate }}
+                        </small>
+                        <lib-text-input  type="text"  [readOnly]="true" [placeholder]="( parent?.purchaseAccountId| getElementByID: AccountsDropDownLookup)?.name ?? ''"/>
+
+                    </lib-form-group>
+          </div>
+
+          <div class="md:col-6">
+                  <lib-form-group>
+                      <small >
+                          {{ 'warehouse.salesCostCenter' | translate }}
+                        </small>
+                        <lib-text-input  type="text"  [readOnly]="true" [placeholder]="(  parent.salesCostAccountId| getElementByID: AccountsDropDownLookup)?.name ?? ''"/>
+
+                    </lib-form-group>
+          </div>
+
+          <div class="md:col-6">
+                  <lib-form-group>
+                      <small >
+                          {{ 'warehouse.discountAccount' | translate }}
+                        </small>
+                        <lib-text-input  type="text"  [readOnly]="true" [placeholder]="(parent.discountAccountId | getElementByID: AccountsDropDownLookup)?.name ?? '' "/>
+
+                    </lib-form-group>
+          </div>
+
+          <div class="md:col-6">
+                  <lib-form-group>
+                      <small >
+                          {{ 'warehouse.evaluationaccount' | translate }}
+                        </small>
+                        <lib-text-input  type="text"  [readOnly]="true" [placeholder]="( parent?.evaluationAccountId| getElementByID:  AccountsDropDownLookup)?.name ?? ''"/>
+
+                    </lib-form-group>
+          </div>
+
+          <div class="md:col-6">
+                  <lib-form-group>
+                      <small >
+                          {{ 'warehouse.adjustmentAccount' | translate }}
+                        </small>
+                        <lib-text-input  type="text"  [readOnly]="true" [placeholder]="( parent?.adjustmentAccountId| getElementByID:  AccountsDropDownLookup)?.name ?? ''"/>
+
+                    </lib-form-group>
+          </div>
+
+          <div class="md:col-6">
+                  <lib-form-group>
+                      <small >
+                          {{ 'warehouse.goodsInTransit' | translate }}
+                        </small>
+                        <lib-text-input  type="text"  [readOnly]="true" [placeholder]="( parent?.goodsInTransitAccountId| getElementByID:  AccountsDropDownLookup)?.name ?? ''"/>
+
+                    </lib-form-group>
+          </div>
+
+       </div>
+      </ng-container>
+      </p-tabPanel>
+    </p-tabView>
+
 </div>

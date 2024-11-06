@@ -109,7 +109,15 @@
 
 
                 <div class=" flex flex-auto justify-content-end align-items-center gap-2">
-
+                  <div>
+                    <lib-button-micro
+                      [title]="'attributeDefinition.addAttribute' | translate"
+                      nameClass="save"
+                      iconName="pi pi-plus"
+                      (click)="Add()"
+                    >
+                    </lib-button-micro>
+                  </div>
                   <!--  -->
                   <div>
                     <lib-export

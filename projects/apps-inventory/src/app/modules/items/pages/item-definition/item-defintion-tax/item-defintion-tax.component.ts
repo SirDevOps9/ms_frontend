@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { RouterService } from 'shared-lib';
@@ -7,35 +7,49 @@ import { ItemsService } from '../../../items.service';
 @Component({
   selector: 'app-item-defintion-tax',
   templateUrl: './item-defintion-tax.component.html',
-  styleUrls: ['./item-defintion-tax.component.scss']
+  styleUrl: './item-defintion-tax.component.scss'
 })
 export class ItemDefintionTaxComponent {
   id: number;
   itemDefinitionForm: FormGroup;
   taxesDropDropDownLookup: any[] = [];
-  taxesGetTaxDataById: any = {};
-  isVatApplied: boolean = false;
-  previousTaxId: any = null;
-
+  showTax : boolean = false
   constructor(
     private _router: RouterService,
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private itemService: ItemsService
+    private itemService: ItemsService,
+    private cdr: ChangeDetectorRef,
+
   ) {
     this.id = this.route.snapshot.params['id'];
   }
 
   ngOnInit(): void {
     this.createForm();
-    this.taxesDropDropDown();
-    this.getTaxDataById();
+    this.getTaxData()
+    this.itemDefinitionForm.get('isVatApplied')?.valueChanges.subscribe(res=>{
+      if(res == true) {
+        this.showTax = true
+        this.cdr.detectChanges(); // Trigger change detection manually
+
+        setTimeout(() => {
+          this.taxesDropDropDown();
+
+
+        }, 100);
+      }
+      else {
+        this.itemDefinitionForm.get('taxId')?.setValue(null)
+        this.showTax = false
+      }
+    })
   }
 
   createForm() {
     this.itemDefinitionForm = this.fb.group({
       id: [this.id],
-      taxId: [null],
+      taxId: [null ],
       isVatApplied: [false, Validators.required]
     });
   }
@@ -43,48 +57,27 @@ export class ItemDefintionTaxComponent {
   taxesDropDropDown() {
     this.itemService.taxesDropDropDown();
     this.itemService.taxesLookupObs.subscribe(res => {
-      this.taxesDropDropDownLookup = res || [];
+      this.taxesDropDropDownLookup = res
     });
   }
 
-  getTaxDataById() {
-    this.itemService.getTaxDataById(this.id);
-    this.itemService.taxesDataLookupObs.subscribe(res => {
-      if (Array.isArray(res)) {
-        if (res.length > 0) {
-          const taxData = res[0];
-          this.updateFormWithTaxData(taxData);
-        }
-      } else if (res && typeof res === 'object') {
-        this.updateFormWithTaxData(res);
-      }
-    });
-  }
+  getTaxData(){
+    this.itemService.gettaxesDropDropDown(this.id)
+    this.itemService.taxesDataLookupObs.subscribe((res : any)=>{
+      this.itemDefinitionForm.patchValue({
+        id: res.id,
+        isVatApplied:res.isVatApplied,
 
-  private updateFormWithTaxData(taxData: any) {
-    this.taxesGetTaxDataById = taxData;
-    this.isVatApplied = taxData.isVatApplied;
-    this.previousTaxId = taxData.taxId;
-    this.itemDefinitionForm.patchValue({
-      taxId: taxData.taxId,
-      isVatApplied: taxData.isVatApplied
-    });
-  }
-
-  onVatAppliedChange(isApplied: boolean) {
-    if (isApplied) {
-      this.itemDefinitionForm.patchValue({ taxId: this.previousTaxId });
-    } else {
-      this.previousTaxId = this.itemDefinitionForm.get('taxId')?.value;
-      this.itemDefinitionForm.patchValue({ taxId: null });
-    }
+        taxId:res.taxId,
+      })
+    })
   }
 
 
   onAddVariants() {
     if (this.itemDefinitionForm.valid) {
       const payload = this.itemDefinitionForm.value;
-      this.itemService.editItemTax(payload);
+      this.itemService.editItemTax(payload)
     }
   }
 }
