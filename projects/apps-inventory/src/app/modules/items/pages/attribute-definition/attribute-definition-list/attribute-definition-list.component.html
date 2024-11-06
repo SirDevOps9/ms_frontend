@@ -64,7 +64,6 @@
 
             <p *ngIf=" row?.itemAttributes.length > 4"  (click)="onViewttributeValues(row.id)"class="itemAttributes-valuse">
              {{'global.showMoreValues' | translate}}
-              <!-- <img src="assets/images/table/view.svg" alt="" (click)="onViewttributeValues(row.id)" /> -->
             </p>
 
 
@@ -87,15 +86,7 @@
                   </lib-form-group>
                 </div>
                 <div class=" flex flex-auto justify-content-end align-items-center gap-2">
-                  <div>
-                    <lib-button-micro
-                      [title]="'attributeDefinition.addAttribute' | translate"
-                      nameClass="save"
-                      iconName="pi pi-plus"
-                      (click)="Add()"
-                    >
-                    </lib-button-micro>
-                  </div>
+
                   <div>
                     <lib-export
                       (exportClick)="exportClick($event)"
