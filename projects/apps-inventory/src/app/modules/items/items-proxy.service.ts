@@ -319,6 +319,9 @@ export class ItemsProxyService {
   return this.httpService.put(`AttributeGroup/AttributeGroupActivation`,modle)
 
 }
+EditUOMCategory(obj:addUOM) {
+  return this.httpService.put('UOMCategories/Edit' , obj)
+}
  exportsItemsDefinitionList(
     searchTerm: string | undefined
   ): Observable<itemDefinitionDto[]> {
