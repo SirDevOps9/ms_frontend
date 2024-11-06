@@ -6,7 +6,7 @@ title="{{ 'itemDefinition.Add' | translate }}"
 
 >
     <div >
-      <form class="domain_form" [formGroup]="itemDefinitionForm" >
+      <form class="domain_form" [formGroup]="itemDefinitionForm" (ngSubmit)="onSubmit()">
         <div class="domain_content">
           <div class="grid m-0">
             <div class="col-12 my-2">
@@ -21,7 +21,7 @@ title="{{ 'itemDefinition.Add' | translate }}"
                   [options]="attributeName"
                   optionLabel="nameEn"
                   optionValue="id"
-                  [selectedValue]="itemDefinitionForm.controls['attributeGroupId'].value"
+               
                   class="form-control"
                 ></lib-select>
                 <lib-field-validations
@@ -34,27 +34,24 @@ title="{{ 'itemDefinition.Add' | translate }}"
                 <lib-label [appControl]="itemDefinitionForm.controls['attributeGroupDetails']">
                     {{ 'itemDefinition.attributeValues' | translate }}
                   </lib-label>
-
+                  
                 <lib-multi-select
                   placeholder="{{ 'itemDefinition.attributeValues' | translate }}"
                   [options]="attributeValues"
                   optionLabel="nameEn"
                   optionValue="id"
                   formControlName="attributeGroupDetails"
-                  [selectedValue]="itemDefinitionForm.controls['attributeGroupDetails'].value"
-
                 ></lib-multi-select>
                 <lib-field-validations [appControl]="itemDefinitionForm.controls['attributeGroupDetails']">
                 </lib-field-validations>
               </lib-form-group>
             </div>
-
-
-
+  
+           
+         
           </div>
         </div>
       </form>
-
-
     </div>
 </lib-popup-page>
+  

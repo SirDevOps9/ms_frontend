@@ -31,8 +31,18 @@ export class UOMAddComponent implements OnInit {
   listOfUOMCat: UomCodeLookup[] = [];
   listOfUomTypes: any[] = [];
   conversionUOMlist: any[] = [];
-  sytemUnitLookup: { id: number; nameAr: string; nameEn: string; systemUnitOfMeasureCategoryId: number; }[] = []
-  filteredSytemUnitLookup:   { id: number; nameAr: string; nameEn: string; systemUnitOfMeasureCategoryId: number; }[] = []
+  sytemUnitLookup: {
+    id: number;
+    nameAr: string;
+    nameEn: string;
+    systemUnitOfMeasureCategoryId: number;
+  }[];
+  filteredSytemUnitLookup: {
+    id: number;
+    nameAr: string;
+    nameEn: string;
+    systemUnitOfMeasureCategoryId: number;
+  }[];
   usersList: UserPermission[];
   isLastLineSaved: boolean = true;
   currentLang: string;

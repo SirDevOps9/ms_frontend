@@ -24,7 +24,7 @@ export class OperationTagEditComponent implements OnInit {
   operationTypeList = [
     { id: OperationType.StockIn, name: OperationType.StockIn },
     { id: OperationType.StockOut, name:  OperationType.StockOut },
-
+  
   ];
   constructor(
     private fb: FormBuilder,
@@ -50,7 +50,7 @@ this.getAccount()
       this.getOperationalTagById(id)
     }
   }
-
+ 
   initWareHouseLookupData() {
     this.itemsService.getWareHousesDropDown()
     this.itemsService.wareHousesDropDownLookup$.subscribe(res=>{
@@ -58,7 +58,7 @@ this.getAccount()
     })
   }
 
-  getAccount() {
+  getAccount() { 
     this.itemsService.AccountsDropDown()
     this.itemsService.AccountsDropDownLookupObs.subscribe(res=>{
       if(res.length) {
@@ -69,7 +69,7 @@ this.getAccount()
     })
   }
 
-
+ 
   getOperationalTagById(id: number){
     this.itemsService.getOperationalTagById(id)
     this.itemsService.getOperationalTagItemsById$.subscribe(
@@ -77,7 +77,7 @@ this.getAccount()
         setTimeout(() => {
           console.log(res)
           this.formGroup.patchValue(res)
-          let accountCode = String(res.glAccountId)
+          let accountCode = String(res.glAccountId) 
 
           this.formGroup.get('glAccountId')?.setValue(accountCode)
 
@@ -101,7 +101,7 @@ this.getAccount()
 
   discard() {
     this.routerService.navigateTo('/masterdata/operational-tag')
-
+    
   }
 
   onSave() {
@@ -112,6 +112,7 @@ this.getAccount()
     this.itemsService.editOperationalTag(val);
     this.itemsService.editOperationTag$.subscribe((res: any) => {
       if(res == true){
+
         this.routerService.navigateTo('/masterdata/operational-tag')
       }else{
         return

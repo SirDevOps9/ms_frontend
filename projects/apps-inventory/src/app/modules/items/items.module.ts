@@ -50,9 +50,6 @@ import { ItemDefinitionAttributesVariantsComponent } from './pages/item-definiti
 import { ItemDefinitionBarcodeComponent } from './pages/item-definition/item-definition-barcode/item-definition-barcode.component';
 import { ItemDefinitionInventoryComponent } from './pages/item-definition/item-definition-inventory/item-definition-inventory.component';
 import { ItemCatalogTabsComponent } from './pages/item-definition/item-catalog-tabs/item-catalog-tabs.component';
-import { EditCategoryUomComponent } from './pages/item-definition/item-definition-uom/edit-category/edit-category-uom/edit-category-uom.component';
-import { ItemDefintionVatComponent } from './pages/item-definition/item-defintion-vat/item-defintion-vat.component';
-import { ItemDefintionTaxComponent } from './pages/item-definition/item-defintion-tax/item-defintion-tax.component';
 
 const routes: Routes = [
   {
@@ -106,14 +103,6 @@ const routes: Routes = [
             },
           },
           {
-            path: 'variants/:id',
-            component: ItemDefintionVatComponent,
-            data: {
-              breadcrumb: BreadcrumbLabel.attributes_ITEMdEFINITION,
-              pageTitle : BreadcrumbLabel.attributes_ITEMdEFINITION
-            },
-          },
-          {
             path: 'attributes-variants/:id',
             component: ItemDefinitionAttributesVariantsComponent,
             data: {
@@ -121,31 +110,7 @@ const routes: Routes = [
               pageTitle : BreadcrumbLabel.attributes_ITEMdEFINITION
             },
           },
-          {
-            path: 'barcode/:id',
-            component: ItemDefinitionBarcodeComponent,
-            data: {
-              breadcrumb: BreadcrumbLabel.EditItembarcodedefinition,
-              pageTitle : BreadcrumbLabel.EditItembarcodedefinition
-            },
-          },
 
-          {
-            path: 'tax/:id',
-            component: ItemDefintionTaxComponent,
-            data: {
-              breadcrumb: BreadcrumbLabel.EditItembarcodedefinition,
-              pageTitle : BreadcrumbLabel.EditItembarcodedefinition
-            },
-          },
-          {
-            path: 'inventory/:id',
-            component: ItemDefinitionInventoryComponent,
-            data: {
-              breadcrumb: BreadcrumbLabel.INVENTORY,
-              pageTitle : BreadcrumbLabel.INVENTORY
-            },
-          },
         ],
 
       },
@@ -359,10 +324,7 @@ const routes: Routes = [
     ItemDefinitionAttributesVariantsComponent,
     ItemDefinitionBarcodeComponent,
     ItemDefinitionInventoryComponent,
-    EditCategoryUomComponent,
-    ItemDefintionVatComponent,
-    ItemDefintionTaxComponent
   ],
-  imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule ],
+  imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule],
 })
 export class ItemsModule {}

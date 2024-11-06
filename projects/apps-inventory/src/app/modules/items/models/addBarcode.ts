@@ -1,17 +1,7 @@
-
-  
-  export interface addBarcode {
-    id: number
-    barcodes: Barcode[]
-  }
-  
-  export interface Barcode {
-    itemId: number
-    id: number
+export interface addBarcode {
     barcode: string
-    uomId: string
-    itemVariantId: number
     sku: string
-    isActive: boolean
+    itemVariantId: number
+    uomId: number
   }
   

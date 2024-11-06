@@ -14,7 +14,7 @@
             pageSize: 10,
             columns: [
               {
-                name: 'code',
+                name: 'id',
                 headerText: ('itemDefinition.code' | translate),
                 isGlobalFilter: true,
                 isSortable: true
@@ -43,9 +43,9 @@
                 isGlobalFilter: true,
                 isSortable: true
               },
-
-
-
+            
+            
+  
               {
                 name: 'id',
                 headerText: ('itemDefinition.actions' | translate),
@@ -54,7 +54,7 @@
             ]
           }"
         >
-
+  
 
 
           <ng-container search>
@@ -68,7 +68,7 @@
             </lib-form-group>
             </ng-container>
           <ng-container action>
-
+            
             <div>
               <lib-export
               (exportClick)="exportClick($event)"
@@ -103,7 +103,7 @@
 
 
 
-
+  
           <ng-template #actions let-action>
             <div class="actions flex align-items-center">
               <img src="assets/images/table/edit.svg" alt="" (click)="onEdit(action)" />
@@ -115,3 +115,4 @@
       </div>
     </div>
   </lib-page-content>
+  

@@ -1,25 +1,16 @@
 .card{
     background-color: #ffffff;
-    margin-top: 26px;
-    margin-left: .5px;
+    border-radius: 7px;
+    margin: 5px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    min-height: 345px;
 
 }
 .heads{
     font-weight: bold;
 }
-
- ::ng-deep .p-multiselect {
-  width: 100% !important;
-}
-
-// .grid {
-//   padding: 0 !important;
-//   margin: 0 !important;
-// }
-.hrSeparate{
-    width: 100%;
-    margin: 0 12px;
-}
-.sparateDiv{
-   margin:  14px 0
-}
+ ::ng-deep .mainCountryOfOrigin{
+   .p-fieldset{
+    height : 205px
+   } 
+ }

@@ -26,7 +26,6 @@ export class ItemCatalogTabsComponent {
     if (!routeFragment) {
       return false;
     }
-
     return this._router.getCurrentUrl().includes(`/${routeFragment}`);
   }
   onRoute(path: string) {

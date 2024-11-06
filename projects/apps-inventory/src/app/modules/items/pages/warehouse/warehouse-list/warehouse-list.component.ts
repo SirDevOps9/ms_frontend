@@ -14,7 +14,6 @@ import { AddWarehousePopupComponent } from '../../../components/warehouse/add-wa
   styleUrl: './warehouse-list.component.scss'
 })
 export class WarehouseListComponent implements OnInit {
-
   constructor(
     private routerService: RouterService,
     public authService: AuthService,
@@ -30,7 +29,7 @@ export class WarehouseListComponent implements OnInit {
 
   exportData: GetWarehouseList[];
   cols = [
-
+   
     {
       field: 'Code',
       header: 'code',
@@ -52,7 +51,7 @@ export class WarehouseListComponent implements OnInit {
       field: 'UOM Name',
       header: 'uomName',
     },
-
+   
   ];
   exportColumns: lookupDto[];
   exportSelectedCols: string[] = [];
@@ -60,8 +59,7 @@ export class WarehouseListComponent implements OnInit {
   currentPageInfo: PageInfoResult = {};
   modulelist: MenuModule[];
   searchTerm: string;
-  SortBy?: number;
-  SortColumn?: string;
+
   ngOnInit() {
     this.initItemDefinitionData();
     this.exportColumns = this.cols.map((col) => ({
@@ -87,41 +85,21 @@ export class WarehouseListComponent implements OnInit {
   onPageChange(pageInfo: PageInfo) {
     this.itemsService.getWarehouseList('', pageInfo);
 
-
+  
   }
 
-  // exportClick(e?: Event) {
-  //   console.log(e)
-  //   this.exportWarehouseData(this.searchTerm);
-  // }
-
-
-  // exportClick(){
-  //   this.itemsService.exportsWayehouseList(this.searchTerm ,this.SortBy,this.SortColumn);
-  //   this.itemsService.exportedWarehouseDataSourceObs.subscribe((res) => {
-  //     this.exportData = res;
-  //   });
-  // }
-
-  // exportWarehouseData(searchTerm: string) {
-  //   this.itemsService.exportsWayehouseList(this.searchTerm ,this.SortBy,this.SortColumn);
-  //   this.itemsService.exportedWarehouseDataSourceObs.subscribe((res) => {
-  //     this.exportData = res;
-  //   });
-  // }
-  exportedColumns(obj: { SortBy: number; SortColumn: string }) {
-    this.SortBy = obj.SortBy;
-    this.SortColumn = obj.SortColumn;
+  exportClick(e?: Event) {
+    console.log(e)
+    this.exportWarehouseData(this.searchTerm);
   }
 
-  exportClick(){
-    this.itemsService.exportsWayehouseList(this.searchTerm ,this.SortBy,this.SortColumn);
-
-
+  exportWarehouseData(searchTerm: string) {
+    this.itemsService.exportsWayehouseList(searchTerm);
     this.itemsService.exportedWarehouseDataSourceObs.subscribe((res) => {
       this.exportData = res;
     });
   }
+
   onAdd() {
       const dialogRef = this.dialog.open(AddWarehousePopupComponent, {
       width: '800px',
@@ -130,7 +108,7 @@ export class WarehouseListComponent implements OnInit {
     dialogRef.onClose.subscribe(() => {
     this.initItemDefinitionData()
     });
-
+  
   }
 
   onEdit(data: any) {
@@ -139,20 +117,11 @@ export class WarehouseListComponent implements OnInit {
 
   }
 
-  // onSearchChange() {
-  //   this.itemsService.getWarehouseList(this.searchTerm, new PageInfo());
-
-  // }
-
-
-  onSearchChange(event: any) {
-    this.itemsService.getWarehouseList(event, new PageInfo());
-    this.itemsService.sendWarehouseDataSource.subscribe({
-      next: (res) => {
-        this.tableData = res;
-      },
-    });
+  onSearchChange() {
+    this.itemsService.getWarehouseList(this.searchTerm, new PageInfo());
+    
   }
+
   onDelete(id: number) {
      this.itemsService.deleteWareHouse(id)
   }
