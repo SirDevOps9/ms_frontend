@@ -65,38 +65,11 @@
                     ></lib-text-input>
                   </lib-form-group>
                 </div>
-                <!-- <div class="col-span-1">
-                  <lib-form-group>
-                    <lib-text-input
-                      type="text"
-                      [placeholder]="'UOM.Search' | translate"
-                      [(ngModel)]="searchTerm"
-                      (keyUp)="onSearchChange()"
-                    ></lib-text-input>
-                  </lib-form-group>
-                </div>
-                <div class="col-span-1">
-                  <lib-form-group>
-                    <lib-text-input
-                      type="text"
-                      [placeholder]="'UOM.Search' | translate"
-                      [(ngModel)]="searchTerm"
-                      (keyUp)="onSearchChange()"
-                    ></lib-text-input>
-                  </lib-form-group>
-                </div> -->
+               
               
   
                 <div class=" flex flex-auto justify-content-end align-items-center gap-2">
-                  <div>
-                    <lib-button-micro
-                      [title]="'UOM.AddNew' | translate"
-                      nameClass="save"
-                      iconName="pi pi-plus"
-                      (click)="Add()"
-                    >
-                    </lib-button-micro>
-                  </div>
+                
                   <!--  -->
                   <div>
                     <lib-export
@@ -109,6 +82,15 @@
                     </lib-export>
                   </div>
                   <!--  -->
+                  <div>
+                    <lib-button-micro
+                      [title]="'UOM.Add' | translate"
+                      nameClass="save"
+                      iconName="pi pi-plus"
+                      (click)="Add()"
+                    >
+                    </lib-button-micro>
+                  </div>
                 </div>
               </div>
             </div>
