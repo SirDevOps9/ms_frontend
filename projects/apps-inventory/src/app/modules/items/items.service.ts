@@ -884,6 +884,30 @@ this.itemProxy.getUOMCategoryDropDown().subscribe({
     });
   }
 
+  async DeleteUomLine(id: number) {
+ 
+    const confirmed = await this.toasterService.showConfirm(
+      this.languageService.transalte('ConfirmButtonTexttodelete')
+    );
+    if (confirmed) {
+      this.itemProxy.DeleteUomLine(id).subscribe({
+        next: (res) => {
+      
+          this.toasterService.showSuccess(
+            this.languageService.transalte('UOM.success'),
+            this.languageService.transalte('UOM.delete')
+          );
+
+          const currentUom : any = this.getUOMCategoryByIdData.getValue();
+          const updatedUOM : addUOM = currentUom.uoMs.filter((c: any) => c.id !== id);
+          this.getUOMCategoryByIdData.next(updatedUOM);
+        },
+      });
+    }
+  }
+
+
+
   systemUnitLookup() {
 
     this.itemProxy.systemUnitLookup().subscribe((res) => {

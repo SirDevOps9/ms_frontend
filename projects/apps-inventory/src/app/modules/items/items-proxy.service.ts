@@ -189,6 +189,10 @@ export class ItemsProxyService {
 
  }
 
+ DeleteUomLine(id:number) {
+  return this.httpService.delete(`UOM/${id}`)//
+ }
+
  getItemBarcodeById(id:number){
   return this.httpService.get(`Item/GetItemBarcode/${id}`)
 
