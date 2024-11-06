@@ -9,32 +9,23 @@
                   <img src="assets/images/tree/folder.png" alt="" />
                   <p class="text paragraph_b18">{{ 'itemsCategory.title' | translate }}</p>
                 </div>
-                <div class="flex justify-content-center align-content-center gap-1 ">
-        
-                  @if(!expanded){
-                    <button class="btn_tree_item pi pi-expand"  (click)="expand_Collapse()">
-                    </button>   
-                  }@else{
-                    <button class="btn_tree_item "  (click)="expand_Collapse()">
-                      <i class="fa-solid fa-compress"></i>
-                    </button>
-                  }
-                  <button class="btn_tree_item btn_add pi pi-plus" (click)="newChild()"></button>
-              </div>
+      
+                <button class="btn_tree_item btn_add pi pi-plus" (click)="newChild()"></button>
+      
               </div>
       
-              <p-tree
-              (onNodeExpand)="nodeExpand($event)" 
-        (onNodeCollapse)="nodeCollapse($event)" 
-
-              [value]="nodes" [filter]="true" expanded="true" *ngIf="showTree">
+              <p-tree [value]="nodes" [filter]="true" expanded="true" *ngIf="showTree">
                 <ng-template let-node pTemplate="default">
                   <div class="ui-tree-node-content label_text tree-item-container"
-                    [ngClass]="{ active: node == activeNode }">
+                    [ngClass]="{ active: node === activeNode }">
                     <div class="description">
+                      <!-- <span class="tree-icon" *ngIf="node.children"></span> -->
                       <span class="folder" *ngIf="!node.isDetailed"></span>
                       <span class="file" *ngIf="node.isDetailed"></span>
-                      
+                      <!-- <i class="folder_icon pi pi-folder" *ngIf="node.children && node.children.length != 0"></i>
+                    <i class="file_icon pi pi-file" *ngIf="node.children && node.children.length == 0"></i> -->
+                      <!-- <span (click)="handleTabClick(node)"
+                      *ngIf="node.children.length == 0"></span> -->
                       <span id="label_tree" *ngIf="node.children" (click)="handleTabClick(node)">{{
                         node.label
                         }}</span>
@@ -64,7 +55,7 @@
             (operationCompleted)="viewMode($event)">
 
             </app-edit-item-category>
-            <app-view-item-category *ngIf="view" [account]="account" (sendId)="routeToEditFromView($event)"></app-view-item-category>
+            <app-view-item-category *ngIf="view" [account]="account"></app-view-item-category>
 
           </div>
         </div>
