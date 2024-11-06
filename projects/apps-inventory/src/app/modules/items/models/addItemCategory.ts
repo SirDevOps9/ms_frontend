@@ -5,6 +5,7 @@ export interface AddItemCategory {
     nameEn: string
     parentCategoryId: number
     isDetailed: boolean
+    isActive: boolean
     categoryType: string
     glAccountId: number
     cashSalesAccountId: number

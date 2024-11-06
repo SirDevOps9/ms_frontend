@@ -74,6 +74,81 @@
               <lib-form-group>
                 <lib-label [appControl]="formGroup.controls['categoryType']">
                 {{"itemsCategory.categoryType" | translate}}
+  <form [formGroup]="formGroup">
+    <div class="gird">
+      <lib-fildest header="{{ 'itemsCategory.Main' | translate }}" class="md:col-12">
+        <div class="grid">
+          <div class="md:col-4">
+            <lib-form-group>
+              <lib-label [appControl]="formGroup.controls['code']">
+                {{ 'itemsCategory.categoryCode' | translate }}
+              </lib-label>
+              <lib-text-input [readOnly]="true" formControlName="code"> </lib-text-input>
+            </lib-form-group>
+          </div>
+          <div class="md:col-4">
+            <lib-form-group>
+              <lib-label [appControl]="formGroup.controls['nameEn']">
+                {{ 'itemsCategory.nameEn' | translate }}
+              </lib-label>
+              <lib-text-input type="text" formControlName="nameEn" />
+              <lib-field-validations [appControl]="formGroup.controls['nameEn']">
+              </lib-field-validations>
+            </lib-form-group>
+          </div>
+          <div class="md:col-4">
+            <lib-form-group>
+              <lib-label [appControl]="formGroup.controls['nameAr']">
+                {{ 'itemsCategory.nameAr' | translate }}
+              </lib-label>
+              <lib-text-input type="text" formControlName="nameAr" />
+              <lib-field-validations [appControl]="formGroup.controls['nameAr']">
+              </lib-field-validations>
+            </lib-form-group>
+          </div>
+        </div>
+      </lib-fildest>
+
+      <lib-fildest
+      [header]="('itemsCategory.parentCategory' | translate)"
+
+     >
+        <div class="grid">
+          <div *ngIf="parentCategoryList.length != 0" class="md:col-12">
+            <lib-form-group>
+              <lib-label [appControl]="formGroup.controls['parentCategoryId']">
+                {{ 'itemsCategory.parentCategory' | translate }}
+              </lib-label>
+              <lib-select
+                formControlName="parentCategoryId"
+                [options]="parentCategoryList"
+                optionValue="id"
+                optionLabel="name"
+                [selectedValue]="formGroup.controls['parentCategoryId'].value"
+                (valueChanged)="onParentAccountChange($event)"
+              >
+              </lib-select>
+
+              <lib-field-validations [appControl]="formGroup.controls['parentCategoryId']">
+              </lib-field-validations>
+            </lib-form-group>
+          </div>
+          <div class="md:col-6 flex gap-2 align-items-center">
+            <lib-label [appControl]="formGroup.controls['isDetailed']">
+              {{ 'itemsCategory.isDetails' | translate }}
+            </lib-label>
+            <lib-input-switch [disabled]="parentCategoryList.length == 0" formControlName="isDetailed"> </lib-input-switch>
+          </div>
+          <div class="md:col-6 flex gap-2 align-items-center">
+            <lib-label [appControl]="formGroup.controls['isActive']">
+              {{ 'itemsCategory.status' | translate }}
+            </lib-label>
+            <lib-input-switch formControlName="isActive"> </lib-input-switch>
+          </div>
+          <div class="md:col-12" *ngIf="showCategory">
+            <lib-form-group>
+              <lib-label [appControl]="formGroup.controls['categoryType']">
+                {{ 'itemsCategory.categoryType' | translate }}
               </lib-label>
               <lib-select
                 formControlName="categoryType"

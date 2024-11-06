@@ -141,6 +141,17 @@ export class ItemsProxyService {
 
 
  }
+ //  item category tree
+ParentItemCategoriesDropDown(SearchTerm: string): Observable< {id:number , name:string}[]> {
+  let query = 'ItemCategory/ParentItemCategoriesDropDown';
+  if (SearchTerm) {
+    query += `&SearchTerm=${encodeURIComponent(SearchTerm)}`;
+  }
+  return this.httpService.get< {id:number , name:string}[]>(query)
+
+
+}
+
  GetUOMCategories(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<UOMCategoryDto>> {
 
     let query = `UOM?${pageInfo.toQuery}`;
@@ -187,6 +198,10 @@ export class ItemsProxyService {
   
   return this.httpService.get(`Item/GetItemExpiryAndTracking/${id}`)
 
+ }
+
+ DeleteUomLine(id:number) {
+  return this.httpService.delete(`UOM/${id}`)//
  }
 
  getItemBarcodeById(id:number){
@@ -304,7 +319,7 @@ export class ItemsProxyService {
  ActivateAttrDifinition(obj:{id:number , status : boolean}) {
   return this.httpService.put(`ItemAttribute/ItemAttributeActivation` , obj) // edit
  }
- systemUnitLookup() : Observable<{ id: number; nameAr: string; nameEn: string }[]> {
+ systemUnitLookup() : Observable<{ id: number; nameAr: string; nameEn: string; systemUnitOfMeasureCategoryId: number; }[]> {
   return this.httpService.get(`SystemUOM/DropDown` ) // edit
  }
  ActivateOperationalTag
@@ -314,6 +329,9 @@ export class ItemsProxyService {
  editStatusAttributeGroup(modle:any){
   return this.httpService.put(`AttributeGroup/AttributeGroupActivation`,modle)
 
+}
+EditUOMCategory(obj:addUOM) {
+  return this.httpService.put('UOMCategories/Edit' , obj)
 }
  exportsItemsDefinitionList(
     searchTerm: string | undefined
