@@ -300,4 +300,5 @@ export class ItemsCategoryTreeComponent implements OnInit {
     this.parentEditedId = id;
     this.edit = true;
   }
+
 }
