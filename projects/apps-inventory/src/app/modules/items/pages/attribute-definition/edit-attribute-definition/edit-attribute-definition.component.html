@@ -127,7 +127,7 @@
         </lib-input-switch>
 
         <span [ngClass]="{'active-true': attrTableForm?.controls['isActive']?.value}" class="ml-2">
-          {{ attrTableForm?.controls['isActive']?.value ? 'On' : 'Off' }}
+          {{ attrTableForm?.controls['isActive']?.value ? ('global.activeOn' | translate) : ('global.activeOff' | translate) }}
         </span>
 
 

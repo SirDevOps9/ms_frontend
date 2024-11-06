@@ -30,7 +30,7 @@ export class EditWarehouseComponent implements OnInit {
     { label: 'Physical', value: 1 },
     { label: 'Virtual', value: 2 },
     { label: 'VanSales ', value: 3 }
-  
+
   ]
   CityDropDownLookup : any = []
   CityLookup = []
@@ -93,11 +93,11 @@ getWarehouseById() {
         addressLine: res?.addressWarehouse?.addressLine ?? null,
         phone: res?.addressWarehouse?.phone ?? null,  // Mapping phone to the correct form control
         countryCode: res?.addressWarehouse?.countryCode ?? null,  // Mapping phone to the correct form control
-        fax: res?.addressWarehouse?.fax ?? null, 
-        postalCode: res?.addressWarehouse?.postalCode ?? null, 
-        email: res?.addressWarehouse?.email ?? null, 
-        longitude: res?.addressWarehouse?.longitude ?? 0, 
-        latitude: res?.addressWarehouse?.latitude ?? 0, 
+        fax: res?.addressWarehouse?.fax ?? null,
+        postalCode: res?.addressWarehouse?.postalCode ?? null,
+        email: res?.addressWarehouse?.email ?? null,
+        longitude: res?.addressWarehouse?.longitude ?? 0,
+        latitude: res?.addressWarehouse?.latitude ?? 0,
         radius: res?.addressWarehouse?.radius ?? 0
       },
       warehouseAccount: {
@@ -116,7 +116,7 @@ getWarehouseById() {
     console.log(res)
   })
 }
-  
+
 
   getBranchesLookup(){
     this.itemsService.getBranchDropdown()
@@ -141,7 +141,7 @@ getWarehouseById() {
     })
   }
 
-  getAccount() { 
+  getAccount() {
     this.itemsService.AccountsDropDown()
     this.itemsService.AccountsDropDownLookupObs.subscribe(res=>{
       this.AccountsDropDownLookup = res
@@ -161,7 +161,7 @@ getWarehouseById() {
       warehouseData.warehouseAccount = null;
     }
     this.itemsService.editWarehouse(warehouseData)
-   
+
   }
   onCancel() {
     this.routerService.navigateTo('/masterdata/warehouse')

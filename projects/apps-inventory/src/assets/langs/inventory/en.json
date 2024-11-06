@@ -376,5 +376,12 @@
   "deleteStockIn": "Stock In deleted successfully",
   "deleteStockOut": "Stock Out deleted successfully",
   "success": "Success"
+},
+"global":{
+  "activeOn":"On",
+  "activeOff":"Off",
+  "showMoreValues":"...Show More Values"
 }
+
+
 }

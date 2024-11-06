@@ -63,7 +63,7 @@
             </p>
 
             <p *ngIf=" row?.itemAttributes.length > 4"  (click)="onViewttributeValues(row.id)"class="itemAttributes-valuse">
-              .... show More
+             {{'global.showMoreValues' | translate}}
               <!-- <img src="assets/images/table/view.svg" alt="" (click)="onViewttributeValues(row.id)" /> -->
             </p>
 
@@ -86,28 +86,6 @@
                     ></lib-text-input>
                   </lib-form-group>
                 </div>
-                <!-- <div class="col-span-1">
-                  <lib-form-group>
-                    <lib-text-input
-                      type="text"
-                      [placeholder]="'attributeDefinition.Search' | translate"
-                      [(ngModel)]="searchTerm"
-                      (keyUp)="onSearchChange()"
-                    ></lib-text-input>
-                  </lib-form-group>
-                </div>
-                <div class="col-span-1">
-                  <lib-form-group>
-                    <lib-text-input
-                      type="text"
-                      [placeholder]="'attributeDefinition.Search' | translate"
-                      [(ngModel)]="searchTerm"
-                      (keyUp)="onSearchChange()"
-                    ></lib-text-input>
-                  </lib-form-group>
-                </div> -->
-
-
                 <div class=" flex flex-auto justify-content-end align-items-center gap-2">
                   <div>
                     <lib-button-micro
@@ -118,7 +96,6 @@
                     >
                     </lib-button-micro>
                   </div>
-                  <!--  -->
                   <div>
                     <lib-export
                       (exportClick)="exportClick($event)"
@@ -155,7 +132,7 @@
             </lib-input-switch>
 
             <span  [ngClass]="{'active-true':row.isActive}" class="ml-2">
-              {{ row.isActive ? 'On' : 'Off' }}
+              {{ row.isActive ? ('global.activeOn' | translate) : ('global.activeOff' | translate)}}
             </span>
 
             </div>

@@ -109,7 +109,8 @@
               (valueChanged)="confirmChange($event, row)">
             </lib-input-switch>
             <span  [ngClass]="{'active-true':row.isActive}" class="ml-2">
-              {{ row.isActive ? 'On' : 'Off' }}
+              {{ row.isActive ? ('global.activeOn' | translate) : ('global.activeOff' | translate)}}
+
             </span>
             </div>
           </ng-template>

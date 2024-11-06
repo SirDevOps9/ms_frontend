@@ -98,7 +98,7 @@
                   </div>
 
                   <div style="width: 80%">
-                    <div *ngIf="account " class="grid card-tab" [formGroupName]="'warehouseAccount'">
+                    <div *ngIf="account " class="grid card" [formGroupName]="'warehouseAccount'">
                       <div class="md:col-6">
                               <lib-form-group>
                                   <lib-label [appControl]="warehouseForm.get('warehouseAccount')?.get('glAccountId')">
@@ -282,8 +282,8 @@
                       <!--  -->
                    </div>
 
-              <div class="grid card-tab" *ngIf="warehouseForm.get('warehouseType')?.value == 1 && showaddress">
-                <div class="md:col-6 grid">
+              <div class="grid card" *ngIf="warehouseForm.get('warehouseType')?.value == 1 && showaddress">
+                <div class="md:col-6  grid">
                   <ng-container [formGroupName]="'addressWarehouse'">
                     <div class="md:col-5">
                       <lib-label [appControl]="warehouseForm.get('addressWarehouse')?.get('countryCode')">
@@ -446,14 +446,18 @@
                   </ng-container>
                 </div>
 
+
+
+
                 <!--  -->
                 <div class="md:col-6">
-                   <!-- image -->
+                  <img class="img-adderss" src="assets/images/warehous.jpg" alt="">
+
                 </div>
 
              </div>
 
-             <div class="card-btn md:col-12 my-3 grid flex justify-content-end">
+             <div class="   grid card flex justify-content-end">
               <div class="md:col-4 grid flex justify-content-end">
                 <div class="md:col-6">
                   <lib-button-micro
