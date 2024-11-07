@@ -6,7 +6,6 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { ItemDto } from '../../../models';
 import { SalesService } from '../../../sales.service';
 import { UpdetePricePolicyComponent } from '../../../components/updete-price-policy/updete-price-policy.component';
-import { Table } from 'primeng/table'; // Import Table
 import { PopupExcelComponent } from '../../../components/popup-excel/popup-excel.component';
 import { take } from 'rxjs';
 
@@ -33,7 +32,7 @@ export class AddPricePolicyComponent implements OnInit {
       take(2)  // This will take only the first emission and then complete
     ).subscribe((res) => {
       if (res?.policyItemsList?.length > 0) {
-        res?.policyItemsList?.forEach((element: any, index: number) => {
+        res?.policyItemsList?.forEach((element: ItemDto, index: number) => {
           this.addNewRow();
           this.setExcelData(index, element.itemId, element);
         });
@@ -198,7 +197,7 @@ export class AddPricePolicyComponent implements OnInit {
     }
 
   }
-  setExcelData(rowIndex: number, selectedItemId: number, selectedItem: any) {
+  setExcelData(rowIndex: number, selectedItemId: number, selectedItem: ItemDto) {
     const selectedItems = this.items.find(item => item.id === selectedItemId);
     const rowForm = this.pricePolicyFormArray.at(rowIndex) as FormGroup;
 
@@ -319,45 +318,12 @@ export class AddPricePolicyComponent implements OnInit {
 
 
   }
-  onclick(data: any) {
-
-    const keys = ['code', 'name', 'uom', 'varient', 'price', 'VAT'];
-
-    const result = data.slice(1).map((arr: any) => {
-      return keys.reduce((obj: any, key, index) => {
-        obj[key] = arr[index];
-        return obj;
-      }, {});
-    });
-
-    this.listOfExcel = result;
-    // this.pricePolicyFormArray.clear();
-
-    this.listOfExcel.forEach((ele: any) => {
-      let dataForm = this.formBuilder.group({
-        itemId: new FormControl(ele.code, [customValidators.required]),
-        name: new FormControl(ele.name),
-        uomId: new FormControl(ele.uom),
-        itemVariantId: new FormControl(ele.varient),
-        price: new FormControl(ele.price, [customValidators.required]),
-        isVatApplied: new FormControl(ele.VAT),
-        priceWithVat: new FormControl(''), // Assuming this will be calculated or handled elsewhere
-        id: new FormControl(0), // Default value, assuming id is 0 for new entries
-      });
-
-      // Add the group to the form array
-      this.pricePolicyFormArray.push(dataForm);
-    });
-    // this.pricePolicyFormArray.patchValue(result)
-
-
-  }
   openDialog(index: number) {
     const ref = this.dialog.open(MultiSelectItemsComponent, {
       width: '1000px',
       height: '600px',
     });
-    ref.onClose.subscribe((selectedItems: any) => {
+    ref.onClose.subscribe((selectedItems: ItemDto) => {
       if (selectedItems) {
         const uomOptions: any = selectedItems.itemsUOM
         const rowForm = this.pricePolicyFormArray.at(index) as FormGroup;
@@ -390,7 +356,7 @@ export class AddPricePolicyComponent implements OnInit {
 
         ref.onClose.subscribe((selectedItems: any) => {
           if (selectedItems) {
-            selectedItems.value.forEach((item: any) => {
+            selectedItems.value.forEach((item: ItemDto) => {
               const index = this.pricePolicyFormArray.controls.findIndex(
                 (control) => control.get('id')?.value === item.id
               );
@@ -572,7 +538,5 @@ export class AddPricePolicyComponent implements OnInit {
     private languageService: LanguageService,
     private toasterService: ToasterService,
     private router: RouterService,
-
-
   ) { }
 }

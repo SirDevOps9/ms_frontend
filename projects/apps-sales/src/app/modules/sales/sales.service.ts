@@ -70,7 +70,7 @@ export class SalesService {
   private tagsDataSource = new BehaviorSubject<TagDropDownDto[]>([]);
   private customerDeleted = new BehaviorSubject<boolean>(false);
   public customerDeletedObser = this.customerDeleted.asObservable();
-  private listOfExcel = new BehaviorSubject<any>([]);
+  private listOfExcel = new BehaviorSubject<ItemDto[]>([]);
   public listOfExcelObser = this.listOfExcel.asObservable();
   public pricePolicyList = new BehaviorSubject<any>([]);
   public pricePolicyListObser = this.pricePolicyList.asObservable();
@@ -557,7 +557,6 @@ validateExcel(excel: any) {
           this.languageService.transalte('messages.successfully')
         );
         if (res) {
-          console.log(res,"network0000000000000000");
           this.listOfExcel.next(res)
           this.loaderService.hide();
         }
