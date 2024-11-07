@@ -339,8 +339,12 @@
     "Configration": "Configuration",
     "import": "Import",
     "edit": "Edit",
+    "Activation": "Activation",
     "save": "Save",
-    "cancel": "Cancel",    "status": "Status",
+    "cancel": "Cancel",    
+    "status": "Status",
+    "editSuccses": "Data Updated Successfully",
+    "addSuccess": "Data Saved Successfully",
 
     "name" : "Name",
     "categoryCode": "Category Code",
