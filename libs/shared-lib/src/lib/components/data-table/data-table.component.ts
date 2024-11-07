@@ -217,10 +217,6 @@ export class DataTableComponent implements OnInit, OnChanges {
     if (selectedColumns.length === 0) {
       this.tableConfigs.columns = [...this.clonedTableConfigs.columns];
     } else {
-      const columns = [...this.clonedTableConfigs.columns];
-
-      const filteredColumns = columns.filter((col) =>
-        selectedColumns.some((sCol: string) => col.name === sCol)
       const columns = this.clonedTableConfigs.columns;
 
       const lastColumn = columns[columns.length - 1];
@@ -228,14 +224,6 @@ export class DataTableComponent implements OnInit, OnChanges {
       const filteredColumns = columns.filter(col =>
         selectedColumns.includes(col.name)
       );
-      // if(filteredColumns[filteredColumns.length - 1].name =="id"){
-
-        this.tableConfigs.columns = [...filteredColumns];
-      // } else{
-      //   filteredColumns.push(this.clonedTableConfigs.columns[this.clonedTableConfigs.columns.length - 1])
-      //   this.tableConfigs.columns = [...filteredColumns];
-      // }
-
 
       if (!filteredColumns.includes(lastColumn)) {
         filteredColumns.push(lastColumn);
