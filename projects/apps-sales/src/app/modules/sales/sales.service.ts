@@ -578,4 +578,28 @@ getPricePolicyById(id: number) {
     }
   });
 }
+
+editPricePolicy(PricePolicy: any) {
+  this.loaderService.show();
+  this.salesProxy.editPricePolicy(PricePolicy).subscribe({
+    next: (res) => {
+      this.toasterService.showSuccess(
+        this.languageService.transalte('messages.success'),
+        this.languageService.transalte('messages.successfully')
+      );
+      if (res) {
+        this.loaderService.hide();
+        this.router.navigateTo('/masterdata/price-policy');
+      }
+    },
+    error: (err) => {
+      this.loaderService.hide();
+      this.toasterService.showError(
+        this.languageService.transalte('messages.error'),
+        (err.message)
+      );
+    },
+  });
+
+}
 }

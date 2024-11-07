@@ -244,4 +244,7 @@ export class SalesProxyService {
   GetPricePolicyById(id: number): Observable<any[]> {
     return this.httpService.get<any[]>(`PricePolicy/${id}`);
   }
+  editPricePolicy(policy: any): Observable<any> {
+    return this.httpService.put(`PricePolicy`, policy, false);
+  }
 }

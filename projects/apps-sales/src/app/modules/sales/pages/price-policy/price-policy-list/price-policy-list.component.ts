@@ -62,7 +62,7 @@ export class PricePolicyListComponent implements OnInit {
 
   routeToEdit(id: number) {
     this.routerService.navigateTo(
-      `masterdata/pricelist/edit/${id}`
+      `masterdata/price-policy/edit/${id}`
     );
   }
 

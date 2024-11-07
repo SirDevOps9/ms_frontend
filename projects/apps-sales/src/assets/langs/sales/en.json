@@ -1,6 +1,11 @@
 {
+    "title":{
+        "add": "Add Price Policy",
+        "edit": "Edit Price Policy"    
+    },
     "BreadCrumb": {
         "add": "Add",
+        "edit": "Edit",
         "sequence": "sequence"
     },
     "pricePolicy": {

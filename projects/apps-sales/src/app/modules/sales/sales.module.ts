@@ -26,6 +26,7 @@ import { MultiSelectItemsComponent } from './components/multi-select-items/multi
 import { AddPricePolicyComponent } from './pages/pricelist/add-price-policy/add-price-policy.component';
 import { UpdetePricePolicyComponent } from './components/updete-price-policy/updete-price-policy.component';
 import { PopupExcelComponent } from './components/popup-excel/popup-excel.component';
+import { EditPricePolicyComponent } from './pages/price-policy/edit-price-policy/edit-price-policy.component';
 const routes: Routes = [
   {
     path: '',
@@ -190,7 +191,16 @@ const routes: Routes = [
             //  canActivate: [AuthGuard],
             data: {
               breadcrumb: BreadcrumbLabel.PRICE_POLICY_ADD,
-              pageTitle:BreadcrumbLabel.PRICE_POLICY_ADD,
+              pageTitle:BreadcrumbLabel.TITLE_PRICE_POLICY_ADD,
+            }
+          },
+          {
+            path: 'edit/:id',
+            component: EditPricePolicyComponent,
+            //  canActivate: [AuthGuard],
+            data: {
+              breadcrumb: BreadcrumbLabel.PRICE_POLICY_EDIT,
+              pageTitle:BreadcrumbLabel.TITLE_PRICE_POLICY_EDIT,
             }
           },
           {
@@ -232,7 +242,8 @@ const routes: Routes = [
     AddPricePolicyComponent,
     MultiSelectItemsComponent,
     UpdetePricePolicyComponent,
-    PopupExcelComponent
+    PopupExcelComponent,
+    EditPricePolicyComponent
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule 
   ],
