@@ -61,12 +61,12 @@
         <ng-container search>
           <div>
             <span class="p-input-icon-left">
-              <i class="pi pi-search"></i>
               <lib-text-input
               type="text"
               [placeholder]="'itemCategory.search' | translate"
               [(ngModel)]="searchTerm"
               (keyUp)="onSearchChange($event)"
+              [iconUrl]="'pi pi-search'"
               ></lib-text-input>
              
             </span>

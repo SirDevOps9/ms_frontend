@@ -1,5 +1,5 @@
 export interface AddItemCategory {
-    id? :number
+    id :number
     code: string
     nameAr: string
     nameEn: string

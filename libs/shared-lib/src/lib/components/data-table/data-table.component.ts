@@ -1,6 +1,7 @@
 import {
   Component,
   EventEmitter,
+  input,
   Input,
   OnChanges,
   OnInit,
@@ -40,6 +41,7 @@ export class DataTableComponent implements OnInit, OnChanges {
   @Output() pageChange = new EventEmitter<PageInfo>();
   @Output() addNew = new EventEmitter<boolean>(false);
   @Input() showCheckBox: boolean;
+  @Input() noColumnFilter : boolean = true
 
   selectedRows: any[] = [];
   
@@ -72,8 +74,9 @@ export class DataTableComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.isRtl = this.languageService.ar;
-    // this.showColumnFilter = this.tableConfigs?.columns?.some(x=>x.name == 'id')
+    
     this.filtered_columns = this.tableConfigs.columns
+    
     this.selected_filtered_columns = this.filtered_columns.map((option) => option.name);
     this.searchColumnsControl.setValue(this.selected_filtered_columns as any);
     this.globalFilterFields = this.tableConfigs.columns
@@ -194,7 +197,6 @@ export class DataTableComponent implements OnInit, OnChanges {
           this.currentSortOrder,
           columnName
         );
-        console.log('page info', pageInfo);
         this.onPageChange(pageInfo);
         this.exportObj.emit({SortBy:this.currentSortOrder , SortColumn : this.currentSortColumn as string})
       }, 100);
@@ -208,23 +210,28 @@ export class DataTableComponent implements OnInit, OnChanges {
     private routerService: RouterService
   ) { }
 
+
   handleFilterColumns(selectedColumns: string[]) {
+    
     if (selectedColumns.length === 0) {
       this.tableConfigs.columns = [...this.clonedTableConfigs.columns];
     } else {
-      const columns = [...this.clonedTableConfigs.columns];
+      const columns = this.clonedTableConfigs.columns;
       
-      const filteredColumns = columns.filter((col) =>
-        selectedColumns.some((sCol: string) => col.name === sCol)
+      const lastColumn = columns[columns.length - 1];
+      
+      const filteredColumns = columns.filter(col =>
+        selectedColumns.includes(col.name)
       );
-      // if(filteredColumns[filteredColumns.length - 1].name =="id"){
-
-        this.tableConfigs.columns = [...filteredColumns];
-      // } else{
-      //   filteredColumns.push(this.clonedTableConfigs.columns[this.clonedTableConfigs.columns.length - 1])
-      //   this.tableConfigs.columns = [...filteredColumns];
-      // }
-             
+      
+      if (!filteredColumns.includes(lastColumn)) {
+        filteredColumns.push(lastColumn);
+      }
+  
+    
+  
+      this.tableConfigs.columns = [...filteredColumns];
     }
   }
+  
 }

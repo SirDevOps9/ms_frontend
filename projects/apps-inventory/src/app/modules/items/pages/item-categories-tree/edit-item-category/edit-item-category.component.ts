@@ -14,6 +14,7 @@ import { LookupEnum, lookupDto, FormsService, customValidators } from 'shared-li
 import { ItemsService } from '../../../items.service';
 import { AddItemCategory } from '../../../models';
 import { HttpResponse } from '@angular/common/http';
+
 @Component({
   selector: 'app-edit-item-category',
   templateUrl: './edit-item-category.component.html',
@@ -29,6 +30,7 @@ export class EditItemCategoryComponent {
   accountTags: TagDropDownDto[];
   parentCategoryList: { id: number; name: string }[] = [];
   @Input() resetParentCatId: boolean;
+
   companyDropDown: companyDropDownDto[];
   AccountsDropDownLookup: { id: number; name: string }[] = [];
   categoryType = [
@@ -45,19 +47,24 @@ export class EditItemCategoryComponent {
   parent?: AccountByIdDto;
   accountTypeIdValue: number;
   showCategory: boolean = true;
+
   selectedPeriodOption: string = '';
   @Input() parentEditedId?: number;
   @Output() operationCompleted = new EventEmitter<any>();
   constructor(
     private formBuilder: FormBuilder,
     private accountService: AccountService,
+
     private formsService: FormsService,
+
     private itemService: ItemsService
   ) {}
   ngOnInit() {
     this.AccountsDropDown();
+
     this.getParentItemCategoriesDropDown();
     this.getAccountById(this.parentEditedId);
+
     this.formGroup = this.formBuilder.group({
       id: new FormControl(),
       code: [''],
@@ -67,6 +74,7 @@ export class EditItemCategoryComponent {
       isDetailed: [false], // Assuming a boolean default of `false`
       isActive: [false], // Assuming a boolean default of `false`
       categoryType: [null],
+
       purchaseAccountId: [null],
       costOfGoodSoldAccountId: [null],
     });
@@ -78,6 +86,7 @@ export class EditItemCategoryComponent {
       this.formGroup.get('categoryType')?.updateValueAndValidity();
       this.showCategory = false;
     }
+
     this.itemService.EditItemCategoryDataObs.subscribe((res) => {
       if (res) {
         this.formGroup.get('id')?.reset();
@@ -88,11 +97,13 @@ export class EditItemCategoryComponent {
         this.formGroup.get('isActive')?.reset(false); // Reset to null
         this.formGroup.get('isDetailed')?.reset(false); // Reset to default false
         this.formGroup.get('categoryType')?.reset('', { emitEvent: false }); // Reset and retain validators
+
         // Reset all the account-related fields to null
         this.formGroup.get('purchaseAccountId')?.reset(null);
         this.formGroup.get('costOfGoodSoldAccountId')?.reset(null);
       }
     });
+
     this.formGroup.get('isDetailed')?.valueChanges.subscribe((res) => {
       if (res == true) {
         this.formGroup.get('categoryType')?.setValidators(customValidators.required);
@@ -118,12 +129,14 @@ export class EditItemCategoryComponent {
       error: (error: any) => {},
     });
   }
+
   AccountsDropDown() {
     this.itemService.AccountsDropDown();
     this.itemService.AccountsDropDownLookupObs.subscribe((res) => {
       this.AccountsDropDownLookup = res;
     });
   }
+
   onAccountSectionChange(event: any) {
     const sectionId = event;
     if (!sectionId) return;
@@ -131,21 +144,29 @@ export class EditItemCategoryComponent {
     this.accountService.accountTypes.subscribe((typeList) => {
       this.accountTypes = typeList;
     });
+
     this.formGroup.patchValue({ accountTypeId: [] });
   }
+
   onParentAccountChange(event: any) {
     this.formGroup.controls['parentAccountCode']?.setValue(event);
   }
+
   toggleCurrencyVisibility() {
     this.currencyIsVisible = !this.currencyIsVisible;
   }
+
   onRadioButtonChange(value: string) {
     this.selectedPeriodOption = value;
   }
+
   onSubmit() {
     if (!this.formsService.validForm(this.formGroup, false)) return;
+
     let obj: AddItemCategory = this.formGroup.value;
+
     this.itemService.editItemCategory(obj);
+
     this.itemService.EditItemCategoryDataObs.subscribe({
       next: (res: boolean) => {
         if (res) {
@@ -175,6 +196,7 @@ export class EditItemCategoryComponent {
       this.childrenParentsIdsInSubParent = res.childCategoriesDtos
         .filter((x: any) => x.isDetailed != true)
         .map((x: any) => x.id);
+
       if (res.parentId != null) {
         this.hasParentAccount = true;
         this.selectValue = true;
@@ -182,6 +204,7 @@ export class EditItemCategoryComponent {
         this.hasParentAccount = false;
         this.selectValue = true;
       }
+
       this.formGroup?.patchValue({ ...res });
     });
   }
