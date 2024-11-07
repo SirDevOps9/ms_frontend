@@ -249,7 +249,7 @@ this.getUOMS.valueChanges.subscribe((res: any) => {
       code: [null],
       baseUomEn: ['', customValidators.required],
       baseUomAr: ['', customValidators.required],
-      shortName: ['' ,customValidators.length(0,5)],
+      shortName: ['' ,[customValidators.length(0,5) , customValidators.required]],
       uoMs: this.fb.array([]),
       nameEn: ['', customValidators.required],
       nameAr: ['', customValidators.required],
@@ -383,8 +383,15 @@ this.getUOMS.valueChanges.subscribe((res: any) => {
   }
   let itemsArray = this.getUOMS
 
-while (itemsArray.length > i + 1) {
-     itemsArray.removeAt(i + 1);
+
+   
+  while (itemsArray.length > i + 1) {
+    itemsArray.removeAt(i + 1);
+
+      this.filteredSytemUnitLookup = this.sytemUnitLookup
+  
+
+
    }
 
 }
@@ -466,6 +473,15 @@ create_UOM_FormGroup(uomData: any = {}): FormGroup {
       element.nameEn !== this.uomsData[0]?.nameEn &&
       element.nameAr !== this.uomsData[0]?.nameAr
   );
+
+  let uom = this.getUOMS.value
+
+  uom.forEach((item : any) => {
+   this.filteredSytemUnitLookup = this.filteredSytemUnitLookup.filter(elem=> elem.id !== item.systemUnitOfMeasureId)
+   console.log( this.filteredSytemUnitLookup)
+
+ });
+
 
   return formData;
 }
