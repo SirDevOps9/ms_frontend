@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { customValidators, FormsService, LanguageService, RouterService, ToasterService } from 'shared-lib';
 import { MultiSelectItemsComponent } from '../../../components/multi-select-items/multi-select-items.component';
@@ -70,7 +70,7 @@ export class AddPricePolicyComponent implements OnInit {
       });
 
       // Update the main form's validity
-      this.addForm.updateValueAndValidity();
+      this.addForm?.updateValueAndValidity();
       if (!this.formsService.validForm(this.pricePolicyFormArray, false)) return;
 
 

@@ -217,6 +217,7 @@ export class EditPricePolicyComponent {
       rowForm.get('categoryType')?.setValue(selectedItem.categoryType);
       rowForm.get('id')?.setValue(rowIndex + 1);
       rowForm.get('price')?.setValue(selectedItem.price);
+      rowForm.get('isVatApplied')?.setValue(selectedItem.isVatApplied);
 
       const isDuplicate = this.pricePolicyFormArray.controls.some((element: any, index: number) => {
         if (index !== rowIndex) {
@@ -242,6 +243,7 @@ export class EditPricePolicyComponent {
 
         return false;
       });
+      this.setPriceWithVat(rowIndex, selectedItem.price)
     } else {
       if (this.rowDuplicate == rowIndex) {
         this.rowDuplicate = 0
@@ -309,12 +311,9 @@ export class EditPricePolicyComponent {
       },
     });
     this.salesService.pricePolicyListObser.subscribe((res) => {
-  console.log(res ,"000000");
   if(res.id){
     this.initializeFormWithData(res);
-
   }
-
     });
   }
   initializeFormWithData(data: any) {
@@ -324,7 +323,7 @@ export class EditPricePolicyComponent {
       code: data.code,
       name: data.name
     });
-    data?.policyItemsList?.forEach((element: ItemDto, index: number) => {
+    data.policyItemsList.forEach((element: ItemDto, index: number) => {
       this.addNewRow();
       this.setExcelData(index, element.itemId, element);
     });

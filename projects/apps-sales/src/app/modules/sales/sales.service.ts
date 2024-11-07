@@ -572,6 +572,8 @@ validateExcel(excel: any) {
   
 }
 getPricePolicyById(id: number) {
+  this.pricePolicyList.next([]);
+
   this.salesProxy.GetPricePolicyById(id).subscribe((res) => {
     if (res) {
       this.pricePolicyList.next(res);
