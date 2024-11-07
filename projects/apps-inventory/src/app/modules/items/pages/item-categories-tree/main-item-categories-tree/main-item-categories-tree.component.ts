@@ -15,11 +15,7 @@ export class MainItemCategoriesTreeComponent {
   add:boolean=false;
   ref: DynamicDialogRef;
 
-  //@Output() edit = new EventEmitter<boolean>();
-  
-  // toggleView(){
-  //   this.listView=!this.listView 
-  // }
+
   listView(){
     this.Viewlist=true
   }
@@ -39,10 +35,7 @@ export class MainItemCategoriesTreeComponent {
     this.add=event;
   }
   RedirectToConfiguration() {
-    // this.ref = this.dialog.open(ChartOfAccountConfigurationComponent, {
-    //   width: '647px',
-    //   height: '600px',
-    // });
+
   }
   constructor(
     private dialog: DialogService,

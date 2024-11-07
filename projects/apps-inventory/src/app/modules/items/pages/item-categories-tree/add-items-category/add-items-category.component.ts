@@ -198,12 +198,13 @@ export class AddItemsCategoryComponent {
     this.itemService.addItemCategory(obj);
     setTimeout(() => {
       this.itemService.AddItemCategoryLookupObs.subscribe({
-        next: (res: AddItemCategory) => {
-          if (res) {
+        next: (res?: any) => {
+          if (res.id) {
       
 
             this.operationCompleted.emit(res);
           } else {
+            return
           }
         },
         error: (err: Error) => {
