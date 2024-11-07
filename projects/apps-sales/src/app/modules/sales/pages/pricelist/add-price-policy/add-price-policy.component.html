@@ -34,24 +34,18 @@
       <div class="grid mb-3">
         <div class="flex justify-content-between w-full ">
           <div class="">
-            <lib-text-input 
-            
-            (input)="applyFilterGlobal($event, 'contains')"
-            [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'">
+            <lib-text-input (keyUp)="applyFilterGlobal($event , 'contains')"
+              [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'">
 
             </lib-text-input>
-          
+
           </div>
 
           <div class="actions">
-            <lib-button-micro
-                [title]="'upload Excel'"
-                nameClass="outline"
-                iconName="pi pi-file-edit"
-                (click)="getExcel()"
-                >
-                </lib-button-micro>
-            <lib-button-micro [title]="'update price policy'" nameClass="outline" iconName="pi pi-file"
+            <lib-button-micro [title]="'pricePolicy.uploadExcel'|translate" nameClass="outline"
+              iconName="pi pi-file-edit" (click)="getExcel()">
+            </lib-button-micro>
+            <lib-button-micro [title]="'pricePolicy.updatePrice'|translate" nameClass="outline" iconName="pi pi-file"
               (click)="update()">
             </lib-button-micro>
           </div>
@@ -59,13 +53,10 @@
 
 
       </div>
-      <p-table
-      #dt
-      [globalFilterFields]="['itemVariantName']"
+      <p-table #dt [globalFilterFields]="['itemVariantName']" [resizableColumns]="true"
+        [value]="pricePolicyFormArray.controls" dataKey="id" styleClass="p-datatable-gridlines p-datatable-striped"
+        [tableStyle]="{ 'min-width': '50rem' }">
 
-      [resizableColumns]="true" [value]="pricePolicyFormArray.controls" dataKey="id"
-        styleClass="p-datatable-gridlines p-datatable-striped" [tableStyle]="{ 'min-width': '50rem' }">
-    
         <ng-template pTemplate="header">
           <tr>
             <th>{{ 'pricePolicy.code' | translate }}</th>
@@ -82,13 +73,13 @@
         <ng-template pTemplate="body" let-pricePolicy let-rowIndex="rowIndex">
           <tr [formGroup]="pricePolicy">
             <td [pEditableColumn]="pricePolicy.itemId" pEditableColumnField="itemId" field="code">
-              <p-cellEditor >
+              <p-cellEditor>
                 <ng-template pTemplate="input">
                   <div class="flex gap-2 align-items-center">
 
                     <lib-select [options]="items" optionValue="id" [customClass]="'add-journal'" optionLabel="itemCode"
                       formControlName="itemId"
-                      (valueChanged)="setRowData(rowIndex ,pricePolicy.controls['itemId'].value  )"
+                      (valueChanged)="setRowData(rowIndex ,pricePolicy.controls['itemId'].value  , 0 )"
                       [selectedValue]="pricePolicy.controls['itemId'].value">
 
                     </lib-select>
@@ -96,7 +87,7 @@
 
                   </div>
                 </ng-template>
-                <ng-template pTemplate="output" >
+                <ng-template pTemplate="output">
                   {{ pricePolicy.get('itemCode').value }}
                 </ng-template>
               </p-cellEditor>

@@ -8,6 +8,7 @@ import { SalesService } from '../../../sales.service';
 import { UpdetePricePolicyComponent } from '../../../components/updete-price-policy/updete-price-policy.component';
 import { Table } from 'primeng/table'; // Import Table
 import { PopupExcelComponent } from '../../../components/popup-excel/popup-excel.component';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-add-price-policy',
@@ -28,6 +29,18 @@ export class AddPricePolicyComponent implements OnInit {
 
   ngOnInit() {
 
+    this.salesService.pricePolicyListObser.pipe(
+      take(2)  // This will take only the first emission and then complete
+    ).subscribe((res) => {
+      if (res?.policyItemsList?.length > 0) {
+        res?.policyItemsList?.forEach((element: any, index: number) => {
+          this.addNewRow();
+          this.setExcelData(index, element.itemId, element);
+        });
+
+      }
+
+    });
     this.subscribes()
     this.initItemsData()
     this.initializeForm()
@@ -54,9 +67,9 @@ export class AddPricePolicyComponent implements OnInit {
       policyItemsList.controls.forEach((control) => {
         control.get('price')?.clearValidators();
         control.get('price')?.updateValueAndValidity(); // Update each control after setting validators
-      
+
       });
-      
+
       // Update the main form's validity
       this.addForm.updateValueAndValidity();
       if (!this.formsService.validForm(this.pricePolicyFormArray, false)) return;
@@ -72,7 +85,7 @@ export class AddPricePolicyComponent implements OnInit {
           uomName: new FormControl(''),
           itemVariantId: new FormControl(''),
           itemVariantName: new FormControl(''),
-          price: new FormControl(Number(), [customValidators.required]),
+          price: new FormControl(Number(0), [customValidators.required]),
           priceWithVat: new FormControl(0),
           taxId: new FormControl(null),
           taxRatio: new FormControl(''),
@@ -90,7 +103,7 @@ export class AddPricePolicyComponent implements OnInit {
       );
       newLine.updateValueAndValidity();
       this.pricePolicyFormArray.push(newLine);
-      
+
       this.filteredPricePolicies = this.pricePolicyFormArray
     } else {
       this.toasterService.showError(
@@ -100,7 +113,7 @@ export class AddPricePolicyComponent implements OnInit {
     }
   }
 
-  setRowData(rowIndex: number, selectedItemId: number) {
+  setRowData(rowIndex: number, selectedItemId: number, price: number) {
     const selectedItem = this.items.find(item => item.id === selectedItemId);
     const rowForm = this.pricePolicyFormArray.at(rowIndex) as FormGroup;
 
@@ -125,7 +138,92 @@ export class AddPricePolicyComponent implements OnInit {
       rowForm.get('uomNameAr')?.setValue(selectedItem.uomNameAr);
       rowForm.get('uomNameEn')?.setValue(selectedItem.uomNameEn);
       rowForm.get('categoryType')?.setValue(selectedItem.categoryType);
-      rowForm.get('id')?.setValue(rowIndex+1);
+      rowForm.get('id')?.setValue(rowIndex + 1);
+      rowForm.get('price')?.setValue(price);
+
+      const isDuplicate = this.pricePolicyFormArray.controls.some((element: any, index: number) => {
+        if (index !== rowIndex) {
+          const { uomId, itemId, itemVariantId } = element.value;
+          const rowUomId = rowForm.get('uomId')?.value;
+          const rowItemId = rowForm.get('itemId')?.value;
+          const rowItemVariantId = rowForm.get('itemVariantId')?.value;
+
+          if (uomId === rowUomId && itemId === rowItemId && itemVariantId === rowItemVariantId) {
+            this.toasterService.showError(
+              this.languageService.transalte('messages.error'),
+              this.languageService.transalte('messages.duplicateItem')
+            );
+            this.rowDuplicate = rowIndex;
+            this.duplicateLine = true;
+            return true; // Stop checking on first match
+          }
+          this.duplicateLine = false;
+
+          return false;
+        }
+        this.duplicateLine = false;
+
+        return false;
+      });
+    } else {
+      if (this.rowDuplicate == rowIndex) {
+        this.rowDuplicate = 0
+      }
+      rowForm.reset();
+      rowForm.get('uomOptions')?.setValue([]);
+      const isDuplicate = this.pricePolicyFormArray.controls.some((element: any, index: number) => {
+        if (rowIndex !== index) {
+          const { uomId, itemId, itemVariantId } = element.value;
+          const rowUomId = rowForm.get('uomId')?.value;
+          const rowItemId = rowForm.get('itemId')?.value;
+          const rowItemVariantId = rowForm.get('itemVariantId')?.value;
+
+          if (uomId === rowUomId && itemId === rowItemId && itemVariantId === rowItemVariantId) {
+            this.toasterService.showError(
+              this.languageService.transalte('messages.error'),
+              this.languageService.transalte('messages.duplicateItem')
+            );
+            this.rowDuplicate = rowIndex
+            this.duplicateLine = true
+            return true; // يوقف التكرار عند أول تطابق
+          }
+          this.rowDuplicate = 0
+          this.duplicateLine = false
+
+          return false;
+        }
+        return false;
+      });
+
+    }
+
+  }
+  setExcelData(rowIndex: number, selectedItemId: number, selectedItem: any) {
+    const selectedItems = this.items.find(item => item.id === selectedItemId);
+    const rowForm = this.pricePolicyFormArray.at(rowIndex) as FormGroup;
+
+    if (selectedItems) {
+      const uomOptions: any = selectedItem.itemsUOM;
+      rowForm.get('uomOptions')?.setValue(uomOptions);
+      rowForm.get('uomId')?.reset(); // Reset the UOM value to avoid conflicts
+      rowForm.get('uomId')?.setValue(selectedItem.uomId);
+      rowForm.get('uomName')?.setValue(selectedItem.uomNameEn);
+      rowForm.get('itemName')?.setValue(selectedItem.itemName);
+      rowForm.get('itemVariantId')?.setValue(selectedItem.itemVariantId);
+      rowForm.get('itemVariantName')?.setValue(selectedItem.itemVariantName);
+      rowForm.get('itemId')?.setValue(selectedItem.itemId);
+      rowForm.get('itemCode')?.setValue(selectedItem.itemCode);
+      rowForm.get('taxId')?.setValue(selectedItem.taxId || null);
+      rowForm.get('taxRatio')?.setValue(selectedItem.taxRatio);
+
+      // Additional fields
+      rowForm.get('itemCategoryNameAr')?.setValue(selectedItem.itemCategoryNameAr);
+      rowForm.get('itemCategoryNameEn')?.setValue(selectedItem.itemCategoryNameEn);
+      rowForm.get('hasExpiryDate')?.setValue(selectedItem.hasExpiryDate);
+      rowForm.get('uomNameAr')?.setValue(selectedItem.uomNameAr);
+      rowForm.get('uomNameEn')?.setValue(selectedItem.uomNameEn);
+      rowForm.get('categoryType')?.setValue(selectedItem.categoryType);
+      rowForm.get('id')?.setValue(rowIndex + 1);
       rowForm.get('price')?.setValue(selectedItem.price);
 
       const isDuplicate = this.pricePolicyFormArray.controls.some((element: any, index: number) => {
@@ -183,15 +281,15 @@ export class AddPricePolicyComponent implements OnInit {
       });
 
     }
-    console.log(this.pricePolicyFormArray.value ,"pppppppppppppppp");
-    
+
   }
+
 
   setPriceWithVat(index: number, price: any) {
     const rowForm = this.pricePolicyFormArray.at(index) as FormGroup;
     rowForm.get('priceWithVat')?.setValue(0);
     const taxRatio: any = rowForm.get('taxRatio')?.value
-    let priceWithVat = Number(price) +( (Number(price) * taxRatio)/100)
+    let priceWithVat = Number(price) + ((Number(price) * taxRatio) / 100)
     if (rowForm.get('isVatApplied')?.value == true) {
       rowForm.get('priceWithVat')?.setValue(priceWithVat);
     } else {
@@ -273,7 +371,7 @@ export class AddPricePolicyComponent implements OnInit {
         rowForm.get('itemId')?.setValue(selectedItems.itemId)
         rowForm.get('itemCode')?.setValue(selectedItems.itemCode)
         rowForm.get('taxId')?.setValue(selectedItems.taxId)
-        rowForm.get('id')?.setValue(index+1)
+        rowForm.get('id')?.setValue(index + 1)
       }
 
     });
@@ -298,8 +396,6 @@ export class AddPricePolicyComponent implements OnInit {
               );
 
               if (index !== -1) {
-                console.log(item);
-                
                 this.pricePolicyFormArray.at(index).patchValue(item);
                 this.setPriceWithVat(index, item.price)
               }
@@ -354,128 +450,90 @@ export class AddPricePolicyComponent implements OnInit {
 
   }
   save() {
-if( this.addForm.value.policyItemsList.length>0){
-    if (!this.duplicateLine ) {
-      const policyItemsList = this.addForm.get('policyItemsList') as FormArray;
+    if (this.addForm.value.policyItemsList.length > 0) {
+      if (!this.duplicateLine) {
+        const policyItemsList = this.addForm.get('policyItemsList') as FormArray;
 
-      // Assign validators for each item in the FormArray
-      policyItemsList.controls.forEach((control) => {
-        control.get('price')?.setValidators([customValidators.nonZero, customValidators.required]);
-        control.get('price')?.updateValueAndValidity(); // Update each control after setting validators
-      
-      });
-      
-      // Update the main form's validity
-      this.addForm.updateValueAndValidity();
-      if (!this.formsService.validForm(this.addForm , false)) return;
+        // Assign validators for each item in the FormArray
+        policyItemsList.controls.forEach((control) => {
+          control.get('price')?.setValidators([customValidators.nonZero, customValidators.required]);
+          control.get('price')?.updateValueAndValidity(); // Update each control after setting validators
 
-      const transformedFormValue = {
-        ...this.addForm.value,
-        policyItemsList: this.addForm.value.policyItemsList.map((detail: any) => ({
-          price: Number(detail.price),  // Ensure price is a number
-          priceWithVat: Number(detail.priceWithVat),  // If applicable
-          itemId: detail.itemId,
-          uomId: detail.uomId,
-          itemVariantId: detail.itemVariantId,
-          isVatApplied: detail.isVatApplied, // Ensure it's a boolean
-          taxId: detail.taxId|| null,
-        }
-      )),
-      };
+        });
 
-      this.salesService.addPricePolicy(transformedFormValue);
+        // Update the main form's validity
+        this.addForm.updateValueAndValidity();
+        if (!this.formsService.validForm(this.addForm, false)) return;
+
+        const transformedFormValue = {
+          ...this.addForm.value,
+          policyItemsList: this.addForm.value.policyItemsList.map((detail: any) => ({
+            price: Number(detail.price),  // Ensure price is a number
+            priceWithVat: Number(detail.priceWithVat),  // If applicable
+            itemId: detail.itemId,
+            uomId: detail.uomId,
+            itemVariantId: detail.itemVariantId,
+            isVatApplied: detail.isVatApplied, // Ensure it's a boolean
+            taxId: detail.taxId || null,
+          }
+          )),
+        };
+
+        this.salesService.addPricePolicy(transformedFormValue);
+      } else {
+        this.toasterService.showError(
+          this.languageService.transalte('messages.error'),
+          this.languageService.transalte('messages.duplicateItem')
+        );
+      }
     } else {
       this.toasterService.showError(
         this.languageService.transalte('messages.error'),
-        this.languageService.transalte('messages.duplicateItem')
+        this.languageService.transalte('messages.noItemsToAdd')
       );
     }
-  } else {
-    this.toasterService.showError(
-      this.languageService.transalte('messages.error'),
-      this.languageService.transalte('messages.noItemsToAdd')
-    );
   }
-}
 
 
   cancel() {
     this.router.navigateTo('/masterdata/price-policy');
   }
-  applyFilterGlobal($event: any, stringVal: any) {
-    this.dt.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
+
+  applyFilterGlobal(event: any, stringVal: string) {
+    const inputElement = event.target as HTMLInputElement;
+    if (inputElement) {
+      this.dt.filterGlobal(inputElement.value, stringVal);
+    }
   }
-  // getExcel(){
-  //   // PopupExcelComponent
-  //     const ref = this.dialog.open(PopupExcelComponent, {
-  //       width: '600px',
-  //       height: '450px',
-  //     });
-  //     ref.onClose.subscribe((selectedItems: any) => {
-  //       if (selectedItems) {
-  //         console.log(selectedItems ,"2222222222");
-  //       // Define the comparison function to check if two objects are identical
-  //     const areObjectsEqual = (obj1: any, obj2: any): boolean => {
-  //       return Object.keys(obj1).every(key => obj1[key] === obj2[key]) &&
-  //              Object.keys(obj2).every(key => obj1[key] === obj2[key]);
-  //     };
 
-  //     // Example usage to compare all items in selectedItems with each other
-  //     const uniqueItems = selectedItems.filter((item, index, self) =>
-  //       index === self.findIndex(otherItem => areObjectsEqual(item, otherItem))
-  //     );
-  //         const policyItemsList = selectedItems.map((item:any) => ({
-  //           itemCode: item.itemCode,
-  //           uomCode: item.uomCode,
-  //           itemVariantCode: item.itemVariantCode,
-  //           price: item.price
-  //         }));
-          
-  //         console.log({ policyItemsList } ,"0000");
-  //         this.salesService.validateExcel({ policyItemsList })
-  //         this.salesService.listOfExcelObser.subscribe((res:any)=>{
-  //           res.forEach((element:any, index:number) => {
-  //             console.log(element ,"55555");
-  //             this.addNewRow()
-  //             this.setRowData(index , element.itemId)
-
-  //             // this.pricePolicyFormArray.push(element)
-
-  //           });
-  //         })
-  //       }
-  // })}
   getExcel() {
     const ref = this.dialog.open(PopupExcelComponent, {
       width: '600px',
       height: '450px',
     });
-  
+
     ref.onClose.subscribe((selectedItems: any[]) => {
       if (selectedItems) {
-        console.log(selectedItems, "Selected items:");
-  
+
         // Helper function to compare two objects for equality
         const areObjectsEqual = (obj1: any, obj2: any): boolean => {
           return Object.keys(obj1).every(key => obj1[key] === obj2[key]) &&
-                 Object.keys(obj2).every(key => obj1[key] === obj2[key]);
+            Object.keys(obj2).every(key => obj1[key] === obj2[key]);
         };
-  
+
         // Loop through selectedItems to find duplicates
         const duplicates: any[] = [];
         for (let i = 0; i < selectedItems.length; i++) {
           for (let j = i + 1; j < selectedItems.length; j++) {
             if (areObjectsEqual(selectedItems[i], selectedItems[j])) {
               duplicates.push(selectedItems[i]);
-              // console.log('Duplicate found:', selectedItems[i]);
             }
           }
         }
-  
+
         // Proceed if there are no duplicates
         if (duplicates.length === 0) {
-          console.log(selectedItems ,"888888888");
-          
+
           const policyItemsList = selectedItems.map((item: any) => ({
             itemCode: item.itemCode,
             uomCode: item.uomCode,
@@ -484,18 +542,15 @@ if( this.addForm.value.policyItemsList.length>0){
             taxId: item.taxId
 
           }));
-  
-          console.log({ policyItemsList }, "Final policy items list:");
+
           this.salesService.validateExcel({ policyItemsList });
-  
+
           this.salesService.listOfExcelObser.subscribe((res: any) => {
-            console.log(this.pricePolicyFormArray.value.length ,"555555555");
-            const rowLength:number = this.pricePolicyFormArray.value.length
-            
+            const rowLength: number = this.pricePolicyFormArray.value.length
+
             res.forEach((element: any, index: number) => {
-              console.log(element, "Processed item:");
               this.addNewRow();
-              this.setRowData(index+rowLength, element.itemId);
+              this.setExcelData(index + rowLength, element.itemId, element);
             });
           });
         } else {
@@ -507,8 +562,8 @@ if( this.addForm.value.policyItemsList.length>0){
       }
     });
   }
-  
-  
+
+
   constructor(
     private formBuilder: FormBuilder,
     private formsService: FormsService,

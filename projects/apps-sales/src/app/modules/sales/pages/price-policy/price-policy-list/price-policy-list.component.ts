@@ -84,4 +84,8 @@ export class PricePolicyListComponent implements OnInit {
       });
     }
 
+    addWithData(id: number) {
+this.salesService.getPricePolicyById(id)
+this.routerService.navigateTo(`masterdata/price-policy/add`);
+    }
 }
