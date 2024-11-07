@@ -3,6 +3,7 @@
       <div class="user_page">
         <lib-data-table
           [items]="tableData"
+
           className="p-datatable-gridlines"
           [currentPageResult]="currentPageInfo"
           (pageChange)="onPageChange($event)"
@@ -135,7 +136,7 @@
             <div class="actions flex align-items-center">
               <img src="assets/images/table/edit.svg" alt="" (click)="onEdit(action)" />
               <img src="assets/images/table/delete.svg" alt="" (click)="onDelete(action.id)" />
-              <img src="assets/images/table/view.svg" alt="" (click)="onViewttributeValuesList(action)" />
+              <img src="assets/images/table/view.svg" alt="" (click)="onViewttributeValuesList(action.id)" />
 
             </div>
           </ng-template>

@@ -1436,12 +1436,13 @@ getOperationalTagById(id: number) {
 
 addOperationTag(obj: AddOperatioalTag) {
   this.itemProxy.addOperationTag(obj).subscribe((res) => {
+    this.sendOperationTag.next(res);
     this.toasterService.showSuccess(
       this.languageService.transalte('OperationalTag.SuccessDone'),
       this.languageService.transalte('OperationalTag.SuccessAdd'),
 
     );
-    this.sendOperationTag.next(res);
+
   });
 }
 editOperationalTag(obj: AddOperatioalTag) {
@@ -1490,8 +1491,9 @@ async deleteOperationalTag(id: number) {
     this.itemProxy.deleteOperationalTag(id).subscribe({
       next: (res) => {
         this.toasterService.showSuccess(
-          this.languageService.transalte('OperationalTag.Success'),
-          this.languageService.transalte('OperationalTag.delete')
+          this.languageService.transalte('OperationalTag.delete'),
+          this.languageService.transalte('OperationalTag.Success')
+
         );
 
         const currentOperationTag = this.listOfOperationalTag.getValue();

@@ -9,6 +9,7 @@ import { IAttrributeDifinitionResult } from '../../../models/AttrbuteDiffintion'
 import { AttributeDefinitionValuesComponent } from '../attribute-definition-values/attribute-definition-values/attribute-definition-values.component';
 import { AttributeDefinitionListValuesComponent } from '../attribute-definition-list-values/attribute-definition-list-values/attribute-definition-list-values.component';
 import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
+import { TranslateService } from '@ngx-translate/core';
 
 interface Attribute {
   nameEn: string;
@@ -45,7 +46,9 @@ action: any;
     public authService: AuthService,
     private dialog: DialogService,
     private title: Title,
+    private translate: TranslateService,
     private langService: LanguageService,
+
 
   ){
     this.title.setTitle(this.langService.transalte('attributeDefinition.attributeDefinition'));
@@ -113,14 +116,21 @@ action: any;
     this.exportAttrData(this.searchTerm);
   }
   exportAttrData(searchTerm: string) {
+    const columns = [
+      { name: 'nameEn', headerText: this.translate.instant('attributeDefinition.attribute') },
+      { name: 'itemAttributes', headerText: this.translate.instant('attributeDefinition.values') },
+      { name: 'isActive', headerText: this.translate.instant('attributeDefinition.status') },
+      { name: 'id', headerText: this.translate.instant('attributeDefinition.action') }
+    ];
+
     this.itemService.exportAttrDifinitionList(searchTerm);
 
     this.itemService.SendexportAttrDifinitionList$.subscribe((res) => {
- 
-      this.exportData = this.exportService.formatItemAttributes(res);
+      this.exportData = this.exportService.formatItemAttributes(res, columns);
       console.log('Export data:', this.exportData);
     });
   }
+
 
   onEdit(data: any) {
     console.log(data);

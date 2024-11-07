@@ -4,6 +4,8 @@ import { AuthService } from 'microtec-auth-lib';
 import { PageInfoResult, RouterService, LanguageService, PageInfo, ToasterService } from 'shared-lib';
 import { ItemsService } from '../../../items.service';
 import { IOperationalTagResult } from '../../../models';
+import { TranslateService } from '@ngx-translate/core';
+import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
 
 @Component({
   selector: 'app-operation-tag-list',
@@ -21,10 +23,11 @@ export class OperationTagListComponent implements OnInit {
     private routerService: RouterService,
     private itemService: ItemsService,
     private toaserService: ToasterService,
-
+    private translate: TranslateService,
     public authService: AuthService,
     private title: Title,
-    private langService: LanguageService
+    private langService: LanguageService,
+    private exportService:ExportService
   ) {
     this.title.setTitle(this.langService.transalte('OperationalTag.OperationalTag'));
   }
@@ -85,15 +88,27 @@ export class OperationTagListComponent implements OnInit {
   exportOperationalData(searchTerm: string) {
     this.itemService.ExportOperationalTagList(searchTerm);
 
+    const columns = [
+      { name: 'name', headerText: this.translate.instant('OperationalTag.name') },
+      { name: 'operationType', headerText: this.translate.instant('OperationalTag.operationType') },
+      { name: 'warehouseName', headerText: this.translate.instant('OperationalTag.warehouseName') },
+      { name: 'glAccountId', headerText: this.translate.instant('OperationalTag.glAccountId') },
+      { name: 'code', headerText: this.translate.instant('OperationalTag.code') },
+    ];
+
     this.itemService.SendExportOperationalTagList$.subscribe((res) => {
-      this.exportData = res;
+      this.exportData = this.exportService.formatCiloma(res, columns);
+
     });
   }
 
 
 
+
+
   onEdit(data: any) {
     this.routerService.navigateTo(`/masterdata/operational-tag/edit-operational-tag/${data.id}`);
+    this.initOperationalTagData()
   }
   onDelete(id: number) {
     this.itemService.deleteOperationalTag(id);

@@ -150,7 +150,8 @@
     "unitusage":"Unit usage",
     "tax":"Tax",
     "variantID":"variant ID",
-    "variantName":"variant name"
+    "variantName":"variant name",
+    "isActive":"isActive"
   },
   "warehouse": {
     "Add" : "Add",
@@ -254,7 +255,7 @@
 
   },
   "attributeDefinition": {
-    "Add": "Add New",
+    "Add": "Create",
     "action": "action",
     "add_new_value": "Add Line",
     "value": "Value",
@@ -298,11 +299,11 @@
     "valueEn": "Value English",
     "values": "Value",
     "valueAr": "Value Arabic",
-    "selectattributesvalues":"Select attributes values"
+    "selectattributesvalues":"Select attributes values",
+    "codeAuto":"Auto Generate"
   },
   "OperationalTag": {
     "Add": "Add",
-
     "action": "actions",
     "value": "Value",
     "success": "Success",

@@ -16,6 +16,8 @@ import { itemDefinitionDto } from '../../../models';
 import { AddItemDefinitionPopupComponent } from '../../../components/add-item-definition/add-item-definition-popup.component';
 import { EditItemDefinitionComponent } from '../../../components/edit-item-definition/edit-item-definition.component';
 import { ViewItemDefinitionComponent } from '../../../components/view-item-definition/view-item-definition/view-item-definition.component';
+import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-item-definition-list',
@@ -28,8 +30,9 @@ export class ItemDefinitionListComponent implements OnInit {
     public authService: AuthService,
     private dialog: DialogService,
     private title: Title,
-    private langService: LanguageService,
-    private itemsService: ItemsService
+    private translate: TranslateService,
+    private itemsService: ItemsService,
+    private exportService:ExportService
   ) {}
 
   tableData: itemDefinitionDto[];
@@ -89,10 +92,22 @@ export class ItemDefinitionListComponent implements OnInit {
 
   exportBankData(searchTerm: string) {
     this.itemsService.exportsItemsDefinitionList(searchTerm);
+    const columns = [
+      { name: 'code', headerText: this.translate.instant('itemDefinition.code') },
+      { name: 'name', headerText: this.translate.instant('itemDefinition.name') },
+      { name: 'typeName', headerText: this.translate.instant('itemDefinition.type') },
+      { name: 'itemCategoryName', headerText: this.translate.instant('itemDefinition.category') },
+      { name: 'uomName', headerText: this.translate.instant('itemDefinition.uom') },
+      { name: 'isActive', headerText: this.translate.instant('itemDefinition.isActive') },
+
+    ];
     this.itemsService.exportedItemDefinitionListDataSource.subscribe((res) => {
-      this.exportData = res;
+      this.exportData = this.exportService.formatCiloma(res, columns);
+
     });
   }
+
+
 
   onAdd() {
     const dialogRef = this.dialog.open(AddItemDefinitionPopupComponent, {
