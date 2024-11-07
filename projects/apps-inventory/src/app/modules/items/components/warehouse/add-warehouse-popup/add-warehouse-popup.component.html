@@ -44,18 +44,22 @@
               </div>
               <div class="col-12 my-2">
                 <lib-form-group>
-
-                  <lib-select
-                    placeholder="{{ 'warehouse.warehouseType' | translate }}"
-                    [options]="warehouseType"
-                    optionLabel="label"
-                    optionValue="value"
-                    formControlName="warehouseType"
-                  ></lib-select>
+                  <lib-form-group>
+                    <lib-select
+                    placeholder="{{ warehouseType[0].label }}"
+                      [options]="warehouseType"
+                      optionLabel="label"
+                      optionValue="value"
+                      formControlName="warehouseType"
+                    ></lib-select>
+                    <lib-field-validations [appControl]="warehouseForm.controls['warehouseType']">
+                    </lib-field-validations>
+                  </lib-form-group>
                   <lib-field-validations [appControl]="warehouseForm.controls['warehouseType']">
                   </lib-field-validations>
                 </lib-form-group>
               </div>
+
 
 
             </div>
