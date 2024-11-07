@@ -48,8 +48,8 @@
                 isGlobalFilter: true,
                 isSortable: true
               },
-             
-  
+
+
               {
                 name: 'id',
                 headerText: ('itemCategory.actions' | translate),
@@ -61,14 +61,15 @@
         <ng-container search>
           <div>
             <span class="p-input-icon-left">
-              <i class="pi pi-search"></i>
+     
               <lib-text-input
               type="text"
               [placeholder]="'itemCategory.search' | translate"
               [(ngModel)]="searchTerm"
               (keyUp)="onSearchChange($event)"
+              [iconUrl]="'pi pi-search'"
               ></lib-text-input>
-             
+
             </span>
           </div>
           </ng-container>
@@ -83,8 +84,8 @@
               </lib-export>
             </div>
             </ng-container>
-       
-  
+
+
           <ng-template #actions let-action>
             <div class="actions flex align-items-center">
               <img src="assets/images/table/delete.svg" alt="" (click)="onDelete(action.id)" />
@@ -93,17 +94,16 @@
           <ng-template #isDetails let-isDetails>
             <div class="actions flex align-items-center">
               <lib-input-switch [disabled]="true" [(ngModel)]="isDetails.isDetailed"></lib-input-switch>
-          
+
             </div>
           </ng-template>
           <ng-template #isActive let-isActive>
             <div class="actions flex align-items-center">
               <lib-input-switch [disabled]="true" [(ngModel)]="isActive.isActive "></lib-input-switch>
-          
+
             </div>
           </ng-template>
         </lib-data-table>
       </div>
     </div>
   </lib-page-content>
-  
