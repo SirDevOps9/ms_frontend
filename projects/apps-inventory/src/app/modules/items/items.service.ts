@@ -1323,7 +1323,6 @@ this.itemProxy.getUOMCategoryDropDown().subscribe({
         this.languageService.transalte('warehouse.edit')
       );
 
-
     });
     this.router.navigateTo(`/masterdata/warehouse`);
   }
