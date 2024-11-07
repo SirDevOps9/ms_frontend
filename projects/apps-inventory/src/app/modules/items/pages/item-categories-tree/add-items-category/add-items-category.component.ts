@@ -196,7 +196,6 @@ export class AddItemsCategoryComponent {
 
     let obj: AddItemCategory = this.formGroup.value;
     this.itemService.addItemCategory(obj);
-    setTimeout(() => {
       this.itemService.AddItemCategoryLookupObs.subscribe({
         next: (res?: any) => {
           if (res.id) {
@@ -212,7 +211,6 @@ export class AddItemsCategoryComponent {
           return;
         },
       });
-    }, 200);
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['parentAddedId']) {
