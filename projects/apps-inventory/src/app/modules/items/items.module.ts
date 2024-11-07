@@ -270,6 +270,13 @@ const routes: Routes = [
               breadcrumb: BreadcrumbLabel.Edit_Attribute_Definition,
             },
           },
+          {
+            path: 'list/:id',
+            component: AttributeDefinitionListValuesComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.LIST_Attribute_Definition,
+            },
+          },
         ],
       },
       {

@@ -1,15 +1,19 @@
+.itemAttributes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 15px;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
 
-.itemAttributes-valuse
-{
+.itemAttributes-valuse {
   background: #f2f4f8;
-    border-radius: 20px;
-    padding: 10px;
-    width: fit-content;
-    margin: 0px 10px;
+  border-radius: 20px;
+  padding: 10px;
+  width: fit-content;
+  margin: 5px;
+  text-wrap: wrap;
 }
 
 
-.itemAttributes{
-  display: flex;
-
-}

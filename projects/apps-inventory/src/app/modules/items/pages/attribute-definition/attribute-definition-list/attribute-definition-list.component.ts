@@ -8,6 +8,7 @@ import { ItemsService } from '../../../items.service';
 import { IAttrributeDifinitionResult } from '../../../models/AttrbuteDiffintion';
 import { AttributeDefinitionValuesComponent } from '../attribute-definition-values/attribute-definition-values/attribute-definition-values.component';
 import { AttributeDefinitionListValuesComponent } from '../attribute-definition-list-values/attribute-definition-list-values/attribute-definition-list-values.component';
+
 interface Attribute {
   nameEn: string;
   nameAr?: string;
@@ -178,21 +179,22 @@ onViewttributeValues(selectedId: number) {
   const selectedItem = this.tableData.find(item => item.id === selectedId);
 
   this.dialog.open(AttributeDefinitionValuesComponent, {
-    width: '600px',
-    height: '500px',
+    width: '750px',
+    height: 'auto',
     data: selectedItem,
 
   });
 }
 
-onViewttributeValuesList(selectedId: number) {
-  const selectedItem = this.tableData.find(item => item.id === selectedId);
-  this.dialog.open(AttributeDefinitionListValuesComponent, {
-    width: '950px',
-    height: '700px',
-    data: selectedItem
-  });
-  console.log("Selected Item:", selectedItem);
+onViewttributeValuesList(selectedId: any) {
+  this.routerService.navigateTo(`/masterdata/attribute-definition/list/${selectedId.id}`);
+  // const selectedItem = this.tableData.find(item => item.id === selectedId);
+  // this.dialog.open(AttributeDefinitionListValuesComponent, {
+  //   width: '950px',
+  //   height: '700px',
+  //   data: selectedItem
+  // });
+  // console.log("Selected Item:", selectedItem);
 }
 
 

@@ -66,7 +66,7 @@ export class OperationTagListComponent implements OnInit {
     this.itemService.currentPageInfo.subscribe((currentPageInfo) => {
       this.currentPageInfo = currentPageInfo;
     });
- 
+
   }
   onPageChange(pageInfo: PageInfo) {
     this.itemService.getOperationalTagList('', pageInfo);
@@ -89,6 +89,9 @@ export class OperationTagListComponent implements OnInit {
       this.exportData = res;
     });
   }
+
+
+
   onEdit(data: any) {
     this.routerService.navigateTo(`/masterdata/operational-tag/edit-operational-tag/${data.id}`);
   }

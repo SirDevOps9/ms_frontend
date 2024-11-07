@@ -4,8 +4,8 @@
   [save]="false"
   [showCancel]="false"
 >
-  <!-- First Data Table -->
-  <lib-data-table
+
+  <!-- <lib-data-table
   [items]="tableData"
   className="p-datatable-gridlines"
   [tableConfigs]="{
@@ -19,7 +19,16 @@
       }
     ]
   }"
-></lib-data-table>
+></lib-data-table> -->
+
+
+<div class="itemAttributes">
+  <div *ngFor="let item of tableData" class="col-md-3">
+    <p class="itemAttributes-valuse">
+      {{ item?.nameEn }}
+    </p>
+  </div>
+</div>
 
 
 

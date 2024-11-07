@@ -195,7 +195,7 @@ ParentItemCategoriesDropDown(SearchTerm: string): Observable< {id:number , name:
   return this.httpService.put(`Item/UpdateItemExpiryAndTracking`,obj)
  }
  getInvenrory(id:number) {
-  
+
   return this.httpService.get(`Item/GetItemExpiryAndTracking/${id}`)
 
  }
@@ -352,15 +352,16 @@ EditUOMCategory(obj:addUOM) {
   }
   //   to export operationalTag list
   ExportOperationalTagList(SearchTerm: string | undefined){
-    let url = `OperationalTag/Export`
+    let url = `OperationalTag/ExportOperationalTag`
     if(SearchTerm) url +=`SearchTerm=${encodeURIComponent(SearchTerm)}`
     return this.httpService.get<any>(url)
 
   }
+
+
   //   to export attr list as excel
   ExporAttrList(SearchTerm: string | undefined){
-    let url = `AttributeGroup/Export
-`
+    let url = `AttributeGroup/Export`
     if(SearchTerm) url +=`SearchTerm=${encodeURIComponent(SearchTerm)}`
     return this.httpService.get<any>(url)
 
@@ -408,7 +409,7 @@ EditUOMCategory(obj:addUOM) {
     return this.httpService.get(`OperationalTag/${id}`)
   }
   deleteOperationalTag(id : number ){
-    return this.httpService.delete(`OperationalTag/Delete/${id}`)
+    return this.httpService.delete(`OperationalTag/${id}`)
   }
 
   getUomByItemIdDropDown(id:number) : Observable<any[]> {

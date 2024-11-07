@@ -1,5 +1,7 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { DynamicDialogConfig, DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { ItemsService } from '../../../../items.service';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -9,33 +11,35 @@ import { DynamicDialogConfig, DialogService, DynamicDialogRef } from 'primeng/dy
 })
 export class AttributeDefinitionListValuesComponent {
   shouldShowNameEn: boolean = false;
+  _routeid:number
   constructor(
-    public config: DynamicDialogConfig,
-    public dialogService: DialogService,
-    private ref: DynamicDialogRef,
-    private cdr: ChangeDetectorRef
+  private itemsService :ItemsService,
+  private _route: ActivatedRoute,
+
   ) {}
 
-  tableData: any[] = [];
-
+  attributeValues: any={};
+  attributeValuesList: any[]=[];
 
 
   ngOnInit() {
-    this.tableData = this.config.data ? [this.config.data] : [];
+    this._routeid = this._route.snapshot.params['id'];
 
-   console.log("saqqq" , this.tableData);
 
-    // if (incomingData && Array.isArray(incomingData.itemAttributes)) {
-    //   this.tableData = incomingData.itemAttributes;
-    //   this.shouldShowNameEn = incomingData.showNameEn || false;
-
-    // } else {
-    //   this.tableData = [];
-    // }
+    this.attributeGroupsValue(this._routeid)
 
   }
-  onCancel() {
-    this.ref.close();
+
+  attributeGroupsValue(id: number) {
+    this.itemsService.attributeGroupsValue(id);
+    this.itemsService.attributeValuesDropDownLookupObs.subscribe((res: any) => {
+      this.attributeValues = res;
+      this.attributeValuesList = res
+      console.log(this.attributeValuesList);
+
+
+    });
   }
+
 
 }

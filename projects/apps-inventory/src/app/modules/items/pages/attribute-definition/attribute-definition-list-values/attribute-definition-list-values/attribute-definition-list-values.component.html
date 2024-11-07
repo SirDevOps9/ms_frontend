@@ -1,62 +1,107 @@
-<lib-popup-page
-  title="{{ 'attributeDefinition.attributeValuesList' | translate }}"
-  [closeFunction]="onCancel"
-  [save]="false"
-  [showCancel]="false"
+<lib-page-content
+  [title]="'attributeDefinition.TaxList' | translate"
+  [subTitle]="'attributeDefinitionTaxList' | translate"
 >
-  <!-- Data Table -->
-  <lib-data-table
-    [items]="tableData"
-    className="p-datatable-gridlines"
-    [tableConfigs]="{
-      allowPagination: false,
-      columns: [
-        {
-          name: 'nameEn',
-          headerText: 'attributeDefinition.attributeNameEn' | translate,
-          isGlobalFilter: true,
-          isSortable: true
-        },
-        {
-          name: 'nameAr',
-          headerText: 'attributeDefinition.attributeNameAr' | translate,
-          isGlobalFilter: true,
-          isSortable: true
-        },
-        {
-          name: 'itemAttributes',
-          headerText: 'attributeDefinition.values' | translate,
-          isGlobalFilter: true,
-          isSortable: true,
-          template: itemAttributesTemplate
-        },
-        {
-          name: 'isActive',
-          headerText: 'attributeDefinition.status' | translate,
-          isGlobalFilter: true,
-          isSortable: true,
-          template: isActiveTemplate
-        }
-      ]
-    }"
-  ></lib-data-table>
-
-  <!-- Template for Item Attributes -->
-  <ng-template #itemAttributesTemplate let-row>
-    <div  *ngIf="row.itemAttributes && row.itemAttributes.length > 0"  class="itemAttributes">
-      <p class="itemAttributes-valuse"   *ngFor="let item of row.itemAttributes; let i = index">
-        {{ item.nameEn }}
-      </p>
+  <div class="bank">
+    <div class="card_micro">
+      <div class="entry_header">
+        <div class="grid">
+          <div class="col-12 md:col-4">
+            <lib-form-group>
+              <lib-text-input
+                placeholder="{{ attributeValues?.id }}"
+                [readOnly]="true"
+              ></lib-text-input>
+            </lib-form-group>
+          </div>
+          <div class="col-12 md:col-4">
+            <lib-form-group>
+              <lib-text-input
+                placeholder="{{ attributeValues?.nameEn }}"
+                [readOnly]="true"
+              ></lib-text-input>
+            </lib-form-group>
+          </div>
+          <div class="col-12 md:col-4">
+            <lib-form-group>
+              <lib-text-input
+                placeholder="{{ attributeValues?.nameAr }}"
+                [readOnly]="true"
+              ></lib-text-input>
+            </lib-form-group>
+          </div>
+        </div>
+      </div>
     </div>
-  </ng-template>
+  </div>
 
-  <!-- Template for Is Active -->
-  <ng-template #isActiveTemplate let-row>
-    <div *ngIf="row.isActive != null" class="flex align-items-center">
-      <lib-input-switch
-        [id]="row.id"
-        [ngModel]="row.isActive"
-      ></lib-input-switch>
+  <div class="entry_table">
+    <div class="card">
+      <ng-container caption>
+        <div class="grid m-3 grid-cols-4 gap-2">
+          <div class="col-span-1">
+            <lib-form-group>
+              <lib-text-input
+                type="text"
+                [placeholder]="'attributeDefinition.Search' | translate"
+                [iconUrl]="'pi pi-search'"
+              ></lib-text-input>
+            </lib-form-group>
+          </div>
+        </div>
+      </ng-container>
+
+      <lib-data-table
+        [items]="attributeValuesList"
+        className="p-datatable-gridlines"
+        [tableConfigs]="{
+          dataKey: 'id',
+          columns: [
+            {
+              name: 'itemAttributes',
+              headerText: ('attributeDefinition.values' | translate),
+              isGlobalFilter: false,
+              isSortable: false,
+              template: itemAttributesTemplate
+            },
+            {
+              name: 'isActive',
+              headerText: ('attributeDefinition.status' | translate),
+              isGlobalFilter: true,
+              isSortable: true,
+              template: isActive
+            }
+          ]
+        }"
+      >
+        <ng-template #itemAttributesTemplate let-row>
+          <div class="itemAttributes">
+            <div
+              *ngFor="let item of row.itemAttributes; let i = index"
+              class="item-container"
+            >
+              <p class="itemAttributes-value">{{ item.nameEn }}</p>
+            </div>
+          </div>
+        </ng-template>
+
+        <ng-template #isActive let-row>
+          <div *ngIf="row.isActive != null" class="flex m-1 align-items-center">
+            <lib-input-switch [id]="row.id" [ngModel]="row.isActive">
+            </lib-input-switch>
+            <span
+              [ngClass]="{ 'active-true': row.isActive }"
+              class="ml-2"
+            >
+              {{
+                row.isActive
+                  ? ('global.activeOn' | translate)
+                  : ('global.activeOff' | translate)
+              }}
+            </span>
+          </div>
+        </ng-template>
+      </lib-data-table>
     </div>
-  </ng-template>
-</lib-popup-page>
+  </div>
+</lib-page-content>

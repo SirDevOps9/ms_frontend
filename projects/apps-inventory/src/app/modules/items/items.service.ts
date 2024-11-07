@@ -192,7 +192,7 @@ export class ItemsService {
   public listOfUOM = new BehaviorSubject<IuomResult[]>([]);
   public listOfAttrDifinition = new BehaviorSubject<IAttrributeDifinitionResult[]>([]);
   public listOfOperationalTag = new BehaviorSubject<IOperationalTagResult[]>([]);
-  public SendExportOperationalTagList = new BehaviorSubject<IOperationalTagResult[]>([]);
+  public SendExportOperationalTagList = new BehaviorSubject<any[]>([]);
 
 public userSubDomainModules =  new BehaviorSubject<any[]>([]);
   public sendItemDefinitionDataSourceObs = this.sendItemDefinitionDataSource.asObservable();
@@ -506,11 +506,13 @@ this.itemProxy.getItemBarcodeById(id).subscribe({
   }
   ExportOperationalTagList(SearchTerm: string | undefined) {
     this.itemProxy.ExportOperationalTagList(SearchTerm).subscribe({
-      next: (res: IOperationalTag) => {
-        this.SendExportOperationalTagList.next(res.result);
+      next: (res: any) => {
+        this.SendExportOperationalTagList.next(res);
       },
     });
   }
+
+
   exportAttrDifinitionList(SearchTerm: string | undefined) {
     this.itemProxy.ExporAttrList(SearchTerm).subscribe({
       next: (res: any) => {
