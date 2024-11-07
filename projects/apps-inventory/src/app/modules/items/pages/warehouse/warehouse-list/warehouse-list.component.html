@@ -1,7 +1,7 @@
 <lib-page-content [title]="'warehouse.warehouse' | translate" [subTitle]="'warehouse.warehouse' | translate">
   <div>
     <div class="user_page">
-      <lib-data-table *ngIf="tableData.length>0" [items]="tableData" [showCheckBox]="true"
+      <lib-data-table  [items]="tableData" 
         className="p-datatable-gridlines" [currentPageResult]="currentPageInfo" (pageChange)="onPageChange($event)"
         (exportObj)="exportedColumns($event)" [tableConfigs]="{
             allowPagination: false,
@@ -61,7 +61,7 @@
           </div>
           <!--  -->
           <div>
-            <lib-button-micro [title]="'warehouse.AddNew' | translate" nameClass="save" iconName="pi pi-plus"
+            <lib-button-micro [title]="'warehouse.create' | translate" nameClass="save" iconName="pi pi-plus"
               (click)="onAdd()">
             </lib-button-micro>
           </div>

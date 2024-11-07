@@ -155,6 +155,8 @@
   "warehouse": {
     "Add" : "Add",
     "AddNew" : "Add New",
+
+    "create":"Create",
     "search" : "Search",
     "ChangeColumn" : "Change Column",
     "save" : "Save",
@@ -300,6 +302,7 @@
   },
   "OperationalTag": {
     "Add": "Add",
+
     "action": "actions",
     "value": "Value",
     "success": "Success",
@@ -318,12 +321,15 @@
     "warehouseName": "Warehouse",
     "status": "Status",
     "delete": "Deleted",
+    "SuccessAdd": "Operational Tag updated add successfully",
     "Success": "Operational Tag updated  successfully",
     "actions": "Actions",
     "glAccountId" : "GL Account",
-     "create":"Add New",
+     "create":"Create",
      "codeAuto":"Auto Generate",
-     "oneSelect":"One Select"
+     "oneSelect":"One Select",
+     "Cancel":"Cancel",
+     "SuccessDone":"Success"
 
 
   },

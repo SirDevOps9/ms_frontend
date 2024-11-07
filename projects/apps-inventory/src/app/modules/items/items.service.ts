@@ -671,7 +671,7 @@ editInventory(obj:any){
     });
 }
 getInvenrory(id:number){
-  
+
   this.itemProxy.getInvenrory(id).subscribe(res=>{
     if(res) {
       this.getInventoryData.next(res)
@@ -898,14 +898,14 @@ this.itemProxy.getUOMCategoryDropDown().subscribe({
   }
 
   async DeleteUomLine(id: number) {
- 
+
     const confirmed = await this.toasterService.showConfirm(
       this.languageService.transalte('ConfirmButtonTexttodelete')
     );
     if (confirmed) {
       this.itemProxy.DeleteUomLine(id).subscribe({
         next: (res) => {
-      
+
           this.toasterService.showSuccess(
             this.languageService.transalte('UOM.success'),
             this.languageService.transalte('UOM.delete')
@@ -1435,8 +1435,9 @@ getOperationalTagById(id: number) {
 addOperationTag(obj: AddOperatioalTag) {
   this.itemProxy.addOperationTag(obj).subscribe((res) => {
     this.toasterService.showSuccess(
-      this.languageService.transalte('OperationalTag.Success'),
-      this.languageService.transalte('OperationalTag.Success')
+      this.languageService.transalte('OperationalTag.SuccessDone'),
+      this.languageService.transalte('OperationalTag.SuccessAdd'),
+
     );
     this.sendOperationTag.next(res);
   });
@@ -1446,8 +1447,9 @@ editOperationalTag(obj: AddOperatioalTag) {
     if (res) {
       this.editItemData.next(res);
       this.toasterService.showSuccess(
+        this.languageService.transalte('OperationalTag.SuccessDone'),
         this.languageService.transalte('OperationalTag.Success'),
-        this.languageService.transalte('OperationalTag.Success')
+
       );
       this.router.navigateTo(`/masterdata/operational-tag`);
     }
