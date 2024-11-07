@@ -184,7 +184,7 @@ export class UOMAddComponent implements OnInit {
       code: [null],
       baseUomEn: ['', customValidators.required],
       baseUomAr: ['', customValidators.required],
-      shortName: ['' ,customValidators.length(0,5)],
+      shortName: ['' ,[customValidators.length(0,5) , customValidators.required]],
       uoMs: this.fb.array([]),
       nameEn: ['', customValidators.required],
       nameAr: ['', customValidators.required],
@@ -275,7 +275,7 @@ export class UOMAddComponent implements OnInit {
       uomCategoryId: 0,
       systemUnitOfMeasureName: '',
       systemUnitOfMeasureId: new FormControl(uomData?.systemUnitOfMeasureId || null),
-      fromUnitOfMeasureId: new FormControl(uomData?.fromUnitOfMeasureId || null , customValidators.required),
+      fromUnitOfMeasureId: new FormControl(uomData?.fromUnitOfMeasureId || null ),
     });
 
     this.filteredSytemUnitLookup = this.filteredSytemUnitLookup.filter(
@@ -285,6 +285,15 @@ export class UOMAddComponent implements OnInit {
         element.nameEn !== this.systemUnitData.nameEn &&
         element.nameAr !== this.systemUnitData.nameAr
     );
+    let uom = this.getUOMS.value
+
+     uom.forEach((item : any) => {
+      this.filteredSytemUnitLookup = this.filteredSytemUnitLookup.filter(elem=> elem.id !== item.systemUnitOfMeasureId)
+      console.log( this.filteredSytemUnitLookup)
+
+    });
+
+    
 
     return formData;
   }
@@ -381,10 +390,19 @@ export class UOMAddComponent implements OnInit {
       });
     }
     let itemsArray = this.getUOMS
+   
+    while (itemsArray.length > i + 1) {
+        this.filteredSytemUnitLookup = this.sytemUnitLookup.filter(elem=>elem.systemUnitOfMeasureCategoryId == this.UOMFormGroup.get('systemUnitOfMeasureId')?.value )
+  
+    
+  
+    
+    itemsArray.removeAt(i + 1);
+  
 
-  while (itemsArray.length > i + 1) {
-       itemsArray.removeAt(i + 1);
      }
+
+   
 
   }
 
