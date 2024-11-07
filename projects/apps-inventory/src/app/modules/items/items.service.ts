@@ -563,7 +563,7 @@ this.itemProxy.getItemBarcodeById(id).subscribe({
         this.AddItemCategoryLookup.next(obj);
         this.toasterService.showSuccess(
           this.languageService.transalte('itemsCategory.success'),
-          this.languageService.transalte('itemsCategory.add')
+          this.languageService.transalte('itemsCategory.addSuccess')
 
 
         );
@@ -577,7 +577,7 @@ this.itemProxy.getItemBarcodeById(id).subscribe({
         this.EditItemCategoryData.next(res);
         this.toasterService.showSuccess(
           this.languageService.transalte('itemsCategory.success'),
-          this.languageService.transalte('itemsCategory.edit')
+          this.languageService.transalte('itemsCategory.editSuccses')
         );
       },
     });

@@ -198,6 +198,7 @@
     "save": "حفظ",
     "cancel": "إلغاء",
     "name" : "الاسم",
+    "editSuccses" : "تم التعديل بنجاح",
     "categoryCode": "رمز الفئة",
     "parentCategory": "الفئة الرئيسية",
     "isDetails": "تفاصيل",
