@@ -141,18 +141,17 @@ export class ItemsProxyService {
 
 
  }
-
-//  item category tree
+ //  item category tree
 ParentItemCategoriesDropDown(SearchTerm: string): Observable< {id:number , name:string}[]> {
-    let query = `ItemCategory/ParentItemCategoriesDropDown`;
-    if (SearchTerm) {
-      query += `&SearchTerm=${encodeURIComponent(SearchTerm)}`;
-    }
-    return this.httpService.get< {id:number , name:string}[]>(query)
+  let query = 'ItemCategory/ParentItemCategoriesDropDown';
+  if (SearchTerm) {
+    query += `&SearchTerm=${encodeURIComponent(SearchTerm)}`;
+  }
+  return this.httpService.get< {id:number , name:string}[]>(query)
 
 
- }
-//  #########################
+}
+
  GetUOMCategories(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<UOMCategoryDto>> {
 
     let query = `UOM?${pageInfo.toQuery}`;
@@ -163,8 +162,8 @@ ParentItemCategoriesDropDown(SearchTerm: string): Observable< {id:number , name:
 
 
  }
- getItemCategoryById(id : number):Observable<any>{
-  return this.httpService.get<any>(`ItemCategory/${id}`)
+ getItemCategoryById(id : number){
+  return this.httpService.get(`ItemCategory/${id}`)
 
  }
  getItemCategoryTreeList() {
@@ -184,15 +183,25 @@ ParentItemCategoriesDropDown(SearchTerm: string): Observable< {id:number , name:
   return this.httpService.get(`GeneralSettings/GetTaxDropDown`)//
  }
 
- getTaxDataById(id:number){
+ getTaxDataDropDropDown(id:number){
   return this.httpService.get(`Item/GetTaxData/${id}`)
  }
-
-
 
  editItemTax(obj:any){
   return this.httpService.put(`Item/EditTax`,obj)
 
+ }
+ editInventory(obj:any){
+  return this.httpService.put(`Item/UpdateItemExpiryAndTracking`,obj)
+ }
+ getInvenrory(id:number) {
+  
+  return this.httpService.get(`Item/GetItemExpiryAndTracking/${id}`)
+
+ }
+
+ DeleteUomLine(id:number) {
+  return this.httpService.delete(`UOM/${id}`)//
  }
 
  getItemBarcodeById(id:number){
@@ -204,9 +213,6 @@ ParentItemCategoriesDropDown(SearchTerm: string): Observable< {id:number , name:
  }
  getUomById(id:number) {
   return this.httpService.get(`UOM/${id}`)//
- }
- DeleteUomLine(id:number) {
-  return this.httpService.delete(`UOM/${id}`)//
  }
 
  getItemVariants(id:number){
@@ -313,7 +319,7 @@ ParentItemCategoriesDropDown(SearchTerm: string): Observable< {id:number , name:
  ActivateAttrDifinition(obj:{id:number , status : boolean}) {
   return this.httpService.put(`ItemAttribute/ItemAttributeActivation` , obj) // edit
  }
- systemUnitLookup() : Observable<{ id: number; nameAr: string; nameEn: string;systemUnitOfMeasureCategoryId : number }[]> {
+ systemUnitLookup() : Observable<{ id: number; nameAr: string; nameEn: string; systemUnitOfMeasureCategoryId: number; }[]> {
   return this.httpService.get(`SystemUOM/DropDown` ) // edit
  }
  ActivateOperationalTag
@@ -323,6 +329,9 @@ ParentItemCategoriesDropDown(SearchTerm: string): Observable< {id:number , name:
  editStatusAttributeGroup(modle:any){
   return this.httpService.put(`AttributeGroup/AttributeGroupActivation`,modle)
 
+}
+EditUOMCategory(obj:addUOM) {
+  return this.httpService.put('UOMCategories/Edit' , obj)
 }
  exportsItemsDefinitionList(
     searchTerm: string | undefined
@@ -369,16 +378,13 @@ ParentItemCategoriesDropDown(SearchTerm: string): Observable< {id:number , name:
   }
 
   addBarcode(obj:addBarcode) {
-    return this.httpService.post('Barcode' , obj)
+    return this.httpService.put('Item/EditItemBarcode' , obj)
   }
   addUOM(obj:AddUom) {
     return this.httpService.put('ItemUom' , obj)
   }
   addUOMCategory(obj:addUOM) {
     return this.httpService.post('UOMCategories' , obj)
-  }
-  EditUOMCategory(obj:addUOM) {
-    return this.httpService.put('UOMCategories/Edit' , obj)
   }
   getUOMCategoryById(id : number) : Observable<addUOM> {
     return this.httpService.get(`UOMCategories/GetUOMCategoryWithUomsById/${id}`)

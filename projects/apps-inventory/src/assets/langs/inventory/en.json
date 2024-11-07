@@ -325,7 +325,8 @@
     "import": "Import",
     "edit": "Edit",
     "save": "Save",
-    "cancel": "Cancel",
+    "cancel": "Cancel",    "status": "Status",
+
     "name" : "Name",
     "categoryCode": "Category Code",
     "parentCategory": "Parent Category",

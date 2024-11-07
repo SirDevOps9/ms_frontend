@@ -1,25 +1,24 @@
 <form [formGroup]="itemDefinitionForm">
-  <div class="md:col-12">
+  <div class="md:col-12 cardTax">
     <lib-fildest>
       <div class="grid p-0 m-0">
-        <!-- VAT Toggle Switch -->
+        <p class="md:col-6 m-0 p-0">
+          {{ 'itemType.vat' | translate }}
+        </p>
         <div class="md:col-12">
+
           <lib-form-group>
             <div class="flex align-items-center gap-2">
-              <lib-input-switch formControlName="isVatApplied"></lib-input-switch>
+              <lib-input-switch formControlName="isVatApplied" ></lib-input-switch>
               <p>{{ 'itemType.priceIncludeVat' | translate }}</p>
             </div>
           </lib-form-group>
         </div>
 
-        <!-- Tax Select Dropdown, only shown if isVatApplied is true -->
-        <div class="md:col-12" *ngIf="itemDefinitionForm.get('isVatApplied')?.value == true">
-          <p class="md:col-6 m-0 p-0">
-            {{ 'itemType.vat' | translate }}
-          </p>
+        <div class="md:col-12" *ngIf="showTax">
           <lib-select
             formControlName="taxId"
-            [options]="taxesDropDropDownLookup"
+            [options]="taxesDropDropDownLookup || []"
             optionValue="id"
             optionLabel="name"
             placeholder="{{ 'itemType.taxesValue' | translate }}"
@@ -30,30 +29,46 @@
             [appControl]="itemDefinitionForm.controls['taxId']"
           ></lib-field-validations>
         </div>
-      </div>
+    
 
-      <!-- Buttons Action -->
+
+      </div>
       <div class="grid">
-        <div class="md:col-12 grid flex justify-content-end">
+        <div class="md:col-12  grid flex justify-content-end">
           <div class="md:col-4 grid flex justify-content-end">
             <div class="md:col-6">
               <lib-button-micro
                 title="{{ 'itemType.cancel' | translate }}"
                 nameClass="cancel"
                 widthNumber="100%"
-              ></lib-button-micro>
+
+
+              >
+              </lib-button-micro>
             </div>
-            <div class="md:col-6">
+            <div  class="md:col-6">
               <lib-button-micro
                 title="{{ 'itemType.save' | translate }}"
                 nameClass="save"
                 widthNumber="100%"
                 (click)="onAddVariants()"
-              ></lib-button-micro>
+              >
+              </lib-button-micro>
+
             </div>
           </div>
+
+
         </div>
       </div>
     </lib-fildest>
   </div>
+
+
+
+
+
+
+
+
 </form>

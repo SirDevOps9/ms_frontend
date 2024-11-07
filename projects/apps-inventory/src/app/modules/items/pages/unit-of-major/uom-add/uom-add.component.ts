@@ -141,7 +141,7 @@ export class UOMAddComponent implements OnInit {
   }
 
   shortNameChangedForGroup(e : any) {
-    this.getUOMS.clear()
+    // this.getUOMS.clear()
   }
 
   systemUnitChanged(event: any ) {
@@ -184,7 +184,7 @@ export class UOMAddComponent implements OnInit {
       code: [null],
       baseUomEn: ['', customValidators.required],
       baseUomAr: ['', customValidators.required],
-      shortName: ['' , customValidators.required],
+      shortName: ['' ,customValidators.length(0,5)],
       uoMs: this.fb.array([]),
       nameEn: ['', customValidators.required],
       nameAr: ['', customValidators.required],
@@ -212,7 +212,11 @@ export class UOMAddComponent implements OnInit {
     );
   }
 
-  onCancel() {}
+  onCancel() {
+    
+    this.routerService.navigateTo('/masterdata/uom');
+
+  }
 
   // get data table by id
   Get_UOMs_ByUOM_CategoryId(id: any) {
@@ -259,8 +263,8 @@ export class UOMAddComponent implements OnInit {
         customValidators.required,
         customValidators.onlyEnglishLetters,
       ]),
-      shortName: new FormControl(uomData?.shortName || '', customValidators.required),
-      factor: new FormControl(uomData?.factor || null , customValidators.required),
+      shortName: new FormControl(uomData?.shortName || ''),
+      factor: new FormControl(uomData?.factor || null ),
       calculation: new FormControl(uomData?.calculation || null),
       BaseCalculation: new FormControl(uomData?.BaseCalculation || null),
       calculationShow: new FormControl(uomData?.calculationShow || null),
@@ -289,7 +293,7 @@ export class UOMAddComponent implements OnInit {
     this.getUOMS.push(this.create_UOM_FormGroup());
   }
 
-  deleteLine(index: number): void {
+  deleteLine(index: number ): void {
     this.getUOMS.removeAt(index);
   }
 
@@ -315,7 +319,12 @@ export class UOMAddComponent implements OnInit {
     this.routerService.navigateTo('/masterdata/uom');
   }
 
-  onDelete(i: number) {
+  onDelete(i: number , uomTableForm : FormGroup) {
+    let systemUnit : any = this.sytemUnitLookup.find((elem)=>elem.id == uomTableForm.get('systemUnitOfMeasureId')?.value);
+    console.log(systemUnit)
+    console.log(uomTableForm.get('systemUnitOfMeasureId')?.value)
+    console.log(this.filteredSytemUnitLookup)
+    this.filteredSytemUnitLookup.push(systemUnit)
     const formArray = this.getUOMS;
 
     // Remove elements starting from the given index up to the last element
@@ -339,9 +348,10 @@ export class UOMAddComponent implements OnInit {
     const factorValue = uomTableForm.get('factor')?.value;
     const fromValue = uomTableForm.get('fromUnitOfMeasureId')?.value;
 
+    let selectedItem = list.find((elem : any)=>elem.id == fromValue)
 
     if (
-      this.UOMFormGroup.get('shortName')?.value === uomTableForm.get('fromUnitOfMeasureId')?.value
+      this.UOMFormGroup.get('baseUomEn')?.value === selectedItem?.name
     ) {
       if (factorValue !== null && factorValue !== undefined) {
         const calculationResult = 1 * factorValue;
@@ -353,47 +363,8 @@ export class UOMAddComponent implements OnInit {
       }
     } else {
       let uom = this.getUOMS.value;
-      uom.forEach((elem: any) => {
-        console.log(elem);
-        uom.forEach((elem: any) => {
-          console.log(elem);
-          if (fromValue == elem.shortName) {
-            console.log(elem)
-            uomTableForm.get('BaseCalculation')?.setValue((elem.BaseCalculation * factorValue));
-            uomTableForm.get('calculation')?.setValue(elem.BaseCalculation * factorValue);
-  
-            uomTableForm
-            .get('calculationShow')
-            ?.setValue(`${elem.calculation} * ${factorValue} (${elem.calculation * factorValue})`);
-  
-            uomTableForm.get('BaseReversalShow')?.setValue(`1 / ${uomTableForm.get('BaseCalculation')?.value} (${1 / uomTableForm.get('BaseCalculation')?.value})`);
-            uomTableForm.get('reversal')?.setValue(1 / uomTableForm.get('BaseCalculation')?.value);
-            uomTableForm.get('BaseReversal')?.setValue(1 / uomTableForm.get('BaseCalculation')?.value);
-          }
-        });
-      });
-    }
-  }
-
-
-  fromUnitOfMeasureChanged(e: any, list: any, uomTableForm: FormGroup, i: number) {
-    const factorValue = uomTableForm.get('factor')?.value;
-
-    if (
-      this.UOMFormGroup.get('shortName')?.value === uomTableForm.get('fromUnitOfMeasureId')?.value
-    ) {
-      if (factorValue !== null && factorValue !== undefined) {
-        const calculationResult = 1 * factorValue;
-        uomTableForm.get('calculationShow')?.setValue(`1 * ${factorValue} (${calculationResult})`);
-        uomTableForm.get('BaseCalculation')?.setValue((1 * calculationResult));
-        uomTableForm.get('BaseReversalShow')?.setValue(`1 / ${uomTableForm.get('BaseCalculation')?.value} (${1 / uomTableForm.get('BaseCalculation')?.value})`);
-        uomTableForm.get('BaseReversal')?.setValue(1 / uomTableForm.get('BaseCalculation')?.value);
-        list[i].currentShortName = uomTableForm.get('shortName')?.value;
-      }
-    } else {
-      let uom = this.getUOMS.value;
-      uom.forEach((elem: any) => {
-        if (e == elem.shortName) {
+      uom.forEach((elem: any , index : any) => {
+        if (list[i].name == elem.nameEn) {
           uomTableForm
           .get('calculationShow')
           ?.setValue(`${elem.BaseCalculation} * ${factorValue} (${elem.BaseCalculation * factorValue})`);
@@ -404,9 +375,52 @@ export class UOMAddComponent implements OnInit {
         
           uomTableForm.get('BaseReversalShow')?.setValue(`1 / ${uomTableForm.get('BaseCalculation')?.value} (${1 / uomTableForm.get('BaseCalculation')?.value})`);
           uomTableForm.get('reversal')?.setValue(1 / uomTableForm.get('BaseCalculation')?.value);
-          console.log(elem);
           uomTableForm.get('BaseReversal')?.setValue(1 / uomTableForm.get('BaseCalculation')?.value);
-          console.log(elem);
+
+        }
+      });
+    }
+    let itemsArray = this.getUOMS
+
+  while (itemsArray.length > i + 1) {
+       itemsArray.removeAt(i + 1);
+     }
+
+  }
+
+
+  fromUnitOfMeasureChanged(e: any, list: any, uomTableForm: FormGroup, i: number) {
+    const factorValue = uomTableForm.get('factor')?.value;
+    const fromValue = uomTableForm.get('fromUnitOfMeasureId')?.value;
+
+    let selectedItem = list.find((elem : any)=>elem.id == fromValue)
+
+    if (
+      this.UOMFormGroup.get('baseUomEn')?.value === selectedItem?.name
+    ){
+      if (factorValue !== null && factorValue !== undefined) {
+        const calculationResult = 1 * factorValue;
+        uomTableForm.get('calculationShow')?.setValue(`1 * ${factorValue} (${calculationResult})`);
+        uomTableForm.get('BaseCalculation')?.setValue((1 * calculationResult));
+        uomTableForm.get('BaseReversalShow')?.setValue(`1 / ${uomTableForm.get('BaseCalculation')?.value} (${1 / uomTableForm.get('BaseCalculation')?.value})`);
+        uomTableForm.get('BaseReversal')?.setValue(1 / uomTableForm.get('BaseCalculation')?.value);
+        list[i].currentShortName = uomTableForm.get('shortName')?.value;
+      }
+    } else {
+      let uom = this.getUOMS.value;
+      uom.forEach((elem: any) => {
+        if (list[i].name == elem.nameEn) {
+          uomTableForm
+          .get('calculationShow')
+          ?.setValue(`${elem.BaseCalculation} * ${factorValue} (${elem.BaseCalculation * factorValue})`);
+
+          uomTableForm.get('BaseCalculation')?.setValue((elem.BaseCalculation * factorValue));
+          uomTableForm.get('calculation')?.setValue(elem.BaseCalculation * factorValue);
+
+        
+          uomTableForm.get('BaseReversalShow')?.setValue(`1 / ${uomTableForm.get('BaseCalculation')?.value} (${1 / uomTableForm.get('BaseCalculation')?.value})`);
+          uomTableForm.get('reversal')?.setValue(1 / uomTableForm.get('BaseCalculation')?.value);
+          uomTableForm.get('BaseReversal')?.setValue(1 / uomTableForm.get('BaseCalculation')?.value);
 
         }
       });
@@ -415,50 +429,89 @@ export class UOMAddComponent implements OnInit {
 
 
   onSave() {
-    if (!this.formService.validForm(this.getUOMS, false)) return;
     if (!this.formService.validForm(this.UOMFormGroup, false)) return;
+    if(this.getUOMS.value.length) {
+      if (!this.formService.validForm(this.getUOMS, false)) return;
 
-    let base = {
-      code: '',
-      nameAr: this.UOMFormGroup.get('baseUomAr')?.value,
-      nameEn: this.UOMFormGroup.get('baseUomEn')?.value,
-      shortName: this.UOMFormGroup.get('shortName')?.value,
-      isBaseUnit: true,
-      factor: 1,
-      BaseCalculation: 1,
-      calculation: '1',
-      reversal: '1',
-      BaseReversal: 1,
-      uomCategoryId: 0,
-      systemUnitOfMeasureId: this.UOMFormGroup.get('systemUnitOfMeasureId')?.value,
-      fromUnitOfMeasureId: ''
-    };
+      let base = {
+        code: '',
+        nameAr: this.UOMFormGroup.get('baseUomAr')?.value,
+        nameEn: this.UOMFormGroup.get('baseUomEn')?.value,
+        shortName: this.UOMFormGroup.get('shortName')?.value,
+        isBaseUnit: true,
+        factor: 1,
+        BaseCalculation: 1,
+        calculation: '1',
+        reversal: '1',
+        BaseReversal: 1,
+        uomCategoryId: 0,
+        systemUnitOfMeasureId: this.UOMFormGroup.get('systemUnitOfMeasureId')?.value,
+        fromUnitOfMeasureId: ''
+      };
+  
+      this.getUOMS.controls[0]
+        .get('fromUnitOfMeasureId')
+        ?.setValue(this.UOMFormGroup.get('shortName')?.value);
+  
+      const formArray = this.getUOMS;
+  
+      let unitOfMeasures = formArray.getRawValue();
+  
+      unitOfMeasures.unshift(base);
+      unitOfMeasures = unitOfMeasures.map(elem=>{
+        elem.calculation = elem.calculationShow ?? '1'
+        elem.factor = Number( elem.factor)
+        elem.reversal = elem.BaseReversalShow ?? '1'
+  
+        return elem
+      })
+  
+      let uom = {
+        nameAr: this.UOMFormGroup.get('nameAr')?.value,
+        nameEn: this.UOMFormGroup.get('nameEn')?.value,
+        unitOfMeasures: unitOfMeasures,
+      };
+  
+  
+      this._itemService.addUOMCategory(uom);
+    } else {
+        // Define base unit object with form values, default values, and fallback options
+        const base = {
+          code: '',
+          nameAr: this.UOMFormGroup.get('baseUomAr')?.value || '',
+          nameEn: this.UOMFormGroup.get('baseUomEn')?.value || '',
+          shortName: this.UOMFormGroup.get('shortName')?.value || '',
+          isBaseUnit: true,
+          factor: 1,
+          calculation: '1',
+          reversal: '1',
+          uomCategoryId: 0,
+          systemUnitOfMeasureId: this.UOMFormGroup.get('systemUnitOfMeasureId')?.value || null,
+        };
+      
+        // Add the base unit to the beginning of the getUOMS array
+        this.getUOMS.value.unshift(base);
+      
+        // Set the 'fromUnitOfMeasureId' in the newly added base unit
+        if (this.getUOMS.controls[0]) {
+          this.getUOMS.controls[0].get('fromUnitOfMeasureId')?.setValue(base.shortName);
+        }
+      
+        // Define UOM category object with form values and unit measures array
+        const uom = {
+          nameAr: this.UOMFormGroup.get('nameAr')?.value || '',
+          nameEn: this.UOMFormGroup.get('nameEn')?.value || '',
+          unitOfMeasures: this.getUOMS.value
+        };
+      
+        // Call the service to add the UOM category
+        this._itemService.addUOMCategory(uom)
+    
+      }
+     
 
-    this.getUOMS.controls[0]
-      .get('fromUnitOfMeasureId')
-      ?.setValue(this.UOMFormGroup.get('shortName')?.value);
-
-    const formArray = this.getUOMS;
-
-    let unitOfMeasures = formArray.getRawValue();
-
-    unitOfMeasures.unshift(base);
-    unitOfMeasures = unitOfMeasures.map(elem=>{
-      elem.calculation = elem.calculationShow ?? '1'
-      elem.factor = Number( elem.factor)
-      elem.reversal = elem.BaseReversalShow ?? '1'
-
-      return elem
-    })
-
-    let uom = {
-      nameAr: this.UOMFormGroup.get('nameAr')?.value,
-      nameEn: this.UOMFormGroup.get('nameEn')?.value,
-      unitOfMeasures: unitOfMeasures,
-    };
-
-    console.log(uom);
-
-    this._itemService.addUOMCategory(uom);
+   
   }
 }
+
+

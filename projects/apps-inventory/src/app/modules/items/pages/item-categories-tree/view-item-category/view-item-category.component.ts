@@ -4,7 +4,6 @@ import { AccountService } from 'projects/apps-accounting/src/app/modules/account
 import { LanguageService } from 'shared-lib';
 import { AddItemCategory } from '../../../models';
 import { ItemsService } from '../../../items.service';
-
 @Component({
   selector: 'app-view-item-category',
   templateUrl: './view-item-category.component.html',
@@ -20,16 +19,13 @@ export class ViewItemCategoryComponent {
   Period: boolean = false;
   Mandatory: boolean = false;
   AccountsDropDownLookup: { id: number; name: string }[] = [];
-
   Optional: boolean = false;
   NotAllow: boolean = false;
   accountLevel?: string;
   accountTags?: string;
   accountCompanies?: string;
   parent?: AddItemCategory | any;
-
   sendId = output<number>();
-
   constructor(
     private accountService: AccountService,
     private title: Title,

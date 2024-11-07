@@ -44,7 +44,6 @@ export class ItemDefinitionUomComponent implements OnInit, OnDestroy {
     }
   }
   onChanged(selectedValue: any) {
-    console.log(selectedValue);
   }
 
   createFormUom() {

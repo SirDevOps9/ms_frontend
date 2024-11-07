@@ -28,7 +28,6 @@
         </div>
       </div>
     </lib-fildest>
-
     <lib-fildest header="{{ 'itemsCategory.parentCategory' | translate }}" class="md:col-12">
       <div class="grid">
         <div class="md:col-12" >
@@ -48,6 +47,12 @@
             {{ 'itemsCategory.isDetails' | translate }}
           </small>
           <lib-input-switch [ngModel]="parent?.isDetailed" [disabled]="true"> </lib-input-switch>
+        </div>
+        <div class="md:col-6 flex gap-2 align-items-center">
+          <small>
+            {{ 'itemsCategory.status' | translate }}
+          </small>
+          <lib-input-switch [ngModel]="parent?.isActive" [disabled]="true"> </lib-input-switch>
         </div>
         <div class="md:col-12" *ngIf="parent.categoryType && parent.isDetailed">
           <lib-form-group>
@@ -84,7 +89,6 @@
             </lib-form-group>
           </div>
           <!--  costOfGoodSoldAccountId-->
-
           <div class="md:col-6">
             <lib-form-group>
               <small>
@@ -99,13 +103,10 @@
               />
             </lib-form-group>
           </div>
-
-  
         </div>
       </ng-container>
     </p-tabPanel>
   </p-tabView>
-
   <div class="flex justify-content-end w-full my-2 mr-2 pr-4">
     <lib-button-micro title="{{ 'edit' | translate }}" (click)="routeToEdit()" nameClass="save">
     </lib-button-micro>
