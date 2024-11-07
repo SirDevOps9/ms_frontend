@@ -557,9 +557,6 @@ this.itemProxy.getItemBarcodeById(id).subscribe({
   addItemCategory(obj: AddItemCategory) {
     this.itemProxy.addItemCategory(obj).subscribe({
       next: (res: any) => {
-        setTimeout(() => {
-            location.reload()
-        }, 100);
         this.AddItemCategoryLookup.next(obj);
         this.toasterService.showSuccess(
           this.languageService.transalte('itemsCategory.success'),
