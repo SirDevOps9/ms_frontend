@@ -217,13 +217,14 @@ export class DataTableComponent implements OnInit, OnChanges {
       const filteredColumns = columns.filter((col) =>
         selectedColumns.some((sCol: string) => col.name === sCol)
       );
-      // if(filteredColumns[filteredColumns.length - 1].name =="id"){
+      debugger
+      if(filteredColumns[filteredColumns.length - 1].headerText =="Actions"){
 
         this.tableConfigs.columns = [...filteredColumns];
-      // } else{
-      //   filteredColumns.push(this.clonedTableConfigs.columns[this.clonedTableConfigs.columns.length - 1])
-      //   this.tableConfigs.columns = [...filteredColumns];
-      // }
+      } else{
+        filteredColumns.push(this.clonedTableConfigs.columns[this.clonedTableConfigs.columns.length - 1])
+        this.tableConfigs.columns = [...filteredColumns];
+      }
              
     }
   }

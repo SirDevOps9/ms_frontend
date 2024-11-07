@@ -69,7 +69,7 @@ export class ItemsService {
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
   public itemTypeLookup = new BehaviorSubject<{ id: number; nameAr: string; nameEn: string }[]>([]);
   public itemCategoryLookup = new BehaviorSubject<{ id: number; name: string }[]>([]);
-  public AddItemCategoryLookup = new BehaviorSubject<any>(false);
+  public AddItemCategoryLookup = new BehaviorSubject<any>({} as any);
   public itemsCategoryDeleted = new BehaviorSubject<boolean>(false);
   public EditItemCategoryData = new BehaviorSubject<boolean>(false);
   public variantGenerated = new BehaviorSubject<boolean>(false);
@@ -557,7 +557,7 @@ this.itemProxy.getItemBarcodeById(id).subscribe({
   addItemCategory(obj: AddItemCategory) {
     this.itemProxy.addItemCategory(obj).subscribe({
       next: (res: any) => {
-        this.AddItemCategoryLookup.next(obj);
+        this.AddItemCategoryLookup.next(res);
         this.toasterService.showSuccess(
           this.languageService.transalte('itemsCategory.success'),
           this.languageService.transalte('itemsCategory.addSuccess')

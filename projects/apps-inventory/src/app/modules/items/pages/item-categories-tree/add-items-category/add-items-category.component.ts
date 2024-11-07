@@ -195,23 +195,27 @@ export class AddItemsCategoryComponent {
     if (!this.formsService.validForm(this.formGroup, false)) return;
 
     let obj: AddItemCategory = this.formGroup.value;
-
+debugger
     this.itemService.addItemCategory(obj);
     setTimeout(() => {
       this.itemService.AddItemCategoryLookupObs.subscribe({
-        next: (res?: any) => {
-          
+        next: (res: AddItemCategory) => {
+          debugger
           if (res) {
+      
+            console.log(res);
+
             this.operationCompleted.emit(res);
           } else {
-            return;
+console.log(res);
           }
         },
         error: (err: Error) => {
+          
           return;
         },
       });
-    }, 100);
+    }, 200);
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['parentAddedId']) {
