@@ -54,6 +54,7 @@
 
           <ng-content select="[caption]"> </ng-content>
           <lib-columns-selection
+          *ngIf="noColumnFilter"
             [ngClass]="{ 'rtl-position': isRtl, 'ltr-position': !isRtl }"
             class=" col-selection"
             [formControl]="searchColumnsControl"

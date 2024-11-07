@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, Optional, Output, Self } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Optional, Output, Self } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
+import { LanguageService } from 'shared-lib';
 
 @Component({
   selector: 'lib-columns-selection',
@@ -15,7 +16,12 @@ export class ColumnsSelectionComponent implements ControlValueAccessor {
   @Input() panelStyle: any = { width: '300px' }; 
   @Output() valueChanged = new EventEmitter<string | []>();
   @Output() filterColumns = new EventEmitter<any>();
-
+  positionClass : any
+  languageService = inject(LanguageService)
+  ngOnInit() {
+    let dir = this.languageService.ar;
+    this.positionClass = dir === true ? 'rtl-position' : 'ltr-position';
+  }
 
   selectedValue: string[] = [];
   onChange = (value: any) => {};
