@@ -29,7 +29,7 @@ export class EditWarehouseComponent implements OnInit {
   warehouseType = [
     { label: 'Physical', value: 1 },
     { label: 'Virtual', value: 2 },
-    { label: 'VanSales ', value: 3 }
+    { label: 'VanSales', value: 3 }
   
   ]
   CityDropDownLookup : any = []
