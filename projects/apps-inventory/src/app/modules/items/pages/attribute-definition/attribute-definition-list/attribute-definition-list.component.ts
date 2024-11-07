@@ -8,6 +8,7 @@ import { ItemsService } from '../../../items.service';
 import { IAttrributeDifinitionResult } from '../../../models/AttrbuteDiffintion';
 import { AttributeDefinitionValuesComponent } from '../attribute-definition-values/attribute-definition-values/attribute-definition-values.component';
 import { AttributeDefinitionListValuesComponent } from '../attribute-definition-list-values/attribute-definition-list-values/attribute-definition-list-values.component';
+import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
 
 interface Attribute {
   nameEn: string;
@@ -40,7 +41,7 @@ action: any;
     private routerService: RouterService,
     private itemService : ItemsService,
     private toasterService: ToasterService,
-
+    private exportService:ExportService,
     public authService: AuthService,
     private dialog: DialogService,
     private title: Title,
@@ -111,17 +112,16 @@ action: any;
 
     this.exportAttrData(this.searchTerm);
   }
-
   exportAttrData(searchTerm: string) {
+    this.itemService.exportAttrDifinitionList(searchTerm);
 
-    this.itemService.exportAttrDifinitionList(searchTerm)
-
-    this.itemService.SendexportAttrDifinitionList$.subscribe((res)=>{
-      this.exportData = res
-    })
-
-
+    this.itemService.SendexportAttrDifinitionList$.subscribe((res) => {
+ 
+      this.exportData = this.exportService.formatItemAttributes(res);
+      console.log('Export data:', this.exportData);
+    });
   }
+
   onEdit(data: any) {
     console.log(data);
 
