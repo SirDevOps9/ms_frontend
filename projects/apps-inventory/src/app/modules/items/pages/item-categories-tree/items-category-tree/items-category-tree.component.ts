@@ -90,7 +90,6 @@ export class ItemsCategoryTreeComponent implements OnInit {
     this.view = true;
   }
   viewMode(event: number) {
-    debugger;
     if (event === -1) {
       this.edit = false;
       this.add = false;
@@ -111,7 +110,6 @@ export class ItemsCategoryTreeComponent implements OnInit {
   }
 
   handleOperationCompleted(event: any) {
-    debugger
     this.activeNode = event;
     this.getTreeList();
     this.test = event.id;
@@ -129,7 +127,6 @@ export class ItemsCategoryTreeComponent implements OnInit {
     this.edit = true;
   }
   getTreeList() {
-    debugger;
     const activeNodeId = this.activeNode ? this.activeNode.id : null;
     this.itemsSevice.getItemCategoryTreeList().subscribe((res: any) => {
       this.nodes = this.mapToTreeNodes(res);

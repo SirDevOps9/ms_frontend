@@ -31,7 +31,6 @@ export class MainItemCategoriesTreeComponent {
     this.edit=true;
     this.view=false;
     this.add=false;
-    console.log("edit");
     
   }
   changeMode(event:boolean){

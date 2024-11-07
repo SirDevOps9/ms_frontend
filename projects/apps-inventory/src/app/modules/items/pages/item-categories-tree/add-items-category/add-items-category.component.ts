@@ -195,19 +195,15 @@ export class AddItemsCategoryComponent {
     if (!this.formsService.validForm(this.formGroup, false)) return;
 
     let obj: AddItemCategory = this.formGroup.value;
-debugger
     this.itemService.addItemCategory(obj);
     setTimeout(() => {
       this.itemService.AddItemCategoryLookupObs.subscribe({
         next: (res: AddItemCategory) => {
-          debugger
           if (res) {
       
-            console.log(res);
 
             this.operationCompleted.emit(res);
           } else {
-console.log(res);
           }
         },
         error: (err: Error) => {
