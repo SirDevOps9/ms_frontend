@@ -29,6 +29,7 @@ export class DataTableComponent implements OnInit, OnChanges {
   @Input() resizableColumns: boolean = true;
   @Input() popup: boolean = false;
   @Input() sequence: boolean = false;
+  @Input() libColumns: boolean = true;
   @Input() firstRow: boolean = false;
   @Input() currentPageResult: PageInfoResult;
   first: number = 0;
@@ -44,7 +45,7 @@ export class DataTableComponent implements OnInit, OnChanges {
   @Input() noColumnFilter : boolean = true
 
   selectedRows: any[] = [];
-  
+
   @Output() selectedRowsChange = new EventEmitter<any[]>();
 
   //  to fill the dropdown in the component
@@ -70,13 +71,13 @@ export class DataTableComponent implements OnInit, OnChanges {
   rows: [];  selected_filtered_columns: any[] = [];
   searchColumnsControl = new FormControl([]);
   isRtl: boolean = false;
-  showColumnFilter: boolean 
+  showColumnFilter: boolean
 
   ngOnInit(): void {
     this.isRtl = this.languageService.ar;
-    
+
     this.filtered_columns = this.tableConfigs.columns
-    
+
     this.selected_filtered_columns = this.filtered_columns.map((option) => option.name);
     this.searchColumnsControl.setValue(this.selected_filtered_columns as any);
     this.globalFilterFields = this.tableConfigs.columns
@@ -156,7 +157,7 @@ export class DataTableComponent implements OnInit, OnChanges {
 
   onRowSelect(event: any) {
     this.selectedRows.push(event.data);
-    this.selectedRowsChange.emit(this.selectedRows); 
+    this.selectedRowsChange.emit(this.selectedRows);
   }
 
   onRowUnselect(event: any) {
@@ -164,16 +165,16 @@ export class DataTableComponent implements OnInit, OnChanges {
     if (index > -1) {
       this.selectedRows.splice(index, 1);
     }
-    this.selectedRowsChange.emit(this.selectedRows); 
+    this.selectedRowsChange.emit(this.selectedRows);
   }
 
   onSelectAllRows(event: any) {
     if (event.checked) {
       this.selectedRows = [...this.items];
     } else {
-      this.selectedRows = []; 
+      this.selectedRows = [];
     }
-    this.selectedRowsChange.emit(this.selectedRows); 
+    this.selectedRowsChange.emit(this.selectedRows);
   }
 
 
@@ -212,26 +213,26 @@ export class DataTableComponent implements OnInit, OnChanges {
 
 
   handleFilterColumns(selectedColumns: string[]) {
-    
+
     if (selectedColumns.length === 0) {
       this.tableConfigs.columns = [...this.clonedTableConfigs.columns];
     } else {
       const columns = this.clonedTableConfigs.columns;
-      
+
       const lastColumn = columns[columns.length - 1];
-      
+
       const filteredColumns = columns.filter(col =>
         selectedColumns.includes(col.name)
       );
-      
+
       if (!filteredColumns.includes(lastColumn)) {
         filteredColumns.push(lastColumn);
       }
-  
-    
-  
+
+
+
       this.tableConfigs.columns = [...filteredColumns];
     }
   }
-  
+
 }

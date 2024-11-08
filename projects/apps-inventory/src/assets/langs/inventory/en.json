@@ -136,6 +136,7 @@
     "add": "Item Definition Added Successfully",
     "attributeName": "Attribute Name",
     "attributeValues": "Select Attribute Values",
+    "attributeValuesList": "Select Attribute Values List",
     "viewVariant": "View",
     "itemTracking": "Item Tracking",
     "SelectItemTracking": "Select Item Tracking",
@@ -149,17 +150,22 @@
     "unitusage":"Unit usage",
     "tax":"Tax",
     "variantID":"variant ID",
-    "variantName":"variant name"
+    "variantName":"variant name",
+    "isActive":"isActive"
   },
   "warehouse": {
     "Add" : "Add",
+    "AddNew" : "Add New",
+
+    "create":"Create",
     "search" : "Search",
     "ChangeColumn" : "Change Column",
     "save" : "Save",
     "cancel" : "Cancel",
     "code" : "Code",
     "name" : "Name",
-    "relatedBranch" : "Related Branch",
+    "warehouseName":"Warehouse Name",
+    "relatedBranch" : "Warehouse Related Branch",
     "warehouseType" : "Warehouse Type",
     "actions" : "Actions",
     "warehouse" : "Warehouse",
@@ -188,7 +194,7 @@
     "success" : "Success",
     "add" : "Warehouse Added Successfully",
     "edit" : "Warehouse Edited Successfully",
-    "addWarehouse" : "Add Warehouse",
+    "addWarehouse" : "Warehouse Add",
     "defaultBranch" : "Default Branch",
     "saveContinue" : "Save & Continue",
     "branch" : "Realted Branch",
@@ -251,11 +257,13 @@
   "attributeDefinition": {
     "Add": "Create",
     "action": "action",
-    "add_new_value": "Add New Value",
+    "add_new_value": "Add Line",
     "value": "Value",
     "success": "Success",
     "Success": "Success",
     "attributeDefinition": "Attribute Definition",
+    "attributeValuesList": "Attribute Values List",
+    "attributeValues":"Attribute Values",
     "attribute": "Attribute",
     "AddNewLine": "Add New Line",
     "noItems": "No items in the attribute table.",
@@ -285,16 +293,18 @@
     "attributeName": "Attribute Name",
     "attributeNameEn": "Attribute Name English",
     "attributeNameAr": "Attribute Name Arabic",
-    "attributeId": "Code",
+    "attributeId": "ID",
     "nameAr": "Name Arabic",
     "nameEn": "Name English",
     "valueEn": "Value English",
+    "values": "Value",
     "valueAr": "Value Arabic",
-    "selectattributesvalues":"Select attributes values"
+    "selectattributesvalues":"Select attributes values",
+    "codeAuto":"Auto Generate"
   },
   "OperationalTag": {
     "Add": "Add",
-    "action": "action",
+    "action": "actions",
     "value": "Value",
     "success": "Success",
     "nameAr": "Name Ar",
@@ -305,17 +315,22 @@
     "inActive": "inActive",
     "Search": "Search",
     "code": " Code",
-    "operationType": " Operation Type",
+    "operationType": "Operational Type",
     "name": " Name",
     "save": "Save",
     "discard": "Discard",
-    "warehouseName": "Warehouse Name",
+    "warehouseName": "Warehouse",
     "status": "Status",
     "delete": "Deleted",
+    "SuccessAdd": "Operational Tag updated add successfully",
     "Success": "Operational Tag updated  successfully",
     "actions": "Actions",
-    "glAccountId" : "GL Account Code"
-
+    "glAccountId" : "GL Account",
+     "create":"Create",
+     "codeAuto":"Auto Generate",
+     "oneSelect":"One Select",
+     "Cancel":"Cancel",
+     "SuccessDone":"Success"
 
 
   },
@@ -373,5 +388,12 @@
   "deleteStockIn": "Stock In deleted successfully",
   "deleteStockOut": "Stock Out deleted successfully",
   "success": "Success"
+},
+"global":{
+  "activeOn":"On",
+  "activeOff":"Off",
+  "showMoreValues":"...Show More"
 }
+
+
 }

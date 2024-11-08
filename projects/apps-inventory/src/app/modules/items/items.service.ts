@@ -192,7 +192,7 @@ export class ItemsService {
   public listOfUOM = new BehaviorSubject<IuomResult[]>([]);
   public listOfAttrDifinition = new BehaviorSubject<IAttrributeDifinitionResult[]>([]);
   public listOfOperationalTag = new BehaviorSubject<IOperationalTagResult[]>([]);
-  public SendExportOperationalTagList = new BehaviorSubject<IOperationalTagResult[]>([]);
+  public SendExportOperationalTagList = new BehaviorSubject<any[]>([]);
 
 public userSubDomainModules =  new BehaviorSubject<any[]>([]);
   public sendItemDefinitionDataSourceObs = this.sendItemDefinitionDataSource.asObservable();
@@ -506,11 +506,13 @@ this.itemProxy.getItemBarcodeById(id).subscribe({
   }
   ExportOperationalTagList(SearchTerm: string | undefined) {
     this.itemProxy.ExportOperationalTagList(SearchTerm).subscribe({
-      next: (res: IOperationalTag) => {
-        this.SendExportOperationalTagList.next(res.result);
+      next: (res: any) => {
+        this.SendExportOperationalTagList.next(res);
       },
     });
   }
+
+
   exportAttrDifinitionList(SearchTerm: string | undefined) {
     this.itemProxy.ExporAttrList(SearchTerm).subscribe({
       next: (res: any) => {
@@ -668,7 +670,7 @@ editInventory(obj:any){
     });
 }
 getInvenrory(id:number){
-  
+
   this.itemProxy.getInvenrory(id).subscribe(res=>{
     if(res) {
       this.getInventoryData.next(res)
@@ -895,14 +897,14 @@ this.itemProxy.getUOMCategoryDropDown().subscribe({
   }
 
   async DeleteUomLine(id: number) {
- 
+
     const confirmed = await this.toasterService.showConfirm(
       this.languageService.transalte('ConfirmButtonTexttodelete')
     );
     if (confirmed) {
       this.itemProxy.DeleteUomLine(id).subscribe({
         next: (res) => {
-      
+
           this.toasterService.showSuccess(
             this.languageService.transalte('UOM.success'),
             this.languageService.transalte('UOM.delete')
@@ -1321,8 +1323,8 @@ this.itemProxy.getUOMCategoryDropDown().subscribe({
         this.languageService.transalte('warehouse.edit')
       );
 
-      this.router.navigateTo(`/masterdata/warehouse`);
     });
+    this.router.navigateTo(`/masterdata/warehouse`);
   }
 
   getWarehouseById(id: number) {
@@ -1431,11 +1433,13 @@ getOperationalTagById(id: number) {
 
 addOperationTag(obj: AddOperatioalTag) {
   this.itemProxy.addOperationTag(obj).subscribe((res) => {
-    this.toasterService.showSuccess(
-      this.languageService.transalte('OperationalTag.Success'),
-      this.languageService.transalte('OperationalTag.Success')
-    );
     this.sendOperationTag.next(res);
+    this.toasterService.showSuccess(
+      this.languageService.transalte('OperationalTag.SuccessDone'),
+      this.languageService.transalte('OperationalTag.SuccessAdd'),
+
+    );
+
   });
 }
 editOperationalTag(obj: AddOperatioalTag) {
@@ -1443,8 +1447,9 @@ editOperationalTag(obj: AddOperatioalTag) {
     if (res) {
       this.editItemData.next(res);
       this.toasterService.showSuccess(
+        this.languageService.transalte('OperationalTag.SuccessDone'),
         this.languageService.transalte('OperationalTag.Success'),
-        this.languageService.transalte('OperationalTag.Success')
+
       );
       this.router.navigateTo(`/masterdata/operational-tag`);
     }
@@ -1483,8 +1488,9 @@ async deleteOperationalTag(id: number) {
     this.itemProxy.deleteOperationalTag(id).subscribe({
       next: (res) => {
         this.toasterService.showSuccess(
-          this.languageService.transalte('OperationalTag.Success'),
-          this.languageService.transalte('OperationalTag.delete')
+          this.languageService.transalte('OperationalTag.delete'),
+          this.languageService.transalte('OperationalTag.Success')
+
         );
 
         const currentOperationTag = this.listOfOperationalTag.getValue();

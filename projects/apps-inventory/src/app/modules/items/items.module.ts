@@ -53,6 +53,9 @@ import { ItemCatalogTabsComponent } from './pages/item-definition/item-catalog-t
 import { EditCategoryUomComponent } from './pages/item-definition/item-definition-uom/edit-category/edit-category-uom/edit-category-uom.component';
 import { ItemDefintionVatComponent } from './pages/item-definition/item-defintion-vat/item-defintion-vat.component';
 import { ItemDefintionTaxComponent } from './pages/item-definition/item-defintion-tax/item-defintion-tax.component';
+import { WarehouseTabsComponent } from './pages/warehouse/warehouse-tabs/warehouse-tabs/warehouse-tabs.component';
+import { AttributeDefinitionValuesComponent } from './pages/attribute-definition/attribute-definition-values/attribute-definition-values/attribute-definition-values.component';
+import { AttributeDefinitionListValuesComponent } from './pages/attribute-definition/attribute-definition-list-values/attribute-definition-list-values/attribute-definition-list-values.component';
 
 const routes: Routes = [
   {
@@ -173,6 +176,8 @@ const routes: Routes = [
 
             },
           },
+
+
           {
             path: 'edit-warehouse/:id',
             component: EditWarehouseComponent,
@@ -263,6 +268,13 @@ const routes: Routes = [
             component: EditAttributeDefinitionComponent,
             data: {
               breadcrumb: BreadcrumbLabel.Edit_Attribute_Definition,
+            },
+          },
+          {
+            path: 'list/:id',
+            component: AttributeDefinitionListValuesComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.LIST_Attribute_Definition,
             },
           },
         ],
@@ -361,7 +373,10 @@ const routes: Routes = [
     ItemDefinitionInventoryComponent,
     EditCategoryUomComponent,
     ItemDefintionVatComponent,
-    ItemDefintionTaxComponent
+    ItemDefintionTaxComponent,
+    WarehouseTabsComponent,
+    AttributeDefinitionValuesComponent,
+    AttributeDefinitionListValuesComponent
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule ],
 })

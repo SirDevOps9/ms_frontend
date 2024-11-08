@@ -38,11 +38,11 @@ export class ItemDefintionTaxComponent {
 
 
         }, 100);
-      } 
+      }
       else {
         this.itemDefinitionForm.get('taxId')?.setValue(null)
         this.showTax = false
-      } 
+      }
     })
   }
 
@@ -57,7 +57,7 @@ export class ItemDefintionTaxComponent {
   taxesDropDropDown() {
     this.itemService.taxesDropDropDown();
     this.itemService.taxesLookupObs.subscribe(res => {
-      this.taxesDropDropDownLookup = res 
+      this.taxesDropDropDownLookup = res
     });
   }
 
@@ -72,7 +72,7 @@ export class ItemDefintionTaxComponent {
       })
     })
   }
-  
+
 
   onAddVariants() {
     if (this.itemDefinitionForm.valid) {
