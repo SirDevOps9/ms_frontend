@@ -82,7 +82,7 @@ import { HelpPagesModule } from './modules/HelpPages/help-pages.module';
     PrimeSharedModule,
     BrowserAnimationsModule,
     CookieModule.withOptions(),
-
+    LayoutModule
   ],
   providers: [
     DynamicDialogRef,
