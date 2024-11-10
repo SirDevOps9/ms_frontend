@@ -92,16 +92,8 @@ export class StockInListComponent implements OnInit {
   }
 
   onAdd() {
-    const dialogRef = this.dialog.open(AddItemDefinitionPopupComponent, {
-    
-      width: '800px',
-      height : '700px'
-  
-    });
+    this.routerService.navigateTo(`masterdata/stock-in/add-stock-in`)
 
-    dialogRef.onClose.subscribe(() => {
-    this.initStockInData()
-    });
   }
 
   onEdit(data: any) {
