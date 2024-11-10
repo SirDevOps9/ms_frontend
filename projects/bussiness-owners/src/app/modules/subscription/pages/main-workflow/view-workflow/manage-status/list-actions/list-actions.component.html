@@ -1,110 +1,18 @@
-<!-- <lib-page-content
-  [title]="'OperationalTag.TaxList' | translate"
-  [subTitle]="'OperationalTag.TaxList' | translate"
->
-  <div>
-    <div class="user_page">
-      <lib-data-table
-        [items]="tableData"
-        className="p-datatable-gridlines"
-        [currentPageResult]="currentPageInfo"
-        (pageChange)="onPageChange($event)"
-        (addNew)="addNew($event)"
-        [tableConfigs]="{
-          allowPagination: false,
-          allowServerPagination: true,
-          dataKey: 'id',
-          pageSize: 10,
-          columns: [
-            {
-              name: 'name',
-              headerText: ('Action Name' | translate),
-              isGlobalFilter: true,
-              isSortable: true
-            },
-            {
-              name: 'toStateName',
-              headerText: ('To State' | translate),
-              isGlobalFilter: true,
-              isSortable: true
-            },
-            {
-              name: 'users',
-              headerText: ('Users' | translate),
-
-              template: usersTemplate
-            },
-
-            {
-              name: 'id',
-              headerText: ('Action' | translate),
-              template: actions
-            }
-          ]
-        }"
-      >
-        <ng-container caption>
-          <div class="">
-            <div class="grid grid-cols-4 gap-2">
-              <div class="col-span-1">
-                <lib-form-group>
-                  <lib-text-input
-                    type="text"
-                    [placeholder]="'OperationalTag.Search' | translate"
-                    [(ngModel)]="searchTerm"
-                    (keyUp)="onSearchChange()"
-                  ></lib-text-input>
-                </lib-form-group>
-              </div>
-
-              <ng-template #usersTemplate let-row>
-                <div *ngFor="let user of row.users">
-                  {{ user.userName }}
-                </div>
-              </ng-template>
-              <div class="flex flex-auto justify-content-end align-items-center gap-2">
-                <div>
-                  <lib-button-micro
-                    [title]="'Create' | translate"
-                    nameClass="save"
-                    iconName="pi pi-plus"
-                    (click)="addAction()"
-                  >
-                  </lib-button-micro>
-                </div>
-              
-              </div>
-            </div>
-          </div>
-        </ng-container>
-
-        <ng-template #actions let-action>
-          <div class="actions flex align-items-center">
-            <img src="assets/images/table/edit.svg" alt="" (click)="onEdit(action)" />
-            <img src="assets/images/table/view.svg" alt="" (click)="onView(action.id)" />
-          </div>
-        </ng-template>
-      </lib-data-table>
-    </div>
-  </div>
-</lib-page-content> -->
-
 <!-- ########################new one ###################### -->
- <div class="flex justify-content-end">
- 
-<lib-button-micro
-nameClass="save"
-title="{{ 'action.add_new_line' | translate }}"
-(click)="addLine()"
->
-</lib-button-micro>
+<div class="flex justify-content-end">
+  <lib-button-micro
+    nameClass="save"
+    title="{{ 'action.add_new_line' | translate }}"
+    (click)="addLine()"
+  >
+  </lib-button-micro>
 </div>
-<form [formGroup]="itemUomForm">
+<form [formGroup]="actionsForm">
   <div class="grid w-100">
     <div class="md:col-12 grid card my-2">
       <div class="md:col-12 mt-4">
         <p-table
-          [value]="uoms.controls"
+          [value]="actions.controls"
           dataKey="id"
           styleClass="p-datatable-gridlines p-datatable-striped"
           [tableStyle]="{ 'min-width': '50rem' }"
@@ -139,14 +47,14 @@ title="{{ 'action.add_new_line' | translate }}"
               >
                 <p-cellEditor>
                   <ng-template pTemplate="input">
-                    <div class="flex gap-2 align-items-center">
+                    <div class="flex align-items-center">
                       <lib-form-group>
                         <lib-select
                           formControlName="toStateId"
                           [options]="statusDropdown"
                           optionValue="id"
                           optionLabel="name"
-                          placeholder="{{ 'bank.toStateId' | translate }}"
+                          placeholder="{{ 'actions.toStateId' | translate }}"
                           (valueChanged)="displayState($event, fg)"
                           [selectedValue]="fg?.controls['toStateId']?.value"
                         >
@@ -163,12 +71,39 @@ title="{{ 'action.add_new_line' | translate }}"
                 ></lib-field-validations>
               </td>
               <td>
-                <!-- Display users as read-only in a comma-separated list -->
-                <ng-container *ngFor="let user of fg.controls['users'].value">
-                  {{ user.userName }}<span *ngIf="!isLast(i)">, </span>
-                </ng-container>
+                <div class="usersArray">
+                  <p
+                    class="usersArray-valuse gap-1"
+                    *ngFor="let row of fg.controls['users']?.value; let i = index"
+                  >
+                    {{ row.userName }}<span *ngIf="i < 2"> </span>
+                  </p>
+                  <ng-container>
+                    <p
+                      *ngIf="fg.controls['users']?.value.length > 0"
+                      class="flex justify-content-center align-items-center"
+                    >
+                      <span *ngIf="fg.controls['users']?.value.length > 2">...</span>
+                      <lib-button-micro
+                        nameClass="table_button_edit"
+                        *ngIf="fg.value.id"
+                        (click)="updateUserDialog(fg)"
+                      >
+                      </lib-button-micro>
+                    </p>
+                    <p class="">
+                      <lib-button-micro
+                        class="p-0"
+                        iconName="pi pi-plus"
+                        *ngIf="fg.value.id"
+                        (click)="addUserDialog(fg)"
+                      >
+                      </lib-button-micro>
+                      <!-- <i class="pi pi-search search-circle" (click)="openUserDialog(fg)"></i> -->
+                    </p>
+                  </ng-container>
+                </div>
               </td>
-              <!-- condition exprition -->
               <td
                 [pEditableColumn]="fg.controls['conditionExpression']"
                 pEditableColumnField="conditionExpression"
@@ -188,14 +123,30 @@ title="{{ 'action.add_new_line' | translate }}"
 
               <td>
                 <div class="actions flex align-items-center">
-                  <lib-button-micro nameClass="table_button_edit" *ngIf="fg.value.id"  (click)="onUpdate(fg.value)" >
-                 </lib-button-micro>
-                 <lib-button-micro iconName="pi pi-check" *ngIf="!fg.value.id"  (click)="onSave(fg.value)" >
-                </lib-button-micro>
-                 <lib-button-micro nameClass="table_button_delete" *ngIf="!fg.value.id"  (click)="deleteLine(i)" >
-                </lib-button-micro>
-                 <lib-button-micro nameClass="table_button_delete" *ngIf="fg.value.id"  (click)="onDelete(i)" >
-                </lib-button-micro>
+                  <lib-button-micro
+                    nameClass="table_button_edit"
+                    *ngIf="fg.value.id"
+                    (click)="onUpdate(fg.value)"
+                  >
+                  </lib-button-micro>
+                  <lib-button-micro
+                    iconName="pi pi-check"
+                    *ngIf="!fg.value.id"
+                    (click)="onSave(fg.value)"
+                  >
+                  </lib-button-micro>
+                  <lib-button-micro
+                    nameClass="table_button_delete"
+                    *ngIf="!fg.value.id"
+                    (click)="deleteLine(i)"
+                  >
+                  </lib-button-micro>
+                  <lib-button-micro
+                    nameClass="table_button_delete"
+                    *ngIf="fg.value.id"
+                    (click)="onDelete(i)"
+                  >
+                  </lib-button-micro>
                 </div>
               </td>
             </tr>

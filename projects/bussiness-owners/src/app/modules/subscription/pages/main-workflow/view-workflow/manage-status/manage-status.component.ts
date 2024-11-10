@@ -6,6 +6,7 @@ import { SubscriptionService } from '../../../../subscription.service';
 import { AddStatusComponent } from '../../../../components/workflow-comp/add-status/add-status.component';
 import { DialogService } from 'primeng/dynamicdialog';
 import { EditStatusComponent } from '../../../../components/workflow-comp/edit-status/edit-status.component';
+import { statusDto } from '../../../../models';
 
 @Component({
   selector: 'app-manage-status',
@@ -14,21 +15,20 @@ import { EditStatusComponent } from '../../../../components/workflow-comp/edit-s
 })
 export class ManageStatusComponent implements OnInit {
   id: number;
-  statusList: { id: number; name: string }[];
-  selectedStatusId: number 
+  statusList: statusDto[];
+  selectedStatusId: number;
   _subscriptionService = inject(SubscriptionService);
   _router = inject(RouterService);
   route = inject(ActivatedRoute);
   dialog = inject(DialogService);
   // boolean
-  showAdd: boolean = false
-  showEdit: boolean = false
-  showList: boolean = true
+  showAdd: boolean = false;
+  showEdit: boolean = false;
+  showList: boolean = true;
 
   ngOnInit(): void {
     debugger;
-    this.id = Number(this.route.snapshot.paramMap.get('id'))
-    console.log(this.id);
+    this.id = Number(this.route.snapshot.paramMap.get('id'));
     this.getId();
     this.getStatusLokup(this.id);
   }
@@ -42,17 +42,16 @@ export class ManageStatusComponent implements OnInit {
       .subscribe();
   }
 
-  getStatus(event: { id: number; name: string }) {
+  getStatus(event: any) {
     this.selectedStatusId = event.id;
 
-    this.showAdd = false
-    this.showEdit = false
-    this.showList = true
-    console.log(event);
+    this.showAdd = false;
+    this.showEdit = false;
+    this.showList = true;
   }
 
   stopCall: boolean = true;
-  onEdit( item: { id: number; name: string }) {
+  onEdit(item: any) {
     // this.stopCall = val;
     const dialogRef = this.dialog.open(EditStatusComponent, {
       width: '400px',
@@ -69,15 +68,14 @@ export class ManageStatusComponent implements OnInit {
     });
   }
 
-  onDelete(id:number){
-this._subscriptionService.deleteState(id)    
+  onDelete(id: number) {
+    this._subscriptionService.deleteState(id);
   }
   getStatusLokup(id: number) {
     this._subscriptionService.statusListViews(id);
     this._subscriptionService.statusListView$.subscribe({
-      next: (res: { id: number; name: string }[]) => {
+      next: (res: statusDto[]) => {
         this.statusList = res;
-        console.log(res);
       },
     });
   }
@@ -93,29 +91,27 @@ this._subscriptionService.deleteState(id)
     });
   }
 
-  showAddComponent(event: boolean){
-    this.showAdd = event
-    this.showEdit = !event
-    this.showList = !event
-    console.log(event);
-    
+  showAddComponent(event: boolean) {
+    this.showAdd = event;
+    this.showEdit = !event;
+    this.showList = !event;
   }
-  finishAdd(event : boolean){
-    this.showAdd = !event
-    this.showEdit = !event
-    this.showList = event
+  finishAdd(event: boolean) {
+    this.showAdd = !event;
+    this.showEdit = !event;
+    this.showList = event;
   }
 
-  finishEdit(event : boolean){
-    this.showAdd = !event
-    this.showEdit = event
-    this.showList = !event
+  finishEdit(event: boolean) {
+    this.showAdd = !event;
+    this.showEdit = event;
+    this.showList = !event;
   }
-  rowObjectToUpdate : any
-  loadObjToUpdate(obj : any){
-    this.showAdd = false
-    this.showEdit = true
-    this.showList = false
-    this.rowObjectToUpdate = obj
+  rowObjectToUpdate: any;
+  loadObjToUpdate(obj: any) {
+    this.showAdd = false;
+    this.showEdit = true;
+    this.showList = false;
+    this.rowObjectToUpdate = obj;
   }
 }

@@ -1,5 +1,6 @@
 @import"../../../../../assets/styling/scss/variables/font-family";
-.plan_header{
+
+.plan_header {
   width: 100%;
   // padding: 10px 20px;
   display: flex;
@@ -7,7 +8,8 @@
   justify-content: end;
   background: linear-gradient(345deg, rgb(255, 255, 255) 0%, rgb(234, 237, 238) 0%);
   box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30p;
-  .btn{
+
+  .btn {
     background-color: #1a90b0;
     border: 2px solid #1a90b0;
     color: #fff;
@@ -16,15 +18,19 @@
     cursor: pointer;
     display: flex;
     align-items: center;
-    .icon{
+
+    .icon {
       margin-inline-end: 5px;
     }
   }
-  .btn_app{
+
+  .btn_app {
     margin-inline-end: 20px !important;
   }
 }
+
 .plan_page {
+
   // width: 95%;
   // margin: auto;
   .card-container {
@@ -35,7 +41,7 @@
     margin: 0;
     padding: 0;
     margin-top: 24px;
-   
+
     .card {
       padding: 0 !important;
       display: flex;
@@ -48,7 +54,8 @@
       background-color: #fff;
       border-radius: 8px;
       border: 1px solid #B6BAC3;
-      .card_header{
+
+      .card_header {
         padding: 0 13px;
         border-radius: 8px;
         display: flex;
@@ -59,26 +66,31 @@
         justify-content: space-between;
         background: #F7F8F8;
         border: 1px solid #B6BAC3;
-        .supdomain{
+
+        .supdomain {
 
           color: #1a90b0;
-         
+
         }
-        .date{
+
+        .date {
           display: flex;
           align-items: center;
           font-size: 12px;
           font-family: $cairo_regular;
-          .expire{
+
+          .expire {
             color: #383A42;
             margin-inline-end: 10px;
           }
-          .expire_date{
+
+          .expire_date {
             color: #CB3F2D;
           }
         }
       }
-      .card_contant{
+
+      .card_contant {
         display: flex;
         flex-wrap: wrap;
         align-items: start;
@@ -89,8 +101,9 @@
         margin-top: 16px;
         box-sizing: border-box;
         align-items: center;
-    justify-content: center;
-       // padding: 5px 0px;
+        justify-content: center;
+
+        // padding: 5px 0px;
         .plan_cover {
           width: 150px;
           height: 118px;
@@ -99,28 +112,29 @@
           background-position: center;
           background-repeat: no-repeat;
         }
-        
+
         .plan_description {
+
           //padding: 0 10px ;
           .title {
-            font-family:'poppins_extra_bold';
+            font-family: 'poppins_extra_bold';
             margin-inline-start: 5px;
             margin-inline-end: 10px;
             font-size: 16px;
             color: #6B7280;
           }
-  
+
           .date {
             font-size: 14px;
             color: #6B7280;
           }
-  
+
           .line {
             width: 100%;
             height: 4px;
             background-color: #EDEEF1;
             border-radius: 8px;
-              
+
             .line_active {
               width: 50%;
               height: 4px;
@@ -128,102 +142,114 @@
               border-radius: 8px;
             }
           }
-  
+
           .card_name {
             margin: 5px 0px;
             color: #383A42;
             font-size: 18px;
           }
-  
+
           .card_subdomain {
             margin: 5px 0px;
             color: #2B6FAE;
             font-size: 16px;
           }
-  
+
           .btn_manage {
             display: flex;
             align-items: center;
             justify-content: start;
             flex-wrap: wrap;
 
-  
+
             button {
               margin-top: 5px;
               background-color: #F7F8F8;
               border: none;
-             // border: 2px solid #1a90b0;
+              // border: 2px solid #1a90b0;
               // font-size: 16px;
               // font-family: $cairo_regular;
-             // width: 163px;
+              // width: 163px;
               color: #000;
               padding: 5px 10px;
               border-radius: 8px;
               text-transform: capitalize;
               margin-inline-end: 10px;
-              .icon_btn{
+
+              .icon_btn {
                 color: #1a90b0;
                 margin-inline-end: 2px;
               }
+
               &:last-child {
                 margin-inline-end: 0px;
               }
-  
+
               &:hover {
                 background-color: #1a90b0;
                 color: #fff;
                 cursor: pointer;
-                .icon_btn{
+
+                .icon_btn {
                   color: #fff;
                 }
               }
             }
-  
+
           }
-          .mange_app , .mange_erp {
+
+          .mange_app,
+          .mange_erp {
             margin-top: 20px;
-            width: 100%;
+            // width: 100%;
             display: flex;
             flex-wrap: wrap;
             align-items: start;
             justify-content: space-between;
-            .btn_mange_app , .btn_mange_erp{
-             width: 48%;
+
+            .btn_mange_app,
+            .btn_mange_erp {
+              // gap: 10px;
+              // width: 48%;
               background-color: #F7F8F8;
               border: none;
-             // border: 2px solid #1a90b0;
+              // border: 2px solid #1a90b0;
               font-size: 16px;
               font-family: $cairo_regular;
               color: #000;
               padding: 5px 10px;
               border-radius: 8px;
               text-transform: capitalize;
-              .icon_btn{
+
+              .icon_btn {
                 color: #1a90b0;
                 margin-inline-end: 2px;
               }
-              
+
               &:hover {
                 background-color: #1a90b0;
                 color: #fff;
                 cursor: pointer;
-                .icon_btn{
+
+                .icon_btn {
                   color: #fff;
                 }
               }
             }
-            .btn_mange_erp{
+
+            .btn_mange_erp {
               width: 100%;
             }
-           
+
           }
-  
+
         }
       }
-   
+
     }
   }
-  .card_empty_subdomain{
+
+  .card_empty_subdomain {
     width: 100%;
     height: 80vh;
     background: #fff;
@@ -231,20 +257,23 @@
     align-items: center;
     justify-content: center;
   }
-  .card_subdomain{
+
+  .card_subdomain {
     margin-top: 50px;
-   // border: 1px solid #6B7280;
+    // border: 1px solid #6B7280;
     //box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     border-radius: 24px;
     padding: 5px;
     //background: #fff;
     text-align: center;
-    .desc{
+
+    .desc {
       color: #6B7280;
       font-size: 20px;
       font-family: $cairo_regular;
     }
-    .add_domain{
+
+    .add_domain {
       color: #1a90b0;
       font-size: 20px;
       font-family: $cairo_regular;
@@ -252,8 +281,9 @@
     }
   }
 }
+
 @media only screen and (max-width: 1920px) {
- .card_contant{
-  justify-content: center;
- }
+  .card_contant {
+    justify-content: center;
+  }
 }

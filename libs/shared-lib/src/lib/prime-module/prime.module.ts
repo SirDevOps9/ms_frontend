@@ -27,11 +27,11 @@ import { MenuModule } from 'primeng/menu';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { TabMenuModule } from 'primeng/tabmenu';
+import { SpeedDialModule } from 'primeng/speeddial';
 
 @NgModule({
-  providers: [DialogService , MessageService],
-  declarations: [
-  ],
+  providers: [DialogService, MessageService],
+  declarations: [],
   imports: [
     TableModule,
     ButtonModule,
@@ -56,7 +56,9 @@ import { TabMenuModule } from 'primeng/tabmenu';
     TabViewModule,
     MenuModule,
     SplitButtonModule,
-    OverlayPanelModule,TabMenuModule
+    OverlayPanelModule,
+    TabMenuModule,
+    SpeedDialModule,
   ],
   exports: [
     TableModule,
@@ -74,7 +76,7 @@ import { TabMenuModule } from 'primeng/tabmenu';
     DynamicDialogModule,
     PasswordModule,
     CheckboxModule,
-    PaginatorModule, 
+    PaginatorModule,
     RatingModule,
     CalendarModule,
     FieldsetModule,
@@ -84,8 +86,9 @@ import { TabMenuModule } from 'primeng/tabmenu';
     TabViewModule,
     MenuModule,
     OverlayPanelModule,
-    
-    SplitButtonModule,TabMenuModule
+    SpeedDialModule,
+    SplitButtonModule,
+    TabMenuModule,
   ],
 })
 export class PrimeSharedModule {}

@@ -15,13 +15,11 @@ export class AddStatusComponent implements OnInit {
   id: any;
   route = inject(ActivatedRoute);
   config = inject(DynamicDialogConfig);
-  constructor(
-    public dialogService: DialogService,
-    private fb: FormBuilder,
-    private ref: DynamicDialogRef,
-    private formsService: FormsService,
-    private _subService: SubscriptionService
-  ) {}
+  dialogService = inject(DialogService);
+  fb = inject(FormBuilder);
+  ref = inject(DynamicDialogRef);
+  formsService = inject(FormsService);
+  _subService = inject(SubscriptionService);
 
   ngOnInit() {
     this.id = this.config.data.id;

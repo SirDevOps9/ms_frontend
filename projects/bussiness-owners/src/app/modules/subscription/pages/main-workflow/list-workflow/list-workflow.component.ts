@@ -1,24 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { AuthService } from 'microtec-auth-lib';
-import { ItemsService } from 'projects/apps-inventory/src/app/modules/items/items.service';
-import { IOperationalTagResult } from 'projects/apps-inventory/src/app/modules/items/models';
-import { PageInfoResult, RouterService, ToasterService, LanguageService, PageInfo } from 'shared-lib';
+
+import { PageInfoResult, RouterService, PageInfo } from 'shared-lib';
 import { SubscriptionService } from '../../../subscription.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AddWorkflowComponent } from '../../../components/workflow-comp/add-workflow/add-workflow.component';
-import { EditWorkflowComponent } from '../../../components/workflow-comp/edit-workflow/edit-workflow.component';
+import { workflowDto } from '../../../models';
 
 @Component({
   selector: 'app-list-workflow',
   templateUrl: './list-workflow.component.html',
-  styleUrl: './list-workflow.component.scss'
+  styleUrl: './list-workflow.component.scss',
 })
 export class ListWorkflowComponent implements OnInit {
-  tableData: IOperationalTagResult[] = [];
+  tableData: workflowDto[] = [];
   currentPageInfo: PageInfoResult = { totalItems: 0 };
   searchTerm: string;
-  exportData: IOperationalTagResult[];
+  // exportData: IOperationalTagResult[];
   exportColumns: any[];
 
   constructor(
@@ -26,9 +25,7 @@ export class ListWorkflowComponent implements OnInit {
     public authService: AuthService,
     private dialog: DialogService,
     private routerService: RouterService
-
-  ) {
-  }
+  ) {}
   ngOnInit(): void {
     this.initworkFlowList();
 
@@ -51,7 +48,6 @@ export class ListWorkflowComponent implements OnInit {
     });
   }
 
-  
   addNew(e: boolean) {
     if (e) {
       this.newWorkflow();
@@ -69,7 +65,6 @@ export class ListWorkflowComponent implements OnInit {
     this._subService.currentPageInfo.subscribe((currentPageInfo) => {
       this.currentPageInfo = currentPageInfo;
     });
- 
   }
   onPageChange(pageInfo: PageInfo) {
     this._subService.getWorkFlows('', pageInfo);
@@ -91,7 +86,6 @@ export class ListWorkflowComponent implements OnInit {
     });
   }
 
-
   // exportClick(e?: Event) {
   //   this.exportOperationalData(this.searchTerm);
   // }
@@ -103,24 +97,21 @@ export class ListWorkflowComponent implements OnInit {
   //     this.exportData = res;
   //   });
   // }
-  onEdit(data: any) {
-    const dialogRef = this.dialog.open(EditWorkflowComponent, {
-      width: '500px',
-      height: '450px',
-      data: data,
-    });
+  // onEdit(data: any) {
+  //   const dialogRef = this.dialog.open(EditWorkflowComponent, {
+  //     width: '500px',
+  //     height: '450px',
+  //     data: data,
+  //   });
 
-    dialogRef.onClose.subscribe(() => {
-      this.initworkFlowList();
-    });    
-  }
+  //   dialogRef.onClose.subscribe(() => {
+  //     this.initworkFlowList();
+  //   });
+  // }
   onView(id: number) {
-       this.routerService.navigateTo(`/workflow/${id}`);
-
+    this.routerService.navigateTo(`/workflow/${id}`);
   }
   onDelete(id: number) {
-this._subService.deleteWorkflow(id)
+    this._subService.deleteWorkflow(id);
   }
-
-
 }

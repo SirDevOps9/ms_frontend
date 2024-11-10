@@ -1,20 +1,13 @@
 import { Component, inject, Input, OnInit, output } from '@angular/core';
-import { AuthService } from 'microtec-auth-lib';
 import { DialogService } from 'primeng/dynamicdialog';
-import {
-  PageInfoResult,
-  RouterService,
-  PageInfo,
-  ToasterService,
-  FormsService,
-  customValidators,
-} from 'shared-lib';
+import { PageInfo, FormsService, customValidators } from 'shared-lib';
 
 import { SubscriptionService } from '../../../../../subscription.service';
 import { FormGroup, FormBuilder, FormArray, AbstractControl } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { ItemsService } from 'projects/apps-inventory/src/app/modules/items/items.service';
-import { Subscription } from 'rxjs';
+
+import { ActionDto } from '../../../../../models';
+import { AddUserForActionComponent } from '../../../../../components/workflow-comp/add-user-for-action/add-user-for-action.component';
+import { EditUserForActionComponent } from '../../../../../components/workflow-comp/edit-user-for-action/edit-user-for-action.component';
 
 @Component({
   selector: 'app-list-actions',
@@ -22,127 +15,40 @@ import { Subscription } from 'rxjs';
   styleUrl: './list-actions.component.scss',
 })
 export class ListActionsComponent implements OnInit {
-  // currentPageInfo: PageInfoResult = { totalItems: 0 };
-  // searchTerm: string;
-  // exportData: any[];
-  // exportColumns: any[];
-
-  // constructor(
-  //   private _subService: SubscriptionService,
-  //   public authService: AuthService,
-  //   private dialog: DialogService,
-  //   private routerService: RouterService
-
-  // ) {
-  // }
-  // ngOnInit(): void {
-
-  //   // this._subService.currentPageInfo.subscribe((currentPageInfo) => {
-  //   //   this.currentPageInfo = currentPageInfo;
-  //   // });
-  // }
-
-  // initworkFlowList() {
-  //   if(this.statusId){
-  //   this._subService.getWorkflowStatusActions(this.statusId,'', new PageInfo());
-
-  //   this._subService.workflowStatusActionsList$.subscribe({
-  //     next: (res) => {
-  //       this.tableData = res;
-  //     },
-  //   });
-  // }
-
-  //   this._subService.currentPageInfo.subscribe((currentPageInfo) => {
-  //     this.currentPageInfo = currentPageInfo;
-  //   });
-  // }
-
-  // addNew(e: boolean) {
-  //   if (e) {
-  //     this.addAction();
-  //   }
-  // }
-  // onSearchChange() {
-  //   this._subService.getWorkflowStatusActions(this.statusId,this.searchTerm, new PageInfo());
-
-  //   this._subService.workflowStatusActionsList$.subscribe({
-  //     next: (res) => {
-  //       this.tableData = res;
-  //     },
-  //   });
-
-  //   this._subService.currentPageInfo.subscribe((currentPageInfo) => {
-  //     this.currentPageInfo = currentPageInfo;
-  //   });
-
-  // }
-  // onPageChange(pageInfo: PageInfo) {
-  //   this._subService.getWorkflowStatusActions(this.statusId,'', new PageInfo());
-
-  //   this._subService.workflowStatusActionsList$.subscribe({
-  //     next: (res) => {
-  //       this.tableData = res;
-  //     },
-  //   });
-  // }
-  // addAction() {
-  //   this.showAddAction.emit(true)
-  // }
-
-  // // exportClick(e?: Event) {
-  // //   this.exportOperationalData(this.searchTerm);
-  // // }
-
-  // // exportOperationalData(searchTerm: string) {
-  // //   this.itemService.ExportOperationalTagList(searchTerm);
-
-  // //   this.itemService.SendExportOperationalTagList$.subscribe((res) => {
-  // //     this.exportData = res;
-  // //   });
-  // // }
-  // onEdit(event: any) {
-  //   this.sendDataToUpdate.emit(event)
-  // }
-  // onView(id: number) {
-  //      this.routerService.navigateTo(`/workflow/${id}`);
-
-  // }
-  // }
-
-  itemUomForm: FormGroup;
+  actionsForm: FormGroup;
   unitUsagesName: [];
   @Input() workflowId: number;
   @Input() statusId: number;
   showAddAction = output<boolean>();
   showEditAction = output<boolean>();
-  tableData: any[] = [];
+  tableData: ActionDto[] = [];
   sendDataToUpdate = output<any>();
   constructor(
     private fb: FormBuilder,
-    private _route: ActivatedRoute,
+    private dialog: DialogService,
     private formService: FormsService
   ) {
-    const id = Number(this._route.snapshot.paramMap.get('id'));
-    this.stateIdDropdown(id);
+    // const id = Number(this._route.snapshot.paramMap.get('id'));
+    this.stateIdDropdown();
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
   ngOnChanges(): void {
-    this.initworkFlowList();
+    this.initActionsList();
     this.createFormUom();
-
+    if (this.statusId) {
+      this.stateIdDropdown();
+    }
   }
 
   createFormUom() {
-    this.itemUomForm = this.fb.group({
-      uoms: this.fb.array([]),
+    this.actionsForm = this.fb.group({
+      actions: this.fb.array([]),
     });
   }
 
-  get uoms(): FormArray {
-    return this.itemUomForm?.get('uoms') as FormArray;
+  get actions(): FormArray {
+    return this.actionsForm?.get('actions') as FormArray;
   }
   test: string = '';
   createUomFormGroup(item: any): FormGroup {
@@ -158,64 +64,74 @@ export class ListActionsComponent implements OnInit {
   }
 
   isLast(index: number): boolean {
-    return index === this.uoms.length - 1;
+    return index === this.actions.length - 1;
   }
-
-
-
-  uomss: any[] = [];
 
   statusDropdown: { id: number; name: string }[] = [];
 
-  stateIdDropdown(id: number) {
-    this._subService.getStatusDropDown(id, '', new PageInfo());
+  stateIdDropdown() {
+    this._subService.getStatusDropDown(this.workflowId, '', new PageInfo());
+    debugger;
 
     this._subService.statusDropDownList$.subscribe({
       next: (res) => {
-        this.statusDropdown = res;
+        this.statusDropdown = Array.isArray(res) ? res.filter((x) => x.id != this.statusId) : [];
       },
     });
   }
   addLine() {
-    if (!this.formService.validForm(this.itemUomForm)) return;
+    if (!this.formService.validForm(this.actionsForm)) return;
 
     // Create a new empty UOM FormGroup
     const newUomFormGroup = this.createUomFormGroup({}); // Pass an empty object for defaults
-    this.uoms.push(newUomFormGroup); // Add the new form group to the form array
-  
+    this.actions.push(newUomFormGroup); // Add the new form group to the form array
+
     console.log('New empty line added:', newUomFormGroup.value);
   }
   _subService = inject(SubscriptionService);
 
-  initworkFlowList() {
+  initActionsList() {
     if (this.statusId) {
       this._subService.getWorkflowStatusActions(this.statusId, '', new PageInfo());
 
       this._subService.workflowStatusActionsList$.subscribe({
-        next: (res) => {
+        next: (res: any) => {
           this.tableData = res;
           // this.patchValues(res);
-          this.uoms.clear();
+          if (this.actions) {
+            this.actions.clear();
+          }
 
-          res.forEach((item : any) => {
+          //           this.uoms.clear();
+          // data.uoms.forEach((uom: any) => {
+          //   if (uom.users && Array.isArray(uom.users)) {
+          //     uom.users = uom.users.slice(0, 3);
+          //   }
+          //   this.uoms.push(this.createUomFormGroup(uom));
+          // });
 
+          // this.test = this.uoms.at(0)?.get('nameEn')?.value;
+
+          res.forEach((item: any) => {
+            if (item.users && Array.isArray(item.users)) {
+              item.users = item.users.slice(0, 3);
+            }
             const formGroup = this.createUomFormGroup(item);
-            this.uoms.push(formGroup)
-          })
+            this.actions.push(formGroup);
+          });
         },
       });
     }
   }
   patchValues(data: any) {
-    // this.uoms.clear();
-    if(data){
-
-      data.forEach((item : any) => {
+    // this.actions.clear();
+    if (data) {
+      data.forEach((item: any) => {
         const formGroup = this.createUomFormGroup(item);
-        this.uoms.push(formGroup);
+        this.actions.push(formGroup);
       });
     }
-    }
+  }
 
   displayState(event: any, formGroup: FormGroup) {
     const selectedOption = this.statusDropdown.find((option) => option.id === event);
@@ -230,7 +146,7 @@ export class ListActionsComponent implements OnInit {
   }
 
   onUpdate(obj: any) {
-    if (!this.formService.validForm(this.uoms)) return;
+    if (!this.formService.validForm(this.actions)) return;
     delete obj.users;
     delete obj.toStateIdName;
 
@@ -240,26 +156,47 @@ export class ListActionsComponent implements OnInit {
     });
   }
   onSave(obj: any) {
-    if (!this.formService.validForm(this.uoms)) return;
+    if (!this.formService.validForm(this.actions)) return;
     delete obj.users;
     delete obj.toStateIdName;
     delete obj.id;
     this._subService.addActions(this.statusId, obj);
     this._subService.addAction$.subscribe((res: any) => {
-     if(res){
-
-       this.initworkFlowList();
-     }
+      if (res) {
+        this.initActionsList();
+      }
     });
   }
-  onDelete(id:number){
-    this._subService.deleteAction(id)    
-      }
+  onDelete(id: number) {
+    this._subService.deleteAction(id);
+  }
   deleteLine(index: number): void {
-    if (index >= 0 && index < this.uoms.length) {
-      this.uoms.removeAt(index);
+    if (index >= 0 && index < this.actions.length) {
+      this.actions.removeAt(index);
     }
   }
+  updateUserDialog(fg: any) {
+    console.log(fg.value);
 
-  
+    const ref = this.dialog.open(EditUserForActionComponent, {
+      width: '800px',
+      height: '500px',
+      data: fg.value,
+    });
+    ref.onClose.subscribe(() => {
+      this.initActionsList();
+    });
+  }
+  addUserDialog(fg: any) {
+    console.log(fg.value);
+
+    const ref = this.dialog.open(AddUserForActionComponent, {
+      width: '800px',
+      height: '500px',
+      data: fg.value,
+    });
+    ref.onClose.subscribe(() => {
+      this.initActionsList();
+    });
+  }
 }

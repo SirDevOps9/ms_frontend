@@ -1,10 +1,16 @@
 import { Observable } from 'rxjs';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
 import {
+  ActionDto,
+  addAction,
   AddDomainSpaceDto,
+  Addworkflow,
   ResponseSubdomainDto,
+  statusDto,
   SubscriptionDto,
   TenantLicenseDto,
+  usersDto,
+  workflowDto,
 } from './models';
 import { Injectable } from '@angular/core';
 import { subscriptionDetailsDto } from './models/subscriptionDetailsDto';
@@ -46,15 +52,19 @@ export class SubscriptionProxy {
   }
   // #################
   // workflows
-  getWorkFlows(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<any>> {
+  getWorkFlows(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<workflowDto>> {
     let query = `Workflows?${pageInfo.toQuery}`;
     if (searchTerm) {
       query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
     }
-    return this.baseService.get<PaginationVm<any>>(query);
+    return this.baseService.get<PaginationVm<workflowDto>>(query);
   }
   // workflowsVariables
-  getWorkFlowsVariables(workflowId : number ,searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<any>> {
+  getWorkFlowsVariables(
+    workflowId: number,
+    searchTerm: string,
+    pageInfo: PageInfo
+  ): Observable<PaginationVm<any>> {
     let query = `Workflows/${workflowId}/Variables?${pageInfo.toQuery}`;
     if (searchTerm) {
       query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
@@ -68,28 +78,34 @@ export class SubscriptionProxy {
     searchTerm: string,
     pageInfo: PageInfo
   ): Observable<
-      {
-        id: number;
-        name: string;
-      }[]
+    {
+      id: number;
+      name: string;
+    }[]
   > {
     let query = `Workflows/${workflowId}/States/DropDown?${pageInfo.toQuery}`;
     if (searchTerm) {
       query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
     }
-    return this.baseService.get<  {
-      id: number;
-      name: string;
-    }[]>(query);
+    return this.baseService.get<
+      {
+        id: number;
+        name: string;
+      }[]
+    >(query);
+  }
+  lookupForVariables() {
+    let query = `Lookup?lookups=ConfigurationServiceType`;
+    return this.baseService.get(query);
   }
   // add
-  addWorkflow(name: any): Observable<{ name:any }> {
-    return this.baseService.post<{ name:any }>(`Workflows`, name);
+  addWorkflow(name: Addworkflow): Observable<Addworkflow> {
+    return this.baseService.post<Addworkflow>(`Workflows`, name);
   }
 
   // edit
-  editWorkflow(name: any): Observable<any> {
-    return this.baseService.put<any>(`Workflows`, name);
+  editWorkflow(name: Addworkflow): Observable<Addworkflow> {
+    return this.baseService.put<Addworkflow>(`Workflows`, name);
   }
   deleteWorkflow(id: number) {
     return this.baseService.delete(`Workflows/${id}`);
@@ -102,6 +118,16 @@ export class SubscriptionProxy {
   deleteState(id: number) {
     return this.baseService.delete(`Workflows/DeleteState/${id}`);
   }
+  // delete user
+
+  deleteUser(id: number) {
+    return this.baseService.delete(`Workflows/DeleteUser/${id}`);
+  }
+  // delete variable
+
+  deleteVariable(id: number) {
+    return this.baseService.delete(`Workflows/DeleteVariable/${id}`);
+  }
   // geit by id
   getWorkFlowByID(id: number): Observable<any> {
     return this.baseService.get(`Workflows/${id}`);
@@ -110,12 +136,22 @@ export class SubscriptionProxy {
   getWorkFlowStatesActionsByID(stateId: number): Observable<any> {
     return this.baseService.get(`Workflows/States/${stateId}/Actions`);
   }
-  
-  //  status view
-  statusListViews(workflowId: number): Observable<PaginationVm<{ id: number; name: string }[]>> {
-    return this.baseService.get<PaginationVm<{ id: number; name: string }[]>>(
-      `Workflows/${workflowId}/States`
+  // get variables Actions
+  getVariableByID(id: number): Observable<{ workflowId: number; name: string; type: string }> {
+    return this.baseService.get<{ workflowId: number; name: string; type: string }>(
+      `Workflows/GetVariableById/${id}`
     );
+  }
+  // get Users For Actions
+  getUsersForActionsByID(actionId: number): Observable<PaginationVm<usersDto>> {
+    return this.baseService.get<PaginationVm<usersDto>>(
+      `Workflows/States/Actions/${actionId}/Users`
+    );
+  }
+
+  //  status view
+  statusListViews(workflowId: number): Observable<PaginationVm<statusDto>> {
+    return this.baseService.get<PaginationVm<statusDto>>(`Workflows/${workflowId}/States`);
   }
   // adding status
   addStatus(workflowId: number, name: { name: string }): Observable<{ name: string }> {
@@ -125,26 +161,47 @@ export class SubscriptionProxy {
   EditStatus(obj: { id: number; name: string }): Observable<{ id: number; name: string }> {
     return this.baseService.put<{ id: number; name: string }>(`Workflows/EditState`, obj);
   }
+  EditVariables(obj: {
+    id: number;
+    name: string;
+    type: string;
+  }): Observable<{ id: number; name: string; type: string }> {
+    return this.baseService.put<{ id: number; name: string; type: string }>(
+      `Workflows/EditVariable`,
+      obj
+    );
+  }
+  // add variable
+  addVariable(workflowId: number, obj: { name: string; type: string }): Observable<any> {
+    return this.baseService.post<Addworkflow>(`Workflows/${workflowId}/Variables`, obj);
+  }
   // actionList
   getWorkflowStatusActions(
     stateId: number,
     searchTerm?: string,
     pageInfo?: PageInfo
-  ): Observable<PaginationVm<any>> {
+  ): Observable<PaginationVm<ActionDto>> {
     let query = `Workflows/States/${stateId}/Actions?${pageInfo?.toQuery}`;
     if (searchTerm) {
       query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
     }
-    return this.baseService.get<PaginationVm<any>>(query);
+    return this.baseService.get<PaginationVm<ActionDto>>(query);
   }
 
-
-    // Add Actions 
-    addActions(stateId : number ,obj :any){
-      return this.baseService.post(`Workflows/States/${stateId}/Actions`,obj)
-    }
-      // edit Actions
-  editActions(obj :any): Observable<any> {
+  // Add Actions
+  addActions(stateId: number, obj: addAction) {
+    return this.baseService.post(`Workflows/States/${stateId}/Actions`, obj);
+  }
+  // Add User for Actions
+  addUserForActions(actionId: number, obj: { userName: string }) {
+    return this.baseService.post(`Workflows/States/Actions/${actionId}/Users`, obj);
+  }
+  // edit User for Actions
+  editUserForActions(obj: { id: number; userName: string }) {
+    return this.baseService.put(`Workflows/EditUser`, obj);
+  }
+  // edit Actions
+  editActions(obj: any): Observable<any> {
     return this.baseService.put<any>(`Workflows/EditAction`, obj);
   }
   // #################

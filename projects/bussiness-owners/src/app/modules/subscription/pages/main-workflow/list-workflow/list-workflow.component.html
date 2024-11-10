@@ -1,75 +1,75 @@
-<lib-page-content [title]="'OperationalTag.TaxList' | translate" [subTitle]="'OperationalTag.TaxList' | translate">
-    <div>
-      <div class="user_page">
-        <lib-data-table
-          [items]="tableData"
-          className="p-datatable-gridlines"
-          [currentPageResult]="currentPageInfo"
-          (pageChange)="onPageChange($event)"
-          (addNew)="addNew($event)"
+<lib-page-content
+  [title]="'OperationalTag.TaxList' | translate"
+  [subTitle]="'OperationalTag.TaxList' | translate"
+>
+  <lib-new-bread-crumb> </lib-new-bread-crumb>
+  <div>
+    <div class="user_page">
+      <lib-data-table
+        [items]="tableData"
+        className="p-datatable-gridlines"
+        [currentPageResult]="currentPageInfo"
+        (pageChange)="onPageChange($event)"
+        (addNew)="addNew($event)"
+        [tableConfigs]="{
+          allowPagination: false,
+          allowServerPagination: true,
+          dataKey: 'id',
+          pageSize: 10,
+          columns: [
+            {
+              name: 'id',
+              headerText: ('code' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'name',
+              headerText: ('name' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'isActive',
+              headerText: ('Status' | translate),
+              template: status
+            },
 
-          [tableConfigs]="{
-            allowPagination: false,
-            allowServerPagination: true,
-            dataKey: 'id',
-            pageSize: 10,
-            columns: [
-              {
-                name: 'id',
-                headerText: ('code' | translate),
-                isGlobalFilter: true,
-                isSortable: true
-              },
-              {
-                name: 'name',
-                headerText: ('name' | translate),
-                isGlobalFilter: true,
-                isSortable: true
-              },
-              {
-                name: 'isActive',
-                headerText: ('Status' | translate),
-                template:status
-              },
-             
-              {
-                name: 'id',
-                headerText: ('Action' | translate),
-               
-                template: actions
+            {
+              name: 'id',
+              headerText: ('Action' | translate),
 
-              },
-             
-            ]
-          }"
-        >
-          <ng-container caption>
-            <div class="">
-              <div class="grid grid-cols-4 gap-2" >
-                <div class="col-span-1">
-                  <lib-form-group>
-                    <lib-text-input
-                      type="text"
-                      [placeholder]="'OperationalTag.Search' | translate"
-                      [(ngModel)]="searchTerm"
-                      (keyUp)="onSearchChange()"
-                    ></lib-text-input>
-                  </lib-form-group>
+              template: actions
+            }
+          ]
+        }"
+      >
+        <ng-container caption>
+          <div class="">
+            <div class="grid grid-cols-4 gap-2">
+              <div class="col-span-1">
+                <lib-form-group>
+                  <lib-text-input
+                    type="text"
+                    [placeholder]="'OperationalTag.Search' | translate"
+                    [(ngModel)]="searchTerm"
+                    (keyUp)="onSearchChange()"
+                  ></lib-text-input>
+                </lib-form-group>
+              </div>
+
+              <div class="flex flex-auto justify-content-end align-items-center gap-2">
+                <div>
+                  <lib-button-micro
+                    [title]="'Create' | translate"
+                    nameClass=" table_button_save"
+                    iconName="pi pi-plus"
+                    (click)="newWorkflow()"
+                  >
+                  </lib-button-micro>
                 </div>
-          
-  
-                <div class=" flex flex-auto justify-content-end align-items-center gap-2">
-                  <div>
-                    <lib-button-micro
-                      [title]="'Create' | translate"
-                      nameClass="save"
-                      iconName="pi pi-plus"
-                      (click)="newWorkflow()"
-                    >
-                    </lib-button-micro>
-                  </div>
-                  <!--  -->
-                  <!-- <div>
+                <!--  -->
+                <!-- <div>
                     <lib-export
                       (exportClick)="exportClick($event)"
                       [exportData]="exportData"
@@ -78,29 +78,26 @@
                     >
                     </lib-export>
                   </div> -->
-                  <!--  -->
-                </div>
+                <!--  -->
               </div>
             </div>
-          </ng-container>
-    
-          <ng-template #status let-Action>
-            <div>
-              <lib-input-switch [disabled]="true" [(ngModel)]="Action.isActive">
-              </lib-input-switch>
-            </div>
-          </ng-template>
-       
-        
-          <ng-template #actions let-action>
-            <div class="actions flex align-items-center">
-              <img src="assets/images/table/edit.svg" alt="" (click)="onEdit(action)" />
-              <img src="assets/images/table/view.svg" alt="" (click)="onView(action.id)" />
-              <img src="assets/images/table/delete.svg" alt="" (click)="onDelete(action.id)" />
-            </div>
-          </ng-template>
-        </lib-data-table>
-      </div>
+          </div>
+        </ng-container>
+
+        <ng-template #status let-Action>
+          <div>
+            <lib-input-switch [disabled]="true" [(ngModel)]="Action.isActive"> </lib-input-switch>
+          </div>
+        </ng-template>
+
+        <ng-template #actions let-action>
+          <div class="actions flex align-items-center">
+            <img src="assets/images/table/edit.svg" alt="" (click)="onView(action.id)" />
+            <!-- <img src="assets/images/table/view.svg" alt="" (click)="onView(action.id)" /> -->
+            <img src="assets/images/table/delete.svg" alt="" (click)="onDelete(action.id)" />
+          </div>
+        </ng-template>
+      </lib-data-table>
     </div>
-  </lib-page-content>
-  
+  </div>
+</lib-page-content>

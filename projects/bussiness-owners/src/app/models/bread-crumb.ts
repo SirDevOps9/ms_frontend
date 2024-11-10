@@ -1,36 +1,44 @@
-import { BreadcrumbLabel } from "shared-lib";
+import { BreadcrumbLabel } from 'shared-lib';
 export const BreadCrumbRoute = {
-  
   subscription: [
     { icon: 'pi pi-home', route: '/my-subscriptions' },
-    { label: BreadcrumbLabel.SUBSCRIPTION},
+    { label: BreadcrumbLabel.SUBSCRIPTION },
   ],
   user: [
     { icon: 'pi pi-home', route: '/my-subscriptions' },
-    { label: BreadcrumbLabel.SUBSCRIPTION , route: '/my-subscriptions'   },
-    { label: BreadcrumbLabel.USER ,  },
+    { label: BreadcrumbLabel.SUBSCRIPTION, route: '/my-subscriptions' },
+    { label: BreadcrumbLabel.USER },
   ],
   cart: [
     { icon: 'pi pi-home', route: '/my-subscriptions' },
-    { label: BreadcrumbLabel.SUBSCRIPTION , route: '/my-subscriptions'   },
-    { label: BreadcrumbLabel.CART ,  },
+    { label: BreadcrumbLabel.SUBSCRIPTION, route: '/my-subscriptions' },
+    { label: BreadcrumbLabel.CART },
   ],
   app: [
     { icon: 'pi pi-home', route: '/my-subscriptions' },
-    { label: BreadcrumbLabel.SUBSCRIPTION , route: '/my-subscriptions'   },
-    { label: BreadcrumbLabel.Manage_Apps ,  },
+    { label: BreadcrumbLabel.SUBSCRIPTION, route: '/my-subscriptions' },
+    { label: BreadcrumbLabel.Manage_Apps },
+  ],
+  workflow: [
+    { icon: 'pi pi-home', route: '/my-subscriptions' },
+    { label: BreadcrumbLabel.SUBSCRIPTION, route: '/my-subscriptions' },
+    { label: BreadcrumbLabel.Workflow },
+  ],
+  viewWorkflow: [
+    { icon: 'pi pi-home', route: '/my-subscriptions' },
+    { label: BreadcrumbLabel.Workflow, route: '/workflow' },
+    { label: `${BreadcrumbLabel.View_Workflow}` },
   ],
   companies: [
     { icon: 'pi pi-home', route: '/my-subscriptions' },
-     { label: BreadcrumbLabel.SUBSCRIPTION , route: '/my-subscriptions'   },
-    { label: BreadcrumbLabel.COMPANIES}
+    { label: BreadcrumbLabel.SUBSCRIPTION, route: '/my-subscriptions' },
+    { label: BreadcrumbLabel.COMPANIES },
   ],
   editCompanies: [
     { icon: 'pi pi-home', route: '/my-subscriptions' },
-    { label: BreadcrumbLabel.SUBSCRIPTION , route: '/my-subscriptions'   },
+    { label: BreadcrumbLabel.SUBSCRIPTION, route: '/my-subscriptions' },
     // { label: BreadcrumbLabel.COMPANIES , route: `/company/ }`   },
-    { label: BreadcrumbLabel.EDIT_COMPANIES ,  },
-
+    { label: BreadcrumbLabel.EDIT_COMPANIES },
   ],
   appStore: [
     { icon: 'pi pi-home', route: '/my-subscriptions' },
@@ -38,8 +46,7 @@ export const BreadCrumbRoute = {
   ],
   appDetails: [
     { icon: 'pi pi-home', route: '/my-subscriptions' },
-    { label: BreadcrumbLabel.APP_STORE , route: '/app-store'  },
+    { label: BreadcrumbLabel.APP_STORE, route: '/app-store' },
     { label: BreadcrumbLabel.APP_DETAILS },
   ],
-
 };

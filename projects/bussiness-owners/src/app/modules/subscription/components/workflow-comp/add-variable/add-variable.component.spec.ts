@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddActionComponent } from './add-action.component';
+import { AddVariableComponent } from './add-variable.component';
 
-describe('AddActionComponent', () => {
-  let component: AddActionComponent;
-  let fixture: ComponentFixture<AddActionComponent>;
+describe('AddVariableComponent', () => {
+  let component: AddVariableComponent;
+  let fixture: ComponentFixture<AddVariableComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AddActionComponent]
+      declarations: [AddVariableComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(AddActionComponent);
+    fixture = TestBed.createComponent(AddVariableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

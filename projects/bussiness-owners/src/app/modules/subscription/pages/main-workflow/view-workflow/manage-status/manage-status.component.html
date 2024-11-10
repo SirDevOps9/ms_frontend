@@ -11,33 +11,39 @@
           >
             {{ item.name }}
             <span class="flex justify-content-around gap-1">
-
-
-              <lib-button-micro nameClass="table_button_edit"  (click)="onEdit(item); $event.stopPropagation()">
+              <lib-button-micro
+                nameClass="table_button_edit"
+                (click)="onEdit(item); $event.stopPropagation()"
+              >
               </lib-button-micro>
-              <lib-button-micro nameClass="table_button_delete"  (click)="onDelete(item.id); $event.stopPropagation()">
+              <lib-button-micro
+                nameClass="table_button_delete"
+                (click)="onDelete(item.id); $event.stopPropagation()"
+              >
               </lib-button-micro>
-            
             </span>
-            
           </li>
-          <lib-button-micro nameClass="save" 
-          title="add_status"
-          class="flex justify-content-center pb-2"
-
-          (click)="addStatus()">
+          <lib-button-micro
+            nameClass="save"
+            title="add_status"
+            class="flex justify-content-center pb-2"
+            (click)="addStatus()"
+          >
           </lib-button-micro>
         </ul>
       </div>
     </div>
     <div style="width: 80%">
-<!-- <ng-container *ngIf="showList"> -->
+      <!-- <ng-container *ngIf="showList"> -->
 
-  <app-list-actions (sendDataToUpdate)="loadObjToUpdate($event)"    (showAddAction)="showAddComponent($event)" *ngIf="showList && selectedStatusId" [workflowId]="id" [statusId]="selectedStatusId" ></app-list-actions>
-<!-- </ng-container> -->
-
-      <app-add-action *ngIf="showAdd" [stateId]="selectedStatusId" (showList)="finishAdd($event)" ></app-add-action>
-      <app-edit-action  *ngIf="showEdit"  [objToEdit]="rowObjectToUpdate"  (showList)="finishEdit($event)"></app-edit-action>
+      <app-list-actions
+        (sendDataToUpdate)="loadObjToUpdate($event)"
+        (showAddAction)="showAddComponent($event)"
+        *ngIf="showList && selectedStatusId"
+        [workflowId]="id"
+        [statusId]="selectedStatusId"
+      ></app-list-actions>
+      <!-- </ng-container> -->
     </div>
   </div>
 </div>

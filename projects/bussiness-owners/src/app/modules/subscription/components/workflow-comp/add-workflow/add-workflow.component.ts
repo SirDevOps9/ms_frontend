@@ -13,7 +13,7 @@ import { map } from 'rxjs';
 @Component({
   selector: 'app-add-workflow',
   templateUrl: './add-workflow.component.html',
-  styleUrl: './add-workflow.component.scss'
+  styleUrl: './add-workflow.component.scss',
 })
 export class AddWorkflowComponent implements OnInit {
   workflowForm: FormGroup;
@@ -26,11 +26,10 @@ export class AddWorkflowComponent implements OnInit {
     private fb: FormBuilder,
     public layoutService: LayoutService,
     private ref: DynamicDialogRef,
-    private formsService: FormsService,    private _subService: SubscriptionService,
-
+    private formsService: FormsService,
+    private _subService: SubscriptionService
   ) {
     this.getId();
-
   }
 
   ngOnInit() {
@@ -46,14 +45,11 @@ export class AddWorkflowComponent implements OnInit {
       .subscribe();
   }
 
-
-  
-
   initializeWorkflowForm() {
     this.workflowForm = this.fb.group({
       name: new FormControl('', [customValidators.required]),
-      isActive: new FormControl(false, ),
-      serviceId: new FormControl(0, ),
+      isActive: new FormControl(false),
+      serviceId: new FormControl(0),
     });
   }
 
@@ -62,8 +58,8 @@ export class AddWorkflowComponent implements OnInit {
   }
 
   onSubmit() {
-    if (!this.formsService.validForm(this.workflowForm)) return;   
-     const tagDto: any = this.workflowForm.value;
+    if (!this.formsService.validForm(this.workflowForm)) return;
+    const tagDto: any = this.workflowForm.value;
     this._subService.addWorkflow(tagDto, this.ref);
   }
 }
