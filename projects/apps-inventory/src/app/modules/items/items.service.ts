@@ -30,6 +30,7 @@ import {
   ItemTypeDto,
   Iuom,
   IuomResult,
+  LatestItems,
   StockInDto,
   UOMCategoryDto,
   UomCodeLookup,
@@ -147,6 +148,8 @@ export class ItemsService {
   public updateUOMByIdobj = new BehaviorSubject<any>({});
   public attributeNameDropDownLookup = new BehaviorSubject<any>([]);
   public attributeGroupeDropDownLookup = new BehaviorSubject<{ id: number; name: string }[]>([]);
+  public sendOperationalTagDropDown = new BehaviorSubject<{ id: number; name: string }[]>([]);
+  public sendlatestItemsList= new BehaviorSubject<LatestItems[]>([]);
   public attributeValuesDropDownLookup = new BehaviorSubject<itemAttributeValues[]>([]);
   public attributeValuesData = new BehaviorSubject<itemAttributeValues[]>([]);
 
@@ -233,6 +236,8 @@ public userSubDomainModules =  new BehaviorSubject<any[]>([]);
   public sendDataDefinitionByIdObs = this.sendDataDefinitionById.asObservable();
   public attributeNameDropDownLookupObs = this.attributeNameDropDownLookup.asObservable();
   public attributeGroupeDropDownLookup$ = this.attributeGroupeDropDownLookup.asObservable();
+  public sendOperationalTagDropDown$ = this.sendOperationalTagDropDown.asObservable();
+  public sendlatestItemsList$ = this.sendlatestItemsList.asObservable();
   public attributeValuesDropDownLookupObs = this.attributeValuesDropDownLookup.asObservable();
   public attributeValuesDataObs = this.attributeValuesData.asObservable();
   public addVariantLineDataObs = this.addVariantLineData.asObservable();
@@ -1010,6 +1015,8 @@ this.itemProxy.getUOMCategoryDropDown().subscribe({
 
   }
 
+
+
   EditUOMCategory(obj: addUOM) {
     this.itemProxy.EditUOMCategory( obj).subscribe((res) => {
       this.router.navigateTo(`/masterdata/uom` )
@@ -1499,6 +1506,18 @@ async deleteOperationalTag(id: number) {
       },
     });
   }
+}
+
+OperationalTagDropDown(){
+  return this.itemProxy.operationTagDropdown().subscribe(res=>{
+    this.sendOperationalTagDropDown.next(res)
+  })
+}
+
+getLatestItemsList(){
+  return this.itemProxy.getLatestItemsList().subscribe(res=>{
+    this.sendlatestItemsList.next(res)
+  })
 }
 
 }

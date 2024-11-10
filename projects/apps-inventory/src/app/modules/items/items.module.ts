@@ -56,6 +56,7 @@ import { ItemDefintionTaxComponent } from './pages/item-definition/item-defintio
 import { WarehouseTabsComponent } from './pages/warehouse/warehouse-tabs/warehouse-tabs/warehouse-tabs.component';
 import { AttributeDefinitionValuesComponent } from './pages/attribute-definition/attribute-definition-values/attribute-definition-values/attribute-definition-values.component';
 import { AttributeDefinitionListValuesComponent } from './pages/attribute-definition/attribute-definition-list-values/attribute-definition-list-values/attribute-definition-list-values.component';
+import { TrackingStockInComponent } from './pages/stock-In/add-stock-in/tracking-stock-in/tracking-stock-in.component';
 
 const routes: Routes = [
   {
@@ -376,7 +377,8 @@ const routes: Routes = [
     ItemDefintionTaxComponent,
     WarehouseTabsComponent,
     AttributeDefinitionValuesComponent,
-    AttributeDefinitionListValuesComponent
+    AttributeDefinitionListValuesComponent,
+    TrackingStockInComponent
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule ],
 })

@@ -391,7 +391,8 @@
     "subTotal": "Subtotal",
     "tracking": "Tracking",
     "note": "Note",
-    "action": "Action"
+    "action": "Action",
+    "setTracking" : "Set Tracking"
 
 },
 "transactions" : {

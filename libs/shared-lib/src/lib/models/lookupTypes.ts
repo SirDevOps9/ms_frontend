@@ -27,4 +27,6 @@ export enum LookupEnum {
   Segment = 'Segment',
   Separator = 'Separator',
   TrackingType = 'TrackingType',
+  StockInSourceDocumentType = "StockInSourceDocumentType"
+
 }
