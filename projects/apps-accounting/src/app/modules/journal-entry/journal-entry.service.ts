@@ -254,6 +254,8 @@ export class JournalEntryService {
   }
   getTrialBalance(trial: TrialBalance) {
     this.journalEntryProxy.getTrialBalance(trial).subscribe((response) => {
+      console.log(trial)
+
       this.trialDataSource.next(response);
     });
   }
