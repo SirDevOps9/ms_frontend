@@ -7,14 +7,14 @@ import { ItemDto } from '../../../models';
 import { SalesService } from '../../../sales.service';
 import { UpdetePricePolicyComponent } from '../../../components/updete-price-policy/updete-price-policy.component';
 import { PopupExcelComponent } from '../../../components/popup-excel/popup-excel.component';
-import { take } from 'rxjs';
+import { filter, take } from 'rxjs';
 
 @Component({
   selector: 'app-add-price-policy',
   templateUrl: './add-price-policy.component.html',
   styleUrl: './add-price-policy.component.scss'
 })
-export class AddPricePolicyComponent implements OnInit {
+export class AddPricePolicyComponent implements OnInit ,OnDestroy  {
   rowDataMap: { [key: number]: { uomOptions: any[] } } = {};
   duplicateLine: boolean;
   data: any;
@@ -27,19 +27,6 @@ export class AddPricePolicyComponent implements OnInit {
   @ViewChild('dt') dt: any | undefined;
 
   ngOnInit() {
-
-    this.salesService.pricePolicyListObser.pipe(
-      take(2)  // This will take only the first emission and then complete
-    ).subscribe((res) => {
-      if (res?.policyItemsList?.length > 0) {
-        res?.policyItemsList?.forEach((element: ItemDto, index: number) => {
-          this.addNewRow();
-          this.setExcelData(index, element.itemId, element);
-        });
-
-      }
-
-    });
     this.subscribes()
     this.initItemsData()
     this.initializeForm()
@@ -306,6 +293,11 @@ export class AddPricePolicyComponent implements OnInit {
     this.salesService.getLatestItems('');
   }
   subscribes() {
+    const selectedPricePolicyId = localStorage.getItem('selectedPricePolicyId');
+    if(selectedPricePolicyId){
+      this.salesService.getPricePolicyById(Number(selectedPricePolicyId))
+    
+    }
     this.salesService.latestItemsList.subscribe({
       next: (res) => {
         // this.items = res;
@@ -315,7 +307,16 @@ export class AddPricePolicyComponent implements OnInit {
         }));
       },
     });
+this.salesService.pricePolicyListObser.subscribe((res) => {
+  if(res.id){
+    res?.policyItemsList?.forEach((element: ItemDto, index: number) => {
+          this.addNewRow();
+          this.setExcelData(index, element.itemId, element);
+        });
 
+      }
+
+    });
 
   }
   openDialog(index: number) {
@@ -528,7 +529,9 @@ export class AddPricePolicyComponent implements OnInit {
       }
     });
   }
-
+  ngOnDestroy(): void {
+    localStorage.removeItem('selectedPricePolicyId');
+  }
 
   constructor(
     private formBuilder: FormBuilder,

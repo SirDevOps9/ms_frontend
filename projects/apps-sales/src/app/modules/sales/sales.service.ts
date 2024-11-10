@@ -72,8 +72,10 @@ export class SalesService {
   public customerDeletedObser = this.customerDeleted.asObservable();
   private listOfExcel = new BehaviorSubject<ItemDto[]>([]);
   public listOfExcelObser = this.listOfExcel.asObservable();
-  public pricePolicyList = new BehaviorSubject<any>([]);
+  public pricePolicyList = new BehaviorSubject<any>({});
   public pricePolicyListObser = this.pricePolicyList.asObservable();
+  public itemPricePolicy = new BehaviorSubject<any>({});
+  public itemPricePolicyObser = this.itemPricePolicy.asObservable();
 
   public customerCategoryDataSourceObservable = this.customerCategoryDataSource.asObservable();
   public customerCategoryDataByIDObservable = this.customerCategoryDataByID.asObservable();
@@ -572,7 +574,7 @@ validateExcel(excel: any) {
   
 }
 getPricePolicyById(id: number) {
-  this.pricePolicyList.next([]);
+  this.pricePolicyList.next({});
 
   this.salesProxy.GetPricePolicyById(id).subscribe((res) => {
     if (res) {
@@ -603,5 +605,14 @@ editPricePolicy(PricePolicy: any) {
     },
   });
 
+}
+viewPricePolicy(id: number) {
+  this.itemPricePolicy.next({});
+
+  this.salesProxy.viewPricePolicy(id).subscribe((res) => {
+    if (res) {
+      this.itemPricePolicy.next(res);
+    }
+  });
 }
 }

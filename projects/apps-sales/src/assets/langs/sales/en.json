@@ -1,11 +1,13 @@
 {
-    "title":{
+    "title": {
         "add": "Add Price Policy",
-        "edit": "Edit Price Policy"    
+        "edit": "Edit Price Policy",
+        "view": "View Price Policy"
     },
     "BreadCrumb": {
         "add": "Add",
         "edit": "Edit",
+        "view": "View",
         "sequence": "sequence"
     },
     "pricePolicy": {
@@ -27,10 +29,9 @@
         "price": "Price",
         "priceVAT": "Price With VAT",
         "action": "Action",
-        "uploadExcel":"upload Excel",
-        "updatePrice":"update price policy"
-
-
+        "uploadExcel": "upload Excel",
+        "updatePrice": "update price policy",
+        "default":"Default price policy"
     },
     "messages": {
         "success": "Success",

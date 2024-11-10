@@ -24,6 +24,18 @@
             </lib-field-validations>
           </lib-form-group>
         </div>
+        <div class="col-12 md:col-3" *ngIf="addForm.controls['isDefault'].value">
+
+          <lib-label [appControl]="addForm.controls['isDefault']">
+            {{ 'pricePolicy.default' | translate }}
+          </lib-label>
+          <lib-input-switch
+           [disabled]="true" 
+           formControlName="isDefault"
+          
+          >
+          </lib-input-switch>
+        </div>
   
       </div>
   

@@ -71,7 +71,7 @@
             </lib-button-micro>
             <lib-button-micro nameClass="table_button_edit" (click)="routeToEdit(actions.id)">
             </lib-button-micro>
-            <lib-button-micro nameClass="table_button_delete" (click)="onDelete(actions.id)">
+            <lib-button-micro nameClass="table_button_delete" (click)="onDelete(actions.id)" *ngIf="!actions.isDefault">
             </lib-button-micro>
             <lib-button-micro nameClass="table_button_copy" (click)="addWithData(actions.id)">
             </lib-button-micro>
