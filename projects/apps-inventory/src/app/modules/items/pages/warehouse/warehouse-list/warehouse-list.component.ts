@@ -14,6 +14,7 @@ import { AddWarehousePopupComponent } from '../../../components/warehouse/add-wa
   styleUrl: './warehouse-list.component.scss'
 })
 export class WarehouseListComponent implements OnInit {
+pi: string;
 
   constructor(
     private routerService: RouterService,
@@ -124,8 +125,8 @@ export class WarehouseListComponent implements OnInit {
   }
   onAdd() {
       const dialogRef = this.dialog.open(AddWarehousePopupComponent, {
-      width: '800px',
-      height : '550px',
+      width: '650px',
+      height : '420px',
     });
     dialogRef.onClose.subscribe(() => {
     this.initItemDefinitionData()
@@ -138,6 +139,7 @@ export class WarehouseListComponent implements OnInit {
 
 
   }
+
 
   // onSearchChange() {
   //   this.itemsService.getWarehouseList(this.searchTerm, new PageInfo());

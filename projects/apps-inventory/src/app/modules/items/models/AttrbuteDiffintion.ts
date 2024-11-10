@@ -4,9 +4,9 @@ export interface IAttrributeDifinition {
     orderByDesc: boolean
     result: IAttrributeDifinitionResult[]
   }
-  
 
-  
+
+
   export interface IAttrributeDifinitionResult {
     id: number
     nameAr: string
@@ -14,12 +14,12 @@ export interface IAttrributeDifinition {
     isActive: boolean
     itemAttributes: IAttrributeDifinitionItemAttribute[]
   }
-  
+
   export interface IAttrributeDifinitionItemAttribute {
     nameEn: string
     nameAr: string
   }
-  
+
   export interface ItemAttributeDiffinitionList {
     id: number
     nameEn: string
@@ -27,7 +27,7 @@ export interface IAttrributeDifinition {
     isActive: boolean
     attributeGroupId: number
   }
-  
+
   export interface addAttributeDifintion {
     id?: number
     nameAr: string
@@ -35,7 +35,7 @@ export interface IAttrributeDifinition {
     itemAttributeDtos: ItemAttributeDto[]
   }
 
-  
+
   export interface ItemAttributeDto {
     id?: number
     nameEn: string

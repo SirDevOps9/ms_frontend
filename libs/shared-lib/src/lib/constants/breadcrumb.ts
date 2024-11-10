@@ -114,6 +114,7 @@ export class BreadcrumbLabel {
   static Edit_Operational_Tag = 'Edit Operational Tag';
   static Add_Attribute_Definition = 'Add Attribute Definition';
   static Edit_Attribute_Definition = 'Edit Attribute Definition';
+  static LIST_Attribute_Definition = 'Attribute Definition List';
   static EDIT_WARE_HOUSE = 'Edit Warehouse';
   static ITEMS_CATEGORY = 'BreadCrumb.ItemsCategory';
   static STOCKIN = 'Stock In';

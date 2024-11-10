@@ -9,7 +9,11 @@
 
           <lib-form-group>
             <div class="flex align-items-center gap-2">
-              <lib-input-switch formControlName="isVatApplied" ></lib-input-switch>
+              <lib-input-switch
+              formControlName="isVatApplied"
+             >
+            </lib-input-switch>
+
               <p>{{ 'itemType.priceIncludeVat' | translate }}</p>
             </div>
           </lib-form-group>
@@ -29,7 +33,7 @@
             [appControl]="itemDefinitionForm.controls['taxId']"
           ></lib-field-validations>
         </div>
-    
+
 
 
       </div>

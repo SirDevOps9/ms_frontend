@@ -4,7 +4,7 @@ export interface itemAttributeValues {
     nameAr: string
     attributeGroupId: number
   }
-  
+
   export interface itemAttributeValuesByID {
     id: number
     nameAr: string
@@ -12,11 +12,10 @@ export interface itemAttributeValues {
     isActive: boolean
     itemAttributes: ItemAttribute[]
   }
-  
+
   export interface ItemAttribute {
     id: number
     nameEn: string
     nameAr: string
     isActive: boolean
   }
-  
