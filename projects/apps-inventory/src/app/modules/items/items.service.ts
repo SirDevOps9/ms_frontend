@@ -15,6 +15,7 @@ import {
   AddItemCategory,
   AddItemDefinitionDto,
   AddOperatioalTag,
+  AddStockIn,
   AddVariantLine,
   AddWarehouse,
   AttributesVariants,
@@ -85,12 +86,12 @@ export class ItemsService {
   public taxesLookup = new BehaviorSubject<{ id: number; nameAr: string; nameEn: string }[]>([]);
   public taxesDataLookup = new BehaviorSubject<any[]>([]);
 
- public taxesEditDataLookup = new BehaviorSubject<any[]>([]);
- public getInventoryData = new BehaviorSubject<any>([]);
- public dataBarCodeById =new BehaviorSubject<any[]>([]);
+  public taxesEditDataLookup = new BehaviorSubject<any[]>([]);
+  public getInventoryData = new BehaviorSubject<any>([]);
+  public dataBarCodeById =new BehaviorSubject<any[]>([]);
   public uomCodeLookup = new BehaviorSubject<UomCodeLookup[]>([]);
   public getuomById = new BehaviorSubject<addUOM>({} as addUOM);
- public ItemGetItemUomById =  new BehaviorSubject<any[]>([])
+  public ItemGetItemUomById =  new BehaviorSubject<any[]>([])
   public defaultUnit = new BehaviorSubject<{ id: number; name: string }>({} as { id: number; name: string });
   // new Edits for item Def
 
@@ -150,6 +151,7 @@ export class ItemsService {
   public attributeGroupeDropDownLookup = new BehaviorSubject<{ id: number; name: string }[]>([]);
   public sendOperationalTagDropDown = new BehaviorSubject<{ id: number; name: string }[]>([]);
   public sendlatestItemsList= new BehaviorSubject<LatestItems[]>([]);
+  public sendAddStockIn = new BehaviorSubject<AddStockIn>({} as AddStockIn);
   public attributeValuesDropDownLookup = new BehaviorSubject<itemAttributeValues[]>([]);
   public attributeValuesData = new BehaviorSubject<itemAttributeValues[]>([]);
 
@@ -238,6 +240,7 @@ public userSubDomainModules =  new BehaviorSubject<any[]>([]);
   public attributeGroupeDropDownLookup$ = this.attributeGroupeDropDownLookup.asObservable();
   public sendOperationalTagDropDown$ = this.sendOperationalTagDropDown.asObservable();
   public sendlatestItemsList$ = this.sendlatestItemsList.asObservable();
+  public sendAddStockIn$ = this.sendAddStockIn.asObservable();
   public attributeValuesDropDownLookupObs = this.attributeValuesDropDownLookup.asObservable();
   public attributeValuesDataObs = this.attributeValuesData.asObservable();
   public addVariantLineDataObs = this.addVariantLineData.asObservable();
@@ -1517,6 +1520,18 @@ OperationalTagDropDown(){
 getLatestItemsList(){
   return this.itemProxy.getLatestItemsList().subscribe(res=>{
     this.sendlatestItemsList.next(res)
+  })
+}
+
+addStockIn(obj : AddStockIn){
+  return this.itemProxy.addStockIn(obj).subscribe(res=>{
+    this.sendAddStockIn.next(res)
+    this.toasterService.showSuccess(
+      this.languageService.transalte('stockIn.success'),
+      this.languageService.transalte('stockIn.stockAdded')
+
+    );
+    this.router.navigateTo('/masterdata/stock-in')
   })
 }
 

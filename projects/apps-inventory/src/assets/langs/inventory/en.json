@@ -392,7 +392,13 @@
     "tracking": "Tracking",
     "note": "Note",
     "action": "Action",
-    "setTracking" : "Set Tracking"
+    "setTracking" : "Set Tracking",
+    "expiryDate" : "Expiry Date",
+    "generatedBatch" : "Generated Batch",
+    "vendorBatchNo" : "Batch No",
+    "stockAdded" : "Stock In Added Successfully"
+
+
 
 },
 "transactions" : {

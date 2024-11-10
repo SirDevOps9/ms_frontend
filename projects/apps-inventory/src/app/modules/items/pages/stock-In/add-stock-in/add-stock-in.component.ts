@@ -5,7 +5,7 @@ import { AuthService } from 'microtec-auth-lib';
 import { DialogService } from 'primeng/dynamicdialog';
 import { LanguageService, lookupDto, LookupEnum, LookupsService, MenuModule, PageInfo, PageInfoResult, RouterService } from 'shared-lib';
 import { ItemsService } from '../../../items.service';
-import { GetWarehouseList, LatestItems } from '../../../models';
+import { AddStockIn, GetWarehouseList, LatestItems } from '../../../models';
 import { TrackingStockInComponent } from './tracking-stock-in/tracking-stock-in.component';
 
 @Component({
@@ -52,7 +52,8 @@ oprationalLookup : { id: number; name: string }[] = []
     private langService: LanguageService,
     private itemsService: ItemsService,
     private fb: FormBuilder,
-    private lookupservice : LookupsService
+    private lookupservice : LookupsService,
+    private router : RouterService
 
   ) {
     this.title.setTitle(this.langService.transalte('itemCategory.itemDefinition'));
@@ -70,6 +71,10 @@ oprationalLookup : { id: number; name: string }[] = []
       notes: '',
       stockInDetails: this.fb.array([]),
     });
+
+    this.stockInForm.valueChanges.subscribe(res=>{
+      console.log(res)
+    })
 
     this.lookupservice.loadLookups([
       LookupEnum.StockInSourceDocumentType
@@ -145,6 +150,7 @@ oprationalLookup : { id: number; name: string }[] = []
    console.log(this.uomLookup)
    stockInFormGroup.get('itemCodeName')?.setValue(data?.itemCode)
    stockInFormGroup.get('description')?.setValue(data?.itemVariantName)
+   stockInFormGroup.get('trackingType')?.setValue(data?.trackingType)
 
   }
   uomChanged(e : any , stockInFormGroup : FormGroup) {
@@ -158,15 +164,30 @@ oprationalLookup : { id: number; name: string }[] = []
     this.stockIn.push(this.createStockIn())
   }
 
-  setTracking() {
+  setTracking(setTracking : FormGroup) {
     const dialogRef = this.dialog.open(TrackingStockInComponent, {
-      width: '50%',
-      height: '430px',
+      width: '60%',
+      height: '450px',
       data: this.itemData.trackingType,
     });
+    dialogRef.onClose.subscribe((res: any) => {
+      if(res) {
+        console.log(res)
+        setTracking.get('stockInTracking')?.patchValue({...res})
+      }
+    })
   }
 
-  onCancel() {}
+  onCancel() {
+    this.router.navigateTo('/masterdata/stock-in')
 
-  onSave() {}
+  }
+
+  onSave() {
+    let data : AddStockIn = {
+      ...this.stockInForm.value,
+      stockInDetails : this.stockIn.value
+    }
+    this.itemsService.addStockIn(data)
+  }
 }

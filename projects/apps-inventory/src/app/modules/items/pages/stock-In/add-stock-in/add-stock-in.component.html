@@ -241,21 +241,21 @@
         <td [pEditableColumn]="stockInFormGroup.controls['trackingType']" pEditableColumnField="trackingType">
           <p-cellEditor>
             <ng-template pTemplate="input">
-              <!-- <lib-text-input
-                placeholder="{{ 'stockIn.tracking' | translate }}"
-                formControlName="trackingType"
-              ></lib-text-input> -->
-              <lib-button-micro
-              title="{{ 'stockIn.setTracking' | translate }}"
-              nameClass="save"
-              widthNumber="100%"
-              (click)="setTracking()"
-            >
-            </lib-button-micro>
+              <div class="d-flex gap-">
+
+                <lib-button-micro
+                title="{{ 'stockIn.setTracking' | translate }}"
+                nameClass="save"
+                widthNumber="100%"
+                (click)="setTracking(stockInFormGroup)"
+              >
+              </lib-button-micro>
+              </div>
+             
 
             </ng-template>
             <ng-template pTemplate="output">
-              {{ stockInFormGroup.controls['trackingType']?.value }}
+              {{ stockInFormGroup.get('stockInTracking')?.get('expireDate')?.value | date : "dd-MM-yyyy" }}
             </ng-template>
           </p-cellEditor>
           <lib-field-validations

@@ -1,71 +1,70 @@
 
-<lib-popup-page
-title="{{ 'itemDefinition.Add' | translate }}"
-[closeFunction]="onCancel"
-(Submit)="onSubmit()"
 
->
-    <div >
-        <p-table
-        [value]="tracking['controls']"
-        dataKey="id"
-        styleClass="p-datatable-gridlines p-datatable-striped"
-        [tableStyle]="{ 'min-width': '50rem' }"
-      >
-        <ng-template pTemplate="header">
-          <tr>
-            <th>{{ 'stockIn.expiryDate' | translate }}</th>
-            <th>{{ 'stockIn.generationBatch' | translate }}</th>
-           
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-stockInFormGroup let-editing="editing" let-i="rowIndex">
-          <tr [formGroup]="stockInFormGroup">
-            <td [pEditableColumn]="stockInFormGroup.controls['barCode']" pEditableColumnField="barCode">
-              <p-cellEditor>
-                <ng-template pTemplate="input">
-                  <lib-text-input
-                    placeholder="{{ 'stockIn.barCode' | translate }}"
-                    formControlName="barCode"
+<ng-container *ngIf="configData == 'NoTracking'">
+
+  <lib-popup-page
+  title="{{ 'itemDefinition.Add' | translate }}"
+  [closeFunction]="onCancel"
+  (Submit)="onSubmit()"
+  
+  >
+      <div >
+          <p-table
+          [value]="tracking['controls']"
+          dataKey="id"
+          styleClass="p-datatable-gridlines p-datatable-striped"
+          [tableStyle]="{ 'min-width': '50rem' }"
+        >
+          <ng-template pTemplate="header">
+            <tr>
+              <th>{{ 'stockIn.expiryDate' | translate }}</th>
+              <th>{{ 'stockIn.generatedBatch' | translate }}</th>
+             
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-stockInFormGroup let-editing="editing" let-i="rowIndex">
+            <tr [formGroup]="stockInFormGroup">
+              <td [pEditableColumn]="stockInFormGroup.controls['expireDate']" pEditableColumnField="expireDate">
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <lib-calendar  formControlName="expireDate"></lib-calendar>
+  
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    {{ stockInFormGroup.controls['expireDate']?.value | date:'dd-MM-yyyy'}}
+                  </ng-template>
+                </p-cellEditor>
+                <lib-field-validations
+                  [appControl]="stockInFormGroup.controls['expireDate']"
+                ></lib-field-validations>
+              </td>
+              <!--  -->
+      
+              <td [pEditableColumn]="stockInFormGroup.controls['vendorBatchNo']" pEditableColumnField="vendorBatchNo">
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <lib-text-input
+                    placeholder="{{ 'stockIn.vendorBatchNo' | translate }}"
+                    formControlName="vendorBatchNo"
                   ></lib-text-input>
-                </ng-template>
-                <ng-template pTemplate="output">
-                  {{ stockInFormGroup.controls['barCode']?.value }}
-                </ng-template>
-              </p-cellEditor>
-              <lib-field-validations
-                [appControl]="stockInFormGroup.controls['barCode']"
-              ></lib-field-validations>
-            </td>
-            <!--  -->
-    
-            <td [pEditableColumn]="stockInFormGroup.controls['itemId']" pEditableColumnField="itemId">
-              <p-cellEditor>
-                <ng-template pTemplate="input">
-            
-                  <lib-select
-                  formControlName="itemId"
-                  [options]="latestItemsList"
-                  optionValue="itemId"
-                  optionLabel="itemCode"
-                  placeholder="{{ 'stockIn.itemCode' | translate }}"
-                  (valueChanged)="itemChanged($event , stockInFormGroup)"
-                >
-                </lib-select>
-                </ng-template>
-                <ng-template pTemplate="output">
-                  {{ stockInFormGroup.controls['itemCodeName']?.value }}
-                </ng-template>
-              </p-cellEditor>
-              <lib-field-validations
-                [appControl]="stockInFormGroup.controls['itemId']"
-              ></lib-field-validations>
-            </td>
-           
-          </tr>
-        </ng-template>
-      </p-table>
-
-
-    </div>
-</lib-popup-page>
+  
+        
+                  </ng-template>
+                  <ng-template pTemplate="output"> 
+                    {{ stockInFormGroup.controls['vendorBatchNo']?.value }}
+                  </ng-template>
+                </p-cellEditor>
+                <lib-field-validations
+                  [appControl]="stockInFormGroup.controls['vendorBatchNo']"
+                ></lib-field-validations>
+              </td>
+             
+            </tr>
+          </ng-template>
+        </p-table>
+  
+  
+      </div>
+  </lib-popup-page>
+  
+</ng-container>
