@@ -134,6 +134,8 @@ export class DataTableComponent implements OnInit, OnChanges {
     return this.tableConfigs.columns.some((col) => col.children && col.children.length > 0);
   }
   ngOnChanges(changes: SimpleChanges): void {
+    console.log(this.noColumnFilter ,"bool");
+    
     this.clonedTableConfigs = { ...this.tableConfigs };
   }
   routeToSequence() {
