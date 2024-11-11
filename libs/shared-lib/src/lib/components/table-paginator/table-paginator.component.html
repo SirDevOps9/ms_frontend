@@ -1,8 +1,12 @@
+<div class="paginator-wrapper">
+  <span class="p-paginator-current-custom ng-star-inserted"
+    >{{"Paginator.Showing" | translate}} {{ currentPage }} {{"Paginator.To" | translate}} {{ lastPage }} / {{ totalRecords }} {{"Paginator.Entries" | translate}}</span
+  >
   <p-paginator
     (onPageChange)="onPageChange($event)"
     [rows]="rows"
     [totalRecords]="totalRecords"
     [rowsPerPageOptions]="[25, 50, 100]"
     [first]="test.first ? test.first : 0"
-
   ></p-paginator>
+</div>

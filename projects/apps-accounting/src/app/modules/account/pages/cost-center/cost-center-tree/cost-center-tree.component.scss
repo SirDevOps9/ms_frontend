@@ -1,4 +1,4 @@
-@import "../../../../../../assets/styling/scss/variables/font-family";
+@import "../../../../../../../../../libs/apps-shared-lib/src/assets/styling/scss/variables/font-family";
 
 .chart_of_account_tree {
     background-color: #fff;
@@ -262,7 +262,7 @@
         }
 
         .reads {
-            background: #D8DBDF !important;
+            background: #efefef !important;
             color: #000 !important;
 
             &::placeholder {

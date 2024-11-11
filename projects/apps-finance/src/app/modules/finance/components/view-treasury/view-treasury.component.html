@@ -1,1 +1,57 @@
-<p>view-treasury works!</p>
+<lib-popup-page
+  title=" {{ 'treasury-view.title' | translate }}"
+  [closeFunction]="onCancel"
+  [save]="false"
+>
+    <div class="grid">
+      <div class="md:col-6">
+        <p class="headsCont heading_b16">{{ 'treasury-view.code' | translate }}</p>
+        <p class="subHead paragraph_b16 pragraph_demd">
+          {{ ViewForm.code || 'N/A' }}
+        </p>
+      </div>
+      <div class="md:col-6">
+        <p class="headsCont heading_b16">{{ 'treasury-view.name' | translate }}</p>
+        <p class="subHead paragraph_b16 pragraph_demd">
+          {{ ViewForm.name || 'N/A' }}
+        </p>
+      </div>
+      <div class="md:col-6">
+        <p class="headsCont heading_b16">{{ 'treasury-view.currency' | translate }}</p>
+        <p class="subHead paragraph_b16 pragraph_demd">
+          {{ ViewForm.currencyName || 'N/A' }}
+        </p>
+      </div>
+       <div class="md:col-6">
+        <p class="headsCont heading_b16">{{ 'treasury-view.branches' | translate }}</p>
+        <p class="subHead paragraph_b16 pragraph_demd" *ngFor="let item of ViewForm.branchesName">
+          {{ item  || 'N/A' }}
+        </p>
+      </div> 
+      <div class="md:col-6">
+        <p class="headsCont heading_b16">{{ 'treasury-view.accountName' | translate }}</p>
+        <p class="subHead paragraph_b16 pragraph_demd">
+          {{ ViewForm.accountName || 'N/A' }}
+        </p>
+      </div>
+      <div  class="md:col-6">
+        <p class="headsCont heading_b16">{{ 'treasury-view.acountopeningBalance' | translate }}</p>
+        <p class="subHead paragraph_b16 pragraph_demd">
+          {{ ViewForm.accountOpeningBalance || 'N/A' }}
+        </p>
+      </div>
+      <div class="md:col-6">
+        <p class="headsCont heading_b16">{{ 'treasury-view.treasuryOpeningBalance' | translate }}</p>
+        <p class="subHead paragraph_b16 pragraph_demd">
+          {{ ViewForm.treasuryOpeningBalance || 'N/A' }}
+        </p>
+      </div>
+      <div class="md:col-6">
+        <p class="headsCont heading_b16">{{ 'treasury-view.treasuryCurrentBalance' | translate }}</p>
+        <p class="subHead paragraph_b16 pragraph_demd">
+          {{ ViewForm.treasuryCurrentBalance || 'N/A' }}
+        </p>
+      </div>
+    </div>
+</lib-popup-page>
+

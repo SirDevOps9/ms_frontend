@@ -41,63 +41,52 @@
             },
             {
               name: 'id',
-              headerText: 'Actions',
+              headerText: ('Actions' | translate),
               template: actions
             }
           ]
         }"
       >
-      <ng-container caption>
-        <div class="">
-          <div class="grid">
-            <!-- Single Row Layout -->
-            <div class="col-12 flex justify-content-between align-items-center">
-              <!-- Left Side: Search and Change Column -->
-              <div class="flex gap-2 align-items-center">
-                <div class="col-3">
-                  <lib-form-group>
-                    <lib-text-input
-                      type="text"
-                      [placeholder]="'paymentmethod.Search' | translate"
-                      [(ngModel)]="searchTerm"
-                      (keyUp)="onSearchChange()"
-                    ></lib-text-input>
-                  </lib-form-group>
-                </div>
-                <div class="col-3">
-                  <lib-change-column [dataTable]="tableData"></lib-change-column>
-                </div>
-              </div>
-      
-              <!-- Right Side: Add New and Export -->
-              <div class="flex gap-2 align-items-center">
-                <div>
-                  <lib-button-micro
-                    [title]="'paymentmethod.AddNew' | translate"
-                    nameClass="save"
-                    iconName="pi pi-plus"
-                    (click)="onAdd()"
-                  >
-                  </lib-button-micro>
-                </div>
-                <div>
-                  <lib-export  
-                    (exportClick)="exportClick($event)"
-                    [exportData]="tableData"
-                    [exportColumns]="exportColumns"
-                    [ExportName]="'Payment Method'">
-                  </lib-export>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <ng-container search>
+        <lib-form-group>
+          <lib-text-input
+            type="text"
+            [placeholder]="'paymentmethod.Search' | translate"
+            [(ngModel)]="searchTerm"
+            (keyUp)="onSearchChange()"
+          ></lib-text-input>
+        </lib-form-group>
       </ng-container>
+      <ng-container action>
+        <div>
+          <lib-export  
+            (exportClick)="exportClick($event)"
+            [exportData]="exportData"
+            [exportColumns]="exportColumns"
+            [ExportName]="'Payment Method'">
+          </lib-export>
+        </div>
+        <div>
+          <lib-button-micro
+            [title]="'paymentmethod.AddNew' | translate"
+            nameClass="save"
+            iconName="pi pi-plus"
+            (click)="onAdd()"
+          >
+          </lib-button-micro>
+        </div>
+  
+      </ng-container>
+     
         
         <ng-template #actions let-action>
           <div class="actions flex align-items-center">
-            <img src="assets/images/table/edit.svg" alt="" (click)="onEdit(action)" />
-            <img src="assets/images/table/delete.svg" alt="" (click)="onDelete(action.id)" />
+            <lib-button-micro nameClass="table_button_view" (click)="view(action.id)">
+            </lib-button-micro>
+            <lib-button-micro nameClass="table_button_edit" (click)="onEdit(action.id)">
+            </lib-button-micro>
+            <lib-button-micro nameClass="table_button_delete" (click)="onDelete(action.id)">
+            </lib-button-micro>
           </div>
         </ng-template>
       </lib-data-table>

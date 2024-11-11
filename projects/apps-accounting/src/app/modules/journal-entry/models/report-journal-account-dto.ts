@@ -1,4 +1,5 @@
 export class reportJurnalAccountDto {
+    journalEntryId: string;
     journalEntryCode: string;
     journalEntryDate: string;
     description: string;

@@ -47,50 +47,47 @@
             headerText: 'ChartOfAccount.Nature' | translate,
             isGlobalFilter: true,
             isSortable: true
+          },
+          {
+            name: 'isActive',
+            headerText: 'ChartOfAccount.Status' | translate,
+            template:status
           }
         ]
       }"
     >
-      <ng-container caption>
-        <div class="group flex justify-content-between">
-          <div>
-            <span class="p-input-icon-left">
-              <i class="pi pi-search"></i>
-              <input
-                pInputText
-                type="text"
-                (input)="searchTermChange($event)"
-                [placeholder]="'ChartOfAccount.Search' | translate"
-              />
-            </span>
-          </div>
-          <div>
-            <lib-export
-              (exportClick)="exportAccountsData($event)"
-              [exportData]="exportData"
-              [exportColumns]="exportColumns"
-              [ExportName]="'Accounts'"
-            >
-            </lib-export>
-          </div>
-          <!-- <div class="flex justify-content-end gap-3">
-          <button class="primary" (click)="navigateToAdd()">
-            <span class="pi pi-plus"></span>
-            {{ 'Add New' | translate }}
-          </button>
-      
-          <div>
-            <lib-export  
-              (exportClick)="exportClick($event)"
-              [exportData]="tableData"
-              [exportColumns]="exportColumns"
-              [ExportName]="'Employees List'">
-            </lib-export>
-            </div>
-        </div> -->
-        </div>
+    <ng-container search>
+      <div>
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input
+            pInputText
+            type="text"
+            (input)="searchTermChange($event)"
+            [placeholder]="'ChartOfAccount.Search' | translate"
+          />
+        </span>
+      </div>
       </ng-container>
+      <ng-container action>
+        <div>
+          <lib-export
+            (exportClick)="exportAccountsData($event)"
+            [exportData]="exportData"
+            [exportColumns]="exportColumns"
+            [ExportName]="'Accounts'"
+          >
+          </lib-export>
+        </div>
+        </ng-container>
+   
 
+        <ng-template #status let-Account>
+          <div>
+            <lib-input-switch [disabled]="true" [(ngModel)]="Account.isActive">
+            </lib-input-switch>
+          </div>
+        </ng-template>
       <ng-template #userCol let-Account>
         <div class="actions flex align-items-center">
           <lib-button

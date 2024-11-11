@@ -6,7 +6,7 @@ export interface AddCustomerCategoryDto {
     salesAccountId: any
     salesReturnAccountId: any
     discountAccountId: any
-    priceListId: any
+    pricePolicyId: any
     paymentTermId: any
     marketType: any
   }

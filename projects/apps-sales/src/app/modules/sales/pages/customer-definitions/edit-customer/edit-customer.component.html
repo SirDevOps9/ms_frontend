@@ -1,7 +1,7 @@
 <lib-page-content>
   <div class="add_vendor_page">
     <form [formGroup]="addCustomerForm">
-      <div class="grid top_header">
+      <!-- <div class="grid top_header">
         <div class="col-12 md:col-9">
         </div>
         <div class="col-12 md:col-3 ">
@@ -21,7 +21,9 @@
         >
         </lib-button-micro>
         </div>
-      </div>
+      </div> -->
+      <div class="card_micro">
+
       <div class="vendor_header">
         <div class="grid">
           <div class="col-12 md:col-8">
@@ -124,6 +126,9 @@
           </div>
         </div>
       </div>
+      </div>
+      <div class="card_micro">
+
       <div class="vendor_body">
         <div class="card">
           <p-tabView>
@@ -575,14 +580,14 @@
                     <div class="col-12">
                       <lib-form-group>
                         <lib-label
-                          [appControl]="addCustomerForm.get('financialInfo')?.get('priceListId')"
+                          [appControl]="addCustomerForm.get('financialInfo')?.get('pricePolicyId')"
                         >
                           {{ 'EditCustomerDefinition.PriceList' | translate }}
                         </lib-label>
                         <lib-select
-                          formControlName="priceListId"
+                          formControlName="pricePolicyId"
                           [selectedValue]="
-                            addCustomerForm.get('financialInfo')?.get('priceListId')?.value
+                            addCustomerForm.get('financialInfo')?.get('pricePolicyId')?.value
                           "
                           [options]="priceList"
                           optionLabel="name"
@@ -590,7 +595,7 @@
                         >
                         </lib-select>
                         <lib-field-validations
-                          [appControl]="addCustomerForm.get('financialInfo')?.get('priceListId')"
+                          [appControl]="addCustomerForm.get('financialInfo')?.get('pricePolicyId')"
                         >
                         </lib-field-validations>
                       </lib-form-group>
@@ -758,6 +763,33 @@
           </p-tabView>
         </div>
       </div>
+      </div>
     </form>
+    <div class="btn_group">
+      <div class="grid">
+        <div class="md:col-3">
+          <div class="grid">
+            <div class="md:col-6">
+              <lib-button-micro
+        nameClass="cancel"
+        [title]="'Cancel' | translate"
+        (click)="onCancel()"
+      >
+      </lib-button-micro>
+            </div>
+            <div class="md:col-6">
+              <lib-button-micro
+        nameClass="save w-100"
+        [title]="'Save' | translate"
+        type="submit"
+        [disabled]="!addCustomerForm.valid"
+        (click)="editCustomer()"
+      >
+      </lib-button-micro>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </lib-page-content>

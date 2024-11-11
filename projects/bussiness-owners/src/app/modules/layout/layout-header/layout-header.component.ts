@@ -1,6 +1,6 @@
-import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
 import { AuthService, UserInfoDto } from 'microtec-auth-lib';
-import { EnvironmentService, LanguageService, RouterService } from 'shared-lib';
+import { Cultures, EnvironmentService, LanguageService, RouterService } from 'shared-lib';
 import { AppStoreService } from '../../app-store/app-store.service';
 import { Observable } from 'rxjs';
 
@@ -10,28 +10,31 @@ import { Observable } from 'rxjs';
   styleUrls: ['./layout-header.component.scss'],
 })
 export class LayoutHeaderComponent implements OnInit {
+  @Output() language = new EventEmitter();
   userName: string;
   userData: UserInfoDto;
   showcard: boolean = false;
   sidebarOpen: boolean = false;
   cartItemsCount$: Observable<number>;
+  @Output() sidebarToggle = new EventEmitter(); // Renamed event
 
   ngOnInit() {}
 
   toggleLanguage(): void {
     this.languageService.toggleLanguage();
+    this.language.emit(this.languageService.getLang());
   }
   logout(): void {
     this.authService.logout();
   }
 
-  toggleSidebar() {
-    if (this.sidebarOpen == true) {
-      this.sidebarOpen = false;
-    } else {
-      this.sidebarOpen = true;
-    }
-  }
+  // toggleSidebar() {
+  //   if (this.sidebarOpen == true) {
+  //     this.sidebarOpen = false;
+  //   } else {
+  //     this.sidebarOpen = true;
+  //   }
+  // }
   activeTag(id: any) {
     const targetElementId = document.getElementById(id);
     var test = document.querySelector('.active_link');
@@ -62,6 +65,13 @@ export class LayoutHeaderComponent implements OnInit {
   routeToCart() {
     this.routerService.navigateTo(`/app-store/cart`);
   }
+  onToggleSidebar(): void {
+    this.sidebarOpen = !this.sidebarOpen;
+    console.log("header" , this.sidebarOpen);
+    
+    this.sidebarToggle.emit(this.sidebarOpen); // Emit event to parent
+  }
+ 
 
   constructor(
     public languageService: LanguageService,

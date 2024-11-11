@@ -1,0 +1,79 @@
+body {
+  background-color: #f7f7fa !important;
+}
+.card_micro {
+  margin-top: 16px;
+  background: #fff;
+  padding: 16px;
+  border-radius: 1rem;
+}
+.card:has(table) {
+  margin-top: 16px !important;
+  background: #fff !important;
+  padding: 16px !important;
+  border-radius: 16px !important;
+}
+.add_new {
+  padding: 20px 0 0 0 !important;
+}
+
+[dir='rtl'] {
+  app-layout-sidebar .sidebar {
+    right: 0 !important;
+    left: auto;
+  }
+  .p-breadcrumb svg {
+    rotate: (180deg);
+  }
+
+  p-tree {
+    .p-treenode-content::before {
+      right: -2px !important;
+      transform: rotate(270deg);
+    }
+
+    p-treenode li::before {
+      right: 0px !important;
+    }
+
+    .p-treenode-content svg {
+      transform: rotate(180deg);
+    }
+  }
+
+  ul.nav-links > li > .iocn-link i {
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 5px;
+    padding: 0 10px;
+  }
+
+  .p-datatable-header .p-paginator .p-paginator-current {
+    margin-left: auto;
+  }
+
+  .p-paginator {
+    button > .p-icon-wrapper {
+      transform: rotate(180deg);
+    }
+    .p-paginator-current {
+      flex-grow: 1;
+      display: flex;
+      justify-content: flex-start;
+      margin-right: 10rem;
+    }
+  }
+}
+.pragraph_demd {
+  padding: 5px 16px !important;
+  background: #efefef;
+  border: 1px solid #e3e3e3;
+  transition: none !important;
+  border-radius: 6px;
+  width: 100% !important;
+}
+.p-paginator .p-dropdown {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}

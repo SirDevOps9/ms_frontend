@@ -14,7 +14,11 @@
     "AddJournalEntryOpeningBalance": "إضافة رصيد افتتاحي لقيد اليومية",
     "EditJournalEntryOpeningBalance": "تعديل رصيد افتتاحي لقيد اليومية",
     "ViewJournalEntryOpeningBalance": "عرض رصيد افتتاحي لقيد اليومية",
-    "CostCenterReport": "تقرير مركز التكلفة"
+    "CostCenterReport": "تقرير مركز التكلفة",
+    "VendorOpeningBalance": "رصيد افتتاحي للمورد",
+    "EditVendorOpeningBalance": "تعديل الرصيد الافتتاحي للمورد",
+    "AddVendorOpeningBalance": "إضافة رصيد افتتاحي للمورد",
+    "sequence": "تسلسل رقمى"
   },
   "COAConfigration": {
     "Success": "نجاح",
@@ -57,7 +61,8 @@
     "Select": "اختر",
     "Actions": "العمليات",
     "Id": "الرقم التعريفي",
-    "levelNumber": "مستوى الحساب"
+    "levelNumber": "مستوى الحساب",
+    "Status": "الحالة"
   },
   "Journal": {
     "Title": " قائمة القيود اليومية",
@@ -69,13 +74,14 @@
     "DeletedSuccessfully": "تم حذف دفتر اليومية بنجاح",
     "Success": "نجاح",
     "Error": "خطأ",
-    "save" : "حفظ المسودة",
-    "cannotDuplicate" : "لا يمكن التوزيع لنفس مركز التكلفة اكثر من مرة",
+    "save": "حفظ المسودة",
+    "cannotDuplicate": "لا يمكن التوزيع لنفس مركز التكلفة اكثر من مرة",
     "id": "الرقم التعريفي",
     "journalCode": "كود اليومية",
     "referenceNumber": "المرجع",
-    "createdOn": "التاريخ",
+    "CreatedOn": "التاريخ",
     "type": "النوع",
+    "sourceDocumentName": "اسم المستند المصدر",
     "sourceName": "اسم المستند",
     "sourceCode": "كود المستند",
     "isRepeated": "متكرر",
@@ -92,7 +98,9 @@
     "unposted": "غير مدون",
     "posted": "مدون",
     "yes": "نعم",
-    "no": "لا"
+    "no": "لا",
+    "CostCenterNotAllowed": "هذا الحساب لا يسمح بتوزيع مراكز التعبة",
+    "InvalidAmount": "من فضلك ادخل قيمة صحيحة"
   },
   "OpeningBalance": {
     "Title": "قائمة أرصدة القيود الافتتاحية",
@@ -153,7 +161,7 @@
     "CrAmountLocal": "المبلغ دائن محلي",
     "Delete": "حذف",
     "AddNewLine": "إضافة سطر جديد",
-    "add" : "اضافة",
+    "add": "اضافة",
     "Discard": "تجاهل",
     "Save": "حفظ",
     "Submit": "إرسال",
@@ -192,9 +200,8 @@
     "type": "النوع",
     "totalDebitAmountLocal": "إجمالي المدين المحلي",
     "totalCreditAmountLocal": "إجمالي الدائن المحلي",
-     "total" : "الاجمالي",
-     "add" : "اضافه"
-
+    "total": "الاجمالي",
+    "add": "اضافه"
   },
   "TaxGroup": {
     "Title": "قائمة مجموعات الضرائب",

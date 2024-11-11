@@ -3,17 +3,23 @@
   type="file"
   style="display: none"
   [multiple]="false"
-  (change)="uploadFile($event)"
+  (change)="uploadFile($event) ;onFileSelected($event)"
+  [attr.data-testid]="this.labelTest"
 />
 <!-- accept="{{ cus getFileType(this.config.type).allowedExtensions }}" -->
 
 
 
-<div class="upload-container" (click)="fileInput.click()"  *ngIf="!value" >
+<div class="upload-container" (click)="fileInput.click()"  *ngIf="!value && !file" >
   <div  class="upload-icon">
     <i class="pi pi-cloud-upload"></i>
     <p>Click to upload</p>
     +
+  </div> 
+ 
+</div>
+<div class="upload_file" (change)="onFileSelected($event)" *ngIf="file" (click)="fileInput.click()">
+  <div  class="upload-icon">
   </div>
  
 </div>

@@ -1,0 +1,115 @@
+
+
+
+<lib-popup-page
+title="{{ 'itemDefinition.addItemDef' | translate }}"
+[closeFunction]="close"
+(Submit)="onSubmit('save')"
+[showCancel]="false"
+[showSave]="false"
+>
+
+<div class="pop_up_content">
+<form class="domain_form" [formGroup]="itemDefinitionForm" >
+  <div class="domain_content">
+    <div class="grid">
+      <div class="col-12 my-2">
+        <lib-form-group>
+          <lib-label [appControl]="itemDefinitionForm.controls['name']">
+              {{ 'itemCategory.name' | translate }}
+            </lib-label>
+          <lib-text-input
+            type="text"
+            formControlName="name"
+            placeholder="{{ 'itemCategory.name' | translate }}"
+
+            class="form-control"
+          />
+          <lib-field-validations
+            [appControl]="itemDefinitionForm.controls['name']"
+          ></lib-field-validations>
+        </lib-form-group>
+      </div>
+      <div class="col-12 my-2">
+        <lib-form-group>
+          <lib-label [appControl]="itemDefinitionForm.controls['categoryId']">
+              {{ 'itemCategory.itemCategory' | translate }}
+            </lib-label>
+          <lib-select
+            placeholder="{{ 'itemCategory.itemCategory' | translate }}"
+            [options]="itemTypeLookupData"
+            optionLabel="name"
+            optionValue="id"
+            formControlName="categoryId"
+          ></lib-select>
+          <lib-field-validations [appControl]="itemDefinitionForm.controls['categoryId']">
+          </lib-field-validations>
+        </lib-form-group>
+      </div>
+
+      <div class="col-12 my-2 multi-cont">
+          <lib-form-group>
+              <lib-label [appControl]="itemDefinitionForm.controls['uomCategoryId']">
+                  {{ 'itemCategory.unitOfMeasureCategory' | translate }}
+                </lib-label>
+                <lib-select
+                placeholder="{{ 'itemCategory.unitOfMeasureCategory' | translate }}"
+                [options]="ItemCategoryDropDown"
+                optionLabel="name"
+                optionValue="id"
+                formControlName="uomCategoryId"
+                (valueChanged)="uomCategoryChanged($event)"
+              ></lib-select>
+              <lib-field-validations [appControl]="itemDefinitionForm.controls['typeId']">
+              </lib-field-validations>
+            </lib-form-group>
+      </div>
+      <!-- <div class="col-12 my-2 multi-cont">
+          <lib-form-group>
+              <lib-label [appControl]="itemDefinitionForm.controls['uomId']">
+                  {{ 'itemCategory.mainItemUnit' | translate }}
+                </lib-label>
+              <lib-select
+                placeholder="{{ 'itemCategory.mainItemUnit' | translate }}"
+                [options]="UOMCategoryDropDown"
+                optionLabel="name"
+                optionValue="id"
+                formControlName="uomId"
+                [selectedValue]="itemDefinitionForm.controls['uomId'].value"
+                (valueChanged)="UOMCategoryDropDownChanged($event)"
+
+              ></lib-select>
+              <lib-field-validations [appControl]="itemDefinitionForm.controls['uomId']">
+              </lib-field-validations>
+            </lib-form-group>
+      </div> -->
+    </div>
+  </div>
+</form>
+<div class="grid mt-3">
+  <div class="md:col-6">
+      <div class="save_btn">
+        <lib-button-micro
+          title="{{ 'itemCategory.saveContinue' | translate }}"
+          nameClass="save"
+          (click)="onSubmit('saveContinue')"
+          widthNumber="100%"
+        >
+        </lib-button-micro>
+      </div>
+    </div>
+  <div class="md:col-6">
+    <div class="save_btn">
+      <lib-button-micro
+      title="{{ 'itemCategory.save' | translate }}"
+      nameClass="save"
+        (click)="onSubmit('save')"
+        widthNumber="100%"
+      >
+      </lib-button-micro>
+    </div>
+  </div>
+</div>
+</div>
+
+</lib-popup-page>

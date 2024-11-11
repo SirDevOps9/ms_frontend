@@ -1,0 +1,171 @@
+.card_micro{
+    margin-top: 16px !important;
+    background: #fff !important;
+    padding: 16px !important;
+    border-radius: 1rem !important;
+  }
+  .p-dialog {
+    // .p-dialog-content {
+    //   padding: $spacing-24 !important;
+    //   border-radius: $spacing-8 ;
+    // }
+    .p-dialog-header {
+      display: none !important;
+    }
+  }
+  .card:has(table) {
+    margin-top: 16px !important;
+    background: #fff !important;
+    padding: 16px !important;
+    border-radius: 16px !important;
+  }
+  .p-treetable-scrollable-header-box{
+    padding: 0 !important;
+  }
+  body{
+    background-color: #f7f7fa !important;
+  
+  }
+  p-paginator {
+    .p-paginator {
+      padding: 0.6rem 0;
+
+      .p-paginator-pages {
+        .p-element {
+          border-radius: 6px;
+          transition: 0.3s;
+          &:not(.p-highlight):hover {
+            background-color: #a3d3df;
+          }
+          &.p-highlight {
+            background-color: #1a90b0;
+            color: #fff;
+          }
+        }
+      }
+    }
+    .p-paginator-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .p-paginator-current {
+      margin-right: auto;
+      padding: 0;
+      margin-left: 10rem;
+    }
+    p-dropdown {
+      position: absolute;
+    }
+    .p-dropdown {
+      padding: 12px;
+    }
+
+    @media (max-width: 768px) {
+      .p-paginator-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .p-paginator-current {
+        margin-left: 0;
+        margin-bottom: 0.5rem;
+      }
+
+      p-dropdown {
+        position: relative;
+        width: 100%;
+        margin-top: 0.5rem;
+      }
+
+      .p-paginator-element {
+        width: 100%;
+        margin-bottom: 0.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .p-paginator {
+        padding: 0.5rem;
+      }
+
+      p-dropdown {
+        font-size: 0.8rem;
+      }
+    }
+  }
+    .checked{
+      position: relative;
+      .active {
+        position: absolute;
+        top: -3px;
+        left: 20px;
+        color: #fff;
+      }
+      .inactive {
+        position: absolute;
+        top: -3px;
+        left: 50px;
+        color: #40444c;
+      }
+        .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
+            background: #1a90b0 !important;
+          }
+          .p-inputswitch.p-focus .p-inputswitch-slider {
+            box-shadow: none !important;
+          }
+          .p-inputswitch {
+            width: 9rem;
+            height: 3rem;
+            border-radius: 50%;
+          }
+          .p-inputswitch-slider {
+            border: 4px solid #d9dde6 !important;
+          }
+          .p-inputswitch .p-inputswitch-slider:before {
+            content: "";
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: gray;
+            font-size: 35px;
+            background: #ffffff;
+            width: 2.25rem;
+            height: 2.25rem;
+            left: 0.25rem;
+            margin-top: -1.15rem;
+            border-radius: 50%;
+            transition-duration: 0.2s;
+            display: inline-block;
+            --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='%23000' d='M4 0C1.8 0 0 1.8 0 4s1.8 4 4 4s4-1.8 4-4s-1.8-4-4-4m0 1c.66 0 1.26.21 1.75.56L1.56 5.75C1.21 5.26 1 4.66 1 4c0-1.66 1.34-3 3-3m2.44 1.25C6.79 2.74 7 3.34 7 4c0 1.66-1.34 3-3 3c-.66 0-1.26-.21-1.75-.56z'/%3E%3C/svg%3E");
+            background-color: currentColor;
+            -webkit-mask-image: var(--svg);
+            mask-image: var(--svg);
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+            -webkit-mask-size: 100% 100%;
+            mask-size: 100% 100%;
+          }
+          .p-inputswitch-checked .p-inputswitch-slider:before {
+            content: "\2713" !important;
+            mask-image: none !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1a90b0;
+            font-size: 35px;
+            background: #ffffff;
+            width: 3.25rem;
+            height: 2.25rem;
+            left: -0.5rem;
+            margin-top: -1.15rem;
+            // border-radius: 50%;
+            border-radius: 15px;
+            transition-duration: 0.2s;
+          }
+          .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider:before {
+            transform: translateX(5.5rem);
+          }
+    }

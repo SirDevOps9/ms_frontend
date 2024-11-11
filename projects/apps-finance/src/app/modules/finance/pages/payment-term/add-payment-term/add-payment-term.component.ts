@@ -12,7 +12,6 @@ import {
   ToasterService,
 } from 'shared-lib';
 import { AddPaymentTermDto, AddPaymentTermLinesDto } from '../../../models';
-import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-add-payment-term',
@@ -33,10 +32,8 @@ export class AddPaymentTermComponent implements OnInit {
     private formsService: FormsService,
     private lookupsService: LookupsService,
     private toasterService: ToasterService,
-    private title: Title,
     private languageService: LanguageService
   ) {
-    this.title.setTitle(this.languageService.transalte('paymentterm.AddPaymentTerm'));
   }
 
   ngOnInit() {
@@ -54,8 +51,8 @@ export class AddPaymentTermComponent implements OnInit {
         customValidators.required,
         customValidators.range(0, 100),
       ]),
-      note: new FormControl('', customValidators.required),
-      afterValue: new FormControl('', customValidators.required),
+      note: new FormControl(''),
+      afterValue: new FormControl('',[ customValidators.required ,customValidators.nonNegativeNumbers]),
       afterPeriod: new FormControl('', customValidators.required),
     });
   }
@@ -69,6 +66,7 @@ export class AddPaymentTermComponent implements OnInit {
   }
 
   addLine() {
+    if(!this.formsService.validForm(this.paymentTermForm , false))return
     this.items.push(this.createPaymentTermFormGroup());
   }
 
@@ -79,6 +77,7 @@ export class AddPaymentTermComponent implements OnInit {
   }
 
   onDelete(i: number) {
+
     this.items.removeAt(i);
   }
 
@@ -113,4 +112,6 @@ export class AddPaymentTermComponent implements OnInit {
 
     this.financeService.addPaymentTerm(formData);
   }
+  
+
 }

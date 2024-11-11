@@ -1,0 +1,28 @@
+.p-inputtext {
+  // background: $base-white;
+  border: 1px solid $gray-100;
+  padding-block: $spacing-16;
+  // padding-inline-start: $spacing-40 !important;
+  padding-inline-end: $spacing-24;
+  outline: none !important;
+  box-shadow: none !important;
+  width: 100%;
+  :enabled:focus {
+    outline: none !important;
+    outline-offset: none !important;
+    box-shadow: none !important;
+    border-color: none !important;
+  }
+}
+.p-dropdown {
+  outline: none !important;
+  box-shadow: none !important;
+  width: 100%;
+  background: $base-white;
+  border: 1px solid $gray-100;
+  padding: $spacing-16;
+  .p-inputtext {
+    padding: 0;
+    border: none !important;
+  }
+}

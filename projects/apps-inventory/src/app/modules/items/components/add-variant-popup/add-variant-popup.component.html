@@ -1,0 +1,60 @@
+
+<lib-popup-page
+title="{{ 'itemDefinition.Add' | translate }}"
+[closeFunction]="onCancel"
+(Submit)="onSubmit()"
+
+>
+    <div >
+      <form class="domain_form" [formGroup]="itemDefinitionForm" >
+        <div class="domain_content">
+          <div class="grid m-0">
+            <div class="col-12 my-2">
+              <lib-form-group>
+                <lib-label [appControl]="itemDefinitionForm.controls['attributeGroupId']">
+                    {{ 'itemDefinition.attributeName' | translate }}
+                  </lib-label>
+                <lib-select
+                  type="text"
+                  formControlName="attributeGroupId"
+                  placeholder="{{ 'itemDefinition.attributeName' | translate }}"
+                  [options]="attributeName"
+                  optionLabel="nameEn"
+                  optionValue="id"
+                  [selectedValue]="itemDefinitionForm.controls['attributeGroupId'].value"
+                  class="form-control"
+                ></lib-select>
+                <lib-field-validations
+                  [appControl]="itemDefinitionForm.controls['attributeGroupId']"
+                ></lib-field-validations>
+              </lib-form-group>
+            </div>
+            <div class="col-12 my-2">
+              <lib-form-group>
+                <lib-label [appControl]="itemDefinitionForm.controls['attributeGroupDetails']">
+                    {{ 'itemDefinition.attributeValues' | translate }}
+                  </lib-label>
+
+                <lib-multi-select
+                  placeholder="{{ 'itemDefinition.attributeValues' | translate }}"
+                  [options]="attributeValues"
+                  optionLabel="nameEn"
+                  optionValue="id"
+                  formControlName="attributeGroupDetails"
+                  [selectedValue]="itemDefinitionForm.controls['attributeGroupDetails'].value"
+
+                ></lib-multi-select>
+                <lib-field-validations [appControl]="itemDefinitionForm.controls['attributeGroupDetails']">
+                </lib-field-validations>
+              </lib-form-group>
+            </div>
+
+
+
+          </div>
+        </div>
+      </form>
+
+
+    </div>
+</lib-popup-page>

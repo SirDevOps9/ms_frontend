@@ -4,12 +4,24 @@
   "Submit": "Submit",
   "Logout": "Logout",
   "DeleteError": "Error in Delete",
+  "Cancel": "Cancel",
+
   "LoadError": "Error in loading Data",
   "Table": {
     "Actions": "Actions",
     "Edit": "Edit",
     "Delete": "Delete",
-    "Add": "Add"
+    "Add": "Create"
+  },
+  "BreadCrumb":{
+    "subscription":"My Subscription",
+    "user":"Manage User",
+    "companies":"Manage Companies",
+    "app":"Manage APP",
+    "edit":"Edit Companies",
+    "appStore":"App in Store",
+    "appDetails":"Details",
+    "cart":"Cart List"
   },
   "Toaster": {
     "Confirm": {
@@ -35,6 +47,10 @@
     "License": "License",
     "PageName": "Users Index",
     "Id": "Id",
+    "Users": "Users",
+    "Invite_user": "Invite user",
+    "Search": "Search",
+    "selectLicence": "Select Licence",
     "Name": "Name",
     "Email": "Email",
     "Phone": "Phone",
@@ -55,7 +71,7 @@
     "Accepted": "Accepted",
     "Actions": "Actions",
     "Edit": "Edit",
-    "AddNew": "Add New",
+    "AddNew": "Add",
     "AdminUser": "Admin",
     "InvitedUser": "Manager",
     "Inviteform": {

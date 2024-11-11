@@ -1,0 +1,152 @@
+<lib-page-content
+  [title]="'PaymentOut.Title' | translate"
+  [subTitle]="'PaymentOut.Title' | translate"
+>
+  <div>
+    <div class="user_page">
+      <lib-data-table
+        [sequence]="true"
+        [items]="tableData"
+        className="p-datatable-gridlines"
+        [currentPageResult]="paymentOutCurrentPageInfo"
+        (pageChange)="onPageChange($event)"
+        (addNew)="routeToAdd()"
+        [tableConfigs]="{
+              allowPagination: false,
+              allowServerPagination: true,
+              dataKey: 'id',
+              pageSize: 10,
+              columns: [
+                 
+                 {
+                   name: 'code',
+                   headerText: ('PaymentOut.List.code' | translate),
+                   isGlobalFilter: true,
+                   isSortable: true
+                 },
+                 {
+                   name: 'date',
+                   headerText: ('PaymentOut.List.date' | translate),
+                   isGlobalFilter: true,
+                     isSortable: true,
+                     template: Date
+                 },
+               
+                 {
+                   name: 'paymentHub',
+                   headerText: ('PaymentOut.List.paymentHub' | translate),
+                   isSortable: true,
+
+                 },
+                 {
+                   name: 'paymentHubDetailId',
+                   headerText: ('PaymentOut.List.paymentHubDetailId' | translate) ,
+                   isSortable: true,
+                 },
+                 {
+                  name: 'branch',
+                  headerText: ('PaymentOut.List.branch' | translate) ,
+                  isSortable: true,
+                 },
+                 {
+                  name: 'bankAccount',
+                  headerText: ('PaymentOut.List.bankAccount' | translate) ,
+                  isSortable: true,
+                 },
+                 
+                 {
+                  name: 'status',
+                  headerText: ('payment-in.status' | translate) ,
+                  template: pStatus
+                 },
+                 {
+                  name: 'sourceDocument',
+                  headerText: ('payment-in.sourceDocument' | translate),
+                  isSortable: true,
+                 },
+                 {
+                  name: 'relatedSourceJournal',
+                  headerText: ('payment-in.relatedSourceJournal' | translate) ,
+                  isSortable: true,
+                  template:journalCode
+                 },
+                 {
+                   name: 'id',
+                   headerText: ('PaymentOut.List.actions' | translate),
+                   template : actions
+                 },
+               ]
+            }"
+      >
+        <ng-container search>
+          <div>
+            <lib-text-input
+              type="text"
+              placeholder="{{ 'PaymentOut.List.Search' | translate }}"
+              (keyUp)="onSearchChange($event)"
+              [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
+            >
+            </lib-text-input>
+          </div>
+        </ng-container>
+
+        <ng-template #journalCode let-transactions>
+          <div>
+            <p class="code" (click)="routeToJournalView(transactions.relatedSourceJournalId)">
+              {{ transactions.relatedSourceJournal }}
+            </p>
+          </div>
+        </ng-template>
+
+        <ng-template #pStatus let-p>
+          <div class="status draft" *ngIf="p.status == financeSharedEnums.PaymentInStatus.Draft">
+            <p class="dot"></p>
+            <p>{{ 'payment-in.draft' | translate }}</p>
+          </div>
+          <div class="status Posted" *ngIf="p.status === financeSharedEnums.PaymentInStatus.Posted">
+            <p class="dot"></p>
+            <p>{{ 'payment-in.posted' | translate }}</p>
+          </div>
+        </ng-template>
+        <ng-container action>
+          <div class="flex gap-2">
+            <lib-export
+              (exportClick)="exportClick()"
+              [exportData]="exportData"
+              [exportColumns]="exportColumns"
+              [ExportName]="'Payment Out'"
+            >
+            </lib-export>
+            <lib-button-micro
+              title="{{ 'create' | translate }}"
+              (click)="routeToAdd()"
+              [iconName]="'pi pi-plus'"
+              nameClass="save"
+            >
+            </lib-button-micro>
+          </div>
+        </ng-container>
+        <ng-template #Date let-paymentIn>
+          <div>
+            <p>{{ paymentIn.date | date : 'dd/MM/yyyy' }}</p>
+          </div>
+        </ng-template>
+        <ng-template #status let-status>
+          <div class="actions flex align-items-center gap-2">
+            <lib-input-switch [disabled]="true" [(ngModel)]="status.status"></lib-input-switch>
+          </div>
+        </ng-template>
+        <ng-template #actions let-actions>
+          <div class="actions flex align-items-center">
+            <lib-button-micro nameClass="table_button_view" (click)="view(actions.id)">
+            </lib-button-micro>
+            <lib-button-micro nameClass="table_button_edit" (click)="routeToEdit(actions.id)">
+            </lib-button-micro>
+            <lib-button-micro nameClass="table_button_delete" (click)="onDelete(actions.id)">
+            </lib-button-micro>
+          </div>
+        </ng-template>
+      </lib-data-table>
+    </div>
+  </div>
+</lib-page-content>

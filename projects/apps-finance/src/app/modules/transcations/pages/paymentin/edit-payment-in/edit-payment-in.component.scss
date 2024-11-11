@@ -1,0 +1,30 @@
+.border{
+    border : 1px solid #EFEFEF;
+    margin-block: 16px;
+    padding: 16px;
+    border-radius: 8px;
+    .newBalance{
+        .p-inputtext{
+            border: 1px solid #1A8EAE !important;
+        }
+    }
+}
+.entry_tableCont {
+    .add_new {
+      padding: 20px 0;
+      .btn {
+        background: none;
+        border: none;
+        font-size: 16px;
+        color: #1a90b0;
+        cursor: pointer;
+      }
+      .Line {
+        border-inline-end: 3px solid #dde1e6ed;
+      }
+    }
+    
+  }
+  .pointer{
+    cursor: pointer;
+  }

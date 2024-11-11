@@ -16,13 +16,9 @@ import { Title } from '@angular/platform-browser';
   styleUrl: './currency-conversion.component.scss',
 })
 export class CurrencyConversionComponent {
-  constructor(
-    private generalSettingService: GeneralSettingService,
-    private title: Title,
-    private langService: LanguageService
-  ) {
-    this.title.setTitle(this.langService.transalte('currencyConversion.Title'));
-  }
+  SortBy?: number;
+  SortColumn?: string;
+  constructor(private generalSettingService: GeneralSettingService) {}
   tableData: CurrencyConversionDto[];
   currencies: CountryDto[] = [];
   currentPageInfo: PageInfoResult = {};
@@ -66,11 +62,13 @@ export class CurrencyConversionComponent {
     this.getCurrencyConversionList();
     this.getCurrencies();
   }
-  exportClick(e?: Event) {
-    this.exportcurrencyData(this.searchTerm);
+  exportedColumns(obj: { SortBy: number; SortColumn: string }) {
+    this.SortBy = obj.SortBy;
+    this.SortColumn = obj.SortColumn;
   }
-  exportcurrencyData(searchTerm: string) {
-    this.generalSettingService.exportcurrencyData(searchTerm);
+
+  exportClick(){
+    this.generalSettingService.exportcurrencyData(this.searchTerm ,this.SortBy,this.SortColumn);
     this.generalSettingService.exportsCurrencyListDataSourceObservable.subscribe((res) => {
       this.exportData = res;
     });
@@ -111,7 +109,7 @@ export class CurrencyConversionComponent {
   }
 
   onSearchChange(event: any) {
-    this.generalSettingService.getCurrencyConversionList(event.target.value, new PageInfo());
+    this.generalSettingService.getCurrencyConversionList(event, new PageInfo());
     this.generalSettingService.currencyConversionDataSourceObservable.subscribe({
       next: (res) => {
         this.tableData = res;

@@ -51,7 +51,7 @@
     text-transform: capitalize;
     width: 100%;
     padding: 10px;
-    margin-bottom: 20px;
+    // margin-bottom: 20px;
     background: #fff;
     margin-inline-end: 20px;
     border: 1px solid #EDEEF1;
@@ -68,7 +68,7 @@
     .app_description{
         width: 100%;
         padding: 10px;
-        margin-bottom: 10px;
+        // margin-bottom: 10px;
         .sec_one{
             display: flex;
             align-items: center;
@@ -89,7 +89,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin: 20px 0px;
+            margin-top: 20px ;
             .rate{
 
             }
@@ -116,14 +116,24 @@
     }
 }
 .card_list{
-    flex-direction: column !important;
-    max-width: 350px !important;
+     flex-direction: column !important;
+    //  max-width: 350px !important;
+
 }
 .contant{
     display: flex;
     align-items: start;
     justify-content: start;
     flex-wrap: wrap;
+    .card{
+      .sec_two{
+        flex-direction: column !important;
+      .rate{
+        height: 100px;
+        overflow: hidden;
+      }
+      }
+          }
 }
 .Modules{
     border-bottom:1px solid #8E95A2 ;
@@ -249,4 +259,44 @@
     .input:checked + .slider:before {
       transform: translateX(1.875rem);
     }
+  }
+  .title_of_page {
+    width: 100%;
+    // height: 80px;
+    // padding: 0px 10px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    // background: #F7F8F8;
+    // box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
+    //box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+  }
+  :host[ng-reflect-current-language='ar'] ::ng-deep {
+    .p-breadcrumb svg {
+      transform: rotate(180deg);
+    }
+  }
+  ::ng-deep .p-breadcrumb .p-breadcrumb-list li:last-child .p-menuitem-text {
+    color: #1a90b0 !important;
+    font-size: 20px !important;
+    font-family: $cairo_regular !important;
+  }
+    
+  ::ng-deep.p-breadcrumb .p-breadcrumb-list li .p-menuitem-link .p-menuitem-text {
+      color: #0d4859;
+      font-size: 16px !important;
+      font-family: $cairo_regular !important;
+    }
+    ::ng-deep .p-breadcrumb {
+      border: none !important;
+      background: none !important;
+    }
+  
+    ::ng-deep.p-menuitem-link {
+      overflow: visible !important;
+    }
+  .test{
+    color: #1a90b0  !important;
+
   }

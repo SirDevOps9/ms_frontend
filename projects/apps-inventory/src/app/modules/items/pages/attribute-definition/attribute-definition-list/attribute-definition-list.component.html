@@ -1,0 +1,146 @@
+<lib-page-content [title]="'attributeDefinition.TaxList' | translate" [subTitle]="'attributeDefinition.TaxList' | translate">
+    <div>
+      <div class="user_page">
+        <lib-data-table
+          [items]="tableData"
+
+          className="p-datatable-gridlines"
+          [currentPageResult]="currentPageInfo"
+          (pageChange)="onPageChange($event)"
+          [tableConfigs]="{
+            allowPagination: false,
+
+            allowServerPagination: true,
+            dataKey: 'id',
+            pageSize: 10,
+            columns: [
+
+              {
+                name: 'nameEn',
+                headerText: ('attributeDefinition.attribute' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+
+              {
+                   name: 'itemAttributes',
+                headerText: ('attributeDefinition.values' | translate),
+                   isGlobalFilter: true,
+                   isSortable: true,
+                     template: itemAttributesTemplate
+              },
+
+
+
+              {
+                name: 'isActive',
+                headerText: ('attributeDefinition.status' | translate),
+                isGlobalFilter: true,
+                isSortable: true,
+                template:isActive
+              },
+              {
+                name: 'id',
+                headerText: ('attributeDefinition.action' | translate),
+                isGlobalFilter: true,
+                isSortable: true,
+                template: actions
+
+              },
+
+            ]
+          }"
+        >
+
+
+        <ng-template #itemAttributesTemplate let-row>
+
+
+
+          <div  class="itemAttributes" >
+            <p class="itemAttributes-valuse" *ngFor="let item of (row.itemAttributes) | slice:0:5 ; let i = index">
+              {{ row?.itemAttributes[i].nameEn }}<span *ngIf="i < 2"> </span>
+            </p>
+
+            <p *ngIf=" row?.itemAttributes.length > 4"  (click)="onViewttributeValues(row.id)"class="itemAttributes-valuse">
+             {{'global.showMoreValues' | translate}}
+            </p>
+
+
+          </div>
+        </ng-template>
+
+
+          <ng-container caption>
+            <div class="">
+              <div class="grid grid-cols-4 gap-2" >
+                <div class="col-span-1">
+                  <lib-form-group>
+                    <lib-text-input
+                      type="text"
+                      [placeholder]="'attributeDefinition.Search' | translate"
+                      [(ngModel)]="searchTerm"
+                      (keyUp)="onSearchChange()"
+                      [iconUrl]="'pi pi-search'"
+                    ></lib-text-input>
+                  </lib-form-group>
+                </div>
+                <div class=" flex flex-auto justify-content-end align-items-center gap-2">
+
+                  <div>
+                    <lib-export
+                      (exportClick)="exportClick($event)"
+                      [exportData]="exportData"
+                      [exportColumns]="exportColumns"
+                      [ExportName]="'Attribute Definition'"
+                    >
+                    </lib-export>
+                  </div>
+
+                  <div>
+                    <lib-button-micro
+                      [title]="'attributeDefinition.Add' | translate"
+                      nameClass="save"
+                      iconName="pi pi-plus"
+                      (click)="Add()"
+                    >
+                    </lib-button-micro>
+                  </div>
+                  <!--  -->
+                </div>
+              </div>
+            </div>
+          </ng-container>
+
+
+
+          <ng-template #isActive let-row>
+            <div   *ngIf="row.isActive !=null" class="flex m-1 align-items-center">
+              <lib-input-switch
+              [id]="row.id"
+              [ngModel]="row.isActive"
+              (valueChanged)="confirmChange($event, row)">
+            </lib-input-switch>
+
+            <span  [ngClass]="{'active-true':row.isActive}" class="ml-2">
+              {{ row.isActive ? ('global.activeOn' | translate) : ('global.activeOff' | translate)}}
+            </span>
+
+            </div>
+
+          </ng-template>
+
+
+
+          <ng-template #actions let-action>
+            <div class="actions flex align-items-center">
+              <img src="assets/images/table/edit.svg" alt="" (click)="onEdit(action)" />
+              <img src="assets/images/table/delete.svg" alt="" (click)="onDelete(action.id)" />
+              <img src="assets/images/table/view.svg" alt="" (click)="onViewttributeValuesList(action.id)" />
+
+            </div>
+          </ng-template>
+        </lib-data-table>
+      </div>
+    </div>
+  </lib-page-content>

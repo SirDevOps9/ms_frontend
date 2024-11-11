@@ -1,10 +1,11 @@
 <lib-page-content>
-    <lib-data-table
-              [items]="tableData"
-              className="p-datatable-gridlines"
-              [currentPageResult]="currentPageInfo"
-              (pageChange)="onPageChange($event)"
-              [tableConfigs]="{
+  <lib-data-table
+    [items]="tableData"
+    className="p-datatable-gridlines"
+    [currentPageResult]="currentPageInfo"
+    (pageChange)="onPageChange($event)"
+    (exportObj)="exportedColumns($event)"
+    [tableConfigs]="{
                 allowPagination: false,
                 allowServerPagination: true,
                 dataKey: 'id',
@@ -27,14 +28,19 @@
                    {
                      name: 'toCurrencyName',
                      headerText: ('currencyConversion.ToCurrency' | translate),
+                     isSortable: true
                    },
                    {
                      name: 'reversedRate',
                      headerText: ('currencyConversion.ReversedRate' | translate) ,
+                     isSortable: true
+
                    },
                    {
                      name: 'note',
                      headerText: ('currencyConversion.Notes' | translate) ,
+                     isSortable: true
+
                    },
              
                    {
@@ -44,45 +50,44 @@
                    },
                  ]
               }"
-            >
-    
-              <ng-container caption>
-                <div class="group flex justify-content-between">
-                  <div>
-                    <span class="p-input-icon-left">
-                      <i class="pi pi-search"></i>
-                      <input pInputText type="text" placeholder="{{ 'currencyConversion.search' | translate }}" (keyup)="onSearchChange($event)" />
-                    </span>
-                  </div>
-
-                  <div class="flex gap-2">
-           
-            
-                    <lib-export  
-                    (exportClick)="exportClick($event)"
-                    [exportData]="exportData"
-                    [exportColumns]="exportColumns"
-                    [ExportName]="'Currency Conversion'">
-                  </lib-export>
-
-      
-                    <lib-button pRipple className="addToList" label="{{ 'currencyConversion.addNew' | translate }}" (onClick)="addNew()" [icon]="'pi pi-plus'"></lib-button>
-      
-                
-                </div>
-        
-              
-             
-                </div>
-              </ng-container>
+  >
+    <ng-container caption>
+      <div class="group flex justify-content-between">
+        <lib-text-input
+          type="text"
+          [(ngModel)]="searchTerm"
+          [placeholder]="'currencyConversion.search' | translate"
+          (keyUp)="onSearchChange($event)"
+          [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
+        >
+        </lib-text-input>
+        <div class="flex gap-2">
+          <lib-export
+            (exportClick)="exportClick()"
+            [exportData]="exportData"
+            [exportColumns]="exportColumns"
+            [ExportName]="'Currency Conversion'"
+          >
+          </lib-export>
           
-              <ng-template #actions let-actions>
-                <div class="actions flex align-items-center ">
-                  <img src="assets/images/table/edit.svg" alt="" (click)="Edit(actions.id)" />
-                  <img src="assets/images/table/delete.svg" alt="" (click)="onDelete(actions.id)" />
-                </div>
-              </ng-template>
-    
-             
-            </lib-data-table>
-    </lib-page-content>
+          <lib-button-micro
+            nameClass="save"
+            [title]="'currencyConversion.addNew' | translate"
+            (click)="addNew()"
+            [iconName]="'pi pi-plus'"
+          >
+          </lib-button-micro>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-template #actions let-actions>
+      <div class="actions flex align-items-center">
+        <lib-button-micro nameClass="table_button_edit" (click)="Edit(actions.id)">
+        </lib-button-micro>
+        <lib-button-micro nameClass="table_button_delete" (click)="onDelete(actions.id)">
+        </lib-button-micro>
+      </div>
+    </ng-template>
+  </lib-data-table>
+</lib-page-content>

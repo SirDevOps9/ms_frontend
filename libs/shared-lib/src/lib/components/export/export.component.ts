@@ -23,6 +23,8 @@ export class ExportComponent implements OnDestroy {
 
   @Input() exportColumns: any = [];
   @Input() ExportName: string = '';
+  @Input() labelTest: string = 'export-button';
+
   //@Input() exportData: any = [];
   private exportDataList: any = [];
   @Output() exportClick: EventEmitter<any> = new EventEmitter<any>();
@@ -64,8 +66,6 @@ export class ExportComponent implements OnDestroy {
   }
 
   exportToPDF() {
-    console.log("Exported Cols",this.exportColumns);
-    
     ExportService.ToPDF(this.exportDataList, `${this.ExportName}.pdf`, this.exportColumns);
   }
 

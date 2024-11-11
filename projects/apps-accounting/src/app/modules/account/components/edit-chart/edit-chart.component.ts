@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
-import { LookupEnum, lookupDto, RouterService, FormsService, LookupsService, ToasterService, LanguageService, customValidators } from 'shared-lib';
+import { LookupEnum, lookupDto, RouterService, FormsService, LookupsService, ToasterService, LanguageService, customValidators, Modules } from 'shared-lib';
 import { CurrencyService } from '../../../general/currency.service';
 import { CurrencyDto } from '../../../general/models/currencyDto';
 import { AccountService } from '../../account.service';
@@ -103,7 +103,7 @@ export class EditChartComponent {
   });
  }
   getTags() {
-    this.accountService.getTags();
+    this.accountService.getTags(Modules.Accounting);
     this.accountService.tags.subscribe((res) => {
       this.accountTags = res;
     });

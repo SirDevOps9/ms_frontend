@@ -33,7 +33,7 @@ export class EditCustomerCategoryComponent implements OnInit {
       salesAccountId: null,
       salesReturnAccountId: null,
       discountAccountId: null,
-      priceListId: null,
+      pricePolicyId: null,
       paymentTermId: null,
       marketType: null,
     });
@@ -64,5 +64,8 @@ export class EditCustomerCategoryComponent implements OnInit {
     this.formGroup.value.id = this.id;
 
     this.salesService.EditCustomerCategory(this.formGroup.value);
+  }
+  onDiscard(){
+    this.routerService.navigateTo(`/masterdata/customer-category`);
   }
 }

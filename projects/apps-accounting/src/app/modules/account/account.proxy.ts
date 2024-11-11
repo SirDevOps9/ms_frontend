@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
+import { HttpService, Modules, PageInfo, PaginationVm } from 'shared-lib';
 import {
   accountTreeList,
   AddAccountDto,
@@ -12,11 +12,6 @@ import {
   GetLevelsDto,
   listAddLevelsDto,
   AccountByIdDto,
-  TaxGroupDto,
-  AddTaxGroupDto,
-  AddTax,
-  EditTax,
-  TaxDto,
   accountById,
   costTree,
   addCostCenter,
@@ -26,11 +21,11 @@ import {
   costCenterActivation,
   companyDropDownDto,
   CountryDto,
-  ExportTaxDto,
   ExportAccountsDto,
   AccountsChildrenDropDown,
+  parentCostCenter,
 } from './models';
-import { TaxGroupDropDown } from './models/tax-group-drop-down';
+import { TaxGroupDropDown } from '../../../../../erp-home/src/app/modules/general-setting/models/tax-group-drop-down';
 import { costLookup } from '../journal-entry/models';
 
 @Injectable({
@@ -44,8 +39,8 @@ export class AccountProxy {
   getAccountTypes(sectionId: number): Observable<AccountTypeDropDownDto[]> {
     return this.httpService.get<AccountTypeDropDownDto[]>(`AccountType?SectionId=` + sectionId);
   }
-  getTags(): Observable<TagDropDownDto[]> {
-    return this.httpService.get<TagDropDownDto[]>(`Tag/Tagdropdown`);
+  getTags(moduleId:Modules): Observable<TagDropDownDto[]> {
+    return this.httpService.get<TagDropDownDto[]>(`Tag/Tagdropdown?moduleId=`+ moduleId);
   }
   getCompanyDropdown(): Observable<companyDropDownDto[]> {
     return this.httpService.get<companyDropDownDto[]>(`Company/CompanyDropdown`);
@@ -77,7 +72,7 @@ export class AccountProxy {
   getAccountsHasNoChildren(
     quieries: string,
     pageInfo: PageInfo
-  ): Observable<PaginationVm<AccountDto>> { 
+  ): Observable<PaginationVm<AccountDto>> {
     return this.httpService.get<PaginationVm<AccountDto>>(
       `ChartOfAccounts/GetHasNoChildrenList?${pageInfo.toQuery}&${quieries ? quieries : ''}`
     );
@@ -85,7 +80,7 @@ export class AccountProxy {
   getAccountsHasNoChildrenNew(
     searchTerm: string,
     pageInfo: PageInfo
-  ): Observable<PaginationVm<AccountDto>> { 
+  ): Observable<PaginationVm<AccountDto>> {
     let query = `ChartOfAccounts/GetHasNoChildrenList?${pageInfo.toQuery}`;
     if (searchTerm) {
       query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
@@ -123,56 +118,19 @@ export class AccountProxy {
     return this.httpService.get<accountById>(`ChartOfAccounts/GetById?id=${id}`);
   }
 
-  getAllTaxGroup(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<TaxGroupDto>> {
-    return this.httpService.get<PaginationVm<TaxGroupDto>>(
-      `TaxGroup?SearchKey=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`
-    );
-  }
+ 
 
-  deleteTaxGroup(id: number): Observable<boolean> {
-    return this.httpService.delete<boolean>(`TaxGroup?Id=${id}`);
-  }
-
-  addTaxGroup(taxgroupdto: AddTaxGroupDto): Observable<boolean> {
-    return this.httpService.post<boolean>(`TaxGroup`, taxgroupdto);
-  }
-
-  editTaxGroup(taxgroupdto: TaxGroupDto): Observable<boolean> {
-    return this.httpService.put<boolean>(`TaxGroup`, taxgroupdto);
-  }
-  getTaxGroupById(id: number): Observable<TaxGroupDto> {
-    return this.httpService.get<TaxGroupDto>(`TaxGroup/GetById?Id=${id}`);
-  }
+  
 
   getAccountLookup(): Observable<costLookup[]> {
     return this.httpService.get('CostCenter/CostCenterDropDown');
   }
 
-  getAllTaxes(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<TaxDto>> {
-    return this.httpService.get<PaginationVm<TaxDto>>(
-      `Tax?SearchTerm=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`
-    );
-  }
+  
 
-  getTaxById(id: number): Observable<TaxDto> {
-    return this.httpService.get<TaxDto>(`Tax/GetById?Id=${id}`);
-  }
+  
 
-  addTax(command: AddTax): Observable<TaxDto> {
-    return this.httpService.post('Tax', command);
-  }
-
-  editTax(command: EditTax): Observable<TaxDto> {
-    return this.httpService.put('Tax', command);
-  }
-
-  deleteTax(id: number): Observable<number> {
-    return this.httpService.delete<number>(`Tax?Id=${id}`);
-  }
-
-  getAllTaxGroups(): Observable<TaxGroupDropDown[]> {
-    return this.httpService.get<TaxGroupDropDown[]>(`TaxGroup/TaxGroupDropDown`);
-  }
+  
   AddCostCenter(command: addCostCenter): Observable<addCostCenter> {
     return this.httpService.post('CostCenter/AddCostCenter', command);
   }
@@ -180,8 +138,8 @@ export class AccountProxy {
   deleteCostCenter(id: number): Observable<boolean> {
     return this.httpService.delete<boolean>(`CostCenter/Delete?Id=${id}`);
   }
-  GetAllParentsCostCenters(): Observable<parentAccountDto[]> {
-    return this.httpService.get<parentAccountDto[]>(`CostCenter/GetAllParentsCostCenters`);
+  GetAllParentsCostCenters(): Observable<parentCostCenter[]> {
+    return this.httpService.get<parentCostCenter[]>(`CostCenter/GetAllParentsCostCenters`);
   }
   getCostById(id: number): Observable<costById> {
     return this.httpService.get<costById>(`CostCenter/GetById?id=${id}`);
@@ -208,13 +166,6 @@ export class AccountProxy {
     return this.httpService.get<CountryDto[]>(`Country`);
   }
 
-  exportTaxGroupData(searchTerm: string | undefined): Observable<TaxGroupDto[]> {
-    let query = `TaxGroup/Export?`;
-    if (searchTerm) {
-      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
-    }
-    return this.httpService.get<TaxGroupDto[]>(query);
-  }
 
   exportAccountsData(searchTerm: string | undefined): Observable<ExportAccountsDto[]> {
     let query = `ChartOfAccounts/Export?`;
@@ -232,12 +183,5 @@ export class AccountProxy {
     return this.httpService.get<costCenterList[]>(query);
   }
 
-  exportTaxesData(searchTerm: string | undefined): Observable<ExportTaxDto[]> {
-    let query = `Tax/Export?`;
-    if (searchTerm) {
-      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
-    }
-    return this.httpService.get<ExportTaxDto[]>(query);
-  }
   constructor(private httpService: HttpService) {}
 }

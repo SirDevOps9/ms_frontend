@@ -1,0 +1,92 @@
+<lib-popup-page
+  title="{{ 'Tax.AddTaxDefinition' | translate }}"
+  [closeFunction]="close"
+  (Submit)="onSubmit()"
+>
+  <div>
+    <form [formGroup]="addForm">
+      <div class="grid m-0">
+        <div class="md:col-6">
+          <lib-form-group>
+            <lib-label [appControl]="addForm.controls['code']">
+              {{ 'Tax.TaxCode' | translate }}
+            </lib-label>
+            <lib-text-input type="text" formControlName="code" />
+            <lib-field-validations [appControl]="addForm.controls['code']"> </lib-field-validations>
+          </lib-form-group>
+        </div>
+        <div class="md:col-6">
+          <lib-form-group>
+            <lib-label [appControl]="addForm.controls['name']">
+              {{ 'Tax.TaxName' | translate }}
+            </lib-label>
+            <lib-text-input type="text" formControlName="name" />
+            <lib-field-validations [appControl]="addForm.controls['name']"> </lib-field-validations>
+          </lib-form-group>
+        </div>
+        <div class="md:col-6">
+          <lib-form-group>
+            <lib-label [appControl]="addForm.controls['ratio']">
+              {{ 'Tax.Ratio' | translate }}
+            </lib-label>
+            <lib-text-input type="number" formControlName="ratio" />
+            <lib-field-validations [appControl]="addForm.controls['ratio']">
+            </lib-field-validations>
+          </lib-form-group>
+        </div>
+        <div class="md:col-6 advanced_search">
+          <div class="md:col-10">
+            <lib-form-group>
+              <lib-label [appControl]="addForm.controls['accountId']">
+                {{ 'Tax.GlAccount' | translate }}
+              </lib-label>
+              <lib-select
+                formControlName="accountId"
+                [options]="accounts"
+                optionValue="id"
+                optionLabel="name"
+                [selectedValue]="addForm.controls['accountId'].value"
+
+              >
+              </lib-select>
+              <lib-field-validations [appControl]="addForm.controls['accountId']">
+              </lib-field-validations>
+            </lib-form-group>
+          </div>
+
+          <div class="md:col-2">
+            <i class="pi pi-search search-circle search_icon" (click)="openDialog()"></i>
+          </div>
+        </div>
+        <div class="md:col-6">
+          <lib-form-group>
+            <lib-label [appControl]="addForm.controls['taxGroupId']">
+              {{ 'Tax.TaxGroup' | translate }}
+            </lib-label>
+            <lib-select
+              formControlName="taxGroupId"
+              [options]="taxGroupList"
+              optionValue="id"
+              optionLabel="name"
+            >
+            </lib-select>
+            <lib-field-validations [appControl]="addForm.controls['taxGroupId']">
+            </lib-field-validations>
+          </lib-form-group>
+        </div>
+        <div class="md:col-6 total">
+          <lib-form-group>
+            <!-- <label>
+          {{ 'Tax.TaxGroupId' | translate }}
+        </label> -->
+            <!-- <div class="view mt-3">
+          {{ taxGroupId }}
+        </div> -->
+            <p class="label_total paragraph_b18">{{ 'Tax.TaxGroupId' | translate }}</p>
+            <lib-text-input placeholder=" {{ taxGroupId }}" [readOnly]="true"></lib-text-input>
+          </lib-form-group>
+        </div>
+      </div>
+    </form>
+  </div>
+</lib-popup-page>

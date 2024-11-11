@@ -17,9 +17,14 @@ export enum LookupEnum {
   BloodType = 'BloodType',
   AccountNature = 'AccountNature',
   JournalTemplateType = 'JournalTemplateType',
-  PeriodType='PeriodType',
-  CommissionType='CommissionType', 
-  PaymentPlace= 'PaymentPlace', 
-  PaymentMethodType= 'PaymentMethodType'
-
+  PeriodType = 'PeriodType',
+  CommissionType = 'CommissionType',
+  PaymentPlace = 'PaymentPlace',
+  PaymentMethodType = 'PaymentMethodType',
+  Screen = 'Screen',
+  Module = 'Module',
+  SequenceType = 'SequenceType',
+  Segment = 'Segment',
+  Separator = 'Separator',
+  TrackingType = 'TrackingType',
 }

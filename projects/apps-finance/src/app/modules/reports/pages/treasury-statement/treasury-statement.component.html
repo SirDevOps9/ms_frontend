@@ -1,0 +1,197 @@
+<lib-page-content>
+  <div class="user_page group">
+    <div class="card_micro">
+    <form [formGroup]="reportForm">
+
+
+      <div class="group">
+        <div class="calender">
+        <div class="grid">
+          <div class="col-12 md:col-6">
+            <!-- <lib-text-input [type]="'date'" formControlName="dateFrom"> </lib-text-input> -->
+            <lib-calendar formControlName="dateFrom" [placeholder]="fromDate" ></lib-calendar>
+
+          </div>
+          <div class="col-12 md:col-6">
+            <!-- <lib-text-input [type]="'date'" formControlName="dateTo"> </lib-text-input> -->
+         
+            <lib-calendar formControlName="dateTo" [placeholder]="toDate" ></lib-calendar>
+
+          </div>
+        </div>
+      </div>
+
+        <div class="grid">
+          <div class="col-12 md:col-5">
+            <lib-select
+              formControlName="treasuryId"
+              [options]="treasuryDropDown"
+              optionValue="id"
+              optionLabel="name"
+              [placeholder]="'TreasuryStatement.treasury' | translate"
+              [selectedValue]="reportForm.controls['treasuryId'].value"
+            >
+            </lib-select>
+            <lib-field-validations
+              [appControl]="reportForm.controls['treasuryId']"
+            ></lib-field-validations>
+          </div>
+          <div class="col-12 md:col-4">
+            <div class="view">
+              <p>
+                {{ currency ? currency : ('BankAccountStatement.DisplayCurrency' | translate) }}
+              </p>
+            </div>
+          </div>
+          <div class="col-12 md:col-3">
+            <div class="all_btn">
+              <lib-button-micro
+                [title]="'TreasuryStatement.ViewData' | translate"
+                nameClass="save"
+                iconName="pi pi-circle"
+                (click)="getReportData()"
+              >
+              </lib-button-micro>
+              <button class="btn_ex" (click)="printTable('printableTable')">
+                <span class="pi pi-print"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    </div>
+    <lib-data-table
+      *ngIf="tableData"
+      id="printableTable"
+      [firstRow]="true"
+      [items]="tableData!.transactions"
+      className="p-datatable-gridlines"
+      [reportTable]="true"
+      [tableConfigs]="{
+                allowPagination: false,
+                allowServerPagination: false,
+                dataKey: 'id',
+                pageSize: 10,
+                columns: [
+                  {
+                    name: 'date',
+                    headerText: 'TreasuryStatement.date' | translate,
+                    template:date
+                  },
+                  {
+                    name: 'paymentCode',
+                    headerText: 'TreasuryStatement.paymentCode' | translate,
+                    template:paymentCode
+                  },
+                  {
+                    name: 'paymentName',
+                    headerText: 'TreasuryStatement.paymentName' | translate,
+                  },{
+                    name: 'debit',
+                    headerText: 'TreasuryStatement.debit' | translate,
+                    template:debit
+                  },
+                  {
+                    name: 'credit',
+                    headerText: 'TreasuryStatement.credit' | translate,
+                    template:credit
+                  },
+                  {
+                    name: 'balance',
+                    headerText: 'TreasuryStatement.balance' | translate,
+                    template:balance
+                  },
+                  {
+                    name: 'paymentMethodName',
+                    headerText: 'TreasuryStatement.paymentMethodName' | translate,
+                  },
+                  {
+                    name: 'sourceCode',
+                    headerText: 'TreasuryStatement.sourceCode' | translate,
+                  },
+                  {
+                    name: 'journalCode',
+                    headerText: 'TreasuryStatement.journalCode' | translate,
+                    template:journalCode
+                  },
+                  {
+                    name: 'paidByDetails',
+                    headerText: 'TreasuryStatement.paidByDetailsName' | translate,
+                  },
+                  {
+                    name: 'linkedGLAccount',
+                    headerText: 'TreasuryStatement.accountName' | translate,
+                  },
+                  {
+                    name: 'headerDescription',
+                    headerText: 'TreasuryStatement.headerDescription' | translate,
+                  },
+                  {
+                    name: 'lineDescription',
+                    headerText: 'TreasuryStatement.lineDescription' | translate,
+                  }
+                ]
+              }"
+    >
+      <ng-template #date let-account>
+        <div>
+          <p>{{ account.date | date : 'MM/dd/yyyy' }}</p>
+        </div>
+      </ng-template>
+
+      <ng-template #balance let-line>
+        <div>
+          <p>{{ line.balance | numberFormat }}</p>
+        </div>
+      </ng-template>
+      <ng-template #debit let-line>
+        <div>
+          <p>{{ line.debit | numberFormat }}</p>
+        </div>
+      </ng-template>
+
+      <ng-template #credit let-line>
+        <div>
+          <p>{{ line.credit | numberFormat }}</p>
+        </div>
+      </ng-template>
+
+      <ng-template #journalCode let-transactions>
+        <div>
+          <p class="code" (click)="routeToJournalView(transactions.journalId)">
+            {{ transactions.journalCode }}
+          </p>
+        </div>
+      </ng-template>
+
+      <ng-template #paymentCode let-transactions>
+        <div>
+          <p class="code" (click)="routeToPaymentView(transactions)">
+            {{ transactions.paymentCode }}
+          </p>
+        </div>
+      </ng-template>
+
+      <ng-container firstRow>
+        <td class="first_row body_b16" colspan="3">
+          {{ 'TreasuryStatement.openingBalance' | translate }}
+        </td>
+        <td class="first_row body_b16">{{ tableData.openingBalanceDebit | numberFormat }}</td>
+        <td class="first_row body_b16">{{ tableData.openingBalanceCredit | numberFormat }}</td>
+        <td class="first_row body_b16">{{ tableData.openingBalanceBalance | numberFormat }}</td>
+        <td class="first_row body_b16" colspan="8"></td>
+      </ng-container>
+
+      <ng-container footer>
+        <tr>
+          <td class="imptyData" colspan="3"></td>
+          <td class="first_row body_b16">{{ tableData.totalDebit | numberFormat }}</td>
+          <td class="first_row body_b16">{{ tableData.totalCredit | numberFormat }}</td>
+          <td class="first_row body_b16">{{ tableData.totalBalance | numberFormat }}</td>
+          <td class="imptyData" colspan="7"></td>
+        </tr>
+      </ng-container>
+    </lib-data-table>
+  </div>
+</lib-page-content>

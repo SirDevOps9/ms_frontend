@@ -18,3 +18,5 @@ export * from './lowercaseurlserializer';
 export * from './age.service';
 export * from './print.service';
 export * from './datetime.service';
+export * from './currentuser.service';
+export * from './title.service';

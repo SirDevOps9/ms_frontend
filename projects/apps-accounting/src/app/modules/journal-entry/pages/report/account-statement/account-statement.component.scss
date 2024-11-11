@@ -39,11 +39,11 @@ input[type=checkbox]{
 .account_description{
     border: 1px solid #8E95A2 ;
     border-radius: 8px;
-    background:#83D6EC ;
+    background:#76BCD0  ;
     color:#383A42 ;
 
     .item{
-            background:#83D6EC ;
+            background:#76BCD0  ;
             color:#383A42 ;
             margin-inline-start: 10px;
             display: flex;
@@ -79,7 +79,7 @@ input[type=checkbox]{
   }
     .group{
         .p-multiselect {
-            width: 100% !important;
+            width: 90% !important;
         }
       
       
@@ -103,4 +103,18 @@ input[type=checkbox]{
       top: 0;
       display: block;
     }
+  }
+
+
+  .code {
+    color:#1a90b0;
+    cursor: pointer;
+  }
+  .code:hover {
+    color: #10566a;
+  }
+
+  
+  .search_icon{
+    margin:8px;
   }

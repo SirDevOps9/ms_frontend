@@ -11,11 +11,8 @@ import {
   LanguageService,
 } from 'shared-lib';
 import { AccountService } from '../../../account.service';
-import { TaxGroupAddComponent } from '../../../components/tax-group-add/tax-group-add.component';
-import { TaxGroupEditComponent } from '../../../components/tax-group-edit/tax-group-edit.component';
 import {
   SharedCostEnums,
-  TaxGroupDto,
   costCenterActivation,
   costCenterList,
 } from '../../../models';
@@ -72,40 +69,10 @@ export class CostCenterListComponent implements OnInit {
     });
   }
 
-  Add() {
-    const dialogRef = this.dialog.open(TaxGroupAddComponent, {
-      width: '600px',
-      height: 'auto',
-    });
-    dialogRef.onClose.subscribe(() => {
-      this.initTaxGroupData();
-    });
-  }
-
-  Edit(Id: any) {
-    const dialogRef = this.dialog.open(TaxGroupEditComponent, {
-      width: '600px',
-      height: 'auto',
-      data: Id,
-    });
-    dialogRef.onClose.subscribe(() => {
-      this.initTaxGroupData();
-    });
-  }
-
   onSearchChange(e: any) {
     this.accountService.getAllCostCenter(e.target.value, new PageInfo());
   }
-
-  async Delete(id: number) {
-    const deleted = await this.accountService.deleteTaxGroup(id);
-    if (deleted) {
-      const index = this.tableData.findIndex((item) => item.id === id);
-      if (index !== -1) {
-        this.tableData.splice(index, 1);
-      }
-    }
-  }
+  
   async confirmChange(event: any, user: any) {
     const confirmed = await this.toaserService.showConfirm('ConfirmButtonTexttochangestatus');
     if (confirmed) {

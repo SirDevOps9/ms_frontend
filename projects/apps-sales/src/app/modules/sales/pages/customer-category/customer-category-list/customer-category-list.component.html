@@ -1,12 +1,13 @@
 <lib-page-content [title]="'tag.taglist' | translate" [subTitle]="'tag.taglist' | translate">
-    <div>
-        <div class="user_page">
-          <lib-data-table
-            [items]="tableData"
-            className="p-datatable-gridlines"
-            [currentPageResult]="currentPageInfo"
-            (pageChange)="onPageChange($event)"
-            [tableConfigs]="{
+  <div>
+    <div class="user_page">
+      <lib-data-table
+        [items]="tableData"
+        className="p-datatable-gridlines"
+        [currentPageResult]="currentPageInfo"
+        (addNew)="routeToAdd()"
+        (pageChange)="onPageChange($event)"
+        [tableConfigs]="{
               allowPagination: false,
               allowServerPagination: true,
               dataKey: 'id',
@@ -29,36 +30,38 @@
                  {
                    name: 'receivableAccountName',
                    headerText: ('CustomerCategory.recievableGlAccount' | translate),
+                   isSortable: true
                  },
                  {
                    name: 'salesAccountName',
                    headerText: ('CustomerCategory.salesGlAccount' | translate) ,
+                   isSortable: true
                  },
                
                  {
                    name: 'salesReturnAccountName',
                    headerText: ('CustomerCategory.salesReturnGlAccount' | translate),
-
+                   isSortable: true
                  },
                  {
                    name: 'discountAccountName',
                    headerText: ('CustomerCategory.discountGlAccount' | translate),
-
+                   isSortable: true
                  },
                  {
-                   name: 'priceListName',
+                   name: 'pricePolicyName',
                    headerText: ('CustomerCategory.priceList' | translate),
-
+                   isSortable: true
                  },
                  {
                    name: 'paymentTermName',
                    headerText: ('CustomerCategory.paymentTerms' | translate),
-
+                   isSortable: true
                  },
                  {
                    name: 'marketTypeName',
                    headerText: ('CustomerCategory.marketType' | translate),
-
+                   isSortable: true
                  },
                  {
                    name: 'id',
@@ -67,48 +70,46 @@
                  },
                ]
             }"
+      >
+        <ng-container search>
+          <div>
+            <lib-text-input
+              type="text"
+              [placeholder]="'customerDefinition.Search' | translate"
+              (keyUp)="onSearchChange($event)"
+              [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
+            >
+            </lib-text-input>
+          </div>
+        </ng-container>
+        <ng-container action>
+          <lib-export
+            (exportClick)="exportCustomerCategoriesData($event)"
+            [exportData]="exportData"
+            [exportColumns]="exportColumns"
+            [ExportName]="'Customer Cateogries'"
           >
-            <ng-container caption>
-              <div class="group flex justify-content-between">
-                <div>
-                  <span class="p-input-icon-left">
-                    <i class="pi pi-search"></i>
-                    <input pInputText type="text"   [placeholder]="'CustomerCategory.Search' | translate"
-                    (keyup)="onSearchChange($event)" />
-                  </span>
-                </div>
-      
-            
-                <div>
-                     <lib-button pRipple className="addToList" [label]="'CustomerCategory.add' | translate" (onClick)="routeToAdd()">
-                </lib-button> 
-                  
-                </div>
+          </lib-export>
+          <div>
+            <lib-button-micro
+              nameClass="save"
+              [title]="'CustomerCategory.add' | translate"
+              (click)="routeToAdd()"
+              [iconName]="'pi pi-plus'"
+            >
+            </lib-button-micro>
+          </div>
+        </ng-container>
 
-                <lib-export
-                (exportClick)="exportCustomerCategoriesData($event)"
-                [exportData]="exportData"
-                [exportColumns]="exportColumns"
-                [ExportName]="'Customer Cateogries'"
-              >
-              </lib-export>
-              </div>
-            </ng-container>
-        
-            <ng-template #actions let-actions>
-              <div class="actions flex align-items-center">
-                <img src="assets/images/table/edit.svg" alt="" (click)="routeToEdit(actions.id)">
-                <img src="assets/images/table/delete.svg" alt="" (click)="onDelete(actions.id)">
-              </div>
-            </ng-template>
-
-           
-          </lib-data-table>
-        </div>
-      </div>
-  </lib-page-content>
-
-
-
-  
-  
+        <ng-template #actions let-actions>
+          <div class="actions flex align-items-center">
+            <lib-button-micro nameClass="table_button_edit" (click)="routeToEdit(actions.id)">
+            </lib-button-micro>
+            <lib-button-micro nameClass="table_button_delete" (click)="onDelete(actions.id)">
+            </lib-button-micro>
+          </div>
+        </ng-template>
+      </lib-data-table>
+    </div>
+  </div>
+</lib-page-content>

@@ -1,6 +1,6 @@
 .card-component {
   background: #fff;
-  box-shadow: 0px 3px 25px rgba(0, 0, 0, 0.05);
+  box-shadow: 0px 3px 25px rgba(0, 0, 0, 0.05) !important;
   // padding: 1.5rem 2rem;
   display: flex;
   flex-direction: column;
@@ -24,13 +24,13 @@
 }
 
 ::ng-deep .p-datatable .p-datatable-thead > tr > th {
-  text-align: left;
+  text-align: start !important;
   padding: 1rem 1rem;
-  border: 1px solid #e5e7eb;
+  border: 1px solid #dde1e6;
   border-width: 0 0 1px 0;
   font-weight: 700;
-  color: #374151;
-  background: #ededf4;
+  color: #2e2e2e;
+  background: #f2f4f8;
   transition: box-shadow 0.2s;
 }
 
@@ -78,7 +78,11 @@ span {
 }
 
 .viewInWeb {
-  padding-top: 16px;
+  margin-top: 16px;
+  background: #fff;
+  padding: 16px;
+  border-radius: 16px;
+  // padding-top: 16px;
 }
 
 .viewInMob {
@@ -86,28 +90,174 @@ span {
   width: 100%;
 }
 
-// @media (min-width: 1400px) {
-//   .viewInWeb {
-//     display: block;
-//   }
-
-//   .viewInMob {
-//     display: none;
-//   }
-// }
-
 .table__card__mob > .col-md-6 div:nth-of-type(1) .headerTExt {
   margin-top: 30px;
 }
 
 ::ng-deep {
-  .p-datatable .p-datatable-thead > tr > th {
-    border-width: 1px !important;
+  .p-datatable {
+    .p-datatable-thead > tr > th {
+      border-width: 1px !important;
+    }
+    .p-datatable-header {
+      background-color: transparent;
+      margin: 0 0 12px 0;
+      padding: 0;
+      align-items: center;
+      border: none;
+
+      .p-paginator {
+        padding: 0;
+      }
+
+      div > .grid {
+        align-items: center;
+        margin: 0;
+      }
+    }
+    .p-datatable-header .group {
+      align-items: center;
+    }
+
+    .p-datatable-wrapper {
+      table {
+        border-bottom: 1px solid #dde1e6;
+        thead {
+          th {
+            text-align: center;
+            font-size: 1rem;
+            line-height: 1;
+          }
+          th * {
+            // justify-content: flex-start !important;
+          }
+        }
+
+        tbody {
+          tr:nth-child(2n) {
+            background-color: #f7f8f8;
+          }
+          td {
+            text-align: start;
+            font-size: 1rem;
+            line-height: 1;
+          }
+          td.action {
+            text-align: center;
+          }
+
+          td:has(div.action) {
+            text-align: center;
+          }
+          td:has(img) {
+           text-align: center;
+          }
+        }
+      }
+    }
+
+    p-paginator {
+      .p-paginator {
+        padding: 0.6rem 0;
+
+        .p-paginator-pages {
+          .p-element {
+            border-radius: 6px;
+            transition: 0.3s;
+            &:not(.p-highlight):hover {
+              background-color: #a3d3df;
+            }
+            &.p-highlight {
+              background-color: #1a90b0;
+              color: #fff !important;
+            }
+          }
+        }
+      }
+      .p-paginator-bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .p-paginator-current {
+        margin-right: auto;
+        padding: 0;
+        margin-left: 10rem;
+      }
+      p-dropdown {
+        position: absolute;
+      }
+      .p-dropdown {
+        padding: 12px;
+      }
+
+      @media (max-width: 768px) {
+        .p-paginator-bottom {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .p-paginator-current {
+          margin-left: 0;
+          margin-bottom: 0.5rem;
+        }
+
+        p-dropdown {
+          position: relative;
+          width: 100%;
+          margin-top: 0.5rem;
+        }
+
+        .p-paginator-element {
+          width: 100%;
+          margin-bottom: 0.5rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .p-paginator {
+          padding: 0.5rem;
+        }
+
+        p-dropdown {
+          font-size: 0.8rem;
+        }
+      }
+    }
   }
   #dt {
     min-width: 75rem;
   }
-  
+
+  .p-inputtext {
+    //background: #ffffff;
+    border: 1px solid #e3e3e3;
+    padding-block: 8px;
+    //padding-inline-start: 35px !important;
+    padding-inline-end: 20px;
+    outline: none !important;
+    box-shadow: none !important;
+    width: 100%;
+  }
+
+  .primary {
+    color: #ffffff;
+    background: #1a90b0;
+    border: 0px solid #1a90b0;
+    padding: 0.9rem 1rem;
+    font-size: 1rem;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s,
+      outline-color 0.2s;
+    border-radius: 6px;
+    outline-color: transparent;
+    height: fit-content;
+    cursor: pointer;
+  }
+ 
+
+
 }
 
 // .p-datatable-wrapper{
@@ -157,18 +307,18 @@ span {
 }
 
 .cssClass {
-  background-color: #000;
+  background-color: #80808042 !important;
 }
 // .trial_balance {
 //   background: #EFEFEF !important;
 //   // color: #374151;
 // }
-.right_Balance{
-  background: #A3D3DF !important;
+.right_Balance {
+  background: #a3d3df !important;
   color: #fff !important;
 }
-.left_Balance{
-  background: #76BCD0 !important;
+.left_Balance {
+  background: #76bcd0 !important;
   color: #fff !important;
 }
 
@@ -195,15 +345,20 @@ span {
     }
   }
 }
-
-::ng-deep .paginationHead {
-  position: relative;
-  top: 52px;
-  right: 233px;
-  .p-paginator {
-    background-color: transparent;
-  }
+.parent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
+
+// ::ng-deep .paginationHead {
+//   position: relative;
+//   top: 52px;
+//   right: 233px;
+//   .p-paginator {
+//     background-color: transparent;
+//   }
+// }
 
 .none {
   display: none !important;
@@ -211,3 +366,73 @@ span {
 .pointer {
   cursor: pointer;
 }
+
+.custom-paginator {
+  margin-top: 12px;
+}
+::ng-deep.p-paginator .p-highlight {
+  background-color: #1a90b0;
+  color: #fff !important;
+} 
+
+.rtl-position {
+  left:1px; 
+}
+
+.ltr-position {
+  right: 1px;
+}
+
+::ng-deep .p-datatable .p-datatable-wrapper table thead th{
+  left: 0 !important;
+}
+
+
+::ng-deep  .p-datatable .p-datatable-wrapper table tbody td {
+  left: 0 !important;
+}
+
+
+
+@media (min-width: 576px) {
+  .col-selection {
+    position: absolute;
+    z-index: 33; 
+
+    top: 193px !important; 
+  }
+}
+
+@media (min-width: 768px) {
+  .col-selection {
+    position: absolute;
+    top: 190px !important;     z-index: 33; 
+
+  }
+}
+@media (min-width: 1024px) {
+  .col-selection {
+    position: absolute;
+    top: 122px !important;  
+       z-index: 33; 
+
+  }
+}
+@media (min-width: 1440px) {
+  .col-selection {
+    position: absolute;
+    top: 70px !important;
+    z-index: 33; 
+
+  }
+}
+@media (min-width: 1204px) {
+  .col-selection {
+    position: absolute;
+    top: 67px  !important;  
+z-index: 33; 
+
+  }
+}
+
+

@@ -1,10 +1,10 @@
 //@import "../../../../assets/styling/scss/variables/font-family";
 .journal_entry_add_page {
     .entry_header {
-      background: #f7f8f8;
-      box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-      padding: 20px;
-      margin-bottom: 20px;
+      // background: #f7f8f8;
+      // box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+      // padding: 20px;
+      // margin-bottom: 20px;
       .title {
         font-size: 18px;
         // font-family: $cairo_regular;
@@ -110,4 +110,17 @@
 
 .none {
   display: none;
+}
+.label_total{
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  color: #6b7280;
+}
+::ng-deep{
+  .total{
+    .p-inputtext::placeholder {
+        color: black !important;
+       font-weight: bold !important;
+    }
+  }
 }

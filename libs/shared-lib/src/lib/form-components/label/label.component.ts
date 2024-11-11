@@ -9,8 +9,8 @@ import { customValidators } from '../../services';
 })
 export class LabelComponent implements OnInit {
   @Input() label: string;
-  @Input() appControl: AbstractControl| any;
-
+  @Input() appControl: AbstractControl | any;
+  @Input() labelTest: any;
   get ControlName() {
     var controlName = null;
     var parent = this.appControl['_parent'];
@@ -37,5 +37,7 @@ export class LabelComponent implements OnInit {
     return this.appControl.hasValidator(customValidators.required);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.labelTest = "label-"+this.ControlName;
+  }
 }

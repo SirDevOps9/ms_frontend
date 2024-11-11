@@ -19,7 +19,7 @@ export class MainChartOfAccountComponent {
   //@Output() edit = new EventEmitter<boolean>();
   
   // toggleView(){
-  //   this.listView=!this.listView
+  //   this.listView=!this.listView 
   // }
   listView(){
     this.Viewlist=true
@@ -43,7 +43,7 @@ export class MainChartOfAccountComponent {
   RedirectToConfiguration() {
     this.ref = this.dialog.open(ChartOfAccountConfigurationComponent, {
       width: '647px',
-      height: 'auto',
+      height: '600px',
     });
   }
   constructor(

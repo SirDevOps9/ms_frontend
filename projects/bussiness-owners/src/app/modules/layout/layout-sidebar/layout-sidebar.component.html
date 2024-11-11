@@ -1,67 +1,29 @@
 <div class="bar" [ngClass]="{ bar_opened: sidebarOpen }" id="bar">
   <div class="sidebar_container">
     <div class="content" *ngIf="!sidebarOpen">
-      <div
-        class="item"
-        [ngClass]="{'active_link': router.getCurrentUrl() === '/my-subscriptions' }"
-      >
-        <button      
-           (click)="setActive('my-subscriptions')"
-        >
+      <div class="logo">
+      </div>
+      <div class="item" [ngClass]="{ active_link: router.getCurrentUrl() === '/my-subscriptions' }">
+        <button (click)="setActive('my-subscriptions')">
           <div class="item_icon">
             <i class="fa fa-solid fa-globe"></i>
           </div>
-          <div class="item_text body_b14">{{'Layout.subscripition'|translate}}</div>
+          <div class="item_text body_b14">{{ 'Layout.subscripition' | translate }}</div>
         </button>
       </div>
 
-      <!-- <button class="item" routerLink="/company"  id="company" (click)="setActive('company')">
-        <div class="item_icon">
-          <i class="fa fa-solid fa-building"></i>
-        </div>
-        <div class="item_text">
-          company
-        </div>
-      </button>
-      <button class="item"  routerLink="/users"  id="users" (click)="setActive('users')">
-        <div class="item_icon">
-          <i class=" fa fa-solid fa-users"></i>
-        </div>
-        <div class="item_text">
-          user
-        </div>
-      </button> -->
+ 
       <div
         class="item body_b14"
-       
-        [ngClass]="{'active_link': router.getCurrentUrl() === '/app-store' }"
-
+        [ngClass]="{ active_link: router.getCurrentUrl() === '/app-store' }"
       >
-        <button           (click)="setActive('app-store')"
-        >
+        <button (click)="setActive('app-store')">
           <div class="item_icon">
             <i class="fa fa-solid fa-globe"></i>
           </div>
-          <div class="item_text ">{{'Layout.AppStore'|translate}}</div>
+          <div class="item_text">{{ 'Layout.AppStore' | translate }}</div>
         </button>
       </div>
-      <!-- <div
-        class="item"
-       
-        [ngClass]="{'active_link': router.getCurrentUrl() === '/app-store' }"
-
-      >
-      <button  id="Apps"
-      (click)="setActive('Apps')"
-      [ngClass]="{'active_link': router.getCurrentUrl() === '/Apps' }"
-
-      >
-       <div class="item_icon">
-         <i class="fa fa-solid fa-globe"></i>
-       </div>
-       <div class="item_text">microtec Apps users</div>
-     </button>
-      </div> -->
      
     </div>
     <div class="content_open" *ngIf="sidebarOpen">
@@ -70,19 +32,14 @@
         routerLink="/company"
         id="company"
         (click)="setActive('company')"
-        [ngClass]="{'active': activeTag === 'company'}"
+        [ngClass]="{ active: activeTag === 'company' }"
       >
         <div class="item_icon">
           <i class="fa fa-solid fa-building"></i>
         </div>
         <div class="item_text">company</div>
       </button>
-      <button
-        class="item"
-        routerLink="/users"
-        id="users"
-        (click)="setActive('users')"
-      >
+      <button class="item" routerLink="/users" id="users" (click)="setActive('users')">
         <div class="item_icon">
           <i class="fa fa-solid fa-users"></i>
         </div>
@@ -123,13 +80,49 @@
         </p-accordion>
       </div>
     </div>
-    <!-- <div class="arrwo">
-      <button (click)="toggleSidebar()">
-        <p *ngIf="!sidebarOpen">
-          <i class="fa fa-solid fa-angle-right"></i>
-        </p>
-        <p *ngIf="sidebarOpen"><i class="fa fa-solid fa-angle-left"></i></p>
-      </button>
-    </div> -->
+ 
   </div>
 </div>
+<!-- <div class="sidebar" [class.close]="isSidebarClosed">
+  <div class="logo-details">
+    <i class="pi pi-code"></i>
+    <span class="logo_name">CodingLab</span>
+  </div>
+
+  <ul class="nav-links">
+    <li *ngFor="let item of menuItems">
+      <div *ngIf="item.subMenu; else simpleLink" class="iocn-link">
+        <a href="#">
+          <i [class]="item.icon"></i>
+          <span class="link_name">{{ item.name }}</span>
+        </a>
+        <i class="pi pi-chevron-down arrow" (click)="toggleSubMenu(item)"></i>
+      </div>
+<div class="showMenu" *ngIf="item.open" >
+dddddddddddddd
+  <ul class="" >
+    <li *ngFor="let subItem of item.subMenu" class="link_name">
+      <a class="link_name" href="#"> <span class="link_name">{{ subItem }}</span></a>
+    </li>
+  </ul>
+</div>
+
+      <ng-template #simpleLink>
+        <a href="#">
+          <i [class]="item.icon"></i>
+          <span class="link_name">{{ item.name }}</span>
+        </a>
+      </ng-template>
+    </li>
+
+
+  </ul>
+</div> -->
+
+<!-- <section class="home-section">
+  <div class="home-content">
+    <i class="pi pi-bars" (click)="toggleSidebar()"></i>
+    <span class="text">Drop Down Sidebar</span>
+  </div>
+</section> -->
+

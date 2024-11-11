@@ -3,8 +3,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { GeneralSettingService } from '../../general-setting.service';
 import { ActivatedRoute } from '@angular/router';
 import { editFinancialCalndar, monthDto } from '../../models';
-import { FormsService, LanguageService, RouterService, customValidators } from 'shared-lib';
-import { Title } from '@angular/platform-browser';
+import { FormsService, RouterService, customValidators } from 'shared-lib';
 
 @Component({
   selector: 'app-edit-financial-calendar',
@@ -18,8 +17,6 @@ export class EditFinancialCalendarComponent implements OnInit {
     private generalSettingService: GeneralSettingService,
     private route: ActivatedRoute,
     private formsService: FormsService,
-    private titleService: Title,
-    private languageService: LanguageService,
     private router: RouterService
   ) {
     this.generateYearsList();
@@ -54,9 +51,6 @@ export class EditFinancialCalendarComponent implements OnInit {
   id: number = this.route.snapshot.params['id'];
   month=monthDto
   ngOnInit(): void {
-    this.titleService.setTitle(
-      this.languageService.transalte('financialCalendar.editfinancialCalendar')
-    );
     this.formGroup = this.fb.group({
       name: new FormControl('', customValidators.required),
       year: 0,
@@ -73,20 +67,10 @@ export class EditFinancialCalendarComponent implements OnInit {
       if (res.fromDate) {
         this.minDateTo = new Date(res.fromDate);
       }
-      // this.maxDatefrom = new Date(res.toDate)
-      //   this.minDateTo = res.fromDate ? new Date(res.fromDate) : null
       if (res.fromDate && res.toDate) {
         this.tableList = this.generateDateArray(res.fromDate, res.toDate);
       }
     });
-    // this.generalSettingService.GetFinancialPeriodLastYearDate();
-    // this.generalSettingService.FinancialPeriodLastYearDateObservable.subscribe((res) => {
-    //   if (res) {
-    //     this.formGroup.get('fromDate')?.patchValue(new Date(res));
-    //     this.disablrFromDateFlag = true;
-    //   }
-    // });
-
     this.generalSettingService.GetFinancialPeriodByID(this.id);
     this.generalSettingService.FinancialPeriodDataByIDObservable.subscribe(
       (res: editFinancialCalndar) => {
@@ -115,12 +99,6 @@ export class EditFinancialCalendarComponent implements OnInit {
             'Nov',
             'Dec',
           ];
-
-          // this.tableData = this.tableData?.map((elem: any) => {
-          //   elem.month = months[elem.month - 1];
-          //   return elem;
-          // });
-          console.log(this.tableData)
         }
       }
     );
@@ -197,8 +175,6 @@ export class EditFinancialCalendarComponent implements OnInit {
     });
     let periodIDS = this.tableData.filter((elem: any) => elem.status);
     this.periodIDS = periodIDS.map((elem: any) => elem.id);
-
-    // this.generalSettingService.onOpenPeriod({periods : })
   }
   convertDateFormat(data: Date) {
     const date = new Date(data);

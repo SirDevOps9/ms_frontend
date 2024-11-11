@@ -2,22 +2,19 @@
   <div class="user_page">
     <lib-data-table
       [items]="tableData"
+      [sequence]="true"
       className="p-datatable-gridlines"
       [currentPageResult]="currentPageInfo"
       (pageChange)="onPageChange($event)"
       (addNew)="routeToAdd()"
+      (fiteredDropdOwn)="fillFilterDropdown($event)"
       [tableConfigs]="{
         allowPagination: false,
         allowServerPagination: true,
         dataKey: 'id',
         pageSize: 10,
         columns: [
-          {
-            name: 'id',
-            headerText: 'Journal.id' | translate,
-            isGlobalFilter: true,
-            isSortable: true
-          },
+         
           {
             name: 'journalCode',
             headerText: 'Journal.journalCode' | translate,
@@ -32,7 +29,7 @@
           },
           {
             name: 'createdOn',
-            headerText: 'Journal.createdOn' | translate,
+            headerText: 'Journal.CreatedOn' | translate,
             isGlobalFilter: true,
             isSortable: true,
             template: journalDate
@@ -67,13 +64,15 @@
             name: 'totalDebitAmount',
             headerText: 'Journal.totalDebitAmount' | translate,
             isGlobalFilter: true,
-            isSortable: true
+            isSortable: true,
+            applyNumberFormat:true,
           },
           {
             name: 'totalCreditAmount',
             headerText: 'Journal.totalCreditAmount' | translate,
             isGlobalFilter: true,
-            isSortable: true
+            isSortable: true,
+            applyNumberFormat:true,
           },
           {
             name: 'sourceName',
@@ -84,8 +83,8 @@
           {
             name: 'sourceCode',
             headerText: 'Journal.sourceCode' | translate,
-            isGlobalFilter: true,
-            isSortable: true
+            isSortable: true,
+            template:sourceCodeTemplate
           },
           {
             name: 'id',
@@ -95,46 +94,61 @@
         ]
       }"
     >
-      <ng-container caption>
-        <div class="flex justify-content-between">
-          <div>
-            <lib-text-input
-              type="text"
-              [placeholder]="'Journal.search' | translate"
-              (keyUp)="onSearchChange($event)"
-              [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
-            >
-            </lib-text-input>
-          </div>
+      <ng-template #sourceCodeTemplate let-journal>
+        <div>
+          <p
+            *ngIf="journal.sourceName == 'PaymentIn'"
+            class="code"
+            (click)="routeToPaymentInView(journal.paymentInId)"
+          >
+            {{ journal.sourceCode }}
+          </p>
+          <p
+            *ngIf="journal.sourceName == 'PaymentOut'"
+            class="code"
+            (click)="routeToPaymentOutView(journal.paymentOutId)"
+          >
+            {{ journal.sourceCode }}
+          </p>
+        </div>
+      </ng-template>
+      <ng-container search>
+        <div>
+          <lib-text-input
+            type="text"
+            [placeholder]="'Journal.search' | translate"
+            (keyUp)="onSearchChange($event)"
+            [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
+          >
+          </lib-text-input>
+        </div>
+      </ng-container>
+      <ng-container action>
+        <div class="flex gap-2">
+          <lib-export
+            (exportClick)="exportJournalEntriesData($event)"
+            [exportData]="exportData"
+            [exportColumns]="exportColumns"
+            [ExportName]="'Journal Entries'"
+          >
+          </lib-export>
 
-          <div class="flex gap-2">
-            <lib-export
-              (exportClick)="exportJournalEntriesData($event)"
-              [exportData]="exportData"
-              [exportColumns]="exportColumns"
-              [ExportName]="'Journal Entries'"
-            >
-            </lib-export>
-
-            <lib-button
-              pRipple
-              className="addToList"
-              label="{{ 'EditJournal.add' | translate }}"
-              (onClick)="routeToAdd()"
-              [icon]="'pi pi-plus'"
-            ></lib-button>
-          </div>
+          <lib-button-micro
+            title="{{ 'create' | translate }}"
+            (click)="routeToAdd()"
+            [iconName]="'pi pi-plus'"
+            nameClass="save"
+          >
+          </lib-button-micro>
         </div>
       </ng-container>
 
       <ng-template #userCol let-journal>
         <div class="actions flex align-items-center">
-          <img src="assets/images/table/view.svg" alt="" (click)="viewJournal(journal.id)" />
-          <img src="assets/images/table/edit.svg" alt="" (click)="routeToEdit(journal.id)" />
-
-          <!-- <lib-button [icon]="'pi pi-trash'"    [rounded]="true"
-          [enableText]="true"
-          severity="secondary"></lib-button> -->
+          <lib-button-micro nameClass="table_button_view" (click)="viewJournal(journal.id)">
+          </lib-button-micro>
+          <lib-button-micro nameClass="table_button_edit" (click)="routeToEdit(journal.id)">
+          </lib-button-micro>
         </div>
       </ng-template>
       <ng-template #userStatus let-journal>

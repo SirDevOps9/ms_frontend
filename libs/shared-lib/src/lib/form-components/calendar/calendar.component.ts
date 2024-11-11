@@ -13,6 +13,8 @@ export class CalendarComponent implements ControlValueAccessor {
   @Input() maxDate: Date | null;
   @Input() label: string;
   @Input() disabled: boolean = false;
+  @Input() readOnly: boolean;
+  @Input() labelTest: any = 'calendar';
   @Output() valueChanged = new EventEmitter<Date>();
   @Input() defaultDate: Date | null;
   value: Date;
@@ -27,7 +29,7 @@ export class CalendarComponent implements ControlValueAccessor {
 
   writeValue(value: Date): void {
     if (value) {
-      this.value = value;
+      this.value = this.convert_to_local_date(value);
     }
   }
 
@@ -44,9 +46,27 @@ export class CalendarComponent implements ControlValueAccessor {
   }
 
   handleDateChange(event: any): void {
-    this.value = event;
+    const parsedDate = new Date(event);
+    const localDate = this.convert_to_local_date(parsedDate);
+    this.value = localDate;
     this.onChange(this.value);
     this.onTouched();
-    this.valueChanged.emit(this.value);
+    this.valueChanged.emit(localDate);
+  }
+
+  ngAfterViewInit() {
+    if (this.controlDir) {
+      setTimeout(() => {
+        this.labelTest = this.controlDir.name;
+      }, 500);
+    }
+  }
+
+  convert_to_local_date(date: Date) {
+    // debugger;
+    const currentDate = new Date(date);
+    currentDate.setMinutes(currentDate.getMinutes() - currentDate.getTimezoneOffset());
+
+    return currentDate;
   }
 }

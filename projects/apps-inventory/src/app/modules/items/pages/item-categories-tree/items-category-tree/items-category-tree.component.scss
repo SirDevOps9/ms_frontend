@@ -1,0 +1,391 @@
+// @import "../../../../../../../../../libs/apps-shared-lib/src/assets/styling/scss/variables/font-family";
+
+.chart_of_account_tree {
+    background-color: #fff;
+
+    .test {
+        padding: 0 !important;
+
+    }
+
+    ::ng-deep {
+        .tree-icon {
+            display: none !important;
+        }
+
+        .p-treenode-label {
+            width: 100% !important;
+        }
+
+        .p-tree .p-tree-container .p-treenode .p-treenode-content .p-tree-toggler {
+            margin-right: 0 !important;
+
+        }
+
+        .p-tree {
+            border: none !important;
+            background: #F7F8F8;
+            // #F7F8F8
+            color: #4b5563;
+            padding: 0 1.25rem !important;
+            border-radius: 6px;
+        }
+
+        .p-tree .p-tree-container .p-treenode:focus>.p-treenode-content {
+            outline: none !important;
+            outline-offset: none !important;
+            box-shadow: none !important;
+        }
+
+        .p-tree-empty-message {
+            display: none !important;
+        }
+
+        #label_tree {
+            cursor: pointer !important;
+        }
+
+        .grid {
+            margin: 0 !important;
+            box-sizing: border-box !important;
+        }
+
+        .ui-tree-node-content {
+            display: flex !important;
+            //  flex-direction: row-reverse !important;
+            align-items: center;
+            justify-content: space-between;
+
+
+        }
+
+        .p-treenode-children li {
+            position: relative;
+            margin-inline-start: 15px !important;
+
+            //background: #0D4859 !important;
+            &::before {
+                content: '' !important;
+                position: absolute !important;
+                top: 0 !important;
+                left: 0px !important;
+                /* Adjust as needed */
+                width: 1px !important;
+                height: 100% !important;
+                background: #D8DBDF !important;
+                /* Adjust color as needed */
+            }
+
+            .p-treenode-content {
+                position: relative !important;
+                padding-inline-start: 15px;
+
+                &::before {
+                    // content: '' !important;
+                    // position: absolute !important;
+                    // top: 50% !important;
+                    // left: 0px !important;
+                    // /* Adjust as needed */
+                    // width: 20px !important;
+                    // height: 1px !important;
+                    // background: #D8DBDF !important;
+                    // /* Adjust color as needed */
+                    content: "" !important;
+                    position: absolute !important;
+                    top: 3px !important;
+                    left: -2px !important;
+                    width: 20px !important;
+                    height: 20px !important;
+                    /* background: #D8DBDF !important; */
+                    border-bottom-left-radius: 100%;
+                    border-bottom: 2px solid #c1c1c1;
+
+                }
+            }
+        }
+
+        .ui-treenode-content .pi-folder-open:before,
+        .ui-treenode-content .pi-folder:before {
+            content: '\f0d7' !important;
+            /* Unicode for the desired icon */
+        }
+
+        /* Styling for open/close arrow icon */
+        .ui-treenode-content .pi-angle-down:before,
+        .ui-treenode-content .pi-angle-right:before {
+            content: '\f0d7' !important;
+            /* Unicode for the desired icon */
+        }
+
+        .p-fieldset .p-fieldset-content {
+            padding: 0 !important;
+        }
+
+        .blank {
+            .p-tree {
+                // min-height: 500px;
+                height: 500px;
+                overflow: auto;
+
+            }
+        }
+
+        .addmode {
+            .p-tree {
+                // min-height: 500px;
+                height: 745px !important;
+                overflow: auto;
+
+            }
+        }
+
+        .viewmode {
+            .p-tree {
+                height: 520px !important;
+                overflow: auto;
+
+            }
+        }
+
+        .viewparentmode {
+            .p-tree {
+                height: 630px !important;
+                overflow: auto;
+
+            }
+        }
+
+        .p-tree {
+            min-height: 75vh;
+            max-height: 775px !important;
+            //max-height: 100% !important;
+            overflow: auto;
+
+        }
+
+        // .tree{
+        //     /* For WebKit browsers */
+        // ::-webkit-scrollbar {
+        //     width: 12px;
+        // }
+
+        // ::-webkit-scrollbar-track {
+        //     background: #f1f1f1;
+        // }
+
+        // ::-webkit-scrollbar-thumb {
+        //     background: #1a90b0;
+        //     // B8E7F4
+        //     border-radius: 6px;
+        // }
+
+        // ::-webkit-scrollbar-thumb:hover {
+        //     background: #B8E7F4;
+        // }
+        // }
+
+
+
+
+    }
+
+    .btn_tree_item {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: none;
+        margin-inline-start: 10px;
+        border: none;
+        cursor: pointer;
+        position: relative;
+
+    }
+
+    .btn_add {
+        border: 1px solid #0D4859;
+        color: #0D4859;
+
+    }
+
+    .btn_edit {
+        //border: 2px solid #1a90b0;
+        color: #1a90b0;
+        display: none;
+
+    }
+
+    .btn_delet {
+        //border: 2px solid #CB3F2D;
+        color: #CB3F2D;
+        display: none;
+
+    }
+
+    .tree-item-container:hover {
+        .btn_delet {
+            display: block;
+        }
+
+        .btn_edit {
+            display: block;
+        }
+    }
+
+    .folder_icon,
+    .file_icon {
+        color: #0D4859 !important;
+        margin-inline-end: 5px;
+    }
+
+    .tree-icon {
+        color: #0D4859;
+    }
+
+    .tree-icon {
+        display: inline-block;
+        width: 16px;
+        /* Adjust as per your requirement */
+        height: 16px;
+        /* Adjust as per your requirement */
+        /* Add any additional styling as needed */
+    }
+
+    .tree {
+        //position: fixed;
+        border: 1px solid #D8DBDF;
+        border-radius: 8px;
+        height: 100% !important;
+        overflow: auto;
+        background: #F7F8F8;
+    }
+
+    .content_descreption {
+        width: 100%;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #E6E4E4;
+        border-radius: 8px;
+
+        .parent_account,
+        .accountCode,
+        .account_nature {
+            margin: 10px 0px;
+        }
+
+        .account_child {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+
+
+
+    }
+
+    .active {
+        background: #DCF3FA;
+        color: #0D4859;
+    }
+
+    .label_text {
+        font-size: 16px;
+        // font-family: $cairo_semi_bold;
+        color: #475467;
+    }
+
+    .action {
+        display: flex;
+        align-items: center;
+    }
+
+
+}
+
+
+::ng-deep {
+    ::ng-deep {
+        .p-tree-filter-container{
+            margin-top: 10px !important;
+        }
+        .p-inputtext{
+          width: 100%;
+        }
+        .p-inputtext:enabled:hover {
+          border-color: #1a90b0 !important;
+          
+        }
+        .p-inputtext:enabled:focus {
+          outline: 0 none;
+          outline-offset: 0;
+          // box-shadow: 0 0 0 0.2rem #1a90b0 !important;
+          border-color: #1a90b0 !important;
+        }
+       .p-inputtext::placeholder {
+          color: #1a90b0 !important;
+        }
+        .reads{
+            background: #efefef !important;
+            color: #000 !important;
+            &::placeholder {
+              color: #000 !important;
+            }
+        }
+      
+      }
+    .main_chat_of_account {
+        
+    }
+}
+
+.chart_account {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #0D4859;
+
+    .chart_togel {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .text {
+        margin: 0;
+        padding: 0;
+        margin-inline-start: 8px;
+    }
+
+    &:hover {
+        background: #B8E7F4;
+    }
+}
+
+.chart_account_active {
+    background: #B8E7F4;
+}
+
+
+.folder {
+    display: inline-block;
+    margin-inline-end: 5px;
+    position: relative;
+    width: 15px !important;
+    height: 15px !important;
+    background-size: cover;
+    background-image: url('../../../../../../../src/assets/images/tree/folder.png') !important;
+}
+
+.file {
+    display: inline-block;
+    margin-inline-end: 5px;
+    width: 15px;
+    height: 15px;
+    background-size: cover;
+    background-image: url('../../../../../../../src/assets/images/tree/file.png') !important;
+} 

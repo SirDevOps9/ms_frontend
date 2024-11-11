@@ -10,9 +10,10 @@ export class ToggelComponent implements ControlValueAccessor, Validator {
 
   onChange = (value: any) => { };
   onTouched = () => { };
+  @Input() labelTest: any;
 
   writeValue(value: any): void {
-    alert("Write Value" + value);
+    // alert("Write Value" + value);
     if (value) {
       this.isActive = value;
     }
@@ -52,6 +53,15 @@ export class ToggelComponent implements ControlValueAccessor, Validator {
     this.isActive = event.checked;
     this.valueChanged.emit(event.checked);
   }
+
+  ngAfterViewInit() {
+    if (this.controlDir) {
+      setTimeout(() => {
+        this.labelTest = this.controlDir.name;
+      }, 500);
+    }
+  }
+
 
   constructor(@Self() @Optional() public controlDir: NgControl) {
     if (this.controlDir) {

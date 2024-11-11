@@ -1,14 +1,20 @@
 <lib-page-content>
   <div class="user_page group">
+    <div class="card_micro">
+
     <form [formGroup]="reportCostForm">
       <div class="group">
         <div class="calender">
           <div class="grid">
             <div class="col-12 md:col-4">
-              <lib-text-input [type]="'date'" formControlName="dateFrom"> </lib-text-input>
+              <!-- <lib-text-input [type]="'date'" formControlName="dateFrom"> </lib-text-input> -->
+              <lib-calendar formControlName="dateFrom" ></lib-calendar>
+
             </div>
             <div class="col-12 md:col-4">
-              <lib-text-input [type]="'date'" formControlName="dateTo"> </lib-text-input>
+              <!-- <lib-text-input [type]="'date'" formControlName="dateTo"> </lib-text-input> -->
+              <lib-calendar formControlName="dateTo"  ></lib-calendar>
+
             </div>
             <div class="col-12 md:col-4">
               <lib-multi-select
@@ -29,8 +35,11 @@
               <label for="posted" class="body_b16"> {{ 'reportTrial.posted' | translate }}</label>
               <!-- <input id="posted" type="checkbox" formControlName="posted"> -->
               <!-- <p-checkbox formControlName="posted" binary="true" inputId="posted"></p-checkbox> -->
-              <lib-input-switch formControlName="posted" binary="true" inputId="posted"></lib-input-switch>
-
+              <lib-input-switch
+                formControlName="posted"
+                binary="true"
+                inputId="posted"
+              ></lib-input-switch>
             </div>
           </div>
           <div class="col-12 md:col-4">
@@ -38,8 +47,11 @@
               <label for="unposted"> {{ 'reportTrial.unposted' | translate }}</label>
               <!-- <input id="unposted" type="checkbox" formControlName="unposted"> -->
               <!-- <p-checkbox formControlName="unposted" binary="true" inputId="unposted"></p-checkbox> -->
-              <lib-input-switch formControlName="unposted" binary="true" inputId="unposted"></lib-input-switch>
-
+              <lib-input-switch
+                formControlName="unposted"
+                binary="true"
+                inputId="unposted"
+              ></lib-input-switch>
             </div>
           </div>
           <div class="col-12 md:col-3">
@@ -59,10 +71,12 @@
         </div>
       </div>
     </form>
+    </div>
     <div class="mb-4" *ngFor="let table of tableData">
       <lib-data-table
         [items]="table.transactions"
         className="p-datatable-gridlines"
+        [reportTable]="true"
         [tableConfigs]="{
                 allowPagination: false,
                 allowServerPagination: false,
@@ -83,17 +97,12 @@
                   {
                     name: 'description',
                     headerText: ('reportCost.description'| translate),
-                    isGlobalFilter: true,
-                    isSortable: true,
-                    
-                
+
                   },
                  
                   {
                     name: 'debit',
                     headerText:('reportCost.debit'| translate),
-                    isGlobalFilter: true,
-                    isSortable: true,
                    
                    
                   },
@@ -101,16 +110,13 @@
                   {
                     name: 'credit',
                     headerText: ('reportCost.credit'| translate),
-                    isGlobalFilter: true,
-                    isSortable: true,
-                  
-              
+
+                
                   },
                   {
                     name: 'balance',
                     headerText: ('reportCost.balance'| translate),
-                    isGlobalFilter: true,
-                    isSortable: true,
+
                   
               
                   },
@@ -147,14 +153,18 @@
             <td class="imptyData"></td>
             <td class="imptyData"></td>
             <td class="imptyData"></td>
-            <td class="total">{{ generalService.formatNumber(  table.totalDebit, generalService.fraction) }}</td>
-            <td class="total">{{ generalService.formatNumber(  table.totalCredit, generalService.fraction)}}</td>
+            <td class="total center">
+              {{ generalService.formatNumber(table.totalDebit, generalService.fraction) }}
+            </td>
+            <td class="total center">
+              {{ generalService.formatNumber(table.totalCredit, generalService.fraction) }}
+            </td>
             <td class="imptyData"></td>
           </tr>
         </ng-container>
       </lib-data-table>
     </div>
-    <div id="printableTable" >
+    <div id="printableTable">
       <form [formGroup]="reportCostForm">
         <div class="group">
           <div class="calender">
@@ -177,7 +187,7 @@
               </div>
             </div>
           </div>
-  
+
           <div class="grid">
             <div class="col-12 md:col-5">
               <div class="container_checkbox" for="posted">
@@ -190,16 +200,19 @@
               <div class="container_checkbox body_b16">
                 <label for="unposted"> {{ 'reportTrial.unposted' | translate }}</label>
                 <!-- <input id="unposted" type="checkbox" formControlName="unposted"> -->
-                <p-checkbox formControlName="unposted" binary="true" inputId="unposted"></p-checkbox>
+                <p-checkbox
+                  formControlName="unposted"
+                  binary="true"
+                  inputId="unposted"
+                ></p-checkbox>
               </div>
             </div>
-    
           </div>
         </div>
       </form>
       <div class="mb-4" *ngFor="let table of tableData">
         <lib-table-print
-        resizableColumns="false" 
+          resizableColumns="false"
           [items]="table.transactions"
           className="p-datatable-gridlines"
           [tableConfigs]="{
@@ -222,8 +235,7 @@
                     {
                       name: 'description',
                       headerText: ('reportCost.description'| translate),
-                      isGlobalFilter: true,
-                      isSortable: true,
+
                       
                   
                     },
@@ -231,8 +243,7 @@
                     {
                       name: 'debit',
                       headerText:('reportCost.debit'| translate),
-                      isGlobalFilter: true,
-                      isSortable: true,
+
                      
                      
                     },
@@ -240,16 +251,14 @@
                     {
                       name: 'credit',
                       headerText: ('reportCost.credit'| translate),
-                      isGlobalFilter: true,
-                      isSortable: true,
+
                     
                 
                     },
                     {
                       name: 'balance',
                       headerText: ('reportCost.balance'| translate),
-                      isGlobalFilter: true,
-                      isSortable: true,
+
                     
                 
                     },
@@ -286,8 +295,8 @@
               <td class="imptyData"></td>
               <td class="imptyData"></td>
               <td class="imptyData"></td>
-              <td class="total">{{ table.totalDebit }}</td>
-              <td class="total">{{ table.totalCredit }}</td>
+              <td class="total center">{{ table.totalDebit }}</td>
+              <td class="total center">{{ table.totalCredit }}</td>
               <td class="imptyData"></td>
             </tr>
           </ng-container>

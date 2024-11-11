@@ -1,0 +1,37 @@
+::ng-deep .p-multiselect-trigger  {
+    display: none;
+  }
+
+  ::ng-deep .p-multiselect-label-empty {
+    overflow: hidden;
+    visibility: visible;
+background-color: #f2f4f8;
+
+}
+  ::ng-deep .p-multiselect-label {
+    overflow: hidden;
+    visibility: visible;
+background-color: #f2f4f8;
+
+}
+::ng-deep .p-multiSelect {
+border: none;
+background-color: #f2f4f8;
+}
+/* ::ng-deep .p-overlay {
+  position: absolute;
+  top: 0;
+  left: -247px !important;
+} */
+
+::ng-deep  .ltr-position  .p-overlay {
+  position: absolute;
+  top: 0;
+  left: -247px !important;
+}
+
+::ng-deep .rtl-position .p-overlay {
+  position: absolute;
+  top: 0;
+  left: 8px !important;
+}

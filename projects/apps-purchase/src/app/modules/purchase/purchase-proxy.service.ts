@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
+import { HttpService, Modules, PageInfo, PaginationVm } from 'shared-lib';
 import {
   VendorCategoryDto,
   AddVendorCategory,
@@ -14,6 +14,11 @@ import {
   EditVendorCommand,
   CategoryDropdownDto,
   GetVendorById,
+  AddVendorOpeningBalanceDto,
+  VendorOpeningBalanceListDto,
+  DropDownDto,
+  JournalLineDropdownDto,
+  GetVendorOpeningBalanceViewDto,
 } from './models';
 @Injectable({
   providedIn: 'root',
@@ -25,9 +30,12 @@ export class PurchaseProxyService {
     searchTerm: string,
     pageInfo: PageInfo
   ): Observable<PaginationVm<VendorCategoryDto>> {
-    const url = `VendorCategory?SearchTerm=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`;
+    let query = `VendorCategory?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
+    }
 
-    return this.httpService.get<PaginationVm<VendorCategoryDto>>(url);
+    return this.httpService.get<PaginationVm<VendorCategoryDto>>(query);
   }
 
   addvendorCategory(addVendorCategoryDto: AddVendorCategory): Observable<AddVendorCategory> {
@@ -53,9 +61,12 @@ export class PurchaseProxyService {
     searchTerm: string,
     pageInfo: PageInfo
   ): Observable<PaginationVm<vendorDefinitionDto>> {
-    const url = `vendor?SearchTerm=${searchTerm}&pageNumber=${pageInfo.pageNumber}&pageSize=${pageInfo.pageSize}`;
+    let query = `vendor?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
+    }
 
-    return this.httpService.get<PaginationVm<vendorDefinitionDto>>(url);
+    return this.httpService.get<PaginationVm<vendorDefinitionDto>>(query);
   }
 
   deleteVendorDefinition(id: number): Observable<boolean> {
@@ -66,7 +77,7 @@ export class PurchaseProxyService {
     return this.httpService.get('ChartOfAccounts/ChildrenAccountsDropDown');
   }
   getpriceListDropDown(): Observable<{ id: number; name: string }[]> {
-    return this.httpService.get('PriceList/PriceListDropDown');
+    return this.httpService.get('PricePolicy/DropDown');
   }
   getpaymentTermsListDropDown(): Observable<{ id: number; name: string }[]> {
     return this.httpService.get('PaymentTerms/PaymentTermsDropdown');
@@ -97,27 +108,64 @@ export class PurchaseProxyService {
     return this.httpService.get<CountryDto[]>(`Country`);
   }
 
-  getTags(): Observable<TagDropDownDto[]> {
-    return this.httpService.get<TagDropDownDto[]>(`Tag/Tagdropdown`);
+  getTags(moduleId: Modules): Observable<TagDropDownDto[]> {
+    return this.httpService.get<TagDropDownDto[]>(`Tag/Tagdropdown?moduleId=` + moduleId);
   }
 
-  exportVendorCategoriesData(
-    searchTerm: string | undefined
-  ): Observable<VendorCategoryDto[]> {
+  exportVendorCategoriesData(searchTerm: string | undefined): Observable<VendorCategoryDto[]> {
     let query = `VendorCategory/Export?`;
     if (searchTerm) {
       query += `searchTerm=${encodeURIComponent(searchTerm)}`;
     }
-     return this.httpService.get<VendorCategoryDto[]>(query);
+    return this.httpService.get<VendorCategoryDto[]>(query);
   }
 
-  exportVendorsData(
-    searchTerm: string | undefined
-  ): Observable<vendorDefinitionDto[]> {
+  exportVendorsData(searchTerm: string | undefined): Observable<vendorDefinitionDto[]> {
     let query = `vendor/Export?`;
     if (searchTerm) {
       query += `searchTerm=${encodeURIComponent(searchTerm)}`;
     }
-     return this.httpService.get<vendorDefinitionDto[]>(query);
+    return this.httpService.get<vendorDefinitionDto[]>(query);
+  }
+
+  addVendorOpeningBalance(data: AddVendorOpeningBalanceDto): Observable<AddVendorCommand> {
+    return this.httpService.post(`VendorOpeningBalance`, data);
+  }
+  editVendorrOpeningBalance(vendor: any): Observable<any> {
+    return this.httpService.put(`VendorOpeningBalance`, vendor, false);
+  }
+  getVendorOpeningBalanceByID(id: number): Observable<any> {
+    const url = `VendorOpeningBalance/${id}`;
+    return this.httpService.get(url);
+  }
+
+  getAllVendorOpeningBalance(
+    searchTerm: string,
+    pageInfo: PageInfo
+  ): Observable<PaginationVm<VendorOpeningBalanceListDto>> {
+    let query = `VendorOpeningBalance?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+
+    return this.httpService.get<PaginationVm<VendorOpeningBalanceListDto>>(query);
+  }
+
+  openingBalanceJournalEntryDropdown(): Observable<DropDownDto[]> {
+    return this.httpService.get<CategoryDropdownDto[]>('OpeningBalanceJournalEntry/GetDropDown');
+  }
+  GetLinesDropDown(id: number): Observable<JournalLineDropdownDto[]> {
+    return this.httpService.get<any[]>(`OpeningBalanceJournalEntry/GetLinesDropDown/${id}`);
+  }
+  VendorDropDownByAccountId(id: number): Observable<DropDownDto[]> {
+    return this.httpService.get<any[]>(`Vendor/DropDownByAccountId/${id}`);
+  }
+  deleteVendorOpeningBalance(id: number): Observable<boolean> {
+    return this.httpService.delete<boolean>(`VendorOpeningBalance/${id}`);
+  }
+  GetVendorOpeningBalanceView(id: number): Observable<GetVendorOpeningBalanceViewDto> {
+    return this.httpService.get<GetVendorOpeningBalanceViewDto>(
+      `VendorOpeningBalance/GetOpeningBalanceView/${id}`
+    );
   }
 }

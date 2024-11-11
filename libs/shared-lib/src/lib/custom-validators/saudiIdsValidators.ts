@@ -1,5 +1,5 @@
-import { AbstractControl } from '@angular/forms';
 import { HasWhitespaceAroundString } from './stringValidators';
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 export function IsValidCRNumber(control: AbstractControl) {
   const hasSpacesAround = HasWhitespaceAroundString(control?.value);
@@ -110,4 +110,14 @@ export function IsValidSaudiId(control: AbstractControl) {
   } else {
     return { invalidSaudiId: true }; // Validation failed
   }
+}
+
+
+// Custom validator for English letters
+export function onlyEnglishLetters(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const value = control.value;
+    const englishLetterPattern = /^[A-Za-z\s]+$/; // English letters pattern
+    return value && !englishLetterPattern.test(value) ? { onlyEnglishLetters: true } : null;
+  };
 }

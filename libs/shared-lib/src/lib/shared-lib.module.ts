@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { RouterModule, RouterOutlet, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -13,11 +13,6 @@ import {
   ToastComponent,
   TablePrintComponent,
   TabviewComponent,
-  
-  
-  
-  
-  
 } from './components';
 import {
   FieldValidationsComponent,
@@ -29,9 +24,12 @@ import {
   ButtonComponent,
   SharedFormComponent,
   ToggelComponent,
+  EditMultipeFilesComponent,
 } from './form-components';
 import { DropdownModule } from 'primeng/dropdown';
 import { GetLookupPipe } from './pipes/lookupList';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+
 import { PageContentComponent } from './components/page-content/page-content.component';
 import { PrimeSharedModule } from './prime-module/prime.module';
 import { FileUploaderComponent } from './form-components/file-uploader/file-uploader.component';
@@ -56,8 +54,15 @@ import { ExportComponent } from './components/export/export.component';
 import { ChangeColumnComponent } from './components/change-column/change-column.component';
 import { NumberFormatPipe } from './pipes/number-format.pipe';
 import { PopupPageComponent } from './components/popup-page/popup-page.component';
+import { NumberFormatDirective } from './directives/numberFormatDirective';
+import { QRCodeModule } from 'angularx-qrcode';
+import { ColumnsSelectionComponent } from './form-components/columns-selection/columns-selection.component';
+import { ActtachmentViewComponent } from 'libs/apps-shared-lib/src/lib/pages/attachment-view/acttachment-view/acttachment-view.component';
+import { NewBreadCrumbComponent } from './components/new-bread-crumb/new-bread-crumb.component';
+
 @NgModule({
   declarations: [
+    NumberFormatDirective,
     GetLookupPipe,
     LayoutComponent,
     SearchEngineComponent,
@@ -72,11 +77,13 @@ import { PopupPageComponent } from './components/popup-page/popup-page.component
     FileUploaderComponent,
     NamedFileUploaderComponent,
     MultiSelectComponent,
+    EditMultipeFilesComponent,
     DataTableComponent,
     AttachmentViewerComponent,
     ButtonComponent,
     InputSwitchComponent,
     BreadCrumbComponent,
+    NewBreadCrumbComponent,
     TablePaginatorComponent,
     RatingComponent,
     PaginatorComponent,
@@ -94,7 +101,7 @@ import { PopupPageComponent } from './components/popup-page/popup-page.component
     ExportComponent,
     ChangeColumnComponent,
     NumberFormatPipe,
-    PopupPageComponent
+    PopupPageComponent,ColumnsSelectionComponent
   ],
   imports: [
     HttpClientModule,
@@ -109,7 +116,10 @@ import { PopupPageComponent } from './components/popup-page/popup-page.component
     PrimeSharedModule,
     TreeTableModule,
     TreeModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    QRCodeModule,
+    InputTextareaModule
+
   ],
   exports: [
     GetLookupPipe,
@@ -131,11 +141,13 @@ import { PopupPageComponent } from './components/popup-page/popup-page.component
     PrimeSharedModule,
     FileUploaderComponent,
     MultiSelectComponent,
+    EditMultipeFilesComponent,
     DataTableComponent,
     AttachmentViewerComponent,
     ButtonComponent,
     InputSwitchComponent,
     BreadCrumbComponent,
+    NewBreadCrumbComponent,
     TablePaginatorComponent,
     RatingComponent,
     PaginatorComponent,
@@ -147,7 +159,7 @@ import { PopupPageComponent } from './components/popup-page/popup-page.component
     ButtonMicroComponent,
     ToggelComponent,
     CalendarComponent,
-    GetElementByIDPipe, 
+    GetElementByIDPipe,
     ToastComponent,
     UploadMultipeFilesComponent,
     TablePrintComponent,
@@ -155,7 +167,11 @@ import { PopupPageComponent } from './components/popup-page/popup-page.component
     ExportComponent,
     ChangeColumnComponent,
     NumberFormatPipe,
-    PopupPageComponent
+    PopupPageComponent,
+    NumberFormatDirective,
+    QRCodeModule,ColumnsSelectionComponent,
+    InputTextareaModule
   ],
+
 })
 export class SharedLibModule {}

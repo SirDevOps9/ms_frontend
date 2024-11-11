@@ -15,37 +15,39 @@ export class PaymentTermListComponent implements OnInit {
   currentPageInfo: PageInfoResult = {};
   searchTerm: string;
   exportData: PaymentTermDto[];
-  cols = [
+  exportColumns: lookupDto[]= [
    
     {
-      field: 'Code',
-      header: 'code',
+      id: 'id',
+      name: 'Id',
     },
 
     {
-      field: 'Name',
-      header: 'name',
+      id: 'code',
+      name: 'code',
+    },
+
+    {
+      id: 'name',
+      name: 'name',
+    },
+
+    {
+      id: 'shortName',
+      name: 'shortName',
     }
   ];
-  exportColumns: lookupDto[];
 
   constructor(
     private financeService: FinanceService,
-    private routerService: RouterService,
-    private title: Title,
-    private langService: LanguageService,
+    private routerService: RouterService
 
   ) {
-    this.title.setTitle(this.langService.transalte('paymentterm.payment-term-list'));
 
   }
 
   ngOnInit() {
     this.initPaymentTermData();
-    this.exportColumns = this.cols.map((col) => ({
-      id: col.header,
-      name: col.field,
-    }));
   }
 
   initPaymentTermData() {
@@ -73,7 +75,7 @@ export class PaymentTermListComponent implements OnInit {
   }
 
   exportClick(e?: Event) {
-    this.financeService.exportsBankList(this.searchTerm);
+    this.financeService.exportsPaymentTermList(this.searchTerm);
     this.financeService.exportedPaymentTermDataSourceObservable.subscribe((res) => {
       this.exportData = res;
     });
@@ -85,6 +87,9 @@ export class PaymentTermListComponent implements OnInit {
 
   onEdit(data: any) {
     this.routerService.navigateTo(`/masterdata/paymentterm/edit-payment-term/${data.id}`);
+  }
+  view(id: any) {
+    this.routerService.navigateTo(`/masterdata/paymentterm/view-payment-term/${id}`);
   }
 
   onSearchChange() {

@@ -1,4 +1,5 @@
 <lib-page-content>
+  <div class="card_micro">
   <div class="page_content_header">
     <div class="actions">
       <lib-button-micro
@@ -13,7 +14,7 @@
       <lib-button-micro
       [title]="'ChartOfAccount.import' | translate"
       nameClass="outline"
-        iconName=" pi pi-cloud-download"
+      iconName=" pi pi-cloud-download"
       >
       </lib-button-micro>
 
@@ -43,6 +44,9 @@
       </button>
     </div>
   </div>
+  </div>
+  <div class="card_micro">
+
   <div class="main_chat_of_account">
     <app-chart-of-account-tree
       *ngIf="!Viewlist"
@@ -52,5 +56,5 @@
       (addmode)="changeMode($event)"
     ></app-chart-of-account-tree>
     <app-chat-of-account-list *ngIf="Viewlist"></app-chat-of-account-list>
-  </div>
+  </div></div>
 </lib-page-content>

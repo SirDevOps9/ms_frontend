@@ -1,4 +1,13 @@
-import { Component, Input, Output, EventEmitter, Optional, Self, ElementRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  Optional,
+  Self,
+  ElementRef,
+  ViewChild,
+} from '@angular/core';
 import {
   AbstractControl,
   ControlValueAccessor,
@@ -9,6 +18,7 @@ import {
 import { AttachmentsService } from '../../services';
 import { AttachmentDto, AttachmentFileTypeEnum, UploadFileConfigDto } from '../../models';
 import { SharedLibraryEnums } from '../../constants';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'lib-file-uploader',
@@ -23,11 +33,14 @@ export class FileUploaderComponent implements ControlValueAccessor, Validator {
   @Input() base64: string;
   @Input() id: string;
   @Input() showImgName: boolean = true;
+  @Input() file: boolean;
   @Input() className: string;
   @Input() uploadClassName: string;
-  @Input() appControl: AbstractControl;
+  @Input() appControl: AbstractControl ;
+  @Input() labelTest: any;
   @Input() config: UploadFileConfigDto = { type: AttachmentFileTypeEnum.image };
   @Output() valueChanged = new EventEmitter<string>();
+  @Output() data = new EventEmitter<any>();
   @ViewChild('fileInput') fileInput: ElementRef;
 
   imgName: string = '';
@@ -126,6 +139,46 @@ export class FileUploaderComponent implements ControlValueAccessor, Validator {
       });
     }
   }
+  
+  ngAfterViewInit() {
+    if (this.appControl) {
+      setTimeout(() => {
+        //this.labelTest = this.appControl.name;
+        this.labelTest = this.label;
+      }, 500);
+    }
+  }
+  /////////////
+
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const fileType = file.name.split('.').pop().toLowerCase();
+      if (fileType === 'xlsx') {
+        this.readExcelFile(file);
+      } else {
+        console.log('not supported');
+      }
+    }
+  }
+
+  readExcelFile(file: File) {
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      const binaryStr = e.target.result;
+      const workbook = XLSX.read(binaryStr, { type: 'binary' });
+      const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+      const json:any = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+    console.log("888888888888888888888");
+    
+      this.data.emit(json);
+
+    
+    };
+    
+    reader.readAsBinaryString(file);
+
+  }
 
   constructor(
     @Self() @Optional() public controlDir: NgControl,
@@ -139,4 +192,8 @@ export class FileUploaderComponent implements ControlValueAccessor, Validator {
     this.attachmentService.clearState();
     this.subscribe();
   }
+
+
+
+
 }

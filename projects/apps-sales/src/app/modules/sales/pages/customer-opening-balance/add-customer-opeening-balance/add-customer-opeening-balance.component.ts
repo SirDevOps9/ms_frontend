@@ -2,267 +2,286 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AccountDto } from 'projects/apps-accounting/src/app/modules/account/models';
-import { customValidators } from 'shared-lib';
-import { CustomerOpeningBalanceNoChildrenComponent } from '../../../components/customer-opening-Balance/customer-opening-balance-no-children/customer-opening-balance-no-children.component';
+import {
+  customValidators,
+  FormsService,
+  LanguageService,
+  lookupDto,
+  LookupEnum,
+  LookupsService,
+  RouterService,
+  ToasterService,
+} from 'shared-lib';
 import { CustomerOpeningBalanceDistributeComponent } from '../../../components/customer-opening-balance-distribute/customer-opening-balance-distribute.component';
-import { TranslationService } from 'projects/adminportal/src/app/modules/i18n';
 import { SalesService } from '../../../sales.service';
-import { CategoryDropdownDto } from '../../../models';
+import {
+  CategoryDropdownDto,
+  CustomerDropDown,
+  GetLineDropDownById,
+  SharedSalesEnums,
+} from '../../../models';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-add-customer-opeening-balance',
   templateUrl: './add-customer-opeening-balance.component.html',
-  styleUrl: './add-customer-opeening-balance.component.scss'
+  styleUrl: './add-customer-opeening-balance.component.scss',
 })
 export class AddCustomerOpeeningBalanceComponent implements OnInit {
-  formGroup: FormGroup
-  customerForm: FormArray
+  formGroup: FormGroup;
+  customerForm: FormArray;
   openingJournalList: CategoryDropdownDto[];
-  LinesDropDown: any;
-  CustomerDropDownByAccountId: any
+  linesDropDown: GetLineDropDownById[];
+  customerDropDownByAccountId: CustomerDropDown[] | any;
   amount: string;
   balanceTypeSelect: string;
   debitOrCredit: string;
-
+  openingJournalId: number;
+  totalBalance: number;
   filteredAccounts: AccountDto[] = [];
-  balanceType: any = [{ label: "Debit", value: "Debit" }, { label: "Credit", value: "Credit" }]
-  openingBalanceJournalEntryLineId: number
-  amountNature: string
+  LookupEnum = LookupEnum;
+  lookups: { [key: string]: lookupDto[] };
+  openingBalanceJournalEntryLineId: number;
+  amountNature: string;
+  editMode: boolean;
+  formChanged: boolean;
+
   constructor(
     private fb: FormBuilder,
     private dialog: DialogService,
-    private translationService: TranslationService,
-    private SalesService: SalesService
-  ) { }
+    private SalesService: SalesService,
+    private toasterService: ToasterService,
+    private languageService: LanguageService,
+    private formService: FormsService,
+    public routerService: RouterService,
+    private lookupsService: LookupsService,
+    public enums: SharedSalesEnums
+  ) {}
+
   ngOnInit(): void {
-    this.getCustomerOpeningBalance()
-    // Initialize formGroup 
-    this.formGroup = this.fb.group({
-      open: new FormControl('', customValidators.required),
-      open2: new FormControl('', customValidators.required),
-      name1: '',
-      name2: '',
-    });
 
-    // Initialize customerForm as FormArray
-    this.customerForm = this.fb.array([this.createBankFormGroup()]);
-    this.openingBalanceJournalEntryDropdown()
-    this.formGroup = this.fb.group({
-      open: new FormControl('', customValidators.required),
-      open2: new FormControl('', customValidators.required),
-      name1: '',
-      name2: '',
-    })
-    this.customerForm = this.fb.array([this.createBankFormGroup()]);
-
-    this.createBankFormGroup()
+    this.SalesService.LinesDropDownData.next([]);
+    this.SalesService.CustomerDropDownByAccountId.next([]);
+    this.loadLookups();
+    this.customerForm = this.fb.array([]);
+    this.subscribe();
+    this.customerForm = this.fb.array([this.customerLineFormGroup()]);
+    this.openingBalanceJournalEntryDropdown();
+    this.initializeMainFormGroup();
+    this.customerLineFormGroup();
   }
 
+  private initializeMainFormGroup(): void {
+    this.formGroup = this.fb.group({
+      OpeningJournal: new FormControl('', customValidators.required),
+      JournalLine: new FormControl('', customValidators.required),
+      amount: '',
+      amountNature: '',
+    });
 
+    this.customerForm = this.fb.array([this.customerLineFormGroup()]);
+  }
 
+  loadLookups() {
+    this.lookupsService.loadLookups([LookupEnum.AccountNature]);
+  }
   public get items(): FormArray {
     return this.customerForm as FormArray;
   }
 
   addLine() {
-    this.items.push(this.createBankFormGroup())
+    if (!this.formService.validForm(this.customerForm, false)) return;
+
+    this.items.push(this.customerLineFormGroup());
     this.customerForm.updateValueAndValidity();
   }
-
-  onDelete( id:number ,index: number): void {
-
-
-    this.SalesService.deleteCustomerOpeningBalance(id)
-    this.SalesService.customerDeletedObser.subscribe((res:boolean)=>{
-      if(res!=false){
-        this.customerForm.removeAt(index);
-
-      }
-    })
+  removeByFront(index: number) {
+    this.customerForm.removeAt(index);
+    this.calculateTotalBalance();
   }
 
-  createBankFormGroup(): FormGroup {
+
+  customerLineFormGroup(): FormGroup {
     return this.fb.group({
       id: 0,
       customerId: new FormControl('', customValidators.required),
-      accountName: '',
-      balance: null,
-      balanceType: new FormControl('', customValidators.required),
-      displayName: null,
-      dueDates: []
+      accountName: new FormControl(),
+      customerCode: new FormControl(),
+      balance: new FormControl(0, [
+        customValidators.required,
+        customValidators.number,
+        customValidators.hasSpaces,
+        customValidators.nonZero,
+      ]),
+      balanceType: new FormControl('', [customValidators.required]),
+      displayName: new FormControl(),
+      dueDates: new FormControl([]),
     });
-  }
-
-
- 
-  accountSelected(event: any, index: number) {
-    const bankLine = this.items.at(index); 
-
-    if (bankLine) {
-      var accountData: any = this.CustomerDropDownByAccountId.find((c: any) => c.id == event);
-
-      if (accountData) {
-        bankLine.get('accountName')?.setValue(accountData?.name);
-        bankLine.get('accountCode')?.setValue(accountData?.accountCode);
-        bankLine.get('displayName')?.setValue(`${accountData.code}`);
-      }
-    } else {
-      console.error(`No FormGroup found at index ${index}`);
-    }
-  }
-
-  openDialog(index: number) {
-    const ref = this.dialog.open(CustomerOpeningBalanceNoChildrenComponent, {
-      width: '60%',
-      height: '600px'
-
-    });
-    ref.onClose.subscribe((r) => {
-      if (r) {
-        this.customerForm.at(index)?.get('accountName')?.setValue(r.name);
-        this.customerForm.at(index)?.get('customerId')?.setValue(r.accountCode);
-
-      }
-    });
-
-
   }
 
   openDistribute(data: any, account: number, index: number, customerGroup: FormGroup) {
     let accountData = this.filteredAccounts.find((elem) => elem.id === account);
 
-    if (data.balanceType != "Debit") {
-      return null;
+    if (!this.formService.validForm(this.customerForm, false)) return;
+
+    if (data.balanceType != this.enums.BalanceType.Debit) {
+      this.toasterService.showError(
+        this.languageService.transalte('Error'),
+        this.languageService.transalte('Distribution')
+      );
+      return;
     } else {
       const ref = this.dialog.open(CustomerOpeningBalanceDistributeComponent, {
-        header: 'Due Date Distribution',
-        width: '60%',
-        height: '650px',
+        width: '750px',
+        height: '600px',
         data: data,
       });
       ref.onClose.subscribe((res) => {
         if (res) {
           data.dueDates = res;
+        } else {
+          data.dueDates = [];
         }
       });
-
     }
-
   }
+
   openingBalanceJournalEntryDropdown() {
     this.SalesService.openingBalanceJournalEntryDropdown();
-    this.SalesService.openingBalanceJournalEntryDropdownDataObservable.subscribe((res) => {
-      this.openingJournalList = res;
-
-    });
   }
-  onopeningJournalChange(event: any) {
-    this.getLinesDropDown(event)
 
+  onOpeningJournalChange(event: any) {
+    this.getLinesDropDown(event);
   }
+
   getLinesDropDown(id: number) {
+    this.openingJournalId = id;
     this.SalesService.getLinesDropDown(id);
-    this.SalesService.LinesDropDownDataObservable.subscribe((res: any) => {
-      this.LinesDropDown = res;
-    });
   }
-  onLinesChange(event: any) {
-    this.LinesDropDown.forEach((element: any) => {
-      if (element.id == event) {
-        this.formGroup.patchValue({
-          name1: element.amount,
-          name2: element.amountNature
-        })
-        this.getCustomerDropDownByAccountId(element.accountId)
-        this.openingBalanceJournalEntryLineId = element.id
-        this.amountNature = element.amountNature
-      }
-    });
 
+  onLinesChange(event: any) {
+    setTimeout(() => {
+      this.linesDropDown?.forEach((element: any) => {
+        if (element.id == event) {
+          this.formGroup.patchValue({
+            amount: element.amount,
+            amountNature: element.amountNature,
+          });
+          this.getCustomerDropDownByAccountId(element.accountId);
+          this.openingBalanceJournalEntryLineId = element.id;
+          this.amountNature = element.amountNature;
+        }
+      });
+    }, 500);
   }
+
   getCustomerDropDownByAccountId(id: number) {
     this.SalesService.getCustomerDropDownByAccountId(id);
-    this.SalesService.CustomerDropDownByAccountIdObservable.subscribe((res) => {
-      this.CustomerDropDownByAccountId = res;
+  }
 
-    });
-  }
-  balanceTypeSelected(event: any) {
-    this.balanceTypeSelect = event
-  }
   onSubmit() {
+    if (!this.formService.validForm(this.customerForm, false)) return;
+
     this.customerForm.updateValueAndValidity();
     this.formGroup.updateValueAndValidity();
     const body = {
       openingBalanceJournalEntryLineId: this.openingBalanceJournalEntryLineId,
       amountNature: this.amountNature,
-      customerOpeningBalanceDetails: this.items.value
-    }
-    this.SalesService.AddCustomerOpeningBalance(body)
-      
-  
+      customerOpeningBalanceDetails: this.items.value,
+    };
+    this.SalesService.AddCustomerOpeningBalance(body);
   }
 
-  getCustomerOpeningBalance() {
-    this.SalesService.getCustomerOpeningBalance();
-    this.SalesService.CustomerOpeningBalancelistObservable.subscribe((res: any) => {
-      // Initialize or clear the customerForm array
-      if (!this.customerForm) {
-        this.customerForm = this.fb.array([]);
-      } else {
-        this.customerForm.clear();
-      }
-  
-      if (res) {
-        // Patch main form values
-        this.formGroup.patchValue({
-          open: res.openingBalanceJournalEntryId || '',
-          open2: res.openingBalanceJournalEntryLineId || '',
-          name1: res.amount || '',
-          name2: res.amountNature || ''
-        });
-  
-        // Get dropdown options for lines
-        this.getLinesDropDown(res.openingBalanceJournalEntryId);
-  
-        // Wait for LinesDropDown to be populated
-        this.SalesService.LinesDropDownDataObservable.subscribe(() => {
-          if (this.LinesDropDown.length !== 0) {
-            this.LinesDropDown.forEach((element: any) => {
-              if (element.id === res.openingBalanceJournalEntryLineId) {
-                this.getCustomerDropDownByAccountId(element.accountId);
-                this.openingBalanceJournalEntryLineId = element.id;
-                this.amountNature = element.amountNature;
-              }
-            });
-          }
-  
-          // Populate customerForm with customerOpeningDetails
-          if (res.customerOpeningDetails && Array.isArray(res.customerOpeningDetails)) {
-            res.customerOpeningDetails.forEach((detail: any, index: number) => {
-              const formGroup = this.createBankFormGroup();
-  
-              if (detail) {
-                formGroup.patchValue({
-                  id: detail.id,
-                  customerId: detail.customerId || '',
-                  accountName: detail.customerName || '',
-                  balance: detail.balance || null,
-                  balanceType: detail.balanceType || '',
-                  displayName: detail.displayName || '',
-                  dueDates: detail.balanceDueDates || []
-                });
-              }
-  
-              this.customerForm.push(formGroup);
-  
-              this.accountSelected(detail.customerId, index);
-            });
-          }
-        });
-      }
+  subscribe() {
+    this.lookupsService.lookups.subscribe((l) => (this.lookups = l));
+
+    this.SalesService.openingBalanceJournalEntryDropdownDataObservable.subscribe((res) => {
+      this.openingJournalList = res;
     });
-  }
-  
 
+    this.SalesService.CustomerDropDownByAccountIdObservable.subscribe((res) => {
+      this.customerDropDownByAccountId = res.map((x) => ({
+        ...x,
+        name: `${x.name} (${x.code})`,
+      }));;
+    });
+    this.SalesService.LinesDropDownDataObservable.subscribe((res: any) => {
+      this.linesDropDown = res;
+    });
+
+    if (this.formGroup) {
+      this.formGroup.get('OpeningJournal')?.valueChanges.subscribe((value) => {
+        this.onOpeningJournalChange(value);
+      });
+
+      this.formGroup.get('JournalLine')?.valueChanges.subscribe((value) => {
+        this.onLinesChange(value);
+      });
+    }
+  }
+
+  calculateTotalBalance() {
+    this.totalBalance = this.customerForm.controls.reduce((acc, control) => {
+      const debitValue = parseFloat(control.get('balance')?.value) || 0;
+      return acc + debitValue;
+    }, 0);
+  }
+
+  cancel() {
+    this.routerService.navigateTo('/masterdata/customer-opening-balance');
+  }
+
+  accountSelected(event: any, index: number) {
+    const line = this.items.at(index);
+    if (!line) {
+      return;
+    }
+
+    const selectedCustomer = this.customerDropDownByAccountId.find((c: any) => c.id === event);
+
+    if (!selectedCustomer) {
+      return;
+    }
+
+    line.get('accountName')?.setValue(selectedCustomer.name);
+    line.get('customerCode')?.setValue(selectedCustomer.code);
+    line.get('displayName')?.setValue(`${selectedCustomer.code}`);
+
+    line.get('customerId')?.setValue(selectedCustomer.id);
+  }
+
+  balanceTypeSelected(event: any, index: number) {
+    const line = this.items.at(index);
+    if (!line) {
+      return;
+    }
+
+    const selectedCustomerId = line.get('customerId')?.value;
+
+    if (!selectedCustomerId) {
+      return;
+    }
+
+    const isCustomerAlreadySelected = this.items.controls.some((group, i) => {
+      return group.get('customerId')?.value === selectedCustomerId && i !== index;
+    });
+
+    if (isCustomerAlreadySelected) {
+      const matchingGroup = this.items.controls.find(
+        (group) => group.get('customerId')?.value === selectedCustomerId
+      );
+      const existingBalanceType = matchingGroup?.get('balanceType')?.value;
+
+      if (existingBalanceType && existingBalanceType !== event) {
+        this.toasterService.showError(
+          this.languageService.transalte('Error'),
+          this.languageService.transalte('openeingBalance.natureMismatchWithDuplicateCustomer')
+        );
+        line.get('balanceType')?.reset();
+        return;
+      }
+    }
+
+    line.get('balanceType')?.setValue(event);
+  }
 }

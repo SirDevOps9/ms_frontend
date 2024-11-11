@@ -1,13 +1,13 @@
 
 // @import "../../../../assets/styling/scss/variables/font-family";
-@import ' ../../../../../../../../assets/styling/scss//variables/font-family';
+@import '../../../../../../../../../libs/apps-shared-lib/src/assets/styling/scss//variables/font-family';
 .journal_entry_add_page{
    
     .entry_header{
-        background: #F7F8F8;
-        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-        padding: 20px;
-        margin-bottom: 20px;
+        // background: #F7F8F8;
+        // box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+        // padding: 20px;
+        // margin-bottom: 20px;
         .title{
             font-size: 18px;
            // font-family: $cairo_regular;
@@ -16,7 +16,7 @@
     
     .entry_table{
         .add_new{
-            padding: 20px;
+            padding: 20px 0;
             .btn{
                 background: none;
                 border: none;
@@ -132,4 +132,17 @@ button[disabled]{
         font-size: 16px;
         font-family: $cairo_regular;
 
+      }
+      .label_total{
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        color: #6b7280;
+      }
+      ::ng-deep{
+        .total{
+          .p-inputtext::placeholder {
+              color: black !important;
+             font-weight: bold !important;
+          }
+        }
       }

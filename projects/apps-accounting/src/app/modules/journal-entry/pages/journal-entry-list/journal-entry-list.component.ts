@@ -11,6 +11,7 @@ import {
 import { JournalEntryService } from '../../journal-entry.service';
 import { JournalEntryDto, SharedJournalEnums } from '../../models';
 import { Router } from '@angular/router';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-journal-entry-list',
@@ -29,17 +30,17 @@ export class JournalEntryListComponent implements OnInit {
   exportData: JournalEntryDto[];
   constructor(
     private routerService: RouterService,
-    private titleService: Title,
-    private languageService: LanguageService,
     private journalEntryService: JournalEntryService,
     public sharedJouralEnum: SharedJournalEnums,
     private loaderService: LoaderService,
     private router: Router
-  ) {}
+  ) {
+    this.searchColumnsControl = new FormControl([]);
+  }
 
   ngOnInit() {
-    this.titleService.setTitle(this.languageService.transalte('Journal.Title'));
     this.initJournalEntryData();
+
     this.cols = [
       {
         field: 'Id',
@@ -114,12 +115,7 @@ export class JournalEntryListComponent implements OnInit {
     });
   }
 
-  // onPageChange(pageInfo: PageInfo) {
-  //   this.initJournalEntryData(pageInfo);
-  // }
-
   routeToAdd() {
-    // this.routerService.navigateTo(`/add`);
     this.router.navigate(['/transcations/journalentry/add']);
   }
 
@@ -152,5 +148,27 @@ export class JournalEntryListComponent implements OnInit {
     this.journalEntryService.exportsJournalEntriesDataSourceObservable.subscribe((res) => {
       this.exportData = res;
     });
+  }
+
+  routeToPaymentInView(id: number) {
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree([`/finance/transcations/paymentin/view/${id}`])
+    );
+    window.open(url, '_blank');
+  }
+
+  routeToPaymentOutView(id: number) {
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree([`/finance/transcations/paymentout/view/${id}`])
+    );
+    window.open(url, '_blank');
+  }
+
+  filtered_columns: any[] = [];
+  selected_filtered_columns: any[] = [];
+  searchColumnsControl: FormControl;
+
+  fillFilterDropdown(dropdown: any) {
+    this.filtered_columns = dropdown.columns;
   }
 }

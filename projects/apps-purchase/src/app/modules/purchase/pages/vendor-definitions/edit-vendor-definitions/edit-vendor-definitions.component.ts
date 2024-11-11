@@ -4,6 +4,7 @@ import {
   FormsService,
   LookupEnum,
   LookupsService,
+  Modules,
   RouterService,
   SharedLibraryEnums,
   customValidators,
@@ -117,7 +118,7 @@ export class EditVendorDefinitionsComponent implements OnInit {
 
       vendorFinancial: this.fb.group({
         paymentTermId: new FormControl(null),
-        priceListId: new FormControl(null),
+        pricePolicyId: new FormControl(null),
         creditLimit: new FormControl(null),
         currencyId: new FormControl(null),
       }),
@@ -161,7 +162,7 @@ export class EditVendorDefinitionsComponent implements OnInit {
         this.returnedVendorInformation = res.vendorInformation;
         this.selectedVendorCategory = res.vendorCategory?.id;
         this.selectedPaymentTerm = res.vendorFinancial?.paymentTermId;
-        this.selectedPriceList = res.vendorFinancial?.priceListId;
+        this.selectedPriceList = res.vendorFinancial?.pricePolicyId;
         this.selectedCurrency = res.vendorFinancial?.currencyId;
         this.selectedPayableAccount = res.vendorAccounting?.payableAccountId;
         this.selectedPurchaseAccount = res.vendorAccounting?.purchaseAccountId;
@@ -278,7 +279,7 @@ export class EditVendorDefinitionsComponent implements OnInit {
   }
 
   getTags() {
-    this.purchaseService.getTags();
+    this.purchaseService.getTags(Modules.Purchase);
     this.purchaseService.tags.subscribe((res) => {
       this.accountTags = res;
     });
@@ -293,7 +294,7 @@ export class EditVendorDefinitionsComponent implements OnInit {
     return this.routerService.currentId;
   }
 
-  onDiscard() {
+  cancel() {
     //this.editEmployeeForm.reset();
     this.routerService.navigateTo(`/masterdata/vendor-definitions`);
   }

@@ -1,0 +1,108 @@
+<lib-page-content [title]="'bank.TaxList' | translate" [subTitle]="'bank.TaxList' | translate">
+    <div>
+      <div class="user_page">
+        <lib-data-table
+          [items]="tableData"
+          className="p-datatable-gridlines"
+          [currentPageResult]="currentPageInfo"
+          (pageChange)="onPageChange($event)"
+          [tableConfigs]="{
+            allowPagination: false,
+            allowServerPagination: true,
+            dataKey: 'id',
+            pageSize: 10,
+            columns: [
+              {
+                name: 'id',
+                headerText: ('itemType.code' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'name',
+                headerText: ('itemsCategory.name' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'parentCategoryName',
+                headerText: ('itemsCategory.parentCategory' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'isDetailed',
+                headerText: ('itemsCategory.isDetails' | translate),
+                isGlobalFilter: true,
+                isSortable: true,
+                template : isDetails
+              },
+              {
+                name: 'isActive',
+                headerText: ('itemsCategory.status' | translate),
+                template : isActive
+              },
+              {
+                name: 'categoryType',
+                headerText: ('itemsCategory.categoryType' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+
+
+              {
+                name: 'id',
+                headerText: ('itemCategory.actions' | translate),
+                template: actions
+              }
+            ]
+          }"
+        >
+        <ng-container search>
+          <div>
+            <span class="p-input-icon-left">
+              <lib-text-input
+              type="text"
+              [placeholder]="'itemCategory.search' | translate"
+              [(ngModel)]="searchTerm"
+              (keyUp)="onSearchChange($event)"
+              [iconUrl]="'pi pi-search'"
+              ></lib-text-input>
+
+            </span>
+          </div>
+          </ng-container>
+          <ng-container action>
+            <div>
+              <lib-export
+                (exportClick)="exportItemClick($event)"
+                [exportData]="exportData"
+                [exportColumns]="exportColumns"
+                [ExportName]="'Item Category'"
+              >
+              </lib-export>
+            </div>
+            </ng-container>
+
+
+          <ng-template #actions let-action>
+            <div class="actions flex align-items-center">
+              <img src="assets/images/table/delete.svg" alt="" (click)="onDelete(action.id)" />
+            </div>
+          </ng-template>
+          <ng-template #isDetails let-isDetails>
+            <div class="actions flex align-items-center">
+              <lib-input-switch [disabled]="true" [(ngModel)]="isDetails.isDetailed"></lib-input-switch>
+
+            </div>
+          </ng-template>
+          <ng-template #isActive let-isActive>
+            <div class="actions flex align-items-center">
+              <lib-input-switch [disabled]="true" [(ngModel)]="isActive.isActive "></lib-input-switch>
+
+            </div>
+          </ng-template>
+        </lib-data-table>
+      </div>
+    </div>
+  </lib-page-content>

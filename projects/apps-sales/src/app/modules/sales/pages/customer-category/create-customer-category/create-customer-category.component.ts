@@ -27,7 +27,7 @@ export class CreateCustomerCategoryComponent implements OnInit {
     salesAccountId : null,
     salesReturnAccountId : null,
     discountAccountId : null,
-    priceListId : null,
+    pricePolicyId : null,
     paymentTermId : null,
     marketType : null,
    
@@ -52,7 +52,6 @@ export class CreateCustomerCategoryComponent implements OnInit {
   onSave() {
     if (!this.formsService.validForm(this.formGroup, false)) return;
 
-   console.log("sandra",this.formGroup.value);
   this.salesService.addCustomerCategory(this.formGroup.value)
   this.salesService.addCustomerCategoryDataObservable.subscribe(res=>{
     if(res) {
@@ -62,7 +61,9 @@ export class CreateCustomerCategoryComponent implements OnInit {
 
   })
   }
-
+  onDiscard(){
+    this.routerService.navigateTo(`/masterdata/customer-category`);
+  }
   
   
 }

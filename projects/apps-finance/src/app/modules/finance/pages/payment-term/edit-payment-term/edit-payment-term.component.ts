@@ -39,10 +39,8 @@ export class EditPaymentTermComponent implements OnInit {
     private lookupsService: LookupsService,
     private route: ActivatedRoute,
     private toasterService: ToasterService,
-    private title: Title,
     private languageService: LanguageService
   ) {
-    this.title.setTitle(this.languageService.transalte('paymentterm.EditPaymentTerm'));
 
   }
 
@@ -92,7 +90,7 @@ export class EditPaymentTermComponent implements OnInit {
     return this.fb.group({
       id: new FormControl(0),
       dueTermValue: new FormControl('', customValidators.required),
-      note: new FormControl('', customValidators.required),
+      note: new FormControl(''),
       afterValue: new FormControl('', customValidators.required),
       afterPeriod: new FormControl('', customValidators.required),
     });
@@ -107,6 +105,8 @@ export class EditPaymentTermComponent implements OnInit {
   }
 
   addLine() {
+    if(!this.formsService.validForm(this.paymentTermForm , false))return
+
     this.items.push(this.createPaymentTermFormGroup());
   }
 
@@ -151,5 +151,10 @@ export class EditPaymentTermComponent implements OnInit {
 
     console.log('formData', formData);
     this.financeService.editPaymentTerm(formData);
+  }
+
+   // if thw form array is not valid
+   isFormArrayInvalid(): boolean {
+    return this.paymentTermForm.controls.some(control => control.invalid);
   }
 }

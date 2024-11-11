@@ -1,5 +1,6 @@
 <lib-page-content>  
     <div class="chart_add_page">
+      <div class="card_micro">
       <form [formGroup]="formGroup">
         <div class="grid">
           <div class="md:col-4">
@@ -89,13 +90,13 @@
           <!--  -->
           <div class="md:col-4">
             <lib-form-group>
-              <lib-label [appControl]="formGroup.controls['priceListId']">
+              <lib-label [appControl]="formGroup.controls['pricePolicyId']">
                 {{ 'CustomerCategory.priceList' | translate }}
               </lib-label>
               <lib-select
-                formControlName="priceListId"
+                formControlName="pricePolicyId"
                 [options]="priceList"
-                [selectedValue]="formGroup.controls['priceListId'].value"
+                [selectedValue]="formGroup.controls['pricePolicyId'].value"
                 optionLabel="name"
                 optionValue="id"
               >
@@ -137,17 +138,25 @@
           <!--  -->
         </div>
       </form>
-  
-      <!--  -->
-      <div class="grid justify-content-center my-2">
-        <lib-button
-          pRipple
-          className="saveBtn"
-          label="Save"
-          (onClick)="onSave()"
-          [disabled]="!formGroup.valid"
-        >
-        </lib-button>
+  </div>
+      
+      <div class="btn_group ">
+        <div class="grid">
+          <div class="md:col-3">
+            <div class="grid">
+              <div class="md:col-6">
+                <lib-button-micro title="{{ 'Cancel' | translate }}" nameClass="cancel" widthNumber="100%" (click)="onDiscard()">
+                </lib-button-micro>
+              </div>
+              <div class="md:col-6">
+                <div>
+                  <lib-button-micro title="{{ 'Save' | translate }}" nameClass="save" widthNumber="100%" (click)="onSave()">
+                  </lib-button-micro>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </lib-page-content>

@@ -5,6 +5,7 @@
         [items]="tableData"
         className="p-datatable-gridlines"
         [currentPageResult]="currentPageInfo"
+        (addNew)="routeToAdd()"
         (pageChange)="onPageChange($event)"
         [tableConfigs]="{
             allowPagination: false,
@@ -29,25 +30,29 @@
                {
                  name: 'vendorCategoryName',
                  headerText: ('vendorDefinition.category' | translate),
+                 isSortable: true
                },
                {
                  name: 'vendorInformationContactEmail',
                  headerText: ('vendorDefinition.email' | translate) ,
+                 isSortable: true
                },
              
                {
                  name: 'vendorAddressCountryNameEn',
                  headerText: ('vendorDefinition.country' | translate),
-
+                 isSortable: true
                },
                {
                  name: 'vendorFinancialPaymentTermName',
                  headerText: ('vendorDefinition.paymentTerm' | translate),
+                 isSortable: true
 
                },
                {
                  name: 'vendorFinancialCreditLimit',
                  headerText: ('vendorDefinition.criditLimit' | translate),
+                 isSortable: true
 
                },
                {
@@ -58,45 +63,38 @@
              ]
           }"
       >
-        <ng-container caption>
-          <div class="group flex justify-content-between">
-            <div class="flex gap-2">
-              <lib-text-input
-                [(ngModel)]="searchTerm"
-                type="text"
-                [placeholder]="'vendorDefinition.Search' | translate"
-                (keyUp)="onSearchChange($event)"
-                [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
-              >
-              </lib-text-input>
-            </div>
-
-            <div class="flex gap-2">
-              <div>
-                <lib-button
-                  pRipple
-                  className="addToList"
-                  [label]="'vendorDefinition.Add' | translate"
-                  (onClick)="routeToAdd()"
-                >
-                </lib-button>
-              </div>
-              <!--  -->
-              <lib-export
-                (exportClick)="exportVendorsData($event)"
-                [exportData]="exportData"
-                [exportColumns]="exportColumns"
-                [ExportName]="'Vendors'"
-              >
-              </lib-export>
-            </div>
-          </div>
+        <ng-container search>
+          <lib-text-input
+            type="text"
+            [placeholder]="'vendorDefinition.Search' | translate"
+            (keyUp)="onSearchChange($event)"
+            [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
+          >
+          </lib-text-input>
+        </ng-container>
+        <ng-container action>
+          <lib-export
+            (exportClick)="exportVendorsData($event)"
+            [exportData]="exportData"
+            [exportColumns]="exportColumns"
+            [ExportName]="'Vendors'"
+          >
+          </lib-export>
+          <lib-button-micro
+            nameClass="save"
+            [title]="'vendorCategory.Add' | translate"
+            [iconName]="'pi pi-plus'"
+            (click)="routeToAdd()"
+          >
+          </lib-button-micro>
         </ng-container>
 
         <ng-template #actions let-actions>
           <div class="actions flex align-items-center">
-            <img src="assets/images/table/edit.svg" alt="" (click)="routeToEdit(actions.id)">
-          <img src="assets/images/table/delete.svg" alt="" (click)="onDelete(actions.id)">
+            <lib-button-micro nameClass="table_button_edit" (click)="routeToEdit(actions.id)">
+            </lib-button-micro>
+            <lib-button-micro nameClass="table_button_delete" (click)="onDelete(actions.id)">
+            </lib-button-micro>
           </div>
         </ng-template>
       </lib-data-table>

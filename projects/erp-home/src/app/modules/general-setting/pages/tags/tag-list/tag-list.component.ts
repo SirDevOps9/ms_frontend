@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {
   lookupDto,
-  LanguageService,
   MenuModule,
   PageInfo,
   PageInfoResult,
-  RouterService,
 } from 'shared-lib';
 import { DialogService } from 'primeng/dynamicdialog';
 import { LayoutService } from 'libs/apps-shared-lib/src/lib/modules/layout/layout.service';
@@ -13,8 +11,6 @@ import { GeneralSettingService } from '../../../general-setting.service';
 import { ExportTagDto, TagDto } from '../../../models';
 import { TagEditComponent } from '../../../components/tag-edit/tag-edit.component';
 import { TagAddComponent } from '../../../components/tag-add/tag-add.component';
-import { Title } from '@angular/platform-browser';
-
 @Component({
   selector: 'app-tag-list',
   templateUrl: './tag-list.component.html',
@@ -25,20 +21,16 @@ export class TagListComponent implements OnInit {
   currentPageInfo: PageInfoResult;
   modulelist: MenuModule[];
   searchTerm: string;
-
+  SortBy?: number
+  SortColumn?:string
   mappedExportData: TagDto[];
   exportData: ExportTagDto[];
 
   constructor(
-    private routerService: RouterService,
     private generalSettingService: GeneralSettingService,
     public layoutService: LayoutService,
-    private dialog: DialogService,
-    private languageService: LanguageService,
-    private title: Title,
-    private langService: LanguageService
+    private dialog: DialogService
   ) {
-    this.title.setTitle(this.langService.transalte('tag.taglist'));
   }
 
   exportColumns: lookupDto[] = [
@@ -108,7 +100,8 @@ export class TagListComponent implements OnInit {
   routeToEdit(data: any) {
     const dialogRef = this.dialog.open(TagEditComponent, {
       // header: this.languageService.transalte('tag.EditTag'),
-      width: '800px',
+      width: '500px',
+      height: '500px',
     //  position: 'bottom-right', // A
       data: data,
     });
@@ -129,7 +122,8 @@ export class TagListComponent implements OnInit {
   newTag() {
     const dialogRef = this.dialog.open(TagAddComponent, {
       // header: this.languageService.transalte('tag.AddNewTag'),
-      width: '600px',
+      width: '500px',
+      height: '500px',
       // position: 'bottom-right', // Adjust position as needed
     });
 
@@ -139,7 +133,7 @@ export class TagListComponent implements OnInit {
   }
 
   onSearchChange(e: any) {
-    this.generalSettingService.getTagList(e.target.value, new PageInfo());
+    this.generalSettingService.getTagList(e, new PageInfo());
 
     this.generalSettingService.tagList.subscribe({
       next: (res) => {
@@ -148,8 +142,12 @@ export class TagListComponent implements OnInit {
     });
   }
 
-  exportTagData(searchTerm: string) {
-    this.generalSettingService.exportTagData(searchTerm);
+  exportedColumns(obj: { SortBy: number; SortColumn: string }) {
+    this.SortBy = obj.SortBy;
+    this.SortColumn = obj.SortColumn;
+  }
+  exportTagData() {
+    this.generalSettingService.exportTagData(this.searchTerm ,this.SortBy, this.SortColumn);
     this.generalSettingService.exportsTagDataSourceObservable.subscribe((res) => {
       this.exportData = res;
     });
