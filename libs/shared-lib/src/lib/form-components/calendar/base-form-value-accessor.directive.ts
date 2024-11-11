@@ -15,8 +15,7 @@ import moment from 'moment-timezone';
   standalone: true,
 })
 export class BaseValueAccessorComponent
-  implements ControlValueAccessor, Validator
-{
+  implements ControlValueAccessor, Validator{
   protected readonly fb = inject(FormBuilder);
 
   public formGroup!: FormGroup<any> | FormControl<any>;
@@ -24,7 +23,6 @@ export class BaseValueAccessorComponent
   public onTouched: () => void = () => {};
 
   public writeValue(val: unknown): void {
-  console.log(val);
   
     val && this.formGroup.patchValue(this.dateTimeZone(val as string), { emitEvent: true });
 
