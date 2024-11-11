@@ -110,7 +110,7 @@
         <th>{{ 'stockIn.QTY' | translate }}</th>
         <th>{{ 'stockIn.cost' | translate }}</th>
         <th>{{ 'stockIn.subTotal' | translate }}</th>
-        <th>{{ 'stockIn.tracking' | translate }}</th>
+        <th *ngIf="itemData?.trackingType !== 'NoTracking'">{{ 'stockIn.tracking' | translate }}</th>
         <th>{{ 'stockIn.note' | translate }}</th>
         <th>{{ 'stockIn.actions' | translate }}</th>
       </tr>
@@ -253,7 +253,7 @@
         
         </td>
         <!--  -->
-        <td [pEditableColumn]="stockInFormGroup.controls['trackingType']" pEditableColumnField="trackingType">
+        <td [pEditableColumn]="stockInFormGroup.controls['trackingType']" pEditableColumnField="trackingType" *ngIf="itemData?.trackingType !== 'NoTracking'">
           <p-cellEditor>
             <ng-template pTemplate="input">
               <div class="d-flex gap-">
@@ -270,7 +270,21 @@
 
             </ng-template>
             <ng-template pTemplate="output">
-              {{ stockInFormGroup.get('stockInTracking')?.get('expireDate')?.value | date : "dd-MM-yyyy" }}
+              <div class="flex align-content-center gap-3">
+                <small *ngIf="itemData?.trackingType == 'Expiry'">{{stockInFormGroup.get('stockInTracking').get('expireDate')?.value |  date : "dd-MM-yyyy"}}</small>
+                <!--  -->
+                <small *ngIf="itemData?.trackingType == 'Serial'">{{stockInFormGroup.get('stockInTracking').get('serialId')?.value}}</small>
+                <!--  -->
+                <small *ngIf="itemData?.trackingType == 'Batch'">{{stockInFormGroup.get('stockInTracking').get('vendorBatchNo')?.value}}</small>
+                <lib-button-micro
+                title="{{ 'stockIn.setTracking' | translate }}"
+                nameClass="save"
+                widthNumber="100%"
+                (click)="setTracking(stockInFormGroup)"
+              >
+              </lib-button-micro>
+              </div>
+             
             </ng-template>
           </p-cellEditor>
           <lib-field-validations

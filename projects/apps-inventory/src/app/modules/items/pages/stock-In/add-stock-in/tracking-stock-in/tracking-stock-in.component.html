@@ -1,6 +1,6 @@
 
 
-<ng-container *ngIf="configData == 'NoTracking'">
+<ng-container *ngIf="configData == 'Expiry'">
 
   <lib-popup-page
   title="{{ 'stockIn.Expiry' | translate }}"
@@ -93,7 +93,7 @@
           </ng-template>
           <ng-template pTemplate="body" let-stockInFormGroup let-editing="editing" let-i="rowIndex">
             <tr [formGroup]="stockInFormGroup">
-              <td [pEditableColumn]="stockInFormGroup.controls['expireDate']" pEditableColumnField="expireDate">
+              <td [pEditableColumn]="stockInFormGroup.controls['systemPatchNo']" pEditableColumnField="systemPatchNo">
                 <p-cellEditor>
                   <ng-template pTemplate="input">
                     <lib-text-input
@@ -103,16 +103,16 @@
   
                   </ng-template>
                   <ng-template pTemplate="output">
-                    {{ stockInFormGroup.controls['expireDate']?.value | date:'dd-MM-yyyy'}}
+                    {{ stockInFormGroup.controls['systemPatchNo']?.value }}
                   </ng-template>
                 </p-cellEditor>
                 <lib-field-validations
-                  [appControl]="stockInFormGroup.controls['expireDate']"
+                  [appControl]="stockInFormGroup.controls['systemPatchNo']"
                 ></lib-field-validations>
               </td>
               <!--  -->
       
-              <td [pEditableColumn]="stockInFormGroup.controls['vendorBatchNo']" pEditableColumnField="vendorBatchNo">
+              <td [pEditableColumn]="stockInFormGroup.controls['expireDate']" pEditableColumnField="expireDate">
                 <p-cellEditor>
                   <ng-template pTemplate="input">
                     <lib-calendar  formControlName="expireDate"></lib-calendar>
@@ -124,7 +124,7 @@
                   </ng-template>
                 </p-cellEditor>
                 <lib-field-validations
-                  [appControl]="stockInFormGroup.controls['vendorBatchNo']"
+                  [appControl]="stockInFormGroup.controls['expireDate']"
                 ></lib-field-validations>
               </td>
              
@@ -161,26 +161,26 @@
           </ng-template>
           <ng-template pTemplate="body" let-stockInFormGroup let-editing="editing" let-i="rowIndex">
             <tr [formGroup]="stockInFormGroup">
-              <td [pEditableColumn]="stockInFormGroup.controls['expireDate']" pEditableColumnField="expireDate">
+              <td [pEditableColumn]="stockInFormGroup.controls['serialId']" pEditableColumnField="serialId">
                 <p-cellEditor>
                   <ng-template pTemplate="input">
                     <lib-text-input
                     placeholder="{{ 'stockIn.serialId' | translate }}"
-                    formControlName="systemPatchNo"
+                    formControlName="serialId"
                   ></lib-text-input>
   
                   </ng-template>
                   <ng-template pTemplate="output">
-                    {{ stockInFormGroup.controls['expireDate']?.value | date:'dd-MM-yyyy'}}
+                    {{ stockInFormGroup.controls['serialId']?.value }}
                   </ng-template>
                 </p-cellEditor>
                 <lib-field-validations
-                  [appControl]="stockInFormGroup.controls['expireDate']"
+                  [appControl]="stockInFormGroup.controls['serialId']"
                 ></lib-field-validations>
               </td>
               <!--  -->
       
-              <td [pEditableColumn]="stockInFormGroup.controls['vendorBatchNo']" pEditableColumnField="vendorBatchNo">
+              <td [pEditableColumn]="stockInFormGroup.controls['expireDate']" pEditableColumnField="expireDate">
                 <p-cellEditor>
                   <ng-template pTemplate="input">
                     <lib-calendar  formControlName="expireDate"></lib-calendar>
@@ -192,7 +192,7 @@
                   </ng-template>
                 </p-cellEditor>
                 <lib-field-validations
-                  [appControl]="stockInFormGroup.controls['vendorBatchNo']"
+                  [appControl]="stockInFormGroup.controls['expireDate']"
                 ></lib-field-validations>
               </td>
              

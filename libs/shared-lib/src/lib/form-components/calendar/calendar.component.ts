@@ -41,7 +41,7 @@ export class CalendarComponent implements AfterViewInit, ControlValueAccessor, V
   //   }
   // }
   ngOnInit(): void {
-    this.formGroup = new FormControl(this.dateTimeZone(new Date().toString()))
+    this.formGroup = new FormControl()
 
     this.formGroup.valueChanges.subscribe(console.log)
 

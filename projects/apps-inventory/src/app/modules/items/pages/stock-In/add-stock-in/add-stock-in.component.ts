@@ -149,7 +149,7 @@ oprationalLookup : { id: number; name: string }[] = []
       trackingType: '', 
       stockInTracking: this.fb.group({
         vendorBatchNo: '',         
-        expireDate: '', 
+        expireDate: null, 
         systemPatchNo: '',         
         serialId: '',              
         trackingType: '' 
@@ -164,7 +164,8 @@ oprationalLookup : { id: number; name: string }[] = []
    console.log(this.uomLookup)
    stockInFormGroup.get('itemCodeName')?.setValue(data?.itemCode)
    stockInFormGroup.get('description')?.setValue(data?.itemVariantName)
-   stockInFormGroup.get('trackingType')?.setValue(data?.trackingType)
+   stockInFormGroup.get('trackingType')?.setValue(data?.trackingType )
+   stockInFormGroup.get('stockInTracking')?.get('trackingType')?.setValue(data?.trackingType )
    stockInFormGroup.get('itemVariantId')?.setValue(data?.itemVariantId)
 
   }
