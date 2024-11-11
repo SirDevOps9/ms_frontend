@@ -396,8 +396,20 @@
     "expiryDate" : "Expiry Date",
     "generatedBatch" : "Generated Batch",
     "vendorBatchNo" : "Batch No",
-    "stockAdded" : "Stock In Added Successfully"
-
+    "stockAdded" : "Stock In Added Successfully",
+    "Expiry" : "Expiry",
+    "serial" : "Serial",
+    "serialId" : "Serial Id",
+    "ItemSearch": "Item Search",
+    "ItemCode": "Item Code",
+    "ItemName": "Item Name",
+    "ItemUOM": "Item Unit of Measure",
+    "ItemVariant": "Item Variant",
+    "ItemCategory": "Item Category",
+    "IsStorable": "Is Storable",
+    "IsService": "Is Service",
+    "HasExpiryDate": "Has Expiry Date",
+    "Actions" : "Actions"
 
 
 },

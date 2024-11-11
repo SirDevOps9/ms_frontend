@@ -18,6 +18,7 @@ import {
   AddStockIn,
   AddVariantLine,
   AddWarehouse,
+  AdvancedSearchDto,
   AttributesVariants,
   EditAttributes,
   EditWareHouse,
@@ -154,6 +155,8 @@ export class ItemsService {
   public sendAddStockIn = new BehaviorSubject<AddStockIn>({} as AddStockIn);
   public attributeValuesDropDownLookup = new BehaviorSubject<itemAttributeValues[]>([]);
   public attributeValuesData = new BehaviorSubject<itemAttributeValues[]>([]);
+  private itemsDataSource = new BehaviorSubject<AdvancedSearchDto[]>([]);
+  public itemsList = this.itemsDataSource.asObservable();
 
   public exportedItemDefinitionListDataSource = new BehaviorSubject<itemDefinitionDto[]>([]);
   // warehouse
@@ -1533,6 +1536,13 @@ addStockIn(obj : AddStockIn){
     );
     this.router.navigateTo('/masterdata/stock-in')
   })
+}
+
+getItems(quieries: string, searchTerm: string, pageInfo: PageInfo) {
+  this.itemProxy.getItems(quieries, searchTerm, pageInfo).subscribe((res) => {
+    this.itemsDataSource.next(res.result);
+    this.currentPageInfo.next(res.pageInfoResult);
+  });
 }
 
 }

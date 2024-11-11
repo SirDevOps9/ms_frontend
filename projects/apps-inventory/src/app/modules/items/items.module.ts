@@ -58,6 +58,7 @@ import { WarehouseTabsComponent } from './pages/warehouse/warehouse-tabs/warehou
 import { AttributeDefinitionValuesComponent } from './pages/attribute-definition/attribute-definition-values/attribute-definition-values/attribute-definition-values.component';
 import { AttributeDefinitionListValuesComponent } from './pages/attribute-definition/attribute-definition-list-values/attribute-definition-list-values/attribute-definition-list-values.component';
 import { TrackingStockInComponent } from './pages/stock-In/add-stock-in/tracking-stock-in/tracking-stock-in.component';
+import { MultiSelectItemStockInComponent } from './pages/stock-In/add-stock-in/multi-select-item-stock-in/multi-select-item-stock-in.component';
 
 const routes: Routes = [
   {
@@ -389,7 +390,8 @@ const routes: Routes = [
     WarehouseTabsComponent,
     AttributeDefinitionValuesComponent,
     AttributeDefinitionListValuesComponent,
-    TrackingStockInComponent
+    TrackingStockInComponent,
+    MultiSelectItemStockInComponent
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule ],
 })

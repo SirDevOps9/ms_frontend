@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { ItemDto, SharedSalesEnums } from 'projects/apps-sales/src/app/modules/sales/models';
 import { PageInfo, PageInfoResult } from 'shared-lib';
-import { ItemDto, SharedSalesEnums } from '../../models'; 
-import { SalesService } from '../../sales.service';
+import { ItemsService } from '../../../../items.service';
 
 @Component({
-  selector: 'app-multi-select-items',
-  templateUrl: './multi-select-items.component.html',
-  styleUrls: ['./multi-select-items.component.scss'],
+  selector: 'app-multi-select-item-stock-in',
+  templateUrl: './multi-select-item-stock-in.component.html',
+  styleUrl: './multi-select-item-stock-in.component.scss'
 })
-export class MultiSelectItemsComponent implements OnInit {
+export class MultiSelectItemStockInComponent implements OnInit {
   pageInfo = new PageInfo();
   items: ItemDto[] = [];
   currentPageInfo: PageInfoResult;
@@ -24,10 +24,10 @@ export class MultiSelectItemsComponent implements OnInit {
   });
 
   constructor(
-    private salesService: SalesService,
     public sharedEnums: SharedSalesEnums,
     private ref: DynamicDialogRef,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private itemsService: ItemsService
   ) {}
 
   ngOnInit(): void {
@@ -39,24 +39,24 @@ export class MultiSelectItemsComponent implements OnInit {
   }
 
   subscribes() {
-    this.salesService.itemsList.subscribe({
+    this.itemsService.itemsList.subscribe({
       next: (res:any) => {
         this.items = res;
       },
-    });
+  });
 
-    this.salesService.itemsPageInfo.subscribe((currentPageInfo) => {
+    this.itemsService.currentPageInfo.subscribe((currentPageInfo) => {
       this.currentPageInfo = currentPageInfo;
     });
   }
 
   initItemsData() {
-    this.salesService.getItems('', '', new PageInfo());
+    this.itemsService.getItems('', '', new PageInfo());
   }
   
 
   onPageChange(pageInfo: PageInfo) {
-    this.salesService.getItems('', '', pageInfo);
+    this.itemsService.getItems('', '', pageInfo);
   }
 
   onSubmit() {
@@ -81,10 +81,10 @@ export class MultiSelectItemsComponent implements OnInit {
 
   onFilterChange() {
     const query = this.buildQuery();
-    this.salesService.getItems(query, '', new PageInfo());
+    this.itemsService.getItems(query, '', new PageInfo());
   }
   onSearchChange(event: any) {
-    this.salesService.getItems('', event, new PageInfo());
+    this.itemsService.getItems('', event, new PageInfo());
   }
 
   buildQuery(): string {

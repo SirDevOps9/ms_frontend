@@ -10,6 +10,7 @@
       <lib-text-input
         placeholder="{{ 'stockIn.code' | translate }}"
         formControlName="code"
+        [readOnly]="true"
       ></lib-text-input>
       <lib-field-validations [appControl]="stockInForm.controls['code']"></lib-field-validations>
     </div>
@@ -127,16 +128,20 @@
         <td [pEditableColumn]="stockInFormGroup.controls['itemId']" pEditableColumnField="itemId">
           <p-cellEditor>
             <ng-template pTemplate="input">
-        
-              <lib-select
-              formControlName="itemId"
-              [options]="latestItemsList"
-              optionValue="itemId"
-              optionLabel="itemCode"
-              placeholder="{{ 'stockIn.itemCode' | translate }}"
-              (valueChanged)="itemChanged($event , stockInFormGroup)"
-            >
-            </lib-select>
+              <div class="flex justify-content-center gap-2 align-items-center">
+                <lib-select
+                formControlName="itemId"
+                [options]="latestItemsList"
+                optionValue="itemId"
+                optionLabel="itemCode"
+                placeholder="{{ 'stockIn.itemCode' | translate }}"
+                (valueChanged)="itemChanged($event , stockInFormGroup)"
+              >
+              </lib-select>
+              <i class="pi pi-search search-circle" (click)="openDialog(stockInFormGroup)"></i>
+              </div>
+            
+
             </ng-template>
             <ng-template pTemplate="output">
               {{ stockInFormGroup.controls['itemCodeName']?.value }}
