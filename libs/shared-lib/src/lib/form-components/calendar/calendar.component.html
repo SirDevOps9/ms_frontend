@@ -1,4 +1,4 @@
-<p-calendar
+<!-- <p-calendar
   class="w-100"
   [placeholder]="placeholder"
   [dateFormat]="dateFormat"
@@ -6,9 +6,25 @@
   [minDate]="minDate"
   [maxDate]="maxDate"
   [(ngModel)]="value"
-  (onSelect)="handleDateChange($event)"
   [disabled]="disabled"
   [defaultDate]="defaultDate!"
   [showIcon]="true"
   [attr.data-testid]="labelTest"
+  (ngModelChange)="value=$event;handleDateChange($event)"
+></p-calendar> -->
+<!-- (onSelect)="handleDateChange($event)"
+(onInput)="handleInput($event)" -->
+<p-calendar
+  class="w-100"
+  [formControl]="$any(formGroup)"
+  [placeholder]="placeholder"
+  [dateFormat]="dateFormat"
+  appendTo="body"
+  [minDate]="minDate"
+  [maxDate]="maxDate"
+  [disabled]="disabled"
+  [defaultDate]="defaultDate!"
+  [showIcon]="true"
+  [attr.data-testid]="labelTest"
+  
 ></p-calendar>
