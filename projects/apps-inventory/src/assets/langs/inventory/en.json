@@ -409,7 +409,9 @@
     "IsStorable": "Is Storable",
     "IsService": "Is Service",
     "HasExpiryDate": "Has Expiry Date",
-    "Actions" : "Actions"
+    "Actions" : "Actions",
+    "uploadExcel" : "Upload Excel",
+    "scan" : "Scan Barcode"
 
 
 },

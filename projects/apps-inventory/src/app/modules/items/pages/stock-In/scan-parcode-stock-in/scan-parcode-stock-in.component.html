@@ -1,14 +1,13 @@
 <lib-page-content>
     <lib-popup-page
       title="{{ 'COAConfigration.ChartOfAccountConfig' | translate }}"
-      [closeFunction]="onCancel"
       [save]="false"
       [showCancel]="true"
     >
       <div [formGroup]="itemDefinitionForm">
         <zxing-scanner
-          (scanSuccess)="onScanSuccess($event)"
-          [formats]="allowedFormats">
+          (scanSuccess)="onScanSuccess($event)" 
+        >
         </zxing-scanner>
         <!-- Input field to manually enter scanned barcode -->
         <div class="md:col-12 my-2">

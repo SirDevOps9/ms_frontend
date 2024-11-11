@@ -8,6 +8,8 @@ import { ItemsService } from '../../../items.service';
 import { AddStockIn, GetWarehouseList, LatestItems } from '../../../models';
 import { TrackingStockInComponent } from './tracking-stock-in/tracking-stock-in.component';
 import { MultiSelectItemStockInComponent } from './multi-select-item-stock-in/multi-select-item-stock-in.component';
+import { ImportStockInComponent } from '../import-stock-in/import-stock-in.component';
+import { ScanParcodeStockInComponent } from '../scan-parcode-stock-in/scan-parcode-stock-in.component';
 
 @Component({
   selector: 'app-add-stock-in',
@@ -116,6 +118,17 @@ oprationalLookup : { id: number; name: string }[] = []
     return this.stockInForm.get('stockInDetails') as FormArray;
   }
 
+  getExcel() {
+    const ref = this.dialog.open(ImportStockInComponent, {
+      width: '600px',
+      height: '450px',
+    });
+    ref.onClose.subscribe((selectedItems: any[]) => {
+      console.log(selectedItems)
+
+    });
+  }
+
   onEdit(data: any) {}
 
   createStockIn() {
@@ -164,6 +177,13 @@ oprationalLookup : { id: number; name: string }[] = []
 
   addLineStockIn() {
     this.stockIn.push(this.createStockIn())
+  }
+
+  scan() {
+    const ref = this.dialog.open(ScanParcodeStockInComponent, {
+      width: '50%',
+      height: '450px',
+    });
   }
 
   openDialog(stockInFormGroup: FormGroup) {

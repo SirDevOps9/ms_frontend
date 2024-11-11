@@ -84,6 +84,16 @@
   </div>
 </div>
 
+<div class="flex justify-content-end gap-4">
+  <lib-button-micro [title]="'stockIn.uploadExcel'|translate" nameClass="outline"
+  iconName="pi pi-file-edit" (click)="getExcel()">
+</lib-button-micro>
+  <lib-button-micro [title]="'stockIn.scan'|translate" nameClass="outline"
+              iconName="pi pi-expand" (click)="scan()">
+            </lib-button-micro>
+ 
+</div>
+
 <div class="my-2">
   <p-table
     [value]="stockIn['controls']"

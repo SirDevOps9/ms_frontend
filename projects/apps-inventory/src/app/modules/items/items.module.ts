@@ -60,6 +60,8 @@ import { AttributeDefinitionListValuesComponent } from './pages/attribute-defini
 import { TrackingStockInComponent } from './pages/stock-In/add-stock-in/tracking-stock-in/tracking-stock-in.component';
 import { MultiSelectItemStockInComponent } from './pages/stock-In/add-stock-in/multi-select-item-stock-in/multi-select-item-stock-in.component';
 import { ScanParcodeStockInComponent } from './pages/stock-In/scan-parcode-stock-in/scan-parcode-stock-in.component';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { ImportStockInComponent } from './pages/stock-In/import-stock-in/import-stock-in.component';
 
 const routes: Routes = [
   {
@@ -391,10 +393,12 @@ const routes: Routes = [
     WarehouseTabsComponent,
     AttributeDefinitionValuesComponent,
     AttributeDefinitionListValuesComponent,
-    TrackingStockInComponent,
+    TrackingStockInComponent, 
     MultiSelectItemStockInComponent,
-    ScanParcodeStockInComponent
+    ScanParcodeStockInComponent,
+    ImportStockInComponent
   ],
-  imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule ],
+  imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule ,     ZXingScannerModule // Add the ZXingScannerModule here
+  ],
 })
 export class ItemsModule {}

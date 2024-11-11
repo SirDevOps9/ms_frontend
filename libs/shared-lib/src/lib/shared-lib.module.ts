@@ -118,7 +118,8 @@ import { NewBreadCrumbComponent } from './components/new-bread-crumb/new-bread-c
     TreeModule,
     ProgressSpinnerModule,
     QRCodeModule,
-    InputTextareaModule
+    InputTextareaModule,
+
 
   ],
   exports: [
@@ -162,7 +163,7 @@ import { NewBreadCrumbComponent } from './components/new-bread-crumb/new-bread-c
     GetElementByIDPipe,
     ToastComponent,
     UploadMultipeFilesComponent,
-    TablePrintComponent,
+    TablePrintComponent, 
     TabviewComponent,
     ExportComponent,
     ChangeColumnComponent,
