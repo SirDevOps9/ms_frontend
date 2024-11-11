@@ -293,12 +293,16 @@ const routes: Routes = [
         component: MainStockInListComponentComponent,
         data: {
           breadcrumb: BreadcrumbLabel.STOCKIN,
+          pageTitle : BreadcrumbLabel.STOCKIN
         },
         children: [
           {
             path: '',
             component: StockInListComponent,
-            data: { breadcrumb: '' },
+            data: {
+              breadcrumb: BreadcrumbLabel.STOCKIN,
+              pageTitle : BreadcrumbLabel.STOCKIN
+            },
           },
           {
             path: 'add-stock-in',
@@ -324,6 +328,35 @@ const routes: Routes = [
         data: {
           breadcrumb: BreadcrumbLabel.ITEM_CATEGORY,
         },
+      },
+      {
+        path: 'stock-out',
+        component:MainStockOutComponent ,
+        data: {
+          breadcrumb: BreadcrumbLabel.STOCKOUT,
+          pageTitle: BreadcrumbLabel.STOCKOUT,
+
+        },
+        children: [
+          {
+            path: '',
+            component: StockOutListComponent,
+            data: { breadcrumb: '' ,
+              pageTitle: BreadcrumbLabel.STOCKOUT,
+
+            },
+          },
+          {
+            path: 'add',
+            component: AddStockOutComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.ADD_STOCKOUT,
+              pageTitle: BreadcrumbLabel.TITLE_ADD_STOCKOUT,
+
+            },
+          },
+
+        ],
       },
     ],
   },

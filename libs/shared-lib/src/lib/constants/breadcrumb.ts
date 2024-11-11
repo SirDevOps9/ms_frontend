@@ -117,7 +117,7 @@ export class BreadcrumbLabel {
   static LIST_Attribute_Definition = 'Attribute Definition List';
   static EDIT_WARE_HOUSE = 'Edit Warehouse';
   static ITEMS_CATEGORY = 'BreadCrumb.ItemsCategory';
-  static STOCKIN = 'Stock In';
+  static STOCKIN = 'StockIn';
   static ADD_STOCKIN = 'Add Stock In';
 
   static COST_CENTER = 'Cost Center';
