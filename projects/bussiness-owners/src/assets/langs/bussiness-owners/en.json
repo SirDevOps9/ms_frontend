@@ -13,15 +13,15 @@
     "Delete": "Delete",
     "Add": "Create"
   },
-  "BreadCrumb":{
-    "subscription":"My Subscription",
-    "user":"Manage User",
-    "companies":"Manage Companies",
-    "app":"Manage APP",
-    "edit":"Edit Companies",
-    "appStore":"App in Store",
-    "appDetails":"Details",
-    "cart":"Cart List"
+  "BreadCrumb": {
+    "subscription": "My Subscription",
+    "user": "Manage User",
+    "companies": "Manage Companies",
+    "app": "Manage APP",
+    "edit": "Edit Companies",
+    "appStore": "App in Store",
+    "appDetails": "Details",
+    "cart": "Cart List"
   },
   "Toaster": {
     "Confirm": {
@@ -198,7 +198,7 @@
       "address": "Address",
       "longitude": "Longitude",
       "latitude": "Latitude",
-      "currency":"currency",
+      "currency": "currency",
       "Save": "Save"
     },
     "Contanct": {
@@ -211,7 +211,7 @@
       "contactPersonalPosition": "Contact Personal Position",
       "contactPersonalEmail": "Contact Personal Email",
       "Save": "Save",
-      "ContactPersonalMobileNumber":"Contact Phone Number"
+      "ContactPersonalMobileNumber": "Contact Phone Number"
     },
     "Legal": {
       "companyName": "Company Name",
@@ -256,7 +256,7 @@
     "Title": "Apps Store",
     "AddedToCartSuccessfully": "Successfully added to cart",
     "Error": "Error",
-    "YouShouldAddSubdomainFirst":"You Should Add Subdomain First",
+    "YouShouldAddSubdomainFirst": "You Should Add Subdomain First",
     "CheckedOut": "Successfully checked out",
     "App-in-Store": "App in Store",
     "AddToCart": "Add to Cart",
@@ -305,7 +305,7 @@
       "SubdomainAddedSuccessfully": "Subdomain Added Successfully",
       "AddDomainSpace": "Add Domain Space",
       "Count": "Count",
-      "Duration":"Duration",
+      "Duration": "Duration",
       "Monthly": "Monthly",
       "Yearly": "Yearly",
       "YourDomainSpace": "Your Domain Space",
@@ -320,5 +320,51 @@
       "available": " domain name is available.",
       "purchase": "Purchase"
     }
+  },
+  "workflow": {
+    "TaxList": "Tax List",
+    "code": "Code",
+    "name": "Name",
+    "Status": "Status",
+    "Action": "Action",
+    "Search": "Search",
+    "Create": "Create",
+    "viewWorkflow": "View Workflow",
+    "variables": "Variables",
+    "variables_name": "Name",
+    "variables_type": "Type",
+    "add_status": "Add Status",
+    "add_new_line": "Add New Line",
+    "ActionName": "Action Name",
+    "ToState": "To State",
+    "Users": "Users",
+    "conditionexprition": "Condition Expression",
+    "actions": "Actions",
+    "toStateId": "To StateID",
+    "EditWorkflow": "Edit Workflow",
+    "Name": "Name",
+    "serviceId": "Service ID",
+    "status": "Status",
+    "DefaultCompany": "Default Company",
+    "discard": "Discard",
+    "save": "Save",
+    "add_variable": "Add Variable",
+    "AddUserToAction": "Add User to Action",
+    "userName": "User Name",
+    "edit_Status": "Edit Status",
+    "cancel": "Cancel",
+    "add_user": "Add User",
+    "Add_Workflow": "Add Workflow",
+    "type": "Type",
+    "AddNewStaus": "Add New Status",
+    "Add_condition": "Add Condition",
+    "andOr": "And/Or",
+    "operators": "Operators",
+    "value": "Value",
+    "workflow": "Workflow",
+    "add_condition": "Add Condition",
+
+    "typePlaceholder": "Select the variable type",
+    "Add_User_To_Action": "Add User to Action"
   }
 }

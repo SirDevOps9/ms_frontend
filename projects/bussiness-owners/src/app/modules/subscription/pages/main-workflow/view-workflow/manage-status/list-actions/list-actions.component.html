@@ -2,7 +2,7 @@
 <div class="flex justify-content-end">
   <lib-button-micro
     nameClass="save"
-    title="{{ 'action.add_new_line' | translate }}"
+    title="{{ 'workflow.add_new_line' | translate }}"
     (click)="addLine()"
   >
   </lib-button-micro>
@@ -19,11 +19,11 @@
         >
           <ng-template pTemplate="header">
             <tr>
-              <th>{{ 'action.ActionName' | translate }}</th>
-              <th>{{ 'action.ToState' | translate }}</th>
-              <th>{{ 'action.Users' | translate }}</th>
-              <th>{{ 'action.conditionexprition' | translate }}</th>
-              <th>{{ 'action.actions' | translate }}</th>
+              <th>{{ 'workflow.ActionName' | translate }}</th>
+              <th>{{ 'workflow.ToState' | translate }}</th>
+              <th>{{ 'workflow.Users' | translate }}</th>
+              <th>{{ 'workflow.conditionexprition' | translate }}</th>
+              <th>{{ 'workflow.actions' | translate }}</th>
             </tr>
           </ng-template>
 
@@ -54,7 +54,7 @@
                           [options]="statusDropdown"
                           optionValue="id"
                           optionLabel="name"
-                          placeholder="{{ 'actions.toStateId' | translate }}"
+                          placeholder="{{ 'workflow.toStateId' | translate }}"
                           (valueChanged)="displayState($event, fg)"
                           [selectedValue]="fg?.controls['toStateId']?.value"
                         >
@@ -99,26 +99,23 @@
                         (click)="addUserDialog(fg)"
                       >
                       </lib-button-micro>
-                      <!-- <i class="pi pi-search search-circle" (click)="openUserDialog(fg)"></i> -->
                     </p>
                   </ng-container>
                 </div>
               </td>
-              <td
-                [pEditableColumn]="fg.controls['conditionExpression']"
-                pEditableColumnField="conditionExpression"
-              >
-                <p-cellEditor>
-                  <ng-template pTemplate="input">
-                    <lib-text-input
-                      placeholder="{{ 'actions.conditionExpression' | translate }}"
-                      formControlName="conditionExpression"
-                    ></lib-text-input>
-                  </ng-template>
-                  <ng-template pTemplate="output">
-                    {{ fg.controls['conditionExpression'].value }}
-                  </ng-template>
-                </p-cellEditor>
+              <td>
+                <div class="userArray flex justify-content-center align-items-center">
+                  <p [ngClass]="{ 'usersArray-valuse': fg.get('conditionExpression')?.value }">
+                    {{ fg.get('conditionExpression')?.value }}
+                  </p>
+                  <!-- Displays updated expression -->
+                  <lib-button-micro
+                    class="p-0"
+                    iconName="pi pi-plus"
+                    (click)="addConditionDialog(fg, i)"
+                  >
+                  </lib-button-micro>
+                </div>
               </td>
 
               <td>

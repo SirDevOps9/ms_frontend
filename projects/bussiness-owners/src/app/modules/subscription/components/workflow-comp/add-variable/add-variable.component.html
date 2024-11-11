@@ -1,5 +1,5 @@
 <lib-popup-page
-  title=" {{ 'variable.add_variable' | translate }}"
+  title=" {{ 'workflow.add_variable' | translate }}"
   [closeFunction]="onCancel"
   (Submit)="onSubmit()"
 >
@@ -26,10 +26,10 @@
 
             <lib-form-group [className]="'customWidth'">
               <lib-label [appControl]="variableForm.controls['type']">
-                {{ 'treasury.type' | translate }}
+                {{ 'workflow.type' | translate }}
               </lib-label>
               <lib-select
-                placeholder="{{ 'treasury.type' | translate }}"
+                placeholder="{{ 'workflow.type' | translate }}"
                 [options]="typesList"
                 optionLabel="name"
                 optionValue="id"

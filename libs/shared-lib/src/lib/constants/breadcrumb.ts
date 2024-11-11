@@ -71,8 +71,8 @@ export class BreadcrumbLabel {
   static APP_STORE_Details = ' Details';
   static DOMAIN = 'Domain Details';
   static Manage_Apps = 'Manage Apps';
-  static Workflow = 'Workflow';
-  static View_Workflow = 'View Workflow';
+  static Workflow = 'workflow.workflow';
+  static View_Workflow = 'workflow.viewWorkflow';
   static BUSSINESS_OWNER = 'Bussiness Owners';
   static MANAGE_BUSSINESS_OWNER = 'Manage Bussiness Owners';
   static SUBDOMAIN_INFO = 'Subdomain Info';

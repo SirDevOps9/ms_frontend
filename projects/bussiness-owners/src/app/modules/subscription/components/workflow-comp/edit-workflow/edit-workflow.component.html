@@ -1,6 +1,6 @@
 <lib-page-content
-  [title]="'OperationalTag.TaxList' | translate"
-  [subTitle]="'OperationalTagTaxList' | translate"
+  [title]="'workflow.EditWorkflow' | translate"
+  [subTitle]="'workflow.EditWorkflow' | translate"
 >
   <div class="bank">
     <div class="card_micro">
@@ -30,7 +30,7 @@
                 </lib-label>
                 <lib-select
                   formControlName="serviceId"
-                  placeholder="{{ 'Layout.DefaultCompany' | translate }}"
+                  placeholder="{{ 'workflow.serviceId' | translate }}"
                   [options]="[]"
                   [selectedValue]="workflowForm.controls['serviceId'].value"
                   optionLabel="name"
@@ -41,7 +41,7 @@
             </div>
             <div class="col-6 my-2">
               <lib-label class="mt-1" [appControl]="workflowForm.controls['isActive']">
-                {{ 'actions.status' | translate }}
+                {{ 'workflow.status' | translate }}
               </lib-label>
               <lib-form-group class="flex align-items-center mt-1">
                 <lib-input-switch formControlName="isActive" binary="true" inputId="isActive" />
@@ -59,7 +59,7 @@
           <div class="md:col-6">
             <lib-button-micro
               nameClass="cancel"
-              title="{{ 'action.discard' | translate }}"
+              title="{{ 'workflow.discard' | translate }}"
               (click)="onCancel()"
             >
             </lib-button-micro>
@@ -67,7 +67,7 @@
           <div class="md:col-6">
             <lib-button-micro
               nameClass="save w-100"
-              title="{{ 'action.save' | translate }}"
+              title="{{ 'workflow.save' | translate }}"
               iconName="pi pi-save"
               type="button"
               (click)="onSubmit()"

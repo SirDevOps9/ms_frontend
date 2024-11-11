@@ -25,6 +25,7 @@ import { AddUserForActionComponent } from './components/workflow-comp/add-user-f
 import { EditUserForActionComponent } from './components/workflow-comp/edit-user-for-action/edit-user-for-action.component';
 import { AddVariableComponent } from './components/workflow-comp/add-variable/add-variable.component';
 import { EditVariableComponent } from './components/workflow-comp/edit-variable/edit-variable.component';
+import { AddConditionComponent } from './components/workflow-comp/add-condition/add-condition.component';
 
 const routes: Routes = [
   {
@@ -93,6 +94,7 @@ const routes: Routes = [
     EditUserForActionComponent,
     AddVariableComponent,
     EditVariableComponent,
+    AddConditionComponent,
   ],
   imports: [
     MicrotecAuthLibModule,

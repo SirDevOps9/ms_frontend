@@ -17,6 +17,13 @@ export interface statusDto {
   name: number;
   createdOn: Date;
 }
+export interface variablesDto {
+  id: number;
+  name: number;
+  type: string;
+
+  createdOn: Date;
+}
 export interface ActionDto {
   toStateId: number;
   toStateName: string;

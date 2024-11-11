@@ -5,8 +5,8 @@
   "Logout": "تسجيل الخروج",
   "DeleteError": "حدث خطاء فى المسح",
   "LoadError": "حدث خطاء فى التحميل",
-  "Cancel":"إلغاء",
-  "Save":"حفظ",
+  "Cancel": "إلغاء",
+  "Save": "حفظ",
   "Table": {
     "Actions": "اجراءات",
     "Edit": "تعديل",
@@ -22,15 +22,14 @@
     "appStore": "التطبيق في المتجر",
     "appDetails": "التفاصيل",
     "cart": "قائمة السلة"
-
-},
+  },
   "Toaster": {
     "Confirm": {
       "Title": "هل انت متاكد?",
       "Text": "لا يمكنك الرجوع فى هذا القرار!",
       "ConfirmButtonTexttodelete": "نعم, قم بالمسح!",
       "CancelButtonText": "الغاء",
-      "ConfirmButtonTexttochangstatus":"نعم"
+      "ConfirmButtonTexttochangstatus": "نعم"
     }
   },
   "Layout": {
@@ -44,7 +43,7 @@
     "AppStore": "متجر التطبيقات"
   },
   "User": {
-    "UserRemovedSuccessfully":"تمت إزالة المستخدم بنجاح",
+    "UserRemovedSuccessfully": "تمت إزالة المستخدم بنجاح",
     "License": "الرخصة",
     "Users": "صفحة المستخدمين",
     "Id": "الرقم",
@@ -71,7 +70,7 @@
     "Accepted": "تم القبول",
     "Actions": "افعال",
     "Edit": "تعديل",
-    "AddNew":"اضافة",
+    "AddNew": "اضافة",
     "AdminUser": "مدير",
     "InvitedUser": "مدير مفوّض",
     "Inviteform": {
@@ -134,7 +133,7 @@
     "status": "الحالة",
     "Actions": "الإجراءات",
     "Add": {
-      "cityName":"اسم المدينة",
+      "cityName": "اسم المدينة",
       "CompanyLogo": "شعار الشركة",
       "AddCompany": " أضف شركة ",
       "Plan": "خطة",
@@ -198,7 +197,7 @@
       "address": "العنوان",
       "longitude": "خط الطول",
       "latitude": "خط العرض",
-      "currency":"العملة",
+      "currency": "العملة",
       "Save": "حفظ"
     },
     "Contanct": {
@@ -211,8 +210,7 @@
       "contactPersonalPosition": "موقف الاتصال الشخصي",
       "contactPersonalEmail": "بريد الكتروني للاتصال الشخصي",
       "Save": "حفظ",
-      "ContactPersonalMobileNumber":"رقم الهاتف الشخصي"
-
+      "ContactPersonalMobileNumber": "رقم الهاتف الشخصي"
     },
     "Legal": {
       "companyName": "اسم الشركة",
@@ -251,7 +249,7 @@
     "Title": "متجر التطبيقات",
     "AddedToCartSuccessfully": "تم الإضافة لسلة الشراء بنجاح",
     "Error": "خطأ",
-    "YouShouldAddSubdomainFirst":"يجب عليك إضافة النطاق أولاً",
+    "YouShouldAddSubdomainFirst": "يجب عليك إضافة النطاق أولاً",
     "CheckedOut": "تم الشراء بنجاح",
     "App-in-Store": "التطبيق في المتجر",
     "AddToCart": "اضافة لسلة الشراء",
@@ -267,8 +265,8 @@
       "Monthly": "شهري",
       "Category": "الفئة"
     },
-    "ManageAppsTitle":"برامجى",
-    "Renew":"تجديد"
+    "ManageAppsTitle": "برامجى",
+    "Renew": "تجديد"
   },
   "Cart": {
     "Title": "عربة التسوق",
@@ -316,5 +314,51 @@
       " available": " اسم المجال متاح",
       "YourDomainSpace": "النطاق الفرعي"
     }
+  },
+  "workflow": {
+    "TaxList": "قائمة الضرائب",
+    "code": "الرمز",
+    "name": "الاسم",
+    "Status": "الحالة",
+    "Action": "الإجراء",
+    "Search": "بحث",
+    "Create": "إنشاء",
+    "viewWorkflow": "عرض سير العمل",
+    "variables": "المتغيرات",
+    "variables_name": "الاسم",
+    "variables_type": "النوع",
+    "add_status": "إضافة حالة",
+    "add_new_line": "إضافة سطر جديد",
+    "ActionName": "اسم الإجراء",
+    "ToState": "إلى الحالة",
+    "Users": "المستخدمون",
+    "conditionexprition": "تعريف الشرط",
+    "actions": "الإجراءات",
+    "toStateId": "معرف الحالة",
+    "EditWorkflow": "تعديل سير العمل",
+    "Name": "الاسم",
+    "serviceId": "معرف الخدمة",
+    "status": "الحالة",
+    "DefaultCompany": "الشركة الافتراضية",
+    "discard": "تجاهل",
+    "save": "حفظ",
+    "add_variable": "إضافة متغير",
+    "AddUserToAction": "إضافة مستخدم إلى الإجراء",
+    "userName": "اسم المستخدم",
+    "edit_Status": "تعديل الحالة",
+    "cancel": "إلغاء",
+    "add_user": "إضافة مستخدم",
+    "Add_Workflow": "إضافة سير العمل",
+    "type": "النوع",
+    "AddNewStaus": "إضافة حالة جديدة",
+    "Add_condition": "إضافة شرط",
+    "workflow": "سير العمل",
+
+    "andOr": "و/أو",
+    "operators": "العوامل",
+    "value": "القيمة",
+    "add_condition": "إضافة شرط",
+    "typePlaceholder": "اختر نوع المتغير",
+    "Add_User_To_Action": "إضافة مستخدم إلى الإجراء"
   }
 }

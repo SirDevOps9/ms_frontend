@@ -46,13 +46,14 @@ export class EditVariableComponent implements OnInit {
   getVariableByid(id: number) {
     this._subService.getVariableByID(id);
     this._subService.getvariableObj$.subscribe({
-      next: (res: { workflowId: number; name: string; type: string }) => {
+      next: (res: { workflowId: number; name: string; type: number; id: number }) => {
+        debugger;
         if (res) {
           debugger;
           this.variableForm.patchValue({
-            id: res.workflowId,
+            id: res.id,
             name: res.name,
-            type: res.type,
+            type: res.type?.toString() as string,
           });
         }
       },

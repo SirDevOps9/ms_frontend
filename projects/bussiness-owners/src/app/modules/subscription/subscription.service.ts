@@ -9,6 +9,7 @@ import {
   SubscriptionDto,
   TenantLicenseDto,
   usersDto,
+  variablesDto,
   workflowDto,
 } from './models';
 
@@ -35,16 +36,19 @@ export class SubscriptionService {
   public workflowStatusActionsList = new BehaviorSubject<ActionDto[]>([]);
   public workflowObjByID = new BehaviorSubject<any>({} as any);
   public workFlowStatesActions = new BehaviorSubject<any>({} as any);
-  public getvariableObj = new BehaviorSubject<{ workflowId: number; name: string; type: string }>(
-    {} as { workflowId: number; name: string; type: string }
-  );
+  public getvariableObj = new BehaviorSubject<{
+    workflowId: number;
+    name: string;
+    type: number;
+    id: number;
+  }>({} as { workflowId: number; name: string; type: number; id: number });
   public UsersForActions = new BehaviorSubject<usersDto[]>([]);
   public statusListView = new BehaviorSubject<statusDto[]>([]);
   public lookupForVariablesList = new BehaviorSubject<any[]>([]);
   public statusDropDownList = new BehaviorSubject<{ id: number; name: string }[]>(
     {} as { id: number; name: string }[]
   );
-  public variablesDropDownList = new BehaviorSubject<any[]>([] as any);
+  public variablesDropDownList = new BehaviorSubject<variablesDto[]>([]);
   public addAction = new BehaviorSubject<any>({} as any);
   public addUserForAction = new BehaviorSubject<any>({} as any);
   public editUserForAction = new BehaviorSubject<any>({} as any);

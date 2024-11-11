@@ -1,6 +1,6 @@
 <lib-page-content
-  [title]="'OperationalTag.TaxList' | translate"
-  [subTitle]="'OperationalTag.TaxList' | translate"
+  [title]="'workflow.variables' | translate"
+  [subTitle]="'workflow.variables' | translate"
 >
   <div>
     <div class="user_page">
@@ -18,20 +18,20 @@
           columns: [
             {
               name: 'name',
-              headerText: ('variable.variables_name' | translate),
+              headerText: ('workflow.variables_name' | translate),
               isGlobalFilter: true,
               isSortable: true
             },
             {
               name: 'type',
-              headerText: ('variable.variables_type' | translate),
+              headerText: ('workflow.variables_type' | translate),
               isGlobalFilter: true,
               isSortable: true
             },
 
             {
               name: 'id',
-              headerText: ('Action' | translate),
+              headerText: ('workflow.Action' | translate),
               template: actions
             }
           ]
@@ -44,7 +44,7 @@
                 <lib-form-group>
                   <lib-text-input
                     type="text"
-                    [placeholder]="'OperationalTag.Search' | translate"
+                    [placeholder]="'workflow.Search' | translate"
                     [(ngModel)]="searchTerm"
                     (keyUp)="onSearchChange()"
                   ></lib-text-input>
@@ -59,7 +59,7 @@
               <div class="flex flex-auto justify-content-end align-items-center gap-2">
                 <div>
                   <lib-button-micro
-                    [title]="'Create' | translate"
+                    [title]="'workflow.Create' | translate"
                     nameClass="save"
                     iconName="pi pi-plus"
                     (click)="addValriables()"

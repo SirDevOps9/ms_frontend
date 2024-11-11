@@ -8,6 +8,7 @@ import { FormGroup, FormBuilder, FormArray, AbstractControl } from '@angular/for
 import { ActionDto } from '../../../../../models';
 import { AddUserForActionComponent } from '../../../../../components/workflow-comp/add-user-for-action/add-user-for-action.component';
 import { EditUserForActionComponent } from '../../../../../components/workflow-comp/edit-user-for-action/edit-user-for-action.component';
+import { AddConditionComponent } from '../../../../../components/workflow-comp/add-condition/add-condition.component';
 
 @Component({
   selector: 'app-list-actions',
@@ -19,6 +20,8 @@ export class ListActionsComponent implements OnInit {
   unitUsagesName: [];
   @Input() workflowId: number;
   @Input() statusId: number;
+  statusDropdown: { id: number; name: string }[] = [];
+
   showAddAction = output<boolean>();
   showEditAction = output<boolean>();
   tableData: ActionDto[] = [];
@@ -67,8 +70,6 @@ export class ListActionsComponent implements OnInit {
     return index === this.actions.length - 1;
   }
 
-  statusDropdown: { id: number; name: string }[] = [];
-
   stateIdDropdown() {
     this._subService.getStatusDropDown(this.workflowId, '', new PageInfo());
     debugger;
@@ -97,21 +98,9 @@ export class ListActionsComponent implements OnInit {
       this._subService.workflowStatusActionsList$.subscribe({
         next: (res: any) => {
           this.tableData = res;
-          // this.patchValues(res);
           if (this.actions) {
             this.actions.clear();
           }
-
-          //           this.uoms.clear();
-          // data.uoms.forEach((uom: any) => {
-          //   if (uom.users && Array.isArray(uom.users)) {
-          //     uom.users = uom.users.slice(0, 3);
-          //   }
-          //   this.uoms.push(this.createUomFormGroup(uom));
-          // });
-
-          // this.test = this.uoms.at(0)?.get('nameEn')?.value;
-
           res.forEach((item: any) => {
             if (item.users && Array.isArray(item.users)) {
               item.users = item.users.slice(0, 3);
@@ -139,10 +128,6 @@ export class ListActionsComponent implements OnInit {
       formGroup.controls['toStateId'].setValue(selectedOption.id);
       formGroup.controls['toStateIdName'].setValue(selectedOption.name);
     }
-  }
-  // Method to enable editing for a row
-  onEdit(fg: FormGroup) {
-    // fg.get('isEditing')?.setValue(true);
   }
 
   onUpdate(obj: any) {
@@ -197,6 +182,23 @@ export class ListActionsComponent implements OnInit {
     });
     ref.onClose.subscribe(() => {
       this.initActionsList();
+    });
+  }
+  addConditionDialog(fg: FormGroup, index: number) {
+    const ref = this.dialog.open(AddConditionComponent, {
+      width: '800px',
+      height: '500px',
+      data: this.workflowId,
+    });
+
+    ref.onClose.subscribe((result) => {
+      if (result) {
+        console.log(result);
+
+        // Set the condition expression in the specified form group
+        fg.controls['conditionExpression'].setValue(result);
+        console.log(`Condition added at row ${index}:`, result.expression);
+      }
     });
   }
 }

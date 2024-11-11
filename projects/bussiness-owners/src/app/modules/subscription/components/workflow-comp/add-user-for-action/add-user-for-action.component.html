@@ -1,7 +1,7 @@
 <lib-popup-page
   [save]="false"
   [showCancel]="false"
-  title=" {{ 'Add User To Action' | translate }}"
+  title=" {{ 'workflow.Add_User_To_Action' | translate }}"
   [closeFunction]="onCancel"
 >
   <div class="entry_table">
@@ -13,8 +13,8 @@
       >
         <ng-template pTemplate="header">
           <tr>
-            <th>{{ 'actions.userName' | translate }}</th>
-            <th>{{ 'actions.actions' | translate }}</th>
+            <th>{{ 'workflow.userName' | translate }}</th>
+            <th>{{ 'workflow.actions' | translate }}</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-usersForm let-i="rowIndex">
@@ -25,7 +25,7 @@
                 <ng-template pTemplate="input">
                   <lib-text-input
                     type="text"
-                    placeholder="{{ 'actions.userName' | translate }}"
+                    placeholder="{{ 'workflow.userName' | translate }}"
                     formControlName="userName"
                   ></lib-text-input>
                 </ng-template>
@@ -66,7 +66,7 @@
               <div class="md:col-6">
                 <lib-button-micro
                   nameClass="cancel"
-                  title="{{ 'action.cancel' | translate }}"
+                  title="{{ 'workflow.cancel' | translate }}"
                   (click)="onCancel()"
                 >
                 </lib-button-micro>
@@ -74,7 +74,7 @@
               <div class="md:col-6">
                 <lib-button-micro
                   nameClass="save"
-                  title="{{ 'action.add_user' | translate }}"
+                  title="{{ 'workflow.add_user' | translate }}"
                   (click)="addLine()"
                 >
                 </lib-button-micro>

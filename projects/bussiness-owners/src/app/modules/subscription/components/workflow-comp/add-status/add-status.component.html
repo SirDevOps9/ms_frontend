@@ -1,33 +1,27 @@
-
 <lib-popup-page
-title=" {{ 'AddNewWorkflow' | translate }}"
-[closeFunction]="onCancel"
-(Submit)="onSubmit()"
+  title=" {{ 'workflow.AddNewStaus' | translate }}"
+  [closeFunction]="onCancel"
+  (Submit)="onSubmit()"
 >
-<div>
-  <form class="domain_form" [formGroup]="statusForm" (ngSubmit)="onSubmit()">
-    <div class="domain_content">
-      <div class="grid m-0">
-        <div class="col-12 my-2">
-          <lib-form-group>
-            <lib-text-input
-              type="text"
-              formControlName="name"
-              [iconUrl]="'assets/images/fi-rr-text-check@2x.png'"
-              placeholder="{{ 'tag.addtag.name' | translate }}"
-            />
-            <lib-field-validations
-              [appControl]="statusForm.controls['name']"
-            ></lib-field-validations>
-          </lib-form-group>
+  <div>
+    <form class="domain_form" [formGroup]="statusForm" (ngSubmit)="onSubmit()">
+      <div class="domain_content">
+        <div class="grid m-0">
+          <div class="col-12 my-2">
+            <lib-form-group>
+              <lib-text-input
+                type="text"
+                formControlName="name"
+                [iconUrl]="'assets/images/fi-rr-text-check@2x.png'"
+                placeholder="{{ 'workflow.name' | translate }}"
+              />
+              <lib-field-validations
+                [appControl]="statusForm.controls['name']"
+              ></lib-field-validations>
+            </lib-form-group>
+          </div>
         </div>
-
-        
       </div>
-    </div>
-  </form>
-</div>
+    </form>
+  </div>
 </lib-popup-page>
-
-  
-  

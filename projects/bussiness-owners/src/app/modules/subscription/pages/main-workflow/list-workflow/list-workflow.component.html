@@ -1,6 +1,6 @@
 <lib-page-content
-  [title]="'OperationalTag.TaxList' | translate"
-  [subTitle]="'OperationalTag.TaxList' | translate"
+  [title]="'workflow.workflow' | translate"
+  [subTitle]="'workflow.workflow' | translate"
 >
   <lib-new-bread-crumb> </lib-new-bread-crumb>
   <div>
@@ -19,25 +19,25 @@
           columns: [
             {
               name: 'id',
-              headerText: ('code' | translate),
+              headerText: ('workflow.code' | translate),
               isGlobalFilter: true,
               isSortable: true
             },
             {
               name: 'name',
-              headerText: ('name' | translate),
+              headerText: ('workflow.name' | translate),
               isGlobalFilter: true,
               isSortable: true
             },
             {
               name: 'isActive',
-              headerText: ('Status' | translate),
+              headerText: ('workflow.Status' | translate),
               template: status
             },
 
             {
               name: 'id',
-              headerText: ('Action' | translate),
+              headerText: ('workflow.Action' | translate),
 
               template: actions
             }
@@ -51,7 +51,7 @@
                 <lib-form-group>
                   <lib-text-input
                     type="text"
-                    [placeholder]="'OperationalTag.Search' | translate"
+                    [placeholder]="'workflow.Search' | translate"
                     [(ngModel)]="searchTerm"
                     (keyUp)="onSearchChange()"
                   ></lib-text-input>
@@ -61,8 +61,8 @@
               <div class="flex flex-auto justify-content-end align-items-center gap-2">
                 <div>
                   <lib-button-micro
-                    [title]="'Create' | translate"
-                    nameClass=" table_button_save"
+                    [title]="'workflow.Create' | translate"
+                    nameClass=" save"
                     iconName="pi pi-plus"
                     (click)="newWorkflow()"
                   >

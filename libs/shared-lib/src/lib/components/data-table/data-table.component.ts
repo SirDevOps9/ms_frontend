@@ -39,6 +39,7 @@ export class DataTableComponent implements OnInit, OnChanges {
 
   @Output() pageChange = new EventEmitter<PageInfo>();
   @Output() addNew = new EventEmitter<boolean>(false);
+  @Input() noFilterColumns: boolean = false;
 
   //  to fill the dropdown in the component
   @Output() fiteredDropdOwn = new EventEmitter<TableConfig>();
@@ -62,14 +63,13 @@ export class DataTableComponent implements OnInit, OnChanges {
   selected_filtered_columns: any[] = [];
   searchColumnsControl = new FormControl([]);
   isRtl: boolean = false;
-  showColumnFilter: boolean 
+  showColumnFilter: boolean;
 
   ngOnInit(): void {
     this.isRtl = this.languageService.ar;
 
-    
     // this.showColumnFilter = this.tableConfigs?.columns?.some(x=>x.name == 'id')
-    this.filtered_columns = this.tableConfigs.columns
+    this.filtered_columns = this.tableConfigs.columns;
     this.selected_filtered_columns = this.filtered_columns.map((option) => option.name);
     this.searchColumnsControl.setValue(this.selected_filtered_columns as any);
     this.globalFilterFields = this.tableConfigs.columns
@@ -112,7 +112,7 @@ export class DataTableComponent implements OnInit, OnChanges {
     this.addNew.emit(true);
   }
 
-  selectRow(row: any) { }
+  selectRow(row: any) {}
 
   onPageChange(pageInfo: PageInfo) {
     pageInfo.sortColumn = this.currentSortColumn;
@@ -136,7 +136,6 @@ export class DataTableComponent implements OnInit, OnChanges {
   isSelected(index: number): boolean {
     if (this.selectedIndices) return this.selectedIndices.includes(index);
     return false;
-   
   }
 
   toggleSelection(index: number): void {
@@ -178,25 +177,25 @@ export class DataTableComponent implements OnInit, OnChanges {
     public lookupsService: LookupsService,
     private generalService: GeneralService,
     private routerService: RouterService
-  ) { }
+  ) {}
 
   handleFilterColumns(selectedColumns: string[]) {
     if (selectedColumns.length === 0) {
       this.tableConfigs.columns = [...this.clonedTableConfigs.columns];
     } else {
       const columns = [...this.clonedTableConfigs.columns];
-      
+
       const filteredColumns = columns.filter((col) =>
         selectedColumns.some((sCol: string) => col.name === sCol)
       );
-      if(filteredColumns[filteredColumns.length - 1].name =="id"){
-
+      if (filteredColumns[filteredColumns.length - 1].name == 'id') {
         this.tableConfigs.columns = [...filteredColumns];
-      } else{
-        filteredColumns.push(this.clonedTableConfigs.columns[this.clonedTableConfigs.columns.length - 1])
+      } else {
+        filteredColumns.push(
+          this.clonedTableConfigs.columns[this.clonedTableConfigs.columns.length - 1]
+        );
         this.tableConfigs.columns = [...filteredColumns];
       }
-             
     }
   }
 }

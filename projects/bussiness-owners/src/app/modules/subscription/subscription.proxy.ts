@@ -10,6 +10,7 @@ import {
   SubscriptionDto,
   TenantLicenseDto,
   usersDto,
+  variablesDto,
   workflowDto,
 } from './models';
 import { Injectable } from '@angular/core';
@@ -64,12 +65,12 @@ export class SubscriptionProxy {
     workflowId: number,
     searchTerm: string,
     pageInfo: PageInfo
-  ): Observable<PaginationVm<any>> {
+  ): Observable<PaginationVm<variablesDto>> {
     let query = `Workflows/${workflowId}/Variables?${pageInfo.toQuery}`;
     if (searchTerm) {
       query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
     }
-    return this.baseService.get<PaginationVm<any>>(query);
+    return this.baseService.get<PaginationVm<variablesDto>>(query);
   }
   // status dropdown
 
@@ -95,7 +96,7 @@ export class SubscriptionProxy {
     >(query);
   }
   lookupForVariables() {
-    let query = `Lookup?lookups=ConfigurationServiceType`;
+    let query = `Lookup?lookups=VariableType`;
     return this.baseService.get(query);
   }
   // add
@@ -137,8 +138,10 @@ export class SubscriptionProxy {
     return this.baseService.get(`Workflows/States/${stateId}/Actions`);
   }
   // get variables Actions
-  getVariableByID(id: number): Observable<{ workflowId: number; name: string; type: string }> {
-    return this.baseService.get<{ workflowId: number; name: string; type: string }>(
+  getVariableByID(
+    id: number
+  ): Observable<{ workflowId: number; name: string; type: number; id: number }> {
+    return this.baseService.get<{ workflowId: number; name: string; type: number; id: number }>(
       `Workflows/GetVariableById/${id}`
     );
   }

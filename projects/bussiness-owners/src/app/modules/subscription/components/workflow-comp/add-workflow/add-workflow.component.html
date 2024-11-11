@@ -1,5 +1,5 @@
 <lib-popup-page
-  title=" {{ 'Add Workflow' | translate }}"
+  title=" {{ 'workflow.Add_Workflow' | translate }}"
   [closeFunction]="onCancel"
   (Submit)="onSubmit()"
 >
@@ -28,7 +28,7 @@
               </lib-label>
               <lib-select
                 formControlName="serviceId"
-                placeholder="{{ 'Layout.DefaultCompany' | translate }}"
+                placeholder="{{ 'workflow.serviceId' | translate }}"
                 [options]="[]"
                 [selectedValue]="workflowForm.controls['serviceId'].value"
                 optionLabel="name"
@@ -38,7 +38,7 @@
             </lib-form-group>
 
             <lib-label class="mt-1" [appControl]="workflowForm.controls['isActive']">
-              {{ 'actions.status' | translate }}
+              {{ 'workflow.status' | translate }}
             </lib-label>
             <lib-form-group class="flex align-items-center mt-1">
               <lib-input-switch formControlName="isActive" binary="true" inputId="isActive" />
