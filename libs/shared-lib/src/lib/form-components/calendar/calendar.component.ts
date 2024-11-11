@@ -20,12 +20,11 @@ import {
   ValidationErrors,
   Validator,
 } from '@angular/forms';
-import { BaseValueAccessorComponent } from './base-form-value-accessor.directive';
 
 import moment from 'moment-timezone';
 @Component({
   selector: 'lib-calendar',
-  templateUrl: './calendar.component.html',
+  templateUrl: './calendar.component.html', 
   styleUrls: ['./calendar.component.css'],
   providers: [
     {
