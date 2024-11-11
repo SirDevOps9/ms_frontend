@@ -6,9 +6,10 @@ import {
   BreadcrumbLabel,
   LayoutComponent,
   Modules,
+  Pages,
   SharedLibModule,
 } from 'shared-lib';
-import { LayoutPageComponent } from 'apps-shared-lib';
+import { LayoutPageComponent, SequenceComponent } from 'apps-shared-lib';
 import { AddItemCategoryComponent } from './components/add-item-category/add-item-category.component';
 import { ItemCategoryListComponent } from './pages/item-category/item-category-list/item-category-list.component';
 import { AddItemDefinitionPopupComponent } from './components/add-item-definition/add-item-definition-popup.component';
@@ -313,6 +314,16 @@ const routes: Routes = [
             component: ItemCatalogTabsComponent,
             data: {
               breadcrumb: BreadcrumbLabel.ADD_ITEM_DIFINITION,
+            },
+          },
+          {
+            path: 'sequence',
+            component: SequenceComponent,
+            data: {
+              moduleId: Modules.inventory,
+              pageId: Pages.StockIn,
+              breadcrumb: BreadcrumbLabel.SEQUENCE,
+              pageTitle: BreadcrumbLabel.SEQUENCE
             },
           },
         ],

@@ -4,6 +4,7 @@
         <lib-data-table
           [items]="tableData"
           className="p-datatable-gridlines"
+          [sequence]="true"
           [currentPageResult]="currentPageInfo"
           (pageChange)="onPageChange($event)"
           [tableConfigs]="{

@@ -124,7 +124,8 @@ oprationalLookup : { id: number; name: string }[] = []
       bardCodeId: null,              
       description: '',            
       itemId: 0,      
-      itemCodeName : '',            
+      itemCodeName : '',    
+      itemVariantId : '',        
       uomName : '',            
       uomId: '',  
       quantity: 0,                
@@ -151,6 +152,7 @@ oprationalLookup : { id: number; name: string }[] = []
    stockInFormGroup.get('itemCodeName')?.setValue(data?.itemCode)
    stockInFormGroup.get('description')?.setValue(data?.itemVariantName)
    stockInFormGroup.get('trackingType')?.setValue(data?.trackingType)
+   stockInFormGroup.get('itemVariantId')?.setValue(data?.itemVariantId)
 
   }
   uomChanged(e : any , stockInFormGroup : FormGroup) {
@@ -186,6 +188,7 @@ oprationalLookup : { id: number; name: string }[] = []
   onSave() {
     let data : AddStockIn = {
       ...this.stockInForm.value,
+      sourceDocumentType : +this.stockInForm.value.sourceDocumentType,
       stockInDetails : this.stockIn.value
     }
     this.itemsService.addStockIn(data)
