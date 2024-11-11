@@ -79,8 +79,10 @@ export class BankAccountStatementComponent {
   getAccountingReports() {
     if (!this.formsService.validForm(this.accountStatementForm)) return;
     if (
-      this.accountStatementForm.get('dateFrom')?.value <
-      this.accountStatementForm.get('dateTo')?.value
+     new Date(this.accountStatementForm.get('dateFrom')?.value)  <
+
+     new Date(this.accountStatementForm.get('dateTo')?.value)
+      
     ) {
       this.reportsService.getBankAccountStatement(this.accountStatementForm.value);
 

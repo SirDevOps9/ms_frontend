@@ -86,7 +86,7 @@ export class AccountStatementComponent {
   getAccountingReports() {
     if (this.reportAccountForm.valid) {
       if (
-        this.reportAccountForm.get('dateFrom')?.value < this.reportAccountForm.get('dateTo')?.value
+       new Date(this.reportAccountForm.get('dateFrom')?.value)  < new Date(this.reportAccountForm.get('dateTo')?.value) 
       ) {
         if (
           this.reportAccountForm.get('posted')?.value != true &&
