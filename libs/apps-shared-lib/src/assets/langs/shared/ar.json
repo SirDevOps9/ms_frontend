@@ -1,6 +1,8 @@
 {
   "BreadCrumb": {
-    "Dashboard": "لوحة التحكم"
+    "Dashboard": "لوحة التحكم",
+    "sequence": "تسلسل"
+
   },
     "Save": "حفظ",
     "Cancel": "إلغاء",
@@ -21,6 +23,7 @@
     "name": "اسم",
     "actions": "إجراءات",
     "type": "امتداد الملف",
+      "download": "تحميل",
 
     "sequence": {
       "sequence": "تسلسل",

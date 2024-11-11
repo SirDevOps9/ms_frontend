@@ -188,8 +188,6 @@ export class GeneralSettingService {
 
 
 
-
-
   getTagList(searchTerm: string, pageInfo: PageInfo) {
     this.GeneralSettingproxy.getAllTagsPaginated(searchTerm, pageInfo).subscribe({
       next: (res) => {
@@ -747,8 +745,8 @@ export class GeneralSettingService {
     });
     ref.onClose.subscribe((result: CurrencyDefinitionDto) => {});
   }
-  exportcurrencyData(searchTerm: string | undefined) {
-    this.GeneralSettingproxy.exportcurrencyData(searchTerm).subscribe({
+  exportcurrencyData(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
+    this.GeneralSettingproxy.exportcurrencyData(searchTerm,SortBy,SortColumn).subscribe({
       next: (res) => {
         this.exportsCurrencyListDataSource.next(res);
       },
@@ -769,8 +767,8 @@ export class GeneralSettingService {
     });
   }
 
-  exportTagData(searchTerm: string | undefined) {
-    this.GeneralSettingproxy.exportTagData(searchTerm).subscribe({
+  exportTagData(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
+    this.GeneralSettingproxy.exportTagData(searchTerm,SortBy,SortColumn).subscribe({
       next: (res) => {
         this.exportsTagDataSource.next(res);
       },
@@ -915,8 +913,8 @@ export class GeneralSettingService {
     });
   }
 
-  exportTaxesData(searchTerm: string | undefined) {
-    this.GeneralSettingproxy.exportTaxesData(searchTerm).subscribe({
+  exportTaxesData(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
+    this.GeneralSettingproxy.exportTaxesData(searchTerm,SortBy,SortColumn).subscribe({
       next: (res) => {
         this.exportsTaxesDataSource.next(res);
       },

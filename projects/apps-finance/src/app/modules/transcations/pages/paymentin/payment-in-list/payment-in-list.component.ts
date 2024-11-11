@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { PageInfoResult, lookupDto, RouterService, PageInfo } from 'shared-lib';
+  import { Component } from '@angular/core';
+import { PageInfoResult, lookupDto, RouterService, PageInfo, SortBy } from 'shared-lib';
 import { GetAllPaymentInDto } from '../../../models';
 import { TranscationsService } from '../../../transcations.service';
 import { Router } from '@angular/router';
@@ -11,10 +11,10 @@ import { SharedFinanceEnums } from '../../../../finance/models';
 })
 export class PaymentInListComponent {
   tableData: GetAllPaymentInDto[];
-
+  SortBy?: number;
   currentPageInfo: PageInfoResult = {};
   searchTerm: string;
-
+  SortColumn?:string
   exportColumns: lookupDto[] = [
     {
       id: 'id',
@@ -99,11 +99,27 @@ export class PaymentInListComponent {
   }
 
   onSearchChange(event: any) {
+    this.searchTerm=event
     this.financeService.getAllPaymentIn(event, new PageInfo());
   }
 
-  exportClick() {
-    this.financeService.exportsPaymentInList(this.searchTerm);
+  exportedColumns(obj: { SortBy: number; SortColumn: string }) {
+    this.SortBy = obj.SortBy;
+    this.SortColumn = obj.SortColumn;
+  }
+  // exportClick() {
+  //   this.financeService.exportsPaymentInList(this.searchTerm,this.SortBy ,this.SortColumn);
+  // }
+
+
+
+
+
+  exportClick(){
+    this.financeService.exportsPaymentInList(this.searchTerm ,this.SortBy,this.SortColumn);
+    this.financeService.exportedPaymentinDataSourceObservable.subscribe((res) => {
+      this.exportData = res;
+    });
   }
 
   onDelete(id: number) {

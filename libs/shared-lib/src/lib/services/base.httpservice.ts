@@ -27,12 +27,14 @@ export class HttpService {
 
   public addHeaders(): HttpHeaders {
     const token = this.storageService.getItem(StorageKeys.USER_TOKEN) || '';
+    let defaultCompany =this.storageService.getItem(StorageKeys.DEFAULT_COMPANY)
+    let defaultBranch =this.storageService.getItem(StorageKeys.DEFAULT_BRANCHE)
     return new HttpHeaders({
       'Content-Type': 'application/json-patch+json',
       Authorization: `Bearer ${token}`,
       'Accept-Language': this.storageService.getItem(StorageKeys.LANG_KEY) || 'en',
-      [HeaderParams.COMPANY_ID]:  this.storageService.getItem('defaultCompany')?? '98c91af6-16f4-477f-9b4a-db046a04b525',
-      [HeaderParams.BRANCH_ID]: this.storageService.getItem('defaultBranch')?? 'd69e6813-2646-41e7-a56c-538b7f91da39',
+      [HeaderParams.COMPANY_ID]:  defaultCompany?.id?? '',
+      [HeaderParams.BRANCH_ID]: defaultBranch?.id?? '',
       [HeaderParams.VERSION]: this.environmentService.Version,
       [HeaderParams.CLIENTID]: this.environmentService.ClientId,
       [HeaderParams.PLATFORMTYPE]: this.environmentService.Platform,
@@ -42,12 +44,14 @@ export class HttpService {
 
   private addFormHeaders(): HttpHeaders {
     const token = this.storageService.getItem(StorageKeys.USER_TOKEN) || '';
+    let defaultCompany =this.storageService.getItem(StorageKeys.DEFAULT_COMPANY)
+    let defaultBranch =this.storageService.getItem(StorageKeys.DEFAULT_BRANCHE)
     return new HttpHeaders({
       Authorization: `Bearer ${token}`,
       'Accept-Language': this.storageService.getItem(StorageKeys.LANG_KEY) || 'en',
       [HeaderParams.TENANT_ID]: '1',
-      [HeaderParams.COMPANY_ID]:  this.storageService.getItem('defaultCompany')?? '2',
-      [HeaderParams.BRANCH_ID]: this.storageService.getItem('defaultBranch')?? '2',
+      [HeaderParams.COMPANY_ID]:  defaultCompany?.id?? '',
+      [HeaderParams.BRANCH_ID]: defaultBranch?.id?? '',
       [HeaderParams.VERSION]: this.environmentService.Version,
       [HeaderParams.CLIENTID]: this.environmentService.ClientId,
       [HeaderParams.PLATFORMTYPE]: this.environmentService.Platform,

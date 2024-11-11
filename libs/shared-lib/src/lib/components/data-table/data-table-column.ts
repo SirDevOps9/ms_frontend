@@ -21,6 +21,7 @@ export class DataTableColumn {
   class?: string;
   body_class?: string;
   applyNumberFormat?: boolean = false;
+
 }
 
 export class TableConfig {
@@ -41,4 +42,5 @@ export class TableConfig {
   cardStatusKey?: string;
 
   enableSelection?: boolean;
+
 }

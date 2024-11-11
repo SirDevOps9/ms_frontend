@@ -47,12 +47,31 @@
   </div>
   <div class="entry_table">
     <div class="card">
+      <ng-container caption>
+        <div class="">
+          <div class="grid m-3 grid-cols-4 gap-2" >
+            <div class="col-span-1">
+              <lib-form-group>
+                <lib-text-input
+                  type="text"
+                  [placeholder]="'attributeDefinition.Search' | translate"
+                  [iconUrl]="'pi pi-search'"
+                ></lib-text-input>
+              </lib-form-group>
+            </div>
+
+
+
+          </div>
+        </div>
+      </ng-container>
       <p-table
         [value]="attrTableForm.controls"
         dataKey="id"
         styleClass="p-datatable-gridlines p-datatable-striped"
         [tableStyle]="{ 'min-width': '50rem' }"
       >
+
         <ng-template pTemplate="header">
           <tr>
             <th>{{ 'attributeDefinition.valueEn' | translate }}</th>
@@ -62,11 +81,11 @@
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-attrTableForm let-i="rowIndex">
-  <tr 
-    [formGroup]="attrTableForm" 
+  <tr
+    [formGroup]="attrTableForm"
     [ngClass]="{'duplicate-row': attrTableForm?.controls['isDuplicate']?.value}"
   >
-  
+
     <!-- Name in Arabic -->
     <td [pEditableColumn]="attrTableForm?.controls['nameAr']" pEditableColumnField="nameAr">
       <p-cellEditor>
@@ -103,17 +122,32 @@
     </td>
     <td>
       <div class="flex align-items-center">
-        <lib-input-switch [id]="i" [disabled]="false" formControlName="isActive"></lib-input-switch>
+        <lib-input-switch [id]="i" [disabled]="false" formControlName="isActive">
+
+        </lib-input-switch>
+
+        <span [ngClass]="{'active-true': attrTableForm?.controls['isActive']?.value}" class="ml-2">
+          {{ attrTableForm?.controls['isActive']?.value ? ('global.activeOn' | translate) : ('global.activeOff' | translate) }}
+        </span>
+
+
+          <!--
+          <span class="ml-2 active-true" *ngIf="attrTableForm.controls['isActive']?.value==true">
+          On
+        </span>
+        <span class="ml-2" *ngIf="attrTableForm.controls['isActive']?.value==false">
+          Off
+        </span>
+        -->
+
       </div>
     </td>
+
     <td>
       <div class="actions flex align-items-center">
-        <lib-button-micro
-          nameClass="cancel"
-          iconName="pi pi-trash"
-          type="button"
-          (click)="deleteLine(i)"
-        ></lib-button-micro>
+
+
+      <img src="assets/images/table/delete.svg" alt=""   (click)="deleteLine(i)" />
       </div>
     </td>
   </tr>

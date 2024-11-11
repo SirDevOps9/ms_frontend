@@ -11,6 +11,7 @@
         [currentPageResult]="currentPageInfo"
         (pageChange)="onPageChange($event)"
         (addNew)="routeToAdd()"
+        (exportObj)="exportedColumns($event)"
         [tableConfigs]="{
               allowPagination: false,
               allowServerPagination: true,
@@ -35,34 +36,42 @@
                  {
                    name: 'paymentHub',
                    headerText: ('payment-in.paymentHub' | translate),
+                   isSortable: true
                  },
                  {
                    name: 'paymentHubDetailId',
                    headerText: ('payment-in.paymentHubDetailId' | translate) ,
+                   isSortable: true
                  },
                  {
                   name: 'branch',
                   headerText: ('payment-in.branch' | translate) ,
+                  isSortable: true
 
                  },
                  {
                   name: 'bankAccount',
                   headerText: ('payment-in.bankAccount' | translate) ,
+                  isSortable: true
 
                  },
                  {
                   name: 'status',
                   headerText: ('payment-in.status' | translate) ,
+                  isSortable: true,
                   template: pStatus
                  },
                  {
                   name: 'sourceDocument',
                   headerText: ('payment-in.sourceDocument' | translate) ,
+                  isSortable: true,
+
 
                  },
                  {
                   name: 'relatedSourceJournal',
                   headerText: ('payment-in.relatedSourceJournal' | translate) ,
+                  isSortable: true,
                   template:journalCode
                  },
                  {

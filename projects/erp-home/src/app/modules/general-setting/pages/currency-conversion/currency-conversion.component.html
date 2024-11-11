@@ -4,6 +4,7 @@
     className="p-datatable-gridlines"
     [currentPageResult]="currentPageInfo"
     (pageChange)="onPageChange($event)"
+    (exportObj)="exportedColumns($event)"
     [tableConfigs]="{
                 allowPagination: false,
                 allowServerPagination: true,
@@ -27,14 +28,19 @@
                    {
                      name: 'toCurrencyName',
                      headerText: ('currencyConversion.ToCurrency' | translate),
+                     isSortable: true
                    },
                    {
                      name: 'reversedRate',
                      headerText: ('currencyConversion.ReversedRate' | translate) ,
+                     isSortable: true
+
                    },
                    {
                      name: 'note',
                      headerText: ('currencyConversion.Notes' | translate) ,
+                     isSortable: true
+
                    },
              
                    {
@@ -49,6 +55,7 @@
       <div class="group flex justify-content-between">
         <lib-text-input
           type="text"
+          [(ngModel)]="searchTerm"
           [placeholder]="'currencyConversion.search' | translate"
           (keyUp)="onSearchChange($event)"
           [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
@@ -56,7 +63,7 @@
         </lib-text-input>
         <div class="flex gap-2">
           <lib-export
-            (exportClick)="exportClick($event)"
+            (exportClick)="exportClick()"
             [exportData]="exportData"
             [exportColumns]="exportColumns"
             [ExportName]="'Currency Conversion'"

@@ -21,7 +21,8 @@ export class TagListComponent implements OnInit {
   currentPageInfo: PageInfoResult;
   modulelist: MenuModule[];
   searchTerm: string;
-
+  SortBy?: number
+  SortColumn?:string
   mappedExportData: TagDto[];
   exportData: ExportTagDto[];
 
@@ -141,8 +142,12 @@ export class TagListComponent implements OnInit {
     });
   }
 
-  exportTagData(searchTerm: string) {
-    this.generalSettingService.exportTagData(searchTerm);
+  exportedColumns(obj: { SortBy: number; SortColumn: string }) {
+    this.SortBy = obj.SortBy;
+    this.SortColumn = obj.SortColumn;
+  }
+  exportTagData() {
+    this.generalSettingService.exportTagData(this.searchTerm ,this.SortBy, this.SortColumn);
     this.generalSettingService.exportsTagDataSourceObservable.subscribe((res) => {
       this.exportData = res;
     });

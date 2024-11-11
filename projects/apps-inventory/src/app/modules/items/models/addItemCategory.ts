@@ -1,10 +1,11 @@
 export interface AddItemCategory {
-    id? :number
+    id :number
     code: string
     nameAr: string
     nameEn: string
     parentCategoryId: number
     isDetailed: boolean
+    isActive: boolean
     categoryType: string
     glAccountId: number
     cashSalesAccountId: number

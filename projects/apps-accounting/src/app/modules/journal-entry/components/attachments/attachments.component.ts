@@ -12,7 +12,7 @@ export class AttachmentsComponent implements OnInit  {
 
   attachments: FormArray;
   filesData : any = []
-  test : any = []
+  allAttachments : any = []
   journalEntryAttachments : any = []
   edit:boolean 
   add:boolean
@@ -63,14 +63,15 @@ export class AttachmentsComponent implements OnInit  {
     }
 
   files(data:any) {
-    this.test = data
+    this.allAttachments = data
   
   }
   onCancel(){
-    this.ref.close()
+    this.ref.close(this.allAttachments)
+
   }
   save(){
-    this.ref.close(this.test)
+    this.ref.close(this.allAttachments)
   }
 
 }

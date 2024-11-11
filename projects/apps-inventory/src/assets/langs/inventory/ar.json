@@ -1,4 +1,7 @@
 {
+  "BreadCrumb": {
+    "ItemsCategory":"فئة العناصر"
+   },
   "Toaster": {
     "Confirm": {
       "Title": "هل أنت متأكد؟",
@@ -12,7 +15,7 @@
     "code": "الرمز",
     "nameEn": "الاسم (إنجليزي)",
     "nameAr": "الاسم (عربي)",
-    "main" : "الرئيسي",
+    "main" : "المعلومات الرئيسية",
 
     "name": "الاسم",
     "category": "الفئة",
@@ -23,6 +26,7 @@
     "actions": "الإجراءات",
       "saveUom" : "حفظ وحدة القياس",
       "select" : "اختار الوحده",
+      "AttributeAdded" : "تم اضافة الوحده",
 
     "Add": "إضافة",
     "search": "بحث",
@@ -37,6 +41,7 @@
     "vatApplied": "تطبيق ضريبة القيمة المضافة",
     "priceIncludeVat": "السعر شامل الضريبة",
     "specialCare": "يحتاج إلى عناية خاصة",
+    "specialCareHead": "عناية خاصة",
     "color": "اللون",
     "uom": "وحدة القياس",
     "uomCategory": "فئة وحدة القياس",
@@ -76,6 +81,7 @@
     "variantSelect": "اختيار المتغير",
     "attributeCode": "رمز الخاصية",
     "attributeName": "اسم الخاصية",
+    "attributeValues": "ٌقيمة الخاصية",
     "success": "نجاح",
     "deleteVariant": "تم حذف مجموعة الخصائص بنجاح",
       "addVariant": "تم اضافه مجموعة الخصائص بنجاح",
@@ -121,6 +127,8 @@
     "uom": "وحدة القياس",
     "barcode": "الرمز الشريطي",
     "actions": "الإجراءات",
+    "addItemDef" : "اضافة تعريف العنصر",
+
     "Add": "إضافة",
     "search": "بحث",
     "ChangeColumn": "تغيير العمود",
@@ -131,7 +139,9 @@
     "viewVariant": "عرض",
     "itemTracking": "تتبع العنصر",
     "SelectItemTracking": "اختر تتبع العنصر",
-    "hasExpiry": "له تاريخ انتهاء"
+    "hasExpiry": "له تاريخ انتهاء",
+    "delete" : "تم حذف تعريف العنصر بنجاح"
+
   },
   "warehouse": {
     "Add": "إضافة",
@@ -146,6 +156,7 @@
     "actions": "الإجراءات",
     "warehouse": "المستودع",
     "account": "الحساب",
+    "costOfGoodsSold" : "حساب تكلفة البضاعة المباعة",
     "address": "العنوان",
     "city": "المدينة",
     "companyPhoneNumber": "رقم هاتف الشركة",
@@ -159,7 +170,7 @@
     "cashSalesAccount": "حساب المبيعات النقدية",
     "creditSalesAccount": "حساب المبيعات الآجلة",
     "salesReturnAccount": "حساب إرجاع المبيعات",
-    "purchaseAccount": "حساب الشراء",
+    "purchaseAccount": "حساب المشتريات",
     "salesCostCenter": "مركز تكلفة المبيعات",
     "discountAccount": "حساب الخصومات",
     "evaluationaccount": "حساب التقييم",
@@ -185,12 +196,16 @@
     "import": "استيراد",
     "edit": "تعديل",
     "save": "حفظ",
+    "Activation": "تفعيل",
     "cancel": "إلغاء",
     "name" : "الاسم",
+    "editSuccses" : "تم التعديل بنجاح",
     "categoryCode": "رمز الفئة",
     "parentCategory": "الفئة الرئيسية",
     "isDetails": "تفاصيل",
     "categoryType": "نوع الفئة",
+    "status": "الحالة",
+
     "Main": "رئيسي",
     "nameEn": "الاسم (إنجليزي)",
     "nameAr": "الاسم (عربي)",
@@ -229,10 +244,26 @@
     "changeAttributrDifinitionStatus": "تغيير حالة تعريف السمة",
     "success": "نجاح",
     "uomSuccess": "تمت إضافة وحدة القياس بنجاح",
+    "uomSuccessEdit": "تمت تعديل وحدة القياس بنجاح",
     "nameEn": "الاسم بالإنجليزية",
     "conversionUOM": "تحويل وحدة القياس",
     "categorynameEn": "اسم الفئة بالإنجليزية",
-    "categorynameAr": "اسم الفئة بالعربية"
+    "categorynameAr": "اسم الفئة بالعربية",
+    "category" : "الفئة",
+    "baseUom" : "وحدة القياس الافتراضية",
+    "systemUnit" : "وحدة النظام",
+    "unitSystem" : "وحدة النظام",
+    "nameUomEn" : "الاسم بالانجليزيه",
+    "nameUomAr" : "الاسم بالعربيه",
+    "factorUOM": "عامل",
+    "calculation": "حساب",
+    "reversal": "عكس",
+    "from" : "من",
+    "uomCode": "كود وحدة القياس",
+    "uomName": "اسم وحدة القياس",
+    "uomCategory": "فئة وحدة القياس",
+    "uomFactor": "معامل وحدة القياس"
+
   },
   "attributeDefinition": {
     "Add": "إضافة",

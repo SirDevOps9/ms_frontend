@@ -119,7 +119,7 @@ export class VendorOpeningBalanceDistributeViewComponent implements OnInit {
     }, 0);
   }
   getTotalBalanceSum() {
-    this.totalBalanceSum = Math.round(this.getTotalDebit() - this.getTotalCredit());
+    this.totalBalanceSum = Math.round(this.getTotalCredit()-this.getTotalDebit());
     if (this.totalBalanceSum != this.balance) {
       this.error = true;
     } else {

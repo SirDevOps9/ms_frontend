@@ -16,6 +16,7 @@ export class LayoutHeaderComponent implements OnInit {
   showcard: boolean = false;
   sidebarOpen: boolean = false;
   cartItemsCount$: Observable<number>;
+  @Output() sidebarToggle = new EventEmitter(); // Renamed event
 
   ngOnInit() {}
 
@@ -27,13 +28,13 @@ export class LayoutHeaderComponent implements OnInit {
     this.authService.logout();
   }
 
-  toggleSidebar() {
-    if (this.sidebarOpen == true) {
-      this.sidebarOpen = false;
-    } else {
-      this.sidebarOpen = true;
-    }
-  }
+  // toggleSidebar() {
+  //   if (this.sidebarOpen == true) {
+  //     this.sidebarOpen = false;
+  //   } else {
+  //     this.sidebarOpen = true;
+  //   }
+  // }
   activeTag(id: any) {
     const targetElementId = document.getElementById(id);
     var test = document.querySelector('.active_link');
@@ -64,6 +65,13 @@ export class LayoutHeaderComponent implements OnInit {
   routeToCart() {
     this.routerService.navigateTo(`/app-store/cart`);
   }
+  onToggleSidebar(): void {
+    this.sidebarOpen = !this.sidebarOpen;
+    console.log("header" , this.sidebarOpen);
+    
+    this.sidebarToggle.emit(this.sidebarOpen); // Emit event to parent
+  }
+ 
 
   constructor(
     public languageService: LanguageService,

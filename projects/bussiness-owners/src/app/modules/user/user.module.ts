@@ -9,6 +9,7 @@ import { UserInviteFormComponent } from './components/invite-form/user-invite-fo
 import { LayoutComponent } from '../layout/layout-page/layout.component';
 import { UserDetailsComponent } from './components/user-details/user-details.component';
 import { LayoutModule } from '../layout/layout.module';
+import { BreadCrumbRoute } from '../../models';
 
 const routes: Routes = [
   {
@@ -20,7 +21,7 @@ const routes: Routes = [
         component: UsersComponent,
         canActivate: [AuthGuard],
         data: {
-          breadcrumb: BreadcrumbLabel.USERS,
+          breadcrumb: BreadCrumbRoute.user
         },
       },
       // {

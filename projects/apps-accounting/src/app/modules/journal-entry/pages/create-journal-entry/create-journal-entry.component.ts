@@ -1,5 +1,5 @@
 import { CurrencyService } from './../../../general/currency.service';
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   AttachmentsService,
@@ -27,6 +27,7 @@ import { CostCenterAllocationPopupComponent } from '../components/cost-center-al
 import { costCenters } from '../../models';
 import { CurrentUserService } from 'libs/shared-lib/src/lib/services/currentuser.service';
 import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service';
+import { take } from 'rxjs';
 export interface JournalEntryLineFormValue {
   id: number;
   account: AccountDto;
@@ -53,7 +54,7 @@ export interface JournalEntryFormValue {
   templateUrl: './create-journal-entry.component.html',
   styleUrl: './create-journal-entry.component.scss',
 })
-export class CreateJournalEntryComponent {
+export class CreateJournalEntryComponent implements OnInit , OnDestroy  {
   fg: FormGroup;
   totalDebitAmount: number;
   totalDebitAmountLocal: number;
@@ -518,16 +519,18 @@ export class CreateJournalEntryComponent {
 
   getAccountCurrencyRate(accountCurrency: number, currentJournalId: number) {
     const journalLine = this.items.at(currentJournalId);
-    this.currencyService.accountCurrencyRate.subscribe((res) => {
-      const currencyRateControl = journalLine.get('currencyRate')!;
-
-      currencyRateControl.setValue(res.rate);
+    
+    const subscription = this.currencyService.accountCurrencyRate.subscribe((res) => {
+      const currencyRateControl = journalLine?.get('currencyRate');
+      currencyRateControl?.setValue(res.rate);
+      subscription.unsubscribe(); 
     });
-
+  
     this.currencyService.getAccountCurrencyRate(
       accountCurrency,
       this.currentUserService.getCurrency()
     );
+    
   }
   onFilter(event: any) {
     this.accountService.getAccountsHasNoChildrenNew(event, new PageInfo());
@@ -633,5 +636,10 @@ export class CreateJournalEntryComponent {
       0
     );
     return totalPercentage;
+  }
+  
+  ngOnDestroy(): void {
+    this.attachmentService.attachemntIdsList=[] 
+
   }
 }

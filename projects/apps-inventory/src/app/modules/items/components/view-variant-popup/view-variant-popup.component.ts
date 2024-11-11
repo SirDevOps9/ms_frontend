@@ -12,14 +12,14 @@ export class ViewVariantPopupComponent implements OnInit {
   attributeValues : any[] = []
   constructor(private itemsService : ItemsService , private config : DynamicDialogConfig , private ref : DynamicDialogRef){}
   ngOnInit(): void {
-    console.log(this.config.data) 
+    console.log(this.config.data)
 
     this.itemsService.attributeGroupsValuesData(this.config.data)
     this.itemsService.attributeValuesDataObs.subscribe(res=>{
       console.log(res)
       this.attributeValues = res
     })
-   
+
   }
 
   close() {

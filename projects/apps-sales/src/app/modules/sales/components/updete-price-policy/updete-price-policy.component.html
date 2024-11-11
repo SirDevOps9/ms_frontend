@@ -1,0 +1,193 @@
+<lib-popup-page title="Update Items" [closeFunction]="cancel" (Submit)="save()">
+  <div [formGroup]="addForm">
+    <div class="grid">
+      <div class="col-12 md:col-3">
+        <lib-text-input [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'" formControlName="search"
+          placeholder="Search items">
+
+        </lib-text-input>
+      </div>
+      <div class="col-12 md:col-3">
+        <lib-select [options]="categories" optionValue="id" optionLabel="nameEn" placeholder="category"
+          formControlName="category">
+
+        </lib-select>
+      </div>
+      <div class="col-12 md:col-3">
+        <lib-select [options]="uoms" optionValue="id" optionLabel="nameEn" placeholder="UOM" formControlName="uom">
+
+        </lib-select>
+      </div>
+      <div class="col-12 md:col-3">
+        <lib-select [options]="variants" optionValue="id" optionLabel="name" placeholder="item variant"
+          formControlName="variant">
+
+        </lib-select>
+      </div>
+    </div>
+    <div class="grid mt-3">
+      <div class=" col-12 md:col-3">
+        <div class="flex  align-items-end">
+
+
+          <lib-input-switch class="margin_end" formControlName="isStorable">
+
+          </lib-input-switch>
+          <lib-label [appControl]="addForm.controls['code']">
+            {{'updatePrice.storable' | translate}}
+          </lib-label>
+        </div>
+      </div>
+      <div class=" col-12 md:col-3">
+        <div class="flex  align-items-end ">
+
+          <lib-input-switch class="margin_end" formControlName="isService">
+
+          </lib-input-switch>
+          <lib-label [appControl]="addForm.controls['code']">
+            {{'updatePrice.service' | translate}}
+
+          </lib-label>
+        </div>
+
+      </div>
+      <div class=" col-12 md:col-3">
+        <div class="flex  align-items-end">
+          <lib-input-switch class="margin_end" formControlName="hasExpiryDate">
+
+          </lib-input-switch>
+
+          <lib-label [appControl]="addForm.controls['code']">
+            {{'updatePrice.expiryDate' | translate}}
+
+          </lib-label>
+        </div>
+      </div>
+    </div>
+    <div class="table">
+
+      <lib-data-table [popup]="true" [items]="filteredItems" [showCheckBox]="true"
+        (selectedRowsChange)="onSelectedRowsChange($event)" className="p-datatable-gridlines" [tableConfigs]="{
+        allowPagination: true,
+        allowServerPagination: false,
+        dataKey: 'id',
+        pageSize: 10,
+        columns: [
+          {
+            name: 'itemCode',
+            headerText: 'ItemsAdvancedSearch.ItemCode' | translate,
+            isGlobalFilter: true,
+            isSortable: true
+          },
+          {
+            name: 'itemName',
+            headerText: 'ItemsAdvancedSearch.ItemName' | translate,
+            isGlobalFilter: true,
+            isSortable: true
+          },
+          {
+            name: 'uomName',
+            headerText: 'ItemsAdvancedSearch.ItemUOM' | translate,
+            isGlobalFilter: true,
+            isSortable: true
+          },
+          {
+            name: 'itemVariantName',
+            headerText: 'ItemsAdvancedSearch.ItemVariant' | translate,
+            isGlobalFilter: true,
+            isSortable: true
+          },
+          {
+            name: 'itemCategoryNameEn',
+            headerText: 'ItemsAdvancedSearch.ItemCategory' | translate,
+            isGlobalFilter: true,
+            isSortable: true
+          },
+        
+        ]
+      }">
+
+
+
+      </lib-data-table>
+
+    </div>
+    <div class="w-full">
+      <h2>
+        {{'updatePrice.title' | translate}}
+
+      </h2>
+      <div class="up_date flex align-items-center ">
+
+        <div class="select_price">
+          <div class="group_type">
+            <p-radioButton name="price" value="fixed" inputId="Fixed" formControlName="price">
+            </p-radioButton>
+
+            <label class="title" for="Fixed">
+              {{'updatePrice.fixed' | translate}}
+
+            </label>
+          </div>
+          <div class="group_type">
+            <p-radioButton name="price" value="calculation" inputId="Calculation" formControlName="price">
+            </p-radioButton>
+
+            <label class="title" for="Calculation">
+              {{'updatePrice.calculation' | translate}}
+
+            </label>
+          </div>
+        </div>
+
+        <div class="add_price">
+          <div class="" *ngIf="addForm.controls['price'].value == 'fixed' ">
+            <lib-text-input type="number" (keyUp)="test($event)"></lib-text-input>
+          </div>
+          <div class="" *ngIf="addForm.controls['price'].value != 'fixed' ">
+            <div class="flex align-items-center">
+              <div class="select_price add_price">
+                <div class="group_type">
+                  <p-radioButton name="priceType" value="amount" inputId="amount" formControlName="priceType">
+                  </p-radioButton>
+
+                  <label class="title" for="amount">
+                    {{'updatePrice.amount' | translate}}
+
+                  </label>
+                </div>
+                <div class="group_type">
+                  <p-radioButton name="priceType" value="percent" inputId="percent" formControlName="priceType">
+                  </p-radioButton>
+
+                  <label class="title" for="percent">
+                    {{'updatePrice.percent' | translate}}
+
+                  </label>
+                </div>
+              </div>
+              <div class="select_price add_price">
+                <div class="group_type">
+                  <p-radioButton name="priceCount" value="plus" inputId="plus" formControlName="priceCount">
+                  </p-radioButton>
+
+                  <label class="title" for="plus"> + </label>
+                </div>
+                <div class="group_type">
+                  <p-radioButton name="priceCount" value="minus" inputId="minus" formControlName="priceCount">
+                  </p-radioButton>
+
+                  <label class="title" for="minus"> - </label>
+                </div>
+              </div>
+              <div class="select_price add_price">
+                <lib-text-input type="number" (keyUp)="test($event)"></lib-text-input>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</lib-popup-page>

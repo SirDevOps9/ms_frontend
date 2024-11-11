@@ -13,7 +13,6 @@ export class EditWarehouseComponent implements OnInit {
   glAccountLookup = []
   CashSalesLookup = []
   warehouseForm : FormGroup = new FormGroup({})
-
   CreditSalesLookup = []
   SalesReturnLookup = []
   PurchaseAccountLookup = []
@@ -30,8 +29,8 @@ export class EditWarehouseComponent implements OnInit {
   warehouseType = [
     { label: 'Physical', value: 1 },
     { label: 'Virtual', value: 2 },
-    { label: 'VanSales ', value: 3 }
-  
+    { label: 'VanSales', value: 3 }
+
   ]
   CityDropDownLookup : any = []
   CityLookup = []
@@ -90,34 +89,34 @@ getWarehouseById() {
       warehouseType: this.warehouseType.find(elem=>elem.label == res.warehouseType)?.value,
       branchWarehouses: res?.branchWarehouses?.map((bw : any) => bw.branchId), // Assuming you want to patch warehouseId
       addressWarehouse: {
-        city: res?.addressWarehouse?.city,
-        addressLine: res?.addressWarehouse?.addressLine,
-        phone: res?.addressWarehouse?.phone, // Mapping phone to the correct form control
-        countryCode: res?.addressWarehouse?.countryCode, // Mapping phone to the correct form control
-        fax: res?.addressWarehouse?.fax,
-        postalCode: res?.addressWarehouse?.postalCode,
-        email: res?.addressWarehouse?.email,
-        longitude: res?.addressWarehouse?.longitude,
-        latitude: res?.addressWarehouse?.latitude,
-        radius: res?.addressWarehouse?.radius
+        city: res?.addressWarehouse?.city ?? null,
+        addressLine: res?.addressWarehouse?.addressLine ?? null,
+        phone: res?.addressWarehouse?.phone ?? null,  // Mapping phone to the correct form control
+        countryCode: res?.addressWarehouse?.countryCode ?? null,  // Mapping phone to the correct form control
+        fax: res?.addressWarehouse?.fax ?? null,
+        postalCode: res?.addressWarehouse?.postalCode ?? null,
+        email: res?.addressWarehouse?.email ?? null,
+        longitude: res?.addressWarehouse?.longitude ?? null,
+        latitude: res?.addressWarehouse?.latitude ?? null,
+        radius: res?.addressWarehouse?.radius ?? null
       },
       warehouseAccount: {
-        glAccountId: res?.warehouseAccount?.glAccountId,
-        cashSalesAccountId: res?.warehouseAccount?.cashSalesAccountId,
-        creditSalesAccountId: res?.warehouseAccount?.creditSalesAccountId,
-        salesReturnAccountId: res?.warehouseAccount?.salesReturnAccountId,
-        salesCostAccountId: res?.warehouseAccount?.salesCostAccountId,
-        discountAccountId: res?.warehouseAccount?.discountAccountId,
-        purchaseAccountId: res?.warehouseAccount?.purchaseAccountId,
-        evaluationAccountId: res?.warehouseAccount?.evaluationAccountId,
-        goodsInTransitAccountId: res?.warehouseAccount?.goodsInTransitAccountId,
+        glAccountId: res?.warehouseAccount?.glAccountId ?? null,
+        cashSalesAccountId: res?.warehouseAccount?.cashSalesAccountId ?? null,
+        creditSalesAccountId: res?.warehouseAccount?.creditSalesAccountId ?? null,
+        salesReturnAccountId: res?.warehouseAccount?.salesReturnAccountId ?? null,
+        salesCostAccountId: res?.warehouseAccount?.salesCostAccountId ?? null,
+        discountAccountId: res?.warehouseAccount?.discountAccountId ?? null,
+        purchaseAccountId: res?.warehouseAccount?.purchaseAccountId ?? null,
+        evaluationAccountId: res?.warehouseAccount?.evaluationAccountId ?? null,
+        goodsInTransitAccountId: res?.warehouseAccount?.goodsInTransitAccountId ?? null,
         adjustmentAccountId: res?.warehouseAccount?.adjustmentAccountId
       }
     });
     console.log(res)
   })
 }
-  
+
 
   getBranchesLookup(){
     this.itemsService.getBranchDropdown()
@@ -141,83 +140,44 @@ getWarehouseById() {
       this.countriesDropDown = res
     })
   }
-  getWarehouseLookups() {
-    // this.itemsService.sendGlAccountLookupObs.subscribe(res=>{
-    //   this.glAccountLookup = res
-    // })
-    // // 
-    // this.itemsService.sendCashSalesLookupObs.subscribe(res=>{
-    //   this.CashSalesLookup = res
-    // })
-    // // 
-    // this.itemsService.sendCreditSalesLookupObs.subscribe(res=>{
-    //   this.CreditSalesLookup = res
-    // })
-    // // 
-    // this.itemsService.sendSalesReturnLookupObs.subscribe(res=>{
-    //   this.SalesReturnLookup = res
-    // })
-    // // 
-    // this.itemsService.sendPurchaseAccountLookupObs.subscribe(res=>{
-    //   this.PurchaseAccountLookup = res
-    // })
-    // // 
-    // this.itemsService.sendSalesCostCenterLookupObs.subscribe(res=>{
-    //   this.SalesCostCenterLookup = res
-    // })
-    // // 
-    // this.itemsService.sendDiscountAccountLookupObs.subscribe(res=>{
-    //   this.DiscountAccountLookup = res
-    // })
-    // // 
-    // this.itemsService.sendEvaluationAccountLookupObs.subscribe(res=>{
-    //   this.EvaluationAccountLookup = res
-    // })
-    // // 
-    // this.itemsService.sendAdjustmentAccountLookupObs.subscribe(res=>{
-    //   this.AdjustmentAccountLookup = res
-    // })
-    // // 
-    // this.itemsService.sendGoodsInTransitLookupObs.subscribe(res=>{
-    //   this.GoodsInTransitLookup = res
-    // })
-    // // 
-    // this.itemsService.sendCityLookupObs.subscribe(res=>{
-    //   this.CityLookup = res
-    // })
-    // // 
-    // this.itemsService.sendCompanyPhoneLookupObs.subscribe(res=>{
-    //   this.CompanyPhoneLookup = res
-    // })
-    // 
-  }
-  getAccount() { 
+
+  getAccount() {
     this.itemsService.AccountsDropDown()
     this.itemsService.AccountsDropDownLookupObs.subscribe(res=>{
       this.AccountsDropDownLookup = res
     })
   }
 
+
   onSubmit() {
     if (!this.formService.validForm(this.warehouseForm, false)) return;
-
-    let warehouseData = this.warehouseForm.getRawValue();
-
-    // Safely check for addressWarehouse
-    if (!!warehouseData.addressWarehouse  ) {
+    let warehouseData = {...this.warehouseForm.getRawValue()}
+    let WarehouseCheck = Object.values(warehouseData.addressWarehouse).every(elem => elem == undefined || elem == null || elem == 0);
+    let warehouseAccountCheck = Object.values(warehouseData.warehouseAccount).every(elem => elem == undefined || elem == null || elem == 0);
+    if(WarehouseCheck) {
       warehouseData.addressWarehouse = null;
     }
-    
-    // Safely check for warehouseAccount
-    if (!!warehouseData.warehouseAccount ) {
+    if(warehouseAccountCheck) {
       warehouseData.warehouseAccount = null;
     }
     this.itemsService.editWarehouse(warehouseData)
-   
+
   }
   onCancel() {
     this.routerService.navigateTo('/masterdata/warehouse')
   }
 
+  account:boolean=true
+  showaddress:boolean=false
+  findRoute() {
+    if(this.account ==true){
+      this.account = false
+      this.showaddress=true
+    }
+    else if ( this.showaddress=true){
+      this.account = true
+      this.showaddress=false
+    }
+  }
 
 }

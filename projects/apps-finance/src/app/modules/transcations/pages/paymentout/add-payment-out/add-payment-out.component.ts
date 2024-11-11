@@ -190,6 +190,7 @@ export class AddPaymentOutComponent implements OnInit {
   }
   getDetails(id: string) {
     this.paymentOutDetailsFormArray.clear();
+    this.addNewRow();
     this.addForm.controls['currentBalance'].patchValue(0);
     this.addForm.controls['totalPaidAmount'].patchValue(0);
 
