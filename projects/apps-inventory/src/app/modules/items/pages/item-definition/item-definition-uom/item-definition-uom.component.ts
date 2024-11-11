@@ -92,6 +92,7 @@ getDataUomById() {
             this.itemUomForm.updateValueAndValidity()
         this.uoms.clear();
         data.uoms.forEach((uom: any) => {
+          data.uoms.users.slice(0,3)
           this.uoms.push(this.createUomFormGroup(uom));
         });
 
@@ -130,7 +131,7 @@ this.userSubDomainModulesLookupData= res
    this.test = this.uoms.at(0).get('nameEn')?.value;
 this.names =data.uomCategoryNameEn
 this.itemUomForm.patchValue({
-  
+
   uomCategoryId: data.uomCategoryId,
   name: data.name
 });
