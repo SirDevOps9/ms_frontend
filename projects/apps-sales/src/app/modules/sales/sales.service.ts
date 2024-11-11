@@ -70,6 +70,10 @@ export class SalesService {
   private tagsDataSource = new BehaviorSubject<TagDropDownDto[]>([]);
   private customerDeleted = new BehaviorSubject<boolean>(false);
   public customerDeletedObser = this.customerDeleted.asObservable();
+  private listOfExcel = new BehaviorSubject<ItemDto[]>([]);
+  public listOfExcelObser = this.listOfExcel.asObservable();
+  public pricePolicyList = new BehaviorSubject<any>([]);
+  public pricePolicyListObser = this.pricePolicyList.asObservable();
 
   public customerCategoryDataSourceObservable = this.customerCategoryDataSource.asObservable();
   public customerCategoryDataByIDObservable = this.customerCategoryDataByID.asObservable();
@@ -543,5 +547,61 @@ export class SalesService {
       },
     });
   
+}
+validateExcel(excel: any) {
+    this.loaderService.show();
+    this.salesProxy.ValidateExcel(excel).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('messages.success'),
+          this.languageService.transalte('messages.successfully')
+        );
+        if (res) {
+          this.listOfExcel.next(res)
+          this.loaderService.hide();
+        }
+      },
+      error: (err) => {
+        this.loaderService.hide();
+        this.toasterService.showError(
+          this.languageService.transalte('messages.error'),
+          (err.message)
+        );
+      },
+    });
+  
+}
+getPricePolicyById(id: number) {
+  this.pricePolicyList.next([]);
+
+  this.salesProxy.GetPricePolicyById(id).subscribe((res) => {
+    if (res) {
+      this.pricePolicyList.next(res);
+    }
+  });
+}
+
+editPricePolicy(PricePolicy: any) {
+  this.loaderService.show();
+  this.salesProxy.editPricePolicy(PricePolicy).subscribe({
+    next: (res) => {
+      this.toasterService.showSuccess(
+        this.languageService.transalte('messages.success'),
+        this.languageService.transalte('messages.successfully')
+      );
+      if (res) {
+        this.loaderService.hide();
+        this.router.navigateTo('/masterdata/price-policy');
+      }
+    },
+    error: (err) => {
+      this.loaderService.hide();
+      this.toasterService.showError(
+        this.languageService.transalte('messages.error'),
+        (err.message)
+      );
+    },
+  });
+
 }
 }

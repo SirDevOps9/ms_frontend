@@ -238,4 +238,13 @@ export class SalesProxyService {
       `PricePolicy/${id}`
     );
   }
+  ValidateExcel(excel: any ): Observable<any> {
+    return this.httpService.post(`PricePolicy/ValidateExcel`, excel, false);
+  }
+  GetPricePolicyById(id: number): Observable<any[]> {
+    return this.httpService.get<any[]>(`PricePolicy/${id}`);
+  }
+  editPricePolicy(policy: any): Observable<any> {
+    return this.httpService.put(`PricePolicy`, policy, false);
+  }
 }

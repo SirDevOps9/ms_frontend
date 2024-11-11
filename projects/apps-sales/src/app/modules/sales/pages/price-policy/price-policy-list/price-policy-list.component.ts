@@ -62,7 +62,7 @@ export class PricePolicyListComponent implements OnInit {
 
   routeToEdit(id: number) {
     this.routerService.navigateTo(
-      `masterdata/pricelist/edit/${id}`
+      `masterdata/price-policy/edit/${id}`
     );
   }
 
@@ -84,4 +84,8 @@ export class PricePolicyListComponent implements OnInit {
       });
     }
 
+    addWithData(id: number) {
+this.salesService.getPricePolicyById(id)
+this.routerService.navigateTo(`masterdata/price-policy/add`);
+    }
 }

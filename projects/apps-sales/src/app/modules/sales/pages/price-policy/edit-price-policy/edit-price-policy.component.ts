@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { customValidators, FormsService, LanguageService, RouterService, ToasterService } from 'shared-lib';
 import { MultiSelectItemsComponent } from '../../../components/multi-select-items/multi-select-items.component';
@@ -8,13 +8,14 @@ import { SalesService } from '../../../sales.service';
 import { UpdetePricePolicyComponent } from '../../../components/updete-price-policy/updete-price-policy.component';
 import { PopupExcelComponent } from '../../../components/popup-excel/popup-excel.component';
 import { take } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-add-price-policy',
-  templateUrl: './add-price-policy.component.html',
-  styleUrl: './add-price-policy.component.scss'
+  selector: 'app-edit-price-policy',
+  templateUrl: './edit-price-policy.component.html',
+  styleUrl: './edit-price-policy.component.scss'
 })
-export class AddPricePolicyComponent implements OnInit {
+export class EditPricePolicyComponent {
   rowDataMap: { [key: number]: { uomOptions: any[] } } = {};
   duplicateLine: boolean;
   data: any;
@@ -27,26 +28,17 @@ export class AddPricePolicyComponent implements OnInit {
   @ViewChild('dt') dt: any | undefined;
 
   ngOnInit() {
-
-    this.salesService.pricePolicyListObser.pipe(
-      take(2)  // This will take only the first emission and then complete
-    ).subscribe((res) => {
-      if (res?.policyItemsList?.length > 0) {
-        res?.policyItemsList?.forEach((element: ItemDto, index: number) => {
-          this.addNewRow();
-          this.setExcelData(index, element.itemId, element);
-        });
-
-      }
-
-    });
+   const id =this.router.snapshot.params['id']
+   this.salesService.getPricePolicyById(id)
     this.subscribes()
     this.initItemsData()
+    
     this.initializeForm()
   }
+  
   initializeForm() {
     this.addForm = this.formBuilder.group({
-
+      id: new FormControl(''),
       code: new FormControl(''),
       policySource: new FormControl('Manual'),
       name: new FormControl('', [customValidators.required, customValidators.length(1, 100)]),
@@ -55,6 +47,7 @@ export class AddPricePolicyComponent implements OnInit {
     });
 
   }
+  
   get pricePolicyFormArray() {
     return this.addForm.get('policyItemsList') as FormArray;
   }
@@ -70,7 +63,7 @@ export class AddPricePolicyComponent implements OnInit {
       });
 
       // Update the main form's validity
-      this.addForm?.updateValueAndValidity();
+      this.addForm.updateValueAndValidity();
       if (!this.formsService.validForm(this.pricePolicyFormArray, false)) return;
 
 
@@ -224,6 +217,7 @@ export class AddPricePolicyComponent implements OnInit {
       rowForm.get('categoryType')?.setValue(selectedItem.categoryType);
       rowForm.get('id')?.setValue(rowIndex + 1);
       rowForm.get('price')?.setValue(selectedItem.price);
+      rowForm.get('isVatApplied')?.setValue(selectedItem.isVatApplied);
 
       const isDuplicate = this.pricePolicyFormArray.controls.some((element: any, index: number) => {
         if (index !== rowIndex) {
@@ -249,6 +243,7 @@ export class AddPricePolicyComponent implements OnInit {
 
         return false;
       });
+      this.setPriceWithVat(rowIndex, selectedItem.price)
     } else {
       if (this.rowDuplicate == rowIndex) {
         this.rowDuplicate = 0
@@ -315,9 +310,28 @@ export class AddPricePolicyComponent implements OnInit {
         }));
       },
     });
-
-
+    this.salesService.pricePolicyListObser.subscribe((res) => {
+  if(res.id){
+    this.initializeFormWithData(res);
   }
+    });
+  }
+  initializeFormWithData(data: any) {
+    // Set values for simple fields
+    this.addForm.patchValue({
+      id:data.id,
+      code: data.code,
+      name: data.name
+    });
+    data.policyItemsList.forEach((element: ItemDto, index: number) => {
+      this.addNewRow();
+      this.setExcelData(index, element.itemId, element);
+    });
+   
+  }
+
+ 
+
   openDialog(index: number) {
     const ref = this.dialog.open(MultiSelectItemsComponent, {
       width: '1000px',
@@ -445,7 +459,7 @@ export class AddPricePolicyComponent implements OnInit {
           )),
         };
 
-        this.salesService.addPricePolicy(transformedFormValue);
+        this.salesService.editPricePolicy(transformedFormValue);
       } else {
         this.toasterService.showError(
           this.languageService.transalte('messages.error'),
@@ -462,7 +476,7 @@ export class AddPricePolicyComponent implements OnInit {
 
 
   cancel() {
-    this.router.navigateTo('/masterdata/price-policy');
+    this.routerService.navigateTo('/masterdata/price-policy');
   }
 
   applyFilterGlobal(event: any, stringVal: string) {
@@ -537,6 +551,8 @@ export class AddPricePolicyComponent implements OnInit {
     private salesService: SalesService,
     private languageService: LanguageService,
     private toasterService: ToasterService,
-    private router: RouterService,
+    private routerService: RouterService,
+    private router: ActivatedRoute,
+
   ) { }
 }

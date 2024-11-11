@@ -153,6 +153,9 @@ export class BreadcrumbLabel {
   static VIEW_PAYMENT_TERM = 'BreadCrumb.ViewPaymentTerm';
   static PRICE_POLICY = 'BreadCrumb.PricePolicy';
   static PRICE_POLICY_ADD = 'BreadCrumb.add';
+  static PRICE_POLICY_EDIT = 'BreadCrumb.edit';
+  static TITLE_PRICE_POLICY_ADD = 'title.add';
+  static TITLE_PRICE_POLICY_EDIT = 'title.edit';
 
   static INVENTORY = 'Inventory';
 }
