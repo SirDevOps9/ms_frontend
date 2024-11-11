@@ -1,6 +1,14 @@
 {
+    "title": {
+        "add": "إضافة سياسة الأسعار",
+        "edit": "تعديل سياسة الأسعار",
+        "view": "عرض سياسة الأسعار"
+    },
     "BreadCrumb": {
-        "add": "إضافة"
+        "add": "إضافة",
+        "edit": "تعديل",
+        "sequence": "تسلسل",
+        "view": "عرض"
     },
     "pricePolicy": {
         "code": "الكود",
@@ -20,7 +28,10 @@
         "varient": "المتغير",
         "price": "السعر",
         "priceVAT": "السعر مع ضريبة القيمة المضافة",
-        "action": "إجراء"
+        "action": "إجراء",
+        "uploadExcel": "رفع ملف Excel",
+        "updatePrice": "تحديث سياسة الأسعار",
+        "default": "سياسة الأسعار الافتراضية"
     },
     "messages": {
         "success": "نجاح",
@@ -40,5 +51,10 @@
         "calculation": "حساب",
         "amount": "المبلغ",
         "percent": "نسبة"
+    },
+    "popuoExcel": {
+        "suptitle": "ملف الصنف",
+        "title": "افتح ملف Excel",
+        "DownloadFile": "تحميل الملف"
     }
 }

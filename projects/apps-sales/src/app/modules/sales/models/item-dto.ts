@@ -17,5 +17,7 @@ export interface ItemDto {
   categoryId: number;
   taxId: number;
   taxRatio: number;
+  price: number;
+  isVatApplied:boolean;
   itemsUOM:any[]
   }
