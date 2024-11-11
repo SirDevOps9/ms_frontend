@@ -170,9 +170,7 @@ export class FileUploaderComponent implements ControlValueAccessor, Validator {
       const binaryStr = e.target.result;
       const workbook = XLSX.read(binaryStr, { type: 'binary' });
       const worksheet = workbook.Sheets[workbook.SheetNames[0]];
-      const json:any = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-    console.log( e ,"888888888888888888888");
-    
+      const json:any = XLSX.utils.sheet_to_json(worksheet, { header: 1 });    
       this.data.emit(json);
 
     
