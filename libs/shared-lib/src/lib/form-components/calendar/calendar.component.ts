@@ -36,6 +36,11 @@ import moment from 'moment-timezone';
   ],
 })
 export class CalendarComponent implements AfterViewInit, ControlValueAccessor, Validator  , OnInit{
+  constructor(@Optional() @Self() public controlDir: NgControl) {
+    if (this.controlDir) {
+      this.controlDir.valueAccessor = this;
+    }
+  }
   ngOnInit(): void {
     this.formGroup = new FormControl(this.dateTimeZone(new Date().toString()))
 
@@ -110,10 +115,10 @@ export class CalendarComponent implements AfterViewInit, ControlValueAccessor, V
 
  
   ngAfterViewInit() {
-    // if (this.controlDir) {
-    //   setTimeout(() => {
-    //     this.labelTest = this.controlDir.name;
-    //   }, 500);
-    // }
+    if (this.controlDir) {
+      setTimeout(() => {
+        this.labelTest = this.controlDir.name;
+      }, 500);
+    }
   }
 }
