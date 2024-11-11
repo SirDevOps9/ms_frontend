@@ -66,18 +66,7 @@
             (filterColumns)="handleFilterColumns($event)"
           />
 
-          <lib-columns-selection *ngIf="libColumns"
 
-          [ngClass]="{ 'rtl-position': isRtl, 'ltr-position': !isRtl }  "
-          class="col-selection"
-          [formControl]="searchColumnsControl"
-          [options]="filtered_columns.slice(0, -1)"
-          [(ngModel)]="selected_filtered_columns"
-          optionLabel="name"
-          optionValue="name"
-          [className]="'pi pi-list'"
-          (filterColumns)="handleFilterColumns($event)"
-          ></lib-columns-selection>
 
         </ng-template>
 

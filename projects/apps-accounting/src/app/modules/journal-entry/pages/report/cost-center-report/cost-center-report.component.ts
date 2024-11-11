@@ -62,7 +62,7 @@ export class CostCenterReportComponent {
   }
   getCostCenterReports() {
     if (this.reportCostForm.valid) {
-      if (this.reportCostForm.get('dateFrom')?.value < this.reportCostForm.get('dateTo')?.value) {
+      if ( new Date(this.reportCostForm.get('dateFrom')?.value)  < new Date(this.reportCostForm.get('dateTo')?.value) ) {
         if (
           this.reportCostForm.get('posted')?.value != true &&
           this.reportCostForm.get('unposted')?.value != true
