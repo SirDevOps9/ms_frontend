@@ -27,6 +27,7 @@ import { AddPricePolicyComponent } from './pages/pricelist/add-price-policy/add-
 import { UpdetePricePolicyComponent } from './components/updete-price-policy/updete-price-policy.component';
 import { PopupExcelComponent } from './components/popup-excel/popup-excel.component';
 import { EditPricePolicyComponent } from './pages/price-policy/edit-price-policy/edit-price-policy.component';
+import { ViewPricePolicyComponent } from './pages/price-policy/view-price-policy/view-price-policy.component';
 const routes: Routes = [
   {
     path: '',
@@ -204,6 +205,15 @@ const routes: Routes = [
             }
           },
           {
+            path: 'view/:id',
+            component: ViewPricePolicyComponent,
+            //  canActivate: [AuthGuard],
+            data: {
+              breadcrumb: BreadcrumbLabel.PRICE_POLICY_VIEW,
+              pageTitle:BreadcrumbLabel.TITLE_PRICE_POLICY_VIEW,
+            }
+          },
+          {
             path: 'sequence',
             component: SequenceComponent,
             data: {
@@ -243,7 +253,8 @@ const routes: Routes = [
     MultiSelectItemsComponent,
     UpdetePricePolicyComponent,
     PopupExcelComponent,
-    EditPricePolicyComponent
+    EditPricePolicyComponent,
+    ViewPricePolicyComponent
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule 
   ],

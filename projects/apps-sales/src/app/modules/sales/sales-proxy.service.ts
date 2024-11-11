@@ -247,4 +247,7 @@ export class SalesProxyService {
   editPricePolicy(policy: any): Observable<any> {
     return this.httpService.put(`PricePolicy`, policy, false);
   }
+  viewPricePolicy(id: number): Observable<any[]> {
+    return this.httpService.get<any[]>(`PricePolicy/View/${id}`);
+  }
 }

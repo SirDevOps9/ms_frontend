@@ -28,18 +28,28 @@ export class EditPricePolicyComponent {
   @ViewChild('dt') dt: any | undefined;
 
   ngOnInit() {
-   const id =this.router.snapshot.params['id']
-   this.salesService.getPricePolicyById(id)
+  this.gitData()
     this.subscribes()
     this.initItemsData()
     
     this.initializeForm()
   }
-  
+  gitData(){
+    const id =this.router.snapshot.params['id']
+    this.salesService.getPricePolicyById(id)
+    this.salesService.pricePolicyListObser.subscribe((res) => {
+      if(res.id){
+        console.log(res ,"1111111111");
+        
+        this.initializeFormWithData(res);
+      }
+        });
+  }
   initializeForm() {
     this.addForm = this.formBuilder.group({
       id: new FormControl(''),
       code: new FormControl(''),
+      isDefault: new FormControl(false),
       policySource: new FormControl('Manual'),
       name: new FormControl('', [customValidators.required, customValidators.length(1, 100)]),
       policyItemsList: this.formBuilder.array([]),
@@ -98,6 +108,7 @@ export class EditPricePolicyComponent {
 
       this.filteredPricePolicies = this.pricePolicyFormArray
     } else {
+      
       this.toasterService.showError(
         this.languageService.transalte('messages.error'),
         this.languageService.transalte('messages.duplicateItem')
@@ -258,6 +269,7 @@ export class EditPricePolicyComponent {
           const rowItemVariantId = rowForm.get('itemVariantId')?.value;
 
           if (uomId === rowUomId && itemId === rowItemId && itemVariantId === rowItemVariantId) {
+           
             this.toasterService.showError(
               this.languageService.transalte('messages.error'),
               this.languageService.transalte('messages.duplicateItem')
@@ -310,24 +322,20 @@ export class EditPricePolicyComponent {
         }));
       },
     });
-    this.salesService.pricePolicyListObser.subscribe((res) => {
-  if(res.id){
-    this.initializeFormWithData(res);
-  }
-    });
+ 
   }
   initializeFormWithData(data: any) {
     // Set values for simple fields
     this.addForm.patchValue({
       id:data.id,
       code: data.code,
-      name: data.name
+      name: data.name,
+      isDefault:data.isDefault
     });
-    data.policyItemsList.forEach((element: ItemDto, index: number) => {
+    data.policyItemsList.forEach((element: any, index: number) => {
       this.addNewRow();
       this.setExcelData(index, element.itemId, element);
-    });
-   
+    });   
   }
 
  
@@ -357,7 +365,7 @@ export class EditPricePolicyComponent {
     });
   }
   update() {
-    if (this.pricePolicyFormArray.value.length > 0) {
+    if (this.pricePolicyFormArray.value.length >0) {
 
 
       if (!this.duplicateLine) {
@@ -543,7 +551,9 @@ export class EditPricePolicyComponent {
     });
   }
 
-
+  // ngOnDestroy(): void {
+  //   this.salesService.pricePolicyList.next([])
+  // }
   constructor(
     private formBuilder: FormBuilder,
     private formsService: FormsService,
