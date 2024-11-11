@@ -71,8 +71,10 @@ export class TreasuryStatementComponent implements OnInit {
     });
 
     this.reportForm.get('dateFrom')?.valueChanges.subscribe((res: any) => {
+      console.log(res)
       this.fromDate = this.formatDate(res, 'yyyy-MM-dd');
     });
+    
     this.reportForm.get('dateTo')?.valueChanges.subscribe((res: any) => {
       this.toDate = this.formatDate(res, 'yyyy-MM-dd');
     });
@@ -88,13 +90,11 @@ export class TreasuryStatementComponent implements OnInit {
 
   initializeForm() {
     this.reportForm = this.fb.group({
-      dateFrom: new FormControl('', [customValidators.required]),
-      dateTo: new FormControl('', [customValidators.required]),
+      dateFrom: new FormControl(new Date(), [customValidators.required]),
+      dateTo: new FormControl(new Date(), [customValidators.required]),
       treasuryId: new FormControl('', [customValidators.required]),
       currency: new FormControl(''),
     });
-    this.reportForm.controls['dateFrom'].patchValue(new Date());
-    this.reportForm.controls['dateTo'].patchValue(new Date());
   }
 
   initializeDates() {
@@ -118,7 +118,7 @@ export class TreasuryStatementComponent implements OnInit {
   }
   getReportData() {
     if (!this.formsService.validForm(this.reportForm, false)) return;
-    if (this.reportForm.get('dateFrom')?.value < this.reportForm.get('dateTo')?.value) {
+    if (new Date(this.reportForm.get('dateFrom')?.value)  < new Date(this.reportForm.get('dateTo')?.value) ) {
       const formValue = this.reportForm.value;
       const filterDto: TreasuryStatementfilterDto = {
         DateFrom: formValue.dateFrom,
