@@ -119,6 +119,9 @@ export class BreadcrumbLabel {
   static ITEMS_CATEGORY = 'BreadCrumb.ItemsCategory';
   static STOCKIN = 'Stock In';
   static ADD_STOCKIN = 'Add Stock In';
+  static readonly STOCKOUT = 'BreadCrumb.stockout';
+  static readonly ADD_STOCKOUT = 'BreadCrumb.add';
+  static readonly TITLE_ADD_STOCKOUT = 'BreadCrumb.add_stockOut';
 
   static COST_CENTER = 'Cost Center';
   static PAYMENT_TERM_ADD = 'BreadCrumb.AddPaymentterm';

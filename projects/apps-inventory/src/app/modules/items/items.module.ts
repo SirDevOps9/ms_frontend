@@ -332,19 +332,26 @@ const routes: Routes = [
         path: 'stock-out',
         component:MainStockOutComponent ,
         data: {
-          breadcrumb: BreadcrumbLabel.STOCKIN,
+          breadcrumb: BreadcrumbLabel.STOCKOUT,
+          pageTitle: BreadcrumbLabel.STOCKOUT,
+
         },
         children: [
           {
             path: '',
             component: StockOutListComponent,
-            data: { breadcrumb: '' },
+            data: { breadcrumb: '' ,
+              pageTitle: BreadcrumbLabel.STOCKOUT,
+
+            },
           },
           {
             path: 'add',
             component: AddStockOutComponent,
             data: {
-              breadcrumb: BreadcrumbLabel.ADD_STOCKIN,
+              breadcrumb: BreadcrumbLabel.ADD_STOCKOUT,
+              pageTitle: BreadcrumbLabel.TITLE_ADD_STOCKOUT,
+
             },
           },
          

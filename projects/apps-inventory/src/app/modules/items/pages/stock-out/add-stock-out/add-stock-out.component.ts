@@ -47,7 +47,7 @@ export class AddStockOutComponent implements OnInit{
     private itemsService: ItemsService,
     private fb: FormBuilder
   ) {
-    this.title.setTitle(this.langService.transalte('itemCategory.itemDefinition'));
+    // this.title.setTitle(this.langService.transalte('itemCategory.itemDefinition'));
   }
   ngOnInit(): void {
     this.stockInForm = this.fb.group({
