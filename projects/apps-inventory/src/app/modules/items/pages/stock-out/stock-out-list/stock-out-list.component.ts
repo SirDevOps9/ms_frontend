@@ -3,31 +3,36 @@ import { Title } from '@angular/platform-browser';
 import { AuthService } from 'microtec-auth-lib';
 import { DialogService } from 'primeng/dynamicdialog';
 import { RouterService, LanguageService, lookupDto, PageInfoResult, MenuModule, PageInfo } from 'shared-lib';
-import { AddItemDefinitionPopupComponent } from '../../../components/add-item-definition/add-item-definition-popup.component';
 import { ItemsService } from '../../../items.service';
-import { itemDefinitionDto, StockInDto } from '../../../models';
+import {  StockInDto, StockOutDto } from '../../../models';
+import { SharedStock } from '../../../models/sharedStockOutEnums';
 
 @Component({
-  selector: 'app-stock-in-list',
-  templateUrl: './stock-in-list.component.html',
-  styleUrl: './stock-in-list.component.scss'
+  selector: 'app-stock-out-list',
+  templateUrl: './stock-out-list.component.html',
+  styleUrl: './stock-out-list.component.scss'
 })
-export class StockInListComponent implements OnInit {
+export class StockOutListComponent implements OnInit {
+  SortBy?: number;
+  SortColumn?:string
+
+
   constructor(
     private routerService: RouterService,
     public authService: AuthService,
     private dialog: DialogService,
     private title: Title,
     private langService: LanguageService,
-    private itemsService : ItemsService
+    private itemsService : ItemsService,
+    public sharedFinanceEnums :SharedStock
   ) {
     this.title.setTitle(this.langService.transalte('itemCategory.itemDefinition'));
 
   }
 
-  tableData: StockInDto[];
+  tableData: any[];
 
-  exportData: StockInDto[];
+  exportData: StockOutDto[];
   cols = [
    
     {
@@ -53,25 +58,26 @@ export class StockInListComponent implements OnInit {
   searchTerm: string;
 
   ngOnInit() {
-    this.initStockInData();
+    this.initStockOutData();
+    this.subscribes();
     this.exportColumns = this.cols.map((col) => ({
       id: col.header,
       name: col.field,
     }));
   }
-
-  initStockInData() {
-    this.itemsService.getStockIn('', new PageInfo());
-
-    this.itemsService.sendStockInDataSourcesObs.subscribe({
+  subscribes() {
+    this.itemsService.stockOutDataSourceeObservable.subscribe({
       next: (res) => {
         this.tableData = res;
       },
     });
 
-    this.itemsService.currentPageInfo.subscribe((currentPageInfo) => {
-      this.currentPageInfo = currentPageInfo;
-    });
+   
+
+   
+  }
+  initStockOutData() {
+      this.itemsService.getAllStockOut('', new PageInfo());
   }
 
   onPageChange(pageInfo: PageInfo) {
@@ -80,19 +86,19 @@ export class StockInListComponent implements OnInit {
   
   }
 
-  exportClick(e?: Event) {
-    this.exportBankData(this.searchTerm);
-  }
+  // exportClick(e?: Event) {
+  //   this.exportBankData(this.searchTerm);
+  // }
 
   exportBankData(searchTerm: string) {
     this.itemsService.exportsItemsDefinitionList(searchTerm);
-    this.itemsService.sendStockInDataSourcesObs.subscribe((res) => {
+    this.itemsService.sendStockOutDataSourcesObs.subscribe((res) => {
       this.exportData = res;
     });
   }
 
   onAdd() {
-    this.routerService.navigateTo(`masterdata/stock-in/add-stock-in`)
+    this.routerService.navigateTo(`masterdata/stock-out/add`)
 
   }
 
@@ -103,12 +109,22 @@ export class StockInListComponent implements OnInit {
   }
 
   onSearchChange() {
-    this.itemsService.getStockIn(this.searchTerm, new PageInfo());
+    this.itemsService.getAllStockOut(this.searchTerm, new PageInfo());
     
   }
 
   onDelete(id: number) {
      this.itemsService.deleteStockIn(id)
+  }
+  exportedColumns(obj: { SortBy: number; SortColumn: string }) {
+    this.SortBy = obj.SortBy;
+    this.SortColumn = obj.SortColumn;
+  }
+  exportClick(){
+    this.itemsService.exportStockOutList(this.searchTerm ,this.SortBy,this.SortColumn);
+    this.itemsService.exportStockOutListDataSource.subscribe((res) => {
+      this.exportData = res;
+    });
   }
 }
 
