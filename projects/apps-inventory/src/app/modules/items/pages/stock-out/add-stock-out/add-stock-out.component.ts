@@ -7,11 +7,11 @@ import { LanguageService, MenuModule, PageInfo, PageInfoResult, RouterService } 
 import { ItemsService } from '../../../items.service';
 
 @Component({
-  selector: 'app-add-stock-in',
-  templateUrl: './add-stock-in.component.html',
-  styleUrl: './add-stock-in.component.scss',
+  selector: 'app-add-stock-out',
+  templateUrl: './add-stock-out.component.html',
+  styleUrl: './add-stock-out.component.scss'
 })
-export class AddStockInComponent implements OnInit {
+export class AddStockOutComponent implements OnInit{
   stockInForm: FormGroup = new FormGroup({});
 
   tableData: any[];
@@ -47,7 +47,7 @@ export class AddStockInComponent implements OnInit {
     private itemsService: ItemsService,
     private fb: FormBuilder
   ) {
-    this.title.setTitle(this.langService.transalte('itemCategory.itemDefinition'));
+    // this.title.setTitle(this.langService.transalte('itemCategory.itemDefinition'));
   }
   ngOnInit(): void {
     this.stockInForm = this.fb.group({
