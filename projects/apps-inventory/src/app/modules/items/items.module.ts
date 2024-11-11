@@ -59,6 +59,7 @@ import { AttributeDefinitionValuesComponent } from './pages/attribute-definition
 import { AttributeDefinitionListValuesComponent } from './pages/attribute-definition/attribute-definition-list-values/attribute-definition-list-values/attribute-definition-list-values.component';
 import { TrackingStockInComponent } from './pages/stock-In/add-stock-in/tracking-stock-in/tracking-stock-in.component';
 import { MultiSelectItemStockInComponent } from './pages/stock-In/add-stock-in/multi-select-item-stock-in/multi-select-item-stock-in.component';
+import { ScanParcodeStockInComponent } from './pages/stock-In/scan-parcode-stock-in/scan-parcode-stock-in.component';
 
 const routes: Routes = [
   {
@@ -391,7 +392,8 @@ const routes: Routes = [
     AttributeDefinitionValuesComponent,
     AttributeDefinitionListValuesComponent,
     TrackingStockInComponent,
-    MultiSelectItemStockInComponent
+    MultiSelectItemStockInComponent,
+    ScanParcodeStockInComponent
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule ],
 })
