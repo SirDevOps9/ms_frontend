@@ -86,7 +86,7 @@ export class StockInListComponent implements OnInit {
 
   exportBankData(searchTerm: string) {
     this.itemsService.exportsItemsDefinitionList(searchTerm);
-    this.itemsService.sendStockOutDataSourcesObs.subscribe((res) => {
+    this.itemsService.sendStockInDataSourcesObs.subscribe((res) => {
       this.exportData = res;
     });
   }

@@ -25,6 +25,9 @@ import { MultiSelectItem } from 'primeng/multiselect';
 import { MultiSelectItemsComponent } from './components/multi-select-items/multi-select-items.component';
 import { AddPricePolicyComponent } from './pages/pricelist/add-price-policy/add-price-policy.component';
 import { UpdetePricePolicyComponent } from './components/updete-price-policy/updete-price-policy.component';
+import { PopupExcelComponent } from './components/popup-excel/popup-excel.component';
+import { EditPricePolicyComponent } from './pages/price-policy/edit-price-policy/edit-price-policy.component';
+import { ViewPricePolicyComponent } from './pages/price-policy/view-price-policy/view-price-policy.component';
 const routes: Routes = [
   {
     path: '',
@@ -189,7 +192,25 @@ const routes: Routes = [
             //  canActivate: [AuthGuard],
             data: {
               breadcrumb: BreadcrumbLabel.PRICE_POLICY_ADD,
-              pageTitle:BreadcrumbLabel.PRICE_POLICY_ADD,
+              pageTitle:BreadcrumbLabel.TITLE_PRICE_POLICY_ADD,
+            }
+          },
+          {
+            path: 'edit/:id',
+            component: EditPricePolicyComponent,
+            //  canActivate: [AuthGuard],
+            data: {
+              breadcrumb: BreadcrumbLabel.PRICE_POLICY_EDIT,
+              pageTitle:BreadcrumbLabel.TITLE_PRICE_POLICY_EDIT,
+            }
+          },
+          {
+            path: 'view/:id',
+            component: ViewPricePolicyComponent,
+            //  canActivate: [AuthGuard],
+            data: {
+              breadcrumb: BreadcrumbLabel.PRICE_POLICY_VIEW,
+              pageTitle:BreadcrumbLabel.TITLE_PRICE_POLICY_VIEW,
             }
           },
           {
@@ -230,7 +251,10 @@ const routes: Routes = [
     PricePolicyMainComponent,
     AddPricePolicyComponent,
     MultiSelectItemsComponent,
-    UpdetePricePolicyComponent
+    UpdetePricePolicyComponent,
+    PopupExcelComponent,
+    EditPricePolicyComponent,
+    ViewPricePolicyComponent
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule 
   ],

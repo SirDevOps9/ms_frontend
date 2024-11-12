@@ -62,7 +62,7 @@ export class PricePolicyListComponent implements OnInit {
 
   routeToEdit(id: number) {
     this.routerService.navigateTo(
-      `masterdata/pricelist/edit/${id}`
+      `masterdata/price-policy/edit/${id}`
     );
   }
 
@@ -74,7 +74,7 @@ export class PricePolicyListComponent implements OnInit {
 
   view(id: number) {
     this.routerService.navigateTo(
-      `masterdata/pricelist/view/${id}`
+      `masterdata/price-policy/view/${id}`
     );  }
 
     export(searchTerm: string) {
@@ -84,4 +84,15 @@ export class PricePolicyListComponent implements OnInit {
       });
     }
 
+//     addWithData(id: number) {
+// this.salesService.getPricePolicyById(id)
+// this.routerService.navigateTo(`masterdata/price-policy/add`);
+//     }
+addWithData(id: number) {
+  // Store the ID in localStorage
+  localStorage.setItem('selectedPricePolicyId', id.toString());
+
+  // Navigate to the 'add' page
+  this.routerService.navigateTo(`masterdata/price-policy/add`);
+}
 }

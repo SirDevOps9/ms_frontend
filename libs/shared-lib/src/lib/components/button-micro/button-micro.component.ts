@@ -20,7 +20,7 @@ export class ButtonMicroComponent {
     | 'btn_rounded'
     |'savePoupUp'
     | 'disabled'
-    | 'outline'| 'saveDisabled'|'table_button_view'|'table_button_edit'|'table_button_delete'| 'sequence'| 'table_button_statement'|any | 'print';
+    | 'outline'| 'saveDisabled'|'table_button_view'|'table_button_edit'|'table_button_delete'| 'sequence'| 'table_button_statement'|'table_button_copy'|any | 'print';
   @Input() disabled: boolean = false;
   @Output() click = new EventEmitter();
   @Input() type: 'submit' | 'button';

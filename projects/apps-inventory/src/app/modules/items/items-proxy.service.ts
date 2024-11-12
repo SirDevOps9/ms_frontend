@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
-import { addBarcode, AddGeneralDto, AddItemCategory, AddItemDefinitionDto, AddOperatioalTag, AddStockIn, AddVariantLine, AddWarehouse, AdvancedSearchDto, AttributesVariants, EditAttributes, EditWareHouse, GetItemById, GetItemCategoryDto, getUomByItemId, GetWarehouseList, IOperationalTag, itemDefinitionDto, ItemTypeDto, Iuom, LatestItems, StockInDto, UOMCategoryDto, UomDefault } from './models';
+import { addBarcode, AddGeneralDto, AddItemCategory, AddItemDefinitionDto,StockOutDto, AddOperatioalTag, AddStockIn, AddVariantLine, AddWarehouse, AdvancedSearchDto, AttributesVariants, EditAttributes, EditWareHouse, GetItemById, GetItemCategoryDto, getUomByItemId, GetWarehouseList, IOperationalTag, itemDefinitionDto, ItemTypeDto, Iuom, LatestItems, StockInDto, UOMCategoryDto, UomDefault } from './models';
 import { EditItemDefinitionDto } from './models/editItemDefinitionDto';
 import { variantGroupById } from './models/variantGroupById';
 import { itemAttributeValues, itemAttributeValuesByID } from './models/itemAttributeValues';
@@ -593,7 +593,24 @@ getOperationalTagList(searchTerm: string, pageInfo: PageInfo): Observable<IOpera
     }
     return this.httpService.get<PaginationVm<AdvancedSearchDto>>(query);
   }
-
-
+  getAllStockOut(
+    searchTerm: string,
+    pageInfo: PageInfo
+  ): Observable<PaginationVm<StockOutDto>> {
+    let query = `StockOut?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+    return this.httpService.get<PaginationVm<StockOutDto>>(query);
+  }
+  exportStockOutList(searchTerm?: string ,SortBy?:number,SortColumn?:string): Observable<StockOutDto[]> {
+    let query = `StockOut/Export?`;
+    const params: string[] = [];
+    if (searchTerm) params.push(`searchTerm=${encodeURIComponent(searchTerm)}`);
+    if (SortBy) params.push(`SortBy=${SortBy}`);
+    if (SortColumn) params.push(`SortColumn=${SortColumn}`);
+    query += params.join('&'); 
+    return this.httpService.get<StockOutDto[]>(query);
+  }
 }
 

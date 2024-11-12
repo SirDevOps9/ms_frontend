@@ -1,6 +1,10 @@
 {
  "BreadCrumb": {
-  "ItemsCategory":"Items Category"
+  "ItemsCategory":"Items Category",
+  "stockout":"Stock Out",
+  "add":"Add",
+  "add_stockOut":"Add StockOut"
+
  },
   "Toaster": {
     "Confirm": {
@@ -424,6 +428,43 @@
   "activeOn":"On",
   "activeOff":"Off",
   "showMoreValues":"...Show More"
+},
+"stockOut" : {
+  "import" : "Import",
+  "edit" : "Edit",
+  "save" : "Save",
+  "cancel" : "Cancel",
+  "delete" : "Stock In Deleted Successfully",
+  "success" : "Success",
+  "add" : "Stock In Added Successfully",
+  "edits" : "Stock In Edited Successfully",
+  "code" : "Code",
+  "date" : "Date",
+  "description" : "Description",
+  "sourceDoc" : "Source Document",
+  "warehouse" : "Warehouse",
+  "status" : "Status",
+  "journalCode" : "Journal Code",
+  "reserve":"Reserve Quantity",
+  "actions" : "Actions",
+  "Add" : "Create",
+  "search" : "Search",
+  "ChangeColumn" : "Change Column",
+  "docType" : "Source Document Type",
+  "notes" : "notes",
+  "barcode": "Barcode",
+  "itemCode": "Item Code",
+  "itemDescription": "Item Description",
+  "UOM": "UOM",
+  "QTY": "QTY",
+  "cost": "Cost",
+  "subTotal": "Subtotal",
+  "tracking": "Tracking",
+  "note": "Note",
+  "action": "Action",
+  "btnReserve": "Reserve",
+  "btnReserved": "Reserved"
+
 }
 
 

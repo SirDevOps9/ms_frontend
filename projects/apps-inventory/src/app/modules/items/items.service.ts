@@ -34,6 +34,7 @@ import {
   IuomResult,
   LatestItems,
   StockInDto,
+  StockOutDto,
   UOMCategoryDto,
   UomCodeLookup,
   UomDefault,
@@ -95,6 +96,12 @@ export class ItemsService {
   public ItemGetItemUomById =  new BehaviorSubject<any[]>([])
   public defaultUnit = new BehaviorSubject<{ id: number; name: string }>({} as { id: number; name: string });
   // new Edits for item Def
+  public stockOutDataSource = new BehaviorSubject<StockOutDto[]>([]);
+
+  stockOutDataSourceeObservable = this.stockOutDataSource.asObservable();
+  public exportStockOutListDataSource = new BehaviorSubject<StockOutDto[]>([]);
+
+  exportStockOutListDataSourceObservable = this.exportStockOutListDataSource.asObservable();
 
   saveItemDefGeneral = new BehaviorSubject<AddGeneralDto>({} as AddGeneralDto);
   saveItemDefGeneral$ = this.saveItemDefGeneral.asObservable()
@@ -114,7 +121,7 @@ export class ItemsService {
   //transactions
 
   sendStockInDataSources = new BehaviorSubject<StockInDto[]>([]);
-  sendStockOutDataSources = new BehaviorSubject<StockInDto[]>([]);
+  sendStockOutDataSources = new BehaviorSubject<StockOutDto[]>([]);
 
   public exportedStockInDataSource = new BehaviorSubject<StockInDto[]>([]);
   public exportedStockOutDataSource = new BehaviorSubject<StockInDto[]>([]);
@@ -394,14 +401,14 @@ this.itemProxy.getItemBarcodeById(id).subscribe({
     }
   }
 
-  getStockOut(quieries: string, pageInfo: PageInfo) {
-    this.loaderService.show();
-    this.itemProxy.getStockOut(quieries, pageInfo).subscribe((response) => {
-      this.sendStockOutDataSources.next(response.result);
-      this.currentPageInfo.next(response.pageInfoResult);
-      this.loaderService.hide();
-    });
-  }
+  // getStockOut(quieries: string, pageInfo: PageInfo) {
+  //   this.loaderService.show();
+  //   this.itemProxy.getStockOut(quieries, pageInfo).subscribe((response) => {
+  //     this.sendStockOutDataSources.next(response.result);
+  //     this.currentPageInfo.next(response.pageInfoResult);
+  //     this.loaderService.hide();
+  //   });
+  // }
 
   exportsStockOutList(searchTerm: string | undefined) {
     this.itemProxy.exportsStockOutList(searchTerm).subscribe({
@@ -1514,6 +1521,8 @@ async deleteOperationalTag(id: number) {
   }
 }
 
+
+
 OperationalTagDropDown(){
   return this.itemProxy.operationTagDropdown().subscribe(res=>{
     this.sendOperationalTagDropDown.next(res)
@@ -1545,5 +1554,18 @@ getItems(quieries: string, searchTerm: string, pageInfo: PageInfo) {
   });
 }
 
+getAllStockOut(quieries: string, pageInfo: PageInfo) {
+  this.itemProxy.getAllStockOut(quieries, pageInfo).subscribe((response) => {
+    this.stockOutDataSource.next(response.result);
+    this.currentPageInfo.next(response.pageInfoResult);
+  });
+}
+exportStockOutList(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
+  this.itemProxy.exportStockOutList(searchTerm ,SortBy,SortColumn).subscribe({
+    next: (res: any) => {
+      this.exportStockOutListDataSource.next(res);
+    },
+  });
+}
 }
 

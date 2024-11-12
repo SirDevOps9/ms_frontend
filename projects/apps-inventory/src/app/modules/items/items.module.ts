@@ -62,6 +62,9 @@ import { MultiSelectItemStockInComponent } from './pages/stock-In/add-stock-in/m
 import { ScanParcodeStockInComponent } from './pages/stock-In/scan-parcode-stock-in/scan-parcode-stock-in.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { ImportStockInComponent } from './pages/stock-In/import-stock-in/import-stock-in.component';
+import { MainStockOutComponent } from './pages/stock-out/main-stock-out/main-stock-out.component';
+import { AddStockOutComponent } from './pages/stock-out/add-stock-out/add-stock-out.component';
+import { StockOutListComponent } from './pages/stock-out/stock-out-list/stock-out-list.component';
 
 const routes: Routes = [
   {
@@ -341,6 +344,35 @@ const routes: Routes = [
           breadcrumb: BreadcrumbLabel.ITEM_CATEGORY,
         },
       },
+      {
+        path: 'stock-out',
+        component:MainStockOutComponent ,
+        data: {
+          breadcrumb: BreadcrumbLabel.STOCKOUT,
+          pageTitle: BreadcrumbLabel.STOCKOUT,
+
+        },
+        children: [
+          {
+            path: '',
+            component: StockOutListComponent,
+            data: { breadcrumb: '' ,
+              pageTitle: BreadcrumbLabel.STOCKOUT,
+
+            },
+          },
+          {
+            path: 'add',
+            component: AddStockOutComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.ADD_STOCKOUT,
+              pageTitle: BreadcrumbLabel.TITLE_ADD_STOCKOUT,
+
+            },
+          },
+         
+        ],
+      },
     ],
   },
 ];
@@ -393,6 +425,9 @@ const routes: Routes = [
     WarehouseTabsComponent,
     AttributeDefinitionValuesComponent,
     AttributeDefinitionListValuesComponent,
+    MainStockOutComponent,
+    AddStockOutComponent,
+    StockOutListComponent,
     TrackingStockInComponent, 
     MultiSelectItemStockInComponent,
     ScanParcodeStockInComponent,
