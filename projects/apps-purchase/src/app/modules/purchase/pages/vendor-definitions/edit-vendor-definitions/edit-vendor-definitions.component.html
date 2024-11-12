@@ -599,12 +599,12 @@
                       <div class="col-12">
                         <lib-form-group>
                           <lib-label
-                            [appControl]="editVendorForm.get('vendorFinancial')?.get('priceListId')"
+                            [appControl]="editVendorForm.get('vendorFinancial')?.get('pricePolicyId')"
                           >
                           {{ 'EditVendorDefinition.PriceList' | translate }}
                         </lib-label>
                           <lib-select
-                            formControlName="priceListId"
+                            formControlName="pricePolicyId"
                             [options]="priceList"
                             [selectedValue]="selectedPriceList"
                             optionLabel="name"
@@ -612,7 +612,7 @@
                           >
                           </lib-select>
                           <lib-field-validations
-                            [appControl]="editVendorForm.get('vendorFinancial')?.get('priceListId')"
+                            [appControl]="editVendorForm.get('vendorFinancial')?.get('pricePolicyId')"
                           >
                           </lib-field-validations>
                         </lib-form-group>

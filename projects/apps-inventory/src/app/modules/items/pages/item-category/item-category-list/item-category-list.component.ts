@@ -14,11 +14,14 @@ import { AddItemCategoryComponent } from '../../../components/add-item-category/
 })
 export class ItemCategoryListComponent implements OnInit {
   constructor(
+    private routerService: RouterService,
     public authService: AuthService,
     private dialog: DialogService,
-  
+    private title: Title,
+    private langService: LanguageService,
     private itemsService : ItemsService
   ) {
+    this.title.setTitle(this.langService.transalte('bank.BankDefinitonsList'));
 
   }
 
@@ -63,7 +66,6 @@ export class ItemCategoryListComponent implements OnInit {
 
     this.itemsService.sendItemCategoryDataSourceObs.subscribe({
       next: (res) => {
-        console.log(res)
         this.tableData = res;
       },
     });
@@ -84,7 +86,6 @@ export class ItemCategoryListComponent implements OnInit {
   exportItemData(searchTerm: string) {
     this.itemsService.exportsItemCategoryList(searchTerm);
     this.itemsService.exportedItemCategoryDataSourceObs.subscribe((res) => {
-      console.log(res)
       this.exportData = res;
     });
   }
@@ -97,13 +98,11 @@ export class ItemCategoryListComponent implements OnInit {
   }
 
   onEdit(data: any) {
-          // this.routerService.navigateTo(`/masterdata/bank-definition/edit-bank-definition/${data.id}`);
 
 
   }
 
   onSearchChange(e : any) {
-    console.log(e)
     this.searchTerm = e
     this.itemsService.getItemCategory(this.searchTerm, new PageInfo());
     

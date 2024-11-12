@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
-import { BalanceType } from "./balancetype";
-import { AccountNature } from "./account-nature";
+import { AccountNature, BalanceType, GetItemsQueryEnum } from ".";
 
 @Injectable({
     providedIn: 'root',
@@ -12,5 +11,9 @@ export class SharedSalesEnums {
 
     get AccountNature(): typeof AccountNature {
         return AccountNature;
+    }
+
+    get GetItemsQueryEnum(): typeof GetItemsQueryEnum{
+        return GetItemsQueryEnum;
     }
 }

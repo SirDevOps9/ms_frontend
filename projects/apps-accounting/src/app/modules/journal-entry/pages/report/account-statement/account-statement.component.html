@@ -16,8 +16,9 @@
               <lib-calendar formControlName="dateTo"  ></lib-calendar>
 
             </div>
-            <div class="col-12 md:col-4">
+            <div class="md:col-4 flex justify-content-center align-items-center">
               <lib-multi-select
+              style="width: 100%;"
                 formControlName="Accounts"
                 [options]="filteredAccounts"
                 optionValue="id"

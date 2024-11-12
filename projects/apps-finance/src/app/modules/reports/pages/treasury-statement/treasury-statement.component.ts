@@ -36,9 +36,8 @@ export class TreasuryStatementComponent implements OnInit {
   total: number = 0;
   selectedTreasuryName: string = '';
 
-
-  fromDate : string = ''
-  toDate : string = ''
+  fromDate: string = '';
+  toDate: string = '';
 
   constructor(
     private fb: FormBuilder,
@@ -55,7 +54,6 @@ export class TreasuryStatementComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    
     this.getTreasuryDropDown();
     this.initializeForm();
     this.initializeDates();
@@ -73,32 +71,30 @@ export class TreasuryStatementComponent implements OnInit {
     });
 
     this.reportForm.get('dateFrom')?.valueChanges.subscribe((res: any) => {
+      console.log(res)
       this.fromDate = this.formatDate(res, 'yyyy-MM-dd');
-    })
+    });
+    
     this.reportForm.get('dateTo')?.valueChanges.subscribe((res: any) => {
       this.toDate = this.formatDate(res, 'yyyy-MM-dd');
-    })
+    });
   }
 
   getTreasuryDropDown() {
     this.financeService.treasuryDropDown();
     this.financeService.getTreasuryDropDownDataObservable.subscribe((res: TreasuryDropDown[]) => {
       this.treasuryDropDown = res;
-      if(res)
-      this.currency = res.find( x =>x.id == this.routerService.currentId)?.currencyName
+      if (res) this.currency = res.find((x) => x.id == this.routerService.currentId)?.currencyName;
     });
   }
 
   initializeForm() {
     this.reportForm = this.fb.group({
-      dateFrom: new FormControl('', [customValidators.required]),
-      dateTo: new FormControl('', [customValidators.required]),
+      dateFrom: new FormControl(new Date(), [customValidators.required]),
+      dateTo: new FormControl(new Date(), [customValidators.required]),
       treasuryId: new FormControl('', [customValidators.required]),
       currency: new FormControl(''),
     });
-    this.reportForm.controls['dateFrom'].patchValue(new Date());
-    this.reportForm.controls['dateTo'].patchValue(new Date());
-
   }
 
   initializeDates() {
@@ -122,23 +118,23 @@ export class TreasuryStatementComponent implements OnInit {
   }
   getReportData() {
     if (!this.formsService.validForm(this.reportForm, false)) return;
-    if (this.reportForm.get('dateFrom')?.value > this.reportForm.get('dateTo')?.value) {
+    if (new Date(this.reportForm.get('dateFrom')?.value)  < new Date(this.reportForm.get('dateTo')?.value) ) {
+      const formValue = this.reportForm.value;
+      const filterDto: TreasuryStatementfilterDto = {
+        DateFrom: formValue.dateFrom,
+        DateTo: formValue.dateTo,
+        TreasuryId: formValue.treasuryId,
+      };
+      this.ReportService.getTreasuryStatement(filterDto);
+      this.ReportService.treasuryStatementObservable.subscribe((res) => {
+        this.tableData = res;
+      });
+    } else {
       this.ToasterService.showError(
         this.languageService.transalte('Error'),
         this.languageService.transalte('DateFromLessThanToValidation')
       );
     }
-
-    const formValue = this.reportForm.value;
-    const filterDto: TreasuryStatementfilterDto = {
-      DateFrom: formValue.dateFrom,
-      DateTo: formValue.dateTo,
-      TreasuryId: formValue.treasuryId,
-    };
-    this.ReportService.getTreasuryStatement(filterDto);
-    this.ReportService.treasuryStatementObservable.subscribe((res) => {
-      this.tableData = res;
-    });
   }
 
   routeToPaymentView(transaction: TreasuryStatmentTransactionDto) {
@@ -173,8 +169,7 @@ export class TreasuryStatementComponent implements OnInit {
     window.open(url, '_blank');
   }
 
-
-  //  format date 
+  //  format date
   formatDate(date: string, format: string): string {
     const pipe = new DatePipe('en-US');
     return pipe.transform(date, format) || '';

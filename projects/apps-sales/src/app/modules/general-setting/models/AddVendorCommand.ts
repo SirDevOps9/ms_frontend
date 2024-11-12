@@ -38,7 +38,7 @@ export interface AddVendorCommand {
   }
   export interface AddVendorFinancialDto {
     paymentTermId?: number;
-    priceListId?: number;
+    pricePolicyId?: number;
     creditLimit?: number;
     currencyId?: number;
   }

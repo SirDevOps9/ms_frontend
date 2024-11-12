@@ -9,7 +9,8 @@
     "CustomerOpeningBalanceList": "قائمة أرصدة افتتاحية العملاء",
     "AddCustomerOpeningBalance": "إضافة رصيد افتتاحي للعميل",
     "EditCustomerOpeningBalance": "تعديل الرصيد الافتتاحي للعميل",
-    "ViewCustomerOpeningBalance": "عرض الرصيد الافتتاحي للعميل"
+    "ViewCustomerOpeningBalance": "عرض الرصيد الافتتاحي للعميل",
+    "PricePolicy": "سياسة التسعير"
   },
   "dir": "rtl",
   "Welcome": "مرحبا",
@@ -271,5 +272,23 @@
     "DiscountAccount": "حساب الخصم",
     "Discard": "تجاهل",
     "Save": "حفظ"
-  }
+  },
+  "ItemsAdvancedSearch": {
+  "ItemSearch": "بحث عن الصنف",
+  "IsStorable": "قابل للتخزين",
+  "IsService": "خدمة",
+  "HasExpiryDate": "له تاريخ انتهاء",
+  "ItemCode": "كود الصنف",
+  "ItemName": "اسم الصنف",
+  "ItemUOM": "وحدة قياس الصنف",
+  "ItemVariant": "نوع الصنف",
+  "ItemCategory": "فئة الصنف",
+  "Confirm": "تأكيد"
+  },
+  "PricePolicy":{
+    "Code": "كود ",
+    "Name": "اسم ",
+    "PricePolicyDeleted":"تم حذف سياسة الأسعار"
+
+}
 }

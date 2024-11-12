@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { BreadcrumbLabel, Modules, SharedLibModule } from 'shared-lib';
+import { BreadcrumbLabel, Modules, Pages, SharedLibModule } from 'shared-lib';
 import { CustomerCategoryListComponent } from './pages/customer-category/customer-category-list/customer-category-list.component';
 import { CreateCustomerCategoryComponent } from './pages/customer-category/create-customer-category/create-customer-category.component';
 import { EditCustomerCategoryComponent } from './pages/customer-category/edit-customer-category/edit-customer-category.component';
 import { AddCustomerComponent } from './pages/customer-definitions/add-customer/add-customer.component';
 import { CustomerListComponent } from './pages/customer-definitions/customer-list/customer-list.component';
 import { EditCustomerComponent } from './pages/customer-definitions/edit-customer/edit-customer.component';
-import { LandingPageComponent, LayoutPageComponent } from 'apps-shared-lib';
+import { LandingPageComponent, LayoutPageComponent, SequenceComponent } from 'apps-shared-lib';
 import { AddCustomerOpeeningBalanceComponent } from './pages/customer-opening-balance/add-customer-opeening-balance/add-customer-opeening-balance.component';
 import { CustomerOpeningBalanceNoChildrenComponent } from './components/customer-opening-Balance/customer-opening-balance-no-children/customer-opening-balance-no-children.component';
 import { CustomerOpeningBalanceDistributeComponent } from './components/customer-opening-balance-distribute/customer-opening-balance-distribute.component';
@@ -19,7 +19,15 @@ import { CustomerOpeningBalanceListComponent } from './pages/customer-opening-ba
 import { EditCustomerOpeningBalanceComponent } from './pages/customer-opening-balance/edit-customer-opening-balance/edit-customer-opening-balance.component';
 import { ViewCustomerOpeningBalanceComponent } from './pages/customer-opening-balance/view-customer-opening-balance/view-customer-opening-balance.component';
 import { CustomerObViewDistributionComponent } from './components/customer-ob-view-distribution/customer-ob-view-distribution.component';
-
+import { PricePolicyMainComponent } from './pages/price-policy/price-policy-main/price-policy-main.component';
+import { PricePolicyListComponent } from './pages/price-policy/price-policy-list/price-policy-list.component';
+import { MultiSelectItem } from 'primeng/multiselect';
+import { MultiSelectItemsComponent } from './components/multi-select-items/multi-select-items.component';
+import { AddPricePolicyComponent } from './pages/pricelist/add-price-policy/add-price-policy.component';
+import { UpdetePricePolicyComponent } from './components/updete-price-policy/updete-price-policy.component';
+import { PopupExcelComponent } from './components/popup-excel/popup-excel.component';
+import { EditPricePolicyComponent } from './pages/price-policy/edit-price-policy/edit-price-policy.component';
+import { ViewPricePolicyComponent } from './pages/price-policy/view-price-policy/view-price-policy.component';
 const routes: Routes = [
   {
     path: '',
@@ -159,6 +167,64 @@ const routes: Routes = [
           }
         ]
       },
+      {
+        path: 'price-policy',
+        component: PricePolicyMainComponent,
+        //  canActivate: [AuthGuard],
+        data: {
+          breadcrumb: BreadcrumbLabel.PRICE_POLICY,
+          pageTitle: BreadcrumbLabel.PRICE_POLICY,
+
+        },
+        children:[
+          {
+            path: '',
+            component: PricePolicyListComponent,
+            //  canActivate: [AuthGuard],
+            data: {
+              breadcrumb: '',
+              pageTitle: BreadcrumbLabel.PRICE_POLICY,
+            }
+          },
+          {
+            path: 'add',
+            component: AddPricePolicyComponent,
+            //  canActivate: [AuthGuard],
+            data: {
+              breadcrumb: BreadcrumbLabel.PRICE_POLICY_ADD,
+              pageTitle:BreadcrumbLabel.TITLE_PRICE_POLICY_ADD,
+            }
+          },
+          {
+            path: 'edit/:id',
+            component: EditPricePolicyComponent,
+            //  canActivate: [AuthGuard],
+            data: {
+              breadcrumb: BreadcrumbLabel.PRICE_POLICY_EDIT,
+              pageTitle:BreadcrumbLabel.TITLE_PRICE_POLICY_EDIT,
+            }
+          },
+          {
+            path: 'view/:id',
+            component: ViewPricePolicyComponent,
+            //  canActivate: [AuthGuard],
+            data: {
+              breadcrumb: BreadcrumbLabel.PRICE_POLICY_VIEW,
+              pageTitle:BreadcrumbLabel.TITLE_PRICE_POLICY_VIEW,
+            }
+          },
+          {
+            path: 'sequence',
+            component: SequenceComponent,
+            data: {
+              moduleId: Modules.Sales,
+              pageId: Pages.PricePolicy,
+              breadcrumb: BreadcrumbLabel.SEQUENCE,
+              pageTitle: BreadcrumbLabel.SEQUENCE
+            },
+          },
+        ]
+      },
     ],
   },
 ];
@@ -180,8 +246,17 @@ const routes: Routes = [
     MainCustomerOpeningBalanceComponent,
     EditCustomerOpeningBalanceComponent,
     ViewCustomerOpeningBalanceComponent,
-    CustomerObViewDistributionComponent
+    CustomerObViewDistributionComponent,
+    PricePolicyListComponent,
+    PricePolicyMainComponent,
+    AddPricePolicyComponent,
+    MultiSelectItemsComponent,
+    UpdetePricePolicyComponent,
+    PopupExcelComponent,
+    EditPricePolicyComponent,
+    ViewPricePolicyComponent
   ],
-  imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule],
+  imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule 
+  ],
 })
 export class SalesModule {}

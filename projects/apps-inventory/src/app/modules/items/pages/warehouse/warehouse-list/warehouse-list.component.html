@@ -1,12 +1,9 @@
 <lib-page-content [title]="'warehouse.warehouse' | translate" [subTitle]="'warehouse.warehouse' | translate">
-    <div>
-      <div class="user_page">
-        <lib-data-table
-          [items]="tableData"
-          className="p-datatable-gridlines"
-          [currentPageResult]="currentPageInfo"
-          (pageChange)="onPageChange($event)"
-          [tableConfigs]="{
+  <div>
+    <div class="user_page">
+      <lib-data-table  [items]="tableData" 
+        className="p-datatable-gridlines" [currentPageResult]="currentPageInfo" (pageChange)="onPageChange($event)"
+        (exportObj)="exportedColumns($event)" [tableConfigs]="{
             allowPagination: false,
             allowServerPagination: true,
             dataKey: 'id',
@@ -24,8 +21,8 @@
                 isGlobalFilter: true,
                 isSortable: true
               },
-            
-             
+
+
               {
                 name: 'warehouseType',
                 headerText: ('warehouse.warehouseType' | translate),
@@ -35,12 +32,11 @@
               {
                 name: 'id',
                 headerText: ('warehouse.actions' | translate),
-                template: actions
+                template: actions,
+                isSortable: true
               }
             ]
-          }"
-        >
-  
+          }">
 
 
 
@@ -48,56 +44,35 @@
 
 
 
-          <ng-container search>
-            <lib-form-group>
-              <lib-text-input
-              type="text"
-              [placeholder]="'warehouse.search' | translate"
-              [(ngModel)]="searchTerm"
-              (keyUp)="onSearchChange()"
-            ></lib-text-input>
-            </lib-form-group>
-            </ng-container>
-          <ng-container action>
-            
-            <div>
-              <lib-export
-              (exportClick)="exportClick($event)"
-              [exportData]="exportData"
-              [exportColumns]="exportColumns"
-              [ExportName]="'Warehouse'"
-            >
+
+        <ng-container search>
+          <lib-form-group>
+
+            <lib-text-input type="text" [placeholder]="'warehouse.search' | translate" [(ngModel)]="searchTerm"
+              (keyUp)="onSearchChange($event)" [iconUrl]="'pi pi-search'"></lib-text-input>
+          </lib-form-group>
+        </ng-container>
+        <ng-container action>
+
+          <div>
+            <lib-export (exportClick)="exportClick()" [exportData]="exportData" [exportColumns]="exportColumns"
+              [ExportName]="'Warehouse'">
             </lib-export>
-            </div>
-            <!--  -->
-            <div>
-              <lib-button-micro
-              [title]="'create' | translate"
-              nameClass="save"
-              iconName="pi pi-plus"
-              (click)="onAdd()"
-            >
+          </div>
+          <!--  -->
+          <div>
+            <lib-button-micro [title]="'warehouse.create' | translate" nameClass="save" iconName="pi pi-plus"
+              (click)="onAdd()">
             </lib-button-micro>
-            </div>
-            </ng-container>
-
-
-
-
-
-
-
-
-
-  
-          <ng-template #actions let-action>
-            <div class="actions flex align-items-center">
-              <img src="assets/images/table/edit.svg" alt="" (click)="onEdit(action)" />
-              <img src="assets/images/table/delete.svg" alt="" (click)="onDelete(action.id)" />
-            </div>
-          </ng-template>
-        </lib-data-table>
-      </div>
+          </div>
+        </ng-container>
+        <ng-template #actions let-action>
+          <div class="actions flex align-items-center">
+            <img src="assets/images/table/edit.svg" alt="" (click)="onEdit(action)" />
+            <img src="assets/images/table/delete.svg" alt="" (click)="onDelete(action.id)" />
+          </div>
+        </ng-template>
+      </lib-data-table>
     </div>
-  </lib-page-content>
-  
+  </div>
+</lib-page-content>

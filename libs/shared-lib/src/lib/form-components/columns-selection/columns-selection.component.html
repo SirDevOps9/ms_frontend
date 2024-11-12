@@ -5,7 +5,9 @@
   [(ngModel)]="selectedValue"
   (onChange)="change($event)"
   [style]="style"
-  [panelStyle]="panelStyle">
+  [panelStyle]="panelStyle"
+  [ngClass]="positionClass"
+  >
 
   <ng-template pTemplate="selectedItems">
     <i style="display: block;" [ngClass]="className"></i>

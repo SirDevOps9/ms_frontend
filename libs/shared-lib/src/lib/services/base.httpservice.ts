@@ -28,7 +28,7 @@ export class HttpService {
   public addHeaders(): HttpHeaders {
     const token = this.storageService.getItem(StorageKeys.USER_TOKEN) || '';
     let defaultCompany =this.storageService.getItem(StorageKeys.DEFAULT_COMPANY)
-    let defaultBranch =this.storageService.getItem(StorageKeys.DEFAULT_BRANCHE) 
+    let defaultBranch =this.storageService.getItem(StorageKeys.DEFAULT_BRANCHE)
     return new HttpHeaders({
       'Content-Type': 'application/json-patch+json',
       Authorization: `Bearer ${token}`,
@@ -45,7 +45,7 @@ export class HttpService {
   private addFormHeaders(): HttpHeaders {
     const token = this.storageService.getItem(StorageKeys.USER_TOKEN) || '';
     let defaultCompany =this.storageService.getItem(StorageKeys.DEFAULT_COMPANY)
-    let defaultBranch =this.storageService.getItem(StorageKeys.DEFAULT_BRANCHE) 
+    let defaultBranch =this.storageService.getItem(StorageKeys.DEFAULT_BRANCHE)
     return new HttpHeaders({
       Authorization: `Bearer ${token}`,
       'Accept-Language': this.storageService.getItem(StorageKeys.LANG_KEY) || 'en',

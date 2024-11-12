@@ -13,6 +13,7 @@ import { CurrencyDto } from 'projects/apps-finance/src/app/modules/general/model
 import { LookupEnum, lookupDto, FormsService, customValidators } from 'shared-lib';
 import { ItemsService } from '../../../items.service';
 import { AddItemCategory } from '../../../models';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-edit-item-category',
@@ -28,6 +29,7 @@ export class EditItemCategoryComponent {
   accountTypes: AccountTypeDropDownDto[];
   accountTags: TagDropDownDto[];
   parentCategoryList: { id: number; name: string }[] = [];
+  @Input() resetParentCatId: boolean;
 
   companyDropDown: companyDropDownDto[];
   AccountsDropDownLookup: { id: number; name: string }[] = [];
@@ -70,11 +72,20 @@ export class EditItemCategoryComponent {
       nameAr: ['', [customValidators.required]],
       parentCategoryId: [null],
       isDetailed: [false], // Assuming a boolean default of `false`
+      isActive: [false], // Assuming a boolean default of `false`
       categoryType: [null],
 
       purchaseAccountId: [null],
       costOfGoodSoldAccountId: [null],
     });
+    if (this.parentCategoryList.length == 0) {
+      this.formGroup.get('isDetailed')?.patchValue(false);
+      this.formGroup.get('parentCategoryId')?.patchValue(0);
+      this.formGroup.get('categoryType')?.reset(null);
+      this.formGroup.get('categoryType')?.clearValidators();
+      this.formGroup.get('categoryType')?.updateValueAndValidity();
+      this.showCategory = false;
+    }
 
     this.itemService.EditItemCategoryDataObs.subscribe((res) => {
       if (res) {
@@ -83,6 +94,7 @@ export class EditItemCategoryComponent {
         this.formGroup.get('nameEn')?.reset('', { emitEvent: false }); // Reset and retain validators
         this.formGroup.get('nameAr')?.reset('', { emitEvent: false }); // Reset and retain validators
         this.formGroup.get('parentCategoryId')?.reset(null); // Reset to null
+        this.formGroup.get('isActive')?.reset(false); // Reset to null
         this.formGroup.get('isDetailed')?.reset(false); // Reset to default false
         this.formGroup.get('categoryType')?.reset('', { emitEvent: false }); // Reset and retain validators
 
@@ -91,7 +103,6 @@ export class EditItemCategoryComponent {
         this.formGroup.get('costOfGoodSoldAccountId')?.reset(null);
       }
     });
-
 
     this.formGroup.get('isDetailed')?.valueChanges.subscribe((res) => {
       if (res == true) {
@@ -112,7 +123,8 @@ export class EditItemCategoryComponent {
     this.itemService.ParentItemCategoriesDropDown('');
     this.itemService.parentItemCategoriesDropDown$.subscribe({
       next: (res: { id: number; name: string }[]) => {
-        this.parentCategoryList = res;
+        const idsToRemove = [...this.childrenParentsIdsInSubParent, this.parentEditedId];
+        this.parentCategoryList = res.filter((x) => !idsToRemove.includes(x.id));
       },
       error: (error: any) => {},
     });
@@ -155,21 +167,35 @@ export class EditItemCategoryComponent {
 
     this.itemService.editItemCategory(obj);
 
-    this.itemService.EditItemCategoryDataObs.subscribe((res) => {
-      if (res) {
-        this.operationCompleted.emit(this.parentEditedId);
-      }
+    this.itemService.EditItemCategoryDataObs.subscribe({
+      next: (res: boolean) => {
+        if (res) {
+          this.operationCompleted.emit(this.parentEditedId);
+        } else {
+          return;
+        }
+      },
+      error: (err: Error) => {
+        return;
+      },
     });
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['parentEditedId']) {
       this.getAccountById(this.parentEditedId);
     }
+    if (changes['resetParentCatId']) {
+      this.getParentItemCategoriesDropDown();
+    }
   }
+  childrenParentsIdsInSubParent: number[] = [];
   getAccountById(id: any) {
     this.itemService.getItemCategoryById(id);
     this.itemService.getItemCategoryByIdDataObs.subscribe((res: any) => {
       this.parentAcountName = res;
+      this.childrenParentsIdsInSubParent = res.childCategoriesDtos
+        .filter((x: any) => x.isDetailed != true)
+        .map((x: any) => x.id);
 
       if (res.parentId != null) {
         this.hasParentAccount = true;

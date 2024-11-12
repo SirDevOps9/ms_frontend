@@ -38,7 +38,7 @@
     
     export interface FinancialInfo {
       paymentTermId: number
-      priceListId: number
+      pricePolicyId: number
       creditLimit: number
       currencyId: number
     }

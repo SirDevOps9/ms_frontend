@@ -94,9 +94,9 @@ export class BreadcrumbLabel {
   static ADD_JOURNAL_OPENING_BALANCE = 'Add Journal Entry Opening Balance';
   static EDIT_JOURNAL_OPENING_BALANCE = 'Edit Journal Entry Opening Balance';
   static VIEW_JOURNAL_OPENING_BALANCE = 'View Journal Entry Opening Balance';
-  static ITEM_DIFINITION = 'item Definition';
-  static ADD_ITEM_DIFINITION = 'Add Item Definition';
-  static EDIT_ITEM_DIFINITION = 'Edit Item Definition';
+  static ITEM_DIFINITION = 'Item catalog';
+  static ADD_ITEM_DIFINITION = 'Add Item catalog';
+  static EDIT_ITEM_DIFINITION = 'Edit Item catalog';
   static ITEM_TYPE = 'Item Type';
   static ITEM_CATEGORY = 'Item Category';
   static WARE_HOUSE = 'Warehouse';
@@ -108,7 +108,7 @@ export class BreadcrumbLabel {
   static Edit_UOM = 'edit uom';
   static GENERAL_ITEMdEFINITION = 'General Item Defintion';
   static attributes_ITEMdEFINITION = 'Attributes & Variants Item Defintion';
-
+  static EditItembarcodedefinition = 'EditItembarcodedefinition';
   // attr attribute-definition
   static Attribute_Definition = 'Attribute Definition';
   static Operational_Tag = 'Operational Tag';
@@ -116,10 +116,14 @@ export class BreadcrumbLabel {
   static Edit_Operational_Tag = 'Edit Operational Tag';
   static Add_Attribute_Definition = 'Add Attribute Definition';
   static Edit_Attribute_Definition = 'Edit Attribute Definition';
+  static LIST_Attribute_Definition = 'Attribute Definition List';
   static EDIT_WARE_HOUSE = 'Edit Warehouse';
   static ITEMS_CATEGORY = 'BreadCrumb.ItemsCategory';
   static STOCKIN = 'Stock In';
   static ADD_STOCKIN = 'Add Stock In';
+  static readonly STOCKOUT = 'BreadCrumb.stockout';
+  static readonly ADD_STOCKOUT = 'BreadCrumb.add';
+  static readonly TITLE_ADD_STOCKOUT = 'BreadCrumb.add_stockOut';
 
   static COST_CENTER = 'Cost Center';
   static PAYMENT_TERM_ADD = 'BreadCrumb.AddPaymentterm';
@@ -152,4 +156,13 @@ export class BreadcrumbLabel {
   static TREASURY_STATEMENT = 'BreadCrumb.TreasuryStatement';
   static VIEW_BANK_DEFINATION = 'BreadCrumb.ViewBankDefination';
   static VIEW_PAYMENT_TERM = 'BreadCrumb.ViewPaymentTerm';
+  static PRICE_POLICY = 'BreadCrumb.PricePolicy';
+  static PRICE_POLICY_ADD = 'BreadCrumb.add';
+  static PRICE_POLICY_EDIT = 'BreadCrumb.edit';
+  static PRICE_POLICY_VIEW = 'BreadCrumb.view';
+  static TITLE_PRICE_POLICY_ADD = 'title.add';
+  static TITLE_PRICE_POLICY_EDIT = 'title.edit';
+  static TITLE_PRICE_POLICY_VIEW = 'title.view';
+
+  static INVENTORY = 'Inventory';
 }

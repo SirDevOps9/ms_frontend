@@ -18,3 +18,20 @@ background-color: #f2f4f8;
 border: none;
 background-color: #f2f4f8;
 }
+/* ::ng-deep .p-overlay {
+  position: absolute;
+  top: 0;
+  left: -247px !important;
+} */
+
+::ng-deep  .ltr-position  .p-overlay {
+  position: absolute;
+  top: 0;
+  left: -247px !important;
+}
+
+::ng-deep .rtl-position .p-overlay {
+  position: absolute;
+  top: 0;
+  left: 8px !important;
+}

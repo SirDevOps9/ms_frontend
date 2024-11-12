@@ -8,7 +8,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class ButtonComponent implements OnInit {
   @Input() icon: string;
   @Input() enableText: boolean = false;
-  @Input() severity:  any;
+  @Input() severity: any;
   @Input() disabled: boolean = false;
   @Input() outlined: boolean = false;
   @Input() rounded: boolean = false;
@@ -20,7 +20,7 @@ export class ButtonComponent implements OnInit {
   ngOnInit() {}
 
   constructor() {}
-  
+
   ngAfterViewInit() {
     if (this.label) {
       setTimeout(() => {
@@ -28,5 +28,4 @@ export class ButtonComponent implements OnInit {
       }, 500);
     }
   }
-
 }

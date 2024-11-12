@@ -24,6 +24,8 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { TabViewModule } from 'primeng/tabview';
 import { MenuModule } from 'primeng/menu';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { InputGroupModule } from 'primeng/inputgroup';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { TabMenuModule } from 'primeng/tabmenu';
@@ -55,6 +57,8 @@ import { SpeedDialModule } from 'primeng/speeddial';
     MessageModule,
     TabViewModule,
     MenuModule,
+    InputGroupAddonModule,
+    InputGroupModule,
     SplitButtonModule,
     OverlayPanelModule,
     TabMenuModule,
@@ -84,7 +88,9 @@ import { SpeedDialModule } from 'primeng/speeddial';
     ToastModule,
     MessageModule,
     TabViewModule,
+    InputGroupAddonModule,
     MenuModule,
+    InputGroupModule,
     OverlayPanelModule,
     SpeedDialModule,
     SplitButtonModule,

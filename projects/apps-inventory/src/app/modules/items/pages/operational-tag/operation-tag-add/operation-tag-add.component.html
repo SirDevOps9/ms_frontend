@@ -13,72 +13,79 @@
               <lib-label [appControl]="formGroup.controls['code']">
                 {{ 'OperationalTag.code' | translate }}
               </lib-label>
-              <lib-text-input type="text" formControlName="code" [readOnly]="true" />
+              <lib-text-input placeholder="{{'OperationalTag.codeAuto' | translate}}" type="text" formControlName="code" [readOnly]="true" />
               <lib-field-validations [appControl]="formGroup.controls['code']">
               </lib-field-validations>
             </lib-form-group>
           </div>
+          <div class="md:col-10">
+            <div class="md:col-5">
+              <lib-form-group>
+                <lib-label [appControl]="formGroup.controls['name']">
+                  {{ 'OperationalTag.name' | translate }}
+                </lib-label>
+                <lib-text-input placeholder="{{'OperationalTag.name' | translate}}" type="text" formControlName="name" />
+                <lib-field-validations [appControl]="formGroup.controls['name']">
+                </lib-field-validations>
+              </lib-form-group>
+            </div>
 
-          <div class="md:col-5">
-            <lib-form-group>
-              <lib-label [appControl]="formGroup.controls['name']">
-                {{ 'OperationalTag.name' | translate }}
-              </lib-label>
-              <lib-text-input type="text" formControlName="name" />
-              <lib-field-validations [appControl]="formGroup.controls['name']">
+            <div class="md:col-4">
+              <lib-form-group>
+                <lib-label [appControl]="formGroup.controls['operationType']">
+                  {{ 'OperationalTag.operationType' | translate }}
+                </lib-label>
+                <lib-select
+                  formControlName="operationType"
+                  [options]="operationTypeList"
+                  [selectedValue]="formGroup.controls['operationType'].value"
+                  optionLabel="name"
+                  optionValue="id"
+                  placeholder="{{'OperationalTag.operationType' | translate}}"
+                >
+                </lib-select>
+              </lib-form-group>
+              <lib-field-validations [appControl]="formGroup.controls['operationType']">
               </lib-field-validations>
-            </lib-form-group>
+            </div>
+            <div class="md:col-6">
+              <lib-form-group>
+                <lib-label [appControl]="formGroup.controls['warehouseId']">
+                  {{ 'OperationalTag.warehouseName' | translate }}
+                </lib-label>
+                <lib-select
+                  formControlName="warehouseId"
+                  [options]="warhouseLookupData"
+                  [selectedValue]="formGroup.controls['warehouseId'].value"
+                  optionLabel="name"
+                  optionValue="id"
+                 placeholder="{{ 'OperationalTag.oneSelect' | translate }}"
+
+                >
+                </lib-select>
+              </lib-form-group>
+              <lib-field-validations [appControl]="formGroup.controls['warehouseId']">
+              </lib-field-validations>
+            </div>
+            <div class="md:col-6">
+              <lib-form-group>
+                <lib-label [appControl]="formGroup.controls['glAccountId']">
+                  {{ 'OperationalTag.glAccount' | translate }}
+                </lib-label>
+                <lib-select
+                  formControlName="glAccountId"
+                  [options]="AccountsDropDownLookup"
+                  [selectedValue]="formGroup.controls['glAccountId'].value"
+                  optionLabel="name"
+                  optionValue="accountCode"
+                  placeholder="{{ 'OperationalTag.oneSelect' | translate }}"
+                >
+                </lib-select>
+              </lib-form-group>
+            </div>
           </div>
 
-          <div class="md:col-5">
-            <lib-form-group>
-              <lib-label [appControl]="formGroup.controls['operationType']">
-                {{ 'OperationalTag.operationType' | translate }}
-              </lib-label>
-              <lib-select
-                formControlName="operationType"
-                [options]="operationTypeList"
-                [selectedValue]="formGroup.controls['operationType'].value"
-                optionLabel="name"
-                optionValue="id"
-              >
-              </lib-select>
-            </lib-form-group>
-            <lib-field-validations [appControl]="formGroup.controls['operationType']">
-            </lib-field-validations>
-          </div>
-          <div class="md:col-6">
-            <lib-form-group>
-              <lib-label [appControl]="formGroup.controls['warehouseId']">
-                {{ 'OperationalTag.warehouseName' | translate }}
-              </lib-label>
-              <lib-select
-                formControlName="warehouseId"
-                [options]="warhouseLookupData"
-                [selectedValue]="formGroup.controls['warehouseId'].value"
-                optionLabel="name"
-                optionValue="id"
-              >
-              </lib-select>
-            </lib-form-group>
-            <lib-field-validations [appControl]="formGroup.controls['warehouseId']">
-            </lib-field-validations>
-          </div>
-          <div class="md:col-6">
-            <lib-form-group>
-              <lib-label [appControl]="formGroup.controls['glAccountId']">
-                {{ 'OperationalTag.glAccount' | translate }}
-              </lib-label>
-              <lib-select
-                formControlName="glAccountId"
-                [options]="AccountsDropDownLookup"
-                [selectedValue]="formGroup.controls['glAccountId'].value"
-                optionLabel="name"
-                optionValue="accountCode"
-              >
-              </lib-select>
-            </lib-form-group>
-          </div>
+
         </div>
       </div>
     </form>
@@ -91,7 +98,7 @@
           <div class="md:col-6">
             <lib-button-micro
               nameClass="cancel"
-              title="{{ 'OperationalTag.discard' | translate }}"
+              title="{{ 'OperationalTag.Cancel' | translate }}"
               (click)="discard()"
             >
             </lib-button-micro>
@@ -100,11 +107,11 @@
             <lib-button-micro
               nameClass="save w-100"
               title="{{ 'OperationalTag.save' | translate }}"
-              iconName="pi pi-save"
+           
               type="button"
               (click)="onSave()"
             >
-             
+
             </lib-button-micro>
           </div>
         </div>

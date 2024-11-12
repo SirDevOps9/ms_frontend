@@ -27,7 +27,7 @@ export class ItemsCategoryTreeComponent implements OnInit {
   test: any;
   activeNode: any = null;
   activeNodeId: number | null = null;
-
+  resetParentCatId: boolean = false;
   constructor(private itemsSevice: ItemsService) {}
   ngOnInit() {
     this.getTreeList();
@@ -158,25 +158,27 @@ export class ItemsCategoryTreeComponent implements OnInit {
         }
       }
     }
-
   }
   deleteAccount(id: number) {
     this.itemsSevice.deleteItemCategory(id);
     this.itemsSevice.itemsCategoryDeletedObs.subscribe((res) => {
       if (res) {
         this.getTreeList();
+        this.resetParentCatId = true;
         // if the deleted node is the active node
         if (this.activeNode && this.activeNode.id === id) {
           this.activeNode = null;
           this.view = false;
         }
-          const parentNode = this.findParentNode(this.nodes, id);
-  
+        const parentNode = this.findParentNode(this.nodes, id);
+
         if (parentNode) {
           // If the deleted node is a child, keep the parent expanded
           parentNode.expanded = true;
+          this.resetParentCatId == true;
+
           this.activeNode = parentNode;
-          this.getItemCategoryById(parentNode.id); 
+          this.getItemCategoryById(parentNode.id);
           this.view = false;
         } else {
           this.activeNode = null;
@@ -185,8 +187,6 @@ export class ItemsCategoryTreeComponent implements OnInit {
       }
     });
   }
-  
-  
 
   findParentNodeById(nodes: any[], childId: number): any {
     for (let node of nodes) {

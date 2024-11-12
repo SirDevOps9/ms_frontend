@@ -91,13 +91,13 @@
         <!--  -->
         <div class="md:col-4">
           <lib-form-group>
-            <lib-label [appControl]="formGroup.controls['priceListId']">
+            <lib-label [appControl]="formGroup.controls['pricePolicyId']">
               {{ 'vendorCategory.priceList' | translate }}
             </lib-label>
             <lib-select
-              formControlName="priceListId"
+              formControlName="pricePolicyId"
               [options]="priceList"
-              [selectedValue]="formGroup.controls['priceListId'].value"
+              [selectedValue]="formGroup.controls['pricePolicyId'].value"
               optionLabel="name"
               optionValue="id"
             >

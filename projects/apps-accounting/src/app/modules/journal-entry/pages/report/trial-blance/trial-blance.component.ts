@@ -48,6 +48,10 @@ export class TrialBlanceComponent implements OnInit {
     this.reportTrialForm.valueChanges.subscribe((res) => {
       this.tableData = [];
     });
+
+    this.reportTrialForm.valueChanges.subscribe(res=>{
+      console.log(res)
+    })
   }
   printTable(id: string) {
     this.PrintService.print(id);
@@ -73,10 +77,10 @@ export class TrialBlanceComponent implements OnInit {
   }
   getTrialBalance() {
     if (this.reportTrialForm.valid) {
-      const dateFrom = this.reportTrialForm.get('dateFrom')?.value;
+      const dateFrom =  this.reportTrialForm.get('dateFrom')?.value;
       const dateTo = this.reportTrialForm.get('dateTo')?.value;
 
-      if (dateFrom >= dateTo) {
+      if ( new Date(dateFrom)  >= new Date(dateTo) ) {
         this.ToasterService.showError(
           this.languageService.transalte('reportTrial.Error'),
           this.languageService.transalte('reportTrial.DateFromNotBeforeDateTo')
@@ -98,7 +102,7 @@ export class TrialBlanceComponent implements OnInit {
       if (this.reportTrialForm.get('Accounts')?.value == null) {
         this.reportTrialForm.get('Accounts')?.setValue([]);
       }
-
+console.log(this.reportTrialForm)
       this.journalEntryService.getTrialBalance(this.reportTrialForm.value);
       this.journalEntryService.report.subscribe((res: any) => {
         this.tableData = res.map(

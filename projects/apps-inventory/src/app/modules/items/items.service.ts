@@ -17,6 +17,8 @@ import {
   AddOperatioalTag,
   AddVariantLine,
   AddWarehouse,
+  AttributesVariants,
+  EditAttributes,
   EditWareHouse,
   GetItemById,
   GetItemCategoryDto,
@@ -29,6 +31,7 @@ import {
   Iuom,
   IuomResult,
   StockInDto,
+  StockOutDto,
   UOMCategoryDto,
   UomCodeLookup,
   UomDefault,
@@ -43,6 +46,7 @@ import { addUOM, AddUom } from './models/addUom';
 import { addAttributeDifintion, IAttrributeDifinitionResult } from './models/AttrbuteDiffintion';
 import { OperationType } from './models/enums';
 import { VieItemDefinitionDto } from './models/VieItemDefinitionDto';
+import { GetItemUom } from './models/GetItemUom';
 
 @Injectable({
   providedIn: 'root',
@@ -62,10 +66,11 @@ export class ItemsService {
   GetUOMCategoriesDataSource = new BehaviorSubject<UOMCategoryDto[]>([]);
   sendDataDefinitionById = new BehaviorSubject<EditItemDefinitionDto>({} as EditItemDefinitionDto);
   ViewDataDefinitionById = new BehaviorSubject<VieItemDefinitionDto>({} as VieItemDefinitionDto);
+  public ViewDataItemUomById =  new BehaviorSubject<any>([])
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
   public itemTypeLookup = new BehaviorSubject<{ id: number; nameAr: string; nameEn: string }[]>([]);
   public itemCategoryLookup = new BehaviorSubject<{ id: number; name: string }[]>([]);
-  public AddItemCategoryLookup = new BehaviorSubject<any>(false);
+  public AddItemCategoryLookup = new BehaviorSubject<any>({} as any);
   public itemsCategoryDeleted = new BehaviorSubject<boolean>(false);
   public EditItemCategoryData = new BehaviorSubject<boolean>(false);
   public variantGenerated = new BehaviorSubject<boolean>(false);
@@ -74,37 +79,46 @@ export class ItemsService {
    public deleteAttrDifinitionData =  new BehaviorSubject<any[]>([]);
   public tagLookup = new BehaviorSubject<{ id: number; name: string }[]>([]);
   public AccountsDropDownLookup = new BehaviorSubject<{ id: number; name: string }[]>([]);
+  public uOMCategoryDropDown = new BehaviorSubject<[]>([]);
+   public uOMCategoryDropDownById = new BehaviorSubject<[]>([]);
   public trackingTrackingDropDown = new BehaviorSubject<{ id: number; name: string }[]>([]);
   public taxesLookup = new BehaviorSubject<{ id: number; nameAr: string; nameEn: string }[]>([]);
+  public taxesDataLookup = new BehaviorSubject<any[]>([]);
+
+ public taxesEditDataLookup = new BehaviorSubject<any[]>([]);
+ public getInventoryData = new BehaviorSubject<any>([]);
+ public dataBarCodeById =new BehaviorSubject<any[]>([]);
   public uomCodeLookup = new BehaviorSubject<UomCodeLookup[]>([]);
   public getuomById = new BehaviorSubject<addUOM>({} as addUOM);
-
+ public ItemGetItemUomById =  new BehaviorSubject<any[]>([])
   public defaultUnit = new BehaviorSubject<{ id: number; name: string }>({} as { id: number; name: string });
-
   // new Edits for item Def
+  public stockOutDataSource = new BehaviorSubject<StockOutDto[]>([]);
 
+  stockOutDataSourceeObservable = this.stockOutDataSource.asObservable();
+  public exportStockOutListDataSource = new BehaviorSubject<StockOutDto[]>([]);
 
-  // end Edit form item Def
-
-  // new Edits for item Def
+  exportStockOutListDataSourceObservable = this.exportStockOutListDataSource.asObservable();
 
   saveItemDefGeneral = new BehaviorSubject<AddGeneralDto>({} as AddGeneralDto);
   saveItemDefGeneral$ = this.saveItemDefGeneral.asObservable()
   getItemDefGeneral = new BehaviorSubject<AddGeneralDto>({} as AddGeneralDto);
   getItemDefGeneral$ = this.getItemDefGeneral.asObservable()
-  sendSystemUnitLookup = new BehaviorSubject<{ id: number; nameAr: string; nameEn: string }[]>([])
+  sendSystemUnitLookup = new BehaviorSubject<{ id: number; nameAr: string; nameEn: string; systemUnitOfMeasureCategoryId: number; }[]>([])
   sendSystemUnitLookup$ = this.sendSystemUnitLookup.asObservable()
 
 
   // end Edit form item Def
+ // item category tree
+ public parentItemCategoriesDropDown = new BehaviorSubject< {id:number , name:string}[]>([])
+ parentItemCategoriesDropDown$ = this.parentItemCategoriesDropDown.asObservable()
+ //transactions
 
-  // item category tree 
-  public parentItemCategoriesDropDown = new BehaviorSubject< {id:number , name:string}[]>([])
-  parentItemCategoriesDropDown$ = this.parentItemCategoriesDropDown.asObservable()
+
   //transactions
 
   sendStockInDataSources = new BehaviorSubject<StockInDto[]>([]);
-  sendStockOutDataSources = new BehaviorSubject<StockInDto[]>([]);
+  sendStockOutDataSources = new BehaviorSubject<StockOutDto[]>([]);
 
   public exportedStockInDataSource = new BehaviorSubject<StockInDto[]>([]);
   public exportedStockOutDataSource = new BehaviorSubject<StockInDto[]>([]);
@@ -113,8 +127,12 @@ export class ItemsService {
   public UOMCategoryDropDownLookup = new BehaviorSubject<{ id: number; name: string }[]>([]);
   public UOMDropDownLookup = new BehaviorSubject<{ id: number; nameEn: string }[]>([]);
   public UOMDropDownLookupByUomCategory = new BehaviorSubject<{ id: number; name: string }[]>([]);
-  public UOMDropDownLookupByItemId = new BehaviorSubject<{ id: number; name: string }[]>([]);
+  public UOMDropDownLookupByItemId = new BehaviorSubject<{ uomId: number; uomName: string }[]>([]);
   public ItemVariantsByItemIdDropDown = new BehaviorSubject<{ id: number; nameEn: string }[]>([]);
+
+  public ItemVariantsById  =  new BehaviorSubject<[]>([]);
+  public ItemAttributesById  =  new BehaviorSubject<AttributesVariants []>([]);
+  public EditItemAttributesData  =  new BehaviorSubject<EditAttributes>({} as EditAttributes);
   public addVariantLineData = new BehaviorSubject<any>('');
   public ActivateVairiantGroupData = new BehaviorSubject<boolean>(false);
   public sendAttributeVariantData = new BehaviorSubject<variantGroupById[]>([]);
@@ -133,7 +151,7 @@ export class ItemsService {
   public editItemData = new BehaviorSubject<any>(false);
   public updateUOMobj = new BehaviorSubject<addUOM>({} as addUOM);
   public updateAttrobj = new BehaviorSubject<addAttributeDifintion>({} as addAttributeDifintion);
-
+  public updateUOMByIdobj = new BehaviorSubject<any>({});
   public attributeNameDropDownLookup = new BehaviorSubject<any>([]);
   public attributeGroupeDropDownLookup = new BehaviorSubject<{ id: number; name: string }[]>([]);
   public attributeValuesDropDownLookup = new BehaviorSubject<itemAttributeValues[]>([]);
@@ -162,6 +180,8 @@ export class ItemsService {
   wareHousesDropDownLookup = new BehaviorSubject<GetWarehouseList[]>([]);
   sendCitiesLookup = new BehaviorSubject<any>([]);
   sendCountriesLookup = new BehaviorSubject<any>([]);
+
+
   // sendCashSalesLookup = new BehaviorSubject<any>([]);
   // sendLookup = new BehaviorSubject<any>([]);
   // sendCreditSalesLookup = new BehaviorSubject<any>([]);
@@ -179,8 +199,9 @@ export class ItemsService {
   public listOfUOM = new BehaviorSubject<IuomResult[]>([]);
   public listOfAttrDifinition = new BehaviorSubject<IAttrributeDifinitionResult[]>([]);
   public listOfOperationalTag = new BehaviorSubject<IOperationalTagResult[]>([]);
-  public SendExportOperationalTagList = new BehaviorSubject<IOperationalTagResult[]>([]);
+  public SendExportOperationalTagList = new BehaviorSubject<any[]>([]);
 
+public userSubDomainModules =  new BehaviorSubject<any[]>([]);
   public sendItemDefinitionDataSourceObs = this.sendItemDefinitionDataSource.asObservable();
   public GetUOMCategoriesDataSourceObs = this.GetUOMCategoriesDataSource.asObservable();
   public  ViewDataDefinitionByIdObs = this.ViewDataDefinitionById.asObservable();
@@ -188,7 +209,7 @@ export class ItemsService {
   public wareHousesDropDownLookup$ = this.wareHousesDropDownLookup.asObservable();
   public SendexportAttrDifinitionList$ = this.SendexportAttrDifinitionList.asObservable();
   public itemTypeLookupObs = this.itemTypeLookup.asObservable();
-
+  public ViewDataItemUomByIdObs = this.ViewDataItemUomById.asObservable();
   public deleteAttrDifinitionDataObs = this.deleteAttrDifinitionData.asObservable()
   public itemCategoryLookupObs = this.itemCategoryLookup.asObservable();
   public AddItemCategoryLookupObs = this.AddItemCategoryLookup.asObservable();
@@ -199,10 +220,16 @@ export class ItemsService {
   public sendItemCategoryDataSourceObs = this.sendItemCategoryDataSource.asObservable();
   public tagLookupObs = this.tagLookup.asObservable();
   public defaultUnitObs  = this.defaultUnit.asObservable()
+
+  public ItemVariantsByIdObs = this.ItemVariantsById.asObservable()
+  public ItemAttributesById$ = this.ItemAttributesById.asObservable()
+  public EditItemAttributesData$ = this.EditItemAttributesData.asObservable()
   public AccountsDropDownLookupObs = this.AccountsDropDownLookup.asObservable();
   public taxesLookupObs = this.taxesLookup.asObservable();
   public uomCodeLookupObs = this.uomCodeLookup.asObservable();
+  public updateUOMByIdobjObs = this.updateUOMByIdobj.asObservable()
   public getuomByIdObs = this.getuomById.asObservable();
+  public uOMCategoryDropDownObs = this.uOMCategoryDropDown.asObservable()
   public trackingTrackingDropDownObs = this.trackingTrackingDropDown.asObservable();
   public codeByuomCodeDropDownObs = this.codeByuomCodeDropDown.asObservable();
   public UOMCategoryDropDownLookupObs = this.UOMCategoryDropDownLookup.asObservable();
@@ -229,6 +256,7 @@ export class ItemsService {
   public sendDefaultObs = this.sendDefault.asObservable();
   public editItemDataObs = this.editItemData.asObservable();
   public exportedItemCategoryDataSourceObs = this.exportedItemCategoryDataSource.asObservable();
+  public ItemGetItemUomByIdObs = this.ItemGetItemUomById.asObservable()
   // warehouse
   public sendWarehouseDataSourceObs = this.sendWarehouseDataSource.asObservable();
   public AddWarehouseDataSourceObs = this.AddWarehouseDataSource.asObservable();
@@ -260,13 +288,28 @@ export class ItemsService {
   public editOperationTag$ = this.editOperationTag.asObservable();
   public getOperationalTagItemsById$ = this.getOperationalTagItemsById.asObservable();
   public SendExportOperationalTagList$ = this.SendExportOperationalTagList.asObservable();
-
+  public  uOMCategoryDropDownByIdObs = this.uOMCategoryDropDownById.asObservable();
+public userSubDomainModulesObs = this.userSubDomainModules.asObservable()
+public taxesDataLookupObs = this.taxesDataLookup.asObservable()
+public taxesEditDataLookupObs = this.taxesEditDataLookup.asObservable()
+public getInventoryData$ = this.getInventoryData.asObservable()
+public dataBarCodeByIdObs = this.dataBarCodeById.asObservable()
 
   getItemType(quieries: string, pageInfo: PageInfo) {
     this.itemProxy.getItemType(quieries, pageInfo).subscribe((response) => {
       this.sendItemTypeDataSource.next(response.result);
       this.currentPageInfo.next(response.pageInfoResult);
     });
+  }
+
+  getItemBarcodeById(id:number){
+this.itemProxy.getItemBarcodeById(id).subscribe({
+  next: (res: any) => {
+    console.log(res);
+    this.dataBarCodeById.next(res);
+  },
+
+})
   }
   getItemDefinition(quieries: string, pageInfo: PageInfo) {
 
@@ -347,14 +390,14 @@ export class ItemsService {
     }
   }
 
-  getStockOut(quieries: string, pageInfo: PageInfo) {
-    this.loaderService.show();
-    this.itemProxy.getStockOut(quieries, pageInfo).subscribe((response) => {
-      this.sendStockOutDataSources.next(response.result);
-      this.currentPageInfo.next(response.pageInfoResult);
-      this.loaderService.hide();
-    });
-  }
+  // getStockOut(quieries: string, pageInfo: PageInfo) {
+  //   this.loaderService.show();
+  //   this.itemProxy.getStockOut(quieries, pageInfo).subscribe((response) => {
+  //     this.sendStockOutDataSources.next(response.result);
+  //     this.currentPageInfo.next(response.pageInfoResult);
+  //     this.loaderService.hide();
+  //   });
+  // }
 
   exportsStockOutList(searchTerm: string | undefined) {
     this.itemProxy.exportsStockOutList(searchTerm).subscribe({
@@ -378,6 +421,7 @@ export class ItemsService {
   }
   getListOfUom(SearchTerm: string | undefined, pageInfo: PageInfo) {
 
+
     this.itemProxy.getListOfUom(SearchTerm, pageInfo).subscribe((response: Iuom) => {
       this.listOfUOM.next(response.result);
       this.currentPageInfo.next(response.pageInfoResult);
@@ -399,10 +443,12 @@ export class ItemsService {
   editStatusAttributeGroup(modle:any){
     this.itemProxy.editStatusAttributeGroup(modle).subscribe((data:any)=>{
 
+
         this.toasterService.showSuccess(
           this.languageService.transalte('attributeDefinition.success'),
           this.languageService.transalte('attributeDefinition.attributeEditStatus')
         );
+
 
 
     })
@@ -421,7 +467,7 @@ export class ItemsService {
         if (text == 'save') {
           dialogRef.close(res);
         } else {
-          this.router.navigateTo(`/masterdata/add-item-definition/${dataRes}`);
+          this.router.navigateTo(`masterdata/add-item-definition/general/${dataRes}`);
           dialogRef.close();
         }
       }
@@ -434,6 +480,7 @@ export class ItemsService {
       this.toasterService.showSuccess(
         this.languageService.transalte('itemDefinition.success'),
         this.languageService.transalte('itemDefinition.add')
+
 
       );
     });
@@ -466,11 +513,13 @@ export class ItemsService {
   }
   ExportOperationalTagList(SearchTerm: string | undefined) {
     this.itemProxy.ExportOperationalTagList(SearchTerm).subscribe({
-      next: (res: IOperationalTag) => {
-        this.SendExportOperationalTagList.next(res.result);
+      next: (res: any) => {
+        this.SendExportOperationalTagList.next(res);
       },
     });
   }
+
+
   exportAttrDifinitionList(SearchTerm: string | undefined) {
     this.itemProxy.ExporAttrList(SearchTerm).subscribe({
       next: (res: any) => {
@@ -492,6 +541,7 @@ export class ItemsService {
       },
     });
   }
+
   getItemCategoryTreeList() {
     return this.itemProxy.getItemCategoryTreeList().pipe(
       map((res) => {
@@ -513,17 +563,14 @@ export class ItemsService {
       this.currentPageInfo.next(response.pageInfoResult);
     });
   }
-
   addItemCategory(obj: AddItemCategory) {
     this.itemProxy.addItemCategory(obj).subscribe({
       next: (res: any) => {
-        // setTimeout(() => {
-        //     location.reload()
-        // }, 100);
         this.AddItemCategoryLookup.next(res);
         this.toasterService.showSuccess(
           this.languageService.transalte('itemsCategory.success'),
-          this.languageService.transalte('itemsCategory.add')
+          this.languageService.transalte('itemsCategory.addSuccess')
+
 
         );
       },
@@ -536,7 +583,7 @@ export class ItemsService {
         this.EditItemCategoryData.next(res);
         this.toasterService.showSuccess(
           this.languageService.transalte('itemsCategory.success'),
-          this.languageService.transalte('itemsCategory.edit')
+          this.languageService.transalte('itemsCategory.editSuccses')
         );
       },
     });
@@ -587,6 +634,57 @@ export class ItemsService {
       },
     });
   }
+
+gettaxesDropDropDown(id: number) {
+  this.itemProxy.getTaxDataDropDropDown(id).subscribe({
+    next: (res: any) => {
+       this.taxesDataLookup.next(res);
+    },
+    error: (err) => {
+      console.error("Failed to load tax data:", err);
+      this.taxesDataLookup.next([]);
+    }
+  });
+}
+
+editItemTax(obj:any){
+   this.itemProxy.editItemTax(obj).subscribe({
+      next: (res: any) => {
+        if (res) {
+          this.taxesEditDataLookup.next(res);
+          this.toasterService.showSuccess(
+            this.languageService.transalte('UOM.success'),
+            this.languageService.transalte('UOM.uomEdit')
+          );
+          // this.router.navigateTo(`/masterdata/uom` )
+        }
+
+      },
+    });
+}
+editInventory(obj:any){
+   this.itemProxy.editInventory(obj).subscribe({
+      next: (res: any) => {
+        if (res) {
+          this.taxesEditDataLookup.next(res);
+          this.toasterService.showSuccess(
+            this.languageService.transalte('itemType.success'),
+            this.languageService.transalte('itemType.inventoryEdited')
+          );
+        }
+
+      },
+    });
+}
+getInvenrory(id:number){
+
+  this.itemProxy.getInvenrory(id).subscribe(res=>{
+    if(res) {
+      this.getInventoryData.next(res)
+
+    }
+  })
+}
   uomCodeDropDown(id: number) {
     this.itemProxy.uomCodeDropDown(id).subscribe({
       next: (res: any) => {
@@ -607,9 +705,26 @@ export class ItemsService {
         this.getuomById.next(res);
       },
     });
+
   }
+  getUOMCategoryDropDown(){
+this.itemProxy.getUOMCategoryDropDown().subscribe({
+  next: (res: any) => {
+    this.uOMCategoryDropDown.next(res);
+  },
+})
+  }
+  getUOMCategoryDropDownCategoryId(id:number){
+    this.itemProxy.getGetUOMsByUOMCategoryId(id).subscribe({
+      next: (res: any) => {
+        this.uOMCategoryDropDownById.next(res);
+      },
+    })
+  }
+
   getCodeByuomCodeDropDown(id: number) {
    return this.itemProxy.getCodeByuomCodeDropDown(id)
+
 
     // .subscribe({
     //   next: (res: any) => {
@@ -660,6 +775,62 @@ export class ItemsService {
     });
   }
 
+  getItemVariants(id:number){
+     this.itemProxy.getItemVariants(id).subscribe({
+      next: (res: any) => {
+        this.ItemVariantsById.next(res);
+      },
+    });
+  }
+  getItemAttributes(id:number){
+     this.itemProxy.getItemAttributes(id).subscribe({
+      next: (res: any) => {
+        this.ItemAttributesById.next(res);
+      },
+    });
+  }
+  EditItemAttributes(obj :EditAttributes){
+     this.itemProxy.EditItemAttributes(obj).subscribe({
+      next: (res: any) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('itemType.success'),
+          this.languageService.transalte('itemType.AttributeAdded')
+        );
+        this.EditItemAttributesData.next(res);
+        this.ItemGetItemUomById.next(res);
+
+      },
+    });
+  }
+
+  getItemGetItemUomById(id: number){
+    this.itemProxy.getItemGetItemUomById(id).subscribe({
+      next: (res: any) => {
+        this.ItemGetItemUomById.next(res);
+      },
+    });
+  }
+
+  getUserSubDomainModules(){
+    this.itemProxy.getUserSubDomainModules().subscribe(({
+      next:(res:any)=>{
+        this.userSubDomainModules.next(res);
+      }
+    }))
+  }
+
+  updatetemGetItemUomById(obj: any) {
+    return this.itemProxy.updateItemGetItemUomById(obj).subscribe((res) => {
+      if (res) {
+        this.updateUOMByIdobj.next(res);
+        this.toasterService.showSuccess(
+          this.languageService.transalte('UOM.success'),
+          this.languageService.transalte('UOM.uomEdit')
+        );
+        // this.router.navigateTo(`/masterdata/uom` )
+      }
+    });
+  }
   getDefaultUnit(id:number , itemId : number) {
     this.itemProxy.getDefaultUnit(id , itemId).subscribe(res=>{
       if(res) {
@@ -732,6 +903,30 @@ export class ItemsService {
     });
   }
 
+  async DeleteUomLine(id: number) {
+
+    const confirmed = await this.toasterService.showConfirm(
+      this.languageService.transalte('ConfirmButtonTexttodelete')
+    );
+    if (confirmed) {
+      this.itemProxy.DeleteUomLine(id).subscribe({
+        next: (res) => {
+
+          this.toasterService.showSuccess(
+            this.languageService.transalte('UOM.success'),
+            this.languageService.transalte('UOM.delete')
+          );
+
+          const currentUom : any = this.getUOMCategoryByIdData.getValue();
+          const updatedUOM : addUOM = currentUom.uoMs.filter((c: any) => c.id !== id);
+          this.getUOMCategoryByIdData.next(updatedUOM);
+        },
+      });
+    }
+  }
+
+
+
   systemUnitLookup() {
 
     this.itemProxy.systemUnitLookup().subscribe((res) => {
@@ -773,6 +968,7 @@ export class ItemsService {
   // attr difinition delete
   async deleteAttrDifinition(id: number) {
 
+
     const confirmed = await this.toasterService.showConfirm(
       this.languageService.transalte('ConfirmButtonTexttodelete')
     );
@@ -780,10 +976,12 @@ export class ItemsService {
       this.itemProxy.deleteAttrDifinition(id).subscribe({
         next: (res) => {
 
+
           this.toasterService.showSuccess(
             this.languageService.transalte('attributeDefinition.success'),
             this.languageService.transalte('attributeDefinition.delete')
           );
+
 
 
           const currentAttrDif = this.attributeValuesDropDownLookup.getValue();
@@ -808,6 +1006,7 @@ export class ItemsService {
 
 
 
+
     /*
        this.itemProxy.attributeGroupsValue(id).subscribe({
       next: (res: any) => {
@@ -815,9 +1014,23 @@ export class ItemsService {
       },
     });
     */
+
+  }
+
+  EditUOMCategory(obj: addUOM) {
+    this.itemProxy.EditUOMCategory( obj).subscribe((res) => {
+      this.router.navigateTo(`/masterdata/uom` )
+
+      this.toasterService.showSuccess(
+        this.languageService.transalte('UOM.success'),
+        this.languageService.transalte('UOM.uomSuccess')
+      );
+      this.sendUOMCategory.next(res);
+    });
   }
   // attr difinition delete
   async deleteUOM(id: number) {
+
 
     const confirmed = await this.toasterService.showConfirm(
       this.languageService.transalte('ConfirmButtonTexttodelete')
@@ -825,6 +1038,7 @@ export class ItemsService {
     if (confirmed) {
       this.itemProxy.deleteUOM(id).subscribe({
         next: (res) => {
+
 
           this.toasterService.showSuccess(
             this.languageService.transalte('UOM.success'),
@@ -840,12 +1054,14 @@ export class ItemsService {
   }
   async deleteCategory(id: number) {
 
+
     const confirmed = await this.toasterService.showConfirm(
       this.languageService.transalte('ConfirmButtonTexttodelete')
     );
     if (confirmed) {
       this.itemProxy.deleteCategory(id).subscribe({
         next: (res) => {
+
 
           this.toasterService.showSuccess(
             this.languageService.transalte('UOM.success'),
@@ -862,12 +1078,14 @@ export class ItemsService {
   // attr difinition delete
   async deleteUomCat(id: number) {
 
+
     const confirmed = await this.toasterService.showConfirm(
       this.languageService.transalte('ConfirmButtonTexttodelete')
     );
     if (confirmed) {
       this.itemProxy.deleteUOM(id).subscribe({
         next: (res) => {
+
 
           this.toasterService.showSuccess(
             this.languageService.transalte('UOM.success'),
@@ -884,6 +1102,7 @@ export class ItemsService {
   // deleteAttributeGroup delete
   async deleteAttributeGroup(id: number) {
 
+
     const confirmed = await this.toasterService.showConfirm(
       this.languageService.transalte('ConfirmButtonTexttodelete')
     );
@@ -891,10 +1110,12 @@ export class ItemsService {
       this.itemProxy.deleteAttributeGroup(id).subscribe({
         next: (res) => {
 
+
           this.toasterService.showSuccess(
             this.languageService.transalte('attributeDefinition.success'),
             this.languageService.transalte('attributeDefinition.delete')
           );
+
 
 
           const currentAttr = this.listOfAttrDifinition.getValue();
@@ -922,9 +1143,9 @@ export class ItemsService {
             this.languageService.transalte('itemType.success'),
             this.languageService.transalte('itemType.deleteVariant')
           );
-          const currentVariant = this.sendAttributeVariantData.getValue();
+          const currentVariant = this.ItemAttributesById.getValue();
           const updatedVariants = currentVariant.filter((c) => c.id !== id);
-          this.sendAttributeVariantData.next(updatedVariants);
+          this.ItemAttributesById.next(updatedVariants);
         },
       });
     }
@@ -938,18 +1159,23 @@ export class ItemsService {
       this.itemProxy.deleteBarcode(id).subscribe({
         next: (res) => {
 
+
           this.toasterService.showSuccess(
             this.languageService.transalte('itemType.success'),
             this.languageService.transalte('itemType.deleteBarcode')
           );
-          const currentVariant = this.GetBarcode.getValue();
-          const updatedVariants = currentVariant.filter(c  => c.id !== id);
-          this.GetBarcode.next(updatedVariants);
+          const currentVariant : any = this.ItemVariantsById.getValue();
+          console.log(currentVariant)
+          console.log(id)
+          const updatedVariants = currentVariant.filter((c : any)  => c.variantId !== id);
+          this.ItemVariantsById.next(updatedVariants);
         },
+
 
       });
     }
   }
+
 
   addBarcode(obj: addBarcode) {
     this.itemProxy.addBarcode(obj).subscribe((res) => {
@@ -996,14 +1222,11 @@ export class ItemsService {
       );
       this.sendAttrDefinition.next(res);
       this.router.navigateTo('/masterdata/attribute-definition')
-      let audio = new Audio();
 
-      audio.src = './assets/notification-sound/done.wav';
-      audio.load();
-      audio.play();
 
     });
   }
+
 
   getBarcodeByItemId(id: number) {
     return this.itemProxy.getBarcodeByItemId(id).subscribe((res) => {
@@ -1107,8 +1330,8 @@ export class ItemsService {
         this.languageService.transalte('warehouse.edit')
       );
 
-      this.router.navigateTo(`/masterdata/warehouse`);
     });
+    this.router.navigateTo(`/masterdata/warehouse`);
   }
 
   getWarehouseById(id: number) {
@@ -1119,8 +1342,8 @@ export class ItemsService {
     });
   }
 
-  exportsWayehouseList(searchTerm: string | undefined) {
-    this.itemProxy.exportsWayehouseList(searchTerm).subscribe({
+  exportsWayehouseList(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
+    this.itemProxy.exportsWayehouseList(searchTerm,SortBy,SortColumn).subscribe({
       next: (res: any) => {
         this.exportedWarehouseDataSource.next(res);
       },
@@ -1152,6 +1375,7 @@ export class ItemsService {
       });
     }
   }
+
 
   getWareHousesDropDown() {
     return this.itemProxy.getWareHousesDropDown().subscribe((res) => {
@@ -1193,12 +1417,9 @@ export class ItemsService {
           this.languageService.transalte('attributeDefinition.success'),
           this.languageService.transalte('attributeDefinition.success')
 
-        );
-        let audio = new Audio();
 
-        audio.src = './assets/notification-sound/done.wav';
-        audio.load();
-        audio.play();
+        );
+
 
         // this.router.navigateTo(`/masterdata/item-definition` )
       }
@@ -1219,11 +1440,13 @@ getOperationalTagById(id: number) {
 
 addOperationTag(obj: AddOperatioalTag) {
   this.itemProxy.addOperationTag(obj).subscribe((res) => {
-    this.toasterService.showSuccess(
-      this.languageService.transalte('OperationalTag.Success'),
-      this.languageService.transalte('OperationalTag.Success')
-    );
     this.sendOperationTag.next(res);
+    this.toasterService.showSuccess(
+      this.languageService.transalte('OperationalTag.SuccessDone'),
+      this.languageService.transalte('OperationalTag.SuccessAdd'),
+
+    );
+
   });
 }
 editOperationalTag(obj: AddOperatioalTag) {
@@ -1231,8 +1454,9 @@ editOperationalTag(obj: AddOperatioalTag) {
     if (res) {
       this.editItemData.next(res);
       this.toasterService.showSuccess(
+        this.languageService.transalte('OperationalTag.SuccessDone'),
         this.languageService.transalte('OperationalTag.Success'),
-        this.languageService.transalte('OperationalTag.Success')
+
       );
       this.router.navigateTo(`/masterdata/operational-tag`);
     }
@@ -1271,8 +1495,9 @@ async deleteOperationalTag(id: number) {
     this.itemProxy.deleteOperationalTag(id).subscribe({
       next: (res) => {
         this.toasterService.showSuccess(
-          this.languageService.transalte('OperationalTag.Success'),
-          this.languageService.transalte('OperationalTag.delete')
+          this.languageService.transalte('OperationalTag.delete'),
+          this.languageService.transalte('OperationalTag.Success')
+
         );
 
         const currentOperationTag = this.listOfOperationalTag.getValue();
@@ -1283,4 +1508,18 @@ async deleteOperationalTag(id: number) {
   }
 }
 
+getAllStockOut(quieries: string, pageInfo: PageInfo) {
+  this.itemProxy.getAllStockOut(quieries, pageInfo).subscribe((response) => {
+    this.stockOutDataSource.next(response.result);
+    this.currentPageInfo.next(response.pageInfoResult);
+  });
 }
+exportStockOutList(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
+  this.itemProxy.exportStockOutList(searchTerm ,SortBy,SortColumn).subscribe({
+    next: (res: any) => {
+      this.exportStockOutListDataSource.next(res);
+    },
+  });
+}
+}
+

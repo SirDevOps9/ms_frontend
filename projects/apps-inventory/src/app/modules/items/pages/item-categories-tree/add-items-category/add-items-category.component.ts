@@ -35,7 +35,7 @@ export class AddItemsCategoryComponent {
   accountTypes: AccountTypeDropDownDto[];
   ItemCategoryDropDown: { id: number; name: string }[];
   AccountsDropDownLookup: { id: number; name: string }[] = [];
-
+@Input() resetParentCatId:boolean
   categoryType = [
     { label: 'Storable', value: 1 },
     { label: 'Service', value: 2 },
@@ -69,19 +69,27 @@ export class AddItemsCategoryComponent {
     private itemService: ItemsService
   ) {}
   ngOnInit() {
-
     this.formGroup = this.formBuilder.group({
       code: [''],
       nameEn: new FormControl('', [customValidators.required]),
       nameAr: ['', [customValidators.required]],
       parentCategoryId: [null],
       isDetailed: [true], // Assuming a boolean default of `false`
+      isActive: [true], // Assuming a boolean default of `false`
       categoryType: [null, [customValidators.required]],
 
       purchaseAccountId: [null],
-      costOfGoodSoldAccountId:[null]
+      costOfGoodSoldAccountId: [null],
     });
     this.getParentItemCategoriesDropDown();
+    if(this.parentCategoryList.length == 0) {  
+      this.formGroup.get('isDetailed')?.patchValue(false)
+      this.formGroup.get('parentCategoryId')?.patchValue(0)
+      this.formGroup.get('categoryType')?.reset(null)
+      this.formGroup.get('categoryType')?.clearValidators();
+      this.formGroup.get('categoryType')?.updateValueAndValidity();
+    this.showCategory = false
+    }
 
     this.formGroup.get('isDetailed')?.valueChanges.subscribe((res) => {
       if (res == true) {
@@ -90,7 +98,10 @@ export class AddItemsCategoryComponent {
         this.showCategory = true;
       } else {
         this.formGroup.get('categoryType')?.clearValidators();
+        this.formGroup.get('categoryType')?.reset(null);
         this.formGroup.get('categoryType')?.updateValueAndValidity();
+        this.formGroup.get('costOfGoodSoldAccountId')?.reset();
+        this.formGroup.get('purchaseAccountId')?.reset();
         this.showCategory = false;
       }
     });
@@ -101,14 +112,13 @@ export class AddItemsCategoryComponent {
     this.formGroup.get('id')?.reset();
     this.formGroup.get('code')?.reset(null);
 
-    this.formGroup.get('parentCategoryId')?.reset(null); 
-    this.formGroup.get('isDetailed')?.reset(false); 
-    this.formGroup.get('categoryType')?.reset(null); 
+    this.formGroup.get('parentCategoryId')?.reset(null);
+    this.formGroup.get('isDetailed')?.reset(false);
+    this.formGroup.get('categoryType')?.reset(null);
 
     // Reset all the account-related fields to null
     this.formGroup.get('purchaseAccountId')?.reset(null);
     this.formGroup.get('costOfGoodSoldAccountId')?.reset(null);
-    
   }
 
   getParentItemCategoriesDropDown() {
@@ -117,8 +127,7 @@ export class AddItemsCategoryComponent {
       next: (res: { id: number; name: string }[]) => {
         this.parentCategoryList = res;
       },
-      error: (error: any) => {
-      },
+      error: (error: any) => {},
     });
   }
   AccountsDropDown() {
@@ -186,31 +195,37 @@ export class AddItemsCategoryComponent {
     if (!this.formsService.validForm(this.formGroup, false)) return;
 
     let obj: AddItemCategory = this.formGroup.value;
-
     this.itemService.addItemCategory(obj);
-    setTimeout(() => {
       this.itemService.AddItemCategoryLookupObs.subscribe({
-        next: (res?: any | any) => {
-          if (res) {
+        next: (res?: any) => {
+          if (res.id) {
+      
+
             this.operationCompleted.emit(res);
+          } else {
+            return
           }
         },
         error: (err: Error) => {
+          
           return;
         },
       });
-    }, 100);
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['parentAddedId']) {
       this.onParentAccountChange(this.parentAddedId);
+    }
+    
+    if(changes['resetParentCatId'] ){
+
+      this.getParentItemCategoriesDropDown()
     }
     setTimeout(() => {
       this.formGroup.get('parentCategoryId')?.setValue(this.parentAddedId);
     }, 100);
 
     if (changes['newChiled']) {
-
       if (this.newChiled == true) {
         this.hasParentAccount = false;
         this.selectValue = false;

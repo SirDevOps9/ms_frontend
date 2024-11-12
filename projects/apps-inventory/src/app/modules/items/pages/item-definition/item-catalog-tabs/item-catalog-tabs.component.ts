@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 
 import { RouterService, SharedLibraryEnums, ToasterService } from 'shared-lib';
 
@@ -9,7 +9,9 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'item-catalog-tabs',
   templateUrl: './item-catalog-tabs.component.html',
-  styleUrl: './item-catalog-tabs.component.scss'
+  styleUrl: './item-catalog-tabs.component.scss',
+
+
 })
 export class ItemCatalogTabsComponent {
   id: number
@@ -26,6 +28,7 @@ export class ItemCatalogTabsComponent {
     if (!routeFragment) {
       return false;
     }
+
     return this._router.getCurrentUrl().includes(`/${routeFragment}`);
   }
   onRoute(path: string) {

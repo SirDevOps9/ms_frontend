@@ -1,0 +1,50 @@
+<lib-popup-page
+  title="{{ 'itemDefinition.uOMdefinitioncategory' | translate }}"
+  [closeFunction]="close"
+
+[save]="false"
+[showCancel]="false"
+>
+  <div class="pop_up_content">
+    <form class="domain_form" [formGroup]="itemDefinitionForm">
+      <div class="domain_content">
+        <div class="grid">
+          <div class="col-12 my-2">
+            <lib-form-group>
+              <lib-label [appControl]="itemDefinitionForm.controls['categoryId']">
+                {{ 'itemCategory.itemCategory' | translate }}
+              </lib-label>
+              <lib-select
+                placeholder="{{ this.config.data }}"
+                [options]="uOMCategoryDropDownLookupData"
+                optionLabel="name"
+                optionValue="id"
+                formControlName="categoryId"
+                (valueChanged)="onChanged($event)"
+              ></lib-select>
+              <lib-field-validations [appControl]="itemDefinitionForm.controls['categoryId']"></lib-field-validations>
+            </lib-form-group>
+          </div>
+        </div>
+      </div>
+    </form>
+
+
+
+    <div class="md:col-4 btn-change grid flex-start justify-content-start">
+      <div class="md:col-12">
+        <lib-button-micro
+          title="{{ 'itemType.change' | translate }}"
+          nameClass="save"
+          widthNumber="100%"
+          iconName="pi pi-plus"
+          type="submit"
+          (click)="onSave()"
+        >
+        </lib-button-micro>
+      </div>
+    </div>
+
+
+  </div>
+</lib-popup-page>

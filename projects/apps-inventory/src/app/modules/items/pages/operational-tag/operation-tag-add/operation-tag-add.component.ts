@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { LayoutService } from 'apps-shared-lib';
 import { ItemsService } from '../../../items.service';
-import { customValidators, FormsService, RouterService } from 'shared-lib';
+import { customValidators, FormsService, PageInfo, PageInfoResult, RouterService } from 'shared-lib';
 import { OperationType } from '../../../models/enums';
 import { GetWarehouseList } from '../../../models';
 
@@ -16,6 +16,7 @@ export class OperationTagAddComponent implements OnInit {
   warhouseLookupData :GetWarehouseList[] =[]
   AccountsDropDownLookup : { id: number; name: string }[] = []
 
+  currentPageInfo: PageInfoResult = { totalItems: 0 };
 
   get operationType(): OperationType {
     return this.operationType
@@ -23,7 +24,7 @@ export class OperationTagAddComponent implements OnInit {
   operationTypeList = [
     { id: OperationType.StockIn, name: OperationType.StockIn },
     { id: OperationType.StockOut, name:  OperationType.StockOut },
-  
+
   ];
   constructor(
     private fb: FormBuilder,
@@ -41,7 +42,7 @@ export class OperationTagAddComponent implements OnInit {
     this.initForm();
     this.initWareHouseLookupData()
      this.getAccount()
-   
+
   }
 
   initWareHouseLookupData() {
@@ -51,7 +52,7 @@ export class OperationTagAddComponent implements OnInit {
     })
   }
 
-  getAccount() { 
+  getAccount() {
     this.itemsService.AccountsDropDown()
     this.itemsService.AccountsDropDownLookupObs.subscribe(res=>{
       this.AccountsDropDownLookup = res
@@ -59,7 +60,7 @@ export class OperationTagAddComponent implements OnInit {
     })
   }
 
- 
+
 
   initForm() {
       this.formGroup = this.fb.group({
@@ -73,13 +74,29 @@ export class OperationTagAddComponent implements OnInit {
 
   discard() {
     this.routerService.navigateTo('/masterdata/operational-tag')
-    
+
   }
+
+
+  initOperationalTagData() {
+    this.itemsService.getOperationalTagList('', new PageInfo());
+
+    this.itemsService.listOfOperationalTag$.subscribe({
+      next: (res) => {
+
+      },
+    });
+
+    this.itemsService.currentPageInfo.subscribe((currentPageInfo: any) => {
+      this.currentPageInfo = currentPageInfo;
+    });
+  }
+
 
   onSave() {
     if (!this.formService.validForm(this.formGroup, false)) return;
 
-    
+
     let val = this .formGroup.value
 
     this.itemsService.addOperationTag(val);
@@ -87,6 +104,8 @@ export class OperationTagAddComponent implements OnInit {
       if(res == true){
 
         this.routerService.navigateTo('/masterdata/operational-tag')
+     
+
       }else{
         return
       }
