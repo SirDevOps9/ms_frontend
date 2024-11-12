@@ -15,7 +15,7 @@
 <!-- (onSelect)="handleDateChange($event)"
 (onInput)="handleInput($event)" -->
 <p-calendar
-  class="w-100"
+  class="w-100 p-calendar"
   [formControl]="$any(formGroup)"
   [placeholder]="placeholder"
   [dateFormat]="dateFormat"
@@ -26,5 +26,5 @@
   [defaultDate]="defaultDate!"
   [showIcon]="true"
   [attr.data-testid]="labelTest"
-  
+
 ></p-calendar>

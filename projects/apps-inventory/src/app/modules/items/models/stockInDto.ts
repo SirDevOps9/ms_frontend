@@ -1,11 +1,17 @@
+
+
+  import { StockOutStatus } from "./stockOutStatus";
+
 export interface StockInDto {
-    id: number
-    code: string
-    date: string
-    note: string
-    sourceDocumentNumber: string
-    warehouseId: number
-    warehouseName: string
-    transactionStatus: string
+  id: number,
+  code: string,
+  receiptDate: string,
+  notes: string,
+  sourceDocumentId: number,
+  warehouseId: number,
+  warehouseName: string,
+  stockInStatus: StockOutStatus,
+  journalCode: string,
+  isReserved: boolean,
+  createdOn: string
   }
-  
