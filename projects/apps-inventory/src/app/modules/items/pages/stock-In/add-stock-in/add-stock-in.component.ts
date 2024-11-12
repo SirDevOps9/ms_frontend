@@ -217,7 +217,7 @@ oprationalLookup : { id: number; name: string }[] = []
     const dialogRef = this.dialog.open(TrackingStockInComponent, {
       width: '60%',
       height: '450px',
-      data: this.itemData.trackingType,
+      data: setTracking.get('trackingType')?.value,
     });
     dialogRef.onClose.subscribe((res: any) => {
       if(res) {
