@@ -608,9 +608,18 @@ getOperationalTagList(searchTerm: string, pageInfo: PageInfo): Observable<IOpera
     return this.httpService.get<StockInDto[]>(query);
   }
 
-  
+
   deleteStockIn(id:number ){
     return this.httpService.delete(`StockIn/${id}`)
+  }
+
+  getByIdStockOut(id:number){
+    return this.httpService.get(`StockOut/${id}`)
+
+  }
+  editStockOut(obj:StockOutDto){
+    return this.httpService.put(`StockOut`, obj)
+
   }
 
 }

@@ -40,7 +40,6 @@ import { OperationTagEditComponent } from './pages/operational-tag/operation-tag
 import { OperationTagListComponent } from './pages/operational-tag/operation-tag-list/operation-tag-list.component';
 import { OperationTagMainComponent } from './pages/operational-tag/operation-tag-main/operation-tag-main.component';
 import { AddStockInComponent } from './pages/stock-In/add-stock-in/add-stock-in.component';
-import { StockInListComponent } from './pages/stock-In/stock-in-list/stock-in-list.component';
 import { EditWarehouseComponent } from './pages/warehouse/edit-warehouse/edit-warehouse.component';
 import { MainWarehouseComponent } from './pages/warehouse/main-warehouse/main-warehouse.component';
 import { MainStockInListComponentComponent } from './pages/stock-In/main-stock-in-list-component/main-stock-in-list-component.component';
@@ -59,6 +58,8 @@ import { AttributeDefinitionListValuesComponent } from './pages/attribute-defini
 import { MainStockOutComponent } from './pages/stock-out/main-stock-out/main-stock-out.component';
 import { AddStockOutComponent } from './pages/stock-out/add-stock-out/add-stock-out.component';
 import { StockOutListComponent } from './pages/stock-out/stock-out-list/stock-out-list.component';
+import { EditStockOutComponent } from './pages/stock-out/edit-stock-out/edit-stock-out.component';
+import { StockInListComponent } from './pages/stock-In/stock-in-list/stock-in-list.component';
 
 const routes: Routes = [
   {
@@ -358,6 +359,13 @@ const routes: Routes = [
 
             },
           },
+          {
+            path: 'edit/:id',
+            component: EditStockOutComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.ADD_ITEM_DIFINITION,
+            },
+          },
 
         ],
       },
@@ -415,7 +423,8 @@ const routes: Routes = [
     AttributeDefinitionListValuesComponent,
     MainStockOutComponent,
     AddStockOutComponent,
-    StockOutListComponent
+    StockOutListComponent,
+    EditStockOutComponent
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule ],
 })

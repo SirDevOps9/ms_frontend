@@ -63,8 +63,12 @@ export class StockOutListComponent implements OnInit {
   }
 
   onEdit(data: any) {
-    this.routerService.navigateTo(`masterdata/add-item-definition/${data.id}`)
+    this.routerService.navigateTo(`masterdata/stock-out/edit/${data.id}`)
 
+  }
+
+  onEditVeiw(data:any){
+    
   }
 
   onSearchChange() {

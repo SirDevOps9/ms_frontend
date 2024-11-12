@@ -6,8 +6,8 @@ import { RouterService, LanguageService, lookupDto, PageInfoResult, MenuModule, 
 import { AddItemDefinitionPopupComponent } from '../../../components/add-item-definition/add-item-definition-popup.component';
 import { ItemsService } from '../../../items.service';
 import {  StockInDto } from '../../../models';
-import { SharedStock } from '../../../models/sharedStockOutEnums';
 import { from, switchMap, tap } from 'rxjs';
+import { SharedStock } from '../../../models/sharedStockOutEnums';
 
 @Component({
   selector: 'app-stock-in-list',
@@ -57,12 +57,10 @@ export class StockInListComponent implements OnInit {
   }
 
   onAdd() {
-    this.routerService.navigateTo(`masterdata/stock-in/add-stock-in`)
 
   }
 
   onEdit(data: any) {
-    this.routerService.navigateTo(`masterdata/add-item-definition/${data.id}`)
 
   }
 
