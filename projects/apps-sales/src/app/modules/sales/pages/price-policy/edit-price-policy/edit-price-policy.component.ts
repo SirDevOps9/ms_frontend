@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { customValidators, FormsService, LanguageService, RouterService, ToasterService } from 'shared-lib';
 import { MultiSelectItemsComponent } from '../../../components/multi-select-items/multi-select-items.component';
@@ -7,14 +7,15 @@ import { ItemDto } from '../../../models';
 import { SalesService } from '../../../sales.service';
 import { UpdetePricePolicyComponent } from '../../../components/updete-price-policy/updete-price-policy.component';
 import { PopupExcelComponent } from '../../../components/popup-excel/popup-excel.component';
-import { filter, take } from 'rxjs';
+import { take } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-add-price-policy',
-  templateUrl: './add-price-policy.component.html',
-  styleUrl: './add-price-policy.component.scss'
+  selector: 'app-edit-price-policy',
+  templateUrl: './edit-price-policy.component.html',
+  styleUrl: './edit-price-policy.component.scss'
 })
-export class AddPricePolicyComponent implements OnInit ,OnDestroy  {
+export class EditPricePolicyComponent {
   rowDataMap: { [key: number]: { uomOptions: any[] } } = {};
   duplicateLine: boolean;
   data: any;
@@ -27,14 +28,28 @@ export class AddPricePolicyComponent implements OnInit ,OnDestroy  {
   @ViewChild('dt') dt: any | undefined;
 
   ngOnInit() {
+  this.gitData()
     this.subscribes()
     this.initItemsData()
+    
     this.initializeForm()
+  }
+  gitData(){
+    const id =this.router.snapshot.params['id']
+    this.salesService.getPricePolicyById(id)
+    this.salesService.pricePolicyListObser.subscribe((res) => {
+      if(res.id){
+        console.log(res ,"1111111111");
+        
+        this.initializeFormWithData(res);
+      }
+        });
   }
   initializeForm() {
     this.addForm = this.formBuilder.group({
-
+      id: new FormControl(''),
       code: new FormControl(''),
+      isDefault: new FormControl(false),
       policySource: new FormControl('Manual'),
       name: new FormControl('', [customValidators.required, customValidators.length(1, 100)]),
       policyItemsList: this.formBuilder.array([]),
@@ -42,6 +57,7 @@ export class AddPricePolicyComponent implements OnInit ,OnDestroy  {
     });
 
   }
+  
   get pricePolicyFormArray() {
     return this.addForm.get('policyItemsList') as FormArray;
   }
@@ -57,7 +73,7 @@ export class AddPricePolicyComponent implements OnInit ,OnDestroy  {
       });
 
       // Update the main form's validity
-      this.addForm?.updateValueAndValidity();
+      this.addForm.updateValueAndValidity();
       if (!this.formsService.validForm(this.pricePolicyFormArray, false)) return;
 
 
@@ -92,6 +108,7 @@ export class AddPricePolicyComponent implements OnInit ,OnDestroy  {
 
       this.filteredPricePolicies = this.pricePolicyFormArray
     } else {
+      
       this.toasterService.showError(
         this.languageService.transalte('messages.error'),
         this.languageService.transalte('messages.duplicateItem')
@@ -211,6 +228,7 @@ export class AddPricePolicyComponent implements OnInit ,OnDestroy  {
       rowForm.get('categoryType')?.setValue(selectedItem.categoryType);
       rowForm.get('id')?.setValue(rowIndex + 1);
       rowForm.get('price')?.setValue(selectedItem.price);
+      rowForm.get('isVatApplied')?.setValue(selectedItem.isVatApplied);
 
       const isDuplicate = this.pricePolicyFormArray.controls.some((element: any, index: number) => {
         if (index !== rowIndex) {
@@ -236,6 +254,7 @@ export class AddPricePolicyComponent implements OnInit ,OnDestroy  {
 
         return false;
       });
+      this.setPriceWithVat(rowIndex, selectedItem.price)
     } else {
       if (this.rowDuplicate == rowIndex) {
         this.rowDuplicate = 0
@@ -250,6 +269,7 @@ export class AddPricePolicyComponent implements OnInit ,OnDestroy  {
           const rowItemVariantId = rowForm.get('itemVariantId')?.value;
 
           if (uomId === rowUomId && itemId === rowItemId && itemVariantId === rowItemVariantId) {
+           
             this.toasterService.showError(
               this.languageService.transalte('messages.error'),
               this.languageService.transalte('messages.duplicateItem')
@@ -293,11 +313,6 @@ export class AddPricePolicyComponent implements OnInit ,OnDestroy  {
     this.salesService.getLatestItems('');
   }
   subscribes() {
-    const selectedPricePolicyId = localStorage.getItem('selectedPricePolicyId');
-    if(selectedPricePolicyId){
-      this.salesService.getPricePolicyById(Number(selectedPricePolicyId))
-    
-    }
     this.salesService.latestItemsList.subscribe({
       next: (res) => {
         // this.items = res;
@@ -307,18 +322,24 @@ export class AddPricePolicyComponent implements OnInit ,OnDestroy  {
         }));
       },
     });
-this.salesService.pricePolicyListObser.subscribe((res) => {
-  if(res.id){
-    res?.policyItemsList?.forEach((element: ItemDto, index: number) => {
-          this.addNewRow();
-          this.setExcelData(index, element.itemId, element);
-        });
-
-      }
-
-    });
-
+ 
   }
+  initializeFormWithData(data: any) {
+    // Set values for simple fields
+    this.addForm.patchValue({
+      id:data.id,
+      code: data.code,
+      name: data.name,
+      isDefault:data.isDefault
+    });
+    data.policyItemsList.forEach((element: any, index: number) => {
+      this.addNewRow();
+      this.setExcelData(index, element.itemId, element);
+    });   
+  }
+
+ 
+
   openDialog(index: number) {
     const ref = this.dialog.open(MultiSelectItemsComponent, {
       width: '1000px',
@@ -344,7 +365,7 @@ this.salesService.pricePolicyListObser.subscribe((res) => {
     });
   }
   update() {
-    if (this.pricePolicyFormArray.value.length > 0) {
+    if (this.pricePolicyFormArray.value.length >0) {
 
 
       if (!this.duplicateLine) {
@@ -446,7 +467,7 @@ this.salesService.pricePolicyListObser.subscribe((res) => {
           )),
         };
 
-        this.salesService.addPricePolicy(transformedFormValue);
+        this.salesService.editPricePolicy(transformedFormValue);
       } else {
         this.toasterService.showError(
           this.languageService.transalte('messages.error'),
@@ -463,7 +484,7 @@ this.salesService.pricePolicyListObser.subscribe((res) => {
 
 
   cancel() {
-    this.router.navigateTo('/masterdata/price-policy');
+    this.routerService.navigateTo('/masterdata/price-policy');
   }
 
   applyFilterGlobal(event: any, stringVal: string) {
@@ -529,10 +550,10 @@ this.salesService.pricePolicyListObser.subscribe((res) => {
       }
     });
   }
-  ngOnDestroy(): void {
-    localStorage.removeItem('selectedPricePolicyId');
-  }
 
+  // ngOnDestroy(): void {
+  //   this.salesService.pricePolicyList.next([])
+  // }
   constructor(
     private formBuilder: FormBuilder,
     private formsService: FormsService,
@@ -540,6 +561,8 @@ this.salesService.pricePolicyListObser.subscribe((res) => {
     private salesService: SalesService,
     private languageService: LanguageService,
     private toasterService: ToasterService,
-    private router: RouterService,
+    private routerService: RouterService,
+    private router: ActivatedRoute,
+
   ) { }
 }

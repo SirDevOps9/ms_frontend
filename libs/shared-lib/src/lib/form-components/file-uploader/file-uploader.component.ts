@@ -44,6 +44,7 @@ export class FileUploaderComponent implements ControlValueAccessor, Validator {
   @ViewChild('fileInput') fileInput: ElementRef;
 
   imgName: string = '';
+  fileName: string = '';
   value: string = '';
   onChange = (value: any) => {};
   onTouched = () => {};
@@ -153,6 +154,7 @@ export class FileUploaderComponent implements ControlValueAccessor, Validator {
   onFileSelected(event: any) {
     const file = event.target.files[0];
     if (file) {
+       this.fileName = file.name;
       const fileType = file.name.split('.').pop().toLowerCase();
       if (fileType === 'xlsx') {
         this.readExcelFile(file);
@@ -168,9 +170,7 @@ export class FileUploaderComponent implements ControlValueAccessor, Validator {
       const binaryStr = e.target.result;
       const workbook = XLSX.read(binaryStr, { type: 'binary' });
       const worksheet = workbook.Sheets[workbook.SheetNames[0]];
-      const json:any = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-    console.log("888888888888888888888");
-    
+      const json:any = XLSX.utils.sheet_to_json(worksheet, { header: 1 });    
       this.data.emit(json);
 
     
