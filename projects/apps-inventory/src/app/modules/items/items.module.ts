@@ -296,12 +296,16 @@ const routes: Routes = [
         component: MainStockInListComponentComponent,
         data: {
           breadcrumb: BreadcrumbLabel.STOCKIN,
+          pageTitle : BreadcrumbLabel.STOCKIN
         },
         children: [
           {
             path: '',
             component: StockInListComponent,
-            data: { breadcrumb: '' },
+            data: {
+              breadcrumb: BreadcrumbLabel.STOCKIN,
+              pageTitle : BreadcrumbLabel.STOCKIN
+            },
           },
           {
             path: 'add-stock-in',
@@ -354,7 +358,7 @@ const routes: Routes = [
 
             },
           },
-         
+
         ],
       },
     ],
