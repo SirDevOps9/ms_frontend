@@ -9,7 +9,7 @@ import {
   RouterService,
   ToasterService,
 } from 'shared-lib';
-import { BehaviorSubject, map, ReplaySubject, Subject } from 'rxjs';
+import { BehaviorSubject, firstValueFrom, map, ReplaySubject, Subject } from 'rxjs';
 import {
   addBarcode,
   AddGeneralDto,
@@ -102,9 +102,26 @@ export class ItemsService {
   public stockOutDataSource = new BehaviorSubject<StockOutDto[]>([]);
 
   stockOutDataSourceeObservable = this.stockOutDataSource.asObservable();
+
+  public stockOutByIdDataSource = new BehaviorSubject<StockOutDto[]>([]);
+
+  stockOutByIdDataSourceeObservable = this.stockOutByIdDataSource.asObservable();
+
+  public stockInDataSource = new BehaviorSubject<StockOutDto[]>([]);
+
+  stockInDataSourceeObservable = this.stockInDataSource.asObservable();
+
+  public editstockInDataSource = new BehaviorSubject<StockOutDto[]>([]);
+
+  editstockInDataSourceeObservable = this.editstockInDataSource.asObservable();
+
   public exportStockOutListDataSource = new BehaviorSubject<StockOutDto[]>([]);
 
   exportStockOutListDataSourceObservable = this.exportStockOutListDataSource.asObservable();
+
+
+  public exportStockInListDataSource = new BehaviorSubject<StockInDto[]>([]);
+  exportStockInListDataSourceObservable = this.exportStockInListDataSource.asObservable();
 
   saveItemDefGeneral = new BehaviorSubject<AddGeneralDto>({} as AddGeneralDto);
   saveItemDefGeneral$ = this.saveItemDefGeneral.asObservable();
@@ -371,22 +388,26 @@ export class ItemsService {
   }
 
   async deleteStockIn(id: number) {
-    const confirmed = await this.toasterService.showConfirm(
-      this.languageService.transalte('ConfirmButtonTexttodelete')
-    );
-    if (confirmed) {
-      this.itemProxy.deleteStockIn(id).subscribe({
-        next: (res) => {
-          this.toasterService.showSuccess(
-            this.languageService.transalte('transactions.success'),
-            this.languageService.transalte('transactions.deleteStockIn')
-          );
+    try {
+      const confirmed = await this.toasterService.showConfirm(
+        this.languageService.transalte('ConfirmButtonTexttodelete')
+      );
 
-          const currentCostCenter = this.sendStockInDataSources.getValue();
-          const updatedCostCenter = currentCostCenter.filter((c) => c.id !== id);
-          this.sendStockInDataSources.next(updatedCostCenter);
-        },
-      });
+      if (confirmed) {
+        await firstValueFrom(this.itemProxy.deleteStockIn(id));
+
+        // Show success message
+        this.toasterService.showSuccess(
+          this.languageService.transalte('transactions.success'),
+          this.languageService.transalte('transactions.deleteStockIn')
+        );
+
+        // const currentCostCenter = this.sendStockInDataSources.getValue();
+        // const updatedCostCenter = currentCostCenter.filter((c) => c.id !== id);
+        // this.sendStockInDataSources.next(updatedCostCenter);
+      }
+    } catch (error) {
+
     }
   }
   async deleteStockOut(id: number) {
@@ -1448,6 +1469,31 @@ getAllStockOut(quieries: string, pageInfo: PageInfo) {
     this.currentPageInfo.next(response.pageInfoResult);
   });
 }
+
+getStockOutById(id:number) {
+  this.itemProxy.getByIdStockOut(id).subscribe((response:any) => {
+    this.stockOutByIdDataSource.next(response);
+  });
+}
+
+editStockOut(obj: StockOutDto) {
+  this.itemProxy.editStockOut(obj).subscribe({
+    next: (res: any) => {
+      this.editstockInDataSource.next(res);
+      this.toasterService.showSuccess(
+        this.languageService.transalte('stockOut.success'),
+        this.languageService.transalte('itemsCategory.edits')
+      );
+    },
+  });
+}
+
+getAllStockIn(quieries: string, pageInfo: PageInfo) {
+  this.itemProxy.getAllStockIn(quieries, pageInfo).subscribe((response) => {
+    this.stockInDataSource.next(response.result);
+    this.currentPageInfo.next(response.pageInfoResult);
+  });
+}
 exportStockOutList(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
   this.itemProxy.exportStockOutList(searchTerm ,SortBy,SortColumn).subscribe({
     next: (res: any) => {
@@ -1455,6 +1501,15 @@ exportStockOutList(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
     },
   });
 }
+
+exportStockInList(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
+  this.itemProxy.exportStockInList(searchTerm ,SortBy,SortColumn).subscribe({
+    next: (res: any) => {
+      this.exportStockInListDataSource.next(res);
+    },
+  });
+}
+
   OperationalTagDropDown() {
     return this.itemProxy.operationTagDropdown().subscribe((res) => {
       this.sendOperationalTagDropDown.next(res);

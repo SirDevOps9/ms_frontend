@@ -38,9 +38,6 @@ export class ItemsProxyService {
     }
     return this.httpService.get<PaginationVm<StockInDto>>(query)
   }
-  deleteStockIn(id : number ){
-    return this.httpService.delete(`Transaction/GetStockInTransactionList/${id}`)
-  }
 
   exportsStockInList(
     searchTerm: string | undefined
@@ -603,14 +600,52 @@ getOperationalTagList(searchTerm: string, pageInfo: PageInfo): Observable<IOpera
     }
     return this.httpService.get<PaginationVm<StockOutDto>>(query);
   }
+  getAllStockIn(
+    searchTerm: string,
+    pageInfo: PageInfo
+  ): Observable<PaginationVm<StockInDto>> {
+    let query = `StockIn?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+    return this.httpService.get<PaginationVm<StockInDto>>(query);
+  }
+
+
   exportStockOutList(searchTerm?: string ,SortBy?:number,SortColumn?:string): Observable<StockOutDto[]> {
     let query = `StockOut/Export?`;
     const params: string[] = [];
     if (searchTerm) params.push(`searchTerm=${encodeURIComponent(searchTerm)}`);
     if (SortBy) params.push(`SortBy=${SortBy}`);
     if (SortColumn) params.push(`SortColumn=${SortColumn}`);
-    query += params.join('&'); 
+    query += params.join('&');
     return this.httpService.get<StockOutDto[]>(query);
   }
+
+
+  exportStockInList(searchTerm?: string ,SortBy?:number,SortColumn?:string): Observable<StockInDto[]> {
+    let query = `StockIn/Export?`;
+    const params: string[] = [];
+    if (searchTerm) params.push(`searchTerm=${encodeURIComponent(searchTerm)}`);
+    if (SortBy) params.push(`SortBy=${SortBy}`);
+    if (SortColumn) params.push(`SortColumn=${SortColumn}`);
+    query += params.join('&');
+    return this.httpService.get<StockInDto[]>(query);
+  }
+
+
+  deleteStockIn(id:number ){
+    return this.httpService.delete(`StockIn/${id}`)
+  }
+
+  getByIdStockOut(id:number){
+    return this.httpService.get(`StockOut/${id}`)
+
+  }
+  editStockOut(obj:StockOutDto){
+    return this.httpService.put(`StockOut`, obj)
+
+  }
+
 }
 
