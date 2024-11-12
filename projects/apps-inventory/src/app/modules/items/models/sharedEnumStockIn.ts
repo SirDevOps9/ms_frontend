@@ -1,13 +1,13 @@
 import { Injectable } from "@angular/core";
-import { StockInOutSourceDocumentType } from "./StockInOutSourceDocumentType";
+import { trackingType } from "./trackingType";
 
 @Injectable({
     providedIn: 'root',
 })
 export class SharedFinanceEnums {
-    get StockInOutSourceDocumentType(): typeof StockInOutSourceDocumentType {
-        return StockInOutSourceDocumentType;
+    get trackingType(): typeof trackingType {
+        return trackingType;
     }
 
     
-}
+} 

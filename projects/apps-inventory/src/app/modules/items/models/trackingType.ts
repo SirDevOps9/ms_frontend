@@ -1,4 +1,4 @@
-export enum StockInOutSourceDocumentType {
+export enum trackingType {
     NoTracking = "NoTracking",
     Serial = "Serial",
     Batch = "Batch"

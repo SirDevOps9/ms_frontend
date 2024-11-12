@@ -257,24 +257,24 @@
         <td  >
           
               <div class="flex align-content-center gap-3 align-items-center">
-                <small class="track" *ngIf="stockInFormGroup.get('trackingType').value == sharedFinanceEnums.StockInOutSourceDocumentType.NoTracking && stockInFormGroup.get('hasExpiryDate')?.value == true">
+                <small class="track" *ngIf="stockInFormGroup.get('trackingType').value == sharedFinanceEnums.trackingType.NoTracking && stockInFormGroup.get('hasExpiryDate')?.value == true">
                   {{stockInFormGroup.get('stockInTracking').get('expireDate')?.value |  date : "dd-MM-yyyy"}}
                 </small>
                 <!--  -->
-                <small class="track" *ngIf="stockInFormGroup.get('trackingType').value == sharedFinanceEnums.StockInOutSourceDocumentType.Serial">{{stockInFormGroup.get('stockInTracking').get('serialId')?.value}}</small>
+                <small class="track" *ngIf="stockInFormGroup.get('trackingType').value == sharedFinanceEnums.trackingType.Serial">{{stockInFormGroup.get('stockInTracking').get('serialId')?.value}}</small>
                 <!--  -->
-                <small class="track" *ngIf="stockInFormGroup.get('trackingType').value == sharedFinanceEnums.StockInOutSourceDocumentType.Batch">{{stockInFormGroup.get('stockInTracking').get('vendorBatchNo')?.value}}</small>
+                <small class="track" *ngIf="stockInFormGroup.get('trackingType').value == sharedFinanceEnums.trackingType.Batch">{{stockInFormGroup.get('stockInTracking').get('vendorBatchNo')?.value}}</small>
 
                 <lib-button-micro
                 title="{{ 'stockIn.setTracking' | translate }}"
                 nameClass="save"
-                widthNumber="100%"
+                widthNumber="100%" 
                 (click)="setTracking(stockInFormGroup)"
-                [disabled]="stockInFormGroup.get('trackingType').value == sharedFinanceEnums.StockInOutSourceDocumentType.NoTracking && stockInFormGroup.get('hasExpiryDate')?.value == false || !stockInFormGroup.get('itemId').value"
+                [disabled]="stockInFormGroup.get('trackingType').value == sharedFinanceEnums.trackingType.NoTracking && stockInFormGroup.get('hasExpiryDate')?.value == false || !stockInFormGroup.get('itemId').value"
               >
               </lib-button-micro>
               </div>
-             
+               
         
         </td>
         <!--  -->

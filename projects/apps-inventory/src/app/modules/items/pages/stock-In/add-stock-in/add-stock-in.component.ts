@@ -205,24 +205,12 @@ export class AddStockInComponent implements OnInit {
 
   openDialog(stockInFormGroup: FormGroup) {
     const ref = this.dialog.open(MultiSelectItemStockInComponent, {
-      width: '1000px',
+      width: 'auto',
       height: '600px',
     });
     ref.onClose.subscribe((selectedItems: any) => {
       if (selectedItems) {
-        // const uomOptions: any = selectedItems.itemsUOM
-        // const rowForm = this.pricePolicyFormArray.at(index) as FormGroup;
-        // rowForm.get('uomOptions')?.setValue(uomOptions); // Store options for template access
-        // rowForm.get('uomId')?.reset(); // Reset the UOM value to avoid conflicts
-        // rowForm.get('uomId')?.setValue(selectedItems.uomId); // Optionally set the first UOM
-        // rowForm.get('uomName')?.setValue(selectedItems.uomNameAr); // Optionally set the first UOM
-        // rowForm.get('itemName')?.setValue(selectedItems.itemName); // Optionally set the first UOM
-        // rowForm.get('itemVariantId')?.setValue(selectedItems.itemVariantId); // Optionally set the first UOM
-        // rowForm.get('itemVariantName')?.setValue(selectedItems.itemVariantName); // Optionally set the first UOM
-        // rowForm.get('itemId')?.setValue(selectedItems.itemId)
-        // rowForm.get('itemCode')?.setValue(selectedItems.itemCode)
-        // rowForm.get('taxId')?.setValue(selectedItems.taxId)
-        // rowForm.get('id')?.setValue(index+1)
+      console.log(selectedItems)
       }
     });
   }
