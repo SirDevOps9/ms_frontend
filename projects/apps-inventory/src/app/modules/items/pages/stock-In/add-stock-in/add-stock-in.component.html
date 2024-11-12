@@ -28,7 +28,7 @@
       </lib-label>
       <lib-select
         formControlName="sourceDocumentType"
-        [options]="lookups[LookupEnum.StockInSourceDocumentType]!"
+        [options]="lookups[LookupEnum.StockInOutSourceDocumentType]!"
         optionValue="id"
         optionLabel="name"
         [selectedValue]="stockInForm.controls['sourceDocumentType'].value"
@@ -110,7 +110,7 @@
         <th>{{ 'stockIn.QTY' | translate }}</th>
         <th>{{ 'stockIn.cost' | translate }}</th>
         <th>{{ 'stockIn.subTotal' | translate }}</th>
-        <th *ngIf="itemData?.trackingType !== 'NoTracking'">{{ 'stockIn.tracking' | translate }}</th>
+        <th>{{ 'stockIn.tracking' | translate }}</th>
         <th>{{ 'stockIn.note' | translate }}</th>
         <th>{{ 'stockIn.actions' | translate }}</th>
       </tr>
@@ -121,7 +121,7 @@
           <p-cellEditor>
             <ng-template pTemplate="input">
               <lib-text-input
-                placeholder="{{ 'stockIn.barCode' | translate }}"
+                placeholder="{{ 'stockIn.barcode' | translate }}"
                 formControlName="barCode"
               ></lib-text-input>
             </ng-template>
@@ -143,7 +143,7 @@
                 formControlName="itemId"
                 [options]="latestItemsList"
                 optionValue="itemId"
-                optionLabel="itemCode"
+                optionLabel="displayName"
                 placeholder="{{ 'stockIn.itemCode' | translate }}"
                 (valueChanged)="itemChanged($event , stockInFormGroup)"
               >
@@ -242,8 +242,9 @@
           <p-cellEditor>
             <ng-template pTemplate="input">
               <lib-text-input
-                placeholder="{{ 'stockIn.Subtotal' | translate }}"
+                placeholder="{{ 'stockIn.subTotal' | translate }}"
                 formControlName="subTotal"
+                [readOnly]="true"
               ></lib-text-input>
             </ng-template>
             <ng-template pTemplate="output">
@@ -253,43 +254,28 @@
         
         </td>
         <!--  -->
-        <td [pEditableColumn]="stockInFormGroup.controls['trackingType']" pEditableColumnField="trackingType" *ngIf="itemData?.trackingType !== 'NoTracking'">
-          <p-cellEditor>
-            <ng-template pTemplate="input">
-              <div class="d-flex gap-">
+        <td  >
+          
+              <div class="flex align-content-center gap-3 align-items-center">
+                <small class="track" *ngIf="stockInFormGroup.get('trackingType').value == sharedFinanceEnums.TrackingStockIn.NoTracking && stockInFormGroup.get('hasExpiryDate')?.value == true">
+                  {{stockInFormGroup.get('stockInTracking').get('expireDate')?.value |  date : "dd-MM-yyyy"}}
+                </small>
+                <!--  -->
+                <small class="track" *ngIf="stockInFormGroup.get('trackingType').value == sharedFinanceEnums.TrackingStockIn.Serial">{{stockInFormGroup.get('stockInTracking').get('serialId')?.value}}</small>
+                <!--  -->
+                <small class="track" *ngIf="stockInFormGroup.get('trackingType').value == sharedFinanceEnums.TrackingStockIn.Batch">{{stockInFormGroup.get('stockInTracking').get('vendorBatchNo')?.value}}</small>
 
                 <lib-button-micro
                 title="{{ 'stockIn.setTracking' | translate }}"
                 nameClass="save"
                 widthNumber="100%"
                 (click)="setTracking(stockInFormGroup)"
+                [disabled]="stockInFormGroup.get('trackingType').value == sharedFinanceEnums.TrackingStockIn.NoTracking && stockInFormGroup.get('hasExpiryDate')?.value == false || !stockInFormGroup.get('itemId').value"
               >
               </lib-button-micro>
               </div>
              
-
-            </ng-template>
-            <ng-template pTemplate="output">
-              <div class="flex align-content-center gap-3">
-                <small *ngIf="itemData?.trackingType == 'Expiry'">{{stockInFormGroup.get('stockInTracking').get('expireDate')?.value |  date : "dd-MM-yyyy"}}</small>
-                <!--  -->
-                <small *ngIf="itemData?.trackingType == 'Serial'">{{stockInFormGroup.get('stockInTracking').get('serialId')?.value}}</small>
-                <!--  -->
-                <small *ngIf="itemData?.trackingType == 'Batch'">{{stockInFormGroup.get('stockInTracking').get('vendorBatchNo')?.value}}</small>
-                <lib-button-micro
-                title="{{ 'stockIn.setTracking' | translate }}"
-                nameClass="save"
-                widthNumber="100%"
-                (click)="setTracking(stockInFormGroup)"
-              >
-              </lib-button-micro>
-              </div>
-             
-            </ng-template>
-          </p-cellEditor>
-          <lib-field-validations
-            [appControl]="stockInFormGroup.controls['trackingType']"
-          ></lib-field-validations>
+        
         </td>
         <!--  -->
         <td [pEditableColumn]="stockInFormGroup.controls['notes']" pEditableColumnField="notes">
@@ -309,7 +295,11 @@
           ></lib-field-validations>
         </td>
         <td>
-          <img src="assets/images/table/edit.svg" alt="" (click)="onEdit(stockInFormGroup)" />
+          <div class="flex gap-3">
+            <img src="assets/images/table/edit.svg pointer" alt="" (click)="onEdit(stockInFormGroup)" />
+            <img src="assets/images/table/delete.svg pointer" alt="" (click)="OnDelete(i)" />
+
+          </div>
         </td>
         <!--  -->
       </tr>

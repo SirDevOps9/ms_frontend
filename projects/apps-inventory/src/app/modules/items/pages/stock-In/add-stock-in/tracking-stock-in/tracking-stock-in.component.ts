@@ -10,13 +10,17 @@ import { customValidators } from 'shared-lib';
 })
 export class TrackingStockInComponent implements OnInit {
 constructor(private ref : DynamicDialogRef , private config : DynamicDialogConfig , private fb : FormBuilder){}
-configData : string
+configData : any  = {}
   ngOnInit(): void {
    this.trackingForm = this.fb.group({
     stockInTracking : this.fb.array([])
    })
-   this.tracking.push(this.createTracking())
-    this.configData = this.config.data
+   
+    this.configData = this.config.data;
+    console.log(this.configData.trackingValue)
+
+    this.tracking.push(this.createTracking(this.configData?.trackingValue ?? null))
+
   }
 trackingForm : FormGroup
   onCancel() {
@@ -26,13 +30,13 @@ trackingForm : FormGroup
     this.ref.close(this.tracking.controls[0].value)
     }
 
-  createTracking() {
+  createTracking(data? : any) {
     return this.fb.group({
-      vendorBatchNo: '',
-      expireDate: [null , customValidators.required],
-      systemPatchNo: '',
-      serialId: '',
-      trackingType: this.config.data
+      vendorBatchNo: data?.vendorBatchNo ?? null,
+      expireDate: [data?.expireDate ?? null , customValidators.required],
+      systemPatchNo: data?.systemPatchNo ?? null,
+      serialId: data?.serialId ?? null,
+      trackingType: this.configData?.tracking
     })
   }
 
