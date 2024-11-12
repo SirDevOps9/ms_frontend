@@ -10,10 +10,10 @@ import { itemDefinitionDto } from '../../../models';
 
 @Component({
   selector: 'app-item-defintion-vat',
-  templateUrl: './item-defintion-vat.component.html',
-  styleUrls: ['./item-defintion-vat.component.scss']
+  templateUrl: './item-defintion-variant.component.html',
+  styleUrls: ['./item-defintion-variant.component.scss']
 })
-export class ItemDefintionVatComponent {
+export class ItemDefintionVariantComponent {
 
   tableData: any[] = [];
   exportColumns: lookupDto[] = [

@@ -50,7 +50,6 @@ import { ItemDefinitionBarcodeComponent } from './pages/item-definition/item-def
 import { ItemDefinitionInventoryComponent } from './pages/item-definition/item-definition-inventory/item-definition-inventory.component';
 import { ItemCatalogTabsComponent } from './pages/item-definition/item-catalog-tabs/item-catalog-tabs.component';
 import { EditCategoryUomComponent } from './pages/item-definition/item-definition-uom/edit-category/edit-category-uom/edit-category-uom.component';
-import { ItemDefintionVatComponent } from './pages/item-definition/item-defintion-vat/item-defintion-vat.component';
 import { ItemDefintionTaxComponent } from './pages/item-definition/item-defintion-tax/item-defintion-tax.component';
 import { WarehouseTabsComponent } from './pages/warehouse/warehouse-tabs/warehouse-tabs/warehouse-tabs.component';
 import { AttributeDefinitionValuesComponent } from './pages/attribute-definition/attribute-definition-values/attribute-definition-values/attribute-definition-values.component';
@@ -60,6 +59,7 @@ import { AddStockOutComponent } from './pages/stock-out/add-stock-out/add-stock-
 import { StockOutListComponent } from './pages/stock-out/stock-out-list/stock-out-list.component';
 import { EditStockOutComponent } from './pages/stock-out/edit-stock-out/edit-stock-out.component';
 import { StockInListComponent } from './pages/stock-In/stock-in-list/stock-in-list.component';
+import { ItemDefintionVariantComponent } from './pages/item-definition/item-defintion-variants/item-defintion-variant.component';
 
 const routes: Routes = [
   {
@@ -114,7 +114,7 @@ const routes: Routes = [
           },
           {
             path: 'variants/:id',
-            component: ItemDefintionVatComponent,
+            component: ItemDefintionVariantComponent,
             data: {
               breadcrumb: BreadcrumbLabel.attributes_ITEMdEFINITION,
               pageTitle : BreadcrumbLabel.attributes_ITEMdEFINITION
@@ -416,7 +416,7 @@ const routes: Routes = [
     ItemDefinitionBarcodeComponent,
     ItemDefinitionInventoryComponent,
     EditCategoryUomComponent,
-    ItemDefintionVatComponent,
+    ItemDefintionVariantComponent,
     ItemDefintionTaxComponent,
     WarehouseTabsComponent,
     AttributeDefinitionValuesComponent,

@@ -383,9 +383,9 @@ this.itemProxy.getItemBarcodeById(id).subscribe({
           this.languageService.transalte('transactions.deleteStockIn')
         );
 
-        const currentCostCenter = this.sendStockInDataSources.getValue();
-        const updatedCostCenter = currentCostCenter.filter((c) => c.id !== id);
-        this.sendStockInDataSources.next(updatedCostCenter);
+        // const currentCostCenter = this.sendStockInDataSources.getValue();
+        // const updatedCostCenter = currentCostCenter.filter((c) => c.id !== id);
+        // this.sendStockInDataSources.next(updatedCostCenter);
       }
     } catch (error) {
 
