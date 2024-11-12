@@ -78,7 +78,7 @@ export class ListWorkflowComponent implements OnInit {
   newWorkflow() {
     const dialogRef = this.dialog.open(AddWorkflowComponent, {
       width: '500px',
-      height: '450px',
+      height: '500px',
     });
 
     dialogRef.onClose.subscribe(() => {

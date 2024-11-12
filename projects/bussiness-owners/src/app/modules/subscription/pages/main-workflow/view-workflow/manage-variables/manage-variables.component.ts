@@ -90,7 +90,7 @@ export class ManageVariablesComponent implements OnInit {
   addValriables() {
     const ref = this.dialog.open(AddVariableComponent, {
       width: '800px',
-      height: '500px',
+      height: '450px',
       data: this.workflowId,
     });
     ref.onClose.subscribe(() => {
@@ -101,7 +101,7 @@ export class ManageVariablesComponent implements OnInit {
   onEdit(obj: number) {
     const ref = this.dialog.open(EditVariableComponent, {
       width: '800px',
-      height: '500px',
+      height: '450px',
       data: obj,
     });
     ref.onClose.subscribe(() => {
