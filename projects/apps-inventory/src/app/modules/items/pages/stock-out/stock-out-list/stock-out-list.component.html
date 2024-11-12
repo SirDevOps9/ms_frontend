@@ -40,7 +40,7 @@
                 isSortable: true
               },
               {
-                name: 'stockInStatus',
+                name: 'stockOutStatus',
                 headerText: ('stockOut.status' | translate),
                 template: status
 
@@ -62,9 +62,9 @@
                 template: actions
 
               },
-            
-  
-             
+
+
+
             ]
           }">
                 <ng-container search>
@@ -106,7 +106,7 @@
                         <p *ngIf="!reserved.isReserved">{{'stockOut.btnReserve' |translate}}</p>
                         <p *ngIf="reserved.isReserved" >{{'stockOut.btnReserved' |translate}}</p>
 
-                     
+
 
 
                     </div>
@@ -119,11 +119,11 @@
                 </ng-template>
                 <ng-template #status let-status>
                   <p class="btn_stock body_B13" [ngClass]="{
-                    'Draft': status.stockInStatus== sharedFinanceEnums.stockOutStatus.Draft,
-                    'save': status.stockInStatus== sharedFinanceEnums.stockOutStatus.Saved,
-                    'post': status.stockInStatus== sharedFinanceEnums.stockOutStatus.Posted
+                    'Draft': status.stockOutStatus== sharedFinanceEnums.stockOutStatus.Draft,
+                    'save': status.stockOutStatus== sharedFinanceEnums.stockOutStatus.Saved,
+                    'post': status.stockOutStatus== sharedFinanceEnums.stockOutStatus.Posted
                 }">
-                    {{status.stockInStatus}}
+                    {{status.stockOutStatus}}
                 </p>
                 </ng-template>
             </lib-data-table>
