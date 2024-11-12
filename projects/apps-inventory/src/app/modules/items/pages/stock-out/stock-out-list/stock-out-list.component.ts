@@ -67,9 +67,7 @@ export class StockOutListComponent implements OnInit {
 
   }
 
-  onEditVeiw(data:any){
-    
-  }
+  onEditVeiw(data:any){}
 
   onSearchChange() {
     this.itemsService.getAllStockOut(this.searchTerm, new PageInfo());
@@ -101,5 +99,7 @@ export class StockOutListComponent implements OnInit {
     // this.title.setTitle(this.langService.transalte('itemCategory.itemDefinition'));
 
   }
+
+  
 }
 
