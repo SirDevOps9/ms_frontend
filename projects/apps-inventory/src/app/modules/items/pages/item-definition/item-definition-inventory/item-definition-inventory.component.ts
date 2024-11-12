@@ -36,7 +36,8 @@ export class ItemDefinitionInventoryComponent {
       LookupEnum.TrackingType
     ]);
     this.lookupservice.lookups.subscribe((l) => {
-      this.lookups = l;      
+      this.lookups = l;   
+      console.log(l)   
     });
 
     this.itemDefinitionForm.get('trackingType')?.valueChanges.subscribe(res=>{

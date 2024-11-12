@@ -6,9 +6,10 @@ import {
   BreadcrumbLabel,
   LayoutComponent,
   Modules,
+  Pages,
   SharedLibModule,
 } from 'shared-lib';
-import { LayoutPageComponent } from 'apps-shared-lib';
+import { LayoutPageComponent, SequenceComponent } from 'apps-shared-lib';
 import { AddItemCategoryComponent } from './components/add-item-category/add-item-category.component';
 import { ItemCategoryListComponent } from './pages/item-category/item-category-list/item-category-list.component';
 import { AddItemDefinitionPopupComponent } from './components/add-item-definition/add-item-definition-popup.component';
@@ -60,6 +61,11 @@ import { StockOutListComponent } from './pages/stock-out/stock-out-list/stock-ou
 import { EditStockOutComponent } from './pages/stock-out/edit-stock-out/edit-stock-out.component';
 import { StockInListComponent } from './pages/stock-In/stock-in-list/stock-in-list.component';
 import { ItemDefintionVariantComponent } from './pages/item-definition/item-defintion-variants/item-defintion-variant.component';
+import { TrackingStockInComponent } from './pages/stock-In/add-stock-in/tracking-stock-in/tracking-stock-in.component';
+import { MultiSelectItemStockInComponent } from './pages/stock-In/add-stock-in/multi-select-item-stock-in/multi-select-item-stock-in.component';
+import { ScanParcodeStockInComponent } from './pages/stock-In/scan-parcode-stock-in/scan-parcode-stock-in.component';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { ImportStockInComponent } from './pages/stock-In/import-stock-in/import-stock-in.component';
 
 const routes: Routes = [
   {
@@ -322,6 +328,16 @@ const routes: Routes = [
               breadcrumb: BreadcrumbLabel.ADD_ITEM_DIFINITION,
             },
           },
+          {
+            path: 'sequence',
+            component: SequenceComponent,
+            data: {
+              moduleId: Modules.inventory,
+              pageId: Pages.StockIn,
+              breadcrumb: BreadcrumbLabel.SEQUENCE,
+              pageTitle: BreadcrumbLabel.SEQUENCE
+            },
+          },
         ],
       },
 
@@ -424,8 +440,13 @@ const routes: Routes = [
     MainStockOutComponent,
     AddStockOutComponent,
     StockOutListComponent,
-    EditStockOutComponent
+    EditStockOutComponent,
+    TrackingStockInComponent, 
+    MultiSelectItemStockInComponent,
+    ScanParcodeStockInComponent,
+    ImportStockInComponent
   ],
-  imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule ],
+  imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule ,     ZXingScannerModule // Add the ZXingScannerModule here
+  ],
 })
 export class ItemsModule {}
