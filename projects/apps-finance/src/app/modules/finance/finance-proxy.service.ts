@@ -211,6 +211,7 @@ export class FinanceProxyService {
   GetAllTreasuriesPaymentMethodsDropdown(): Observable<any[]> {
     return this.httpService.get(`PaymentMethod/GetAllTreasuriesPaymentMethodsDropdown`);
   }
+
   GetTreasuryBalance(id: number): Observable<number> {
     return this.httpService.get(`Treasury/GetBalance/${id}`);
   }
@@ -218,7 +219,6 @@ export class FinanceProxyService {
     return this.httpService.get(`Bank/GetAccountBalance/${id}`);
   }
 
-  
   getAccountsHasNoChildren(
     quieries: string,
     pageInfo: PageInfo
@@ -255,7 +255,6 @@ export class FinanceProxyService {
     return this.httpService.get<PaginationVm<GetAllPaymentInDto>>(query);
   }
 
-
   exportsPaymentInList(searchTerm: string | undefined): Observable<GetAllPaymentInDto[]> {
     let query = `PaymentIn/Export?`;
     if (searchTerm) {
@@ -267,12 +266,12 @@ export class FinanceProxyService {
   deletePaymentIn(id: number) {
     return this.httpService.delete(`PaymentIn/${id}`);
   }
- 
+
   getTaxDropDown(): Observable<DropDownDto[]> {
     return this.httpService.get('Tax/Taxdropdown');
   }
-  postPaymentIn(id:number){
-    return this.httpService.post(`PaymentIn/${id}/Post`,null);
+  postPaymentIn(id: number) {
+    return this.httpService.post(`PaymentIn/${id}/Post`, null);
   }
 
   viewBank(id: number): Observable<ViewBankDto> {
