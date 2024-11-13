@@ -326,6 +326,8 @@ export class ItemsService {
   public taxesEditDataLookupObs = this.taxesEditDataLookup.asObservable();
   public getInventoryData$ = this.getInventoryData.asObservable();
   public dataBarCodeByIdObs = this.dataBarCodeById.asObservable();
+  
+  
 
   getItemType(quieries: string, pageInfo: PageInfo) {
     this.itemProxy.getItemType(quieries, pageInfo).subscribe((response) => {

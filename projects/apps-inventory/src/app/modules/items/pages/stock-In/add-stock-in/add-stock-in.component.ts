@@ -183,6 +183,8 @@ export class AddStockInComponent implements OnInit {
     stockInFormGroup.get('stockInTracking')?.get('trackingType')?.setValue(data?.trackingType);
     stockInFormGroup.get('itemVariantId')?.setValue(data?.itemVariantId);
     stockInFormGroup.get('hasExpiryDate')?.setValue(data?.hasExpiryDate);
+    stockInFormGroup.get('uomId')?.setValue(data?.uomId);
+    this.uomChanged(stockInFormGroup.get('uomId')?.value , stockInFormGroup)
   }
   uomChanged(e: any, stockInFormGroup: FormGroup) {
     let data = this.uomLookup.find((item: any) => item.uomId == e);
@@ -210,7 +212,8 @@ export class AddStockInComponent implements OnInit {
     });
     ref.onClose.subscribe((selectedItems: any) => {
       if (selectedItems) {
-      console.log(selectedItems)
+      this.itemChanged(selectedItems.itemId , stockInFormGroup)
+  
       }
     });
   }
