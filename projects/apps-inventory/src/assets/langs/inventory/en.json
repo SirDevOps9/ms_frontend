@@ -415,7 +415,9 @@
     "HasExpiryDate": "Has Expiry Date",
     "Actions" : "Actions",
     "uploadExcel" : "Upload Excel",
-    "scan" : "Scan Barcode"
+    "scan" : "Scan Barcode",
+    "noTracking" : "No Tracking",
+    "required" : "Required"
 
 
 },
