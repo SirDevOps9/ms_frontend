@@ -105,6 +105,10 @@ export class AddStockInComponent implements OnInit {
         this.itemsService.OperationalTagDropDown();
         this.itemsService.sendOperationalTagDropDown$.subscribe((res) => {
           this.oprationalLookup = res;
+          this.oprationalLookup = res.map((elem: any) => ({
+            ...elem,
+            displayName: `${elem.name} (${elem.code})`,
+          }));
         });
       }
     });
