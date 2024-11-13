@@ -34,6 +34,7 @@ import {
   Iuom,
   IuomResult,
   LatestItems,
+  OperationalStockIn,
   StockInDto,
   StockOutDto,
   UOMCategoryDto,
@@ -179,7 +180,7 @@ export class ItemsService {
   public updateUOMByIdobj = new BehaviorSubject<any>({});
   public attributeNameDropDownLookup = new BehaviorSubject<any>([]);
   public attributeGroupeDropDownLookup = new BehaviorSubject<{ id: number; name: string }[]>([]);
-  public sendOperationalTagDropDown = new BehaviorSubject<{ id: number; name: string }[]>([]);
+  public sendOperationalTagDropDown = new BehaviorSubject<OperationalStockIn[]>([]);
   public sendlatestItemsList = new BehaviorSubject<LatestItems[]>([]);
   public sendAddStockIn = new BehaviorSubject<AddStockIn>({} as AddStockIn);
   public attributeValuesDropDownLookup = new BehaviorSubject<itemAttributeValues[]>([]);

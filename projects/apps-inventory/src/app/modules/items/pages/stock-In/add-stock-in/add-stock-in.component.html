@@ -31,6 +31,7 @@
         optionValue="id"
         optionLabel="name"
         [selectedValue]="stockInForm.controls['sourceDocumentType'].value"
+        [readOnly]="true"
       >
       </lib-select>
       <lib-field-validations [appControl]="stockInForm.controls['sourceDocumentType']"></lib-field-validations>
@@ -51,19 +52,24 @@
       <lib-field-validations [appControl]="stockInForm.controls['sourceDocumentId']"></lib-field-validations>
     </div>
     <div class="md:col-3 my-2">
-      <lib-label [appControl]="stockInForm.controls['warehouseId']">
+      <lib-label [appControl]="stockInForm.controls['warehouseName']">
         {{ 'stockIn.warehouse' | translate }}
       </lib-label>
-      <lib-select
-        formControlName="warehouseId"
+      <!-- <lib-select
+        formControlName="warehouseName"
         [options]="warhouseLookupData"
         optionValue="id"
         optionLabel="name"
         placeholder="{{ 'stockIn.warehouse' | translate }}"
-        [selectedValue]="stockInForm.controls['warehouseId'].value"
+        [selectedValue]="stockInForm.controls['warehouseName'].value"
       >
-      </lib-select>
-      <lib-field-validations [appControl]="stockInForm.controls['warehouseId']"></lib-field-validations>
+      </lib-select> -->
+      <lib-text-input
+                placeholder="{{ 'stockIn.warehouse' | translate }}"
+                formControlName="warehouseName"
+                [readOnly]="true"
+              ></lib-text-input>
+      <lib-field-validations [appControl]="stockInForm.controls['warehouseName']"></lib-field-validations>
     </div>
     <div class="md:col-6 my-2">
       <div>
@@ -161,21 +167,8 @@
           ></lib-field-validations>
         </td>
         <!--  -->
-        <td [pEditableColumn]="stockInFormGroup.controls['description']" pEditableColumnField="description">
-          <p-cellEditor>
-            <ng-template pTemplate="input">
-              <lib-text-input
-                placeholder="{{ 'stockIn.itemDescription' | translate }}"
-                formControlName="description"
-              ></lib-text-input>
-            </ng-template>
-            <ng-template pTemplate="output">
-              {{ stockInFormGroup.controls['description']?.value }}
-            </ng-template>
-          </p-cellEditor>
-          <lib-field-validations
-            [appControl]="stockInFormGroup.controls['description']"
-          ></lib-field-validations>
+        <td >
+          {{ stockInFormGroup.controls['description']?.value }}
         </td>
         <!--  -->
         <!--  -->
@@ -238,20 +231,9 @@
           ></lib-field-validations>
         </td>
         <!--  -->
-        <td [pEditableColumn]="stockInFormGroup.controls['subTotal']" pEditableColumnField="subTotal">
-          <p-cellEditor>
-            <ng-template pTemplate="input">
-              <lib-text-input
-                placeholder="{{ 'stockIn.subTotal' | translate }}"
-                formControlName="subTotal"
-                [readOnly]="true"
-              ></lib-text-input>
-            </ng-template>
-            <ng-template pTemplate="output">
-              {{ stockInFormGroup.controls['quantity']?.value *  stockInFormGroup.controls['cost']?.value}}
-            </ng-template>
-          </p-cellEditor>
-        
+        <td >
+          {{ stockInFormGroup.controls['quantity']?.value *  stockInFormGroup.controls['cost']?.value}}
+
         </td>
         <!--  -->
         <td  >
@@ -260,20 +242,41 @@
                 <small class="track" *ngIf="stockInFormGroup.get('trackingType').value == sharedFinanceEnums.trackingType.NoTracking && stockInFormGroup.get('hasExpiryDate')?.value == true">
                   {{stockInFormGroup.get('stockInTracking').get('expireDate')?.value |  date : "dd-MM-yyyy"}}
                 </small>
+                <small  *ngIf="stockInFormGroup.get('trackingType').value == sharedFinanceEnums.trackingType.NoTracking && stockInFormGroup.get('hasExpiryDate')?.value == true && !stockInFormGroup.get('stockInTracking').get('expireDate')?.value">
+                  {{'stockIn.Expiry' | translate}}
+                </small>
+     
                 <!--  -->
                 <small class="track" *ngIf="stockInFormGroup.get('trackingType').value == sharedFinanceEnums.trackingType.Serial">{{stockInFormGroup.get('stockInTracking').get('serialId')?.value}}</small>
                 <!--  -->
+
+                <small *ngIf="stockInFormGroup.get('trackingType').value == sharedFinanceEnums.trackingType.Serial && !stockInFormGroup.get('stockInTracking').get('serialId')?.value">{{stockInFormGroup.get('trackingType').value}}</small>
+
+
+
                 <small class="track" *ngIf="stockInFormGroup.get('trackingType').value == sharedFinanceEnums.trackingType.Batch">{{stockInFormGroup.get('stockInTracking').get('vendorBatchNo')?.value}}</small>
+
+                <small *ngIf="stockInFormGroup.get('trackingType').value == sharedFinanceEnums.trackingType.Batch && !stockInFormGroup.get('stockInTracking').get('vendorBatchNo')?.value">{{stockInFormGroup.get('trackingType').value}}</small>
 
                 <lib-button-micro
                 title="{{ 'stockIn.setTracking' | translate }}"
                 nameClass="save"
                 widthNumber="100%" 
+                [class.hide]="stockInFormGroup.get('trackingType').value == sharedFinanceEnums.trackingType.NoTracking && stockInFormGroup.get('hasExpiryDate')?.value == false"
                 (click)="setTracking(stockInFormGroup)"
                 [disabled]="stockInFormGroup.get('trackingType').value == sharedFinanceEnums.trackingType.NoTracking && stockInFormGroup.get('hasExpiryDate')?.value == false || !stockInFormGroup.get('itemId').value"
               >
               </lib-button-micro>
+
+              <small *ngIf="stockInFormGroup.get('trackingType').value == sharedFinanceEnums.trackingType.NoTracking && stockInFormGroup.get('hasExpiryDate')?.value == false">{{'stockIn.noTracking' | translate}}</small>
+
+             
               </div>
+              <div class="flex justify-content-center mt-2">
+                <small class="danger" *ngIf="stockInFormGroup.get('stockInTracking').get('expireDate').hasError('required') || stockInFormGroup.get('stockInTracking').get('vendorBatchNo').hasError('required') || stockInFormGroup.get('stockInTracking').get('serialId').hasError('required')">{{'stockIn.required' | translate}}</small>
+              </div>
+             
+              
                
         
         </td>

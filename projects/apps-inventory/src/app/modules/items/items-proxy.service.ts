@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
-import { addBarcode, AddGeneralDto, AddItemCategory, AddItemDefinitionDto, AddOperatioalTag, AddStockIn, AddVariantLine, AddWarehouse, AdvancedSearchDto, AttributesVariants, EditAttributes, EditWareHouse, GetItemById, GetItemCategoryDto, getUomByItemId, GetWarehouseList, IOperationalTag, itemDefinitionDto, ItemTypeDto, Iuom, LatestItems, StockInDto, StockOutDto, UOMCategoryDto, UomDefault } from './models';
+import { addBarcode, AddGeneralDto, AddItemCategory, AddItemDefinitionDto, AddOperatioalTag, AddStockIn, AddVariantLine, AddWarehouse, AdvancedSearchDto, AttributesVariants, EditAttributes, EditWareHouse, GetItemById, GetItemCategoryDto, getUomByItemId, GetWarehouseList, IOperationalTag, itemDefinitionDto, ItemTypeDto, Iuom, LatestItems, OperationalStockIn, StockInDto, StockOutDto, UOMCategoryDto, UomDefault } from './models';
 import { EditItemDefinitionDto } from './models/editItemDefinitionDto';
 import { variantGroupById } from './models/variantGroupById';
 import { itemAttributeValues, itemAttributeValuesByID } from './models/itemAttributeValues';
@@ -565,8 +565,8 @@ getOperationalTagList(searchTerm: string, pageInfo: PageInfo): Observable<IOpera
     return this.httpService.get(`Item/GetGeneralData/${id}`)
   }
 
-  operationTagDropdown() : Observable<{ id: number; name: string }[]> {
-    return this.httpService.get(`OperationalTag/OperationalTagDropDown`)
+  operationTagDropdown() : Observable<OperationalStockIn[]> {
+    return this.httpService.get(`OperationalTag/OperationalTagStockDropDown?OperationType=StockIn`)
   }
   getLatestItemsList() : Observable<LatestItems[]> {
     return this.httpService.get(`Item/GetLatestItemsList`)
