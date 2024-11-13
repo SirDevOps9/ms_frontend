@@ -4,5 +4,6 @@ export enum Pages {
   Bank = 3,
   Treasury = 4,
   JournalEntry = 5,
-  PricePolicy=6
+  PricePolicy=6,
+  StockIn = 11
 }
