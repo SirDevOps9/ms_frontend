@@ -35,6 +35,7 @@ import {
   IuomResult,
   LatestItems,
   OperationalStockIn,
+  StockInDetail,
   StockInDto,
   StockOutDto,
   UOMCategoryDto,
@@ -211,6 +212,7 @@ export class ItemsService {
   wareHousesDropDownLookup = new BehaviorSubject<GetWarehouseList[]>([]);
   sendCitiesLookup = new BehaviorSubject<any>([]);
   sendCountriesLookup = new BehaviorSubject<any>([]);
+  sendItemBarcode = new BehaviorSubject<StockInDetail>({} as StockInDetail);
 
   // sendCashSalesLookup = new BehaviorSubject<any>([]);
   // sendLookup = new BehaviorSubject<any>([]);
@@ -327,6 +329,7 @@ export class ItemsService {
   public taxesEditDataLookupObs = this.taxesEditDataLookup.asObservable();
   public getInventoryData$ = this.getInventoryData.asObservable();
   public dataBarCodeByIdObs = this.dataBarCodeById.asObservable();
+  public sendItemBarcode$ = this.sendItemBarcode.asObservable();
   
   
 
@@ -1557,5 +1560,13 @@ exportStockInList(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
       this.itemsDataSource.next(res.result);
       this.currentPageInfo.next(res.pageInfoResult);
     });
+  }
+
+  getItemBarcodeForItem(barcode : string) {
+    this.itemProxy.getItemBarcodeForItem(barcode).subscribe(res=>{
+      this.sendItemBarcode.next(res)
+
+    })
+    
   }
 }

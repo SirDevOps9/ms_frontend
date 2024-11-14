@@ -40,10 +40,8 @@ import { OperationTagAddComponent } from './pages/operational-tag/operation-tag-
 import { OperationTagEditComponent } from './pages/operational-tag/operation-tag-edit/operation-tag-edit.component';
 import { OperationTagListComponent } from './pages/operational-tag/operation-tag-list/operation-tag-list.component';
 import { OperationTagMainComponent } from './pages/operational-tag/operation-tag-main/operation-tag-main.component';
-import { AddStockInComponent } from './pages/stock-In/add-stock-in/add-stock-in.component';
 import { EditWarehouseComponent } from './pages/warehouse/edit-warehouse/edit-warehouse.component';
 import { MainWarehouseComponent } from './pages/warehouse/main-warehouse/main-warehouse.component';
-import { MainStockInListComponentComponent } from './pages/stock-In/main-stock-in-list-component/main-stock-in-list-component.component';
 import { ItemDefinitionGeneralComponent } from './pages/item-definition/item-definition-general/item-definition-general.component';
 import { ItemDefinitionUomComponent } from './pages/item-definition/item-definition-uom/item-definition-uom.component';
 import { ItemDefinitionAttributesVariantsComponent } from './pages/item-definition/item-definition-attributes-variants/item-definition-attributes-variants.component';
@@ -59,7 +57,6 @@ import { MainStockOutComponent } from './pages/stock-out/main-stock-out/main-sto
 import { AddStockOutComponent } from './pages/stock-out/add-stock-out/add-stock-out.component';
 import { StockOutListComponent } from './pages/stock-out/stock-out-list/stock-out-list.component';
 import { EditStockOutComponent } from './pages/stock-out/edit-stock-out/edit-stock-out.component';
-import { StockInListComponent } from './pages/stock-In/stock-in-list/stock-in-list.component';
 import { ItemDefintionVariantComponent } from './pages/item-definition/item-defintion-variants/item-defintion-variant.component';
 import { TrackingStockInComponent } from './pages/stock-In/add-stock-in/tracking-stock-in/tracking-stock-in.component';
 import { MultiSelectItemStockInComponent } from './pages/stock-In/add-stock-in/multi-select-item-stock-in/multi-select-item-stock-in.component';
@@ -298,49 +295,7 @@ const routes: Routes = [
 
         },
       },
-      {
-        path: 'stock-in',
-        component: MainStockInListComponentComponent,
-        data: {
-          breadcrumb: BreadcrumbLabel.STOCKIN,
-          pageTitle : BreadcrumbLabel.STOCKIN
-        },
-        children: [
-          {
-            path: '',
-            component: StockInListComponent,
-            data: {
-              breadcrumb: BreadcrumbLabel.STOCKIN,
-              pageTitle : BreadcrumbLabel.STOCKIN
-            },
-          },
-          {
-            path: 'add-stock-in',
-            component: AddStockInComponent,
-            data: {
-              breadcrumb: BreadcrumbLabel.ADD_STOCKIN,
-            },
-          },
-          {
-            path: 'add-item-definition/:id',
-            component: ItemCatalogTabsComponent,
-            data: {
-              breadcrumb: BreadcrumbLabel.ADD_ITEM_DIFINITION,
-            },
-          },
-          {
-            path: 'sequence',
-            component: SequenceComponent,
-            data: {
-              moduleId: Modules.inventory,
-              pageId: Pages.StockIn,
-              breadcrumb: BreadcrumbLabel.SEQUENCE,
-              pageTitle: BreadcrumbLabel.SEQUENCE
-            },
-          },
-        ],
-      },
-
+     
 
       {
         path: 'item-category',
@@ -421,11 +376,8 @@ const routes: Routes = [
     EditWarehouseComponent,
     MainItemCategoriesTreeComponent,
     AddWarehousePopupComponent,
-    StockInListComponent,
-    AddStockInComponent,
     MainWarehouseComponent,
     ViewItemDefinitionComponent,
-    MainStockInListComponentComponent,
     ItemDefinitionGeneralComponent,
     ItemDefinitionUomComponent,
     ItemDefinitionAttributesVariantsComponent,
