@@ -21,6 +21,7 @@ import { environment } from '../environments/environment';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

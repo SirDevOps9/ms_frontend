@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
-import { addBarcode, AddGeneralDto, AddItemCategory, AddItemDefinitionDto, AddOperatioalTag, AddVariantLine, AddWarehouse, AttributesVariants, EditAttributes, EditWareHouse, GetItemById, GetItemCategoryDto, getUomByItemId, GetWarehouseList, IOperationalTag, itemDefinitionDto, ItemTypeDto, Iuom, StockInDto, StockOutDto, UOMCategoryDto, UomDefault } from './models';
+import { addBarcode, AddGeneralDto, AddItemCategory, AddItemDefinitionDto, AddOperatioalTag, AddStockIn, AddVariantLine, AddWarehouse, AdvancedSearchDto, AttributesVariants, EditAttributes, EditWareHouse, GetItemById, GetItemCategoryDto, getUomByItemId, GetWarehouseList, IOperationalTag, itemDefinitionDto, ItemTypeDto, Iuom, LatestItems, OperationalStockIn, StockInDto, StockOutDto, UOMCategoryDto, UomDefault } from './models';
 import { EditItemDefinitionDto } from './models/editItemDefinitionDto';
 import { variantGroupById } from './models/variantGroupById';
 import { itemAttributeValues, itemAttributeValuesByID } from './models/itemAttributeValues';
@@ -37,9 +37,6 @@ export class ItemsProxyService {
       query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
     }
     return this.httpService.get<PaginationVm<StockInDto>>(query)
-  }
-  deleteStockIn(id : number ){
-    return this.httpService.delete(`Transaction/GetStockInTransactionList/${id}`)
   }
 
   exportsStockInList(
@@ -568,6 +565,31 @@ getOperationalTagList(searchTerm: string, pageInfo: PageInfo): Observable<IOpera
     return this.httpService.get(`Item/GetGeneralData/${id}`)
   }
 
+  operationTagDropdown() : Observable<OperationalStockIn[]> {
+    return this.httpService.get(`OperationalTag/OperationalTagStockDropDown?OperationType=StockIn`)
+  }
+  getLatestItemsList() : Observable<LatestItems[]> {
+    return this.httpService.get(`Item/GetLatestItemsList`)
+  }
+
+  addStockIn(obj : AddStockIn) : Observable<AddStockIn> {
+    return this.httpService.post('StockIn' , obj)
+
+  }
+  getItems(
+    quieries: string,
+    searchTerm: string,
+    pageInfo: PageInfo
+  ): Observable<PaginationVm<AdvancedSearchDto>> {
+    let query = `Item/GetItemsAdvancedSearchList?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+    if (quieries) {
+      query += `&${quieries ? quieries : ''}`;
+    }
+    return this.httpService.get<PaginationVm<AdvancedSearchDto>>(query);
+  }
   getAllStockOut(
     searchTerm: string,
     pageInfo: PageInfo
@@ -578,14 +600,52 @@ getOperationalTagList(searchTerm: string, pageInfo: PageInfo): Observable<IOpera
     }
     return this.httpService.get<PaginationVm<StockOutDto>>(query);
   }
+  getAllStockIn(
+    searchTerm: string,
+    pageInfo: PageInfo
+  ): Observable<PaginationVm<StockInDto>> {
+    let query = `StockIn?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+    return this.httpService.get<PaginationVm<StockInDto>>(query);
+  }
+
+
   exportStockOutList(searchTerm?: string ,SortBy?:number,SortColumn?:string): Observable<StockOutDto[]> {
     let query = `StockOut/Export?`;
     const params: string[] = [];
     if (searchTerm) params.push(`searchTerm=${encodeURIComponent(searchTerm)}`);
     if (SortBy) params.push(`SortBy=${SortBy}`);
     if (SortColumn) params.push(`SortColumn=${SortColumn}`);
-    query += params.join('&'); 
+    query += params.join('&');
     return this.httpService.get<StockOutDto[]>(query);
   }
+
+
+  exportStockInList(searchTerm?: string ,SortBy?:number,SortColumn?:string): Observable<StockInDto[]> {
+    let query = `StockIn/Export?`;
+    const params: string[] = [];
+    if (searchTerm) params.push(`searchTerm=${encodeURIComponent(searchTerm)}`);
+    if (SortBy) params.push(`SortBy=${SortBy}`);
+    if (SortColumn) params.push(`SortColumn=${SortColumn}`);
+    query += params.join('&');
+    return this.httpService.get<StockInDto[]>(query);
+  }
+
+
+  deleteStockIn(id:number ){
+    return this.httpService.delete(`StockIn/${id}`)
+  }
+
+  getByIdStockOut(id:number){
+    return this.httpService.get(`StockOut/${id}`)
+
+  }
+  editStockOut(obj:StockOutDto){
+    return this.httpService.put(`StockOut`, obj)
+
+  }
+
 }
 

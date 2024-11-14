@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ItemDefintionVatComponent } from './item-defintion-vat.component';
+import { ItemDefintionVatComponent } from './item-defintion-variant.component';
 
 describe('ItemDefintionVatComponent', () => {
   let component: ItemDefintionVatComponent;
@@ -11,7 +11,7 @@ describe('ItemDefintionVatComponent', () => {
       declarations: [ItemDefintionVatComponent]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(ItemDefintionVatComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
