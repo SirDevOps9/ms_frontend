@@ -414,7 +414,9 @@
     "uploadExcel": "Upload Excel",
     "scan": "Scan Barcode",
     "noTracking": "No Tracking",
-    "required": "Required"
+    "required": "Required",
+    "deleteStockInLine": "Item Deleted Successfully",
+    "stockEdit": "Data Updated Successfully"
   },
   "transactions": {
     "deleteStockIn": "Stock In deleted successfully",

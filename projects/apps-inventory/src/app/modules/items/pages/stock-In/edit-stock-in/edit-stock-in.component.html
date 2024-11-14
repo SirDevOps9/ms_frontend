@@ -214,6 +214,7 @@
             <p-cellEditor>
               <ng-template pTemplate="input">
                 <lib-text-input
+                  type="number"
                   placeholder="{{ 'stockIn.QTY' | translate }}"
                   formControlName="quantity"
                 ></lib-text-input>
@@ -232,6 +233,7 @@
             <p-cellEditor>
               <ng-template pTemplate="input">
                 <lib-text-input
+                  type="number"
                   placeholder="{{ 'stockIn.cost' | translate }}"
                   formControlName="cost"
                 ></lib-text-input>
@@ -377,14 +379,18 @@
             ></lib-field-validations>
           </td>
           <td>
-            <div class="flex gap-3">
-              <img
-                src="assets/images/table/delete.svg"
-                class="pointer"
-                alt=""
-                (click)="OnDelete(i)"
-              />
-            </div>
+            <lib-button-micro
+              *ngIf="stockInFormGroup.controls['id'].value"
+              nameClass="table_button_delete"
+              (click)="OnDelete(stockInFormGroup.controls['id'].value)"
+            >
+            </lib-button-micro>
+            <lib-button-micro
+              *ngIf="!stockInFormGroup.controls['id'].value"
+              nameClass="table_button_delete"
+              (click)="deleteIndex(i)"
+            >
+            </lib-button-micro>
           </td>
           <!--  -->
         </tr>

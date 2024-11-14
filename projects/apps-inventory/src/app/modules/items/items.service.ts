@@ -330,8 +330,6 @@ export class ItemsService {
   public taxesEditDataLookupObs = this.taxesEditDataLookup.asObservable();
   public getInventoryData$ = this.getInventoryData.asObservable();
   public dataBarCodeByIdObs = this.dataBarCodeById.asObservable();
-  
-  
 
   getItemType(quieries: string, pageInfo: PageInfo) {
     this.itemProxy.getItemType(quieries, pageInfo).subscribe((response) => {
@@ -404,8 +402,8 @@ export class ItemsService {
 
         // Show success message
         this.toasterService.showSuccess(
-          this.languageService.transalte('stockin.success'),
-          this.languageService.transalte('stockin.deleteStockInLine')
+          this.languageService.transalte('stockIn.success'),
+          this.languageService.transalte('stockIn.deleteStockInLine')
         );
 
         const currentData = this.stockInByIdData.getValue();
@@ -1581,7 +1579,7 @@ export class ItemsService {
       next: (res) => {
         this.toasterService.showSuccess(
           this.languageService.transalte('stockIn.success'),
-          this.languageService.transalte('stockIn.stockAdded')
+          this.languageService.transalte('stockIn.stockEdit')
         );
         this.router.navigateTo('/masterdata/stock-in');
         this.loaderService.hide();

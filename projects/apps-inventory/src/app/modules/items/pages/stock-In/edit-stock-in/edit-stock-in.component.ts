@@ -275,6 +275,9 @@ export class EditStockInComponent implements OnInit {
   }
 
   itemChanged(e: any, stockInFormGroup: FormGroup) {
+    debugger;
+
+    let formVal = stockInFormGroup.value;
     let data = this.latestItemsList.find((item) => item.itemId == e);
     this.itemData = data;
     this.uomLookup = data?.itemsUOM;
@@ -290,6 +293,22 @@ export class EditStockInComponent implements OnInit {
     stockInFormGroup.get('itemVariantId')?.setValue(data?.itemVariantId);
     stockInFormGroup.get('hasExpiryDate')?.setValue(data?.hasExpiryDate);
     stockInFormGroup.get('uomId')?.setValue(data?.uomId);
+    if (
+      stockInFormGroup.value.id == 0 &&
+      data?.trackingType == 'NoTracking' &&
+      data?.hasExpiryDate == false
+    ) {
+      stockInFormGroup.get('stockInTracking')?.get('id')?.setValue(0);
+    } else if (
+      stockInFormGroup.value.id != 0 &&
+      data?.trackingType == 'NoTracking' &&
+      data?.hasExpiryDate == false
+    ) {
+      let trackingId = formVal.stockInTracking.id;
+      console.log(trackingId);
+
+      stockInFormGroup.get('stockInTracking')?.get('id')?.setValue(trackingId);
+    }
     this.uomChanged(stockInFormGroup.get('uomId')?.value, stockInFormGroup);
     if (data?.hasExpiryDate) {
       stockInFormGroup
@@ -365,7 +384,7 @@ export class EditStockInComponent implements OnInit {
       width: '60%',
       height: '450px',
       data: {
-        id: patchedValue.id,
+        id: patchedValue.id ?? 0,
         trackingType: patchedValue.trackingType,
         expireDate: patchedValue.expireDate,
         systemPatchNo: patchedValue.systemPatchNo,
