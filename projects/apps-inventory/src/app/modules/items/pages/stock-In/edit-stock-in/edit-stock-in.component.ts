@@ -123,7 +123,6 @@ export class EditStockInComponent implements OnInit {
   getListOfItems() {
     this.itemsService.getLatestItemsList();
     this.itemsService.sendlatestItemsList$.subscribe((res) => {
-      debugger;
       this.latestItemsList = res;
       if (res.length) {
         this.latestItemsList = res.map((elem: any) => ({
@@ -139,7 +138,6 @@ export class EditStockInComponent implements OnInit {
     this.itemsService.stockInByIdData$.subscribe({
       next: (res: any) => {
         if (res) {
-          // debugger;
           // Patch main form values
           this.stockInForm.patchValue({
             id: res.id,
@@ -155,7 +153,6 @@ export class EditStockInComponent implements OnInit {
 
           if (res.stockInDetails && Array.isArray(res.stockInDetails)) {
             res.stockInDetails.forEach((detail: any) => {
-              debugger;
               this.patchUom(detail.itemId);
               let uomName = this.uomLookup?.find((item: any) => item.uomId == detail.uomId);
 
@@ -179,13 +176,13 @@ export class EditStockInComponent implements OnInit {
                 stockInEntryMode: detail.stockInEntryMode,
                 trackingType: detail.trackingType,
                 stockInTracking: {
-                  id: detail.stockInTracking.id,
-                  vendorBatchNo: detail.stockInTracking.vendorBatchNo,
-                  expireDate: detail.stockInTracking.expireDate,
-                  systemPatchNo: detail.stockInTracking.systemPatchNo,
-                  serialId: detail.stockInTracking.serialId,
-                  trackingType: detail.stockInTracking.trackingType,
-                  selectedValue: detail.stockInTracking.selectedValue,
+                  id: detail?.stockInTracking?.id,
+                  vendorBatchNo: detail?.stockInTracking?.vendorBatchNo,
+                  expireDate: detail?.stockInTracking?.expireDate,
+                  systemPatchNo: detail?.stockInTracking?.systemPatchNo,
+                  serialId: detail?.stockInTracking?.serialId,
+                  trackingType: detail?.stockInTracking?.trackingType,
+                  selectedValue: detail?.stockInTracking?.selectedValue,
                 },
               });
               this.patchUom(detail.itemId);
@@ -259,15 +256,12 @@ export class EditStockInComponent implements OnInit {
     this.uomLookup = data?.itemsUOM;
   }
   displayUomPatched(e: string) {
-    debugger;
     let data = this.uomLookup.find((item: any) => item.uomId == e);
-    console.log(data);
 
     this.cdr.detectChanges();
   }
 
   itemChanged(e: any, stockInFormGroup: FormGroup) {
-    debugger;
     let data = this.latestItemsList.find((item) => item.itemId == e);
     this.itemData = data;
     this.uomLookup = data?.itemsUOM;
@@ -307,7 +301,6 @@ export class EditStockInComponent implements OnInit {
     });
     ref.onClose.subscribe((selectedItems: any) => {
       if (selectedItems) {
-        console.log(selectedItems);
         this.cdr.detectChanges();
       }
     });
@@ -315,7 +308,6 @@ export class EditStockInComponent implements OnInit {
 
   setTracking(setTracking: FormGroup) {
     let patchedValue = setTracking.value.stockInTracking;
-    console.log(patchedValue);
 
     const dialogRef = this.dialog.open(TrackingStockInComponent, {
       width: '60%',
@@ -323,9 +315,7 @@ export class EditStockInComponent implements OnInit {
       data: {
         id: patchedValue.id,
         trackingType:
-          patchedValue.id != 0 || null
-            ? patchedValue.trackingType
-            : setTracking.get('stockInTracking')?.get('selectedValue')?.value,
+          patchedValue.id != 0 || null ? patchedValue.trackingType : patchedValue.trackingType,
         expireDate: patchedValue.expireDate,
         systemPatchNo: patchedValue.systemPatchNo,
         serialId: patchedValue.serialId,
@@ -336,7 +326,6 @@ export class EditStockInComponent implements OnInit {
     dialogRef.onClose.subscribe((res: any) => {
       if (res) {
         this.selectedTraking = res;
-        console.log(res);
 
         setTracking.get('stockInTracking')?.patchValue({ ...res });
         setTracking.get('stockInTracking')?.get('selectedValue')?.setValue(res);
@@ -358,12 +347,15 @@ export class EditStockInComponent implements OnInit {
       sourceDocumentType: +this.stockInForm.value.sourceDocumentType,
       stockInDetails: this.stockIn.value,
     };
-    console.log(data);
+    data.stockInDetails.forEach((item: any) => {
+      if (item.stockInTracking) {
+        delete item.stockInTracking.selectedValue;
+      }
+    });
     this.itemsService.editStockIn(data, this.stockInForm);
   }
   OnDelete(id: number) {
     this.itemsService.deleteStockInLine(id);
-    // this.getStockInById(this.id);
   }
   deleteIndex(i: number) {
     this.stockIn.removeAt(i);

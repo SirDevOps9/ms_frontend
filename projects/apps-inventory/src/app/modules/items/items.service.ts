@@ -391,7 +391,6 @@ export class ItemsService {
   }
 
   async deleteStockInLine(id: number) {
-    debugger;
     try {
       const confirmed = await this.toasterService.showConfirm(
         this.languageService.transalte('ConfirmButtonTexttodelete')
@@ -402,23 +401,28 @@ export class ItemsService {
 
         // Show success message
         this.toasterService.showSuccess(
-          this.languageService.transalte('transactions.success'),
-          this.languageService.transalte('transactions.deleteStockIn')
+          this.languageService.transalte('stockin.success'),
+          this.languageService.transalte('stockin.deleteStockInLine')
         );
 
-        const currentCostCenter = this.stockInByIdData.getValue();
-        const updatedCostCenter = currentCostCenter?.stockInDetails?.filter(
-          (c: any) => c.id !== id
-        );
-        const updated = this.stockInByIdData.getValue();
-        console.log(id);
+        const currentData = this.stockInByIdData.getValue();
 
-        console.log(currentCostCenter);
+        if (currentData && currentData.stockInDetails) {
+          const updatedStockInDetails = currentData.stockInDetails.filter(
+            (detail: any) => detail.id !== id
+          );
 
-        this.stockInByIdData.next(updated);
+          const updatedData = {
+            ...currentData,
+            stockInDetails: updatedStockInDetails,
+          };
+
+          this.stockInByIdData.next(updatedData);
+        }
       }
     } catch (error) {}
   }
+
   async deleteStockIn(id: number) {
     try {
       const confirmed = await this.toasterService.showConfirm(

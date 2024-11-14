@@ -9,29 +9,27 @@ import { customValidators } from 'shared-lib';
   styleUrl: './tracking-stock-in.component.scss',
 })
 export class TrackingStockInComponent implements OnInit {
+  configData: any = {};
+  trackingForm: FormGroup;
+
   constructor(
     private ref: DynamicDialogRef,
     private config: DynamicDialogConfig,
     private fb: FormBuilder
   ) {}
-  configData: any = {};
   ngOnInit(): void {
     this.trackingForm = this.fb.group({
       stockInTracking: this.fb.array([]),
     });
 
     this.configData = this.config.data;
-    console.log(this.configData);
-    if (this.configData.id) {
-      console.log(this.configData);
-
+    if (this.configData.id || this.configData.id == 0) {
       this.tracking.clear();
       this.tracking.push(this.createTracking(this.configData));
     } else {
       this.tracking.push(this.createTracking(this.configData?.trackingValue ?? null));
     }
   }
-  trackingForm: FormGroup;
   onCancel() {
     this.ref.close();
   }
@@ -41,12 +39,12 @@ export class TrackingStockInComponent implements OnInit {
 
   createTracking(data?: any) {
     return this.fb.group({
-      id: data?.id ? data?.id : null,
+      id: data?.id ? data?.id : 0,
       vendorBatchNo: data?.vendorBatchNo ?? null,
       expireDate: [data?.expireDate ?? null, customValidators.required],
       systemPatchNo: data?.systemPatchNo ?? null,
       serialId: data?.serialId ?? null,
-      trackingType: this.configData?.tracking,
+      trackingType: this.configData?.trackingType,
     });
   }
 
