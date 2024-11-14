@@ -295,49 +295,7 @@ const routes: Routes = [
 
         },
       },
-      // {
-      //   path: 'stock-in',
-      //   component: MainStockInListComponentComponent,
-      //   data: {
-      //     breadcrumb: BreadcrumbLabel.STOCKIN,
-      //     pageTitle : BreadcrumbLabel.STOCKIN
-      //   },
-      //   children: [
-      //     {
-      //       path: '',
-      //       component: StockInListComponent,
-      //       data: {
-      //         breadcrumb: BreadcrumbLabel.STOCKIN,
-      //         pageTitle : BreadcrumbLabel.STOCKIN
-      //       },
-      //     },
-      //     {
-      //       path: 'add-stock-in',
-      //       component: AddStockInComponent,
-      //       data: {
-      //         breadcrumb: BreadcrumbLabel.ADD_STOCKIN,
-      //       },
-      //     },
-      //     {
-      //       path: 'add-item-definition/:id',
-      //       component: ItemCatalogTabsComponent,
-      //       data: {
-      //         breadcrumb: BreadcrumbLabel.ADD_ITEM_DIFINITION,
-      //       },
-      //     },
-      //     {
-      //       path: 'sequence',
-      //       component: SequenceComponent,
-      //       data: {
-      //         moduleId: Modules.inventory,
-      //         pageId: Pages.StockIn,
-      //         breadcrumb: BreadcrumbLabel.SEQUENCE,
-      //         pageTitle: BreadcrumbLabel.SEQUENCE
-      //       },
-      //     },
-      //   ],
-      // },
-
+     
 
       {
         path: 'item-category',
