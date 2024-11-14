@@ -34,6 +34,7 @@ import {
   Iuom,
   IuomResult,
   LatestItems,
+  OperationalStockIn,
   StockInDto,
   StockOutDto,
   UOMCategoryDto,
@@ -180,7 +181,7 @@ export class ItemsService {
   public updateUOMByIdobj = new BehaviorSubject<any>({});
   public attributeNameDropDownLookup = new BehaviorSubject<any>([]);
   public attributeGroupeDropDownLookup = new BehaviorSubject<{ id: number; name: string }[]>([]);
-  public sendOperationalTagDropDown = new BehaviorSubject<{ id: number; name: string }[]>([]);
+  public sendOperationalTagDropDown = new BehaviorSubject<OperationalStockIn[]>([]);
   public sendlatestItemsList = new BehaviorSubject<LatestItems[]>([]);
   public sendAddStockIn = new BehaviorSubject<AddStockIn>({} as AddStockIn);
   public updateAddStockIn = new BehaviorSubject<AddStockIn>({} as AddStockIn);
@@ -329,6 +330,8 @@ export class ItemsService {
   public taxesEditDataLookupObs = this.taxesEditDataLookup.asObservable();
   public getInventoryData$ = this.getInventoryData.asObservable();
   public dataBarCodeByIdObs = this.dataBarCodeById.asObservable();
+  
+  
 
   getItemType(quieries: string, pageInfo: PageInfo) {
     this.itemProxy.getItemType(quieries, pageInfo).subscribe((response) => {

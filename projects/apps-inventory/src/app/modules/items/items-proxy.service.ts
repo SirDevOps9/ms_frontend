@@ -23,6 +23,7 @@ import {
   ItemTypeDto,
   Iuom,
   LatestItems,
+  OperationalStockIn,
   StockInDto,
   StockOutDto,
   UOMCategoryDto,
@@ -559,8 +560,8 @@ export class ItemsProxyService {
     return this.httpService.get(`Item/GetGeneralData/${id}`);
   }
 
-  operationTagDropdown(): Observable<{ id: number; name: string }[]> {
-    return this.httpService.get(`OperationalTag/OperationalTagDropDown`);
+  operationTagDropdown(): Observable<OperationalStockIn[]> {
+    return this.httpService.get(`OperationalTag/OperationalTagStockDropDown?OperationType=StockIn`);
   }
   getLatestItemsList(): Observable<LatestItems[]> {
     return this.httpService.get(`Item/GetLatestItemsList`);

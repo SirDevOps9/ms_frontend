@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { customValidators } from 'shared-lib';
+import { customValidators, FormsService } from 'shared-lib';
+import { SharedFinanceEnums } from '../../../../models/sharedEnumStockIn';
 
 @Component({
   selector: 'app-tracking-stock-in',
@@ -9,14 +10,14 @@ import { customValidators } from 'shared-lib';
   styleUrl: './tracking-stock-in.component.scss',
 })
 export class TrackingStockInComponent implements OnInit {
-  configData: any = {};
-  trackingForm: FormGroup;
-
   constructor(
     private ref: DynamicDialogRef,
     private config: DynamicDialogConfig,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private formService: FormsService,
+    public sharedFinanceEnums: SharedFinanceEnums
   ) {}
+  configData: any = {};
   ngOnInit(): void {
     this.trackingForm = this.fb.group({
       stockInTracking: this.fb.array([]),
@@ -29,11 +30,25 @@ export class TrackingStockInComponent implements OnInit {
     } else {
       this.tracking.push(this.createTracking(this.configData?.trackingValue ?? null));
     }
+    if (this.config.data.expiry) {
+      this.tracking.controls[0].get('expireDate')?.setValidators(customValidators.required);
+      this.tracking.controls[0].get('expireDate')?.updateValueAndValidity();
+    }
+    if (this.config.data.tracking == this.sharedFinanceEnums.trackingType.Batch) {
+      this.tracking.controls[0].get('vendorBatchNo')?.setValidators(customValidators.required);
+      this.tracking.controls[0].get('vendorBatchNo')?.updateValueAndValidity();
+    }
+    if (this.config.data.tracking == this.sharedFinanceEnums.trackingType.Serial) {
+      this.tracking.controls[0].get('serialId')?.setValidators(customValidators.required);
+      this.tracking.controls[0].get('serialId')?.updateValueAndValidity();
+    }
   }
   onCancel() {
     this.ref.close();
   }
   onSubmit() {
+    if (!this.formService.validForm(this.tracking, false)) return;
+
     this.ref.close(this.tracking.controls[0].value);
   }
 
@@ -41,7 +56,7 @@ export class TrackingStockInComponent implements OnInit {
     return this.fb.group({
       id: data?.id ? data?.id : 0,
       vendorBatchNo: data?.vendorBatchNo ?? null,
-      expireDate: [data?.expireDate ?? null, customValidators.required],
+      expireDate: [data?.expireDate ?? null],
       systemPatchNo: data?.systemPatchNo ?? null,
       serialId: data?.serialId ?? null,
       trackingType: this.configData?.trackingType,

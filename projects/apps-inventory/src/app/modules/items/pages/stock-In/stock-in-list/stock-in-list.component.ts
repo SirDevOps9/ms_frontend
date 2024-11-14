@@ -60,12 +60,12 @@ export class StockInListComponent implements OnInit {
     });
   }
 
-  onAdd() {}
+  onAdd() {
+    this.routerService.navigateTo('/masterdata/stock-in/add-stock-in');
+  }
   onView(id: number) {}
 
   onEdit(id: any) {
-    console.log(id);
-
     this.routerService.navigateTo(`masterdata/stock-in/edit-stock-in/${id}`);
   }
 

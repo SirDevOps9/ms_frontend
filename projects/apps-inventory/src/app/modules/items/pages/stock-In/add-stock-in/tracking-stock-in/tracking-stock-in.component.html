@@ -39,24 +39,8 @@
             </td>
             <!--  -->
 
-            <td
-              [pEditableColumn]="stockInFormGroup.controls['systemPatchNo']"
-              pEditableColumnField="systemPatchNo"
-            >
-              <p-cellEditor>
-                <ng-template pTemplate="input">
-                  <lib-text-input
-                    placeholder="{{ 'stockIn.systemPatchNo' | translate }}"
-                    formControlName="systemPatchNo"
-                  ></lib-text-input>
-                </ng-template>
-                <ng-template pTemplate="output">
-                  {{ stockInFormGroup.controls['systemPatchNo']?.value }}
-                </ng-template>
-              </p-cellEditor>
-              <lib-field-validations
-                [appControl]="stockInFormGroup.controls['systemPatchNo']"
-              ></lib-field-validations>
+            <td>
+              {{ stockInFormGroup.controls['systemPatchNo']?.value }}
             </td>
           </tr>
         </ng-template>

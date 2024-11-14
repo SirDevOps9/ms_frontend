@@ -5,12 +5,12 @@
   <div>
     <div class="user_page">
       <lib-data-table
-        [sequence]="true"
         (addNew)="onAdd()"
         [items]="tableData"
         className="p-datatable-gridlines"
         [currentPageResult]="currentPageInfo"
         (exportObj)="exportedColumns($event)"
+        [sequence]="true"
         (pageChange)="onPageChange($event)"
         [tableConfigs]="{
           allowPagination: false,
