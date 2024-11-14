@@ -16,7 +16,7 @@ import {
   RouterService,
 } from 'shared-lib';
 import { ItemsService } from '../../../items.service';
-import { AddStockIn, GetWarehouseList, LatestItems } from '../../../models';
+import { AddStockIn, GetWarehouseList, LatestItems, OperationalStockIn } from '../../../models';
 import { ImportStockInComponent } from '../import-stock-in/import-stock-in.component';
 import { ScanParcodeStockInComponent } from '../scan-parcode-stock-in/scan-parcode-stock-in.component';
 import { SharedFinanceEnums } from '../../../models/sharedEnumStockIn';
@@ -34,7 +34,7 @@ export class EditStockInComponent implements OnInit {
   LookupEnum = LookupEnum;
   id: number = 0;
   lookups: { [key: string]: lookupDto[] };
-  oprationalLookup: { id: number; name: string }[] = [];
+  oprationalLookup: OperationalStockIn[] = [];
   selectedTraking: any = {};
   exportData: any[];
   cols = [
@@ -90,11 +90,10 @@ export class EditStockInComponent implements OnInit {
       sourceDocumentType: ['', customValidators.required],
       sourceDocumentId: ['', customValidators.required],
       warehouseId: ['', customValidators.required],
+      warehouseName: [''],
       notes: '',
       stockInDetails: this.fb.array([]),
     });
-
-    this.stockInForm.valueChanges.subscribe((res) => {});
 
     this.lookupservice.loadLookups([LookupEnum.StockInOutSourceDocumentType]);
     this.lookupservice.lookups.subscribe((l) => {
@@ -109,8 +108,17 @@ export class EditStockInComponent implements OnInit {
         this.itemsService.OperationalTagDropDown();
         this.itemsService.sendOperationalTagDropDown$.subscribe((res) => {
           this.oprationalLookup = res;
+          this.oprationalLookup = res.map((elem: any) => ({
+            ...elem,
+            displayName: `${elem.name} (${elem.code})`,
+          }));
         });
       }
+    });
+    this.stockInForm.get('sourceDocumentId')?.valueChanges.subscribe((res) => {
+      let data = this.oprationalLookup.find((elem) => elem.id == res);
+      this.stockInForm.get('warehouseId')?.setValue(data?.warehouseId);
+      this.stockInForm.get('warehouseName')?.setValue(data?.warehouseName);
     });
 
     this.initWareHouseLookupData();
@@ -139,22 +147,29 @@ export class EditStockInComponent implements OnInit {
       next: (res: any) => {
         if (res) {
           // Patch main form values
-          this.stockInForm.patchValue({
-            id: res.id,
-            receiptDate: res.receiptDate,
-            code: res.code,
-            sourceDocumentType: res.sourceDocumentType,
-            sourceDocumentId: res.sourceDocumentId,
-            warehouseId: res.warehouseId,
-            notes: res.notes,
+          this.stockInForm?.patchValue({
+            id: res?.id,
+            receiptDate: res?.receiptDate,
+            code: res?.code,
+            sourceDocumentType: res?.sourceDocumentType,
+            sourceDocumentId: res?.sourceDocumentId,
+            warehouseId: res?.warehouseId,
+            notes: res?.notes,
           });
 
           this.stockIn.clear();
 
           if (res.stockInDetails && Array.isArray(res.stockInDetails)) {
-            res.stockInDetails.forEach((detail: any) => {
+            res.stockInDetails?.forEach((detail: any) => {
               this.patchUom(detail.itemId);
+              // let uomName = this.uomLookup?.find((item: any) => item.uomId == detail.uomId);
+
               let uomName = this.uomLookup?.find((item: any) => item.uomId == detail.uomId);
+              const uomDisplayName = uomName
+                ? this.currentLang == 'en'
+                  ? uomName.uomNameEn
+                  : uomName.uomNameAr
+                : uomName.uomNameEn;
 
               const stockInDetailGroup = this.createStockIn();
               stockInDetailGroup.patchValue({
@@ -166,7 +181,7 @@ export class EditStockInComponent implements OnInit {
                 itemCodeName: this.latestItemsList.find((item) => item.itemId == detail.itemId)
                   ?.itemCode,
                 itemVariantId: detail.itemVariantId,
-                uomName: this.currentLang == 'en' ? uomName.uomNameEn : uomName.uomNameAr,
+                uomName: uomDisplayName,
                 uomId: detail.uomId,
                 quantity: detail.quantity,
                 cost: detail.cost,
@@ -176,13 +191,13 @@ export class EditStockInComponent implements OnInit {
                 stockInEntryMode: detail.stockInEntryMode,
                 trackingType: detail.trackingType,
                 stockInTracking: {
-                  id: detail?.stockInTracking?.id,
-                  vendorBatchNo: detail?.stockInTracking?.vendorBatchNo,
-                  expireDate: detail?.stockInTracking?.expireDate,
-                  systemPatchNo: detail?.stockInTracking?.systemPatchNo,
-                  serialId: detail?.stockInTracking?.serialId,
-                  trackingType: detail?.stockInTracking?.trackingType,
-                  selectedValue: detail?.stockInTracking?.selectedValue,
+                  id: detail.stockInTracking.id,
+                  vendorBatchNo: detail.stockInTracking.vendorBatchNo,
+                  expireDate: detail.stockInTracking.expireDate,
+                  systemPatchNo: detail.stockInTracking.systemPatchNo,
+                  serialId: detail.stockInTracking.serialId,
+                  trackingType: detail.stockInTracking.trackingType,
+                  selectedValue: detail.stockInTracking.selectedValue,
                 },
               });
               this.patchUom(detail.itemId);
@@ -217,8 +232,6 @@ export class EditStockInComponent implements OnInit {
     });
     ref.onClose.subscribe((selectedItems: any[]) => {});
   }
-
-  onEdit(data: any) {}
 
   createStockIn() {
     return this.fb.group({
@@ -265,13 +278,51 @@ export class EditStockInComponent implements OnInit {
     let data = this.latestItemsList.find((item) => item.itemId == e);
     this.itemData = data;
     this.uomLookup = data?.itemsUOM;
+
     stockInFormGroup.get('stockInTracking')?.reset();
+    stockInFormGroup.get('stockInTracking')?.clearValidators();
+    stockInFormGroup.get('stockInTracking')?.updateValueAndValidity();
+
     stockInFormGroup.get('itemCodeName')?.setValue(data?.itemCode);
     stockInFormGroup.get('description')?.setValue(data?.itemVariantName);
     stockInFormGroup.get('trackingType')?.setValue(data?.trackingType);
     stockInFormGroup.get('stockInTracking')?.get('trackingType')?.setValue(data?.trackingType);
     stockInFormGroup.get('itemVariantId')?.setValue(data?.itemVariantId);
     stockInFormGroup.get('hasExpiryDate')?.setValue(data?.hasExpiryDate);
+    stockInFormGroup.get('uomId')?.setValue(data?.uomId);
+    this.uomChanged(stockInFormGroup.get('uomId')?.value, stockInFormGroup);
+    if (data?.hasExpiryDate) {
+      stockInFormGroup
+        .get('stockInTracking')
+        ?.get('expireDate')
+        ?.setValidators(customValidators.required);
+      stockInFormGroup.get('stockInTracking')?.get('expireDate')?.updateValueAndValidity();
+    }
+    if (data?.trackingType == this.sharedFinanceEnums.trackingType.Batch) {
+      stockInFormGroup
+        .get('stockInTracking')
+        ?.get('vendorBatchNo')
+        ?.setValidators(customValidators.required);
+      stockInFormGroup.get('stockInTracking')?.get('vendorBatchNo')?.updateValueAndValidity();
+    }
+    if (data?.trackingType == this.sharedFinanceEnums.trackingType.Serial) {
+      stockInFormGroup
+        .get('stockInTracking')
+        ?.get('serialId')
+        ?.setValidators(customValidators.required);
+      stockInFormGroup.get('stockInTracking')?.get('serialId')?.updateValueAndValidity();
+    }
+    if (
+      data?.trackingType == this.sharedFinanceEnums.trackingType.NoTracking &&
+      stockInFormGroup.get('hasExpiryDate')?.value == false
+    ) {
+      stockInFormGroup.get('stockInTracking')?.get('expireDate')?.clearValidators();
+      stockInFormGroup.get('stockInTracking')?.get('expireDate')?.updateValueAndValidity();
+      stockInFormGroup.get('stockInTracking')?.get('vendorBatchNo')?.clearValidators();
+      stockInFormGroup.get('stockInTracking')?.get('vendorBatchNo')?.updateValueAndValidity();
+      stockInFormGroup.get('stockInTracking')?.get('serialId')?.clearValidators();
+      stockInFormGroup.get('stockInTracking')?.get('serialId')?.updateValueAndValidity();
+    }
     this.cdr.detectChanges();
   }
   uomChanged(e: any, stockInFormGroup: FormGroup) {
@@ -284,6 +335,7 @@ export class EditStockInComponent implements OnInit {
   }
 
   addLineStockIn() {
+    if (!this.formService.validForm(this.stockIn, false)) return;
     this.stockIn.push(this.createStockIn());
   }
 
@@ -314,8 +366,7 @@ export class EditStockInComponent implements OnInit {
       height: '450px',
       data: {
         id: patchedValue.id,
-        trackingType:
-          patchedValue.id != 0 || null ? patchedValue.trackingType : patchedValue.trackingType,
+        trackingType: patchedValue.trackingType,
         expireDate: patchedValue.expireDate,
         systemPatchNo: patchedValue.systemPatchNo,
         serialId: patchedValue.serialId,
@@ -347,15 +398,12 @@ export class EditStockInComponent implements OnInit {
       sourceDocumentType: +this.stockInForm.value.sourceDocumentType,
       stockInDetails: this.stockIn.value,
     };
-    data.stockInDetails.forEach((item: any) => {
-      if (item.stockInTracking) {
-        delete item.stockInTracking.selectedValue;
-      }
-    });
+
     this.itemsService.editStockIn(data, this.stockInForm);
   }
   OnDelete(id: number) {
     this.itemsService.deleteStockInLine(id);
+    // this.getStockInById(this.id);
   }
   deleteIndex(i: number) {
     this.stockIn.removeAt(i);

@@ -238,6 +238,8 @@ export class AddStockInComponent implements OnInit {
   }
 
   addLineStockIn() {
+    if (!this.formService.validForm(this.stockIn, false)) return;
+
     this.stockIn.push(this.createStockIn());
   }
 
@@ -265,7 +267,7 @@ export class AddStockInComponent implements OnInit {
       width: '60%',
       height: '450px',
       data: {
-        tracking: setTracking.get('trackingType')?.value,
+        trackingType: setTracking.get('trackingType')?.value,
         expiry: setTracking.get('hasExpiryDate')?.value,
         trackingValue: setTracking.get('stockInTracking')?.get('selectedValue')?.value,
       },

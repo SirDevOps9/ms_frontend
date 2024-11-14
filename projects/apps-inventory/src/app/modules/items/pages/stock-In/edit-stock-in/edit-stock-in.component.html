@@ -1,8 +1,8 @@
 <lib-page-content
-  [title]="'stockIn.Edit_Stock_in' | translate"
-  [subTitle]="'stockIn.Edit_Stock_in' | translate"
+  [title]="'stockIn.TaxList' | translate"
+  [subTitle]="'stockIn.TaxList' | translate"
 >
-  <div [formGroup]="stockInForm" class="stockInForm_header">
+  <div [formGroup]="stockInForm" class="stockInForm_header card_micro">
     <div class="grid">
       <div class="md:col-2 my-2">
         <lib-label [appControl]="stockInForm.controls['code']">
@@ -35,6 +35,7 @@
           optionValue="id"
           optionLabel="name"
           [selectedValue]="stockInForm.controls['sourceDocumentType'].value"
+          [readOnly]="true"
         >
         </lib-select>
         <lib-field-validations
@@ -49,7 +50,7 @@
           formControlName="sourceDocumentId"
           [options]="oprationalLookup"
           optionValue="id"
-          optionLabel="name"
+          optionLabel="displayName"
           placeholder="{{ 'stockIn.sourceDoc' | translate }}"
           [selectedValue]="stockInForm.controls['sourceDocumentId'].value"
         >
@@ -59,20 +60,25 @@
         ></lib-field-validations>
       </div>
       <div class="md:col-3 my-2">
-        <lib-label [appControl]="stockInForm.controls['warehouseId']">
+        <lib-label [appControl]="stockInForm.controls['warehouseName']">
           {{ 'stockIn.warehouse' | translate }}
         </lib-label>
-        <lib-select
-          formControlName="warehouseId"
+        <!-- <lib-select
+          formControlName="warehouseName"
           [options]="warhouseLookupData"
           optionValue="id"
           optionLabel="name"
           placeholder="{{ 'stockIn.warehouse' | translate }}"
-          [selectedValue]="stockInForm.controls['warehouseId'].value"
+          [selectedValue]="stockInForm.controls['warehouseName'].value"
         >
-        </lib-select>
+        </lib-select> -->
+        <lib-text-input
+          placeholder="{{ 'stockIn.warehouse' | translate }}"
+          formControlName="warehouseName"
+          [readOnly]="true"
+        ></lib-text-input>
         <lib-field-validations
-          [appControl]="stockInForm.controls['warehouseId']"
+          [appControl]="stockInForm.controls['warehouseName']"
         ></lib-field-validations>
       </div>
       <div class="md:col-6 my-2">
@@ -93,22 +99,15 @@
     </div>
   </div>
 
-  <div class="flex justify-content-end gap-4">
-    <lib-button-micro
-      [title]="'stockIn.uploadExcel' | translate"
-      nameClass="outline"
-      iconName="pi pi-file-edit"
-      (click)="getExcel()"
-    >
-    </lib-button-micro>
-    <lib-button-micro
-      [title]="'stockIn.scan' | translate"
-      nameClass="outline"
-      iconName="pi pi-expand"
-      (click)="scan()"
-    >
-    </lib-button-micro>
-  </div>
+  <!-- <div class="flex justify-content-end gap-4 my-4">
+    <lib-button-micro [title]="'stockIn.uploadExcel'|translate" nameClass="outline"
+    iconName="pi pi-file-edit" (click)="getExcel()">
+  </lib-button-micro>
+    <lib-button-micro [title]="'stockIn.scan'|translate" nameClass="outline"
+                iconName="pi pi-expand" (click)="scan()">
+              </lib-button-micro>
+   
+  </div> -->
 
   <div class="my-2">
     <p-table
@@ -179,24 +178,8 @@
             ></lib-field-validations>
           </td>
           <!--  -->
-          <td
-            [pEditableColumn]="stockInFormGroup.controls['description']"
-            pEditableColumnField="description"
-          >
-            <p-cellEditor>
-              <ng-template pTemplate="input">
-                <lib-text-input
-                  placeholder="{{ 'stockIn.itemDescription' | translate }}"
-                  formControlName="description"
-                ></lib-text-input>
-              </ng-template>
-              <ng-template pTemplate="output">
-                {{ stockInFormGroup.controls['description']?.value }}
-              </ng-template>
-            </p-cellEditor>
-            <lib-field-validations
-              [appControl]="stockInFormGroup.controls['description']"
-            ></lib-field-validations>
+          <td>
+            {{ stockInFormGroup.controls['description']?.value }}
           </td>
           <!--  -->
           <!--  -->
@@ -211,6 +194,7 @@
                   [optionLabel]="currentLang == 'en' ? 'uomNameEn' : 'uomNameAr'"
                   placeholder="{{ 'stockIn.UOM' | translate }}"
                   (valueChanged)="uomChanged($event, stockInFormGroup)"
+                  [selectedValue]="stockInFormGroup.controls['uomId']?.value"
                 ></lib-select>
               </ng-template>
               <ng-template pTemplate="output">
@@ -261,25 +245,11 @@
             ></lib-field-validations>
           </td>
           <!--  -->
-          <td
-            [pEditableColumn]="stockInFormGroup.controls['subTotal']"
-            pEditableColumnField="subTotal"
-          >
-            <p-cellEditor>
-              <ng-template pTemplate="input">
-                <lib-text-input
-                  placeholder="{{ 'stockIn.subTotal' | translate }}"
-                  formControlName="subTotal"
-                  [readOnly]="true"
-                ></lib-text-input>
-              </ng-template>
-              <ng-template pTemplate="output">
-                {{
-                  stockInFormGroup.controls['quantity']?.value *
-                    stockInFormGroup.controls['cost']?.value
-                }}
-              </ng-template>
-            </p-cellEditor>
+          <td>
+            {{
+              stockInFormGroup.controls['quantity']?.value *
+                stockInFormGroup.controls['cost']?.value
+            }}
           </td>
           <!--  -->
           <td>
@@ -297,6 +267,17 @@
                     | date : 'dd-MM-yyyy'
                 }}
               </small>
+              <small
+                *ngIf="
+                  stockInFormGroup.get('trackingType').value ==
+                    sharedFinanceEnums.trackingType.NoTracking &&
+                  stockInFormGroup.get('hasExpiryDate')?.value == true &&
+                  !stockInFormGroup.get('stockInTracking').get('expireDate')?.value
+                "
+              >
+                {{ 'stockIn.Expiry' | translate }}
+              </small>
+
               <!--  -->
               <small
                 class="track"
@@ -307,6 +288,16 @@
                 >{{ stockInFormGroup.get('stockInTracking').get('serialId')?.value }}</small
               >
               <!--  -->
+
+              <small
+                *ngIf="
+                  stockInFormGroup.get('trackingType').value ==
+                    sharedFinanceEnums.trackingType.Serial &&
+                  !stockInFormGroup.get('stockInTracking').get('serialId')?.value
+                "
+                >{{ stockInFormGroup.get('trackingType').value }}</small
+              >
+
               <small
                 class="track"
                 *ngIf="
@@ -316,10 +307,24 @@
                 >{{ stockInFormGroup.get('stockInTracking').get('vendorBatchNo')?.value }}</small
               >
 
+              <small
+                *ngIf="
+                  stockInFormGroup.get('trackingType').value ==
+                    sharedFinanceEnums.trackingType.Batch &&
+                  !stockInFormGroup.get('stockInTracking').get('vendorBatchNo')?.value
+                "
+                >{{ stockInFormGroup.get('trackingType').value }}</small
+              >
+
               <lib-button-micro
                 title="{{ 'stockIn.setTracking' | translate }}"
                 nameClass="save"
                 widthNumber="100%"
+                [class.hide]="
+                  stockInFormGroup.get('trackingType').value ==
+                    sharedFinanceEnums.trackingType.NoTracking &&
+                  stockInFormGroup.get('hasExpiryDate')?.value == false
+                "
                 (click)="setTracking(stockInFormGroup)"
                 [disabled]="
                   (stockInFormGroup.get('trackingType').value ==
@@ -329,6 +334,29 @@
                 "
               >
               </lib-button-micro>
+
+              <small
+                *ngIf="
+                  stockInFormGroup.get('trackingType').value ==
+                    sharedFinanceEnums.trackingType.NoTracking &&
+                  stockInFormGroup.get('hasExpiryDate')?.value == false
+                "
+                >{{ 'stockIn.noTracking' | translate }}</small
+              >
+            </div>
+            <div class="flex justify-content-center mt-2">
+              <small
+                class="danger"
+                *ngIf="
+                  stockInFormGroup.get('stockInTracking').get('expireDate').hasError('required') ||
+                  stockInFormGroup
+                    .get('stockInTracking')
+                    .get('vendorBatchNo')
+                    .hasError('required') ||
+                  stockInFormGroup.get('stockInTracking').get('serialId').hasError('required')
+                "
+                >{{ 'stockIn.required' | translate }}</small
+              >
             </div>
           </td>
           <!--  -->
@@ -349,18 +377,14 @@
             ></lib-field-validations>
           </td>
           <td>
-            <lib-button-micro
-              *ngIf="stockInFormGroup.controls['id'].value"
-              nameClass="table_button_delete"
-              (click)="OnDelete(stockInFormGroup.controls['id'].value)"
-            >
-            </lib-button-micro>
-            <lib-button-micro
-              *ngIf="!stockInFormGroup.controls['id'].value"
-              nameClass="table_button_delete"
-              (click)="deleteIndex(i)"
-            >
-            </lib-button-micro>
+            <div class="flex gap-3">
+              <img
+                src="assets/images/table/delete.svg"
+                class="pointer"
+                alt=""
+                (click)="OnDelete(i)"
+              />
+            </div>
           </td>
           <!--  -->
         </tr>
