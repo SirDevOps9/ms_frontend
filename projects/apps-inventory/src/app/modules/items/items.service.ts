@@ -434,9 +434,7 @@ public OperationalTagStockOut$ = this.sendOperationalTagStockOutDropDown.asObser
             this.languageService.transalte('transactions.deleteStockOut')
           );
 
-          const currentCostCenter = this.sendStockOutDataSources.getValue();
-          const updatedCostCenter = currentCostCenter.filter((c) => c.id !== id);
-          this.sendStockOutDataSources.next(updatedCostCenter);
+          this.getAllStockOut('', new PageInfo());
         },
       });
     }
@@ -1587,6 +1585,7 @@ exportStockInList(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
           this.languageService.transalte('stockIn.stockAdded')
         );
         this.loaderService.hide();
+        this.router.navigateTo('transactions/stock-out');
       },
       error: (err) => {
         

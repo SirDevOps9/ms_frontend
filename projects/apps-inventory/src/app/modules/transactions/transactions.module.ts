@@ -8,6 +8,10 @@ import { AddStockInComponent } from '../items/pages/stock-In/add-stock-in/add-st
 import { MainStockInListComponentComponent } from '../items/pages/stock-In/main-stock-in-list-component/main-stock-in-list-component.component';
 import { StockInListComponent } from '../items/pages/stock-In/stock-in-list/stock-in-list.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { MainStockOutComponent } from '../items/pages/stock-out/main-stock-out/main-stock-out.component';
+import { StockOutListComponent } from '../items/pages/stock-out/stock-out-list/stock-out-list.component';
+import { AddStockOutComponent } from '../items/pages/stock-out/add-stock-out/add-stock-out.component';
+import { EditStockOutComponent } from '../items/pages/stock-out/edit-stock-out/edit-stock-out.component';
 
 const routes: Routes = [
   {
@@ -54,7 +58,43 @@ const routes: Routes = [
     
     
 
-  }
+  },
+  {
+    path: 'stock-out',
+    component:MainStockOutComponent ,
+    data: {
+      breadcrumb: BreadcrumbLabel.STOCKOUT,
+      pageTitle: BreadcrumbLabel.STOCKOUT,
+
+    },
+    children: [
+      {
+        path: '',
+        component: StockOutListComponent,
+        data: { breadcrumb: '' ,
+          pageTitle: BreadcrumbLabel.STOCKOUT,
+
+        },
+      },
+      {
+        path: 'add',
+        component: AddStockOutComponent,
+        data: {
+          breadcrumb: BreadcrumbLabel.ADD_STOCKOUT,
+          pageTitle: BreadcrumbLabel.TITLE_ADD_STOCKOUT,
+
+        },
+      },
+      {
+        path: 'edit/:id',
+        component: EditStockOutComponent,
+        data: {
+          breadcrumb: BreadcrumbLabel.ADD_ITEM_DIFINITION,
+        },
+      },
+
+    ],
+  },
 
 
     

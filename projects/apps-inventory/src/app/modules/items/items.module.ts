@@ -305,42 +305,6 @@ const routes: Routes = [
           breadcrumb: BreadcrumbLabel.ITEM_CATEGORY,
         },
       },
-      {
-        path: 'stock-out',
-        component:MainStockOutComponent ,
-        data: {
-          breadcrumb: BreadcrumbLabel.STOCKOUT,
-          pageTitle: BreadcrumbLabel.STOCKOUT,
-
-        },
-        children: [
-          {
-            path: '',
-            component: StockOutListComponent,
-            data: { breadcrumb: '' ,
-              pageTitle: BreadcrumbLabel.STOCKOUT,
-
-            },
-          },
-          {
-            path: 'add',
-            component: AddStockOutComponent,
-            data: {
-              breadcrumb: BreadcrumbLabel.ADD_STOCKOUT,
-              pageTitle: BreadcrumbLabel.TITLE_ADD_STOCKOUT,
-
-            },
-          },
-          {
-            path: 'edit/:id',
-            component: EditStockOutComponent,
-            data: {
-              breadcrumb: BreadcrumbLabel.ADD_ITEM_DIFINITION,
-            },
-          },
-
-        ],
-      },
     ],
   },
 ];

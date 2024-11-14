@@ -332,7 +332,7 @@ loadLookups(){
       }    }
 
   onCancel() {
-    this.routerService.navigateTo('masterdata/stock-out');
+    this.routerService.navigateTo('transactions/stock-out');
 
   }
 

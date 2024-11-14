@@ -68,7 +68,7 @@ export class ItemsProxyService {
   }
 
   deleteStockOut(id : number ){
-    return this.httpService.delete(`Transaction/GetStockInTransactionList/${id}`)
+    return this.httpService.delete(`StockOut/${id}`)
   }
 
   addItemDefinition(obj : AddItemDefinitionDto){
