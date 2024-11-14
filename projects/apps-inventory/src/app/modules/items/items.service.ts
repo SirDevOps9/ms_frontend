@@ -159,6 +159,7 @@ export class ItemsService {
   public attributeGroupeDropDownLookup = new BehaviorSubject<{ id: number; name: string }[]>([]);
   public sendOperationalTagDropDown = new BehaviorSubject<{ id: number; name: string }[]>([]);
   public sendlatestItemsList= new BehaviorSubject<LatestItems[]>([]);
+  public latestItemsListByWarehouse= new BehaviorSubject<LatestItems[]>([]);
   public sendAddStockIn = new BehaviorSubject<AddStockIn>({} as AddStockIn);
   public attributeValuesDropDownLookup = new BehaviorSubject<itemAttributeValues[]>([]);
   public attributeValuesData = new BehaviorSubject<itemAttributeValues[]>([]);
@@ -250,6 +251,7 @@ public userSubDomainModules =  new BehaviorSubject<any[]>([]);
   public attributeGroupeDropDownLookup$ = this.attributeGroupeDropDownLookup.asObservable();
   public sendOperationalTagDropDown$ = this.sendOperationalTagDropDown.asObservable();
   public sendlatestItemsList$ = this.sendlatestItemsList.asObservable();
+  public latestItemsListByWarehouse$ = this.latestItemsListByWarehouse.asObservable();
   public sendAddStockIn$ = this.sendAddStockIn.asObservable();
   public attributeValuesDropDownLookupObs = this.attributeValuesDropDownLookup.asObservable();
   public attributeValuesDataObs = this.attributeValuesData.asObservable();
@@ -305,6 +307,9 @@ public taxesDataLookupObs = this.taxesDataLookup.asObservable()
 public taxesEditDataLookupObs = this.taxesEditDataLookup.asObservable()
 public getInventoryData$ = this.getInventoryData.asObservable()
 public dataBarCodeByIdObs = this.dataBarCodeById.asObservable()
+public sendOperationalTagStockOutDropDown = new BehaviorSubject<{ id: number; name: string }[]>([]);
+public OperationalTagStockOut$ = this.sendOperationalTagStockOutDropDown.asObservable()
+
 
   getItemType(quieries: string, pageInfo: PageInfo) {
     this.itemProxy.getItemType(quieries, pageInfo).subscribe((response) => {
@@ -1567,5 +1572,11 @@ exportStockOutList(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
     },
   });
 }
+getLatestItemsListByWarehouse(SearchTerm:string , id:number){
+  return this.itemProxy.getLatestItemsListByWarehouse(SearchTerm,id).subscribe(res=>{
+    this.latestItemsListByWarehouse.next(res)
+  })
+}
+
 }
 

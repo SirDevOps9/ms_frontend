@@ -573,7 +573,7 @@ getOperationalTagList(searchTerm: string, pageInfo: PageInfo): Observable<IOpera
   }
   getLatestItemsList() : Observable<LatestItems[]> {
     return this.httpService.get(`Item/GetLatestItemsList`)
-  }
+  } 
 
   addStockIn(obj : AddStockIn) : Observable<AddStockIn> {
     return this.httpService.post('StockIn' , obj)
@@ -612,5 +612,9 @@ getOperationalTagList(searchTerm: string, pageInfo: PageInfo): Observable<IOpera
     query += params.join('&'); 
     return this.httpService.get<StockOutDto[]>(query);
   }
+  getLatestItemsListByWarehouse( SearchTerm :string , WarehouseId:number) : Observable<LatestItems[]> {
+    return this.httpService.get(`Item/GetLatestItemsStockDropDownByWarehouse?WarehouseId=${WarehouseId}`)
+  }
+ 
 }
 

@@ -458,12 +458,19 @@
   "UOM": "UOM",
   "QTY": "QTY",
   "cost": "Cost",
-  "subTotal": "Subtotal",
+  "subTotal": "Sub Total",
   "tracking": "Tracking",
   "note": "Note",
   "action": "Action",
   "btnReserve": "Reserve",
-  "btnReserved": "Reserved"
+  "btnReserved": "Reserved",
+  "batch":"batch no.",
+  "serial":"Serial",
+  "expiryDate":"Expiry Date",
+  "availability":"Availability",
+  "noTracking": "No tracking"
+
+
 
 }
 
