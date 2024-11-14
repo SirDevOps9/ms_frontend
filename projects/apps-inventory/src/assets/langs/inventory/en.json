@@ -345,7 +345,7 @@
     "edit": "Edit",
     "Activation": "Activation",
     "save": "Save",
-    "cancel": "Cancel",    
+    "cancel": "Cancel",
     "status": "Status",
     "editSuccses": "Data Updated Successfully",
     "addSuccess": "Data Saved Successfully",
@@ -422,6 +422,7 @@
 "transactions" : {
   "deleteStockIn": "Stock In deleted successfully",
   "deleteStockOut": "Stock Out deleted successfully",
+  "deleteStockOutLine": "Stock Out Line deleted successfully",
   "success": "Success"
 },
 "global":{

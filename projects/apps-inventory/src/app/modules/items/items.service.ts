@@ -1279,8 +1279,11 @@ export class ItemsService {
     this.itemProxy.addWarehouse(obj).subscribe((res) => {
       if (res) {
         console.log(res);
-        this.languageService.transalte('warehouse.success'),
-          this.languageService.transalte('warehouse.add');
+        this.toasterService.showSuccess(
+          this.languageService.transalte('warehouse.success'),
+          this.languageService.transalte('warehouse.add')
+        );
+
         let dataRes: number = Number(res);
         console.log(dataRes);
         console.log(text);
@@ -1533,7 +1536,7 @@ exportStockInList(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
         this.loaderService.hide();
       },
       error: (err) => {
-        
+
         this.formsService.setFormValidationErrors(stockinForm, err);
         this.loaderService.hide();
       },

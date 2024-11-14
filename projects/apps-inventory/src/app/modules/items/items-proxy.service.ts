@@ -600,6 +600,9 @@ getOperationalTagList(searchTerm: string, pageInfo: PageInfo): Observable<IOpera
     }
     return this.httpService.get<PaginationVm<StockOutDto>>(query);
   }
+
+
+
   getAllStockIn(
     searchTerm: string,
     pageInfo: PageInfo

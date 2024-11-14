@@ -1,9 +1,9 @@
 <lib-page-content [title]="'stockIn.TaxList' | translate" [subTitle]="'stockIn.TaxList' | translate">
 
-  <div [formGroup]="stockInForm" class="grid my w-100 card stockInForm_header">
+  <div [formGroup]="stockOutForm" class="grid my w-100 card stockInForm_header">
     <div class="grid md:col-12 p-1 m-0">
       <div class="md:col-2 my-2">
-        <lib-label [appControl]="stockInForm.controls['code']">
+        <lib-label [appControl]="stockOutForm.controls['code']">
           {{ 'stockIn.code' | translate }}
         </lib-label>
         <lib-text-input
@@ -11,51 +11,52 @@
           formControlName="code"
           [readOnly]="true"
         ></lib-text-input>
-        <lib-field-validations [appControl]="stockInForm.controls['code']"></lib-field-validations>
+        <lib-field-validations [appControl]="stockOutForm.controls['code']"></lib-field-validations>
       </div>
       <div class="md:col-2 my-2">
-        <lib-label [appControl]="stockInForm.controls['receiptDate']">
+        <lib-label [appControl]="stockOutForm.controls['receiptDate']">
           {{ 'stockIn.date' | translate }}
         </lib-label>
 
 
           <lib-calendar style="height: 45px !important;" formControlName="receiptDate"></lib-calendar>
 
-          <lib-field-validations  [appControl]="stockInForm.controls['receiptDate']"></lib-field-validations>
+          <lib-field-validations  [appControl]="stockOutForm.controls['receiptDate']"></lib-field-validations>
 
       </div>
 
-      <div class="md:col-2 my-2">
-        <lib-label [appControl]="stockInForm.controls['sourceDocumentId']">
-          {{ 'stockIn.docType' | translate }}
-        </lib-label>
-        <lib-select
-          formControlName="sourceDocumentId"
-          [options]="[]"
-          optionValue="id"
-          optionLabel="name"
-          [selectedValue]="stockInForm.controls['sourceDocumentId'].value"
-        >
-        </lib-select>
-        <lib-field-validations [appControl]="stockInForm.controls['sourceDocumentId']"></lib-field-validations>
-      </div>
       <div class="md:col-3 my-2">
-        <lib-label [appControl]="stockInForm.controls['sourceDocumentType']">
+        <lib-label [appControl]="stockOutForm.controls['sourceDocumentId']">
           {{ 'stockIn.sourceDoc' | translate }}
         </lib-label>
         <lib-select
-          formControlName="sourceDocumentType"
-          [options]="[]"
+          formControlName="sourceDocumentId"
+          [options]="oprationalLookup"
           optionValue="id"
           optionLabel="name"
           placeholder="{{ 'stockIn.sourceDoc' | translate }}"
-          [selectedValue]="stockInForm.controls['sourceDocumentType'].value"
+          [selectedValue]="stockOutForm.controls['sourceDocumentId'].value"
         >
         </lib-select>
-        <lib-field-validations [appControl]="stockInForm.controls['sourceDocumentType']"></lib-field-validations>
+        <lib-field-validations [appControl]="stockOutForm.controls['sourceDocumentId']"></lib-field-validations>
+      </div>
+
+      <div class="md:col-2 my-2">
+        <lib-label [appControl]="stockOutForm.controls['sourceDocumentType']">
+          {{ 'stockIn.docType' | translate }}
+        </lib-label>
+        <lib-select
+          formControlName="sourceDocumentType"
+          [options]="lookups[LookupEnum.StockInOutSourceDocumentType]!"
+          optionValue="id"
+          optionLabel="name"
+          [selectedValue]="stockOutForm.controls['sourceDocumentType'].value"
+        >
+        </lib-select>
+        <lib-field-validations [appControl]="stockOutForm.controls['sourceDocumentType']"></lib-field-validations>
       </div>
       <div class="md:col-3 my-2">
-        <lib-label [appControl]="stockInForm.controls['warehouseId']">
+        <lib-label [appControl]="stockOutForm.controls['warehouseId']">
           {{ 'stockIn.warehouse' | translate }}
         </lib-label>
         <lib-select
@@ -64,14 +65,14 @@
           optionValue="id"
           optionLabel="name"
           placeholder="{{ 'stockIn.warehouse' | translate }}"
-          [selectedValue]="stockInForm.controls['warehouseId'].value"
+          [selectedValue]="stockOutForm.controls['warehouseId'].value"
         >
         </lib-select>
-        <lib-field-validations [appControl]="stockInForm.controls['warehouseId']"></lib-field-validations>
+        <lib-field-validations [appControl]="stockOutForm.controls['warehouseId']"></lib-field-validations>
       </div>
       <div class="md:col-6 my-2">
         <div>
-          <lib-label [appControl]="stockInForm.controls['notes']">
+          <lib-label [appControl]="stockOutForm.controls['notes']">
             {{ 'stockIn.notes' | translate }}
           </lib-label>
         </div>
@@ -90,7 +91,7 @@
 
   <div class="my-2">
     <p-table
-      [value]="stockIn['controls']"
+      [value]="stockOut['controls']"
       dataKey="id"
       styleClass="p-datatable-gridlines p-datatable-striped"
       [tableStyle]="{ 'min-width': '50rem' }"
@@ -109,9 +110,9 @@
           <th>{{ 'stockIn.actions' | translate }}</th>
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-stockInFormGroup let-editing="editing" let-i="rowIndex">
-        <tr [formGroup]="stockInFormGroup">
-          <td [pEditableColumn]="stockInFormGroup.controls['barcode']" pEditableColumnField="barcode">
+      <ng-template pTemplate="body" let-stockOutForm let-editing="editing" let-i="rowIndex">
+        <tr [formGroup]="stockOutForm">
+          <td [pEditableColumn]="stockOutForm.controls['barcode']" pEditableColumnField="barcode">
             <p-cellEditor>
               <ng-template pTemplate="input">
                 <lib-text-input
@@ -120,33 +121,43 @@
                 ></lib-text-input>
               </ng-template>
               <ng-template pTemplate="output">
-                {{ stockInFormGroup.controls['barcode']?.value }}
+                {{ stockOutForm.controls['barcode']?.value }}
               </ng-template>
             </p-cellEditor>
             <lib-field-validations
-              [appControl]="stockInFormGroup.controls['barcode']"
+              [appControl]="stockOutForm.controls['barcode']"
             ></lib-field-validations>
           </td>
           <!--  -->
 
-          <td [pEditableColumn]="stockInFormGroup.controls['barcode']" pEditableColumnField="barcode">
+          <td [pEditableColumn]="stockOutForm.controls['itemId']" pEditableColumnField="itemId">
             <p-cellEditor>
               <ng-template pTemplate="input">
-                <lib-text-input
+                <div class="flex justify-content-center gap-2 align-items-center">
+                  <lib-select
+                  formControlName="itemId"
+                  [options]="latestItemsList"
+                  optionValue="itemId"
+                  optionLabel="displayName"
                   placeholder="{{ 'stockIn.itemCode' | translate }}"
-                  formControlName="barcode"
-                ></lib-text-input>
+                  (valueChanged)="itemChanged($event , stockOutForm)"
+                >
+                </lib-select>
+                <i class="pi pi-search search-circle" (click)="openDialog(stockOutForm)"></i>
+                </div>
+
+
               </ng-template>
               <ng-template pTemplate="output">
-                {{ stockInFormGroup.controls['barcode']?.value }}
+                {{ stockOutForm.controls['itemCodeName']?.value }}
               </ng-template>
             </p-cellEditor>
             <lib-field-validations
-              [appControl]="stockInFormGroup.controls['barcode']"
+              [appControl]="stockOutForm.controls['itemId']"
             ></lib-field-validations>
           </td>
           <!--  -->
-          <td [pEditableColumn]="stockInFormGroup.controls['description']" pEditableColumnField="description">
+          <td [pEditableColumn]="stockOutForm.controls['description']" pEditableColumnField="description">
             <p-cellEditor>
               <ng-template pTemplate="input">
                 <lib-text-input
@@ -155,36 +166,40 @@
                 ></lib-text-input>
               </ng-template>
               <ng-template pTemplate="output">
-                {{ stockInFormGroup.controls['description']?.value }}
+                {{ stockOutForm.controls['description']?.value }}
               </ng-template>
             </p-cellEditor>
             <lib-field-validations
-              [appControl]="stockInFormGroup.controls['description']"
+              [appControl]="stockOutForm.controls['description']"
             ></lib-field-validations>
           </td>
           <!--  -->
           <!--  -->
 
-          <td [pEditableColumn]="stockInFormGroup.controls['uomId']" pEditableColumnField="uomId">
+          <td [pEditableColumn]="stockOutForm.controls['uomId']" pEditableColumnField="uomId">
             <p-cellEditor>
               <ng-template pTemplate="input">
-                <lib-text-input
-                  placeholder="{{ 'stockIn.UOM' | translate }}"
+                <lib-select
                   formControlName="uomId"
-                ></lib-text-input>
+                  [options]="uomLookup"
+                  optionValue="uomId"
+                  [optionLabel]="currentLang == 'en' ? 'uomNameEn' : 'uomNameAr'"
+                  placeholder="{{ 'stockIn.UOM' | translate }}"
+                  (valueChanged)="uomChanged($event, stockOutForm)"
+                ></lib-select>
               </ng-template>
               <ng-template pTemplate="output">
-                {{ stockInFormGroup.controls['uomId']?.value }}
+                {{ stockOutForm.controls['uomName']?.value }}
               </ng-template>
             </p-cellEditor>
             <lib-field-validations
-              [appControl]="stockInFormGroup.controls['uomId']"
+              [appControl]="stockOutForm.controls['uomId']"
             ></lib-field-validations>
           </td>
 
           <!--  -->
 
-          <td [pEditableColumn]="stockInFormGroup.controls['quantity']" pEditableColumnField="quantity">
+          <td [pEditableColumn]="stockOutForm.controls['quantity']" pEditableColumnField="quantity">
             <p-cellEditor>
               <ng-template pTemplate="input">
                 <lib-text-input
@@ -193,16 +208,16 @@
                 ></lib-text-input>
               </ng-template>
               <ng-template pTemplate="output">
-                {{ stockInFormGroup.controls['quantity']?.value }}
+                {{ stockOutForm.controls['quantity']?.value }}
               </ng-template>
             </p-cellEditor>
             <lib-field-validations
-              [appControl]="stockInFormGroup.controls['quantity']"
+              [appControl]="stockOutForm.controls['quantity']"
             ></lib-field-validations>
           </td>
           <!--  -->
 
-          <td [pEditableColumn]="stockInFormGroup.controls['cost']" pEditableColumnField="cost">
+          <td [pEditableColumn]="stockOutForm.controls['cost']" pEditableColumnField="cost">
             <p-cellEditor>
               <ng-template pTemplate="input">
                 <lib-text-input
@@ -211,32 +226,31 @@
                 ></lib-text-input>
               </ng-template>
               <ng-template pTemplate="output">
-                {{ stockInFormGroup.controls['cost']?.value }}
+                {{ stockOutForm.controls['cost']?.value }}
               </ng-template>
             </p-cellEditor>
             <lib-field-validations
-              [appControl]="stockInFormGroup.controls['cost']"
+              [appControl]="stockOutForm.controls['cost']"
             ></lib-field-validations>
           </td>
           <!--  -->
-          <td [pEditableColumn]="stockInFormGroup.controls['barcode']" pEditableColumnField="barcode">
+          <td [pEditableColumn]="stockOutForm.controls['subTotal']" pEditableColumnField="subTotal">
             <p-cellEditor>
               <ng-template pTemplate="input">
                 <lib-text-input
-                  placeholder="{{ 'stockIn.Subtotal' | translate }}"
-                  formControlName="barcode"
+                  placeholder="{{ 'stockIn.subTotal' | translate }}"
+                  formControlName="subTotal"
+                  [readOnly]="true"
                 ></lib-text-input>
               </ng-template>
               <ng-template pTemplate="output">
-                {{ stockInFormGroup.controls['barcode']?.value }}
+                {{ stockOutForm.controls['quantity']?.value *  stockOutForm.controls['cost']?.value}}
               </ng-template>
             </p-cellEditor>
-            <lib-field-validations
-              [appControl]="stockInFormGroup.controls['barcode']"
-            ></lib-field-validations>
+
           </td>
           <!--  -->
-          <td [pEditableColumn]="stockInFormGroup.controls['trackingType']" pEditableColumnField="trackingType">
+          <td [pEditableColumn]="stockOutForm.controls['trackingType']" pEditableColumnField="trackingType">
             <p-cellEditor>
               <ng-template pTemplate="input">
                 <lib-text-input
@@ -245,15 +259,15 @@
                 ></lib-text-input>
               </ng-template>
               <ng-template pTemplate="output">
-                {{ stockInFormGroup.controls['trackingType']?.value }}
+                {{ stockOutForm.controls['trackingType']?.value }}
               </ng-template>
             </p-cellEditor>
             <lib-field-validations
-              [appControl]="stockInFormGroup.controls['trackingType']"
+              [appControl]="stockOutForm.controls['trackingType']"
             ></lib-field-validations>
           </td>
           <!--  -->
-          <td [pEditableColumn]="stockInFormGroup.controls['notes']" pEditableColumnField="notes">
+          <td [pEditableColumn]="stockOutForm.controls['notes']" pEditableColumnField="notes">
             <p-cellEditor>
               <ng-template pTemplate="input">
                 <lib-text-input
@@ -262,15 +276,16 @@
                 ></lib-text-input>
               </ng-template>
               <ng-template pTemplate="output">
-                {{ stockInFormGroup.controls['notes']?.value }}
+                {{ stockOutForm.controls['notes']?.value }}
               </ng-template>
             </p-cellEditor>
             <lib-field-validations
-              [appControl]="stockInFormGroup.controls['notes']"
+              [appControl]="stockOutForm.controls['notes']"
             ></lib-field-validations>
           </td>
           <td>
-            <img src="assets/images/table/edit.svg" alt="" (click)="onEdit(stockInFormGroup)" />
+            <img src="assets/images/table/delete.svg" alt="" (click)="OnDelete(i)" />
+
           </td>
           <!--  -->
         </tr>

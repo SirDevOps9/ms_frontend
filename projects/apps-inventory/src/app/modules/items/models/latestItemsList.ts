@@ -1,5 +1,6 @@
 
 export interface LatestItems {
+  description: any
   itemId: number
   itemCode: string
   itemName: string
