@@ -7,8 +7,8 @@ title="{{'popuoExcel.suptitle'|translate}} "
     <div class="group_excel_button">
         <h2 class="body_b16"> {{'popuoExcel.title'|translate}} </h2>
                 <lib-file-uploader class="file_uplode" [file]="true"
-                (valueChanged)="test($event)"
-                (data)="test($event)"
+                (valueChanged)="uploadChanged($event)"
+                (data)="uploadChanged($event)"
                 >
                 </lib-file-uploader>
                 <lib-button-micro

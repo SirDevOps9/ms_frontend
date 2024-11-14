@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
-import { addBarcode, AddGeneralDto, AddItemCategory, AddItemDefinitionDto,StockOutDto, AddOperatioalTag, AddStockIn, AddVariantLine, AddWarehouse, AdvancedSearchDto, AttributesVariants, EditAttributes, EditWareHouse, GetItemById, GetItemCategoryDto, getUomByItemId, GetWarehouseList, IOperationalTag, itemDefinitionDto, ItemTypeDto, Iuom, LatestItems, StockInDto, UOMCategoryDto, UomDefault } from './models';
+import { addBarcode, AddGeneralDto, AddItemCategory, AddItemDefinitionDto, AddOperatioalTag, AddStockIn, AddStockOutDto, AddVariantLine, AddWarehouse, AdvancedSearchDto, AttributesVariants, EditAttributes, EditWareHouse, GetItemById, GetItemCategoryDto, getUomByItemId, GetWarehouseList, IOperationalTag, itemDefinitionDto, ItemTypeDto, Iuom, LatestItems, OperationalStockIn, StockInDetail, StockInDto, StockOutDto, UOMCategoryDto, UomDefault } from './models';
 import { EditItemDefinitionDto } from './models/editItemDefinitionDto';
 import { variantGroupById } from './models/variantGroupById';
 import { itemAttributeValues, itemAttributeValuesByID } from './models/itemAttributeValues';
@@ -37,9 +37,6 @@ export class ItemsProxyService {
       query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
     }
     return this.httpService.get<PaginationVm<StockInDto>>(query)
-  }
-  deleteStockIn(id : number ){
-    return this.httpService.delete(`Transaction/GetStockInTransactionList/${id}`)
   }
 
   exportsStockInList(
@@ -568,8 +565,8 @@ getOperationalTagList(searchTerm: string, pageInfo: PageInfo): Observable<IOpera
     return this.httpService.get(`Item/GetGeneralData/${id}`)
   }
 
-  operationTagDropdown() : Observable<{ id: number; name: string }[]> {
-    return this.httpService.get(`OperationalTag/OperationalTagDropDown`)
+  operationTagDropdown() : Observable<OperationalStockIn[]> {
+    return this.httpService.get(`OperationalTag/OperationalTagStockDropDown?OperationType=StockIn`)
   }
   getLatestItemsList() : Observable<LatestItems[]> {
     return this.httpService.get(`Item/GetLatestItemsList`)
@@ -603,18 +600,63 @@ getOperationalTagList(searchTerm: string, pageInfo: PageInfo): Observable<IOpera
     }
     return this.httpService.get<PaginationVm<StockOutDto>>(query);
   }
+  getAllStockIn(
+    searchTerm: string,
+    pageInfo: PageInfo
+  ): Observable<PaginationVm<StockInDto>> {
+    let query = `StockIn?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+    return this.httpService.get<PaginationVm<StockInDto>>(query);
+  }
+
+
   exportStockOutList(searchTerm?: string ,SortBy?:number,SortColumn?:string): Observable<StockOutDto[]> {
     let query = `StockOut/Export?`;
     const params: string[] = [];
     if (searchTerm) params.push(`searchTerm=${encodeURIComponent(searchTerm)}`);
     if (SortBy) params.push(`SortBy=${SortBy}`);
     if (SortColumn) params.push(`SortColumn=${SortColumn}`);
-    query += params.join('&'); 
+    query += params.join('&');
     return this.httpService.get<StockOutDto[]>(query);
-  }
+  } 
   getLatestItemsListByWarehouse( SearchTerm :string , WarehouseId:number) : Observable<LatestItems[]> {
     return this.httpService.get(`Item/GetLatestItemsStockDropDownByWarehouse?WarehouseId=${WarehouseId}`)
   }
- 
+
+
+  exportStockInList(searchTerm?: string ,SortBy?:number,SortColumn?:string): Observable<StockInDto[]> {
+    let query = `StockIn/Export?`;
+    const params: string[] = [];
+    if (searchTerm) params.push(`searchTerm=${encodeURIComponent(searchTerm)}`);
+    if (SortBy) params.push(`SortBy=${SortBy}`);
+    if (SortColumn) params.push(`SortColumn=${SortColumn}`);
+    query += params.join('&');
+    return this.httpService.get<StockInDto[]>(query);
+  }
+
+
+  deleteStockIn(id:number ){
+    return this.httpService.delete(`StockIn/${id}`)
+  }
+
+  getByIdStockOut(id:number){
+    return this.httpService.get(`StockOut/${id}`)
+
+  }
+  editStockOut(obj:StockOutDto){
+    return this.httpService.put(`StockOut`, obj)
+
+  }
+
+  getItemBarcodeForItem(barcode : string) : Observable<StockInDetail> {
+    return this.httpService.get(`Item/GetItemByBarcode?Barcode=${barcode}`)
+
+  }
+  addStockOut(obj : AddStockOutDto) : Observable<AddStockOutDto> {
+    return this.httpService.post('StockOut' , obj)
+
+  }
 }
 

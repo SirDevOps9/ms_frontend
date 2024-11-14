@@ -23,8 +23,11 @@
         <lib-label [appControl]="addForm.controls['sourceDocumentType']">
           {{ 'stockOut.docType' | translate }}
         </lib-label>
-        <lib-select formControlName="sourceDocumentType" [options]="lookups[LookupEnum.StockInSourceDocumentType]"
-          optionValue="id" optionLabel="name">
+        <lib-select 
+        formControlName="sourceDocumentType" 
+        [options]="lookups[LookupEnum.StockInOutSourceDocumentType]"
+          optionValue="id"
+           optionLabel="name">
         </lib-select>
         <lib-field-validations [appControl]="addForm.controls['sourceDocumentType']"></lib-field-validations>
       </div>
@@ -32,7 +35,11 @@
         <lib-label [appControl]="addForm.controls['sourceDocumentId']">
           {{ 'stockOut.sourceDoc' | translate }}
         </lib-label>
-        <lib-select formControlName="sourceDocumentId" [options]="oprationalLookup" optionValue="id" optionLabel="name"
+        <lib-select 
+        formControlName="sourceDocumentId" 
+        [options]="oprationalLookup"
+        optionValue="id"
+        optionLabel="displayName"
           placeholder="{{ 'stockOut.sourceDoc' | translate }}"
           [selectedValue]="addForm.controls['sourceDocumentId'].value">
         </lib-select>
@@ -42,15 +49,16 @@
         <lib-label [appControl]="addForm.controls['warehouseId']">
           {{ 'stockOut.warehouse' | translate }}
         </lib-label>
-        <lib-select formControlName="warehouseId" [options]="warhouseLookupData" optionValue="id" optionLabel="name"
+        <!-- <lib-select formControlName="warehouseId" [options]="warhouseLookupData" optionValue="id" optionLabel="name"
           placeholder="{{ 'stockOut.warehouse' | translate }}" [selectedValue]="addForm.controls['warehouseId'].value"
           (valueChanged)="getLatestItemsList( addForm.controls['warehouseId'].value)">
-        </lib-select>
-        <!-- <lib-text-input
+        </lib-select> -->
+        <lib-text-input
+        formControlName="warehouseName"
         [readOnly]="true"
         >
 
-        </lib-text-input> -->
+        </lib-text-input>
         <lib-field-validations [appControl]="addForm.controls['warehouseId']"></lib-field-validations>
       </div>
       <div class="md:col-6 my-2">
@@ -60,7 +68,7 @@
           </lib-label>
         </div>
 
-        <textarea pInputTextarea style="width: 100%" rows="1" formControlName="notes"
+        <textarea pInputTextarea style="width: 100% ;max-width: 100%; height: auto; max-height: 150px;" rows="1" formControlName="notes"
           placeholder="{{ 'stockOut.notes' | translate }}"></textarea>
       </div>
     </div>
@@ -115,6 +123,7 @@
                     selectedValue="{{stockOutFormGroup.controls['itemId'].value}}"
                     (valueSearchChanged)="onFilter($event ,  stockInForm.controls['warehouseId'].value)"></lib-select>
                   <i class="pi pi-search search-circle"></i>
+                  <!-- (click)="openDialog(rowIndex)" -->
                 </div>
               </ng-template>
               <ng-template pTemplate="output">
@@ -263,8 +272,14 @@
           <td 
             class="readOnly"
             >
-            <p> <span class="pi pi-calendar"></span>{{( stockOutFormGroup?.get('expiryDate')?.value | date:'dd-mm-yyyy' )||"{{ 'stockOut.noTracking' | translate }}"}}   </p>
-            
+            <p>
+              <span class="pi pi-calendar"></span>
+              {{
+                stockOutFormGroup?.get('expiryDate')?.value
+                  ? (stockOutFormGroup.get('expiryDate').value | date: 'dd-MM-yyyy')
+                  : ('stockOut.noTracking' | translate)
+              }}
+            </p>            
           </td>
           <td [pEditableColumn]="stockOutFormGroup.controls['notes']" pEditableColumnField="notes">
             <p-cellEditor>

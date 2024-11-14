@@ -5,8 +5,9 @@ import { AuthService } from 'microtec-auth-lib';
 import { DialogService } from 'primeng/dynamicdialog';
 import { customValidators, FormsService, LanguageService, lookupDto, LookupEnum, LookupsService, MenuModule, PageInfo, PageInfoResult, RouterService, ToasterService } from 'shared-lib';
 import { ItemsService } from '../../../items.service';
-import { GetWarehouseList } from '../../../models';
+import { AddStockOutDto, GetWarehouseList, OperationalStockIn } from '../../../models';
 import { SharedStock } from '../../../models/sharedStockOutEnums';
+import { SearchItemPopUpComponent } from '../../../components/stock-out/search-item-pop-up/search-item-pop-up.component';
 
 @Component({
   selector: 'app-add-stock-out',
@@ -21,7 +22,7 @@ export class AddStockOutComponent implements OnInit{
   tableData: any[];
   lookups: { [key: string]: lookupDto[] };
 
-  oprationalLookup : { id: number; name: string }[] = []
+  oprationalLookup: OperationalStockIn[] = [];
   warhouseLookupData :GetWarehouseList[] =[]
 
   filteredItems: any[];
@@ -36,22 +37,22 @@ export class AddStockOutComponent implements OnInit{
 
  
   ngOnInit(): void {
-    this.initWareHouseLookupData()
-
- 
     this.loadLookups();
-    this.subscribe();
+
+    this.initWareHouseLookupData()
     this.initializeForm();
+    this.subscribe();
   }
   initializeForm() {
     this.addForm = this.fb.group({
 
       code: new FormControl(''),
       receiptDate: new FormControl('',[customValidators.required]),
-      stockOutStatus: new FormControl('',[customValidators.required]),
-      sourceDocumentType: new FormControl('',[customValidators.required]),
-      sourceDocumentId: new FormControl('',[customValidators.required]),
+      stockOutStatus: new FormControl('',),
+      sourceDocumentType: new FormControl(''),
+      sourceDocumentId: new FormControl(''),
       warehouseId: new FormControl('',[customValidators.required]),
+      warehouseName: new FormControl(''),
       notes: new FormControl(''),
       stockOutDetails: this.fb.array([]),
 
@@ -77,31 +78,40 @@ export class AddStockOutComponent implements OnInit{
       this.lookups = l;   
       console.log(l)   
     });
-    this.stockInForm.get('sourceDocumentType')?.valueChanges.subscribe(res=>{
-      console.log(res)
-      let data = this.lookups[LookupEnum.StockInSourceDocumentType]
+    this.addForm.get('sourceDocumentType')?.valueChanges.subscribe(res=>{
+      let data = this.lookups[LookupEnum.StockInOutSourceDocumentType]
     let sourceDocumentTypeData = data.find(elem=>elem.id == res)
       if(sourceDocumentTypeData?.name == 'OperationalTag') {
+        console.log("444444444");
+        
         this.itemsService.OperationalTagDropDown()
         this.itemsService.sendOperationalTagDropDown$.subscribe(res=>{
           this.oprationalLookup = res
+          this.oprationalLookup = res.map((elem: any) => ({
+            ...elem,
+            displayName: `${elem.name} (${elem.code})`,
+          }));
         })
       }
     }
   )
+  this.addForm.get('sourceDocumentId')?.valueChanges.subscribe((res) => {
+    let data = this.oprationalLookup.find(elem=>elem.id == res)
+    this.addForm.get('warehouseId')?.setValue(data?.warehouseId)
+    this.addForm.get('warehouseName')?.setValue(data?.warehouseName)
+
+  });
   this.itemsService.latestItemsListByWarehouse$.subscribe((res:any)=>{
     this.filteredItems=res
   })
 }
 loadLookups(){
   this.lookupservice.loadLookups([
-    LookupEnum.StockInSourceDocumentType
+    LookupEnum.StockInOutSourceDocumentType
   ]);
 }
 
-  get stockIn() {
-    return this.stockInForm.get('stockInDetails') as FormArray;
-  }
+ 
 
     setRowData(indexLine: number, selectedItemId: any, list: any) {
       const selectedItem = list.find((item: any) => item.itemId === selectedItemId);
@@ -136,6 +146,9 @@ loadLookups(){
           stockOutEntryMode: selectedItem.stockOutEntryMode || '',
           trackingType: selectedItem.trackingType || '',
           trackingNo: selectedItem.trackingNo || '',
+          hasExpiryDate: selectedItem.hasExpiryDate || '',
+          expireDate: selectedItem.expireDate || '',
+
           availability: selectedItem.availability || ''
         });
 
@@ -148,7 +161,83 @@ loadLookups(){
             quantity: selectedItem.stockOutTracking?.quantity || '',
             serialId: selectedItem.stockOutTracking?.serialId || '',
             trackingType: selectedItem.stockOutTracking?.trackingType || '',
-            hasExpiryDate: selectedItem.stockOutTracking?.hasExpiryDate || '',
+            hasExpiryDate: selectedItem.hasExpiryDate ,
+            serialOptions: selectedItem.serials,
+            batchesOptions: selectedItem.batches
+          });
+        } else {
+          console.error('StockOutTracking form group is missing');
+        }
+      }
+      if(selectedItem){
+        if(selectedItem.hasExpiryDate){
+          if(selectedItem.trackingType==this.sharedFinanceEnums.StockOutTracking.NoTracking){
+            rowForm.get('showSerial')?.setValue(false);
+            rowForm.get('showBatch')?.setValue(true);
+          }
+          else if(selectedItem.trackingType==this.sharedFinanceEnums.StockOutTracking.Serial){
+            rowForm.get('showSerial')?.setValue(true);
+            rowForm.get('showBatch')?.setValue(false);
+          }
+          else if(selectedItem.trackingType==this.sharedFinanceEnums.StockOutTracking.Batch){
+            rowForm.get('showSerial')?.setValue(false);
+            rowForm.get('showBatch')?.setValue(true);
+          }
+        }else{
+          if(selectedItem.trackingType==this.sharedFinanceEnums.StockOutTracking.NoTracking){
+            rowForm.get('showSerial')?.setValue(false);
+            rowForm.get('showBatch')?.setValue(false);
+          }
+        }
+      }
+      rowForm.get('itemName')?.setValue(selectedItem.itemCode + "-" + selectedItem.itemName )
+      this.setUomName(indexLine , rowForm.get('uomOptions')?.value )
+      this.setExpiryDate(indexLine , selectedItem.batches , selectedItem.serialOptions )
+      // Log the updated form value for debugging
+      console.log(selectedItem ,"selectedItem.stockOutTracking?.batches");
+      
+      console.log('Updated row form:', rowForm.value);
+    }
+    setRowDataFromPopup(indexLine: number, selectedItem: any) {
+      const rowForm = this.stockOutDetailsFormArray.at(indexLine) as FormGroup;
+
+     
+
+    
+
+      // Ensure row form controls are present before updating
+      if (rowForm) {
+        rowForm.patchValue({
+          barCode: selectedItem.barCode || '',
+          bardCodeId: selectedItem.bardCodeId || '',
+          itemId: selectedItem.itemId,
+          itemVariantId: selectedItem.itemVariantId || '',
+          uomId: selectedItem.uomId || '',
+          uomOptions: selectedItem.itemsUOM || [],
+          description: selectedItem.description || '',
+          AllTotalQuantity: selectedItem.totalQuantity || '',
+          cost: selectedItem.cost || '',
+          subCost: selectedItem.subCost || '',
+          notes: selectedItem.notes || '',
+          stockOutEntryMode: selectedItem.stockOutEntryMode || '',
+          trackingType: selectedItem.trackingType || '',
+          trackingNo: selectedItem.trackingNo || '',
+          hasExpiryDate: selectedItem.hasExpiryDate || '',
+          expireDate: selectedItem.expireDate || '',
+
+          availability: selectedItem.availability || ''
+        });
+
+        // Handle the nested form group
+        const stockOutTrackingGroup = rowForm.get('stockOutTracking') as FormGroup;
+        if (stockOutTrackingGroup) {
+          stockOutTrackingGroup.patchValue({
+            batchNo: selectedItem.stockOutTracking?.batchNo || '',
+            expireDate: selectedItem.stockOutTracking?.expireDate || '',
+            quantity: selectedItem.stockOutTracking?.quantity || '',
+            serialId: selectedItem.stockOutTracking?.serialId || '',
+            trackingType: selectedItem.stockOutTracking?.trackingType || '',
+            hasExpiryDate: selectedItem.hasExpiryDate ,
             serialOptions: selectedItem.serials,
             batchesOptions: selectedItem.batches
           });
@@ -186,7 +275,6 @@ loadLookups(){
       console.log('Updated row form:', rowForm.value);
     }
 
-
   addNewRow() {
        if (!this.formsService.validForm(this.addForm, false)) return;
        this.getLatestItemsList(this.addForm.get('warehouseId')?.value)
@@ -196,21 +284,21 @@ loadLookups(){
         {
           barCode: new FormControl(''),
           bardCodeId: new FormControl(''),
-          itemId: new FormControl(''),
+          itemId: new FormControl('',[customValidators.required]),
           itemName: new FormControl(''),
-          itemVariantId: new FormControl(''),
-          uomId: new FormControl(''),
+          itemVariantId: new FormControl('',[customValidators.required]),
+          uomId: new FormControl('',[customValidators.required]),
           uomOptions: new FormControl(),
           uomName: new FormControl(''),
           description: new FormControl(''),
-          quantity: new FormControl(''),
-          cost: new FormControl(''),
+          quantity: new FormControl('',[customValidators.required]),
+          cost: new FormControl('',[customValidators.required]),
           subCost: new FormControl(''),
           notes: new FormControl(''),
           stockOutEntryMode: new FormControl("Manual"),
           trackingType: new FormControl(''),
           availability: new FormControl(''),
-          trackingNo: new FormControl(''),
+          trackingNo: new FormControl('',[customValidators.required]),
           expiryDate: new FormControl(''),
           hasExpiryDate: new FormControl(''),
           totalQuantity: new FormControl(0),
@@ -243,12 +331,51 @@ loadLookups(){
         rowForm.get('uomName')?.setValue(selectedItem.uomNameEn);
       }    }
 
-  onCancel() {}
+  onCancel() {
+    this.routerService.navigateTo('masterdata/stock-out');
+
+  }
 
   onSave() {
-    console.log(this.addForm.value ,"this.addForm.value");
-    
+    if (!this.formsService.validForm(this.addForm, false)) return;
+
+   const data:AddStockOutDto =this.mapStockOutData(this.addForm.value)
+   this.itemsService.addStockOut(data, this.addForm);
+
   }
+  mapStockOutData(data:any){
+    console.log(data.stockOutDetails,"lllll");
+    
+      return {
+        receiptDate: data.receiptDate,
+        sourceDocumentType: data.sourceDocumentType,
+        sourceDocumentId: data.sourceDocumentId ,
+        warehouseId: data.warehouseId ,
+        notes: data.notes,
+        
+        stockOutDetails: data.stockOutDetails?.map((detail: any) => ({
+         
+          barCode: detail.barCode ,
+          bardCodeId: detail.bardCodeId|| null ,
+          itemId: detail.itemId ,
+          itemVariantId: detail.itemVariantId ,
+          uomId: detail.uomId ,
+          description: detail.description ,
+          quantity: Number(detail.quantity) ,
+          cost: Number(detail.cost) ,
+          notes: detail.notes ,
+          hasExpiryDate: detail.hasExpiryDate,
+          stockOutEntryMode: detail.stockOutEntryMode || "Manual",
+          trackingType: detail.trackingType,
+          stockOutTracking: {
+            trackingNo: detail.trackingNo,
+            hasExpiryDate: detail.hasExpiryDate,
+            expireDate: detail.expiryDate,
+            trackingType: detail.trackingType ,
+          }
+        }))
+  }
+}
   initWareHouseLookupData() {
     this.itemsService.getWareHousesDropDown()
     this.itemsService.wareHousesDropDownLookup$.subscribe(res=>{
@@ -301,6 +428,19 @@ loadLookups(){
       this.stockOutDetailsFormArray.removeAt(index);
 
     }
+  }
+  openDialog(indexLine:number ) {
+    const ref = this.dialog.open(SearchItemPopUpComponent, {
+      width: 'auto',
+      height: '600px',
+    });
+    ref.onClose.subscribe((selectedItems: any) => {
+      console.log(selectedItems ,"llllllllll");
+      
+      if (selectedItems) {
+  this.setRowDataFromPopup(indexLine ,selectedItems)
+      }
+    });
   }
   constructor(
     private routerService: RouterService,

@@ -16,8 +16,7 @@ export class ImportStockInComponent {
   save() {
     this.ref.close(this.listOfExcel)
   }
-  test(e:any){
-    console.log(e ,"44444444");
+  uploadChanged(e:any){
       const keys = ['itemCode', 'itemName', 'uomCode', 'UOMName', 'itemVariantCode', 'ItemVariantName','price'];
       this.listOfExcel = e.slice(1).map((arr: any) => {
         return keys.reduce((obj: any, key, index) => {
@@ -25,7 +24,6 @@ export class ImportStockInComponent {
           return obj;
         }, {});
       });
-      console.log(this.listOfExcel ,"lllllllllllll");
   }
   constructor(
     public config: DynamicDialogConfig,

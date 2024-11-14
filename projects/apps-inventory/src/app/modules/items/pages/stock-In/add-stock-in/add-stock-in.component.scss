@@ -7,6 +7,16 @@
         width: 100%;
     }
 }
-.search-circle{
+.search-circle , .pointer{
     cursor: pointer;
+}
+.track{
+    font-weight: bold;
+}
+.hide {
+    display: none
+}
+.danger{
+    color: rgb(237, 42, 42);
+    text-align: center;
 }
