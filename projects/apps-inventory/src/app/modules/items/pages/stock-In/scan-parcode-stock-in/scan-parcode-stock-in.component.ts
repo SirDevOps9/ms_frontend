@@ -32,7 +32,6 @@ export class ScanParcodeStockInComponent implements OnInit {
   ngOnInit() {
     navigator.mediaDevices.getUserMedia({ video: true })
     .then(() => {
-      // الأذونات ممنوحة، يمكنك الاستمرار
       return navigator.mediaDevices.enumerateDevices();
     })
     .then(devices => {
@@ -52,14 +51,7 @@ export class ScanParcodeStockInComponent implements OnInit {
   onInputManualBarcode(event: any): void {
     this.inputValue = event;
     if (this.inputValue) {
-      // this.itemsService.getCarcodeWithItem(this.inputValue);
-      // this.itemsService.sendCarcodeWithItemObs.subscribe((data: any) => {
-      //   this.itemDefinitionForm.controls['warehouseId'].setValue(event);
-      //   this.itemsService.barcodeScanned.next(data); // Emit the scanned data to parent
-      //   setTimeout(() => {
-      //     this.itemDefinitionForm.controls['warehouseId'].setValue('');
-      //   }, 100);
-      // });
+     
     }
   }
   onCancel(data: any) : any {

@@ -24,6 +24,7 @@ import {
   Iuom,
   LatestItems,
   OperationalStockIn,
+  StockInDetail,
   StockInDto,
   StockOutDto,
   UOMCategoryDto,
@@ -645,5 +646,9 @@ export class ItemsProxyService {
   }
   editStockOut(obj: StockOutDto) {
     return this.httpService.put(`StockOut`, obj);
+  }
+
+  getItemBarcodeForItem(barcode: string): Observable<StockInDetail> {
+    return this.httpService.get(`Item/GetItemByBarcode?Barcode=${barcode}`);
   }
 }

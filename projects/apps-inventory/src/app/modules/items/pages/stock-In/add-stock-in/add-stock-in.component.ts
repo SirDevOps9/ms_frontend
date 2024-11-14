@@ -16,12 +16,19 @@ import {
   RouterService,
 } from 'shared-lib';
 import { ItemsService } from '../../../items.service';
-import { AddStockIn, GetWarehouseList, LatestItems, OperationalStockIn } from '../../../models';
+import {
+  AddStockIn,
+  GetWarehouseList,
+  LatestItems,
+  OperationalStockIn,
+  StockInDetail,
+} from '../../../models';
 import { TrackingStockInComponent } from './tracking-stock-in/tracking-stock-in.component';
 import { MultiSelectItemStockInComponent } from './multi-select-item-stock-in/multi-select-item-stock-in.component';
 import { ImportStockInComponent } from '../import-stock-in/import-stock-in.component';
 import { ScanParcodeStockInComponent } from '../scan-parcode-stock-in/scan-parcode-stock-in.component';
 import { SharedFinanceEnums } from '../../../models/sharedEnumStockIn';
+import { skip } from 'rxjs';
 
 @Component({
   selector: 'app-add-stock-in',
@@ -60,6 +67,7 @@ export class AddStockInComponent implements OnInit {
   uomLookup: any = [];
   currentLang: string;
   showError: boolean = false;
+  barcodeData: StockInDetail;
   constructor(
     private routerService: RouterService,
     public authService: AuthService,
@@ -129,6 +137,11 @@ export class AddStockInComponent implements OnInit {
     });
 
     this.addLineStockIn();
+
+    this.itemsService.sendItemBarcode$.pipe(skip(1)).subscribe((res) => {
+      console.log(res);
+      this.barcodeData = res;
+    });
   }
 
   initWareHouseLookupData() {
@@ -262,6 +275,17 @@ export class AddStockInComponent implements OnInit {
     });
   }
 
+  // manual Barcode Event
+  barcodeCanged(e: any, stockInFormGroup: FormGroup) {
+    this.itemsService.getItemBarcodeForItem(e);
+    this.itemsService.sendItemBarcode$.pipe(skip(1)).subscribe((data) => {
+      if (data) {
+        stockInFormGroup.get('itemId')?.setValue(data.itemId);
+        this.itemChanged(data.itemId, stockInFormGroup);
+      }
+    });
+  }
+
   setTracking(setTracking: FormGroup) {
     const dialogRef = this.dialog.open(TrackingStockInComponent, {
       width: '60%',
@@ -283,7 +307,7 @@ export class AddStockInComponent implements OnInit {
   }
 
   onCancel() {
-    this.router.navigateTo('/masterdata/stock-in');
+    this.router.navigateTo('/transactions/stock-in');
   }
 
   onSave() {

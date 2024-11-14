@@ -61,7 +61,7 @@ export class StockInListComponent implements OnInit {
   }
 
   onAdd() {
-    this.routerService.navigateTo('/masterdata/stock-in/add-stock-in');
+    this.routerService.navigateTo('/transactions/stock-in/add-stock-in');
   }
   onView(id: number) {}
 

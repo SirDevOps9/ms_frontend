@@ -106,7 +106,6 @@
   <lib-button-micro [title]="'stockIn.scan'|translate" nameClass="outline"
               iconName="pi pi-expand" (click)="scan()">
             </lib-button-micro>
- 
 </div> -->
 
   <div class="my-2">
@@ -141,6 +140,7 @@
                 <lib-text-input
                   placeholder="{{ 'stockIn.barcode' | translate }}"
                   formControlName="barCode"
+                  (valueChanged)="barcodeCanged($event, stockInFormGroup)"
                 ></lib-text-input>
               </ng-template>
               <ng-template pTemplate="output">
@@ -233,7 +233,6 @@
             <p-cellEditor>
               <ng-template pTemplate="input">
                 <lib-text-input
-                  type="number"
                   placeholder="{{ 'stockIn.cost' | translate }}"
                   formControlName="cost"
                 ></lib-text-input>
@@ -248,10 +247,17 @@
           </td>
           <!--  -->
           <td>
-            {{
-              stockInFormGroup.controls['quantity']?.value *
+            <div
+              *ngIf="
+                stockInFormGroup.controls['quantity']?.value &&
                 stockInFormGroup.controls['cost']?.value
-            }}
+              "
+            >
+              {{
+                stockInFormGroup.controls['quantity']?.value *
+                  stockInFormGroup.controls['cost']?.value
+              }}
+            </div>
           </td>
           <!--  -->
           <td>

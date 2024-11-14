@@ -38,7 +38,6 @@
               ></lib-field-validations>
             </td>
             <!--  -->
-
             <td>
               {{ stockInFormGroup.controls['systemPatchNo']?.value }}
             </td>
@@ -49,7 +48,7 @@
   </lib-popup-page>
 </ng-container>
 <!--  -->
-<ng-container *ngIf="configData?.tracking == 'Batch' || configData?.trackingType == 'Batch'">
+<ng-container *ngIf="configData?.tracking == 'Batch'">
   <lib-popup-page
     title="{{ 'stockIn.vendorBatchNo' | translate }}"
     [closeFunction]="onCancel"
