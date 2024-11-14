@@ -96,7 +96,6 @@
   <lib-button-micro [title]="'stockIn.scan'|translate" nameClass="outline"
               iconName="pi pi-expand" (click)="scan()">
             </lib-button-micro>
- 
 </div> -->
 
 <div class="my-2">
@@ -128,6 +127,7 @@
               <lib-text-input
                 placeholder="{{ 'stockIn.barcode' | translate }}"
                 formControlName="barCode"
+                (valueChanged)="barcodeCanged($event , stockInFormGroup)"
               ></lib-text-input>
             </ng-template>
             <ng-template pTemplate="output">
@@ -232,7 +232,10 @@
         </td>
         <!--  -->
         <td >
-          {{ stockInFormGroup.controls['quantity']?.value *  stockInFormGroup.controls['cost']?.value}}
+          <div *ngIf="stockInFormGroup.controls['quantity']?.value && stockInFormGroup.controls['cost']?.value">
+            {{ stockInFormGroup.controls['quantity']?.value *  stockInFormGroup.controls['cost']?.value}}
+
+          </div>
 
         </td>
         <!--  -->
@@ -273,7 +276,7 @@
              
               </div>
               <div class="flex justify-content-center mt-2">
-                <small class="danger" *ngIf="stockInFormGroup.get('stockInTracking').get('expireDate').hasError('required') || stockInFormGroup.get('stockInTracking').get('vendorBatchNo').hasError('required') || stockInFormGroup.get('stockInTracking').get('serialId').hasError('required')">{{'stockIn.required' | translate}}</small>
+                <small  class="danger" *ngIf="stockInFormGroup.get('stockInTracking').get('expireDate').hasError('required') || stockInFormGroup.get('stockInTracking').get('vendorBatchNo').hasError('required') || stockInFormGroup.get('stockInTracking').get('serialId').hasError('required')">{{'stockIn.required' | translate}}</small>
               </div>
              
               
