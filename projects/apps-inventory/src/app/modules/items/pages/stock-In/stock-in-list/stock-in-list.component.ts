@@ -66,7 +66,7 @@ export class StockInListComponent implements OnInit {
   onView(id: number) {}
 
   onEdit(id: any) {
-    this.routerService.navigateTo(`masterdata/stock-in/edit-stock-in/${id}`);
+    this.routerService.navigateTo(`/transactions/stock-in/edit-stock-in/${id}`);
   }
 
   onSearchChange() {
@@ -107,5 +107,7 @@ export class StockInListComponent implements OnInit {
     private langService: LanguageService,
     private itemsService: ItemsService,
     public sharedFinanceEnums: SharedStock
-  ) {}
+  ) {
+    console.log(this.routerService.getCurrentUrl());
+  }
 }

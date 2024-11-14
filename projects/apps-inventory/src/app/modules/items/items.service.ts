@@ -1568,7 +1568,7 @@ export class ItemsService {
           this.languageService.transalte('stockIn.success'),
           this.languageService.transalte('stockIn.stockAdded')
         );
-        this.router.navigateTo('/masterdata/stock-in');
+        this.router.navigateTo('/transactions/stock-in');
         this.loaderService.hide();
       },
       error: (err) => {
@@ -1584,7 +1584,7 @@ export class ItemsService {
           this.languageService.transalte('stockIn.success'),
           this.languageService.transalte('stockIn.stockEdit')
         );
-        this.router.navigateTo('/masterdata/stock-in');
+        this.router.navigateTo('/transactions/stock-in');
         this.loaderService.hide();
       },
       error: (err) => {

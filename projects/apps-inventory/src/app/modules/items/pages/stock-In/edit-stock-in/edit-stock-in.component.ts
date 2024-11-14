@@ -287,7 +287,7 @@ export class EditStockInComponent implements OnInit {
     stockInFormGroup.get('stockInTracking')?.updateValueAndValidity();
 
     stockInFormGroup.get('itemCodeName')?.setValue(data?.itemCode);
-    stockInFormGroup.get('description')?.setValue(data?.itemVariantName);
+    stockInFormGroup.get('description')?.setValue(data?.itemName + '-' + data?.itemVariantName);
     stockInFormGroup.get('trackingType')?.setValue(data?.trackingType);
     stockInFormGroup.get('stockInTracking')?.get('trackingType')?.setValue(data?.trackingType);
     stockInFormGroup.get('itemVariantId')?.setValue(data?.itemVariantId);
