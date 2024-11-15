@@ -41,7 +41,7 @@
         optionValue="id"
         optionLabel="displayName"
           placeholder="{{ 'stockOut.sourceDoc' | translate }}"
-          [selectedValue]="addForm.controls['sourceDocumentId'].value">
+          [selectedValue]="addForm.controls['sourceDocumentId']?.value">
         </lib-select>
         <lib-field-validations [appControl]="addForm.controls['sourceDocumentId']"></lib-field-validations>
       </div>
@@ -117,7 +117,7 @@
                    formControlName="itemId"
                    [options]="filteredItems"
                     optionValue="itemId"
-                     optionLabel="itemName"
+                     optionLabel="displayName"
                     [customClass]="'add-journal'"
                     (valueChanged)="setRowData(rowIndex, $event ,filteredItems)"
                     selectedValue="{{stockOutFormGroup.controls['itemId'].value}}"

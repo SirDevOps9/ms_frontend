@@ -92,6 +92,16 @@ const routes: Routes = [
           breadcrumb: BreadcrumbLabel.ADD_ITEM_DIFINITION,
         },
       },
+      {
+        path: 'sequence',
+        component: SequenceComponent,
+        data: {
+          moduleId: Modules.inventory,
+          pageId: Pages.StockOut,
+          breadcrumb: BreadcrumbLabel.SEQUENCE,
+          pageTitle: BreadcrumbLabel.SEQUENCE
+        },
+      },
 
     ],
   },

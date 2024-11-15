@@ -47,9 +47,8 @@ export class AddStockOutComponent implements OnInit{
     this.addForm = this.fb.group({
 
       code: new FormControl(''),
-      receiptDate: new FormControl('',[customValidators.required]),
-      stockOutStatus: new FormControl('',),
-      sourceDocumentType: new FormControl(''),
+      receiptDate: new FormControl(new Date(),[customValidators.required]),
+      sourceDocumentType: new FormControl('',[customValidators.required]),
       sourceDocumentId: new FormControl(''),
       warehouseId: new FormControl('',[customValidators.required]),
       warehouseName: new FormControl(''),
@@ -86,7 +85,6 @@ export class AddStockOutComponent implements OnInit{
         
         this.itemsService.OperationalTagDropDown()
         this.itemsService.sendOperationalTagDropDown$.subscribe(res=>{
-          this.oprationalLookup = res
           this.oprationalLookup = res.map((elem: any) => ({
             ...elem,
             displayName: `${elem.name} (${elem.code})`,
@@ -103,6 +101,20 @@ export class AddStockOutComponent implements OnInit{
   });
   this.itemsService.latestItemsListByWarehouse$.subscribe((res:any)=>{
     this.filteredItems=res
+    if (res.length) {
+      if (this.selectedLanguage === 'ar') {
+        this.filteredItems = res.map((elem: any) => ({
+          ...elem,
+          displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameAr}`,
+        }));
+      }else{
+
+        this.filteredItems = res.map((elem: any) => ({
+          ...elem,
+          displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameEn}`,
+        }));
+      }
+    }
   })
 }
 loadLookups(){
@@ -132,24 +144,23 @@ loadLookups(){
       // Ensure row form controls are present before updating
       if (rowForm) {
         rowForm.patchValue({
-          barCode: selectedItem.barCode || '',
-          bardCodeId: selectedItem.bardCodeId || '',
+          barCode: selectedItem.barCode ,
+          bardCodeId: selectedItem.bardCodeId ,
           itemId: selectedItem.itemId,
-          itemVariantId: selectedItem.itemVariantId || '',
-          uomId: selectedItem.uomId || '',
-          uomOptions: selectedItem.itemsUOM || [],
-          description: selectedItem.description || '',
-          AllTotalQuantity: selectedItem.totalQuantity || '',
-          cost: selectedItem.cost || '',
-          subCost: selectedItem.subCost || '',
-          notes: selectedItem.notes || '',
-          stockOutEntryMode: selectedItem.stockOutEntryMode || '',
-          trackingType: selectedItem.trackingType || '',
+          itemVariantId: selectedItem.itemVariantId ,
+          uomId: selectedItem.uomId ,
+          uomOptions: selectedItem.itemsUOM ,
+          description: selectedItem.itemName+"-" +selectedItem.itemVariantNameEn ,
+          AllTotalQuantity: selectedItem.totalQuantity ,
+          cost: selectedItem.cost ,
+          subCost: selectedItem.subCost ,
+          notes: selectedItem.notes ,
+          stockOutEntryMode: selectedItem.stockOutEntryMode ,
+          trackingType: selectedItem.trackingType ,
           trackingNo: selectedItem.trackingNo || '',
-          hasExpiryDate: selectedItem.hasExpiryDate || '',
-          expireDate: selectedItem.expireDate || '',
-
-          availability: selectedItem.availability || ''
+          hasExpiryDate: selectedItem.hasExpiryDate ,
+          expireDate: selectedItem.expireDate ,
+          availability: selectedItem.availability 
         });
 
         // Handle the nested form group
@@ -157,7 +168,7 @@ loadLookups(){
         if (stockOutTrackingGroup) {
           stockOutTrackingGroup.patchValue({
             batchNo: selectedItem.stockOutTracking?.batchNo || '',
-            expireDate: selectedItem.stockOutTracking?.expireDate || '',
+            expireDate: selectedItem.stockOutTracking?.expireDate ||null,
             quantity: selectedItem.stockOutTracking?.quantity || '',
             serialId: selectedItem.stockOutTracking?.serialId || '',
             trackingType: selectedItem.stockOutTracking?.trackingType || '',
@@ -190,7 +201,7 @@ loadLookups(){
           }
         }
       }
-      rowForm.get('itemName')?.setValue(selectedItem.itemCode + "-" + selectedItem.itemName )
+      rowForm.get('itemName')?.setValue(selectedItem.itemCode + "-" + selectedItem.itemName + "-" +selectedItem.itemVariantNameAr )
       this.setUomName(indexLine , rowForm.get('uomOptions')?.value )
       this.setExpiryDate(indexLine , selectedItem.batches , selectedItem.serialOptions )
       // Log the updated form value for debugging
@@ -208,35 +219,35 @@ loadLookups(){
       // Ensure row form controls are present before updating
       if (rowForm) {
         rowForm.patchValue({
-          barCode: selectedItem.barCode || '',
-          bardCodeId: selectedItem.bardCodeId || '',
+          barCode: selectedItem.barCode ,
+          bardCodeId: selectedItem.bardCodeId ,
           itemId: selectedItem.itemId,
-          itemVariantId: selectedItem.itemVariantId || '',
-          uomId: selectedItem.uomId || '',
+          itemVariantId: selectedItem.itemVariantId ,
+          uomId: selectedItem.uomId ,
           uomOptions: selectedItem.itemsUOM || [],
-          description: selectedItem.description || '',
-          AllTotalQuantity: selectedItem.totalQuantity || '',
-          cost: selectedItem.cost || '',
-          subCost: selectedItem.subCost || '',
-          notes: selectedItem.notes || '',
-          stockOutEntryMode: selectedItem.stockOutEntryMode || '',
-          trackingType: selectedItem.trackingType || '',
-          trackingNo: selectedItem.trackingNo || '',
-          hasExpiryDate: selectedItem.hasExpiryDate || '',
-          expireDate: selectedItem.expireDate || '',
+          description: selectedItem.description ,
+          AllTotalQuantity: selectedItem.totalQuantity ,
+          cost: selectedItem.cost ,
+          subCost: selectedItem.subCost ,
+          notes: selectedItem.notes ,
+          stockOutEntryMode: selectedItem.stockOutEntryMode ,
+          trackingType: selectedItem.trackingType ,
+          trackingNo: selectedItem.trackingNo ,
+          hasExpiryDate: selectedItem.hasExpiryDate ,
+          expireDate: selectedItem.expireDate||null ,
 
-          availability: selectedItem.availability || ''
+          availability: selectedItem.availability 
         });
 
         // Handle the nested form group
         const stockOutTrackingGroup = rowForm.get('stockOutTracking') as FormGroup;
         if (stockOutTrackingGroup) {
           stockOutTrackingGroup.patchValue({
-            batchNo: selectedItem.stockOutTracking?.batchNo || '',
-            expireDate: selectedItem.stockOutTracking?.expireDate || '',
-            quantity: selectedItem.stockOutTracking?.quantity || '',
-            serialId: selectedItem.stockOutTracking?.serialId || '',
-            trackingType: selectedItem.stockOutTracking?.trackingType || '',
+            batchNo: selectedItem.stockOutTracking?.batchNo ,
+            expireDate: selectedItem.stockOutTracking?.expireDate ,
+            quantity: selectedItem.stockOutTracking?.quantity ,
+            serialId: selectedItem.stockOutTracking?.serialId ,
+            trackingType: selectedItem.stockOutTracking?.trackingType ,
             hasExpiryDate: selectedItem.hasExpiryDate ,
             serialOptions: selectedItem.serials,
             batchesOptions: selectedItem.batches
@@ -298,7 +309,7 @@ loadLookups(){
           stockOutEntryMode: new FormControl("Manual"),
           trackingType: new FormControl(''),
           availability: new FormControl(''),
-          trackingNo: new FormControl('',[customValidators.required]),
+          trackingNo: new FormControl(''),
           expiryDate: new FormControl(''),
           hasExpiryDate: new FormControl(''),
           totalQuantity: new FormControl(0),
@@ -370,7 +381,7 @@ loadLookups(){
           stockOutTracking: {
             trackingNo: detail.trackingNo,
             hasExpiryDate: detail.hasExpiryDate,
-            expireDate: detail.expiryDate,
+            expireDate: detail.expiryDate || null,
             trackingType: detail.trackingType ,
           }
         }))
