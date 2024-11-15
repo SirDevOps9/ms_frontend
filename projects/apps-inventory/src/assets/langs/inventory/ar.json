@@ -1,4 +1,12 @@
 {
+  "messages": {
+  "success": "نجاح",
+  "error": "خطأ",
+  "noItemSelected": "لم يتم تحديد عنصر للتعديل.",
+  "noItemsToAdd": "لا توجد عناصر للإضافة",
+  "successfully": "تمت العملية بنجاح.",
+  "duplicateItem": "يوجد عنصر مكرر."
+},
   "BreadCrumb": {
     "ItemsCategory": "فئة العناصر",
     "stockout": "إخراج المخزون",

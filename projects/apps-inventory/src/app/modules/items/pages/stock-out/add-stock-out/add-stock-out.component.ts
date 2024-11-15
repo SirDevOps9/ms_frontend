@@ -18,7 +18,8 @@ export class AddStockOutComponent implements OnInit{
   stockInForm: FormGroup = new FormGroup({});
   LookupEnum=LookupEnum;
   selectedLanguage: string
-
+ rowDuplicate :number=-1;
+duplicateLine :boolean;
   tableData: any[];
   lookups: { [key: string]: lookupDto[] };
 
@@ -208,6 +209,42 @@ loadLookups(){
       console.log(selectedItem ,"selectedItem.stockOutTracking?.batches");
       
       console.log('Updated row form:', rowForm.value);
+      this.isDuplicate(indexLine)
+    }
+    isDuplicate(rowIndex:number){
+      const rowForm = this.stockOutDetailsFormArray.at(rowIndex) as FormGroup;
+
+      this.stockOutDetailsFormArray.controls.some((element: any, index: number) => {
+        if (index !== rowIndex) {
+          const { uomId, itemId, trackingNo } = element.value;
+
+          const rowUomId = rowForm.get('uomId')?.value;
+          const rowItemId = rowForm.get('itemId')?.value;
+          const rowItemtrackingNo = rowForm.get('trackingNo')?.value;
+
+
+          if (uomId === rowUomId && itemId === rowItemId && trackingNo === rowItemtrackingNo) {
+            this.toasterService.showError(
+              this.languageService.transalte('messages.error'),
+              this.languageService.transalte('messages.duplicateItem')
+            );
+            this.rowDuplicate = rowIndex;
+            this.duplicateLine = true;
+            return true; // Stop checking on first match
+          }
+          this.rowDuplicate = -1;
+
+          this.duplicateLine = false;
+
+          return false;
+        }
+        this.rowDuplicate = -1;
+
+        this.duplicateLine = false;
+
+        return false;
+      }
+    )
     }
     setRowDataFromPopup(indexLine: number, selectedItem: any) {
       const rowForm = this.stockOutDetailsFormArray.at(indexLine) as FormGroup;
@@ -287,6 +324,7 @@ loadLookups(){
     }
 
   addNewRow() {
+    if(!this.duplicateLine){
        if (!this.formsService.validForm(this.addForm, false)) return;
        this.getLatestItemsList(this.addForm.get('warehouseId')?.value)
 
@@ -330,7 +368,7 @@ loadLookups(){
         }
       );
       this.stockOutDetailsFormArray.push(newLine);
-
+    }
     } 
   
     setUomName(indexLine:number , list:any){
@@ -437,6 +475,7 @@ loadLookups(){
     const confirmed = await this.toasterService.showConfirm('Delete');
     if (confirmed) {
       this.stockOutDetailsFormArray.removeAt(index);
+      this.isDuplicate(index-1)
 
     }
   }

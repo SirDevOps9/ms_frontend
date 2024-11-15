@@ -1,4 +1,12 @@
 {
+  "messages": {
+    "success": "Success",
+    "error": "Error",
+    "noItemSelected": "No item selected for editing.",
+    "noItemsToAdd": "No items to add",
+    "successfully": "Operation completed successfully.",
+    "duplicateItem": "There is a duplicated item."
+},
   "BreadCrumb": {
     "ItemsCategory": "Items Category",
     "stockout": "Stock Out",

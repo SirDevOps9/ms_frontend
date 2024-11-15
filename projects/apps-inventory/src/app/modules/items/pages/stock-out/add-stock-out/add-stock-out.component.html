@@ -145,7 +145,10 @@
             <lib-field-validations [appControl]="stockOutFormGroup.controls['description']"></lib-field-validations>
           </td>
 
-          <td [pEditableColumn]="stockOutFormGroup.controls['uomId']" pEditableColumnField="uomId">
+          <td [pEditableColumn]="stockOutFormGroup.controls['uomId']" pEditableColumnField="uomId"
+          [ngClass]=" {'error':rowIndex==rowDuplicate && stockOutFormGroup.controls['showSerial']?.value ==false && stockOutFormGroup.controls['showBatch']?.value ==false  }"
+
+          >
             <p-cellEditor>
               <ng-template pTemplate="input">
 
@@ -155,7 +158,8 @@
                 [options]="stockOutFormGroup.get('uomOptions').value"
                 [optionLabel]="selectedLanguage === 'en' ? 'uomNameEn' : 'uomNameAr'"
                 optionValue="uomId"
-                 (valueChanged)="setUomName(rowIndex ,stockOutFormGroup.get('uomOptions').value )"
+                 (valueChanged)="setUomName(rowIndex ,stockOutFormGroup.get('uomOptions').value ) ;                  isDuplicate(rowIndex)
+                 "
                 >
 
                 </lib-select>
@@ -202,6 +206,8 @@
           <td [pEditableColumn]="stockOutFormGroup?.get('stockOutTracking')?.get('batchNo')"
           pEditableColumnField="batchNo"
       *ngIf="stockOutFormGroup.controls['showBatch']?.value "
+      [ngClass]=" {'error':rowIndex==rowDuplicate && stockOutFormGroup.controls['showBatch']?.value  }"
+
           >
         
         <p-cellEditor>
@@ -214,7 +220,9 @@
               [selectedValue]="stockOutFormGroup?.get('trackingNo')?.value"
               (valueChanged)="setTrackingNo(rowIndex, $event); setExpiryDate(rowIndex,
               stockOutFormGroup?.get('stockOutTracking')?.get('batchesOptions')?.value,
-               stockOutFormGroup?.get('stockOutTracking')?.get('serialOptions')?.value ) "
+               stockOutFormGroup?.get('stockOutTracking')?.get('serialOptions')?.value );
+               isDuplicate(rowIndex)
+               "
               
               >
             </lib-select>
@@ -237,6 +245,7 @@
             pEditableColumnField="serialId"
             
            *ngIf=" stockOutFormGroup.controls['showSerial']?.value "
+           [ngClass]=" {'error':rowIndex==rowDuplicate && stockOutFormGroup.controls['showSerial']?.value  }"
 
             >
             <p-cellEditor>
@@ -251,7 +260,9 @@
                 (valueChanged)="setTrackingNo(rowIndex, $event); 
                 setExpiryDate(rowIndex
                  , stockOutFormGroup?.get('stockOutTracking')?.get('batchesOptions')?.value ,
-                  stockOutFormGroup?.get('stockOutTracking')?.get('serialOptions')?.value ) "
+                  stockOutFormGroup?.get('stockOutTracking')?.get('serialOptions')?.value ) ;
+                  isDuplicate(rowIndex)
+                  "
                 
                 
                 >
