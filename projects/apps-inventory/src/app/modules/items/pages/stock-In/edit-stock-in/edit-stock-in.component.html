@@ -64,14 +64,14 @@
           {{ 'stockIn.warehouse' | translate }}
         </lib-label>
         <!-- <lib-select
-        formControlName="warehouseName"
-        [options]="warhouseLookupData"
-        optionValue="id"
-        optionLabel="name"
-        placeholder="{{ 'stockIn.warehouse' | translate }}"
-        [selectedValue]="stockInForm.controls['warehouseName'].value"
-      >
-      </lib-select> -->
+          formControlName="warehouseName"
+          [options]="warhouseLookupData"
+          optionValue="id"
+          optionLabel="name"
+          placeholder="{{ 'stockIn.warehouse' | translate }}"
+          [selectedValue]="stockInForm.controls['warehouseName'].value"
+        >
+        </lib-select> -->
         <lib-text-input
           placeholder="{{ 'stockIn.warehouse' | translate }}"
           formControlName="warehouseName"
@@ -100,13 +100,14 @@
   </div>
 
   <!-- <div class="flex justify-content-end gap-4 my-4">
-  <lib-button-micro [title]="'stockIn.uploadExcel'|translate" nameClass="outline"
-  iconName="pi pi-file-edit" (click)="getExcel()">
-</lib-button-micro>
-  <lib-button-micro [title]="'stockIn.scan'|translate" nameClass="outline"
-              iconName="pi pi-expand" (click)="scan()">
-            </lib-button-micro>
-</div> -->
+    <lib-button-micro [title]="'stockIn.uploadExcel'|translate" nameClass="outline"
+    iconName="pi pi-file-edit" (click)="getExcel()">
+  </lib-button-micro>
+    <lib-button-micro [title]="'stockIn.scan'|translate" nameClass="outline"
+                iconName="pi pi-expand" (click)="scan()">
+              </lib-button-micro>
+   
+  </div> -->
 
   <div class="my-2">
     <p-table
@@ -140,7 +141,6 @@
                 <lib-text-input
                   placeholder="{{ 'stockIn.barcode' | translate }}"
                   formControlName="barCode"
-                  (valueChanged)="barcodeCanged($event, stockInFormGroup)"
                 ></lib-text-input>
               </ng-template>
               <ng-template pTemplate="output">
@@ -233,6 +233,7 @@
             <p-cellEditor>
               <ng-template pTemplate="input">
                 <lib-text-input
+                  type="number"
                   placeholder="{{ 'stockIn.cost' | translate }}"
                   formControlName="cost"
                 ></lib-text-input>
@@ -247,17 +248,10 @@
           </td>
           <!--  -->
           <td>
-            <div
-              *ngIf="
-                stockInFormGroup.controls['quantity']?.value &&
+            {{
+              stockInFormGroup.controls['quantity']?.value *
                 stockInFormGroup.controls['cost']?.value
-              "
-            >
-              {{
-                stockInFormGroup.controls['quantity']?.value *
-                  stockInFormGroup.controls['cost']?.value
-              }}
-            </div>
+            }}
           </td>
           <!--  -->
           <td>
@@ -385,14 +379,18 @@
             ></lib-field-validations>
           </td>
           <td>
-            <div class="flex gap-3">
-              <img
-                src="assets/images/table/delete.svg"
-                class="pointer"
-                alt=""
-                (click)="OnDelete(i)"
-              />
-            </div>
+            <lib-button-micro
+              *ngIf="stockInFormGroup.controls['id'].value"
+              nameClass="table_button_delete"
+              (click)="OnDelete(stockInFormGroup.controls['id'].value)"
+            >
+            </lib-button-micro>
+            <lib-button-micro
+              *ngIf="!stockInFormGroup.controls['id'].value"
+              nameClass="table_button_delete"
+              (click)="deleteIndex(i)"
+            >
+            </lib-button-micro>
           </td>
           <!--  -->
         </tr>
