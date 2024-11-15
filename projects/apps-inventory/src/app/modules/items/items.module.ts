@@ -66,6 +66,8 @@ import { MultiSelectItemStockInComponent } from './pages/stock-In/add-stock-in/m
 import { ScanParcodeStockInComponent } from './pages/stock-In/scan-parcode-stock-in/scan-parcode-stock-in.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { ImportStockInComponent } from './pages/stock-In/import-stock-in/import-stock-in.component';
+import { ViewStockInComponent } from './pages/stock-In/view-stock-in/view-stock-in.component';
+import { ViewStockOutComponent } from './pages/stock-out/view-stock-out/view-stock-out.component';
 
 const routes: Routes = [
   {
@@ -329,6 +331,15 @@ const routes: Routes = [
             },
           },
           {
+            path: 'view/:id',
+            component: ViewStockInComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.VIEW_STOCKIN,
+              pageTitle : BreadcrumbLabel.VIEW_STOCKIN
+
+            },
+          },
+          {
             path: 'sequence',
             component: SequenceComponent,
             data: {
@@ -380,6 +391,15 @@ const routes: Routes = [
             component: EditStockOutComponent,
             data: {
               breadcrumb: BreadcrumbLabel.ADD_ITEM_DIFINITION,
+            },
+          },
+          {
+            path: 'view/:id',
+            component: ViewStockOutComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.VIEW_STOCKOUT,
+              pageTitle : BreadcrumbLabel.VIEW_STOCKOUT
+
             },
           },
 
@@ -441,10 +461,12 @@ const routes: Routes = [
     AddStockOutComponent,
     StockOutListComponent,
     EditStockOutComponent,
-    TrackingStockInComponent, 
+    TrackingStockInComponent,
     MultiSelectItemStockInComponent,
     ScanParcodeStockInComponent,
-    ImportStockInComponent
+    ImportStockInComponent,
+    ViewStockInComponent,
+    ViewStockOutComponent
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule ,     ZXingScannerModule // Add the ZXingScannerModule here
   ],

@@ -107,9 +107,18 @@ export class ItemsService {
 
   stockOutByIdDataSourceeObservable = this.stockOutByIdDataSource.asObservable();
 
-  public stockInDataSource = new BehaviorSubject<StockOutDto[]>([]);
+  public stockInDataSource = new BehaviorSubject<StockInDto[]>([]);
 
   stockInDataSourceeObservable = this.stockInDataSource.asObservable();
+
+  public stockInDataViewSource = new BehaviorSubject<StockInDto[]>([]);
+
+  stockInDataViewSourceeObservable = this.stockInDataViewSource.asObservable();
+
+
+  public stockOutDataViewSource = new BehaviorSubject<StockOutDto[]>([]);
+
+  stockOutDataViewSourceeObservable = this.stockOutDataViewSource.asObservable();
 
   public editstockInDataSource = new BehaviorSubject<StockOutDto[]>([]);
 
@@ -1495,6 +1504,17 @@ getAllStockIn(quieries: string, pageInfo: PageInfo) {
   this.itemProxy.getAllStockIn(quieries, pageInfo).subscribe((response) => {
     this.stockInDataSource.next(response.result);
     this.currentPageInfo.next(response.pageInfoResult);
+  });
+}
+getViwStockInById(id:number) {
+  this.itemProxy.getByIdViewStockIn(id).subscribe((response:any) => {
+    this.stockInDataViewSource.next(response);
+  });
+}
+
+getByIdViewStockOut(id:number) {
+  this.itemProxy.getByIdViewStockOut(id).subscribe((response:any) => {
+    this.stockOutDataViewSource.next(response);
   });
 }
 exportStockOutList(searchTerm?: string ,SortBy?:number,SortColumn?:string) {

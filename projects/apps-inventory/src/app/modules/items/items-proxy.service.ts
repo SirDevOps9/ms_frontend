@@ -614,7 +614,13 @@ getOperationalTagList(searchTerm: string, pageInfo: PageInfo): Observable<IOpera
     return this.httpService.get<PaginationVm<StockInDto>>(query);
   }
 
+  getByIdViewStockIn(id:number){
+    return this.httpService.get(`StockIn/GetStockInViewById/${id}`)
+  }
 
+  getByIdViewStockOut(id:number){
+    return this.httpService.get(`StockOut/GetStockOutViewById/${id}`)
+  }
   exportStockOutList(searchTerm?: string ,SortBy?:number,SortColumn?:string): Observable<StockOutDto[]> {
     let query = `StockOut/Export?`;
     const params: string[] = [];
@@ -643,8 +649,8 @@ getOperationalTagList(searchTerm: string, pageInfo: PageInfo): Observable<IOpera
 
   getByIdStockOut(id:number){
     return this.httpService.get(`StockOut/${id}`)
-
   }
+
   editStockOut(obj:StockOutDto){
     return this.httpService.put(`StockOut`, obj)
 

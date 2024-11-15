@@ -63,9 +63,12 @@ export class StockInListComponent implements OnInit {
   onEdit(data: any) {
 
   }
+  onView(data: any) {
+    this.routerService.navigateTo(`masterdata/stock-in/view/${data}`)
 
+  }
   onSearchChange() {
-    this.itemsService.getAllStockOut(this.searchTerm, new PageInfo());
+    this.itemsService.getAllStockIn(this.searchTerm, new PageInfo());
 
   }
 

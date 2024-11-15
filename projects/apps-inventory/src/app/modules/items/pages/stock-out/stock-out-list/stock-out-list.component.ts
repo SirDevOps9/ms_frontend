@@ -64,6 +64,10 @@ export class StockOutListComponent implements OnInit {
 
   onEdit(data: any) {
     this.routerService.navigateTo(`masterdata/stock-out/edit/${data.id}`)
+  }
+
+  onView(data: any) {
+    this.routerService.navigateTo(`masterdata/stock-out/view/${data}`)
 
   }
 
@@ -100,6 +104,6 @@ export class StockOutListComponent implements OnInit {
 
   }
 
-  
+
 }
 
