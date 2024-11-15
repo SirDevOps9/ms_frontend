@@ -60,10 +60,10 @@ export class CreateFinancialCalendarComponent implements OnInit {
 
     this.formGroup.valueChanges.subscribe((res) => {
       if (res.toDate) {
-        this.maxDatefrom = new Date(res.toDate);
-      } else if (res.fromDate) {
-        this.minDateTo = new Date(res.fromDate);
-        this.defaultDateTo = new Date(res.fromDate.getFullYear(), 11, 31);
+        this.maxDatefrom = new Date(res?.toDate);
+      } else if (res?.fromDate) {
+        this.minDateTo = new Date(res?.fromDate);
+        this.defaultDateTo = new Date(res?.fromDate?.getFullYear(), 11, 31);
         this.formGroup.get('toDate')?.patchValue(this.defaultDateTo);
       }
     });
@@ -107,21 +107,21 @@ export class CreateFinancialCalendarComponent implements OnInit {
     let code = 0;
 
     while (currentDate <= toDate) {
-      let year = currentDate.getFullYear();
-      let month = currentDate.getMonth();
+      let year = currentDate?.getFullYear();
+      let month = currentDate?.getMonth();
       let monthName = months[month];
 
       let periodStart = new Date(
-        currentDate.getFullYear(),
-        currentDate.getMonth(),
-        currentDate.getDate()
+        currentDate?.getFullYear(),
+        currentDate?.getMonth(),
+        currentDate?.getDate()
       );
       let periodEnd;
 
-      if (new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0) > toDate) {
+      if (new Date(currentDate?.getFullYear(), currentDate?.getMonth() + 1, 0) > toDate) {
         periodEnd = new Date(toDate);
       } else {
-        periodEnd = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+        periodEnd = new Date(currentDate?.getFullYear(), currentDate?.getMonth() + 1, 0);
       }
 
       result.push({
@@ -132,7 +132,7 @@ export class CreateFinancialCalendarComponent implements OnInit {
       });
 
       // Move to the next month
-      currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1);
+      currentDate = new Date(currentDate?.getFullYear(), currentDate?.getMonth() + 1, 1);
       code++;
     }
 

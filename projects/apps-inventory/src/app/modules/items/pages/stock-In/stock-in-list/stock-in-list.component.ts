@@ -57,7 +57,7 @@ export class StockInListComponent implements OnInit {
   }
 
   onAdd() {
-
+    this.routerService.navigateTo('/transactions/stock-in/add-stock-in')
   }
 
   onEdit(data: any) {

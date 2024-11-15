@@ -34,6 +34,8 @@ import {
   Iuom,
   IuomResult,
   LatestItems,
+  OperationalStockIn,
+  StockInDetail,
   StockInDto,
   StockOutDto,
   UOMCategoryDto,
@@ -188,7 +190,7 @@ export class ItemsService {
   public updateUOMByIdobj = new BehaviorSubject<any>({});
   public attributeNameDropDownLookup = new BehaviorSubject<any>([]);
   public attributeGroupeDropDownLookup = new BehaviorSubject<{ id: number; name: string }[]>([]);
-  public sendOperationalTagDropDown = new BehaviorSubject<{ id: number; name: string }[]>([]);
+  public sendOperationalTagDropDown = new BehaviorSubject<OperationalStockIn[]>([]);
   public sendlatestItemsList = new BehaviorSubject<LatestItems[]>([]);
   public sendAddStockIn = new BehaviorSubject<AddStockIn>({} as AddStockIn);
   public attributeValuesDropDownLookup = new BehaviorSubject<itemAttributeValues[]>([]);
@@ -219,6 +221,7 @@ export class ItemsService {
   wareHousesDropDownLookup = new BehaviorSubject<GetWarehouseList[]>([]);
   sendCitiesLookup = new BehaviorSubject<any>([]);
   sendCountriesLookup = new BehaviorSubject<any>([]);
+  sendItemBarcode = new BehaviorSubject<StockInDetail>({} as StockInDetail);
 
   // sendCashSalesLookup = new BehaviorSubject<any>([]);
   // sendLookup = new BehaviorSubject<any>([]);
@@ -335,6 +338,9 @@ export class ItemsService {
   public taxesEditDataLookupObs = this.taxesEditDataLookup.asObservable();
   public getInventoryData$ = this.getInventoryData.asObservable();
   public dataBarCodeByIdObs = this.dataBarCodeById.asObservable();
+  public sendItemBarcode$ = this.sendItemBarcode.asObservable();
+  
+  
 
   getItemType(quieries: string, pageInfo: PageInfo) {
     this.itemProxy.getItemType(quieries, pageInfo).subscribe((response) => {
@@ -1577,5 +1583,13 @@ exportStockInList(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
       this.itemsDataSource.next(res.result);
       this.currentPageInfo.next(res.pageInfoResult);
     });
+  }
+
+  getItemBarcodeForItem(barcode : string) {
+    this.itemProxy.getItemBarcodeForItem(barcode).subscribe(res=>{
+      this.sendItemBarcode.next(res)
+
+    })
+    
   }
 }
