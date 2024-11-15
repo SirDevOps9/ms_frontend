@@ -65,6 +65,9 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { ImportStockInComponent } from './pages/stock-In/import-stock-in/import-stock-in.component';
 import { ViewStockInComponent } from './pages/stock-In/view-stock-in/view-stock-in.component';
 import { ViewStockOutComponent } from './pages/stock-out/view-stock-out/view-stock-out.component';
+import { MainStockInListComponentComponent } from './pages/stock-In/main-stock-in-list-component/main-stock-in-list-component.component';
+import { StockInListComponent } from './pages/stock-In/stock-in-list/stock-in-list.component';
+import { AddStockInComponent } from './pages/stock-In/add-stock-in/add-stock-in.component';
 
 const routes: Routes = [
   {
