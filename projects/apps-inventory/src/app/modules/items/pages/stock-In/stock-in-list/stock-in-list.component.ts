@@ -2,21 +2,28 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { AuthService } from 'microtec-auth-lib';
 import { DialogService } from 'primeng/dynamicdialog';
-import { RouterService, LanguageService, lookupDto, PageInfoResult, MenuModule, PageInfo } from 'shared-lib';
+import {
+  RouterService,
+  LanguageService,
+  lookupDto,
+  PageInfoResult,
+  MenuModule,
+  PageInfo,
+} from 'shared-lib';
 import { AddItemDefinitionPopupComponent } from '../../../components/add-item-definition/add-item-definition-popup.component';
 import { ItemsService } from '../../../items.service';
-import {  StockInDto } from '../../../models';
+import { StockInDto } from '../../../models';
 import { from, switchMap, tap } from 'rxjs';
 import { SharedStock } from '../../../models/sharedStockOutEnums';
 
 @Component({
   selector: 'app-stock-in-list',
   templateUrl: './stock-in-list.component.html',
-  styleUrl: './stock-in-list.component.scss'
+  styleUrl: './stock-in-list.component.scss',
 })
 export class StockInListComponent implements OnInit {
   SortBy?: number;
-  SortColumn?: string
+  SortColumn?: string;
   tableData: any[];
   exportData: StockInDto[];
 
@@ -37,7 +44,6 @@ export class StockInListComponent implements OnInit {
         this.tableData = res;
       },
     });
-
   }
   initStockOutData() {
     this.itemsService.getAllStockIn('', new PageInfo());
@@ -45,8 +51,6 @@ export class StockInListComponent implements OnInit {
 
   onPageChange(pageInfo: PageInfo) {
     this.itemsService.getAllStockIn('', pageInfo);
-
-
   }
 
   exportBankData(searchTerm: string) {
@@ -57,30 +61,31 @@ export class StockInListComponent implements OnInit {
   }
 
   onAdd() {
-    this.routerService.navigateTo('/transactions/stock-in/add-stock-in')
+    this.routerService.navigateTo('/transactions/stock-in/add-stock-in');
   }
+  onView(id: number) {}
 
-  onEdit(data: any) {
-
+  onEdit(id: any) {
+    this.routerService.navigateTo(`/transactions/stock-in/edit-stock-in/${id}`);
   }
 
   onSearchChange() {
     this.itemsService.getAllStockOut(this.searchTerm, new PageInfo());
-
   }
 
   onDelete(id: number) {
-    from(this.itemsService.deleteStockIn(id)).pipe(
-      switchMap(() => this.itemsService.sendStockInDataSourcesObs),
-      tap((data: any) => {
-        if (data) {
-          this.initStockOutData();
-        }
-      })
-    ).subscribe({
-      error: (err: any) => {
-      }
-    });
+    from(this.itemsService.deleteStockIn(id))
+      .pipe(
+        switchMap(() => this.itemsService.sendStockInDataSourcesObs),
+        tap((data: any) => {
+          if (data) {
+            this.initStockOutData();
+          }
+        })
+      )
+      .subscribe({
+        error: (err: any) => {},
+      });
   }
 
   exportedColumns(obj: { SortBy: number; SortColumn: string }) {
@@ -94,7 +99,6 @@ export class StockInListComponent implements OnInit {
     });
   }
 
-
   constructor(
     private routerService: RouterService,
     public authService: AuthService,
@@ -104,7 +108,6 @@ export class StockInListComponent implements OnInit {
     private itemsService: ItemsService,
     public sharedFinanceEnums: SharedStock
   ) {
-
+    console.log(this.routerService.getCurrentUrl());
   }
 }
-

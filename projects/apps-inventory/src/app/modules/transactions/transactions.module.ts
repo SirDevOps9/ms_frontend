@@ -12,6 +12,7 @@ import { MainStockOutComponent } from '../items/pages/stock-out/main-stock-out/m
 import { StockOutListComponent } from '../items/pages/stock-out/stock-out-list/stock-out-list.component';
 import { AddStockOutComponent } from '../items/pages/stock-out/add-stock-out/add-stock-out.component';
 import { EditStockOutComponent } from '../items/pages/stock-out/edit-stock-out/edit-stock-out.component';
+import { EditStockInComponent } from '../items/pages/stock-In/edit-stock-in/edit-stock-in.component';
 
 const routes: Routes = [
   {
@@ -21,106 +22,103 @@ const routes: Routes = [
       moduleId: Modules.inventory,
     },
     children: [
-      {path: 'stock-in',
-      component: MainStockInListComponentComponent,
-      data: {
-        breadcrumb: BreadcrumbLabel.STOCKIN,
-        pageTitle : BreadcrumbLabel.STOCKIN
-      },
- 
-      children: [
-        {
-          path: '',
-          component: StockInListComponent,
-          data: {
-            breadcrumb: BreadcrumbLabel.STOCKIN,
-            pageTitle : BreadcrumbLabel.STOCKIN
-          },
-        },
-        {
-          path: 'add-stock-in',
-          component: AddStockInComponent,
-          data: {
-            breadcrumb: BreadcrumbLabel.ADD_STOCKIN,
-          },
-        },    
-        {
-          path: 'sequence',
-          component: SequenceComponent,
-          data: {
-            moduleId: Modules.inventory,
-            pageId: Pages.StockIn,
-            breadcrumb: BreadcrumbLabel.SEQUENCE,
-            pageTitle: BreadcrumbLabel.SEQUENCE
-          },
-        },
-      ],
-    
-    
-
-  },
-  {
-    path: 'stock-out',
-    component:MainStockOutComponent ,
-    data: {
-      breadcrumb: BreadcrumbLabel.STOCKOUT,
-      pageTitle: BreadcrumbLabel.STOCKOUT,
-
-    },
-    children: [
       {
-        path: '',
-        component: StockOutListComponent,
-        data: { breadcrumb: '' ,
+        path: 'stock-in',
+        component: MainStockInListComponentComponent,
+        data: {
+          breadcrumb: BreadcrumbLabel.STOCKIN,
+          pageTitle: BreadcrumbLabel.STOCKIN,
+        },
+        children: [
+          {
+            path: '',
+            component: StockInListComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.STOCKIN,
+              pageTitle: BreadcrumbLabel.STOCKIN,
+            },
+          },
+          {
+            path: 'add-stock-in',
+            component: AddStockInComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.ADD_STOCKIN,
+            },
+          },
+          {
+            path: 'edit-stock-in/:id',
+            component: EditStockInComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.EDIT_STOCKIN,
+            },
+          },
+          {
+            path: 'sequence',
+            component: SequenceComponent,
+            data: {
+              moduleId: Modules.inventory,
+              pageId: Pages.StockIn,
+              breadcrumb: BreadcrumbLabel.SEQUENCE,
+              pageTitle: BreadcrumbLabel.SEQUENCE,
+            },
+          },
+        ],
+      },
+      {
+        path: 'stock-out',
+        component: MainStockOutComponent,
+        data: {
+          breadcrumb: BreadcrumbLabel.STOCKOUT,
           pageTitle: BreadcrumbLabel.STOCKOUT,
-
         },
+        children: [
+          {
+            path: '',
+            component: StockOutListComponent,
+            data: {
+              breadcrumb: '',
+              pageTitle: BreadcrumbLabel.STOCKOUT,
+            },
+          },
+          {
+            path: 'add',
+            component: AddStockOutComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.ADD_STOCKOUT,
+              pageTitle: BreadcrumbLabel.TITLE_ADD_STOCKOUT,
+            },
+          },
+          {
+            path: 'edit/:id',
+            component: EditStockOutComponent,
+            data: {
+            //  breadcrumb: BreadcrumbLabel.EDIT_STOCKOUT,
+            },
+          },
+          {
+            path: 'sequence',
+            component: SequenceComponent,
+            data: {
+              moduleId: Modules.inventory,
+              pageId: Pages.StockOut,
+              breadcrumb: BreadcrumbLabel.SEQUENCE,
+              pageTitle: BreadcrumbLabel.SEQUENCE,
+            },
+          },
+        ],
       },
-      {
-        path: 'add',
-        component: AddStockOutComponent,
-        data: {
-          breadcrumb: BreadcrumbLabel.ADD_STOCKOUT,
-          pageTitle: BreadcrumbLabel.TITLE_ADD_STOCKOUT,
-
-        },
-      },
-      {
-        path: 'edit/:id',
-        component: EditStockOutComponent,
-        data: {
-          breadcrumb: BreadcrumbLabel.ADD_ITEM_DIFINITION,
-        },
-      },
-      {
-        path: 'sequence',
-        component: SequenceComponent,
-        data: {
-          moduleId: Modules.inventory,
-          pageId: Pages.StockOut,
-          breadcrumb: BreadcrumbLabel.SEQUENCE,
-          pageTitle: BreadcrumbLabel.SEQUENCE
-        },
-      },
-
     ],
   },
+];
 
 
-    
-]
-  }
-]
-  
 @NgModule({
   declarations: [
     MainStockInListComponentComponent,
     StockInListComponent,
-    AddStockInComponent
+    AddStockInComponent,
+    EditStockInComponent,
   ],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(routes), SharedLibModule ,     ZXingScannerModule
-  ]
+  imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule, ZXingScannerModule],
 })
-export class TransactionsModule { }
+export class TransactionsModule {}

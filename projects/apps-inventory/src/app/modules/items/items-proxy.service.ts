@@ -1,7 +1,36 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
-import { addBarcode, AddGeneralDto, AddItemCategory, AddItemDefinitionDto, AddOperatioalTag, AddStockIn, AddStockOutDto, AddVariantLine, AddWarehouse, AdvancedSearchDto, AttributesVariants, EditAttributes, EditWareHouse, GetItemById, GetItemCategoryDto, getUomByItemId, GetWarehouseList, IOperationalTag, itemDefinitionDto, ItemTypeDto, Iuom, LatestItems, OperationalStockIn, StockInDetail, StockInDto, StockOutDto, UOMCategoryDto, UomDefault } from './models';
+import {
+  addBarcode,
+  AddGeneralDto,
+  AddItemCategory,
+  AddItemDefinitionDto,
+  AddOperatioalTag,
+  AddStockIn,
+  AddStockOutDto,
+  AddVariantLine,
+  AddWarehouse,
+  AdvancedSearchDto,
+  AttributesVariants,
+  EditAttributes,
+  EditWareHouse,
+  GetItemById,
+  GetItemCategoryDto,
+  getUomByItemId,
+  GetWarehouseList,
+  IOperationalTag,
+  itemDefinitionDto,
+  ItemTypeDto,
+  Iuom,
+  LatestItems,
+  OperationalStockIn,
+  StockInDetail,
+  StockInDto,
+  StockOutDto,
+  UOMCategoryDto,
+  UomDefault,
+} from './models';
 import { EditItemDefinitionDto } from './models/editItemDefinitionDto';
 import { variantGroupById } from './models/variantGroupById';
 import { itemAttributeValues, itemAttributeValuesByID } from './models/itemAttributeValues';
@@ -12,41 +41,41 @@ import { VieItemDefinitionDto } from './models/VieItemDefinitionDto';
 import { GetItemUom } from './models/GetItemUom';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ItemsProxyService {
-
-  constructor(private httpService : HttpService) { }
+  constructor(private httpService: HttpService) {}
   getItemType(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<ItemTypeDto>> {
     let query = `ItemType?${pageInfo.toQuery}`;
     if (searchTerm) {
       query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
     }
-    return this.httpService.get<PaginationVm<ItemTypeDto>>(query)
+    return this.httpService.get<PaginationVm<ItemTypeDto>>(query);
   }
-  getItemDefinition(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<itemDefinitionDto>> {
+  getItemDefinition(
+    searchTerm: string,
+    pageInfo: PageInfo
+  ): Observable<PaginationVm<itemDefinitionDto>> {
     let query = `Item?${pageInfo.toQuery}`;
     if (searchTerm) {
       query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
     }
-    return this.httpService.get<PaginationVm<itemDefinitionDto>>(query)
+    return this.httpService.get<PaginationVm<itemDefinitionDto>>(query);
   }
   getStockIn(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<StockInDto>> {
     let query = `Transaction/GetStockInTransactionList?${pageInfo.toQuery}`;
     if (searchTerm) {
       query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
     }
-    return this.httpService.get<PaginationVm<StockInDto>>(query)
+    return this.httpService.get<PaginationVm<StockInDto>>(query);
   }
 
-  exportsStockInList(
-    searchTerm: string | undefined
-  ): Observable<itemDefinitionDto[]> {
+  exportsStockInList(searchTerm: string | undefined): Observable<itemDefinitionDto[]> {
     let query = `Transaction/GetStockInTransactionList/Export?`;
     if (searchTerm) {
       query += `searchTerm=${encodeURIComponent(searchTerm)}`;
     }
-     return this.httpService.get<itemDefinitionDto[]>(query);
+    return this.httpService.get<itemDefinitionDto[]>(query);
   }
 
   getStockOut(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<StockInDto>> {
@@ -54,457 +83,426 @@ export class ItemsProxyService {
     if (searchTerm) {
       query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
     }
-    return this.httpService.get<PaginationVm<StockInDto>>(query)
+    return this.httpService.get<PaginationVm<StockInDto>>(query);
   }
 
-  exportsStockOutList(
-    searchTerm: string | undefined
-  ): Observable<itemDefinitionDto[]> {
+  exportsStockOutList(searchTerm: string | undefined): Observable<itemDefinitionDto[]> {
     let query = `Transaction/GetStockInTransactionList/Export?`;
     if (searchTerm) {
       query += `searchTerm=${encodeURIComponent(searchTerm)}`;
     }
-     return this.httpService.get<itemDefinitionDto[]>(query);
+    return this.httpService.get<itemDefinitionDto[]>(query);
   }
 
   deleteStockOut(id : number ){
     return this.httpService.delete(`StockOut/${id}`)
   }
 
-  addItemDefinition(obj : AddItemDefinitionDto){
-    return this.httpService.post('Item',obj)
+  addItemDefinition(obj: AddItemDefinitionDto) {
+    return this.httpService.post('Item', obj);
   }
 
-  ViewDefinitionById(id : number ): Observable<EditItemDefinitionDto>{
-    return this.httpService.get(`Item/${id}`)
+  ViewDefinitionById(id: number): Observable<EditItemDefinitionDto> {
+    return this.httpService.get(`Item/${id}`);
   }
-  getItemViewDefinitionById(id : number ): Observable<VieItemDefinitionDto>{
-    return this.httpService.get(`StorageInformation/${id}`)
+  getItemViewDefinitionById(id: number): Observable<VieItemDefinitionDto> {
+    return this.httpService.get(`StorageInformation/${id}`);
   }
-
-
 
   getGetItemUomonById(id: number) {
     return this.httpService.get(`Item/GetItemUom/${id}`);
   }
 
-
-
-
-  deleteItemDefinition(id : number ){
-    return this.httpService.delete(`Item/${id}`)
+  deleteItemDefinition(id: number) {
+    return this.httpService.delete(`Item/${id}`);
   }
-  deleteUOM(id : number ) {
-    return this.httpService.delete(`UOM/DeleteUOM/${id}` )
+  deleteUOM(id: number) {
+    return this.httpService.delete(`UOM/DeleteUOM/${id}`);
   }
 
-  deleteCategory(id : number ) {
-    return this.httpService.delete(`UOMCategories/DeleteUOMCategory/${id}`  )
+  deleteCategory(id: number) {
+    return this.httpService.delete(`UOMCategories/DeleteUOMCategory/${id}`);
   }
 
-  deleteAttributeGroup(id:number) {
-    return this.httpService.delete(`AttributeGroup/${id}`)
+  deleteAttributeGroup(id: number) {
+    return this.httpService.delete(`AttributeGroup/${id}`);
   }
-  deleteAttrDifinition(id : number ) {
-
-    return this.httpService.delete(`ItemAttribute/${id}` )
-  }
-
-  addVariantLine(obj:AddVariantLine) {
-    return this.httpService.post('AttributesVariants',obj)
-
+  deleteAttrDifinition(id: number) {
+    return this.httpService.delete(`ItemAttribute/${id}`);
   }
 
- itemTypeLookup() {
-  return this.httpService.get(`ItemType/ItemTypeDropDown`)
- }
- addItemCategory(obj : AddItemCategory) {
-  return this.httpService.post(`ItemCategory` , obj)
- }
- editItemCategory(obj : AddItemCategory) {
-  return this.httpService.put(`ItemCategory/Edit` , obj)
- }
- deleteItemCategory(id : number) {
-  return this.httpService.delete(`ItemCategory/${id}` )
+  addVariantLine(obj: AddVariantLine) {
+    return this.httpService.post('AttributesVariants', obj);
+  }
 
- }
- getItemCategory(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<GetItemCategoryDto>> {
-
+  itemTypeLookup() {
+    return this.httpService.get(`ItemType/ItemTypeDropDown`);
+  }
+  addItemCategory(obj: AddItemCategory) {
+    return this.httpService.post(`ItemCategory`, obj);
+  }
+  editItemCategory(obj: AddItemCategory) {
+    return this.httpService.put(`ItemCategory/Edit`, obj);
+  }
+  deleteItemCategory(id: number) {
+    return this.httpService.delete(`ItemCategory/${id}`);
+  }
+  getItemCategory(
+    searchTerm: string,
+    pageInfo: PageInfo
+  ): Observable<PaginationVm<GetItemCategoryDto>> {
     let query = `ItemCategory/ItemCategoryList?${pageInfo.toQuery}`;
     if (searchTerm) {
       query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
     }
-    return this.httpService.get<PaginationVm<GetItemCategoryDto>>(query)
-
-
- }
- //  item category tree
-ParentItemCategoriesDropDown(SearchTerm: string): Observable< {id:number , name:string}[]> {
-  let query = 'ItemCategory/ParentItemCategoriesDropDown';
-  if (SearchTerm) {
-    query += `&SearchTerm=${encodeURIComponent(SearchTerm)}`;
+    return this.httpService.get<PaginationVm<GetItemCategoryDto>>(query);
   }
-  return this.httpService.get< {id:number , name:string}[]>(query)
+  //  item category tree
+  ParentItemCategoriesDropDown(SearchTerm: string): Observable<{ id: number; name: string }[]> {
+    let query = 'ItemCategory/ParentItemCategoriesDropDown';
+    if (SearchTerm) {
+      query += `&SearchTerm=${encodeURIComponent(SearchTerm)}`;
+    }
+    return this.httpService.get<{ id: number; name: string }[]>(query);
+  }
 
-
-}
-
- GetUOMCategories(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<UOMCategoryDto>> {
-
+  GetUOMCategories(
+    searchTerm: string,
+    pageInfo: PageInfo
+  ): Observable<PaginationVm<UOMCategoryDto>> {
     let query = `UOM?${pageInfo.toQuery}`;
     if (searchTerm) {
       query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
     }
-    return this.httpService.get<PaginationVm<UOMCategoryDto>>(query)
+    return this.httpService.get<PaginationVm<UOMCategoryDto>>(query);
+  }
+  getItemCategoryById(id: number) {
+    return this.httpService.get(`ItemCategory/${id}`);
+  }
+  getItemCategoryTreeList() {
+    return this.httpService.get('ItemCategory/GetTree');
+  }
+  ItemCategoryDropDown() {
+    return this.httpService.get(`ItemCategory/ChildItemCategoriesDropDown`);
+  }
+  tagDropDown() {
+    return this.httpService.get(`GeneralSettings/GetTagsDropDown?module=inventory`); //
+  }
+  AccountsDropDown() {
+    return this.httpService.get(`Accounts`); //id
+  }
+  taxesDropDropDown() {
+    return this.httpService.get(`GeneralSettings/GetTaxDropDown`); //
+  }
 
+  getTaxDataDropDropDown(id: number) {
+    return this.httpService.get(`Item/GetTaxData/${id}`);
+  }
 
- }
- getItemCategoryById(id : number){
-  return this.httpService.get(`ItemCategory/${id}`)
+  editItemTax(obj: any) {
+    return this.httpService.put(`Item/EditTax`, obj);
+  }
+  editInventory(obj: any) {
+    return this.httpService.put(`Item/UpdateItemExpiryAndTracking`, obj);
+  }
+  getInvenrory(id: number) {
+    return this.httpService.get(`Item/GetItemExpiryAndTracking/${id}`);
+  }
 
- }
- getItemCategoryTreeList() {
-  return this.httpService.get('ItemCategory/GetTree')
+  DeleteUomLine(id: number) {
+    return this.httpService.delete(`UOM/${id}`); //
+  }
 
- }
- ItemCategoryDropDown() {
-  return this.httpService.get(`ItemCategory/ChildItemCategoriesDropDown`)
- }
- tagDropDown() {
-  return this.httpService.get(`GeneralSettings/GetTagsDropDown?module=inventory`)//
- }
- AccountsDropDown() {
-  return this.httpService.get(`Accounts`)//id
- }
- taxesDropDropDown() {
-  return this.httpService.get(`GeneralSettings/GetTaxDropDown`)//
- }
+  getItemBarcodeById(id: number) {
+    return this.httpService.get(`Item/GetItemBarcode/${id}`);
+  }
+  uomCodeDropDown(id: number) {
+    return this.httpService.get(`UOM/GetUOMsByUOMCategoryId/${id}`); //
+  }
+  getUomById(id: number) {
+    return this.httpService.get(`UOM/${id}`); //
+  }
 
- getTaxDataDropDropDown(id:number){
-  return this.httpService.get(`Item/GetTaxData/${id}`)
- }
+  getItemVariants(id: number) {
+    return this.httpService.get(`Item/GetItemVariants/${id}`);
+  }
+  getItemAttributes(id: number) {
+    return this.httpService.get(`Item/GetItemAttributes/${id}`);
+  }
+  EditItemAttributes(obj: EditAttributes) {
+    return this.httpService.put(`Item/EditItemAttributesVariant`, obj);
+  }
 
- editItemTax(obj:any){
-  return this.httpService.put(`Item/EditTax`,obj)
+  getUOMByCategoryID(id: number) {
+    return this.httpService.get(`UOMCategories/GetUOMCategoryWithUomsById/${id}`); //
+  }
+  getCodeByuomCodeDropDown(id: number): Observable<{ code: number; conversionRatio: string }> {
+    return this.httpService.get(`UOM/GetUOMCodeByUOMId/${id}`); //
+  }
+  getTrackingDropDown() {
+    return this.httpService.get(`Tracking/TrackingDropDown`); //
+  }
+  UOMCategoryDropDown() {
+    return this.httpService.get(`UOMCategories/UOMCategoryDropDown`);
+  }
 
- }
- editInventory(obj:any){
-  return this.httpService.put(`Item/UpdateItemExpiryAndTracking`,obj)
- }
- getInvenrory(id:number) {
+  getUomDropDown() {
+    return this.httpService.get(`UOM/UOMDropDown`);
+  }
 
-  return this.httpService.get(`Item/GetItemExpiryAndTracking/${id}`)
+  getUomDropDownByUomCategory(id: number) {
+    return this.httpService.get(`ItemUOM/GetItemUOMsByUOMId/${id}`);
+  }
+  getUomDropDownByUomItemId(id: number) {
+    return this.httpService.get(`ItemUOM/GetAllItemUOMsByItemIdDropDown?Id=${id}`);
+  }
+  getUomByItemId(id: number): Observable<getUomByItemId[]> {
+    return this.httpService.get(`ItemUOM/GetItemUOMsByUOMId/${id}`);
+  }
+  getAllUomByItemId(id: number): Observable<getUomByItemId[]> {
+    return this.httpService.get(`ItemUOM/GetAllItemUOMsByItemId?Id=${id}`);
+  }
+  getItemVariantsByItemIdDropDown(id: number) {
+    return this.httpService.get(`ItemVariant/ItemVariantsByItemIdDropDown?ItemId=${id}`);
+  }
 
- }
+  getItemGetItemUomById(id: number) {
+    return this.httpService.get(`Item/GetItemUom/${id}`);
+  }
 
- DeleteUomLine(id:number) {
-  return this.httpService.delete(`UOM/${id}`)//
- }
+  updateItemGetItemUomById(obj: any) {
+    return this.httpService.put(`Item/EditUom`, obj);
+  }
 
- getItemBarcodeById(id:number){
-  return this.httpService.get(`Item/GetItemBarcode/${id}`)
+  getUOMCategoryDropDown() {
+    return this.httpService.get(`UOMCategories/UOMCategoryDropDown`);
+  }
+  getGetUOMsByUOMCategoryId(id: number) {
+    return this.httpService.get(`UOM/GetUOMsByUOMCategoryId/${id}`);
+  }
 
- }
- uomCodeDropDown(id:number) {
-  return this.httpService.get(`UOM/GetUOMsByUOMCategoryId/${id}`)//
- }
- getUomById(id:number) {
-  return this.httpService.get(`UOM/${id}`)//
- }
+  getUserSubDomainModules() {
+    return this.httpService.get(`SideMenu/GetUserSubDomainModules`);
+  }
 
- getItemVariants(id:number){
-  return this.httpService.get(`Item/GetItemVariants/${id}`)
- }
- getItemAttributes(id:number){
-  return this.httpService.get(`Item/GetItemAttributes/${id}`)
- }
- EditItemAttributes(obj : EditAttributes){
-  return this.httpService.put(`Item/EditItemAttributesVariant` , obj)
- }
+  attributeGroups() {
+    return this.httpService.get(`AttributesVariants/GetAllAttributesGroups`);
+  }
 
- getUOMByCategoryID(id:number){
-  return this.httpService.get(`UOMCategories/GetUOMCategoryWithUomsById/${id}`)//
- }
- getCodeByuomCodeDropDown(id:number) : Observable<{ code: number; conversionRatio: string}> {
-  return this.httpService.get(`UOM/GetUOMCodeByUOMId/${id}`)//
- }
- getTrackingDropDown() {
-  return this.httpService.get(`Tracking/TrackingDropDown`)//
- }
- UOMCategoryDropDown() {
-  return this.httpService.get(`UOMCategories/UOMCategoryDropDown`)
- }
+  getDefaultUnit(catID: number, itemId: number): Observable<{ id: number; name: string }> {
+    return this.httpService.get(`UOM/GetDefaultUOMByUOMCategoryIdAndItemId/${catID}/${itemId}`);
+  }
 
+  AttributeGroupDropDown() {
+    return this.httpService.get(`AttributeGroup/AttributeGroupDropDown
+`);
+  }
+  attributeGroupsValue(id: number): Observable<itemAttributeValuesByID> {
+    return this.httpService.get(`AttributeGroup/${id}`);
+  }
+  attributeGroupsValuesData(id: number): Observable<itemAttributeValues[]> {
+    return this.httpService.get(`api/ItemAttributesGroup/GetAttributesByLineId?Id=${id}`);
+  }
+  ActivateVairiantGroup(obj: { id: number }) {
+    return this.httpService.put(`AttributesVariants/ActivateAttributesVariants`, obj); // edit
+  }
 
- getUomDropDown() {
-  return this.httpService.get(`UOM/UOMDropDown`)
- }
-
- getUomDropDownByUomCategory(id:number) {
-  return this.httpService.get(`ItemUOM/GetItemUOMsByUOMId/${id}`)
- }
- getUomDropDownByUomItemId(id:number) {
-  return this.httpService.get(`ItemUOM/GetAllItemUOMsByItemIdDropDown?Id=${id}`)
- }
- getUomByItemId(id:number) : Observable<getUomByItemId[]> {
-  return this.httpService.get(`ItemUOM/GetItemUOMsByUOMId/${id}`)
- }
- getAllUomByItemId(id:number) : Observable<getUomByItemId[]> {
-  return this.httpService.get(`ItemUOM/GetAllItemUOMsByItemId?Id=${id}`)
- }
- getItemVariantsByItemIdDropDown(id:number) {
-  return this.httpService.get(`ItemVariant/ItemVariantsByItemIdDropDown?ItemId=${id}`)
-
- }
-
-
- getItemGetItemUomById(id:number){
-  return this.httpService.get(`Item/GetItemUom/${id}`)
- }
-
- updateItemGetItemUomById(obj:any) {
-  return this.httpService.put(`Item/EditUom` , obj)
- }
-
- getUOMCategoryDropDown(){
-  return this.httpService.get(`UOMCategories/UOMCategoryDropDown`)
-
- }
- getGetUOMsByUOMCategoryId(id:number){
-  return this.httpService.get(`UOM/GetUOMsByUOMCategoryId/${id}`)
-
- }
-
- getUserSubDomainModules(){
-  return this.httpService.get(`SideMenu/GetUserSubDomainModules`)
-
- }
-
- attributeGroups(){
-  return this.httpService.get(`AttributesVariants/GetAllAttributesGroups`)
- }
-
-
- getDefaultUnit(catID : number ,itemId:number) :Observable<{ id: number; name: string }>{
-  return this.httpService.get(`UOM/GetDefaultUOMByUOMCategoryIdAndItemId/${catID}/${itemId}`)
-
- }
-
-
- AttributeGroupDropDown(){
-  return this.httpService.get(`AttributeGroup/AttributeGroupDropDown
-`)
- }
- attributeGroupsValue(id:number) : Observable<itemAttributeValuesByID> {
-  return this.httpService.get(`AttributeGroup/${id}`)
- }
- attributeGroupsValuesData(id:number) : Observable<itemAttributeValues[]> {
-  return this.httpService.get(`api/ItemAttributesGroup/GetAttributesByLineId?Id=${id}`)
- }
- ActivateVairiantGroup(obj:{id:number}) {
-  return this.httpService.put(`AttributesVariants/ActivateAttributesVariants` , obj) // edit
- }
-
-
-
- ActivateUOM(obj:{id:number}) {
-  return this.httpService.put(`UOM/ActivateUOM` , obj) // edit
- }
- ActivateBarcode(obj:{id:number , status : boolean}) {
-  return this.httpService.put(`Barcode/ItemBarcodeActivation` , obj) // edit
- }
- ActivateAttrDifinition(obj:{id:number , status : boolean}) {
-  return this.httpService.put(`ItemAttribute/ItemAttributeActivation` , obj) // edit
- }
- systemUnitLookup() : Observable<{ id: number; nameAr: string; nameEn: string; systemUnitOfMeasureCategoryId: number; }[]> {
-  return this.httpService.get(`SystemUOM/DropDown` ) // edit
- }
- ActivateOperationalTag
-(obj:{id:number , status : boolean}) {
-  return this.httpService.put(`OperationalTag/ActivateOperationalTag` , obj) // edit
- }
- editStatusAttributeGroup(modle:any){
-  return this.httpService.put(`AttributeGroup/AttributeGroupActivation`,modle)
-
-}
-EditUOMCategory(obj:addUOM) {
-  return this.httpService.put('UOMCategories/Edit' , obj)
-}
- exportsItemsDefinitionList(
-    searchTerm: string | undefined
-  ): Observable<itemDefinitionDto[]> {
+  ActivateUOM(obj: { id: number }) {
+    return this.httpService.put(`UOM/ActivateUOM`, obj); // edit
+  }
+  ActivateBarcode(obj: { id: number; status: boolean }) {
+    return this.httpService.put(`Barcode/ItemBarcodeActivation`, obj); // edit
+  }
+  ActivateAttrDifinition(obj: { id: number; status: boolean }) {
+    return this.httpService.put(`ItemAttribute/ItemAttributeActivation`, obj); // edit
+  }
+  systemUnitLookup(): Observable<
+    { id: number; nameAr: string; nameEn: string; systemUnitOfMeasureCategoryId: number }[]
+  > {
+    return this.httpService.get(`SystemUOM/DropDown`); // edit
+  }
+  ActivateOperationalTag(obj: { id: number; status: boolean }) {
+    return this.httpService.put(`OperationalTag/ActivateOperationalTag`, obj); // edit
+  }
+  editStatusAttributeGroup(modle: any) {
+    return this.httpService.put(`AttributeGroup/AttributeGroupActivation`, modle);
+  }
+  EditUOMCategory(obj: addUOM) {
+    return this.httpService.put('UOMCategories/Edit', obj);
+  }
+  exportsItemsDefinitionList(searchTerm: string | undefined): Observable<itemDefinitionDto[]> {
     let query = `Item/Export?`;
     if (searchTerm) {
       query += `searchTerm=${encodeURIComponent(searchTerm)}`;
     }
-     return this.httpService.get<itemDefinitionDto[]>(query);
+    return this.httpService.get<itemDefinitionDto[]>(query);
   }
 
   //   to export uom list
-  ExportUOMList(SearchTerm: string | undefined){
-    let url = `UOM/ExportUOM`
-    if(SearchTerm) url +=`SearchTerm=${encodeURIComponent(SearchTerm)}`
-    return this.httpService.get<any>(url)
-
+  ExportUOMList(SearchTerm: string | undefined) {
+    let url = `UOM/ExportUOM`;
+    if (SearchTerm) url += `SearchTerm=${encodeURIComponent(SearchTerm)}`;
+    return this.httpService.get<any>(url);
   }
   //   to export operationalTag list
-  ExportOperationalTagList(SearchTerm: string | undefined){
-    let url = `OperationalTag/ExportOperationalTag`
-    if(SearchTerm) url +=`SearchTerm=${encodeURIComponent(SearchTerm)}`
-    return this.httpService.get<any>(url)
-
+  ExportOperationalTagList(SearchTerm: string | undefined) {
+    let url = `OperationalTag/ExportOperationalTag`;
+    if (SearchTerm) url += `SearchTerm=${encodeURIComponent(SearchTerm)}`;
+    return this.httpService.get<any>(url);
   }
-
 
   //   to export attr list as excel
-  ExporAttrList(SearchTerm: string | undefined){
-    let url = `AttributeGroup/Export`
-    if(SearchTerm) url +=`SearchTerm=${encodeURIComponent(SearchTerm)}`
-    return this.httpService.get<any>(url)
-
+  ExporAttrList(SearchTerm: string | undefined) {
+    let url = `AttributeGroup/Export`;
+    if (SearchTerm) url += `SearchTerm=${encodeURIComponent(SearchTerm)}`;
+    return this.httpService.get<any>(url);
   }
 
-  deleteVariant(id:number) {
-    return this.httpService.delete(`api/ItemAttributesGroup/${id}`)
+  deleteVariant(id: number) {
+    return this.httpService.delete(`api/ItemAttributesGroup/${id}`);
   }
-  deleteBarcode(id:number) {
-    return this.httpService.delete(`Barcode/${id}`)
-  }
-
-  getAttributeVariantById(id:number) : Observable<variantGroupById[]>{
-    return this.httpService.get(`api/ItemAttributesGroup/GetAllAttributeLinesByItemId?ItemId=${id}`)
+  deleteBarcode(id: number) {
+    return this.httpService.delete(`Barcode/${id}`);
   }
 
-  addBarcode(obj:addBarcode) {
-    return this.httpService.put('Item/EditItemBarcode' , obj)
+  getAttributeVariantById(id: number): Observable<variantGroupById[]> {
+    return this.httpService.get(
+      `api/ItemAttributesGroup/GetAllAttributeLinesByItemId?ItemId=${id}`
+    );
   }
-  addUOM(obj:AddUom) {
-    return this.httpService.put('ItemUom' , obj)
+
+  addBarcode(obj: addBarcode) {
+    return this.httpService.put('Item/EditItemBarcode', obj);
   }
-  addUOMCategory(obj:addUOM) {
-    return this.httpService.post('UOMCategories' , obj)
+  addUOM(obj: AddUom) {
+    return this.httpService.put('ItemUom', obj);
   }
-  getUOMCategoryById(id : number) : Observable<addUOM> {
-    return this.httpService.get(`UOMCategories/GetUOMCategoryWithUomsById/${id}`)
+  addUOMCategory(obj: addUOM) {
+    return this.httpService.post('UOMCategories', obj);
+  }
+  getUOMCategoryById(id: number): Observable<addUOM> {
+    return this.httpService.get(`UOMCategories/GetUOMCategoryWithUomsById/${id}`);
   }
   //  add attr de
-  addAttrDifinition(obj:addAttributeDifintion) {
-    return this.httpService.post('AttributeGroup/AddAttributeGroupWithAttributeValues' , obj)
+  addAttrDifinition(obj: addAttributeDifintion) {
+    return this.httpService.post('AttributeGroup/AddAttributeGroupWithAttributeValues', obj);
   }
   //  add operation tag
-  addOperationTag(obj:AddOperatioalTag) {
-    return this.httpService.post('OperationalTag' , obj)
+  addOperationTag(obj: AddOperatioalTag) {
+    return this.httpService.post('OperationalTag', obj);
   }
 
-  getBarcodeByItemId(id:number) : Observable<getBarcodeById[]> {
-    return this.httpService.get(`Barcode/GetBarCodeByItemId/${id}`)
+  getBarcodeByItemId(id: number): Observable<getBarcodeById[]> {
+    return this.httpService.get(`Barcode/GetBarCodeByItemId/${id}`);
   }
-  getItemById(id:number) : Observable<GetItemById> {
-    return this.httpService.get(`Item/${id}`)
+  getItemById(id: number): Observable<GetItemById> {
+    return this.httpService.get(`Item/${id}`);
   }
-  getOperationalTagById(id:number) : Observable<AddOperatioalTag> {
-    return this.httpService.get(`OperationalTag/${id}`)
+  getOperationalTagById(id: number): Observable<AddOperatioalTag> {
+    return this.httpService.get(`OperationalTag/${id}`);
   }
-  deleteOperationalTag(id : number ){
-    return this.httpService.delete(`OperationalTag/${id}`)
-  }
-
-  getUomByItemIdDropDown(id:number) : Observable<any[]> {
-    return this.httpService.get(`ItemUOM/GetAllItemUOMsByItemId?Id=${id}`)
-
+  deleteOperationalTag(id: number) {
+    return this.httpService.delete(`OperationalTag/${id}`);
   }
 
-  setUomDefault( obj : UomDefault) {
-    return this.httpService.put(`UOM/SetDefaultUOM` , obj)
-
+  getUomByItemIdDropDown(id: number): Observable<any[]> {
+    return this.httpService.get(`ItemUOM/GetAllItemUOMsByItemId?Id=${id}`);
   }
 
-  editItem(obj : any){
-    return this.httpService.put(`Item/Edit` , obj)
+  setUomDefault(obj: UomDefault) {
+    return this.httpService.put(`UOM/SetDefaultUOM`, obj);
   }
-  editOperationalTag(obj :AddOperatioalTag){
-    return this.httpService.put(`OperationalTag` , obj)
-  }
-  updateUOM(obj:addUOM) {
-    return this.httpService.put(`UOM/Edit` , obj)
-   }
-  updateAttrDifinition(obj:addAttributeDifintion) {
-    return this.httpService.put(`AttributeGroup/EditAttributeGroupWithAttributeValues` , obj)
-   }
 
-  generateVariant(obj : any) {
-    return this.httpService.post(`ItemVariant/Generate` , obj)
+  editItem(obj: any) {
+    return this.httpService.put(`Item/Edit`, obj);
+  }
+  editOperationalTag(obj: AddOperatioalTag) {
+    return this.httpService.put(`OperationalTag`, obj);
+  }
+  updateUOM(obj: addUOM) {
+    return this.httpService.put(`UOM/Edit`, obj);
+  }
+  updateAttrDifinition(obj: addAttributeDifintion) {
+    return this.httpService.put(`AttributeGroup/EditAttributeGroupWithAttributeValues`, obj);
+  }
+
+  generateVariant(obj: any) {
+    return this.httpService.post(`ItemVariant/Generate`, obj);
   }
   // warehouse
-  getListOfUom(SearchTerm : string| undefined,pageInfo :PageInfo ): Observable<Iuom> {
-  let url = `UOM?${pageInfo.toQuery}`
+  getListOfUom(SearchTerm: string | undefined, pageInfo: PageInfo): Observable<Iuom> {
+    let url = `UOM?${pageInfo.toQuery}`;
 
-  if(SearchTerm ){
-    url +=`&SearchTerm=${encodeURIComponent(SearchTerm)}`
+    if (SearchTerm) {
+      url += `&SearchTerm=${encodeURIComponent(SearchTerm)}`;
+    }
+    return this.httpService.get<Iuom>(url);
   }
-    return this.httpService.get<Iuom>(url)
-   }
 
-  getListOfAttr(SearchTerm : string| undefined,pageInfo :PageInfo ): Observable<IAttrributeDifinition> {
-  let url = `AttributeGroup/GetAllWithValues?${pageInfo.toQuery}`
+  getListOfAttr(
+    SearchTerm: string | undefined,
+    pageInfo: PageInfo
+  ): Observable<IAttrributeDifinition> {
+    let url = `AttributeGroup/GetAllWithValues?${pageInfo.toQuery}`;
 
-  if(SearchTerm ){
-    url +=`&SearchTerm=${encodeURIComponent(SearchTerm)}`
+    if (SearchTerm) {
+      url += `&SearchTerm=${encodeURIComponent(SearchTerm)}`;
+    }
+    return this.httpService.get(url);
   }
-    return this.httpService.get(url)
-   }
-  getWarehouseList(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<GetWarehouseList>> {
+  getWarehouseList(
+    searchTerm: string,
+    pageInfo: PageInfo
+  ): Observable<PaginationVm<GetWarehouseList>> {
     let query = `WareHouse?${pageInfo.toQuery}`;
     if (searchTerm) {
       query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
     }
-    return this.httpService.get<PaginationVm<GetWarehouseList>>(query)
+    return this.httpService.get<PaginationVm<GetWarehouseList>>(query);
   }
 
-//  operational tag list
-getOperationalTagList(searchTerm: string, pageInfo: PageInfo): Observable<IOperationalTag> {
+  //  operational tag list
+  getOperationalTagList(searchTerm: string, pageInfo: PageInfo): Observable<IOperationalTag> {
     let query = `OperationalTag?${pageInfo.toQuery}`;
     if (searchTerm) {
       query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
     }
-    return this.httpService.get<IOperationalTag>(query)
+    return this.httpService.get<IOperationalTag>(query);
   }
 
-  exportsWayehouseList(searchTerm?: string ,SortBy?:number,SortColumn?:string): Observable<GetWarehouseList[]> {
-
-
-
+  exportsWayehouseList(
+    searchTerm?: string,
+    SortBy?: number,
+    SortColumn?: string
+  ): Observable<GetWarehouseList[]> {
     let query = `WareHouse/ExportWareHouse?`;
     const params: string[] = [];
     if (searchTerm) params.push(`SearchTerm=${encodeURIComponent(searchTerm)}`);
     if (SortBy) params.push(`SortBy=${SortBy}`);
     if (SortColumn) params.push(`SortColumn=${SortColumn}`);
     query += params.join('&');
-     return this.httpService.get<GetWarehouseList[]>(query);
+    return this.httpService.get<GetWarehouseList[]>(query);
   }
 
-
-  exportsItemCategoryList(
-    searchTerm: string | undefined
-  ): Observable<GetItemCategoryDto[]> {
+  exportsItemCategoryList(searchTerm: string | undefined): Observable<GetItemCategoryDto[]> {
     let query = `ItemCategory/Export?`;
     if (searchTerm) {
       query += `searchTerm=${encodeURIComponent(searchTerm)}`;
     }
-     return this.httpService.get<GetItemCategoryDto[]>(query);
+    return this.httpService.get<GetItemCategoryDto[]>(query);
   }
-  deleteWareHouse(id : number ){
-    return this.httpService.delete(`WareHouse/DeleteWareHouse/${id}`)
+  deleteWareHouse(id: number) {
+    return this.httpService.delete(`WareHouse/DeleteWareHouse/${id}`);
   }
 
-  addWarehouse(obj : AddWarehouse) {
-    return this.httpService.post(`WareHouse/QuickAdd` , obj)
+  addWarehouse(obj: AddWarehouse) {
+    return this.httpService.post(`WareHouse/QuickAdd`, obj);
   }
-  editWarehouse(obj : EditWareHouse) {
-    return this.httpService.put(`WareHouse/EditWareHouse` , obj)
+  editWarehouse(obj: EditWareHouse) {
+    return this.httpService.put(`WareHouse/EditWareHouse`, obj);
   }
-  getWarehouseById(id : number) : Observable<AddWarehouse> {
-    return this.httpService.get(`WareHouse/${id}`)
+  getWarehouseById(id: number): Observable<AddWarehouse> {
+    return this.httpService.get(`WareHouse/${id}`);
   }
   //
   // getGlAccountLookup() {
@@ -549,32 +547,33 @@ getOperationalTagList(searchTerm: string, pageInfo: PageInfo): Observable<IOpera
   getWareHousesDropDown() {
     return this.httpService.get<any>(`WareHouse/WareHousesDropDown`);
   }
-  getCitiesDropdown(CountryCode:string) {
+  getCitiesDropdown(CountryCode: string) {
     return this.httpService.get<any>(`GeneralSettings/GetCities?CountryCode=${CountryCode}`);
   }
   getCcountriesDropdown() {
     return this.httpService.get<any>(`GeneralSettings/GetCountries`);
   }
 
-  saveItemDefinitionGeneral(obj:AddGeneralDto) {
-    return this.httpService.put('Item/EditGeneralData' , obj)
+  saveItemDefinitionGeneral(obj: AddGeneralDto) {
+    return this.httpService.put('Item/EditGeneralData', obj);
   }
 
-
- getItemDefinitionGeneral(id : number) : Observable<AddGeneralDto> {
-    return this.httpService.get(`Item/GetGeneralData/${id}`)
+  getItemDefinitionGeneral(id: number): Observable<AddGeneralDto> {
+    return this.httpService.get(`Item/GetGeneralData/${id}`);
   }
 
-  operationTagDropdown() : Observable<OperationalStockIn[]> {
-    return this.httpService.get(`OperationalTag/OperationalTagStockDropDown?OperationType=StockIn`)
+  operationTagDropdown(): Observable<OperationalStockIn[]> {
+    return this.httpService.get(`OperationalTag/OperationalTagStockDropDown?OperationType=StockIn`);
   }
-  getLatestItemsList() : Observable<LatestItems[]> {
-    return this.httpService.get(`Item/GetLatestItemsList`)
-  } 
+  getLatestItemsList(): Observable<LatestItems[]> {
+    return this.httpService.get(`Item/GetLatestItemsList`);
+  }
 
-  addStockIn(obj : AddStockIn) : Observable<AddStockIn> {
-    return this.httpService.post('StockIn' , obj)
-
+  addStockIn(obj: AddStockIn): Observable<AddStockIn> {
+    return this.httpService.post('StockIn', obj);
+  }
+  editStockIn(obj: AddStockIn): Observable<AddStockIn> {
+    return this.httpService.put('StockIn', obj);
   }
   getItems(
     quieries: string,
@@ -590,20 +589,14 @@ getOperationalTagList(searchTerm: string, pageInfo: PageInfo): Observable<IOpera
     }
     return this.httpService.get<PaginationVm<AdvancedSearchDto>>(query);
   }
-  getAllStockOut(
-    searchTerm: string,
-    pageInfo: PageInfo
-  ): Observable<PaginationVm<StockOutDto>> {
+  getAllStockOut(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<StockOutDto>> {
     let query = `StockOut?${pageInfo.toQuery}`;
     if (searchTerm) {
       query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
     }
     return this.httpService.get<PaginationVm<StockOutDto>>(query);
   }
-  getAllStockIn(
-    searchTerm: string,
-    pageInfo: PageInfo
-  ): Observable<PaginationVm<StockInDto>> {
+  getAllStockIn(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<StockInDto>> {
     let query = `StockIn?${pageInfo.toQuery}`;
     if (searchTerm) {
       query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
@@ -611,8 +604,11 @@ getOperationalTagList(searchTerm: string, pageInfo: PageInfo): Observable<IOpera
     return this.httpService.get<PaginationVm<StockInDto>>(query);
   }
 
-
-  exportStockOutList(searchTerm?: string ,SortBy?:number,SortColumn?:string): Observable<StockOutDto[]> {
+  exportStockOutList(
+    searchTerm?: string,
+    SortBy?: number,
+    SortColumn?: string
+  ): Observable<StockOutDto[]> {
     let query = `StockOut/Export?`;
     const params: string[] = [];
     if (searchTerm) params.push(`searchTerm=${encodeURIComponent(searchTerm)}`);
@@ -620,13 +616,13 @@ getOperationalTagList(searchTerm: string, pageInfo: PageInfo): Observable<IOpera
     if (SortColumn) params.push(`SortColumn=${SortColumn}`);
     query += params.join('&');
     return this.httpService.get<StockOutDto[]>(query);
-  } 
-  getLatestItemsListByWarehouse( SearchTerm :string , WarehouseId:number) : Observable<LatestItems[]> {
-    return this.httpService.get(`Item/GetLatestItemsStockDropDownByWarehouse?WarehouseId=${WarehouseId}`)
   }
 
-
-  exportStockInList(searchTerm?: string ,SortBy?:number,SortColumn?:string): Observable<StockInDto[]> {
+  exportStockInList(
+    searchTerm?: string,
+    SortBy?: number,
+    SortColumn?: string
+  ): Observable<StockInDto[]> {
     let query = `StockIn/Export?`;
     const params: string[] = [];
     if (searchTerm) params.push(`searchTerm=${encodeURIComponent(searchTerm)}`);
@@ -636,27 +632,32 @@ getOperationalTagList(searchTerm: string, pageInfo: PageInfo): Observable<IOpera
     return this.httpService.get<StockInDto[]>(query);
   }
 
-
-  deleteStockIn(id:number ){
-    return this.httpService.delete(`StockIn/${id}`)
+  deleteStockIn(id: number) {
+    return this.httpService.delete(`StockIn/${id}`);
+  }
+  deleteStockInLine(id: number) {
+    return this.httpService.delete(`StockIn/DeleteLine/${id}`);
   }
 
-  getByIdStockOut(id:number){
-    return this.httpService.get(`StockOut/${id}`)
-
+  getByIdStockOut(id: number) {
+    return this.httpService.get(`StockOut/${id}`);
   }
-  editStockOut(obj:StockOutDto){
-    return this.httpService.put(`StockOut`, obj)
-
+  getStockInById(id: number) {
+    return this.httpService.get(`StockIn/${id}`);
+  }
+  editStockOut(obj: StockOutDto) {
+    return this.httpService.put(`StockOut`, obj);
   }
 
-  getItemBarcodeForItem(barcode : string) : Observable<StockInDetail> {
-    return this.httpService.get(`Item/GetItemByBarcode?Barcode=${barcode}`)
-
+  getItemBarcodeForItem(barcode: string): Observable<StockInDetail> {
+    return this.httpService.get(`Item/GetItemByBarcode?Barcode=${barcode}`);
   }
   addStockOut(obj : AddStockOutDto) : Observable<AddStockOutDto> {
     return this.httpService.post('StockOut' , obj)
 
+  }
+  getLatestItemsListByWarehouse( SearchTerm :string , WarehouseId:number) : Observable<LatestItems[]> {
+    return this.httpService.get(`Item/GetLatestItemsStockDropDownByWarehouse?WarehouseId=${WarehouseId}`)
   }
 }
 

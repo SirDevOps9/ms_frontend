@@ -78,8 +78,7 @@ const routes: Routes = [
         component: ItemDefinitionListComponent,
         data: {
           breadcrumb: BreadcrumbLabel.ITEM_DIFINITION,
-          pageTitle : BreadcrumbLabel.ITEM_DIFINITION
-
+          pageTitle: BreadcrumbLabel.ITEM_DIFINITION,
         },
       },
       {
@@ -87,8 +86,7 @@ const routes: Routes = [
         component: ItemDefinitionListComponent,
         data: {
           breadcrumb: BreadcrumbLabel.ITEM_DIFINITION,
-        pageTitle : BreadcrumbLabel.ITEM_DIFINITION
-
+          pageTitle: BreadcrumbLabel.ITEM_DIFINITION,
         },
       },
       {
@@ -96,8 +94,7 @@ const routes: Routes = [
         component: ItemCatalogTabsComponent,
         data: {
           breadcrumb: '',
-          pageTitle : BreadcrumbLabel.EDIT_ITEM_DIFINITION
-
+          pageTitle: BreadcrumbLabel.EDIT_ITEM_DIFINITION,
         },
         children: [
           {
@@ -105,7 +102,7 @@ const routes: Routes = [
             component: ItemDefinitionGeneralComponent,
             data: {
               breadcrumb: BreadcrumbLabel.GENERAL_ITEMdEFINITION,
-              pageTitle : BreadcrumbLabel.GENERAL_ITEMdEFINITION
+              pageTitle: BreadcrumbLabel.GENERAL_ITEMdEFINITION,
             },
           },
           {
@@ -113,7 +110,7 @@ const routes: Routes = [
             component: ItemDefinitionUomComponent,
             data: {
               breadcrumb: BreadcrumbLabel.attributes_ITEMdEFINITION,
-              pageTitle : BreadcrumbLabel.attributes_ITEMdEFINITION
+              pageTitle: BreadcrumbLabel.attributes_ITEMdEFINITION,
             },
           },
           {
@@ -121,7 +118,7 @@ const routes: Routes = [
             component: ItemDefintionVariantComponent,
             data: {
               breadcrumb: BreadcrumbLabel.attributes_ITEMdEFINITION,
-              pageTitle : BreadcrumbLabel.attributes_ITEMdEFINITION
+              pageTitle: BreadcrumbLabel.attributes_ITEMdEFINITION,
             },
           },
           {
@@ -129,7 +126,7 @@ const routes: Routes = [
             component: ItemDefinitionAttributesVariantsComponent,
             data: {
               breadcrumb: BreadcrumbLabel.attributes_ITEMdEFINITION,
-              pageTitle : BreadcrumbLabel.attributes_ITEMdEFINITION
+              pageTitle: BreadcrumbLabel.attributes_ITEMdEFINITION,
             },
           },
           {
@@ -137,7 +134,7 @@ const routes: Routes = [
             component: ItemDefinitionBarcodeComponent,
             data: {
               breadcrumb: BreadcrumbLabel.EditItembarcodedefinition,
-              pageTitle : BreadcrumbLabel.EditItembarcodedefinition
+              pageTitle: BreadcrumbLabel.EditItembarcodedefinition,
             },
           },
 
@@ -146,7 +143,7 @@ const routes: Routes = [
             component: ItemDefintionTaxComponent,
             data: {
               breadcrumb: BreadcrumbLabel.EditItembarcodedefinition,
-              pageTitle : BreadcrumbLabel.EditItembarcodedefinition
+              pageTitle: BreadcrumbLabel.EditItembarcodedefinition,
             },
           },
           {
@@ -154,11 +151,10 @@ const routes: Routes = [
             component: ItemDefinitionInventoryComponent,
             data: {
               breadcrumb: BreadcrumbLabel.INVENTORY,
-              pageTitle : BreadcrumbLabel.INVENTORY
+              pageTitle: BreadcrumbLabel.INVENTORY,
             },
           },
         ],
-
       },
       {
         path: 'warehouse',
@@ -172,7 +168,7 @@ const routes: Routes = [
             component: WarehouseListComponent,
             data: {
               breadcrumb: BreadcrumbLabel.WARE_HOUSE,
-              pageTitle : BreadcrumbLabel.WARE_HOUSE
+              pageTitle: BreadcrumbLabel.WARE_HOUSE,
             },
           },
           {
@@ -180,19 +176,16 @@ const routes: Routes = [
             component: AddWarehouseComponent,
             data: {
               breadcrumb: BreadcrumbLabel.ADD_WARE_HOUSE,
-              pageTitle : BreadcrumbLabel.ADD_WARE_HOUSE
-
+              pageTitle: BreadcrumbLabel.ADD_WARE_HOUSE,
             },
           },
-
 
           {
             path: 'edit-warehouse/:id',
             component: EditWarehouseComponent,
             data: {
               breadcrumb: BreadcrumbLabel.EDIT_WARE_HOUSE,
-              pageTitle : BreadcrumbLabel.EDIT_WARE_HOUSE
-
+              pageTitle: BreadcrumbLabel.EDIT_WARE_HOUSE,
             },
           },
         ],
@@ -201,7 +194,7 @@ const routes: Routes = [
         path: 'uom',
         component: UOMMainComponent,
         data: {
-          breadcrumb: BreadcrumbLabel.UNITOFMEASURE
+          breadcrumb: BreadcrumbLabel.UNITOFMEASURE,
         },
         children: [
           {
@@ -292,11 +285,9 @@ const routes: Routes = [
         component: MainItemCategoriesTreeComponent,
         data: {
           breadcrumb: BreadcrumbLabel.ITEMS_CATEGORY,
-          pageTitle : BreadcrumbLabel.ITEMS_CATEGORY
-
+          pageTitle: BreadcrumbLabel.ITEMS_CATEGORY,
         },
       },
-     
 
       {
         path: 'item-category',
@@ -304,6 +295,36 @@ const routes: Routes = [
         data: {
           breadcrumb: BreadcrumbLabel.ITEM_CATEGORY,
         },
+      },
+      {
+        path: 'stock-out',
+        component: MainStockOutComponent,
+        data: {
+          breadcrumb: BreadcrumbLabel.STOCKOUT,
+          pageTitle: BreadcrumbLabel.STOCKOUT,
+        },
+        children: [
+          {
+            path: '',
+            component: StockOutListComponent,
+            data: { breadcrumb: '', pageTitle: BreadcrumbLabel.STOCKOUT },
+          },
+          {
+            path: 'add',
+            component: AddStockOutComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.ADD_STOCKOUT,
+              pageTitle: BreadcrumbLabel.TITLE_ADD_STOCKOUT,
+            },
+          },
+          {
+            path: 'edit/:id',
+            component: EditStockOutComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.ADD_ITEM_DIFINITION,
+            },
+          },
+        ],
       },
     ],
   },
@@ -358,13 +379,17 @@ const routes: Routes = [
     AddStockOutComponent,
     StockOutListComponent,
     EditStockOutComponent,
-    TrackingStockInComponent, 
+    TrackingStockInComponent,
     MultiSelectItemStockInComponent,
     ScanParcodeStockInComponent,
     ImportStockInComponent,
     SearchItemPopUpComponent
   ],
-  imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule ,     ZXingScannerModule // Add the ZXingScannerModule here
+  imports: [
+    CommonModule,
+    RouterModule.forChild(routes),
+    SharedLibModule,
+    ZXingScannerModule, // Add the ZXingScannerModule here
   ],
 })
 export class ItemsModule {}

@@ -66,7 +66,7 @@ export class ItemsService {
     private languageService: LanguageService,
     private router: RouterService,
     private loaderService: LoaderService,
-    private formsService:FormsService
+    private formsService: FormsService
   ) {}
   sendItemTypeDataSource = new BehaviorSubject<ItemTypeDto[]>([]);
   sendItemDefinitionDataSource = new BehaviorSubject<itemDefinitionDto[]>([]);
@@ -107,8 +107,10 @@ export class ItemsService {
   stockOutDataSourceeObservable = this.stockOutDataSource.asObservable();
 
   public stockOutByIdDataSource = new BehaviorSubject<StockOutDto[]>([]);
+  public stockInByIdData = new BehaviorSubject<StockInDto>({} as StockInDto);
 
   stockOutByIdDataSourceeObservable = this.stockOutByIdDataSource.asObservable();
+  stockInByIdData$ = this.stockInByIdData.asObservable();
 
   public stockInDataSource = new BehaviorSubject<StockOutDto[]>([]);
 
@@ -121,7 +123,6 @@ export class ItemsService {
   public exportStockOutListDataSource = new BehaviorSubject<StockOutDto[]>([]);
 
   exportStockOutListDataSourceObservable = this.exportStockOutListDataSource.asObservable();
-
 
   public exportStockInListDataSource = new BehaviorSubject<StockInDto[]>([]);
   exportStockInListDataSourceObservable = this.exportStockInListDataSource.asObservable();
@@ -186,6 +187,7 @@ export class ItemsService {
   public sendlatestItemsList = new BehaviorSubject<LatestItems[]>([]);
   public latestItemsListByWarehouse= new BehaviorSubject<LatestItems[]>([]);
   public sendAddStockIn = new BehaviorSubject<AddStockIn>({} as AddStockIn);
+  public updateAddStockIn = new BehaviorSubject<AddStockIn>({} as AddStockIn);
   public attributeValuesDropDownLookup = new BehaviorSubject<itemAttributeValues[]>([]);
   public attributeValuesData = new BehaviorSubject<itemAttributeValues[]>([]);
   private itemsDataSource = new BehaviorSubject<AdvancedSearchDto[]>([]);
@@ -278,6 +280,7 @@ export class ItemsService {
   public sendlatestItemsList$ = this.sendlatestItemsList.asObservable();
   public latestItemsListByWarehouse$ = this.latestItemsListByWarehouse.asObservable();
   public sendAddStockIn$ = this.sendAddStockIn.asObservable();
+  public updateAddStockIn$ = this.updateAddStockIn.asObservable();
   public attributeValuesDropDownLookupObs = this.attributeValuesDropDownLookup.asObservable();
   public attributeValuesDataObs = this.attributeValuesData.asObservable();
   public addVariantLineDataObs = this.addVariantLineData.asObservable();
@@ -399,6 +402,39 @@ public OperationalTagStockOut$ = this.sendOperationalTagStockOutDropDown.asObser
     });
   }
 
+  async deleteStockInLine(id: number) {
+    try {
+      const confirmed = await this.toasterService.showConfirm(
+        this.languageService.transalte('ConfirmButtonTexttodelete')
+      );
+
+      if (confirmed) {
+        await firstValueFrom(this.itemProxy.deleteStockInLine(id));
+
+        // Show success message
+        this.toasterService.showSuccess(
+          this.languageService.transalte('stockIn.success'),
+          this.languageService.transalte('stockIn.deleteStockInLine')
+        );
+
+        const currentData = this.stockInByIdData.getValue();
+
+        if (currentData && currentData.stockInDetails) {
+          const updatedStockInDetails = currentData.stockInDetails.filter(
+            (detail: any) => detail.id !== id
+          );
+
+          const updatedData = {
+            ...currentData,
+            stockInDetails: updatedStockInDetails,
+          };
+
+          this.stockInByIdData.next(updatedData);
+        }
+      }
+    } catch (error) {}
+  }
+
   async deleteStockIn(id: number) {
     try {
       const confirmed = await this.toasterService.showConfirm(
@@ -413,14 +449,8 @@ public OperationalTagStockOut$ = this.sendOperationalTagStockOutDropDown.asObser
           this.languageService.transalte('transactions.success'),
           this.languageService.transalte('transactions.deleteStockIn')
         );
-
-        // const currentCostCenter = this.sendStockInDataSources.getValue();
-        // const updatedCostCenter = currentCostCenter.filter((c) => c.id !== id);
-        // this.sendStockInDataSources.next(updatedCostCenter);
       }
-    } catch (error) {
-
-    }
+    } catch (error) {}
   }
   async deleteStockOut(id: number) {
     const confirmed = await this.toasterService.showConfirm(
@@ -1473,30 +1503,35 @@ public OperationalTagStockOut$ = this.sendOperationalTagStockOutDropDown.asObser
     }
   }
 
-getAllStockOut(quieries: string, pageInfo: PageInfo) {
-  this.itemProxy.getAllStockOut(quieries, pageInfo).subscribe((response) => {
-    this.stockOutDataSource.next(response.result);
-    this.currentPageInfo.next(response.pageInfoResult);
-  });
-}
+  getAllStockOut(quieries: string, pageInfo: PageInfo) {
+    this.itemProxy.getAllStockOut(quieries, pageInfo).subscribe((response) => {
+      this.stockOutDataSource.next(response.result);
+      this.currentPageInfo.next(response.pageInfoResult);
+    });
+  }
 
-getStockOutById(id:number) {
-  this.itemProxy.getByIdStockOut(id).subscribe((response:any) => {
-    this.stockOutByIdDataSource.next(response);
-  });
-}
+  getStockOutById(id: number) {
+    this.itemProxy.getByIdStockOut(id).subscribe((response: any) => {
+      this.stockOutByIdDataSource.next(response);
+    });
+  }
+  getStockInById(id: number) {
+    this.itemProxy.getStockInById(id).subscribe((response: any) => {
+      this.stockInByIdData.next(response);
+    });
+  }
 
-editStockOut(obj: StockOutDto) {
-  this.itemProxy.editStockOut(obj).subscribe({
-    next: (res: any) => {
-      this.editstockInDataSource.next(res);
-      this.toasterService.showSuccess(
-        this.languageService.transalte('stockOut.success'),
-        this.languageService.transalte('itemsCategory.edits')
-      );
-    },
-  });
-}
+  editStockOut(obj: StockOutDto) {
+    this.itemProxy.editStockOut(obj).subscribe({
+      next: (res: any) => {
+        this.editstockInDataSource.next(res);
+        this.toasterService.showSuccess(
+          this.languageService.transalte('stockOut.success'),
+          this.languageService.transalte('itemsCategory.edits')
+        );
+      },
+    });
+  }
 
 getAllStockIn(quieries: string, pageInfo: PageInfo) {
   this.itemProxy.getAllStockIn(quieries, pageInfo).subscribe((response) => {
@@ -1510,19 +1545,15 @@ exportStockOutList(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
       this.exportStockOutListDataSource.next(res);
     },
   });
-}getLatestItemsListByWarehouse(SearchTerm:string , id:number){
-  return this.itemProxy.getLatestItemsListByWarehouse(SearchTerm,id).subscribe(res=>{
-    this.latestItemsListByWarehouse.next(res)
-  })
 }
 
-exportStockInList(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
-  this.itemProxy.exportStockInList(searchTerm ,SortBy,SortColumn).subscribe({
-    next: (res: any) => {
-      this.exportStockInListDataSource.next(res);
-    },
-  });
-}
+  exportStockInList(searchTerm?: string, SortBy?: number, SortColumn?: string) {
+    this.itemProxy.exportStockInList(searchTerm, SortBy, SortColumn).subscribe({
+      next: (res: any) => {
+        this.exportStockInListDataSource.next(res);
+      },
+    });
+  }
 
   OperationalTagDropDown() {
     return this.itemProxy.operationTagDropdown().subscribe((res) => {
@@ -1536,31 +1567,37 @@ exportStockInList(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
     });
   }
 
-  addStockIn(obj: AddStockIn,stockinForm : FormGroup) {
+  addStockIn(obj: AddStockIn, stockinForm: FormGroup) {
     this.itemProxy.addStockIn(obj).subscribe({
       next: (res) => {
         this.toasterService.showSuccess(
           this.languageService.transalte('stockIn.success'),
           this.languageService.transalte('stockIn.stockAdded')
         );
-        this.router.navigateTo('/masterdata/stock-in');
+        this.router.navigateTo('/transactions/stock-in');
         this.loaderService.hide();
       },
       error: (err) => {
-        
         this.formsService.setFormValidationErrors(stockinForm, err);
         this.loaderService.hide();
       },
     });
-    // return this.itemProxy.addStockIn(obj).subscribe(res=>{
-    //   this.sendAddStockIn.next(res)
-    //   this.toasterService.showSuccess(
-    //     this.languageService.transalte('stockIn.success'),
-    //     this.languageService.transalte('stockIn.stockAdded')
-
-    //   );
-    //   this.router.navigateTo('/masterdata/stock-in')
-    // })
+  }
+  editStockIn(obj: AddStockIn, stockinForm: FormGroup) {
+    this.itemProxy.editStockIn(obj).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('stockIn.success'),
+          this.languageService.transalte('stockIn.stockEdit')
+        );
+        this.router.navigateTo('/transactions/stock-in');
+        this.loaderService.hide();
+      },
+      error: (err) => {
+        this.formsService.setFormValidationErrors(stockinForm, err);
+        this.loaderService.hide();
+      },
+    });
   }
 
   getItems(quieries: string, searchTerm: string, pageInfo: PageInfo) {
@@ -1594,5 +1631,10 @@ exportStockInList(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
       },
     });
  
+  }
+  getLatestItemsListByWarehouse(SearchTerm:string , id:number){
+    return this.itemProxy.getLatestItemsListByWarehouse(SearchTerm,id).subscribe(res=>{
+      this.latestItemsListByWarehouse.next(res)
+    })
   }
 }
