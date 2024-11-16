@@ -1,6 +1,6 @@
 <div class="main">
     <lib-popup-page
-      title="{{ 'stockIn.ItemSearch' | translate }}"
+      title="{{ 'popupSearch.ItemSearch' | translate }}"
       [closeFunction]="onCancel"
       (Submit)="onSubmit()"
     >
@@ -14,44 +14,45 @@
           (pageChange)="onPageChange($event)"
           (selectedRowsChange)="onSelectedRowsChange($event)"
           [tableConfigs]="{
-            allowPagination: false,
-            allowServerPagination: true,
+            allowPagination: true,
+            allowServerPagination: false,
             dataKey: 'id',
             pageSize: 10,
             columns: [
               {
                 name: 'itemCode',
-                headerText: 'stockIn.ItemCode' | translate,
+                headerText: 'popupSearch.ItemCode' | translate,
                 isGlobalFilter: true,
                 isSortable: true
               },
               {
                 name: 'itemName',
-                headerText: 'stockIn.ItemName' | translate,
+                headerText: 'popupSearch.ItemName' | translate,
                 isGlobalFilter: true,
                 isSortable: true
               },
               {
-                name: 'uomNameEn',
-                headerText: 'stockIn.ItemUOM' | translate,
+                name: selectedLanguage === 'en' ? 'uomNameEn' : 'uomNameAr',
+                headerText: 'popupSearch.ItemUOM' | translate,
                 isGlobalFilter: true,
                 isSortable: true
               },
               {
-                name: 'itemVariantName',
-                headerText: 'stockIn.ItemVariant' | translate,
+                 name: selectedLanguage === 'en' ? 'itemVariantNameEn' : 'itemVariantNameAr',
+
+                headerText: 'popupSearch.ItemVariant' | translate,
                 isGlobalFilter: true,
                 isSortable: true
               },
               {
-                name: 'itemCategoryNameEn',
-                headerText: 'stockIn.ItemCategory' | translate,
+                name: selectedLanguage === 'en' ? 'itemCategoryNameEn' : 'itemCategoryNameAr',
+                headerText: 'popupSearch.ItemCategory' | translate,
                 isGlobalFilter: true,
                 isSortable: true
               },
               {
                      name: 'itemCode',
-                     headerText: ('stockIn.Actions' | translate),
+                     headerText: ('popupSearch.Actions' | translate),
                      template : action
               },
             ]
@@ -62,7 +63,7 @@
               <div class="col-12">
                 <lib-text-input
                   type="text"
-                  [placeholder]="'stockIn.search' | translate"
+                  [placeholder]="'popupSearch.search' | translate"
                   [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
                   (keyUp)="onSearchChange($event)"
   
@@ -84,7 +85,7 @@
                           for="IsStorable"
                           [appControl]="filterForm.controls['categoryType']"
                         >
-                          {{ 'stockIn.IsStorable' | translate }}
+                          {{ 'popupSearch.IsStorable' | translate }}
                         </lib-label>
                       </div>
                     </lib-form-group>
@@ -102,7 +103,7 @@
                         for="IsService"
                         [appControl]="filterForm.controls['categoryType']"
                       >
-                        {{ 'stockIn.IsService' | translate }}
+                        {{ 'popupSearch.IsService' | translate }}
                       </lib-label>
                       </div>
   
@@ -122,7 +123,7 @@
                         for="HasExpiryDate"
                         [appControl]="filterForm.controls['hasExpiryDate']"
                       >
-                        {{ 'stockIn.HasExpiryDate' | translate }}
+                        {{ 'popupSearch.HasExpiryDate' | translate }}
                       </lib-label>
                       </div>
   
@@ -136,7 +137,7 @@
           <ng-template #action let-item>
             <lib-button-micro
             nameClass="save"
-            title="select"
+            title="{{ 'popupSearch.select' | translate }}"
             (click)="selectedRow(item)"
             >
   

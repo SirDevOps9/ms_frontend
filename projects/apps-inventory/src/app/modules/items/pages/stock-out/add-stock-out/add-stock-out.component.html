@@ -41,7 +41,7 @@
         optionValue="id"
         optionLabel="displayName"
           placeholder="{{ 'stockOut.sourceDoc' | translate }}"
-          [selectedValue]="addForm.controls['sourceDocumentId']?.value">
+          [selectedValue]="addForm.controls['sourceDocumentId'].value">
         </lib-select>
         <lib-field-validations [appControl]="addForm.controls['sourceDocumentId']"></lib-field-validations>
       </div>
@@ -100,7 +100,9 @@
             <p-cellEditor>
               <ng-template pTemplate="input">
                 <lib-text-input placeholder="{{ 'stockOut.barcode' | translate }}"
-                  formControlName="barCode"></lib-text-input>
+                  formControlName="barCode"
+                  ></lib-text-input>
+                  <!-- (keyUp)="barcodeCanged($event ,rowIndex)" -->
               </ng-template>
               <ng-template pTemplate="output">
                 {{ stockOutFormGroup.controls['barCode']?.value }}
@@ -122,7 +124,8 @@
                     (valueChanged)="setRowData(rowIndex, $event ,filteredItems)"
                     selectedValue="{{stockOutFormGroup.controls['itemId'].value}}"
                     (valueSearchChanged)="onFilter($event ,  stockInForm.controls['warehouseId'].value)"></lib-select>
-                  <i class="pi pi-search search-circle"></i>
+                  <i class="pi pi-search search-circle" (click)="openDialog(rowIndex)"
+                  ></i>
                   <!-- (click)="openDialog(rowIndex)" -->
                 </div>
               </ng-template>

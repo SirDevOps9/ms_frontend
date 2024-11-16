@@ -659,5 +659,38 @@ export class ItemsProxyService {
   getLatestItemsListByWarehouse( SearchTerm :string , WarehouseId:number) : Observable<LatestItems[]> {
     return this.httpService.get(`Item/GetLatestItemsStockDropDownByWarehouse?WarehouseId=${WarehouseId}`)
   }
+  // getItemsStockOut(
+  //   quieries: string,
+  //   searchTerm: string,
+  //   pageInfo: PageInfo
+  // ): Observable<PaginationVm<AdvancedSearchDto>> {
+  //   let query = `Item/GetItemStockAdvancedSearchByWarehouse?${pageInfo.toQuery}`;
+  //   if (searchTerm) {
+  //     query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
+  //   }
+  //   if (quieries) {
+  //     query += `&${quieries ? quieries : ''}`;
+  //   }
+  //   return this.httpService.get<PaginationVm<AdvancedSearchDto>>(query);
+  // }
+  getItemsStockOut(
+    quieries: string,
+    searchTerm: string,
+    warehouseId: number,
+    pageInfo: PageInfo
+  ): Observable<PaginationVm<AdvancedSearchDto>> {
+    // Construct the base query with pagination info
+    let query = `Item/GetItemStockAdvancedSearchByWarehouse?${pageInfo.toQuery}`;
+      if (searchTerm) {
+      query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+    if (warehouseId) {
+      query += `&WarehouseId=${warehouseId}`;
+    }
+    if (quieries) {
+      query += `&${quieries}`;
+    }
+    return this.httpService.get<PaginationVm<AdvancedSearchDto>>(query);
+  }
 }
 

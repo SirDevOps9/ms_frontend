@@ -261,18 +261,17 @@ loadLookups(){
           itemId: selectedItem.itemId,
           itemVariantId: selectedItem.itemVariantId ,
           uomId: selectedItem.uomId ,
-          uomOptions: selectedItem.itemsUOM || [],
-          description: selectedItem.description ,
+          uomOptions: selectedItem.itemsUOM ,
+          description: selectedItem.itemName+"-" +selectedItem.itemVariantNameEn ,
           AllTotalQuantity: selectedItem.totalQuantity ,
           cost: selectedItem.cost ,
           subCost: selectedItem.subCost ,
           notes: selectedItem.notes ,
           stockOutEntryMode: selectedItem.stockOutEntryMode ,
           trackingType: selectedItem.trackingType ,
-          trackingNo: selectedItem.trackingNo ,
+          trackingNo: selectedItem.trackingNo || '',
           hasExpiryDate: selectedItem.hasExpiryDate ,
-          expireDate: selectedItem.expireDate||null ,
-
+          expireDate: selectedItem.expireDate ,
           availability: selectedItem.availability 
         });
 
@@ -280,11 +279,11 @@ loadLookups(){
         const stockOutTrackingGroup = rowForm.get('stockOutTracking') as FormGroup;
         if (stockOutTrackingGroup) {
           stockOutTrackingGroup.patchValue({
-            batchNo: selectedItem.stockOutTracking?.batchNo ,
-            expireDate: selectedItem.stockOutTracking?.expireDate ,
-            quantity: selectedItem.stockOutTracking?.quantity ,
-            serialId: selectedItem.stockOutTracking?.serialId ,
-            trackingType: selectedItem.stockOutTracking?.trackingType ,
+            batchNo: selectedItem.stockOutTracking?.batchNo || '',
+            expireDate: selectedItem.stockOutTracking?.expireDate ||null,
+            quantity: selectedItem.stockOutTracking?.quantity || '',
+            serialId: selectedItem.stockOutTracking?.serialId || '',
+            trackingType: selectedItem.stockOutTracking?.trackingType || '',
             hasExpiryDate: selectedItem.hasExpiryDate ,
             serialOptions: selectedItem.serials,
             batchesOptions: selectedItem.batches
@@ -314,13 +313,14 @@ loadLookups(){
           }
         }
       }
-      rowForm.get('itemName')?.setValue(selectedItem.itemCode + "-" + selectedItem.itemName )
+      rowForm.get('itemName')?.setValue(selectedItem.itemCode + "-" + selectedItem.itemName + "-" +selectedItem.itemVariantNameAr )
       this.setUomName(indexLine , rowForm.get('uomOptions')?.value )
       this.setExpiryDate(indexLine , selectedItem.batches , selectedItem.serialOptions )
       // Log the updated form value for debugging
       console.log(selectedItem ,"selectedItem.stockOutTracking?.batches");
       
       console.log('Updated row form:', rowForm.value);
+      this.isDuplicate(indexLine)
     }
 
   addNewRow() {
@@ -483,12 +483,24 @@ loadLookups(){
     const ref = this.dialog.open(SearchItemPopUpComponent, {
       width: 'auto',
       height: '600px',
+      data:this.addForm.get('warehouseId')?.value
     });
     ref.onClose.subscribe((selectedItems: any) => {
       console.log(selectedItems ,"llllllllll");
       
       if (selectedItems) {
   this.setRowDataFromPopup(indexLine ,selectedItems)
+      }
+    });
+  }
+  barcodeCanged(e: any , index:number) {
+    console.log(e,"kkkkkk");
+    
+    this.itemsService.getItemBarcodeForItem(e );
+    this.itemsService.sendItemBarcode$.subscribe((data) => {
+      if (data) {
+        console.log(data ,"555555");
+       this.setRowDataFromPopup(index ,data ) 
       }
     });
   }

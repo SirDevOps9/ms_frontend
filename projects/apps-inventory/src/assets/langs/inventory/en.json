@@ -476,5 +476,21 @@
   "expiryDate":"Expiry Date",
   "availability":"Availability",
   "noTracking": "No tracking"
+  },
+  "popupSearch":{
+    "ItemCode": "Item Code",
+    "ItemName": "Item Name",
+    "ItemUOM": "Item Unit of Measure",
+    "ItemVariant": "Item Variant",
+    "ItemCategory": "Item Category",
+    "IsStorable": "Is Storable",
+    "IsService": "Is Service",
+    "HasExpiryDate": "Has Expiry Date",
+    "Actions": "Actions",
+    "select": "select",
+    "search": "Search",
+    "ItemSearch": "Item Search"
+
   }
+
 }

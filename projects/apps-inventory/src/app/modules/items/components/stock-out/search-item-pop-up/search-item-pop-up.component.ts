@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
-import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ItemDto, SharedSalesEnums } from 'projects/apps-sales/src/app/modules/sales/models';
-import { PageInfo, PageInfoResult } from 'shared-lib';
+import { LanguageService, PageInfo, PageInfoResult } from 'shared-lib';
 import { ItemsService } from '../../../items.service';
 
 @Component({
@@ -17,20 +17,29 @@ export class SearchItemPopUpComponent {
   searchTerm: string = '';
   selectedRows: ItemDto[] = [];
   selectAll: boolean = false;
-
+  warehouseId:number
   filterForm: FormGroup = this.fb.group({
     categoryType: new FormControl(),
     hasExpiryDate: new FormControl(false),
   });
+  selectedLanguage: string
 
   constructor(
     public sharedEnums: SharedSalesEnums,
     private ref: DynamicDialogRef,
     private fb: FormBuilder,
-    private itemsService: ItemsService
+    private itemsService: ItemsService,
+    public config: DynamicDialogConfig,
+    private languageService:LanguageService
+
+
   ) {}
 
   ngOnInit(): void {
+    if (this.config.data) {
+      console.log(this.config.data);
+    this.warehouseId = this.config.data
+    }
     this.subscribes();
     this.initItemsData();
     this.filterForm.valueChanges.subscribe(() => {
@@ -39,24 +48,31 @@ export class SearchItemPopUpComponent {
   }
 
   subscribes() {
-    this.itemsService.itemsList.subscribe({
+    this.languageService.language$.subscribe((lang)=>[
+      this.selectedLanguage=lang
+     ])
+    this.itemsService.itemsListByWarehouse.subscribe({
       next: (res:any) => {
         this.items = res;
+        console.log(this.items ,"ssssssssssssss");
+        
       },
   });
 
     this.itemsService.currentPageInfo.subscribe((currentPageInfo) => {
       this.currentPageInfo = currentPageInfo;
+      console.log(this.currentPageInfo ,"this.currentPageInfothis.currentPageInfothis.currentPageInfo");
+      
     });
   }
 
   initItemsData() {
-    this.itemsService.getItems('', '', new PageInfo());
+    this.itemsService.getItemsStockOutByWarehouse('', '', this.warehouseId, new PageInfo());
   }
   
 
   onPageChange(pageInfo: PageInfo) {
-    this.itemsService.getItems('', '', pageInfo);
+    this.itemsService.getItemsStockOutByWarehouse('', '', this.warehouseId, pageInfo);
   }
 
   onSubmit() {
@@ -79,10 +95,10 @@ export class SearchItemPopUpComponent {
 
   onFilterChange() {
     const query = this.buildQuery();
-    this.itemsService.getItems(query, '', new PageInfo());
+    this.itemsService.getItemsStockOutByWarehouse(query, '',this.warehouseId, new PageInfo());
   }
   onSearchChange(event: any) {
-    this.itemsService.getItems('', event, new PageInfo());
+    this.itemsService.getItemsStockOutByWarehouse('', event,this.warehouseId, new PageInfo());
   }
 
   buildQuery(): string {

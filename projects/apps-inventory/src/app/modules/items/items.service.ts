@@ -192,6 +192,8 @@ export class ItemsService {
   public attributeValuesData = new BehaviorSubject<itemAttributeValues[]>([]);
   private itemsDataSource = new BehaviorSubject<AdvancedSearchDto[]>([]);
   public itemsList = this.itemsDataSource.asObservable();
+  private itemsDataSourceByWarehouse = new BehaviorSubject<AdvancedSearchDto[]>([]);
+  public itemsListByWarehouse = this.itemsDataSourceByWarehouse.asObservable();
 
   public exportedItemDefinitionListDataSource = new BehaviorSubject<itemDefinitionDto[]>([]);
   // warehouse
@@ -1637,4 +1639,28 @@ exportStockOutList(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
       this.latestItemsListByWarehouse.next(res)
     })
   }
+  // getItemsStockOutByWarehouse(quieries: string, searchTerm: string ,id:number , pageInfo: PageInfo ) {
+  //   this.itemProxy.getItemsStockOut(quieries, searchTerm , id, pageInfo ).subscribe((res) => {
+  //     this.itemsDataSourceByWarehouse.next(res.result);
+  //     this.currentPageInfo.next(res.pageInfoResult);
+  //   });
+  // }
+  getItemsStockOutByWarehouse(queries: string, searchTerm: string, id: number, pageInfo: PageInfo) {
+    this.itemProxy.getItemsStockOut(queries, searchTerm, id, pageInfo).subscribe((res:any) => {
+      this.itemsDataSourceByWarehouse.next(res);
+    });
+  }
+  // getItemsStockOutByWarehouse(
+  //   quieries: string,
+  //   searchTerm: string,
+  //   warehouseId: number,
+  //   pageInfo: PageInfo
+  // ): void {
+  //   this.itemProxy.getItemsStockOut(quieries, searchTerm, warehouseId, pageInfo).subscribe((res) => {
+  //     if (res) {
+  //       this.itemsDataSourceByWarehouse.next(res.result);
+  //       this.currentPageInfo.next(res.pageInfoResult);
+  //     }
+  //   });
+  // }
 }
