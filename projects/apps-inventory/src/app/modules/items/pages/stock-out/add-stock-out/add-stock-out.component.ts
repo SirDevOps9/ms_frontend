@@ -387,9 +387,17 @@ loadLookups(){
 
   onSave() {
     if (!this.formsService.validForm(this.addForm, false)) return;
+    if(this.stockOutDetailsFormArray.value.length==0){
+      this.toasterService.showError(
+        this.languageService.transalte('messages.error'),
+        this.languageService.transalte('messages.noItemsToAdd')
+      );
+    }else{
+      const data:AddStockOutDto =this.mapStockOutData(this.addForm.value)
+      this.itemsService.addStockOut(data, this.addForm);
+    }
 
-   const data:AddStockOutDto =this.mapStockOutData(this.addForm.value)
-   this.itemsService.addStockOut(data, this.addForm);
+   
 
   }
   mapStockOutData(data:any){
