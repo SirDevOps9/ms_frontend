@@ -65,6 +65,7 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { ImportStockInComponent } from './pages/stock-In/import-stock-in/import-stock-in.component';
 import { SearchItemPopUpComponent } from './components/stock-out/search-item-pop-up/search-item-pop-up.component';
 import { ViewStockOutComponent } from './pages/stock-out/view-stock-out/view-stock-out.component';
+import { ViewStockInComponent } from './pages/stock-In/view-stock-in/view-stock-in.component';
 
 const routes: Routes = [
   {
@@ -325,6 +326,15 @@ const routes: Routes = [
               breadcrumb: BreadcrumbLabel.ADD_ITEM_DIFINITION,
             },
           },
+          {
+            path: 'view/:id',
+            component: ViewStockOutComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.VIEW_STOCKOUT,
+              pageTitle: BreadcrumbLabel.VIEW_STOCKOUT,
+
+            },
+          }
         ],
       },
     ],
@@ -385,7 +395,8 @@ const routes: Routes = [
     ScanParcodeStockInComponent,
     ImportStockInComponent,
     SearchItemPopUpComponent,
-    ViewStockOutComponent
+    ViewStockOutComponent,
+    ViewStockInComponent
   ],
   imports: [
     CommonModule,

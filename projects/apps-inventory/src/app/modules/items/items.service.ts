@@ -258,6 +258,13 @@ export class ItemsService {
   public sendItemCategoryDataSourceObs = this.sendItemCategoryDataSource.asObservable();
   public tagLookupObs = this.tagLookup.asObservable();
   public defaultUnitObs = this.defaultUnit.asObservable();
+  public stockOutDataViewSource = new BehaviorSubject<StockOutDto[]>([]);
+
+  stockOutDataViewSourceeObservable = this.stockOutDataViewSource.asObservable();
+
+  public stockInDataViewSource = new BehaviorSubject<StockInDto[]>([]);
+
+  stockInDataViewSourceeObservable = this.stockInDataViewSource.asObservable();
 
   public ItemVariantsByIdObs = this.ItemVariantsById.asObservable();
   public ItemAttributesById$ = this.ItemAttributesById.asObservable();
@@ -338,8 +345,8 @@ export class ItemsService {
   public getInventoryData$ = this.getInventoryData.asObservable();
   public dataBarCodeByIdObs = this.dataBarCodeById.asObservable();
   public sendItemBarcode$ = this.sendItemBarcode.asObservable();
-  
-  
+
+
 public sendOperationalTagStockOutDropDown = new BehaviorSubject<{ id: number; name: string }[]>([]);
 public OperationalTagStockOut$ = this.sendOperationalTagStockOutDropDown.asObservable()
 
@@ -1512,6 +1519,17 @@ public OperationalTagStockOut$ = this.sendOperationalTagStockOutDropDown.asObser
     });
   }
 
+  getByIdViewStockOut(id:number) {
+    this.itemProxy.getByIdViewStockOut(id).subscribe((response:any) => {
+      this.stockOutDataViewSource.next(response);
+    });
+  }
+  getViwStockInById(id:number) {
+    this.itemProxy.getByIdViewStockIn(id).subscribe((response:any) => {
+      this.stockInDataViewSource.next(response);
+    });
+  }
+
   getStockOutById(id: number) {
     this.itemProxy.getByIdStockOut(id).subscribe((response: any) => {
       this.stockOutByIdDataSource.next(response);
@@ -1614,7 +1632,7 @@ exportStockOutList(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
       this.sendItemBarcode.next(res)
 
     })
-    
+
   }
   addStockOut(obj: AddStockOutDto,stockinForm : FormGroup) {
     this.itemProxy.addStockOut(obj).subscribe({
@@ -1627,12 +1645,12 @@ exportStockOutList(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
         this.router.navigateTo('transactions/stock-out');
       },
       error: (err) => {
-        
+
         this.formsService.setFormValidationErrors(stockinForm, err);
         this.loaderService.hide();
       },
     });
- 
+
   }
   getLatestItemsListByWarehouse(SearchTerm:string , id:number){
     return this.itemProxy.getLatestItemsListByWarehouse(SearchTerm,id).subscribe(res=>{

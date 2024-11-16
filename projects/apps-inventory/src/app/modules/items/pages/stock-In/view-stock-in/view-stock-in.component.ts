@@ -2,20 +2,18 @@ import { Component, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'microtec-auth-lib';
-import { DialogService } from 'primeng/dynamicdialog';
 import {  LanguageService, customValidators } from 'shared-lib';
 import { ItemsService } from '../../../items.service';
 import { Table } from 'primeng/table';
 
-
 @Component({
-  selector: 'app-view-stock-out',
-  templateUrl: './view-stock-out.component.html',
-  styleUrl: './view-stock-out.component.scss'
+  selector: 'app-view-stock-in',
+  templateUrl: './view-stock-in.component.html',
+  styleUrl: './view-stock-in.component.scss'
 })
-export class ViewStockOutComponent {
-  stockOutForm: FormGroup = new FormGroup({});
-  stockOutDataById: any;
+export class ViewStockInComponent {
+  stockInForm: FormGroup = new FormGroup({});
+  stockInDataById: any;
   currentLang: string;
   _routeid:number
   globalFilterFields: string[] = ['barCode', 'description', 'uomId', 'quantity', 'cost', 'subTotal', 'trackingType', 'notes'];
@@ -25,7 +23,6 @@ export class ViewStockOutComponent {
   currentPageData: any[] = [];
   constructor(
     public authService: AuthService,
-    private dialog: DialogService,
     private item_services:ItemsService,
     private langService: LanguageService,
     private fb: FormBuilder,
@@ -37,7 +34,7 @@ export class ViewStockOutComponent {
   ngOnInit(): void {
     this._routeid = this._route.snapshot.params['id'];
 
-    this.stockOutForm = this.fb.group({
+    this.stockInForm = this.fb.group({
       receiptDate: '',
       code: '',
       sourceDocumentType: '',
@@ -47,11 +44,11 @@ export class ViewStockOutComponent {
       stockInDetails: this.fb.array([]),
     });
 
-    this.getStockOutViewById();
+    this.getStockInViewById();
   }
 
   get stockOut(): FormArray {
-    return this.stockOutForm.get('stockInDetails') as FormArray;
+    return this.stockInForm.get('stockInDetails') as FormArray;
   }
 
   createStockOut(item: any): FormGroup {
@@ -65,7 +62,7 @@ export class ViewStockOutComponent {
       notes: [item.notes || ''],
       subTotal: [{ value: item.quantity * item.cost, disabled: true }],
       trackingType: '',
-      stockOutTracking: this.fb.group({
+      stockInTracking: this.fb.group({
         vendorBatchNo: [item.vendorBatchNo ||''],
         expireDate: [item.expireDate ||''],
         systemPatchNo: [item.systemPatchNo ||''],
@@ -74,11 +71,11 @@ export class ViewStockOutComponent {
       })
     });
   }
-  getStockOutViewById() {
-    this.item_services.getByIdViewStockOut(this._routeid);
-    this.item_services.stockOutDataViewSourceeObservable.subscribe((data: any) => {
-      if (data && data.stockOutDetails && Array.isArray(data.stockOutDetails)) {
-        this.stockOutForm.patchValue({
+  getStockInViewById() {
+    this.item_services.getViwStockInById(this._routeid);
+    this.item_services.stockInDataViewSourceeObservable.subscribe((data: any) => {
+      if (data && data.stockInDetails && Array.isArray(data.stockInDetails)) {
+        this.stockInForm.patchValue({
           receiptDate: data.receiptDate,
           code: data.code,
           sourceDocumentType: data.sourceDocumentType,
@@ -87,10 +84,10 @@ export class ViewStockOutComponent {
           notes: data.notes,
         });
 
-        this.stockOutForm.updateValueAndValidity();
+        this.stockInForm.updateValueAndValidity();
 
         this.stockOut.clear();
-        data.stockOutDetails.forEach((item: any) => {
+        data.stockInDetails.forEach((item: any) => {
           const formGroup = this.fb.group({
             barCode: [item.barCode],
             description: [item.description],
@@ -99,16 +96,17 @@ export class ViewStockOutComponent {
             cost: [item.cost],
             trackingType: [item.trackingType],
             hasExpiryDate: [item.hasExpiryDate],
-            batchNo: [item.stockOutTracking.batchNo],
-            serialId: [item.stockOutTracking.serialId],
-            expireDate: [item.stockOutTracking.expireDate],
+            systemPatchNo: [item.stockInTracking.systemPatchNo],
+            vendorBatchNo: [item.stockInTracking.vendorBatchNo],
+            serialId: [item.stockInTracking.serialId],
+            expireDate: [item.stockInTracking.expireDate],
             notes: [item.notes],
           });
           this.stockOut.push(formGroup);
         });
         this.updateCurrentPageData();
       }
-      this.stockOutDataById = data;
+      this.stockInDataById = data;
     });
   }
 

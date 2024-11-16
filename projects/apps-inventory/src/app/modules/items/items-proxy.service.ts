@@ -642,6 +642,15 @@ export class ItemsProxyService {
   getByIdStockOut(id: number) {
     return this.httpService.get(`StockOut/${id}`);
   }
+
+  getByIdViewStockIn(id:number){
+    return this.httpService.get(`StockIn/GetStockInViewById/${id}`)
+  }
+
+  getByIdViewStockOut(id:number){
+    return this.httpService.get(`StockOut/GetStockOutViewById/${id}`)
+  }
+
   getStockInById(id: number) {
     return this.httpService.get(`StockIn/${id}`);
   }

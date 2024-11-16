@@ -25,6 +25,8 @@ export class BreadcrumbLabel {
   static readonly PAYMENT_TERM_LIST = 'BreadCrumb.PaymentTermList';
   static readonly PAYMENT_TERM_Add = 'BreadCrumb.AddPaymentTerm';
   static readonly PAYMENT_TERM_Edit = 'BreadCrumb.EditPaymentTerm';
+  static VIEW_STOCKOUT = 'Stock Out View';
+  static VIEW_STOCKIN = 'Stock In View';
 
   static readonly TREASURY_LIST = 'BreadCrumb.Treasury';
   static readonly vendor_list = 'BreadCrumb.VendorCategory';
