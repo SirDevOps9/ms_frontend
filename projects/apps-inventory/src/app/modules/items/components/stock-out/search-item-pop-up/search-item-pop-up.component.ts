@@ -37,7 +37,6 @@ export class SearchItemPopUpComponent {
 
   ngOnInit(): void {
     if (this.config.data) {
-      console.log(this.config.data);
     this.warehouseId = this.config.data
     }
     this.subscribes();
@@ -54,14 +53,12 @@ export class SearchItemPopUpComponent {
     this.itemsService.itemsListByWarehouse.subscribe({
       next: (res:any) => {
         this.items = res;
-        console.log(this.items ,"ssssssssssssss");
         
       },
   });
 
     this.itemsService.currentPageInfo.subscribe((currentPageInfo) => {
       this.currentPageInfo = currentPageInfo;
-      console.log(this.currentPageInfo ,"this.currentPageInfothis.currentPageInfothis.currentPageInfo");
       
     });
   }
@@ -108,7 +105,6 @@ export class SearchItemPopUpComponent {
     const query: string[] = [];
 
     isStorable.forEach((checkbox: any) => {
-      console.log('Item', checkbox);
       query.push(`${checkbox}=${checkbox}`);
     });
     

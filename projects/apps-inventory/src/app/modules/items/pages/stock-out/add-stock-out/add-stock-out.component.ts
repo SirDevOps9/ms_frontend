@@ -76,13 +76,11 @@ duplicateLine :boolean;
      ])
     this.lookupservice.lookups.subscribe((l) => {
       this.lookups = l;   
-      console.log(l)   
     });
     this.addForm.get('sourceDocumentType')?.valueChanges.subscribe(res=>{
       let data = this.lookups[LookupEnum.StockInOutSourceDocumentType]
     let sourceDocumentTypeData = data.find(elem=>elem.id == res)
       if(sourceDocumentTypeData?.name == 'OperationalTag') {
-        console.log("444444444");
         
         this.itemsService.OperationalTagDropDown()
         this.itemsService.sendOperationalTagDropDown$.subscribe(res=>{
@@ -140,7 +138,6 @@ loadLookups(){
         return;
       }
 
-      console.log('Selected Item:', selectedItem);
 
       // Ensure row form controls are present before updating
       if (rowForm) {
@@ -204,11 +201,7 @@ loadLookups(){
       }
       rowForm.get('itemName')?.setValue(selectedItem.itemCode + "-" + selectedItem.itemName + "-" +selectedItem.itemVariantNameAr )
       this.setUomName(indexLine , rowForm.get('uomOptions')?.value )
-      this.setExpiryDate(indexLine , selectedItem.batches , selectedItem.serialOptions )
-      // Log the updated form value for debugging
-      console.log(selectedItem ,"selectedItem.stockOutTracking?.batches");
-      
-      console.log('Updated row form:', rowForm.value);
+      this.setExpiryDate(indexLine , selectedItem.batches , selectedItem.serialOptions )      
       this.isDuplicate(indexLine)
     }
     isDuplicate(rowIndex:number){
@@ -316,10 +309,6 @@ loadLookups(){
       rowForm.get('itemName')?.setValue(selectedItem.itemCode + "-" + selectedItem.itemName + "-" +selectedItem.itemVariantNameAr )
       this.setUomName(indexLine , rowForm.get('uomOptions')?.value )
       this.setExpiryDate(indexLine , selectedItem.batches , selectedItem.serialOptions )
-      // Log the updated form value for debugging
-      console.log(selectedItem ,"selectedItem.stockOutTracking?.batches");
-      
-      console.log('Updated row form:', rowForm.value);
       this.isDuplicate(indexLine)
     }
 
@@ -401,7 +390,6 @@ loadLookups(){
 
   }
   mapStockOutData(data:any){
-    console.log(data.stockOutDetails,"lllll");
     
       return {
         receiptDate: data.receiptDate,
@@ -444,21 +432,17 @@ loadLookups(){
       rowForm.get('trackingNo')?.setValue(event)
   }
   setExpiryDate(indexLine:number ,batchesOptions:any , serialsOptions:any){
-   console.log(indexLine,batchesOptions,serialsOptions,"kkkkkkkkkkkkkkkk" );
    
     const rowForm = this.stockOutDetailsFormArray.at(indexLine) as FormGroup;
     const selectedItem = batchesOptions?.find((item: any) => item.trackingNo == rowForm.get('trackingNo')?.value);
-   console.log(selectedItem ,"selectedItemselectedItemselectedItem");
    
     if( selectedItem!=undefined ){
-      console.log("trackingNotrackingNotrackingNo" ,selectedItem);
       rowForm.get('expiryDate')?.setValue(selectedItem.expiryDate)
       rowForm.get('totalQuantity')?.setValue(selectedItem.totalQuantity)
     }else{
       const serialOption   = rowForm.get('stockOutTracking')?.get('serialOptions')?.value
       const selectedItem = serialOption?.find((item: any) => item.trackingNo == rowForm.get('trackingNo')?.value);
       if( selectedItem!=undefined ){
-        console.log("trackingNotrackingNotrackingNo" ,selectedItem);
         rowForm.get('expiryDate')?.setValue(selectedItem.expiryDate)
         rowForm.get('totalQuantity')?.setValue(selectedItem.totalQuantity)
       }else{
@@ -474,7 +458,6 @@ loadLookups(){
   }
   setCostTotal(indexLine:number , e:any){
     const rowForm = this.stockOutDetailsFormArray.at(indexLine) as FormGroup;
-      console.log(rowForm.get('quantity')?.value, indexLine ,e);
     
       rowForm.get('subCost')?.setValue(Number(rowForm.get('quantity')?.value)*Number(rowForm.get('cost')?.value))
 
@@ -494,7 +477,6 @@ loadLookups(){
       data:this.addForm.get('warehouseId')?.value
     });
     ref.onClose.subscribe((selectedItems: any) => {
-      console.log(selectedItems ,"llllllllll");
       
       if (selectedItems) {
   this.setRowDataFromPopup(indexLine ,selectedItems)
@@ -502,12 +484,10 @@ loadLookups(){
     });
   }
   barcodeCanged(e: any , index:number) {
-    console.log(e,"kkkkkk");
     
     this.itemsService.getItemBarcodeForItem(e );
     this.itemsService.sendItemBarcode$.subscribe((data) => {
       if (data) {
-        console.log(data ,"555555");
        this.setRowDataFromPopup(index ,data ) 
       }
     });
