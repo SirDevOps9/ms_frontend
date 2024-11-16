@@ -66,6 +66,10 @@ import { ImportStockInComponent } from './pages/stock-In/import-stock-in/import-
 import { SearchItemPopUpComponent } from './components/stock-out/search-item-pop-up/search-item-pop-up.component';
 import { ViewStockOutComponent } from './pages/stock-out/view-stock-out/view-stock-out.component';
 import { ViewStockInComponent } from './pages/stock-In/view-stock-in/view-stock-in.component';
+import { MainStockInListComponentComponent } from './pages/stock-In/main-stock-in-list-component/main-stock-in-list-component.component';
+import { StockInListComponent } from './pages/stock-In/stock-in-list/stock-in-list.component';
+import { AddStockInComponent } from './pages/stock-In/add-stock-in/add-stock-in.component';
+import { EditStockInComponent } from './pages/stock-In/edit-stock-in/edit-stock-in.component';
 
 const routes: Routes = [
   {
@@ -316,14 +320,16 @@ const routes: Routes = [
             component: AddStockOutComponent,
             data: {
               breadcrumb: BreadcrumbLabel.ADD_STOCKOUT,
-              pageTitle: BreadcrumbLabel.TITLE_ADD_STOCKOUT,
+              pageTitle: BreadcrumbLabel.ADD_STOCKOUT,
             },
           },
           {
             path: 'edit/:id',
             component: EditStockOutComponent,
+
             data: {
-              breadcrumb: BreadcrumbLabel.ADD_ITEM_DIFINITION,
+              breadcrumb: BreadcrumbLabel.EDI_STOCK_OUT,
+              pageTitle: BreadcrumbLabel.EDI_STOCK_OUT,
             },
           },
           {
@@ -332,6 +338,45 @@ const routes: Routes = [
             data: {
               breadcrumb: BreadcrumbLabel.VIEW_STOCKOUT,
               pageTitle: BreadcrumbLabel.VIEW_STOCKOUT,
+
+            },
+          }
+        ],
+      },
+      {
+        path: 'stock-in',
+        component: MainStockInListComponentComponent,
+        data: {
+          breadcrumb: BreadcrumbLabel.STOCKIN,
+          pageTitle: BreadcrumbLabel.STOCKIN,
+        },
+        children: [
+          {
+            path: '',
+            component: StockInListComponent,
+            data: { breadcrumb: '', pageTitle: BreadcrumbLabel.STOCKIN },
+          },
+          {
+            path: 'add',
+            component: AddStockInComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.ADD_STOCKOUT,
+              pageTitle: BreadcrumbLabel.TITLE_ADD_STOCKOUT,
+            },
+          },
+          {
+            path: 'edit/:id',
+            component: EditStockInComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.ADD_ITEM_DIFINITION,
+            },
+          },
+          {
+            path: 'view/:id',
+            component: ViewStockInComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.VIEW_STOCKIN,
+              pageTitle: BreadcrumbLabel.VIEW_STOCKIN,
 
             },
           }
