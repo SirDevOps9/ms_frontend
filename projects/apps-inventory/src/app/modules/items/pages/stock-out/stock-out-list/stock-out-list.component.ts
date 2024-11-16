@@ -58,12 +58,12 @@ export class StockOutListComponent implements OnInit {
   }
 
   onAdd() {
-    this.routerService.navigateTo(`masterdata/stock-out/add`)
+    this.routerService.navigateTo(`transactions/stock-out/add`)
 
   }
 
   onEdit(data: any) {
-    this.routerService.navigateTo(`masterdata/stock-out/edit/${data.id}`)
+    this.routerService.navigateTo(`transactions/stock-out/edit/${data.id}`)
 
   }
 
@@ -77,7 +77,7 @@ export class StockOutListComponent implements OnInit {
   }
 
   onDelete(id: number) {
-    // this.itemsService.deleteStockIn(id)
+    this.itemsService.deleteStockOut(id)
   }
   exportedColumns(obj: { SortBy: number; SortColumn: string }) {
     this.SortBy = obj.SortBy;

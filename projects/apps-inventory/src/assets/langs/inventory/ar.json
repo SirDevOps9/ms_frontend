@@ -1,4 +1,12 @@
 {
+  "messages": {
+  "success": "نجاح",
+  "error": "خطأ",
+  "noItemSelected": "لم يتم تحديد عنصر للتعديل.",
+  "noItemsToAdd": "لا توجد عناصر للإضافة",
+  "successfully": "تمت العملية بنجاح.",
+  "duplicateItem": "يوجد عنصر مكرر."
+},
   "BreadCrumb": {
     "ItemsCategory": "فئة العناصر",
     "stockout": "إخراج المخزون",
@@ -327,7 +335,7 @@
     "cancel": "إلغاء",
     "delete": "تم حذف الإدخال بنجاح",
     "success": "نجاح",
-    "add": "تم إضافة الإدخال بنجاح",
+    "add": "تمت إضافة الإدخال بنجاح",
     "edits": "تم تعديل الإدخال بنجاح",
     "code": "الكود",
     "date": "التاريخ",
@@ -336,7 +344,7 @@
     "warehouse": "المستودع",
     "status": "الحالة",
     "journalCode": "كود اليومية",
-    "reserve": "كمية الاحتياطي",
+    "reserve": "الكمية المحجوزة",
     "actions": "الإجراءات",
     "Add": "إنشاء",
     "search": "بحث",
@@ -346,14 +354,33 @@
     "barcode": "الباركود",
     "itemCode": "كود الصنف",
     "itemDescription": "وصف الصنف",
-    "UOM": "وحدة القياس",
+    "UOM": "الوحدة",
     "QTY": "الكمية",
     "cost": "التكلفة",
     "subTotal": "الإجمالي الفرعي",
     "tracking": "التتبع",
     "note": "ملاحظة",
     "action": "إجراء",
-    "btnReserve": "احتياطي",
-    "btnReserved": "محجوز"
-  }
+    "btnReserve": "حجز",
+    "btnReserved": "محجوز",
+    "batch": "رقم الدفعة",
+    "serial": "رقم تسلسلي",
+    "expiryDate": "تاريخ الانتهاء",
+    "availability": "التوفر",
+    "noTracking": "بدون تتبع"
+  },
+  "popupSearch": {
+  "ItemCode": "كود الصنف",
+  "ItemName": "اسم الصنف",
+  "ItemUOM": "وحدة قياس الصنف",
+  "ItemVariant": "نوع الصنف",
+  "ItemCategory": "فئة الصنف",
+  "IsStorable": "قابل للتخزين",
+  "IsService": "خدمة",
+  "HasExpiryDate": "له تاريخ انتهاء",
+  "Actions": "الإجراءات",
+  "select": "اختيار",
+  "search": "بحث",
+  "ItemSearch": "بحث عن صنف"
+}
 }

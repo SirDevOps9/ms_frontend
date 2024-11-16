@@ -7,3 +7,28 @@
         width: 100%;
     }
 }
+.readOnly{
+    background-color: #f9fafb !important;
+    color: #B6BAC3 !important;
+}
+.Available{
+    color: #2B817C;
+    border: 1px solid #2B817C;
+    background-color: #fff;
+    border-radius: 16px;
+    padding: 10px;
+    text-align: center;
+
+}
+.unavailable{
+    color: #CC3F2D;
+    border: 1px solid #CC3F2D;
+    background-color: #fff;
+    border-radius: 16px;
+    padding: 10px;
+    text-align: center;
+}
+.error{
+    border: 2px solid red !important;
+    background-color: #ffe6e6 !important;
+  }

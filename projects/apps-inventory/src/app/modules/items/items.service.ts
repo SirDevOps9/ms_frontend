@@ -17,6 +17,7 @@ import {
   AddItemDefinitionDto,
   AddOperatioalTag,
   AddStockIn,
+  AddStockOutDto,
   AddVariantLine,
   AddWarehouse,
   AdvancedSearchDto,
@@ -184,12 +185,15 @@ export class ItemsService {
   public attributeGroupeDropDownLookup = new BehaviorSubject<{ id: number; name: string }[]>([]);
   public sendOperationalTagDropDown = new BehaviorSubject<OperationalStockIn[]>([]);
   public sendlatestItemsList = new BehaviorSubject<LatestItems[]>([]);
+  public latestItemsListByWarehouse= new BehaviorSubject<LatestItems[]>([]);
   public sendAddStockIn = new BehaviorSubject<AddStockIn>({} as AddStockIn);
   public updateAddStockIn = new BehaviorSubject<AddStockIn>({} as AddStockIn);
   public attributeValuesDropDownLookup = new BehaviorSubject<itemAttributeValues[]>([]);
   public attributeValuesData = new BehaviorSubject<itemAttributeValues[]>([]);
   private itemsDataSource = new BehaviorSubject<AdvancedSearchDto[]>([]);
   public itemsList = this.itemsDataSource.asObservable();
+  private itemsDataSourceByWarehouse = new BehaviorSubject<AdvancedSearchDto[]>([]);
+  public itemsListByWarehouse = this.itemsDataSourceByWarehouse.asObservable();
 
   public exportedItemDefinitionListDataSource = new BehaviorSubject<itemDefinitionDto[]>([]);
   // warehouse
@@ -276,6 +280,7 @@ export class ItemsService {
   public attributeGroupeDropDownLookup$ = this.attributeGroupeDropDownLookup.asObservable();
   public sendOperationalTagDropDown$ = this.sendOperationalTagDropDown.asObservable();
   public sendlatestItemsList$ = this.sendlatestItemsList.asObservable();
+  public latestItemsListByWarehouse$ = this.latestItemsListByWarehouse.asObservable();
   public sendAddStockIn$ = this.sendAddStockIn.asObservable();
   public updateAddStockIn$ = this.updateAddStockIn.asObservable();
   public attributeValuesDropDownLookupObs = this.attributeValuesDropDownLookup.asObservable();
@@ -333,6 +338,11 @@ export class ItemsService {
   public getInventoryData$ = this.getInventoryData.asObservable();
   public dataBarCodeByIdObs = this.dataBarCodeById.asObservable();
   public sendItemBarcode$ = this.sendItemBarcode.asObservable();
+  
+  
+public sendOperationalTagStockOutDropDown = new BehaviorSubject<{ id: number; name: string }[]>([]);
+public OperationalTagStockOut$ = this.sendOperationalTagStockOutDropDown.asObservable()
+
 
   getItemType(quieries: string, pageInfo: PageInfo) {
     this.itemProxy.getItemType(quieries, pageInfo).subscribe((response) => {
@@ -456,9 +466,7 @@ export class ItemsService {
             this.languageService.transalte('transactions.deleteStockOut')
           );
 
-          const currentCostCenter = this.sendStockOutDataSources.getValue();
-          const updatedCostCenter = currentCostCenter.filter((c) => c.id !== id);
-          this.sendStockOutDataSources.next(updatedCostCenter);
+          this.getAllStockOut('', new PageInfo());
         },
       });
     }
@@ -1527,19 +1535,19 @@ export class ItemsService {
     });
   }
 
-  getAllStockIn(quieries: string, pageInfo: PageInfo) {
-    this.itemProxy.getAllStockIn(quieries, pageInfo).subscribe((response) => {
-      this.stockInDataSource.next(response.result);
-      this.currentPageInfo.next(response.pageInfoResult);
-    });
-  }
-  exportStockOutList(searchTerm?: string, SortBy?: number, SortColumn?: string) {
-    this.itemProxy.exportStockOutList(searchTerm, SortBy, SortColumn).subscribe({
-      next: (res: any) => {
-        this.exportStockOutListDataSource.next(res);
-      },
-    });
-  }
+getAllStockIn(quieries: string, pageInfo: PageInfo) {
+  this.itemProxy.getAllStockIn(quieries, pageInfo).subscribe((response) => {
+    this.stockInDataSource.next(response.result);
+    this.currentPageInfo.next(response.pageInfoResult);
+  });
+}
+exportStockOutList(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
+  this.itemProxy.exportStockOutList(searchTerm ,SortBy,SortColumn).subscribe({
+    next: (res: any) => {
+      this.exportStockOutListDataSource.next(res);
+    },
+  });
+}
 
   exportStockInList(searchTerm?: string, SortBy?: number, SortColumn?: string) {
     this.itemProxy.exportStockInList(searchTerm, SortBy, SortColumn).subscribe({
@@ -1601,9 +1609,58 @@ export class ItemsService {
     });
   }
 
-  getItemBarcodeForItem(barcode: string) {
-    this.itemProxy.getItemBarcodeForItem(barcode).subscribe((res) => {
-      this.sendItemBarcode.next(res);
+  getItemBarcodeForItem(barcode : string) {
+    this.itemProxy.getItemBarcodeForItem(barcode).subscribe(res=>{
+      this.sendItemBarcode.next(res)
+
+    })
+    
+  }
+  addStockOut(obj: AddStockOutDto,stockinForm : FormGroup) {
+    this.itemProxy.addStockOut(obj).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('stockIn.success'),
+          this.languageService.transalte('stockIn.stockAdded')
+        );
+        this.loaderService.hide();
+        this.router.navigateTo('transactions/stock-out');
+      },
+      error: (err) => {
+        
+        this.formsService.setFormValidationErrors(stockinForm, err);
+        this.loaderService.hide();
+      },
+    });
+ 
+  }
+  getLatestItemsListByWarehouse(SearchTerm:string , id:number){
+    return this.itemProxy.getLatestItemsListByWarehouse(SearchTerm,id).subscribe(res=>{
+      this.latestItemsListByWarehouse.next(res)
+    })
+  }
+  // getItemsStockOutByWarehouse(quieries: string, searchTerm: string ,id:number , pageInfo: PageInfo ) {
+  //   this.itemProxy.getItemsStockOut(quieries, searchTerm , id, pageInfo ).subscribe((res) => {
+  //     this.itemsDataSourceByWarehouse.next(res.result);
+  //     this.currentPageInfo.next(res.pageInfoResult);
+  //   });
+  // }
+  getItemsStockOutByWarehouse(queries: string, searchTerm: string, id: number, pageInfo: PageInfo) {
+    this.itemProxy.getItemsStockOut(queries, searchTerm, id, pageInfo).subscribe((res:any) => {
+      this.itemsDataSourceByWarehouse.next(res);
     });
   }
+  // getItemsStockOutByWarehouse(
+  //   quieries: string,
+  //   searchTerm: string,
+  //   warehouseId: number,
+  //   pageInfo: PageInfo
+  // ): void {
+  //   this.itemProxy.getItemsStockOut(quieries, searchTerm, warehouseId, pageInfo).subscribe((res) => {
+  //     if (res) {
+  //       this.itemsDataSourceByWarehouse.next(res.result);
+  //       this.currentPageInfo.next(res.pageInfoResult);
+  //     }
+  //   });
+  // }
 }

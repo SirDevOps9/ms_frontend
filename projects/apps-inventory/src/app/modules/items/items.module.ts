@@ -63,6 +63,7 @@ import { MultiSelectItemStockInComponent } from './pages/stock-In/add-stock-in/m
 import { ScanParcodeStockInComponent } from './pages/stock-In/scan-parcode-stock-in/scan-parcode-stock-in.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { ImportStockInComponent } from './pages/stock-In/import-stock-in/import-stock-in.component';
+import { SearchItemPopUpComponent } from './components/stock-out/search-item-pop-up/search-item-pop-up.component';
 
 const routes: Routes = [
   {
@@ -382,6 +383,7 @@ const routes: Routes = [
     MultiSelectItemStockInComponent,
     ScanParcodeStockInComponent,
     ImportStockInComponent,
+    SearchItemPopUpComponent
   ],
   imports: [
     CommonModule,

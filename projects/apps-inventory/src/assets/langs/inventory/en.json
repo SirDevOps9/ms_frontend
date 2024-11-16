@@ -1,4 +1,12 @@
 {
+  "messages": {
+    "success": "Success",
+    "error": "Error",
+    "noItemSelected": "No item selected for editing.",
+    "noItemsToAdd": "No items to add",
+    "successfully": "Operation completed successfully.",
+    "duplicateItem": "There is a duplicated item."
+},
   "BreadCrumb": {
     "ItemsCategory": "Items Category",
     "stockout": "Stock Out",
@@ -462,6 +470,27 @@
     "note": "Note",
     "action": "Action",
     "btnReserve": "Reserve",
-    "btnReserved": "Reserved"
+    "btnReserved": "Reserved",
+    "batch":"batch no.",
+  "serial":"Serial",
+  "expiryDate":"Expiry Date",
+  "availability":"Availability",
+  "noTracking": "No tracking"
+  },
+  "popupSearch":{
+    "ItemCode": "Item Code",
+    "ItemName": "Item Name",
+    "ItemUOM": "Item Unit of Measure",
+    "ItemVariant": "Item Variant",
+    "ItemCategory": "Item Category",
+    "IsStorable": "Is Storable",
+    "IsService": "Is Service",
+    "HasExpiryDate": "Has Expiry Date",
+    "Actions": "Actions",
+    "select": "select",
+    "search": "Search",
+    "ItemSearch": "Item Search"
+
   }
+
 }
