@@ -110,10 +110,9 @@ export class ItemsService {
   stockOutDataSourceeObservable = this.stockOutDataSource.asObservable();
 
   public stockOutByIdDataSource = new BehaviorSubject<StockOutDto[]>([]);
-  public stockInByIdData = new BehaviorSubject<StockInDto>({} as StockInDto);
+
 
   stockOutByIdDataSourceeObservable = this.stockOutByIdDataSource.asObservable();
-  stockInByIdData$ = this.stockInByIdData.asObservable();
 
 
   public exportStockOutListDataSource = new BehaviorSubject<StockOutDto[]>([]);
@@ -211,6 +210,7 @@ export class ItemsService {
   // transactions
 
 
+
   sendStockOutDataSourcesObs = this.sendStockOutDataSources.asObservable();
 
   // lookups
@@ -281,7 +281,6 @@ export class ItemsService {
   public attributeNameDropDownLookupObs = this.attributeNameDropDownLookup.asObservable();
   public attributeGroupeDropDownLookup$ = this.attributeGroupeDropDownLookup.asObservable();
   public sendOperationalTagDropDown$ = this.sendOperationalTagDropDown.asObservable();
-  public sendlatestItemsList$ = this.sendlatestItemsList.asObservable();
   public latestItemsListByWarehouse$ = this.latestItemsListByWarehouse.asObservable();
   public updateAddStockIn$ = this.updateAddStockIn.asObservable();
   public attributeValuesDropDownLookupObs = this.attributeValuesDropDownLookup.asObservable();
@@ -354,6 +353,21 @@ public OperationalTagStockOut$ = this.sendOperationalTagStockOutDropDown.asObser
     });
   }
 
+  OperationalTagDropDown() {
+    return this.itemProxy.operationTagDropdown().subscribe((res) => {
+      this.sendOperationalTagDropDown.next(res);
+    });
+  }
+
+  getItemBarcodeForItem(barcode : string) {
+    this.itemProxy.getItemBarcodeForItem(barcode).subscribe(res=>{
+      this.sendItemBarcode.next(res)
+
+    })
+    
+  }
+
+
   getItemBarcodeById(id: number) {
     this.itemProxy.getItemBarcodeById(id).subscribe({
       next: (res: any) => {
@@ -386,56 +400,7 @@ public OperationalTagStockOut$ = this.sendOperationalTagStockOutDropDown.asObser
     );
   }
 
-  async deleteStockInLine(id: number) {
-    try {
-      const confirmed = await this.toasterService.showConfirm(
-        this.languageService.transalte('ConfirmButtonTexttodelete')
-      );
 
-      if (confirmed) {
-        await firstValueFrom(this.itemProxy.deleteStockInLine(id));
-
-        // Show success message
-        this.toasterService.showSuccess(
-          this.languageService.transalte('stockIn.success'),
-          this.languageService.transalte('stockIn.deleteStockInLine')
-        );
-
-        const currentData = this.stockInByIdData.getValue();
-
-        if (currentData && currentData.stockInDetails) {
-          const updatedStockInDetails = currentData.stockInDetails.filter(
-            (detail: any) => detail.id !== id
-          );
-
-          const updatedData = {
-            ...currentData,
-            stockInDetails: updatedStockInDetails,
-          };
-
-          this.stockInByIdData.next(updatedData);
-        }
-      }
-    } catch (error) {}
-  }
-
-  async deleteStockIn(id: number) {
-    try {
-      const confirmed = await this.toasterService.showConfirm(
-        this.languageService.transalte('ConfirmButtonTexttodelete')
-      );
-
-      if (confirmed) {
-        await firstValueFrom(this.itemProxy.deleteStockIn(id));
-
-        // Show success message
-        this.toasterService.showSuccess(
-          this.languageService.transalte('transactions.success'),
-          this.languageService.transalte('transactions.deleteStockIn')
-        );
-      }
-    } catch (error) {}
-  }
   async deleteStockOut(id: number) {
     const confirmed = await this.toasterService.showConfirm(
       this.languageService.transalte('ConfirmButtonTexttodelete')
@@ -1499,11 +1464,7 @@ public OperationalTagStockOut$ = this.sendOperationalTagStockOutDropDown.asObser
       this.stockOutByIdDataSource.next(response);
     });
   }
-  getStockInById(id: number) {
-    this.itemProxy.getStockInById(id).subscribe((response: any) => {
-      this.stockInByIdData.next(response);
-    });
-  }
+
 
   editStockOut(obj: StockOutDto) {
     this.itemProxy.editStockOut(obj).subscribe({
@@ -1528,50 +1489,10 @@ exportStockOutList(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
 
 
 
-  OperationalTagDropDown() {
-    return this.itemProxy.operationTagDropdown().subscribe((res) => {
-      this.sendOperationalTagDropDown.next(res);
-    });
-  }
 
-  getLatestItemsList() {
-    return this.itemProxy.getLatestItemsList().subscribe((res) => {
-      this.sendlatestItemsList.next(res);
-    });
-  }
 
-  addStockIn(obj: AddStockIn, stockinForm: FormGroup) {
-    this.itemProxy.addStockIn(obj).subscribe({
-      next: (res) => {
-        this.toasterService.showSuccess(
-          this.languageService.transalte('stockIn.success'),
-          this.languageService.transalte('stockIn.stockAdded')
-        );
-        this.router.navigateTo('/transactions/stock-in');
-        this.loaderService.hide();
-      },
-      error: (err) => {
-        this.formsService.setFormValidationErrors(stockinForm, err);
-        this.loaderService.hide();
-      },
-    });
-  }
-  editStockIn(obj: AddStockIn, stockinForm: FormGroup) {
-    this.itemProxy.editStockIn(obj).subscribe({
-      next: (res) => {
-        this.toasterService.showSuccess(
-          this.languageService.transalte('stockIn.success'),
-          this.languageService.transalte('stockIn.stockEdit')
-        );
-        this.router.navigateTo('/transactions/stock-in');
-        this.loaderService.hide();
-      },
-      error: (err) => {
-        this.formsService.setFormValidationErrors(stockinForm, err);
-        this.loaderService.hide();
-      },
-    });
-  }
+
+ 
 
   getItems(quieries: string, searchTerm: string, pageInfo: PageInfo) {
     this.itemProxy.getItems(quieries, searchTerm, pageInfo).subscribe((res) => {
@@ -1580,13 +1501,7 @@ exportStockOutList(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
     });
   }
 
-  getItemBarcodeForItem(barcode : string) {
-    this.itemProxy.getItemBarcodeForItem(barcode).subscribe(res=>{
-      this.sendItemBarcode.next(res)
 
-    })
-    
-  }
   addStockOut(obj: AddStockOutDto,stockinForm : FormGroup) {
     this.itemProxy.addStockOut(obj).subscribe({
       next: (res) => {

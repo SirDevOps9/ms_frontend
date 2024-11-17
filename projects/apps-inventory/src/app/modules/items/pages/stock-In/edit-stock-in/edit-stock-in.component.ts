@@ -15,14 +15,16 @@ import {
   PageInfoResult,
   RouterService,
 } from 'shared-lib';
-import { ItemsService } from '../../../items.service';
 import { AddStockIn, GetWarehouseList, LatestItems, OperationalStockIn } from '../../../models';
-import { ImportStockInComponent } from '../import-stock-in/import-stock-in.component';
-import { ScanParcodeStockInComponent } from '../scan-parcode-stock-in/scan-parcode-stock-in.component';
+
 import { SharedFinanceEnums } from '../../../models/sharedEnumStockIn';
-import { MultiSelectItemStockInComponent } from '../add-stock-in/multi-select-item-stock-in/multi-select-item-stock-in.component';
-import { TrackingStockInComponent } from '../add-stock-in/tracking-stock-in/tracking-stock-in.component';
+
 import { ActivatedRoute } from '@angular/router';
+import { TransactionsService } from '../../../../transactions/transactions.service';
+import { ImportStockInComponent } from '../../../../transactions/components/import-stock-in/import-stock-in.component';
+import { ScanParcodeStockInComponent } from '../../../../transactions/components/scan-parcode-stock-in/scan-parcode-stock-in.component';
+import { MultiSelectItemStockInComponent } from '../../../../transactions/components/multi-select-item-stock-in/multi-select-item-stock-in.component';
+import { TrackingStockInComponent } from '../../../../transactions/components/tracking-stock-in/tracking-stock-in.component';
 
 @Component({
   selector: 'app-edit-stock-in',
@@ -67,7 +69,7 @@ export class EditStockInComponent implements OnInit {
     private dialog: DialogService,
     private title: Title,
     private langService: LanguageService,
-    private itemsService: ItemsService,
+    private transactionService: TransactionsService,
     private fb: FormBuilder,
     private lookupservice: LookupsService,
     private _route: ActivatedRoute,
@@ -105,8 +107,8 @@ export class EditStockInComponent implements OnInit {
       let data = this.lookups[LookupEnum.StockInOutSourceDocumentType];
       let sourceDocumentTypeData = data?.find((elem) => elem.id == res);
       if (sourceDocumentTypeData?.name == 'OperationalTag') {
-        this.itemsService.OperationalTagDropDown();
-        this.itemsService.sendOperationalTagDropDown$.subscribe((res) => {
+        this.transactionService.OperationalTagDropDown();
+        this.transactionService.sendOperationalTagDropDown$.subscribe((res) => {
           this.oprationalLookup = res;
           this.oprationalLookup = res.map((elem: any) => ({
             ...elem,
@@ -129,8 +131,8 @@ export class EditStockInComponent implements OnInit {
     this.addLineStockIn();
   }
   getListOfItems() {
-    this.itemsService.getLatestItemsList();
-    this.itemsService.sendlatestItemsList$.subscribe((res) => {
+    this.transactionService.getLatestItemsList();
+    this.transactionService.sendlatestItemsList$.subscribe((res) => {
       this.latestItemsList = res;
       if (res.length) {
         this.latestItemsList = res.map((elem: any) => ({
@@ -142,8 +144,8 @@ export class EditStockInComponent implements OnInit {
   }
 
   getStockInById(id: number) {
-    this.itemsService.getStockInById(id);
-    this.itemsService.stockInByIdData$.subscribe({
+    this.transactionService.getStockInById(id);
+    this.transactionService.stockInByIdData$.subscribe({
       next: (res: any) => {
         if (res) {
           // Patch main form values
@@ -216,8 +218,8 @@ export class EditStockInComponent implements OnInit {
   }
 
   initWareHouseLookupData() {
-    this.itemsService.getWareHousesDropDown();
-    this.itemsService.wareHousesDropDownLookup$.subscribe((res) => {
+    this.transactionService.getWareHousesDropDown();
+    this.transactionService.wareHousesDropDownLookup$.subscribe((res) => {
       this.warhouseLookupData = res;
     });
   }
@@ -418,10 +420,10 @@ export class EditStockInComponent implements OnInit {
       stockInDetails: this.stockIn.value,
     };
 
-    this.itemsService.editStockIn(data, this.stockInForm);
+    this.transactionService.editStockIn(data, this.stockInForm);
   }
   OnDelete(id: number) {
-    this.itemsService.deleteStockInLine(id);
+    this.transactionService.deleteStockInLine(id);
     // this.getStockInById(this.id);
   }
   deleteIndex(i: number) {
