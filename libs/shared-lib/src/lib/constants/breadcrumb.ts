@@ -125,8 +125,6 @@ export class BreadcrumbLabel {
   static ADD_STOCKIN = 'Add Stock In';
   static EDIT_STOCKIN = 'stockIn.edit_stock_in';
   static readonly STOCKOUT = 'BreadCrumb.stockout';
-  static readonly ADD_STOCKOUT = 'Add Stock Out';
-  static readonly TITLE_ADD_STOCKOUT = 'Add Stock Out';
   static EDI_STOCK_OUT = 'Edit Stock Out';
   static COST_CENTER = 'Cost Center';
   static PAYMENT_TERM_ADD = 'BreadCrumb.AddPaymentterm';
@@ -135,6 +133,8 @@ export class BreadcrumbLabel {
   static PAYMENT_METHOD_ADD = 'BreadCrumb.AddPaymentMethod';
   static PAYMENT_METHOD_EDIT = 'BreadCrumb.EditPaymentMethod';
   static PAYMENT_METHOD_VIEW = 'BreadCrumb.ViewPaymentMethod';
+  static readonly ADD_STOCKOUT = 'Add Stock Out';
+  static readonly TITLE_ADD_STOCKOUT = 'Add Stock Out';
 
   static PAYMENT_IN = 'BreadCrumb.PaymentIn';
   static ADD_PAYMENT_IN = 'PaymentIn.addpaymentin';
