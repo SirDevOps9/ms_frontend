@@ -1,0 +1,260 @@
+<lib-page-content>
+  <div class="user_page">
+    <div class="card_micro">
+      <form [formGroup]="itemTransactionForm">
+        <div class="group"></div>
+      </form>
+    </div>
+    <lib-data-table
+      [resizableColumns]="false"
+      [items]="tableData"
+      className="p-datatable-gridlines"
+      [reportTable]="true"
+      [noColumnFilter]="false"
+      [tableConfigs]="{
+        allowPagination: false,
+
+        allowServerPagination: false,
+        dataKey: 'id',
+        pageSize: 10,
+        columns: [
+          {
+            name: 'transaction Name',
+            headerText: ('itemCardReport.transactionName' | translate),
+            rowspan: '3',
+            template: accountCode,
+            class: 'center'
+          },
+          {
+            name: 'accountName',
+            headerText: ('itemCardReport.transactionCode' | translate),
+            rowspan: '3',
+            class: 'center',
+          },
+          {
+            name: 'accountName',
+            headerText: ('itemCardReport.serial' | translate),
+            rowspan: '3',
+            class: 'center',
+          },
+          {
+            name: 'accountName',
+            headerText: ('itemCardReport.batchNo' | translate),
+            rowspan: '3',
+            class: 'center',
+          },
+          {
+            name: 'accountName',
+            headerText: ('itemCardReport.expiryDate' | translate),
+            rowspan: '3',
+            class: 'center',
+          },
+
+          {
+            name: 'endingBalance',
+            headerText: ('itemCardReport.in' | translate),
+            colspan: '3',
+            class: 'left_Balance center',
+            children: [
+              {
+                name: 'debit',
+                headerText: ('itemCardReport.subTitles.QTY' | translate),
+                class: ' left_Balance debit center',
+                applyClass: false
+              },
+              {
+                name: 'debit',
+                headerText: ('itemCardReport.subTitles.cost' | translate),
+                class: ' left_Balance debit center',
+                applyClass: false
+              },
+              {
+                name: 'debit',
+                headerText: ('itemCardReport.subTitles.subTotal' | translate),
+                class: ' left_Balance debit center',
+                applyClass: false
+              },
+
+            ]
+          },
+          {
+            name: 'endingBalance',
+            headerText: ('itemCardReport.out' | translate),
+            colspan: '3',
+            class: 'left_Balance center',
+            children: [
+              {
+                name: 'debit',
+                headerText: ('itemCardReport.subTitles.QTY' | translate),
+                class: ' left_Balance debit center',
+                applyClass: false
+              },
+              {
+                name: 'debit',
+                headerText: ('itemCardReport.subTitles.cost' | translate),
+                class: ' left_Balance debit center',
+                applyClass: false
+              },
+              {
+                name: 'debit',
+                headerText: ('itemCardReport.subTitles.subTotal' | translate),
+                class: ' left_Balance debit center',
+                applyClass: false
+              },
+
+            ]
+          },
+        ]
+      }"
+    >
+      <ng-container search>
+        <div>
+          <lib-text-input
+            type="text"
+            [placeholder]="'Journal.search' | translate"
+            [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
+          >
+          </lib-text-input>
+        </div>
+      </ng-container>
+      <ng-container action>
+        <div class="flex gap-2">
+          <lib-button-micro
+            [title]="'reportTrial.viewData' | translate"
+            [nameClass]="itemTransactionForm.valid ? 'save' : 'disabled'"
+            iconName="pi pi-circle"
+            [ngClass]="{ disabled: !itemTransactionForm.valid }"
+            (click)="viewItemTransaction()"
+          >
+          </lib-button-micro>
+          <button class="btn_ex" (click)="printTable('printableTable')">
+            <span class="pi pi-print"></span>
+          </button>
+        </div>
+      </ng-container>
+      <ng-container caption>
+        <form [formGroup]="itemTransactionForm" (ngSubmit)="itemTransactionSubmit()">
+          <div class="group">
+            <!-- <div class="grid">
+              <div class="col-12 md:col-3">
+                <div class="container_checkbox" for="posted">
+                  <label for="posted" class="body_b16">
+                    {{ 'reportTrial.posted' | translate }}</label
+                  >
+
+                  <lib-input-switch
+                    formControlName="posted"
+                    binary="true"
+                    inputId="posted"
+                  ></lib-input-switch>
+                </div>
+              </div>
+            </div> -->
+          </div>
+        </form>
+      </ng-container>
+      <ng-template #accountName let-trial>
+        <div></div>
+      </ng-template>
+      <ng-template #accountCode let-trial>
+        <div></div>
+      </ng-template>
+    </lib-data-table>
+
+    <lib-table-print
+      id="printableTable"
+      resizableColumns="false"
+      [items]="tableData"
+      className="p-datatable-gridlines"
+      [tableConfigs]="{
+
+      allowServerPagination: false,
+      dataKey: 'id',
+        columns: [
+          {
+            name: 'transaction Name',
+            headerText: ('itemCardReport.transactionName' | translate),
+            rowspan: '3',
+            class: 'center'
+          },
+          {
+            name: 'accountName',
+            headerText: ('itemCardReport.transactionCode' | translate),
+            rowspan: '3',
+            class: 'center',
+          },
+          {
+            name: 'accountName',
+            headerText: ('itemCardReport.serial' | translate),
+            rowspan: '3',
+            class: 'center',
+          },
+          {
+            name: 'accountName',
+            headerText: ('itemCardReport.batchNo' | translate),
+            rowspan: '3',
+            class: 'center',
+          },
+          {
+            name: 'accountName',
+            headerText: ('itemCardReport.expiryDate' | translate),
+            rowspan: '3',
+            class: 'center',
+          },
+
+          {
+            name: 'endingBalance',
+            headerText: ('itemCardReport.in' | translate),
+            colspan: '3',
+            class: 'left_Balance center',
+            children: [
+              {
+                name: 'debit',
+                headerText: ('itemCardReport.subTitles.QTY' | translate),
+                class: ' left_Balance debit center',
+              },
+              {
+                name: 'debit',
+                headerText: ('itemCardReport.subTitles.cost' | translate),
+                class: ' left_Balance debit center',
+              },
+              {
+                name: 'debit',
+                headerText: ('itemCardReport.subTitles.subTotal' | translate),
+                class: ' left_Balance debit center',
+              },
+
+            ]
+          },
+          {
+            name: 'endingBalance',
+            headerText: ('itemCardReport.out' | translate),
+            colspan: '3',
+            class: 'left_Balance center',
+            children: [
+              {
+                name: 'debit',
+                headerText: ('itemCardReport.subTitles.QTY' | translate),
+                class: ' left_Balance debit center',
+              },
+              {
+                name: 'debit',
+                headerText: ('itemCardReport.subTitles.cost' | translate),
+                class: ' left_Balance debit center',
+              },
+              {
+                name: 'debit',
+                headerText: ('itemCardReport.subTitles.subTotal' | translate),
+                class: ' left_Balance debit center',
+              },
+
+            ]
+          },
+
+        ]
+      }"
+    >
+      <ng-container caption> </ng-container>
+    </lib-table-print>
+  </div>
+</lib-page-content>

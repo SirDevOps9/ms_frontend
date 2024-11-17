@@ -6,7 +6,7 @@
     "noItemsToAdd": "No items to add",
     "successfully": "Operation completed successfully.",
     "duplicateItem": "There is a duplicated item."
-},
+  },
   "BreadCrumb": {
     "ItemsCategory": "Items Category",
     "stockout": "Stock Out",
@@ -471,13 +471,31 @@
     "action": "Action",
     "btnReserve": "Reserve",
     "btnReserved": "Reserved",
-    "batch":"batch no.",
-  "serial":"Serial",
-  "expiryDate":"Expiry Date",
-  "availability":"Availability",
-  "noTracking": "No tracking"
+    "batch": "batch no.",
+    "serial": "Serial",
+    "expiryDate": "Expiry Date",
+    "availability": "Availability",
+    "noTracking": "No tracking"
   },
-  "popupSearch":{
+  "itemCardReport": {
+    "transactionName": "Transaction Name",
+    "transactionCode": "Transaction Code",
+    "serial": "Serial Number",
+    "batchNo": "Batch Number",
+    "expiryDate": "Expiry Date",
+    "in": "In",
+    "out": "Out",
+    "balance": "Balance",
+    "itemCost": "Item Cost",
+    "totalBalanceAmount": "Total Balance Amount",
+    "subTotal": "Subtotal",
+    "subTitles": {
+      "QTY": "Quantity",
+      "cost": "Cost",
+      "subTotal": "Subtotal"
+    }
+  },
+  "popupSearch": {
     "ItemCode": "Item Code",
     "ItemName": "Item Name",
     "ItemUOM": "Item Unit of Measure",
@@ -490,7 +508,5 @@
     "select": "select",
     "search": "Search",
     "ItemSearch": "Item Search"
-
   }
-
 }

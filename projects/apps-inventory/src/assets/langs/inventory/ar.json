@@ -1,12 +1,12 @@
 {
   "messages": {
-  "success": "نجاح",
-  "error": "خطأ",
-  "noItemSelected": "لم يتم تحديد عنصر للتعديل.",
-  "noItemsToAdd": "لا توجد عناصر للإضافة",
-  "successfully": "تمت العملية بنجاح.",
-  "duplicateItem": "يوجد عنصر مكرر."
-},
+    "success": "نجاح",
+    "error": "خطأ",
+    "noItemSelected": "لم يتم تحديد عنصر للتعديل.",
+    "noItemsToAdd": "لا توجد عناصر للإضافة",
+    "successfully": "تمت العملية بنجاح.",
+    "duplicateItem": "يوجد عنصر مكرر."
+  },
   "BreadCrumb": {
     "ItemsCategory": "فئة العناصر",
     "stockout": "إخراج المخزون",
@@ -369,18 +369,36 @@
     "availability": "التوفر",
     "noTracking": "بدون تتبع"
   },
+  "itemCardReport": {
+    "transactionName": "اسم المعاملة",
+    "transactionCode": "كود المعاملة",
+    "serial": "رقم تسلسلي",
+    "batchNo": "رقم الدفعة",
+    "expiryDate": "تاريخ الانتهاء",
+    "in": "دخول",
+    "out": "خروج",
+    "balance": "الرصيد",
+    "itemCost": "تكلفة الصنف",
+    "totalBalanceAmount": "الرصيد الكلي",
+    "subTotal": "الإجمالي الفرعي",
+    "subTitles": {
+      "QTY": "الكمية",
+      "cost": "التكلفة",
+      "subTotal": "الإجمالي الفرعي"
+    }
+  },
   "popupSearch": {
-  "ItemCode": "كود الصنف",
-  "ItemName": "اسم الصنف",
-  "ItemUOM": "وحدة قياس الصنف",
-  "ItemVariant": "نوع الصنف",
-  "ItemCategory": "فئة الصنف",
-  "IsStorable": "قابل للتخزين",
-  "IsService": "خدمة",
-  "HasExpiryDate": "له تاريخ انتهاء",
-  "Actions": "الإجراءات",
-  "select": "اختيار",
-  "search": "بحث",
-  "ItemSearch": "بحث عن صنف"
-}
+    "ItemCode": "كود الصنف",
+    "ItemName": "اسم الصنف",
+    "ItemUOM": "وحدة قياس الصنف",
+    "ItemVariant": "نوع الصنف",
+    "ItemCategory": "فئة الصنف",
+    "IsStorable": "قابل للتخزين",
+    "IsService": "خدمة",
+    "HasExpiryDate": "له تاريخ انتهاء",
+    "Actions": "الإجراءات",
+    "select": "اختيار",
+    "search": "بحث",
+    "ItemSearch": "بحث عن صنف"
+  }
 }
