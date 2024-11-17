@@ -1,4 +1,6 @@
-<ng-container *ngIf="configData?.tracking == 'NoTracking'">
+<ng-container
+  *ngIf="configData?.tracking == 'NoTracking' || configData?.trackingType == 'NoTracking'"
+>
   <lib-popup-page
     title="{{ 'stockIn.Expiry' | translate }}"
     [closeFunction]="onCancel"
@@ -110,7 +112,7 @@
     </div>
   </lib-popup-page>
 </ng-container>
-<ng-container *ngIf="configData?.tracking == 'Serial'">
+<ng-container *ngIf="configData?.tracking == 'Serial' || configData?.trackingType == 'Serial'">
   <lib-popup-page
     title="{{ 'stockIn.serial' | translate }}"
     [closeFunction]="onCancel"

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { AuthService } from 'microtec-auth-lib';
@@ -16,28 +16,23 @@ import {
   RouterService,
 } from 'shared-lib';
 import { ItemsService } from '../../../items.service';
-import {
-  AddStockIn,
-  GetWarehouseList,
-  LatestItems,
-  OperationalStockIn,
-  StockInDetail,
-} from '../../../models';
-import { TrackingStockInComponent } from './tracking-stock-in/tracking-stock-in.component';
-import { MultiSelectItemStockInComponent } from './multi-select-item-stock-in/multi-select-item-stock-in.component';
+import { AddStockIn, GetWarehouseList, LatestItems, OperationalStockIn } from '../../../models';
 import { ImportStockInComponent } from '../import-stock-in/import-stock-in.component';
 import { ScanParcodeStockInComponent } from '../scan-parcode-stock-in/scan-parcode-stock-in.component';
 import { SharedFinanceEnums } from '../../../models/sharedEnumStockIn';
-import { skip } from 'rxjs';
+import { MultiSelectItemStockInComponent } from '../add-stock-in/multi-select-item-stock-in/multi-select-item-stock-in.component';
+import { TrackingStockInComponent } from '../add-stock-in/tracking-stock-in/tracking-stock-in.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-add-stock-in',
-  templateUrl: './add-stock-in.component.html',
-  styleUrl: './add-stock-in.component.scss',
+  selector: 'app-edit-stock-in',
+  templateUrl: './edit-stock-in.component.html',
+  styleUrl: './edit-stock-in.component.scss',
 })
-export class AddStockInComponent implements OnInit {
+export class EditStockInComponent implements OnInit {
   stockInForm: FormGroup = new FormGroup({});
   LookupEnum = LookupEnum;
+  id: number = 0;
   lookups: { [key: string]: lookupDto[] };
   oprationalLookup: OperationalStockIn[] = [];
   selectedTraking: any = {};
@@ -58,7 +53,7 @@ export class AddStockInComponent implements OnInit {
     },
   ];
   exportSelectedCols: string[] = [];
-  latestItemsList: LatestItems[] = [];
+  latestItemsList: any[] = [];
   itemData: any;
   currentPageInfo: PageInfoResult = {};
   modulelist: MenuModule[];
@@ -66,8 +61,6 @@ export class AddStockInComponent implements OnInit {
   warhouseLookupData: GetWarehouseList[] = [];
   uomLookup: any = [];
   currentLang: string;
-  showError: boolean = false;
-  barcodeData: StockInDetail;
   constructor(
     private routerService: RouterService,
     public authService: AuthService,
@@ -77,16 +70,22 @@ export class AddStockInComponent implements OnInit {
     private itemsService: ItemsService,
     private fb: FormBuilder,
     private lookupservice: LookupsService,
+    private _route: ActivatedRoute,
     private router: RouterService,
-    public formService: FormsService,
-    public sharedFinanceEnums: SharedFinanceEnums
+    private formService: FormsService,
+    public sharedFinanceEnums: SharedFinanceEnums,
+    private cdr: ChangeDetectorRef
   ) {
     this.title.setTitle(this.langService.transalte('itemCategory.itemDefinition'));
     this.currentLang = this.langService.getLang();
+    this.id = Number(this._route.snapshot.paramMap.get('id'));
   }
   ngOnInit(): void {
+    this.getListOfItems();
+
     this.stockInForm = this.fb.group({
-      receiptDate: [new Date(), customValidators.required],
+      id: [this.id],
+      receiptDate: ['', customValidators.required],
       code: [''],
       sourceDocumentType: ['', customValidators.required],
       sourceDocumentId: ['', customValidators.required],
@@ -96,16 +95,15 @@ export class AddStockInComponent implements OnInit {
       stockInDetails: this.fb.array([]),
     });
 
-    this.stockInForm.valueChanges.subscribe((res) => {});
-
     this.lookupservice.loadLookups([LookupEnum.StockInOutSourceDocumentType]);
     this.lookupservice.lookups.subscribe((l) => {
       this.lookups = l;
+      this.cdr.detectChanges();
     });
 
     this.stockInForm.get('sourceDocumentType')?.valueChanges.subscribe((res) => {
       let data = this.lookups[LookupEnum.StockInOutSourceDocumentType];
-      let sourceDocumentTypeData = data.find((elem) => elem.id == res);
+      let sourceDocumentTypeData = data?.find((elem) => elem.id == res);
       if (sourceDocumentTypeData?.name == 'OperationalTag') {
         this.itemsService.OperationalTagDropDown();
         this.itemsService.sendOperationalTagDropDown$.subscribe((res) => {
@@ -125,21 +123,95 @@ export class AddStockInComponent implements OnInit {
 
     this.initWareHouseLookupData();
 
+    if (this.id) {
+      this.getStockInById(this.id);
+    }
+    this.addLineStockIn();
+  }
+  getListOfItems() {
     this.itemsService.getLatestItemsList();
     this.itemsService.sendlatestItemsList$.subscribe((res) => {
       this.latestItemsList = res;
       if (res.length) {
         this.latestItemsList = res.map((elem: any) => ({
           ...elem,
-          displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantName}`,
+          displayName: `${elem.itemName} (${elem.itemCode})`,
         }));
       }
     });
+  }
 
-    this.addLineStockIn();
+  getStockInById(id: number) {
+    this.itemsService.getStockInById(id);
+    this.itemsService.stockInByIdData$.subscribe({
+      next: (res: any) => {
+        if (res) {
+          // Patch main form values
+          this.stockInForm?.patchValue({
+            id: res?.id,
+            receiptDate: res?.receiptDate,
+            code: res?.code,
+            sourceDocumentType: res?.sourceDocumentType,
+            sourceDocumentId: res?.sourceDocumentId,
+            warehouseId: res?.warehouseId,
+            notes: res?.notes,
+          });
 
-    this.itemsService.sendItemBarcode$.pipe(skip(1)).subscribe((res) => {
-      this.barcodeData = res;
+          this.stockIn.clear();
+
+          if (res.stockInDetails && Array.isArray(res.stockInDetails)) {
+            res.stockInDetails?.forEach((detail: any) => {
+              this.patchUom(detail.itemId);
+              // let uomName = this.uomLookup?.find((item: any) => item.uomId == detail.uomId);
+
+              let uomName = this.uomLookup?.find((item: any) => item.uomId == detail.uomId);
+              const uomDisplayName = uomName
+                ? this.currentLang == 'en'
+                  ? uomName.uomNameEn
+                  : uomName.uomNameAr
+                : uomName.uomNameEn;
+
+              const stockInDetailGroup = this.createStockIn();
+              stockInDetailGroup.patchValue({
+                id: detail.id,
+                barCode: detail.barCode,
+                bardCodeId: detail.bardCodeId,
+                description: detail.description,
+                itemId: detail.itemId,
+                itemCodeName: this.latestItemsList.find((item) => item.itemId == detail.itemId)
+                  ?.itemCode,
+                itemVariantId: detail.itemVariantId,
+                uomName: uomDisplayName,
+                uomId: detail.uomId,
+                quantity: detail.quantity,
+                cost: detail.cost,
+                subTotal: detail.subTotal,
+                notes: detail.notes,
+                hasExpiryDate: detail.hasExpiryDate,
+                stockInEntryMode: detail.stockInEntryMode,
+                trackingType: detail.trackingType,
+                stockInTracking: {
+                  id: detail.stockInTracking.id,
+                  vendorBatchNo: detail.stockInTracking.vendorBatchNo,
+                  expireDate: detail.stockInTracking.expireDate,
+                  systemPatchNo: detail.stockInTracking.systemPatchNo,
+                  serialId: detail.stockInTracking.serialId,
+                  trackingType: detail.stockInTracking.trackingType,
+                  selectedValue: detail.stockInTracking.selectedValue,
+                },
+              });
+              this.patchUom(detail.itemId);
+              // this.displayUomPatched(detail.uomId);
+              this.stockIn.push(stockInDetailGroup);
+            });
+          } else {
+            console.warn('stockInDetails is undefined or not an array.');
+          }
+        }
+      },
+      error: (err) => {
+        console.error('Error fetching stock-in data', err);
+      },
     });
   }
 
@@ -161,10 +233,9 @@ export class AddStockInComponent implements OnInit {
     ref.onClose.subscribe((selectedItems: any[]) => {});
   }
 
-  onEdit(data: any) {}
-
   createStockIn() {
     return this.fb.group({
+      id: 0,
       barCode: '',
       bardCodeId: null,
       description: '',
@@ -181,6 +252,7 @@ export class AddStockInComponent implements OnInit {
       stockInEntryMode: 'Manual',
       trackingType: '',
       stockInTracking: this.fb.group({
+        id: null,
         vendorBatchNo: '',
         expireDate: null,
         systemPatchNo: '',
@@ -191,7 +263,21 @@ export class AddStockInComponent implements OnInit {
     });
   }
 
+  patchUom(e: any) {
+    let data = this.latestItemsList.find((item) => item.itemId == e);
+    this.itemData = data;
+    this.uomLookup = data?.itemsUOM;
+  }
+  displayUomPatched(e: string) {
+    let data = this.uomLookup.find((item: any) => item.uomId == e);
+
+    this.cdr.detectChanges();
+  }
+
   itemChanged(e: any, stockInFormGroup: FormGroup) {
+    debugger;
+
+    let formVal = stockInFormGroup.value;
     let data = this.latestItemsList.find((item) => item.itemId == e);
     this.itemData = data;
     this.uomLookup = data?.itemsUOM;
@@ -207,6 +293,22 @@ export class AddStockInComponent implements OnInit {
     stockInFormGroup.get('itemVariantId')?.setValue(data?.itemVariantId);
     stockInFormGroup.get('hasExpiryDate')?.setValue(data?.hasExpiryDate);
     stockInFormGroup.get('uomId')?.setValue(data?.uomId);
+    if (
+      stockInFormGroup.value.id == 0 &&
+      data?.trackingType == 'NoTracking' &&
+      data?.hasExpiryDate == false
+    ) {
+      stockInFormGroup.get('stockInTracking')?.get('id')?.setValue(0);
+    } else if (
+      stockInFormGroup.value.id != 0 &&
+      data?.trackingType == 'NoTracking' &&
+      data?.hasExpiryDate == false
+    ) {
+      let trackingId = formVal.stockInTracking.id;
+      console.log(trackingId);
+
+      stockInFormGroup.get('stockInTracking')?.get('id')?.setValue(trackingId);
+    }
     this.uomChanged(stockInFormGroup.get('uomId')?.value, stockInFormGroup);
     if (data?.hasExpiryDate) {
       stockInFormGroup
@@ -240,6 +342,7 @@ export class AddStockInComponent implements OnInit {
       stockInFormGroup.get('stockInTracking')?.get('serialId')?.clearValidators();
       stockInFormGroup.get('stockInTracking')?.get('serialId')?.updateValueAndValidity();
     }
+    this.cdr.detectChanges();
   }
   uomChanged(e: any, stockInFormGroup: FormGroup) {
     let data = this.uomLookup.find((item: any) => item.uomId == e);
@@ -247,11 +350,11 @@ export class AddStockInComponent implements OnInit {
     stockInFormGroup
       .get('uomName')
       ?.setValue(this.currentLang == 'en' ? data.uomNameEn : data.uomNameAr);
+    this.cdr.detectChanges();
   }
 
   addLineStockIn() {
     if (!this.formService.validForm(this.stockIn, false)) return;
-
     this.stockIn.push(this.createStockIn());
   }
 
@@ -269,30 +372,25 @@ export class AddStockInComponent implements OnInit {
     });
     ref.onClose.subscribe((selectedItems: any) => {
       if (selectedItems) {
-        this.itemChanged(selectedItems.itemId, stockInFormGroup);
-      }
-    });
-  }
-
-  // manual Barcode Event
-  barcodeCanged(e: any, stockInFormGroup: FormGroup) {
-    this.itemsService.getItemBarcodeForItem(e);
-    this.itemsService.sendItemBarcode$.pipe(skip(1)).subscribe((data) => {
-      if (data) {
-        stockInFormGroup.get('itemId')?.setValue(data.itemId);
-        this.itemChanged(data.itemId, stockInFormGroup);
+        this.cdr.detectChanges();
       }
     });
   }
 
   setTracking(setTracking: FormGroup) {
+    let patchedValue = setTracking.value.stockInTracking;
+
     const dialogRef = this.dialog.open(TrackingStockInComponent, {
       width: '60%',
       height: '450px',
       data: {
-        trackingType: setTracking.get('trackingType')?.value,
-        expiry: setTracking.get('hasExpiryDate')?.value,
-        trackingValue: setTracking.get('stockInTracking')?.get('selectedValue')?.value,
+        id: patchedValue.id ?? 0,
+        trackingType: patchedValue.trackingType,
+        expireDate: patchedValue.expireDate,
+        systemPatchNo: patchedValue.systemPatchNo,
+        serialId: patchedValue.serialId,
+        vendorBatchNo: patchedValue.vendorBatchNo,
+        trackingValue: patchedValue.trackingValue,
       },
     });
     dialogRef.onClose.subscribe((res: any) => {
@@ -301,12 +399,13 @@ export class AddStockInComponent implements OnInit {
 
         setTracking.get('stockInTracking')?.patchValue({ ...res });
         setTracking.get('stockInTracking')?.get('selectedValue')?.setValue(res);
+        this.cdr.detectChanges();
       }
     });
   }
 
   onCancel() {
-    this.router.navigateTo('/transactions/stock-in');
+    this.router.navigateTo('/masterdata/stock-in');
   }
 
   onSave() {
@@ -318,9 +417,14 @@ export class AddStockInComponent implements OnInit {
       sourceDocumentType: +this.stockInForm.value.sourceDocumentType,
       stockInDetails: this.stockIn.value,
     };
-    this.itemsService.addStockIn(data, this.stockInForm);
+
+    this.itemsService.editStockIn(data, this.stockInForm);
   }
-  OnDelete(i: number) {
+  OnDelete(id: number) {
+    this.itemsService.deleteStockInLine(id);
+    // this.getStockInById(this.id);
+  }
+  deleteIndex(i: number) {
     this.stockIn.removeAt(i);
   }
 }

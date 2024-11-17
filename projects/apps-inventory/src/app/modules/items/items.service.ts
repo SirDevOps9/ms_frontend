@@ -17,6 +17,7 @@ import {
   AddItemDefinitionDto,
   AddOperatioalTag,
   AddStockIn,
+  AddStockOutDto,
   AddVariantLine,
   AddWarehouse,
   AdvancedSearchDto,
@@ -65,7 +66,7 @@ export class ItemsService {
     private languageService: LanguageService,
     private router: RouterService,
     private loaderService: LoaderService,
-    private formsService:FormsService
+    private formsService: FormsService
   ) {}
   sendItemTypeDataSource = new BehaviorSubject<ItemTypeDto[]>([]);
   sendItemDefinitionDataSource = new BehaviorSubject<itemDefinitionDto[]>([]);
@@ -109,15 +110,16 @@ export class ItemsService {
   stockOutDataSourceeObservable = this.stockOutDataSource.asObservable();
 
   public stockOutByIdDataSource = new BehaviorSubject<StockOutDto[]>([]);
+  public stockInByIdData = new BehaviorSubject<StockInDto>({} as StockInDto);
 
   stockOutByIdDataSourceeObservable = this.stockOutByIdDataSource.asObservable();
+  stockInByIdData$ = this.stockInByIdData.asObservable();
 
 
   public exportStockOutListDataSource = new BehaviorSubject<StockOutDto[]>([]);
   public exportedStockOutDataSource = new BehaviorSubject<StockInDto[]>([]);
 
   exportStockOutListDataSourceObservable = this.exportStockOutListDataSource.asObservable();
-
 
 
 
@@ -185,10 +187,14 @@ export class ItemsService {
  
 
   public sendlatestItemsList = new BehaviorSubject<LatestItems[]>([]);
+  public latestItemsListByWarehouse= new BehaviorSubject<LatestItems[]>([]);
+  public updateAddStockIn = new BehaviorSubject<AddStockIn>({} as AddStockIn);
   public attributeValuesDropDownLookup = new BehaviorSubject<itemAttributeValues[]>([]);
   public attributeValuesData = new BehaviorSubject<itemAttributeValues[]>([]);
   private itemsDataSource = new BehaviorSubject<AdvancedSearchDto[]>([]);
   public itemsList = this.itemsDataSource.asObservable();
+  private itemsDataSourceByWarehouse = new BehaviorSubject<AdvancedSearchDto[]>([]);
+  public itemsListByWarehouse = this.itemsDataSourceByWarehouse.asObservable();
 
   public exportedItemDefinitionListDataSource = new BehaviorSubject<itemDefinitionDto[]>([]);
   // warehouse
@@ -276,6 +282,8 @@ export class ItemsService {
   public attributeGroupeDropDownLookup$ = this.attributeGroupeDropDownLookup.asObservable();
   public sendOperationalTagDropDown$ = this.sendOperationalTagDropDown.asObservable();
   public sendlatestItemsList$ = this.sendlatestItemsList.asObservable();
+  public latestItemsListByWarehouse$ = this.latestItemsListByWarehouse.asObservable();
+  public updateAddStockIn$ = this.updateAddStockIn.asObservable();
   public attributeValuesDropDownLookupObs = this.attributeValuesDropDownLookup.asObservable();
   public attributeValuesDataObs = this.attributeValuesData.asObservable();
   public addVariantLineDataObs = this.addVariantLineData.asObservable();
@@ -335,6 +343,9 @@ export class ItemsService {
   public sendItemBarcode$ = this.sendItemBarcode.asObservable();
   
   
+public sendOperationalTagStockOutDropDown = new BehaviorSubject<{ id: number; name: string }[]>([]);
+public OperationalTagStockOut$ = this.sendOperationalTagStockOutDropDown.asObservable()
+
 
   getItemType(quieries: string, pageInfo: PageInfo) {
     this.itemProxy.getItemType(quieries, pageInfo).subscribe((response) => {
@@ -374,7 +385,78 @@ export class ItemsService {
       }
     );
   }
+  getStockIn(quieries: string, pageInfo: PageInfo) {
+    this.loaderService.show();
+    this.itemProxy.getStockIn(quieries, pageInfo).subscribe(
+      (response) => {
+        this.sendStockInDataSources.next(response.result);
+        this.currentPageInfo.next(response.pageInfoResult);
+        this.loaderService.hide();
+      },
+      (erorr) => {
+        this.loaderService.hide();
+      }
+    );
+  }
+  exportsStockInList(searchTerm: string | undefined) {
+    this.itemProxy.exportsStockInList(searchTerm).subscribe({
+      next: (res: any) => {
+        console.log(res);
+        this.exportedStockInDataSource.next(res);
+      },
+    });
+  }
 
+  async deleteStockInLine(id: number) {
+    try {
+      const confirmed = await this.toasterService.showConfirm(
+        this.languageService.transalte('ConfirmButtonTexttodelete')
+      );
+
+      if (confirmed) {
+        await firstValueFrom(this.itemProxy.deleteStockInLine(id));
+
+        // Show success message
+        this.toasterService.showSuccess(
+          this.languageService.transalte('stockIn.success'),
+          this.languageService.transalte('stockIn.deleteStockInLine')
+        );
+
+        const currentData = this.stockInByIdData.getValue();
+
+        if (currentData && currentData.stockInDetails) {
+          const updatedStockInDetails = currentData.stockInDetails.filter(
+            (detail: any) => detail.id !== id
+          );
+
+          const updatedData = {
+            ...currentData,
+            stockInDetails: updatedStockInDetails,
+          };
+
+          this.stockInByIdData.next(updatedData);
+        }
+      }
+    } catch (error) {}
+  }
+
+  async deleteStockIn(id: number) {
+    try {
+      const confirmed = await this.toasterService.showConfirm(
+        this.languageService.transalte('ConfirmButtonTexttodelete')
+      );
+
+      if (confirmed) {
+        await firstValueFrom(this.itemProxy.deleteStockIn(id));
+
+        // Show success message
+        this.toasterService.showSuccess(
+          this.languageService.transalte('transactions.success'),
+          this.languageService.transalte('transactions.deleteStockIn')
+        );
+      }
+    } catch (error) {}
+  }
   async deleteStockOut(id: number) {
     const confirmed = await this.toasterService.showConfirm(
       this.languageService.transalte('ConfirmButtonTexttodelete')
@@ -387,9 +469,7 @@ export class ItemsService {
             this.languageService.transalte('transactions.deleteStockOut')
           );
 
-          const currentCostCenter = this.sendStockOutDataSources.getValue();
-          const updatedCostCenter = currentCostCenter.filter((c) => c.id !== id);
-          this.sendStockOutDataSources.next(updatedCostCenter);
+          this.getAllStockOut('', new PageInfo());
         },
       });
     }
@@ -1428,30 +1508,35 @@ export class ItemsService {
     }
   }
 
-getAllStockOut(quieries: string, pageInfo: PageInfo) {
-  this.itemProxy.getAllStockOut(quieries, pageInfo).subscribe((response) => {
-    this.stockOutDataSource.next(response.result);
-    this.currentPageInfo.next(response.pageInfoResult);
-  });
-}
+  getAllStockOut(quieries: string, pageInfo: PageInfo) {
+    this.itemProxy.getAllStockOut(quieries, pageInfo).subscribe((response) => {
+      this.stockOutDataSource.next(response.result);
+      this.currentPageInfo.next(response.pageInfoResult);
+    });
+  }
 
-getStockOutById(id:number) {
-  this.itemProxy.getByIdStockOut(id).subscribe((response:any) => {
-    this.stockOutByIdDataSource.next(response);
-  });
-}
+  getStockOutById(id: number) {
+    this.itemProxy.getByIdStockOut(id).subscribe((response: any) => {
+      this.stockOutByIdDataSource.next(response);
+    });
+  }
+  getStockInById(id: number) {
+    this.itemProxy.getStockInById(id).subscribe((response: any) => {
+      this.stockInByIdData.next(response);
+    });
+  }
 
-editStockOut(obj: StockOutDto) {
-  this.itemProxy.editStockOut(obj).subscribe({
-    next: (res: any) => {
-      this.editstockInDataSource.next(res);
-      this.toasterService.showSuccess(
-        this.languageService.transalte('stockOut.success'),
-        this.languageService.transalte('itemsCategory.edits')
-      );
-    },
-  });
-}
+  editStockOut(obj: StockOutDto) {
+    this.itemProxy.editStockOut(obj).subscribe({
+      next: (res: any) => {
+        this.editstockInDataSource.next(res);
+        this.toasterService.showSuccess(
+          this.languageService.transalte('stockOut.success'),
+          this.languageService.transalte('itemsCategory.edits')
+        );
+      },
+    });
+  }
 
 
 exportStockOutList(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
@@ -1462,8 +1547,13 @@ exportStockOutList(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
   });
 }
 
-
-
+  exportStockInList(searchTerm?: string, SortBy?: number, SortColumn?: string) {
+    this.itemProxy.exportStockInList(searchTerm, SortBy, SortColumn).subscribe({
+      next: (res: any) => {
+        this.exportStockInListDataSource.next(res);
+      },
+    });
+  }
 
   OperationalTagDropDown() {
     return this.itemProxy.operationTagDropdown().subscribe((res) => {
@@ -1477,6 +1567,38 @@ exportStockOutList(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
     });
   }
 
+  addStockIn(obj: AddStockIn, stockinForm: FormGroup) {
+    this.itemProxy.addStockIn(obj).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('stockIn.success'),
+          this.languageService.transalte('stockIn.stockAdded')
+        );
+        this.router.navigateTo('/transactions/stock-in');
+        this.loaderService.hide();
+      },
+      error: (err) => {
+        this.formsService.setFormValidationErrors(stockinForm, err);
+        this.loaderService.hide();
+      },
+    });
+  }
+  editStockIn(obj: AddStockIn, stockinForm: FormGroup) {
+    this.itemProxy.editStockIn(obj).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('stockIn.success'),
+          this.languageService.transalte('stockIn.stockEdit')
+        );
+        this.router.navigateTo('/transactions/stock-in');
+        this.loaderService.hide();
+      },
+      error: (err) => {
+        this.formsService.setFormValidationErrors(stockinForm, err);
+        this.loaderService.hide();
+      },
+    });
+  }
 
   getItems(quieries: string, searchTerm: string, pageInfo: PageInfo) {
     this.itemProxy.getItems(quieries, searchTerm, pageInfo).subscribe((res) => {
@@ -1492,4 +1614,51 @@ exportStockOutList(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
     })
     
   }
+  addStockOut(obj: AddStockOutDto,stockinForm : FormGroup) {
+    this.itemProxy.addStockOut(obj).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('stockIn.success'),
+          this.languageService.transalte('stockIn.stockAdded')
+        );
+        this.loaderService.hide();
+        this.router.navigateTo('transactions/stock-out');
+      },
+      error: (err) => {
+        
+        this.formsService.setFormValidationErrors(stockinForm, err);
+        this.loaderService.hide();
+      },
+    });
+ 
+  }
+  getLatestItemsListByWarehouse(SearchTerm:string , id:number){
+    return this.itemProxy.getLatestItemsListByWarehouse(SearchTerm,id).subscribe(res=>{
+      this.latestItemsListByWarehouse.next(res)
+    })
+  }
+  // getItemsStockOutByWarehouse(quieries: string, searchTerm: string ,id:number , pageInfo: PageInfo ) {
+  //   this.itemProxy.getItemsStockOut(quieries, searchTerm , id, pageInfo ).subscribe((res) => {
+  //     this.itemsDataSourceByWarehouse.next(res.result);
+  //     this.currentPageInfo.next(res.pageInfoResult);
+  //   });
+  // }
+  getItemsStockOutByWarehouse(queries: string, searchTerm: string, id: number, pageInfo: PageInfo) {
+    this.itemProxy.getItemsStockOut(queries, searchTerm, id, pageInfo).subscribe((res:any) => {
+      this.itemsDataSourceByWarehouse.next(res);
+    });
+  }
+  // getItemsStockOutByWarehouse(
+  //   quieries: string,
+  //   searchTerm: string,
+  //   warehouseId: number,
+  //   pageInfo: PageInfo
+  // ): void {
+  //   this.itemProxy.getItemsStockOut(quieries, searchTerm, warehouseId, pageInfo).subscribe((res) => {
+  //     if (res) {
+  //       this.itemsDataSourceByWarehouse.next(res.result);
+  //       this.currentPageInfo.next(res.pageInfoResult);
+  //     }
+  //   });
+  // }
 }

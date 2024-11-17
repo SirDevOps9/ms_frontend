@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { SharedFinanceEnums } from 'projects/apps-inventory/src/app/modules/items/models/sharedEnumStockIn';
 import { customValidators, FormsService } from 'shared-lib';
@@ -7,58 +7,65 @@ import { customValidators, FormsService } from 'shared-lib';
 @Component({
   selector: 'app-tracking-stock-in',
   templateUrl: './tracking-stock-in.component.html',
-  styleUrl: './tracking-stock-in.component.scss'
+  styleUrl: './tracking-stock-in.component.scss',
 })
 export class TrackingStockInComponent implements OnInit {
-constructor(private ref : DynamicDialogRef , private config : DynamicDialogConfig , private fb : FormBuilder , private formService  :FormsService ,      public sharedFinanceEnums: SharedFinanceEnums
-){}
-configData : any  = {}
+  configData: any = {};
+  trackingForm: FormGroup;
+
+  constructor(
+    private ref: DynamicDialogRef,
+    private config: DynamicDialogConfig,
+    private fb: FormBuilder,
+    public sharedFinanceEnums: SharedFinanceEnums,
+    private formService: FormsService
+  ) {}
   ngOnInit(): void {
-   this.trackingForm = this.fb.group({
-    stockInTracking : this.fb.array([])
-   })
-   
+    this.trackingForm = this.fb.group({
+      stockInTracking: this.fb.array([]),
+    });
+    debugger;
     this.configData = this.config.data;
-    console.log(this.configData.trackingValue)
+    console.log(this.configData);
 
-    this.tracking.push(this.createTracking(this.configData?.trackingValue ?? null))
+    if (this.configData.id || this.configData.id == 0) {
+      this.tracking.clear();
+      this.tracking.push(this.createTracking(this.configData));
+    } else {
+      this.tracking.push(this.createTracking(this.configData?.trackingValue ?? null));
 
-    if( this.config.data.expiry) {
-      this.tracking.controls[0].get('expireDate')?.setValidators(customValidators.required)
-      this.tracking.controls[0].get('expireDate')?.updateValueAndValidity()
+      if (this.config.data.expiry) {
+        this.tracking.controls[0].get('expireDate')?.setValidators(customValidators.required);
+        this.tracking.controls[0].get('expireDate')?.updateValueAndValidity();
+      }
+      if (this.config.data.tracking == this.sharedFinanceEnums.trackingType.Batch) {
+        this.tracking.controls[0].get('vendorBatchNo')?.setValidators(customValidators.required);
+        this.tracking.controls[0].get('vendorBatchNo')?.updateValueAndValidity();
+      }
+      if (this.config.data.tracking == this.sharedFinanceEnums.trackingType.Serial) {
+        this.tracking.controls[0].get('serialId')?.setValidators(customValidators.required);
+        this.tracking.controls[0].get('serialId')?.updateValueAndValidity();
+      }
     }
-    if(this.config.data.tracking == this.sharedFinanceEnums.trackingType.Batch ) {
-      this.tracking.controls[0].get('vendorBatchNo')?.setValidators(customValidators.required)
-      this.tracking.controls[0].get('vendorBatchNo')?.updateValueAndValidity()
-
-    }
-    if(this.config.data.tracking == this.sharedFinanceEnums.trackingType.Serial ) {
-      this.tracking.controls[0].get('serialId')?.setValidators(customValidators.required)
-      this.tracking.controls[0].get('serialId')?.updateValueAndValidity()
-
-    }
-
-
-
   }
-trackingForm : FormGroup
   onCancel() {
-    this.ref.close()
+    this.ref.close();
   }
   onSubmit() {
     if (!this.formService.validForm(this.tracking, false)) return;
 
-    this.ref.close(this.tracking.controls[0].value)
-    }
+    this.ref.close(this.tracking.controls[0].value);
+  }
 
-  createTracking(data? : any) {
+  createTracking(data?: any) {
     return this.fb.group({
+      id: data?.id ?? 0,
       vendorBatchNo: data?.vendorBatchNo ?? null,
-      expireDate: [data?.expireDate ?? null ],
+      expireDate: [data?.expireDate ?? null, customValidators.required],
       systemPatchNo: data?.systemPatchNo ?? null,
       serialId: data?.serialId ?? null,
-      trackingType: this.configData?.tracking
-    })
+      trackingType: this.configData?.trackingType,
+    });
   }
 
   get tracking() {

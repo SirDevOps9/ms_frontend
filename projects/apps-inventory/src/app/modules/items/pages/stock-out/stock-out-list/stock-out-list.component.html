@@ -1,7 +1,8 @@
 <lib-page-content [title]="'stockOut.TaxList' | translate" [subTitle]="'stockOut.TaxList' | translate">
     <div>
         <div class="user_page">
-            <lib-data-table (addNew)="onAdd()" [items]="tableData" className="p-datatable-gridlines"
+            <lib-data-table (addNew)="onAdd()" [sequence]="true"
+            [items]="tableData" className="p-datatable-gridlines"
                 [currentPageResult]="currentPageInfo" (exportObj)="exportedColumns($event)"
                 (pageChange)="onPageChange($event)" [tableConfigs]="{
             allowPagination: false,
