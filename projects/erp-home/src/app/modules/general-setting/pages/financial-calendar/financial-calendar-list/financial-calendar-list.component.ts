@@ -87,6 +87,6 @@ export class FinancialCalendarListComponent implements OnInit {
     });
   }
   onDelete(id: number) {
-    // this.accountService.deleteTax(id);
+    this.generalSettingService.deleteFinancialYear(id);
   }
 }

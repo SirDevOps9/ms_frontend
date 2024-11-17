@@ -95,11 +95,13 @@
           </div>
         </ng-template>
         <ng-template #actions let-actions>
-          <div class="actions flex align-items-center">
+          <div class="actions flex align-items-center gap-2">
             <lib-button-micro
             nameClass="table_button_edit"
             (click)="routeToEdit(actions.id)" >
 
+            </lib-button-micro>
+            <lib-button-micro nameClass="table_button_delete" (click)="onDelete(actions.id)">
             </lib-button-micro>
           </div>
         </ng-template>
