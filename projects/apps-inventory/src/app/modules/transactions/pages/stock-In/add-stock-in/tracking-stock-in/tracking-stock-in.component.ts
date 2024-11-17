@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { SharedFinanceEnums } from 'projects/apps-inventory/src/app/modules/items/models/sharedEnumStockIn';
 import { customValidators, FormsService } from 'shared-lib';
-import { SharedFinanceEnums } from '../../../../models/sharedEnumStockIn';
 
 @Component({
   selector: 'app-tracking-stock-in',

@@ -58,11 +58,7 @@ import { AddStockOutComponent } from './pages/stock-out/add-stock-out/add-stock-
 import { StockOutListComponent } from './pages/stock-out/stock-out-list/stock-out-list.component';
 import { EditStockOutComponent } from './pages/stock-out/edit-stock-out/edit-stock-out.component';
 import { ItemDefintionVariantComponent } from './pages/item-definition/item-defintion-variants/item-defintion-variant.component';
-import { TrackingStockInComponent } from './pages/stock-In/add-stock-in/tracking-stock-in/tracking-stock-in.component';
-import { MultiSelectItemStockInComponent } from './pages/stock-In/add-stock-in/multi-select-item-stock-in/multi-select-item-stock-in.component';
-import { ScanParcodeStockInComponent } from './pages/stock-In/scan-parcode-stock-in/scan-parcode-stock-in.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
-import { ImportStockInComponent } from './pages/stock-In/import-stock-in/import-stock-in.component';
 
 const routes: Routes = [
   {
@@ -393,10 +389,7 @@ const routes: Routes = [
     AddStockOutComponent,
     StockOutListComponent,
     EditStockOutComponent,
-    TrackingStockInComponent, 
-    MultiSelectItemStockInComponent,
-    ScanParcodeStockInComponent,
-    ImportStockInComponent
+   
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule ,     ZXingScannerModule // Add the ZXingScannerModule here
   ],
