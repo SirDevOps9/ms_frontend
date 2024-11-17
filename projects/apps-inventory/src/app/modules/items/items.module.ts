@@ -70,6 +70,7 @@ import { MainStockInListComponentComponent } from './pages/stock-In/main-stock-i
 import { StockInListComponent } from './pages/stock-In/stock-in-list/stock-in-list.component';
 import { AddStockInComponent } from './pages/stock-In/add-stock-in/add-stock-in.component';
 import { EditStockInComponent } from './pages/stock-In/edit-stock-in/edit-stock-in.component';
+import { ItemFixedCostComponent } from './pages/item-definition/item-fixed-cost/item-fixed-cost.component';
 
 const routes: Routes = [
   {
@@ -143,6 +144,18 @@ const routes: Routes = [
               pageTitle: BreadcrumbLabel.EditItembarcodedefinition,
             },
           },
+          {
+            path: 'fixed-cost/:id',
+            component: ItemFixedCostComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.EditItembarfixedcostfinition,
+              pageTitle: BreadcrumbLabel.EditItembarfixedcostfinition,
+            },
+          },
+
+
+
+
 
           {
             path: 'tax/:id',
@@ -441,7 +454,8 @@ const routes: Routes = [
     ImportStockInComponent,
     SearchItemPopUpComponent,
     ViewStockOutComponent,
-    ViewStockInComponent
+    ViewStockInComponent,
+    ItemFixedCostComponent
   ],
   imports: [
     CommonModule,

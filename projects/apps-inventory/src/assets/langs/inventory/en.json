@@ -91,7 +91,7 @@
     "salesAmount": "Sales Account",
     "salesReturnAmount": "Sales Return Account",
     "variantSelect": "Variant Select",
-
+    "fixedCost":"Fixed Cost",
     "success": "Success",
     "deleteVariant": "Attibute Group Deleted Successfully",
     "changeVariantStatus": "Attibute Group Status Changed Successfully",
@@ -155,6 +155,7 @@
     "delete": "Item Definition deleted successfully",
     "editGenerl": "Edit general updated successfully",
     "change": "Change",
+    "editFixedCost":"Edit fixed cost updated successfully",
     "baseUnit": "Base unit",
     "shortname": "Short Name",
     "conversionfactor": "Conversion factor",
@@ -431,6 +432,7 @@
     "deleteStockOut": "Stock Out deleted successfully",
     "success": "Success"
   },
+
   "global": {
     "activeOn": "On",
     "activeOff": "Off",

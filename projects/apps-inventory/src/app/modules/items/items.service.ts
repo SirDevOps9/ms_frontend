@@ -95,6 +95,8 @@ export class ItemsService {
   public taxesEditDataLookup = new BehaviorSubject<any[]>([]);
   public getInventoryData = new BehaviorSubject<any>([]);
   public dataBarCodeById = new BehaviorSubject<any[]>([]);
+
+  public dataFixedCostById =new BehaviorSubject<any[]>([]);
   public uomCodeLookup = new BehaviorSubject<UomCodeLookup[]>([]);
   public getuomById = new BehaviorSubject<addUOM>({} as addUOM);
   public ItemGetItemUomById = new BehaviorSubject<any[]>([]);
@@ -124,6 +126,7 @@ export class ItemsService {
 
   exportStockOutListDataSourceObservable = this.exportStockOutListDataSource.asObservable();
 
+   public dataFixedCostByIdObs = this.dataFixedCostById.asObservable()
   public exportStockInListDataSource = new BehaviorSubject<StockInDto[]>([]);
   exportStockInListDataSourceObservable = this.exportStockInListDataSource.asObservable();
 
@@ -178,6 +181,8 @@ export class ItemsService {
   public GetUomListByItemId = new BehaviorSubject<getUomByItemId[]>([]);
   public sendDefault = new BehaviorSubject<boolean>(false);
   public editItemData = new BehaviorSubject<any>(false);
+  public editItemFixedCostData  = new BehaviorSubject<any>(false);
+
   public updateUOMobj = new BehaviorSubject<addUOM>({} as addUOM);
   public updateAttrobj = new BehaviorSubject<addAttributeDifintion>({} as addAttributeDifintion);
   public updateUOMByIdobj = new BehaviorSubject<any>({});
@@ -250,6 +255,7 @@ export class ItemsService {
   public ViewDataItemUomByIdObs = this.ViewDataItemUomById.asObservable();
   public deleteAttrDifinitionDataObs = this.deleteAttrDifinitionData.asObservable();
   public itemCategoryLookupObs = this.itemCategoryLookup.asObservable();
+  public editItemFixedCostDataObs = this.editItemFixedCostData.asObservable()
   public AddItemCategoryLookupObs = this.AddItemCategoryLookup.asObservable();
   public itemsCategoryDeletedObs = this.itemsCategoryDeleted.asObservable();
   public EditItemCategoryDataObs = this.EditItemCategoryData.asObservable();
@@ -363,6 +369,15 @@ public OperationalTagStockOut$ = this.sendOperationalTagStockOutDropDown.asObser
       next: (res: any) => {
         console.log(res);
         this.dataBarCodeById.next(res);
+      },
+    });
+  }
+
+  getItemFixedCost(id: number) {
+    this.itemProxy.getItemFixedCost(id).subscribe({
+      next: (res: any) => {
+        console.log(res);
+        this.dataFixedCostById.next(res);
       },
     });
   }
@@ -1305,6 +1320,19 @@ public OperationalTagStockOut$ = this.sendOperationalTagStockOutDropDown.asObser
     });
   }
 
+  editItemFixedCost(obj: any) {
+    return this.itemProxy.editItemFixedCost(obj).subscribe((res) => {
+      if (res) {
+        this.editItemFixedCostData.next(res);
+        this.toasterService.showSuccess(
+          this.languageService.transalte('itemDefinition.success'),
+          this.languageService.transalte('itemDefinition.editFixedCost')
+        );
+        this.router.navigateTo(`/masterdata/item-definition`);
+      }
+    });
+  }
+
   //  warehouse
   getWarehouseList(queries: string, pageInfo: PageInfo) {
     this.itemProxy.getWarehouseList(queries, pageInfo).subscribe((response) => {
@@ -1328,8 +1356,11 @@ public OperationalTagStockOut$ = this.sendOperationalTagStockOutDropDown.asObser
     this.itemProxy.addWarehouse(obj).subscribe((res) => {
       if (res) {
         console.log(res);
-        this.languageService.transalte('warehouse.success'),
-          this.languageService.transalte('warehouse.add');
+        this.toasterService.showSuccess(
+          this.languageService.transalte('warehouse.success'),
+          this.languageService.transalte('warehouse.add')
+        );
+
         let dataRes: number = Number(res);
         console.log(dataRes);
         console.log(text);
