@@ -385,27 +385,6 @@ public OperationalTagStockOut$ = this.sendOperationalTagStockOutDropDown.asObser
       }
     );
   }
-  getStockIn(quieries: string, pageInfo: PageInfo) {
-    this.loaderService.show();
-    this.itemProxy.getStockIn(quieries, pageInfo).subscribe(
-      (response) => {
-        this.sendStockInDataSources.next(response.result);
-        this.currentPageInfo.next(response.pageInfoResult);
-        this.loaderService.hide();
-      },
-      (erorr) => {
-        this.loaderService.hide();
-      }
-    );
-  }
-  exportsStockInList(searchTerm: string | undefined) {
-    this.itemProxy.exportsStockInList(searchTerm).subscribe({
-      next: (res: any) => {
-        console.log(res);
-        this.exportedStockInDataSource.next(res);
-      },
-    });
-  }
 
   async deleteStockInLine(id: number) {
     try {
@@ -1547,13 +1526,7 @@ exportStockOutList(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
   });
 }
 
-  exportStockInList(searchTerm?: string, SortBy?: number, SortColumn?: string) {
-    this.itemProxy.exportStockInList(searchTerm, SortBy, SortColumn).subscribe({
-      next: (res: any) => {
-        this.exportStockInListDataSource.next(res);
-      },
-    });
-  }
+
 
   OperationalTagDropDown() {
     return this.itemProxy.operationTagDropdown().subscribe((res) => {

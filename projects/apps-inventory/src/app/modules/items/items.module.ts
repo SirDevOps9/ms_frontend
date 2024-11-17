@@ -375,10 +375,7 @@ const routes: Routes = [
     AddStockOutComponent,
     StockOutListComponent,
     EditStockOutComponent,
-    TrackingStockInComponent,
-    MultiSelectItemStockInComponent,
-    ScanParcodeStockInComponent,
-    ImportStockInComponent,
+
     SearchItemPopUpComponent
   ],
   imports: [
