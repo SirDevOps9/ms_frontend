@@ -169,9 +169,9 @@ export class EditStockInComponent implements OnInit {
               let uomName = this.uomLookup?.find((item: any) => item.uomId == detail.uomId);
               const uomDisplayName = uomName
                 ? this.currentLang == 'en'
-                  ? uomName.uomNameEn
-                  : uomName.uomNameAr
-                : uomName.uomNameEn;
+                  ? uomName?.uomNameEn
+                  : uomName?.uomNameAr
+                : uomName?.uomNameEn;
 
               const stockInDetailGroup = this.createStockIn();
               stockInDetailGroup.patchValue({
@@ -277,8 +277,6 @@ export class EditStockInComponent implements OnInit {
   }
 
   itemChanged(e: any, stockInFormGroup: FormGroup) {
-    debugger;
-
     let formVal = stockInFormGroup.value;
     let data = this.latestItemsList.find((item) => item.itemId == e);
     this.itemData = data;
@@ -307,7 +305,6 @@ export class EditStockInComponent implements OnInit {
       data?.hasExpiryDate == false
     ) {
       let trackingId = formVal.stockInTracking.id;
-      console.log(trackingId);
 
       stockInFormGroup.get('stockInTracking')?.get('id')?.setValue(trackingId);
     }
