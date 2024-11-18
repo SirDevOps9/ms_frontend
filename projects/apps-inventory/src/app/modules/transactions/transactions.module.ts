@@ -14,6 +14,11 @@ import { TrackingStockInComponent } from './components/tracking-stock-in/trackin
 import { AddStockInComponent } from './pages/stock-In/add-stock-in/add-stock-in.component';
 import { ImportStockInComponent } from './components/import-stock-in/import-stock-in.component';
 import { ScanParcodeStockInComponent } from './components/scan-parcode-stock-in/scan-parcode-stock-in.component';
+import { AddStockOutComponent } from '../items/pages/stock-out/add-stock-out/add-stock-out.component';
+import { EditStockOutComponent } from '../items/pages/stock-out/edit-stock-out/edit-stock-out.component';
+import { MainStockOutComponent } from '../items/pages/stock-out/main-stock-out/main-stock-out.component';
+import { StockOutListComponent } from '../items/pages/stock-out/stock-out-list/stock-out-list.component';
+import { ViewStockOutComponent } from '../items/pages/stock-out/view-stock-out/view-stock-out.component';
 
 const routes: Routes = [
   {
@@ -65,7 +70,48 @@ const routes: Routes = [
           },
         ],
       },
-    
+
+      {
+        path: 'stock-out',
+        component: MainStockOutComponent,
+        data: {
+          breadcrumb: BreadcrumbLabel.STOCKOUT,
+          pageTitle: BreadcrumbLabel.STOCKOUT,
+        },
+        children: [
+          {
+            path: '',
+            component: StockOutListComponent,
+            data: { breadcrumb: '', pageTitle: BreadcrumbLabel.STOCKOUT },
+          },
+          {
+            path: 'add',
+            component: AddStockOutComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.ADD_STOCKOUT,
+              pageTitle: BreadcrumbLabel.ADD_STOCKOUT,
+            },
+          },
+          {
+            path: 'edit/:id',
+            component: EditStockOutComponent,
+
+            data: {
+              breadcrumb: BreadcrumbLabel.EDI_STOCK_OUT,
+              pageTitle: BreadcrumbLabel.EDI_STOCK_OUT,
+            },
+          },
+          {
+            path: 'view/:id',
+            component: ViewStockOutComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.VIEW_STOCKOUT,
+              pageTitle: BreadcrumbLabel.VIEW_STOCKOUT,
+
+            },
+          }
+        ],
+      },
     ],
   },
 ];
@@ -73,7 +119,7 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    TrackingStockInComponent, 
+    TrackingStockInComponent,
     MultiSelectItemStockInComponent,
     ScanParcodeStockInComponent,
     ImportStockInComponent,
