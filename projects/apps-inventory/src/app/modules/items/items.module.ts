@@ -61,11 +61,11 @@ import { ItemDefintionVariantComponent } from './pages/item-definition/item-defi
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { SearchItemPopUpComponent } from './components/stock-out/search-item-pop-up/search-item-pop-up.component';
 import { ViewStockOutComponent } from './pages/stock-out/view-stock-out/view-stock-out.component';
-import { EditStockInComponent } from './pages/stock-In/edit-stock-in/edit-stock-in.component';
 import { ItemFixedCostComponent } from './pages/item-definition/item-fixed-cost/item-fixed-cost.component';
 import { MainStockInListComponentComponent } from '../transactions/components/main-stock-in-list-component/main-stock-in-list-component.component';
 import { AddStockInComponent } from '../transactions/pages/stock-In/add-stock-in/add-stock-in.component';
 import { StockInListComponent } from '../transactions/pages/stock-In/stock-in-list/stock-in-list.component';
+import { EditStockInComponent } from '../transactions/pages/stock-In/edit-stock-in/edit-stock-in.component';
 
 const routes: Routes = [
   {

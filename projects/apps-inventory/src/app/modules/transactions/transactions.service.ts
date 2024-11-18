@@ -232,6 +232,10 @@ export class TransactionsService {
     });
   }
 
-
+  getViwStockInById(id:number) {
+    this.transactionsProxy.getByIdViewStockIn(id).subscribe((response:any) => {
+      this.stockInDataViewSource.next(response);
+    });
+  }
 
 }

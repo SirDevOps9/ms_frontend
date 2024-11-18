@@ -5,7 +5,7 @@ import { AuthService } from 'microtec-auth-lib';
 import {  LanguageService, customValidators } from 'shared-lib';
 
 import { Table } from 'primeng/table';
-import { TransactionsService } from '../../transactions.service';
+import { TransactionsService } from '../../../transactions.service';
 
 @Component({
   selector: 'app-view-stock-in',

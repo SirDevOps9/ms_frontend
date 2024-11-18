@@ -19,7 +19,7 @@ import { EditStockOutComponent } from '../items/pages/stock-out/edit-stock-out/e
 import { MainStockOutComponent } from '../items/pages/stock-out/main-stock-out/main-stock-out.component';
 import { StockOutListComponent } from '../items/pages/stock-out/stock-out-list/stock-out-list.component';
 import { ViewStockOutComponent } from '../items/pages/stock-out/view-stock-out/view-stock-out.component';
-import { ViewStockInComponent } from './pages/view-stock-in/view-stock-in.component';
+import { ViewStockInComponent } from './pages/stock-In/view-stock-in/view-stock-in.component';
 
 const routes: Routes = [
   {
