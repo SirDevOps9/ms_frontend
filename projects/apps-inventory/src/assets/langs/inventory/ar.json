@@ -370,6 +370,7 @@
     "noTracking": "بدون تتبع"
   },
   "itemCardReport": {
+    "view": "عرض",
     "transactionName": "اسم المعاملة",
     "transactionCode": "كود المعاملة",
     "serial": "رقم تسلسلي",
@@ -385,7 +386,8 @@
       "QTY": "الكمية",
       "cost": "التكلفة",
       "subTotal": "الإجمالي الفرعي"
-    }
+    },
+    "QTYbalance": "رصيد الكمية"
   },
   "popupSearch": {
     "ItemCode": "كود الصنف",

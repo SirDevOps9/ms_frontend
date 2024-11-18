@@ -478,6 +478,7 @@
     "noTracking": "No tracking"
   },
   "itemCardReport": {
+    "view": "View",
     "transactionName": "Transaction Name",
     "transactionCode": "Transaction Code",
     "serial": "Serial Number",
@@ -493,7 +494,8 @@
       "QTY": "Quantity",
       "cost": "Cost",
       "subTotal": "Subtotal"
-    }
+    },
+    "QTYbalance": "QTY Balance"
   },
   "popupSearch": {
     "ItemCode": "Item Code",

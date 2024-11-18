@@ -2,7 +2,16 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DialogService } from 'primeng/dynamicdialog';
-import { DateTimeService, LanguageService, PrintService, ToasterService } from 'shared-lib';
+import {
+  customValidators,
+  DateTimeService,
+  LanguageService,
+  PrintService,
+  ToasterService,
+} from 'shared-lib';
+import { GetWarehouseList } from '../../../items/models';
+import { ItemsService } from '../../../items/items.service';
+import { SearchItemPopUpComponent } from '../../../items/components/stock-out/search-item-pop-up/search-item-pop-up.component';
 
 @Component({
   selector: 'app-item-card',
@@ -12,8 +21,8 @@ import { DateTimeService, LanguageService, PrintService, ToasterService } from '
 export class ItemCardComponent {
   itemTransactionForm: FormGroup;
   moreInfoForm: FormGroup;
-  // filteredAccounts: AccountsChildrenDropDown[] = [];
-  // defoultSelectedAcounts: number[] = [];
+  warhouseLookupData: GetWarehouseList[] = [];
+
   tableData: any[] = [];
   // reportsService = inject(ReportsService);
   constructor(
@@ -23,10 +32,13 @@ export class ItemCardComponent {
     private PrintService: PrintService,
     private dateTimeService: DateTimeService,
     private router: Router,
-    private dialog: DialogService
+    private dialog: DialogService,
+    private itemsService: ItemsService
   ) {}
   ngOnInit() {
     this.tableData = [];
+    this.initWareHouseLookupData();
+    this.moreInfoFormInitiate();
     this.itemTransactionFormInitiate();
   }
   printTable(id: string) {
@@ -39,10 +51,33 @@ export class ItemCardComponent {
     });
   }
 
-  moreInfoFormInitiate() {}
+  moreInfoFormInitiate() {
+    this.moreInfoForm = this.fb.group({
+      warehouseId: this.fb.control(''),
+    });
+  }
 
   itemTransactionSubmit() {}
+  initWareHouseLookupData() {
+    this.itemsService.getWareHousesDropDown();
+    this.itemsService.wareHousesDropDownLookup$.subscribe((res) => {
+      this.warhouseLookupData = res;
+    });
+  }
+
   viewItemTransaction() {}
 
-
+  openDialog(indexLine?: number) {
+    const ref = this.dialog.open(SearchItemPopUpComponent, {
+      width: 'auto',
+      height: '600px',
+      // data: this.addForm.get('warehouseId')?.value,
+    });
+    ref.onClose.subscribe((selectedItems: any) => {
+      if (selectedItems) {
+        console.log(selectedItems);
+        // this.setRowDataFromPopup(indexLine ,selectedItems)
+      }
+    });
+  }
 }
