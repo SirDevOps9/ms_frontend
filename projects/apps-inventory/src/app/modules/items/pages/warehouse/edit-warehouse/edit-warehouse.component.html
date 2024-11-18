@@ -84,11 +84,14 @@
             <div class="" style="width: 20%">
               <div class="sidebar">
                 <ul>
-                  <li [class.active]="account" (click)="findRoute()">
+                  <li [ngClass]="{ 'active': account }" (click)="toggleRoute(true)">
                     {{ 'warehouse.account' | translate }}
                   </li>
 
-                  <li [class.active]="showaddress" (click)="findRoute()" *ngIf="warehouseForm.get('warehouseType')?.value == 1 || showaddress">
+                  <li
+                    [ngClass]="{ 'active': showaddress }"
+                    (click)="toggleRoute(false)"
+                    *ngIf="warehouseForm.get('warehouseType')?.value == 1 || showaddress">
                     {{ 'warehouse.address' | translate }}
                   </li>
 

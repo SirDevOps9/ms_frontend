@@ -76,6 +76,9 @@ export class EditWarehouseComponent implements OnInit {
   this.getAccount()
   this.getBranchesLookup()
   this.getCcountriesDropdown()
+  this.warehouseForm.get('warehouseType')?.valueChanges.subscribe(value => {
+    this.showaddress = value == 1;
+  });
 }
 
 getWarehouseById() {
@@ -169,15 +172,30 @@ getWarehouseById() {
 
   account:boolean=true
   showaddress:boolean=false
-  findRoute() {
-    if(this.account ==true){
-      this.account = false
-      this.showaddress=true
-    }
-    else if ( this.showaddress=true){
-      this.account = true
-      this.showaddress=false
-    }
+  // showWarehouseType(){
+  //   if(this.warehouseForm.get('warehouseType')?.value == 1){
+  //     this.showaddress=true
+  //   }
+  // }
+
+
+toggleRoute(showAccount: boolean) {
+  if (this.warehouseForm.get('warehouseType')?.value == 1) {
+    this.account = showAccount;
+    this.showaddress = !showAccount;
   }
 
+  // findRouteAddress() {
+  //   if(this.warehouseForm.get('warehouseType')?.value == 1){
+  //     this.account = false
+  //     this.showaddress=true
+  //   }
+  // }
+  // findRouteAccount() {
+  //   if(this.warehouseForm.get('warehouseType')?.value == 1){
+  //     this.account = true
+  //     this.showaddress=false
+  //   }
+  // }
+}
 }
