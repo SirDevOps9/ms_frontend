@@ -76,9 +76,7 @@ export class EditWarehouseComponent implements OnInit {
   this.getAccount()
   this.getBranchesLookup()
   this.getCcountriesDropdown()
-  this.warehouseForm.get('warehouseType')?.valueChanges.subscribe(value => {
-    this.showaddress = value == 1;
-  });
+  this.showWarehouseType()
 }
 
 getWarehouseById() {
@@ -172,30 +170,21 @@ getWarehouseById() {
 
   account:boolean=true
   showaddress:boolean=false
-  // showWarehouseType(){
-  //   if(this.warehouseForm.get('warehouseType')?.value == 1){
-  //     this.showaddress=true
-  //   }
-  // }
-
-
-toggleRoute(showAccount: boolean) {
-  if (this.warehouseForm.get('warehouseType')?.value == 1) {
-    this.account = showAccount;
-    this.showaddress = !showAccount;
+  showWarehouseType(){
+    if(this.warehouseForm.get('warehouseType')?.value == 1){
+      this.showaddress=true
+    }
   }
-
-  // findRouteAddress() {
-  //   if(this.warehouseForm.get('warehouseType')?.value == 1){
-  //     this.account = false
-  //     this.showaddress=true
-  //   }
-  // }
-  // findRouteAccount() {
-  //   if(this.warehouseForm.get('warehouseType')?.value == 1){
-  //     this.account = true
-  //     this.showaddress=false
-  //   }
-  // }
-}
+  findRouteAddress() {
+    if(this.warehouseForm.get('warehouseType')?.value == 1){
+      this.account = false
+      this.showaddress=true
+    }
+  }
+  findRouteAccount() {
+    if(this.warehouseForm.get('warehouseType')?.value == 1){
+      this.account = true
+      this.showaddress=false
+    }
+  }
 }
