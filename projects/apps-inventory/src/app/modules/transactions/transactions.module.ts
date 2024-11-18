@@ -6,7 +6,7 @@ import { Modules, BreadcrumbLabel, Pages, SharedLibModule } from 'shared-lib';
 
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
-import { EditStockInComponent } from '../items/pages/stock-In/edit-stock-in/edit-stock-in.component';
+import { EditStockInComponent } from './pages/stock-In/edit-stock-in/edit-stock-in.component';
 import { MainStockInListComponentComponent } from './components/main-stock-in-list-component/main-stock-in-list-component.component';
 import { StockInListComponent } from './pages/stock-In/stock-in-list/stock-in-list.component';
 import { MultiSelectItemStockInComponent } from './components/multi-select-item-stock-in/multi-select-item-stock-in.component';
@@ -65,22 +65,20 @@ const routes: Routes = [
           },
         ],
       },
-    
     ],
   },
 ];
 
-
 @NgModule({
   declarations: [
-    TrackingStockInComponent, 
+    TrackingStockInComponent,
     MultiSelectItemStockInComponent,
     ScanParcodeStockInComponent,
     ImportStockInComponent,
     EditStockInComponent,
     MainStockInListComponentComponent,
-    StockInListComponent ,
-    AddStockInComponent
+    StockInListComponent,
+    AddStockInComponent,
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule, ZXingScannerModule],
 })

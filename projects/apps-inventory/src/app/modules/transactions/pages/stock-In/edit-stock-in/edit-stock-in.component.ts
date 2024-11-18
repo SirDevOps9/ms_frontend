@@ -15,16 +15,21 @@ import {
   PageInfoResult,
   RouterService,
 } from 'shared-lib';
-import { AddStockIn, GetWarehouseList, LatestItems, OperationalStockIn } from '../../../models';
+import {
+  AddStockIn,
+  GetWarehouseList,
+  LatestItems,
+  OperationalStockIn,
+} from '../../../../items/models';
 
-import { SharedFinanceEnums } from '../../../models/sharedEnumStockIn';
+import { SharedFinanceEnums } from '../../../../items/models/sharedEnumStockIn';
 
 import { ActivatedRoute } from '@angular/router';
-import { TransactionsService } from '../../../../transactions/transactions.service';
-import { ImportStockInComponent } from '../../../../transactions/components/import-stock-in/import-stock-in.component';
-import { ScanParcodeStockInComponent } from '../../../../transactions/components/scan-parcode-stock-in/scan-parcode-stock-in.component';
-import { MultiSelectItemStockInComponent } from '../../../../transactions/components/multi-select-item-stock-in/multi-select-item-stock-in.component';
-import { TrackingStockInComponent } from '../../../../transactions/components/tracking-stock-in/tracking-stock-in.component';
+import { TransactionsService } from '../../../transactions.service';
+import { ImportStockInComponent } from '../../../components/import-stock-in/import-stock-in.component';
+import { ScanParcodeStockInComponent } from '../../../components/scan-parcode-stock-in/scan-parcode-stock-in.component';
+import { MultiSelectItemStockInComponent } from '../../../components/multi-select-item-stock-in/multi-select-item-stock-in.component';
+import { TrackingStockInComponent } from '../../../components/tracking-stock-in/tracking-stock-in.component';
 
 @Component({
   selector: 'app-edit-stock-in',
@@ -169,9 +174,9 @@ export class EditStockInComponent implements OnInit {
               let uomName = this.uomLookup?.find((item: any) => item.uomId == detail.uomId);
               const uomDisplayName = uomName
                 ? this.currentLang == 'en'
-                  ? uomName.uomNameEn
-                  : uomName.uomNameAr
-                : uomName.uomNameEn;
+                  ? uomName?.uomNameEn
+                  : uomName?.uomNameAr
+                : uomName?.uomNameEn;
 
               const stockInDetailGroup = this.createStockIn();
               stockInDetailGroup.patchValue({
@@ -277,8 +282,6 @@ export class EditStockInComponent implements OnInit {
   }
 
   itemChanged(e: any, stockInFormGroup: FormGroup) {
-    debugger;
-
     let formVal = stockInFormGroup.value;
     let data = this.latestItemsList.find((item) => item.itemId == e);
     this.itemData = data;
@@ -307,7 +310,6 @@ export class EditStockInComponent implements OnInit {
       data?.hasExpiryDate == false
     ) {
       let trackingId = formVal.stockInTracking.id;
-      console.log(trackingId);
 
       stockInFormGroup.get('stockInTracking')?.get('id')?.setValue(trackingId);
     }
