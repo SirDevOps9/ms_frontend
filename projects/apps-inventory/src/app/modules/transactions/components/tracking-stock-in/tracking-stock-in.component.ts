@@ -25,9 +25,8 @@ export class TrackingStockInComponent implements OnInit {
       stockInTracking: this.fb.array([]),
     });
     this.configData = this.config.data;
-    console.log(this.configData);
 
-    if (this.configData.id == 0) {
+    if (this.configData.id || this.configData.id == 0) {
       this.tracking.clear();
       this.tracking.push(this.createTracking(this.configData));
     } else {

@@ -48,7 +48,7 @@
   </lib-popup-page>
 </ng-container>
 <!--  -->
-<ng-container *ngIf="configData?.tracking == 'Batch'">
+<ng-container *ngIf="configData?.tracking == 'Batch' || configData?.trackingType == 'Batch'">
   <lib-popup-page
     title="{{ 'stockIn.vendorBatchNo' | translate }}"
     [closeFunction]="onCancel"

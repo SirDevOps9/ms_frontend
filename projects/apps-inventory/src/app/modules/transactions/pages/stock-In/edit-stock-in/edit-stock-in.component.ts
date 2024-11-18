@@ -15,16 +15,21 @@ import {
   PageInfoResult,
   RouterService,
 } from 'shared-lib';
-import { AddStockIn, GetWarehouseList, LatestItems, OperationalStockIn } from '../../../models';
+import {
+  AddStockIn,
+  GetWarehouseList,
+  LatestItems,
+  OperationalStockIn,
+} from '../../../../items/models';
 
-import { SharedFinanceEnums } from '../../../models/sharedEnumStockIn';
+import { SharedFinanceEnums } from '../../../../items/models/sharedEnumStockIn';
 
 import { ActivatedRoute } from '@angular/router';
-import { TransactionsService } from '../../../../transactions/transactions.service';
-import { ImportStockInComponent } from '../../../../transactions/components/import-stock-in/import-stock-in.component';
-import { ScanParcodeStockInComponent } from '../../../../transactions/components/scan-parcode-stock-in/scan-parcode-stock-in.component';
-import { MultiSelectItemStockInComponent } from '../../../../transactions/components/multi-select-item-stock-in/multi-select-item-stock-in.component';
-import { TrackingStockInComponent } from '../../../../transactions/components/tracking-stock-in/tracking-stock-in.component';
+import { TransactionsService } from '../../../transactions.service';
+import { ImportStockInComponent } from '../../../components/import-stock-in/import-stock-in.component';
+import { ScanParcodeStockInComponent } from '../../../components/scan-parcode-stock-in/scan-parcode-stock-in.component';
+import { MultiSelectItemStockInComponent } from '../../../components/multi-select-item-stock-in/multi-select-item-stock-in.component';
+import { TrackingStockInComponent } from '../../../components/tracking-stock-in/tracking-stock-in.component';
 
 @Component({
   selector: 'app-edit-stock-in',
