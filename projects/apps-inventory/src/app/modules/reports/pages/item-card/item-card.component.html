@@ -9,57 +9,55 @@
                 <lib-label [appControl]="moreInfoForm.controls['warehouseId']">
                   {{ 'popupSearch.ItemCode' | translate }}
                 </lib-label>
-                <lib-select
-                  formControlName="warehouseId"
-                  [options]="warhouseLookupData"
-                  [selectedValue]="moreInfoForm.controls['warehouseId'].value"
-                  optionLabel="name"
-                  optionValue="id"
-                  placeholder=" {{ 'popupSearch.ItemCode' | translate }}"
-                >
-                </lib-select>
-                <i class="pi pi-search search-circle" (click)="openDialog()"></i>
+                <div class="grid justify-content-start align-items-center gap-1">
+                  <div class="col-10">
+                    <lib-select
+                      formControlName="itemId"
+                      [options]="filteredItems"
+                      optionValue="itemId"
+                      optionLabel="displayName"
+                      (valueChanged)="setRowData($event, filteredItems)"
+                      (valueSearchChanged)="onFilter($event, 'warehouseId')"
+                    >
+                    </lib-select>
+                  </div>
+                  <i class="pi pi-search search-circle col-1" (click)="openDialog()"></i>
+                </div>
               </lib-form-group>
-              <lib-field-validations [appControl]="moreInfoForm.controls['warehouseId']">
+              <lib-field-validations [appControl]="moreInfoForm.controls['itemId']">
               </lib-field-validations>
             </div>
             <div class="col-12 md:col-3">
               <lib-form-group>
-                <lib-label [appControl]="moreInfoForm.controls['warehouseId']">
+                <lib-label [appControl]="moreInfoForm.controls['itemName']">
                   {{ 'popupSearch.ItemName' | translate }}
                 </lib-label>
-                <lib-select
-                  formControlName="warehouseId"
-                  [options]="warhouseLookupData"
-                  [selectedValue]="moreInfoForm.controls['warehouseId'].value"
-                  optionLabel="name"
-                  optionValue="id"
+
+                <lib-text-input
                   placeholder="{{ 'popupSearch.ItemName' | translate }}"
                   [readOnly]="true"
-                >
-                </lib-select>
+                  formControlName="itemName"
+                ></lib-text-input>
               </lib-form-group>
               <lib-field-validations [appControl]="moreInfoForm.controls['warehouseId']">
               </lib-field-validations>
             </div>
             <div class="col-12 md:col-3">
               <lib-form-group>
-                <lib-label [appControl]="moreInfoForm.controls['warehouseId']">
-                  {{ 'itemType.uom' | translate }}
+                <lib-label [appControl]="moreInfoForm.controls['itemVariantName']">
+                  {{ 'popupSearch.ItemVariant' | translate }}
                 </lib-label>
-                <lib-select
-                  formControlName="warehouseId"
-                  [options]="warhouseLookupData"
-                  [selectedValue]="moreInfoForm.controls['warehouseId'].value"
-                  optionLabel="name"
-                  optionValue="id"
-                  placeholder="{{ 'itemType.uom' | translate }}"
-                >
-                </lib-select>
+
+                <lib-text-input
+                  placeholder="{{ 'popupSearch.ItemVariant' | translate }}"
+                  [readOnly]="true"
+                  formControlName="itemVariantName"
+                ></lib-text-input>
               </lib-form-group>
-              <lib-field-validations [appControl]="moreInfoForm.controls['warehouseId']">
+              <lib-field-validations [appControl]="moreInfoForm.controls['itemVariantName']">
               </lib-field-validations>
             </div>
+
             <div class="col-12 md:col-3">
               <lib-form-group>
                 <lib-label [appControl]="moreInfoForm.controls['warehouseId']">
@@ -67,7 +65,7 @@
                 </lib-label>
                 <lib-select
                   formControlName="warehouseId"
-                  [options]="warhouseLookupData"
+                  [options]="warehouseLookupData"
                   [selectedValue]="moreInfoForm.controls['warehouseId'].value"
                   optionLabel="name"
                   optionValue="id"
@@ -82,25 +80,236 @@
         </div>
       </form>
     </div>
+
+    <div class="flex gap-2 justify-content-end my-3">
+      <lib-button-micro
+        [title]="'itemCardReport.view' | translate"
+        [nameClass]="itemTransactionForm.valid ? 'save' : 'disabled'"
+        iconName="pi pi-circle"
+        [ngClass]="{ disabled: !itemTransactionForm.valid }"
+        (click)="viewItemTransaction()"
+      >
+      </lib-button-micro>
+      <button class="btn_ex" (click)="printTable('printableTable')">
+        <span class="pi pi-print"></span>
+      </button>
+    </div>
+
+    @for( warehouseTransaction of warehousesTransactionsTables ; track warehouseTransaction) {
     <div class="card_micro">
       <lib-data-table
         [resizableColumns]="false"
-        [items]="tableData"
+        [items]="warehouseTransaction.transactions"
         className="p-datatable-gridlines"
         [reportTable]="true"
         [noColumnFilter]="false"
         [tableConfigs]="{
-          allowPagination: false,
+            allowPagination: false,
+            allowServerPagination: false,
+            dataKey: 'id',
+            pageSize: 10,
+            columns: [
+              {
+                name: 'transactionName',
+                headerText: ('itemCardReport.transactionName' | translate),
+                rowspan: '3',
+                class: 'center'
+              },
+              {
+                name: 'transactionCode',
+                headerText: ('itemCardReport.transactionCode' | translate),
+                rowspan: '3',
+                class: 'center',
+              },
+              {
+                name: 'serial',
+                headerText: ('itemCardReport.serial' | translate),
+                rowspan: '3',
+                class: 'center',
+              },
+              {
+                name: 'batchNumber',
+                headerText: ('itemCardReport.batchNo' | translate),
+                rowspan: '3',
+                class: 'center',
+              },
+              {
+                name: 'expiryDate',
+                headerText: ('itemCardReport.expiryDate' | translate),
+                rowspan: '3',
+                class: 'center',
+              },
 
-          allowServerPagination: false,
-          dataKey: 'id',
-          pageSize: 10,
+              {
+                name: 'in',
+                headerText: ('itemCardReport.in' | translate),
+                colspan: '3',
+                class: 'left_Balance center',
+                children: [
+                  {
+                    name: 'qty',
+                    headerText: ('itemCardReport.subTitles.QTY' | translate),
+                    class: ' left_Balance debit center',
+                    applyClass: false
+                  },
+                  {
+                    name: 'cost',
+                    headerText: ('itemCardReport.subTitles.cost' | translate),
+                    class: ' left_Balance debit center',
+                    applyClass: false
+                  },
+                  {
+                    name: 'total',
+                    headerText: ('itemCardReport.subTitles.subTotal' | translate),
+                    class: ' left_Balance debit center',
+                    applyClass: false
+                  },
+
+                ]
+              },
+              {
+                name: 'out',
+                headerText: ('itemCardReport.out' | translate),
+                colspan: '3',
+                class: 'left_Balance center',
+                children: [
+                {
+                    name: 'qty',
+                    headerText: ('itemCardReport.subTitles.QTY' | translate),
+                    class: ' left_Balance debit center',
+                    applyClass: false
+                  },
+                  {
+                    name: 'cost',
+                    headerText: ('itemCardReport.subTitles.cost' | translate),
+                    class: ' left_Balance debit center',
+                    applyClass: false
+                  },
+                  {
+                    name: 'total',
+                    headerText: ('itemCardReport.subTitles.subTotal' | translate),
+                    class: ' left_Balance debit center',
+                    applyClass: false
+                  },
+
+                ]
+              },
+            ]
+          }"
+      >
+        <!-- <ng-container search>
+          <div>
+            <lib-text-input
+              type="text"
+              [placeholder]="'Journal.search' | translate"
+              [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
+            >
+            </lib-text-input>
+          </div>
+        </ng-container> -->
+        <!-- <ng-container action>
+          <div class="flex gap-2">
+            <lib-button-micro
+              [title]="'itemCardReport.view' | translate"
+              [nameClass]="itemTransactionForm.valid ? 'save' : 'disabled'"
+              iconName="pi pi-circle"
+              [ngClass]="{ disabled: !itemTransactionForm.valid }"
+              (click)="viewItemTransaction()"
+            >
+            </lib-button-micro>
+            <button class="btn_ex" (click)="printTable('printableTable')">
+              <span class="pi pi-print"></span>
+            </button>
+          </div>
+        </ng-container> -->
+        <ng-container caption>
+          <form [formGroup]="itemTransactionForm" (ngSubmit)="itemTransactionSubmit()">
+            <div class="group">
+              <div class="grid">
+                <div class="col-12 md:col-2">
+                  <!-- <p class="label_total paragraph_b18">
+                      {{ 'JournalTemplate.totalDebitAmountLocal' | translate }}
+                    </p> -->
+                  <lib-text-input
+                    placeholder="{{ 'itemCategory.itemName' | translate }}"
+                    [readOnly]="true"
+                  ></lib-text-input>
+                </div>
+                <div class="col-12 md:col-2">
+                  <lib-text-input
+                    placeholder="{{ 'itemCategory.itemCode' | translate }}"
+                    [readOnly]="true"
+                  ></lib-text-input>
+                </div>
+
+                <div class="col-12 md:col-2">
+                  <lib-text-input
+                    placeholder="{{ 'warehouse.warehouse' | translate }}"
+                    [readOnly]="true"
+                  ></lib-text-input>
+                </div>
+              </div>
+            </div>
+          </form>
+        </ng-container>
+        <ng-template #accountName let-trial>
+          <div></div>
+        </ng-template>
+        <ng-template #accountCode let-trial>
+          <div></div>
+        </ng-template>
+      </lib-data-table>
+
+      <div class="footer_form">
+        <form [formGroup]="itemTransactionForm" (ngSubmit)="itemTransactionSubmit()">
+          <div class="group">
+            <div class="grid">
+              <div class="col-12 md:col-2">
+                <!-- <p class="label_total paragraph_b18">
+                    {{ 'JournalTemplate.totalDebitAmountLocal' | translate }}
+                  </p> -->
+                <lib-text-input
+                  placeholder="{{ 'itemCardReport.QTYbalance' | translate }}"
+                  [readOnly]="true"
+                ></lib-text-input>
+              </div>
+              <div class="col-12 md:col-2">
+                <lib-text-input
+                  placeholder="{{ 'itemCardReport.itemCost' | translate }}"
+                  [readOnly]="true"
+                ></lib-text-input>
+              </div>
+              <div class="col-12 md:col-2">
+                <lib-text-input
+                  placeholder="{{ 'itemCardReport.totalBalanceAmount' | translate }}"
+                  [readOnly]="true"
+                ></lib-text-input>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    }
+
+    <div id="printableTable" class="printed_tables">
+      @for(warehouseTransaction of warehousesTransactionsTables; track warehouseTransaction) {
+
+      <lib-table-print
+        id="single_printed_table"
+        resizableColumns="false"
+        [items]="warehouseTransaction.transactions"
+        className="p-datatable-gridlines"
+        [tableConfigs]="{
+
+        allowServerPagination: false,
+        dataKey: 'id',
           columns: [
             {
               name: 'transaction Name',
               headerText: ('itemCardReport.transactionName' | translate),
               rowspan: '3',
-              template: accountCode,
               class: 'center'
             },
             {
@@ -138,19 +347,16 @@
                   name: 'debit',
                   headerText: ('itemCardReport.subTitles.QTY' | translate),
                   class: ' left_Balance debit center',
-                  applyClass: false
                 },
                 {
                   name: 'debit',
                   headerText: ('itemCardReport.subTitles.cost' | translate),
                   class: ' left_Balance debit center',
-                  applyClass: false
                 },
                 {
                   name: 'debit',
                   headerText: ('itemCardReport.subTitles.subTotal' | translate),
                   class: ' left_Balance debit center',
-                  applyClass: false
                 },
 
               ]
@@ -165,219 +371,28 @@
                   name: 'debit',
                   headerText: ('itemCardReport.subTitles.QTY' | translate),
                   class: ' left_Balance debit center',
-                  applyClass: false
                 },
                 {
                   name: 'debit',
                   headerText: ('itemCardReport.subTitles.cost' | translate),
                   class: ' left_Balance debit center',
-                  applyClass: false
                 },
                 {
                   name: 'debit',
                   headerText: ('itemCardReport.subTitles.subTotal' | translate),
                   class: ' left_Balance debit center',
-                  applyClass: false
                 },
 
               ]
             },
+
           ]
         }"
       >
-        <ng-container search>
-          <div>
-            <lib-text-input
-              type="text"
-              [placeholder]="'Journal.search' | translate"
-              [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
-            >
-            </lib-text-input>
-          </div>
-        </ng-container>
-        <ng-container action>
-          <div class="flex gap-2">
-            <lib-button-micro
-              [title]="'itemCardReport.view' | translate"
-              [nameClass]="itemTransactionForm.valid ? 'save' : 'disabled'"
-              iconName="pi pi-circle"
-              [ngClass]="{ disabled: !itemTransactionForm.valid }"
-              (click)="viewItemTransaction()"
-            >
-            </lib-button-micro>
-            <button class="btn_ex" (click)="printTable('printableTable')">
-              <span class="pi pi-print"></span>
-            </button>
-          </div>
-        </ng-container>
-        <ng-container caption>
-          <form [formGroup]="itemTransactionForm" (ngSubmit)="itemTransactionSubmit()">
-            <div class="group">
-              <div class="grid">
-                <div class="col-12 md:col-2">
-                  <!-- <p class="label_total paragraph_b18">
-                    {{ 'JournalTemplate.totalDebitAmountLocal' | translate }}
-                  </p> -->
-                  <lib-text-input
-                    placeholder="{{ 'itemCategory.itemName' | translate }}"
-                    [readOnly]="true"
-                  ></lib-text-input>
-                </div>
-                <div class="col-12 md:col-2">
-                  <lib-text-input
-                    placeholder="{{ 'itemCategory.itemCode' | translate }}"
-                    [readOnly]="true"
-                  ></lib-text-input>
-                </div>
-                <div class="col-12 md:col-2">
-                  <lib-text-input
-                    placeholder="{{ 'stockOut.UOM' | translate }}"
-                    [readOnly]="true"
-                  ></lib-text-input>
-                </div>
-                <div class="col-12 md:col-2">
-                  <lib-text-input
-                    placeholder="{{ 'warehouse.warehouse' | translate }}"
-                    [readOnly]="true"
-                  ></lib-text-input>
-                </div>
-              </div>
-            </div>
-          </form>
-        </ng-container>
-        <ng-template #accountName let-trial>
-          <div></div>
-        </ng-template>
-        <ng-template #accountCode let-trial>
-          <div></div>
-        </ng-template>
-      </lib-data-table>
+        <ng-container caption> </ng-container>
+      </lib-table-print>
 
-      <div class="footer_form">
-        <form [formGroup]="itemTransactionForm" (ngSubmit)="itemTransactionSubmit()">
-          <div class="group">
-            <div class="grid">
-              <div class="col-12 md:col-2">
-                <!-- <p class="label_total paragraph_b18">
-                  {{ 'JournalTemplate.totalDebitAmountLocal' | translate }}
-                </p> -->
-                <lib-text-input
-                  placeholder="{{ 'itemCardReport.QTYbalance' | translate }}"
-                  [readOnly]="true"
-                ></lib-text-input>
-              </div>
-              <div class="col-12 md:col-2">
-                <lib-text-input
-                  placeholder="{{ 'itemCardReport.itemCost' | translate }}"
-                  [readOnly]="true"
-                ></lib-text-input>
-              </div>
-              <div class="col-12 md:col-2">
-                <lib-text-input
-                  placeholder="{{ 'itemCardReport.totalBalanceAmount' | translate }}"
-                  [readOnly]="true"
-                ></lib-text-input>
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
+      }
     </div>
-
-    <lib-table-print
-      id="printableTable"
-      resizableColumns="false"
-      [items]="tableData"
-      className="p-datatable-gridlines"
-      [tableConfigs]="{
-
-      allowServerPagination: false,
-      dataKey: 'id',
-        columns: [
-          {
-            name: 'transaction Name',
-            headerText: ('itemCardReport.transactionName' | translate),
-            rowspan: '3',
-            class: 'center'
-          },
-          {
-            name: 'accountName',
-            headerText: ('itemCardReport.transactionCode' | translate),
-            rowspan: '3',
-            class: 'center',
-          },
-          {
-            name: 'accountName',
-            headerText: ('itemCardReport.serial' | translate),
-            rowspan: '3',
-            class: 'center',
-          },
-          {
-            name: 'accountName',
-            headerText: ('itemCardReport.batchNo' | translate),
-            rowspan: '3',
-            class: 'center',
-          },
-          {
-            name: 'accountName',
-            headerText: ('itemCardReport.expiryDate' | translate),
-            rowspan: '3',
-            class: 'center',
-          },
-
-          {
-            name: 'endingBalance',
-            headerText: ('itemCardReport.in' | translate),
-            colspan: '3',
-            class: 'left_Balance center',
-            children: [
-              {
-                name: 'debit',
-                headerText: ('itemCardReport.subTitles.QTY' | translate),
-                class: ' left_Balance debit center',
-              },
-              {
-                name: 'debit',
-                headerText: ('itemCardReport.subTitles.cost' | translate),
-                class: ' left_Balance debit center',
-              },
-              {
-                name: 'debit',
-                headerText: ('itemCardReport.subTitles.subTotal' | translate),
-                class: ' left_Balance debit center',
-              },
-
-            ]
-          },
-          {
-            name: 'endingBalance',
-            headerText: ('itemCardReport.out' | translate),
-            colspan: '3',
-            class: 'left_Balance center',
-            children: [
-              {
-                name: 'debit',
-                headerText: ('itemCardReport.subTitles.QTY' | translate),
-                class: ' left_Balance debit center',
-              },
-              {
-                name: 'debit',
-                headerText: ('itemCardReport.subTitles.cost' | translate),
-                class: ' left_Balance debit center',
-              },
-              {
-                name: 'debit',
-                headerText: ('itemCardReport.subTitles.subTotal' | translate),
-                class: ' left_Balance debit center',
-              },
-
-            ]
-          },
-
-        ]
-      }"
-    >
-      <ng-container caption> </ng-container>
-    </lib-table-print>
   </div>
 </lib-page-content>
