@@ -424,7 +424,8 @@
     "noTracking": "No Tracking",
     "required": "Required",
     "deleteStockInLine": "Item Deleted Successfully",
-    "stockEdit": "Data Updated Successfully"
+    "stockEdit": "Data Updated Successfully",
+    "scanHere" : "Scan Here"
   },
   "transactions": {
     "deleteStockIn": "Stock In deleted successfully",

@@ -1,23 +1,25 @@
 <lib-page-content>
     <lib-popup-page
-      title="{{ 'COAConfigration.ChartOfAccountConfig' | translate }}"
+      title="{{ 'stockIn.scan' | translate }}"
       [save]="false"
-      [showCancel]="true"
+      [showCancel]="false"
+     
     >
-      <div [formGroup]="itemDefinitionForm">
+      <div [formGroup]="scanForm">CHA00000297785
+
         <zxing-scanner
           (scanSuccess)="onScanSuccess($event)" 
         >
         </zxing-scanner>
         <!-- Input field to manually enter scanned barcode -->
         <div class="md:col-12 my-2">
-          <lib-label [appControl]="itemDefinitionForm.controls['warehouseId']">
-            {{ 'stock.selctWarehouse' | translate }}
+          <lib-label [appControl]="scanForm.controls['scan']">
+            {{ 'stockIn.scanHere' | translate }}
           </lib-label>
           <!-- Bind form control for manual input -->
           <lib-text-input
-            formControlName="warehouseId"
-            placeholder="{{ 'stock.receiptCodeplaceholder' | translate }}"
+            formControlName="scan"
+            placeholder="{{ 'stock.scanHere' | translate }}"
             (valueChanged)="onInputManualBarcode($event)">
           </lib-text-input>
         </div>

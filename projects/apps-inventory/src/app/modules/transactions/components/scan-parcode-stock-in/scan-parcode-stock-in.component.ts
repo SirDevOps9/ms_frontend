@@ -10,7 +10,7 @@ import { ItemsService } from '../../../items/items.service';
   styleUrl: './scan-parcode-stock-in.component.scss'
 })
 export class ScanParcodeStockInComponent implements OnInit {
-  itemDefinitionForm: FormGroup;
+  scanForm: FormGroup;
   inputValue: any;
   @Output() barcodeScanned = new EventEmitter<any>();
   @ViewChild('scanner') scanner: ZXingScannerComponent;
@@ -25,8 +25,8 @@ export class ScanParcodeStockInComponent implements OnInit {
     private itemsService: ItemsService,
     private cdr: ChangeDetectorRef
   ) {
-    this.itemDefinitionForm = this.fb.group({
-      warehouseId: new FormControl(''),
+    this.scanForm = this.fb.group({
+      scan: new FormControl(''),
     });
   }
   ngOnInit() {
@@ -44,7 +44,7 @@ export class ScanParcodeStockInComponent implements OnInit {
   onScanSuccess(qrCode: any): void {
     this.scannedQRCode = qrCode;
     console.log('Scanned QR Code:', qrCode);
-    this.itemDefinitionForm.controls['warehouseId'].setValue(qrCode);
+    this.scanForm.controls['scan'].setValue(qrCode);
     // this.barcodeScanned.next(qrCode);
     this.onCancel(qrCode);
   }
