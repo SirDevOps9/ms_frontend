@@ -6,7 +6,7 @@ import { Modules, BreadcrumbLabel, Pages, SharedLibModule } from 'shared-lib';
 
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
-import { EditStockInComponent } from '../items/pages/stock-In/edit-stock-in/edit-stock-in.component';
+import { EditStockInComponent } from './pages/stock-In/edit-stock-in/edit-stock-in.component';
 import { MainStockInListComponentComponent } from './components/main-stock-in-list-component/main-stock-in-list-component.component';
 import { StockInListComponent } from './pages/stock-In/stock-in-list/stock-in-list.component';
 import { MultiSelectItemStockInComponent } from './components/multi-select-item-stock-in/multi-select-item-stock-in.component';
@@ -81,51 +81,9 @@ const routes: Routes = [
         ],
       },
 
-      {
-        path: 'stock-out',
-        component: MainStockOutComponent,
-        data: {
-          breadcrumb: BreadcrumbLabel.STOCKOUT,
-          pageTitle: BreadcrumbLabel.STOCKOUT,
-        },
-        children: [
-          {
-            path: '',
-            component: StockOutListComponent,
-            data: { breadcrumb: '', pageTitle: BreadcrumbLabel.STOCKOUT },
-          },
-          {
-            path: 'add',
-            component: AddStockOutComponent,
-            data: {
-              breadcrumb: BreadcrumbLabel.ADD_STOCKOUT,
-              pageTitle: BreadcrumbLabel.ADD_STOCKOUT,
-            },
-          },
-          {
-            path: 'edit/:id',
-            component: EditStockOutComponent,
-
-            data: {
-              breadcrumb: BreadcrumbLabel.EDI_STOCK_OUT,
-              pageTitle: BreadcrumbLabel.EDI_STOCK_OUT,
-            },
-          },
-          {
-            path: 'view/:id',
-            component: ViewStockOutComponent,
-            data: {
-              breadcrumb: BreadcrumbLabel.VIEW_STOCKOUT,
-              pageTitle: BreadcrumbLabel.VIEW_STOCKOUT,
-
-            },
-          }
-        ],
-      },
     ],
   },
 ];
-
 
 @NgModule({
   declarations: [

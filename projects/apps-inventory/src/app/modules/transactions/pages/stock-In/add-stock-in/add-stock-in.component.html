@@ -63,15 +63,7 @@
         <lib-label [appControl]="stockInForm.controls['warehouseName']">
           {{ 'stockIn.warehouse' | translate }}
         </lib-label>
-        <!-- <lib-select
-        formControlName="warehouseName"
-        [options]="warhouseLookupData"
-        optionValue="id"
-        optionLabel="name"
-        placeholder="{{ 'stockIn.warehouse' | translate }}"
-        [selectedValue]="stockInForm.controls['warehouseName'].value"
-      >
-      </lib-select> -->
+
         <lib-text-input
           placeholder="{{ 'stockIn.warehouse' | translate }}"
           formControlName="warehouseName"
@@ -233,6 +225,7 @@
             <p-cellEditor>
               <ng-template pTemplate="input">
                 <lib-text-input
+                  type="number"
                   placeholder="{{ 'stockIn.cost' | translate }}"
                   formControlName="cost"
                 ></lib-text-input>
@@ -261,7 +254,7 @@
           </td>
           <!--  -->
           <td>
-            <div class="flex align-content-center gap-3 align-items-center">
+            <div class="flex align-content-center gap-3 align-items-center justify-content-between">
               <small
                 class="track"
                 *ngIf="
