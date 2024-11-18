@@ -36,13 +36,18 @@ export class TrackingStockInComponent implements OnInit {
         this.tracking.controls[0].get('expireDate')?.setValidators(customValidators.required);
         this.tracking.controls[0].get('expireDate')?.updateValueAndValidity();
       }
-      if (this.config.data.tracking == this.sharedFinanceEnums.trackingType.Batch) {
+      if (this.config.data.trackingType == this.sharedFinanceEnums.trackingType.Batch) {
         this.tracking.controls[0].get('vendorBatchNo')?.setValidators(customValidators.required);
         this.tracking.controls[0].get('vendorBatchNo')?.updateValueAndValidity();
       }
-      if (this.config.data.tracking == this.sharedFinanceEnums.trackingType.Serial) {
+      if (
+        this.config.data.trackingType == this.sharedFinanceEnums.trackingType.Serial &&
+        !this.config.data.expiry
+      ) {
         this.tracking.controls[0].get('serialId')?.setValidators(customValidators.required);
         this.tracking.controls[0].get('serialId')?.updateValueAndValidity();
+        this.tracking.controls[0].get('expireDate')?.clearValidators();
+        this.tracking.controls[0].get('expireDate')?.updateValueAndValidity();
       }
     }
   }

@@ -8,7 +8,7 @@ import { PageInfo, PageInfoResult } from 'shared-lib';
 @Component({
   selector: 'app-multi-select-item-stock-in',
   templateUrl: './multi-select-item-stock-in.component.html',
-  styleUrl: './multi-select-item-stock-in.component.scss'
+  styleUrl: './multi-select-item-stock-in.component.scss',
 })
 export class MultiSelectItemStockInComponent implements OnInit {
   pageInfo = new PageInfo();
@@ -40,10 +40,10 @@ export class MultiSelectItemStockInComponent implements OnInit {
 
   subscribes() {
     this.itemsService.itemsList.subscribe({
-      next: (res:any) => {
+      next: (res: any) => {
         this.items = res;
       },
-  });
+    });
 
     this.itemsService.currentPageInfo.subscribe((currentPageInfo) => {
       this.currentPageInfo = currentPageInfo;
@@ -53,7 +53,6 @@ export class MultiSelectItemStockInComponent implements OnInit {
   initItemsData() {
     this.itemsService.getItems('', '', new PageInfo());
   }
-  
 
   onPageChange(pageInfo: PageInfo) {
     this.itemsService.getItems('', '', pageInfo);
@@ -63,17 +62,11 @@ export class MultiSelectItemStockInComponent implements OnInit {
     this.ref.close(this.selectedRows);
   }
 
-  
   onSelectedRowsChange(selectedRows: any[]) {
     this.selectedRows = selectedRows;
-    console.log(selectedRows ,"00000000");
-    
   }
   selectedRow(selectedRow: any[]) {
-    console.log(selectedRow ,"00000000");
     this.ref.close(selectedRow);
-
-    
   }
   onCancel() {
     this.ref.close();
@@ -94,10 +87,9 @@ export class MultiSelectItemStockInComponent implements OnInit {
     const query: string[] = [];
 
     isStorable.forEach((checkbox: any) => {
-      console.log('Item', checkbox);
       query.push(`${checkbox}=${checkbox}`);
     });
-    
+
     if (hasExpiryDate.length > 0) query.push(`HasExpiryDate=${hasExpiryDate}`);
 
     const result = query.join('&');

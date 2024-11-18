@@ -281,9 +281,9 @@ export class EditStockInComponent implements OnInit {
     this.cdr.detectChanges();
   }
 
-  itemChanged(e: any, stockInFormGroup: FormGroup) {
-    let formVal = stockInFormGroup.value;
+  itemChanged(e: any, stockInFormGroup: FormGroup, clonedStockInFormGroup?: any) {
     let data = this.latestItemsList.find((item) => item.itemId == e);
+
     this.itemData = data;
     this.uomLookup = data?.itemsUOM;
 
@@ -292,27 +292,18 @@ export class EditStockInComponent implements OnInit {
     stockInFormGroup.get('stockInTracking')?.updateValueAndValidity();
 
     stockInFormGroup.get('itemCodeName')?.setValue(data?.itemCode);
-    stockInFormGroup.get('description')?.setValue(data?.itemName + '-' + data?.itemVariantName);
+    stockInFormGroup
+      .get('description')
+      ?.setValue(
+        `${data?.itemName} - ${clonedStockInFormGroup?.itemVariantName ?? data?.itemVariantName}`
+      );
     stockInFormGroup.get('trackingType')?.setValue(data?.trackingType);
     stockInFormGroup.get('stockInTracking')?.get('trackingType')?.setValue(data?.trackingType);
-    stockInFormGroup.get('itemVariantId')?.setValue(data?.itemVariantId);
+    stockInFormGroup
+      .get('itemVariantId')
+      ?.setValue(clonedStockInFormGroup.itemVariantId ?? data?.itemVariantId);
     stockInFormGroup.get('hasExpiryDate')?.setValue(data?.hasExpiryDate);
     stockInFormGroup.get('uomId')?.setValue(data?.uomId);
-    if (
-      stockInFormGroup.value.id == 0 &&
-      data?.trackingType == 'NoTracking' &&
-      data?.hasExpiryDate == false
-    ) {
-      stockInFormGroup.get('stockInTracking')?.get('id')?.setValue(0);
-    } else if (
-      stockInFormGroup.value.id != 0 &&
-      data?.trackingType == 'NoTracking' &&
-      data?.hasExpiryDate == false
-    ) {
-      let trackingId = formVal.stockInTracking.id;
-
-      stockInFormGroup.get('stockInTracking')?.get('id')?.setValue(trackingId);
-    }
     this.uomChanged(stockInFormGroup.get('uomId')?.value, stockInFormGroup);
     if (data?.hasExpiryDate) {
       stockInFormGroup
@@ -346,7 +337,6 @@ export class EditStockInComponent implements OnInit {
       stockInFormGroup.get('stockInTracking')?.get('serialId')?.clearValidators();
       stockInFormGroup.get('stockInTracking')?.get('serialId')?.updateValueAndValidity();
     }
-    this.cdr.detectChanges();
   }
   uomChanged(e: any, stockInFormGroup: FormGroup) {
     let data = this.uomLookup.find((item: any) => item.uomId == e);
@@ -376,7 +366,12 @@ export class EditStockInComponent implements OnInit {
     });
     ref.onClose.subscribe((selectedItems: any) => {
       if (selectedItems) {
-        this.cdr.detectChanges();
+        console.log(selectedItems);
+        stockInFormGroup.get('itemId')?.setValue(selectedItems.itemId);
+
+        this.itemChanged(selectedItems.itemId, stockInFormGroup, selectedItems);
+
+        // console.log(stockInFormGroup.value);
       }
     });
   }

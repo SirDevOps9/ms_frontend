@@ -17,7 +17,13 @@ import {
 } from 'shared-lib';
 
 import { skip } from 'rxjs';
-import { OperationalStockIn, LatestItems, GetWarehouseList, StockInDetail, AddStockIn } from '../../../../items/models';
+import {
+  OperationalStockIn,
+  LatestItems,
+  GetWarehouseList,
+  StockInDetail,
+  AddStockIn,
+} from '../../../../items/models';
 import { ImportStockInComponent } from '../../../components/import-stock-in/import-stock-in.component';
 import { MultiSelectItemStockInComponent } from '../../../components/multi-select-item-stock-in/multi-select-item-stock-in.component';
 import { ScanParcodeStockInComponent } from '../../../components/scan-parcode-stock-in/scan-parcode-stock-in.component';
@@ -103,11 +109,13 @@ export class AddStockInComponent implements OnInit {
       if (sourceDocumentTypeData?.name == 'OperationalTag') {
         this.transactionsService.OperationalTagDropDown();
         this.transactionsService.sendOperationalTagDropDown$.subscribe((res) => {
-          this.oprationalLookup = res;
-          this.oprationalLookup = res.map((elem: any) => ({
-            ...elem,
-            displayName: `${elem.name} (${elem.code})`,
-          }));
+          if (res) {
+            this.oprationalLookup = res;
+            this.oprationalLookup = res.map((elem: any) => ({
+              ...elem,
+              displayName: `${elem.name} (${elem.code})`,
+            }));
+          }
         });
       }
     });
@@ -185,8 +193,9 @@ export class AddStockInComponent implements OnInit {
     });
   }
 
-  itemChanged(e: any, stockInFormGroup: FormGroup) {
+  itemChanged(e: any, stockInFormGroup: FormGroup, clonedStockInFormGroup?: any) {
     let data = this.latestItemsList.find((item) => item.itemId == e);
+
     this.itemData = data;
     this.uomLookup = data?.itemsUOM;
 
@@ -195,10 +204,16 @@ export class AddStockInComponent implements OnInit {
     stockInFormGroup.get('stockInTracking')?.updateValueAndValidity();
 
     stockInFormGroup.get('itemCodeName')?.setValue(data?.itemCode);
-    stockInFormGroup.get('description')?.setValue(data?.itemName + '-' + data?.itemVariantName);
+    stockInFormGroup
+      .get('description')
+      ?.setValue(
+        `${data?.itemName} - ${clonedStockInFormGroup?.itemVariantName ?? data?.itemVariantName}`
+      );
     stockInFormGroup.get('trackingType')?.setValue(data?.trackingType);
     stockInFormGroup.get('stockInTracking')?.get('trackingType')?.setValue(data?.trackingType);
-    stockInFormGroup.get('itemVariantId')?.setValue(data?.itemVariantId);
+    stockInFormGroup
+      .get('itemVariantId')
+      ?.setValue(clonedStockInFormGroup.itemVariantId ?? data?.itemVariantId);
     stockInFormGroup.get('hasExpiryDate')?.setValue(data?.hasExpiryDate);
     stockInFormGroup.get('uomId')?.setValue(data?.uomId);
     this.uomChanged(stockInFormGroup.get('uomId')?.value, stockInFormGroup);
@@ -263,7 +278,9 @@ export class AddStockInComponent implements OnInit {
     });
     ref.onClose.subscribe((selectedItems: any) => {
       if (selectedItems) {
-        this.itemChanged(selectedItems.itemId, stockInFormGroup);
+        stockInFormGroup.get('itemId')?.setValue(selectedItems.itemId);
+
+        this.itemChanged(selectedItems.itemId, stockInFormGroup, selectedItems);
       }
     });
   }
@@ -312,6 +329,7 @@ export class AddStockInComponent implements OnInit {
       sourceDocumentType: +this.stockInForm.value.sourceDocumentType,
       stockInDetails: this.stockIn.value,
     };
+
     this.transactionsService.addStockIn(data, this.stockInForm);
   }
   OnDelete(i: number) {

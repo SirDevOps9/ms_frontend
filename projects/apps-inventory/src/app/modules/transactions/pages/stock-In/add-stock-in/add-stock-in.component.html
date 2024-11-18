@@ -253,7 +253,14 @@
             </div>
           </td>
           <!--  -->
-          <td>
+          <td
+            [ngClass]="{
+              'no-tracking':
+                stockInFormGroup.get('trackingType').value ==
+                  sharedFinanceEnums.trackingType.NoTracking &&
+                stockInFormGroup.get('hasExpiryDate')?.value == false
+            }"
+          >
             <div class="flex align-content-center gap-3 align-items-center justify-content-between">
               <small
                 class="track"
@@ -337,6 +344,7 @@
               </lib-button-micro>
 
               <small
+                class="track m-auto"
                 *ngIf="
                   stockInFormGroup.get('trackingType').value ==
                     sharedFinanceEnums.trackingType.NoTracking &&
