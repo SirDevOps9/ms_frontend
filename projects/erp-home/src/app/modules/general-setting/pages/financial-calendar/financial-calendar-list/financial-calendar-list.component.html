@@ -74,7 +74,7 @@
             <div class="flex gap-2">
               <lib-export
                 (exportClick)="exportClick($event)"
-                [exportData]="exportData"
+                [exportData]="mappedExportData"
                 [exportColumns]="exportColumns"
                 [ExportName]="'Financial Calendar'"
               >
@@ -109,3 +109,19 @@
     </div>
   </div>
 </lib-page-content>
+
+<!-- 
+this.generalSettingService.exportFinancialCalendarData(searchTerm)
+
+const columns = [
+  { name: 'name', headerText: this.translate.instant('financialCalendar.name') },
+  { name: 'code', headerText: this.translate.instant('financialCalendar.code') },
+  { name: 'fromDate', headerText: this.translate.instant('financialCalendar.fromDate') },
+  { name: 'toDate', headerText: this.translate.instant('financialCalendar.toDate') },
+  { name: 'status', headerText: this.translate.instant('financialCalendar.status') },
+];
+
+this.generalSettingService.exportsFinancialCalendarDataSourceObservable.subscribe((res) => {
+  this.exportData = this.exportService.formatCiloma(res, columns);
+
+}); -->

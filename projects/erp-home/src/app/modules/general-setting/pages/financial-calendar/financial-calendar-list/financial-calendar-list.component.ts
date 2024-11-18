@@ -28,6 +28,7 @@ export class FinancialCalendarListComponent implements OnInit {
 
   exportColumns: lookupDto[];
   exportData: financialCalendar[];
+  mappedExportData: financialCalendar[];
 
   ngOnInit() {
     this.initFinancialCalendarData();
@@ -84,6 +85,10 @@ export class FinancialCalendarListComponent implements OnInit {
     this.generalSettingService.exportFinancialCalendarData(searchTerm);
     this.generalSettingService.exportsFinancialCalendarDataSourceObservable.subscribe((res) => {
       this.exportData = res;
+      this.mappedExportData = res.map((elem: any) => {
+        const { createdOn, ...args } = elem; // Rename `codeNumber` to `code` and use the rest operator
+        return { ...args, codeNumber : elem.code }; // Include `code` in the returned object if needed
+      });
     });
   }
   onDelete(id: number) {
