@@ -1551,9 +1551,9 @@ exportStockOutList(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
   }
 
 
-    })
 
-  }
+
+
   addStockOut(obj: AddStockOutDto,stockinForm : FormGroup) {
     this.itemProxy.addStockOut(obj).subscribe({
       next: (res) => {
@@ -1588,6 +1588,7 @@ exportStockOutList(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
       this.itemsDataSourceByWarehouse.next(res);
     });
   }
+
   // getItemsStockOutByWarehouse(
   //   quieries: string,
   //   searchTerm: string,
@@ -1601,4 +1602,5 @@ exportStockOutList(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
   //     }
   //   });
   // }
+// }
 }
