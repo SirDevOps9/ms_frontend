@@ -3,12 +3,9 @@ import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { DialogService } from 'primeng/dynamicdialog';
 import { LanguageService, RouterService, FormsService, SharedLibraryEnums, ToasterService, customValidators } from 'shared-lib';
-import { AddBarcodePopupComponent } from '../../../components/add-barcode-popup/add-barcode-popup.component';
-import { ViewQRcodeComponent } from '../../../components/view-qrcode/view-qrcode.component';
-import { ViewVariantPopupComponent } from '../../../components/view-variant-popup/view-variant-popup.component';
 import { ItemsService } from '../../../items.service';
-import { UomCodeLookup, GetItemById, addBarcode} from '../../../models';
-import{addFixedCost, FixedCost} from '../../../models/fixedCost'
+import { UomCodeLookup, GetItemById} from '../../../models';
+import{addFixedCost} from '../../../models/fixedCost'
 @Component({
   selector: 'app-item-fixed-cost',
   templateUrl: './item-fixed-cost.component.html',
@@ -39,12 +36,10 @@ export class ItemFixedCostComponent {
 
     this.getItemVariants()
 
-    this.addLineBarcode()
-    this.itemService.sendBarcode.subscribe(res => {
-      if (res) {
+    this.addLineFixed()
+
         this.getFixedCostByItemId()
-      }
-    })
+
     this.itemService.sendUOMObs.subscribe(res => {
 
 
@@ -81,20 +76,20 @@ export class ItemFixedCostComponent {
 
 
 
-  variantChanged(e : any , itemDefBarcodeGroup : FormGroup) {
+  variantChanged(e : any , itemDefFixedGroup : FormGroup) {
    let data =  this.ItemVariantsByItemIdDropDown.find(item=>item.variantId == e)
 
 
-   itemDefBarcodeGroup.get('itemVariantName')?.setValue(this.currentLang == 'en' ? data?.variantEnName : data?.variantArName)
+   itemDefFixedGroup.get('itemVariantName')?.setValue(this.currentLang == 'en' ? data?.variantEnName : data?.variantArName)
   }
 
 
-  uomChange(e: any, itemDefBarcodeGroup: FormGroup) {
+  uomChange(e: any, itemDefFixedGroup: FormGroup) {
 
     let data = this.uomLookup.find(elem => elem.uomId == e)
 
 
-    itemDefBarcodeGroup.get('uomName')?.setValue(data?.uomName)
+    itemDefFixedGroup.get('uomName')?.setValue(data?.uomName)
   }
 
 
@@ -102,7 +97,7 @@ export class ItemFixedCostComponent {
 
 
 
-  createbarcodeFormGroup(id: number): FormGroup {
+  createFixedCostFormGroup(id: number): FormGroup {
     return this.fb.group({
       id:null,
       itemId : this.id,
@@ -116,10 +111,10 @@ export class ItemFixedCostComponent {
 
 
 
-  addLineBarcode() {
-    const barcodeArray = this.fixedCostForm;
-    const newId = barcodeArray.length + 1;
-    barcodeArray.push(this.createbarcodeFormGroup(newId));
+  addLineFixed() {
+    const fixedArray = this.fixedCostForm;
+    const newId = fixedArray.length + 1;
+    fixedArray.push(this.createFixedCostFormGroup(newId));
   }
 
 
@@ -127,7 +122,7 @@ export class ItemFixedCostComponent {
   onDelete(i: number) {
     this.UOMForm.removeAt(i);
   };
-  onDeleteFixedCost(itemDefBarcodeGroup: FormGroup, i: number) {
+  onDeleteFixedCost(itemDefFixedGroup: FormGroup, i: number) {
     this.fixedCostForm.removeAt(i)
 
   }
