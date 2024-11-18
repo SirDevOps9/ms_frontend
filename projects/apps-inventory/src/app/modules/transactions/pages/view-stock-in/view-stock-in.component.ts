@@ -3,8 +3,9 @@ import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'microtec-auth-lib';
 import {  LanguageService, customValidators } from 'shared-lib';
-import { ItemsService } from '../../../items.service';
+
 import { Table } from 'primeng/table';
+import { TransactionsService } from '../../transactions.service';
 
 @Component({
   selector: 'app-view-stock-in',
@@ -23,7 +24,7 @@ export class ViewStockInComponent {
   currentPageData: any[] = [];
   constructor(
     public authService: AuthService,
-    private item_services:ItemsService,
+    private transactions_services:TransactionsService,
     private langService: LanguageService,
     private fb: FormBuilder,
     private _route: ActivatedRoute,
@@ -72,8 +73,8 @@ export class ViewStockInComponent {
     });
   }
   getStockInViewById() {
-    this.item_services.getViwStockInById(this._routeid);
-    this.item_services.stockInDataViewSourceeObservable.subscribe((data: any) => {
+    this.transactions_services.getViwStockInById(this._routeid);
+    this.transactions_services.stockInDataViewSourceeObservable.subscribe((data: any) => {
       if (data && data.stockInDetails && Array.isArray(data.stockInDetails)) {
         this.stockInForm.patchValue({
           receiptDate: data.receiptDate,

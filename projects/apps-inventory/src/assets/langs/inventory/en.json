@@ -11,7 +11,11 @@
     "ItemsCategory": "Items Category",
     "stockout": "Stock Out",
     "add": "Add",
-    "add_stockOut": "Add StockOut"
+    "editstockout":"Edit Stock Out",
+    "add_stockOut": "Add StockOut",
+    "EditItembarfixedcostfinition":"Edit Item fixed cost",
+    "stockInView":"Stock In View",
+    "stockOutView":"Stock Out View"
   },
   "Toaster": {
     "Confirm": {

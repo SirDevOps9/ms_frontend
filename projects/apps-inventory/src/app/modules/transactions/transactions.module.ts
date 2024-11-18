@@ -19,6 +19,7 @@ import { EditStockOutComponent } from '../items/pages/stock-out/edit-stock-out/e
 import { MainStockOutComponent } from '../items/pages/stock-out/main-stock-out/main-stock-out.component';
 import { StockOutListComponent } from '../items/pages/stock-out/stock-out-list/stock-out-list.component';
 import { ViewStockOutComponent } from '../items/pages/stock-out/view-stock-out/view-stock-out.component';
+import { ViewStockInComponent } from './pages/view-stock-in/view-stock-in.component';
 
 const routes: Routes = [
   {
@@ -56,6 +57,15 @@ const routes: Routes = [
             component: EditStockInComponent,
             data: {
               breadcrumb: BreadcrumbLabel.EDIT_STOCKIN,
+            },
+          },
+          {
+            path: 'view/:id',
+            component: ViewStockInComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.VIEW_STOCKIN,
+              pageTitle: BreadcrumbLabel.VIEW_STOCKIN,
+
             },
           },
           {
@@ -126,7 +136,9 @@ const routes: Routes = [
     EditStockInComponent,
     MainStockInListComponentComponent,
     StockInListComponent ,
-    AddStockInComponent
+    AddStockInComponent,
+    ViewStockInComponent
+
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule, ZXingScannerModule],
 })

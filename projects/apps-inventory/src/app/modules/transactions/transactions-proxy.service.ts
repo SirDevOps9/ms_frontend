@@ -78,6 +78,8 @@ export class TransactionsProxyService {
   getWareHousesDropDown() {
     return this.httpService.get<any>(`WareHouse/WareHousesDropDown`);
   }
+  getByIdViewStockIn(id:number){
+    return this.httpService.get(`StockIn/GetStockInViewById/${id}`)
+  }
 
 }
- 

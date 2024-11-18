@@ -61,7 +61,6 @@ import { ItemDefintionVariantComponent } from './pages/item-definition/item-defi
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { SearchItemPopUpComponent } from './components/stock-out/search-item-pop-up/search-item-pop-up.component';
 import { ViewStockOutComponent } from './pages/stock-out/view-stock-out/view-stock-out.component';
-import { ViewStockInComponent } from './pages/stock-In/view-stock-in/view-stock-in.component';
 import { EditStockInComponent } from './pages/stock-In/edit-stock-in/edit-stock-in.component';
 import { ItemFixedCostComponent } from './pages/item-definition/item-fixed-cost/item-fixed-cost.component';
 import { MainStockInListComponentComponent } from '../transactions/components/main-stock-in-list-component/main-stock-in-list-component.component';
@@ -380,15 +379,7 @@ const routes: Routes = [
               breadcrumb: BreadcrumbLabel.ADD_ITEM_DIFINITION,
             },
           },
-          {
-            path: 'view/:id',
-            component: ViewStockInComponent,
-            data: {
-              breadcrumb: BreadcrumbLabel.VIEW_STOCKIN,
-              pageTitle: BreadcrumbLabel.VIEW_STOCKIN,
 
-            },
-          }
         ],
       },
     ],
@@ -447,7 +438,7 @@ const routes: Routes = [
 
     SearchItemPopUpComponent,
     ViewStockOutComponent,
-    ViewStockInComponent,
+
     ItemFixedCostComponent
   ],
   imports: [

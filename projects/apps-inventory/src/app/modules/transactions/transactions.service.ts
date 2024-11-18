@@ -13,7 +13,7 @@ import { StockInDto, OperationalStockIn, LatestItems, GetWarehouseList, StockOut
 export class TransactionsService {
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
 
-  
+
   public stockInDataSource = new BehaviorSubject<StockOutDto[]>([]);
   stockInDataSourceeObservable = this.stockInDataSource.asObservable();
   public editstockInDataSource = new BehaviorSubject<StockOutDto[]>([]);
@@ -24,12 +24,15 @@ export class TransactionsService {
   editstockInDataSourceeObservable = this.editstockInDataSource.asObservable();
   public sendOperationalTagDropDown = new BehaviorSubject<OperationalStockIn[]>([]);
   public sendAddStockIn = new BehaviorSubject<AddStockIn>({} as AddStockIn);
-  public sendlatestItemsList = new BehaviorSubject<LatestItems[]>([]); 
+  public sendlatestItemsList = new BehaviorSubject<LatestItems[]>([]);
   public stockInByIdData = new BehaviorSubject<StockInDto>({} as StockInDto);
   sendItemBarcode = new BehaviorSubject<StockInDetail>({} as StockInDetail);
   wareHousesDropDownLookup = new BehaviorSubject<GetWarehouseList[]>([]);
 
 
+  public stockInDataViewSource = new BehaviorSubject<StockInDto[]>([]);
+
+  stockInDataViewSourceeObservable = this.stockInDataViewSource.asObservable();
 
   sendStockInDataSourcesObs = this.sendStockInDataSources.asObservable();
   exportedStockInDataSourceObs = this.exportedStockInDataSource.asObservable();
@@ -123,12 +126,12 @@ export class TransactionsService {
         this.loaderService.hide();
       },
       error: (err) => {
-        
+
         this.formsService.setFormValidationErrors(stockinForm, err);
         this.loaderService.hide();
       },
     });
-  
+
   }
 
   editStockIn(obj: AddStockIn, stockinForm: FormGroup) {
@@ -160,10 +163,10 @@ export class TransactionsService {
       this.sendItemBarcode.next(res)
 
     })
-    
+
   }
 
-  
+
   getLatestItemsList() {
     return this.transactionsProxy.getLatestItemsList().subscribe((res) => {
       this.sendlatestItemsList.next(res);
@@ -217,7 +220,11 @@ export class TransactionsService {
       this.wareHousesDropDownLookup.next(res);
     });
   }
- 
+  getViwStockInById(id:number) {
+    this.transactionsProxy.getByIdViewStockIn(id).subscribe((response:any) => {
+      this.stockInDataViewSource.next(response);
+    });
+  }
 
 
 }
