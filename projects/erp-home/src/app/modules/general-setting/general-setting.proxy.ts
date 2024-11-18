@@ -138,6 +138,11 @@ export class GeneralSettingProxy {
     return this.httpService.get(`FinancialYear/${id}`);
   }
 
+  deleteFinancialYear(id: number){
+    return this.httpService.delete(`FinancialYear/${id}`);
+
+  }
+
   editTag(tagDto: TagDto): Observable<boolean> {
     return this.httpService.put<boolean>(`Tag`, tagDto);
   }
