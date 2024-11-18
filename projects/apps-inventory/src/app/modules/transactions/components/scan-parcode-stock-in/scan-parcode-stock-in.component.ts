@@ -2,8 +2,8 @@ import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output, ViewChild }
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { LayoutService } from 'apps-shared-lib';
 import { DynamicDialogConfig, DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { ItemsService } from '../../../items.service';
 import { ZXingScannerComponent, ZXingScannerModule } from '@zxing/ngx-scanner';
+import { ItemsService } from '../../../items/items.service';
 @Component({
   selector: 'app-scan-parcode-stock-in',
   templateUrl: './scan-parcode-stock-in.component.html',

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { AuthService } from 'microtec-auth-lib';
 import { DialogService } from 'primeng/dynamicdialog';
+import { from, switchMap, tap } from 'rxjs';
 import {
   RouterService,
   LanguageService,
@@ -10,11 +11,10 @@ import {
   MenuModule,
   PageInfo,
 } from 'shared-lib';
-import { AddItemDefinitionPopupComponent } from '../../../components/add-item-definition/add-item-definition-popup.component';
-import { ItemsService } from '../../../items.service';
-import { StockInDto } from '../../../models';
-import { from, switchMap, tap } from 'rxjs';
-import { SharedStock } from '../../../models/sharedStockOutEnums';
+import { StockInDto } from '../../../../items/models';
+import { SharedStock } from '../../../../items/models/sharedStockOutEnums';
+import { TransactionsService } from '../../../transactions.service';
+
 
 @Component({
   selector: 'app-stock-in-list',
@@ -39,23 +39,23 @@ export class StockInListComponent implements OnInit {
     this.subscribes();
   }
   subscribes() {
-    this.itemsService.stockInDataSourceeObservable.subscribe({
+    this.transactionsService.stockInDataSourceeObservable.subscribe({
       next: (res) => {
         this.tableData = res;
       },
     });
   }
   initStockOutData() {
-    this.itemsService.getAllStockIn('', new PageInfo());
+    this.transactionsService.getAllStockIn('', new PageInfo());
   }
 
   onPageChange(pageInfo: PageInfo) {
-    this.itemsService.getAllStockIn('', pageInfo);
+    this.transactionsService.getAllStockIn('', pageInfo);
   }
 
   exportBankData(searchTerm: string) {
-    this.itemsService.exportStockInList(searchTerm);
-    this.itemsService.exportStockInListDataSourceObservable.subscribe((res) => {
+    this.transactionsService.exportStockInList(searchTerm);
+    this.transactionsService.exportStockInListDataSourceObservable.subscribe((res) => {
       this.exportData = res;
     });
   }
@@ -73,13 +73,13 @@ export class StockInListComponent implements OnInit {
   }
 
   onSearchChange() {
-    this.itemsService.getAllStockOut(this.searchTerm, new PageInfo());
+    this.transactionsService.getAllStockIn(this.searchTerm, new PageInfo());
   }
 
   onDelete(id: number) {
-    from(this.itemsService.deleteStockIn(id))
+    from(this.transactionsService.deleteStockIn(id))
       .pipe(
-        switchMap(() => this.itemsService.sendStockInDataSourcesObs),
+        switchMap(() => this.transactionsService.sendStockInDataSourcesObs),
         tap((data: any) => {
           if (data) {
             this.initStockOutData();
@@ -96,8 +96,8 @@ export class StockInListComponent implements OnInit {
     this.SortColumn = obj.SortColumn;
   }
   exportClick() {
-    this.itemsService.exportStockInList(this.searchTerm, this.SortBy, this.SortColumn);
-    this.itemsService.exportStockInListDataSourceObservable.subscribe((res) => {
+    this.transactionsService.exportStockInList(this.searchTerm, this.SortBy, this.SortColumn);
+    this.transactionsService.exportStockInListDataSourceObservable.subscribe((res) => {
       this.exportData = res;
     });
   }
@@ -108,7 +108,7 @@ export class StockInListComponent implements OnInit {
     private dialog: DialogService,
     private title: Title,
     private langService: LanguageService,
-    private itemsService: ItemsService,
+    private transactionsService: TransactionsService,
     public sharedFinanceEnums: SharedStock
   ) {
     console.log(this.routerService.getCurrentUrl());

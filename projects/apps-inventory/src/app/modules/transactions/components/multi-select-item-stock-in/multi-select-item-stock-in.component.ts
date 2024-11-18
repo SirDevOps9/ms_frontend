@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { ItemsService } from 'projects/apps-inventory/src/app/modules/items/items.service';
 import { ItemDto, SharedSalesEnums } from 'projects/apps-sales/src/app/modules/sales/models';
 import { PageInfo, PageInfoResult } from 'shared-lib';
-import { ItemsService } from '../../../../items.service';
 
 @Component({
   selector: 'app-multi-select-item-stock-in',

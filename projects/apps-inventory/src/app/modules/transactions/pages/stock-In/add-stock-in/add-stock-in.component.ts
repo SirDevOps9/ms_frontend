@@ -15,20 +15,15 @@ import {
   PageInfoResult,
   RouterService,
 } from 'shared-lib';
-import { ItemsService } from '../../../items.service';
-import {
-  AddStockIn,
-  GetWarehouseList,
-  LatestItems,
-  OperationalStockIn,
-  StockInDetail,
-} from '../../../models';
-import { TrackingStockInComponent } from './tracking-stock-in/tracking-stock-in.component';
-import { MultiSelectItemStockInComponent } from './multi-select-item-stock-in/multi-select-item-stock-in.component';
-import { ImportStockInComponent } from '../import-stock-in/import-stock-in.component';
-import { ScanParcodeStockInComponent } from '../scan-parcode-stock-in/scan-parcode-stock-in.component';
-import { SharedFinanceEnums } from '../../../models/sharedEnumStockIn';
+
 import { skip } from 'rxjs';
+import { OperationalStockIn, LatestItems, GetWarehouseList, StockInDetail, AddStockIn } from '../../../../items/models';
+import { ImportStockInComponent } from '../../../components/import-stock-in/import-stock-in.component';
+import { MultiSelectItemStockInComponent } from '../../../components/multi-select-item-stock-in/multi-select-item-stock-in.component';
+import { ScanParcodeStockInComponent } from '../../../components/scan-parcode-stock-in/scan-parcode-stock-in.component';
+import { TrackingStockInComponent } from '../../../components/tracking-stock-in/tracking-stock-in.component';
+import { SharedFinanceEnums } from '../../../../items/models/sharedEnumStockIn';
+import { TransactionsService } from '../../../transactions.service';
 
 @Component({
   selector: 'app-add-stock-in',
@@ -74,14 +69,13 @@ export class AddStockInComponent implements OnInit {
     private dialog: DialogService,
     private title: Title,
     private langService: LanguageService,
-    private itemsService: ItemsService,
+    private transactionsService: TransactionsService,
     private fb: FormBuilder,
     private lookupservice: LookupsService,
     private router: RouterService,
     public formService: FormsService,
     public sharedFinanceEnums: SharedFinanceEnums
   ) {
-    this.title.setTitle(this.langService.transalte('itemCategory.itemDefinition'));
     this.currentLang = this.langService.getLang();
   }
   ngOnInit(): void {
@@ -107,8 +101,8 @@ export class AddStockInComponent implements OnInit {
       let data = this.lookups[LookupEnum.StockInOutSourceDocumentType];
       let sourceDocumentTypeData = data.find((elem) => elem.id == res);
       if (sourceDocumentTypeData?.name == 'OperationalTag') {
-        this.itemsService.OperationalTagDropDown();
-        this.itemsService.sendOperationalTagDropDown$.subscribe((res) => {
+        this.transactionsService.OperationalTagDropDown();
+        this.transactionsService.sendOperationalTagDropDown$.subscribe((res) => {
           this.oprationalLookup = res;
           this.oprationalLookup = res.map((elem: any) => ({
             ...elem,
@@ -125,8 +119,8 @@ export class AddStockInComponent implements OnInit {
 
     this.initWareHouseLookupData();
 
-    this.itemsService.getLatestItemsList();
-    this.itemsService.sendlatestItemsList$.subscribe((res) => {
+    this.transactionsService.getLatestItemsList();
+    this.transactionsService.sendlatestItemsList$.subscribe((res) => {
       this.latestItemsList = res;
       if (res.length) {
         this.latestItemsList = res.map((elem: any) => ({
@@ -138,14 +132,14 @@ export class AddStockInComponent implements OnInit {
 
     this.addLineStockIn();
 
-    this.itemsService.sendItemBarcode$.pipe(skip(1)).subscribe((res) => {
+    this.transactionsService.sendItemBarcode$.pipe(skip(1)).subscribe((res) => {
       this.barcodeData = res;
     });
   }
 
   initWareHouseLookupData() {
-    this.itemsService.getWareHousesDropDown();
-    this.itemsService.wareHousesDropDownLookup$.subscribe((res) => {
+    this.transactionsService.getWareHousesDropDown();
+    this.transactionsService.wareHousesDropDownLookup$.subscribe((res) => {
       this.warhouseLookupData = res;
     });
   }
@@ -276,8 +270,8 @@ export class AddStockInComponent implements OnInit {
 
   // manual Barcode Event
   barcodeCanged(e: any, stockInFormGroup: FormGroup) {
-    this.itemsService.getItemBarcodeForItem(e);
-    this.itemsService.sendItemBarcode$.pipe(skip(1)).subscribe((data) => {
+    this.transactionsService.getItemBarcodeForItem(e);
+    this.transactionsService.sendItemBarcode$.pipe(skip(1)).subscribe((data) => {
       if (data) {
         stockInFormGroup.get('itemId')?.setValue(data.itemId);
         this.itemChanged(data.itemId, stockInFormGroup);
@@ -318,7 +312,7 @@ export class AddStockInComponent implements OnInit {
       sourceDocumentType: +this.stockInForm.value.sourceDocumentType,
       stockInDetails: this.stockIn.value,
     };
-    this.itemsService.addStockIn(data, this.stockInForm);
+    this.transactionsService.addStockIn(data, this.stockInForm);
   }
   OnDelete(i: number) {
     this.stockIn.removeAt(i);
