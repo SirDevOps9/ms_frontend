@@ -1,18 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
 import { DialogService } from 'primeng/dynamicdialog';
-import {
-  customValidators,
-  DateTimeService,
-  LanguageService,
-  PrintService,
-  ToasterService,
-} from 'shared-lib';
+import { LanguageService, PrintService } from 'shared-lib';
 import { GetWarehouseList } from '../../../items/models';
 import { ItemsService } from '../../../items/items.service';
 import { SearchItemPopUpComponent } from '../../../items/components/stock-out/search-item-pop-up/search-item-pop-up.component';
-import { WarehousesTables, WarehouseTransactionsDto } from '../../models';
+import { WarehousesTables } from '../../models';
 
 @Component({
   selector: 'app-item-card',
@@ -31,20 +24,19 @@ export class ItemCardComponent {
   constructor(
     private fb: FormBuilder,
     private languageService: LanguageService,
-    private ToasterService: ToasterService,
     private PrintService: PrintService,
-    private dateTimeService: DateTimeService,
-    private router: Router,
     private dialog: DialogService,
     private itemsService: ItemsService
   ) {
     this.languageService.language$.subscribe((lang) => [(this.selectedLanguage = lang)]);
   }
   ngOnInit() {
-    this.warehousesTransactionsTables =  [
+    this.warehousesTransactionsTables = [
       {
         warehouseName: 'Warehouse A',
         itemId: 'ITEM001',
+        itemName: 'first item',
+        itemCode: 'item code',
         transactions: [
           {
             id: '1',
@@ -56,16 +48,13 @@ export class ItemCardComponent {
             in: {
               qty: 100,
               cost: 10.99,
-              total: 1099.00,
+              total: 1099.0,
             },
             out: {
               qty: 20,
               cost: 10.99,
-              total: 219.80,
+              total: 219.8,
             },
-            qtyBalance: 80,
-            itemCost: 10.99,
-            totalBalanceAmount: 879.20,
           },
           {
             id: '2',
@@ -77,22 +66,24 @@ export class ItemCardComponent {
             in: {
               qty: 50,
               cost: 5.99,
-              total: 299.50,
+              total: 299.5,
             },
             out: {
               qty: 10,
               cost: 5.99,
-              total: 59.90,
+              total: 59.9,
             },
-            qtyBalance: 40,
-            itemCost: 5.99,
-            totalBalanceAmount: 239.60,
           },
         ],
+        qtyBalance: '40',
+        itemCost: '5.99',
+        totalBalanceAmount: '239.6',
       },
       {
         warehouseName: 'Warehouse B',
         itemId: 'ITEM002',
+        itemName: 'second item',
+        itemCode: 'item code',
         transactions: [
           {
             id: '3',
@@ -104,16 +95,13 @@ export class ItemCardComponent {
             in: {
               qty: 200,
               cost: 7.99,
-              total: 1598.00,
+              total: 1598.0,
             },
             out: {
               qty: 50,
               cost: 7.99,
-              total: 399.50,
+              total: 399.5,
             },
-            qtyBalance: 150,
-            itemCost: 7.99,
-            totalBalanceAmount: 1198.50,
           },
           {
             id: '4',
@@ -125,18 +113,18 @@ export class ItemCardComponent {
             in: {
               qty: 150,
               cost: 8.99,
-              total: 1348.50,
+              total: 1348.5,
             },
             out: {
               qty: 30,
               cost: 8.99,
-              total: 269.70,
+              total: 269.7,
             },
-            qtyBalance: 120,
-            itemCost: 8.99,
-            totalBalanceAmount: 1078.80,
           },
         ],
+        qtyBalance: '120',
+        itemCost: '8.99',
+        totalBalanceAmount: '1078.8',
       },
     ];
     this.initWareHouseLookupData();
@@ -144,6 +132,7 @@ export class ItemCardComponent {
     this.itemTransactionFormInitiate();
     this.getItems();
   }
+
   printTable(id: string) {
     this.PrintService.print(id);
   }
@@ -179,6 +168,8 @@ export class ItemCardComponent {
   getLatestItemsList(id: number) {
     this.itemsService.getLatestItemsListByWarehouse('', id);
   }
+
+  createNew() {}
 
   getItems() {
     this.itemsService.latestItemsListByWarehouse$.subscribe((res: any) => {
@@ -216,7 +207,6 @@ export class ItemCardComponent {
     });
     ref.onClose.subscribe((selectedItems: any) => {
       if (selectedItems) {
-        console.log(selectedItems);
         // this.setRowDataFromPopup(indexLine ,selectedItems)
       }
     });

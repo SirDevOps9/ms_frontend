@@ -15,13 +15,15 @@ export interface WarehouseTransactionsDto {
     cost: number;
     total: number;
   };
-  qtyBalance: number;
-  itemCost: number;
-  totalBalanceAmount: number;
 }
 
 export interface WarehousesTables {
   warehouseName: string;
   itemId: string;
+  itemName: string;
+  itemCode: string;
   transactions: WarehouseTransactionsDto[];
+  qtyBalance: string;
+  itemCost: string;
+  totalBalanceAmount: string;
 }
