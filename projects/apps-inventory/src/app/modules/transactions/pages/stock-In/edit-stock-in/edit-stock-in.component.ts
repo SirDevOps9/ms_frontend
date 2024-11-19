@@ -147,7 +147,7 @@ export class EditStockInComponent implements OnInit {
       if (res.length) {
         this.latestItemsList = res.map((elem: any) => ({
           ...elem,
-          displayName: `${elem.itemName} (${elem.itemCode})`,
+          displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantName}`,
         }));
       }
     });

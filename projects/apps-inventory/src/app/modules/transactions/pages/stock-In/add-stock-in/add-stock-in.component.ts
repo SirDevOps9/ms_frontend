@@ -343,13 +343,16 @@ export class AddStockInComponent implements OnInit {
     };
 
     this.transactionsService.addStockIn(data, this.stockInForm);
-    this.transactionsService.addedStockInData$.subscribe((res: any) => {
-      if (res) {
-        this.savedDataId = res;
-        this.dataToReadOnly = true;
-      } else {
-        this.dataToReadOnly = false;
-      }
+    this.transactionsService.addedStockInData$.subscribe({
+      next: (res: any) => {
+        if (res) {
+          this.savedDataId = res;
+          this.dataToReadOnly = true;
+        }
+      },
+      error() {
+        return;
+      },
     });
   }
   OnDelete(i: number) {
