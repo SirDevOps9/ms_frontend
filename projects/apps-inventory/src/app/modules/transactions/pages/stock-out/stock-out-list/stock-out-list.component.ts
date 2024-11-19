@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { AuthService } from 'microtec-auth-lib';
 import { DialogService } from 'primeng/dynamicdialog';
-import { RouterService, LanguageService, lookupDto, PageInfoResult, MenuModule, PageInfo } from 'shared-lib';
+import { RouterService, LanguageService, lookupDto, PageInfoResult, MenuModule, PageInfo, Pages, SharedEnums } from 'shared-lib';
 import { StockInDto, StockOutDto } from '../../../models';
 import { SharedStock } from '../../../models/sharedStockOutEnums';
 import { ItemsService } from '../../../../items/items.service';
 import { TransactionsService } from '../../../transactions.service';
+import { SequenceService } from 'apps-shared-lib';
 
 @Component({
   selector: 'app-stock-out-list',
@@ -25,7 +26,6 @@ export class StockOutListComponent implements OnInit {
   currentPageInfo: PageInfoResult = {};
   modulelist: MenuModule[];
   searchTerm: string;
-
   ngOnInit() {
     this.initStockOutData();
     this.subscribes();
@@ -53,7 +53,8 @@ export class StockOutListComponent implements OnInit {
 
 
   onAdd() {
-    this.routerService.navigateTo(`transactions/stock-out/add`)
+    this.sequenceService.isHaveSequence( this.sharedEnums.Pages.StockOut , '/transactions/stock-in/add-stock-in')
+
 
   }
 
@@ -91,7 +92,10 @@ export class StockOutListComponent implements OnInit {
     private title: Title,
     private langService: LanguageService,
     private itemsService: TransactionsService,
-    public sharedFinanceEnums: SharedStock
+    public sharedFinanceEnums: SharedStock,
+    public sequenceService: SequenceService,
+    public sharedEnums: SharedEnums,
+
   ) {
     // this.title.setTitle(this.langService.transalte('itemCategory.itemDefinition'));
 

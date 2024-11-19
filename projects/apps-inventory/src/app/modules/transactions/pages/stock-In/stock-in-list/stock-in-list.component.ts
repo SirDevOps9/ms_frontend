@@ -10,10 +10,14 @@ import {
   PageInfoResult,
   MenuModule,
   PageInfo,
+  
+  SharedEnums,
+  
 } from 'shared-lib';
 import { StockInDto } from '../../../../items/models';
 import { SharedStock } from '../../../../items/models/sharedStockOutEnums';
 import { TransactionsService } from '../../../transactions.service';
+import { SequenceService } from 'apps-shared-lib';
 
 
 @Component({
@@ -37,6 +41,7 @@ export class StockInListComponent implements OnInit {
   ngOnInit() {
     this.initStockOutData();
     this.subscribes();
+
   }
   subscribes() {
     this.transactionsService.stockInDataSourceeObservable.subscribe({
@@ -61,7 +66,8 @@ export class StockInListComponent implements OnInit {
   }
 
   onAdd() {
-    this.routerService.navigateTo('/transactions/stock-in/add-stock-in');
+    this.sequenceService.isHaveSequence( this.sharedEnums.Pages.StockIn , '/transactions/stock-in/add-stock-in')
+
   }
   onVeiw(data:any){
     this.routerService.navigateTo(`transactions/stock-in/view/${data}`)
@@ -107,9 +113,12 @@ export class StockInListComponent implements OnInit {
     public authService: AuthService,
     private dialog: DialogService,
     private title: Title,
-    private langService: LanguageService,
     private transactionsService: TransactionsService,
-    public sharedFinanceEnums: SharedStock
+    public sharedFinanceEnums: SharedStock,
+    public sequenceService: SequenceService,
+    public sharedEnums: SharedEnums,
+   
+
   ) {
     console.log(this.routerService.getCurrentUrl());
   }
