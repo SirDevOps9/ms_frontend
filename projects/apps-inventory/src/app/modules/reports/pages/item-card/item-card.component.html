@@ -15,9 +15,10 @@
                       formControlName="itemId"
                       [options]="filteredItems"
                       optionValue="itemId"
-                      optionLabel="displayName"
-                      (valueChanged)="setRowData($event, filteredItems)"
-                      (valueSearchChanged)="onFilter($event, 'warehouseId')"
+                      optionLabel="itemName"
+                      (valueChanged)="setRowData($event)"
+                      (valueSearchChanged)="onFilter($event)"
+                      [selectedValue]="moreInfoForm.controls['itemId'].value"
                     >
                     </lib-select>
                   </div>
@@ -33,11 +34,7 @@
                   {{ 'popupSearch.ItemName' | translate }}
                 </lib-label>
 
-                <lib-text-input
-                  placeholder="{{ 'popupSearch.ItemName' | translate }}"
-                  [readOnly]="true"
-                  formControlName="itemName"
-                ></lib-text-input>
+                <lib-text-input [readOnly]="true" formControlName="itemName"></lib-text-input>
               </lib-form-group>
               <lib-field-validations [appControl]="moreInfoForm.controls['warehouseId']">
               </lib-field-validations>
@@ -49,7 +46,6 @@
                 </lib-label>
 
                 <lib-text-input
-                  placeholder="{{ 'popupSearch.ItemVariant' | translate }}"
                   [readOnly]="true"
                   formControlName="itemVariantName"
                 ></lib-text-input>
@@ -63,15 +59,25 @@
                 <lib-label [appControl]="moreInfoForm.controls['warehouseId']">
                   {{ 'OperationalTag.warehouseName' | translate }}
                 </lib-label>
-                <lib-select
+                <lib-multi-select
+                  style="width: 100%"
                   formControlName="warehouseId"
                   [options]="warehouseLookupData"
                   [selectedValue]="moreInfoForm.controls['warehouseId'].value"
                   optionLabel="name"
                   optionValue="id"
                   placeholder="{{ 'OperationalTag.warehouseName' | translate }}"
+                ></lib-multi-select>
+                <!-- <lib-select
+                  formControlName="warehouseId"
+                  [options]="warehouseLookupData"
+                  [selectedValue]="moreInfoForm.controls['warehouseId'].value"
+                  optionLabel="name"
+                  optionValue="id"
+                  placeholder="{{ 'OperationalTag.warehouseName' | translate }}"
+                  (valueChanged)="onWarehouseChange($event)"
                 >
-                </lib-select>
+                </lib-select> -->
               </lib-form-group>
               <lib-field-validations [appControl]="moreInfoForm.controls['warehouseId']">
               </lib-field-validations>
@@ -95,7 +101,7 @@
       </button>
     </div>
 
-    @for( warehouseTransaction of warehousesTransactionsTables ; track warehouseTransaction) {
+    @for( warehouseTransaction of warehousesTransactionsTables ; track warehouseTransaction) {1
     <div class="card_micro">
       <lib-data-table
         [resizableColumns]="false"

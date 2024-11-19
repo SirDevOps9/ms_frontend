@@ -185,7 +185,7 @@ export class ItemsService {
   public attributeGroupeDropDownLookup = new BehaviorSubject<{ id: number; name: string }[]>([]);
   public sendOperationalTagDropDown = new BehaviorSubject<OperationalStockIn[]>([]);
   public sendlatestItemsList = new BehaviorSubject<LatestItems[]>([]);
-  public latestItemsListByWarehouse= new BehaviorSubject<LatestItems[]>([]);
+  public latestItemsListByWarehouse = new BehaviorSubject<LatestItems[]>([]);
   public sendAddStockIn = new BehaviorSubject<AddStockIn>({} as AddStockIn);
   public updateAddStockIn = new BehaviorSubject<AddStockIn>({} as AddStockIn);
   public attributeValuesDropDownLookup = new BehaviorSubject<itemAttributeValues[]>([]);
@@ -338,11 +338,11 @@ export class ItemsService {
   public getInventoryData$ = this.getInventoryData.asObservable();
   public dataBarCodeByIdObs = this.dataBarCodeById.asObservable();
   public sendItemBarcode$ = this.sendItemBarcode.asObservable();
-  
-  
-public sendOperationalTagStockOutDropDown = new BehaviorSubject<{ id: number; name: string }[]>([]);
-public OperationalTagStockOut$ = this.sendOperationalTagStockOutDropDown.asObservable()
 
+  public sendOperationalTagStockOutDropDown = new BehaviorSubject<{ id: number; name: string }[]>(
+    []
+  );
+  public OperationalTagStockOut$ = this.sendOperationalTagStockOutDropDown.asObservable();
 
   getItemType(quieries: string, pageInfo: PageInfo) {
     this.itemProxy.getItemType(quieries, pageInfo).subscribe((response) => {
@@ -1535,19 +1535,19 @@ public OperationalTagStockOut$ = this.sendOperationalTagStockOutDropDown.asObser
     });
   }
 
-getAllStockIn(quieries: string, pageInfo: PageInfo) {
-  this.itemProxy.getAllStockIn(quieries, pageInfo).subscribe((response) => {
-    this.stockInDataSource.next(response.result);
-    this.currentPageInfo.next(response.pageInfoResult);
-  });
-}
-exportStockOutList(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
-  this.itemProxy.exportStockOutList(searchTerm ,SortBy,SortColumn).subscribe({
-    next: (res: any) => {
-      this.exportStockOutListDataSource.next(res);
-    },
-  });
-}
+  getAllStockIn(quieries: string, pageInfo: PageInfo) {
+    this.itemProxy.getAllStockIn(quieries, pageInfo).subscribe((response) => {
+      this.stockInDataSource.next(response.result);
+      this.currentPageInfo.next(response.pageInfoResult);
+    });
+  }
+  exportStockOutList(searchTerm?: string, SortBy?: number, SortColumn?: string) {
+    this.itemProxy.exportStockOutList(searchTerm, SortBy, SortColumn).subscribe({
+      next: (res: any) => {
+        this.exportStockOutListDataSource.next(res);
+      },
+    });
+  }
 
   exportStockInList(searchTerm?: string, SortBy?: number, SortColumn?: string) {
     this.itemProxy.exportStockInList(searchTerm, SortBy, SortColumn).subscribe({
@@ -1563,8 +1563,8 @@ exportStockOutList(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
     });
   }
 
-  getLatestItemsList() {
-    return this.itemProxy.getLatestItemsList().subscribe((res) => {
+  getLatestItemsList(searchTerm: string = '') {
+    return this.itemProxy.getLatestItemsList(searchTerm).subscribe((res) => {
       this.sendlatestItemsList.next(res);
     });
   }
@@ -1609,14 +1609,12 @@ exportStockOutList(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
     });
   }
 
-  getItemBarcodeForItem(barcode : string) {
-    this.itemProxy.getItemBarcodeForItem(barcode).subscribe(res=>{
-      this.sendItemBarcode.next(res)
-
-    })
-    
+  getItemBarcodeForItem(barcode: string) {
+    this.itemProxy.getItemBarcodeForItem(barcode).subscribe((res) => {
+      this.sendItemBarcode.next(res);
+    });
   }
-  addStockOut(obj: AddStockOutDto,stockinForm : FormGroup) {
+  addStockOut(obj: AddStockOutDto, stockinForm: FormGroup) {
     this.itemProxy.addStockOut(obj).subscribe({
       next: (res) => {
         this.toasterService.showSuccess(
@@ -1627,17 +1625,15 @@ exportStockOutList(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
         this.router.navigateTo('transactions/stock-out');
       },
       error: (err) => {
-        
         this.formsService.setFormValidationErrors(stockinForm, err);
         this.loaderService.hide();
       },
     });
- 
   }
-  getLatestItemsListByWarehouse(SearchTerm:string , id:number){
-    return this.itemProxy.getLatestItemsListByWarehouse(SearchTerm,id).subscribe(res=>{
-      this.latestItemsListByWarehouse.next(res)
-    })
+  getLatestItemsListByWarehouse(SearchTerm: string, id: number) {
+    return this.itemProxy.getLatestItemsListByWarehouse(SearchTerm, id).subscribe((res) => {
+      this.latestItemsListByWarehouse.next(res);
+    });
   }
   // getItemsStockOutByWarehouse(quieries: string, searchTerm: string ,id:number , pageInfo: PageInfo ) {
   //   this.itemProxy.getItemsStockOut(quieries, searchTerm , id, pageInfo ).subscribe((res) => {
@@ -1646,7 +1642,7 @@ exportStockOutList(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
   //   });
   // }
   getItemsStockOutByWarehouse(queries: string, searchTerm: string, id: number, pageInfo: PageInfo) {
-    this.itemProxy.getItemsStockOut(queries, searchTerm, id, pageInfo).subscribe((res:any) => {
+    this.itemProxy.getItemsStockOut(queries, searchTerm, id, pageInfo).subscribe((res: any) => {
       this.itemsDataSourceByWarehouse.next(res);
     });
   }

@@ -94,8 +94,8 @@ export class ItemsProxyService {
     return this.httpService.get<itemDefinitionDto[]>(query);
   }
 
-  deleteStockOut(id : number ){
-    return this.httpService.delete(`StockOut/${id}`)
+  deleteStockOut(id: number) {
+    return this.httpService.delete(`StockOut/${id}`);
   }
 
   addItemDefinition(obj: AddItemDefinitionDto) {
@@ -565,8 +565,10 @@ export class ItemsProxyService {
   operationTagDropdown(): Observable<OperationalStockIn[]> {
     return this.httpService.get(`OperationalTag/OperationalTagStockDropDown?OperationType=StockIn`);
   }
-  getLatestItemsList(): Observable<LatestItems[]> {
-    return this.httpService.get(`Item/GetLatestItemsList`);
+  getLatestItemsList(searchTerm: string): Observable<LatestItems[]> {
+    const params: string[] = [];
+    if (searchTerm) params.push(`SearchTerm=${encodeURIComponent(searchTerm)}`);
+    return this.httpService.get(`Item/GetLatestItemsList?${params}`);
   }
 
   addStockIn(obj: AddStockIn): Observable<AddStockIn> {
@@ -652,12 +654,16 @@ export class ItemsProxyService {
   getItemBarcodeForItem(barcode: string): Observable<StockInDetail> {
     return this.httpService.get(`Item/GetItemByBarcode?Barcode=${barcode}`);
   }
-  addStockOut(obj : AddStockOutDto) : Observable<AddStockOutDto> {
-    return this.httpService.post('StockOut' , obj)
-
+  addStockOut(obj: AddStockOutDto): Observable<AddStockOutDto> {
+    return this.httpService.post('StockOut', obj);
   }
-  getLatestItemsListByWarehouse( SearchTerm :string , WarehouseId:number) : Observable<LatestItems[]> {
-    return this.httpService.get(`Item/GetLatestItemsStockDropDownByWarehouse?WarehouseId=${WarehouseId}`)
+  getLatestItemsListByWarehouse(
+    SearchTerm: string,
+    WarehouseId: number
+  ): Observable<LatestItems[]> {
+    return this.httpService.get(
+      `Item/GetLatestItemsStockDropDownByWarehouse?WarehouseId=${WarehouseId}`
+    );
   }
   // getItemsStockOut(
   //   quieries: string,
@@ -681,7 +687,7 @@ export class ItemsProxyService {
   ): Observable<PaginationVm<AdvancedSearchDto>> {
     // Construct the base query with pagination info
     let query = `Item/GetItemStockAdvancedSearchByWarehouse?${pageInfo.toQuery}`;
-      if (searchTerm) {
+    if (searchTerm) {
       query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
     }
     if (warehouseId) {
@@ -693,4 +699,3 @@ export class ItemsProxyService {
     return this.httpService.get<PaginationVm<AdvancedSearchDto>>(query);
   }
 }
-
