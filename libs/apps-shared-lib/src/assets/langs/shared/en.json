@@ -102,5 +102,8 @@
     "Showing": "Showing",
     "To": "to",
     "Entries": "entries"
+  },
+  "general" : {
+    "noData" : "There Is No Data"
   }
 }

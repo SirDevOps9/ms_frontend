@@ -98,7 +98,7 @@ export class BreadcrumbLabel {
   static ITEM_TYPE = 'Item Type';
   static ITEM_CATEGORY = 'Item Category';
   static WARE_HOUSE = 'Warehouse';
-  static UNITOFMEASURE = 'Unit Of Measure';
+  static UNITOFMEASURE = 'BreadCrumb.UnitOfMeasure';
   static ADD_WARE_HOUSE = 'Add Warehouse';
   static UOM = 'UOM';
   static UOM_LIST = 'uom-list';

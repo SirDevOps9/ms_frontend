@@ -1049,7 +1049,9 @@ public OperationalTagStockOut$ = this.sendOperationalTagStockOutDropDown.asObser
           );
 
           const currentUom = this.GetUOMCategoriesDataSource.getValue();
-          const updatedUOM = currentUom.filter((c: any) => c.id !== id);
+          console.log(currentUom)
+          console.log(id)
+          const updatedUOM = currentUom.filter((c: any) => c.uomCategoryId !== id);
           this.GetUOMCategoriesDataSource.next(updatedUOM);
         },
       });

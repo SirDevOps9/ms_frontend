@@ -264,7 +264,9 @@ export class UOMAddComponent implements OnInit {
         customValidators.onlyEnglishLetters,
       ]),
       shortName: new FormControl(uomData?.shortName || ''),
-      factor: new FormControl(uomData?.factor || null ),
+      factor: new FormControl(uomData?.factor || null, [
+        customValidators.number,
+      ]),
       calculation: new FormControl(uomData?.calculation || null),
       BaseCalculation: new FormControl(uomData?.BaseCalculation || null),
       calculationShow: new FormControl(uomData?.calculationShow || null),

@@ -266,6 +266,7 @@
                 <ng-template pTemplate="input">
                   <lib-form-group>
                     <lib-text-input
+                      type="number"
                       placeholder="{{ 'UOM.factor' | translate }}"
                       formControlName="factor"
                       (keyUp)="factorChanged($event , uomTableForm , i , list[i]  )"

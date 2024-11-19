@@ -11,7 +11,9 @@
     "ItemsCategory": "فئة العناصر",
     "stockout": "إخراج المخزون",
     "add": "إضافة",
-    "add_stockOut": "إضافة إخراج مخزون"
+    "add_stockOut": "إضافة إخراج مخزون",
+    "UnitOfMeasure" : "وحدة القياس"
+
   },
   "Toaster": {
     "Confirm": {
