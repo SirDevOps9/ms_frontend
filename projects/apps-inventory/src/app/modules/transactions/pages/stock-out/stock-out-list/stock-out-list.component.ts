@@ -2,7 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { AuthService } from 'microtec-auth-lib';
 import { DialogService } from 'primeng/dynamicdialog';
-import { RouterService, LanguageService, lookupDto, PageInfoResult, MenuModule, PageInfo, Pages, SharedEnums } from 'shared-lib';
+import {
+  RouterService,
+  LanguageService,
+  lookupDto,
+  PageInfoResult,
+  MenuModule,
+  PageInfo,
+  Pages,
+  SharedEnums,
+} from 'shared-lib';
 import { StockInDto, StockOutDto } from '../../../models';
 import { SharedStock } from '../../../models/sharedStockOutEnums';
 import { ItemsService } from '../../../../items/items.service';
@@ -12,11 +21,11 @@ import { SequenceService } from 'apps-shared-lib';
 @Component({
   selector: 'app-stock-out-list',
   templateUrl: './stock-out-list.component.html',
-  styleUrl: './stock-out-list.component.scss'
+  styleUrl: './stock-out-list.component.scss',
 })
 export class StockOutListComponent implements OnInit {
   SortBy?: number;
-  SortColumn?: string
+  SortColumn?: string;
   tableData: any[];
   exportData: StockOutDto[];
 
@@ -32,14 +41,10 @@ export class StockOutListComponent implements OnInit {
   }
   subscribes() {
     this.itemsService.stockOutDataSourceeObservable.subscribe({
-      next: (res:any) => {
+      next: (res: any) => {
         this.tableData = res;
       },
     });
-
-
-
-
   }
   initStockOutData() {
     this.itemsService.getAllStockOut('', new PageInfo());
@@ -47,33 +52,29 @@ export class StockOutListComponent implements OnInit {
 
   onPageChange(pageInfo: PageInfo) {
     this.itemsService.getAllStockOut('', pageInfo);
-
-
   }
 
-
   onAdd() {
-    this.sequenceService.isHaveSequence( this.sharedEnums.Pages.StockOut , '/transactions/stock-in/add-stock-in')
-
-
+    this.sequenceService.isHaveSequence(
+      this.sharedEnums.Pages.StockOut,
+      '/transactions/stock-out/add'
+    );
   }
 
   onEdit(data: any) {
-    this.routerService.navigateTo(`transactions/stock-out/edit/${data.id}`)
-
+    this.routerService.navigateTo(`transactions/stock-out/edit/${data.id}`);
   }
 
-  onVeiw(data:any){
-    this.routerService.navigateTo(`transactions/stock-out/view/${data}`)
+  onVeiw(data: any) {
+    this.routerService.navigateTo(`transactions/stock-out/view/${data}`);
   }
 
   onSearchChange() {
     this.itemsService.getAllStockOut(this.searchTerm, new PageInfo());
-
   }
 
   onDelete(id: number) {
-    this.itemsService.deleteStockOut(id)
+    this.itemsService.deleteStockOut(id);
   }
   exportedColumns(obj: { SortBy: number; SortColumn: string }) {
     this.SortBy = obj.SortBy;
@@ -81,7 +82,7 @@ export class StockOutListComponent implements OnInit {
   }
   exportClick() {
     this.itemsService.exportStockOutList(this.searchTerm, this.SortBy, this.SortColumn);
-    this.itemsService.exportStockOutListDataSource.subscribe((res:any) => {
+    this.itemsService.exportStockOutListDataSource.subscribe((res: any) => {
       this.exportData = res;
     });
   }
@@ -94,11 +95,8 @@ export class StockOutListComponent implements OnInit {
     private itemsService: TransactionsService,
     public sharedFinanceEnums: SharedStock,
     public sequenceService: SequenceService,
-    public sharedEnums: SharedEnums,
-
+    public sharedEnums: SharedEnums
   ) {
     // this.title.setTitle(this.langService.transalte('itemCategory.itemDefinition'));
-
   }
 }
-
