@@ -1,6 +1,6 @@
 <lib-page-content [title]="'stockIn.TaxList' | translate" [subTitle]="'stockIn.TaxList' | translate">
 
-  <div [formGroup]="stockInForm" class="grid my w-100 card stockInForm_header">
+  <div [formGroup]="stockInForm" class="grid my w-100 card_micro stockInForm_header">
     <div class="grid md:col-12 p-1 m-0">
       <div class="md:col-2 my-2">
         <lib-label [appControl]="stockInForm.controls['code']">
@@ -87,129 +87,104 @@
   </div>
 
   <div class="my-2">
-    <p-table
-    #dt
-    [value]="stockOut.value"
-    dataKey="barCode"
-    sortMode="multiple"
-    [rows]="rows"
-    [paginator]="true"
-    [first]="first"
-    [rowsPerPageOptions]="[1, 5, 10]"
-    (onPage)="onPageChange($event)"
-    styleClass="p-datatable-gridlines p-datatable-striped"
-    [tableStyle]="{ 'min-width': '50rem' }"
-    [globalFilterFields]="globalFilterFields"
+    <lib-data-table
+    [items]="currentPageData"
+    className="p-datatable-gridlines"
+    [currentPageResult]="currentPageInfo"
+    [tableConfigs]="{
+      allowPagination: true,
+      allowServerPagination: false,
+      dataKey: 'barCode',
+      pageSize: rows,
+      columns: [
+        {
+          name: 'barCode',
+          headerText: ('stockIn.barcode' | translate),
+          isGlobalFilter: true,
+          isSortable: true
+        },
+        {
+          name: 'description',
+          headerText: ('stockIn.itemDescription' | translate),
+          isGlobalFilter: true,
+          isSortable: true
+        },
+        {
+          name: 'uomId',
+          headerText: ('stockIn.UOM' | translate),
+          isSortable: true
+        },
+        {
+          name: 'quantity',
+          headerText: ('stockIn.QTY' | translate),
+          isSortable: true
+        },
+        {
+          name: 'cost',
+          headerText: ('stockIn.cost' | translate),
+          isSortable: true
+        },
+        {
+          name: 'subTotal',
+          headerText: ('stockIn.subTotal' | translate),
+          template: subTotalTemplate
+        },
+        {
+          name: 'trackingType',
+          headerText: ('stockIn.tracking' | translate),
+          template: trackingTemplate
+        },
+        {
+          name: 'notes',
+          headerText: ('stockIn.note' | translate),
+          isSortable: true
+        }
+      ]
+    }"
   >
-    <ng-template pTemplate="caption">
-      <div class="flex align-items-center justify-content-between">
-        <lib-text-input
+
+  <ng-container search>
+    <lib-text-input
         type="text"
         [iconUrl]="'pi pi-search'"
         [placeholder]="'stockIn.search' | translate"
         (input)="filterTable($event)"
 
       ></lib-text-input>
-        <span class="p-input-icon-left">
-          <i class="pi pi-search"></i>
-          <input
-            pInputText
-            type="text"
-            (input)="filterTable($event)"
-            placeholder="Search..."
-          />
-        </span>
-
-
-
-      </div>
+  </ng-container>
+    <ng-template #subTotalTemplate let-row>
+      {{ row.quantity * row.cost || 0 }}
     </ng-template>
 
-    <ng-template pTemplate="header">
-      <tr>
-        <th pSortableColumn="barCode">{{'stockIn.barcode' |translate}} <p-sortIcon field="barCode"></p-sortIcon></th>
-        <th pSortableColumn="description">{{'stockIn.itemDescription' |translate}} <p-sortIcon field="description"></p-sortIcon></th>
-        <th pSortableColumn="uomId">{{'stockIn.UOM' |translate}}  <p-sortIcon field="uomId"></p-sortIcon></th>
-        <th pSortableColumn="quantity">{{'stockIn.QTY' |translate}} <p-sortIcon field="quantity"></p-sortIcon></th>
-        <th pSortableColumn="cost">{{'stockIn.cost' |translate}} <p-sortIcon field="cost"></p-sortIcon></th>
-        <th pSortableColumn="subTotal">{{'stockIn.subTotal' |translate}} <p-sortIcon field="subTotal"></p-sortIcon></th>
-        <th pSortableColumn="trackingType">{{'stockIn.tracking' |translate}}  <p-sortIcon field="trackingType"></p-sortIcon></th>
-        <th pSortableColumn="notes">{{'stockIn.note' |translate}} <p-sortIcon field="notes"></p-sortIcon></th>
-      </tr>
+    <ng-template #trackingTemplate let-row>
+      <ng-container *ngIf="row.trackingType === 'NoTracking'">
+        <ng-container *ngIf="row.hasExpiryDate">
+          {{ row.systemPatchNo }} - <span class="pi pi-calendar"></span> {{ row.expireDate | date: 'yyyy-MM-dd' }}
+        </ng-container>
+        <ng-container *ngIf="!row.hasExpiryDate">
+          {{ row.trackingType }}
+        </ng-container>
+      </ng-container>
+      <ng-container *ngIf="row.trackingType === 'Batch'">
+        <ng-container *ngIf="row.hasExpiryDate">
+          {{ row.vendorBatchNo }} - <span class="pi pi-calendar"></span> {{ row.expireDate | date: 'yyyy-MM-dd' }}
+        </ng-container>
+        <ng-container *ngIf="!row.hasExpiryDate">
+          {{ row.vendorBatchNo }}
+        </ng-container>
+      </ng-container>
+      <ng-container *ngIf="row.trackingType === 'Serial'">
+        <ng-container *ngIf="row.hasExpiryDate">
+          {{ row.serialId }} - <span class="pi pi-calendar"></span> {{ row.expireDate | date: 'yyyy-MM-dd' }}
+        </ng-container>
+        <ng-container *ngIf="!row.hasExpiryDate">
+          {{ row.serialId }}
+        </ng-container>
+      </ng-container>
     </ng-template>
-
-    <ng-template pTemplate="body" let-row let-i="rowIndex">
-      <tr>
-        <td>{{ row.barCode }}</td>
-        <td>{{ row.description }}</td>
-        <td>{{ row.uomId }}</td>
-        <td>{{ row.quantity }}</td>
-        <td>{{ row.cost }}</td>
-        <td>{{ row.quantity * row.cost || 0 }}</td>
-        <td>
-          <!--
-          START Comment
-           1 case ) trackingType : NoTracking and hasExpiryDate = true  >> systemPatchNo  + expireDate  == done
-
-             2 case trackingType : NoTracking and hasExpiryDate = false  >> NoTracking (only)  == done
-             -->
-          <ng-container *ngIf="row.trackingType === 'NoTracking'">
-            <ng-container *ngIf="row.hasExpiryDate">
-              {{ row.systemPatchNo }} -        <span class=" pi pi-calendar"></span> {{ row.expireDate | date: 'yyyy-MM-dd' }}
-            </ng-container>
-            <ng-container *ngIf="!row.hasExpiryDate">
-              {{ row.trackingType }}
-            </ng-container>
-          </ng-container>
-
-          <!--END Comment -->
+  </lib-data-table>
 
 
-
-                 <!--
-                 START Comment
-
-                  3)  trackingType : Batch  and   hasExpiryDate =true  >> vendorBatchNo + expireDate == done
-
-                   4)  trackingType : Batch  and   hasExpiryDate =false  >> vendorBatchNo   == done
-
-             -->
-          <ng-container *ngIf="row.trackingType === 'Batch'">
-            <ng-container *ngIf="row.hasExpiryDate">
-              {{ row.vendorBatchNo }} -        <span class=" pi pi-calendar"></span>{{ row.expireDate | date: 'dd/MM/yyyy' }}
-            </ng-container>
-            <ng-container *ngIf="!row.hasExpiryDate">
-              {{ row.vendorBatchNo }}
-            </ng-container>
-          </ng-container>
-
-                <!--END Comment -->
-
-
-                  <!--
-                 START Comment
-
-                 5)  trackingType : Serial  and   hasExpiryDate =false  >> serialId  >>>> optional
-
-                  6)  trackingType : Serial  and   hasExpiryDate =true   >> serialId  + expireDate
-
-             -->
-          <ng-container *ngIf="row.trackingType === 'Serial'">
-            <ng-container *ngIf="row.hasExpiryDate">
-              {{ row.serialId }} -       <span class=" pi pi-calendar"></span> {{ row.expireDate | date: 'yyyy-MM-dd' }}
-            </ng-container>
-            <ng-container *ngIf="!row.hasExpiryDate">
-              {{ row.serialId }}
-            </ng-container>
-          </ng-container>
-
-              <!--END Comment -->
-
-        </td>
-        <td>{{ row.notes }}</td>
-      </tr>
-    </ng-template>
-  </p-table>
 
 
   </div>
@@ -223,29 +198,4 @@
     </ng-container>
   </ng-template>
 
-
-  <div class="grid">
-    <div class="md:col-12 my-3 grid flex justify-content-end">
-      <div class="md:col-4 grid flex justify-content-end">
-        <div class="md:col-6">
-          <lib-button-micro
-            title="{{ 'cancel' | translate }}"
-            nameClass="cancel"
-            widthNumber="100%"
-
-          >
-          </lib-button-micro>
-        </div>
-        <div class="md:col-6">
-          <lib-button-micro
-            title="{{ 'Save' | translate }}"
-            nameClass="save"
-            widthNumber="100%"
-
-          >
-          </lib-button-micro>
-        </div>
-      </div>
-    </div>
-  </div>
   </lib-page-content>
