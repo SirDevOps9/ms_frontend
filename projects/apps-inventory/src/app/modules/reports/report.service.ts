@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ReportProxyService } from './report-proxy.service';
-import { CardReportQuery, WarehousesTables } from './models';
+import { AdvancedSearchDto, CardReportQuery, LatestItems, WarehousesTables } from './models';
 import { BehaviorSubject } from 'rxjs';
-import { AdvancedSearchDto } from '../items/models';
 import { PageInfo, PageInfoResult } from 'shared-lib';
 
 @Injectable({
@@ -10,10 +9,13 @@ import { PageInfo, PageInfoResult } from 'shared-lib';
 })
 export class ReportService {
   cardWarehousesReport = new BehaviorSubject<WarehousesTables[]>([]);
-  itemsDataSource = new BehaviorSubject<AdvancedSearchDto[]>([])
+  itemsDataSource = new BehaviorSubject<AdvancedSearchDto[]>([]);
+  sendlatestItemsList = new BehaviorSubject<LatestItems[]>([]);
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
 
   cardWarehousesReportList = this.cardWarehousesReport.asObservable();
+  sendlatestItemsList$ = this.sendlatestItemsList.asObservable();
+  itemsList = this.itemsDataSource.asObservable();
 
   constructor(private reportProxy: ReportProxyService) {}
 
@@ -26,6 +28,12 @@ export class ReportService {
 
     this.reportProxy.getWarehouseTransactionsReport(params).subscribe((res) => {
       this.cardWarehousesReport.next(res);
+    });
+  }
+
+  getLatestItemsList(searchTerm: string = '') {
+    return this.reportProxy.getLatestItemsList(searchTerm).subscribe((res) => {
+      this.sendlatestItemsList.next(res);
     });
   }
 

@@ -5,9 +5,9 @@ import { customValidators, LanguageService, PrintService } from 'shared-lib';
 import { GetWarehouseList } from '../../../items/models';
 import { ItemsService } from '../../../items/items.service';
 import { CardReportQuery, WarehousesTables } from '../../models';
-import { ItemDto } from 'projects/apps-sales/src/app/modules/sales/models';
 import { SearchItemAdvancedPopUpComponent } from '../../components/search-item-pop-up/search-item-pop-up.component';
 import { ReportService } from '../../report.service';
+import { ItemDto } from '../../models/item-dto';
 
 @Component({
   selector: 'app-item-card',
@@ -84,13 +84,13 @@ export class ItemCardComponent {
   }
 
   onFilter(SearchTerm: string) {
-    this.itemsService.getLatestItemsList(SearchTerm);
+    this.reportService.getLatestItemsList(SearchTerm);
   }
 
-
   getItems() {
-    this.itemsService.getLatestItemsList();
-    this.itemsService.sendlatestItemsList$.subscribe((items) => {
+    this.reportService.getLatestItemsList();
+    this.reportService.sendlatestItemsList$.subscribe((items) => {
+      console.log(items);
       this.filteredItems = items;
       this.filteredItems.map(
         (item) =>

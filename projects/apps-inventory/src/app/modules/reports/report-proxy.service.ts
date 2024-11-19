@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
-import { WarehousesTables } from './models';
-import { AdvancedSearchDto, LatestItems } from '../items/models';
+import { AdvancedSearchDto, LatestItems, WarehousesTables } from './models';
 
 @Injectable({
   providedIn: 'root',

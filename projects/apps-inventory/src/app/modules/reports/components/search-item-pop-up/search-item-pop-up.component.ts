@@ -4,6 +4,7 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ItemDto, SharedSalesEnums } from 'projects/apps-sales/src/app/modules/sales/models';
 import { LanguageService, PageInfo, PageInfoResult } from 'shared-lib';
 import { ItemsService } from '../../../items/items.service';
+import { ReportService } from '../../report.service';
 
 @Component({
   selector: 'app-search-item-pop-up',
@@ -27,9 +28,9 @@ export class SearchItemAdvancedPopUpComponent {
     public sharedEnums: SharedSalesEnums,
     private ref: DynamicDialogRef,
     private fb: FormBuilder,
-    private itemsService: ItemsService,
     public config: DynamicDialogConfig,
-    private languageService: LanguageService
+    private languageService: LanguageService,
+    private reportService: ReportService
   ) {}
 
   ngOnInit(): void {
@@ -43,14 +44,14 @@ export class SearchItemAdvancedPopUpComponent {
   }
 
   getAllItems() {
-    this.itemsService.getItems('', '', new PageInfo());
-    this.itemsService.itemsList.subscribe({
+    this.reportService.getItems('', '', new PageInfo());
+    this.reportService.itemsList.subscribe({
       next: (res: any) => {
         this.items = res;
       },
     });
 
-    this.itemsService.currentPageInfo.subscribe((currentPageInfo) => {
+    this.reportService.currentPageInfo.subscribe((currentPageInfo) => {
       this.currentPageInfo = currentPageInfo;
     });
   }
@@ -60,7 +61,7 @@ export class SearchItemAdvancedPopUpComponent {
   }
 
   onPageChange(pageInfo: PageInfo) {
-    this.itemsService.getItems('', '', pageInfo);
+    this.reportService.getItems('', '', pageInfo);
   }
 
   onSubmit() {
@@ -80,10 +81,10 @@ export class SearchItemAdvancedPopUpComponent {
   onFilterChange() {
     const query = this.buildQuery();
 
-    this.itemsService.getItems(query, '', new PageInfo());
+    this.reportService.getItems(query, '', new PageInfo());
   }
   onSearchChange(event: any) {
-    this.itemsService.getItems('', event, new PageInfo());
+    this.reportService.getItems('', event, new PageInfo());
   }
 
   buildQuery(): string {
