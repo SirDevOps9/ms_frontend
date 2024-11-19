@@ -1,6 +1,12 @@
 import { Injectable } from '@angular/core';
 import { ReportProxyService } from './report-proxy.service';
-import { AdvancedSearchDto, CardReportQuery, LatestItems, WarehousesTables } from './models';
+import {
+  AdvancedSearchDto,
+  CardReportQuery,
+  GetWarehouseList,
+  LatestItems,
+  WarehousesTables,
+} from './models';
 import { BehaviorSubject } from 'rxjs';
 import { PageInfo, PageInfoResult } from 'shared-lib';
 
@@ -12,7 +18,9 @@ export class ReportService {
   itemsDataSource = new BehaviorSubject<AdvancedSearchDto[]>([]);
   sendlatestItemsList = new BehaviorSubject<LatestItems[]>([]);
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
+  wareHousesDropDownLookup = new BehaviorSubject<GetWarehouseList[]>([]);
 
+  wareHousesDropDownLookup$ = this.wareHousesDropDownLookup.asObservable();
   cardWarehousesReportList = this.cardWarehousesReport.asObservable();
   sendlatestItemsList$ = this.sendlatestItemsList.asObservable();
   itemsList = this.itemsDataSource.asObservable();
@@ -41,6 +49,12 @@ export class ReportService {
     this.reportProxy.getItems(quieries, searchTerm, pageInfo).subscribe((res) => {
       this.itemsDataSource.next(res.result);
       this.currentPageInfo.next(res.pageInfoResult);
+    });
+  }
+
+  getWareHousesDropDown() {
+    return this.reportProxy.getWareHousesDropDown().subscribe((res) => {
+      this.wareHousesDropDownLookup.next(res);
     });
   }
 }

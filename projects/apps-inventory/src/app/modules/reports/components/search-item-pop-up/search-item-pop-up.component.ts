@@ -3,7 +3,6 @@ import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ItemDto, SharedSalesEnums } from 'projects/apps-sales/src/app/modules/sales/models';
 import { LanguageService, PageInfo, PageInfoResult } from 'shared-lib';
-import { ItemsService } from '../../../items/items.service';
 import { ReportService } from '../../report.service';
 
 @Component({

@@ -38,4 +38,8 @@ export class ReportProxyService {
     }
     return this.http.get<PaginationVm<AdvancedSearchDto>>(query);
   }
+
+  getWareHousesDropDown() {
+    return this.http.get<any>(`WareHouse/WareHousesDropDown`);
+  }
 }

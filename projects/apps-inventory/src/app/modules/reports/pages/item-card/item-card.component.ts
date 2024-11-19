@@ -2,9 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DialogService } from 'primeng/dynamicdialog';
 import { customValidators, LanguageService, PrintService } from 'shared-lib';
-import { GetWarehouseList } from '../../../items/models';
-import { ItemsService } from '../../../items/items.service';
-import { CardReportQuery, WarehousesTables } from '../../models';
+import { CardReportQuery, GetWarehouseList, WarehousesTables } from '../../models';
 import { SearchItemAdvancedPopUpComponent } from '../../components/search-item-pop-up/search-item-pop-up.component';
 import { ReportService } from '../../report.service';
 import { ItemDto } from '../../models/item-dto';
@@ -28,7 +26,6 @@ export class ItemCardComponent {
     private languageService: LanguageService,
     private PrintService: PrintService,
     private dialog: DialogService,
-    private itemsService: ItemsService,
     private reportService: ReportService
   ) {
     this.languageService.language$.subscribe((lang) => [(this.selectedLanguage = lang)]);
@@ -66,8 +63,8 @@ export class ItemCardComponent {
 
   itemTransactionSubmit() {}
   initWareHouseLookupData() {
-    this.itemsService.getWareHousesDropDown();
-    this.itemsService.wareHousesDropDownLookup$.subscribe((res) => {
+    this.reportService.getWareHousesDropDown();
+    this.reportService.wareHousesDropDownLookup$.subscribe((res) => {
       this.warehouseLookupData = res;
     });
   }
