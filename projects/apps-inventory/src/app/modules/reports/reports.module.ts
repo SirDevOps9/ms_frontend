@@ -5,6 +5,7 @@ import { Modules, SharedLibModule } from 'shared-lib';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { Route, RouterModule } from '@angular/router';
 import { LayoutPageComponent } from 'apps-shared-lib';
+import { SearchItemAdvancedPopUpComponent } from './components/search-item-pop-up/search-item-pop-up.component';
 
 const routes: Route[] = [
   {
@@ -23,7 +24,7 @@ const routes: Route[] = [
 ];
 
 @NgModule({
-  declarations: [ItemCardComponent],
+  declarations: [ItemCardComponent, SearchItemAdvancedPopUpComponent],
   imports: [CommonModule, SharedLibModule, AutoCompleteModule, RouterModule.forChild(routes)],
 })
 export class ReportsModule {}

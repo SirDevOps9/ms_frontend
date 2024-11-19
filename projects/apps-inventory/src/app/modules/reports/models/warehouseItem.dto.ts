@@ -19,6 +19,7 @@ export interface WarehouseTransactionsDto {
 
 export interface WarehousesTables {
   warehouseName: string;
+  uomName: string;
   itemId: string;
   itemName: string;
   itemCode: string;

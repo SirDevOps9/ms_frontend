@@ -7,10 +7,14 @@ import { WarehousesTables } from './models';
   providedIn: 'root',
 })
 export class ReportProxyService {
-  private baseHttp = '';
+  private baseHttp = 'ItemCardReport/ItemCardReport';
   constructor(private http: HttpService) {}
 
-  getWarehouseTransactionsReport(): Observable<PaginationVm<WarehousesTables>> {
-    return this.http.get<PaginationVm<WarehousesTables>>(this.baseHttp);
+  getWarehouseTransactionsReport(query: any): Observable<WarehousesTables[]> {
+    let queryList = `${this.baseHttp}`;
+    if (query) {
+      queryList += `?${query}`;
+    }
+    return this.http.get<WarehousesTables[]>(queryList);
   }
 }

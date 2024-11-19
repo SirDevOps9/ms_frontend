@@ -47,6 +47,10 @@ input[type='checkbox'] {
   cursor: pointer;
 }
 ::ng-deep {
+  .viewInWeb {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
   .p-checkbox .p-checkbox-box.p-highlight {
     border-color: #1a90b0 !important;
     background: #1a90b0 !important;
