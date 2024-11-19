@@ -52,6 +52,14 @@ export class ItemsProxyService {
     }
     return this.httpService.get<PaginationVm<ItemTypeDto>>(query);
   }
+  operationTagDropdown(): Observable<OperationalStockIn[]> {
+    return this.httpService.get(`OperationalTag/OperationalTagStockDropDown?OperationType=StockIn`);
+  }
+
+  getItemBarcodeForItem(barcode: string): Observable<StockInDetail> {
+    return this.httpService.get(`Item/GetItemByBarcode?Barcode=${barcode}`);
+  }
+
   getItemDefinition(
     searchTerm: string,
     pageInfo: PageInfo
@@ -62,21 +70,7 @@ export class ItemsProxyService {
     }
     return this.httpService.get<PaginationVm<itemDefinitionDto>>(query);
   }
-  getStockIn(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<StockInDto>> {
-    let query = `Transaction/GetStockInTransactionList?${pageInfo.toQuery}`;
-    if (searchTerm) {
-      query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
-    }
-    return this.httpService.get<PaginationVm<StockInDto>>(query);
-  }
 
-  exportsStockInList(searchTerm: string | undefined): Observable<itemDefinitionDto[]> {
-    let query = `Transaction/GetStockInTransactionList/Export?`;
-    if (searchTerm) {
-      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
-    }
-    return this.httpService.get<itemDefinitionDto[]>(query);
-  }
 
   getStockOut(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<StockInDto>> {
     let query = `Transaction/GetStockInTransactionList?${pageInfo.toQuery}`;
@@ -215,6 +209,11 @@ export class ItemsProxyService {
 
   getItemBarcodeById(id: number) {
     return this.httpService.get(`Item/GetItemBarcode/${id}`);
+  }
+
+  getItemFixedCost(id:number){
+    return this.httpService.get(`Item/GetItemFixedCost/${id}`);
+
   }
   uomCodeDropDown(id: number) {
     return this.httpService.get(`UOM/GetUOMsByUOMCategoryId/${id}`); //
@@ -416,6 +415,9 @@ export class ItemsProxyService {
   editItem(obj: any) {
     return this.httpService.put(`Item/Edit`, obj);
   }
+  editItemFixedCost(obj: any) {
+    return this.httpService.put(`Item/EditItemFixedCost`, obj);
+  }
   editOperationalTag(obj: AddOperatioalTag) {
     return this.httpService.put(`OperationalTag`, obj);
   }
@@ -504,43 +506,7 @@ export class ItemsProxyService {
   getWarehouseById(id: number): Observable<AddWarehouse> {
     return this.httpService.get(`WareHouse/${id}`);
   }
-  //
-  // getGlAccountLookup() {
-  //   return this.httpService.get<any>(`WareHouse/`);
-  // }
-  // getCashSalesLookup() {
-  //   return this.httpService.get<any>(`WareHouse/`);
-  // }
-  // getCreditSalesLookup() {
-  //   return this.httpService.get<any>(`WareHouse/`);
-  // }
-  // getSalesReturnLookup() {
-  //   return this.httpService.get<any>(`WareHouse/`);
-  // }
-  // getPurchaseAccountLookup() {
-  //   return this.httpService.get<any>(`WareHouse/`);
-  // }
-  // getSalesCostCenterLookup() {
-  //   return this.httpService.get<any>(`WareHouse/`);
-  // }
-  // getDiscountAccountLookup() {
-  //   return this.httpService.get<any>(`WareHouse/`);
-  // }
-  // getEvaluationAccountLookup() {
-  //   return this.httpService.get<any>(`WareHouse/`);
-  // }
-  // getAdjustmentAccountLookup() {
-  //   return this.httpService.get<any>(`WareHouse/`);
-  // }
-  // getGoodsInTransitLookup() {
-  //   return this.httpService.get<any>(`WareHouse/`);
-  // }
-  // getCityLookup() {
-  //   return this.httpService.get<any>(`WareHouse/`);
-  // }
-  // getCompanyPhoneLookup() {
-  //   return this.httpService.get<any>(`WareHouse/`);
-  // }
+
   getBranchDropdown() {
     return this.httpService.get<any>(`GeneralSettings/BranchDropdown`);
   }
@@ -562,21 +528,12 @@ export class ItemsProxyService {
     return this.httpService.get(`Item/GetGeneralData/${id}`);
   }
 
-  operationTagDropdown(): Observable<OperationalStockIn[]> {
-    return this.httpService.get(`OperationalTag/OperationalTagStockDropDown?OperationType=StockIn`);
-  }
-  getLatestItemsList(searchTerm: string): Observable<LatestItems[]> {
-    const params: string[] = [];
-    if (searchTerm) params.push(`SearchTerm=${encodeURIComponent(searchTerm)}`);
-    return this.httpService.get(`Item/GetLatestItemsList?${params}`);
+
+  getLatestItemsList(): Observable<LatestItems[]> {
+    return this.httpService.get(`Item/GetLatestItemsList`);
   }
 
-  addStockIn(obj: AddStockIn): Observable<AddStockIn> {
-    return this.httpService.post('StockIn', obj);
-  }
-  editStockIn(obj: AddStockIn): Observable<AddStockIn> {
-    return this.httpService.put('StockIn', obj);
-  }
+
   getItems(
     quieries: string,
     searchTerm: string,
@@ -591,111 +548,18 @@ export class ItemsProxyService {
     }
     return this.httpService.get<PaginationVm<AdvancedSearchDto>>(query);
   }
-  getAllStockOut(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<StockOutDto>> {
-    let query = `StockOut?${pageInfo.toQuery}`;
-    if (searchTerm) {
-      query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
-    }
-    return this.httpService.get<PaginationVm<StockOutDto>>(query);
-  }
-  getAllStockIn(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<StockInDto>> {
-    let query = `StockIn?${pageInfo.toQuery}`;
-    if (searchTerm) {
-      query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
-    }
-    return this.httpService.get<PaginationVm<StockInDto>>(query);
-  }
 
-  exportStockOutList(
-    searchTerm?: string,
-    SortBy?: number,
-    SortColumn?: string
-  ): Observable<StockOutDto[]> {
-    let query = `StockOut/Export?`;
-    const params: string[] = [];
-    if (searchTerm) params.push(`searchTerm=${encodeURIComponent(searchTerm)}`);
-    if (SortBy) params.push(`SortBy=${SortBy}`);
-    if (SortColumn) params.push(`SortColumn=${SortColumn}`);
-    query += params.join('&');
-    return this.httpService.get<StockOutDto[]>(query);
-  }
 
-  exportStockInList(
-    searchTerm?: string,
-    SortBy?: number,
-    SortColumn?: string
-  ): Observable<StockInDto[]> {
-    let query = `StockIn/Export?`;
-    const params: string[] = [];
-    if (searchTerm) params.push(`searchTerm=${encodeURIComponent(searchTerm)}`);
-    if (SortBy) params.push(`SortBy=${SortBy}`);
-    if (SortColumn) params.push(`SortColumn=${SortColumn}`);
-    query += params.join('&');
-    return this.httpService.get<StockInDto[]>(query);
-  }
 
-  deleteStockIn(id: number) {
-    return this.httpService.delete(`StockIn/${id}`);
-  }
-  deleteStockInLine(id: number) {
-    return this.httpService.delete(`StockIn/DeleteLine/${id}`);
-  }
 
-  getByIdStockOut(id: number) {
-    return this.httpService.get(`StockOut/${id}`);
-  }
-  getStockInById(id: number) {
-    return this.httpService.get(`StockIn/${id}`);
-  }
-  editStockOut(obj: StockOutDto) {
-    return this.httpService.put(`StockOut`, obj);
-  }
 
-  getItemBarcodeForItem(barcode: string): Observable<StockInDetail> {
-    return this.httpService.get(`Item/GetItemByBarcode?Barcode=${barcode}`);
-  }
-  addStockOut(obj: AddStockOutDto): Observable<AddStockOutDto> {
-    return this.httpService.post('StockOut', obj);
-  }
-  getLatestItemsListByWarehouse(
-    SearchTerm: string,
-    WarehouseId: number
-  ): Observable<LatestItems[]> {
-    return this.httpService.get(
-      `Item/GetLatestItemsStockDropDownByWarehouse?WarehouseId=${WarehouseId}`
-    );
-  }
-  // getItemsStockOut(
-  //   quieries: string,
-  //   searchTerm: string,
-  //   pageInfo: PageInfo
-  // ): Observable<PaginationVm<AdvancedSearchDto>> {
-  //   let query = `Item/GetItemStockAdvancedSearchByWarehouse?${pageInfo.toQuery}`;
-  //   if (searchTerm) {
-  //     query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
-  //   }
-  //   if (quieries) {
-  //     query += `&${quieries ? quieries : ''}`;
-  //   }
-  //   return this.httpService.get<PaginationVm<AdvancedSearchDto>>(query);
-  // }
-  getItemsStockOut(
-    quieries: string,
-    searchTerm: string,
-    warehouseId: number,
-    pageInfo: PageInfo
-  ): Observable<PaginationVm<AdvancedSearchDto>> {
-    // Construct the base query with pagination info
-    let query = `Item/GetItemStockAdvancedSearchByWarehouse?${pageInfo.toQuery}`;
-    if (searchTerm) {
-      query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
-    }
-    if (warehouseId) {
-      query += `&WarehouseId=${warehouseId}`;
-    }
-    if (quieries) {
-      query += `&${quieries}`;
-    }
-    return this.httpService.get<PaginationVm<AdvancedSearchDto>>(query);
-  }
+
+
+
+
+
+
+
+
 }
+

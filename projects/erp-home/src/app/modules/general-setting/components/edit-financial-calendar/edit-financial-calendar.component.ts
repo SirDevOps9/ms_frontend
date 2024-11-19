@@ -71,6 +71,7 @@ export class EditFinancialCalendarComponent implements OnInit {
         this.tableList = this.generateDateArray(res.fromDate, res.toDate);
       }
     });
+    
     this.generalSettingService.GetFinancialPeriodByID(this.id);
     this.generalSettingService.FinancialPeriodDataByIDObservable.subscribe(
       (res: editFinancialCalndar) => {

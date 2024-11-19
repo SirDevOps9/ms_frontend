@@ -25,6 +25,8 @@ export class BreadcrumbLabel {
   static readonly PAYMENT_TERM_LIST = 'BreadCrumb.PaymentTermList';
   static readonly PAYMENT_TERM_Add = 'BreadCrumb.AddPaymentTerm';
   static readonly PAYMENT_TERM_Edit = 'BreadCrumb.EditPaymentTerm';
+  static VIEW_STOCKOUT = 'BreadCrumb.stockOutView';
+  static VIEW_STOCKIN = 'BreadCrumb.stockInView';
 
   static readonly TREASURY_LIST = 'BreadCrumb.Treasury';
   static readonly vendor_list = 'BreadCrumb.VendorCategory';
@@ -107,6 +109,8 @@ export class BreadcrumbLabel {
   static GENERAL_ITEMdEFINITION = 'General Item Defintion';
   static attributes_ITEMdEFINITION = 'Attributes & Variants Item Defintion';
   static EditItembarcodedefinition = 'EditItembarcodedefinition';
+  static EditItembarfixedcostfinition = 'BreadCrumb.EditItembarfixedcostfinition';
+
   // attr attribute-definition
   static Attribute_Definition = 'Attribute Definition';
   static Operational_Tag = 'Operational Tag';
@@ -117,12 +121,14 @@ export class BreadcrumbLabel {
   static LIST_Attribute_Definition = 'Attribute Definition List';
   static EDIT_WARE_HOUSE = 'Edit Warehouse';
   static ITEMS_CATEGORY = 'BreadCrumb.ItemsCategory';
-  static STOCKIN = 'StockIn';
+  static STOCKIN = 'BreadCrumb.stockIn';
   static ADD_STOCKIN = 'Add Stock In';
   static EDIT_STOCKIN = 'stockIn.edit_stock_in';
   static readonly STOCKOUT = 'BreadCrumb.stockout';
   static readonly ADD_STOCKOUT = 'BreadCrumb.add';
+  static readonly EDIT_STOCKOUT = 'BreadCrumb.edit';
   static readonly TITLE_ADD_STOCKOUT = 'BreadCrumb.add_stockOut';
+  static readonly TITLE_EDIT_STOCKOUT = 'BreadCrumb.edit_stockOut';
 
   static COST_CENTER = 'Cost Center';
   static PAYMENT_TERM_ADD = 'BreadCrumb.AddPaymentterm';
@@ -131,6 +137,7 @@ export class BreadcrumbLabel {
   static PAYMENT_METHOD_ADD = 'BreadCrumb.AddPaymentMethod';
   static PAYMENT_METHOD_EDIT = 'BreadCrumb.EditPaymentMethod';
   static PAYMENT_METHOD_VIEW = 'BreadCrumb.ViewPaymentMethod';
+
 
   static PAYMENT_IN = 'BreadCrumb.PaymentIn';
   static ADD_PAYMENT_IN = 'PaymentIn.addpaymentin';

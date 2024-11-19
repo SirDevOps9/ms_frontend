@@ -53,17 +53,9 @@ import { ItemDefintionTaxComponent } from './pages/item-definition/item-defintio
 import { WarehouseTabsComponent } from './pages/warehouse/warehouse-tabs/warehouse-tabs/warehouse-tabs.component';
 import { AttributeDefinitionValuesComponent } from './pages/attribute-definition/attribute-definition-values/attribute-definition-values/attribute-definition-values.component';
 import { AttributeDefinitionListValuesComponent } from './pages/attribute-definition/attribute-definition-list-values/attribute-definition-list-values/attribute-definition-list-values.component';
-import { MainStockOutComponent } from './pages/stock-out/main-stock-out/main-stock-out.component';
-import { AddStockOutComponent } from './pages/stock-out/add-stock-out/add-stock-out.component';
-import { StockOutListComponent } from './pages/stock-out/stock-out-list/stock-out-list.component';
-import { EditStockOutComponent } from './pages/stock-out/edit-stock-out/edit-stock-out.component';
 import { ItemDefintionVariantComponent } from './pages/item-definition/item-defintion-variants/item-defintion-variant.component';
-import { TrackingStockInComponent } from './pages/stock-In/add-stock-in/tracking-stock-in/tracking-stock-in.component';
-import { MultiSelectItemStockInComponent } from './pages/stock-In/add-stock-in/multi-select-item-stock-in/multi-select-item-stock-in.component';
-import { ScanParcodeStockInComponent } from './pages/stock-In/scan-parcode-stock-in/scan-parcode-stock-in.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
-import { ImportStockInComponent } from './pages/stock-In/import-stock-in/import-stock-in.component';
-import { SearchItemPopUpComponent } from './components/stock-out/search-item-pop-up/search-item-pop-up.component';
+import { ItemFixedCostComponent } from './pages/item-definition/item-fixed-cost/item-fixed-cost.component';
 
 const routes: Routes = [
   {
@@ -137,6 +129,18 @@ const routes: Routes = [
               pageTitle: BreadcrumbLabel.EditItembarcodedefinition,
             },
           },
+          {
+            path: 'fixed-cost/:id',
+            component: ItemFixedCostComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.EditItembarfixedcostfinition,
+              pageTitle: BreadcrumbLabel.EditItembarfixedcostfinition,
+            },
+          },
+
+
+
+
 
           {
             path: 'tax/:id',
@@ -296,36 +300,7 @@ const routes: Routes = [
           breadcrumb: BreadcrumbLabel.ITEM_CATEGORY,
         },
       },
-      {
-        path: 'stock-out',
-        component: MainStockOutComponent,
-        data: {
-          breadcrumb: BreadcrumbLabel.STOCKOUT,
-          pageTitle: BreadcrumbLabel.STOCKOUT,
-        },
-        children: [
-          {
-            path: '',
-            component: StockOutListComponent,
-            data: { breadcrumb: '', pageTitle: BreadcrumbLabel.STOCKOUT },
-          },
-          {
-            path: 'add',
-            component: AddStockOutComponent,
-            data: {
-              breadcrumb: BreadcrumbLabel.ADD_STOCKOUT,
-              pageTitle: BreadcrumbLabel.TITLE_ADD_STOCKOUT,
-            },
-          },
-          {
-            path: 'edit/:id',
-            component: EditStockOutComponent,
-            data: {
-              breadcrumb: BreadcrumbLabel.ADD_ITEM_DIFINITION,
-            },
-          },
-        ],
-      },
+     
     ],
   },
 ];
@@ -375,15 +350,7 @@ const routes: Routes = [
     WarehouseTabsComponent,
     AttributeDefinitionValuesComponent,
     AttributeDefinitionListValuesComponent,
-    MainStockOutComponent,
-    AddStockOutComponent,
-    StockOutListComponent,
-    EditStockOutComponent,
-    TrackingStockInComponent,
-    MultiSelectItemStockInComponent,
-    ScanParcodeStockInComponent,
-    ImportStockInComponent,
-    SearchItemPopUpComponent
+    ItemFixedCostComponent
   ],
   imports: [
     CommonModule,
