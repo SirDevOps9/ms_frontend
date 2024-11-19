@@ -56,6 +56,8 @@ import { AttributeDefinitionListValuesComponent } from './pages/attribute-defini
 import { ItemDefintionVariantComponent } from './pages/item-definition/item-defintion-variants/item-defintion-variant.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { ItemFixedCostComponent } from './pages/item-definition/item-fixed-cost/item-fixed-cost.component';
+import { ViewWarehouseComponent } from './pages/warehouse/view-warehouse/view-warehouse.component';
+import { UomViewComponent } from './pages/unit-of-major/uom-view/uom-view.component';
 
 const routes: Routes = [
   {
@@ -192,6 +194,14 @@ const routes: Routes = [
               pageTitle: BreadcrumbLabel.EDIT_WARE_HOUSE,
             },
           },
+          {
+            path: 'view-warehouse/:id',
+            component: ViewWarehouseComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.EDIT_WARE_HOUSE,
+              pageTitle: BreadcrumbLabel.EDIT_WARE_HOUSE,
+            },
+          },
         ],
       },
       {
@@ -226,6 +236,13 @@ const routes: Routes = [
               breadcrumb: BreadcrumbLabel.EDITUOM,
               pageTitle: BreadcrumbLabel.EDITUOM,
 
+            },
+          },
+          {
+            path: 'view-uom/:id',
+            component: UomViewComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.UOM_VIEW,
             },
           },
         ],
@@ -306,7 +323,7 @@ const routes: Routes = [
           breadcrumb: BreadcrumbLabel.ITEM_CATEGORY,
         },
       },
-     
+
     ],
   },
 ];
@@ -356,7 +373,9 @@ const routes: Routes = [
     WarehouseTabsComponent,
     AttributeDefinitionValuesComponent,
     AttributeDefinitionListValuesComponent,
-    ItemFixedCostComponent
+    ItemFixedCostComponent,
+    ViewWarehouseComponent,
+    UomViewComponent
   ],
   imports: [
     CommonModule,

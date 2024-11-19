@@ -16,6 +16,7 @@
   "edit": "تعديل",
   "add_stockOut": "إضافة إخراج مخزون",
   "edit_stockOut": "تعديل إخراج مخزون",
+      "viewUom":"عرض",
     "UnitOfMeasure" : "وحدة القياس",
     "PricePolicy": "سياسة التسعير",
     "addUom" : "اضافة وحده القياس",
