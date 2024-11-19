@@ -126,7 +126,7 @@ export class TransactionsService {
           this.languageService.transalte('stockIn.success'),
           this.languageService.transalte('stockIn.stockAdded')
         );
-        this.router.navigateTo('/masterdata/stock-in');
+        this.router.navigateTo('/transactions/stock-in');
         this.loaderService.hide();
       },
       error: (err) => {
