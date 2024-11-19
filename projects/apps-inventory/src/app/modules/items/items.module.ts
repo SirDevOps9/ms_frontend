@@ -60,6 +60,7 @@ import { EditStockOutComponent } from './pages/stock-out/edit-stock-out/edit-sto
 import { ItemDefintionVariantComponent } from './pages/item-definition/item-defintion-variants/item-defintion-variant.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { SearchItemPopUpComponent } from './components/stock-out/search-item-pop-up/search-item-pop-up.component';
+import { ViewWarehouseComponent } from './pages/warehouse/view-warehouse/view-warehouse.component';
 
 const routes: Routes = [
   {
@@ -179,6 +180,14 @@ const routes: Routes = [
           {
             path: 'edit-warehouse/:id',
             component: EditWarehouseComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.EDIT_WARE_HOUSE,
+              pageTitle: BreadcrumbLabel.EDIT_WARE_HOUSE,
+            },
+          },
+          {
+            path: 'view-warehouse/:id',
+            component: ViewWarehouseComponent,
             data: {
               breadcrumb: BreadcrumbLabel.EDIT_WARE_HOUSE,
               pageTitle: BreadcrumbLabel.EDIT_WARE_HOUSE,
@@ -376,7 +385,8 @@ const routes: Routes = [
     StockOutListComponent,
     EditStockOutComponent,
 
-    SearchItemPopUpComponent
+    SearchItemPopUpComponent,
+      ViewWarehouseComponent
   ],
   imports: [
     CommonModule,
