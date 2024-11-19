@@ -197,13 +197,19 @@ export class AddStockInComponent implements OnInit {
     let data = this.latestItemsList.find((item) => item.itemId == e);
 
     this.itemData = data;
-    this.uomLookup = data?.itemsUOM;
-    if (stockInFormGroup.value.itemId) {
+    this.uomLookup = data?.itemsUOM ?? clonedStockInFormGroup.itemsUOM;
+debugger
+    if (stockInFormGroup.value.barCode) {
       stockInFormGroup.get('itemId')?.valueChanges.subscribe((res) => {
-        stockInFormGroup.get('barCode')?.reset();
+        if(res && stockInFormGroup.get('barCode')?.value ){
+
+          stockInFormGroup.get('barCode')?.reset();
+        }else{
+          // stockInFormGroup.get('barCode')?.reset();
+        }
       });
     }
-
+    stockInFormGroup.get('stockInTracking')?.reset();
     stockInFormGroup.get('stockInTracking')?.clearValidators();
     stockInFormGroup.get('stockInTracking')?.updateValueAndValidity();
 
@@ -211,9 +217,7 @@ export class AddStockInComponent implements OnInit {
     stockInFormGroup
       .get('description')
       ?.setValue(
-        `${clonedStockInFormGroup?.itemName ?? data?.itemName} - ${
-          clonedStockInFormGroup?.itemVariantName ?? data?.itemVariantName
-        }`
+        `${clonedStockInFormGroup?.itemVariantName ?? data?.itemName} - ${clonedStockInFormGroup?.itemVariantName ?? data?.itemVariantName}`
       );
     stockInFormGroup.get('trackingType')?.setValue(data?.trackingType);
     stockInFormGroup.get('stockInTracking')?.get('trackingType')?.setValue(data?.trackingType);
@@ -225,7 +229,7 @@ export class AddStockInComponent implements OnInit {
           : data?.itemVariantId
       );
     stockInFormGroup.get('hasExpiryDate')?.setValue(data?.hasExpiryDate);
-    stockInFormGroup.get('uomId')?.setValue(data?.uomId);
+    stockInFormGroup.get('uomId')?.setValue(data?.uomId ?? clonedStockInFormGroup?.uomId);
     this.uomChanged(stockInFormGroup.get('uomId')?.value, stockInFormGroup);
     if (data?.hasExpiryDate) {
       stockInFormGroup
@@ -261,6 +265,7 @@ export class AddStockInComponent implements OnInit {
     }
   }
   uomChanged(e: any, stockInFormGroup: FormGroup) {
+    debugger
     let data = this.uomLookup.find((item: any) => item.uomId == e);
 
     stockInFormGroup
@@ -289,7 +294,7 @@ export class AddStockInComponent implements OnInit {
     ref.onClose.subscribe((selectedItems: any) => {
       if (selectedItems) {
         stockInFormGroup.get('itemId')?.setValue(selectedItems.itemId);
-
+// this.stockIn.reset()
         this.itemChanged(selectedItems.itemId, stockInFormGroup, selectedItems);
       }
     });
