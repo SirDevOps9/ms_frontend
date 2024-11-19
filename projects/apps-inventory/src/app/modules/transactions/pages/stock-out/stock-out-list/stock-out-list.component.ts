@@ -3,9 +3,10 @@ import { Title } from '@angular/platform-browser';
 import { AuthService } from 'microtec-auth-lib';
 import { DialogService } from 'primeng/dynamicdialog';
 import { RouterService, LanguageService, lookupDto, PageInfoResult, MenuModule, PageInfo } from 'shared-lib';
-import { ItemsService } from '../../../items.service';
 import { StockInDto, StockOutDto } from '../../../models';
 import { SharedStock } from '../../../models/sharedStockOutEnums';
+import { ItemsService } from '../../../../items/items.service';
+import { TransactionsService } from '../../../transactions.service';
 
 @Component({
   selector: 'app-stock-out-list',
@@ -31,7 +32,7 @@ export class StockOutListComponent implements OnInit {
   }
   subscribes() {
     this.itemsService.stockOutDataSourceeObservable.subscribe({
-      next: (res) => {
+      next: (res:any) => {
         this.tableData = res;
       },
     });
@@ -50,12 +51,6 @@ export class StockOutListComponent implements OnInit {
 
   }
 
-  exportBankData(searchTerm: string) {
-    this.itemsService.exportsItemsDefinitionList(searchTerm);
-    this.itemsService.sendStockOutDataSourcesObs.subscribe((res) => {
-      this.exportData = res;
-    });
-  }
 
   onAdd() {
     this.routerService.navigateTo(`transactions/stock-out/add`)
@@ -67,8 +62,8 @@ export class StockOutListComponent implements OnInit {
 
   }
 
-  onEditVeiw(data:any){
-    
+  onVeiw(data:any){
+    this.routerService.navigateTo(`transactions/stock-out/view/${data}`)
   }
 
   onSearchChange() {
@@ -85,7 +80,7 @@ export class StockOutListComponent implements OnInit {
   }
   exportClick() {
     this.itemsService.exportStockOutList(this.searchTerm, this.SortBy, this.SortColumn);
-    this.itemsService.exportStockOutListDataSource.subscribe((res) => {
+    this.itemsService.exportStockOutListDataSource.subscribe((res:any) => {
       this.exportData = res;
     });
   }
@@ -95,7 +90,7 @@ export class StockOutListComponent implements OnInit {
     private dialog: DialogService,
     private title: Title,
     private langService: LanguageService,
-    private itemsService: ItemsService,
+    private itemsService: TransactionsService,
     public sharedFinanceEnums: SharedStock
   ) {
     // this.title.setTitle(this.langService.transalte('itemCategory.itemDefinition'));

@@ -5,14 +5,18 @@
   "noItemSelected": "لم يتم تحديد عنصر للتعديل.",
   "noItemsToAdd": "لا توجد عناصر للإضافة",
   "successfully": "تمت العملية بنجاح.",
-  "duplicateItem": "يوجد عنصر مكرر."
+  "duplicateItem": "يوجد عنصر مكرر.",
+  "serialError": "لا يمكن إضافة أكثر من عنصر بنفس الرقم التسلسلي.",
+  "noBarcode": "لا يوجد هذا الباركود"
 },
-  "BreadCrumb": {
-    "ItemsCategory": "فئة العناصر",
-    "stockout": "إخراج المخزون",
-    "add": "إضافة",
-    "add_stockOut": "إضافة إخراج مخزون"
-  },
+"BreadCrumb": {
+  "ItemsCategory": "فئة الأصناف",
+  "stockout": "إخراج المخزون",
+  "add": "إضافة",
+  "edit": "تعديل",
+  "add_stockOut": "إضافة إخراج مخزون",
+  "edit_stockOut": "تعديل إخراج مخزون"
+},
   "Toaster": {
     "Confirm": {
       "Title": "هل أنت متأكد؟",

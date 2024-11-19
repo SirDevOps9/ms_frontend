@@ -5,7 +5,3 @@ export enum UOMType{
 }
 
 
-export enum OperationType{
-	StockIn = "StockIn",
-	StockOut = 'StockOut ',
-}
