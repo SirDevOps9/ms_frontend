@@ -210,6 +210,11 @@ export class ItemsProxyService {
   getItemBarcodeById(id: number) {
     return this.httpService.get(`Item/GetItemBarcode/${id}`);
   }
+
+  getItemFixedCost(id:number){
+    return this.httpService.get(`Item/GetItemFixedCost/${id}`);
+
+  }
   uomCodeDropDown(id: number) {
     return this.httpService.get(`UOM/GetUOMsByUOMCategoryId/${id}`); //
   }
@@ -409,6 +414,9 @@ export class ItemsProxyService {
 
   editItem(obj: any) {
     return this.httpService.put(`Item/Edit`, obj);
+  }
+  editItemFixedCost(obj: any) {
+    return this.httpService.put(`Item/EditItemFixedCost`, obj);
   }
   editOperationalTag(obj: AddOperatioalTag) {
     return this.httpService.put(`OperationalTag`, obj);

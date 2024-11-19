@@ -67,8 +67,8 @@ export class StockOutListComponent implements OnInit {
 
   }
 
-  onEditVeiw(data:any){
-    
+  onVeiw(data:any){
+    this.routerService.navigateTo(`transactions/stock-out/view/${data}`)
   }
 
   onSearchChange() {

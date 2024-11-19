@@ -76,6 +76,7 @@ export class EditWarehouseComponent implements OnInit {
   this.getAccount()
   this.getBranchesLookup()
   this.getCcountriesDropdown()
+  this.showWarehouseType()
 }
 
 getWarehouseById() {
@@ -169,15 +170,21 @@ getWarehouseById() {
 
   account:boolean=true
   showaddress:boolean=false
-  findRoute() {
-    if(this.account ==true){
+  showWarehouseType(){
+    if(this.warehouseForm.get('warehouseType')?.value == 1){
+      this.showaddress=true
+    }
+  }
+  findRouteAddress() {
+    if(this.warehouseForm.get('warehouseType')?.value == 1){
       this.account = false
       this.showaddress=true
     }
-    else if ( this.showaddress=true){
+  }
+  findRouteAccount() {
+    if(this.warehouseForm.get('warehouseType')?.value == 1){
       this.account = true
       this.showaddress=false
     }
   }
-
 }

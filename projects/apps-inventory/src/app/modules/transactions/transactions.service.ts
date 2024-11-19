@@ -29,6 +29,7 @@ import {
 export class TransactionsService {
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
 
+
   public stockInDataSource = new BehaviorSubject<StockOutDto[]>([]);
   stockInDataSourceeObservable = this.stockInDataSource.asObservable();
   public editstockInDataSource = new BehaviorSubject<StockOutDto[]>([]);
@@ -43,6 +44,11 @@ export class TransactionsService {
   public stockInByIdData = new BehaviorSubject<StockInDto>({} as StockInDto);
   sendItemBarcode = new BehaviorSubject<StockInDetail>({} as StockInDetail);
   wareHousesDropDownLookup = new BehaviorSubject<GetWarehouseList[]>([]);
+
+
+  public stockInDataViewSource = new BehaviorSubject<StockInDto[]>([]);
+
+  stockInDataViewSourceeObservable = this.stockInDataViewSource.asObservable();
 
   sendStockInDataSourcesObs = this.sendStockInDataSources.asObservable();
   exportedStockInDataSourceObs = this.exportedStockInDataSource.asObservable();
@@ -62,7 +68,8 @@ export class TransactionsService {
   public stockOutByIdDataSourceeObservable = this.stockOutByIdDataSource.asObservable();
   public perationalTagStockOutDropDown = new BehaviorSubject<OperationalStockIn[]>([]);
   public perationalTagStockOutDropDown$ = this.perationalTagStockOutDropDown.asObservable();
-
+  public stockOutDataViewSource = new BehaviorSubject<StockOutDto[]>([]);
+  public stockOutDataViewSourceeObservable = this.stockOutDataViewSource.asObservable();
 
   constructor(
     private toasterService: ToasterService,
@@ -142,10 +149,12 @@ export class TransactionsService {
         this.loaderService.hide();
       },
       error: (err) => {
+
         this.formsService.setFormValidationErrors(stockinForm, err);
         this.loaderService.hide();
       },
     });
+
   }
 
   editStockIn(obj: AddStockIn, stockinForm: FormGroup) {
@@ -176,11 +185,14 @@ export class TransactionsService {
     });
   }
 
-  getItemBarcodeForItem(barcode: string) {
-    this.transactionsProxy.getItemBarcodeForItem(barcode).subscribe((res) => {
-      this.sendItemBarcode.next(res);
-    });
+  getItemBarcodeForItem(barcode : string) {
+    this.transactionsProxy.getItemBarcodeForItem(barcode).subscribe(res=>{
+      this.sendItemBarcode.next(res)
+
+    })
+
   }
+
 
   getLatestItemsList() {
     return this.transactionsProxy.getLatestItemsList().subscribe((res) => {
@@ -232,7 +244,17 @@ export class TransactionsService {
       this.wareHousesDropDownLookup.next(res);
     });
   }
+  getViwStockInById(id:number) {
+    this.transactionsProxy.getByIdViewStockIn(id).subscribe((response:any) => {
+      this.stockInDataViewSource.next(response);
+    });
+  }
   ////////////////////stock out/////////////
+  getByIdViewStockOut(id:number) {
+    this.transactionsProxy.getByIdViewStockOut(id).subscribe((response:any) => {
+      this.stockOutDataViewSource.next(response);
+    });
+  }
   operationTagStockOutDropdown() {
     return this.transactionsProxy.operationTagStockOutDropdown().subscribe({
       next: (res) => {

@@ -83,6 +83,9 @@ export class TransactionsProxyService {
   getWareHousesDropDown() {
     return this.httpService.get<any>(`WareHouse/WareHousesDropDown`);
   }
+  getByIdViewStockIn(id:number){
+    return this.httpService.get(`StockIn/GetStockInViewById/${id}`)
+  }
 ////////////// stock out//////
 operationTagStockOutDropdown(): Observable<OperationalStockIn[]> {
   return this.httpService.get(`OperationalTag/OperationalTagStockDropDown?OperationType=${this.sharedFinanceEnums.OperationType.StockOut}`);
@@ -125,6 +128,9 @@ deleteRowStockOut(id : number ){
 }
 GetItemByBarcodeStockOutQuery(barcode: string , warehouseId:number): Observable<any> {
   return this.httpService.get(`Item/GetItemByBarcodeStockOutQuery?Barcode=${barcode}&WarehouseId=${warehouseId}`);
+} 
+
+  getByIdViewStockOut(id:number){
+    return this.httpService.get(`StockOut/GetStockOutViewById/${id}`)
+  }
 }
-}
- 

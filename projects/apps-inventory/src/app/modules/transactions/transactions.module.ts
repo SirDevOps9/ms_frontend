@@ -19,6 +19,8 @@ import { StockOutListComponent } from './pages/stock-out/stock-out-list/stock-ou
 import { AddStockOutComponent } from './pages/stock-out/add-stock-out/add-stock-out.component';
 import { EditStockOutComponent } from './pages/stock-out/edit-stock-out/edit-stock-out.component';
 import { SearchItemPopUpComponent } from './components/stock-out/search-item-pop-up/search-item-pop-up.component';
+import { ViewStockOutComponent } from './pages/stock-out/view-stock-out/view-stock-out.component';
+import { ViewStockInComponent } from './pages/stock-In/view-stock-in/view-stock-in.component';
 
 const routes: Routes = [
   {
@@ -56,6 +58,15 @@ const routes: Routes = [
             component: EditStockInComponent,
             data: {
               breadcrumb: BreadcrumbLabel.EDIT_STOCKIN,
+            },
+          },
+          {
+            path: 'view/:id',
+            component: ViewStockInComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.VIEW_STOCKIN,
+              pageTitle: BreadcrumbLabel.VIEW_STOCKIN,
+
             },
           },
           {
@@ -112,6 +123,14 @@ const routes: Routes = [
               pageTitle: BreadcrumbLabel.SEQUENCE,
             },
           },
+          {
+            path: 'view/:id',
+            component: ViewStockOutComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.VIEW_STOCKOUT,
+              pageTitle: BreadcrumbLabel.VIEW_STOCKOUT,
+            },
+          }
         ],
       },
     ],
@@ -126,13 +145,15 @@ const routes: Routes = [
     ImportStockInComponent,
     EditStockInComponent,
     MainStockInListComponentComponent,
-    StockInListComponent,
+    StockInListComponent ,
     AddStockInComponent,
     MainStockOutComponent,
     StockOutListComponent,
     EditStockOutComponent,
     AddStockOutComponent,
-    SearchItemPopUpComponent
+    SearchItemPopUpComponent,
+    ViewStockOutComponent,
+    ViewStockInComponent
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule, ZXingScannerModule],
 })
