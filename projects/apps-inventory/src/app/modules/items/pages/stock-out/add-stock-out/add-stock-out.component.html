@@ -162,8 +162,7 @@
                 [options]="stockOutFormGroup.get('uomOptions').value"
                 [optionLabel]="selectedLanguage === 'en' ? 'uomNameEn' : 'uomNameAr'"
                 optionValue="uomId"
-                 (valueChanged)="setUomName(rowIndex ,stockOutFormGroup.get('uomOptions').value ) ;                  isDuplicate(rowIndex)
-                 "
+                 (valueChanged)="setUomName(rowIndex ,stockOutFormGroup.get('uomOptions').value ) ; isDuplicate(rowIndex)"
                 >
 
                 </lib-select>
@@ -185,7 +184,7 @@
                 <lib-text-input 
                 type="number"
                 placeholder="{{ 'stockOut.QTY' | translate }}"
-                  formControlName="quantity" (keyUp)="setCostTotal(rowIndex, $event) ; "  (valueChanged)="isDuplicate(rowIndex)"></lib-text-input>
+                  formControlName="quantity" (keyUp)="setCostTotal(rowIndex, $event) ; isDuplicate(rowIndex)"></lib-text-input>
               </ng-template>
               <ng-template pTemplate="output">
                 {{ stockOutFormGroup.controls['quantity']?.value }}
