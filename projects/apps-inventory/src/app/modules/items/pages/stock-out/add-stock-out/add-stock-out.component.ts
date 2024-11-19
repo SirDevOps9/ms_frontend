@@ -15,18 +15,18 @@ import { ItemsProxyService } from '../../../items-proxy.service';
   templateUrl: './add-stock-out.component.html',
   styleUrl: './add-stock-out.component.scss'
 })
-export class AddStockOutComponent implements OnInit{
+export class AddStockOutComponent implements OnInit {
   stockInForm: FormGroup = new FormGroup({});
-  LookupEnum=LookupEnum;
+  LookupEnum = LookupEnum;
   selectedLanguage: string
- rowDuplicate :number=-1;
-  duplicateLine :boolean;
-  serialError :boolean;
+  rowDuplicate: number = -1;
+  duplicateLine: boolean;
+  serialError: boolean;
   tableData: any[];
   lookups: { [key: string]: lookupDto[] };
 
   oprationalLookup: OperationalStockIn[] = [];
-  warhouseLookupData :GetWarehouseList[] =[]
+  warhouseLookupData: GetWarehouseList[] = []
 
   filteredItems: any[];
   exportData: any[];
@@ -36,9 +36,9 @@ export class AddStockOutComponent implements OnInit{
   currentPageInfo: PageInfoResult = {};
   modulelist: MenuModule[];
   searchTerm: string;
-  addForm: FormGroup=new FormGroup({});
+  addForm: FormGroup = new FormGroup({});
 
- 
+
   ngOnInit(): void {
     this.loadLookups();
 
@@ -50,10 +50,10 @@ export class AddStockOutComponent implements OnInit{
     this.addForm = this.fb.group({
 
       code: new FormControl(''),
-      receiptDate: new FormControl(new Date(),[customValidators.required]),
-      sourceDocumentType: new FormControl('',[customValidators.required]),
+      receiptDate: new FormControl(new Date(), [customValidators.required]),
+      sourceDocumentType: new FormControl('', [customValidators.required]),
       sourceDocumentId: new FormControl(''),
-      warehouseId: new FormControl('',[customValidators.required]),
+      warehouseId: new FormControl('', [customValidators.required]),
       warehouseName: new FormControl(''),
       notes: new FormControl(''),
       stockOutDetails: this.fb.array([]),
@@ -64,28 +64,47 @@ export class AddStockOutComponent implements OnInit{
   get stockOutDetailsFormArray() {
     return this.addForm.get('stockOutDetails') as FormArray;
   }
-  getLatestItemsList(id:number){
-    
-    this.itemsService.getLatestItemsListByWarehouse( "",id)
-  }
-  onFilter(SearchTerm:string,id:number){
-    this.itemsService.getLatestItemsListByWarehouse( "",id)
+  getLatestItemsList(id: number) {
 
+    this.itemsService.getLatestItemsListByWarehouse("", id)
   }
-  subscribe(){
-    this.languageService.language$.subscribe((lang)=>[
-      this.selectedLanguage=lang
-     ])
+  onFilter(SearchTerm: string) {
+    const warehouseId: number = this.addForm.get('warehouseId')?.value
+    this.itemsService.getItemsStockOutByWarehouse('', SearchTerm, warehouseId, new PageInfo());
+    this.itemsService.itemsListByWarehouse.subscribe((res: any) => {
+      if (res.length > 0) {
+        if (this.selectedLanguage === 'ar') {
+          this.filteredItems = res.map((elem: any) => ({
+            ...elem,
+            displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameAr}`,
+          }));
+        } else {
+
+          this.filteredItems = res.map((elem: any) => ({
+            ...elem,
+            displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameEn}`,
+          }));
+        }
+      } else {
+
+        this.getLatestItemsList(warehouseId)
+      }
+    })
+  }
+  subscribe() {
+    this.languageService.language$.subscribe((lang) => [
+      this.selectedLanguage = lang
+    ])
     this.lookupservice.lookups.subscribe((l) => {
-      this.lookups = l;   
+      this.lookups = l;
     });
-    this.addForm.get('sourceDocumentType')?.valueChanges.subscribe(res=>{
+    this.addForm.get('sourceDocumentType')?.valueChanges.subscribe(res => {
       let data = this.lookups[LookupEnum.StockInOutSourceDocumentType]
-    let sourceDocumentTypeData = data.find(elem=>elem.id == res)
-      if(sourceDocumentTypeData?.name == 'OperationalTag') {
-        
+      let sourceDocumentTypeData = data.find(elem => elem.id == res)
+      if (sourceDocumentTypeData?.name == 'OperationalTag') {
+
         this.itemsService.OperationalTagDropDown()
-        this.itemsService.sendOperationalTagDropDown$.subscribe(res=>{
+        this.itemsService.sendOperationalTagDropDown$.subscribe(res => {
           this.oprationalLookup = res.map((elem: any) => ({
             ...elem,
             displayName: `${elem.name} (${elem.code})`,
@@ -93,191 +112,156 @@ export class AddStockOutComponent implements OnInit{
         })
       }
     }
-  )
-  this.addForm.get('sourceDocumentId')?.valueChanges.subscribe((res) => {
-    let data = this.oprationalLookup.find(elem=>elem.id == res)
-    this.addForm.get('warehouseId')?.setValue(data?.warehouseId)
-    this.addForm.get('warehouseName')?.setValue(data?.warehouseName)
+    )
+    this.addForm.get('sourceDocumentId')?.valueChanges.subscribe((res) => {
+      let data = this.oprationalLookup.find(elem => elem.id == res)
+      this.addForm.get('warehouseId')?.setValue(data?.warehouseId)
+      this.addForm.get('warehouseName')?.setValue(data?.warehouseName)
 
-  });
-  this.itemsService.latestItemsListByWarehouse$.subscribe((res:any)=>{
-    this.filteredItems=res
-    if (res.length) {
-      if (this.selectedLanguage === 'ar') {
-        this.filteredItems = res.map((elem: any) => ({
-          ...elem,
-          displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameAr}`,
-        }));
-      }else{
-
-        this.filteredItems = res.map((elem: any) => ({
-          ...elem,
-          displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameEn}`,
-        }));
-      }
-    }
-  })
-}
-loadLookups(){
-  this.lookupservice.loadLookups([
-    LookupEnum.StockInOutSourceDocumentType
-  ]);
-}
-
- 
-
-    setRowData(indexLine: number, selectedItemId: any, list: any) {
-      const selectedItem = list.find((item: any) => item.itemId === selectedItemId);
-      const rowForm = this.stockOutDetailsFormArray.at(indexLine) as FormGroup;
-
-      if (!selectedItem) {
-        console.error(`Item with ID ${selectedItemId} not found`);
-        return;
-      }
-
-      if (!rowForm) {
-        console.error(`Row form at index ${indexLine} is not found`);
-        return;
-      }
-
-
-      // Ensure row form controls are present before updating
-      if (rowForm) {
-        rowForm.patchValue({
-          barCode: selectedItem.barCode ,
-          bardCodeId: selectedItem.bardCodeId ,
-          itemId: selectedItem.itemId,
-          itemVariantId: selectedItem.itemVariantId ,
-          uomId: selectedItem.uomId ,
-          uomOptions: selectedItem.itemsUOM ,
-          description: selectedItem.itemName+"-" +selectedItem.itemVariantNameEn ,
-          AllTotalQuantity: selectedItem.totalQuantity ,
-          cost: selectedItem.cost ,
-          subCost: selectedItem.subCost ,
-          notes: selectedItem.notes ,
-          stockOutEntryMode: selectedItem.stockOutEntryMode ,
-          trackingType: selectedItem.trackingType ,
-          trackingNo: selectedItem.trackingNo || '',
-          hasExpiryDate: selectedItem.hasExpiryDate ,
-          expireDate: selectedItem.expireDate ,
-          availability: selectedItem.availability 
-        });
-
-        // Handle the nested form group
-        const stockOutTrackingGroup = rowForm.get('stockOutTracking') as FormGroup;
-        if (stockOutTrackingGroup) {
-          stockOutTrackingGroup.patchValue({
-            batchNo: selectedItem.stockOutTracking?.batchNo || '',
-            expireDate: selectedItem.stockOutTracking?.expireDate ||null,
-            quantity: selectedItem.stockOutTracking?.quantity || '',
-            serialId: selectedItem.stockOutTracking?.serialId || '',
-            trackingType: selectedItem.stockOutTracking?.trackingType || '',
-            hasExpiryDate: selectedItem.hasExpiryDate ,
-            serialOptions: selectedItem.serials,
-            batchesOptions: selectedItem.batches
-          });
+    });
+    this.itemsService.latestItemsListByWarehouse$.subscribe((res: any) => {
+      this.filteredItems = res
+      if (res.length) {
+        if (this.selectedLanguage === 'ar') {
+          this.filteredItems = res.map((elem: any) => ({
+            ...elem,
+            displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameAr}`,
+          }));
         } else {
-          console.error('StockOutTracking form group is missing');
+
+          this.filteredItems = res.map((elem: any) => ({
+            ...elem,
+            displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameEn}`,
+          }));
         }
       }
-      if(selectedItem){
-        if(selectedItem.hasExpiryDate){
-          if(selectedItem.trackingType==this.sharedFinanceEnums.StockOutTracking.NoTracking){
-            rowForm.get('showSerial')?.setValue(false);
-            rowForm.get('showBatch')?.setValue(true);
-          }
-          else if(selectedItem.trackingType==this.sharedFinanceEnums.StockOutTracking.Serial){
-            rowForm.get('showSerial')?.setValue(true);
-            rowForm.get('showBatch')?.setValue(false);
-          }
-          else if(selectedItem.trackingType==this.sharedFinanceEnums.StockOutTracking.Batch){
-            rowForm.get('showSerial')?.setValue(false);
-            rowForm.get('showBatch')?.setValue(true);
-          }
-        }else{
-          if(selectedItem.trackingType==this.sharedFinanceEnums.StockOutTracking.NoTracking){
-            rowForm.get('showSerial')?.setValue(false);
-            rowForm.get('showBatch')?.setValue(false);
-          }
-        }
-      }
-      rowForm.get('itemName')?.setValue(selectedItem.itemCode + "-" + selectedItem.itemName + "-" +selectedItem.itemVariantNameAr )
-      this.setUomName(indexLine , rowForm.get('uomOptions')?.value )
-      this.setExpiryDate(indexLine , selectedItem.batches , selectedItem.serialOptions )      
-      this.isDuplicate(indexLine)
+    })
+  }
+  loadLookups() {
+    this.lookupservice.loadLookups([
+      LookupEnum.StockInOutSourceDocumentType
+    ]);
+  }
+
+
+
+  setRowData(indexLine: number, selectedItemId: any, list: any) {
+    const selectedItem = list.find((item: any) => item.itemId === selectedItemId);
+    const rowForm = this.stockOutDetailsFormArray.at(indexLine) as FormGroup;
+
+    if (!selectedItem) {
+      console.error(`Item with ID ${selectedItemId} not found`);
+      return;
     }
-    // isDuplicate(rowIndex:number){
-    //   const rowForm = this.stockOutDetailsFormArray.at(rowIndex) as FormGroup;
 
-    //   this.stockOutDetailsFormArray.controls.some((element: any, index: number) => {
-    //     if (index !== rowIndex) {
-    //       const { uomId, itemId, trackingNo } = element.value;
-
-    //       const rowUomId = rowForm.get('uomId')?.value;
-    //       const rowItemId = rowForm.get('itemId')?.value;
-    //       const rowItemtrackingNo = rowForm.get('trackingNo')?.value;
+    if (!rowForm) {
+      console.error(`Row form at index ${indexLine} is not found`);
+      return;
+    }
 
 
-    //       if (uomId === rowUomId && itemId === rowItemId && trackingNo === rowItemtrackingNo) {
-    //         this.toasterService.showError(
-    //           this.languageService.transalte('messages.error'),
-    //           this.languageService.transalte('messages.duplicateItem')
-    //         );
-    //         this.rowDuplicate = rowIndex;
-    //         this.duplicateLine = true;
-    //         return true; // Stop checking on first match
-    //       }
-    //       this.rowDuplicate = -1;
+    // Ensure row form controls are present before updating
+    if (rowForm) {
+      rowForm.patchValue({
+        barCode: selectedItem.barCode,
+        bardCodeId: selectedItem.bardCodeId,
+        itemId: selectedItem.itemId,
+        itemVariantId: selectedItem.itemVariantId,
+        uomId: selectedItem.uomId,
+        uomOptions: selectedItem.itemsUOM,
+        description: selectedItem.itemName + "-" + selectedItem.itemVariantNameEn,
+        AllTotalQuantity: selectedItem.totalQuantity,
+        cost: selectedItem.cost,
+        subCost: selectedItem.subCost,
+        notes: selectedItem.notes,
+        stockOutEntryMode: selectedItem.stockOutEntryMode,
+        trackingType: selectedItem.trackingType,
+        trackingNo: selectedItem.trackingNo || '',
+        hasExpiryDate: selectedItem.hasExpiryDate,
+        expireDate: selectedItem.expireDate,
+        availability: selectedItem.availability
+      });
 
-    //       this.duplicateLine = false;
+      // Handle the nested form group
+      const stockOutTrackingGroup = rowForm.get('stockOutTracking') as FormGroup;
+      if (stockOutTrackingGroup) {
+        stockOutTrackingGroup.patchValue({
+          batchNo: selectedItem.stockOutTracking?.batchNo || '',
+          expireDate: selectedItem.stockOutTracking?.expireDate || null,
+          quantity: selectedItem.stockOutTracking?.quantity || '',
+          serialId: selectedItem.stockOutTracking?.serialId || '',
+          trackingType: selectedItem.stockOutTracking?.trackingType || '',
+          hasExpiryDate: selectedItem.hasExpiryDate,
+          serialOptions: selectedItem.serials,
+          batchesOptions: selectedItem.batches
+        });
+      } else {
+        console.error('StockOutTracking form group is missing');
+      }
+    }
+    if (selectedItem) {
+      if (selectedItem.hasExpiryDate) {
+        if (selectedItem.trackingType == this.sharedFinanceEnums.StockOutTracking.NoTracking) {
+          rowForm.get('showSerial')?.setValue(false);
+          rowForm.get('showBatch')?.setValue(true);
+        }
+        else if (selectedItem.trackingType == this.sharedFinanceEnums.StockOutTracking.Serial) {
+          rowForm.get('showSerial')?.setValue(true);
+          rowForm.get('showBatch')?.setValue(false);
+        }
+        else if (selectedItem.trackingType == this.sharedFinanceEnums.StockOutTracking.Batch) {
+          rowForm.get('showSerial')?.setValue(false);
+          rowForm.get('showBatch')?.setValue(true);
+        }
+      } else {
+        if (selectedItem.trackingType == this.sharedFinanceEnums.StockOutTracking.NoTracking) {
+          rowForm.get('showSerial')?.setValue(false);
+          rowForm.get('showBatch')?.setValue(false);
+        }
+      }
+    }
+    rowForm.get('itemName')?.setValue(selectedItem.itemCode + "-" + selectedItem.itemName + "-" + selectedItem.itemVariantNameAr)
+    this.setUomName(indexLine, rowForm.get('uomOptions')?.value)
+    this.setExpiryDate(indexLine, selectedItem.batches, selectedItem.serialOptions)
+    this.isDuplicate(indexLine)
+  }
+  isDuplicate(rowIndex: number) {
+    const rowForm = this.stockOutDetailsFormArray.at(rowIndex) as FormGroup;
 
-    //       return false;
-    //     }
-    //     this.rowDuplicate = -1;
-
-    //     this.duplicateLine = false;
-
-    //     return false;
-    //   }
-    // )
-    // }
-    isDuplicate(rowIndex:number){
-      const rowForm = this.stockOutDetailsFormArray.at(rowIndex) as FormGroup;
-
-      this.stockOutDetailsFormArray.controls.some((element: any, index: number) => {
-        if(rowForm.get('showSerial')?.value==true){
+    this.stockOutDetailsFormArray.controls.some((element: any, index: number) => {
+      if (rowForm.get('showSerial')?.value == true) {
 
         const quantity = rowForm.get('quantity')?.value;
 
-          if( quantity > 1){
-            
-            this.toasterService.showError(
-              this.languageService.transalte('messages.error'),
-              this.languageService.transalte('messages.serialError')
-            );
-            this.rowDuplicate = rowIndex;
-            this.serialError = true;
-            this.duplicateLine = true;
-            
-            return true; // Stop checking on first match
-          }else{
-            this.serialError = false;
-            this.rowDuplicate = -1;
+        if (quantity > 1) {
+
+          this.toasterService.showError(
+            this.languageService.transalte('messages.error'),
+            this.languageService.transalte('messages.serialError')
+          );
+          this.rowDuplicate = rowIndex;
+          this.serialError = true;
+          this.duplicateLine = true;
+
+          return true; // Stop checking on first match
+        } else {
+          this.serialError = false;
+          this.rowDuplicate = -1;
 
 
-          }
         }
-        if (index !== rowIndex) {
-          if(rowForm.get('showSerial')?.value==true && this.serialError == false ){
+      }
+      if (index !== rowIndex) {
+        if (rowForm.get('showSerial')?.value == true && this.serialError == false) {
 
           const { uomId, itemId, trackingNo } = element.value;
 
           const rowUomId = rowForm.get('uomId')?.value;
           const rowItemId = rowForm.get('itemId')?.value;
           const rowItemtrackingNo = rowForm.get('trackingNo')?.value;
-          
 
-          if (uomId === rowUomId && itemId === rowItemId && trackingNo === rowItemtrackingNo ) {
+
+          if (uomId === rowUomId && itemId === rowItemId && trackingNo === rowItemtrackingNo) {
             this.toasterService.showError(
               this.languageService.transalte('messages.error'),
               this.languageService.transalte('messages.duplicateItem')
@@ -286,7 +270,7 @@ loadLookups(){
             this.duplicateLine = true;
             return true; // Stop checking on first match
           }
-        
+
           this.rowDuplicate = -1;
 
           this.duplicateLine = false;
@@ -299,160 +283,160 @@ loadLookups(){
 
         return false;
       }
-      }
+    }
     )
-    }
-    setRowDataFromPopup(indexLine: number, selectedItem: any) {
-      const rowForm = this.stockOutDetailsFormArray.at(indexLine) as FormGroup;
-      if (rowForm) {
-        rowForm.patchValue({
-          barCode: selectedItem.barCode ,
-          bardCodeId: selectedItem.bardCodeId ,
-          itemId: selectedItem.itemId,
-          itemVariantId: selectedItem.itemVariantId ,
-          uomId: selectedItem.uomId ,
-          uomOptions: selectedItem.itemsUOM ,
-          description: selectedItem.itemName+"-" +selectedItem.itemVariantNameEn ,
-          AllTotalQuantity: selectedItem.totalQuantity ,
-          cost: selectedItem.cost ,
-          subCost: selectedItem.subCost ,
-          notes: selectedItem.notes ,
-          stockOutEntryMode: selectedItem.stockOutEntryMode ,
-          trackingType: selectedItem.trackingType ,
-          trackingNo: selectedItem.trackingNo || '',
-          hasExpiryDate: selectedItem.hasExpiryDate ,
-          expireDate: selectedItem.expireDate ,
-          availability: selectedItem.availability 
-        });
+  }
+  setRowDataFromPopup(indexLine: number, selectedItem: any) {
+    const rowForm = this.stockOutDetailsFormArray.at(indexLine) as FormGroup;
+    if (rowForm) {
+      rowForm.patchValue({
+        barCode: selectedItem.barCode,
+        bardCodeId: selectedItem.bardCodeId,
+        itemId: selectedItem.itemId,
+        itemVariantId: selectedItem.itemVariantId,
+        uomId: selectedItem.uomId,
+        uomOptions: selectedItem.itemsUOM,
+        description: selectedItem.itemName + "-" + selectedItem.itemVariantNameEn,
+        AllTotalQuantity: selectedItem.totalQuantity,
+        cost: selectedItem.cost,
+        subCost: selectedItem.subCost,
+        notes: selectedItem.notes,
+        stockOutEntryMode: selectedItem.stockOutEntryMode,
+        trackingType: selectedItem.trackingType,
+        trackingNo: selectedItem.trackingNo || '',
+        hasExpiryDate: selectedItem.hasExpiryDate,
+        expireDate: selectedItem.expireDate,
+        availability: selectedItem.availability
+      });
 
-        // Handle the nested form group
-        const stockOutTrackingGroup = rowForm.get('stockOutTracking') as FormGroup;
-        if (stockOutTrackingGroup) {
-          stockOutTrackingGroup.patchValue({
-            batchNo: selectedItem.stockOutTracking?.batchNo || '',
-            expireDate: selectedItem.stockOutTracking?.expireDate ||null,
-            quantity: selectedItem.stockOutTracking?.quantity || '',
-            serialId: selectedItem.stockOutTracking?.serialId || '',
-            trackingType: selectedItem.stockOutTracking?.trackingType || '',
-            hasExpiryDate: selectedItem.hasExpiryDate ,
-            serialOptions: selectedItem.serials,
-            batchesOptions: selectedItem.batches
-          });
-        } else {
-          console.error('StockOutTracking form group is missing');
-        }
-      }
-      if(selectedItem){
-        if(selectedItem.hasExpiryDate){
-          if(selectedItem.trackingType==this.sharedFinanceEnums.StockOutTracking.NoTracking){
-            rowForm.get('showSerial')?.setValue(false);
-            rowForm.get('showBatch')?.setValue(true);
-          }
-          else if(selectedItem.trackingType==this.sharedFinanceEnums.StockOutTracking.Serial){
-            rowForm.get('showSerial')?.setValue(true);
-            rowForm.get('showBatch')?.setValue(false);
-          }
-          else if(selectedItem.trackingType==this.sharedFinanceEnums.StockOutTracking.Batch){
-            rowForm.get('showSerial')?.setValue(false);
-            rowForm.get('showBatch')?.setValue(true);
-          }
-        }else{
-          if(selectedItem.trackingType==this.sharedFinanceEnums.StockOutTracking.NoTracking){
-            rowForm.get('showSerial')?.setValue(false);
-            rowForm.get('showBatch')?.setValue(false);
-          }
-        }
-      }
-      rowForm.get('itemName')?.setValue(selectedItem.itemCode + "-" + selectedItem.itemName + "-" +selectedItem.itemVariantNameAr )
-      this.setUomName(indexLine , rowForm.get('uomOptions')?.value )
-      this.setExpiryDate(indexLine , selectedItem.batches , selectedItem.serialOptions )
-      this.isDuplicate(indexLine)
-    }
-    setRowDataFromBarCode(indexLine: number, selectedItem: any) {
-      const rowForm = this.stockOutDetailsFormArray.at(indexLine) as FormGroup;
-      if (rowForm) {
-        rowForm.patchValue({
-          barCode: selectedItem.barcode ,
-          bardCodeId: selectedItem.barcodeId ,
-          itemId: selectedItem.itemId,
-          itemVariantId: selectedItem.itemVariantId ,
-          uomId: selectedItem.uomId ,
-          uomOptions: selectedItem.itemsUOM ,
-          description: selectedItem.itemName+"-" +selectedItem.itemVariantNameEn ,
-          AllTotalQuantity: selectedItem.totalQuantity ,
-          cost: selectedItem.cost ,
-          subCost: selectedItem.subCost ,
-          notes: selectedItem.notes ,
-          stockOutEntryMode: selectedItem.stockOutEntryMode ,
-          trackingType: selectedItem.trackingType ,
-          trackingNo: selectedItem.trackingNo || '',
-          hasExpiryDate: selectedItem.hasExpiryDate ,
-          expireDate: selectedItem.expireDate ,
-          availability: selectedItem.availability 
+      // Handle the nested form group
+      const stockOutTrackingGroup = rowForm.get('stockOutTracking') as FormGroup;
+      if (stockOutTrackingGroup) {
+        stockOutTrackingGroup.patchValue({
+          batchNo: selectedItem.stockOutTracking?.batchNo || '',
+          expireDate: selectedItem.stockOutTracking?.expireDate || null,
+          quantity: selectedItem.stockOutTracking?.quantity || '',
+          serialId: selectedItem.stockOutTracking?.serialId || '',
+          trackingType: selectedItem.stockOutTracking?.trackingType || '',
+          hasExpiryDate: selectedItem.hasExpiryDate,
+          serialOptions: selectedItem.serials,
+          batchesOptions: selectedItem.batches
         });
-
-        // Handle the nested form group
-        const stockOutTrackingGroup = rowForm.get('stockOutTracking') as FormGroup;
-        if (stockOutTrackingGroup) {
-          stockOutTrackingGroup.patchValue({
-            batchNo: selectedItem.stockOutTracking?.batchNo || '',
-            expireDate: selectedItem.stockOutTracking?.expireDate ||null,
-            quantity: selectedItem.stockOutTracking?.quantity || '',
-            serialId: selectedItem.stockOutTracking?.serialId || '',
-            trackingType: selectedItem.stockOutTracking?.trackingType || '',
-            hasExpiryDate: selectedItem.hasExpiryDate ,
-            serialOptions: selectedItem.serials,
-            batchesOptions: selectedItem.batches
-          });
-        } else {
-          console.error('StockOutTracking form group is missing');
-        }
+      } else {
+        console.error('StockOutTracking form group is missing');
       }
-      if(selectedItem){
-        if(selectedItem.hasExpiryDate){
-          if(selectedItem.trackingType==this.sharedFinanceEnums.StockOutTracking.NoTracking){
-            rowForm.get('showSerial')?.setValue(false);
-            rowForm.get('showBatch')?.setValue(true);
-          }
-          else if(selectedItem.trackingType==this.sharedFinanceEnums.StockOutTracking.Serial){
-            rowForm.get('showSerial')?.setValue(true);
-            rowForm.get('showBatch')?.setValue(false);
-          }
-          else if(selectedItem.trackingType==this.sharedFinanceEnums.StockOutTracking.Batch){
-            rowForm.get('showSerial')?.setValue(false);
-            rowForm.get('showBatch')?.setValue(true);
-          }
-        }else{
-          if(selectedItem.trackingType==this.sharedFinanceEnums.StockOutTracking.NoTracking){
-            rowForm.get('showSerial')?.setValue(false);
-            rowForm.get('showBatch')?.setValue(false);
-          }
-        }
-      }
-      rowForm.get('itemName')?.setValue(selectedItem.itemCode + "-" + selectedItem.itemName + "-" +selectedItem.itemVariantNameAr )
-      this.setUomName(indexLine , rowForm.get('uomOptions')?.value )
-      this.setExpiryDate(indexLine , selectedItem.batches , selectedItem.serialOptions )
-      this.isDuplicate(indexLine)
     }
+    if (selectedItem) {
+      if (selectedItem.hasExpiryDate) {
+        if (selectedItem.trackingType == this.sharedFinanceEnums.StockOutTracking.NoTracking) {
+          rowForm.get('showSerial')?.setValue(false);
+          rowForm.get('showBatch')?.setValue(true);
+        }
+        else if (selectedItem.trackingType == this.sharedFinanceEnums.StockOutTracking.Serial) {
+          rowForm.get('showSerial')?.setValue(true);
+          rowForm.get('showBatch')?.setValue(false);
+        }
+        else if (selectedItem.trackingType == this.sharedFinanceEnums.StockOutTracking.Batch) {
+          rowForm.get('showSerial')?.setValue(false);
+          rowForm.get('showBatch')?.setValue(true);
+        }
+      } else {
+        if (selectedItem.trackingType == this.sharedFinanceEnums.StockOutTracking.NoTracking) {
+          rowForm.get('showSerial')?.setValue(false);
+          rowForm.get('showBatch')?.setValue(false);
+        }
+      }
+    }
+    rowForm.get('itemName')?.setValue(selectedItem.itemCode + "-" + selectedItem.itemName + "-" + selectedItem.itemVariantNameAr)
+    this.setUomName(indexLine, rowForm.get('uomOptions')?.value)
+    this.setExpiryDate(indexLine, selectedItem.batches, selectedItem.serialOptions)
+    this.isDuplicate(indexLine)
+  }
+  setRowDataFromBarCode(indexLine: number, selectedItem: any) {
+    const rowForm = this.stockOutDetailsFormArray.at(indexLine) as FormGroup;
+    if (rowForm) {
+      rowForm.patchValue({
+        barCode: selectedItem.barcode,
+        bardCodeId: selectedItem.barcodeId,
+        itemId: selectedItem.itemId,
+        itemVariantId: selectedItem.itemVariantId,
+        uomId: selectedItem.uomId,
+        uomOptions: selectedItem.itemsUOM,
+        description: selectedItem.itemName + "-" + selectedItem.itemVariantNameEn,
+        AllTotalQuantity: selectedItem.totalQuantity,
+        cost: selectedItem.cost,
+        subCost: selectedItem.subCost,
+        notes: selectedItem.notes,
+        stockOutEntryMode: selectedItem.stockOutEntryMode,
+        trackingType: selectedItem.trackingType,
+        trackingNo: selectedItem.trackingNo || '',
+        hasExpiryDate: selectedItem.hasExpiryDate,
+        expireDate: selectedItem.expireDate,
+        availability: selectedItem.availability
+      });
+
+      // Handle the nested form group
+      const stockOutTrackingGroup = rowForm.get('stockOutTracking') as FormGroup;
+      if (stockOutTrackingGroup) {
+        stockOutTrackingGroup.patchValue({
+          batchNo: selectedItem.stockOutTracking?.batchNo || '',
+          expireDate: selectedItem.stockOutTracking?.expireDate || null,
+          quantity: selectedItem.stockOutTracking?.quantity || '',
+          serialId: selectedItem.stockOutTracking?.serialId || '',
+          trackingType: selectedItem.stockOutTracking?.trackingType || '',
+          hasExpiryDate: selectedItem.hasExpiryDate,
+          serialOptions: selectedItem.serials,
+          batchesOptions: selectedItem.batches
+        });
+      } else {
+        console.error('StockOutTracking form group is missing');
+      }
+    }
+    if (selectedItem) {
+      if (selectedItem.hasExpiryDate) {
+        if (selectedItem.trackingType == this.sharedFinanceEnums.StockOutTracking.NoTracking) {
+          rowForm.get('showSerial')?.setValue(false);
+          rowForm.get('showBatch')?.setValue(true);
+        }
+        else if (selectedItem.trackingType == this.sharedFinanceEnums.StockOutTracking.Serial) {
+          rowForm.get('showSerial')?.setValue(true);
+          rowForm.get('showBatch')?.setValue(false);
+        }
+        else if (selectedItem.trackingType == this.sharedFinanceEnums.StockOutTracking.Batch) {
+          rowForm.get('showSerial')?.setValue(false);
+          rowForm.get('showBatch')?.setValue(true);
+        }
+      } else {
+        if (selectedItem.trackingType == this.sharedFinanceEnums.StockOutTracking.NoTracking) {
+          rowForm.get('showSerial')?.setValue(false);
+          rowForm.get('showBatch')?.setValue(false);
+        }
+      }
+    }
+    rowForm.get('itemName')?.setValue(selectedItem.itemCode + "-" + selectedItem.itemName + "-" + selectedItem.itemVariantNameAr)
+    this.setUomName(indexLine, rowForm.get('uomOptions')?.value)
+    this.setExpiryDate(indexLine, selectedItem.batches, selectedItem.serialOptions)
+    this.isDuplicate(indexLine)
+  }
   addNewRow() {
-    if(!this.duplicateLine ){
-       if (!this.formsService.validForm(this.addForm, false)) return;
-       this.getLatestItemsList(this.addForm.get('warehouseId')?.value)
+    if (!this.duplicateLine) {
+      if (!this.formsService.validForm(this.addForm, false)) return;
+      this.getLatestItemsList(this.addForm.get('warehouseId')?.value)
 
 
       let newLine = this.fb.group(
         {
           barCode: new FormControl(''),
           bardCodeId: new FormControl(''),
-          itemId: new FormControl('',[customValidators.required]),
+          itemId: new FormControl('', [customValidators.required]),
           itemName: new FormControl(''),
-          itemVariantId: new FormControl('',[customValidators.required]),
-          uomId: new FormControl('',[customValidators.required]),
+          itemVariantId: new FormControl('', [customValidators.required]),
+          uomId: new FormControl('', [customValidators.required]),
           uomOptions: new FormControl(),
           uomName: new FormControl(''),
           description: new FormControl(''),
-          quantity: new FormControl('',[customValidators.required ,customValidators.nonZero]),
-          cost: new FormControl('',[customValidators.required]),
+          quantity: new FormControl('', [customValidators.required, customValidators.nonZero]),
+          cost: new FormControl('', [customValidators.required]),
           subCost: new FormControl(''),
           notes: new FormControl(''),
           stockOutEntryMode: new FormControl("Manual"),
@@ -466,10 +450,10 @@ loadLookups(){
           showSerial: new FormControl(false),
           showBatch: new FormControl(false),
           stockOutTracking: this.fb.group({
-            batchNo: new FormControl(''),         
-            expireDate: new FormControl(''), 
-            quantity: new FormControl(''),         
-            serialId: new FormControl(''),            
+            batchNo: new FormControl(''),
+            expireDate: new FormControl(''),
+            quantity: new FormControl(''),
+            serialId: new FormControl(''),
             trackingType: new FormControl(''),
             hasExpiryDate: new FormControl(''),
             serialOptions: new FormControl(''),
@@ -480,16 +464,17 @@ loadLookups(){
       );
       this.stockOutDetailsFormArray.push(newLine);
     }
-    } 
-  
-    setUomName(indexLine:number , list:any){
-      const rowForm = this.stockOutDetailsFormArray.at(indexLine) as FormGroup;
-      const selectedItem = list.find((item: any) => item.uomId === rowForm.get('uomId')?.value);
-      if (this.selectedLanguage === 'ar') {
-        rowForm.get('uomName')?.setValue(selectedItem.uomNameAr);
-      } else {
-        rowForm.get('uomName')?.setValue(selectedItem.uomNameEn);
-      }    }
+  }
+
+  setUomName(indexLine: number, list: any) {
+    const rowForm = this.stockOutDetailsFormArray.at(indexLine) as FormGroup;
+    const selectedItem = list.find((item: any) => item.uomId === rowForm.get('uomId')?.value);
+    if (this.selectedLanguage === 'ar') {
+      rowForm.get('uomName')?.setValue(selectedItem.uomNameAr);
+    } else {
+      rowForm.get('uomName')?.setValue(selectedItem.uomNameEn);
+    }
+  }
 
   onCancel() {
     this.routerService.navigateTo('transactions/stock-out');
@@ -498,121 +483,121 @@ loadLookups(){
 
   onSave() {
     if (!this.formsService.validForm(this.addForm, false)) return;
-    if(this.stockOutDetailsFormArray.value.length==0){
+    if (this.stockOutDetailsFormArray.value.length == 0) {
       this.toasterService.showError(
         this.languageService.transalte('messages.error'),
         this.languageService.transalte('messages.noItemsToAdd')
       );
-    }else{
-      const data:AddStockOutDto =this.mapStockOutData(this.addForm.value)
+    } else {
+      const data: AddStockOutDto = this.mapStockOutData(this.addForm.value)
       this.itemsService.addStockOut(data, this.addForm);
     }
 
-   
+
 
   }
-  mapStockOutData(data:any){
-    
-      return {
-        receiptDate: data.receiptDate,
-        sourceDocumentType: data.sourceDocumentType,
-        sourceDocumentId: data.sourceDocumentId ,
-        warehouseId: data.warehouseId ,
-        notes: data.notes,
-        
-        stockOutDetails: data.stockOutDetails?.map((detail: any) => ({
-         
-          barCode: detail.barCode ,
-          bardCodeId: detail.bardCodeId|| null ,
-          itemId: detail.itemId ,
-          itemVariantId: detail.itemVariantId ,
-          uomId: detail.uomId ,
-          description: detail.description ,
-          quantity: Number(detail.quantity) ,
-          cost: Number(detail.cost) ,
-          notes: detail.notes ,
+  mapStockOutData(data: any) {
+
+    return {
+      receiptDate: data.receiptDate,
+      sourceDocumentType: data.sourceDocumentType,
+      sourceDocumentId: data.sourceDocumentId,
+      warehouseId: data.warehouseId,
+      notes: data.notes,
+
+      stockOutDetails: data.stockOutDetails?.map((detail: any) => ({
+
+        barCode: detail.barCode,
+        bardCodeId: detail.bardCodeId || null,
+        itemId: detail.itemId,
+        itemVariantId: detail.itemVariantId,
+        uomId: detail.uomId,
+        description: detail.description,
+        quantity: Number(detail.quantity),
+        cost: Number(detail.cost),
+        notes: detail.notes,
+        hasExpiryDate: detail.hasExpiryDate,
+        stockOutEntryMode: detail.stockOutEntryMode || "Manual",
+        trackingType: detail.trackingType,
+        stockOutTracking: {
+          trackingNo: detail.trackingNo,
           hasExpiryDate: detail.hasExpiryDate,
-          stockOutEntryMode: detail.stockOutEntryMode || "Manual",
+          expireDate: detail.expiryDate || null,
           trackingType: detail.trackingType,
-          stockOutTracking: {
-            trackingNo: detail.trackingNo,
-            hasExpiryDate: detail.hasExpiryDate,
-            expireDate: detail.expiryDate || null,
-            trackingType: detail.trackingType ,
-          }
-        }))
+        }
+      }))
+    }
   }
-}
   initWareHouseLookupData() {
     this.itemsService.getWareHousesDropDown()
-    this.itemsService.wareHousesDropDownLookup$.subscribe(res=>{
+    this.itemsService.wareHousesDropDownLookup$.subscribe(res => {
       this.warhouseLookupData = res
     })
   }
-  setTrackingNo(indexLine:number ,event:string){
+  setTrackingNo(indexLine: number, event: string) {
     const rowForm = this.stockOutDetailsFormArray.at(indexLine) as FormGroup;
-      rowForm.get('trackingNo')?.setValue(event)
+    rowForm.get('trackingNo')?.setValue(event)
   }
-  setExpiryDate(indexLine:number ,batchesOptions:any , serialsOptions:any){
-   
+  setExpiryDate(indexLine: number, batchesOptions: any, serialsOptions: any) {
+
     const rowForm = this.stockOutDetailsFormArray.at(indexLine) as FormGroup;
     const selectedItem = batchesOptions?.find((item: any) => item.trackingNo == rowForm.get('trackingNo')?.value);
-   
-    if( selectedItem!=undefined ){
+
+    if (selectedItem != undefined) {
       rowForm.get('expiryDate')?.setValue(selectedItem.expiryDate)
       rowForm.get('totalQuantity')?.setValue(selectedItem.totalQuantity)
-    }else{
-      const serialOption   = rowForm.get('stockOutTracking')?.get('serialOptions')?.value
+    } else {
+      const serialOption = rowForm.get('stockOutTracking')?.get('serialOptions')?.value
       const selectedItem = serialOption?.find((item: any) => item.trackingNo == rowForm.get('trackingNo')?.value);
-      if( selectedItem!=undefined ){
+      if (selectedItem != undefined) {
         rowForm.get('expiryDate')?.setValue(selectedItem.expiryDate)
         rowForm.get('totalQuantity')?.setValue(selectedItem.totalQuantity)
-      }else{
+      } else {
         rowForm.get('expiryDate')?.setValue('')
         rowForm.get('totalQuantity')?.setValue(rowForm.get('AllTotalQuantity')?.value)
 
       }
-      
-    
+
+
     }
-   
+
 
   }
-  setCostTotal(indexLine:number , e:any){
+  setCostTotal(indexLine: number, e: any) {
     const rowForm = this.stockOutDetailsFormArray.at(indexLine) as FormGroup;
-    
-      rowForm.get('subCost')?.setValue(Number(rowForm.get('quantity')?.value)*Number(rowForm.get('cost')?.value))
+
+    rowForm.get('subCost')?.setValue(Number(rowForm.get('quantity')?.value) * Number(rowForm.get('cost')?.value))
 
   }
   async deleteRow(index: number) {
     const confirmed = await this.toasterService.showConfirm('Delete');
     if (confirmed) {
       this.stockOutDetailsFormArray.removeAt(index);
-      this.isDuplicate(index-1)
+      this.isDuplicate(index - 1)
 
     }
   }
-  openDialog(indexLine:number ) {
+  openDialog(indexLine: number) {
     const ref = this.dialog.open(SearchItemPopUpComponent, {
       width: 'auto',
       height: '600px',
-      data:this.addForm.get('warehouseId')?.value
+      data: this.addForm.get('warehouseId')?.value
     });
     ref.onClose.subscribe((selectedItems: any) => {
-      
+
       if (selectedItems) {
-  this.setRowDataFromPopup(indexLine ,selectedItems)
+        this.setRowDataFromPopup(indexLine, selectedItems)
       }
     });
   }
-  barcodeCanged(e: any , index:number) {   
+  barcodeCanged(e: any, index: number) {
     this.loaderService.show();
 
     this.itemsService.getItemByBarcodeStockOutQuery(e.target.value, this.addForm.get('warehouseId')?.value).subscribe({
       next: (res) => {
         this.loaderService.hide();
 
-        this.setRowDataFromBarCode(index ,res ) 
+        this.setRowDataFromBarCode(index, res)
 
 
       },
@@ -627,27 +612,20 @@ loadLookups(){
         );
       },
     })
-  
+
   }
   constructor(
     private routerService: RouterService,
     public authService: AuthService,
     private dialog: DialogService,
-    private title: Title,
-    private languageService:LanguageService,
+    private languageService: LanguageService,
     private itemsService: ItemsService,
     private fb: FormBuilder,
-    private lookupservice : LookupsService,
+    private lookupservice: LookupsService,
     private formsService: FormsService,
     public sharedFinanceEnums: SharedStock,
     private toasterService: ToasterService,
     private loaderService: LoaderService,
-
-
-
-
-
   ) {
-    // this.title.setTitle(this.langService.transalte('itemCategory.itemDefinition'));
   }
 }

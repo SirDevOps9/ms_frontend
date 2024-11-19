@@ -1651,30 +1651,13 @@ exportStockOutList(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
       this.latestItemsListByWarehouse.next(res)
     })
   }
-  // getItemsStockOutByWarehouse(quieries: string, searchTerm: string ,id:number , pageInfo: PageInfo ) {
-  //   this.itemProxy.getItemsStockOut(quieries, searchTerm , id, pageInfo ).subscribe((res) => {
-  //     this.itemsDataSourceByWarehouse.next(res.result);
-  //     this.currentPageInfo.next(res.pageInfoResult);
-  //   });
-  // }
+
   getItemsStockOutByWarehouse(queries: string, searchTerm: string, id: number, pageInfo: PageInfo) {
     this.itemProxy.getItemsStockOut(queries, searchTerm, id, pageInfo).subscribe((res:any) => {
       this.itemsDataSourceByWarehouse.next(res);
     });
   }
-  // getItemsStockOutByWarehouse(
-  //   quieries: string,
-  //   searchTerm: string,
-  //   warehouseId: number,
-  //   pageInfo: PageInfo
-  // ): void {
-  //   this.itemProxy.getItemsStockOut(quieries, searchTerm, warehouseId, pageInfo).subscribe((res) => {
-  //     if (res) {
-  //       this.itemsDataSourceByWarehouse.next(res.result);
-  //       this.currentPageInfo.next(res.pageInfoResult);
-  //     }
-  //   });
-  // }
+
 
   getItemByBarcodeStockOutQuery(barcode : string , warehouseId:number) {
 
@@ -1687,20 +1670,6 @@ exportStockOutList(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
     
   }
    deleteRowStockOut(id: number) {
-    // const confirmed = await this.toasterService.showConfirm(
-    //   this.languageService.transalte('ConfirmButtonTexttodelete')
-    // );
-    // if (confirmed) {
-    //   this.itemProxy.deleteRowStockOut(id).subscribe({
-    //     next: (res) => {
-    //       this.toasterService.showSuccess(
-    //         this.languageService.transalte('transactions.success'),
-    //         this.languageService.transalte('transactions.deleteStockOut')
-    //       );
-
-    //     },
-    //   });
-    // }
       return  this.itemProxy.deleteRowStockOut(id).pipe(
           map((res) => {
             return res;

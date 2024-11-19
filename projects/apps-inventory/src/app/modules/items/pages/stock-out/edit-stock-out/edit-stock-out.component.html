@@ -125,7 +125,7 @@
                     [customClass]="'add-journal'"
                     (valueChanged)="setRowData(rowIndex, $event ,filteredItems)"
                     selectedValue="{{stockOutFormGroup.controls['itemId'].value}}"
-                    (valueSearchChanged)="onFilter($event ,  stockInForm.controls['warehouseId'].value)"></lib-select>
+                    (valueSearchChanged)="onFilter($event )"></lib-select>
                   <i class="pi pi-search search-circle" (click)="openDialog(rowIndex)"
                   ></i>
                   <!-- (click)="openDialog(rowIndex)" -->
