@@ -16,7 +16,8 @@ export class UOMListComponent implements OnInit {
   tableData: UOMCategoryDto[] = []
   currentPageInfo: PageInfoResult = {};
   searchTerm: string;
-  exportData: any[];
+  exportData: UOMCategoryDto[];
+  clonedExportData: UOMCategoryDto[];
   exportColumns:any[]
 
   cols = [
@@ -115,7 +116,7 @@ export class UOMListComponent implements OnInit {
 
   }
 
-  exportBankData(searchTerm: string) {
+  exportUom(searchTerm: string) {
     this.itemService.exportUOMList(searchTerm)
 
     this.itemService.SendexportUOMList$.subscribe((res)=>{

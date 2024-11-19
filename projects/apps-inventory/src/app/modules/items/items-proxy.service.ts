@@ -338,7 +338,7 @@ export class ItemsProxyService {
   }
 
   //   to export uom list
-  ExportUOMList(SearchTerm: string | undefined) {
+  ExportUOMList(SearchTerm: string | undefined)   {
     let url = `UOM/ExportUOM`;
     if (SearchTerm) url += `SearchTerm=${encodeURIComponent(SearchTerm)}`;
     return this.httpService.get<any>(url);

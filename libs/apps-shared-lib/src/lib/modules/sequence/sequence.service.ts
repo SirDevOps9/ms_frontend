@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { sequenceProxy } from './sequence.proxy';
-import { LanguageService, ToasterService } from 'shared-lib';
+import { LanguageService, RouterService, ToasterService } from 'shared-lib';
 
 @Injectable({
   providedIn: 'root',
@@ -10,6 +10,8 @@ export class SequenceService {
     private sequenceProxy:sequenceProxy,
     private toasterService : ToasterService ,
      private languageService : LanguageService ,
+     private routerService: RouterService,
+
   ){}
   
   getBranch()  {
@@ -35,4 +37,18 @@ export class SequenceService {
     });
   
 }
+ isHaveSequence(screen:any , url:string){
+  this.getSequence(screen).subscribe((sequence:any) => {
+    console.log(sequence ,"sequence");
+    if(sequence){
+   this.routerService.navigateTo(url);
+
+    }else{
+      this.toasterService.showError(
+        this.languageService.transalte('error'),
+        this.languageService.transalte('sequence.pleaseAddSequenceFirst')
+      );
+    }
+    })
+ }
 }

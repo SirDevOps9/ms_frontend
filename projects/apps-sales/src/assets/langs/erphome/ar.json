@@ -9,8 +9,8 @@
     "CustomerOpeningBalanceList": "قائمة أرصدة افتتاحية العملاء",
     "AddCustomerOpeningBalance": "إضافة رصيد افتتاحي للعميل",
     "EditCustomerOpeningBalance": "تعديل الرصيد الافتتاحي للعميل",
-    "ViewCustomerOpeningBalance": "عرض الرصيد الافتتاحي للعميل",
-    "PricePolicy": "سياسة التسعير"
+    "ViewCustomerOpeningBalance": "عرض الرصيد الافتتاحي للعميل"
+
   },
   "dir": "rtl",
   "Welcome": "مرحبا",

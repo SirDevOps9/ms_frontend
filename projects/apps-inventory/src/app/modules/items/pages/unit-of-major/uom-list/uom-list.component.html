@@ -74,7 +74,7 @@
                 <div>
                   <lib-export
                     (exportClick)="exportClick($event)"
-                    [exportData]="exportData"
+                    [exportData]="clonedExportData"
                     [exportColumns]="exportColumns"
                     [ExportName]="'Unit Of Measure'"
 
@@ -103,6 +103,8 @@
             <lib-button-micro nameClass="table_button_edit" (click)="onEdit(action)">
             </lib-button-micro>
             <lib-button-micro nameClass="table_button_delete" (click)="onDelete(action.uomCategoryId)">
+            </lib-button-micro>
+            <lib-button-micro nameClass="table_button_view" (click)="onView(action.uomCategoryId)">
             </lib-button-micro>
           </div>
         </ng-template>
