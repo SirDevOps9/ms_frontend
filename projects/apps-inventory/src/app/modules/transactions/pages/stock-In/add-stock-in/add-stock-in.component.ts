@@ -213,7 +213,7 @@ debugger
     stockInFormGroup.get('stockInTracking')?.clearValidators();
     stockInFormGroup.get('stockInTracking')?.updateValueAndValidity();
 
-    stockInFormGroup.get('itemCodeName')?.setValue(data?.itemCode);
+    stockInFormGroup.get('itemCodeName')?.setValue(data?.itemCode ?? clonedStockInFormGroup?.itemCode);
     stockInFormGroup
       .get('description')
       ?.setValue(
