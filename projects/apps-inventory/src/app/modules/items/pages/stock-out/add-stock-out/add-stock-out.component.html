@@ -338,7 +338,7 @@
     </div>
   </div>
 
-  <div class="grid">
+  <div class="grid" *ngIf="!isSaving" >
     <div class="md:col-12 my-3 grid flex justify-content-end">
       <div class="md:col-4 grid flex justify-content-end">
         <div class="md:col-6">
@@ -346,8 +346,8 @@
             (click)="onCancel()">
           </lib-button-micro>
         </div>
-        <div class="md:col-6">
-          <lib-button-micro title="{{ 'Save' | translate }}" nameClass="save" widthNumber="100%" (click)="onSave()">
+        <div class="md:col-6" >
+          <lib-button-micro  title="{{ 'Save' | translate }}" nameClass="save" widthNumber="100%" (click)="onSave()">
           </lib-button-micro>
         </div>
       </div>

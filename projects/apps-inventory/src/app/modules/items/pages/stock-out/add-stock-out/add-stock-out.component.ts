@@ -16,6 +16,8 @@ import { ItemsProxyService } from '../../../items-proxy.service';
   styleUrl: './add-stock-out.component.scss'
 })
 export class AddStockOutComponent implements OnInit {
+  isSaving: boolean = false;
+
   stockInForm: FormGroup = new FormGroup({});
   LookupEnum = LookupEnum;
   selectedLanguage: string
@@ -481,21 +483,39 @@ export class AddStockOutComponent implements OnInit {
 
   }
 
-  onSave() {
-    if (!this.formsService.validForm(this.addForm, false)) return;
-    if (this.stockOutDetailsFormArray.value.length == 0) {
-      this.toasterService.showError(
-        this.languageService.transalte('messages.error'),
-        this.languageService.transalte('messages.noItemsToAdd')
-      );
-    } else {
-      const data: AddStockOutDto = this.mapStockOutData(this.addForm.value)
-      this.itemsService.addStockOut(data, this.addForm);
-    }
+  // onSave() {
+  //   if (!this.formsService.validForm(this.addForm, false)) return;
+  //   if (this.stockOutDetailsFormArray.value.length == 0) {
+  //     this.toasterService.showError(
+  //       this.languageService.transalte('messages.error'),
+  //       this.languageService.transalte('messages.noItemsToAdd')
+  //     );
+  //   } else {
+  //     const data: AddStockOutDto = this.mapStockOutData(this.addForm.value)
+  //     this.itemsService.addStockOut(data, this.addForm);
+  //   }
 
 
 
+  // }
+
+onSave() {
+  if (this.isSaving) return; // إذا كانت العملية قيد التنفيذ، لا تقم بشيء
+
+  if (!this.formsService.validForm(this.addForm, false)) return;
+
+  if (this.stockOutDetailsFormArray.value.length === 0) {
+    this.toasterService.showError(
+      this.languageService.transalte('messages.error'),
+      this.languageService.transalte('messages.noItemsToAdd')
+    );
+  } else {
+    this.isSaving = true; // بدء عملية الحفظ
+    const data: AddStockOutDto = this.mapStockOutData(this.addForm.value);
+    this.itemsService.addStockOut(data, this.addForm);
   }
+}
+
   mapStockOutData(data: any) {
 
     return {

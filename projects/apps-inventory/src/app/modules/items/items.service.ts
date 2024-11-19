@@ -1515,6 +1515,8 @@ exportStockOutList(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
 
 
   addStockOut(obj: AddStockOutDto,stockinForm : FormGroup) {
+    this.loaderService.show();
+
     this.itemProxy.addStockOut(obj).subscribe({
       next: (res) => {
         this.toasterService.showSuccess(
