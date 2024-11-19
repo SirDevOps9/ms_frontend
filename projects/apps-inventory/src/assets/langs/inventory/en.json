@@ -6,11 +6,12 @@
     "noItemsToAdd": "No items to add",
     "successfully": "Operation completed successfully.",
     "duplicateItem": "There is a duplicated item."
-},
+  },
   "BreadCrumb": {
     "ItemsCategory": "Items Category",
     "stockout": "Stock Out",
     "add": "Add",
+    "generalSetting": "General Setting",
     "add_stockOut": "Add StockOut"
   },
   "Toaster": {
@@ -471,13 +472,13 @@
     "action": "Action",
     "btnReserve": "Reserve",
     "btnReserved": "Reserved",
-    "batch":"batch no.",
-  "serial":"Serial",
-  "expiryDate":"Expiry Date",
-  "availability":"Availability",
-  "noTracking": "No tracking"
+    "batch": "batch no.",
+    "serial": "Serial",
+    "expiryDate": "Expiry Date",
+    "availability": "Availability",
+    "noTracking": "No tracking"
   },
-  "popupSearch":{
+  "popupSearch": {
     "ItemCode": "Item Code",
     "ItemName": "Item Name",
     "ItemUOM": "Item Unit of Measure",
@@ -490,7 +491,21 @@
     "select": "select",
     "search": "Search",
     "ItemSearch": "Item Search"
-
+  },
+  "generalSetting": {
+    "generalSetting": "General Setting",
+    "costingEvaluationMethod": "Costing Evaluation Method",
+    "weightedAverageCotingMethod": "Weighted Average Costing Method",
+    "lastPurchasePriceCostingMethod": "Last Purchase Price Costing Method",
+    "fixedCostMethod": "Fixed Cost Method",
+    "CostOfGodsSoldAccount": "Cost of Goods Sold Account",
+    "SelectOneOfCostOfGodsSoldAccount": "Select one of the Cost of Goods Sold Accounts",
+    "GeneralPurchaseAccount": "General Purchase Account",
+    "GoodsInTransitAccount": "Goods in Transit Account",
+    "InventoryAdjustmentAccount": "Inventory Adjustment Account",
+    "InventoryReEvaluationAccount": "Inventory Re-Evaluation Account",
+    "oneSelect": "Select one option",
+    "Cancel": "Cancel",
+    "save": "Save"
   }
-
 }

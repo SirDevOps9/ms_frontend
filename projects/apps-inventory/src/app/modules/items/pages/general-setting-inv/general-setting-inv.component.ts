@@ -1,27 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { LayoutService } from 'apps-shared-lib';
-import { ItemsService } from '../../../items.service';
 import {
-  customValidators,
-  FormsService,
-  PageInfo,
   PageInfoResult,
   RouterService,
+  FormsService,
+  customValidators,
+  PageInfo,
 } from 'shared-lib';
-import { OperationType } from '../../../models/enums';
-import { GetWarehouseList } from '../../../models';
+import { ItemsService } from '../../items.service';
+import { GetWarehouseList } from '../../models';
+import { OperationType } from '../../models/enums';
 
 @Component({
-  selector: 'app-operation-tag-add',
-  templateUrl: './operation-tag-add.component.html',
-  styleUrl: './operation-tag-add.component.scss',
+  selector: 'app-general-setting-inv',
+  templateUrl: './general-setting-inv.component.html',
+  styleUrl: './general-setting-inv.component.scss',
 })
-export class OperationTagAddComponent implements OnInit {
+export class GeneralSettingInvComponent implements OnInit {
   formGroup: FormGroup;
   warhouseLookupData: GetWarehouseList[] = [];
   AccountsDropDownLookup: { id: number; name: string }[] = [];
-
+  scopeOptions: any[] = [];
+  costingMethods: any[] = [];
   currentPageInfo: PageInfoResult = { totalItems: 0 };
 
   get operationType(): OperationType {
@@ -62,11 +63,11 @@ export class OperationTagAddComponent implements OnInit {
 
   initForm() {
     this.formGroup = this.fb.group({
-      code: new FormControl(''),
-      name: new FormControl('', customValidators.required),
-      operationType: new FormControl('', customValidators.required),
-      warehouseId: new FormControl('', customValidators.required),
-      glAccountId: new FormControl(''),
+      selectedOption: [false],
+      costingMethod: [],
+      currentScope: [],
+      nextScope: [],
+      lastScope: [],
     });
   }
 

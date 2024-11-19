@@ -121,6 +121,7 @@ export class BreadcrumbLabel {
   static ADD_STOCKIN = 'Add Stock In';
   static EDIT_STOCKIN = 'stockIn.edit_stock_in';
   static readonly STOCKOUT = 'BreadCrumb.stockout';
+  static readonly GENERAL_SETTING = 'BreadCrumb.generalSetting';
   static readonly ADD_STOCKOUT = 'BreadCrumb.add';
   static readonly TITLE_ADD_STOCKOUT = 'BreadCrumb.add_stockOut';
 

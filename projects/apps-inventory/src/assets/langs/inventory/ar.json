@@ -1,16 +1,18 @@
 {
   "messages": {
-  "success": "نجاح",
-  "error": "خطأ",
-  "noItemSelected": "لم يتم تحديد عنصر للتعديل.",
-  "noItemsToAdd": "لا توجد عناصر للإضافة",
-  "successfully": "تمت العملية بنجاح.",
-  "duplicateItem": "يوجد عنصر مكرر."
-},
+    "success": "نجاح",
+    "error": "خطأ",
+    "noItemSelected": "لم يتم تحديد عنصر للتعديل.",
+    "noItemsToAdd": "لا توجد عناصر للإضافة",
+    "successfully": "تمت العملية بنجاح.",
+    "duplicateItem": "يوجد عنصر مكرر."
+  },
   "BreadCrumb": {
     "ItemsCategory": "فئة العناصر",
     "stockout": "إخراج المخزون",
     "add": "إضافة",
+    "generalSetting": "الإعدادات العامة",
+
     "add_stockOut": "إضافة إخراج مخزون"
   },
   "Toaster": {
@@ -370,17 +372,33 @@
     "noTracking": "بدون تتبع"
   },
   "popupSearch": {
-  "ItemCode": "كود الصنف",
-  "ItemName": "اسم الصنف",
-  "ItemUOM": "وحدة قياس الصنف",
-  "ItemVariant": "نوع الصنف",
-  "ItemCategory": "فئة الصنف",
-  "IsStorable": "قابل للتخزين",
-  "IsService": "خدمة",
-  "HasExpiryDate": "له تاريخ انتهاء",
-  "Actions": "الإجراءات",
-  "select": "اختيار",
-  "search": "بحث",
-  "ItemSearch": "بحث عن صنف"
-}
+    "ItemCode": "كود الصنف",
+    "ItemName": "اسم الصنف",
+    "ItemUOM": "وحدة قياس الصنف",
+    "ItemVariant": "نوع الصنف",
+    "ItemCategory": "فئة الصنف",
+    "IsStorable": "قابل للتخزين",
+    "IsService": "خدمة",
+    "HasExpiryDate": "له تاريخ انتهاء",
+    "Actions": "الإجراءات",
+    "select": "اختيار",
+    "search": "بحث",
+    "ItemSearch": "بحث عن صنف"
+  },
+  "generalSetting": {
+    "generalSetting": "الإعدادات العامة",
+    "costingEvaluationMethod": "طريقة تقييم التكاليف",
+    "weightedAverageCotingMethod": "طريقة المتوسط المرجح للتكلفة",
+    "lastPurchasePriceCostingMethod": "طريقة تكلفة آخر سعر شراء",
+    "fixedCostMethod": "طريقة التكلفة الثابتة",
+    "CostOfGodsSoldAccount": "حساب تكلفة البضائع المباعة",
+    "SelectOneOfCostOfGodsSoldAccount": "اختر أحد حسابات تكلفة البضائع المباعة",
+    "GeneralPurchaseAccount": "حساب الشراء العام",
+    "GoodsInTransitAccount": "حساب البضائع في النقل",
+    "InventoryAdjustmentAccount": "حساب تعديل المخزون",
+    "InventoryReEvaluationAccount": "حساب إعادة تقييم المخزون",
+    "oneSelect": "اختر أحد الخيارات",
+    "Cancel": "إلغاء",
+    "save": "حفظ"
+  }
 }

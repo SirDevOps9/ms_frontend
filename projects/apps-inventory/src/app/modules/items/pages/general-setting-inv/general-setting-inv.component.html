@@ -1,0 +1,164 @@
+<lib-page-content
+  [title]="'generalSetting.generalSetting' | translate"
+  [subTitle]="'generalSetting.generalSetting' | translate"
+>
+  <div class="bank">
+    <form [formGroup]="formGroup">
+      <div class="card_micro">
+        <div class="form_header">
+          <div class="grid">
+            <div class="md:col-12">
+              <div class="px-2 py-2">
+                {{ 'generalSetting.costingEvaluationMethod' | translate }}
+              </div>
+              <div class="grid pr-3 m-4 md:ml-8">
+                <div class="col-12 py-2 px-2 mx-2">
+                  <lib-form-group>
+                    <p-radioButton
+                      formControlName="selectedOption"
+                      value="costingMethod"
+                      [inputId]="'costingMethodRadio'"
+                      label="{{ 'generalSetting.weightedAverageCotingMethod' | translate }}"
+                    ></p-radioButton>
+                  </lib-form-group>
+                </div>
+                <div class="col-12 py-2 px-2 mx-2">
+                  <lib-form-group>
+                    <p-radioButton
+                      formControlName="selectedOption"
+                      value="currentScope"
+                      [inputId]="'currentScopeRadio'"
+                      label="{{ 'generalSetting.lastPurchasePriceCostingMethod' | translate }}"
+                    ></p-radioButton>
+                  </lib-form-group>
+                </div>
+                <div class="col-12 py-2 mx-2">
+                  <lib-form-group>
+                    <p-radioButton
+                      formControlName="selectedOption"
+                      value="nextScope"
+                      [inputId]="'nextScopeRadio'"
+                      label="{{ 'generalSetting.fixedCostMethod' | translate }}"
+                    ></p-radioButton>
+                  </lib-form-group>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card_micro">
+        <div class="px-2 py-2">
+          {{ 'generalSetting.costingEvaluationMethod' | translate }}
+        </div>
+        <div class="grid py-2 md:ml-8">
+          <div class="md:col-4">
+            <lib-form-group>
+              <lib-label [appControl]="formGroup.controls['costingMethod']">
+                {{ 'generalSetting.CostOfGodsSoldAccount' | translate }}
+              </lib-label>
+              <lib-select
+                formControlName="costingMethod"
+                [options]="AccountsDropDownLookup"
+                [selectedValue]="formGroup.controls['costingMethod'].value"
+                optionLabel="name"
+                optionValue="id"
+                placeholder="{{ 'generalSetting.SelectOneOfCostOfGodsSoldAccount' | translate }}"
+              >
+              </lib-select>
+            </lib-form-group>
+          </div>
+          <div class="md:col-4">
+            <lib-form-group>
+              <lib-label [appControl]="formGroup.controls['currentScope']">
+                {{ 'generalSetting.GeneralPurchaseAccount' | translate }}
+              </lib-label>
+              <lib-select
+                formControlName="currentScope"
+                [options]="AccountsDropDownLookup"
+                [selectedValue]="formGroup.controls['currentScope'].value"
+                optionLabel="name"
+                optionValue="id"
+                placeholder="{{ 'generalSetting.GeneralPurchaseAccount' | translate }}"
+              >
+              </lib-select>
+            </lib-form-group>
+          </div>
+          <div class="md:col-4">
+            <lib-form-group>
+              <lib-label [appControl]="formGroup.controls['nextScope']">
+                {{ 'generalSetting.GoodsInTransitAccount' | translate }}
+              </lib-label>
+              <lib-select
+                formControlName="nextScope"
+                [options]="AccountsDropDownLookup"
+                [selectedValue]="formGroup.controls['nextScope'].value"
+                optionLabel="name"
+                optionValue="id"
+                placeholder="{{ 'generalSetting.GoodsInTransitAccount' | translate }}"
+              >
+              </lib-select>
+            </lib-form-group>
+          </div>
+          <div class="md:col-4">
+            <lib-form-group>
+              <lib-label [appControl]="formGroup.controls['lastScope']">
+                {{ 'generalSetting.InventoryAdjustmentAccount' | translate }}
+              </lib-label>
+              <lib-select
+                formControlName="lastScope"
+                [options]="AccountsDropDownLookup"
+                [selectedValue]="formGroup.controls['lastScope'].value"
+                optionLabel="name"
+                optionValue="id"
+                placeholder="{{ 'generalSetting.InventoryAdjustmentAccount' | translate }}"
+              >
+              </lib-select>
+            </lib-form-group>
+          </div>
+          <div class="md:col-4">
+            <lib-form-group>
+              <lib-label [appControl]="formGroup.controls['lastScope']">
+                {{ 'generalSetting.InventoryReEvaluationAccount' | translate }}
+              </lib-label>
+              <lib-select
+                formControlName="lastScope"
+                [options]="AccountsDropDownLookup"
+                [selectedValue]="formGroup.controls['lastScope'].value"
+                optionLabel="name"
+                optionValue="id"
+                placeholder="{{ 'generalSetting.oneSelect' | translate }}"
+              >
+              </lib-select>
+            </lib-form-group>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="btn_group">
+    <div class="grid mt-4">
+      <div class="md:col-3">
+        <div class="grid">
+          <div class="md:col-6">
+            <lib-button-micro
+              nameClass="cancel"
+              title="{{ 'generalSetting.Cancel' | translate }}"
+              (click)="discard()"
+            >
+            </lib-button-micro>
+          </div>
+          <div class="md:col-6">
+            <lib-button-micro
+              nameClass="save w-100"
+              title="{{ 'generalSetting.save' | translate }}"
+              type="button"
+              (click)="onSave()"
+            >
+            </lib-button-micro>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</lib-page-content>

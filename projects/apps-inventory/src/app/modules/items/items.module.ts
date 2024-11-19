@@ -60,6 +60,7 @@ import { EditStockOutComponent } from './pages/stock-out/edit-stock-out/edit-sto
 import { ItemDefintionVariantComponent } from './pages/item-definition/item-defintion-variants/item-defintion-variant.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { SearchItemPopUpComponent } from './components/stock-out/search-item-pop-up/search-item-pop-up.component';
+import { GeneralSettingInvComponent } from './pages/general-setting-inv/general-setting-inv.component';
 
 const routes: Routes = [
   {
@@ -322,6 +323,14 @@ const routes: Routes = [
           },
         ],
       },
+      {
+        path: 'general-setting',
+        component: GeneralSettingInvComponent,
+        data: {
+          breadcrumb: BreadcrumbLabel.GENERAL_SETTING,
+          pageTitle: BreadcrumbLabel.GENERAL_SETTING,
+        },
+      },
     ],
   },
 ];
@@ -376,7 +385,8 @@ const routes: Routes = [
     StockOutListComponent,
     EditStockOutComponent,
 
-    SearchItemPopUpComponent
+    SearchItemPopUpComponent,
+    GeneralSettingInvComponent,
   ],
   imports: [
     CommonModule,
