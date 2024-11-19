@@ -49,7 +49,8 @@
     "confirm2": "Do you want to Continue ?",
     "SerialnumberChanged": "We would like to inform you that a change has been made to your serial number.",
     "SerialnumberPlaceholder": "Please enter number of digit",
-    "startingnumberPlaceholder": "Please enter the starting number"
+    "startingnumberPlaceholder": "Please enter the starting number",
+    "pleaseAddSequenceFirst": "Please add the sequence first"
   },
   "validation": {
     "invalidForm": "Please, complete all required sections",
@@ -102,5 +103,8 @@
     "Showing": "Showing",
     "To": "to",
     "Entries": "entries"
+  },
+  "general" : {
+    "noData" : "There Is No Data"
   }
 }

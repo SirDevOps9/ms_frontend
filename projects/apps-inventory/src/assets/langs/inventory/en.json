@@ -5,13 +5,27 @@
     "noItemSelected": "No item selected for editing.",
     "noItemsToAdd": "No items to add",
     "successfully": "Operation completed successfully.",
-    "duplicateItem": "There is a duplicated item."
+    "duplicateItem": "There is a duplicated item.",
+    "serialError": "Can't add more than one item with the same serial.",
+    "noBarcode": "This barcode does not exist."
 },
   "BreadCrumb": {
     "ItemsCategory": "Items Category",
     "stockout": "Stock Out",
     "add": "Add",
-    "add_stockOut": "Add StockOut"
+    "add_stockOut": "Add StockOut",
+   "UnitOfMeasure" : "Unit Of Measure",
+   "addUom" : "Add UOM",
+   "EditUom" : "Edit UOM",
+   "uomList" : "UOM",
+   "edit": "Edit",
+    "editstockout":"Edit Stock Out",
+    "edit_stockOut": "Edit StockOut",
+    "EditItembarfixedcostfinition":"Edit Item fixed cost",
+    "stockInView":"Stock In View",
+    "stockOutView":"Stock Out View",
+    "stockIn":"Stock In List",
+    "viewUom":"view"
   },
   "Toaster": {
     "Confirm": {
@@ -91,7 +105,7 @@
     "salesAmount": "Sales Account",
     "salesReturnAmount": "Sales Return Account",
     "variantSelect": "Variant Select",
-
+    "fixedCost":"Fixed Cost",
     "success": "Success",
     "deleteVariant": "Attibute Group Deleted Successfully",
     "changeVariantStatus": "Attibute Group Status Changed Successfully",
@@ -155,6 +169,7 @@
     "delete": "Item Definition deleted successfully",
     "editGenerl": "Edit general updated successfully",
     "change": "Change",
+    "editFixedCost":"Edit fixed cost updated successfully",
     "baseUnit": "Base unit",
     "shortname": "Short Name",
     "conversionfactor": "Conversion factor",
@@ -228,6 +243,7 @@
     "categoryCode": "UOM Category Code",
     "name": "UOM Name",
     "categoryname": "UOM Category Name",
+    "EditUomSuccess" : "UOM Edited Successfully",
     "save": "Save",
     "uomEdit": "Edited",
     "discard": "Discard",
@@ -262,7 +278,8 @@
     "uomCode": "UOM Code",
     "uomName": "UOM Name",
     "uomCategory": "UOM Category",
-    "uomFactor": "UOM Factor"
+    "uomFactor": "UOM Factor",
+    "cancel" : "Cancel"
   },
   "attributeDefinition": {
     "Add": "Create",
@@ -431,6 +448,7 @@
     "deleteStockOut": "Stock Out deleted successfully",
     "success": "Success"
   },
+
   "global": {
     "activeOn": "On",
     "activeOff": "Off",

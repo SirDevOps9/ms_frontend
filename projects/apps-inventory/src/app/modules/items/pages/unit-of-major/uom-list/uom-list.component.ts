@@ -14,13 +14,14 @@ import { UOMCategoryDto } from '../../../models';
 })
 export class UOMListComponent implements OnInit {
   tableData: UOMCategoryDto[] = []
-  currentPageInfo: PageInfoResult = {}; 
+  currentPageInfo: PageInfoResult = {};
   searchTerm: string;
-  exportData: any[];
+  exportData: UOMCategoryDto[];
+  clonedExportData: UOMCategoryDto[];
   exportColumns:any[]
 
   cols = [
-   
+
     {
       field: 'Code',
       header: 'code',
@@ -46,7 +47,7 @@ export class UOMListComponent implements OnInit {
       field: 'Conversion Ratio',
       header: 'conversionRatio',
     },
-   
+
   ];
   constructor(
     private routerService: RouterService,
@@ -65,9 +66,9 @@ export class UOMListComponent implements OnInit {
       name: col.field,
     }));
     this.initTreasurData()
-    
 
-  }  
+
+  }
 
   initTreasurData() {
     this.itemService.getUOmCategories('', new PageInfo());
@@ -86,6 +87,11 @@ export class UOMListComponent implements OnInit {
   Add() {
     this.routerService.navigateTo('/masterdata/uom/add-uom')
     }
+    onView(data: any) {
+      const encryptedId = btoa(data.uomCategoryId);
+      this.routerService.navigateTo(`/masterdata/uom/view-uom/${encryptedId}`);  // الانتقال إلى الرابط مع الـ ID المشفر
+    }
+
 
   onSearchChange() {
     this.itemService.getUOmCategories(this.searchTerm, new PageInfo());
@@ -104,20 +110,28 @@ export class UOMListComponent implements OnInit {
   }
 
   exportClick(e?: Event) {
-    
+
       this.exportBankData(this.searchTerm);
-  
+
 
   }
-
   exportBankData(searchTerm: string) {
     this.itemService.exportUOMList(searchTerm)
 
     this.itemService.SendexportUOMList$.subscribe((res)=>{
-      this.exportData = res 
+      this.exportData = res
     })
 
-  
+
+  }
+  exportUom(searchTerm: string) {
+    this.itemService.exportUOMList(searchTerm)
+
+    this.itemService.SendexportUOMList$.subscribe((res)=>{
+      this.exportData = res
+    })
+
+
   }
   onEdit(data: any) {
     this.routerService.navigateTo(`/masterdata/uom/edit-uom/${data.uomCategoryId}`);
@@ -127,5 +141,5 @@ export class UOMListComponent implements OnInit {
 onDelete(id: number) {
   this.itemService.deleteCategory(id)
 }
-  
+
 }

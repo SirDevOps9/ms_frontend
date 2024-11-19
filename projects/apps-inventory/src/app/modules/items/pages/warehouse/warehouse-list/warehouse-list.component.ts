@@ -136,9 +136,12 @@ pi: string;
 
   onEdit(data: any) {
     this.routerService.navigateTo(`/masterdata/warehouse/edit-warehouse/${data.id}`)
-
-
   }
+
+  onView(data: any) {
+    this.routerService.navigateTo(`/masterdata/warehouse/view-warehouse/${data.id}`)
+  }
+
 
 
   // onSearchChange() {

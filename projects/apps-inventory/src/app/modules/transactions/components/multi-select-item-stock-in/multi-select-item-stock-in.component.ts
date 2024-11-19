@@ -4,6 +4,7 @@ import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ItemsService } from 'projects/apps-inventory/src/app/modules/items/items.service';
 import { ItemDto, SharedSalesEnums } from 'projects/apps-sales/src/app/modules/sales/models';
 import { PageInfo, PageInfoResult } from 'shared-lib';
+import { TransactionsService } from '../../transactions.service';
 
 @Component({
   selector: 'app-multi-select-item-stock-in',
@@ -27,7 +28,7 @@ export class MultiSelectItemStockInComponent implements OnInit {
     public sharedEnums: SharedSalesEnums,
     private ref: DynamicDialogRef,
     private fb: FormBuilder,
-    private itemsService: ItemsService
+    private itemsService: TransactionsService
   ) {}
 
   ngOnInit(): void {

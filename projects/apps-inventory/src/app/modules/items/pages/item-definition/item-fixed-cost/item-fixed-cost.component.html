@@ -1,0 +1,154 @@
+
+<div class="cardBarcode">
+
+  <div>
+    <p-table
+      [value]="fixedCostForm['controls']"
+      dataKey="id"
+      styleClass="p-datatable-gridlines p-datatable-striped"
+      [tableStyle]="{ 'min-width': '50rem' }"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th>{{ 'itemType.variant' | translate }}</th>
+          <th>{{ 'itemType.unit' | translate }}</th>
+          <th>{{ 'itemType.fixedCost' | translate }}</th>
+          <th>{{ 'itemType.actions' | translate }}</th>
+        </tr>
+      </ng-template>
+      <ng-template
+        pTemplate="body"
+        let-itemDefBarcodeGroup
+        let-editing="editing"
+        let-i="rowIndex"
+      >
+        <tr [formGroup]="itemDefBarcodeGroup">
+
+          <td
+          [pEditableColumn]="itemDefBarcodeGroup.controls['itemVariantId']"
+          pEditableColumnField="itemVariantId"
+        >
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <lib-select
+                formControlName="itemVariantId"
+                [options]="ItemVariantsByItemIdDropDown"
+                [optionLabel]="currentLang == 'en' ? 'variantEnName' : 'variantArName'"
+                optionValue="variantId"
+                (valueChanged)="variantChanged($event , itemDefBarcodeGroup)"
+
+
+              ></lib-select>
+            </ng-template>P
+            <ng-template pTemplate="output">
+              {{ itemDefBarcodeGroup.controls['itemVariantName']?.value }}
+            </ng-template>
+          </p-cellEditor>
+          <lib-field-validations
+            [appControl]="itemDefBarcodeGroup.controls['itemVariantId']"
+          ></lib-field-validations>
+        </td>
+          <td
+            [pEditableColumn]="itemDefBarcodeGroup.controls['uomId']"
+            pEditableColumnField="uomId"
+          >
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <lib-select
+                  formControlName="uomId"
+                  [options]="uomLookup"
+                  optionLabel="uomName"
+                  optionValue="uomId"
+                  (valueChanged)="uomChange($event , itemDefBarcodeGroup)"
+                ></lib-select>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{
+                  itemDefBarcodeGroup.controls['uomName']?.value ??
+                    itemDefBarcodeGroup.controls['uomId']?.value
+                }}
+              </ng-template>
+            </p-cellEditor>
+            <lib-field-validations
+              [appControl]="itemDefBarcodeGroup.controls['uomId']"
+            ></lib-field-validations>
+          </td>
+
+
+
+
+          <td
+            [pEditableColumn]="itemDefBarcodeGroup.controls['fixedCost']"
+            pEditableColumnField="fixedCost"
+          >
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <lib-text-input
+                  placeholder="{{ 'itemType.fixedCost' | translate }}"
+                  formControlName="fixedCost"
+                ></lib-text-input>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{ itemDefBarcodeGroup.controls['fixedCost']?.value }}
+              </ng-template>
+            </p-cellEditor>
+            <lib-field-validations
+              [appControl]="itemDefBarcodeGroup.controls['fixedCost']"
+            ></lib-field-validations>
+          </td>
+
+
+          <td>
+
+              <div class="actions flex align-items-center">
+            <div class="flex gap-4 align-items-center">
+
+              <img src="assets/images/table/delete.svg" alt="" (click)="onDeleteFixedCost(itemDefBarcodeGroup , i)" />
+
+               </div>
+               </div>
+
+
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+    <div class="add_new  flex justify-content-start">
+      <lib-button (onClick)="addLineFixed()" className="outline-primary">
+        {{ 'itemType.add_new' | translate }}
+      </lib-button>
+    </div>
+
+    <div class="grid">
+      <div class="md:col-12 my-3 grid flex justify-content-end">
+        <div class="md:col-4 grid flex justify-content-end">
+          <div class="md:col-6">
+            <lib-button-micro
+              title="{{ 'itemType.cancel' | translate }}"
+              nameClass="cancel"
+              widthNumber="100%"
+              (click)="onCancel()"
+
+            >
+            </lib-button-micro>
+          </div>
+          <div  class="md:col-6">
+            <lib-button-micro
+              title="{{ 'itemType.save' | translate }}"
+              nameClass="save"
+              widthNumber="100%"
+              (click)="onSaveFixedCost()"
+            >
+            </lib-button-micro>
+
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
