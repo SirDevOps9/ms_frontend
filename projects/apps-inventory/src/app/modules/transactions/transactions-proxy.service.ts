@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
 import { AddStockIn, LatestItems, OperationalStockIn, StockInDetail, StockInDto, itemDefinitionDto } from '../items/models';
-import { AddStockOutDto, AdvancedSearchDto } from './models';
+import { AddStockOutDto, AdvancedSearchDto, StockOutDto } from './models';
 import { SharedFinanceEnums } from './models/sharedEnumStockIn';
 
 @Injectable({
@@ -86,6 +86,20 @@ export class TransactionsProxyService {
   getByIdViewStockIn(id:number){
     return this.httpService.get(`StockIn/GetStockInViewById/${id}`)
   }
+  getItems(
+    quieries: string,
+    searchTerm: string,
+    pageInfo: PageInfo
+  ): Observable<PaginationVm<AdvancedSearchDto>> {
+    let query = `Item/GetItemsAdvancedSearchList?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+    if (quieries) {
+      query += `&${quieries ? quieries : ''}`;
+    }
+    return this.httpService.get<PaginationVm<AdvancedSearchDto>>(query);
+  }
 ////////////// stock out//////
 operationTagStockOutDropdown(): Observable<OperationalStockIn[]> {
   return this.httpService.get(`OperationalTag/OperationalTagStockDropDown?OperationType=${this.sharedFinanceEnums.OperationType.StockOut}`);
@@ -132,5 +146,29 @@ GetItemByBarcodeStockOutQuery(barcode: string , warehouseId:number): Observable<
 
   getByIdViewStockOut(id:number){
     return this.httpService.get(`StockOut/GetStockOutViewById/${id}`)
+  }
+  getAllStockOut(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<StockOutDto>> {
+    let query = `StockOut?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+    return this.httpService.get<PaginationVm<StockOutDto>>(query);
+  }
+ 
+  deleteStockOut(id : number ){
+    return this.httpService.delete(`StockOut/${id}`)
+  }
+  exportStockOutList(
+    searchTerm?: string,
+    SortBy?: number,
+    SortColumn?: string
+  ): Observable<StockOutDto[]> {
+    let query = `StockOut/Export?`;
+    const params: string[] = [];
+    if (searchTerm) params.push(`searchTerm=${encodeURIComponent(searchTerm)}`);
+    if (SortBy) params.push(`SortBy=${SortBy}`);
+    if (SortColumn) params.push(`SortColumn=${SortColumn}`);
+    query += params.join('&');
+    return this.httpService.get<StockOutDto[]>(query);
   }
 }

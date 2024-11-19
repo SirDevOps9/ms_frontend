@@ -53,19 +53,9 @@ import { ItemDefintionTaxComponent } from './pages/item-definition/item-defintio
 import { WarehouseTabsComponent } from './pages/warehouse/warehouse-tabs/warehouse-tabs/warehouse-tabs.component';
 import { AttributeDefinitionValuesComponent } from './pages/attribute-definition/attribute-definition-values/attribute-definition-values/attribute-definition-values.component';
 import { AttributeDefinitionListValuesComponent } from './pages/attribute-definition/attribute-definition-list-values/attribute-definition-list-values/attribute-definition-list-values.component';
-import { MainStockOutComponent } from './pages/stock-out/main-stock-out/main-stock-out.component';
-import { AddStockOutComponent } from './pages/stock-out/add-stock-out/add-stock-out.component';
-import { StockOutListComponent } from './pages/stock-out/stock-out-list/stock-out-list.component';
-import { EditStockOutComponent } from './pages/stock-out/edit-stock-out/edit-stock-out.component';
 import { ItemDefintionVariantComponent } from './pages/item-definition/item-defintion-variants/item-defintion-variant.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
-import { SearchItemPopUpComponent } from './components/stock-out/search-item-pop-up/search-item-pop-up.component';
-import { ViewStockOutComponent } from './pages/stock-out/view-stock-out/view-stock-out.component';
 import { ItemFixedCostComponent } from './pages/item-definition/item-fixed-cost/item-fixed-cost.component';
-import { MainStockInListComponentComponent } from '../transactions/components/main-stock-in-list-component/main-stock-in-list-component.component';
-import { AddStockInComponent } from '../transactions/pages/stock-In/add-stock-in/add-stock-in.component';
-import { StockInListComponent } from '../transactions/pages/stock-In/stock-in-list/stock-in-list.component';
-import { EditStockInComponent } from '../transactions/pages/stock-In/edit-stock-in/edit-stock-in.component';
 
 const routes: Routes = [
   {
@@ -310,78 +300,7 @@ const routes: Routes = [
           breadcrumb: BreadcrumbLabel.ITEM_CATEGORY,
         },
       },
-      {
-        path: 'stock-out',
-        component: MainStockOutComponent,
-        data: {
-          breadcrumb: BreadcrumbLabel.STOCKOUT,
-          pageTitle: BreadcrumbLabel.STOCKOUT,
-        },
-        children: [
-          {
-            path: '',
-            component: StockOutListComponent,
-            data: { breadcrumb: '', pageTitle: BreadcrumbLabel.STOCKOUT },
-          },
-          {
-            path: 'add',
-            component: AddStockOutComponent,
-            data: {
-              breadcrumb: BreadcrumbLabel.ADD_STOCKOUT,
-              pageTitle: BreadcrumbLabel.ADD_STOCKOUT,
-            },
-          },
-          {
-            path: 'edit/:id',
-            component: EditStockOutComponent,
-
-            // data: {
-            //   breadcrumb: BreadcrumbLabel.EDI_STOCK_OUT,
-            //   pageTitle: BreadcrumbLabel.EDI_STOCK_OUT,
-            // },
-          },
-          {
-            path: 'view/:id',
-            component: ViewStockOutComponent,
-            data: {
-              breadcrumb: BreadcrumbLabel.VIEW_STOCKOUT,
-              pageTitle: BreadcrumbLabel.VIEW_STOCKOUT,
-
-            },
-          }
-        ],
-      },
-      {
-        path: 'stock-in',
-        component: MainStockInListComponentComponent,
-        data: {
-          breadcrumb: BreadcrumbLabel.STOCKIN,
-          pageTitle: BreadcrumbLabel.STOCKIN,
-        },
-        children: [
-          {
-            path: '',
-            component: StockInListComponent,
-            data: { breadcrumb: '', pageTitle: BreadcrumbLabel.STOCKIN },
-          },
-          {
-            path: 'add',
-            component: AddStockInComponent,
-            data: {
-              breadcrumb: BreadcrumbLabel.ADD_STOCKOUT,
-              pageTitle: BreadcrumbLabel.TITLE_ADD_STOCKOUT,
-            },
-          },
-          {
-            path: 'edit/:id',
-            component: EditStockInComponent,
-            data: {
-              breadcrumb: BreadcrumbLabel.ADD_ITEM_DIFINITION,
-            },
-          },
-
-        ],
-      },
+     
     ],
   },
 ];
@@ -431,14 +350,6 @@ const routes: Routes = [
     WarehouseTabsComponent,
     AttributeDefinitionValuesComponent,
     AttributeDefinitionListValuesComponent,
-    MainStockOutComponent,
-    AddStockOutComponent,
-    StockOutListComponent,
-    EditStockOutComponent,
-
-    SearchItemPopUpComponent,
-    ViewStockOutComponent,
-
     ItemFixedCostComponent
   ],
   imports: [

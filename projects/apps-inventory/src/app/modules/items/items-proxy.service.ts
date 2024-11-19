@@ -506,43 +506,7 @@ export class ItemsProxyService {
   getWarehouseById(id: number): Observable<AddWarehouse> {
     return this.httpService.get(`WareHouse/${id}`);
   }
-  //
-  // getGlAccountLookup() {
-  //   return this.httpService.get<any>(`WareHouse/`);
-  // }
-  // getCashSalesLookup() {
-  //   return this.httpService.get<any>(`WareHouse/`);
-  // }
-  // getCreditSalesLookup() {
-  //   return this.httpService.get<any>(`WareHouse/`);
-  // }
-  // getSalesReturnLookup() {
-  //   return this.httpService.get<any>(`WareHouse/`);
-  // }
-  // getPurchaseAccountLookup() {
-  //   return this.httpService.get<any>(`WareHouse/`);
-  // }
-  // getSalesCostCenterLookup() {
-  //   return this.httpService.get<any>(`WareHouse/`);
-  // }
-  // getDiscountAccountLookup() {
-  //   return this.httpService.get<any>(`WareHouse/`);
-  // }
-  // getEvaluationAccountLookup() {
-  //   return this.httpService.get<any>(`WareHouse/`);
-  // }
-  // getAdjustmentAccountLookup() {
-  //   return this.httpService.get<any>(`WareHouse/`);
-  // }
-  // getGoodsInTransitLookup() {
-  //   return this.httpService.get<any>(`WareHouse/`);
-  // }
-  // getCityLookup() {
-  //   return this.httpService.get<any>(`WareHouse/`);
-  // }
-  // getCompanyPhoneLookup() {
-  //   return this.httpService.get<any>(`WareHouse/`);
-  // }
+  
   getBranchDropdown() {
     return this.httpService.get<any>(`GeneralSettings/BranchDropdown`);
   }
@@ -584,39 +548,15 @@ export class ItemsProxyService {
     }
     return this.httpService.get<PaginationVm<AdvancedSearchDto>>(query);
   }
-  getAllStockOut(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<StockOutDto>> {
-    let query = `StockOut?${pageInfo.toQuery}`;
-    if (searchTerm) {
-      query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
-    }
-    return this.httpService.get<PaginationVm<StockOutDto>>(query);
-  }
-
-  exportStockOutList(
-    searchTerm?: string,
-    SortBy?: number,
-    SortColumn?: string
-  ): Observable<StockOutDto[]> {
-    let query = `StockOut/Export?`;
-    const params: string[] = [];
-    if (searchTerm) params.push(`searchTerm=${encodeURIComponent(searchTerm)}`);
-    if (SortBy) params.push(`SortBy=${SortBy}`);
-    if (SortColumn) params.push(`SortColumn=${SortColumn}`);
-    query += params.join('&');
-    return this.httpService.get<StockOutDto[]>(query);
-  }
-
-
-
-  getStockInById(id: number) {
-    return this.httpService.get(`StockIn/${id}`);
-  }
-
-
  
-  getLatestItemsListByWarehouse( SearchTerm :string , WarehouseId:number) : Observable<LatestItems[]> {
-    return this.httpService.get(`Item/GetLatestItemsStockDropDownByWarehouse?WarehouseId=${WarehouseId}`)
-  }
+
+
+
+
+
+
+
+
 
 
 

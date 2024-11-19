@@ -21,6 +21,7 @@ import {
   StockOutDto,
   AdvancedSearchDto,
   AddStockOutDto,
+  itemDefinitionDto,
 } from './models';
 
 @Injectable({
@@ -59,7 +60,12 @@ export class TransactionsService {
   public wareHousesDropDownLookup$ = this.wareHousesDropDownLookup.asObservable();
 
   stockInByIdData$ = this.stockInByIdData.asObservable();
+  private itemsDataSource = new BehaviorSubject<AdvancedSearchDto[]>([]);
+  public itemsList = this.itemsDataSource.asObservable();
   /////////////stock out ///////
+  public stockOutDataSource = new BehaviorSubject<StockOutDto[]>([]);
+
+  public stockOutDataSourceeObservable = this.stockOutDataSource.asObservable();
   public latestItemsListByWarehouse= new BehaviorSubject<LatestItems[]>([]);
   public latestItemsListByWarehouse$ = this.latestItemsListByWarehouse.asObservable();
   private itemsDataSourceByWarehouse = new BehaviorSubject<AdvancedSearchDto[]>([]);
@@ -70,6 +76,11 @@ export class TransactionsService {
   public perationalTagStockOutDropDown$ = this.perationalTagStockOutDropDown.asObservable();
   public stockOutDataViewSource = new BehaviorSubject<StockOutDto[]>([]);
   public stockOutDataViewSourceeObservable = this.stockOutDataViewSource.asObservable();
+  public exportedItemDefinitionListDataSource = new BehaviorSubject<itemDefinitionDto[]>([]);
+  public exportStockOutListDataSource = new BehaviorSubject<StockOutDto[]>([]);
+
+  exportStockOutListDataSourceObservable = this.exportStockOutListDataSource.asObservable();
+
 
   constructor(
     private toasterService: ToasterService,
@@ -249,6 +260,12 @@ export class TransactionsService {
       this.stockInDataViewSource.next(response);
     });
   }
+  getItems(quieries: string, searchTerm: string, pageInfo: PageInfo) {
+    this.transactionsProxy.getItems(quieries, searchTerm, pageInfo).subscribe((res) => {
+      this.itemsDataSource.next(res.result);
+      this.currentPageInfo.next(res.pageInfoResult);
+    });
+  }
   ////////////////////stock out/////////////
   getByIdViewStockOut(id:number) {
     this.transactionsProxy.getByIdViewStockOut(id).subscribe((response:any) => {
@@ -339,5 +356,36 @@ export class TransactionsService {
         })
       )
 
+}
+getAllStockOut(quieries: string, pageInfo: PageInfo) {
+  this.transactionsProxy.getAllStockOut(quieries, pageInfo).subscribe((response) => {
+    this.stockOutDataSource.next(response.result);
+    this.currentPageInfo.next(response.pageInfoResult);
+  });
+}
+
+async deleteStockOut(id: number) {
+  const confirmed = await this.toasterService.showConfirm(
+    this.languageService.transalte('ConfirmButtonTexttodelete')
+  );
+  if (confirmed) {
+    this.transactionsProxy.deleteStockOut(id).subscribe({
+      next: (res) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('transactions.success'),
+          this.languageService.transalte('transactions.deleteStockOut')
+        );
+
+        this.getAllStockOut('', new PageInfo());
+      },
+    });
+  }
+}
+exportStockOutList(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
+  this.transactionsProxy.exportStockOutList(searchTerm ,SortBy,SortColumn).subscribe({
+    next: (res: any) => {
+      this.exportStockOutListDataSource.next(res);
+    },
+  });
 }
 }
