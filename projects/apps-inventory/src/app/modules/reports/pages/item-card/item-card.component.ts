@@ -86,9 +86,7 @@ export class ItemCardComponent {
   onFilter(SearchTerm: string) {
     this.itemsService.getLatestItemsList(SearchTerm);
   }
-  getLatestItemsList(id: number) {
-    this.itemsService.getLatestItemsListByWarehouse('', id);
-  }
+
 
   getItems() {
     this.itemsService.getLatestItemsList();
