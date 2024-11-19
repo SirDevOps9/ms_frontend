@@ -25,30 +25,35 @@ export class TrackingStockInComponent implements OnInit {
       stockInTracking: this.fb.array([]),
     });
     this.configData = this.config.data;
-
     if (this.configData.id || this.configData.id == 0) {
       this.tracking.clear();
       this.tracking.push(this.createTracking(this.configData));
+      this.validationForm();
     } else {
       this.tracking.push(this.createTracking(this.configData?.trackingValue ?? null));
+      this.validationForm();
+    }
+  }
 
-      if (this.config.data.expiry) {
-        this.tracking.controls[0].get('expireDate')?.setValidators(customValidators.required);
-        this.tracking.controls[0].get('expireDate')?.updateValueAndValidity();
-      }
-      if (this.config.data.trackingType == this.sharedFinanceEnums.trackingType.Batch) {
-        this.tracking.controls[0].get('vendorBatchNo')?.setValidators(customValidators.required);
-        this.tracking.controls[0].get('vendorBatchNo')?.updateValueAndValidity();
-      }
-      if (
-        this.config.data.trackingType == this.sharedFinanceEnums.trackingType.Serial &&
-        !this.config.data.expiry
-      ) {
-        this.tracking.controls[0].get('serialId')?.setValidators(customValidators.required);
-        this.tracking.controls[0].get('serialId')?.updateValueAndValidity();
-        this.tracking.controls[0].get('expireDate')?.clearValidators();
-        this.tracking.controls[0].get('expireDate')?.updateValueAndValidity();
-      }
+  validationForm() {
+    if (this.configData.expiry) {
+      this.tracking.controls[0].get('expireDate')?.setValidators(customValidators.required);
+      this.tracking.controls[0].get('expireDate')?.updateValueAndValidity();
+    } else {
+      this.tracking.controls[0].get('expireDate')?.clearValidators();
+      this.tracking.controls[0].get('expireDate')?.updateValueAndValidity();
+    }
+    if (this.configData.trackingType == this.sharedFinanceEnums.trackingType.Batch) {
+      this.tracking.controls[0].get('vendorBatchNo')?.setValidators(customValidators.required);
+      this.tracking.controls[0].get('vendorBatchNo')?.updateValueAndValidity();
+    }
+    if (this.configData.trackingType == this.sharedFinanceEnums.trackingType.Serial) {
+      this.tracking.controls[0].get('serialId')?.setValidators(customValidators.required);
+      this.tracking.controls[0].get('serialId')?.updateValueAndValidity();
+    }
+    if (this.configData.trackingType == this.sharedFinanceEnums.trackingType.Serial) {
+      this.tracking.controls[0].get('serialId')?.setValidators(customValidators.required);
+      this.tracking.controls[0].get('serialId')?.updateValueAndValidity();
     }
   }
   onCancel() {
@@ -66,7 +71,7 @@ export class TrackingStockInComponent implements OnInit {
       vendorBatchNo: data?.vendorBatchNo ?? null,
       expireDate: [data?.expireDate ?? null, customValidators.required],
       systemPatchNo: data?.systemPatchNo ?? null,
-      serialId: data?.serialId ?? null,
+      serialId: [data?.serialId ?? null],
       trackingType: this.configData?.trackingType,
     });
   }

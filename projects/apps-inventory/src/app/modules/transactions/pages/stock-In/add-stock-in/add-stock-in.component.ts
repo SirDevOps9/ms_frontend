@@ -213,7 +213,11 @@ export class AddStockInComponent implements OnInit {
     stockInFormGroup.get('stockInTracking')?.get('trackingType')?.setValue(data?.trackingType);
     stockInFormGroup
       .get('itemVariantId')
-      ?.setValue(clonedStockInFormGroup.itemVariantId ?? data?.itemVariantId);
+      ?.setValue(
+        clonedStockInFormGroup?.itemVariantId
+          ? clonedStockInFormGroup?.itemVariantId
+          : data?.itemVariantId
+      );
     stockInFormGroup.get('hasExpiryDate')?.setValue(data?.hasExpiryDate);
     stockInFormGroup.get('uomId')?.setValue(data?.uomId);
     this.uomChanged(stockInFormGroup.get('uomId')?.value, stockInFormGroup);

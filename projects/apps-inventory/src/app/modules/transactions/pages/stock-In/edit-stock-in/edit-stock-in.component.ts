@@ -44,21 +44,6 @@ export class EditStockInComponent implements OnInit {
   oprationalLookup: OperationalStockIn[] = [];
   selectedTraking: any = {};
   exportData: any[];
-  cols = [
-    {
-      field: 'Code',
-      header: 'code',
-    },
-
-    {
-      field: 'Name',
-      header: 'name',
-    },
-    {
-      field: 'Short Name',
-      header: 'shortName',
-    },
-  ];
   exportSelectedCols: string[] = [];
   latestItemsList: any[] = [];
   itemData: any;
@@ -68,6 +53,7 @@ export class EditStockInComponent implements OnInit {
   warhouseLookupData: GetWarehouseList[] = [];
   uomLookup: any = [];
   currentLang: string;
+
   constructor(
     private routerService: RouterService,
     public authService: AuthService,
@@ -87,6 +73,7 @@ export class EditStockInComponent implements OnInit {
     this.currentLang = this.langService.getLang();
     this.id = Number(this._route.snapshot.paramMap.get('id'));
   }
+
   ngOnInit(): void {
     this.getListOfItems();
 
@@ -122,6 +109,7 @@ export class EditStockInComponent implements OnInit {
         });
       }
     });
+
     this.stockInForm.get('sourceDocumentId')?.valueChanges.subscribe((res) => {
       let data = this.oprationalLookup.find((elem) => elem.id == res);
       this.stockInForm.get('warehouseId')?.setValue(data?.warehouseId);
@@ -135,6 +123,7 @@ export class EditStockInComponent implements OnInit {
     }
     this.addLineStockIn();
   }
+
   getListOfItems() {
     this.transactionService.getLatestItemsList();
     this.transactionService.sendlatestItemsList$.subscribe((res) => {
@@ -228,6 +217,7 @@ export class EditStockInComponent implements OnInit {
       this.warhouseLookupData = res;
     });
   }
+
   get stockIn() {
     return this.stockInForm.get('stockInDetails') as FormArray;
   }
@@ -275,6 +265,7 @@ export class EditStockInComponent implements OnInit {
     this.itemData = data;
     this.uomLookup = data?.itemsUOM;
   }
+
   displayUomPatched(e: string) {
     let data = this.uomLookup.find((item: any) => item.uomId == e);
 
@@ -301,7 +292,11 @@ export class EditStockInComponent implements OnInit {
     stockInFormGroup.get('stockInTracking')?.get('trackingType')?.setValue(data?.trackingType);
     stockInFormGroup
       .get('itemVariantId')
-      ?.setValue(clonedStockInFormGroup.itemVariantId ?? data?.itemVariantId);
+      ?.setValue(
+        clonedStockInFormGroup?.itemVariantId
+          ? clonedStockInFormGroup?.itemVariantId
+          : data?.itemVariantId
+      );
     stockInFormGroup.get('hasExpiryDate')?.setValue(data?.hasExpiryDate);
     stockInFormGroup.get('uomId')?.setValue(data?.uomId);
     this.uomChanged(stockInFormGroup.get('uomId')?.value, stockInFormGroup);
@@ -338,9 +333,9 @@ export class EditStockInComponent implements OnInit {
       stockInFormGroup.get('stockInTracking')?.get('serialId')?.updateValueAndValidity();
     }
   }
+
   uomChanged(e: any, stockInFormGroup: FormGroup) {
     let data = this.uomLookup.find((item: any) => item.uomId == e);
-
     stockInFormGroup
       .get('uomName')
       ?.setValue(this.currentLang == 'en' ? data.uomNameEn : data.uomNameAr);
@@ -366,12 +361,9 @@ export class EditStockInComponent implements OnInit {
     });
     ref.onClose.subscribe((selectedItems: any) => {
       if (selectedItems) {
-        console.log(selectedItems);
         stockInFormGroup.get('itemId')?.setValue(selectedItems.itemId);
 
         this.itemChanged(selectedItems.itemId, stockInFormGroup, selectedItems);
-
-        // console.log(stockInFormGroup.value);
       }
     });
   }
@@ -385,7 +377,7 @@ export class EditStockInComponent implements OnInit {
       data: {
         id: patchedValue.id ?? 0,
         trackingType: patchedValue.trackingType,
-        expireDate: patchedValue.expireDate,
+        expiry: setTracking.value.hasExpiryDate,
         systemPatchNo: patchedValue.systemPatchNo,
         serialId: patchedValue.serialId,
         vendorBatchNo: patchedValue.vendorBatchNo,
@@ -410,19 +402,18 @@ export class EditStockInComponent implements OnInit {
   onSave() {
     if (!this.formService.validForm(this.stockInForm, false)) return;
     if (!this.formService.validForm(this.stockIn, false)) return;
-
     let data: AddStockIn = {
       ...this.stockInForm.value,
       sourceDocumentType: +this.stockInForm.value.sourceDocumentType,
       stockInDetails: this.stockIn.value,
     };
-
     this.transactionService.editStockIn(data, this.stockInForm);
   }
+
   OnDelete(id: number) {
     this.transactionService.deleteStockInLine(id);
-    // this.getStockInById(this.id);
   }
+
   deleteIndex(i: number) {
     this.stockIn.removeAt(i);
   }
