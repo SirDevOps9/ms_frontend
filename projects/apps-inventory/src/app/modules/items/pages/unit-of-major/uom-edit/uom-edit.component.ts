@@ -53,7 +53,6 @@ export class UOMEditComponent implements OnInit {
 
   ) {
     this.currentLang = this.languageService.getLang()
-    console.log(this.currentLang)
     this.id =  this.route.snapshot.params['id']
   }
 
@@ -68,13 +67,15 @@ export class UOMEditComponent implements OnInit {
 
     }, 1000);
 // Listen to UOMFormGroup value changes to set the first index
-  this.UOMFormGroup.valueChanges.subscribe((res) => {
-    if (res.baseUomEn) {
-      let defaultBase = [{ name: this.currentLang == 'en' ? res.baseUomEn : res.baseUomAr, id : res.shortName}];
-      console.log(defaultBase)
-      this.list[0] = defaultBase; // Set the first index in the list
-    }
-  });
+this.UOMFormGroup.valueChanges.subscribe((res) => {
+  if (res.baseUomEn) {
+    let defaultBase = [
+      { name: this.currentLang == 'en' ? res.baseUomEn : res.baseUomAr, id: this.currentLang == 'en' ? res.baseUomEn : res.baseUomAr},
+    ];
+    this.list[0] = defaultBase; // Set the first index in the list
+  }
+  
+});
 
 // Listen to changes in the getUOMS form array to update the rest of the indices
 // Listen to changes in the getUOMS form array to update subsequent indices
@@ -91,17 +92,23 @@ this.getUOMS.valueChanges.subscribe((res: any) => {
     const currentData = [];
 
     // Add nameUom from UOMFormGroup
-    currentData.push({ name:  this.currentLang == 'en' ? this.UOMFormGroup.get('baseUomEn')?.value :  this.UOMFormGroup.get('baseUomAr')?.value , id : this.UOMFormGroup.get('shortName')?.value});
+    currentData.push({
+      name:
+        this.currentLang == 'en'
+          ? this.UOMFormGroup.get('baseUomEn')?.value
+          : this.UOMFormGroup.get('baseUomAr')?.value,
+         id:  this.currentLang == 'en'
+         ? this.UOMFormGroup.get('baseUomEn')?.value
+         : this.UOMFormGroup.get('baseUomAr')?.value,
+    });
 
 
-    // Add nameAr of the current item
-    // currentData.push({ name: this.currentLang == 'en' ? item.nameEn : item.itemAr , id : item.shortName  });
-
-    // Iterate through all previous indexes and add their nameEn
     for (let j = 0; j < i; j++) {
       const previousItem = res[j];
-      console.log(previousItem)
-      currentData.push({ name: this.currentLang == 'en' ? previousItem.nameEn :  previousItem.nameAr , id : previousItem.shortName});
+      currentData.push({
+        name: this.currentLang == 'en' ? previousItem.nameEn : previousItem.nameAr,
+        id: this.currentLang == 'en' ?  previousItem.nameEn : previousItem.nameAr ,
+      });
     }
 
     // Filter out any objects with an empty name
@@ -111,7 +118,6 @@ this.getUOMS.valueChanges.subscribe((res: any) => {
     this.list[i] = filteredData;
 
     // Log the updated list array for verification
-    console.log(this.list);
   });
 });
 
@@ -131,12 +137,10 @@ this.getUOMS.valueChanges.subscribe((res: any) => {
   getUomById() {
   this._itemService.getUOMCategoryById(this.id)
   this._itemService.getUOMCategoryByIdData$.subscribe(res=>{
-    console.log(res)
     this.getUOMS.clear()
     this.uomsData = res.uoMs
     
     if(res.uoMs?.length) {
-      console.log(res.uoMs)
   
 
       res?.uoMs.forEach((elem : any , i)=>{
@@ -166,24 +170,14 @@ this.getUOMS.valueChanges.subscribe((res: any) => {
         })
         
         this.systemUnitChanged(formGroup.get('systemUnitOfMeasureId')?.value)
-        console.log(elem?.systemUnitOfMeasureCategoryId)
-        console.log(this.uomsData[0].systemUnitOfMeasureCategoryId)
+ 
 
 
-       if(elem?.systemUnitOfMeasureCategoryId){
-        this.filteredSytemUnitLookup = this.filteredSytemUnitLookup.filter(element=>element?.systemUnitOfMeasureCategoryId == elem?.systemUnitOfMeasureCategoryId && element.nameEn !== elem.nameEn && element.nameAr !== elem.nameAr)
-       }
-       this.filteredSytemUnitLookup = this.filteredSytemUnitLookup.filter(element=> element?.systemUnitOfMeasureCategoryId == this.uomsData[0].systemUnitOfMeasureCategoryId && element.nameEn !== this.uomsData[0].nameEn && element.nameAr !== this.uomsData[0].nameAr)
-      
-      // else{
-      //   // this.filteredSytemUnitLookup = this.filteredSytemUnitLookup.filter(element=> element?.systemUnitOfMeasureCategoryId == this.uomsData[0]?.systemUnitOfMeasureId && element.nameEn !==  this.uomsData[0]?.nameEn && element.nameAr !==this.uomsData[0]?.nameAr )
-      //   console.log("hh",this.filteredSytemUnitLookup)
-      // }
-      console.log("hhhhhhhhhhhhhhh",this.filteredSytemUnitLookup)
-
-
-      
-   
+      //  if(elem?.systemUnitOfMeasureCategoryId){
+      //   this.filteredSytemUnitLookup = this.filteredSytemUnitLookup.filter(element=>element?.systemUnitOfMeasureCategoryId == elem?.systemUnitOfMeasureCategoryId && element.nameEn !== elem.nameEn && element.nameAr !== elem.nameAr)
+      //  }
+      //  this.filteredSytemUnitLookup = this.filteredSytemUnitLookup.filter(element=> element?.systemUnitOfMeasureCategoryId == this.uomsData[0].systemUnitOfMeasureCategoryId && element.nameEn !== this.uomsData[0].nameEn && element.nameAr !== this.uomsData[0].nameAr)
+  
 
         this.getUOMS.push(formGroup)
 
@@ -220,9 +214,9 @@ this.getUOMS.valueChanges.subscribe((res: any) => {
     uomTableForm.get('nameAr')?.setValue(data?.nameAr);
     uomTableForm.get('systemUnitOfMeasureName')?.setValue(data?.nameEn);
 
-    this.filteredSytemUnitLookup = this.filteredSytemUnitLookup.filter(
-      (elem) => elem.id !== data.id
-    );
+    // this.filteredSytemUnitLookup = this.filteredSytemUnitLookup.filter(
+    //   (elem) => elem.id !== data.id
+    // );
 
   }
 
@@ -249,7 +243,7 @@ this.getUOMS.valueChanges.subscribe((res: any) => {
       code: [null],
       baseUomEn: ['', customValidators.required],
       baseUomAr: ['', customValidators.required],
-      shortName: ['' ,[customValidators.length(0,5) , customValidators.required]],
+      shortName: ['' ,[customValidators.length(0,5) ]],
       uoMs: this.fb.array([]),
       nameEn: ['', customValidators.required],
       nameAr: ['', customValidators.required],
@@ -385,14 +379,14 @@ this.getUOMS.valueChanges.subscribe((res: any) => {
 
 
    
-  while (itemsArray.length > i + 1) {
-    itemsArray.removeAt(i + 1);
+  // while (itemsArray.length > i + 1) {
+  //   itemsArray.removeAt(i + 1);
 
-      this.filteredSytemUnitLookup = this.sytemUnitLookup
+  //     this.filteredSytemUnitLookup = this.sytemUnitLookup
   
 
 
-   }
+  //  }
 
 }
 
@@ -463,25 +457,27 @@ create_UOM_FormGroup(uomData: any = {}): FormGroup {
     fromUnitOfMeasureId: new FormControl(uomData?.fromUnitOfMeasureId || null , customValidators.required),
   });
 
-  console.log( this.filteredSytemUnitLookup)
+  // console.log( this.filteredSytemUnitLookup)
 
    
-  this.filteredSytemUnitLookup = this.filteredSytemUnitLookup.filter(
-    (element) =>
-      element?.systemUnitOfMeasureCategoryId ==
-    this.uomsData[0].systemUnitOfMeasureCategoryId &&
-      element.nameEn !== this.uomsData[0]?.nameEn &&
-      element.nameAr !== this.uomsData[0]?.nameAr
-  );
+  // this.filteredSytemUnitLookup = this.filteredSytemUnitLookup.filter(
+  //   (element) =>
+  //     element?.systemUnitOfMeasureCategoryId ==
+  //   this.uomsData[0].systemUnitOfMeasureCategoryId &&
+  //     element.nameEn !== this.uomsData[0]?.nameEn &&
+  //     element.nameAr !== this.uomsData[0]?.nameAr
+  // );
 
   let uom = this.getUOMS.value
 
-  uom.forEach((item : any) => {
-   this.filteredSytemUnitLookup = this.filteredSytemUnitLookup.filter(elem=> elem.id !== item.systemUnitOfMeasureId)
-   console.log( this.filteredSytemUnitLookup)
 
- });
 
+  const excludedIds = uom.map((item: any) => item.systemUnitOfMeasureId); // Collect all IDs to exclude
+  this.filteredSytemUnitLookup = this.sytemUnitLookup.filter(
+    (elem) =>
+      !excludedIds.includes(elem.id) &&
+      elem?.systemUnitOfMeasureCategoryId === this.uomsData[0].systemUnitOfMeasureCategoryId
+  );
 
   return formData;
 }
@@ -500,13 +496,11 @@ create_UOM_FormGroup(uomData: any = {}): FormGroup {
   }
 
   nameUomEnChanged(e : string) {
-    console.log(e)
     if(this.currentLang == 'en' && this.getUOMS.value.length) {
       this.getUOMS.clear()
     }
   }
   nameUomArChanged(e : string) {
-    console.log(e)
     if(this.currentLang == 'Ar' && this.getUOMS.value.length) {
       this.getUOMS.clear()
     }
@@ -527,6 +521,8 @@ create_UOM_FormGroup(uomData: any = {}): FormGroup {
   }
 
   onDelete(uomTableForm : FormGroup ,i : number) {
+    // let systemUnit : any = this.sytemUnitLookup.find((elem)=>elem.id == uomTableForm?.get('systemUnitOfMeasureId')?.value);
+    // this.filteredSytemUnitLookup.push(systemUnit)
     let id = uomTableForm.get('id')?.value
     if(id) {
       this._itemService.DeleteUomLine(id)

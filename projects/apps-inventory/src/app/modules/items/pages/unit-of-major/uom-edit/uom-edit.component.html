@@ -11,17 +11,8 @@
             <p class="fw-bold heads">{{ 'UOM.category' | translate }}</p>
           </div>
           <!--  -->
-          <div class="md:col-4">
-            <lib-form-group>
-              <lib-label [appControl]="UOMFormGroup.controls['code']" class="body_b14 mb-2 ms-4">
-                {{ 'UOM.code' | translate }}
-              </lib-label>
-              <lib-text-input [readOnly]="true" formControlName="code" placeholder="{{ 'UOM.code' | translate }}">
-              </lib-text-input>
-            </lib-form-group>
-          </div>
-          <!--  -->
-          <div class="md:col-4">
+    
+          <div class="md:col-6">
             <lib-form-group>
               <lib-label [appControl]="UOMFormGroup.controls['nameEn']" class="body_b14 mb-2 ms-4">
                 {{ 'UOM.categorynameEn' | translate }}
@@ -37,7 +28,7 @@
             </lib-form-group>
           </div>
           <!--  -->
-          <div class="md:col-4">
+          <div class="md:col-6">
             <lib-form-group>
               <lib-label [appControl]="UOMFormGroup.controls['nameAr']" class="body_b14 mb-2 ms-4">
                 {{ 'UOM.categorynameAr' | translate }}
@@ -72,7 +63,7 @@
               <lib-select
                 placeholder="{{ 'UOM.systemUnit' | translate }}"
                 [options]="sytemUnitLookup"
-                optionLabel="nameEn"
+                [optionLabel]="currentLang == 'en' ? 'nameEn' : 'nameAr'"
                 optionValue="id"
                 formControlName="systemUnitOfMeasureId"
                 (valueChanged)="systemUnitChanged($event)"
@@ -191,7 +182,7 @@
                   <lib-select
                     placeholder="{{ 'UOM.systemUnit' | translate }}"
                     [options]="filteredSytemUnitLookup"
-                    optionLabel="nameEn"
+                    [optionLabel]="currentLang == 'en' ? 'nameEn' : 'nameAr'"
                     optionValue="id"
                     formControlName="systemUnitOfMeasureId"
                     (valueChanged)="systemUnitListChanged($event, uomTableForm , list[i])"
@@ -382,7 +373,7 @@
       <div class="md:col-4 grid flex justify-content-end">
         <div class="md:col-6">
           <lib-button-micro
-            title="{{ 'cancel' | translate }}"
+            title="{{ 'UOM.cancel' | translate }}"
             nameClass="cancel"
             widthNumber="100%"
             (click)="onCancel()"

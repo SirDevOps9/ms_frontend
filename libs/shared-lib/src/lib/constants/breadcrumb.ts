@@ -102,7 +102,9 @@ export class BreadcrumbLabel {
   static ADD_WARE_HOUSE = 'Add Warehouse';
   static UOM = 'UOM';
   static UOM_LIST = 'uom-list';
-  static ADD_UOM = 'UOM Add';
+  static ADD_UOM = 'BreadCrumb.addUom';
+  static EDITUOM = 'BreadCrumb.EditUom';
+  static UOMLISt = 'BreadCrumb.uomList';
   static Edit_UOM = 'edit uom';
   static GENERAL_ITEMdEFINITION = 'General Item Defintion';
   static attributes_ITEMdEFINITION = 'Attributes & Variants Item Defintion';

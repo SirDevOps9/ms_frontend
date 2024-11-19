@@ -75,7 +75,7 @@ export class UOMAddComponent implements OnInit {
     this.UOMFormGroup.valueChanges.subscribe((res) => {
       if (res.baseUomEn) {
         let defaultBase = [
-          { name: this.currentLang == 'en' ? res.baseUomEn : res.baseUomAr, id: res.shortName },
+          { name: this.currentLang == 'en' ? res.baseUomEn : res.baseUomAr, id: this.currentLang == 'en' ? res.baseUomEn : res.baseUomAr},
         ];
         this.list[0] = defaultBase; // Set the first index in the list
       }
@@ -102,21 +102,17 @@ export class UOMAddComponent implements OnInit {
             this.currentLang == 'en'
               ? this.UOMFormGroup.get('baseUomEn')?.value
               : this.UOMFormGroup.get('baseUomAr')?.value,
-          id: this.UOMFormGroup.get('shortName')?.value,
+             id:  this.currentLang == 'en'
+             ? this.UOMFormGroup.get('baseUomEn')?.value
+             : this.UOMFormGroup.get('baseUomAr')?.value,
         });
 
-        // Add nameAr of the current item
-        // currentData.push({
-        //   name: this.currentLang == 'en' ? item.nameEn : item.itemAr,
-        //   id: item.shortName,
-        // });
-
-        // Iterate through all previous indexes and add their nameEn
+   
         for (let j = 0; j < i; j++) {
           const previousItem = res[j];
           currentData.push({
             name: this.currentLang == 'en' ? previousItem.nameEn : previousItem.nameAr,
-            id: previousItem.shortName,
+            id: this.currentLang == 'en' ?  previousItem.nameEn : previousItem.nameAr ,
           });
         }
 
@@ -158,9 +154,9 @@ export class UOMAddComponent implements OnInit {
     uomTableForm.get('nameAr')?.setValue(data?.nameAr);
     uomTableForm.get('systemUnitOfMeasureName')?.setValue(data?.nameEn);
 
-    this.filteredSytemUnitLookup = this.filteredSytemUnitLookup.filter(
-      (elem) => elem.id !== data.id
-    );
+    // this.filteredSytemUnitLookup = this.filteredSytemUnitLookup.filter(
+    //   (elem) => elem.id !== data.id
+    // );
 
   }
 
@@ -184,7 +180,7 @@ export class UOMAddComponent implements OnInit {
       code: [null],
       baseUomEn: ['', customValidators.required],
       baseUomAr: ['', customValidators.required],
-      shortName: ['' ,[customValidators.length(0,5) , customValidators.required]],
+      shortName: ['' ,[customValidators.length(0,5) ]],
       uoMs: this.fb.array([]),
       nameEn: ['', customValidators.required],
       nameAr: ['', customValidators.required],
@@ -280,20 +276,19 @@ export class UOMAddComponent implements OnInit {
       fromUnitOfMeasureId: new FormControl(uomData?.fromUnitOfMeasureId || null ),
     });
 
-    this.filteredSytemUnitLookup = this.filteredSytemUnitLookup.filter(
-      (element) =>
-        element.systemUnitOfMeasureCategoryId ==
-          this.systemUnitData.systemUnitOfMeasureCategoryId &&
-        element.nameEn !== this.systemUnitData.nameEn &&
-        element.nameAr !== this.systemUnitData.nameAr
-    );
     let uom = this.getUOMS.value
 
-     uom.forEach((item : any) => {
-      this.filteredSytemUnitLookup = this.filteredSytemUnitLookup.filter(elem=> elem.id !== item.systemUnitOfMeasureId)
-      console.log( this.filteredSytemUnitLookup)
 
-    });
+    const excludedIds = uom.map((item: any) => item.systemUnitOfMeasureId); // Collect all IDs to exclude
+    this.filteredSytemUnitLookup = this.sytemUnitLookup.filter(
+      (elem) =>
+        !excludedIds.includes(elem.id) &&
+        elem?.systemUnitOfMeasureCategoryId === this.UOMFormGroup.get('systemUnitOfMeasureId')?.value
+    );
+
+    console.log(this.filteredSytemUnitLookup)
+
+  
 
     
 
@@ -331,11 +326,7 @@ export class UOMAddComponent implements OnInit {
   }
 
   onDelete(i: number , uomTableForm : FormGroup) {
-    let systemUnit : any = this.sytemUnitLookup.find((elem)=>elem.id == uomTableForm.get('systemUnitOfMeasureId')?.value);
-    console.log(systemUnit)
-    console.log(uomTableForm.get('systemUnitOfMeasureId')?.value)
-    console.log(this.filteredSytemUnitLookup)
-    this.filteredSytemUnitLookup.push(systemUnit)
+
     const formArray = this.getUOMS;
 
     // Remove elements starting from the given index up to the last element
@@ -394,7 +385,6 @@ export class UOMAddComponent implements OnInit {
     let itemsArray = this.getUOMS
    
     while (itemsArray.length > i + 1) {
-        this.filteredSytemUnitLookup = this.sytemUnitLookup.filter(elem=>elem.systemUnitOfMeasureCategoryId == this.UOMFormGroup.get('systemUnitOfMeasureId')?.value )
   
     
   
