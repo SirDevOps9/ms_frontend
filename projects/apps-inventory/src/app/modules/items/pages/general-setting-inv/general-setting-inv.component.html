@@ -15,9 +15,9 @@
                 <div class="col-12 py-2 px-2 mx-2">
                   <lib-form-group>
                     <p-radioButton
-                      formControlName="selectedOption"
-                      value="costingMethod"
-                      [inputId]="'costingMethodRadio'"
+                      formControlName="costingEvaluationMethod"
+                      [value]="InvGeneralEnum.WeightedAverage"
+                      [inputId]="InvGeneralEnum.WeightedAverage"
                       label="{{ 'generalSetting.weightedAverageCotingMethod' | translate }}"
                     ></p-radioButton>
                   </lib-form-group>
@@ -25,9 +25,9 @@
                 <div class="col-12 py-2 px-2 mx-2">
                   <lib-form-group>
                     <p-radioButton
-                      formControlName="selectedOption"
-                      value="currentScope"
-                      [inputId]="'currentScopeRadio'"
+                      formControlName="costingEvaluationMethod"
+                      [value]="InvGeneralEnum.LastPurchasePrice"
+                      [inputId]="InvGeneralEnum.LastPurchasePrice"
                       label="{{ 'generalSetting.lastPurchasePriceCostingMethod' | translate }}"
                     ></p-radioButton>
                   </lib-form-group>
@@ -35,9 +35,9 @@
                 <div class="col-12 py-2 mx-2">
                   <lib-form-group>
                     <p-radioButton
-                      formControlName="selectedOption"
-                      value="nextScope"
-                      [inputId]="'nextScopeRadio'"
+                      formControlName="costingEvaluationMethod"
+                      [value]="InvGeneralEnum.Fixed"
+                      [inputId]="InvGeneralEnum.Fixed"
                       label="{{ 'generalSetting.fixedCostMethod' | translate }}"
                     ></p-radioButton>
                   </lib-form-group>
@@ -54,13 +54,13 @@
         <div class="grid py-2 md:ml-8">
           <div class="md:col-4">
             <lib-form-group>
-              <lib-label [appControl]="formGroup.controls['costingMethod']">
+              <lib-label [appControl]="formGroup.controls['costOfGoodsSoldAccountId']">
                 {{ 'generalSetting.CostOfGodsSoldAccount' | translate }}
               </lib-label>
               <lib-select
-                formControlName="costingMethod"
+                formControlName="costOfGoodsSoldAccountId"
                 [options]="AccountsDropDownLookup"
-                [selectedValue]="formGroup.controls['costingMethod'].value"
+                [selectedValue]="formGroup.controls['costOfGoodsSoldAccountId'].value"
                 optionLabel="name"
                 optionValue="id"
                 placeholder="{{ 'generalSetting.SelectOneOfCostOfGodsSoldAccount' | translate }}"
@@ -70,13 +70,13 @@
           </div>
           <div class="md:col-4">
             <lib-form-group>
-              <lib-label [appControl]="formGroup.controls['currentScope']">
+              <lib-label [appControl]="formGroup.controls['generalPurchaseAccountId']">
                 {{ 'generalSetting.GeneralPurchaseAccount' | translate }}
               </lib-label>
               <lib-select
-                formControlName="currentScope"
+                formControlName="generalPurchaseAccountId"
                 [options]="AccountsDropDownLookup"
-                [selectedValue]="formGroup.controls['currentScope'].value"
+                [selectedValue]="formGroup.controls['generalPurchaseAccountId'].value"
                 optionLabel="name"
                 optionValue="id"
                 placeholder="{{ 'generalSetting.GeneralPurchaseAccount' | translate }}"
@@ -86,13 +86,13 @@
           </div>
           <div class="md:col-4">
             <lib-form-group>
-              <lib-label [appControl]="formGroup.controls['nextScope']">
+              <lib-label [appControl]="formGroup.controls['goodsInTransitAccountId']">
                 {{ 'generalSetting.GoodsInTransitAccount' | translate }}
               </lib-label>
               <lib-select
-                formControlName="nextScope"
+                formControlName="goodsInTransitAccountId"
                 [options]="AccountsDropDownLookup"
-                [selectedValue]="formGroup.controls['nextScope'].value"
+                [selectedValue]="formGroup.controls['goodsInTransitAccountId'].value"
                 optionLabel="name"
                 optionValue="id"
                 placeholder="{{ 'generalSetting.GoodsInTransitAccount' | translate }}"
@@ -100,15 +100,17 @@
               </lib-select>
             </lib-form-group>
           </div>
+
+          <!-- adjustmentAccountId -->
           <div class="md:col-4">
             <lib-form-group>
-              <lib-label [appControl]="formGroup.controls['lastScope']">
+              <lib-label [appControl]="formGroup.controls['adjustmentAccountId']">
                 {{ 'generalSetting.InventoryAdjustmentAccount' | translate }}
               </lib-label>
               <lib-select
-                formControlName="lastScope"
+                formControlName="adjustmentAccountId"
                 [options]="AccountsDropDownLookup"
-                [selectedValue]="formGroup.controls['lastScope'].value"
+                [selectedValue]="formGroup.controls['adjustmentAccountId'].value"
                 optionLabel="name"
                 optionValue="id"
                 placeholder="{{ 'generalSetting.InventoryAdjustmentAccount' | translate }}"
@@ -116,15 +118,16 @@
               </lib-select>
             </lib-form-group>
           </div>
+          <!-- reEvaluationAccountId -->
           <div class="md:col-4">
             <lib-form-group>
-              <lib-label [appControl]="formGroup.controls['lastScope']">
+              <lib-label [appControl]="formGroup.controls['reEvaluationAccountId']">
                 {{ 'generalSetting.InventoryReEvaluationAccount' | translate }}
               </lib-label>
               <lib-select
-                formControlName="lastScope"
+                formControlName="reEvaluationAccountId"
                 [options]="AccountsDropDownLookup"
-                [selectedValue]="formGroup.controls['lastScope'].value"
+                [selectedValue]="formGroup.controls['reEvaluationAccountId'].value"
                 optionLabel="name"
                 optionValue="id"
                 placeholder="{{ 'generalSetting.oneSelect' | translate }}"

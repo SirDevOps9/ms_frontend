@@ -19,6 +19,7 @@ import {
   GetItemCategoryDto,
   getUomByItemId,
   GetWarehouseList,
+  GeneralSettingDto,
   IOperationalTag,
   itemDefinitionDto,
   ItemTypeDto,
@@ -71,7 +72,6 @@ export class ItemsProxyService {
     return this.httpService.get<PaginationVm<itemDefinitionDto>>(query);
   }
 
-
   getStockOut(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<StockInDto>> {
     let query = `Transaction/GetStockInTransactionList?${pageInfo.toQuery}`;
     if (searchTerm) {
@@ -88,8 +88,8 @@ export class ItemsProxyService {
     return this.httpService.get<itemDefinitionDto[]>(query);
   }
 
-  deleteStockOut(id : number ){
-    return this.httpService.delete(`StockOut/${id}`)
+  deleteStockOut(id: number) {
+    return this.httpService.delete(`StockOut/${id}`);
   }
 
   addItemDefinition(obj: AddItemDefinitionDto) {
@@ -556,11 +556,9 @@ export class ItemsProxyService {
     return this.httpService.get(`Item/GetGeneralData/${id}`);
   }
 
-
   getLatestItemsList(): Observable<LatestItems[]> {
     return this.httpService.get(`Item/GetLatestItemsList`);
   }
-
 
   getItems(
     quieries: string,
@@ -598,7 +596,6 @@ export class ItemsProxyService {
     return this.httpService.get<StockOutDto[]>(query);
   }
 
-
   getByIdStockOut(id: number) {
     return this.httpService.get(`StockOut/${id}`);
   }
@@ -607,13 +604,16 @@ export class ItemsProxyService {
     return this.httpService.put(`StockOut`, obj);
   }
 
- 
-  addStockOut(obj : AddStockOutDto) : Observable<AddStockOutDto> {
-    return this.httpService.post('StockOut' , obj)
-
+  addStockOut(obj: AddStockOutDto): Observable<AddStockOutDto> {
+    return this.httpService.post('StockOut', obj);
   }
-  getLatestItemsListByWarehouse( SearchTerm :string , WarehouseId:number) : Observable<LatestItems[]> {
-    return this.httpService.get(`Item/GetLatestItemsStockDropDownByWarehouse?WarehouseId=${WarehouseId}`)
+  getLatestItemsListByWarehouse(
+    SearchTerm: string,
+    WarehouseId: number
+  ): Observable<LatestItems[]> {
+    return this.httpService.get(
+      `Item/GetLatestItemsStockDropDownByWarehouse?WarehouseId=${WarehouseId}`
+    );
   }
   // getItemsStockOut(
   //   quieries: string,
@@ -637,7 +637,7 @@ export class ItemsProxyService {
   ): Observable<PaginationVm<AdvancedSearchDto>> {
     // Construct the base query with pagination info
     let query = `Item/GetItemStockAdvancedSearchByWarehouse?${pageInfo.toQuery}`;
-      if (searchTerm) {
+    if (searchTerm) {
       query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
     }
     if (warehouseId) {
@@ -648,5 +648,12 @@ export class ItemsProxyService {
     }
     return this.httpService.get<PaginationVm<AdvancedSearchDto>>(query);
   }
-}
 
+  // inventory general setting
+  getInventoryGeneralSetting(): Observable<GeneralSettingDto> {
+    return this.httpService.get<GeneralSettingDto>(`InventoryGeneralSetting`);
+  }
+  editInventoryGeneralSetting(obj: GeneralSettingDto) {
+    return this.httpService.put(`inventoryGeneralSetting`, obj);
+  }
+}

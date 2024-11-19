@@ -1,16 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { LayoutService } from 'apps-shared-lib';
-import {
-  PageInfoResult,
-  RouterService,
-  FormsService,
-  customValidators,
-  PageInfo,
-} from 'shared-lib';
+import { RouterService } from 'shared-lib';
 import { ItemsService } from '../../items.service';
 import { GetWarehouseList } from '../../models';
-import { OperationType } from '../../models/enums';
+import { IinvGeneralSeting } from '../../models/enums';
 
 @Component({
   selector: 'app-general-setting-inv',
@@ -21,84 +15,59 @@ export class GeneralSettingInvComponent implements OnInit {
   formGroup: FormGroup;
   warhouseLookupData: GetWarehouseList[] = [];
   AccountsDropDownLookup: { id: number; name: string }[] = [];
-  scopeOptions: any[] = [];
-  costingMethods: any[] = [];
-  currentPageInfo: PageInfoResult = { totalItems: 0 };
 
-  get operationType(): OperationType {
-    return this.operationType;
+  get InvGeneralEnum(): typeof IinvGeneralSeting {
+    return IinvGeneralSeting;
   }
-  operationTypeList = [
-    { id: OperationType.StockIn, name: OperationType.StockIn },
-    { id: OperationType.StockOut, name: OperationType.StockOut },
-  ];
+
   constructor(
     private fb: FormBuilder,
     public layoutService: LayoutService,
     private itemsService: ItemsService,
-    private routerService: RouterService,
-    private formService: FormsService
+    private routerService: RouterService
   ) {}
 
   ngOnInit() {
     this.initForm();
-    this.initWareHouseLookupData();
     this.getAccount();
+    this.getInventoryGeneralSetting();
   }
 
-  initWareHouseLookupData() {
-    this.itemsService.getWareHousesDropDown();
-    this.itemsService.wareHousesDropDownLookup$.subscribe((res) => {
-      this.warhouseLookupData = res;
+  getInventoryGeneralSetting() {
+    this.itemsService.getInventoryGeneralSetting();
+    this.itemsService.inventoryGeneralSetting$.subscribe((res) => {
+      if (res) {
+        this.formGroup.patchValue(res);
+      }
     });
   }
 
   getAccount() {
     this.itemsService.AccountsDropDown();
     this.itemsService.AccountsDropDownLookupObs.subscribe((res) => {
-      this.AccountsDropDownLookup = res;
-      console.log(res);
+      if (res) {
+        this.AccountsDropDownLookup = res;
+      }
     });
   }
 
   initForm() {
     this.formGroup = this.fb.group({
-      selectedOption: [false],
-      costingMethod: [],
-      currentScope: [],
-      nextScope: [],
-      lastScope: [],
+      costingEvaluationMethod: [],
+      costOfGoodsSoldAccountId: [],
+      generalPurchaseAccountId: [],
+      goodsInTransitAccountId: [],
+      adjustmentAccountId: [],
+      reEvaluationAccountId: [],
     });
   }
 
   discard() {
-    this.routerService.navigateTo('/masterdata/operational-tag');
-  }
-
-  initOperationalTagData() {
-    this.itemsService.getOperationalTagList('', new PageInfo());
-
-    this.itemsService.listOfOperationalTag$.subscribe({
-      next: (res) => {},
-    });
-
-    this.itemsService.currentPageInfo.subscribe((currentPageInfo: any) => {
-      this.currentPageInfo = currentPageInfo;
-    });
+    this.routerService.navigateTo('');
   }
 
   onSave() {
-    if (!this.formService.validForm(this.formGroup, false)) return;
-
     let val = this.formGroup.value;
-
-    this.itemsService.addOperationTag(val);
-    this.itemsService.sendOperationTag$.subscribe((res: any) => {
-      if (res == true) {
-        this.routerService.navigateTo('/masterdata/operational-tag');
-      } else {
-        return;
-      }
-    });
+    this.itemsService.editInventoryGeneralSetting(val);
   }
 }
