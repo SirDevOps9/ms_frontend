@@ -92,7 +92,7 @@ export class OperationTagEditComponent implements OnInit {
             name: res.name,
             operationType: operationTypeValue,
             warehouseId: res.warehouseId,
-            glAccountId: String(res.glAccountId)
+            glAccountId: res.glAccountId
           });
         }
       },
