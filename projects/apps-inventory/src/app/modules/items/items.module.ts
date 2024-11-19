@@ -60,6 +60,7 @@ import { EditStockOutComponent } from './pages/stock-out/edit-stock-out/edit-sto
 import { ItemDefintionVariantComponent } from './pages/item-definition/item-defintion-variants/item-defintion-variant.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { SearchItemPopUpComponent } from './components/stock-out/search-item-pop-up/search-item-pop-up.component';
+import { UomViewComponent } from './pages/unit-of-major/uom-view/uom-view.component';
 
 const routes: Routes = [
   {
@@ -212,6 +213,13 @@ const routes: Routes = [
             component: UOMEditComponent,
             data: {
               breadcrumb: BreadcrumbLabel.Edit_UOM,
+            },
+          },
+          {
+            path: 'view-uom/:id',
+            component: UomViewComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.VIEW_UOM,
             },
           },
         ],
@@ -376,7 +384,8 @@ const routes: Routes = [
     StockOutListComponent,
     EditStockOutComponent,
 
-    SearchItemPopUpComponent
+    SearchItemPopUpComponent,
+      UomViewComponent
   ],
   imports: [
     CommonModule,

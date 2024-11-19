@@ -104,6 +104,7 @@ export class BreadcrumbLabel {
   static UOM_LIST = 'uom-list';
   static ADD_UOM = 'UOM Add';
   static Edit_UOM = 'edit uom';
+  static VIEW_UOM = 'BreadCrumb.viewuom';
   static GENERAL_ITEMdEFINITION = 'General Item Defintion';
   static attributes_ITEMdEFINITION = 'Attributes & Variants Item Defintion';
   static EditItembarcodedefinition = 'EditItembarcodedefinition';

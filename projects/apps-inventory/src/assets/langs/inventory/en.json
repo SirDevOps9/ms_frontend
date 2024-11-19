@@ -11,7 +11,8 @@
     "ItemsCategory": "Items Category",
     "stockout": "Stock Out",
     "add": "Add",
-    "add_stockOut": "Add StockOut"
+    "add_stockOut": "Add StockOut",
+    "viewuom":"view uom"
   },
   "Toaster": {
     "Confirm": {
