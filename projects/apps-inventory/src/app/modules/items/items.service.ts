@@ -17,7 +17,6 @@ import {
   AddItemDefinitionDto,
   AddOperatioalTag,
   AddStockIn,
-  AddStockOutDto,
   AddVariantLine,
   AddWarehouse,
   AdvancedSearchDto,
@@ -38,7 +37,6 @@ import {
   OperationalStockIn,
   StockInDetail,
   StockInDto,
-  StockOutDto,
   UOMCategoryDto,
   UomCodeLookup,
   UomDefault,
@@ -95,6 +93,8 @@ export class ItemsService {
   public taxesEditDataLookup = new BehaviorSubject<any[]>([]);
   public getInventoryData = new BehaviorSubject<any>([]);
   public dataBarCodeById = new BehaviorSubject<any[]>([]);
+
+  public dataFixedCostById =new BehaviorSubject<any[]>([]);
   public uomCodeLookup = new BehaviorSubject<UomCodeLookup[]>([]);
   public getuomById = new BehaviorSubject<addUOM>({} as addUOM);
   public ItemGetItemUomById = new BehaviorSubject<any[]>([]);
@@ -102,28 +102,19 @@ export class ItemsService {
     {} as { id: number; name: string }
   );
 
-  public stockInDataSource = new BehaviorSubject<StockOutDto[]>([]);
-
-  // new Edits for item Def
-  public stockOutDataSource = new BehaviorSubject<StockOutDto[]>([]);
-
-  stockOutDataSourceeObservable = this.stockOutDataSource.asObservable();
-
-  public stockOutByIdDataSource = new BehaviorSubject<StockOutDto[]>([]);
+ 
 
 
-  stockOutByIdDataSourceeObservable = this.stockOutByIdDataSource.asObservable();
 
 
-  public exportStockOutListDataSource = new BehaviorSubject<StockOutDto[]>([]);
+
   public exportedStockOutDataSource = new BehaviorSubject<StockInDto[]>([]);
 
-  exportStockOutListDataSourceObservable = this.exportStockOutListDataSource.asObservable();
 
 
 
 
-  sendStockOutDataSources = new BehaviorSubject<StockOutDto[]>([]);
+   public dataFixedCostByIdObs = this.dataFixedCostById.asObservable()
 
 
   saveItemDefGeneral = new BehaviorSubject<AddGeneralDto>({} as AddGeneralDto);
@@ -170,20 +161,20 @@ export class ItemsService {
   public GetBarcode = new BehaviorSubject<getBarcodeById[]>([]);
   public GetItemByID = new BehaviorSubject<GetItemById>({} as GetItemById);
   public getOperationalTagItemsById = new BehaviorSubject<AddOperatioalTag>({});
-  public editstockInDataSource = new BehaviorSubject<StockOutDto[]>([]);
 
-  editstockInDataSourceeObservable = this.editstockInDataSource.asObservable();
 
 
   public GetUomListByItemId = new BehaviorSubject<getUomByItemId[]>([]);
   public sendDefault = new BehaviorSubject<boolean>(false);
   public editItemData = new BehaviorSubject<any>(false);
+  public editItemFixedCostData  = new BehaviorSubject<any>(false);
+
   public updateUOMobj = new BehaviorSubject<addUOM>({} as addUOM);
   public updateAttrobj = new BehaviorSubject<addAttributeDifintion>({} as addAttributeDifintion);
   public updateUOMByIdobj = new BehaviorSubject<any>({});
   public attributeNameDropDownLookup = new BehaviorSubject<any>([]);
   public attributeGroupeDropDownLookup = new BehaviorSubject<{ id: number; name: string }[]>([]);
- 
+
 
   public sendlatestItemsList = new BehaviorSubject<LatestItems[]>([]);
   public latestItemsListByWarehouse= new BehaviorSubject<LatestItems[]>([]);
@@ -211,7 +202,6 @@ export class ItemsService {
 
 
 
-  sendStockOutDataSourcesObs = this.sendStockOutDataSources.asObservable();
 
   // lookups
   sendGlAccountLookup = new BehaviorSubject<any>([]);
@@ -220,6 +210,7 @@ export class ItemsService {
   sendCitiesLookup = new BehaviorSubject<any>([]);
   sendCountriesLookup = new BehaviorSubject<any>([]);
   public sendOperationalTagDropDown = new BehaviorSubject<OperationalStockIn[]>([]);
+  public sendItemBarcodeStockOut = new BehaviorSubject<any>({} as any);
 
 
   // sendCashSalesLookup = new BehaviorSubject<any>([]);
@@ -252,6 +243,7 @@ export class ItemsService {
   public ViewDataItemUomByIdObs = this.ViewDataItemUomById.asObservable();
   public deleteAttrDifinitionDataObs = this.deleteAttrDifinitionData.asObservable();
   public itemCategoryLookupObs = this.itemCategoryLookup.asObservable();
+  public editItemFixedCostDataObs = this.editItemFixedCostData.asObservable()
   public AddItemCategoryLookupObs = this.AddItemCategoryLookup.asObservable();
   public itemsCategoryDeletedObs = this.itemsCategoryDeleted.asObservable();
   public EditItemCategoryDataObs = this.EditItemCategoryData.asObservable();
@@ -260,6 +252,10 @@ export class ItemsService {
   public sendItemCategoryDataSourceObs = this.sendItemCategoryDataSource.asObservable();
   public tagLookupObs = this.tagLookup.asObservable();
   public defaultUnitObs = this.defaultUnit.asObservable();
+
+  public stockInDataViewSource = new BehaviorSubject<StockInDto[]>([]);
+
+  stockInDataViewSourceeObservable = this.stockInDataViewSource.asObservable();
 
   public ItemVariantsByIdObs = this.ItemVariantsById.asObservable();
   public ItemAttributesById$ = this.ItemAttributesById.asObservable();
@@ -340,6 +336,7 @@ export class ItemsService {
   sendItemBarcode = new BehaviorSubject<StockInDetail>({} as StockInDetail);
 
   public sendItemBarcode$ = this.sendItemBarcode.asObservable();
+  public sendItemBarcodeStockOut$ = this.sendItemBarcodeStockOut.asObservable();
   
   
 public sendOperationalTagStockOutDropDown = new BehaviorSubject<{ id: number; name: string }[]>([]);
@@ -364,7 +361,7 @@ public OperationalTagStockOut$ = this.sendOperationalTagStockOutDropDown.asObser
       this.sendItemBarcode.next(res)
 
     })
-    
+
   }
 
 
@@ -373,6 +370,15 @@ public OperationalTagStockOut$ = this.sendOperationalTagStockOutDropDown.asObser
       next: (res: any) => {
         console.log(res);
         this.dataBarCodeById.next(res);
+      },
+    });
+  }
+
+  getItemFixedCost(id: number) {
+    this.itemProxy.getItemFixedCost(id).subscribe({
+      next: (res: any) => {
+        console.log(res);
+        this.dataFixedCostById.next(res);
       },
     });
   }
@@ -401,41 +407,11 @@ public OperationalTagStockOut$ = this.sendOperationalTagStockOutDropDown.asObser
   }
 
 
-  async deleteStockOut(id: number) {
-    const confirmed = await this.toasterService.showConfirm(
-      this.languageService.transalte('ConfirmButtonTexttodelete')
-    );
-    if (confirmed) {
-      this.itemProxy.deleteStockOut(id).subscribe({
-        next: (res) => {
-          this.toasterService.showSuccess(
-            this.languageService.transalte('transactions.success'),
-            this.languageService.transalte('transactions.deleteStockOut')
-          );
+ 
 
-          this.getAllStockOut('', new PageInfo());
-        },
-      });
-    }
-  }
 
-  // getStockOut(quieries: string, pageInfo: PageInfo) {
-  //   this.loaderService.show();
-  //   this.itemProxy.getStockOut(quieries, pageInfo).subscribe((response) => {
-  //     this.sendStockOutDataSources.next(response.result);
-  //     this.currentPageInfo.next(response.pageInfoResult);
-  //     this.loaderService.hide();
-  //   });
-  // }
 
-  exportsStockOutList(searchTerm: string | undefined) {
-    this.itemProxy.exportsStockOutList(searchTerm).subscribe({
-      next: (res: any) => {
-        console.log(res);
-        this.exportedStockOutDataSource.next(res);
-      },
-    });
-  }
+
 
   ViewDefinitionById(id: number) {
     // this.loaderService.show();
@@ -1245,6 +1221,19 @@ public OperationalTagStockOut$ = this.sendOperationalTagStockOutDropDown.asObser
     });
   }
 
+  editItemFixedCost(obj: any) {
+    return this.itemProxy.editItemFixedCost(obj).subscribe((res) => {
+      if (res) {
+        this.editItemFixedCostData.next(res);
+        this.toasterService.showSuccess(
+          this.languageService.transalte('itemDefinition.success'),
+          this.languageService.transalte('itemDefinition.editFixedCost')
+        );
+        this.router.navigateTo(`/masterdata/item-definition`);
+      }
+    });
+  }
+
   //  warehouse
   getWarehouseList(queries: string, pageInfo: PageInfo) {
     this.itemProxy.getWarehouseList(queries, pageInfo).subscribe((response) => {
@@ -1268,8 +1257,11 @@ public OperationalTagStockOut$ = this.sendOperationalTagStockOutDropDown.asObser
     this.itemProxy.addWarehouse(obj).subscribe((res) => {
       if (res) {
         console.log(res);
-        this.languageService.transalte('warehouse.success'),
-          this.languageService.transalte('warehouse.add');
+        this.toasterService.showSuccess(
+          this.languageService.transalte('warehouse.success'),
+          this.languageService.transalte('warehouse.add')
+        );
+
         let dataRes: number = Number(res);
         console.log(dataRes);
         console.log(text);
@@ -1451,102 +1443,5 @@ public OperationalTagStockOut$ = this.sendOperationalTagStockOutDropDown.asObser
       });
     }
   }
-
-  getAllStockOut(quieries: string, pageInfo: PageInfo) {
-    this.itemProxy.getAllStockOut(quieries, pageInfo).subscribe((response) => {
-      this.stockOutDataSource.next(response.result);
-      this.currentPageInfo.next(response.pageInfoResult);
-    });
-  }
-
-  getStockOutById(id: number) {
-    this.itemProxy.getByIdStockOut(id).subscribe((response: any) => {
-      this.stockOutByIdDataSource.next(response);
-    });
-  }
-
-
-  editStockOut(obj: StockOutDto) {
-    this.itemProxy.editStockOut(obj).subscribe({
-      next: (res: any) => {
-        this.editstockInDataSource.next(res);
-        this.toasterService.showSuccess(
-          this.languageService.transalte('stockOut.success'),
-          this.languageService.transalte('itemsCategory.edits')
-        );
-      },
-    });
-  }
-
-
-exportStockOutList(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
-  this.itemProxy.exportStockOutList(searchTerm ,SortBy,SortColumn).subscribe({
-    next: (res: any) => {
-      this.exportStockOutListDataSource.next(res);
-    },
-  });
 }
 
-
-
-
-
-
- 
-
-  getItems(quieries: string, searchTerm: string, pageInfo: PageInfo) {
-    this.itemProxy.getItems(quieries, searchTerm, pageInfo).subscribe((res) => {
-      this.itemsDataSource.next(res.result);
-      this.currentPageInfo.next(res.pageInfoResult);
-    });
-  }
-
-
-  addStockOut(obj: AddStockOutDto,stockinForm : FormGroup) {
-    this.itemProxy.addStockOut(obj).subscribe({
-      next: (res) => {
-        this.toasterService.showSuccess(
-          this.languageService.transalte('stockIn.success'),
-          this.languageService.transalte('stockIn.stockAdded')
-        );
-        this.loaderService.hide();
-        this.router.navigateTo('transactions/stock-out');
-      },
-      error: (err) => {
-        
-        this.formsService.setFormValidationErrors(stockinForm, err);
-        this.loaderService.hide();
-      },
-    });
- 
-  }
-  getLatestItemsListByWarehouse(SearchTerm:string , id:number){
-    return this.itemProxy.getLatestItemsListByWarehouse(SearchTerm,id).subscribe(res=>{
-      this.latestItemsListByWarehouse.next(res)
-    })
-  }
-  // getItemsStockOutByWarehouse(quieries: string, searchTerm: string ,id:number , pageInfo: PageInfo ) {
-  //   this.itemProxy.getItemsStockOut(quieries, searchTerm , id, pageInfo ).subscribe((res) => {
-  //     this.itemsDataSourceByWarehouse.next(res.result);
-  //     this.currentPageInfo.next(res.pageInfoResult);
-  //   });
-  // }
-  getItemsStockOutByWarehouse(queries: string, searchTerm: string, id: number, pageInfo: PageInfo) {
-    this.itemProxy.getItemsStockOut(queries, searchTerm, id, pageInfo).subscribe((res:any) => {
-      this.itemsDataSourceByWarehouse.next(res);
-    });
-  }
-  // getItemsStockOutByWarehouse(
-  //   quieries: string,
-  //   searchTerm: string,
-  //   warehouseId: number,
-  //   pageInfo: PageInfo
-  // ): void {
-  //   this.itemProxy.getItemsStockOut(quieries, searchTerm, warehouseId, pageInfo).subscribe((res) => {
-  //     if (res) {
-  //       this.itemsDataSourceByWarehouse.next(res.result);
-  //       this.currentPageInfo.next(res.pageInfoResult);
-  //     }
-  //   });
-  // }
-}

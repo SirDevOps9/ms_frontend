@@ -14,6 +14,13 @@ import { TrackingStockInComponent } from './components/tracking-stock-in/trackin
 import { AddStockInComponent } from './pages/stock-In/add-stock-in/add-stock-in.component';
 import { ImportStockInComponent } from './components/import-stock-in/import-stock-in.component';
 import { ScanParcodeStockInComponent } from './components/scan-parcode-stock-in/scan-parcode-stock-in.component';
+import { MainStockOutComponent } from './pages/stock-out/main-stock-out/main-stock-out.component';
+import { StockOutListComponent } from './pages/stock-out/stock-out-list/stock-out-list.component';
+import { AddStockOutComponent } from './pages/stock-out/add-stock-out/add-stock-out.component';
+import { EditStockOutComponent } from './pages/stock-out/edit-stock-out/edit-stock-out.component';
+import { SearchItemPopUpComponent } from './components/stock-out/search-item-pop-up/search-item-pop-up.component';
+import { ViewStockOutComponent } from './pages/stock-out/view-stock-out/view-stock-out.component';
+import { ViewStockInComponent } from './pages/stock-In/view-stock-in/view-stock-in.component';
 
 const routes: Routes = [
   {
@@ -54,6 +61,15 @@ const routes: Routes = [
             },
           },
           {
+            path: 'view/:id',
+            component: ViewStockInComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.VIEW_STOCKIN,
+              pageTitle: BreadcrumbLabel.VIEW_STOCKIN,
+
+            },
+          },
+          {
             path: 'sequence',
             component: SequenceComponent,
             data: {
@@ -63,6 +79,58 @@ const routes: Routes = [
               pageTitle: BreadcrumbLabel.SEQUENCE,
             },
           },
+        ],
+      },
+      {
+        path: 'stock-out',
+        component: MainStockOutComponent,
+        data: {
+          breadcrumb: BreadcrumbLabel.STOCKOUT,
+          pageTitle: BreadcrumbLabel.STOCKOUT,
+        },
+        children: [
+          {
+            path: '',
+            component: StockOutListComponent,
+            data: {
+              breadcrumb: '',
+              pageTitle: BreadcrumbLabel.STOCKOUT,
+            },
+          },
+          {
+            path: 'add',
+            component: AddStockOutComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.ADD_STOCKOUT,
+              pageTitle: BreadcrumbLabel.TITLE_ADD_STOCKOUT,
+            },
+          },
+          {
+            path: 'edit/:id',
+            component: EditStockOutComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.EDIT_STOCKOUT,
+              pageTitle: BreadcrumbLabel.TITLE_EDIT_STOCKOUT,
+            },
+          },
+          {
+            path: 'sequence',
+            component: SequenceComponent,
+            data: {
+              moduleId: Modules.inventory,
+              pageId: Pages.StockOut,
+              breadcrumb: BreadcrumbLabel.SEQUENCE,
+              pageTitle: BreadcrumbLabel.SEQUENCE,
+            },
+          },
+          {
+            path: 'view/:id',
+            component: ViewStockOutComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.VIEW_STOCKOUT,
+              pageTitle: BreadcrumbLabel.VIEW_STOCKOUT,
+            },
+          }
         ],
       },
     ],
@@ -77,8 +145,15 @@ const routes: Routes = [
     ImportStockInComponent,
     EditStockInComponent,
     MainStockInListComponentComponent,
-    StockInListComponent,
+    StockInListComponent ,
     AddStockInComponent,
+    MainStockOutComponent,
+    StockOutListComponent,
+    EditStockOutComponent,
+    AddStockOutComponent,
+    SearchItemPopUpComponent,
+    ViewStockOutComponent,
+    ViewStockInComponent
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule, ZXingScannerModule],
 })

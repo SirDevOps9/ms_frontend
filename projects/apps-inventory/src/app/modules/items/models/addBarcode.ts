@@ -1,10 +1,10 @@
 
-  
+
   export interface addBarcode {
     id: number
     barcodes: Barcode[]
   }
-  
+
   export interface Barcode {
     itemId: number
     id: number
@@ -14,4 +14,3 @@
     sku: string
     isActive: boolean
   }
-  

@@ -3,7 +3,7 @@ import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ItemDto, SharedSalesEnums } from 'projects/apps-sales/src/app/modules/sales/models';
 import { LanguageService, PageInfo, PageInfoResult } from 'shared-lib';
-import { ItemsService } from '../../../items.service';
+import { TransactionsService } from '../../../transactions.service';
 
 @Component({
   selector: 'app-search-item-pop-up',
@@ -28,7 +28,7 @@ export class SearchItemPopUpComponent {
     public sharedEnums: SharedSalesEnums,
     private ref: DynamicDialogRef,
     private fb: FormBuilder,
-    private itemsService: ItemsService,
+    private itemsService: TransactionsService,
     public config: DynamicDialogConfig,
     private languageService:LanguageService
 
@@ -39,11 +39,12 @@ export class SearchItemPopUpComponent {
     if (this.config.data) {
     this.warehouseId = this.config.data
     }
-    this.subscribes();
     this.initItemsData();
     this.filterForm.valueChanges.subscribe(() => {
       this.onFilterChange();
     });
+    this.subscribes();
+
   }
 
   subscribes() {
