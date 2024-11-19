@@ -15,7 +15,13 @@
   "add": "إضافة",
   "edit": "تعديل",
   "add_stockOut": "إضافة إخراج مخزون",
-  "edit_stockOut": "تعديل إخراج مخزون"
+  "edit_stockOut": "تعديل إخراج مخزون",
+    "UnitOfMeasure" : "وحدة القياس",
+    "PricePolicy": "سياسة التسعير",
+    "addUom" : "اضافة وحده القياس",
+    "EditUom" : "تعديل وحدة القياس",
+    "uomList" : "وحدة القياس"
+
 },
   "Toaster": {
     "Confirm": {
@@ -247,6 +253,8 @@
     "action": "الإجراءات",
     "type": "نوع وحدة القياس",
     "uomType": "أنواع وحدة القياس",
+    "EditUomSuccess" : "تم تعديل وحدة القياس بنجاح",
+
     "shortName": "الاسم المختصر",
     "addUom": "إضافة وحدة قياس",
     "nameAr": "الاسم بالعربية",
@@ -271,7 +279,9 @@
     "uomCode": "كود وحدة القياس",
     "uomName": "اسم وحدة القياس",
     "uomCategory": "فئة وحدة القياس",
-    "uomFactor": "معامل وحدة القياس"
+    "uomFactor": "معامل وحدة القياس",
+    "cancel" : "الغاء"
+
   },
   "attributeDefinition": {
     "Add": "إضافة",

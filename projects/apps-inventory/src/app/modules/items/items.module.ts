@@ -206,6 +206,8 @@ const routes: Routes = [
             component: UOMListComponent,
             data: {
               breadcrumb: '',
+              pageTitle: BreadcrumbLabel.UOMLISt,
+
             },
           },
           {
@@ -213,13 +215,17 @@ const routes: Routes = [
             component: UOMAddComponent,
             data: {
               breadcrumb: BreadcrumbLabel.ADD_UOM,
+              pageTitle: BreadcrumbLabel.ADD_UOM,
+
             },
           },
           {
             path: 'edit-uom/:id',
             component: UOMEditComponent,
             data: {
-              breadcrumb: BreadcrumbLabel.Edit_UOM,
+              breadcrumb: BreadcrumbLabel.EDITUOM,
+              pageTitle: BreadcrumbLabel.EDITUOM,
+
             },
           },
         ],

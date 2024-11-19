@@ -225,7 +225,7 @@ export class ItemsService {
   // sendGoodsInTransitLookup = new BehaviorSubject<any>([]);
   // sendCompanyPhoneLookup = new BehaviorSubject<any>([]);
 
-  public SendexportUOMList = new BehaviorSubject<IuomResult[]>([]);
+  public SendexportUOMList = new BehaviorSubject<UOMCategoryDto[]>([]);
   public SendexportAttrDifinitionList = new BehaviorSubject<any[]>([]);
   public listOfUOM = new BehaviorSubject<IuomResult[]>([]);
   public listOfAttrDifinition = new BehaviorSubject<IAttrributeDifinitionResult[]>([]);
@@ -499,8 +499,8 @@ public OperationalTagStockOut$ = this.sendOperationalTagStockOutDropDown.asObser
 
   exportUOMList(SearchTerm: string | undefined) {
     this.itemProxy.ExportUOMList(SearchTerm).subscribe({
-      next: (res: Iuom) => {
-        this.SendexportUOMList.next(res.result);
+      next: (res: UOMCategoryDto[]) => {
+        this.SendexportUOMList.next(res);
       },
     });
   }
@@ -987,7 +987,7 @@ public OperationalTagStockOut$ = this.sendOperationalTagStockOutDropDown.asObser
 
       this.toasterService.showSuccess(
         this.languageService.transalte('UOM.success'),
-        this.languageService.transalte('UOM.uomSuccess')
+        this.languageService.transalte('UOM.EditUomSuccess')
       );
       this.sendUOMCategory.next(res);
     });
@@ -1025,7 +1025,9 @@ public OperationalTagStockOut$ = this.sendOperationalTagStockOutDropDown.asObser
           );
 
           const currentUom = this.GetUOMCategoriesDataSource.getValue();
-          const updatedUOM = currentUom.filter((c: any) => c.id !== id);
+          console.log(currentUom)
+          console.log(id)
+          const updatedUOM = currentUom.filter((c: any) => c.uomCategoryId !== id);
           this.GetUOMCategoriesDataSource.next(updatedUOM);
         },
       });

@@ -16,7 +16,8 @@ export class UOMListComponent implements OnInit {
   tableData: UOMCategoryDto[] = []
   currentPageInfo: PageInfoResult = {}; 
   searchTerm: string;
-  exportData: any[];
+  exportData: UOMCategoryDto[];
+  clonedExportData: UOMCategoryDto[];
   exportColumns:any[]
 
   cols = [
@@ -104,17 +105,18 @@ export class UOMListComponent implements OnInit {
   }
 
   exportClick(e?: Event) {
-    
-      this.exportBankData(this.searchTerm);
-  
-
+      this.exportUom(this.searchTerm); 
   }
 
-  exportBankData(searchTerm: string) {
+  exportUom(searchTerm: string) {
     this.itemService.exportUOMList(searchTerm)
 
     this.itemService.SendexportUOMList$.subscribe((res)=>{
       this.exportData = res 
+      this.clonedExportData = res.map((elem: any) => {
+        const { createdOn, ...args } = elem; // Rename `codeNumber` to `code` and use the rest operator
+        return { ...args, codeNumber : elem.code }; // Include `code` in the returned object if needed
+      });
     })
 
   
@@ -126,6 +128,9 @@ export class UOMListComponent implements OnInit {
 }
 onDelete(id: number) {
   this.itemService.deleteCategory(id)
+}
+onView(id: number) {
+  
 }
   
 }

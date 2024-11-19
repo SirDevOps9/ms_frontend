@@ -13,9 +13,13 @@
     "ItemsCategory": "Items Category",
     "stockout": "Stock Out",
     "add": "Add",
-    "edit": "Edit",
-    "editstockout":"Edit Stock Out",
     "add_stockOut": "Add StockOut",
+   "UnitOfMeasure" : "Unit Of Measure",
+   "addUom" : "Add UOM",
+   "EditUom" : "Edit UOM",
+   "uomList" : "UOM",
+   "edit": "Edit",
+    "editstockout":"Edit Stock Out",
     "edit_stockOut": "Edit StockOut",
     "EditItembarfixedcostfinition":"Edit Item fixed cost",
     "stockInView":"Stock In View",
@@ -238,6 +242,7 @@
     "categoryCode": "UOM Category Code",
     "name": "UOM Name",
     "categoryname": "UOM Category Name",
+    "EditUomSuccess" : "UOM Edited Successfully",
     "save": "Save",
     "uomEdit": "Edited",
     "discard": "Discard",
@@ -272,7 +277,8 @@
     "uomCode": "UOM Code",
     "uomName": "UOM Name",
     "uomCategory": "UOM Category",
-    "uomFactor": "UOM Factor"
+    "uomFactor": "UOM Factor",
+    "cancel" : "Cancel"
   },
   "attributeDefinition": {
     "Add": "Create",
