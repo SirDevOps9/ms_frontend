@@ -56,7 +56,6 @@ import { AttributeDefinitionListValuesComponent } from './pages/attribute-defini
 import { ItemDefintionVariantComponent } from './pages/item-definition/item-defintion-variants/item-defintion-variant.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { ItemFixedCostComponent } from './pages/item-definition/item-fixed-cost/item-fixed-cost.component';
-import { SearchItemPopUpComponent } from './components/stock-out/search-item-pop-up/search-item-pop-up.component';
 import { ViewWarehouseComponent } from './pages/warehouse/view-warehouse/view-warehouse.component';
 
 const routes: Routes = [
@@ -360,7 +359,8 @@ const routes: Routes = [
     WarehouseTabsComponent,
     AttributeDefinitionValuesComponent,
     AttributeDefinitionListValuesComponent,
-    ItemFixedCostComponent
+    ItemFixedCostComponent,
+    ViewWarehouseComponent
   ],
   imports: [
     CommonModule,
