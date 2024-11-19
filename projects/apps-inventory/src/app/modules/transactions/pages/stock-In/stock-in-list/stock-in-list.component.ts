@@ -63,7 +63,10 @@ export class StockInListComponent implements OnInit {
   onAdd() {
     this.routerService.navigateTo('/transactions/stock-in/add-stock-in');
   }
-  onView(id: number) {}
+  onVeiw(data:any){
+    this.routerService.navigateTo(`transactions/stock-in/view/${data}`)
+  }
+
 
   onEdit(id: any) {
     this.routerService.navigateTo(`/transactions/stock-in/edit-stock-in/${id}`);

@@ -54,7 +54,7 @@ export class AddWarehousePopupComponent implements OnInit {
     this.warehouseForm = this.fb.group({
       name: new FormControl('' ,[customValidators.required]),
       branchWarehouses: new FormControl('', [customValidators.required]),
-      warehouseType: new FormControl([this.warehouseType[0].value],[customValidators.required]),
+      warehouseType: new FormControl(this.warehouseType[0].value,[customValidators.required]),
 
     });
   }
