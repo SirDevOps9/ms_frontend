@@ -101,31 +101,30 @@ export class ItemsService {
   public defaultUnit = new BehaviorSubject<{ id: number; name: string }>(
     {} as { id: number; name: string }
   );
+
+  public stockInDataSource = new BehaviorSubject<StockOutDto[]>([]);
+
   // new Edits for item Def
   public stockOutDataSource = new BehaviorSubject<StockOutDto[]>([]);
 
   stockOutDataSourceeObservable = this.stockOutDataSource.asObservable();
 
   public stockOutByIdDataSource = new BehaviorSubject<StockOutDto[]>([]);
-  public stockInByIdData = new BehaviorSubject<StockInDto>({} as StockInDto);
+
 
   stockOutByIdDataSourceeObservable = this.stockOutByIdDataSource.asObservable();
-  stockInByIdData$ = this.stockInByIdData.asObservable();
 
-  public stockInDataSource = new BehaviorSubject<StockOutDto[]>([]);
-
-  stockInDataSourceeObservable = this.stockInDataSource.asObservable();
-
-  public editstockInDataSource = new BehaviorSubject<StockOutDto[]>([]);
-
-  editstockInDataSourceeObservable = this.editstockInDataSource.asObservable();
 
   public exportStockOutListDataSource = new BehaviorSubject<StockOutDto[]>([]);
+  public exportedStockOutDataSource = new BehaviorSubject<StockInDto[]>([]);
 
   exportStockOutListDataSourceObservable = this.exportStockOutListDataSource.asObservable();
 
-  public exportStockInListDataSource = new BehaviorSubject<StockInDto[]>([]);
-  exportStockInListDataSourceObservable = this.exportStockInListDataSource.asObservable();
+
+
+
+  sendStockOutDataSources = new BehaviorSubject<StockOutDto[]>([]);
+
 
   saveItemDefGeneral = new BehaviorSubject<AddGeneralDto>({} as AddGeneralDto);
   saveItemDefGeneral$ = this.saveItemDefGeneral.asObservable();
@@ -144,11 +143,7 @@ export class ItemsService {
 
   //transactions
 
-  sendStockInDataSources = new BehaviorSubject<StockInDto[]>([]);
-  sendStockOutDataSources = new BehaviorSubject<StockOutDto[]>([]);
 
-  public exportedStockInDataSource = new BehaviorSubject<StockInDto[]>([]);
-  public exportedStockOutDataSource = new BehaviorSubject<StockInDto[]>([]);
 
   public codeByuomCodeDropDown = new EventEmitter<{ code: number; conversionRatio: string }>();
   public UOMCategoryDropDownLookup = new BehaviorSubject<{ id: number; name: string }[]>([]);
@@ -175,6 +170,11 @@ export class ItemsService {
   public GetBarcode = new BehaviorSubject<getBarcodeById[]>([]);
   public GetItemByID = new BehaviorSubject<GetItemById>({} as GetItemById);
   public getOperationalTagItemsById = new BehaviorSubject<AddOperatioalTag>({});
+  public editstockInDataSource = new BehaviorSubject<StockOutDto[]>([]);
+
+  editstockInDataSourceeObservable = this.editstockInDataSource.asObservable();
+
+
   public GetUomListByItemId = new BehaviorSubject<getUomByItemId[]>([]);
   public sendDefault = new BehaviorSubject<boolean>(false);
   public editItemData = new BehaviorSubject<any>(false);
@@ -183,10 +183,10 @@ export class ItemsService {
   public updateUOMByIdobj = new BehaviorSubject<any>({});
   public attributeNameDropDownLookup = new BehaviorSubject<any>([]);
   public attributeGroupeDropDownLookup = new BehaviorSubject<{ id: number; name: string }[]>([]);
-  public sendOperationalTagDropDown = new BehaviorSubject<OperationalStockIn[]>([]);
+ 
+
   public sendlatestItemsList = new BehaviorSubject<LatestItems[]>([]);
   public latestItemsListByWarehouse= new BehaviorSubject<LatestItems[]>([]);
-  public sendAddStockIn = new BehaviorSubject<AddStockIn>({} as AddStockIn);
   public updateAddStockIn = new BehaviorSubject<AddStockIn>({} as AddStockIn);
   public attributeValuesDropDownLookup = new BehaviorSubject<itemAttributeValues[]>([]);
   public attributeValuesData = new BehaviorSubject<itemAttributeValues[]>([]);
@@ -208,18 +208,20 @@ export class ItemsService {
   exportedItemCategoryDataSource = new BehaviorSubject<GetItemCategoryDto[]>([]);
 
   // transactions
-  sendStockInDataSourcesObs = this.sendStockInDataSources.asObservable();
+
+
+
   sendStockOutDataSourcesObs = this.sendStockOutDataSources.asObservable();
-  exportedStockInDataSourceObs = this.exportedStockInDataSource.asObservable();
-  exportedStockOutDataSourceObs = this.exportedStockOutDataSource.asObservable();
+
   // lookups
   sendGlAccountLookup = new BehaviorSubject<any>([]);
   sendBranchesLookup = new BehaviorSubject<any>([]);
   wareHousesDropDownLookup = new BehaviorSubject<GetWarehouseList[]>([]);
   sendCitiesLookup = new BehaviorSubject<any>([]);
   sendCountriesLookup = new BehaviorSubject<any>([]);
-  sendItemBarcode = new BehaviorSubject<StockInDetail>({} as StockInDetail);
+  public sendOperationalTagDropDown = new BehaviorSubject<OperationalStockIn[]>([]);
   public sendItemBarcodeStockOut = new BehaviorSubject<any>({} as any);
+
 
   // sendCashSalesLookup = new BehaviorSubject<any>([]);
   // sendLookup = new BehaviorSubject<any>([]);
@@ -280,9 +282,7 @@ export class ItemsService {
   public attributeNameDropDownLookupObs = this.attributeNameDropDownLookup.asObservable();
   public attributeGroupeDropDownLookup$ = this.attributeGroupeDropDownLookup.asObservable();
   public sendOperationalTagDropDown$ = this.sendOperationalTagDropDown.asObservable();
-  public sendlatestItemsList$ = this.sendlatestItemsList.asObservable();
   public latestItemsListByWarehouse$ = this.latestItemsListByWarehouse.asObservable();
-  public sendAddStockIn$ = this.sendAddStockIn.asObservable();
   public updateAddStockIn$ = this.updateAddStockIn.asObservable();
   public attributeValuesDropDownLookupObs = this.attributeValuesDropDownLookup.asObservable();
   public attributeValuesDataObs = this.attributeValuesData.asObservable();
@@ -338,6 +338,8 @@ export class ItemsService {
   public taxesEditDataLookupObs = this.taxesEditDataLookup.asObservable();
   public getInventoryData$ = this.getInventoryData.asObservable();
   public dataBarCodeByIdObs = this.dataBarCodeById.asObservable();
+  sendItemBarcode = new BehaviorSubject<StockInDetail>({} as StockInDetail);
+
   public sendItemBarcode$ = this.sendItemBarcode.asObservable();
   public sendItemBarcodeStockOut$ = this.sendItemBarcodeStockOut.asObservable();
   
@@ -352,6 +354,21 @@ public OperationalTagStockOut$ = this.sendOperationalTagStockOutDropDown.asObser
       this.currentPageInfo.next(response.pageInfoResult);
     });
   }
+
+  OperationalTagDropDown() {
+    return this.itemProxy.operationTagDropdown().subscribe((res) => {
+      this.sendOperationalTagDropDown.next(res);
+    });
+  }
+
+  getItemBarcodeForItem(barcode : string) {
+    this.itemProxy.getItemBarcodeForItem(barcode).subscribe(res=>{
+      this.sendItemBarcode.next(res)
+
+    })
+    
+  }
+
 
   getItemBarcodeById(id: number) {
     this.itemProxy.getItemBarcodeById(id).subscribe({
@@ -384,78 +401,8 @@ public OperationalTagStockOut$ = this.sendOperationalTagStockOutDropDown.asObser
       }
     );
   }
-  getStockIn(quieries: string, pageInfo: PageInfo) {
-    this.loaderService.show();
-    this.itemProxy.getStockIn(quieries, pageInfo).subscribe(
-      (response) => {
-        this.sendStockInDataSources.next(response.result);
-        this.currentPageInfo.next(response.pageInfoResult);
-        this.loaderService.hide();
-      },
-      (erorr) => {
-        this.loaderService.hide();
-      }
-    );
-  }
-  exportsStockInList(searchTerm: string | undefined) {
-    this.itemProxy.exportsStockInList(searchTerm).subscribe({
-      next: (res: any) => {
-        console.log(res);
-        this.exportedStockInDataSource.next(res);
-      },
-    });
-  }
 
-  async deleteStockInLine(id: number) {
-    try {
-      const confirmed = await this.toasterService.showConfirm(
-        this.languageService.transalte('ConfirmButtonTexttodelete')
-      );
 
-      if (confirmed) {
-        await firstValueFrom(this.itemProxy.deleteStockInLine(id));
-
-        // Show success message
-        this.toasterService.showSuccess(
-          this.languageService.transalte('stockIn.success'),
-          this.languageService.transalte('stockIn.deleteStockInLine')
-        );
-
-        const currentData = this.stockInByIdData.getValue();
-
-        if (currentData && currentData.stockInDetails) {
-          const updatedStockInDetails = currentData.stockInDetails.filter(
-            (detail: any) => detail.id !== id
-          );
-
-          const updatedData = {
-            ...currentData,
-            stockInDetails: updatedStockInDetails,
-          };
-
-          this.stockInByIdData.next(updatedData);
-        }
-      }
-    } catch (error) {}
-  }
-
-  async deleteStockIn(id: number) {
-    try {
-      const confirmed = await this.toasterService.showConfirm(
-        this.languageService.transalte('ConfirmButtonTexttodelete')
-      );
-
-      if (confirmed) {
-        await firstValueFrom(this.itemProxy.deleteStockIn(id));
-
-        // Show success message
-        this.toasterService.showSuccess(
-          this.languageService.transalte('transactions.success'),
-          this.languageService.transalte('transactions.deleteStockIn')
-        );
-      }
-    } catch (error) {}
-  }
   async deleteStockOut(id: number) {
     const confirmed = await this.toasterService.showConfirm(
       this.languageService.transalte('ConfirmButtonTexttodelete')
@@ -1519,11 +1466,7 @@ public OperationalTagStockOut$ = this.sendOperationalTagStockOutDropDown.asObser
       this.stockOutByIdDataSource.next(response);
     });
   }
-  getStockInById(id: number) {
-    this.itemProxy.getStockInById(id).subscribe((response: any) => {
-      this.stockInByIdData.next(response);
-    });
-  }
+ 
 
   editStockOut(obj: any) {
     this.itemProxy.editStockOut(obj).subscribe({
@@ -1547,12 +1490,7 @@ public OperationalTagStockOut$ = this.sendOperationalTagStockOutDropDown.asObser
     });
   }
 
-getAllStockIn(quieries: string, pageInfo: PageInfo) {
-  this.itemProxy.getAllStockIn(quieries, pageInfo).subscribe((response) => {
-    this.stockInDataSource.next(response.result);
-    this.currentPageInfo.next(response.pageInfoResult);
-  });
-}
+
 exportStockOutList(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
   this.itemProxy.exportStockOutList(searchTerm ,SortBy,SortColumn).subscribe({
     next: (res: any) => {
@@ -1561,58 +1499,12 @@ exportStockOutList(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
   });
 }
 
-  exportStockInList(searchTerm?: string, SortBy?: number, SortColumn?: string) {
-    this.itemProxy.exportStockInList(searchTerm, SortBy, SortColumn).subscribe({
-      next: (res: any) => {
-        this.exportStockInListDataSource.next(res);
-      },
-    });
-  }
 
-  OperationalTagDropDown() {
-    return this.itemProxy.operationTagDropdown().subscribe((res) => {
-      this.sendOperationalTagDropDown.next(res);
-    });
-  }
 
-  getLatestItemsList() {
-    return this.itemProxy.getLatestItemsList().subscribe((res) => {
-      this.sendlatestItemsList.next(res);
-    });
-  }
 
-  addStockIn(obj: AddStockIn, stockinForm: FormGroup) {
-    this.itemProxy.addStockIn(obj).subscribe({
-      next: (res) => {
-        this.toasterService.showSuccess(
-          this.languageService.transalte('stockIn.success'),
-          this.languageService.transalte('stockIn.stockAdded')
-        );
-        this.router.navigateTo('/transactions/stock-in');
-        this.loaderService.hide();
-      },
-      error: (err) => {
-        this.formsService.setFormValidationErrors(stockinForm, err);
-        this.loaderService.hide();
-      },
-    });
-  }
-  editStockIn(obj: AddStockIn, stockinForm: FormGroup) {
-    this.itemProxy.editStockIn(obj).subscribe({
-      next: (res) => {
-        this.toasterService.showSuccess(
-          this.languageService.transalte('stockIn.success'),
-          this.languageService.transalte('stockIn.stockEdit')
-        );
-        this.router.navigateTo('/transactions/stock-in');
-        this.loaderService.hide();
-      },
-      error: (err) => {
-        this.formsService.setFormValidationErrors(stockinForm, err);
-        this.loaderService.hide();
-      },
-    });
-  }
+
+
+ 
 
   getItems(quieries: string, searchTerm: string, pageInfo: PageInfo) {
     this.itemProxy.getItems(quieries, searchTerm, pageInfo).subscribe((res) => {
@@ -1621,13 +1513,7 @@ exportStockOutList(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
     });
   }
 
-  getItemBarcodeForItem(barcode : string) {
-    this.itemProxy.getItemBarcodeForItem(barcode).subscribe(res=>{
-      this.sendItemBarcode.next(res)
 
-    })
-    
-  }
   addStockOut(obj: AddStockOutDto,stockinForm : FormGroup) {
     this.itemProxy.addStockOut(obj).subscribe({
       next: (res) => {

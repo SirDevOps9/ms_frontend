@@ -19,7 +19,7 @@ import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'lib-data-table',
-  templateUrl: './data-table.component.html',
+  templateUrl: './data-table.component.html', 
   styleUrls: ['./data-table.component.scss'],
 })
 export class DataTableComponent implements OnInit, OnChanges {
