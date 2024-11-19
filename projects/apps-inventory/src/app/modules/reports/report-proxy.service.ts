@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpService, PaginationVm } from 'shared-lib';
+import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
 import { WarehousesTables } from './models';
-import { LatestItems } from '../items/models';
+import { AdvancedSearchDto, LatestItems } from '../items/models';
 
 @Injectable({
   providedIn: 'root',
@@ -23,5 +23,20 @@ export class ReportProxyService {
     const params: string[] = [];
     if (searchTerm) params.push(`SearchTerm=${encodeURIComponent(searchTerm)}`);
     return this.http.get(`Item/GetLatestItemsList?${params}`);
+  }
+
+  getItems(
+    quieries: string,
+    searchTerm: string,
+    pageInfo: PageInfo
+  ): Observable<PaginationVm<AdvancedSearchDto>> {
+    let query = `Item/GetItemsAdvancedSearchList?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+    if (quieries) {
+      query += `&${quieries ? quieries : ''}`;
+    }
+    return this.http.get<PaginationVm<AdvancedSearchDto>>(query);
   }
 }
