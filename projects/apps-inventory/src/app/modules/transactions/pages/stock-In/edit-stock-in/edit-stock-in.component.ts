@@ -273,12 +273,15 @@ export class EditStockInComponent implements OnInit {
   }
 
   itemChanged(e: any, stockInFormGroup: FormGroup, clonedStockInFormGroup?: any) {
+    debugger;
     let data = this.latestItemsList.find((item) => item.itemId == e);
 
     this.itemData = data;
     this.uomLookup = data?.itemsUOM;
 
     stockInFormGroup.get('stockInTracking')?.reset();
+    stockInFormGroup.get('barCode')?.reset();
+    stockInFormGroup.get('bardCodeIds')?.reset();
     stockInFormGroup.get('stockInTracking')?.clearValidators();
     stockInFormGroup.get('stockInTracking')?.updateValueAndValidity();
 

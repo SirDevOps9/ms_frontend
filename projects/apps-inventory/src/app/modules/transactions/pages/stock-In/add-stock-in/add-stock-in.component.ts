@@ -198,8 +198,12 @@ export class AddStockInComponent implements OnInit {
 
     this.itemData = data;
     this.uomLookup = data?.itemsUOM;
+    if (stockInFormGroup.value.itemId) {
+      stockInFormGroup.get('itemId')?.valueChanges.subscribe((res) => {
+        stockInFormGroup.get('barCode')?.reset();
+      });
+    }
 
-    stockInFormGroup.get('stockInTracking')?.reset();
     stockInFormGroup.get('stockInTracking')?.clearValidators();
     stockInFormGroup.get('stockInTracking')?.updateValueAndValidity();
 
@@ -207,7 +211,9 @@ export class AddStockInComponent implements OnInit {
     stockInFormGroup
       .get('description')
       ?.setValue(
-        `${data?.itemName} - ${clonedStockInFormGroup?.itemVariantName ?? data?.itemVariantName}`
+        `${clonedStockInFormGroup?.itemName ?? data?.itemName} - ${
+          clonedStockInFormGroup?.itemVariantName ?? data?.itemVariantName
+        }`
       );
     stockInFormGroup.get('trackingType')?.setValue(data?.trackingType);
     stockInFormGroup.get('stockInTracking')?.get('trackingType')?.setValue(data?.trackingType);
