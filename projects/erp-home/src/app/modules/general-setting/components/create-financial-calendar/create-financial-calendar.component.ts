@@ -59,12 +59,15 @@ export class CreateFinancialCalendarComponent implements OnInit {
     });
 
     this.formGroup.valueChanges.subscribe((res) => {
+      console.log(res);
+    
       if (res.toDate) {
-        this.maxDatefrom = new Date(res?.toDate);
-      } else if (res?.fromDate) {
-        this.minDateTo = new Date(res?.fromDate);
-        this.defaultDateTo = new Date(res?.fromDate?.getFullYear(), 11, 31);
-        this.formGroup.get('toDate')?.patchValue(this.defaultDateTo);
+        this.maxDatefrom = new Date(res.toDate); // Convert `toDate` to a Date object
+      } else if (res.fromDate) {
+        const fromDate = new Date(res.fromDate); // Convert `fromDate` to a Date object
+        this.minDateTo = fromDate;
+        this.defaultDateTo = new Date(fromDate.getFullYear(), 11, 31); // Set to December 31st of the same year
+        this.formGroup.get('toDate')?.patchValue(this.defaultDateTo, { emitEvent: false }); // Patch without triggering valueChanges again
       }
     });
 
@@ -142,7 +145,7 @@ export class CreateFinancialCalendarComponent implements OnInit {
   onGenerate() {
     let formValue = this.formGroup.value;
     if (formValue.fromDate && formValue.toDate) {
-      this.tableList = this.generateDateArray(formValue.fromDate, formValue.toDate);
+      this.tableList = this.generateDateArray(new Date(formValue.fromDate) , new Date(formValue.toDate) );
       this.tableData = this.tableList;
     }
   }
