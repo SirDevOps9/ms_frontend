@@ -19,7 +19,7 @@ import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'lib-data-table',
-  templateUrl: './data-table.component.html', 
+  templateUrl: './data-table.component.html',
   styleUrls: ['./data-table.component.scss'],
 })
 export class DataTableComponent implements OnInit, OnChanges {
@@ -64,6 +64,7 @@ export class DataTableComponent implements OnInit, OnChanges {
 
   filtered_columns: any[];
   clonedList: any[];
+  currentLang : any
 
   @ViewChild('customCellTemplate', { static: true })
   customCellTemplate?: TemplateRef<any>;
@@ -74,6 +75,8 @@ export class DataTableComponent implements OnInit, OnChanges {
   showColumnFilter: boolean
 
   ngOnInit(): void {
+    this.currentLang = this.languageService.getLang();
+
     this.isRtl = this.languageService.ar;
 
     this.filtered_columns = this.tableConfigs.columns
@@ -135,7 +138,7 @@ export class DataTableComponent implements OnInit, OnChanges {
   }
   ngOnChanges(changes: SimpleChanges): void {
     console.log(this.noColumnFilter ,"bool");
-    
+
     this.clonedTableConfigs = { ...this.tableConfigs };
   }
   routeToSequence() {

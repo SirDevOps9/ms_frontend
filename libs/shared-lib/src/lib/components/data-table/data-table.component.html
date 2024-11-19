@@ -1,6 +1,7 @@
-<div class="viewInWeb" [ngClass]="{ popup: popup }">
+<div class="viewInWeb" [ngClass]="{ popup: popup }" [ngClass]="{'en' : currentLang === 'en' , 'ar' : currentLang === 'ar'}">
   <div class="row">
-    <div>
+    <div class="data-table-wrapper" [dir]="isRtl ? 'rtl' : 'ltr'">
+
       <p-table
         *ngIf="items"
         [value]="items"
@@ -303,7 +304,7 @@
   </div>
 </div>
 
-<div class="viewInMob" *ngIf="false">
+<div class="viewInMob" *ngIf="false" [ngClass]="{'en' : currentLang === 'en' , 'ar' : currentLang === 'ar'}">
   <div class="row table__card__mob">
     <div
       *ngFor="let row of items; let i = index"

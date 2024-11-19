@@ -24,7 +24,7 @@
 }
 
 ::ng-deep .p-datatable .p-datatable-thead > tr > th {
-  text-align: start !important;
+  text-align:end!important;
   padding: 1rem 1rem;
   border: 1px solid #dde1e6;
   border-width: 0 0 1px 0;
@@ -33,7 +33,16 @@
   background: #f2f4f8;
   transition: box-shadow 0.2s;
 }
-
+::ng-deep .p-datatable .p-datatable-thead > tr > th> td {
+  text-align:start!important;
+  padding: 1rem 1rem;
+  border: 1px solid #dde1e6;
+  border-width: 0 0 1px 0;
+  font-weight: 700;
+  color: #2e2e2e;
+  background: #f2f4f8;
+  transition: box-shadow 0.2s;
+}
 .card-component h5 {
   color: #6258a6;
   margin-bottom: 0.5rem;
@@ -98,6 +107,7 @@ span {
   .p-datatable {
     .p-datatable-thead > tr > th {
       border-width: 1px !important;
+      text-align:-webkit-auto !important;
     }
     .p-datatable-header {
       background-color: transparent;
@@ -124,7 +134,7 @@ span {
         border-bottom: 1px solid #dde1e6;
         thead {
           th {
-            text-align: center;
+            text-align:-webkit-auto !important;
             font-size: 1rem;
             line-height: 1;
           }
@@ -255,7 +265,7 @@ span {
     height: fit-content;
     cursor: pointer;
   }
- 
+
 
 
 }
@@ -373,10 +383,10 @@ span {
 ::ng-deep.p-paginator .p-highlight {
   background-color: #1a90b0;
   color: #fff !important;
-} 
+}
 
 .rtl-position {
-  left:1px; 
+  left:1px;
 }
 
 .ltr-position {
@@ -397,24 +407,24 @@ span {
 @media (min-width: 576px) {
   .col-selection {
     position: absolute;
-    z-index: 33; 
+    z-index: 33;
 
-    top: 193px !important; 
+    top: 193px !important;
   }
 }
 
 @media (min-width: 768px) {
   .col-selection {
     position: absolute;
-    top: 190px !important;     z-index: 33; 
+    top: 190px !important;     z-index: 33;
 
   }
 }
 @media (min-width: 1024px) {
   .col-selection {
     position: absolute;
-    top: 122px !important;  
-       z-index: 33; 
+    top: 122px !important;
+       z-index: 33;
 
   }
 }
@@ -422,15 +432,15 @@ span {
   .col-selection {
     position: absolute;
     top: 70px !important;
-    z-index: 33; 
+    z-index: 33;
 
   }
 }
 @media (min-width: 1204px) {
   .col-selection {
     position: absolute;
-    top: 67px  !important;  
-z-index: 33; 
+    top: 67px  !important;
+z-index: 33;
 
   }
 }
@@ -441,4 +451,72 @@ z-index: 33;
 
 .d-nonee{
   display: none;
+}
+
+
+::ng-deep .p-datatable {
+  direction: var(--table-direction);
+}
+
+::ng-deep .p-datatable .p-datatable-thead > tr > th {
+  text-align: start !important; /* تعتمد على اتجاه النص */
+  padding: 1rem 1rem;
+  border: 1px solid #dde1e6;
+  border-width: 0 0 1px 0;
+  font-weight: 700;
+  color: #2e2e2e;
+  background: #f2f4f8;
+  transition: box-shadow 0.2s;
+}
+
+::ng-deep .p-datatable .p-datatable-tbody > tr > td {
+  text-align: start !important; /* تعتمد على اتجاه النص */
+  padding: 1rem 1rem;
+  border: 1px solid #dde1e6;
+  color: #2e2e2e;
+  background: #ffffff;
+}
+.p-datatable .p-datatable-thead > tr > th {
+  text-align: start !important;
+  padding: 1rem 1rem;
+  border: 1px solid #e5e7eb;
+  border-width: 0 0 1px 0;
+  font-weight: 700;
+  color: #374151;
+  background: #f9fafb;
+  transition: box-shadow 0.2s;
+}
+::ng-deep .p-datatable .p-datatable-thead > tr > th {
+  text-align: start !important; /* Adjusts alignment dynamically for LTR/RTL */
+  padding: 1rem 1rem; /* Uniform padding for headers */
+  border: 1px solid #e5e7eb; /* Light border color for a clean design */
+  border-width: 0 0 1px 0; /* Bottom border only */
+  font-weight: 700; /* Bold font for header text */
+  color: #374151; /* Neutral text color */
+  background: #f9fafb; /* Subtle background color */
+  transition: box-shadow 0.2s; /* Smooth shadow effect on interaction */
+}
+::ng-deep .en {
+  .p-datatable .p-datatable-thead > tr > th {
+    text-align: left !important; /* Adjusts alignment dynamically for LTR/RTL */
+    padding: 1rem 1rem; /* Uniform padding for headers */
+    border: 1px solid #e5e7eb; /* Light border color for a clean design */
+    border-width: 0 0 1px 0; /* Bottom border only */
+    font-weight: 700; /* Bold font for header text */
+    color: #374151; /* Neutral text color */
+    background: #f9fafb; /* Subtle background color */
+    transition: box-shadow 0.2s; /* Smooth shadow effect on interaction */
+  }
+}
+::ng-deep .ar {
+  .p-datatable .p-datatable-thead > tr > th {
+    text-align: right !important; /* Adjusts alignment dynamically for LTR/RTL */
+    padding: 1rem 1rem; /* Uniform padding for headers */
+    border: 1px solid #e5e7eb; /* Light border color for a clean design */
+    border-width: 0 0 1px 0; /* Bottom border only */
+    font-weight: 700; /* Bold font for header text */
+    color: #374151; /* Neutral text color */
+    background: #f9fafb; /* Subtle background color */
+    transition: box-shadow 0.2s; /* Smooth shadow effect on interaction */
+  }
 }
