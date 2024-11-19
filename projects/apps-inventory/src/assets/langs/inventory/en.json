@@ -17,7 +17,14 @@
    "UnitOfMeasure" : "Unit Of Measure",
    "addUom" : "Add UOM",
    "EditUom" : "Edit UOM",
-   "uomList" : "UOM"
+   "uomList" : "UOM",
+   "edit": "Edit",
+    "editstockout":"Edit Stock Out",
+    "edit_stockOut": "Edit StockOut",
+    "EditItembarfixedcostfinition":"Edit Item fixed cost",
+    "stockInView":"Stock In View",
+    "stockOutView":"Stock Out View",
+    "stockIn":"Stock In List"
   },
   "Toaster": {
     "Confirm": {
