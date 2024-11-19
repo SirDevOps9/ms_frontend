@@ -3,11 +3,12 @@ import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { AuthService } from 'microtec-auth-lib';
 import { DialogService } from 'primeng/dynamicdialog';
-import { customValidators, FormsService, LanguageService, lookupDto, LookupEnum, LookupsService, MenuModule, PageInfo, PageInfoResult, RouterService, ToasterService } from 'shared-lib';
+import { customValidators, FormsService, LanguageService, LoaderService, lookupDto, LookupEnum, LookupsService, MenuModule, PageInfo, PageInfoResult, RouterService, ToasterService } from 'shared-lib';
 import { ItemsService } from '../../../items.service';
 import { AddStockOutDto, GetWarehouseList, OperationalStockIn } from '../../../models';
 import { SharedStock } from '../../../models/sharedStockOutEnums';
 import { SearchItemPopUpComponent } from '../../../components/stock-out/search-item-pop-up/search-item-pop-up.component';
+import { ItemsProxyService } from '../../../items-proxy.service';
 
 @Component({
   selector: 'app-add-stock-out',
@@ -19,7 +20,8 @@ export class AddStockOutComponent implements OnInit{
   LookupEnum=LookupEnum;
   selectedLanguage: string
  rowDuplicate :number=-1;
-duplicateLine :boolean;
+  duplicateLine :boolean;
+  serialError :boolean;
   tableData: any[];
   lookups: { [key: string]: lookupDto[] };
 
@@ -204,19 +206,78 @@ loadLookups(){
       this.setExpiryDate(indexLine , selectedItem.batches , selectedItem.serialOptions )      
       this.isDuplicate(indexLine)
     }
+    // isDuplicate(rowIndex:number){
+    //   const rowForm = this.stockOutDetailsFormArray.at(rowIndex) as FormGroup;
+
+    //   this.stockOutDetailsFormArray.controls.some((element: any, index: number) => {
+    //     if (index !== rowIndex) {
+    //       const { uomId, itemId, trackingNo } = element.value;
+
+    //       const rowUomId = rowForm.get('uomId')?.value;
+    //       const rowItemId = rowForm.get('itemId')?.value;
+    //       const rowItemtrackingNo = rowForm.get('trackingNo')?.value;
+
+
+    //       if (uomId === rowUomId && itemId === rowItemId && trackingNo === rowItemtrackingNo) {
+    //         this.toasterService.showError(
+    //           this.languageService.transalte('messages.error'),
+    //           this.languageService.transalte('messages.duplicateItem')
+    //         );
+    //         this.rowDuplicate = rowIndex;
+    //         this.duplicateLine = true;
+    //         return true; // Stop checking on first match
+    //       }
+    //       this.rowDuplicate = -1;
+
+    //       this.duplicateLine = false;
+
+    //       return false;
+    //     }
+    //     this.rowDuplicate = -1;
+
+    //     this.duplicateLine = false;
+
+    //     return false;
+    //   }
+    // )
+    // }
     isDuplicate(rowIndex:number){
       const rowForm = this.stockOutDetailsFormArray.at(rowIndex) as FormGroup;
 
       this.stockOutDetailsFormArray.controls.some((element: any, index: number) => {
+        if(rowForm.get('showSerial')?.value==true){
+
+        const quantity = rowForm.get('quantity')?.value;
+
+          if( quantity > 1){
+            
+            this.toasterService.showError(
+              this.languageService.transalte('messages.error'),
+              this.languageService.transalte('messages.serialError')
+            );
+            this.rowDuplicate = rowIndex;
+            this.serialError = true;
+            this.duplicateLine = true;
+            
+            return true; // Stop checking on first match
+          }else{
+            this.serialError = false;
+            this.rowDuplicate = -1;
+
+
+          }
+        }
         if (index !== rowIndex) {
+          if(rowForm.get('showSerial')?.value==true && this.serialError == false ){
+
           const { uomId, itemId, trackingNo } = element.value;
 
           const rowUomId = rowForm.get('uomId')?.value;
           const rowItemId = rowForm.get('itemId')?.value;
           const rowItemtrackingNo = rowForm.get('trackingNo')?.value;
+          
 
-
-          if (uomId === rowUomId && itemId === rowItemId && trackingNo === rowItemtrackingNo) {
+          if (uomId === rowUomId && itemId === rowItemId && trackingNo === rowItemtrackingNo ) {
             this.toasterService.showError(
               this.languageService.transalte('messages.error'),
               this.languageService.transalte('messages.duplicateItem')
@@ -225,6 +286,7 @@ loadLookups(){
             this.duplicateLine = true;
             return true; // Stop checking on first match
           }
+        
           this.rowDuplicate = -1;
 
           this.duplicateLine = false;
@@ -237,16 +299,11 @@ loadLookups(){
 
         return false;
       }
+      }
     )
     }
     setRowDataFromPopup(indexLine: number, selectedItem: any) {
       const rowForm = this.stockOutDetailsFormArray.at(indexLine) as FormGroup;
-
-     
-
-    
-
-      // Ensure row form controls are present before updating
       if (rowForm) {
         rowForm.patchValue({
           barCode: selectedItem.barCode ,
@@ -311,9 +368,74 @@ loadLookups(){
       this.setExpiryDate(indexLine , selectedItem.batches , selectedItem.serialOptions )
       this.isDuplicate(indexLine)
     }
+    setRowDataFromBarCode(indexLine: number, selectedItem: any) {
+      const rowForm = this.stockOutDetailsFormArray.at(indexLine) as FormGroup;
+      if (rowForm) {
+        rowForm.patchValue({
+          barCode: selectedItem.barcode ,
+          bardCodeId: selectedItem.barcodeId ,
+          itemId: selectedItem.itemId,
+          itemVariantId: selectedItem.itemVariantId ,
+          uomId: selectedItem.uomId ,
+          uomOptions: selectedItem.itemsUOM ,
+          description: selectedItem.itemName+"-" +selectedItem.itemVariantNameEn ,
+          AllTotalQuantity: selectedItem.totalQuantity ,
+          cost: selectedItem.cost ,
+          subCost: selectedItem.subCost ,
+          notes: selectedItem.notes ,
+          stockOutEntryMode: selectedItem.stockOutEntryMode ,
+          trackingType: selectedItem.trackingType ,
+          trackingNo: selectedItem.trackingNo || '',
+          hasExpiryDate: selectedItem.hasExpiryDate ,
+          expireDate: selectedItem.expireDate ,
+          availability: selectedItem.availability 
+        });
 
+        // Handle the nested form group
+        const stockOutTrackingGroup = rowForm.get('stockOutTracking') as FormGroup;
+        if (stockOutTrackingGroup) {
+          stockOutTrackingGroup.patchValue({
+            batchNo: selectedItem.stockOutTracking?.batchNo || '',
+            expireDate: selectedItem.stockOutTracking?.expireDate ||null,
+            quantity: selectedItem.stockOutTracking?.quantity || '',
+            serialId: selectedItem.stockOutTracking?.serialId || '',
+            trackingType: selectedItem.stockOutTracking?.trackingType || '',
+            hasExpiryDate: selectedItem.hasExpiryDate ,
+            serialOptions: selectedItem.serials,
+            batchesOptions: selectedItem.batches
+          });
+        } else {
+          console.error('StockOutTracking form group is missing');
+        }
+      }
+      if(selectedItem){
+        if(selectedItem.hasExpiryDate){
+          if(selectedItem.trackingType==this.sharedFinanceEnums.StockOutTracking.NoTracking){
+            rowForm.get('showSerial')?.setValue(false);
+            rowForm.get('showBatch')?.setValue(true);
+          }
+          else if(selectedItem.trackingType==this.sharedFinanceEnums.StockOutTracking.Serial){
+            rowForm.get('showSerial')?.setValue(true);
+            rowForm.get('showBatch')?.setValue(false);
+          }
+          else if(selectedItem.trackingType==this.sharedFinanceEnums.StockOutTracking.Batch){
+            rowForm.get('showSerial')?.setValue(false);
+            rowForm.get('showBatch')?.setValue(true);
+          }
+        }else{
+          if(selectedItem.trackingType==this.sharedFinanceEnums.StockOutTracking.NoTracking){
+            rowForm.get('showSerial')?.setValue(false);
+            rowForm.get('showBatch')?.setValue(false);
+          }
+        }
+      }
+      rowForm.get('itemName')?.setValue(selectedItem.itemCode + "-" + selectedItem.itemName + "-" +selectedItem.itemVariantNameAr )
+      this.setUomName(indexLine , rowForm.get('uomOptions')?.value )
+      this.setExpiryDate(indexLine , selectedItem.batches , selectedItem.serialOptions )
+      this.isDuplicate(indexLine)
+    }
   addNewRow() {
-    if(!this.duplicateLine){
+    if(!this.duplicateLine ){
        if (!this.formsService.validForm(this.addForm, false)) return;
        this.getLatestItemsList(this.addForm.get('warehouseId')?.value)
 
@@ -329,7 +451,7 @@ loadLookups(){
           uomOptions: new FormControl(),
           uomName: new FormControl(''),
           description: new FormControl(''),
-          quantity: new FormControl('',[customValidators.required]),
+          quantity: new FormControl('',[customValidators.required ,customValidators.nonZero]),
           cost: new FormControl('',[customValidators.required]),
           subCost: new FormControl(''),
           notes: new FormControl(''),
@@ -483,14 +605,29 @@ loadLookups(){
       }
     });
   }
-  barcodeCanged(e: any , index:number) {
-    
-    this.itemsService.getItemBarcodeForItem(e );
-    this.itemsService.sendItemBarcode$.subscribe((data) => {
-      if (data) {
-       this.setRowDataFromPopup(index ,data ) 
-      }
-    });
+  barcodeCanged(e: any , index:number) {   
+    this.loaderService.show();
+
+    this.itemsService.getItemByBarcodeStockOutQuery(e.target.value, this.addForm.get('warehouseId')?.value).subscribe({
+      next: (res) => {
+        this.loaderService.hide();
+
+        this.setRowDataFromBarCode(index ,res ) 
+
+
+      },
+      error: (err) => {
+        this.loaderService.hide();
+
+        const rowForm = this.stockOutDetailsFormArray.at(index) as FormGroup;
+        rowForm.reset();
+        this.toasterService.showError(
+          this.languageService.transalte('messages.Error'),
+          this.languageService.transalte('messages.noBarcode')
+        );
+      },
+    })
+  
   }
   constructor(
     private routerService: RouterService,
@@ -504,6 +641,8 @@ loadLookups(){
     private formsService: FormsService,
     public sharedFinanceEnums: SharedStock,
     private toasterService: ToasterService,
+    private loaderService: LoaderService,
+
 
 
 

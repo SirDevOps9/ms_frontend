@@ -101,6 +101,7 @@
               <ng-template pTemplate="input">
                 <lib-text-input placeholder="{{ 'stockOut.barcode' | translate }}"
                   formControlName="barCode"
+                  (keydown.enter)="barcodeCanged($event, rowIndex)"
                   ></lib-text-input>
                   <!-- (keyUp)="barcodeCanged($event ,rowIndex)" -->
               </ng-template>
@@ -175,13 +176,16 @@
             <lib-field-validations [appControl]="stockOutFormGroup.controls['uomId']"></lib-field-validations>
           </td>
 
-          <td [pEditableColumn]="stockOutFormGroup.controls['quantity']" pEditableColumnField="quantity">
+          <td [pEditableColumn]="stockOutFormGroup.controls['quantity']" pEditableColumnField="quantity"
+          [ngClass]=" {'error':rowIndex==rowDuplicate && serialError==true && stockOutFormGroup.controls['showSerial']?.value ==true && stockOutFormGroup.controls['quantity']?.value>1}"
+
+          >
             <p-cellEditor>
               <ng-template pTemplate="input">
                 <lib-text-input 
                 type="number"
                 placeholder="{{ 'stockOut.QTY' | translate }}"
-                  formControlName="quantity" (keyUp)="setCostTotal(rowIndex, $event)"></lib-text-input>
+                  formControlName="quantity" (keyUp)="setCostTotal(rowIndex, $event) ; "  (valueChanged)="isDuplicate(rowIndex)"></lib-text-input>
               </ng-template>
               <ng-template pTemplate="output">
                 {{ stockOutFormGroup.controls['quantity']?.value }}
@@ -248,7 +252,7 @@
             pEditableColumnField="serialId"
             
            *ngIf=" stockOutFormGroup.controls['showSerial']?.value "
-           [ngClass]=" {'error':rowIndex==rowDuplicate && stockOutFormGroup.controls['showSerial']?.value  }"
+           [ngClass]=" {'error':rowIndex==rowDuplicate && stockOutFormGroup.controls['showSerial']?.value  &&serialError ==false }"
 
             >
             <p-cellEditor>

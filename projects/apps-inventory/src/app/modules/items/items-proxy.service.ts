@@ -645,7 +645,7 @@ export class ItemsProxyService {
   getStockInById(id: number) {
     return this.httpService.get(`StockIn/${id}`);
   }
-  editStockOut(obj: StockOutDto) {
+  editStockOut(obj: any) {
     return this.httpService.put(`StockOut`, obj);
   }
 
@@ -692,5 +692,12 @@ export class ItemsProxyService {
     }
     return this.httpService.get<PaginationVm<AdvancedSearchDto>>(query);
   }
+  GetItemByBarcodeStockOutQuery(barcode: string , warehouseId:number): Observable<any> {
+    return this.httpService.get(`Item/GetItemByBarcodeStockOutQuery?Barcode=${barcode}&WarehouseId=${warehouseId}`);
+  }
+  deleteRowStockOut(id : number ){
+    return this.httpService.delete(`StockOut/DeleteLine/${id}`)
+  }
+
 }
 

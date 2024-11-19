@@ -219,6 +219,7 @@ export class ItemsService {
   sendCitiesLookup = new BehaviorSubject<any>([]);
   sendCountriesLookup = new BehaviorSubject<any>([]);
   sendItemBarcode = new BehaviorSubject<StockInDetail>({} as StockInDetail);
+  public sendItemBarcodeStockOut = new BehaviorSubject<any>({} as any);
 
   // sendCashSalesLookup = new BehaviorSubject<any>([]);
   // sendLookup = new BehaviorSubject<any>([]);
@@ -338,6 +339,7 @@ export class ItemsService {
   public getInventoryData$ = this.getInventoryData.asObservable();
   public dataBarCodeByIdObs = this.dataBarCodeById.asObservable();
   public sendItemBarcode$ = this.sendItemBarcode.asObservable();
+  public sendItemBarcodeStockOut$ = this.sendItemBarcodeStockOut.asObservable();
   
   
 public sendOperationalTagStockOutDropDown = new BehaviorSubject<{ id: number; name: string }[]>([]);
@@ -1523,15 +1525,25 @@ public OperationalTagStockOut$ = this.sendOperationalTagStockOutDropDown.asObser
     });
   }
 
-  editStockOut(obj: StockOutDto) {
+  editStockOut(obj: any) {
     this.itemProxy.editStockOut(obj).subscribe({
       next: (res: any) => {
         this.editstockInDataSource.next(res);
         this.toasterService.showSuccess(
-          this.languageService.transalte('stockOut.success'),
-          this.languageService.transalte('itemsCategory.edits')
+          this.languageService.transalte('messages.success'),
+          this.languageService.transalte('messages.successfully')
         );
+        this.router.navigateTo('transactions/stock-out');
+
       },
+      error: (err) => {
+        this.toasterService.showError(
+          this.languageService.transalte('messages.error'),
+          this.languageService.transalte('messages.noItemSelected')
+        );
+        this.loaderService.hide();
+      },
+
     });
   }
 
@@ -1663,4 +1675,37 @@ exportStockOutList(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
   //     }
   //   });
   // }
+
+  getItemByBarcodeStockOutQuery(barcode : string , warehouseId:number) {
+
+    return this.itemProxy.GetItemByBarcodeStockOutQuery(barcode ,warehouseId).pipe(
+      map((res) => {
+        return res;
+      })
+    );
+    
+    
+  }
+   deleteRowStockOut(id: number) {
+    // const confirmed = await this.toasterService.showConfirm(
+    //   this.languageService.transalte('ConfirmButtonTexttodelete')
+    // );
+    // if (confirmed) {
+    //   this.itemProxy.deleteRowStockOut(id).subscribe({
+    //     next: (res) => {
+    //       this.toasterService.showSuccess(
+    //         this.languageService.transalte('transactions.success'),
+    //         this.languageService.transalte('transactions.deleteStockOut')
+    //       );
+
+    //     },
+    //   });
+    // }
+      return  this.itemProxy.deleteRowStockOut(id).pipe(
+          map((res) => {
+            return res;
+          })
+        )
+
+  }
 }

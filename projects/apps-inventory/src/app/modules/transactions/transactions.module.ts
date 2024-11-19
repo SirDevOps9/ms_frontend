@@ -92,7 +92,8 @@ const routes: Routes = [
             path: 'edit/:id',
             component: EditStockOutComponent,
             data: {
-            //  breadcrumb: BreadcrumbLabel.EDIT_STOCKOUT,
+              breadcrumb: BreadcrumbLabel.EDIT_STOCKOUT,
+              pageTitle: BreadcrumbLabel.TITLE_EDIT_STOCKOUT,
             },
           },
           {

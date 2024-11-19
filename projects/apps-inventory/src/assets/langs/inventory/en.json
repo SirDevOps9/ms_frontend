@@ -5,13 +5,17 @@
     "noItemSelected": "No item selected for editing.",
     "noItemsToAdd": "No items to add",
     "successfully": "Operation completed successfully.",
-    "duplicateItem": "There is a duplicated item."
+    "duplicateItem": "There is a duplicated item.",
+    "serialError": "Can't add more than one item with the same serial.",
+    "noBarcode": "This barcode does not exist."
 },
   "BreadCrumb": {
     "ItemsCategory": "Items Category",
     "stockout": "Stock Out",
     "add": "Add",
-    "add_stockOut": "Add StockOut"
+    "edit": "Edit",
+    "add_stockOut": "Add StockOut",
+    "edit_stockOut": "Edit StockOut"
   },
   "Toaster": {
     "Confirm": {

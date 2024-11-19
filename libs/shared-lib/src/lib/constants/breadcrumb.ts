@@ -122,7 +122,9 @@ export class BreadcrumbLabel {
   static EDIT_STOCKIN = 'stockIn.edit_stock_in';
   static readonly STOCKOUT = 'BreadCrumb.stockout';
   static readonly ADD_STOCKOUT = 'BreadCrumb.add';
+  static readonly EDIT_STOCKOUT = 'BreadCrumb.edit';
   static readonly TITLE_ADD_STOCKOUT = 'BreadCrumb.add_stockOut';
+  static readonly TITLE_EDIT_STOCKOUT = 'BreadCrumb.edit_stockOut';
 
   static COST_CENTER = 'Cost Center';
   static PAYMENT_TERM_ADD = 'BreadCrumb.AddPaymentterm';
