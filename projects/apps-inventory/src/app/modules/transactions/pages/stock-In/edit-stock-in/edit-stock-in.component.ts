@@ -370,6 +370,7 @@ export class EditStockInComponent implements OnInit {
 
   setTracking(setTracking: FormGroup) {
     let patchedValue = setTracking.value.stockInTracking;
+    debugger;
 
     const dialogRef = this.dialog.open(TrackingStockInComponent, {
       width: '60%',
@@ -378,6 +379,7 @@ export class EditStockInComponent implements OnInit {
         id: patchedValue.id ?? 0,
         trackingType: patchedValue.trackingType,
         expiry: setTracking.value.hasExpiryDate,
+        expireDate: patchedValue.expireDate,
         systemPatchNo: patchedValue.systemPatchNo,
         serialId: patchedValue.serialId,
         vendorBatchNo: patchedValue.vendorBatchNo,
