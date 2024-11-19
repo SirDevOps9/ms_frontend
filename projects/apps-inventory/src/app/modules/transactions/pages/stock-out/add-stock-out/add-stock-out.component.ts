@@ -1,15 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Title } from '@angular/platform-browser';
 import { AuthService } from 'microtec-auth-lib';
 import { DialogService } from 'primeng/dynamicdialog';
 import { customValidators, FormsService, LanguageService, LoaderService, lookupDto, LookupEnum, LookupsService, MenuModule, PageInfo, PageInfoResult, RouterService, ToasterService } from 'shared-lib';
-import { ItemsService } from '../../../items.service';
 import { AddStockOutDto, GetWarehouseList, OperationalStockIn } from '../../../models';
 import { SharedStock } from '../../../models/sharedStockOutEnums';
+import { TransactionsService } from '../../../transactions.service';
 import { SearchItemPopUpComponent } from '../../../components/stock-out/search-item-pop-up/search-item-pop-up.component';
-import { ItemsProxyService } from '../../../items-proxy.service';
-import { TransactionsService } from '../../../../transactions/transactions.service';
+
 
 @Component({
   selector: 'app-add-stock-out',
@@ -106,8 +104,8 @@ export class AddStockOutComponent implements OnInit {
       let sourceDocumentTypeData = data.find(elem => elem.id == res)
       if (sourceDocumentTypeData?.name == 'OperationalTag') {
 
-        this.itemsService.OperationalTagDropDown()
-        this.itemsService.sendOperationalTagDropDown$.subscribe(res => {
+        this.itemsService.operationTagStockOutDropdown()
+        this.itemsService.perationalTagStockOutDropDown$.subscribe(res => {
           this.oprationalLookup = res.map((elem: any) => ({
             ...elem,
             displayName: `${elem.name} (${elem.code})`,
@@ -551,7 +549,7 @@ onSave() {
   }
   initWareHouseLookupData() {
     this.itemsService.getWareHousesDropDown()
-    this.itemsService.wareHousesDropDownLookup$.subscribe(res => {
+    this.itemsService.wareHousesDropDownLookup$.subscribe((res:any) => {
       this.warhouseLookupData = res
     })
   }
@@ -615,14 +613,14 @@ onSave() {
     this.loaderService.show();
 
     this.itemsService.getItemByBarcodeStockOutQuery(e.target.value, this.addForm.get('warehouseId')?.value).subscribe({
-      next: (res) => {
+      next: (res:any) => {
         this.loaderService.hide();
 
         this.setRowDataFromBarCode(index, res)
 
 
       },
-      error: (err) => {
+      error: (err:any) => {
         this.loaderService.hide();
 
         const rowForm = this.stockOutDetailsFormArray.at(index) as FormGroup;

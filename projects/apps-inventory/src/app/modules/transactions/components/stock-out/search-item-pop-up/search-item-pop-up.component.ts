@@ -3,7 +3,7 @@ import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ItemDto, SharedSalesEnums } from 'projects/apps-sales/src/app/modules/sales/models';
 import { LanguageService, PageInfo, PageInfoResult } from 'shared-lib';
-import { ItemsService } from '../../../items.service';
+import { TransactionsService } from '../../../transactions.service';
 
 @Component({
   selector: 'app-search-item-pop-up',
@@ -28,7 +28,7 @@ export class SearchItemPopUpComponent {
     public sharedEnums: SharedSalesEnums,
     private ref: DynamicDialogRef,
     private fb: FormBuilder,
-    private itemsService: ItemsService,
+    private itemsService: TransactionsService,
     public config: DynamicDialogConfig,
     private languageService:LanguageService
 
@@ -39,9 +39,12 @@ export class SearchItemPopUpComponent {
     if (this.config.data) {
     this.warehouseId = this.config.data
     }
-    this.subscribes();
+    this.initItemsData();
     this.filterForm.valueChanges.subscribe(() => {
+      this.onFilterChange();
     });
+    this.subscribes();
+
   }
 
   subscribes() {
@@ -61,10 +64,14 @@ export class SearchItemPopUpComponent {
     });
   }
 
-
+  initItemsData() {
+    this.itemsService.getItemsStockOutByWarehouse('', '', this.warehouseId, new PageInfo());
+  }
   
 
-
+  onPageChange(pageInfo: PageInfo) {
+    this.itemsService.getItemsStockOutByWarehouse('', '', this.warehouseId, pageInfo);
+  }
 
   onSubmit() {
     this.ref.close(this.selectedRows);
@@ -84,7 +91,13 @@ export class SearchItemPopUpComponent {
     this.ref.close();
   }
 
-
+  onFilterChange() {
+    const query = this.buildQuery();
+    this.itemsService.getItemsStockOutByWarehouse(query, '',this.warehouseId, new PageInfo());
+  }
+  onSearchChange(event: any) {
+    this.itemsService.getItemsStockOutByWarehouse('', event,this.warehouseId, new PageInfo());
+  }
 
   buildQuery(): string {
     const isStorable = this.filterForm.get('categoryType')?.value!;

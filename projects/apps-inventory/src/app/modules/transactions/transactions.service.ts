@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, firstValueFrom } from 'rxjs';
+import { BehaviorSubject, firstValueFrom, map } from 'rxjs';
 
 import {
   ToasterService,
@@ -19,6 +19,8 @@ import {
   LatestItems,
   GetWarehouseList,
   StockOutDto,
+  AdvancedSearchDto,
+  AddStockOutDto,
 } from './models';
 
 @Injectable({
@@ -51,6 +53,16 @@ export class TransactionsService {
   public wareHousesDropDownLookup$ = this.wareHousesDropDownLookup.asObservable();
 
   stockInByIdData$ = this.stockInByIdData.asObservable();
+  /////////////stock out ///////
+  public latestItemsListByWarehouse= new BehaviorSubject<LatestItems[]>([]);
+  public latestItemsListByWarehouse$ = this.latestItemsListByWarehouse.asObservable();
+  private itemsDataSourceByWarehouse = new BehaviorSubject<AdvancedSearchDto[]>([]);
+  public itemsListByWarehouse = this.itemsDataSourceByWarehouse.asObservable();
+  public stockOutByIdDataSource = new BehaviorSubject<StockOutDto[]>([]);
+  public stockOutByIdDataSourceeObservable = this.stockOutByIdDataSource.asObservable();
+  public perationalTagStockOutDropDown = new BehaviorSubject<OperationalStockIn[]>([]);
+  public perationalTagStockOutDropDown$ = this.perationalTagStockOutDropDown.asObservable();
+
 
   constructor(
     private toasterService: ToasterService,
@@ -220,4 +232,90 @@ export class TransactionsService {
       this.wareHousesDropDownLookup.next(res);
     });
   }
+  ////////////////////stock out/////////////
+  operationTagStockOutDropdown() {
+    return this.transactionsProxy.operationTagStockOutDropdown().subscribe({
+      next: (res) => {
+        this.perationalTagStockOutDropDown.next(res);
+      },
+      error: (err) => {
+        return;
+      },
+    });
+  }
+  getLatestItemsListByWarehouse(SearchTerm:string , id:number){
+    return this.transactionsProxy.getLatestItemsListByWarehouse(SearchTerm,id).subscribe(res=>{
+      this.latestItemsListByWarehouse.next(res)
+    })
+  }
+  getItemsStockOutByWarehouse(queries: string, searchTerm: string, id: number, pageInfo: PageInfo) {
+    this.transactionsProxy.getItemsStockOut(queries, searchTerm, id, pageInfo).subscribe((res:any) => {
+      this.itemsDataSourceByWarehouse.next(res);
+    });
+  }
+  
+  addStockOut(obj: AddStockOutDto,stockinForm : FormGroup) {
+    this.loaderService.show();
+
+    this.transactionsProxy.addStockOut(obj).subscribe({
+      next: (res:any) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('stockIn.success'),
+          this.languageService.transalte('stockIn.stockAdded')
+        );
+        this.loaderService.hide();
+        this.router.navigateTo('transactions/stock-out');
+      },
+      error: (err:any) => {
+        
+        this.formsService.setFormValidationErrors(stockinForm, err);
+        this.loaderService.hide();
+      },
+    });
+ 
+  }
+  getItemByBarcodeStockOutQuery(barcode : string , warehouseId:number) {
+
+    return this.transactionsProxy.GetItemByBarcodeStockOutQuery(barcode ,warehouseId).pipe(
+      map((res) => {
+        return res;
+      })
+    );
+    
+    
+  }
+  getStockOutById(id: number) {
+    this.transactionsProxy.getByIdStockOut(id).subscribe((response: any) => {
+      this.stockOutByIdDataSource.next(response);
+    });
+  }
+  editStockOut(obj: any) {
+    this.transactionsProxy.editStockOut(obj).subscribe({
+      next: (res: any) => {
+        this.editstockInDataSource.next(res);
+        this.toasterService.showSuccess(
+          this.languageService.transalte('messages.success'),
+          this.languageService.transalte('messages.successfully')
+        );
+        this.router.navigateTo('transactions/stock-out');
+
+      },
+      error: (err:any) => {
+        this.toasterService.showError(
+          this.languageService.transalte('messages.error'),
+          this.languageService.transalte('messages.noItemSelected')
+        );
+        this.loaderService.hide();
+      },
+
+    });
+  }
+  deleteRowStockOut(id: number) {
+    return  this.transactionsProxy.deleteRowStockOut(id).pipe(
+        map((res) => {
+          return res;
+        })
+      )
+
+}
 }

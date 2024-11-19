@@ -1461,34 +1461,10 @@ public OperationalTagStockOut$ = this.sendOperationalTagStockOutDropDown.asObser
     });
   }
 
-  getStockOutById(id: number) {
-    this.itemProxy.getByIdStockOut(id).subscribe((response: any) => {
-      this.stockOutByIdDataSource.next(response);
-    });
-  }
+
  
 
-  editStockOut(obj: any) {
-    this.itemProxy.editStockOut(obj).subscribe({
-      next: (res: any) => {
-        this.editstockInDataSource.next(res);
-        this.toasterService.showSuccess(
-          this.languageService.transalte('messages.success'),
-          this.languageService.transalte('messages.successfully')
-        );
-        this.router.navigateTo('transactions/stock-out');
-
-      },
-      error: (err) => {
-        this.toasterService.showError(
-          this.languageService.transalte('messages.error'),
-          this.languageService.transalte('messages.noItemSelected')
-        );
-        this.loaderService.hide();
-      },
-
-    });
-  }
+  
 
 
 exportStockOutList(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
@@ -1514,55 +1490,15 @@ exportStockOutList(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
   }
 
 
-  addStockOut(obj: AddStockOutDto,stockinForm : FormGroup) {
-    this.loaderService.show();
-
-    this.itemProxy.addStockOut(obj).subscribe({
-      next: (res) => {
-        this.toasterService.showSuccess(
-          this.languageService.transalte('stockIn.success'),
-          this.languageService.transalte('stockIn.stockAdded')
-        );
-        this.loaderService.hide();
-        this.router.navigateTo('transactions/stock-out');
-      },
-      error: (err) => {
-        
-        this.formsService.setFormValidationErrors(stockinForm, err);
-        this.loaderService.hide();
-      },
-    });
  
-  }
   getLatestItemsListByWarehouse(SearchTerm:string , id:number){
     return this.itemProxy.getLatestItemsListByWarehouse(SearchTerm,id).subscribe(res=>{
       this.latestItemsListByWarehouse.next(res)
     })
   }
 
-  getItemsStockOutByWarehouse(queries: string, searchTerm: string, id: number, pageInfo: PageInfo) {
-    this.itemProxy.getItemsStockOut(queries, searchTerm, id, pageInfo).subscribe((res:any) => {
-      this.itemsDataSourceByWarehouse.next(res);
-    });
-  }
 
 
-  getItemByBarcodeStockOutQuery(barcode : string , warehouseId:number) {
 
-    return this.itemProxy.GetItemByBarcodeStockOutQuery(barcode ,warehouseId).pipe(
-      map((res) => {
-        return res;
-      })
-    );
-    
-    
-  }
-   deleteRowStockOut(id: number) {
-      return  this.itemProxy.deleteRowStockOut(id).pipe(
-          map((res) => {
-            return res;
-          })
-        )
-
-  }
+ 
 }

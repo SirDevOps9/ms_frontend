@@ -1,30 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Title } from '@angular/platform-browser';
 import { AuthService } from 'microtec-auth-lib';
 import { DialogService } from 'primeng/dynamicdialog';
 import { customValidators, FormsService, LanguageService, LoaderService, lookupDto, LookupEnum, LookupsService, MenuModule, PageInfo, PageInfoResult, RouterService, ToasterService } from 'shared-lib';
-import { ItemsService } from '../../../items.service';
 import { AddStockOutDto, GetWarehouseList, OperationalStockIn } from '../../../models';
 import { SharedStock } from '../../../models/sharedStockOutEnums';
+import { ActivatedRoute } from '@angular/router';
+import { ItemsService } from '../../../../items/items.service';
+import { TransactionsService } from '../../../transactions.service';
 import { SearchItemPopUpComponent } from '../../../components/stock-out/search-item-pop-up/search-item-pop-up.component';
-import { ItemsProxyService } from '../../../items-proxy.service';
-import { TransactionsService } from '../../../../transactions/transactions.service';
 
 @Component({
-  selector: 'app-add-stock-out',
-  templateUrl: './add-stock-out.component.html',
-  styleUrl: './add-stock-out.component.scss'
+  selector: 'app-edit-stock-out',
+  templateUrl: './edit-stock-out.component.html',
+  styleUrl: './edit-stock-out.component.scss',
 })
-export class AddStockOutComponent implements OnInit {
-  isSaving: boolean = false;
-
+export class EditStockOutComponent implements OnInit {
   stockInForm: FormGroup = new FormGroup({});
   LookupEnum = LookupEnum;
   selectedLanguage: string
   rowDuplicate: number = -1;
   duplicateLine: boolean;
   serialError: boolean;
+
   tableData: any[];
   lookups: { [key: string]: lookupDto[] };
 
@@ -40,18 +38,52 @@ export class AddStockOutComponent implements OnInit {
   modulelist: MenuModule[];
   searchTerm: string;
   addForm: FormGroup = new FormGroup({});
-
+  itemId: number
 
   ngOnInit(): void {
+    this.itemId = this.route.snapshot.params['id'];
     this.loadLookups();
 
     this.initWareHouseLookupData()
     this.initializeForm();
     this.subscribe();
+    this.getStockOutyId(this.itemId)
   }
+  getStockOutyId(id: number) {
+    this.itemsService.getStockOutById(id);
+    this.itemsService.stockOutByIdDataSourceeObservable.subscribe((data: any) => {
+      this.patchForm(data)
+
+    })
+  }
+  patchForm(data: any): void {
+    // Patch main form fields
+    this.addForm.patchValue({
+      id: data.id,
+      code: data.code,
+      receiptDate: data.receiptDate,
+      sourceDocumentType: data.sourceDocumentType,
+      sourceDocumentId: data.sourceDocumentId,
+      warehouseId: data.warehouseId,
+      stockOutStatus: data.stockOutStatus,
+      notes: data.notes
+    });
+
+    // Clear existing form array
+    const stockOutDetailsFormArray = this.addForm.get('stockOutDetails') as FormArray;
+    stockOutDetailsFormArray.clear();
+
+    // Patch stockOutDetails array
+    data?.stockOutDetails?.forEach((detail: any, index: number) => {
+      this.addNewRowWithOutItem()
+      this.setRowDataById(index, detail)
+    });
+  }
+
   initializeForm() {
     this.addForm = this.fb.group({
 
+      id: new FormControl(''),
       code: new FormControl(''),
       receiptDate: new FormControl(new Date(), [customValidators.required]),
       sourceDocumentType: new FormControl('', [customValidators.required]),
@@ -59,6 +91,7 @@ export class AddStockOutComponent implements OnInit {
       warehouseId: new FormControl('', [customValidators.required]),
       warehouseName: new FormControl(''),
       notes: new FormControl(''),
+      stockOutStatus: new FormControl(''),
       stockOutDetails: this.fb.array([]),
 
     });
@@ -103,11 +136,11 @@ export class AddStockOutComponent implements OnInit {
     });
     this.addForm.get('sourceDocumentType')?.valueChanges.subscribe(res => {
       let data = this.lookups[LookupEnum.StockInOutSourceDocumentType]
-      let sourceDocumentTypeData = data.find(elem => elem.id == res)
+      let sourceDocumentTypeData = data?.find(elem => elem.id == res)
       if (sourceDocumentTypeData?.name == 'OperationalTag') {
 
         this.itemsService.OperationalTagDropDown()
-        this.itemsService.sendOperationalTagDropDown$.subscribe(res => {
+        this.itemsService.sendOperationalTagDropDown$.subscribe((res:any) => {
           this.oprationalLookup = res.map((elem: any) => ({
             ...elem,
             displayName: `${elem.name} (${elem.code})`,
@@ -153,12 +186,10 @@ export class AddStockOutComponent implements OnInit {
     const rowForm = this.stockOutDetailsFormArray.at(indexLine) as FormGroup;
 
     if (!selectedItem) {
-      console.error(`Item with ID ${selectedItemId} not found`);
       return;
     }
 
     if (!rowForm) {
-      console.error(`Row form at index ${indexLine} is not found`);
       return;
     }
 
@@ -198,8 +229,6 @@ export class AddStockOutComponent implements OnInit {
           serialOptions: selectedItem.serials,
           batchesOptions: selectedItem.batches
         });
-      } else {
-        console.error('StockOutTracking form group is missing');
       }
     }
     if (selectedItem) {
@@ -235,7 +264,6 @@ export class AddStockOutComponent implements OnInit {
       if (rowForm.get('showSerial')?.value == true) {
 
         const quantity = rowForm.get('quantity')?.value;
-
         if (quantity > 1) {
 
           this.toasterService.showError(
@@ -291,6 +319,12 @@ export class AddStockOutComponent implements OnInit {
   }
   setRowDataFromPopup(indexLine: number, selectedItem: any) {
     const rowForm = this.stockOutDetailsFormArray.at(indexLine) as FormGroup;
+
+
+
+
+
+    // Ensure row form controls are present before updating
     if (rowForm) {
       rowForm.patchValue({
         barCode: selectedItem.barCode,
@@ -325,8 +359,6 @@ export class AddStockOutComponent implements OnInit {
           serialOptions: selectedItem.serials,
           batchesOptions: selectedItem.batches
         });
-      } else {
-        console.error('StockOutTracking form group is missing');
       }
     }
     if (selectedItem) {
@@ -355,24 +387,32 @@ export class AddStockOutComponent implements OnInit {
     this.setExpiryDate(indexLine, selectedItem.batches, selectedItem.serialOptions)
     this.isDuplicate(indexLine)
   }
-  setRowDataFromBarCode(indexLine: number, selectedItem: any) {
+  setRowDataById(indexLine: number, selectedItem: any) {
     const rowForm = this.stockOutDetailsFormArray.at(indexLine) as FormGroup;
+
+
+
+
+
+    // Ensure row form controls are present before updating
     if (rowForm) {
       rowForm.patchValue({
-        barCode: selectedItem.barcode,
-        bardCodeId: selectedItem.barcodeId,
+        id: selectedItem.id,
+        barCode: selectedItem.barCode,
+        bardCodeId: selectedItem.bardCodeId,
         itemId: selectedItem.itemId,
         itemVariantId: selectedItem.itemVariantId,
         uomId: selectedItem.uomId,
         uomOptions: selectedItem.itemsUOM,
         description: selectedItem.itemName + "-" + selectedItem.itemVariantNameEn,
         AllTotalQuantity: selectedItem.totalQuantity,
+        quantity: selectedItem.quantity,
         cost: selectedItem.cost,
         subCost: selectedItem.subCost,
         notes: selectedItem.notes,
         stockOutEntryMode: selectedItem.stockOutEntryMode,
         trackingType: selectedItem.trackingType,
-        trackingNo: selectedItem.trackingNo || '',
+        trackingNo: selectedItem.trackingNo,
         hasExpiryDate: selectedItem.hasExpiryDate,
         expireDate: selectedItem.expireDate,
         availability: selectedItem.availability
@@ -391,8 +431,6 @@ export class AddStockOutComponent implements OnInit {
           serialOptions: selectedItem.serials,
           batchesOptions: selectedItem.batches
         });
-      } else {
-        console.error('StockOutTracking form group is missing');
       }
     }
     if (selectedItem) {
@@ -420,7 +458,9 @@ export class AddStockOutComponent implements OnInit {
     this.setUomName(indexLine, rowForm.get('uomOptions')?.value)
     this.setExpiryDate(indexLine, selectedItem.batches, selectedItem.serialOptions)
     this.isDuplicate(indexLine)
+
   }
+
   addNewRow() {
     if (!this.duplicateLine) {
       if (!this.formsService.validForm(this.addForm, false)) return;
@@ -429,6 +469,7 @@ export class AddStockOutComponent implements OnInit {
 
       let newLine = this.fb.group(
         {
+          id: new FormControl(0),
           barCode: new FormControl(''),
           bardCodeId: new FormControl(''),
           itemId: new FormControl('', [customValidators.required]),
@@ -440,6 +481,54 @@ export class AddStockOutComponent implements OnInit {
           description: new FormControl(''),
           quantity: new FormControl('', [customValidators.required, customValidators.nonZero]),
           cost: new FormControl('', [customValidators.required]),
+          subCost: new FormControl(''),
+          notes: new FormControl(''),
+          stockOutEntryMode: new FormControl("Manual"),
+          trackingType: new FormControl(''),
+          availability: new FormControl(''),
+          trackingNo: new FormControl(''),
+          expiryDate: new FormControl(''),
+          hasExpiryDate: new FormControl(''),
+          totalQuantity: new FormControl(0),
+          AllTotalQuantity: new FormControl(0),
+          showSerial: new FormControl(false),
+          showBatch: new FormControl(false),
+          stockOutTracking: this.fb.group({
+            batchNo: new FormControl(''),
+            expireDate: new FormControl(''),
+            quantity: new FormControl(''),
+            serialId: new FormControl(''),
+            trackingType: new FormControl(''),
+            hasExpiryDate: new FormControl(''),
+            serialOptions: new FormControl(''),
+            batchesOptions: new FormControl(''),
+          })
+
+        }
+      );
+      this.stockOutDetailsFormArray.push(newLine);
+    }
+  }
+  addNewRowWithOutItem() {
+    if (!this.duplicateLine) {
+      if (!this.formsService.validForm(this.addForm, false)) return;
+      //  this.getLatestItemsList(this.addForm.get('warehouseId')?.value)
+
+
+      let newLine = this.fb.group(
+        {
+          id: new FormControl(0),
+          barCode: new FormControl(''),
+          bardCodeId: new FormControl(''),
+          itemId: new FormControl('', [customValidators.required]),
+          itemName: new FormControl(''),
+          itemVariantId: new FormControl('', [customValidators.required]),
+          uomId: new FormControl('', [customValidators.required]),
+          uomOptions: new FormControl(),
+          uomName: new FormControl(''),
+          description: new FormControl(''),
+          quantity: new FormControl('', [customValidators.required, customValidators.nonZero]),
+          cost: new FormControl('', [customValidators.required, customValidators.nonZero]),
           subCost: new FormControl(''),
           notes: new FormControl(''),
           stockOutEntryMode: new FormControl("Manual"),
@@ -484,50 +573,36 @@ export class AddStockOutComponent implements OnInit {
 
   }
 
-  // onSave() {
-  //   if (!this.formsService.validForm(this.addForm, false)) return;
-  //   if (this.stockOutDetailsFormArray.value.length == 0) {
-  //     this.toasterService.showError(
-  //       this.languageService.transalte('messages.error'),
-  //       this.languageService.transalte('messages.noItemsToAdd')
-  //     );
-  //   } else {
-  //     const data: AddStockOutDto = this.mapStockOutData(this.addForm.value)
-  //     this.itemsService.addStockOut(data, this.addForm);
-  //   }
+  onSave() {
+    if (!this.formsService.validForm(this.addForm, false)) return;
+    if (this.stockOutDetailsFormArray.value.length == 0) {
+      this.toasterService.showError(
+        this.languageService.transalte('messages.error'),
+        this.languageService.transalte('messages.noItemsToAdd')
+      );
+    } else {
+      const data: AddStockOutDto = this.mapStockOutData(this.addForm.value)
+      this.itemsService.editStockOut(data);
+
+    }
 
 
 
-  // }
-
-onSave() {
-  if (this.isSaving) return; // إذا كانت العملية قيد التنفيذ، لا تقم بشيء
-
-  if (!this.formsService.validForm(this.addForm, false)) return;
-
-  if (this.stockOutDetailsFormArray.value.length === 0) {
-    this.toasterService.showError(
-      this.languageService.transalte('messages.error'),
-      this.languageService.transalte('messages.noItemsToAdd')
-    );
-  } else {
-    this.isSaving = true; // بدء عملية الحفظ
-    const data: AddStockOutDto = this.mapStockOutData(this.addForm.value);
-    this.itemsService.addStockOut(data, this.addForm);
   }
-}
-
   mapStockOutData(data: any) {
 
     return {
+      id: data.id,
       receiptDate: data.receiptDate,
       sourceDocumentType: data.sourceDocumentType,
       sourceDocumentId: data.sourceDocumentId,
       warehouseId: data.warehouseId,
       notes: data.notes,
+      stockOutStatus: data.stockOutStatus,
 
       stockOutDetails: data.stockOutDetails?.map((detail: any) => ({
 
+        id: detail.id,
         barCode: detail.barCode,
         bardCodeId: detail.bardCodeId || null,
         itemId: detail.itemId,
@@ -541,6 +616,8 @@ onSave() {
         stockOutEntryMode: detail.stockOutEntryMode || "Manual",
         trackingType: detail.trackingType,
         stockOutTracking: {
+          id: detail.id,
+          quantity: Number(detail.quantity),
           trackingNo: detail.trackingNo,
           hasExpiryDate: detail.hasExpiryDate,
           expireDate: detail.expiryDate || null,
@@ -551,7 +628,7 @@ onSave() {
   }
   initWareHouseLookupData() {
     this.itemsService.getWareHousesDropDown()
-    this.itemsService.wareHousesDropDownLookup$.subscribe(res => {
+    this.itemsService.wareHousesDropDownLookup$.subscribe((res:any) => {
       this.warhouseLookupData = res
     })
   }
@@ -590,13 +667,39 @@ onSave() {
     rowForm.get('subCost')?.setValue(Number(rowForm.get('quantity')?.value) * Number(rowForm.get('cost')?.value))
 
   }
-  async deleteRow(index: number) {
+ 
+  async deleteRow(index: number, id: number) {
+
+
+
     const confirmed = await this.toasterService.showConfirm('Delete');
     if (confirmed) {
-      this.stockOutDetailsFormArray.removeAt(index);
-      this.isDuplicate(index - 1)
+      if (id == 0) {
+        this.stockOutDetailsFormArray.removeAt(index);
+        this.isDuplicate(index - 1)
+      }
+      else {
+        this.itemsService.deleteRowStockOut(id).subscribe({
+          next: (res:any) => {
+            this.toasterService.showSuccess(
+              this.languageService.transalte('transactions.success'),
+              this.languageService.transalte('transactions.deleteStockOut')
+            );
+            this.stockOutDetailsFormArray.removeAt(index);
+            this.isDuplicate(index - 1)
+          },
+          error: (err:any) => {
+            console.error('Error occurred while deleting:', err);
+            this.toasterService.showError(
+              this.languageService.transalte('transactions.error'),
+              this.languageService.transalte('transactions.deleteFailed')
+            );
+          },
+        });
+      }
 
     }
+
   }
   openDialog(indexLine: number) {
     const ref = this.dialog.open(SearchItemPopUpComponent, {
@@ -615,14 +718,14 @@ onSave() {
     this.loaderService.show();
 
     this.itemsService.getItemByBarcodeStockOutQuery(e.target.value, this.addForm.get('warehouseId')?.value).subscribe({
-      next: (res) => {
+      next: (res:any) => {
         this.loaderService.hide();
 
         this.setRowDataFromBarCode(index, res)
 
 
       },
-      error: (err) => {
+      error: (err:any) => {
         this.loaderService.hide();
 
         const rowForm = this.stockOutDetailsFormArray.at(index) as FormGroup;
@@ -635,6 +738,71 @@ onSave() {
     })
 
   }
+  setRowDataFromBarCode(indexLine: number, selectedItem: any) {
+    const rowForm = this.stockOutDetailsFormArray.at(indexLine) as FormGroup;
+    if (rowForm) {
+      rowForm.patchValue({
+        id: 0,
+        barCode: selectedItem.barcode,
+        bardCodeId: selectedItem.barcodeId,
+        itemId: selectedItem.itemId,
+        itemVariantId: selectedItem.itemVariantId,
+        uomId: selectedItem.uomId,
+        uomOptions: selectedItem.itemsUOM,
+        description: selectedItem.itemName + "-" + selectedItem.itemVariantNameEn,
+        AllTotalQuantity: selectedItem.totalQuantity,
+        cost: selectedItem.cost,
+        subCost: selectedItem.subCost,
+        notes: selectedItem.notes,
+        stockOutEntryMode: selectedItem.stockOutEntryMode,
+        trackingType: selectedItem.trackingType,
+        trackingNo: selectedItem.trackingNo || '',
+        hasExpiryDate: selectedItem.hasExpiryDate,
+        expireDate: selectedItem.expireDate,
+        availability: selectedItem.availability
+      });
+
+      // Handle the nested form group
+      const stockOutTrackingGroup = rowForm.get('stockOutTracking') as FormGroup;
+      if (stockOutTrackingGroup) {
+        stockOutTrackingGroup.patchValue({
+          batchNo: selectedItem.stockOutTracking?.batchNo || '',
+          expireDate: selectedItem.stockOutTracking?.expireDate || null,
+          quantity: selectedItem.stockOutTracking?.quantity || '',
+          serialId: selectedItem.stockOutTracking?.serialId || '',
+          trackingType: selectedItem.stockOutTracking?.trackingType || '',
+          hasExpiryDate: selectedItem.hasExpiryDate,
+          serialOptions: selectedItem.serials,
+          batchesOptions: selectedItem.batches
+        });
+      }
+    }
+    if (selectedItem) {
+      if (selectedItem.hasExpiryDate) {
+        if (selectedItem.trackingType == this.sharedFinanceEnums.StockOutTracking.NoTracking) {
+          rowForm.get('showSerial')?.setValue(false);
+          rowForm.get('showBatch')?.setValue(true);
+        }
+        else if (selectedItem.trackingType == this.sharedFinanceEnums.StockOutTracking.Serial) {
+          rowForm.get('showSerial')?.setValue(true);
+          rowForm.get('showBatch')?.setValue(false);
+        }
+        else if (selectedItem.trackingType == this.sharedFinanceEnums.StockOutTracking.Batch) {
+          rowForm.get('showSerial')?.setValue(false);
+          rowForm.get('showBatch')?.setValue(true);
+        }
+      } else {
+        if (selectedItem.trackingType == this.sharedFinanceEnums.StockOutTracking.NoTracking) {
+          rowForm.get('showSerial')?.setValue(false);
+          rowForm.get('showBatch')?.setValue(false);
+        }
+      }
+    }
+    rowForm.get('itemName')?.setValue(selectedItem.itemCode + "-" + selectedItem.itemName + "-" + selectedItem.itemVariantNameAr)
+    this.setUomName(indexLine, rowForm.get('uomOptions')?.value)
+    this.setExpiryDate(indexLine, selectedItem.batches, selectedItem.serialOptions)
+    this.isDuplicate(indexLine)
+  }
   constructor(
     private routerService: RouterService,
     public authService: AuthService,
@@ -646,6 +814,7 @@ onSave() {
     private formsService: FormsService,
     public sharedFinanceEnums: SharedStock,
     private toasterService: ToasterService,
+    private route: ActivatedRoute,
     private loaderService: LoaderService,
   ) {
   }

@@ -8,6 +8,7 @@ import { AddStockOutDto, GetWarehouseList, OperationalStockIn } from '../../../m
 import { SharedStock } from '../../../models/sharedStockOutEnums';
 import { SearchItemPopUpComponent } from '../../../components/stock-out/search-item-pop-up/search-item-pop-up.component';
 import { ActivatedRoute } from '@angular/router';
+import { TransactionsService } from '../../../../transactions/transactions.service';
 
 @Component({
   selector: 'app-edit-stock-out',
@@ -807,7 +808,7 @@ export class EditStockOutComponent implements OnInit {
     public authService: AuthService,
     private dialog: DialogService,
     private languageService: LanguageService,
-    private itemsService: ItemsService,
+    private itemsService: TransactionsService,
     private fb: FormBuilder,
     private lookupservice: LookupsService,
     private formsService: FormsService,

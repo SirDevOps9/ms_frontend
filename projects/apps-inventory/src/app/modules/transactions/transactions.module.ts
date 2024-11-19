@@ -14,10 +14,11 @@ import { TrackingStockInComponent } from './components/tracking-stock-in/trackin
 import { AddStockInComponent } from './pages/stock-In/add-stock-in/add-stock-in.component';
 import { ImportStockInComponent } from './components/import-stock-in/import-stock-in.component';
 import { ScanParcodeStockInComponent } from './components/scan-parcode-stock-in/scan-parcode-stock-in.component';
-import { MainStockOutComponent } from '../items/pages/stock-out/main-stock-out/main-stock-out.component';
-import { StockOutListComponent } from '../items/pages/stock-out/stock-out-list/stock-out-list.component';
-import { AddStockOutComponent } from '../items/pages/stock-out/add-stock-out/add-stock-out.component';
-import { EditStockOutComponent } from '../items/pages/stock-out/edit-stock-out/edit-stock-out.component';
+import { MainStockOutComponent } from './pages/stock-out/main-stock-out/main-stock-out.component';
+import { StockOutListComponent } from './pages/stock-out/stock-out-list/stock-out-list.component';
+import { AddStockOutComponent } from './pages/stock-out/add-stock-out/add-stock-out.component';
+import { EditStockOutComponent } from './pages/stock-out/edit-stock-out/edit-stock-out.component';
+import { SearchItemPopUpComponent } from './components/stock-out/search-item-pop-up/search-item-pop-up.component';
 
 const routes: Routes = [
   {
@@ -127,6 +128,11 @@ const routes: Routes = [
     MainStockInListComponentComponent,
     StockInListComponent,
     AddStockInComponent,
+    MainStockOutComponent,
+    StockOutListComponent,
+    EditStockOutComponent,
+    AddStockOutComponent,
+    SearchItemPopUpComponent
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule, ZXingScannerModule],
 })

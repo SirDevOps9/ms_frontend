@@ -599,63 +599,19 @@ export class ItemsProxyService {
   }
 
 
-  getByIdStockOut(id: number) {
-    return this.httpService.get(`StockOut/${id}`);
-  }
+
   getStockInById(id: number) {
     return this.httpService.get(`StockIn/${id}`);
   }
-  editStockOut(obj: any) {
-    return this.httpService.put(`StockOut`, obj);
-  }
+
 
  
-  addStockOut(obj : AddStockOutDto) : Observable<AddStockOutDto> {
-    return this.httpService.post('StockOut' , obj)
-
-  }
   getLatestItemsListByWarehouse( SearchTerm :string , WarehouseId:number) : Observable<LatestItems[]> {
     return this.httpService.get(`Item/GetLatestItemsStockDropDownByWarehouse?WarehouseId=${WarehouseId}`)
   }
-  // getItemsStockOut(
-  //   quieries: string,
-  //   searchTerm: string,
-  //   pageInfo: PageInfo
-  // ): Observable<PaginationVm<AdvancedSearchDto>> {
-  //   let query = `Item/GetItemStockAdvancedSearchByWarehouse?${pageInfo.toQuery}`;
-  //   if (searchTerm) {
-  //     query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
-  //   }
-  //   if (quieries) {
-  //     query += `&${quieries ? quieries : ''}`;
-  //   }
-  //   return this.httpService.get<PaginationVm<AdvancedSearchDto>>(query);
-  // }
-  getItemsStockOut(
-    quieries: string,
-    searchTerm: string,
-    warehouseId: number,
-    pageInfo: PageInfo
-  ): Observable<PaginationVm<AdvancedSearchDto>> {
-    // Construct the base query with pagination info
-    let query = `Item/GetItemStockAdvancedSearchByWarehouse?${pageInfo.toQuery}`;
-      if (searchTerm) {
-      query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
-    }
-    if (warehouseId) {
-      query += `&WarehouseId=${warehouseId}`;
-    }
-    if (quieries) {
-      query += `&${quieries}`;
-    }
-    return this.httpService.get<PaginationVm<AdvancedSearchDto>>(query);
-  }
-  GetItemByBarcodeStockOutQuery(barcode: string , warehouseId:number): Observable<any> {
-    return this.httpService.get(`Item/GetItemByBarcodeStockOutQuery?Barcode=${barcode}&WarehouseId=${warehouseId}`);
-  }
-  deleteRowStockOut(id : number ){
-    return this.httpService.delete(`StockOut/DeleteLine/${id}`)
-  }
+
+
+
 
 }
 

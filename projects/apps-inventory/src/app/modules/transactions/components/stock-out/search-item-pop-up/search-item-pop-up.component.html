@@ -11,6 +11,7 @@
           [showCheckBox]="false"
           className="p-datatable-gridlines"
           [currentPageResult]="currentPageInfo"
+          (pageChange)="onPageChange($event)"
           (selectedRowsChange)="onSelectedRowsChange($event)"
           [tableConfigs]="{
             allowPagination: true,
@@ -64,6 +65,7 @@
                   type="text"
                   [placeholder]="'popupSearch.search' | translate"
                   [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
+                  (keyUp)="onSearchChange($event)"
   
                 >
                 </lib-text-input>
