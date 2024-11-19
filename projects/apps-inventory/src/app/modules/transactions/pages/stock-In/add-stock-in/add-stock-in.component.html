@@ -15,11 +15,14 @@
         ></lib-text-input>
         <lib-field-validations [appControl]="stockInForm.controls['code']"></lib-field-validations>
       </div>
-      <div class="md:col-2 my-2">
+      <div [ariaReadOnly]="true" class="md:col-2 my-2">
         <lib-label [appControl]="stockInForm.controls['receiptDate']">
           {{ 'stockIn.date' | translate }}
         </lib-label>
-        <lib-calendar formControlName="receiptDate"></lib-calendar>
+        <lib-calendar
+          formControlName="receiptDate"
+          [ngClass]="{ 'readonly-calendar': dataToReadOnly }"
+        ></lib-calendar>
         <lib-field-validations
           [appControl]="stockInForm.controls['receiptDate']"
         ></lib-field-validations>
@@ -53,6 +56,7 @@
           optionLabel="displayName"
           placeholder="{{ 'stockIn.sourceDoc' | translate }}"
           [selectedValue]="stockInForm.controls['sourceDocumentId'].value"
+          [readOnly]="dataToReadOnly"
         >
         </lib-select>
         <lib-field-validations
@@ -86,6 +90,7 @@
           rows="1"
           formControlName="notes"
           placeholder="{{ 'stockIn.notes' | translate }}"
+          [readOnly]="dataToReadOnly"
         ></textarea>
       </div>
     </div>
@@ -133,6 +138,7 @@
                   placeholder="{{ 'stockIn.barcode' | translate }}"
                   formControlName="barCode"
                   (valueChanged)="barcodeCanged($event, stockInFormGroup)"
+                  [readOnly]="dataToReadOnly"
                 ></lib-text-input>
               </ng-template>
               <ng-template pTemplate="output">
@@ -155,7 +161,8 @@
                     optionValue="itemId"
                     optionLabel="displayName"
                     placeholder="{{ 'stockIn.itemCode' | translate }}"
-                    (valueChanged)="itemChanged($event, stockInFormGroup)"
+                    (valueChanged)="itemChanged($event, stockInFormGroup, false, false)"
+                    [readOnly]="dataToReadOnly"
                   >
                   </lib-select>
                   <i class="pi pi-search search-circle" (click)="openDialog(stockInFormGroup)"></i>
@@ -183,6 +190,7 @@
                   formControlName="uomId"
                   [options]="uomLookup"
                   optionValue="uomId"
+                  [readOnly]="dataToReadOnly"
                   [optionLabel]="currentLang == 'en' ? 'uomNameEn' : 'uomNameAr'"
                   placeholder="{{ 'stockIn.UOM' | translate }}"
                   (valueChanged)="uomChanged($event, stockInFormGroup)"
@@ -206,6 +214,7 @@
             <p-cellEditor>
               <ng-template pTemplate="input">
                 <lib-text-input
+                  [readOnly]="dataToReadOnly"
                   type="number"
                   placeholder="{{ 'stockIn.QTY' | translate }}"
                   formControlName="quantity"
@@ -225,6 +234,7 @@
             <p-cellEditor>
               <ng-template pTemplate="input">
                 <lib-text-input
+                  [readOnly]="dataToReadOnly"
                   type="number"
                   placeholder="{{ 'stockIn.cost' | translate }}"
                   formControlName="cost"
@@ -325,8 +335,9 @@
               >
 
               <lib-button-micro
+                [disabled]="dataToReadOnly"
                 title="{{ 'stockIn.setTracking' | translate }}"
-                nameClass="save"
+                nameClass="{{ !dataToReadOnly ? 'save' : 'disabled' }}"
                 widthNumber="100%"
                 [class.hide]="
                   stockInFormGroup.get('trackingType').value ==
@@ -375,6 +386,7 @@
                 <lib-text-input
                   placeholder="{{ 'stockIn.note' | translate }}"
                   formControlName="notes"
+                  [readOnly]="dataToReadOnly"
                 ></lib-text-input>
               </ng-template>
               <ng-template pTemplate="output">
@@ -408,8 +420,8 @@
 
   <div class="grid">
     <div class="md:col-12 my-3 grid flex justify-content-end">
-      <div class="md:col-4 grid flex justify-content-end">
-        <div class="md:col-6">
+      <div class="md:col-6 grid flex justify-content-end">
+        <div class="md:col-3">
           <lib-button-micro
             title="{{ 'cancel' | translate }}"
             nameClass="cancel"
@@ -418,12 +430,22 @@
           >
           </lib-button-micro>
         </div>
-        <div class="md:col-6">
+        <div class="md:col-3">
           <lib-button-micro
             title="{{ 'Save' | translate }}"
-            nameClass="save"
+            [disabled]="dataToReadOnly"
+            nameClass="{{ !dataToReadOnly ? 'save' : 'disabled' }}"
             widthNumber="100%"
             (click)="onSave()"
+          >
+          </lib-button-micro>
+        </div>
+        <div class="md:col-3">
+          <lib-button-micro
+            title="{{ 'Post' | translate }}"
+            nameClass="save"
+            widthNumber="100%"
+            (click)="onPost()"
           >
           </lib-button-micro>
         </div>

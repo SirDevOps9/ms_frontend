@@ -1,13 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
-import { AddStockIn, LatestItems, OperationalStockIn, StockInDetail, StockInDto, itemDefinitionDto } from '../items/models';
+import {
+  AddStockIn,
+  LatestItems,
+  OperationalStockIn,
+  StockInDetail,
+  StockInDto,
+  itemDefinitionDto,
+} from '../items/models';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TransactionsProxyService {
-
   constructor(private httpService: HttpService) {}
   getStockIn(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<StockInDto>> {
     let query = `Transaction/GetStockInTransactionList?${pageInfo.toQuery}`;
@@ -33,6 +39,9 @@ export class TransactionsProxyService {
   }
   editStockIn(obj: AddStockIn): Observable<AddStockIn> {
     return this.httpService.put('StockIn', obj);
+  }
+  posteStockIn(id: number): Observable<any> {
+    return this.httpService.post(`StockIn/${id}/Post`, null);
   }
 
   getAllStockIn(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<StockInDto>> {
@@ -78,6 +87,4 @@ export class TransactionsProxyService {
   getWareHousesDropDown() {
     return this.httpService.get<any>(`WareHouse/WareHousesDropDown`);
   }
-
 }
- 

@@ -28,6 +28,10 @@ export class TransactionsService {
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
 
   public stockInDataSource = new BehaviorSubject<StockOutDto[]>([]);
+  public addedStockInData = new BehaviorSubject<AddStockIn>({} as AddStockIn);
+  public updatedStockInData = new BehaviorSubject<AddStockIn>({} as AddStockIn);
+  addedStockInData$ = this.addedStockInData.asObservable();
+  updatedStockInData$ = this.updatedStockInData.asObservable();
   stockInDataSourceeObservable = this.stockInDataSource.asObservable();
   public editstockInDataSource = new BehaviorSubject<StockOutDto[]>([]);
   public exportStockInListDataSource = new BehaviorSubject<StockInDto[]>([]);
@@ -121,12 +125,13 @@ export class TransactionsService {
 
   addStockIn(obj: AddStockIn, stockinForm: FormGroup) {
     this.transactionsProxy.addStockIn(obj).subscribe({
-      next: (res) => {
+      next: (res: any) => {
+        this.addedStockInData.next(res);
         this.toasterService.showSuccess(
           this.languageService.transalte('stockIn.success'),
           this.languageService.transalte('stockIn.stockAdded')
         );
-        this.router.navigateTo('/transactions/stock-in');
+        // this.router.navigateTo('/transactions/stock-in');
         this.loaderService.hide();
       },
       error: (err) => {
@@ -139,16 +144,41 @@ export class TransactionsService {
   editStockIn(obj: AddStockIn, stockinForm: FormGroup) {
     this.transactionsProxy.editStockIn(obj).subscribe({
       next: (res) => {
+        this.updatedStockInData.next(res);
+
         this.toasterService.showSuccess(
           this.languageService.transalte('stockIn.success'),
           this.languageService.transalte('stockIn.stockEdit')
         );
-        this.router.navigateTo('/transactions/stock-in');
+        // this.router.navigateTo('/transactions/stock-in');
         this.loaderService.hide();
       },
       error: (err) => {
         this.formsService.setFormValidationErrors(stockinForm, err);
         this.loaderService.hide();
+      },
+    });
+  }
+
+  posteStockIn(id: number) {
+    this.loaderService.show();
+
+    this.transactionsProxy.posteStockIn(id).subscribe({
+      next: (res: any) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('stockIn.success'),
+          this.languageService.transalte('stockIn.stockAdded')
+        );
+        this.loaderService.hide();
+
+        this.router.navigateTo('/transactions/stock-in');
+      },
+      error: (error) => {
+        this.loaderService.hide();
+        this.toasterService.showError(
+          this.languageService.transalte('stockIn.success'),
+          this.languageService.transalte(error.message)
+        );
       },
     });
   }

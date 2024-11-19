@@ -43,21 +43,8 @@ export class AddStockInComponent implements OnInit {
   oprationalLookup: OperationalStockIn[] = [];
   selectedTraking: any = {};
   exportData: any[];
-  cols = [
-    {
-      field: 'Code',
-      header: 'code',
-    },
-
-    {
-      field: 'Name',
-      header: 'name',
-    },
-    {
-      field: 'Short Name',
-      header: 'shortName',
-    },
-  ];
+  savedDataId: number = 0;
+  dataToReadOnly: boolean = false;
   exportSelectedCols: string[] = [];
   latestItemsList: LatestItems[] = [];
   itemData: any;
@@ -95,6 +82,7 @@ export class AddStockInComponent implements OnInit {
       notes: '',
       stockInDetails: this.fb.array([]),
     });
+    this.stockInForm.get('receiptDate')?.disabled;
 
     this.stockInForm.valueChanges.subscribe((res) => {});
 
@@ -175,8 +163,14 @@ export class AddStockInComponent implements OnInit {
       itemVariantId: '',
       uomName: '',
       uomId: ['', customValidators.required],
-      quantity: [null, [customValidators.required, customValidators.nonZero]],
-      cost: [null, [customValidators.required, customValidators.nonZero]],
+      quantity: [
+        null,
+        [customValidators.required, customValidators.nonZero, customValidators.nonNegativeNumbers],
+      ],
+      cost: [
+        null,
+        [customValidators.required, customValidators.nonZero, customValidators.nonNegativeNumbers],
+      ],
       subTotal: '',
       notes: '',
       hasExpiryDate: '',
@@ -193,31 +187,34 @@ export class AddStockInComponent implements OnInit {
     });
   }
 
-  itemChanged(e: any, stockInFormGroup: FormGroup, clonedStockInFormGroup?: any) {
+  itemChanged(
+    e: any,
+    stockInFormGroup: FormGroup,
+    clonedStockInFormGroup?: any,
+    isBarcode?: boolean
+  ) {
     let data = this.latestItemsList.find((item) => item.itemId == e);
 
     this.itemData = data;
     this.uomLookup = data?.itemsUOM ?? clonedStockInFormGroup.itemsUOM;
-debugger
-    if (stockInFormGroup.value.barCode) {
-      stockInFormGroup.get('itemId')?.valueChanges.subscribe((res) => {
-        if(res && stockInFormGroup.get('barCode')?.value ){
 
-          stockInFormGroup.get('barCode')?.reset();
-        }else{
-          // stockInFormGroup.get('barCode')?.reset();
-        }
-      });
+    // stockInFormGroup.get('stockInTracking')?.reset();
+    // stockInFormGroup.get('stockInTracking')?.clearValidators();
+    // stockInFormGroup.get('stockInTracking')?.updateValueAndValidity();
+    if (!isBarcode) {
+      stockInFormGroup.get('bardCodeId')?.setValue(null);
+      stockInFormGroup.get('barCode')?.setValue('');
     }
-    stockInFormGroup.get('stockInTracking')?.reset();
-    stockInFormGroup.get('stockInTracking')?.clearValidators();
-    stockInFormGroup.get('stockInTracking')?.updateValueAndValidity();
 
-    stockInFormGroup.get('itemCodeName')?.setValue(data?.itemCode ?? clonedStockInFormGroup?.itemCode);
+    stockInFormGroup
+      .get('itemCodeName')
+      ?.setValue(data?.itemCode ?? clonedStockInFormGroup?.itemCode);
     stockInFormGroup
       .get('description')
       ?.setValue(
-        `${clonedStockInFormGroup?.itemVariantName ?? data?.itemName} - ${clonedStockInFormGroup?.itemVariantName ?? data?.itemVariantName}`
+        `${clonedStockInFormGroup?.itemVariantName ?? data?.itemName} - ${
+          clonedStockInFormGroup?.itemVariantName ?? data?.itemVariantName
+        }`
       );
     stockInFormGroup.get('trackingType')?.setValue(data?.trackingType);
     stockInFormGroup.get('stockInTracking')?.get('trackingType')?.setValue(data?.trackingType);
@@ -265,7 +262,6 @@ debugger
     }
   }
   uomChanged(e: any, stockInFormGroup: FormGroup) {
-    debugger
     let data = this.uomLookup.find((item: any) => item.uomId == e);
 
     stockInFormGroup
@@ -294,7 +290,7 @@ debugger
     ref.onClose.subscribe((selectedItems: any) => {
       if (selectedItems) {
         stockInFormGroup.get('itemId')?.setValue(selectedItems.itemId);
-// this.stockIn.reset()
+        // this.stockIn.reset()
         this.itemChanged(selectedItems.itemId, stockInFormGroup, selectedItems);
       }
     });
@@ -306,7 +302,8 @@ debugger
     this.transactionsService.sendItemBarcode$.pipe(skip(1)).subscribe((data) => {
       if (data) {
         stockInFormGroup.get('itemId')?.setValue(data.itemId);
-        this.itemChanged(data.itemId, stockInFormGroup);
+        // this.sendBarcodeData(data.itemId)
+        this.itemChanged(data.itemId, stockInFormGroup, true, true);
       }
     });
   }
@@ -346,8 +343,19 @@ debugger
     };
 
     this.transactionsService.addStockIn(data, this.stockInForm);
+    this.transactionsService.addedStockInData$.subscribe((res: any) => {
+      if (res) {
+        this.savedDataId = res;
+        this.dataToReadOnly = true;
+      } else {
+        this.dataToReadOnly = false;
+      }
+    });
   }
   OnDelete(i: number) {
     this.stockIn.removeAt(i);
+  }
+  onPost() {
+    this.transactionsService.posteStockIn(this.savedDataId);
   }
 }

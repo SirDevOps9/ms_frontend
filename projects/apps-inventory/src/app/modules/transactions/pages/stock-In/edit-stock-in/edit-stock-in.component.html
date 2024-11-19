@@ -141,6 +141,7 @@
                 <lib-text-input
                   placeholder="{{ 'stockIn.barcode' | translate }}"
                   formControlName="barCode"
+                  (valueChanged)="barcodeCanged($event, stockInFormGroup)"
                 ></lib-text-input>
               </ng-template>
               <ng-template pTemplate="output">
@@ -413,8 +414,8 @@
 
   <div class="grid">
     <div class="md:col-12 my-3 grid flex justify-content-end">
-      <div class="md:col-4 grid flex justify-content-end">
-        <div class="md:col-6">
+      <div class="md:col-6 grid flex justify-content-end">
+        <div class="md:col-3">
           <lib-button-micro
             title="{{ 'cancel' | translate }}"
             nameClass="cancel"
@@ -423,12 +424,24 @@
           >
           </lib-button-micro>
         </div>
-        <div class="md:col-6">
+        <div class="md:col-3">
           <lib-button-micro
             title="{{ 'Save' | translate }}"
-            nameClass="save"
+            [disabled]="dataToReadOnly"
+            nameClass="{{ !dataToReadOnly ? 'save' : 'disabled' }}"
             widthNumber="100%"
             (click)="onSave()"
+          >
+          </lib-button-micro>
+        </div>
+        <div class="md:col-3">
+          <lib-button-micro
+            [disabled]="!dataToReadOnly"
+            nameClass="{{ dataToReadOnly ? 'save' : 'disabled' }}"
+            title="{{ 'Post' | translate }}"
+            nameClass="save"
+            widthNumber="100%"
+            (click)="onPost()"
           >
           </lib-button-micro>
         </div>

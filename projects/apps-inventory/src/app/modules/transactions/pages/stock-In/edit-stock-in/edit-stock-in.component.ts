@@ -20,6 +20,7 @@ import {
   GetWarehouseList,
   LatestItems,
   OperationalStockIn,
+  StockInDetail,
 } from '../../../../items/models';
 
 import { SharedFinanceEnums } from '../../../../items/models/sharedEnumStockIn';
@@ -30,6 +31,7 @@ import { ImportStockInComponent } from '../../../components/import-stock-in/impo
 import { ScanParcodeStockInComponent } from '../../../components/scan-parcode-stock-in/scan-parcode-stock-in.component';
 import { MultiSelectItemStockInComponent } from '../../../components/multi-select-item-stock-in/multi-select-item-stock-in.component';
 import { TrackingStockInComponent } from '../../../components/tracking-stock-in/tracking-stock-in.component';
+import { skip } from 'rxjs';
 
 @Component({
   selector: 'app-edit-stock-in',
@@ -53,7 +55,9 @@ export class EditStockInComponent implements OnInit {
   warhouseLookupData: GetWarehouseList[] = [];
   uomLookup: any = [];
   currentLang: string;
-
+  barcodeData: StockInDetail;
+  savedDataId: number = 0;
+  dataToReadOnly: boolean = false;
   constructor(
     private routerService: RouterService,
     public authService: AuthService,
@@ -122,6 +126,18 @@ export class EditStockInComponent implements OnInit {
       this.getStockInById(this.id);
     }
     this.addLineStockIn();
+    this.transactionService.sendItemBarcode$.pipe(skip(1)).subscribe((res) => {
+      this.barcodeData = res;
+    });
+    this.stockInForm.valueChanges.subscribe((res) => {
+      if (!res) return;
+      this.dataToReadOnly = false;
+    });
+
+    this.stockIn.valueChanges.subscribe((res) => {
+      if (!res) return;
+      this.dataToReadOnly = false;
+    });
   }
 
   getListOfItems() {
@@ -187,7 +203,7 @@ export class EditStockInComponent implements OnInit {
                 stockInEntryMode: detail.stockInEntryMode,
                 trackingType: detail.trackingType,
                 stockInTracking: {
-                  id: detail.stockInTracking.id,
+                  id: detail.stockInTracking.id ?? 0,
                   vendorBatchNo: detail.stockInTracking.vendorBatchNo,
                   expireDate: detail.stockInTracking.expireDate,
                   systemPatchNo: detail.stockInTracking.systemPatchNo,
@@ -241,15 +257,21 @@ export class EditStockInComponent implements OnInit {
       itemVariantId: '',
       uomName: '',
       uomId: ['', customValidators.required],
-      quantity: [null, [customValidators.required, customValidators.nonZero]],
-      cost: [null, [customValidators.required, customValidators.nonZero]],
+      quantity: [
+        null,
+        [customValidators.required, customValidators.nonZero, customValidators.nonNegativeNumbers],
+      ],
+      cost: [
+        null,
+        [customValidators.required, customValidators.nonZero, customValidators.nonNegativeNumbers],
+      ],
       subTotal: '',
       notes: '',
       hasExpiryDate: '',
       stockInEntryMode: 'Manual',
       trackingType: '',
       stockInTracking: this.fb.group({
-        id: null,
+        id: 0,
         vendorBatchNo: '',
         expireDate: null,
         systemPatchNo: '',
@@ -272,24 +294,34 @@ export class EditStockInComponent implements OnInit {
     this.cdr.detectChanges();
   }
 
-  itemChanged(e: any, stockInFormGroup: FormGroup, clonedStockInFormGroup?: any) {
-    debugger;
+  itemChanged(
+    e: any,
+    stockInFormGroup: FormGroup,
+    clonedStockInFormGroup?: any,
+    isBarcode?: boolean
+  ) {
     let data = this.latestItemsList.find((item) => item.itemId == e);
 
     this.itemData = data;
-    this.uomLookup = data?.itemsUOM;
+    this.uomLookup = data?.itemsUOM ?? clonedStockInFormGroup.itemsUOM;
 
-    stockInFormGroup.get('stockInTracking')?.reset();
-    stockInFormGroup.get('barCode')?.reset();
-    stockInFormGroup.get('bardCodeIds')?.reset();
-    stockInFormGroup.get('stockInTracking')?.clearValidators();
-    stockInFormGroup.get('stockInTracking')?.updateValueAndValidity();
+    // stockInFormGroup.get('stockInTracking')?.reset();
+    // stockInFormGroup.get('stockInTracking')?.clearValidators();
+    // stockInFormGroup.get('stockInTracking')?.updateValueAndValidity();
+    if (!isBarcode) {
+      stockInFormGroup.get('bardCodeId')?.setValue(null);
+      stockInFormGroup.get('barCode')?.setValue('');
+    }
 
-    stockInFormGroup.get('itemCodeName')?.setValue(data?.itemCode);
+    stockInFormGroup
+      .get('itemCodeName')
+      ?.setValue(data?.itemCode ?? clonedStockInFormGroup?.itemCode);
     stockInFormGroup
       .get('description')
       ?.setValue(
-        `${data?.itemName} - ${clonedStockInFormGroup?.itemVariantName ?? data?.itemVariantName}`
+        `${clonedStockInFormGroup?.itemVariantName ?? data?.itemName} - ${
+          clonedStockInFormGroup?.itemVariantName ?? data?.itemVariantName
+        }`
       );
     stockInFormGroup.get('trackingType')?.setValue(data?.trackingType);
     stockInFormGroup.get('stockInTracking')?.get('trackingType')?.setValue(data?.trackingType);
@@ -301,7 +333,7 @@ export class EditStockInComponent implements OnInit {
           : data?.itemVariantId
       );
     stockInFormGroup.get('hasExpiryDate')?.setValue(data?.hasExpiryDate);
-    stockInFormGroup.get('uomId')?.setValue(data?.uomId);
+    stockInFormGroup.get('uomId')?.setValue(data?.uomId ?? clonedStockInFormGroup?.uomId);
     this.uomChanged(stockInFormGroup.get('uomId')?.value, stockInFormGroup);
     if (data?.hasExpiryDate) {
       stockInFormGroup
@@ -373,7 +405,6 @@ export class EditStockInComponent implements OnInit {
 
   setTracking(setTracking: FormGroup) {
     let patchedValue = setTracking.value.stockInTracking;
-    debugger;
 
     const dialogRef = this.dialog.open(TrackingStockInComponent, {
       width: '60%',
@@ -403,7 +434,17 @@ export class EditStockInComponent implements OnInit {
   onCancel() {
     this.router.navigateTo('/masterdata/stock-in');
   }
-
+  // manual Barcode Event
+  barcodeCanged(e: any, stockInFormGroup: FormGroup) {
+    this.transactionService.getItemBarcodeForItem(e);
+    this.transactionService.sendItemBarcode$.pipe(skip(1)).subscribe((data) => {
+      if (data) {
+        stockInFormGroup.get('itemId')?.setValue(data.itemId);
+        // this.sendBarcodeData(data.itemId)
+        this.itemChanged(data.itemId, stockInFormGroup, true, true);
+      }
+    });
+  }
   onSave() {
     if (!this.formService.validForm(this.stockInForm, false)) return;
     if (!this.formService.validForm(this.stockIn, false)) return;
@@ -412,7 +453,14 @@ export class EditStockInComponent implements OnInit {
       sourceDocumentType: +this.stockInForm.value.sourceDocumentType,
       stockInDetails: this.stockIn.value,
     };
+
     this.transactionService.editStockIn(data, this.stockInForm);
+    this.transactionService.updatedStockInData$.subscribe((res: any) => {
+      if (res) {
+        this.savedDataId = res;
+        this.dataToReadOnly = true;
+      }
+    });
   }
 
   OnDelete(id: number) {
@@ -421,5 +469,9 @@ export class EditStockInComponent implements OnInit {
 
   deleteIndex(i: number) {
     this.stockIn.removeAt(i);
+  }
+
+  onPost() {
+    this.transactionService.posteStockIn(this.id);
   }
 }
