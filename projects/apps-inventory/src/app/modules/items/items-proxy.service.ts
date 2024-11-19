@@ -506,7 +506,7 @@ export class ItemsProxyService {
   getWarehouseById(id: number): Observable<AddWarehouse> {
     return this.httpService.get(`WareHouse/${id}`);
   }
-  
+
   getBranchDropdown() {
     return this.httpService.get<any>(`GeneralSettings/BranchDropdown`);
   }
@@ -548,7 +548,7 @@ export class ItemsProxyService {
     }
     return this.httpService.get<PaginationVm<AdvancedSearchDto>>(query);
   }
- 
+
 
 
 

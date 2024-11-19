@@ -102,7 +102,7 @@ export class ItemsService {
     {} as { id: number; name: string }
   );
 
- 
+
 
 
 
@@ -337,8 +337,8 @@ export class ItemsService {
 
   public sendItemBarcode$ = this.sendItemBarcode.asObservable();
   public sendItemBarcodeStockOut$ = this.sendItemBarcodeStockOut.asObservable();
-  
-  
+
+
 public sendOperationalTagStockOutDropDown = new BehaviorSubject<{ id: number; name: string }[]>([]);
 public OperationalTagStockOut$ = this.sendOperationalTagStockOutDropDown.asObservable()
 
@@ -392,22 +392,20 @@ public OperationalTagStockOut$ = this.sendOperationalTagStockOutDropDown.asObser
     );
   }
   getUOmCategories(quieries: string, pageInfo: PageInfo) {
-    this.loaderService.show();
+
     this.itemProxy.GetUOMCategories(quieries, pageInfo).subscribe(
       (response) => {
         console.log(response);
         this.GetUOMCategoriesDataSource.next(response.result);
         this.currentPageInfo.next(response.pageInfoResult);
-        this.loaderService.hide();
       },
       (erorr) => {
-        this.loaderService.hide();
       }
     );
   }
 
 
- 
+
 
 
 

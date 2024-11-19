@@ -57,6 +57,7 @@ import { ItemDefintionVariantComponent } from './pages/item-definition/item-defi
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { ItemFixedCostComponent } from './pages/item-definition/item-fixed-cost/item-fixed-cost.component';
 import { ViewWarehouseComponent } from './pages/warehouse/view-warehouse/view-warehouse.component';
+import { UomViewComponent } from './pages/unit-of-major/uom-view/uom-view.component';
 
 const routes: Routes = [
   {
@@ -231,6 +232,13 @@ const routes: Routes = [
               breadcrumb: BreadcrumbLabel.Edit_UOM,
             },
           },
+          {
+            path: 'view-uom/:id',
+            component: UomViewComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.UOM_VIEW,
+            },
+          },
         ],
       },
 
@@ -360,7 +368,8 @@ const routes: Routes = [
     AttributeDefinitionValuesComponent,
     AttributeDefinitionListValuesComponent,
     ItemFixedCostComponent,
-    ViewWarehouseComponent
+    ViewWarehouseComponent,
+    UomViewComponent
   ],
   imports: [
     CommonModule,
