@@ -98,14 +98,13 @@
 
         <ng-template #actions let-action>
           <div class="actions flex align-items-center">
-            <img src="assets//images/table/view.svg" alt="" (click)="onView(action)" />
-
+            <lib-button-micro nameClass="table_button_view" (click)="onView(action.uomCategoryId)">
+            </lib-button-micro>
             <lib-button-micro nameClass="table_button_edit" (click)="onEdit(action)">
             </lib-button-micro>
             <lib-button-micro nameClass="table_button_delete" (click)="onDelete(action.uomCategoryId)">
             </lib-button-micro>
-            <lib-button-micro nameClass="table_button_view" (click)="onView(action.uomCategoryId)">
-            </lib-button-micro>
+
           </div>
         </ng-template>
       </lib-data-table>

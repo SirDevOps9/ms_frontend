@@ -115,7 +115,15 @@ export class UOMListComponent implements OnInit {
 
 
   }
+  exportBankData(searchTerm: string) {
+    this.itemService.exportUOMList(searchTerm)
 
+    this.itemService.SendexportUOMList$.subscribe((res)=>{
+      this.exportData = res
+    })
+
+
+  }
   exportUom(searchTerm: string) {
     this.itemService.exportUOMList(searchTerm)
 
