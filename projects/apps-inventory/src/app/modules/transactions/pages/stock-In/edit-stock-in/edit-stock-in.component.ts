@@ -42,7 +42,7 @@ export class EditStockInComponent implements OnInit {
   stockInForm: FormGroup = new FormGroup({});
   LookupEnum = LookupEnum;
   id: number = 0;
-  errorsArray : any = []
+  errorsArray: any = [];
 
   lookups: { [key: string]: lookupDto[] };
   oprationalLookup: OperationalStockIn[] = [];
@@ -446,7 +446,7 @@ export class EditStockInComponent implements OnInit {
   }
 
   onCancel() {
-    this.router.navigateTo('/masterdata/stock-in');
+    this.router.navigateTo('/transactions/stock-in');
   }
   // manual Barcode Event
   barcodeCanged(e: any, stockInFormGroup: FormGroup) {
@@ -462,68 +462,65 @@ export class EditStockInComponent implements OnInit {
   onSave() {
     const stockInDetails = this.stockIn as FormArray;
     this.errorsArray = []; // Array to collect errors for each line
- 
-   // Loop through each FormGroup in the FormArray
-   stockInDetails.controls.forEach((control: any, index: number) => {
-     const lineErrors: any = {}; // Object to store errors for this line
-     const stockInTracking = control.get('stockInTracking') as FormGroup;
- 
-     // Validate `itemId`
-     if (control.get('itemId')?.invalid) {
-       lineErrors.itemId = 'Item ID is required';
-     }
- 
-     // Validate `uomId`
-     if (control.get('uomId')?.invalid) {
-       lineErrors.uomId = 'UOM is required';
-     }
- 
-     // Validate `quantity`
-     if (control.get('quantity')?.invalid) {
-       lineErrors.quantity = 'Quantity must be a positive number';
-     }
- 
-     // Validate `cost`
-     if (control.get('cost')?.invalid) {
-       lineErrors.cost = 'Cost must be a positive number';
-     }
- 
-     // Validate `vendorBatchNo` if tracking type is Batch
-     if (
-       control.get('trackingType')?.value === this.sharedFinanceEnums.trackingType.Batch &&
-       stockInTracking.get('vendorBatchNo')?.invalid
-     ) {
-       lineErrors.vendorBatchNo = 'Vendor Batch Number is required';
-     }
- 
-     // Validate `serialId` if tracking type is Serial
-     if (
-       control.get('trackingType')?.value === this.sharedFinanceEnums.trackingType.Serial &&
-       stockInTracking.get('serialId')?.invalid
-     ) {
-       lineErrors.serialId = 'Serial ID is required';
-     }
- 
-     // Validate `expireDate` if hasExpiryDate is true
-     if (
-       control.get('hasExpiryDate')?.value &&
-       stockInTracking.get('expireDate')?.invalid
-     ) {
-       lineErrors.expireDate = 'Expiry Date is required';
-     }
- 
-     // If there are any errors, add them to the errorsArray
-     if (Object.keys(lineErrors).length > 0) {
-       this.errorsArray.push({ line: index, errors: lineErrors });
-     }
-   });
- 
-   // If there are errors, log them or display them
-   if (this.errorsArray.length > 0) {
-     console.error('Form contains errors:', this.errorsArray);
-     return; // Prevent form submission
-   }
- 
+
+    // Loop through each FormGroup in the FormArray
+    stockInDetails.controls.forEach((control: any, index: number) => {
+      const lineErrors: any = {}; // Object to store errors for this line
+      const stockInTracking = control.get('stockInTracking') as FormGroup;
+
+      // Validate `itemId`
+      if (control.get('itemId')?.invalid) {
+        lineErrors.itemId = 'Item ID is required';
+      }
+
+      // Validate `uomId`
+      if (control.get('uomId')?.invalid) {
+        lineErrors.uomId = 'UOM is required';
+      }
+
+      // Validate `quantity`
+      if (control.get('quantity')?.invalid) {
+        lineErrors.quantity = 'Quantity must be a positive number';
+      }
+
+      // Validate `cost`
+      if (control.get('cost')?.invalid) {
+        lineErrors.cost = 'Cost must be a positive number';
+      }
+
+      // Validate `vendorBatchNo` if tracking type is Batch
+      if (
+        control.get('trackingType')?.value === this.sharedFinanceEnums.trackingType.Batch &&
+        stockInTracking.get('vendorBatchNo')?.invalid
+      ) {
+        lineErrors.vendorBatchNo = 'Vendor Batch Number is required';
+      }
+
+      // Validate `serialId` if tracking type is Serial
+      if (
+        control.get('trackingType')?.value === this.sharedFinanceEnums.trackingType.Serial &&
+        stockInTracking.get('serialId')?.invalid
+      ) {
+        lineErrors.serialId = 'Serial ID is required';
+      }
+
+      // Validate `expireDate` if hasExpiryDate is true
+      if (control.get('hasExpiryDate')?.value && stockInTracking.get('expireDate')?.invalid) {
+        lineErrors.expireDate = 'Expiry Date is required';
+      }
+
+      // If there are any errors, add them to the errorsArray
+      if (Object.keys(lineErrors).length > 0) {
+        this.errorsArray.push({ line: index, errors: lineErrors });
+      }
+    });
+
+    // If there are errors, log them or display them
+    if (this.errorsArray.length > 0) {
+      console.error('Form contains errors:', this.errorsArray);
+      return; // Prevent form submission
+    }
+
     if (!this.formService.validForm(this.stockInForm, false)) return;
     if (!this.formService.validForm(this.stockIn, false)) return;
     let data: AddStockIn = {
