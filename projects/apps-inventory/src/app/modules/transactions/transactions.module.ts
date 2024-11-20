@@ -51,6 +51,8 @@ const routes: Routes = [
             component: AddStockInComponent,
             data: {
               breadcrumb: BreadcrumbLabel.ADD_STOCKIN,
+              pageTitle: BreadcrumbLabel.ADD_STOCKIN,
+
             },
           },
           {
@@ -58,6 +60,8 @@ const routes: Routes = [
             component: EditStockInComponent,
             data: {
               breadcrumb: BreadcrumbLabel.EDIT_STOCKIN,
+              pageTitle: BreadcrumbLabel.EDIT_STOCKIN,
+
             },
           },
           {

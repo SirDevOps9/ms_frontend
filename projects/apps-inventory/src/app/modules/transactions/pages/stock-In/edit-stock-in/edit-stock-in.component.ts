@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { AuthService } from 'microtec-auth-lib';
@@ -61,12 +61,12 @@ export class EditStockInComponent implements OnInit {
   savedDataId: number = 0;
   dataToReadOnly: boolean = false;
   selectedLanguage: string;
+  postButton: boolean = true;
+  saveButtonEnabled: boolean = true;
 
   constructor(
-    private routerService: RouterService,
     public authService: AuthService,
     private dialog: DialogService,
-    private title: Title,
     private langService: LanguageService,
     private transactionService: TransactionsService,
     private fb: FormBuilder,
@@ -84,7 +84,6 @@ export class EditStockInComponent implements OnInit {
 
   ngOnInit(): void {
     this.getListOfItems();
-
     this.stockInForm = this.fb.group({
       id: [this.id],
       receiptDate: ['', customValidators.required],
@@ -126,9 +125,6 @@ export class EditStockInComponent implements OnInit {
 
     this.initWareHouseLookupData();
 
-    if (this.id) {
-      this.getStockInById(this.id);
-    }
     this.addLineStockIn();
     this.transactionService.sendItemBarcode$.pipe(skip(1)).subscribe((res) => {
       this.barcodeData = res;
@@ -136,14 +132,21 @@ export class EditStockInComponent implements OnInit {
     this.stockInForm.valueChanges.subscribe((res) => {
       if (!res) return;
       this.dataToReadOnly = false;
-      this.postButton = false;
+    });
+    this.stockInForm.valueChanges.subscribe(() => {
+      if (!this.saveButtonEnabled) {
+        this.handleFormChanges();
+      }
+    });
+    this.stockIn.valueChanges.subscribe(() => {
+      if (!this.saveButtonEnabled) {
+        this.handleFormChanges();
+      }
     });
 
-    this.stockIn.valueChanges.subscribe((res) => {
-      if (!res) return;
-      this.dataToReadOnly = false;
-      this.postButton = false;
-    });
+    if (this.id) {
+      this.getStockInById(this.id);
+    }
   }
 
   getListOfItems() {
@@ -162,10 +165,7 @@ export class EditStockInComponent implements OnInit {
   }
 
   postedStock: boolean = true;
-  submitpostButton: boolean = true;
   getStockInById(id: number) {
-    this.submitpostButton = false;
-
     this.transactionService.getStockInById(id);
     this.transactionService.stockInByIdData$.subscribe({
       next: (res: any) => {
@@ -174,7 +174,6 @@ export class EditStockInComponent implements OnInit {
             this.postedStock = false;
           }
 
-          // Patch main form values
           this.stockInForm?.patchValue({
             id: res?.id,
             receiptDate: res?.receiptDate,
@@ -182,6 +181,7 @@ export class EditStockInComponent implements OnInit {
             sourceDocumentType: res?.sourceDocumentType,
             sourceDocumentId: res?.sourceDocumentId,
             warehouseId: res?.warehouseId,
+            warehouseName: this.oprationalLookup?.filter((x)=> x.warehouseId ==res?.warehouseId)[0]?.warehouseName,
             notes: res?.notes,
           });
 
@@ -233,7 +233,7 @@ export class EditStockInComponent implements OnInit {
               this.stockIn.push(stockInDetailGroup);
             });
           } else {
-            console.warn('stockInDetails is undefined or not an array.');
+            return;
           }
         }
       },
@@ -339,7 +339,6 @@ export class EditStockInComponent implements OnInit {
         }`
       );
 
-    console.log('heey', clonedStockInFormGroup);
     stockInFormGroup
       .get('trackingType')
       ?.setValue(clonedStockInFormGroup.trackingType ?? data?.trackingType);
@@ -481,7 +480,6 @@ export class EditStockInComponent implements OnInit {
     });
   }
 
-  postButton: boolean = false;
   onSave() {
     const stockInDetails = this.stockIn as FormArray;
     this.errorsArray = []; // Array to collect errors for each line
@@ -558,8 +556,14 @@ export class EditStockInComponent implements OnInit {
         this.savedDataId = res;
         this.dataToReadOnly = true;
         this.postButton = true;
+        this.saveButtonEnabled = false;
       }
     });
+  }
+
+  private handleFormChanges(): void {
+    this.dataToReadOnly = false;
+    this.postButton = false;
   }
 
   OnDelete(id: number) {

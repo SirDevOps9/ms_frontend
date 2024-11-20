@@ -57,8 +57,7 @@
           optionValue="id"
           optionLabel="displayName"
           placeholder="{{ 'stockIn.sourceDoc' | translate }}"
-          [selectedValue]="stockInForm.controls['sourceDocumentId'].value"
-          [readOnly]="!postedStock"
+          [selectedValue]="stockInForm.controls['sourceDocumentId'].value"          [readOnly]="!postedStock"
         >
         </lib-select>
         <lib-field-validations
@@ -447,6 +446,7 @@
           </lib-button-micro>
         </div>
         <div class="md:col-3" *ngIf="postedStock">
+          <!-- Save Button -->
           <lib-button-micro
             title="{{ 'Save' | translate }}"
             [disabled]="dataToReadOnly"
@@ -456,20 +456,22 @@
           >
           </lib-button-micro>
         </div>
+        
         <ng-container *ngIf="postedStock">
-          <!-- [disabled]="!postButton && submitpostButton" -->
-          <!-- {{ postButton && submitpostButton ?  -->
           <div class="md:col-3">
+            <!-- Post Button -->
             <lib-button-micro
-              nameClass="save"
+              [disabled]="!postButton"
+              nameClass="{{ !postButton ? 'disabled' : 'save' }}"
               title="{{ 'stockIn.Post' | translate }}"
-              nameClass="save"
               widthNumber="100%"
               (click)="onPost()"
             >
             </lib-button-micro>
           </div>
         </ng-container>
+        
+        
       </div>
     </div>
   </div>
