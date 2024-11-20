@@ -102,20 +102,7 @@ export class EditStockInComponent implements OnInit {
       this.cdr.detectChanges();
     });
 
-    this.stockInForm.get('sourceDocumentType')?.valueChanges.subscribe((res) => {
-      let data = this.lookups[LookupEnum.StockInOutSourceDocumentType];
-      let sourceDocumentTypeData = data?.find((elem) => elem.id == res);
-      if (sourceDocumentTypeData?.name == 'OperationalTag') {
-        this.transactionService.OperationalTagDropDown();
-        this.transactionService.sendOperationalTagDropDown$.subscribe((res) => {
-          this.oprationalLookup = res;
-          this.oprationalLookup = res.map((elem: any) => ({
-            ...elem,
-            displayName: `${elem.name} (${elem.code})`,
-          }));
-        });
-      }
-    });
+   
 
     this.stockInForm.get('sourceDocumentId')?.valueChanges.subscribe((res) => {
       let data = this.oprationalLookup.find((elem) => elem.id == res);
@@ -143,10 +130,21 @@ export class EditStockInComponent implements OnInit {
         this.handleFormChanges();
       }
     });
-
-    if (this.id) {
-      this.getStockInById(this.id);
-    }
+    this.stockInForm.get('sourceDocumentType')?.valueChanges.subscribe((res) => {
+      let data = this.lookups[LookupEnum.StockInOutSourceDocumentType];
+      let sourceDocumentTypeData = data?.find((elem) => elem.id == res);
+      if (sourceDocumentTypeData?.name == 'OperationalTag') {
+        this.transactionService.OperationalTagDropDown();
+        this.transactionService.sendOperationalTagDropDown$.subscribe((res) => {
+          this.oprationalLookup = res;
+          this.oprationalLookup = res.map((elem: any) => ({
+            ...elem,
+            displayName: `${elem.name} (${elem.code})`,
+          }));
+        });
+      }
+    });
+  
   }
 
   getListOfItems() {
@@ -163,27 +161,36 @@ export class EditStockInComponent implements OnInit {
       }
     });
   }
-
+ngAfterViewInit(): void {
+  if (this.id) {
+    this.getStockInById(this.id);
+  }
+  
+}
   postedStock: boolean = true;
   getStockInById(id: number) {
     this.transactionService.getStockInById(id);
     this.transactionService.stockInByIdData$.subscribe({
       next: (res: any) => {
+        console.log(res);
+        console.log(this.lookups[LookupEnum.StockInOutSourceDocumentType]);
         if (res) {
           if (res.stockInStatus == 'Posted') {
             this.postedStock = false;
           }
-
-          this.stockInForm?.patchValue({
-            id: res?.id,
-            receiptDate: res?.receiptDate,
-            code: res?.code,
-            sourceDocumentType: res?.sourceDocumentType,
-            sourceDocumentId: res?.sourceDocumentId,
-            warehouseId: res?.warehouseId,
-            warehouseName: this.oprationalLookup?.filter((x)=> x.warehouseId ==res?.warehouseId)[0]?.warehouseName,
-            notes: res?.notes,
-          });
+          setTimeout(() => {
+            this.stockInForm?.patchValue({
+              id: res?.id,
+              receiptDate: res?.receiptDate,
+              code: res?.code,
+              // sourceDocumentType: res?.sourceDocumentType,
+              sourceDocumentId: res?.sourceDocumentId,
+              warehouseId: res?.warehouseId,
+              warehouseName: this.oprationalLookup?.find((x) => x.warehouseId == res?.warehouseId)
+                ?.warehouseName,
+              notes: res?.notes,
+            });
+          }, 100);
 
           this.stockIn.clear();
 
