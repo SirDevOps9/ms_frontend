@@ -25,6 +25,30 @@
     "EditUom": "تعديل وحدة القياس",
     "uomList": "وحدة القياس"
   },
+  "success": "نجاح",
+  "error": "خطأ",
+  "noItemSelected": "لم يتم تحديد عنصر للتعديل.",
+  "noItemsToAdd": "لا توجد عناصر للإضافة",
+  "successfully": "تمت العملية بنجاح.",
+  "duplicateItem": "يوجد عنصر مكرر.",
+  "serialError": "لا يمكن إضافة أكثر من عنصر بنفس الرقم التسلسلي.",
+  "noBarcode": "لا يوجد هذا الباركود"
+},
+"BreadCrumb": {
+  "ItemsCategory": "فئة الأصناف",
+  "stockout": "إخراج المخزون",
+  "add": "إضافة",
+  "edit": "تعديل",
+  "add_stockOut": "إضافة إخراج مخزون",
+  "edit_stockOut": "تعديل إخراج مخزون",
+      "viewUom":"عرض",
+    "UnitOfMeasure" : "وحدة القياس",
+    "PricePolicy": "سياسة التسعير",
+    "addUom" : "اضافة وحده القياس",
+    "EditUom" : "تعديل وحدة القياس",
+    "uomList" : "وحدة القياس"
+
+},
   "Toaster": {
     "Confirm": {
       "Title": "هل أنت متأكد؟",
