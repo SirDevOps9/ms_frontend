@@ -38,6 +38,8 @@ export class AddStockOutComponent implements OnInit {
   modulelist: MenuModule[];
   searchTerm: string;
   addForm: FormGroup = new FormGroup({});
+  stockOutId: number;
+  post: boolean;
 
 
   ngOnInit(): void {
@@ -75,14 +77,17 @@ export class AddStockOutComponent implements OnInit {
     this.itemsService.itemsListByWarehouse.subscribe((res: any) => {
       if (res.length > 0) {
         if (this.selectedLanguage === 'ar') {
-          this.filteredItems = res.map((elem: any) => ({
+          this.filteredItems = res.map((elem: any ,index:number) => ({
             ...elem,
+            itemNumber:index+1,
             displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameAr}`,
           }));
         } else {
 
-          this.filteredItems = res.map((elem: any) => ({
+          this.filteredItems = res.map((elem: any ,index:number) => ({
             ...elem,
+            itemNumber:index+1,
+
             displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameEn}`,
           }));
         }
@@ -124,17 +129,28 @@ export class AddStockOutComponent implements OnInit {
       this.filteredItems = res
       if (res.length) {
         if (this.selectedLanguage === 'ar') {
-          this.filteredItems = res.map((elem: any) => ({
+          this.filteredItems = res.map((elem: any ,index:number) => ({
             ...elem,
+            itemNumber:index+1,
             displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameAr}`,
           }));
         } else {
 
-          this.filteredItems = res.map((elem: any) => ({
+          this.filteredItems = res.map((elem: any ,index:number) => ({
             ...elem,
+            itemNumber:index+1,
             displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameEn}`,
           }));
         }
+      }
+    })
+    this.itemsService.stockOutSaved.subscribe((res:any)=>{
+      if(res!=0){
+        this.stockOutId=res
+        this.post=true;
+      }else{
+        this.post=false;
+
       }
     })
   }
@@ -147,7 +163,9 @@ export class AddStockOutComponent implements OnInit {
 
 
   setRowData(indexLine: number, selectedItemId: any, list: any) {
-    const selectedItem = list.find((item: any) => item.itemId === selectedItemId);
+    console.log(list ,selectedItemId ,"lllllllll");
+    
+    const selectedItem = list.find((item: any) => item.itemNumber === selectedItemId);
     const rowForm = this.stockOutDetailsFormArray.at(indexLine) as FormGroup;
 
     if (!selectedItem) {
@@ -164,6 +182,7 @@ export class AddStockOutComponent implements OnInit {
     // Ensure row form controls are present before updating
     if (rowForm) {
       rowForm.patchValue({
+        itemNumber: selectedItem.itemNumber,
         barCode: selectedItem.barCode,
         bardCodeId: selectedItem.bardCodeId,
         itemId: selectedItem.itemId,
@@ -427,6 +446,7 @@ export class AddStockOutComponent implements OnInit {
 
       let newLine = this.fb.group(
         {
+          itemNumber: new FormControl(''),
           barCode: new FormControl(''),
           bardCodeId: new FormControl(''),
           itemId: new FormControl('', [customValidators.required]),
@@ -436,7 +456,7 @@ export class AddStockOutComponent implements OnInit {
           uomOptions: new FormControl(),
           uomName: new FormControl(''),
           description: new FormControl(''),
-          quantity: new FormControl('', [customValidators.required, customValidators.nonZero]),
+          quantity: new FormControl('', [customValidators.required, customValidators.nonZero ,customValidators.nonNegativeNumbers]),
           cost: new FormControl('', [customValidators.required]),
           subCost: new FormControl(''),
           notes: new FormControl(''),
@@ -482,21 +502,7 @@ export class AddStockOutComponent implements OnInit {
 
   }
 
-  // onSave() {
-  //   if (!this.formsService.validForm(this.addForm, false)) return;
-  //   if (this.stockOutDetailsFormArray.value.length == 0) {
-  //     this.toasterService.showError(
-  //       this.languageService.transalte('messages.error'),
-  //       this.languageService.transalte('messages.noItemsToAdd')
-  //     );
-  //   } else {
-  //     const data: AddStockOutDto = this.mapStockOutData(this.addForm.value)
-  //     this.itemsService.addStockOut(data, this.addForm);
-  //   }
 
-
-
-  // }
 
 onSave() {
   if (this.isSaving) return; // إذا كانت العملية قيد التنفيذ، لا تقم بشيء
@@ -512,6 +518,8 @@ onSave() {
     this.isSaving = true; // بدء عملية الحفظ
     const data: AddStockOutDto = this.mapStockOutData(this.addForm.value);
     this.itemsService.addStockOut(data, this.addForm);
+    this.isSaving=false;
+
   }
 }
 
@@ -632,6 +640,9 @@ onSave() {
       },
     })
 
+  }
+  addToPost(){
+    this.itemsService.postStockOut(this.stockOutId)
   }
   constructor(
     private routerService: RouterService,

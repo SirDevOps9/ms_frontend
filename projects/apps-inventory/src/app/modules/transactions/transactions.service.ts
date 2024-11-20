@@ -82,6 +82,7 @@ export class TransactionsService {
   public stockOutDataViewSourceeObservable = this.stockOutDataViewSource.asObservable();
   public exportedItemDefinitionListDataSource = new BehaviorSubject<itemDefinitionDto[]>([]);
   public exportStockOutListDataSource = new BehaviorSubject<StockOutDto[]>([]);
+  public stockOutSaved = new BehaviorSubject<number | undefined>(0);
 
   exportStockOutListDataSourceObservable = this.exportStockOutListDataSource.asObservable();
 
@@ -333,11 +334,12 @@ export class TransactionsService {
           this.languageService.transalte('stockIn.stockAdded')
         );
         this.loaderService.hide();
-        this.router.navigateTo('transactions/stock-out');
+        this.stockOutSaved.next(res);
+
+        // this.router.navigateTo('transactions/stock-out');
       },
       error: (err:any) => {
         
-        this.formsService.setFormValidationErrors(stockinForm, err);
         this.loaderService.hide();
       },
     });
@@ -418,4 +420,27 @@ exportStockOutList(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
     },
   });
 }
+postStockOut(id: number) {
+  this.loaderService.show();
+
+  this.transactionsProxy.postStockOut(id).subscribe({
+    next: (res: any) => {
+      this.toasterService.showSuccess(
+        this.languageService.transalte('messages.Success'),
+        this.languageService.transalte('messages.stockOutPostedSuccessfully')
+      );
+      this.loaderService.hide();
+
+         this.router.navigateTo('transactions/stock-out');
+      },
+    error: (error:any) => {
+      this.loaderService.hide();
+      this.toasterService.showError(
+        this.languageService.transalte('messages.Error'),
+        this.languageService.transalte(error.message)
+      );
+    },
+  });
+}
+
 }
