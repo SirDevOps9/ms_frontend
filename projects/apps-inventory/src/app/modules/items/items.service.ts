@@ -379,15 +379,6 @@ export class ItemsService {
     );
   }
 
-  // getStockOut(quieries: string, pageInfo: PageInfo) {
-  //   this.loaderService.show();
-  //   this.itemProxy.getStockOut(quieries, pageInfo).subscribe((response) => {
-  //     this.sendStockOutDataSources.next(response.result);
-  //     this.currentPageInfo.next(response.pageInfoResult);
-  //     this.loaderService.hide();
-  //   });
-  // }
-
   exportsStockOutList(searchTerm: string | undefined) {
     this.itemProxy.exportsStockOutList(searchTerm).subscribe({
       next: (res: any) => {

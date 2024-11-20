@@ -72,14 +72,6 @@ export class ItemsProxyService {
     return this.httpService.get<PaginationVm<itemDefinitionDto>>(query);
   }
 
-  getStockOut(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<StockInDto>> {
-    let query = `Transaction/GetStockInTransactionList?${pageInfo.toQuery}`;
-    if (searchTerm) {
-      query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
-    }
-    return this.httpService.get<PaginationVm<StockInDto>>(query);
-  }
-
   exportsStockOutList(searchTerm: string | undefined): Observable<itemDefinitionDto[]> {
     let query = `Transaction/GetStockInTransactionList/Export?`;
     if (searchTerm) {
