@@ -147,7 +147,7 @@
                   placeholder="{{ 'stockIn.barcode' | translate }}"
                   formControlName="barCode"
                   [readOnly]="!postedStock"
-                  (valueChanged)="barcodeCanged($event, stockInFormGroup)"
+                  (keyUp)="barcodeCanged($event, stockInFormGroup)"
                 ></lib-text-input>
               </ng-template>
               <ng-template pTemplate="output">
@@ -160,21 +160,19 @@
           </td>
           <!--  -->
 
-          <td
-            [pEditableColumn]="stockInFormGroup.controls['itemNumber']"
-            pEditableColumnField="itemNumber"
-          >
+          <td [pEditableColumn]="stockInFormGroup.controls['itemId']" pEditableColumnField="itemId">
             <p-cellEditor>
               <ng-template pTemplate="input">
                 <div class="flex justify-content-center gap-2 align-items-center">
                   <lib-select
-                    formControlName="itemNumber"
+                    formControlName="itemId"
                     [options]="latestItemsList"
-                    optionValue="itemNumber"
+                    optionValue="itemId"
                     optionLabel="displayName"
                     placeholder="{{ 'stockIn.itemCode' | translate }}"
                     (valueChanged)="itemChanged($event, stockInFormGroup, false, false)"
                     [readOnly]="dataToReadOnly"
+                    (valueSearchChanged)="onFilter($event)"
                   >
                   </lib-select>
                   <i class="pi pi-search search-circle" (click)="openDialog(stockInFormGroup)"></i>
@@ -230,6 +228,10 @@
                   placeholder="{{ 'stockIn.QTY' | translate }}"
                   formControlName="quantity"
                   [readOnly]="!postedStock"
+                  [readOnly]="
+                    stockInFormGroup.get('stockInTracking')?.get('trackingType')?.value ==
+                    this.sharedFinanceEnums.trackingType.Serial
+                  "
                 ></lib-text-input>
               </ng-template>
               <ng-template pTemplate="output">
@@ -384,11 +386,11 @@
                 >{{ 'stockIn.required' | translate }}</small
               > -->
               <small *ngFor="let elem of errorsArray">
-                <small *ngIf="elem.line == i && !stockInFormGroup.valid" class="danger">{{ 'stockIn.required' | translate }}</small>  
-                </small>
+                <small *ngIf="elem.line == i && !stockInFormGroup.valid" class="danger">{{
+                  'stockIn.required' | translate
+                }}</small>
+              </small>
             </div>
-
-        
           </td>
           <!--  -->
           <td [pEditableColumn]="stockInFormGroup.controls['notes']" pEditableColumnField="notes">
