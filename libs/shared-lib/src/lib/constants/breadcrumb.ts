@@ -125,7 +125,7 @@ export class BreadcrumbLabel {
   static EDIT_WARE_HOUSE = 'Edit Warehouse';
   static ITEMS_CATEGORY = 'BreadCrumb.ItemsCategory';
   static STOCKIN = 'BreadCrumb.stockIn';
-  static ADD_STOCKIN = 'BreadCrumbزAddStockIn';
+  static ADD_STOCKIN = 'BreadCrumb.AddStockIn';
   static EDIT_STOCKIN = 'BreadCrumb.edit_stock_in';
   static readonly STOCKOUT = 'BreadCrumb.stockout';
   static readonly ADD_STOCKOUT = 'BreadCrumb.add';

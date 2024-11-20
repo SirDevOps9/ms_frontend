@@ -406,7 +406,11 @@
       </ng-template>
     </p-table>
     <div class="add_new flex justify-content-start">
-      <lib-button (onClick)="addLineStockIn()" className="outline-primary">
+      <lib-button
+        (onClick)="addLineStockIn()"
+        className="outline-primary"
+        [disabled]="dataToReadOnly"
+      >
         {{ 'itemType.add_new' | translate }}
       </lib-button>
     </div>

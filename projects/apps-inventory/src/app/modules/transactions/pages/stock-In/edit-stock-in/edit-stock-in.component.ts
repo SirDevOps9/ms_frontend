@@ -319,9 +319,9 @@ export class EditStockInComponent implements OnInit {
     stockInFormGroup
       .get('description')
       ?.setValue(
-        `${clonedStockInFormGroup?.itemVariantName ?? data?.itemName} - ${
-          clonedStockInFormGroup?.itemVariantName ?? data?.itemVariantName
-        }`
+        `${clonedStockInFormGroup?.itemCode ?? data?.itemCode}- ${
+          clonedStockInFormGroup?.itemName ?? data?.itemName
+        } - ${clonedStockInFormGroup?.itemVariantName ?? data?.itemVariantName}`
       );
     stockInFormGroup.get('trackingType')?.setValue(data?.trackingType);
     stockInFormGroup.get('stockInTracking')?.get('trackingType')?.setValue(data?.trackingType);
