@@ -202,7 +202,7 @@ export class AddStockInComponent implements OnInit {
     e: any,
     stockInFormGroup: FormGroup,
     clonedStockInFormGroup?: any,
-    isBarcode: boolean=false
+    isBarcode: boolean = false
   ) {
     let data: any = this.latestItemsList.find((item: any) => item.itemId == e);
 
@@ -211,10 +211,6 @@ export class AddStockInComponent implements OnInit {
       stockInFormGroup.get('itemCodeName')?.reset();
     }
 
-    // if (isBarcode) {
-    //   stockInFormGroup.get('bardCodeId')?.setValue(null);
-    //   stockInFormGroup.get('barCode')?.setValue('');
-    // }
     if (!isBarcode) stockInFormGroup.get('barCode')?.setValue(null);
 
     stockInFormGroup
@@ -231,7 +227,6 @@ export class AddStockInComponent implements OnInit {
         }`
       );
 
-    console.log('heey', clonedStockInFormGroup);
     stockInFormGroup
       .get('trackingType')
       ?.setValue(clonedStockInFormGroup.trackingType ?? data?.trackingType);
@@ -369,7 +364,7 @@ export class AddStockInComponent implements OnInit {
         if (data) {
           stockInFormGroup.get('itemId')?.setValue(data.itemId);
           // this.sendBarcodeData(data.itemId)
-          this.itemChanged(data.itemId, stockInFormGroup, data,true);
+          this.itemChanged(data.itemId, stockInFormGroup, data, true);
         }
       });
     }
@@ -400,7 +395,6 @@ export class AddStockInComponent implements OnInit {
   }
 
   onSave() {
-    
     const stockInDetails = this.stockIn as FormArray;
     this.errorsArray = []; // Array to collect errors for each line
 
@@ -466,14 +460,17 @@ export class AddStockInComponent implements OnInit {
         ...this.stockInForm.value,
         stockInDetails: this.stockIn.value,
       };
-   
 
       this.transactionsService.addStockIn(data, this.stockInForm);
       this.transactionsService.addedStockInData$.subscribe({
         next: (res: any) => {
+          console.log(res);
           if (res) {
             this.savedDataId = res;
             this.dataToReadOnly = true;
+          }
+          if (Object.keys(res)?.length) {
+            this.dataToReadOnly = false;
           }
         },
         error() {

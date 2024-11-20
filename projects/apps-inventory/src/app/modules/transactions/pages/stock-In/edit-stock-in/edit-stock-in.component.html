@@ -457,10 +457,11 @@
           </lib-button-micro>
         </div>
         <ng-container *ngIf="postedStock">
+          <!-- [disabled]="!postButton && submitpostButton" -->
+          <!-- {{ postButton && submitpostButton ?  -->
           <div class="md:col-3">
             <lib-button-micro
-              [disabled]="!postButton"
-              nameClass="{{ postButton ? 'save' : 'disabled' }}"
+              nameClass="save"
               title="{{ 'stockIn.Post' | translate }}"
               nameClass="save"
               widthNumber="100%"

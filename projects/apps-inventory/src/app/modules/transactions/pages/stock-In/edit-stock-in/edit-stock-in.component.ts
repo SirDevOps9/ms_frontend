@@ -162,7 +162,10 @@ export class EditStockInComponent implements OnInit {
   }
 
   postedStock: boolean = true;
+  submitpostButton: boolean = true;
   getStockInById(id: number) {
+    this.submitpostButton = false;
+
     this.transactionService.getStockInById(id);
     this.transactionService.stockInByIdData$.subscribe({
       next: (res: any) => {
@@ -311,7 +314,7 @@ export class EditStockInComponent implements OnInit {
     e: any,
     stockInFormGroup: FormGroup,
     clonedStockInFormGroup?: any,
-    isBarcode?: boolean
+    isBarcode: boolean = false
   ) {
     let data: any = this.latestItemsList.find((item: any) => item.itemId == e);
 
@@ -320,10 +323,7 @@ export class EditStockInComponent implements OnInit {
       stockInFormGroup.get('itemCodeName')?.reset();
     }
 
-    // if (isBarcode) {
-    //   stockInFormGroup.get('bardCodeId')?.setValue(null);
-    //   stockInFormGroup.get('barCode')?.setValue('');
-    // }
+    if (!isBarcode) stockInFormGroup.get('barCode')?.setValue(null);
 
     stockInFormGroup
       .get('itemCodeName')
@@ -403,10 +403,10 @@ export class EditStockInComponent implements OnInit {
 
   uomChanged(e: any, stockInFormGroup: FormGroup) {
     let data = this.uomLookup.find((item: any) => item.uomId == e);
+
     stockInFormGroup
       .get('uomName')
       ?.setValue(this.currentLang == 'en' ? data.uomNameEn : data.uomNameAr);
-    this.cdr.detectChanges();
   }
 
   addLineStockIn() {
@@ -476,7 +476,7 @@ export class EditStockInComponent implements OnInit {
       if (data) {
         stockInFormGroup.get('itemId')?.setValue(data.itemId);
         // this.sendBarcodeData(data.itemId)
-        this.itemChanged(data.itemId, stockInFormGroup, data);
+        this.itemChanged(data.itemId, stockInFormGroup, data, true);
       }
     });
   }
