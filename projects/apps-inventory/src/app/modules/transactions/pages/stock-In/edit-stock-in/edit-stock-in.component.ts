@@ -60,6 +60,8 @@ export class EditStockInComponent implements OnInit {
   barcodeData: StockInDetail;
   savedDataId: number = 0;
   dataToReadOnly: boolean = false;
+  selectedLanguage: string;
+
   constructor(
     private routerService: RouterService,
     public authService: AuthService,
@@ -75,8 +77,8 @@ export class EditStockInComponent implements OnInit {
     public sharedFinanceEnums: SharedFinanceEnums,
     private cdr: ChangeDetectorRef
   ) {
-    this.title.setTitle(this.langService.transalte('itemCategory.itemDefinition'));
     this.currentLang = this.langService.getLang();
+    this.selectedLanguage = this.langService.getLang();
     this.id = Number(this._route.snapshot.paramMap.get('id'));
   }
 
@@ -149,8 +151,9 @@ export class EditStockInComponent implements OnInit {
       if (res.length) {
         this.latestItemsList = res.map((elem: any, index: number) => ({
           ...elem,
-          itemNumber: index + 1,
-          displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantName}`,
+          displayName: `(${elem.itemCode}) ${elem.itemName}-${
+            this.currentLang == 'en' ? elem.itemVariantNameEn : elem.itemVariantNameAr
+          }`,
         }));
       }
     });
@@ -164,9 +167,8 @@ export class EditStockInComponent implements OnInit {
         if (res) {
           if (res.stockInStatus == 'Posted') {
             this.postedStock = false;
-          } else {
-            this.postedStock = true;
           }
+
           // Patch main form values
           this.stockInForm?.patchValue({
             id: res?.id,
@@ -196,7 +198,6 @@ export class EditStockInComponent implements OnInit {
               stockInDetailGroup.patchValue({
                 id: detail.id,
                 barCode: detail.barCode,
-                itemNumber: detail.itemNumber,
                 bardCodeId: detail.bardCodeId,
                 description: detail.description,
                 itemId: detail.itemId,
@@ -259,7 +260,6 @@ export class EditStockInComponent implements OnInit {
   createStockIn() {
     return this.fb.group({
       id: 0,
-      itemNumber: '',
       barCode: '',
       bardCodeId: null,
       description: '',
@@ -311,17 +311,17 @@ export class EditStockInComponent implements OnInit {
     clonedStockInFormGroup?: any,
     isBarcode?: boolean
   ) {
-    let data = this.latestItemsList.find((item: any) => item.itemNumber == e);
+    let data: any = this.latestItemsList.find((item: any) => item.itemId == e);
 
     this.uomLookup = data?.itemsUOM ?? clonedStockInFormGroup.itemsUOM;
     if (clonedStockInFormGroup) {
       stockInFormGroup.get('itemCodeName')?.reset();
     }
 
-    if (!isBarcode) {
-      stockInFormGroup.get('bardCodeId')?.setValue(null);
-      stockInFormGroup.get('barCode')?.setValue('');
-    }
+    // if (isBarcode) {
+    //   stockInFormGroup.get('bardCodeId')?.setValue(null);
+    //   stockInFormGroup.get('barCode')?.setValue('');
+    // }
 
     stockInFormGroup
       .get('itemCodeName')
@@ -331,11 +331,28 @@ export class EditStockInComponent implements OnInit {
       .get('description')
       ?.setValue(
         ` ${clonedStockInFormGroup?.itemName ?? data?.itemName} - ${
-          clonedStockInFormGroup?.itemVariantName ?? data?.itemVariantName
+          this.currentLang == 'en'
+            ? clonedStockInFormGroup?.itemVariantNameEn ?? data?.itemVariantNameEn
+            : clonedStockInFormGroup?.itemVariantNameAr ?? data?.itemVariantNameAr
         }`
       );
-    stockInFormGroup.get('trackingType')?.setValue(data?.trackingType);
-    stockInFormGroup.get('stockInTracking')?.get('trackingType')?.setValue(data?.trackingType);
+
+    console.log('heey', clonedStockInFormGroup);
+    stockInFormGroup
+      .get('trackingType')
+      ?.setValue(clonedStockInFormGroup.trackingType ?? data?.trackingType);
+    stockInFormGroup
+      .get('stockInTracking')
+      ?.get('trackingType')
+      ?.setValue(clonedStockInFormGroup.trackingType ?? data?.trackingType);
+
+    if (
+      stockInFormGroup.get('stockInTracking')?.get('trackingType')?.value ==
+      this.sharedFinanceEnums.trackingType.Serial
+    ) {
+      stockInFormGroup.get('quantity')?.setValue(1);
+    }
+
     stockInFormGroup
       .get('itemVariantId')
       ?.setValue(
@@ -343,7 +360,9 @@ export class EditStockInComponent implements OnInit {
           ? clonedStockInFormGroup?.itemVariantId
           : data?.itemVariantId
       );
-    stockInFormGroup.get('hasExpiryDate')?.setValue(data?.hasExpiryDate);
+    stockInFormGroup
+      .get('hasExpiryDate')
+      ?.setValue(clonedStockInFormGroup.hasExpiryDate ?? data?.hasExpiryDate);
     stockInFormGroup.get('uomId')?.setValue(data?.uomId ?? clonedStockInFormGroup?.uomId);
     this.uomChanged(stockInFormGroup.get('uomId')?.value, stockInFormGroup);
     if (data?.hasExpiryDate) {
@@ -455,7 +474,7 @@ export class EditStockInComponent implements OnInit {
       if (data) {
         stockInFormGroup.get('itemId')?.setValue(data.itemId);
         // this.sendBarcodeData(data.itemId)
-        this.itemChanged(data.itemId, stockInFormGroup, true, true);
+        this.itemChanged(data.itemId, stockInFormGroup, data);
       }
     });
   }
@@ -548,5 +567,33 @@ export class EditStockInComponent implements OnInit {
 
   onPost() {
     this.transactionService.posteStockIn(this.id);
+  }
+
+  onFilter(SearchTerm: string) {
+    const warehouseId: number = this.stockInForm.get('warehouseId')?.value;
+    this.transactionService.getItems('', SearchTerm, new PageInfo());
+    this.transactionService.itemsList.subscribe((res: any) => {
+      if (res.length > 0) {
+        if (this.selectedLanguage === 'ar') {
+          this.latestItemsList = res.map((elem: any, index: number) => ({
+            ...elem,
+            itemNumber: index + 1,
+            displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameAr}`,
+          }));
+        } else {
+          this.latestItemsList = res.map((elem: any, index: number) => ({
+            ...elem,
+            itemNumber: index + 1,
+
+            displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameEn}`,
+          }));
+        }
+      } else {
+        this.getLatestItemsList(warehouseId);
+      }
+    });
+  }
+  getLatestItemsList(id: number) {
+    this.transactionService.getLatestItemsListByWarehouse('', id);
   }
 }
