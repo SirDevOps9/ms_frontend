@@ -34,6 +34,8 @@
                 </div>
                 <div class="col-12 py-2 mx-2">
                   <lib-form-group>
+                    <!-- <lib-label [appControl]="formGroup.controls['costingEvaluationMethod']">
+                    </lib-label> -->
                     <p-radioButton
                       formControlName="costingEvaluationMethod"
                       [value]="InvGeneralEnum.Fixed"
@@ -41,6 +43,11 @@
                       label="{{ 'generalSetting.fixedCostMethod' | translate }}"
                     ></p-radioButton>
                   </lib-form-group>
+                  <lib-field-validations
+                    class="mt-3"
+                    [appControl]="formGroup.controls['costingEvaluationMethod']"
+                  >
+                  </lib-field-validations>
                 </div>
               </div>
             </div>

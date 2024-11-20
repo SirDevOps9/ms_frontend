@@ -1429,4 +1429,24 @@ export class ItemsService {
       });
     }
   }
+
+  editInventoryGeneralSetting(obj: GeneralSettingDto) {
+    this.itemProxy.editInventoryGeneralSetting(obj).subscribe({
+      next: (res: GeneralSettingDto) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('generalSetting.success'),
+          this.languageService.transalte('generalSetting.updated')
+        );
+      },
+    });
+  }
+  getInventoryGeneralSetting() {
+    this.itemProxy.getInventoryGeneralSetting().subscribe({
+      next: (res: GeneralSettingDto) => {
+        if (res) {
+          this.inventoryGeneralSetting.next(res);
+        }
+      },
+    });
+  }
 }

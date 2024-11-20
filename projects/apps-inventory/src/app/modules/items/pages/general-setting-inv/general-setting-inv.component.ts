@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { LayoutService } from 'apps-shared-lib';
-import { RouterService } from 'shared-lib';
+import { customValidators, FormsService, RouterService } from 'shared-lib';
 import { ItemsService } from '../../items.service';
 import { GetWarehouseList } from '../../models';
 import { IinvGeneralSeting } from '../../models/enums';
@@ -24,7 +24,8 @@ export class GeneralSettingInvComponent implements OnInit {
     private fb: FormBuilder,
     public layoutService: LayoutService,
     private itemsService: ItemsService,
-    private routerService: RouterService
+    private routerService: RouterService,
+    private formService: FormsService
   ) {}
 
   ngOnInit() {
@@ -53,7 +54,7 @@ export class GeneralSettingInvComponent implements OnInit {
 
   initForm() {
     this.formGroup = this.fb.group({
-      costingEvaluationMethod: [],
+      costingEvaluationMethod: [, customValidators.required],
       costOfGoodsSoldAccountId: [],
       generalPurchaseAccountId: [],
       goodsInTransitAccountId: [],
@@ -67,6 +68,7 @@ export class GeneralSettingInvComponent implements OnInit {
   }
 
   onSave() {
+    if (!this.formService.validForm(this.formGroup, false)) return;
     let val = this.formGroup.value;
     this.itemsService.editInventoryGeneralSetting(val);
   }

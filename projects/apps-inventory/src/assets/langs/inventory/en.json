@@ -512,6 +512,8 @@
   },
   "generalSetting": {
     "generalSetting": "General Setting",
+    "updated": "Data Updated Successfully",
+
     "costingEvaluationMethod": "Costing Evaluation Method",
     "weightedAverageCotingMethod": "Weighted Average Costing Method",
     "lastPurchasePriceCostingMethod": "Last Purchase Price Costing Method",
@@ -524,6 +526,7 @@
     "InventoryReEvaluationAccount": "Inventory Re-Evaluation Account",
     "oneSelect": "Select one option",
     "Cancel": "Cancel",
-    "save": "Save"
+    "save": "Save",
+    "success": "Success"
   }
 }

@@ -317,6 +317,11 @@ const routes: Routes = [
           breadcrumb: BreadcrumbLabel.ITEM_CATEGORY,
         },
       },
+      {
+        path: 'general-setting',
+        component: GeneralSettingInvComponent,
+        data: { breadcrumb: BreadcrumbLabel.GENERAL_SETTING },
+      },
     ],
   },
 ];

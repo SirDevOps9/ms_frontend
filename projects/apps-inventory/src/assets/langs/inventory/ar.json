@@ -10,20 +10,23 @@
     "noBarcode": "لا يوجد هذا الباركود"
   },
   "BreadCrumb": {
-    "ItemsCategory": "فئة الأصناف",
+    "ItemsCategory": "فئات الأصناف",
     "stockout": "إخراج المخزون",
     "add": "إضافة",
     "generalSetting": "الإعدادات العامة",
-
-    "edit": "تعديل",
     "add_stockOut": "إضافة إخراج مخزون",
-    "edit_stockOut": "تعديل إخراج مخزون",
-    "viewUom": "عرض",
     "UnitOfMeasure": "وحدة القياس",
-    "PricePolicy": "سياسة التسعير",
-    "addUom": "اضافة وحده القياس",
+    "addUom": "إضافة وحدة قياس",
     "EditUom": "تعديل وحدة القياس",
-    "uomList": "وحدة القياس"
+    "uomList": "وحدات القياس",
+    "edit": "تعديل",
+    "editstockout": "تعديل إخراج المخزون",
+    "edit_stockOut": "تعديل إخراج المخزون",
+    "EditItembarfixedcostfinition": "تعديل تكلفة العنصر الثابتة",
+    "stockInView": "عرض إدخال المخزون",
+    "stockOutView": "عرض إخراج المخزون",
+    "stockIn": "قائمة إدخال المخزون",
+    "viewUom": "عرض"
   },
   "success": "نجاح",
   "error": "خطأ",
@@ -32,23 +35,8 @@
   "successfully": "تمت العملية بنجاح.",
   "duplicateItem": "يوجد عنصر مكرر.",
   "serialError": "لا يمكن إضافة أكثر من عنصر بنفس الرقم التسلسلي.",
-  "noBarcode": "لا يوجد هذا الباركود"
-},
-"BreadCrumb": {
-  "ItemsCategory": "فئة الأصناف",
-  "stockout": "إخراج المخزون",
-  "add": "إضافة",
-  "edit": "تعديل",
-  "add_stockOut": "إضافة إخراج مخزون",
-  "edit_stockOut": "تعديل إخراج مخزون",
-      "viewUom":"عرض",
-    "UnitOfMeasure" : "وحدة القياس",
-    "PricePolicy": "سياسة التسعير",
-    "addUom" : "اضافة وحده القياس",
-    "EditUom" : "تعديل وحدة القياس",
-    "uomList" : "وحدة القياس"
+  "noBarcode": "لا يوجد هذا الباركود",
 
-},
   "Toaster": {
     "Confirm": {
       "Title": "هل أنت متأكد؟",
@@ -436,6 +424,7 @@
     "InventoryReEvaluationAccount": "حساب إعادة تقييم المخزون",
     "oneSelect": "اختر أحد الخيارات",
     "Cancel": "إلغاء",
-    "save": "حفظ"
+    "save": "حفظ",
+    "success": "نجاح"
   }
 }
