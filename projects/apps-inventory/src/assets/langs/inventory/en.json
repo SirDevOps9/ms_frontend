@@ -30,7 +30,9 @@
     "stockInView": "Stock In View",
     "stockOutView": "Stock Out View",
     "stockIn": "Stock In List",
-    "viewUom": "view"
+    "viewUom": "view",
+    "ViewWarehouse":"View Item Warehouse",
+    "itemCardReport": "Item Card Report"
   },
   "Toaster": {
     "Confirm": {
@@ -187,13 +189,19 @@
   "warehouse": {
     "Add": "Add",
     "AddNew": "Add New",
-
+    "print": "Print",
     "create": "Create",
     "search": "Search",
     "ChangeColumn": "Change Column",
     "save": "Save",
     "cancel": "Cancel",
+    "availableQuantity":"Available Quantity",
     "code": "Code",
+    "uom":"UOM",
+    "WarehouseItemExport":"Warehouse Item",
+    "variant":"Variant",
+    "availablequantity":"Available Quantity",
+    "itemCode":"Item Code",
     "name": "Name",
     "warehouseName": "Warehouse Name",
     "relatedBranch": "Warehouse Related Branch",
@@ -534,5 +542,25 @@
     "Cancel": "Cancel",
     "save": "Save",
     "success": "Success"
+  },
+  "itemCardReport": {
+    "view": "View",
+    "transactionName": "Transaction Name",
+    "transactionCode": "Transaction Code",
+    "serial": "Serial Number",
+    "batchNo": "Batch Number",
+    "expiryDate": "Expiry Date",
+    "in": "In",
+    "out": "Out",
+    "balance": "Balance",
+    "itemCost": "Item Cost",
+    "totalBalanceAmount": "Total Balance Amount",
+    "subTotal": "Subtotal",
+    "subTitles": {
+      "QTY": "Quantity",
+      "cost": "Cost",
+      "subTotal": "Subtotal"
+    },
+    "QTYbalance": "Quantity Balance"
   }
 }

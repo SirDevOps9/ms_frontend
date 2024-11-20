@@ -139,7 +139,9 @@ pi: string;
   }
 
   onView(data: any) {
+    
     this.routerService.navigateTo(`/masterdata/warehouse/view-warehouse/${data.id}`)
+    
   }
 
 

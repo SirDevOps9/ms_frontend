@@ -1,0 +1,105 @@
+.btn_ex {
+  width: 50px;
+  height: 50px;
+  background: #fff;
+  border: 1px solid #b6bac3;
+  border-radius: 8px;
+  color: #b6bac3;
+  cursor: pointer;
+}
+.all_btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+}
+.btn_ex {
+  width: 50px;
+  height: 50px;
+  background: #fff;
+  border: 1px solid #b6bac3;
+  border-radius: 8px;
+  color: #b6bac3;
+  cursor: pointer;
+}
+.container_checkbox {
+  background: #fff;
+  width: 100%;
+  height: 45px;
+  border: 1px solid #b6bac3;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5px;
+}
+input[type='checkbox'] {
+  width: 20px;
+  height: 20px;
+}
+.accountNature {
+  margin-inline-start: 20px;
+}
+.calender {
+  margin-bottom: 60px;
+}
+.code {
+  cursor: pointer;
+}
+::ng-deep {
+  .viewInWeb {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  .p-checkbox .p-checkbox-box.p-highlight {
+    border-color: #1a90b0 !important;
+    background: #1a90b0 !important;
+  }
+  .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-focus {
+    box-shadow: none !important;
+  }
+  .group {
+    .p-multiselect {
+      width: 90% !important;
+    }
+  }
+}
+
+#printableTable {
+  display: none;
+}
+
+/* Show the printable table during print */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #printableTable,
+  #printableTable * {
+    visibility: visible;
+  }
+  #printableTable {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: block;
+  }
+}
+.code {
+  color: #1a90b0;
+  cursor: pointer;
+}
+.code:hover {
+  color: #10566a;
+}
+
+.search_icon {
+  margin: 8px;
+}
+
+.footer_form {
+  padding: 0 20px;
+}
+.wid {
+  width: 90% !important;
+}
