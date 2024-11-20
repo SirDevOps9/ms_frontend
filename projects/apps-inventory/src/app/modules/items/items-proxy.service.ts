@@ -545,39 +545,7 @@ export class ItemsProxyService {
     }
     return this.httpService.get<PaginationVm<AdvancedSearchDto>>(query);
   }
-  getAllStockOut(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<StockOutDto>> {
-    let query = `StockOut?${pageInfo.toQuery}`;
-    if (searchTerm) {
-      query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
-    }
-    return this.httpService.get<PaginationVm<StockOutDto>>(query);
-  }
 
-  exportStockOutList(
-    searchTerm?: string,
-    SortBy?: number,
-    SortColumn?: string
-  ): Observable<StockOutDto[]> {
-    let query = `StockOut/Export?`;
-    const params: string[] = [];
-    if (searchTerm) params.push(`searchTerm=${encodeURIComponent(searchTerm)}`);
-    if (SortBy) params.push(`SortBy=${SortBy}`);
-    if (SortColumn) params.push(`SortColumn=${SortColumn}`);
-    query += params.join('&');
-    return this.httpService.get<StockOutDto[]>(query);
-  }
-
-  getByIdStockOut(id: number) {
-    return this.httpService.get(`StockOut/${id}`);
-  }
-
-  editStockOut(obj: StockOutDto) {
-    return this.httpService.put(`StockOut`, obj);
-  }
-
-  addStockOut(obj: AddStockOutDto): Observable<AddStockOutDto> {
-    return this.httpService.post('StockOut', obj);
-  }
   getLatestItemsListByWarehouse(
     SearchTerm: string,
     WarehouseId: number
@@ -585,39 +553,6 @@ export class ItemsProxyService {
     return this.httpService.get(
       `Item/GetLatestItemsStockDropDownByWarehouse?WarehouseId=${WarehouseId}`
     );
-  }
-  // getItemsStockOut(
-  //   quieries: string,
-  //   searchTerm: string,
-  //   pageInfo: PageInfo
-  // ): Observable<PaginationVm<AdvancedSearchDto>> {
-  //   let query = `Item/GetItemStockAdvancedSearchByWarehouse?${pageInfo.toQuery}`;
-  //   if (searchTerm) {
-  //     query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
-  //   }
-  //   if (quieries) {
-  //     query += `&${quieries ? quieries : ''}`;
-  //   }
-  //   return this.httpService.get<PaginationVm<AdvancedSearchDto>>(query);
-  // }
-  getItemsStockOut(
-    quieries: string,
-    searchTerm: string,
-    warehouseId: number,
-    pageInfo: PageInfo
-  ): Observable<PaginationVm<AdvancedSearchDto>> {
-    // Construct the base query with pagination info
-    let query = `Item/GetItemStockAdvancedSearchByWarehouse?${pageInfo.toQuery}`;
-    if (searchTerm) {
-      query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
-    }
-    if (warehouseId) {
-      query += `&WarehouseId=${warehouseId}`;
-    }
-    if (quieries) {
-      query += `&${quieries}`;
-    }
-    return this.httpService.get<PaginationVm<AdvancedSearchDto>>(query);
   }
 
   // inventory general setting
