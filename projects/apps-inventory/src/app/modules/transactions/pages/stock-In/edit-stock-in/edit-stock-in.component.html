@@ -15,11 +15,14 @@
         ></lib-text-input>
         <lib-field-validations [appControl]="stockInForm.controls['code']"></lib-field-validations>
       </div>
-      <div class="md:col-2 my-2">
+      <div [ariaReadOnly]="true" class="md:col-2 my-2">
         <lib-label [appControl]="stockInForm.controls['receiptDate']">
           {{ 'stockIn.date' | translate }}
         </lib-label>
-        <lib-calendar formControlName="receiptDate"></lib-calendar>
+        <lib-calendar
+          [ngClass]="{ 'readonly-calendar': !postedStock }"
+          formControlName="receiptDate"
+        ></lib-calendar>
         <lib-field-validations
           [appControl]="stockInForm.controls['receiptDate']"
         ></lib-field-validations>
@@ -53,6 +56,7 @@
           optionLabel="displayName"
           placeholder="{{ 'stockIn.sourceDoc' | translate }}"
           [selectedValue]="stockInForm.controls['sourceDocumentId'].value"
+          [readOnly]="!postedStock"
         >
         </lib-select>
         <lib-field-validations
@@ -94,6 +98,7 @@
           rows="1"
           formControlName="notes"
           placeholder="{{ 'stockIn.notes' | translate }}"
+          [readOnly]="!postedStock"
         ></textarea>
       </div>
     </div>
@@ -141,6 +146,7 @@
                 <lib-text-input
                   placeholder="{{ 'stockIn.barcode' | translate }}"
                   formControlName="barCode"
+                  [readOnly]="!postedStock"
                   (valueChanged)="barcodeCanged($event, stockInFormGroup)"
                 ></lib-text-input>
               </ng-template>
@@ -195,6 +201,7 @@
                 <lib-select
                   formControlName="uomId"
                   [options]="uomLookup"
+                  [readOnly]="!postedStock"
                   optionValue="uomId"
                   [optionLabel]="currentLang == 'en' ? 'uomNameEn' : 'uomNameAr'"
                   placeholder="{{ 'stockIn.UOM' | translate }}"
@@ -222,6 +229,7 @@
                   type="number"
                   placeholder="{{ 'stockIn.QTY' | translate }}"
                   formControlName="quantity"
+                  [readOnly]="!postedStock"
                 ></lib-text-input>
               </ng-template>
               <ng-template pTemplate="output">
@@ -241,6 +249,7 @@
                   type="number"
                   placeholder="{{ 'stockIn.cost' | translate }}"
                   formControlName="cost"
+                  [readOnly]="!postedStock"
                 ></lib-text-input>
               </ng-template>
               <ng-template pTemplate="output">
@@ -331,6 +340,8 @@
               >
 
               <lib-button-micro
+                [disabled]="postedStock"
+                nameClass="{{ postedStock ? 'save' : 'disabled' }}"
                 title="{{ 'stockIn.setTracking' | translate }}"
                 nameClass="save"
                 widthNumber="100%"
@@ -386,6 +397,7 @@
                 <lib-text-input
                   placeholder="{{ 'stockIn.note' | translate }}"
                   formControlName="notes"
+                  [readOnly]="!postedStock"
                 ></lib-text-input>
               </ng-template>
               <ng-template pTemplate="output">
@@ -418,7 +430,7 @@
       <lib-button
         (onClick)="addLineStockIn()"
         className="outline-primary"
-        [disabled]="dataToReadOnly"
+        [disabled]="!postedStock"
       >
         {{ 'itemType.add_new' | translate }}
       </lib-button>
@@ -437,7 +449,7 @@
           >
           </lib-button-micro>
         </div>
-        <div class="md:col-3">
+        <div class="md:col-3" *ngIf="postedStock">
           <lib-button-micro
             title="{{ 'Save' | translate }}"
             [disabled]="dataToReadOnly"
@@ -447,17 +459,19 @@
           >
           </lib-button-micro>
         </div>
-        <div class="md:col-3" *ngIf="dataToReadOnly">
-          <lib-button-micro
-            [disabled]="!dataToReadOnly"
-            nameClass="{{ dataToReadOnly ? 'save' : 'disabled' }}"
-            title="{{ 'stockIn.Post' | translate }}"
-            nameClass="save"
-            widthNumber="100%"
-            (click)="onPost()"
-          >
-          </lib-button-micro>
-        </div>
+        <ng-container *ngIf="postedStock">
+          <div class="md:col-3" *ngIf="dataToReadOnly">
+            <lib-button-micro
+              [disabled]="!dataToReadOnly"
+              nameClass="{{ dataToReadOnly ? 'save' : 'disabled' }}"
+              title="{{ 'stockIn.Post' | translate }}"
+              nameClass="save"
+              widthNumber="100%"
+              (click)="onPost()"
+            >
+            </lib-button-micro>
+          </div>
+        </ng-container>
       </div>
     </div>
   </div>
