@@ -24,4 +24,5 @@ export * from './modules';
 export * from './pages';
 export * from './component-type';
 export * from './sort-by';
+export * from './sharedEnums';
 

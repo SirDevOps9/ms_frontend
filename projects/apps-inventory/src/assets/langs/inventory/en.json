@@ -7,21 +7,28 @@
     "successfully": "Operation completed successfully.",
     "duplicateItem": "There is a duplicated item.",
     "serialError": "Can't add more than one item with the same serial.",
-    "noBarcode": "This barcode does not exist."
+    "noBarcode": "This barcode does not exist.",
+    "notEdit": "This stockout cannot be edited because it is posted.",
+    "stockOutPostedSuccessfully": "Stock Out Posted successfully"
   },
   "BreadCrumb": {
     "ItemsCategory": "Items Category",
     "stockout": "Stock Out",
     "add": "Add",
+    "generalSetting": "General Setting",
+    "add_stockOut": "Add StockOut",
+    "UnitOfMeasure": "Unit Of Measure",
+    "addUom": "Add UOM",
+    "EditUom": "Edit UOM",
+    "uomList": "UOM",
     "edit": "Edit",
     "editstockout": "Edit Stock Out",
-    "add_stockOut": "Add StockOut",
     "edit_stockOut": "Edit StockOut",
     "EditItembarfixedcostfinition": "Edit Item fixed cost",
     "stockInView": "Stock In View",
     "stockOutView": "Stock Out View",
     "stockIn": "Stock In List",
-    "itemCardReport": "Item Card Report"
+    "viewUom": "view"
   },
   "Toaster": {
     "Confirm": {
@@ -239,6 +246,7 @@
     "categoryCode": "UOM Category Code",
     "name": "UOM Name",
     "categoryname": "UOM Category Name",
+    "EditUomSuccess": "UOM Edited Successfully",
     "save": "Save",
     "uomEdit": "Edited",
     "discard": "Discard",
@@ -273,7 +281,8 @@
     "uomCode": "UOM Code",
     "uomName": "UOM Name",
     "uomCategory": "UOM Category",
-    "uomFactor": "UOM Factor"
+    "uomFactor": "UOM Factor",
+    "cancel": "Cancel"
   },
   "attributeDefinition": {
     "Add": "Create",
@@ -489,26 +498,6 @@
     "availability": "Availability",
     "noTracking": "No tracking"
   },
-  "itemCardReport": {
-    "view": "View",
-    "transactionName": "Transaction Name",
-    "transactionCode": "Transaction Code",
-    "serial": "Serial Number",
-    "batchNo": "Batch Number",
-    "expiryDate": "Expiry Date",
-    "in": "In",
-    "out": "Out",
-    "balance": "Balance",
-    "itemCost": "Item Cost",
-    "totalBalanceAmount": "Total Balance Amount",
-    "subTotal": "Subtotal",
-    "subTitles": {
-      "QTY": "Quantity",
-      "cost": "Cost",
-      "subTotal": "Subtotal"
-    },
-    "QTYbalance": "QTY Balance"
-  },
   "popupSearch": {
     "ItemCode": "Item Code",
     "ItemName": "Item Name",
@@ -522,5 +511,24 @@
     "select": "select",
     "search": "Search",
     "ItemSearch": "Item Search"
+  },
+  "generalSetting": {
+    "generalSetting": "General Setting",
+    "updated": "Data Updated Successfully",
+
+    "costingEvaluationMethod": "Costing Evaluation Method",
+    "weightedAverageCotingMethod": "Weighted Average Costing Method",
+    "lastPurchasePriceCostingMethod": "Last Purchase Price Costing Method",
+    "fixedCostMethod": "Fixed Cost Method",
+    "CostOfGodsSoldAccount": "Cost of Goods Sold Account",
+    "SelectOneOfCostOfGodsSoldAccount": "Select one of the Cost of Goods Sold Accounts",
+    "GeneralPurchaseAccount": "General Purchase Account",
+    "GoodsInTransitAccount": "Goods in Transit Account",
+    "InventoryAdjustmentAccount": "Inventory Adjustment Account",
+    "InventoryReEvaluationAccount": "Inventory Re-Evaluation Account",
+    "oneSelect": "Select one option",
+    "Cancel": "Cancel",
+    "save": "Save",
+    "success": "Success"
   }
 }

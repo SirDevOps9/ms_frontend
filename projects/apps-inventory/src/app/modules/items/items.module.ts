@@ -56,6 +56,9 @@ import { AttributeDefinitionListValuesComponent } from './pages/attribute-defini
 import { ItemDefintionVariantComponent } from './pages/item-definition/item-defintion-variants/item-defintion-variant.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { ItemFixedCostComponent } from './pages/item-definition/item-fixed-cost/item-fixed-cost.component';
+import { ViewWarehouseComponent } from './pages/warehouse/view-warehouse/view-warehouse.component';
+import { UomViewComponent } from './pages/unit-of-major/uom-view/uom-view.component';
+import { GeneralSettingInvComponent } from './pages/general-setting-inv/general-setting-inv.component';
 
 const routes: Routes = [
   {
@@ -138,10 +141,6 @@ const routes: Routes = [
             },
           },
 
-
-
-
-
           {
             path: 'tax/:id',
             component: ItemDefintionTaxComponent,
@@ -192,6 +191,14 @@ const routes: Routes = [
               pageTitle: BreadcrumbLabel.EDIT_WARE_HOUSE,
             },
           },
+          {
+            path: 'view-warehouse/:id',
+            component: ViewWarehouseComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.EDIT_WARE_HOUSE,
+              pageTitle: BreadcrumbLabel.EDIT_WARE_HOUSE,
+            },
+          },
         ],
       },
       {
@@ -206,6 +213,7 @@ const routes: Routes = [
             component: UOMListComponent,
             data: {
               breadcrumb: '',
+              pageTitle: BreadcrumbLabel.UOMLISt,
             },
           },
           {
@@ -213,13 +221,22 @@ const routes: Routes = [
             component: UOMAddComponent,
             data: {
               breadcrumb: BreadcrumbLabel.ADD_UOM,
+              pageTitle: BreadcrumbLabel.ADD_UOM,
             },
           },
           {
             path: 'edit-uom/:id',
             component: UOMEditComponent,
             data: {
-              breadcrumb: BreadcrumbLabel.Edit_UOM,
+              breadcrumb: BreadcrumbLabel.EDITUOM,
+              pageTitle: BreadcrumbLabel.EDITUOM,
+            },
+          },
+          {
+            path: 'view-uom/:id',
+            component: UomViewComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.UOM_VIEW,
             },
           },
         ],
@@ -300,7 +317,11 @@ const routes: Routes = [
           breadcrumb: BreadcrumbLabel.ITEM_CATEGORY,
         },
       },
-     
+      {
+        path: 'general-setting',
+        component: GeneralSettingInvComponent,
+        data: { breadcrumb: BreadcrumbLabel.GENERAL_SETTING },
+      },
     ],
   },
 ];
@@ -350,7 +371,10 @@ const routes: Routes = [
     WarehouseTabsComponent,
     AttributeDefinitionValuesComponent,
     AttributeDefinitionListValuesComponent,
-    ItemFixedCostComponent
+    ItemFixedCostComponent,
+    ViewWarehouseComponent,
+    UomViewComponent,
+    GeneralSettingInvComponent,
   ],
   imports: [
     CommonModule,

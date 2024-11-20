@@ -100,11 +100,14 @@ export class BreadcrumbLabel {
   static ITEM_TYPE = 'Item Type';
   static ITEM_CATEGORY = 'Item Category';
   static WARE_HOUSE = 'Warehouse';
-  static UNITOFMEASURE = 'Unit Of Measure';
+  static UNITOFMEASURE = 'BreadCrumb.UnitOfMeasure';
   static ADD_WARE_HOUSE = 'Add Warehouse';
   static UOM = 'UOM';
   static UOM_LIST = 'uom-list';
-  static ADD_UOM = 'UOM Add';
+  static UOM_VIEW = 'BreadCrumb.viewUom';
+  static ADD_UOM = 'BreadCrumb.addUom';
+  static EDITUOM = 'BreadCrumb.EditUom';
+  static UOMLISt = 'BreadCrumb.uomList';
   static Edit_UOM = 'edit uom';
   static GENERAL_ITEMdEFINITION = 'General Item Defintion';
   static attributes_ITEMdEFINITION = 'Attributes & Variants Item Defintion';
@@ -126,6 +129,7 @@ export class BreadcrumbLabel {
   static ADD_STOCKIN = 'Add Stock In';
   static EDIT_STOCKIN = 'stockIn.edit_stock_in';
   static readonly STOCKOUT = 'BreadCrumb.stockout';
+  static readonly GENERAL_SETTING = 'BreadCrumb.generalSetting';
   static readonly ADD_STOCKOUT = 'BreadCrumb.add';
   static readonly EDIT_STOCKOUT = 'BreadCrumb.edit';
   static readonly TITLE_ADD_STOCKOUT = 'BreadCrumb.add_stockOut';

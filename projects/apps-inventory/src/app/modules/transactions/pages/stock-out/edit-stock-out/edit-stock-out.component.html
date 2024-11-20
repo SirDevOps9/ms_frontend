@@ -118,13 +118,13 @@
               <ng-template pTemplate="input">
                 <div class="flex gap-2 align-items-center">
                   <lib-select
-                   formControlName="itemId"
+                   formControlName="itemNumber"
                    [options]="filteredItems"
-                    optionValue="itemId"
+                    optionValue="itemNumber"
                      optionLabel="displayName"
                     [customClass]="'add-journal'"
                     (valueChanged)="setRowData(rowIndex, $event ,filteredItems)"
-                    selectedValue="{{stockOutFormGroup.controls['itemId'].value}}"
+                    selectedValue="{{stockOutFormGroup.controls['itemNumber'].value}}"
                     (valueSearchChanged)="onFilter($event )"></lib-select>
                   <i class="pi pi-search search-circle" (click)="openDialog(rowIndex)"
                   ></i>
@@ -341,14 +341,18 @@
 
   <div class="grid">
     <div class="md:col-12 my-3 grid flex justify-content-end">
-      <div class="md:col-4 grid flex justify-content-end">
-        <div class="md:col-6">
+      <div class="md:col-6 grid flex justify-content-end">
+        <div class="md:col-4">
           <lib-button-micro title="{{ 'Cancel' | translate }}" nameClass="cancel" widthNumber="100%"
             (click)="onCancel()">
           </lib-button-micro>
         </div>
-        <div class="md:col-6">
+        <div class="md:col-4">
           <lib-button-micro title="{{ 'Save' | translate }}" nameClass="save" widthNumber="100%" (click)="onSave()">
+          </lib-button-micro>
+        </div>
+        <div class="md:col-4">
+          <lib-button-micro title="{{ 'Post' | translate }}" nameClass="save" widthNumber="100%" (click)="addToPost()">
           </lib-button-micro>
         </div>
       </div>

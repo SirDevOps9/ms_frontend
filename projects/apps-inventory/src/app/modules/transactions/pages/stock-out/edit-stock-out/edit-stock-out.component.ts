@@ -9,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ItemsService } from '../../../../items/items.service';
 import { TransactionsService } from '../../../transactions.service';
 import { SearchItemPopUpComponent } from '../../../components/stock-out/search-item-pop-up/search-item-pop-up.component';
+import { format } from 'date-fns';
 
 @Component({
   selector: 'app-edit-stock-out',
@@ -39,7 +40,8 @@ export class EditStockOutComponent implements OnInit {
   searchTerm: string;
   addForm: FormGroup = new FormGroup({});
   itemId: number
-
+  stockOutId: number;
+  originalFormData :any
   ngOnInit(): void {
     this.itemId = this.route.snapshot.params['id'];
     this.loadLookups();
@@ -52,12 +54,16 @@ export class EditStockOutComponent implements OnInit {
   getStockOutyId(id: number) {
     this.itemsService.getStockOutById(id);
     this.itemsService.stockOutByIdDataSourceeObservable.subscribe((data: any) => {
+    this.originalFormData=this.mapStockOutData(data)
       this.patchForm(data)
-
+      this.stockOutId= data.id
+     
+    
     })
   }
   patchForm(data: any): void {
     // Patch main form fields
+    
     this.addForm.patchValue({
       id: data.id,
       code: data.code,
@@ -110,14 +116,18 @@ export class EditStockOutComponent implements OnInit {
     this.itemsService.itemsListByWarehouse.subscribe((res: any) => {
       if (res.length > 0) {
         if (this.selectedLanguage === 'ar') {
-          this.filteredItems = res.map((elem: any) => ({
+          this.filteredItems = res.map((elem: any  ,index:number) => ({
             ...elem,
+            itemNumber:index+1,
+
             displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameAr}`,
           }));
         } else {
 
-          this.filteredItems = res.map((elem: any) => ({
+          this.filteredItems = res.map((elem: any  ,index:number) => ({
             ...elem,
+            itemNumber:index+1,
+
             displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameEn}`,
           }));
         }
@@ -139,8 +149,8 @@ export class EditStockOutComponent implements OnInit {
       let sourceDocumentTypeData = data?.find(elem => elem.id == res)
       if (sourceDocumentTypeData?.name == 'OperationalTag') {
 
-        this.itemsService.OperationalTagDropDown()
-        this.itemsService.sendOperationalTagDropDown$.subscribe((res:any) => {
+        this.itemsService.operationTagStockOutDropdown()
+        this.itemsService.perationalTagStockOutDropDown$.subscribe((res:any) => {
           this.oprationalLookup = res.map((elem: any) => ({
             ...elem,
             displayName: `${elem.name} (${elem.code})`,
@@ -159,14 +169,18 @@ export class EditStockOutComponent implements OnInit {
       this.filteredItems = res
       if (res.length) {
         if (this.selectedLanguage === 'ar') {
-          this.filteredItems = res.map((elem: any) => ({
+          this.filteredItems = res.map((elem: any  ,index:number) => ({
             ...elem,
+            itemNumber:index+1,
+
             displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameAr}`,
           }));
         } else {
 
-          this.filteredItems = res.map((elem: any) => ({
+          this.filteredItems = res.map((elem: any  ,index:number) => ({
             ...elem,
+            itemNumber:index+1,
+
             displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameEn}`,
           }));
         }
@@ -182,7 +196,7 @@ export class EditStockOutComponent implements OnInit {
 
 
   setRowData(indexLine: number, selectedItemId: any, list: any) {
-    const selectedItem = list.find((item: any) => item.itemId === selectedItemId);
+    const selectedItem = list.find((item: any) => item.itemNumber === selectedItemId);
     const rowForm = this.stockOutDetailsFormArray.at(indexLine) as FormGroup;
 
     if (!selectedItem) {
@@ -197,6 +211,7 @@ export class EditStockOutComponent implements OnInit {
     // Ensure row form controls are present before updating
     if (rowForm) {
       rowForm.patchValue({
+        itemNumber: selectedItem.itemNumber,
         barCode: selectedItem.barCode,
         bardCodeId: selectedItem.bardCodeId,
         itemId: selectedItem.itemId,
@@ -469,6 +484,8 @@ export class EditStockOutComponent implements OnInit {
 
       let newLine = this.fb.group(
         {
+          itemNumber: new FormControl(''),
+
           id: new FormControl(0),
           barCode: new FormControl(''),
           bardCodeId: new FormControl(''),
@@ -479,7 +496,7 @@ export class EditStockOutComponent implements OnInit {
           uomOptions: new FormControl(),
           uomName: new FormControl(''),
           description: new FormControl(''),
-          quantity: new FormControl('', [customValidators.required, customValidators.nonZero]),
+          quantity: new FormControl('', [customValidators.required, customValidators.nonZero ,customValidators.nonNegativeNumbers]),
           cost: new FormControl('', [customValidators.required]),
           subCost: new FormControl(''),
           notes: new FormControl(''),
@@ -583,23 +600,39 @@ export class EditStockOutComponent implements OnInit {
     } else {
       const data: AddStockOutDto = this.mapStockOutData(this.addForm.value)
       this.itemsService.editStockOut(data);
+      // this.originalFormData = this.addForm.getRawValue();
+
 
     }
 
 
 
   }
+  isFormChanged(): boolean {
+    const x = this.addForm.value
+    x?.stockOutDetails?.forEach((element:any , index:number) => {
+      this.setExpiryDate(index , element.stockOutTracking.batchesOptions ,"0")
+      console.log(index , element.stockOutTracking.batchesOptions,"0");
+      
+    });
+    console.log(x ,"xxxxxxxxxxxx");
+    
+    const currentFormData = this.mapStockOutData(x)
+    console.log(currentFormData ,"currentFormData");
+    console.log(this.originalFormData ,"originalFormData");
+    
+    return JSON.stringify(this.originalFormData) != JSON.stringify(currentFormData);
+  }
   mapStockOutData(data: any) {
 
     return {
       id: data.id,
-      receiptDate: data.receiptDate,
+      receiptDate:  format(new Date(data.receiptDate), 'yyyy-MM-dd'),
       sourceDocumentType: data.sourceDocumentType,
       sourceDocumentId: data.sourceDocumentId,
       warehouseId: data.warehouseId,
       notes: data.notes,
       stockOutStatus: data.stockOutStatus,
-
       stockOutDetails: data.stockOutDetails?.map((detail: any) => ({
 
         id: detail.id,
@@ -802,6 +835,18 @@ export class EditStockOutComponent implements OnInit {
     this.setUomName(indexLine, rowForm.get('uomOptions')?.value)
     this.setExpiryDate(indexLine, selectedItem.batches, selectedItem.serialOptions)
     this.isDuplicate(indexLine)
+  }
+  addToPost(){
+    this.itemsService.postStockOut(this.stockOutId)
+
+    if(this.isFormChanged()){
+      console.log('11111111111111111');
+      
+    }else{
+      console.log('000000000000');
+
+    }
+    // this.itemsService.postStockOut(this.stockOutId)
   }
   constructor(
     private routerService: RouterService,

@@ -42,7 +42,7 @@
               isGlobalFilter: true,
               isSortable: true
             },
-           
+
 
             {
               name: 'id',
@@ -65,19 +65,19 @@
                   ></lib-text-input>
                 </lib-form-group>
               </div>
-             
-            
+
+
 
               <div class=" flex flex-auto justify-content-end align-items-center gap-2">
-              
+
                 <!--  -->
                 <div>
                   <lib-export
                     (exportClick)="exportClick($event)"
-                    [exportData]="exportData"
+                    [exportData]="clonedExportData"
                     [exportColumns]="exportColumns"
                     [ExportName]="'Unit Of Measure'"
-                
+
                   >
                   </lib-export>
                 </div>
@@ -98,10 +98,13 @@
 
         <ng-template #actions let-action>
           <div class="actions flex align-items-center">
+            <lib-button-micro nameClass="table_button_view" (click)="onView(action.uomCategoryId)">
+            </lib-button-micro>
             <lib-button-micro nameClass="table_button_edit" (click)="onEdit(action)">
             </lib-button-micro>
             <lib-button-micro nameClass="table_button_delete" (click)="onDelete(action.uomCategoryId)">
             </lib-button-micro>
+
           </div>
         </ng-template>
       </lib-data-table>

@@ -4,16 +4,24 @@
       <div class="card">
         <div class="grid m-0 p-0">
           <div class="md:col-12">
-            <p class="fw-bold heads">{{ 'UOM.category' | translate }}</p>
+          </div>
+          <div class="md:col-4">
+            <lib-form-group>
+              <lib-label [appControl]="UOMFormGroup.controls['code']" class="body_b14 mb-2 ms-4">
+                {{ 'UOM.code' | translate }}
+              </lib-label>
+              <lib-text-input [readOnly]="true" formControlName="code" placeholder="{{ 'UOM.code' | translate }}">
+              </lib-text-input>
+            </lib-form-group>
           </div>
           <!--  -->
-      
-          <div class="md:col-6">
+          <div class="md:col-4">
             <lib-form-group>
               <lib-label [appControl]="UOMFormGroup.controls['nameEn']" class="body_b14 mb-2 ms-4">
                 {{ 'UOM.categorynameEn' | translate }}
               </lib-label>
               <lib-text-input
+              [readOnly]="true"
                 formControlName="nameEn"
                 placeholder="{{ 'UOM.categorynameEn' | translate }}"
               >
@@ -24,12 +32,13 @@
             </lib-form-group>
           </div>
           <!--  -->
-          <div class="md:col-6">
+          <div class="md:col-4">
             <lib-form-group>
               <lib-label [appControl]="UOMFormGroup.controls['nameAr']" class="body_b14 mb-2 ms-4">
                 {{ 'UOM.categorynameAr' | translate }}
               </lib-label>
               <lib-text-input
+              [readOnly]="true"
                 formControlName="nameAr"
                 placeholder="{{ 'UOM.categorynameAr' | translate }}"
               >
@@ -57,12 +66,14 @@
                 {{ 'UOM.systemUnit' | translate }}
               </lib-label>
               <lib-select
+              [readOnly]="true"
                 placeholder="{{ 'UOM.systemUnit' | translate }}"
                 [options]="sytemUnitLookup"
-                [optionLabel]="currentLang == 'en' ? 'nameEn' : 'nameAr'"
+                optionLabel="nameEn"
                 optionValue="id"
                 formControlName="systemUnitOfMeasureId"
                 (valueChanged)="systemUnitChanged($event)"
+                [selectedValue]="UOMFormGroup.controls['systemUnitOfMeasureId'].value"
               ></lib-select>
               <lib-field-validations
               [appControl]="UOMFormGroup.controls['systemUnitOfMeasureId']"
@@ -79,6 +90,7 @@
                 {{ 'UOM.nameUomEn' | translate }}
               </lib-label>
               <lib-text-input
+              [readOnly]="true"
                 formControlName="baseUomEn"
                 placeholder="{{ 'UOM.nameUomEn' | translate }}"
                 (keyUp)="nameUomEnChanged($event)"
@@ -99,6 +111,7 @@
                 {{ 'UOM.nameUomAr' | translate }}
               </lib-label>
               <lib-text-input
+              [readOnly]="true"
                 formControlName="baseUomAr"
                 placeholder="{{ 'UOM.nameUomAr' | translate }}"
                 (keyUp)="nameUomArChanged($event)"
@@ -120,8 +133,10 @@
                 {{ 'UOM.shortName' | translate }}
               </lib-label>
               <lib-text-input
+              [readOnly]="true"
                 formControlName="shortName"
                 placeholder="{{ 'UOM.shortName' | translate }}"
+                (keyUp)="shortNameChangedForGroup($event)"
 
               >
               </lib-text-input>
@@ -135,16 +150,10 @@
       </div>
     </div>
   </div>
-
-  <div class="add_new flex justify-content-end p-0">
-    <!-- !UOMFormGroup.controls['uomCodeCategory'].value -->
-    <lib-button (onClick)="addLine()" className="outline-primary">
-      {{ 'UOM.add_new' | translate }}
-    </lib-button>
-  </div>
   <div class="entry_table my-2">
     <div class="card">
       <p-table
+      
         [value]="getUOMS.controls"
         dataKey="id"
         styleClass="p-datatable-gridlines p-datatable-striped"
@@ -158,15 +167,13 @@
             <th>{{ 'UOM.shortName' | translate }}</th>
             <th>{{ 'UOM.factorUOM' | translate }}</th>
             <th>{{ 'UOM.from' | translate }}</th>
-
             <th>{{ 'UOM.calculation' | translate }}</th>
             <th>{{ 'UOM.reversal' | translate }}</th>
-            <th>{{ 'UOM.action' | translate }}</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-uomTableForm let-editing="editing" let-i="rowIndex">
           <tr [formGroup]="uomTableForm">
-        
+
             <td
               [pEditableColumn]="uomTableForm.controls['systemUnitOfMeasureId']"
               pEditableColumnField="systemUnitOfMeasureId"
@@ -174,9 +181,10 @@
               <p-cellEditor>
                 <ng-template pTemplate="input">
                   <lib-select
+                  [readOnly]="true"
                     placeholder="{{ 'UOM.systemUnit' | translate }}"
                     [options]="filteredSytemUnitLookup"
-                    [optionLabel]="currentLang == 'en' ? 'nameEn' : 'nameAr'"
+                    optionLabel="nameEn"
                     optionValue="id"
                     formControlName="systemUnitOfMeasureId"
                     (valueChanged)="systemUnitListChanged($event, uomTableForm , list[i])"
@@ -195,10 +203,9 @@
               <p-cellEditor>
                 <ng-template pTemplate="input">
                   <lib-text-input
+                  [readOnly]="true"
                     placeholder="{{ 'UOM.nameEn' | translate }}"
                     formControlName="nameEn"
-                    (keyUp)="nameChanged($event , i)"
-
                   ></lib-text-input>
                 </ng-template>
                 <ng-template pTemplate="output">
@@ -214,10 +221,9 @@
               <p-cellEditor>
                 <ng-template pTemplate="input">
                   <lib-text-input
+                  [readOnly]="true"
                     placeholder="{{ 'UOM.nameAr' | translate }}"
                     formControlName="nameAr"
-                    (keyUp)="nameChanged($event , i)"
-
                   ></lib-text-input>
                 </ng-template>
                 <ng-template pTemplate="output">
@@ -237,8 +243,10 @@
                 <ng-template pTemplate="input">
                   <lib-form-group>
                     <lib-text-input
+                    [readOnly]="true"
                       placeholder="{{ 'UOM.shortName' | translate }}"
                       formControlName="shortName"
+                      (keyUp)="shortNameChanged($event , i)"
                     ></lib-text-input>
                   </lib-form-group>
                 </ng-template>
@@ -259,7 +267,7 @@
                 <ng-template pTemplate="input">
                   <lib-form-group>
                     <lib-text-input
-                      type="number"
+                    [readOnly]="true"
                       placeholder="{{ 'UOM.factor' | translate }}"
                       formControlName="factor"
                       (keyUp)="factorChanged($event , uomTableForm , i , list[i]  )"
@@ -274,27 +282,30 @@
                 </ng-template>
               </p-cellEditor>
             </td>
-            <td [pEditableColumn]="uomTableForm.controls['code']" pEditableColumnField="code">
-              <p-cellEditor>
-                <ng-template pTemplate="input">
-                  <lib-select
-                    placeholder="{{ 'UOM.uomType' | translate }}"
-                    [options]="list[i]"
-                    optionLabel="name"
-                    optionValue="id"
-                    formControlName="fromUnitOfMeasureId"
-                    (valueChanged)="fromUnitOfMeasureChanged($event ,list[i] , uomTableForm , i)"
-                  ></lib-select>
-                </ng-template>
-                <ng-template pTemplate="output">
-                  
-                  {{(uomTableForm.controls['fromUnitOfMeasureId']?.value | getElementByID : list[i])?.name }}
-                </ng-template>
-              </p-cellEditor>
-              <lib-field-validations
-                [appControl]="uomTableForm.controls['fromUnitOfMeasureId']"
-              ></lib-field-validations>
-            </td>
+
+<td [pEditableColumn]="uomTableForm.controls['code']" pEditableColumnField="code">
+  <p-cellEditor>
+    <ng-template pTemplate="input">
+      <lib-select
+      [readOnly]="true"
+        placeholder="{{ 'UOM.uomType' | translate }}"
+        [options]="list[i]"
+        optionLabel="name"
+        optionValue="id"
+        formControlName="fromUnitOfMeasureId"
+        (valueChanged)="fromUnitOfMeasureChanged($event ,list[i] , uomTableForm , i)"
+      ></lib-select>
+    </ng-template>
+    <ng-template pTemplate="output">
+
+
+{{ uomTableForm.controls['fromUnitOfMeasureName']?.value ??  (uomTableForm.controls['fromUnitOfMeasureId']?.value | getElementByID : list[i])?.name }}
+    </ng-template>
+  </p-cellEditor>
+  <lib-field-validations
+    [appControl]="uomTableForm.controls['fromUnitOfMeasureId']"
+  ></lib-field-validations>
+</td>
 
             <td
               [pEditableColumn]="uomTableForm.controls['BaseCalculation']"
@@ -304,6 +315,7 @@
                 <ng-template pTemplate="input">
                   <lib-form-group>
                     <lib-text-input
+                    [readOnly]="true"
                       placeholder="{{ 'UOM.calculation' | translate }}"
                       formControlName="BaseCalculation"
                       [readOnly]="true"
@@ -312,17 +324,14 @@
                   </lib-form-group>
                 </ng-template>
                 <ng-template pTemplate="output" >
-                  
-                  <small *ngIf="uomTableForm.controls['fromUnitOfMeasureId'].value && uomTableForm.controls['factor'].value ">{{ uomTableForm.controls['calculationShow'].value }}</small>
+
+                  <small *ngIf="uomTableForm.controls['fromUnitOfMeasureId']?.value && uomTableForm.controls['factor']?.value ">{{ uomTableForm.controls['calculationShow']?.value }}</small>
                   <lib-field-validations
                     [appControl]="uomTableForm.controls['BaseCalculation']"
                   ></lib-field-validations>
                 </ng-template>
               </p-cellEditor>
             </td>
-            <!--  -->
-            <!--  -->
-
             <td
               [pEditableColumn]="uomTableForm.controls['BaseReversal']"
               pEditableColumnField="uomTableForm.controls['BaseReversal']"
@@ -331,6 +340,7 @@
                 <ng-template pTemplate="input">
                   <lib-form-group>
                     <lib-text-input
+                    [readOnly]="true"
                       placeholder="{{ 'UOM.reversal' | translate }}"
                       formControlName="BaseReversal"
                       [readOnly]="true"
@@ -338,24 +348,12 @@
                   </lib-form-group>
                 </ng-template>
                 <ng-template pTemplate="output">
-                 <small *ngIf="uomTableForm.controls['fromUnitOfMeasureId'].value && uomTableForm.controls['factor'].value "> {{ uomTableForm.controls['BaseReversalShow'].value }}</small>
+                 <small *ngIf="uomTableForm.controls['fromUnitOfMeasureId']?.value && uomTableForm.controls['factor']?.value "> {{ uomTableForm.controls['BaseReversalShow']?.value }}</small>
                   <lib-field-validations
                     [appControl]="uomTableForm.controls['BaseReversal']"
                   ></lib-field-validations>
                 </ng-template>
               </p-cellEditor>
-            </td>
-
-            <td>
-              <div class="actions flex align-items-center">
-                <lib-button-micro
-                  nameClass="cancel"
-                  iconName="pi pi-trash"
-                  type="button"
-                  (click)="onDelete(i , uomTableForm)"
-                >
-                </lib-button-micro>
-              </div>
             </td>
           </tr>
         </ng-template>
@@ -363,28 +361,10 @@
     </div>
   </div>
 
-  <div class="grid">
-    <div class="md:col-12 my-3 grid flex justify-content-end">
-      <div class="md:col-4 grid flex justify-content-end">
-        <div class="md:col-6">
-          <lib-button-micro
-            title="{{ 'UOM.cancel' | translate }}"
-            nameClass="cancel"
-            widthNumber="100%"
-            (click)="onCancel()"
-          >
-          </lib-button-micro>
-        </div>
-        <div class="md:col-6">
-          <lib-button-micro
-            title="{{ 'Save' | translate }}"
-            nameClass="save"
-            widthNumber="100%"
-            (click)="onSave()"
-          >
-          </lib-button-micro>
-        </div>
-      </div>
-    </div>
-  </div>
 </lib-page-content>
+
+
+
+
+
+
