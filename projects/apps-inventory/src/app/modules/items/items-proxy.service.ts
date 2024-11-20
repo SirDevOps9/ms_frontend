@@ -15,11 +15,11 @@ import {
   AttributesVariants,
   EditAttributes,
   EditWareHouse,
+  GeneralSettingDto,
   GetItemById,
   GetItemCategoryDto,
   getUomByItemId,
   GetWarehouseList,
-  GeneralSettingDto,
   IOperationalTag,
   itemDefinitionDto,
   ItemTypeDto,
@@ -70,6 +70,14 @@ export class ItemsProxyService {
       query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
     }
     return this.httpService.get<PaginationVm<itemDefinitionDto>>(query);
+  }
+
+  getStockOut(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<StockInDto>> {
+    let query = `Transaction/GetStockInTransactionList?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+    return this.httpService.get<PaginationVm<StockInDto>>(query);
   }
 
   exportsStockOutList(searchTerm: string | undefined): Observable<itemDefinitionDto[]> {
@@ -536,15 +544,6 @@ export class ItemsProxyService {
       query += `&${quieries ? quieries : ''}`;
     }
     return this.httpService.get<PaginationVm<AdvancedSearchDto>>(query);
-  }
-
-  getLatestItemsListByWarehouse(
-    SearchTerm: string,
-    WarehouseId: number
-  ): Observable<LatestItems[]> {
-    return this.httpService.get(
-      `Item/GetLatestItemsStockDropDownByWarehouse?WarehouseId=${WarehouseId}`
-    );
   }
 
   // inventory general setting
