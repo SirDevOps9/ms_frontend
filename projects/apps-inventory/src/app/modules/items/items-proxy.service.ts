@@ -462,6 +462,22 @@ export class ItemsProxyService {
     }
     return this.httpService.get<PaginationVm<GetWarehouseList>>(query);
   }
+  getWarehouseView(
+    searchTerm: string,
+    warehouseId: number,
+    pageInfo: PageInfo
+  ): Observable<PaginationVm<GetWarehouseList>> {
+    let query = `WareHouse/GetItems?warehouseId=${warehouseId}&${pageInfo.toQuery}`;
+
+    // Add SearchTerm if available
+    if (searchTerm) {
+      query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+
+    return this.httpService.get<PaginationVm<GetWarehouseList>>(query);
+  }
+
+
 
   //  operational tag list
   getOperationalTagList(searchTerm: string, pageInfo: PageInfo): Observable<IOperationalTag> {

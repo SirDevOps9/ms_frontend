@@ -182,13 +182,17 @@
   "warehouse": {
     "Add": "Add",
     "AddNew": "Add New",
-
+    "print": "Print",
     "create": "Create",
     "search": "Search",
     "ChangeColumn": "Change Column",
     "save": "Save",
     "cancel": "Cancel",
     "code": "Code",
+    "uom":"UOM",
+    "variant":"Variant",
+    "availablequantity":"Available Quantity",
+    "itemCode":"Item Code",
     "name": "Name",
     "warehouseName": "Warehouse Name",
     "relatedBranch": "Warehouse Related Branch",

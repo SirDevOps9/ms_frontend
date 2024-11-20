@@ -192,6 +192,8 @@ export class ItemsService {
   AddWarehouseDataSource = new BehaviorSubject<AddWarehouse>({} as AddWarehouse);
   sendWarehouseById = new BehaviorSubject<AddWarehouse>({} as AddWarehouse);
 
+  WarehouseViewDataSource = new BehaviorSubject<GetWarehouseList[]>([]);
+
   getWarehouseDataSourceById = new BehaviorSubject<WarehouseAccountData>(
     {} as WarehouseAccountData
   );
@@ -301,6 +303,7 @@ export class ItemsService {
   public AddWarehouseDataSourceObs = this.AddWarehouseDataSource.asObservable();
   public sendWarehouseByIdObs = this.sendWarehouseById.asObservable();
   public exportedWarehouseDataSourceObs = this.exportedWarehouseDataSource.asObservable();
+  public WarehouseViewDataSourceObs = this.WarehouseViewDataSource.asObservable()
   // lookups
   public sendBranchesLookupObs = this.sendBranchesLookup.asObservable();
   public sendCitiesLookupObs = this.sendCitiesLookup.asObservable();
@@ -1241,7 +1244,12 @@ public OperationalTagStockOut$ = this.sendOperationalTagStockOutDropDown.asObser
       this.currentPageInfo.next(response.pageInfoResult);
     });
   }
-
+  getWarehouseListView(queries: string, warehouseId:number, pageInfo: PageInfo) {
+    this.itemProxy.getWarehouseView(queries  , warehouseId, pageInfo).subscribe((response) => {
+      this.WarehouseViewDataSource.next(response.result);
+      this.currentPageInfo.next(response.pageInfoResult);
+    });
+  }
   // addWarehouse(obj : AddWarehouse) {
   //   this.itemProxy.addWarehouse(obj).subscribe((response) => {
   //     this.toasterService.showSuccess(
