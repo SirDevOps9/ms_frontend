@@ -400,6 +400,7 @@ export class AddStockInComponent implements OnInit {
   }
 
   onSave() {
+    
     const stockInDetails = this.stockIn as FormArray;
     this.errorsArray = []; // Array to collect errors for each line
 
@@ -456,10 +457,8 @@ export class AddStockInComponent implements OnInit {
     });
 
     // If there are errors, log them or display them
-    if (this.errorsArray.length > 0) {
-      console.error('Form contains errors:', this.errorsArray);
-      return; // Prevent form submission
-    }
+    if (!this.formService.validForm(this.stockInForm, false)) return;
+    if (!this.formService.validForm(this.stockIn, false)) return;
 
     // Proceed with saving if no errors
     if (this.stockInForm.valid) {
@@ -467,6 +466,7 @@ export class AddStockInComponent implements OnInit {
         ...this.stockInForm.value,
         stockInDetails: this.stockIn.value,
       };
+   
 
       this.transactionsService.addStockIn(data, this.stockInForm);
       this.transactionsService.addedStockInData$.subscribe({
