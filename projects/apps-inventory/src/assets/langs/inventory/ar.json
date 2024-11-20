@@ -15,7 +15,8 @@
     "add": "إضافة",
     "edit": "تعديل",
     "add_stockOut": "إضافة إخراج مخزون",
-    "edit_stockOut": "تعديل إخراج مخزون"
+    "edit_stockOut": "تعديل إخراج مخزون",
+    "itemCardReport": "تقرير صنف"
   },
   "Toaster": {
     "Confirm": {
