@@ -36,7 +36,8 @@
     "stockInView": "عرض إدخال المخزون",
     "stockOutView": "عرض إخراج المخزون",
     "stockIn": "قائمة إدخال المخزون",
-    "viewUom": "عرض"
+    "viewUom": "عرض",
+    "itemCardReport": "تقرير بطاقة الأصناف"
   },
   "success": "نجاح",
   "error": "خطأ",
@@ -191,8 +192,10 @@
     "cancel": "إلغاء",
     "code": "الرمز",
     "name": "الاسم",
+    "print":"طباعة",
     "relatedBranch": "الفرع المرتبط",
     "warehouseType": "نوع المستودع",
+    "availableQuantity":"الكميه المتاحة",
     "actions": "الإجراءات",
     "warehouse": "المستودع",
     "account": "الحساب",
@@ -405,6 +408,26 @@
     "expiryDate": "تاريخ الانتهاء",
     "availability": "التوفر",
     "noTracking": "بدون تتبع"
+  },
+  "itemCardReport": {
+    "view": "عرض",
+    "transactionName": "اسم المعاملة",
+    "transactionCode": "كود المعاملة",
+    "serial": "رقم تسلسلي",
+    "batchNo": "رقم الدفعة",
+    "expiryDate": "تاريخ الانتهاء",
+    "in": "دخول",
+    "out": "خروج",
+    "balance": "الرصيد",
+    "itemCost": "تكلفة الصنف",
+    "totalBalanceAmount": "الرصيد الكلي",
+    "subTotal": "الإجمالي الفرعي",
+    "subTitles": {
+      "QTY": "الكمية",
+      "cost": "التكلفة",
+      "subTotal": "الإجمالي الفرعي"
+    },
+    "QTYbalance": "رصيد الكمية"
   },
   "popupSearch": {
     "ItemCode": "كود الصنف",

@@ -123,10 +123,12 @@ export class BreadcrumbLabel {
   static Edit_Attribute_Definition = 'Edit Attribute Definition';
   static LIST_Attribute_Definition = 'Attribute Definition List';
   static EDIT_WARE_HOUSE = 'Edit Warehouse';
+  static VIEW_WARE_HOUSE = 'BreadCrumb.ViewWarehouse';
   static ITEMS_CATEGORY = 'BreadCrumb.ItemsCategory';
   static STOCKIN = 'BreadCrumb.stockIn';
-  static ADD_STOCKIN = 'BreadCrumb.AddStockIn';
-  static EDIT_STOCKIN = 'BreadCrumb.edit_stock_in';
+  static ITEM_CARD_REPORT = 'BreadCrumb.itemCardReport';
+  static ADD_STOCKIN = 'Add Stock In';
+  static EDIT_STOCKIN = 'stockIn.edit_stock_in';
   static readonly STOCKOUT = 'BreadCrumb.stockout';
   static readonly GENERAL_SETTING = 'BreadCrumb.generalSetting';
   static readonly ADD_STOCKOUT = 'BreadCrumb.add';
