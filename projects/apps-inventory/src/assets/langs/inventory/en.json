@@ -8,27 +8,27 @@
     "duplicateItem": "There is a duplicated item.",
     "serialError": "Can't add more than one item with the same serial.",
     "noBarcode": "This barcode does not exist.",
-    "notEdit":"This stockout cannot be edited because it is posted.",
+    "notEdit": "This stockout cannot be edited because it is posted.",
     "stockOutPostedSuccessfully": "Stock Out Posted successfully"
-
-},
+  },
   "BreadCrumb": {
     "ItemsCategory": "Items Category",
     "stockout": "Stock Out",
     "add": "Add",
+    "generalSetting": "General Setting",
     "add_stockOut": "Add StockOut",
-   "UnitOfMeasure" : "Unit Of Measure",
-   "addUom" : "Add UOM",
-   "EditUom" : "Edit UOM",
-   "uomList" : "UOM",
-   "edit": "Edit",
-    "editstockout":"Edit Stock Out",
+    "UnitOfMeasure": "Unit Of Measure",
+    "addUom": "Add UOM",
+    "EditUom": "Edit UOM",
+    "uomList": "UOM",
+    "edit": "Edit",
+    "editstockout": "Edit Stock Out",
     "edit_stockOut": "Edit StockOut",
-    "EditItembarfixedcostfinition":"Edit Item fixed cost",
-    "stockInView":"Stock In View",
-    "stockOutView":"Stock Out View",
-    "stockIn":"Stock In List",
-    "viewUom":"view"
+    "EditItembarfixedcostfinition": "Edit Item fixed cost",
+    "stockInView": "Stock In View",
+    "stockOutView": "Stock Out View",
+    "stockIn": "Stock In List",
+    "viewUom": "view"
   },
   "Toaster": {
     "Confirm": {
@@ -108,7 +108,7 @@
     "salesAmount": "Sales Account",
     "salesReturnAmount": "Sales Return Account",
     "variantSelect": "Variant Select",
-    "fixedCost":"Fixed Cost",
+    "fixedCost": "Fixed Cost",
     "success": "Success",
     "deleteVariant": "Attibute Group Deleted Successfully",
     "changeVariantStatus": "Attibute Group Status Changed Successfully",
@@ -172,7 +172,7 @@
     "delete": "Item Definition deleted successfully",
     "editGenerl": "Edit general updated successfully",
     "change": "Change",
-    "editFixedCost":"Edit fixed cost updated successfully",
+    "editFixedCost": "Edit fixed cost updated successfully",
     "baseUnit": "Base unit",
     "shortname": "Short Name",
     "conversionfactor": "Conversion factor",
@@ -246,7 +246,7 @@
     "categoryCode": "UOM Category Code",
     "name": "UOM Name",
     "categoryname": "UOM Category Name",
-    "EditUomSuccess" : "UOM Edited Successfully",
+    "EditUomSuccess": "UOM Edited Successfully",
     "save": "Save",
     "uomEdit": "Edited",
     "discard": "Discard",
@@ -282,7 +282,7 @@
     "uomName": "UOM Name",
     "uomCategory": "UOM Category",
     "uomFactor": "UOM Factor",
-    "cancel" : "Cancel"
+    "cancel": "Cancel"
   },
   "attributeDefinition": {
     "Add": "Create",
@@ -492,13 +492,13 @@
     "action": "Action",
     "btnReserve": "Reserve",
     "btnReserved": "Reserved",
-    "batch":"batch no.",
-  "serial":"Serial",
-  "expiryDate":"Expiry Date",
-  "availability":"Availability",
-  "noTracking": "No tracking"
+    "batch": "batch no.",
+    "serial": "Serial",
+    "expiryDate": "Expiry Date",
+    "availability": "Availability",
+    "noTracking": "No tracking"
   },
-  "popupSearch":{
+  "popupSearch": {
     "ItemCode": "Item Code",
     "ItemName": "Item Name",
     "ItemUOM": "Item Unit of Measure",
@@ -511,7 +511,24 @@
     "select": "select",
     "search": "Search",
     "ItemSearch": "Item Search"
+  },
+  "generalSetting": {
+    "generalSetting": "General Setting",
+    "updated": "Data Updated Successfully",
 
+    "costingEvaluationMethod": "Costing Evaluation Method",
+    "weightedAverageCotingMethod": "Weighted Average Costing Method",
+    "lastPurchasePriceCostingMethod": "Last Purchase Price Costing Method",
+    "fixedCostMethod": "Fixed Cost Method",
+    "CostOfGodsSoldAccount": "Cost of Goods Sold Account",
+    "SelectOneOfCostOfGodsSoldAccount": "Select one of the Cost of Goods Sold Accounts",
+    "GeneralPurchaseAccount": "General Purchase Account",
+    "GoodsInTransitAccount": "Goods in Transit Account",
+    "InventoryAdjustmentAccount": "Inventory Adjustment Account",
+    "InventoryReEvaluationAccount": "Inventory Re-Evaluation Account",
+    "oneSelect": "Select one option",
+    "Cancel": "Cancel",
+    "save": "Save",
+    "success": "Success"
   }
-
 }

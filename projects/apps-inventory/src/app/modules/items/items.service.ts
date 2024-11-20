@@ -23,6 +23,7 @@ import {
   AttributesVariants,
   EditAttributes,
   EditWareHouse,
+  GeneralSettingDto,
   GetItemById,
   GetItemCategoryDto,
   getUomByItemId,
@@ -94,7 +95,7 @@ export class ItemsService {
   public getInventoryData = new BehaviorSubject<any>([]);
   public dataBarCodeById = new BehaviorSubject<any[]>([]);
 
-  public dataFixedCostById =new BehaviorSubject<any[]>([]);
+  public dataFixedCostById = new BehaviorSubject<any[]>([]);
   public uomCodeLookup = new BehaviorSubject<UomCodeLookup[]>([]);
   public getuomById = new BehaviorSubject<addUOM>({} as addUOM);
   public ItemGetItemUomById = new BehaviorSubject<any[]>([]);
@@ -102,20 +103,9 @@ export class ItemsService {
     {} as { id: number; name: string }
   );
 
-
-
-
-
-
-
   public exportedStockOutDataSource = new BehaviorSubject<StockInDto[]>([]);
 
-
-
-
-
-   public dataFixedCostByIdObs = this.dataFixedCostById.asObservable()
-
+  public dataFixedCostByIdObs = this.dataFixedCostById.asObservable();
 
   saveItemDefGeneral = new BehaviorSubject<AddGeneralDto>({} as AddGeneralDto);
   saveItemDefGeneral$ = this.saveItemDefGeneral.asObservable();
@@ -133,8 +123,6 @@ export class ItemsService {
   //transactions
 
   //transactions
-
-
 
   public codeByuomCodeDropDown = new EventEmitter<{ code: number; conversionRatio: string }>();
   public UOMCategoryDropDownLookup = new BehaviorSubject<{ id: number; name: string }[]>([]);
@@ -162,12 +150,10 @@ export class ItemsService {
   public GetItemByID = new BehaviorSubject<GetItemById>({} as GetItemById);
   public getOperationalTagItemsById = new BehaviorSubject<AddOperatioalTag>({});
 
-
-
   public GetUomListByItemId = new BehaviorSubject<getUomByItemId[]>([]);
   public sendDefault = new BehaviorSubject<boolean>(false);
   public editItemData = new BehaviorSubject<any>(false);
-  public editItemFixedCostData  = new BehaviorSubject<any>(false);
+  public editItemFixedCostData = new BehaviorSubject<any>(false);
 
   public updateUOMobj = new BehaviorSubject<addUOM>({} as addUOM);
   public updateAttrobj = new BehaviorSubject<addAttributeDifintion>({} as addAttributeDifintion);
@@ -175,9 +161,8 @@ export class ItemsService {
   public attributeNameDropDownLookup = new BehaviorSubject<any>([]);
   public attributeGroupeDropDownLookup = new BehaviorSubject<{ id: number; name: string }[]>([]);
 
-
   public sendlatestItemsList = new BehaviorSubject<LatestItems[]>([]);
-  public latestItemsListByWarehouse= new BehaviorSubject<LatestItems[]>([]);
+  public latestItemsListByWarehouse = new BehaviorSubject<LatestItems[]>([]);
   public updateAddStockIn = new BehaviorSubject<AddStockIn>({} as AddStockIn);
   public attributeValuesDropDownLookup = new BehaviorSubject<itemAttributeValues[]>([]);
   public attributeValuesData = new BehaviorSubject<itemAttributeValues[]>([]);
@@ -200,9 +185,6 @@ export class ItemsService {
 
   // transactions
 
-
-
-
   // lookups
   sendGlAccountLookup = new BehaviorSubject<any>([]);
   sendBranchesLookup = new BehaviorSubject<any>([]);
@@ -211,7 +193,6 @@ export class ItemsService {
   sendCountriesLookup = new BehaviorSubject<any>([]);
   public sendOperationalTagDropDown = new BehaviorSubject<OperationalStockIn[]>([]);
   public sendItemBarcodeStockOut = new BehaviorSubject<any>({} as any);
-
 
   // sendCashSalesLookup = new BehaviorSubject<any>([]);
   // sendLookup = new BehaviorSubject<any>([]);
@@ -243,7 +224,7 @@ export class ItemsService {
   public ViewDataItemUomByIdObs = this.ViewDataItemUomById.asObservable();
   public deleteAttrDifinitionDataObs = this.deleteAttrDifinitionData.asObservable();
   public itemCategoryLookupObs = this.itemCategoryLookup.asObservable();
-  public editItemFixedCostDataObs = this.editItemFixedCostData.asObservable()
+  public editItemFixedCostDataObs = this.editItemFixedCostData.asObservable();
   public AddItemCategoryLookupObs = this.AddItemCategoryLookup.asObservable();
   public itemsCategoryDeletedObs = this.itemsCategoryDeleted.asObservable();
   public EditItemCategoryDataObs = this.EditItemCategoryData.asObservable();
@@ -254,7 +235,9 @@ export class ItemsService {
   public defaultUnitObs = this.defaultUnit.asObservable();
 
   public stockInDataViewSource = new BehaviorSubject<StockInDto[]>([]);
+  public inventoryGeneralSetting = new BehaviorSubject<GeneralSettingDto>({} as GeneralSettingDto);
 
+  inventoryGeneralSetting$ = this.inventoryGeneralSetting.asObservable();
   stockInDataViewSourceeObservable = this.stockInDataViewSource.asObservable();
 
   public ItemVariantsByIdObs = this.ItemVariantsById.asObservable();
@@ -338,10 +321,10 @@ export class ItemsService {
   public sendItemBarcode$ = this.sendItemBarcode.asObservable();
   public sendItemBarcodeStockOut$ = this.sendItemBarcodeStockOut.asObservable();
 
-
-public sendOperationalTagStockOutDropDown = new BehaviorSubject<{ id: number; name: string }[]>([]);
-public OperationalTagStockOut$ = this.sendOperationalTagStockOutDropDown.asObservable()
-
+  public sendOperationalTagStockOutDropDown = new BehaviorSubject<{ id: number; name: string }[]>(
+    []
+  );
+  public OperationalTagStockOut$ = this.sendOperationalTagStockOutDropDown.asObservable();
 
   getItemType(quieries: string, pageInfo: PageInfo) {
     this.itemProxy.getItemType(quieries, pageInfo).subscribe((response) => {
@@ -356,14 +339,11 @@ public OperationalTagStockOut$ = this.sendOperationalTagStockOutDropDown.asObser
     });
   }
 
-  getItemBarcodeForItem(barcode : string) {
-    this.itemProxy.getItemBarcodeForItem(barcode).subscribe(res=>{
-      this.sendItemBarcode.next(res)
-
-    })
-
+  getItemBarcodeForItem(barcode: string) {
+    this.itemProxy.getItemBarcodeForItem(barcode).subscribe((res) => {
+      this.sendItemBarcode.next(res);
+    });
   }
-
 
   getItemBarcodeById(id: number) {
     this.itemProxy.getItemBarcodeById(id).subscribe({
@@ -392,24 +372,15 @@ public OperationalTagStockOut$ = this.sendOperationalTagStockOutDropDown.asObser
     );
   }
   getUOmCategories(quieries: string, pageInfo: PageInfo) {
-
     this.itemProxy.GetUOMCategories(quieries, pageInfo).subscribe(
       (response) => {
         console.log(response);
         this.GetUOMCategoriesDataSource.next(response.result);
         this.currentPageInfo.next(response.pageInfoResult);
       },
-      (erorr) => {
-      }
+      (erorr) => {}
     );
   }
-
-
-
-
-
-
-
 
   ViewDefinitionById(id: number) {
     // this.loaderService.show();
@@ -1023,8 +994,8 @@ public OperationalTagStockOut$ = this.sendOperationalTagStockOutDropDown.asObser
           );
 
           const currentUom = this.GetUOMCategoriesDataSource.getValue();
-          console.log(currentUom)
-          console.log(id)
+          console.log(currentUom);
+          console.log(id);
           const updatedUOM = currentUom.filter((c: any) => c.uomCategoryId !== id);
           this.GetUOMCategoriesDataSource.next(updatedUOM);
         },
@@ -1443,5 +1414,23 @@ public OperationalTagStockOut$ = this.sendOperationalTagStockOutDropDown.asObser
       });
     }
   }
+  editInventoryGeneralSetting(obj: GeneralSettingDto) {
+    this.itemProxy.editInventoryGeneralSetting(obj).subscribe({
+      next: (res: GeneralSettingDto) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('generalSetting.success'),
+          this.languageService.transalte('generalSetting.updated')
+        );
+      },
+    });
+  }
+  getInventoryGeneralSetting() {
+    this.itemProxy.getInventoryGeneralSetting().subscribe({
+      next: (res: GeneralSettingDto) => {
+        if (res) {
+          this.inventoryGeneralSetting.next(res);
+        }
+      },
+    });
+  }
 }
-
