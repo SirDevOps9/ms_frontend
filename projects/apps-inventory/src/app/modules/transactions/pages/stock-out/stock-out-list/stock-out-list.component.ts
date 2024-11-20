@@ -53,7 +53,7 @@ export class StockOutListComponent implements OnInit {
 
 
   onAdd() {
-    this.sequenceService.isHaveSequence( this.sharedEnums.Pages.StockOut , '/transactions/stock-in/add-stock-in')
+    this.sequenceService.isHaveSequence( this.sharedEnums.Pages.StockOut , '/transactions/stock-out/add')
 
 
   }
