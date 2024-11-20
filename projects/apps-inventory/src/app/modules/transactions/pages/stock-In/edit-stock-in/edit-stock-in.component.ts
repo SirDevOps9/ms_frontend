@@ -154,11 +154,17 @@ export class EditStockInComponent implements OnInit {
     });
   }
 
+  postedStock: boolean = true;
   getStockInById(id: number) {
     this.transactionService.getStockInById(id);
     this.transactionService.stockInByIdData$.subscribe({
       next: (res: any) => {
         if (res) {
+          if (res.stockInStatus == 'Posted') {
+            this.postedStock = false;
+          } else {
+            this.postedStock = true;
+          }
           // Patch main form values
           this.stockInForm?.patchValue({
             id: res?.id,
@@ -408,30 +414,33 @@ export class EditStockInComponent implements OnInit {
 
   setTracking(setTracking: FormGroup) {
     let patchedValue = setTracking.value.stockInTracking;
+    if (this.postedStock) {
+      const dialogRef = this.dialog.open(TrackingStockInComponent, {
+        width: '60%',
+        height: '450px',
+        data: {
+          id: patchedValue.id ?? 0,
+          trackingType: patchedValue.trackingType,
+          expiry: setTracking.value.hasExpiryDate,
+          expireDate: patchedValue.expireDate,
+          systemPatchNo: patchedValue.systemPatchNo,
+          serialId: patchedValue.serialId,
+          vendorBatchNo: patchedValue.vendorBatchNo,
+          trackingValue: patchedValue.trackingValue,
+        },
+      });
+      dialogRef.onClose.subscribe((res: any) => {
+        if (res) {
+          this.selectedTraking = res;
 
-    const dialogRef = this.dialog.open(TrackingStockInComponent, {
-      width: '60%',
-      height: '450px',
-      data: {
-        id: patchedValue.id ?? 0,
-        trackingType: patchedValue.trackingType,
-        expiry: setTracking.value.hasExpiryDate,
-        expireDate: patchedValue.expireDate,
-        systemPatchNo: patchedValue.systemPatchNo,
-        serialId: patchedValue.serialId,
-        vendorBatchNo: patchedValue.vendorBatchNo,
-        trackingValue: patchedValue.trackingValue,
-      },
-    });
-    dialogRef.onClose.subscribe((res: any) => {
-      if (res) {
-        this.selectedTraking = res;
-
-        setTracking.get('stockInTracking')?.patchValue({ ...res });
-        setTracking.get('stockInTracking')?.get('selectedValue')?.setValue(res);
-        this.cdr.detectChanges();
-      }
-    });
+          setTracking.get('stockInTracking')?.patchValue({ ...res });
+          setTracking.get('stockInTracking')?.get('selectedValue')?.setValue(res);
+          this.cdr.detectChanges();
+        }
+      });
+    } else {
+      return;
+    }
   }
 
   onCancel() {
