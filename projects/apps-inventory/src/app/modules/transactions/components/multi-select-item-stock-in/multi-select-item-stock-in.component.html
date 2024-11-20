@@ -3,6 +3,8 @@
     title="{{ 'stockIn.ItemSearch' | translate }}"
     [closeFunction]="onCancel"
     (Submit)="onSubmit()"
+    [showSave]="false"
+    [showCancel]="false"
   >
     <div class="table">
       <lib-data-table
@@ -10,10 +12,9 @@
         [items]="items"
         [noColumnFilter]="false"
         [showCheckBox]="false"
-        className="p-datatable-gridlines"
+        className="p-datatable-gridlines  no-row-click"
         [currentPageResult]="currentPageInfo"
         (pageChange)="onPageChange($event)"
-        (selectedRowsChange)="onSelectedRowsChange($event)"
         [tableConfigs]="{
           allowPagination: false,
           allowServerPagination: true,

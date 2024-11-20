@@ -63,14 +63,14 @@ export class MultiSelectItemStockInComponent implements OnInit {
     this.ref.close(this.selectedRows);
   }
 
-  onSelectedRowsChange(selectedRows: any[]) {
-    this.selectedRows = selectedRows;
-  }
-  selectedRow(selectedRow: any[]) {
+  // onSelectedRowsChange(selectedRows: any[]) {
+  //   this.selectedRows = selectedRows;
+  // }
+  selectedRow(selectedRow: any) {
     this.ref.close(selectedRow);
   }
   onCancel() {
-    this.ref.close();
+    this.ref.close(false);
   }
 
   onFilterChange() {

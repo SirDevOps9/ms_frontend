@@ -154,17 +154,21 @@
           </td>
           <!--  -->
 
-          <td [pEditableColumn]="stockInFormGroup.controls['itemId']" pEditableColumnField="itemId">
+          <td
+            [pEditableColumn]="stockInFormGroup.controls['itemNumber']"
+            pEditableColumnField="itemNumber"
+          >
             <p-cellEditor>
               <ng-template pTemplate="input">
                 <div class="flex justify-content-center gap-2 align-items-center">
                   <lib-select
-                    formControlName="itemId"
+                    formControlName="itemNumber"
                     [options]="latestItemsList"
-                    optionValue="itemId"
+                    optionValue="itemNumber"
                     optionLabel="displayName"
                     placeholder="{{ 'stockIn.itemCode' | translate }}"
-                    (valueChanged)="itemChanged($event, stockInFormGroup)"
+                    (valueChanged)="itemChanged($event, stockInFormGroup, false, false)"
+                    [readOnly]="dataToReadOnly"
                   >
                   </lib-select>
                   <i class="pi pi-search search-circle" (click)="openDialog(stockInFormGroup)"></i>

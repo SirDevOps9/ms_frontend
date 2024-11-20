@@ -47,7 +47,7 @@ export class AddStockInComponent implements OnInit {
   dataToReadOnly: boolean = false;
   exportSelectedCols: string[] = [];
   latestItemsList: LatestItems[] = [];
-  itemData: any;
+  itemNumber: any;
   currentPageInfo: PageInfoResult = {};
   modulelist: MenuModule[];
   searchTerm: string;
@@ -119,8 +119,9 @@ export class AddStockInComponent implements OnInit {
     this.transactionsService.sendlatestItemsList$.subscribe((res) => {
       this.latestItemsList = res;
       if (res.length) {
-        this.latestItemsList = res.map((elem: any) => ({
+        this.latestItemsList = res.map((elem: any, index: number) => ({
           ...elem,
+          itemNumber: index + 1,
           displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantName}`,
         }));
       }
@@ -155,6 +156,7 @@ export class AddStockInComponent implements OnInit {
 
   createStockIn() {
     return this.fb.group({
+      itemNumber: '',
       barCode: '',
       bardCodeId: null,
       description: '',
@@ -193,15 +195,13 @@ export class AddStockInComponent implements OnInit {
     clonedStockInFormGroup?: any,
     isBarcode?: boolean
   ) {
-    debugger;
-    let data = this.latestItemsList.find((item) => item.itemId == e);
+    let data = this.latestItemsList.find((item: any) => item.itemNumber == e);
 
-    this.itemData = data;
     this.uomLookup = data?.itemsUOM ?? clonedStockInFormGroup.itemsUOM;
+    if (clonedStockInFormGroup) {
+      stockInFormGroup.get('itemCodeName')?.reset();
+    }
 
-    // stockInFormGroup.get('stockInTracking')?.reset();
-    // stockInFormGroup.get('stockInTracking')?.clearValidators();
-    // stockInFormGroup.get('stockInTracking')?.updateValueAndValidity();
     if (!isBarcode) {
       stockInFormGroup.get('bardCodeId')?.setValue(null);
       stockInFormGroup.get('barCode')?.setValue('');
@@ -210,12 +210,13 @@ export class AddStockInComponent implements OnInit {
     stockInFormGroup
       .get('itemCodeName')
       ?.setValue(data?.itemCode ?? clonedStockInFormGroup?.itemCode);
+    stockInFormGroup.get('itemId')?.setValue(data?.itemId ?? clonedStockInFormGroup?.itemId);
     stockInFormGroup
       .get('description')
       ?.setValue(
-        `${clonedStockInFormGroup?.itemCode ?? data?.itemCode}- ${
-          clonedStockInFormGroup?.itemName ?? data?.itemName
-        } - ${clonedStockInFormGroup?.itemVariantName ?? data?.itemVariantName}`
+        ` ${clonedStockInFormGroup?.itemName ?? data?.itemName} - ${
+          clonedStockInFormGroup?.itemVariantName ?? data?.itemVariantName
+        }`
       );
     stockInFormGroup.get('trackingType')?.setValue(data?.trackingType);
     stockInFormGroup.get('stockInTracking')?.get('trackingType')?.setValue(data?.trackingType);
@@ -291,7 +292,6 @@ export class AddStockInComponent implements OnInit {
     ref.onClose.subscribe((selectedItems: any) => {
       if (selectedItems) {
         stockInFormGroup.get('itemId')?.setValue(selectedItems.itemId);
-        // this.stockIn.reset()
         this.itemChanged(selectedItems.itemId, stockInFormGroup, selectedItems);
       }
     });
