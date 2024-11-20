@@ -123,6 +123,7 @@ export class BreadcrumbLabel {
   static Edit_Attribute_Definition = 'Edit Attribute Definition';
   static LIST_Attribute_Definition = 'Attribute Definition List';
   static EDIT_WARE_HOUSE = 'Edit Warehouse';
+  static VIEW_WARE_HOUSE = 'BreadCrumb.ViewWarehouse';
   static ITEMS_CATEGORY = 'BreadCrumb.ItemsCategory';
   static STOCKIN = 'BreadCrumb.stockIn';
   static ITEM_CARD_REPORT = 'BreadCrumb.itemCardReport';

@@ -1422,7 +1422,7 @@
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true,
+              "sourceMap": false,
               "fileReplacements": [
                 {
                   "replace": "projects/apps-inventory/src/environments/environment.ts",
@@ -1433,7 +1433,7 @@
             "stage": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true,
+              "sourceMap": false,
               "fileReplacements": [
                 {
                   "replace": "projects/apps-inventory/src/environments/environment.ts",

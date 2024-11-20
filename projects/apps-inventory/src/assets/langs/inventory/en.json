@@ -29,6 +29,7 @@
     "stockOutView": "Stock Out View",
     "stockIn": "Stock In List",
     "viewUom": "view",
+    "ViewWarehouse":"View Item Warehouse",
     "itemCardReport": "Item Card Report"
   },
   "Toaster": {
@@ -186,13 +187,19 @@
   "warehouse": {
     "Add": "Add",
     "AddNew": "Add New",
-
+    "print": "Print",
     "create": "Create",
     "search": "Search",
     "ChangeColumn": "Change Column",
     "save": "Save",
     "cancel": "Cancel",
+    "availableQuantity":"Available Quantity",
     "code": "Code",
+    "uom":"UOM",
+    "WarehouseItemExport":"Warehouse Item",
+    "variant":"Variant",
+    "availablequantity":"Available Quantity",
+    "itemCode":"Item Code",
     "name": "Name",
     "warehouseName": "Warehouse Name",
     "relatedBranch": "Warehouse Related Branch",
