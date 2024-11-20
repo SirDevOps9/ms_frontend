@@ -1,10 +1,44 @@
 {
+  "messages": {
+    "success": "نجاح",
+    "error": "خطأ",
+    "noItemSelected": "لم يتم تحديد عنصر للتعديل.",
+    "noItemsToAdd": "لا توجد عناصر للإضافة",
+    "successfully": "تمت العملية بنجاح.",
+    "duplicateItem": "يوجد عنصر مكرر.",
+    "serialError": "لا يمكن إضافة أكثر من عنصر بنفس الرقم التسلسلي.",
+    "notEdit": "لا يمكن تعديل هذا المخزون لأنه تم تسجيله.",
+
+    "noBarcode": "لا يوجد هذا الباركود"
+  },
   "BreadCrumb": {
-    "ItemsCategory": "فئة العناصر",
+    "ItemsCategory": "فئات الأصناف",
     "stockout": "إخراج المخزون",
     "add": "إضافة",
-    "add_stockOut": "إضافة إخراج مخزون"
+    "generalSetting": "الإعدادات العامة",
+    "add_stockOut": "إضافة إخراج مخزون",
+    "UnitOfMeasure": "وحدة القياس",
+    "addUom": "إضافة وحدة قياس",
+    "EditUom": "تعديل وحدة القياس",
+    "uomList": "وحدات القياس",
+    "edit": "تعديل",
+    "editstockout": "تعديل إخراج المخزون",
+    "edit_stockOut": "تعديل إخراج المخزون",
+    "EditItembarfixedcostfinition": "تعديل تكلفة العنصر الثابتة",
+    "stockInView": "عرض إدخال المخزون",
+    "stockOutView": "عرض إخراج المخزون",
+    "stockIn": "قائمة إدخال المخزون",
+    "viewUom": "عرض"
   },
+  "success": "نجاح",
+  "error": "خطأ",
+  "noItemSelected": "لم يتم تحديد عنصر للتعديل.",
+  "noItemsToAdd": "لا توجد عناصر للإضافة",
+  "successfully": "تمت العملية بنجاح.",
+  "duplicateItem": "يوجد عنصر مكرر.",
+  "serialError": "لا يمكن إضافة أكثر من عنصر بنفس الرقم التسلسلي.",
+  "noBarcode": "لا يوجد هذا الباركود",
+
   "Toaster": {
     "Confirm": {
       "Title": "هل أنت متأكد؟",
@@ -235,6 +269,8 @@
     "action": "الإجراءات",
     "type": "نوع وحدة القياس",
     "uomType": "أنواع وحدة القياس",
+    "EditUomSuccess": "تم تعديل وحدة القياس بنجاح",
+
     "shortName": "الاسم المختصر",
     "addUom": "إضافة وحدة قياس",
     "nameAr": "الاسم بالعربية",
@@ -259,7 +295,8 @@
     "uomCode": "كود وحدة القياس",
     "uomName": "اسم وحدة القياس",
     "uomCategory": "فئة وحدة القياس",
-    "uomFactor": "معامل وحدة القياس"
+    "uomFactor": "معامل وحدة القياس",
+    "cancel": "الغاء"
   },
   "attributeDefinition": {
     "Add": "إضافة",
@@ -327,7 +364,7 @@
     "cancel": "إلغاء",
     "delete": "تم حذف الإدخال بنجاح",
     "success": "نجاح",
-    "add": "تم إضافة الإدخال بنجاح",
+    "add": "تمت إضافة الإدخال بنجاح",
     "edits": "تم تعديل الإدخال بنجاح",
     "code": "الكود",
     "date": "التاريخ",
@@ -336,7 +373,7 @@
     "warehouse": "المستودع",
     "status": "الحالة",
     "journalCode": "كود اليومية",
-    "reserve": "كمية الاحتياطي",
+    "reserve": "الكمية المحجوزة",
     "actions": "الإجراءات",
     "Add": "إنشاء",
     "search": "بحث",
@@ -346,14 +383,50 @@
     "barcode": "الباركود",
     "itemCode": "كود الصنف",
     "itemDescription": "وصف الصنف",
-    "UOM": "وحدة القياس",
+    "UOM": "الوحدة",
     "QTY": "الكمية",
     "cost": "التكلفة",
     "subTotal": "الإجمالي الفرعي",
     "tracking": "التتبع",
     "note": "ملاحظة",
     "action": "إجراء",
-    "btnReserve": "احتياطي",
-    "btnReserved": "محجوز"
+    "btnReserve": "حجز",
+    "btnReserved": "محجوز",
+    "batch": "رقم الدفعة",
+    "serial": "رقم تسلسلي",
+    "expiryDate": "تاريخ الانتهاء",
+    "availability": "التوفر",
+    "noTracking": "بدون تتبع"
+  },
+  "popupSearch": {
+    "ItemCode": "كود الصنف",
+    "ItemName": "اسم الصنف",
+    "ItemUOM": "وحدة قياس الصنف",
+    "ItemVariant": "نوع الصنف",
+    "ItemCategory": "فئة الصنف",
+    "IsStorable": "قابل للتخزين",
+    "IsService": "خدمة",
+    "HasExpiryDate": "له تاريخ انتهاء",
+    "Actions": "الإجراءات",
+    "select": "اختيار",
+    "search": "بحث",
+    "ItemSearch": "بحث عن صنف"
+  },
+  "generalSetting": {
+    "generalSetting": "الإعدادات العامة",
+    "costingEvaluationMethod": "طريقة تقييم التكاليف",
+    "weightedAverageCotingMethod": "طريقة المتوسط المرجح للتكلفة",
+    "lastPurchasePriceCostingMethod": "طريقة تكلفة آخر سعر شراء",
+    "fixedCostMethod": "طريقة التكلفة الثابتة",
+    "CostOfGodsSoldAccount": "حساب تكلفة البضائع المباعة",
+    "SelectOneOfCostOfGodsSoldAccount": "اختر أحد حسابات تكلفة البضائع المباعة",
+    "GeneralPurchaseAccount": "حساب الشراء العام",
+    "GoodsInTransitAccount": "حساب البضائع في النقل",
+    "InventoryAdjustmentAccount": "حساب تعديل المخزون",
+    "InventoryReEvaluationAccount": "حساب إعادة تقييم المخزون",
+    "oneSelect": "اختر أحد الخيارات",
+    "Cancel": "إلغاء",
+    "save": "حفظ",
+    "success": "نجاح"
   }
 }

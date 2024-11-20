@@ -272,7 +272,7 @@
         <div class="flex justify-content-center mt-4" (click)="addNewItem()">
           <div class="flex gap-2 align-content-center pointer">
             <i *ngIf="!reportTable" class="pi pi-plus"></i>
-            <small *ngIf="!reportTable">There is no data</small>
+            <small *ngIf="!reportTable">{{"general.noData" | translate}} </small>
           </div>
         </div>
       </ng-container>

@@ -1,0 +1,23 @@
+
+
+.items_filter{
+    display: flex;
+    justify-content: center;
+
+}
+
+.checkbox_filter{
+    display: flex;
+}
+
+.margin_start{
+    margin-inline-start: 10px;
+}
+
+::ng-deep{
+    .main{
+        .card{
+            padding: 0 !important;
+        }
+        }
+}

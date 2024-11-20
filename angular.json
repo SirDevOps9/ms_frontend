@@ -1383,6 +1383,7 @@
             "assets": [
               "projects/apps-inventory/src/favicon.ico",
               "projects/apps-inventory/src/assets",
+              "projects/apps-inventory/src/web.config",
               {
                 "glob": "**/*",
                 "input": "libs/apps-shared-lib/src/assets",
@@ -1435,6 +1436,27 @@
                 {
                   "replace": "projects/apps-inventory/src/environments/environment.ts",
                   "with": "projects/apps-inventory/src/environments/environment.stage.ts"
+                }
+              ]
+            },
+            "cloud": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "50mb",
+                  "maximumError": "50mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "50mb",
+                  "maximumError": "50mb"
+                }
+              ],
+              "outputHashing": "all",
+              "fileReplacements": [
+                {
+                  "replace": "projects/apps-inventory/src/environments/environment.ts",
+                  "with": "projects/apps-inventory/src/environments/environment.cloud.ts"
                 }
               ]
             }

@@ -205,6 +205,33 @@ export class GeneralSettingService {
       },
     });
   }
+
+
+
+
+  async deleteFinancialYear(id: number) {
+    const confirmed = await this.toasterService.showConfirm('Delete');
+    if (confirmed) {
+      this.GeneralSettingproxy.deleteFinancialYear(id).subscribe({
+        next: (res) => {
+          this.toasterService.showSuccess(
+            this.languageService.transalte('success'),
+            this.languageService.transalte('financialCalendar.delete')
+          );
+          let data = this.financialCalendarDataSource.getValue();
+          const updatedVendor = data.filter((elem) => elem.id !== id);
+          this.financialCalendarDataSource.next(updatedVendor);
+
+          return res;
+        },
+        error: (err) => {},
+      });
+    }
+  }
+
+
+
+
   getVendorCategory(searchTerm: string, pageInfo: PageInfo) {
     this.GeneralSettingproxy.getVendorCategory(searchTerm, pageInfo).subscribe({
       next: (res) => {
