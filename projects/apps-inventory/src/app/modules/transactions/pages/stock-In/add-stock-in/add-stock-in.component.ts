@@ -30,6 +30,7 @@ import { ScanParcodeStockInComponent } from '../../../components/scan-parcode-st
 import { TrackingStockInComponent } from '../../../components/tracking-stock-in/tracking-stock-in.component';
 import { SharedFinanceEnums } from '../../../../items/models/sharedEnumStockIn';
 import { TransactionsService } from '../../../transactions.service';
+import { ItemsService } from '../../../../items/items.service';
 
 @Component({
   selector: 'app-add-stock-in',
@@ -38,8 +39,8 @@ import { TransactionsService } from '../../../transactions.service';
 })
 export class AddStockInComponent implements OnInit {
   stockInForm: FormGroup = new FormGroup({});
-  formSubmited : boolean = false
-  errorsArray : any = []
+  formSubmited: boolean = false;
+  errorsArray: any = [];
   LookupEnum = LookupEnum;
   lookups: { [key: string]: lookupDto[] };
   oprationalLookup: OperationalStockIn[] = [];
@@ -57,6 +58,7 @@ export class AddStockInComponent implements OnInit {
   currentLang: string;
   showError: boolean = false;
   barcodeData: StockInDetail;
+  selectedLanguage: string;
   constructor(
     private routerService: RouterService,
     public authService: AuthService,
@@ -71,6 +73,7 @@ export class AddStockInComponent implements OnInit {
     public sharedFinanceEnums: SharedFinanceEnums
   ) {
     this.currentLang = this.langService.getLang();
+    this.selectedLanguage = this.langService.getLang();
   }
   ngOnInit(): void {
     this.stockInForm = this.fb.group({
@@ -122,7 +125,9 @@ export class AddStockInComponent implements OnInit {
       if (res.length) {
         this.latestItemsList = res.map((elem: any, index: number) => ({
           ...elem,
-          displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantName}`,
+          displayName: `(${elem.itemCode}) ${elem.itemName}-${
+            this.currentLang == 'en' ? elem.itemVariantNameEn : elem.itemVariantNameAr
+          }`,
         }));
       }
     });
@@ -199,17 +204,17 @@ export class AddStockInComponent implements OnInit {
     clonedStockInFormGroup?: any,
     isBarcode?: boolean
   ) {
-    let data = this.latestItemsList.find((item: any) => item.itemId == e);
+    let data: any = this.latestItemsList.find((item: any) => item.itemId == e);
 
     this.uomLookup = data?.itemsUOM ?? clonedStockInFormGroup.itemsUOM;
     if (clonedStockInFormGroup) {
       stockInFormGroup.get('itemCodeName')?.reset();
     }
 
-    if (!isBarcode) {
-      stockInFormGroup.get('bardCodeId')?.setValue(null);
-      stockInFormGroup.get('barCode')?.setValue('');
-    }
+    // if (isBarcode) {
+    //   stockInFormGroup.get('bardCodeId')?.setValue(null);
+    //   stockInFormGroup.get('barCode')?.setValue('');
+    // }
 
     stockInFormGroup
       .get('itemCodeName')
@@ -219,11 +224,28 @@ export class AddStockInComponent implements OnInit {
       .get('description')
       ?.setValue(
         ` ${clonedStockInFormGroup?.itemName ?? data?.itemName} - ${
-          clonedStockInFormGroup?.itemVariantName ?? data?.itemVariantName
+          this.currentLang == 'en'
+            ? clonedStockInFormGroup?.itemVariantNameEn ?? data?.itemVariantNameEn
+            : clonedStockInFormGroup?.itemVariantNameAr ?? data?.itemVariantNameAr
         }`
       );
-    stockInFormGroup.get('trackingType')?.setValue(data?.trackingType);
-    stockInFormGroup.get('stockInTracking')?.get('trackingType')?.setValue(data?.trackingType);
+
+    console.log('heey', clonedStockInFormGroup);
+    stockInFormGroup
+      .get('trackingType')
+      ?.setValue(clonedStockInFormGroup.trackingType ?? data?.trackingType);
+    stockInFormGroup
+      .get('stockInTracking')
+      ?.get('trackingType')
+      ?.setValue(clonedStockInFormGroup.trackingType ?? data?.trackingType);
+
+    if (
+      stockInFormGroup.get('stockInTracking')?.get('trackingType')?.value ==
+      this.sharedFinanceEnums.trackingType.Serial
+    ) {
+      stockInFormGroup.get('quantity')?.setValue(1);
+    }
+
     stockInFormGroup
       .get('itemVariantId')
       ?.setValue(
@@ -231,7 +253,9 @@ export class AddStockInComponent implements OnInit {
           ? clonedStockInFormGroup?.itemVariantId
           : data?.itemVariantId
       );
-    stockInFormGroup.get('hasExpiryDate')?.setValue(data?.hasExpiryDate);
+    stockInFormGroup
+      .get('hasExpiryDate')
+      ?.setValue(clonedStockInFormGroup.hasExpiryDate ?? data?.hasExpiryDate);
     stockInFormGroup.get('uomId')?.setValue(data?.uomId ?? clonedStockInFormGroup?.uomId);
     this.uomChanged(stockInFormGroup.get('uomId')?.value, stockInFormGroup);
     if (data?.hasExpiryDate) {
@@ -276,15 +300,42 @@ export class AddStockInComponent implements OnInit {
   }
 
   addLineStockIn() {
-    if(this.stockIn.valid) {
-      this.formSubmited = false
-    }else{
-      this.formSubmited = true
-
+    if (this.stockIn.valid) {
+      this.formSubmited = false;
+    } else {
+      this.formSubmited = true;
     }
     if (!this.formService.validForm(this.stockIn, false)) return;
 
     this.stockIn.push(this.createStockIn());
+  }
+  onFilter(SearchTerm: string) {
+    const warehouseId: number = this.stockInForm.get('warehouseId')?.value;
+    this.transactionsService.getItems('', SearchTerm, new PageInfo());
+    this.transactionsService.itemsList.subscribe((res: any) => {
+      if (res.length > 0) {
+        if (this.selectedLanguage === 'ar') {
+          this.latestItemsList = res.map((elem: any, index: number) => ({
+            ...elem,
+            itemNumber: index + 1,
+            displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameAr}`,
+          }));
+        } else {
+          this.latestItemsList = res.map((elem: any, index: number) => ({
+            ...elem,
+            itemNumber: index + 1,
+
+            displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameEn}`,
+          }));
+        }
+      } else {
+        this.getLatestItemsList(warehouseId);
+      }
+    });
+  }
+
+  getLatestItemsList(id: number) {
+    this.transactionsService.getLatestItemsListByWarehouse('', id);
   }
 
   scan() {
@@ -301,8 +352,10 @@ export class AddStockInComponent implements OnInit {
     });
     ref.onClose.subscribe((selectedItems: any) => {
       if (selectedItems) {
+        console.log(selectedItems);
+
         stockInFormGroup.get('itemId')?.setValue(selectedItems.itemId);
-        this.itemChanged(selectedItems.itemId, stockInFormGroup, selectedItems);
+        this.itemChanged(selectedItems.itemId, stockInFormGroup, selectedItems, true);
       }
     });
   }
@@ -314,7 +367,7 @@ export class AddStockInComponent implements OnInit {
       if (data) {
         stockInFormGroup.get('itemId')?.setValue(data.itemId);
         // this.sendBarcodeData(data.itemId)
-        this.itemChanged(data.itemId, stockInFormGroup, true, true);
+        this.itemChanged(data.itemId, stockInFormGroup, data);
       }
     });
   }
@@ -345,33 +398,33 @@ export class AddStockInComponent implements OnInit {
 
   onSave() {
     const stockInDetails = this.stockIn as FormArray;
-     this.errorsArray = []; // Array to collect errors for each line
-  
+    this.errorsArray = []; // Array to collect errors for each line
+
     // Loop through each FormGroup in the FormArray
     stockInDetails.controls.forEach((control: any, index: number) => {
       const lineErrors: any = {}; // Object to store errors for this line
       const stockInTracking = control.get('stockInTracking') as FormGroup;
-  
+
       // Validate `itemId`
       if (control.get('itemId')?.invalid) {
         lineErrors.itemId = 'Item ID is required';
       }
-  
+
       // Validate `uomId`
       if (control.get('uomId')?.invalid) {
         lineErrors.uomId = 'UOM is required';
       }
-  
+
       // Validate `quantity`
       if (control.get('quantity')?.invalid) {
         lineErrors.quantity = 'Quantity must be a positive number';
       }
-  
+
       // Validate `cost`
       if (control.get('cost')?.invalid) {
         lineErrors.cost = 'Cost must be a positive number';
       }
-  
+
       // Validate `vendorBatchNo` if tracking type is Batch
       if (
         control.get('trackingType')?.value === this.sharedFinanceEnums.trackingType.Batch &&
@@ -379,7 +432,7 @@ export class AddStockInComponent implements OnInit {
       ) {
         lineErrors.vendorBatchNo = 'Vendor Batch Number is required';
       }
-  
+
       // Validate `serialId` if tracking type is Serial
       if (
         control.get('trackingType')?.value === this.sharedFinanceEnums.trackingType.Serial &&
@@ -387,34 +440,31 @@ export class AddStockInComponent implements OnInit {
       ) {
         lineErrors.serialId = 'Serial ID is required';
       }
-  
+
       // Validate `expireDate` if hasExpiryDate is true
-      if (
-        control.get('hasExpiryDate')?.value &&
-        stockInTracking.get('expireDate')?.invalid
-      ) {
+      if (control.get('hasExpiryDate')?.value && stockInTracking.get('expireDate')?.invalid) {
         lineErrors.expireDate = 'Expiry Date is required';
       }
-  
+
       // If there are any errors, add them to the errorsArray
       if (Object.keys(lineErrors).length > 0) {
         this.errorsArray.push({ line: index, errors: lineErrors });
       }
     });
-  
+
     // If there are errors, log them or display them
     if (this.errorsArray.length > 0) {
       console.error('Form contains errors:', this.errorsArray);
       return; // Prevent form submission
     }
-  
+
     // Proceed with saving if no errors
     if (this.stockInForm.valid) {
       const data: AddStockIn = {
         ...this.stockInForm.value,
         stockInDetails: this.stockIn.value,
       };
-  
+
       this.transactionsService.addStockIn(data, this.stockInForm);
       this.transactionsService.addedStockInData$.subscribe({
         next: (res: any) => {
@@ -431,13 +481,13 @@ export class AddStockInComponent implements OnInit {
       console.error('Form is invalid.');
     }
 
-    console.log(this.errorsArray)
+    console.log(this.errorsArray);
   }
 
   // onSave() {
 
   //   console.log(this.stockIn)
-   
+
   //   if (!this.formService.validForm(this.stockInForm, false)) return;
   //   if (!this.formService.validForm(this.stockIn, false)) return;
 
@@ -460,7 +510,6 @@ export class AddStockInComponent implements OnInit {
   //     },
   //   });
 
-  
   // }
   OnDelete(i: number) {
     this.stockIn.removeAt(i);
