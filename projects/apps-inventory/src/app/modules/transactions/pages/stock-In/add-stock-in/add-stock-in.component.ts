@@ -202,7 +202,7 @@ export class AddStockInComponent implements OnInit {
     e: any,
     stockInFormGroup: FormGroup,
     clonedStockInFormGroup?: any,
-    isBarcode?: boolean
+    isBarcode: boolean=false
   ) {
     let data: any = this.latestItemsList.find((item: any) => item.itemId == e);
 
@@ -215,6 +215,7 @@ export class AddStockInComponent implements OnInit {
     //   stockInFormGroup.get('bardCodeId')?.setValue(null);
     //   stockInFormGroup.get('barCode')?.setValue('');
     // }
+    if (!isBarcode) stockInFormGroup.get('barCode')?.setValue(null);
 
     stockInFormGroup
       .get('itemCodeName')
@@ -362,14 +363,16 @@ export class AddStockInComponent implements OnInit {
 
   // manual Barcode Event
   barcodeCanged(e: any, stockInFormGroup: FormGroup) {
-    this.transactionsService.getItemBarcodeForItem(e);
-    this.transactionsService.sendItemBarcode$.pipe(skip(1)).subscribe((data) => {
-      if (data) {
-        stockInFormGroup.get('itemId')?.setValue(data.itemId);
-        // this.sendBarcodeData(data.itemId)
-        this.itemChanged(data.itemId, stockInFormGroup, data);
-      }
-    });
+    if (e) {
+      this.transactionsService.getItemBarcodeForItem(e);
+      this.transactionsService.sendItemBarcode$.pipe(skip(1)).subscribe((data) => {
+        if (data) {
+          stockInFormGroup.get('itemId')?.setValue(data.itemId);
+          // this.sendBarcodeData(data.itemId)
+          this.itemChanged(data.itemId, stockInFormGroup, data,true);
+        }
+      });
+    }
   }
 
   setTracking(setTracking: FormGroup) {
