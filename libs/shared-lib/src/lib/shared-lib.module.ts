@@ -101,7 +101,8 @@ import { NewBreadCrumbComponent } from './components/new-bread-crumb/new-bread-c
     ExportComponent,
     ChangeColumnComponent,
     NumberFormatPipe,
-    PopupPageComponent,ColumnsSelectionComponent
+    PopupPageComponent,
+    ColumnsSelectionComponent,
   ],
   imports: [
     HttpClientModule,
@@ -119,15 +120,13 @@ import { NewBreadCrumbComponent } from './components/new-bread-crumb/new-bread-c
     ProgressSpinnerModule,
     QRCodeModule,
     InputTextareaModule,
-
-
   ],
   exports: [
     GetLookupPipe,
     LayoutComponent,
     SearchEngineComponent,
-    LoaderComponent,
     FieldValidationsComponent,
+    LoaderComponent,
     LabelComponent,
     TextInputComponent,
     SelectComponent,
@@ -163,16 +162,16 @@ import { NewBreadCrumbComponent } from './components/new-bread-crumb/new-bread-c
     GetElementByIDPipe,
     ToastComponent,
     UploadMultipeFilesComponent,
-    TablePrintComponent, 
+    TablePrintComponent,
     TabviewComponent,
     ExportComponent,
     ChangeColumnComponent,
     NumberFormatPipe,
     PopupPageComponent,
     NumberFormatDirective,
-    QRCodeModule,ColumnsSelectionComponent,
-    InputTextareaModule
+    QRCodeModule,
+    ColumnsSelectionComponent,
+    InputTextareaModule,
   ],
-
 })
 export class SharedLibModule {}
