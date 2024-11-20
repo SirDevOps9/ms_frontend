@@ -42,7 +42,7 @@ const routes: Routes = [
             path: '',
             component: StockInListComponent,
             data: {
-              breadcrumb: BreadcrumbLabel.STOCKIN,
+              breadcrumb: '',
               pageTitle: BreadcrumbLabel.STOCKIN,
             },
           },

@@ -38,6 +38,8 @@ import { TransactionsService } from '../../../transactions.service';
 })
 export class AddStockInComponent implements OnInit {
   stockInForm: FormGroup = new FormGroup({});
+  formSubmited : boolean = false
+  errorsArray : any = []
   LookupEnum = LookupEnum;
   lookups: { [key: string]: lookupDto[] };
   oprationalLookup: OperationalStockIn[] = [];
@@ -132,6 +134,11 @@ export class AddStockInComponent implements OnInit {
     this.transactionsService.sendItemBarcode$.pipe(skip(1)).subscribe((res) => {
       this.barcodeData = res;
     });
+  }
+
+  hasError(formGroup: FormGroup, controlName: string, error: string) {
+    const control = formGroup.get(controlName);
+    return control?.hasError(error) && control?.touched;
   }
 
   initWareHouseLookupData() {
@@ -272,6 +279,12 @@ export class AddStockInComponent implements OnInit {
   }
 
   addLineStockIn() {
+    if(this.stockIn.valid) {
+      this.formSubmited = false
+    }else{
+      this.formSubmited = true
+
+    }
     if (!this.formService.validForm(this.stockIn, false)) return;
 
     this.stockIn.push(this.createStockIn());
@@ -334,28 +347,124 @@ export class AddStockInComponent implements OnInit {
   }
 
   onSave() {
-    if (!this.formService.validForm(this.stockInForm, false)) return;
-    if (!this.formService.validForm(this.stockIn, false)) return;
-
-    let data: AddStockIn = {
-      ...this.stockInForm.value,
-      sourceDocumentType: +this.stockInForm.value.sourceDocumentType,
-      stockInDetails: this.stockIn.value,
-    };
-
-    this.transactionsService.addStockIn(data, this.stockInForm);
-    this.transactionsService.addedStockInData$.subscribe({
-      next: (res: any) => {
-        if (res) {
-          this.savedDataId = res;
-          this.dataToReadOnly = true;
-        }
-      },
-      error() {
-        return;
-      },
+    const stockInDetails = this.stockIn as FormArray;
+     this.errorsArray = []; // Array to collect errors for each line
+  
+    // Loop through each FormGroup in the FormArray
+    stockInDetails.controls.forEach((control: any, index: number) => {
+      const lineErrors: any = {}; // Object to store errors for this line
+      const stockInTracking = control.get('stockInTracking') as FormGroup;
+  
+      // Validate `itemId`
+      if (control.get('itemId')?.invalid) {
+        lineErrors.itemId = 'Item ID is required';
+      }
+  
+      // Validate `uomId`
+      if (control.get('uomId')?.invalid) {
+        lineErrors.uomId = 'UOM is required';
+      }
+  
+      // Validate `quantity`
+      if (control.get('quantity')?.invalid) {
+        lineErrors.quantity = 'Quantity must be a positive number';
+      }
+  
+      // Validate `cost`
+      if (control.get('cost')?.invalid) {
+        lineErrors.cost = 'Cost must be a positive number';
+      }
+  
+      // Validate `vendorBatchNo` if tracking type is Batch
+      if (
+        control.get('trackingType')?.value === this.sharedFinanceEnums.trackingType.Batch &&
+        stockInTracking.get('vendorBatchNo')?.invalid
+      ) {
+        lineErrors.vendorBatchNo = 'Vendor Batch Number is required';
+      }
+  
+      // Validate `serialId` if tracking type is Serial
+      if (
+        control.get('trackingType')?.value === this.sharedFinanceEnums.trackingType.Serial &&
+        stockInTracking.get('serialId')?.invalid
+      ) {
+        lineErrors.serialId = 'Serial ID is required';
+      }
+  
+      // Validate `expireDate` if hasExpiryDate is true
+      if (
+        control.get('hasExpiryDate')?.value &&
+        stockInTracking.get('expireDate')?.invalid
+      ) {
+        lineErrors.expireDate = 'Expiry Date is required';
+      }
+  
+      // If there are any errors, add them to the errorsArray
+      if (Object.keys(lineErrors).length > 0) {
+        this.errorsArray.push({ line: index, errors: lineErrors });
+      }
     });
+  
+    // If there are errors, log them or display them
+    if (this.errorsArray.length > 0) {
+      console.error('Form contains errors:', this.errorsArray);
+      return; // Prevent form submission
+    }
+  
+    // Proceed with saving if no errors
+    if (this.stockInForm.valid) {
+      const data: AddStockIn = {
+        ...this.stockInForm.value,
+        stockInDetails: this.stockIn.value,
+      };
+  
+      this.transactionsService.addStockIn(data, this.stockInForm);
+      this.transactionsService.addedStockInData$.subscribe({
+        next: (res: any) => {
+          if (res) {
+            this.savedDataId = res;
+            this.dataToReadOnly = true;
+          }
+        },
+        error() {
+          return;
+        },
+      });
+    } else {
+      console.error('Form is invalid.');
+    }
+
+    console.log(this.errorsArray)
   }
+
+  // onSave() {
+
+  //   console.log(this.stockIn)
+   
+  //   if (!this.formService.validForm(this.stockInForm, false)) return;
+  //   if (!this.formService.validForm(this.stockIn, false)) return;
+
+  //   let data: AddStockIn = {
+  //     ...this.stockInForm.value,
+  //     sourceDocumentType: +this.stockInForm.value.sourceDocumentType,
+  //     stockInDetails: this.stockIn.value,
+  //   };
+
+  //   this.transactionsService.addStockIn(data, this.stockInForm);
+  //   this.transactionsService.addedStockInData$.subscribe({
+  //     next: (res: any) => {
+  //       if (res) {
+  //         this.savedDataId = res;
+  //         this.dataToReadOnly = true;
+  //       }
+  //     },
+  //     error() {
+  //       return;
+  //     },
+  //   });
+
+  
+  // }
   OnDelete(i: number) {
     this.stockIn.removeAt(i);
   }

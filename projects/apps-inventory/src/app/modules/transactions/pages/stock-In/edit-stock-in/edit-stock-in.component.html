@@ -360,7 +360,7 @@
               >
             </div>
             <div class="flex justify-content-center mt-2">
-              <small
+              <!-- <small
                 class="danger"
                 *ngIf="
                   stockInFormGroup.get('stockInTracking').get('expireDate').hasError('required') ||
@@ -371,8 +371,13 @@
                   stockInFormGroup.get('stockInTracking').get('serialId').hasError('required')
                 "
                 >{{ 'stockIn.required' | translate }}</small
-              >
+              > -->
+              <small *ngFor="let elem of errorsArray">
+                <small *ngIf="elem.line == i && !stockInFormGroup.valid" class="danger">{{ 'stockIn.required' | translate }}</small>  
+                </small>
             </div>
+
+        
           </td>
           <!--  -->
           <td [pEditableColumn]="stockInFormGroup.controls['notes']" pEditableColumnField="notes">
