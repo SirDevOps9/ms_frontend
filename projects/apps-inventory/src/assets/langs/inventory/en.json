@@ -27,7 +27,8 @@
     "EditItembarfixedcostfinition":"Edit Item fixed cost",
     "stockInView":"Stock In View",
     "stockOutView":"Stock Out View",
-    "stockIn":"Stock In List"
+    "stockIn":"Stock In List",
+    "viewUom":"view"
   },
   "Toaster": {
     "Confirm": {

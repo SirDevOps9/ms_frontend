@@ -1,20 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+
 import { AuthService } from 'microtec-auth-lib';
 import { DialogService } from 'primeng/dynamicdialog';
 import { RouterService, LanguageService, lookupDto, PageInfoResult, MenuModule, PageInfo } from 'shared-lib';
-import { AddItemDefinitionPopupComponent } from '../../../components/add-item-definition/add-item-definition-popup.component';
-import { ItemsService } from '../../../items.service';
-import { GetWarehouseList, itemDefinitionDto } from '../../../models';
 import { AddWarehousePopupComponent } from '../../../components/warehouse/add-warehouse-popup/add-warehouse-popup.component';
+import { ItemsService } from '../../../items.service';
+import { GetWarehouseList } from '../../../models';
 
 @Component({
-  selector: 'app-warehouse-list',
-  templateUrl: './warehouse-list.component.html',
-  styleUrl: './warehouse-list.component.scss'
+  selector: 'app-view-warehouse',
+  templateUrl: './view-warehouse.component.html',
+  styleUrl: './view-warehouse.component.scss'
 })
-export class WarehouseListComponent implements OnInit {
-pi: string;
+export class ViewWarehouseComponent {
+  pi: string;
 
   constructor(
     private routerService: RouterService,
@@ -162,4 +162,3 @@ pi: string;
      this.itemsService.deleteWareHouse(id)
   }
 }
-
