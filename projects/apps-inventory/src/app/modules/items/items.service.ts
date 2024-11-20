@@ -103,12 +103,6 @@ export class ItemsService {
     {} as { id: number; name: string }
   );
 
-
-
-
-
-
-
   public exportedStockOutDataSource = new BehaviorSubject<StockInDto[]>([]);
 
   public dataFixedCostByIdObs = this.dataFixedCostById.asObservable();
@@ -327,11 +321,6 @@ export class ItemsService {
   public sendItemBarcode$ = this.sendItemBarcode.asObservable();
   public sendItemBarcodeStockOut$ = this.sendItemBarcodeStockOut.asObservable();
 
-
-public sendOperationalTagStockOutDropDown = new BehaviorSubject<{ id: number; name: string }[]>([]);
-public OperationalTagStockOut$ = this.sendOperationalTagStockOutDropDown.asObservable()
-
-
   public sendOperationalTagStockOutDropDown = new BehaviorSubject<{ id: number; name: string }[]>(
     []
   );
@@ -392,13 +381,6 @@ public OperationalTagStockOut$ = this.sendOperationalTagStockOutDropDown.asObser
       (erorr) => {}
     );
   }
-
-
-
-
-
-
-
 
   ViewDefinitionById(id: number) {
     // this.loaderService.show();

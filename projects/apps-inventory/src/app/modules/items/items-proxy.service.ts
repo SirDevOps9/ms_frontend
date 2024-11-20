@@ -546,22 +546,6 @@ export class ItemsProxyService {
     return this.httpService.get<PaginationVm<AdvancedSearchDto>>(query);
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-}
-
-
-  // inventory general setting
   getInventoryGeneralSetting(): Observable<GeneralSettingDto> {
     return this.httpService.get<GeneralSettingDto>(`InventoryGeneralSetting`);
   }
