@@ -123,8 +123,44 @@ export class UOMAddComponent implements OnInit {
         // Update the list with the filtered data
         this.list[i] = filteredData;
 
+        console.log(item)
+
+      
+
+
+
+
+
       });
+
+
+
+      
+    
+  
+
+
+
+
     });
+
+    this.getUOMS.valueChanges.subscribe(res=>{
+      res.forEach((item : any) => {
+
+        console.log(item)
+
+        let selectedBase : any = this.filteredSytemUnitLookup.find(item=>item.id == this.UOMFormGroup.get('systemUnitOfMeasureId')?.value)
+
+        this.filteredSytemUnitLookup = this.filteredSytemUnitLookup.filter(elem=>elem.systemUnitOfMeasureCategoryId == selectedBase.systemUnitOfMeasureCategoryId )
+
+
+
+     
+
+
+        
+      });
+    })
 
 
   }
@@ -258,15 +294,6 @@ export class UOMAddComponent implements OnInit {
       fromUnitOfMeasureId: new FormControl(uomData?.fromUnitOfMeasureId || null),
     });
 
-    let uom = this.getUOMS.value;
-
-    const excludedIds = uom.map((item: any) => item.systemUnitOfMeasureId); // Collect all IDs to exclude
-    this.filteredSytemUnitLookup = this.sytemUnitLookup.filter(
-      (elem) =>
-        !excludedIds.includes(elem.id) &&
-        elem?.systemUnitOfMeasureCategoryId ===
-          this.UOMFormGroup.get('systemUnitOfMeasureId')?.value
-    );
 
     return formData;
   }
