@@ -22,6 +22,7 @@
         <lib-calendar
           [ngClass]="{ 'readonly-calendar': !postedStock }"
           formControlName="receiptDate"
+          [ngClass]="{ 'readonly-calendar': dataToReadOnly }"
         ></lib-calendar>
         <lib-field-validations
           [appControl]="stockInForm.controls['receiptDate']"
@@ -45,6 +46,7 @@
           [appControl]="stockInForm.controls['sourceDocumentType']"
         ></lib-field-validations>
       </div>
+
       <div class="md:col-3 my-2">
         <lib-label [appControl]="stockInForm.controls['sourceDocumentId']">
           {{ 'stockIn.sourceDoc' | translate }}
@@ -63,19 +65,12 @@
           [appControl]="stockInForm.controls['sourceDocumentId']"
         ></lib-field-validations>
       </div>
+
       <div class="md:col-3 my-2">
         <lib-label [appControl]="stockInForm.controls['warehouseName']">
           {{ 'stockIn.warehouse' | translate }}
         </lib-label>
-        <!-- <lib-select
-          formControlName="warehouseName"
-          [options]="warhouseLookupData"
-          optionValue="id"
-          optionLabel="name"
-          placeholder="{{ 'stockIn.warehouse' | translate }}"
-          [selectedValue]="stockInForm.controls['warehouseName'].value"
-        >
-        </lib-select> -->
+
         <lib-text-input
           placeholder="{{ 'stockIn.warehouse' | translate }}"
           formControlName="warehouseName"
@@ -462,10 +457,10 @@
           </lib-button-micro>
         </div>
         <ng-container *ngIf="postedStock">
-          <div class="md:col-3" *ngIf="dataToReadOnly">
+          <div class="md:col-3">
             <lib-button-micro
-              [disabled]="!dataToReadOnly"
-              nameClass="{{ dataToReadOnly ? 'save' : 'disabled' }}"
+              [disabled]="!postButton"
+              nameClass="{{ postButton ? 'save' : 'disabled' }}"
               title="{{ 'stockIn.Post' | translate }}"
               nameClass="save"
               widthNumber="100%"

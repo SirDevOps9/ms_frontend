@@ -136,11 +136,13 @@ export class EditStockInComponent implements OnInit {
     this.stockInForm.valueChanges.subscribe((res) => {
       if (!res) return;
       this.dataToReadOnly = false;
+      this.postButton = false;
     });
 
     this.stockIn.valueChanges.subscribe((res) => {
       if (!res) return;
       this.dataToReadOnly = false;
+      this.postButton = false;
     });
   }
 
@@ -478,6 +480,8 @@ export class EditStockInComponent implements OnInit {
       }
     });
   }
+
+  postButton: boolean = false;
   onSave() {
     const stockInDetails = this.stockIn as FormArray;
     this.errorsArray = []; // Array to collect errors for each line
@@ -553,6 +557,7 @@ export class EditStockInComponent implements OnInit {
       if (res) {
         this.savedDataId = res;
         this.dataToReadOnly = true;
+        this.postButton = true;
       }
     });
   }
