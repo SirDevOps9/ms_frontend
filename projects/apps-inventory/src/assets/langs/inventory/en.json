@@ -28,7 +28,8 @@
     "stockInView": "Stock In View",
     "stockOutView": "Stock Out View",
     "stockIn": "Stock In List",
-    "viewUom": "view"
+    "viewUom": "view",
+    "itemCardReport": "Item Card Report"
   },
   "Toaster": {
     "Confirm": {
@@ -530,5 +531,25 @@
     "Cancel": "Cancel",
     "save": "Save",
     "success": "Success"
+  },
+  "itemCardReport": {
+    "view": "View",
+    "transactionName": "Transaction Name",
+    "transactionCode": "Transaction Code",
+    "serial": "Serial Number",
+    "batchNo": "Batch Number",
+    "expiryDate": "Expiry Date",
+    "in": "In",
+    "out": "Out",
+    "balance": "Balance",
+    "itemCost": "Item Cost",
+    "totalBalanceAmount": "Total Balance Amount",
+    "subTotal": "Subtotal",
+    "subTitles": {
+      "QTY": "Quantity",
+      "cost": "Cost",
+      "subTotal": "Subtotal"
+    },
+    "QTYbalance": "Quantity Balance"
   }
 }

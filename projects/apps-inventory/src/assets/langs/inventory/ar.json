@@ -28,7 +28,8 @@
     "stockInView": "عرض إدخال المخزون",
     "stockOutView": "عرض إخراج المخزون",
     "stockIn": "قائمة إدخال المخزون",
-    "viewUom": "عرض"
+    "viewUom": "عرض",
+    "itemCardReport": "تقرير بطاقة الأصناف"
   },
   "success": "نجاح",
   "error": "خطأ",
