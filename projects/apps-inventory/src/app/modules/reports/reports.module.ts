@@ -18,7 +18,7 @@ const routes: Route[] = [
     },
     children: [
       {
-        path: 'item-card-reports',
+        path: 'item-card',
         component: ItemCardComponent,
         data: {
           breadcrumb: BreadcrumbLabel.ITEM_CARD_REPORT,
