@@ -49,7 +49,6 @@ export class AddStockInComponent implements OnInit {
   dataToReadOnly: boolean = false;
   exportSelectedCols: string[] = [];
   latestItemsList: LatestItems[] = [];
-  itemNumber: any;
   currentPageInfo: PageInfoResult = {};
   modulelist: MenuModule[];
   searchTerm: string;
@@ -123,7 +122,6 @@ export class AddStockInComponent implements OnInit {
       if (res.length) {
         this.latestItemsList = res.map((elem: any, index: number) => ({
           ...elem,
-          itemNumber: index + 1,
           displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantName}`,
         }));
       }
@@ -163,7 +161,6 @@ export class AddStockInComponent implements OnInit {
 
   createStockIn() {
     return this.fb.group({
-      itemNumber: '',
       barCode: '',
       bardCodeId: null,
       description: '',
@@ -202,7 +199,7 @@ export class AddStockInComponent implements OnInit {
     clonedStockInFormGroup?: any,
     isBarcode?: boolean
   ) {
-    let data = this.latestItemsList.find((item: any) => item.itemNumber == e);
+    let data = this.latestItemsList.find((item: any) => item.itemId == e);
 
     this.uomLookup = data?.itemsUOM ?? clonedStockInFormGroup.itemsUOM;
     if (clonedStockInFormGroup) {
