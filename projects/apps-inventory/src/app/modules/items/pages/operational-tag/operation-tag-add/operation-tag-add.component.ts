@@ -68,7 +68,7 @@ export class OperationTagAddComponent implements OnInit {
         name: new FormControl('', customValidators.required),
         operationType: new FormControl('', customValidators.required),
         warehouseId: new FormControl('', customValidators.required),
-        glAccountId: new FormControl(''),
+        glAccountId: new FormControl(null),
       });
   }
 

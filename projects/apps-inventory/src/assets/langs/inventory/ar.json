@@ -171,6 +171,7 @@
     "print":"طباعة",
     "relatedBranch": "الفرع المرتبط",
     "warehouseType": "نوع المستودع",
+    "availableQuantity":"الكميه المتاحة",
     "actions": "الإجراءات",
     "warehouse": "المستودع",
     "account": "الحساب",

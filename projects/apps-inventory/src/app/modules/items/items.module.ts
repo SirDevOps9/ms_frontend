@@ -198,8 +198,8 @@ const routes: Routes = [
             path: 'view-warehouse/:id',
             component: ViewWarehouseComponent,
             data: {
-              breadcrumb: BreadcrumbLabel.EDIT_WARE_HOUSE,
-              pageTitle: BreadcrumbLabel.EDIT_WARE_HOUSE,
+              breadcrumb: BreadcrumbLabel.VIEW_WARE_HOUSE,
+              pageTitle: BreadcrumbLabel.VIEW_WARE_HOUSE,
             },
           },
         ],

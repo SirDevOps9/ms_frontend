@@ -25,7 +25,8 @@
     "stockInView":"Stock In View",
     "stockOutView":"Stock Out View",
     "stockIn":"Stock In List",
-    "viewUom":"view"
+    "viewUom":"view",
+    "ViewWarehouse":"View Item Warehouse"
   },
   "Toaster": {
     "Confirm": {
@@ -188,8 +189,10 @@
     "ChangeColumn": "Change Column",
     "save": "Save",
     "cancel": "Cancel",
+    "availableQuantity":"Available Quantity",
     "code": "Code",
     "uom":"UOM",
+    "WarehouseItemExport":"Warehouse Item",
     "variant":"Variant",
     "availablequantity":"Available Quantity",
     "itemCode":"Item Code",

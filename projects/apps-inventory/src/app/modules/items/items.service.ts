@@ -53,11 +53,13 @@ import { OperationType } from './models/enums';
 import { VieItemDefinitionDto } from './models/VieItemDefinitionDto';
 import { GetItemUom } from './models/GetItemUom';
 import { FormGroup } from '@angular/forms';
+import { GetWarehouseItems } from './models/GetWarehouseItem';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ItemsService {
+  allowServerPagination: any;
   constructor(
     private itemProxy: ItemsProxyService,
     private toasterService: ToasterService,
@@ -192,7 +194,7 @@ export class ItemsService {
   AddWarehouseDataSource = new BehaviorSubject<AddWarehouse>({} as AddWarehouse);
   sendWarehouseById = new BehaviorSubject<AddWarehouse>({} as AddWarehouse);
 
-  WarehouseViewDataSource = new BehaviorSubject<GetWarehouseList[]>([]);
+  WarehouseViewDataSource = new BehaviorSubject<GetWarehouseItems[]>([]);
 
   getWarehouseDataSourceById = new BehaviorSubject<WarehouseAccountData>(
     {} as WarehouseAccountData
@@ -200,6 +202,8 @@ export class ItemsService {
   exportedWarehouseDataSource = new BehaviorSubject<GetWarehouseList[]>([]);
   exportedItemCategoryDataSource = new BehaviorSubject<GetItemCategoryDto[]>([]);
 
+
+  exportedWarehouseDataItemSource = new BehaviorSubject<GetWarehouseItems[]>([]);
   // transactions
 
 
@@ -254,7 +258,7 @@ export class ItemsService {
   public sendItemCategoryDataSourceObs = this.sendItemCategoryDataSource.asObservable();
   public tagLookupObs = this.tagLookup.asObservable();
   public defaultUnitObs = this.defaultUnit.asObservable();
-
+public exportedWarehouseDataItemSourceObs = this.exportedWarehouseDataItemSource.asObservable()
   public stockInDataViewSource = new BehaviorSubject<StockInDto[]>([]);
 
   stockInDataViewSourceeObservable = this.stockInDataViewSource.asObservable();
@@ -1305,6 +1309,14 @@ public OperationalTagStockOut$ = this.sendOperationalTagStockOutDropDown.asObser
     this.itemProxy.exportsWayehouseList(searchTerm, SortBy, SortColumn).subscribe({
       next: (res: any) => {
         this.exportedWarehouseDataSource.next(res);
+      },
+    });
+  }
+
+  exportsWayehouseItemView(warehouseId?: number, SortBy?: any, SortColumn?: any) {
+    this.itemProxy.exportsWayehouseItemView(warehouseId, SortBy, SortColumn).subscribe({
+      next: (res: any) => {
+        this.exportedWarehouseDataItemSource.next(res);
       },
     });
   }

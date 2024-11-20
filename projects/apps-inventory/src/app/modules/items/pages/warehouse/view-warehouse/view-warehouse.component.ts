@@ -1,14 +1,13 @@
 import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-
 import { AuthService } from 'microtec-auth-lib';
-import { DialogService } from 'primeng/dynamicdialog';
-import { LanguageService, lookupDto, PageInfoResult, MenuModule, PageInfo, PrintService } from 'shared-lib';
-import { AddWarehousePopupComponent } from '../../../components/warehouse/add-warehouse-popup/add-warehouse-popup.component';
+import {  PageInfoResult, PageInfo, PrintService } from 'shared-lib';
 import { ItemsService } from '../../../items.service';
-import { GetWarehouseList } from '../../../models';
 import { ActivatedRoute } from '@angular/router';
-import { DebugService } from '../log';
+import { GetWarehouseItems } from '../../../models/GetWarehouseItem';
+import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
+import { TranslateService } from '@ngx-translate/core';
+
 
 @Component({
   selector: 'app-view-warehouse',
@@ -16,77 +15,37 @@ import { DebugService } from '../log';
   styleUrl: './view-warehouse.component.scss'
 })
 export class ViewWarehouseComponent {
-  pi: string;
-id:number
+id:any
   constructor(
     private route : ActivatedRoute,
     public authService: AuthService,
-    private dialog: DialogService,
     private title: Title,
-    private debugService: DebugService,
     private Print_Service: PrintService,
-    private langService: LanguageService,
     private itemsService : ItemsService,
+    private translate: TranslateService,
 
+
+    private exportService:ExportService
   ) {
     this.id = this.route.snapshot.params['id']
   }
-
-  tableData: GetWarehouseList[];
-
-  exportData: GetWarehouseList[];
-  cols = [
-
-    {
-      field: 'Code',
-      header: 'code',
-    },
-
-    {
-      field: 'Name',
-      header: 'name',
-    },
-    {
-      field: 'Short Name',
-      header: 'shortName',
-    },
-    {
-      field: 'Item Category Name',
-      header: 'itemCategoryName',
-    },
-    {
-      field: 'UOM Name',
-      header: 'uomName',
-    },
-
-  ];
-  exportColumns: lookupDto[];
-  exportSelectedCols: string[] = [];
-
+  tableData: GetWarehouseItems[]=[];
+  exportData: GetWarehouseItems[];
   currentPageInfo: PageInfoResult = {};
-  modulelist: MenuModule[];
   searchTerm: string;
   SortBy?: number;
   SortColumn?: string;
   ngOnInit() {
-    this.debugService.log('Component Initialized');
-
-    // يمكنك أيضًا عرض أي بيانات أخرى
-    this.initItemDefinitionData();
-    this.exportColumns = this.cols.map((col) => ({
-      id: col.header,
-      name: col.field,
-    }));
+this.initItemDefinitionData()
+   
   }
 
   initItemDefinitionData() {
     const pageInfo = new PageInfo();
     this.itemsService.getWarehouseListView('', this.id,new PageInfo());
      this.itemsService.WarehouseViewDataSourceObs.subscribe({
-        next: (res) => {
+        next: (res: GetWarehouseItems[]) => {
           this.tableData = res;
-          console.log(this.tableData);
-
         },
       })
       this.itemsService.currentPageInfo.subscribe((currentPageInfo) => {
@@ -99,10 +58,7 @@ id:number
   }
 
   onSearchChange(event: any) {
-    // Assuming 'warehouseId' is available in the event or another way to retrieve it
-    const warehouseId = this.id // Modify as needed
-  
-    // Call the service method with the correct number of arguments
+    const warehouseId = this.id 
     this.itemsService.getWarehouseListView(event, warehouseId, new PageInfo());
   
     this.itemsService.WarehouseViewDataSourceObs.subscribe({
@@ -111,80 +67,25 @@ id:number
       },
     });
   }
+  exportClick(e?: Event) {
+    this.exportOperationalData(this.searchTerm);
+  }
+  exportOperationalData(data:any) {
+  data =this.id, this.SortBy, this.SortColumn 
+      this.itemsService.exportsWayehouseItemView(data);
+      const columns = [
+        { name: 'itemCode', headerText: this.translate.instant('warehouse.itemCode') },
+        { name: 'unitOfMeasureEn', headerText: this.translate.instant('warehouse.uom') },
+        { name: 'variantEn', headerText: this.translate.instant('warehouse.variant') },
+        { name: 'availableQuantity', headerText: this.translate.instant('warehouse.availableQuantity') },
+      ];
+      this.itemsService.exportedWarehouseDataItemSource.subscribe((res) => {
+        this.exportData = this.exportService.formatCiloma(res, columns);
+      });
+  }
   
-  // exportClick(e?: Event) {
-  //   console.log(e)
-  //   this.exportWarehouseData(this.searchTerm);
-  // }
-
-
-  // exportClick(){
-  //   this.itemsService.exportsWayehouseList(this.searchTerm ,this.SortBy,this.SortColumn);
-  //   this.itemsService.exportedWarehouseDataSourceObs.subscribe((res) => {
-  //     this.exportData = res;
-  //   });
-  // }
-
-  // exportWarehouseData(searchTerm: string) {
-  //   this.itemsService.exportsWayehouseList(this.searchTerm ,this.SortBy,this.SortColumn);
-  //   this.itemsService.exportedWarehouseDataSourceObs.subscribe((res) => {
-  //     this.exportData = res;
-  //   });
-  // }
-  exportedColumns(obj: { SortBy: number; SortColumn: string }) {
-    this.SortBy = obj.SortBy;
-    this.SortColumn = obj.SortColumn;
-  }
-
-  exportClick(){
-    this.itemsService.exportsWayehouseList(this.searchTerm ,this.SortBy,this.SortColumn);
-
-
-    this.itemsService.exportedWarehouseDataSourceObs.subscribe((res) => {
-      this.exportData = res;
-    });
-  }
-  onAdd() {
-      const dialogRef = this.dialog.open(AddWarehousePopupComponent, {
-      width: '650px',
-      height : '420px',
-    });
-    dialogRef.onClose.subscribe(() => {
-    this.initItemDefinitionData()
-    });
-
-  }
-
-  onEdit(data: any) {
-  }
-
-  onView(data: any) {
-  }
-
-
-
-  // onSearchChange() {
-  //   this.itemsService.getWarehouseList(this.searchTerm, new PageInfo());
-
-  // }
-
-
-  onDelete(id: number) {
-     this.itemsService.deleteWareHouse(id)
-  }
-
   printTable(id: string) {
     this.Print_Service.print(id);
   }
 
-  ngOnDestroy(): void {
-    // مسح جميع الرسائل عند مغادرة المكون
-    this.debugService.clearLogs();
-    console.log('Logs cleared when component destroyed');
-  }
-
-  someFunction() {
-    // مثال على استخدام log في أي دالة أخرى
-    this.debugService.log('Function called');
-  }
 }

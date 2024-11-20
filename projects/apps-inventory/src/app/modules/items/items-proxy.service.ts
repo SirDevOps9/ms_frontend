@@ -39,6 +39,7 @@ import { addUOM, AddUom } from './models/addUom';
 import { addAttributeDifintion, IAttrributeDifinition } from './models/AttrbuteDiffintion';
 import { VieItemDefinitionDto } from './models/VieItemDefinitionDto';
 import { GetItemUom } from './models/GetItemUom';
+import { GetWarehouseItems } from './models/GetWarehouseItem';
 
 @Injectable({
   providedIn: 'root',
@@ -466,7 +467,8 @@ export class ItemsProxyService {
     searchTerm: string,
     warehouseId: number,
     pageInfo: PageInfo
-  ): Observable<PaginationVm<GetWarehouseList>> {
+  ): Observable<PaginationVm<GetWarehouseItems>> {
+    // Construct the base query with warehouseId and pagination info
     let query = `WareHouse/GetItems?warehouseId=${warehouseId}&${pageInfo.toQuery}`;
 
     // Add SearchTerm if available
@@ -474,7 +476,8 @@ export class ItemsProxyService {
       query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
     }
 
-    return this.httpService.get<PaginationVm<GetWarehouseList>>(query);
+    // Return the Observable from the HTTP GET request
+    return this.httpService.get<PaginationVm<GetWarehouseItems>>(query);
   }
 
 
@@ -501,6 +504,36 @@ export class ItemsProxyService {
     query += params.join('&');
     return this.httpService.get<GetWarehouseList[]>(query);
   }
+
+
+  exportsWayehouseItemView(
+    warehouseId?: number,
+    SortBy?: number,
+    SortColumn?: string
+  ): Observable<GetWarehouseItems[]> {
+    let query = `WareHouse/ExportItems?`;
+  
+    if (warehouseId !== undefined && warehouseId !== null) {
+      query += `warehouseId=${warehouseId}`;
+    }
+  
+    const params: string[] = [];
+    
+    if (SortBy !== undefined) {
+      params.push(`SortBy=${SortBy}`);
+    }
+    
+    if (SortColumn) {
+      params.push(`SortColumn=${SortColumn}`);
+    }
+  
+    if (params.length > 0) {
+      query += '&' + params.join('&');
+    }
+  
+    return this.httpService.get<GetWarehouseItems[]>(query);
+  }
+  
 
   exportsItemCategoryList(searchTerm: string | undefined): Observable<GetItemCategoryDto[]> {
     let query = `ItemCategory/Export?`;

@@ -1,12 +1,80 @@
 <lib-page-content [title]="'warehouse.warehouse' | translate" [subTitle]="'warehouse.warehouse' | translate">
   <div>
     <div class="user_page">
-      <lib-data-table  [items]="tableData"
-      id="printableTable"
+        <lib-data-table  [items]="tableData"
+     
         className="p-datatable-gridlines" [currentPageResult]="currentPageInfo" (pageChange)="onPageChange($event)"
-        (exportObj)="exportedColumns($event)" [tableConfigs]="{
+       [tableConfigs]="{
             allowPagination: false,
             allowServerPagination: true,
+            dataKey: 'id',
+
+            pageSize: 10,
+            columns: [
+              {
+                name: 'itemCode',
+                headerText: ('warehouse.itemCode' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'unitOfMeasureEn',
+                headerText: ('warehouse.uom' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+
+
+              {
+                name: 'variantEn',
+                headerText: ('warehouse.variant' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'availableQuantity',
+                headerText: ('warehouse.availableQuantity' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              
+
+            ]
+          }">
+
+        <ng-container search>
+          <lib-form-group>
+
+            <lib-text-input type="text" [placeholder]="'warehouse.search' | translate" [(ngModel)]="searchTerm"
+              (keyUp)="onSearchChange($event)" [iconUrl]="'pi pi-search'"></lib-text-input>
+          </lib-form-group>
+        </ng-container>
+        <ng-container action>
+
+          <div>
+            <lib-export      (exportClick)="exportClick($event)"[exportData]="exportData" 
+            [ExportName]="('warehouse.WarehouseItemExport' | translate)">
+           
+            </lib-export>
+          </div>
+          <!--  -->
+          <div>
+            <lib-button-micro [title]="'warehouse.print' | translate" nameClass="print" iconName="pi pi-print"
+            (click)="printTable('printableTable')">
+            </lib-button-micro>
+          </div>
+        </ng-container>
+
+      </lib-data-table>
+
+
+      <div  id="printableTable">
+        <lib-data-table  [items]="tableData"
+     
+        className="p-datatable-gridlines" 
+   [tableConfigs]="{
+            allowPagination: false,
+            allowServerPagination:false,
             dataKey: 'id',
 
             pageSize: 10,
@@ -35,29 +103,10 @@
             ]
           }">
 
-        <ng-container search>
-          <lib-form-group>
-
-            <lib-text-input type="text" [placeholder]="'warehouse.search' | translate" [(ngModel)]="searchTerm"
-              (keyUp)="onSearchChange($event)" [iconUrl]="'pi pi-search'"></lib-text-input>
-          </lib-form-group>
-        </ng-container>
-        <ng-container action>
-
-          <div>
-            <lib-export (exportClick)="exportClick()" [exportData]="exportData" [exportColumns]="exportColumns"
-              [ExportName]="'Warehouse'">
-            </lib-export>
-          </div>
-          <!--  -->
-          <div>
-            <lib-button-micro [title]="'warehouse.print' | translate" nameClass="print" iconName="pi pi-print"
-            (click)="printTable('printableTable')">
-            </lib-button-micro>
-          </div>
-        </ng-container>
+  
 
       </lib-data-table>
+      </div>
     </div>
   </div>
 </lib-page-content>

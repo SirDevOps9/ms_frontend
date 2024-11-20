@@ -113,7 +113,7 @@ export class OperationTagEditComponent implements OnInit {
         name: ['', Validators.required],
         operationType: ['', Validators.required],
         warehouseId: ['', Validators.required],
-        glAccountId: ['', Validators.required],
+        glAccountId: [null],
       });
   }
 

@@ -3,8 +3,8 @@ export interface UonViewDto {
   nameAr: string;
   nameEn: string;
   uoMs: UomData[];
-  systemUnitOfMeasureCategoryId?: number;
-  shortName?: string;
+  systemUnitOfMeasureCategoryId: number;
+  shortName: string ;
 }
 
 
