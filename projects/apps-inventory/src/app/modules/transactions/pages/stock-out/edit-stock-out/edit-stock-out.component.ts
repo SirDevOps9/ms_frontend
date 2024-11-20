@@ -837,7 +837,7 @@ export class EditStockOutComponent implements OnInit {
     this.isDuplicate(indexLine)
   }
   addToPost(){
-    // this.itemsService.postStockOut(this.stockOutId)
+    this.itemsService.postStockOut(this.stockOutId)
 
     if(this.isFormChanged()){
       console.log('11111111111111111');
