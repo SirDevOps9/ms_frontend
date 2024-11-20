@@ -15,6 +15,7 @@ import {
   AttributesVariants,
   EditAttributes,
   EditWareHouse,
+  GeneralSettingDto,
   GetItemById,
   GetItemCategoryDto,
   getUomByItemId,
@@ -72,7 +73,6 @@ export class ItemsProxyService {
     return this.httpService.get<PaginationVm<itemDefinitionDto>>(query);
   }
 
-
   getStockOut(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<StockInDto>> {
     let query = `Transaction/GetStockInTransactionList?${pageInfo.toQuery}`;
     if (searchTerm) {
@@ -89,8 +89,8 @@ export class ItemsProxyService {
     return this.httpService.get<itemDefinitionDto[]>(query);
   }
 
-  deleteStockOut(id : number ){
-    return this.httpService.delete(`StockOut/${id}`)
+  deleteStockOut(id: number) {
+    return this.httpService.delete(`StockOut/${id}`);
   }
 
   addItemDefinition(obj: AddItemDefinitionDto) {
@@ -212,9 +212,8 @@ export class ItemsProxyService {
     return this.httpService.get(`Item/GetItemBarcode/${id}`);
   }
 
-  getItemFixedCost(id:number){
+  getItemFixedCost(id: number) {
     return this.httpService.get(`Item/GetItemFixedCost/${id}`);
-
   }
   uomCodeDropDown(id: number) {
     return this.httpService.get(`UOM/GetUOMsByUOMCategoryId/${id}`); //
@@ -339,7 +338,7 @@ export class ItemsProxyService {
   }
 
   //   to export uom list
-  ExportUOMList(SearchTerm: string | undefined)   {
+  ExportUOMList(SearchTerm: string | undefined) {
     let url = `UOM/ExportUOM`;
     if (SearchTerm) url += `SearchTerm=${encodeURIComponent(SearchTerm)}`;
     return this.httpService.get<any>(url);
@@ -577,11 +576,9 @@ export class ItemsProxyService {
     return this.httpService.get(`Item/GetGeneralData/${id}`);
   }
 
-
   getLatestItemsList(): Observable<LatestItems[]> {
     return this.httpService.get(`Item/GetLatestItemsList`);
   }
-
 
   getItems(
     quieries: string,
@@ -598,17 +595,10 @@ export class ItemsProxyService {
     return this.httpService.get<PaginationVm<AdvancedSearchDto>>(query);
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
+  getInventoryGeneralSetting(): Observable<GeneralSettingDto> {
+    return this.httpService.get<GeneralSettingDto>(`InventoryGeneralSetting`);
+  }
+  editInventoryGeneralSetting(obj: GeneralSettingDto) {
+    return this.httpService.put(`inventoryGeneralSetting`, obj);
+  }
 }
-

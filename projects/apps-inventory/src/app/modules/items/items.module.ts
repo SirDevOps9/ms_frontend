@@ -58,6 +58,7 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { ItemFixedCostComponent } from './pages/item-definition/item-fixed-cost/item-fixed-cost.component';
 import { ViewWarehouseComponent } from './pages/warehouse/view-warehouse/view-warehouse.component';
 import { UomViewComponent } from './pages/unit-of-major/uom-view/uom-view.component';
+import { GeneralSettingInvComponent } from './pages/general-setting-inv/general-setting-inv.component';
 
 const routes: Routes = [
   {
@@ -140,10 +141,6 @@ const routes: Routes = [
             },
           },
 
-
-
-
-
           {
             path: 'tax/:id',
             component: ItemDefintionTaxComponent,
@@ -217,7 +214,6 @@ const routes: Routes = [
             data: {
               breadcrumb: '',
               pageTitle: BreadcrumbLabel.UOMLISt,
-
             },
           },
           {
@@ -226,7 +222,6 @@ const routes: Routes = [
             data: {
               breadcrumb: BreadcrumbLabel.ADD_UOM,
               pageTitle: BreadcrumbLabel.ADD_UOM,
-
             },
           },
           {
@@ -235,7 +230,6 @@ const routes: Routes = [
             data: {
               breadcrumb: BreadcrumbLabel.EDITUOM,
               pageTitle: BreadcrumbLabel.EDITUOM,
-
             },
           },
           {
@@ -323,7 +317,11 @@ const routes: Routes = [
           breadcrumb: BreadcrumbLabel.ITEM_CATEGORY,
         },
       },
-
+      {
+        path: 'general-setting',
+        component: GeneralSettingInvComponent,
+        data: { breadcrumb: BreadcrumbLabel.GENERAL_SETTING },
+      },
     ],
   },
 ];
@@ -375,7 +373,8 @@ const routes: Routes = [
     AttributeDefinitionListValuesComponent,
     ItemFixedCostComponent,
     ViewWarehouseComponent,
-    UomViewComponent
+    UomViewComponent,
+    GeneralSettingInvComponent,
   ],
   imports: [
     CommonModule,
