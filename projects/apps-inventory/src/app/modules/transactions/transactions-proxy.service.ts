@@ -171,4 +171,7 @@ GetItemByBarcodeStockOutQuery(barcode: string , warehouseId:number): Observable<
     query += params.join('&');
     return this.httpService.get<StockOutDto[]>(query);
   }
+  postStockOut(id: number) {
+    return this.httpService.post(`StockOut/${id}/Post`, null);
+  }
 }
