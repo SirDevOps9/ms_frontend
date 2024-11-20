@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { delay, Observable } from 'rxjs';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
 import { AdvancedSearchDto, LatestItems, WarehousesTables } from './models';
 
@@ -10,12 +10,12 @@ export class ReportProxyService {
   private baseHttp = 'ItemCardReport/ItemCardReport';
   constructor(private http: HttpService) {}
 
-  getWarehouseTransactionsReport(query: any): Observable<WarehousesTables[]> {
+  getWarehouseTransactionsReport(query: any): Observable<WarehousesTables> {
     let queryList = `${this.baseHttp}`;
     if (query) {
       queryList += `?${query}`;
     }
-    return this.http.get<WarehousesTables[]>(queryList);
+    return this.http.get<WarehousesTables>(queryList);
   }
 
   getLatestItemsList(searchTerm: string): Observable<LatestItems[]> {

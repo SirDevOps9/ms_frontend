@@ -77,9 +77,9 @@
     <div class="flex gap-2 justify-content-end my-3">
       <lib-button-micro
         [title]="'itemCardReport.view' | translate"
-        [nameClass]="itemTransactionForm.valid ? 'save' : 'disabled'"
+        [nameClass]="'save'"
         iconName="pi pi-circle"
-        [ngClass]="{ disabled: !itemTransactionForm.valid }"
+        [ngClass]="{ disabled: !moreInfoForm.valid }"
         (click)="viewItemTransaction()"
       >
       </lib-button-micro>
@@ -88,114 +88,124 @@
       </button>
     </div>
 
-    @for( warehouseTransaction of warehousesTransactionsTables ; track warehouseTransaction) {
-    <div class="card_micro">
-      <lib-data-table
-        [resizableColumns]="false"
-        [items]="warehouseTransaction.transactions"
-        className="p-datatable-gridlines"
-        [reportTable]="true"
-        [noColumnFilter]="false"
-        [tableConfigs]="{
-            allowPagination: false,
-            allowServerPagination: false,
-            dataKey: 'id',
-            pageSize: 10,
-            columns: [
-              {
-                name: 'transactionName',
-                headerText: ('itemCardReport.transactionName' | translate),
-                rowspan: '3',
-                class: 'center'
-              },
-              {
-                name: 'transactionCode',
-                headerText: ('itemCardReport.transactionCode' | translate),
-                rowspan: '3',
-                class: 'center',
-              },
-              {
-                name: 'serial',
-                headerText: ('itemCardReport.serial' | translate),
-                rowspan: '3',
-                class: 'center',
-              },
-              {
-                name: 'batchNumber',
-                headerText: ('itemCardReport.batchNo' | translate),
-                rowspan: '3',
-                class: 'center',
-              },
-              {
-                name: 'expiryDate',
-                headerText: ('itemCardReport.expiryDate' | translate),
-                rowspan: '3',
-                class: 'center',
-              },
-              {
-                name: 'in',
-                headerText: ('itemCardReport.in' | translate),
-                colspan: '3',
-                class: 'left_Balance center',
-                children: [
-                  {
-                    name: 'qty',
-                    headerText: ('itemCardReport.subTitles.QTY' | translate),
-                    class: ' left_Balance debit center',
-                    applyClass: false
-                  },
-                  {
-                    name: 'cost',
-                    headerText: ('itemCardReport.subTitles.cost' | translate),
-                    class: ' left_Balance debit center',
-                    applyClass: false
-                  },
-                  {
-                    name: 'total',
-                    headerText: ('itemCardReport.subTitles.subTotal' | translate),
-                    class: ' left_Balance debit center',
-                    applyClass: false
-                  },
+    @for (warehouse of moreInfoForm.get('warehouseId')!.value; track warehouse) {
+    <div *ngIf="loadingStates[warehouse]; else noLoadingState">
+      <div class="card_micro my-4" [appLoader]="loadingStates[warehouse]">
+        <p>Loading Transactions...</p>
+      </div>
+    </div>
 
-                ]
-              },
-              {
-                name: 'out',
-                headerText: ('itemCardReport.out' | translate),
-                colspan: '3',
-                class: 'left_Balance center',
-                children: [
-                {
-                    name: 'qty',
-                    headerText: ('itemCardReport.subTitles.QTY' | translate),
-                    class: ' left_Balance debit center',
-                    applyClass: false
+    <ng-template #noLoadingState>
+      @if(isExist(warehouse) ) {
+
+      <div class="card_micro" [appLoader]="loadingStates[warehouse]">
+        <lib-data-table
+          [resizableColumns]="false"
+          [items]="warehousesTransactionsMap.get(warehouse)!.transactions"
+          className="p-datatable-gridlines"
+          [reportTable]="true"
+          [noColumnFilter]="false"
+          [tableConfigs]="{
+                allowPagination: false,
+                allowServerPagination: false,
+                dataKey: 'id',
+                pageSize: 10,
+                columns: [
+                  {
+                    name: 'transactionName',
+                    headerText: ('itemCardReport.transactionName' | translate),
+                    rowspan: '3',
+                    class: 'center'
                   },
                   {
-                    name: 'cost',
-                    headerText: ('itemCardReport.subTitles.cost' | translate),
-                    class: ' left_Balance debit center',
-                    applyClass: false
+                    name: 'transactionCode',
+                    headerText: ('itemCardReport.transactionCode' | translate),
+                    rowspan: '3',
+                    class: 'center',
                   },
                   {
-                    name: 'total',
-                    headerText: ('itemCardReport.subTitles.subTotal' | translate),
-                    class: ' left_Balance debit center',
-                    applyClass: false
+                    name: 'serial',
+                    headerText: ('itemCardReport.serial' | translate),
+                    rowspan: '3',
+                    class: 'center',
+                  },
+                  {
+                    name: 'batchNumber',
+                    headerText: ('itemCardReport.batchNo' | translate),
+                    rowspan: '3',
+                    class: 'center',
+                  },
+                  {
+                    name: 'expiryDate',
+                    headerText: ('itemCardReport.expiryDate' | translate),
+                    rowspan: '3',
+                    class: 'center',
+                  },
+                  {
+                    name: 'in',
+                    headerText: ('itemCardReport.in' | translate),
+                    colspan: '3',
+                    class: 'left_Balance center',
+                    children: [
+                      {
+                        name: 'qty',
+                        headerText: ('itemCardReport.subTitles.QTY' | translate),
+                        class: ' left_Balance debit center',
+                        applyClass: false
+                      },
+                      {
+                        name: 'cost',
+                        headerText: ('itemCardReport.subTitles.cost' | translate),
+                        class: ' left_Balance debit center',
+                        applyClass: false
+                      },
+                      {
+                        name: 'total',
+                        headerText: ('itemCardReport.subTitles.subTotal' | translate),
+                        class: ' left_Balance debit center',
+                        applyClass: false
+                      },
+
+                    ]
+                  },
+                  {
+                    name: 'out',
+                    headerText: ('itemCardReport.out' | translate),
+                    colspan: '3',
+                    class: 'left_Balance center',
+                    children: [
+                    {
+                        name: 'qty',
+                        headerText: ('itemCardReport.subTitles.QTY' | translate),
+                        class: ' left_Balance debit center',
+                        applyClass: false
+                      },
+                      {
+                        name: 'cost',
+                        headerText: ('itemCardReport.subTitles.cost' | translate),
+                        class: ' left_Balance debit center',
+                        applyClass: false
+                      },
+                      {
+                        name: 'total',
+                        headerText: ('itemCardReport.subTitles.subTotal' | translate),
+                        class: ' left_Balance debit center',
+                        applyClass: false
+                      },
+                    ]
                   },
                 ]
-              },
-            ]
-          }"
-      >
-        <ng-container caption>
-          <form [formGroup]="itemTransactionForm" (ngSubmit)="itemTransactionSubmit()">
+              }"
+        >
+          <ng-container caption>
             <div class="group">
               <div class="grid">
                 <div class="col-12 md:col-2 m-0">
-                  <p class="headsCont heading_b16 m-0">{{ 'popupSearch.ItemName' | translate }}</p>
+                  <p class="headsCont heading_b16 m-0">
+                    {{ 'popupSearch.ItemName' | translate }}
+                  </p>
                   <p class="subHead paragraph_b16 pragraph_demd m-0">
-                    {{ warehouseTransaction.itemName }}
+                    {{ warehousesTransactionsMap.get(warehouse)!.itemName }}
                   </p>
                 </div>
                 <div class="col-12 md:col-2 m-0">
@@ -203,7 +213,7 @@
                     {{ 'popupSearch.ItemCode' | translate }}
                   </p>
                   <p class="subHead paragraph_b16 pragraph_demd m-0">
-                    {{ warehouseTransaction.itemCode }}
+                    {{ warehousesTransactionsMap.get(warehouse)!.itemCode }}
                   </p>
                 </div>
                 <div class="col-12 md:col-2 m-0">
@@ -211,42 +221,77 @@
                     {{ 'OperationalTag.warehouseName' | translate }}
                   </p>
                   <p class="subHead paragraph_b16 pragraph_demd m-0">
-                    {{ warehouseTransaction.warehouseName }}
+                    {{ warehousesTransactionsMap.get(warehouse)!.warehouseName }}
                   </p>
                 </div>
               </div>
             </div>
-          </form>
-        </ng-container>
-        <ng-template #accountName let-trial>
-          <div></div>
-        </ng-template>
-        <ng-template #accountCode let-trial>
-          <div></div>
-        </ng-template>
-      </lib-data-table>
+          </ng-container>
+          <ng-template #accountName let-trial>
+            <div></div>
+          </ng-template>
+          <ng-template #accountCode let-trial>
+            <div></div>
+          </ng-template>
+        </lib-data-table>
 
-      <div class="footer_form">
-        <form [formGroup]="itemTransactionForm" (ngSubmit)="itemTransactionSubmit()">
+        <div class="footer_form">
           <div class="group">
             <div class="grid">
               <div class="col-12 md:col-2">
+                @if(warehousesTransactionsMap.get(warehouse)!.itemVariantId) {
                 <p class="headsCont heading_b16 m-0">
                   {{ 'itemCardReport.QTYbalance' | translate }}
                 </p>
                 <p class="subHead paragraph_b16 pragraph_demd m-0">
-                  {{ warehouseTransaction.qtyBalance }}
+                  {{ warehousesTransactionsMap.get(warehouse)!.qtyBalance }}
                 </p>
+                } @else {
+                <p class="subHead paragraph_b16 pragraph_demd m-0">No Transactions Exist</p>
+                }
               </div>
             </div>
           </div>
-        </form>
+        </div>
       </div>
-    </div>
+      }
+    </ng-template>
     }
 
     <div id="printableTable" class="printed_tables">
-      @for(warehouseTransaction of warehousesTransactionsTables; track warehouseTransaction) {
+      @for(warehouseTransaction of warehousesTransactionsTables; track warehouseTransaction; let
+      first = $first) { @if(!first) {
+      <br />
+      <hr />
+      }
+      <div class="group">
+        <div class="grid">
+          <div class="col-12 md:col-2 m-0">
+            <p class="headsCont heading_b16 m-0">
+              {{ 'popupSearch.ItemName' | translate }}
+            </p>
+            <p class="subHead paragraph_b16 pragraph_demd m-0">
+              {{ warehouseTransaction.itemName }}
+            </p>
+          </div>
+          <div class="col-12 md:col-2 m-0">
+            <p class="headsCont heading_b16 m-0">
+              {{ 'popupSearch.ItemCode' | translate }}
+            </p>
+            <p class="subHead paragraph_b16 pragraph_demd m-0">
+              {{ warehouseTransaction.itemCode }}
+            </p>
+          </div>
+          <div class="col-12 md:col-2 m-0">
+            <p class="headsCont heading_b16 m-0">
+              {{ 'OperationalTag.warehouseName' | translate }}
+            </p>
+            <p class="subHead paragraph_b16 pragraph_demd m-0">
+              {{ warehouseTransaction.warehouseName }}
+            </p>
+          </div>
+        </div>
+      </div>
       <lib-table-print
         id="single_printed_table"
         resizableColumns="false"
@@ -341,27 +386,22 @@
         <ng-container caption> </ng-container>
       </lib-table-print>
       <div class="footer_form">
-        <form [formGroup]="itemTransactionForm" (ngSubmit)="itemTransactionSubmit()">
-          <div class="group">
-            <div class="grid">
-              <div class="col-12 md:col-2">
-                <p class="subHead paragraph_b16 pragraph_demd">
-                  {{ warehouseTransaction.qtyBalance }}
-                </p>
-              </div>
-              <div class="col-12 md:col-2">
-                <p class="subHead paragraph_b16 pragraph_demd">
-                  {{ warehouseTransaction.itemCost }}
-                </p>
-              </div>
-              <div class="col-12 md:col-2">
-                <p class="subHead paragraph_b16 pragraph_demd">
-                  {{ warehouseTransaction.totalBalanceAmount }}
-                </p>
-              </div>
+        <div class="group">
+          <div class="grid">
+            <div class="col-12 md:col-2">
+              @if(warehouseTransaction.itemVariantId) {
+              <p class="headsCont heading_b16 m-0">
+                {{ 'itemCardReport.QTYbalance' | translate }}
+              </p>
+              <p class="subHead paragraph_b16 pragraph_demd m-0">
+                {{ warehouseTransaction.qtyBalance }}
+              </p>
+              } @else {
+              <p class="subHead paragraph_b16 pragraph_demd m-0">No Transactions Exist</p>
+              }
             </div>
           </div>
-        </form>
+        </div>
       </div>
       }
     </div>

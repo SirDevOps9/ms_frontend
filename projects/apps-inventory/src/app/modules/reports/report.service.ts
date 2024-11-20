@@ -7,14 +7,14 @@ import {
   LatestItems,
   WarehousesTables,
 } from './models';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { PageInfo, PageInfoResult } from 'shared-lib';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ReportService {
-  cardWarehousesReport = new BehaviorSubject<WarehousesTables[]>([]);
+  cardWarehousesReport = new BehaviorSubject<WarehousesTables>({} as WarehousesTables);
   itemsDataSource = new BehaviorSubject<AdvancedSearchDto[]>([]);
   sendlatestItemsList = new BehaviorSubject<LatestItems[]>([]);
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
@@ -27,16 +27,12 @@ export class ReportService {
 
   constructor(private reportProxy: ReportProxyService) {}
 
-  getWarehousesReport(query: CardReportQuery) {
+  getWarehousesReport(query: CardReportQuery): Observable<WarehousesTables> {
     const params = new URLSearchParams();
     params.append('ItemVariantId', query.itemVariantId.toString());
-    query.warehouseId.forEach((warehouseId: any) => {
-      params.append('WarehousesIds', warehouseId.toString());
-    });
+    params.append('WarehousesId', query.warehouseId.toString());
 
-    this.reportProxy.getWarehouseTransactionsReport(params).subscribe((res) => {
-      this.cardWarehousesReport.next(res);
-    });
+    return this.reportProxy.getWarehouseTransactionsReport(params);
   }
 
   getLatestItemsList(searchTerm: string = '') {

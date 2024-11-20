@@ -6,6 +6,8 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 import { Route, RouterModule } from '@angular/router';
 import { LayoutPageComponent } from 'apps-shared-lib';
 import { SearchItemAdvancedPopUpComponent } from './components/search-item-pop-up/search-item-pop-up.component';
+import { SpinnerComponent } from './components/search-item-pop-up/spinner/spinner.component';
+import { LoaderDirective } from './directives/loader.directive';
 
 const routes: Route[] = [
   {
@@ -24,7 +26,13 @@ const routes: Route[] = [
 ];
 
 @NgModule({
-  declarations: [ItemCardComponent, SearchItemAdvancedPopUpComponent],
+  declarations: [
+    ItemCardComponent,
+    SearchItemAdvancedPopUpComponent,
+    SpinnerComponent,
+    LoaderDirective,
+  ],
   imports: [CommonModule, SharedLibModule, AutoCompleteModule, RouterModule.forChild(routes)],
+  exports: [LoaderDirective],
 })
 export class ReportsModule {}
