@@ -53,13 +53,11 @@ import { ItemDefintionTaxComponent } from './pages/item-definition/item-defintio
 import { WarehouseTabsComponent } from './pages/warehouse/warehouse-tabs/warehouse-tabs/warehouse-tabs.component';
 import { AttributeDefinitionValuesComponent } from './pages/attribute-definition/attribute-definition-values/attribute-definition-values/attribute-definition-values.component';
 import { AttributeDefinitionListValuesComponent } from './pages/attribute-definition/attribute-definition-list-values/attribute-definition-list-values/attribute-definition-list-values.component';
-import { MainStockOutComponent } from './pages/stock-out/main-stock-out/main-stock-out.component';
-import { AddStockOutComponent } from './pages/stock-out/add-stock-out/add-stock-out.component';
-import { StockOutListComponent } from './pages/stock-out/stock-out-list/stock-out-list.component';
-import { EditStockOutComponent } from './pages/stock-out/edit-stock-out/edit-stock-out.component';
 import { ItemDefintionVariantComponent } from './pages/item-definition/item-defintion-variants/item-defintion-variant.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
-import { SearchItemPopUpComponent } from './components/stock-out/search-item-pop-up/search-item-pop-up.component';
+import { ItemFixedCostComponent } from './pages/item-definition/item-fixed-cost/item-fixed-cost.component';
+import { ViewWarehouseComponent } from './pages/warehouse/view-warehouse/view-warehouse.component';
+import { UomViewComponent } from './pages/unit-of-major/uom-view/uom-view.component';
 import { GeneralSettingInvComponent } from './pages/general-setting-inv/general-setting-inv.component';
 
 const routes: Routes = [
@@ -134,6 +132,14 @@ const routes: Routes = [
               pageTitle: BreadcrumbLabel.EditItembarcodedefinition,
             },
           },
+          {
+            path: 'fixed-cost/:id',
+            component: ItemFixedCostComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.EditItembarfixedcostfinition,
+              pageTitle: BreadcrumbLabel.EditItembarfixedcostfinition,
+            },
+          },
 
           {
             path: 'tax/:id',
@@ -185,6 +191,14 @@ const routes: Routes = [
               pageTitle: BreadcrumbLabel.EDIT_WARE_HOUSE,
             },
           },
+          {
+            path: 'view-warehouse/:id',
+            component: ViewWarehouseComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.EDIT_WARE_HOUSE,
+              pageTitle: BreadcrumbLabel.EDIT_WARE_HOUSE,
+            },
+          },
         ],
       },
       {
@@ -199,6 +213,7 @@ const routes: Routes = [
             component: UOMListComponent,
             data: {
               breadcrumb: '',
+              pageTitle: BreadcrumbLabel.UOMLISt,
             },
           },
           {
@@ -206,13 +221,22 @@ const routes: Routes = [
             component: UOMAddComponent,
             data: {
               breadcrumb: BreadcrumbLabel.ADD_UOM,
+              pageTitle: BreadcrumbLabel.ADD_UOM,
             },
           },
           {
             path: 'edit-uom/:id',
             component: UOMEditComponent,
             data: {
-              breadcrumb: BreadcrumbLabel.Edit_UOM,
+              breadcrumb: BreadcrumbLabel.EDITUOM,
+              pageTitle: BreadcrumbLabel.EDITUOM,
+            },
+          },
+          {
+            path: 'view-uom/:id',
+            component: UomViewComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.UOM_VIEW,
             },
           },
         ],
@@ -380,12 +404,9 @@ const routes: Routes = [
     WarehouseTabsComponent,
     AttributeDefinitionValuesComponent,
     AttributeDefinitionListValuesComponent,
-    MainStockOutComponent,
-    AddStockOutComponent,
-    StockOutListComponent,
-    EditStockOutComponent,
-
-    SearchItemPopUpComponent,
+    ItemFixedCostComponent,
+    ViewWarehouseComponent,
+    UomViewComponent,
     GeneralSettingInvComponent,
   ],
   imports: [

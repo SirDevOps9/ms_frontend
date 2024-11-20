@@ -210,6 +210,10 @@ export class ItemsProxyService {
   getItemBarcodeById(id: number) {
     return this.httpService.get(`Item/GetItemBarcode/${id}`);
   }
+
+  getItemFixedCost(id: number) {
+    return this.httpService.get(`Item/GetItemFixedCost/${id}`);
+  }
   uomCodeDropDown(id: number) {
     return this.httpService.get(`UOM/GetUOMsByUOMCategoryId/${id}`); //
   }
@@ -410,6 +414,9 @@ export class ItemsProxyService {
   editItem(obj: any) {
     return this.httpService.put(`Item/Edit`, obj);
   }
+  editItemFixedCost(obj: any) {
+    return this.httpService.put(`Item/EditItemFixedCost`, obj);
+  }
   editOperationalTag(obj: AddOperatioalTag) {
     return this.httpService.put(`OperationalTag`, obj);
   }
@@ -498,43 +505,7 @@ export class ItemsProxyService {
   getWarehouseById(id: number): Observable<AddWarehouse> {
     return this.httpService.get(`WareHouse/${id}`);
   }
-  //
-  // getGlAccountLookup() {
-  //   return this.httpService.get<any>(`WareHouse/`);
-  // }
-  // getCashSalesLookup() {
-  //   return this.httpService.get<any>(`WareHouse/`);
-  // }
-  // getCreditSalesLookup() {
-  //   return this.httpService.get<any>(`WareHouse/`);
-  // }
-  // getSalesReturnLookup() {
-  //   return this.httpService.get<any>(`WareHouse/`);
-  // }
-  // getPurchaseAccountLookup() {
-  //   return this.httpService.get<any>(`WareHouse/`);
-  // }
-  // getSalesCostCenterLookup() {
-  //   return this.httpService.get<any>(`WareHouse/`);
-  // }
-  // getDiscountAccountLookup() {
-  //   return this.httpService.get<any>(`WareHouse/`);
-  // }
-  // getEvaluationAccountLookup() {
-  //   return this.httpService.get<any>(`WareHouse/`);
-  // }
-  // getAdjustmentAccountLookup() {
-  //   return this.httpService.get<any>(`WareHouse/`);
-  // }
-  // getGoodsInTransitLookup() {
-  //   return this.httpService.get<any>(`WareHouse/`);
-  // }
-  // getCityLookup() {
-  //   return this.httpService.get<any>(`WareHouse/`);
-  // }
-  // getCompanyPhoneLookup() {
-  //   return this.httpService.get<any>(`WareHouse/`);
-  // }
+
   getBranchDropdown() {
     return this.httpService.get<any>(`GeneralSettings/BranchDropdown`);
   }

@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { trackingType } from "./trackingType";
+import { OperationType } from "./OperationType";
 
 @Injectable({
     providedIn: 'root',
@@ -7,6 +8,9 @@ import { trackingType } from "./trackingType";
 export class SharedFinanceEnums {
     get trackingType(): typeof trackingType {
         return trackingType;
+    }
+    get OperationType(): typeof OperationType {
+        return OperationType;
     }
 
     
