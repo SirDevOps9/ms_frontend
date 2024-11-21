@@ -30,6 +30,8 @@ export class OperationTagListComponent implements OnInit {
     private exportService:ExportService
   ) {
     this.title.setTitle(this.langService.transalte('OperationalTag.OperationalTag'));
+   
+
   }
   ngOnInit(): void {
     this.initOperationalTagData();

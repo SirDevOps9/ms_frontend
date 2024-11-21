@@ -56,7 +56,7 @@ export class LanguageService {
     return currentLanguage === 'ar';
   }
 
-  onLangChange(){    
+  onLangChange(){
     return this.transalteService.onLangChange;
   }
 

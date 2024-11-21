@@ -37,7 +37,16 @@
     "stockOutView": "عرض إخراج المخزون",
     "stockIn": "قائمة إدخال المخزون",
     "viewUom": "عرض",
-    "itemCardReport": "تقرير بطاقة الأصناف"
+    "itemCardReport": "تقرير بطاقة الأصناف",
+    "EditAttributeDefinition": "تعديل  ",
+    "AttributeDefinition": "تعريف السمة",
+    "AttributeDefinitionView": "عرض تعريف السمة",
+    "AddAttributeDefinition": "إضافة",
+    "OperationalTag": "علامة تشغيلية",
+     "EditOperationalTag":"تعديل",
+     "Itemcatalog": "كتالوج الأصناف"
+
+
   },
   "success": "نجاح",
   "error": "خطأ",
@@ -162,28 +171,34 @@
     "search": "بحث",
     "ChangeColumn": "تغيير العمود"
   },
-  "itemDefinition": {
-    "name": "الاسم",
-    "type": "النوع",
-    "code": "الرمز",
-    "category": "الفئة",
-    "uom": "وحدة القياس",
-    "barcode": "الرمز الشريطي",
-    "actions": "الإجراءات",
-    "addItemDef": "اضافة تعريف العنصر",
-    "Add": "إضافة",
-    "search": "بحث",
-    "ChangeColumn": "تغيير العمود",
-    "success": "نجاح",
-    "add": "تم إضافة تعريف العنصر بنجاح",
-    "attributeName": "اسم الخاصية",
-    "attributeValues": "اختر قيم الخصائص",
-    "viewVariant": "عرض",
-    "itemTracking": "تتبع العنصر",
-    "SelectItemTracking": "اختر تتبع العنصر",
-    "hasExpiry": "له تاريخ انتهاء",
-    "delete": "تم حذف تعريف العنصر بنجاح"
-  },
+
+    "itemDefinition": {
+      "name": "الاسم",
+      "type": "النوع",
+      "code": "الرمز",
+      "category": "الفئة",
+      "uom": "وحدة القياس",
+      "barcode": "الرمز الشريطي",
+      "actions": "الإجراءات",
+      "addItemDef": "إضافة تعريف العنصر",
+      "Add": "إضافة",
+      "search": "بحث",
+      "ChangeColumn": "تغيير العمود",
+      "success": "نجاح",
+      "add": "تم إضافة تعريف العنصر بنجاح",
+      "attributeName": "اسم الخاصية",
+      "attributeValues": "اختر قيم الخصائص",
+      "viewVariant": "عرض",
+      "itemTracking": "تتبع العنصر",
+      "SelectItemTracking": "اختر تتبع العنصر",
+      "hasExpiry": "له تاريخ انتهاء",
+      "delete": "تم حذف تعريف العنصر بنجاح",
+      "codeAuto": "توليد الكود تلقائيًا",
+      "ItemDefinitionPrint": "طباعة كتالوج الأصناف",
+      "isActive": "نشط"
+    },
+
+
   "warehouse": {
     "Add": "إضافة",
     "search": "بحث",
@@ -311,17 +326,27 @@
   },
   "attributeDefinition": {
     "Add": "إضافة",
+    "AttributeDefinition": "طباعة تعريف السمة",
     "action": "الإجراء",
     "value": "القيمة",
+    "EditAttributeDefinition": "تعديل تعريف السمة",
     "nameAr": "الاسم بالعربية",
     "nameEn": "الاسم بالإنجليزية",
     "attributeDefinition": "تعريف الصفة",
+    "AttributeDefinitionView": "عرض تعريف السمة",
     "attribute": "الصفة",
+    "AddNewLine": "إضافة سطر جديد",
     "add_new": "إضافة جديد",
+    "AddAttributeDefinition": "إضافة تعريف السمة",
     "uomList": "قائمة وحدات القياس",
     "AddNew": "إضافة جديد",
     "Active": "نشط",
+    "cancel": "إلغاء",
+    "codeAuto": "توليد الكود تلقائيًا",
     "inActive": "غير نشط",
+    "success": "نجاح",
+    "successAdd": "تمت إضافة تعريف السمة بنجاح",
+    "successUpdate": "تم تحديث تعريف السمة بنجاح",
     "Search": "بحث",
     "code": "رمز الصفة",
     "categoryCode": "رمز فئة الصفة",
@@ -329,7 +354,6 @@
     "categoryname": "اسم فئة الصفة",
     "save": "حفظ",
     "discard": "تجاهل",
-    "status": "الحالة",
     "factor": "المعامل",
     "factors": "المعاملات",
     "actions": "الإجراءات",
@@ -342,7 +366,13 @@
     "valueEn": " القيمة بالانجليزية",
     "valueAr": "القيمة بالعربية",
     "add_new_value": "اضف قيمة",
-    "delete": "تم الحذف"
+    "delete": "تم الحذف",
+  "attributeValuesList": "قائمة قيم السمات",
+  "attributeValues": "قيم السمات",
+  "values": "قيم تعريف السمة",
+  "status": "حالة تعريف السمة"
+
+
   },
   "OperationalTag": {
     "Add": "إضافة",
@@ -353,20 +383,29 @@
     "nameEn": "الاسم بالإنجليزية",
     "glAccount": "حساب الأستاذ العام",
     "AddNew": "إضافة جديد",
+   "codeAuto": "توليد الكود تلقائيًا",
     "Active": "نشط",
     "inActive": "غير نشط",
     "Search": "بحث",
-    "code": "الرمز",
+    "code": "الكود",
     "operationType": "نوع العملية",
     "name": "الاسم",
+    "OperationalTag": "علامة تشغيلية",
+    "OperationalTagAdd": "اضافة علامة تشغيلية ",
+    "OperationalTagEdit":"تعديل علامة تشغيلية",
+    "create": "اضافة",
     "save": "حفظ",
     "discard": "تجاهل",
+    "cancel":"إلغاء",
     "warehouseName": "اسم المستودع",
     "status": "الحالة",
     "delete": "تم الحذف",
     "Success": "نجاح",
     "actions": "الإجراءات",
-    "glAccountId": "حساب دفتر الأستاذ العام"
+    "glAccountId": "حساب دفتر الأستاذ العام",
+    "oneSelect": "اختر أحد الخيارات",
+    "OperationalTagPrint": "طباعة العلامة التشغيلية"
+
   },
   "stockOut": {
     "import": "استيراد",
@@ -518,5 +557,11 @@
     "Cancel": "إلغاء",
     "save": "حفظ",
     "success": "نجاح"
+  },
+  "global": {
+    "activeOn": "تشغيل",
+    "activeOff": "إيقاف",
+    "showMoreValues": "...عرض المزيد"
   }
+
 }
