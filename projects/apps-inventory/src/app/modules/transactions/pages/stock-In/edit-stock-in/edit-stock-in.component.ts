@@ -244,6 +244,27 @@ export class EditStockInComponent implements OnInit {
         console.error('Error fetching stock-in data', err);
       },
     });
+
+    this.transactionService.itemsList.subscribe((res: any) => {
+      console.log("heeeeeeeey" , res)
+      if (res.length > 0) {
+        if (this.selectedLanguage === 'ar') {
+          this.latestItemsList = res.map((elem: any, index: number) => ({
+            ...elem,
+            itemNumber: index + 1,
+            displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameAr}`,
+          }));
+        } else {
+          this.latestItemsList = res.map((elem: any, index: number) => ({
+            ...elem,
+            itemNumber: index + 1,
+
+            displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameEn}`,
+          }));
+        }
+      } else {
+      }
+    });
   }
 
   initWareHouseLookupData() {
