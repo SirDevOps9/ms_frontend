@@ -353,8 +353,6 @@ export class AddStockInComponent implements OnInit {
     });
     ref.onClose.subscribe((selectedItems: any) => {
       if (selectedItems) {
-        console.log(selectedItems);
-
         stockInFormGroup.get('itemId')?.setValue(selectedItems.itemId);
         this.itemChanged(selectedItems.itemId, stockInFormGroup, selectedItems, true);
       }
@@ -473,18 +471,12 @@ export class AddStockInComponent implements OnInit {
           this.dataToReadOnly = true;
         } else {
           this.dataToReadOnly = false;
-
-          console.log(res);
         }
       });
     }
-
-    console.log(this.errorsArray);
   }
 
   // onSave() {
-
-  //   console.log(this.stockIn)
 
   //   if (!this.formService.validForm(this.stockInForm, false)) return;
   //   if (!this.formService.validForm(this.stockIn, false)) return;
