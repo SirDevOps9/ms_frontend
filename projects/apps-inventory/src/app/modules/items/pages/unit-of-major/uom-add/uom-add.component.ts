@@ -127,30 +127,23 @@ export class UOMAddComponent implements OnInit {
     });
 
     this.getUOMS.valueChanges.subscribe((res) => {
-      res.forEach((item: any) => {
-        console.log('itrerate item from Form Array  changes', item);
-        console.log('Form Group Value ', this.UOMFormGroup.get('systemUnitOfMeasureId')?.value);
-        console.log('uom Form Array  changes', res);
-
-        let selectedBase: any = this.filteredSytemUnitLookup.find(
-          (item) => item.id == this.UOMFormGroup.get('systemUnitOfMeasureId')?.value
-        );
-        // elem?.systemUnitOfMeasureCategoryId == this.systemUnitData?.systemUnitOfMeasureCategoryId &&
+      res.forEach((item: any) => {   
         this.filteredSytemUnitLookup = this.filteredSytemUnitLookup?.filter(
           (elem) =>
             elem?.systemUnitOfMeasureCategoryId == this.systemUnitData?.systemUnitOfMeasureCategoryId &&
             elem?.id !== this.UOMFormGroup.get('systemUnitOfMeasureId')?.value 
-           
         );
 
-        if(item.nameEn) {
           this.filteredSytemUnitLookup = this.filteredSytemUnitLookup?.filter(
             (elem) => elem?.nameEn !== item?.nameEn
-             
           );
-        }
+          this.filteredSytemUnitLookup = this.filteredSytemUnitLookup?.filter(
+            (elem) => elem?.id !== item?.systemUnitOfMeasureId
+          );
+          
+          
+        
       });
-      console.log('this.filteredSytemUnitLookup', this.filteredSytemUnitLookup);
     });
   }
 
@@ -284,6 +277,8 @@ export class UOMAddComponent implements OnInit {
       systemUnitOfMeasureCategoryId: '',
     });
 
+    this.filteredSytemUnitLookup = this.sytemUnitLookup
+
     return formData;
   }
 
@@ -318,6 +313,9 @@ export class UOMAddComponent implements OnInit {
   }
 
   onDelete(i: number, uomTableForm: FormGroup) {
+    let systemUnit : any = this.sytemUnitLookup.find((elem)=>elem.id == uomTableForm.get('systemUnitOfMeasureId')?.value);
+ 
+    this.filteredSytemUnitLookup.push(systemUnit)
     const formArray = this.getUOMS;
 
     // Remove elements starting from the given index up to the last element
@@ -326,13 +324,21 @@ export class UOMAddComponent implements OnInit {
     }
   }
 
-  nameChanged(e: any, i: number) {
-    // Clear all entries below the specified index
-    const itemsArray = this.getUOMS;
+  nameChanged(e: any, i: number , uomTableForm  :FormGroup) {
+  
+
+    const itemsArray : any = this.getUOMS;
 
     while (itemsArray.length > i + 1) {
-      itemsArray.removeAt(i + 1);
+
+      itemsArray.removeAt(i + 1); 
     }
+
+    
+    
+
+
+
   }
   // on save table
 

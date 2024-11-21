@@ -198,7 +198,7 @@
                   <lib-text-input
                     placeholder="{{ 'UOM.nameEn' | translate }}"
                     formControlName="nameEn"
-                    (keyUp)="nameChanged($event , i)"
+                    (keyUp)="nameChanged($event , i , uomTableForm)"
 
                   ></lib-text-input>
                 </ng-template>
@@ -217,7 +217,7 @@
                   <lib-text-input
                     placeholder="{{ 'UOM.nameAr' | translate }}"
                     formControlName="nameAr"
-                    (keyUp)="nameChanged($event , i)"
+                    (keyUp)="nameChanged($event , i , uomTableForm)"
 
                   ></lib-text-input>
                 </ng-template>
