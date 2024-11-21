@@ -54,11 +54,13 @@ import { OperationType } from './models/enums';
 import { VieItemDefinitionDto } from './models/VieItemDefinitionDto';
 import { GetItemUom } from './models/GetItemUom';
 import { FormGroup } from '@angular/forms';
+import { GetWarehouseItems } from './models/GetWarehouseItem';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ItemsService {
+  allowServerPagination: any;
   constructor(
     private itemProxy: ItemsProxyService,
     private toasterService: ToasterService,
@@ -177,12 +179,16 @@ export class ItemsService {
   AddWarehouseDataSource = new BehaviorSubject<AddWarehouse>({} as AddWarehouse);
   sendWarehouseById = new BehaviorSubject<AddWarehouse>({} as AddWarehouse);
 
+  WarehouseViewDataSource = new BehaviorSubject<GetWarehouseItems[]>([]);
+
   getWarehouseDataSourceById = new BehaviorSubject<WarehouseAccountData>(
     {} as WarehouseAccountData
   );
   exportedWarehouseDataSource = new BehaviorSubject<GetWarehouseList[]>([]);
   exportedItemCategoryDataSource = new BehaviorSubject<GetItemCategoryDto[]>([]);
 
+
+  exportedWarehouseDataItemSource = new BehaviorSubject<GetWarehouseItems[]>([]);
   // transactions
 
   // lookups
@@ -233,7 +239,7 @@ export class ItemsService {
   public sendItemCategoryDataSourceObs = this.sendItemCategoryDataSource.asObservable();
   public tagLookupObs = this.tagLookup.asObservable();
   public defaultUnitObs = this.defaultUnit.asObservable();
-
+public exportedWarehouseDataItemSourceObs = this.exportedWarehouseDataItemSource.asObservable()
   public stockInDataViewSource = new BehaviorSubject<StockInDto[]>([]);
   public inventoryGeneralSetting = new BehaviorSubject<GeneralSettingDto>({} as GeneralSettingDto);
 
@@ -284,6 +290,7 @@ export class ItemsService {
   public AddWarehouseDataSourceObs = this.AddWarehouseDataSource.asObservable();
   public sendWarehouseByIdObs = this.sendWarehouseById.asObservable();
   public exportedWarehouseDataSourceObs = this.exportedWarehouseDataSource.asObservable();
+  public WarehouseViewDataSourceObs = this.WarehouseViewDataSource.asObservable()
   // lookups
   public sendBranchesLookupObs = this.sendBranchesLookup.asObservable();
   public sendCitiesLookupObs = this.sendCitiesLookup.asObservable();
@@ -1212,7 +1219,12 @@ export class ItemsService {
       this.currentPageInfo.next(response.pageInfoResult);
     });
   }
-
+  getWarehouseListView(queries: string, warehouseId:number, pageInfo: PageInfo) {
+    this.itemProxy.getWarehouseView(queries  , warehouseId, pageInfo).subscribe((response) => {
+      this.WarehouseViewDataSource.next(response.result);
+      this.currentPageInfo.next(response.pageInfoResult);
+    });
+  }
   // addWarehouse(obj : AddWarehouse) {
   //   this.itemProxy.addWarehouse(obj).subscribe((response) => {
   //     this.toasterService.showSuccess(
@@ -1268,6 +1280,14 @@ export class ItemsService {
     this.itemProxy.exportsWayehouseList(searchTerm, SortBy, SortColumn).subscribe({
       next: (res: any) => {
         this.exportedWarehouseDataSource.next(res);
+      },
+    });
+  }
+
+  exportsWayehouseItemView(warehouseId?: number, SortBy?: any, SortColumn?: any) {
+    this.itemProxy.exportsWayehouseItemView(warehouseId, SortBy, SortColumn).subscribe({
+      next: (res: any) => {
+        this.exportedWarehouseDataItemSource.next(res);
       },
     });
   }

@@ -61,13 +61,13 @@ export class OperationTagAddComponent implements OnInit {
   }
 
   initForm() {
-    this.formGroup = this.fb.group({
-      code: new FormControl(''),
-      name: new FormControl('', customValidators.required),
-      operationType: new FormControl('', customValidators.required),
-      warehouseId: new FormControl('', customValidators.required),
-      glAccountId: new FormControl(''),
-    });
+      this.formGroup = this.fb.group({
+        code: new FormControl(''),
+        name: new FormControl('', customValidators.required),
+        operationType: new FormControl('', customValidators.required),
+        warehouseId: new FormControl('', customValidators.required),
+        glAccountId: new FormControl(null),
+      });
   }
 
   discard() {
