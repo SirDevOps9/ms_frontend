@@ -511,28 +511,28 @@ export class ItemsProxyService {
     SortColumn?: string
   ): Observable<GetWarehouseItems[]> {
     let query = `WareHouse/ExportItems?`;
-  
+
     if (warehouseId !== undefined && warehouseId !== null) {
       query += `warehouseId=${warehouseId}`;
     }
-  
+
     const params: string[] = [];
-    
+
     if (SortBy !== undefined) {
       params.push(`SortBy=${SortBy}`);
     }
-    
+
     if (SortColumn) {
       params.push(`SortColumn=${SortColumn}`);
     }
-  
+
     if (params.length > 0) {
       query += '&' + params.join('&');
     }
-  
+
     return this.httpService.get<GetWarehouseItems[]>(query);
   }
-  
+
 
   exportsItemCategoryList(searchTerm: string | undefined): Observable<GetItemCategoryDto[]> {
     let query = `ItemCategory/Export?`;
