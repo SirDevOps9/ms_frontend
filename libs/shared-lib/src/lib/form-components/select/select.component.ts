@@ -101,12 +101,10 @@ export class SelectComponent implements ControlValueAccessor, Validator, OnChang
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (this.showFirst) {
-      if (changes['options']) {
+    if (changes['options']) {
+      if (this.showFirst) {
         this.checkSingleOption();
       }
-    } else {
-      return;
     }
   }
 

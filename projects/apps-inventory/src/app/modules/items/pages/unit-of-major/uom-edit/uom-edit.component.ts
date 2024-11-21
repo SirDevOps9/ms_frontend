@@ -2,17 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { UserPermission } from 'projects/apps-finance/src/app/modules/finance/models/user-permission';
-import {
-  RouterService,
-  LanguageService,
-  customValidators,
-  FormsService,
-} from 'shared-lib';
+import { RouterService, LanguageService, customValidators, FormsService } from 'shared-lib';
 import { ItemsService } from '../../../items.service';
 import { UomCodeLookup } from '../../../models';
 import { ActivatedRoute } from '@angular/router';
 import { UOMType } from '../../../models/enums';
-import {  UoM } from '../../../models/addUom';
+import { UoM } from '../../../models/addUom';
 
 @Component({
   selector: 'app-uom-edit',
@@ -133,6 +128,24 @@ export class UOMEditComponent implements OnInit {
         this.list[i] = filteredData;
 
         // Log the updated list array for verification
+      });
+    });
+
+    this.getUOMS.valueChanges.subscribe((res) => {
+      res.forEach((item: any) => {
+        this.filteredSytemUnitLookup = this.filteredSytemUnitLookup?.filter(
+          (elem) =>
+            elem?.systemUnitOfMeasureCategoryId ==
+              this.systemUnitData?.systemUnitOfMeasureCategoryId &&
+            elem?.id !== this.UOMFormGroup.get('systemUnitOfMeasureId')?.value
+        );
+
+        this.filteredSytemUnitLookup = this.filteredSytemUnitLookup?.filter(
+          (elem) => elem?.nameEn !== item?.nameEn
+        );
+        this.filteredSytemUnitLookup = this.filteredSytemUnitLookup?.filter(
+          (elem) => elem?.id !== item?.systemUnitOfMeasureId
+        );
       });
     });
 
@@ -449,14 +462,7 @@ export class UOMEditComponent implements OnInit {
       ),
     });
 
-    let uom = this.getUOMS.value;
-
-    const excludedIds = uom.map((item: any) => item.systemUnitOfMeasureId); // Collect all IDs to exclude
-    this.filteredSytemUnitLookup = this.sytemUnitLookup.filter(
-      (elem) =>
-        !excludedIds.includes(elem.id) &&
-        elem?.systemUnitOfMeasureCategoryId === this.uomsData[0].systemUnitOfMeasureCategoryId
-    );
+    this.filteredSytemUnitLookup = this.sytemUnitLookup;
 
     return formData;
   }
@@ -492,8 +498,12 @@ export class UOMEditComponent implements OnInit {
   }
 
   onDelete(uomTableForm: FormGroup, i: number) {
-    // let systemUnit : any = this.sytemUnitLookup.find((elem)=>elem.id == uomTableForm?.get('systemUnitOfMeasureId')?.value);
-    // this.filteredSytemUnitLookup.push(systemUnit)
+    let systemUnit: any = this.sytemUnitLookup.find(
+      (elem) => elem.id == uomTableForm.get('systemUnitOfMeasureId')?.value
+    );
+
+    this.filteredSytemUnitLookup.push(systemUnit);
+    const formArray = this.getUOMS;
     let id = uomTableForm.get('id')?.value;
     if (id) {
       this._itemService.DeleteUomLine(id);

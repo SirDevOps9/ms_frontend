@@ -127,22 +127,20 @@ export class UOMAddComponent implements OnInit {
     });
 
     this.getUOMS.valueChanges.subscribe((res) => {
-      res.forEach((item: any) => {   
+      res.forEach((item: any) => {
         this.filteredSytemUnitLookup = this.filteredSytemUnitLookup?.filter(
           (elem) =>
-            elem?.systemUnitOfMeasureCategoryId == this.systemUnitData?.systemUnitOfMeasureCategoryId &&
-            elem?.id !== this.UOMFormGroup.get('systemUnitOfMeasureId')?.value 
+            elem?.systemUnitOfMeasureCategoryId ==
+              this.systemUnitData?.systemUnitOfMeasureCategoryId &&
+            elem?.id !== this.UOMFormGroup.get('systemUnitOfMeasureId')?.value
         );
 
-          this.filteredSytemUnitLookup = this.filteredSytemUnitLookup?.filter(
-            (elem) => elem?.nameEn !== item?.nameEn
-          );
-          this.filteredSytemUnitLookup = this.filteredSytemUnitLookup?.filter(
-            (elem) => elem?.id !== item?.systemUnitOfMeasureId
-          );
-          
-          
-        
+        this.filteredSytemUnitLookup = this.filteredSytemUnitLookup?.filter(
+          (elem) => elem?.nameEn !== item?.nameEn
+        );
+        this.filteredSytemUnitLookup = this.filteredSytemUnitLookup?.filter(
+          (elem) => elem?.id !== item?.systemUnitOfMeasureId
+        );
       });
     });
   }
@@ -277,7 +275,7 @@ export class UOMAddComponent implements OnInit {
       systemUnitOfMeasureCategoryId: '',
     });
 
-    this.filteredSytemUnitLookup = this.sytemUnitLookup
+    this.filteredSytemUnitLookup = this.sytemUnitLookup;
 
     return formData;
   }
@@ -313,9 +311,11 @@ export class UOMAddComponent implements OnInit {
   }
 
   onDelete(i: number, uomTableForm: FormGroup) {
-    let systemUnit : any = this.sytemUnitLookup.find((elem)=>elem.id == uomTableForm.get('systemUnitOfMeasureId')?.value);
- 
-    this.filteredSytemUnitLookup.push(systemUnit)
+    let systemUnit: any = this.sytemUnitLookup.find(
+      (elem) => elem.id == uomTableForm.get('systemUnitOfMeasureId')?.value
+    );
+
+    this.filteredSytemUnitLookup.push(systemUnit);
     const formArray = this.getUOMS;
 
     // Remove elements starting from the given index up to the last element
@@ -324,21 +324,12 @@ export class UOMAddComponent implements OnInit {
     }
   }
 
-  nameChanged(e: any, i: number , uomTableForm  :FormGroup) {
-  
-
-    const itemsArray : any = this.getUOMS;
+  nameChanged(e: any, i: number, uomTableForm: FormGroup) {
+    const itemsArray: any = this.getUOMS;
 
     while (itemsArray.length > i + 1) {
-
-      itemsArray.removeAt(i + 1); 
+      itemsArray.removeAt(i + 1);
     }
-
-    
-    
-
-
-
   }
   // on save table
 
