@@ -115,13 +115,13 @@ export class BreadcrumbLabel {
   static EditItembarfixedcostfinition = 'BreadCrumb.EditItembarfixedcostfinition';
 
   // attr attribute-definition
-  static Attribute_Definition = 'Attribute Definition';
-  static Operational_Tag = 'Operational Tag';
-  static Add_Operational_Tag = 'Add Operational Tag';
-  static Edit_Operational_Tag = 'Edit Operational Tag';
-  static Add_Attribute_Definition = 'Add Attribute Definition';
-  static Edit_Attribute_Definition = 'Edit Attribute Definition';
-  static LIST_Attribute_Definition = 'Attribute Definition List';
+  static Attribute_Definition = 'BreadCrumb.AttributeDefinition';
+  static Operational_Tag = 'BreadCrumb.OperationalTag';
+  static Add_Operational_Tag = 'BreadCrumb.add';
+  static Edit_Operational_Tag = 'BreadCrumb.EditOperationalTag';
+  static Add_Attribute_Definition = 'BreadCrumb.AddAttributeDefinition';
+  static Edit_Attribute_Definition = 'BreadCrumb.EditAttributeDefinition';
+  static LIST_Attribute_Definition = 'BreadCrumb.AttributeDefinitionView';
   static EDIT_WARE_HOUSE = 'Edit Warehouse';
   static VIEW_WARE_HOUSE = 'BreadCrumb.ViewWarehouse';
   static ITEMS_CATEGORY = 'BreadCrumb.ItemsCategory';

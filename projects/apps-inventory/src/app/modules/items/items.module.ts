@@ -293,7 +293,7 @@ const routes: Routes = [
             },
           },
           {
-            path: 'list/:id',
+            path: 'view/:id',
             component: AttributeDefinitionListValuesComponent,
             data: {
               breadcrumb: BreadcrumbLabel.LIST_Attribute_Definition,

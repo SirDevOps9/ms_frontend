@@ -1136,7 +1136,8 @@ public exportedWarehouseDataItemSourceObs = this.exportedWarehouseDataItemSource
     this.itemProxy.addAttrDifinition(obj).subscribe((res) => {
       this.toasterService.showSuccess(
         this.languageService.transalte('attributeDefinition.success'),
-        this.languageService.transalte('attributeDefinition.Success')
+        this.languageService.transalte('attributeDefinition.successAdd')
+
       );
       this.sendAttrDefinition.next(res);
       this.router.navigateTo('/masterdata/attribute-definition');
@@ -1356,7 +1357,7 @@ public exportedWarehouseDataItemSourceObs = this.exportedWarehouseDataItemSource
         this.updateAttrobj.next(res);
         this.toasterService.showSuccess(
           this.languageService.transalte('attributeDefinition.success'),
-          this.languageService.transalte('attributeDefinition.success')
+          this.languageService.transalte('attributeDefinition.successUpdate')
         );
 
         // this.router.navigateTo(`/masterdata/item-definition` )

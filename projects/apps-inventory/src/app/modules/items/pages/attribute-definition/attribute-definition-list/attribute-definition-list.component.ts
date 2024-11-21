@@ -31,13 +31,15 @@ interface RowData {
 })
 export class AttributeDefinitionListComponent implements OnInit {
   tableData: RowData[]
+  tableDataOb: any={}
 
   currentPageInfo: PageInfoResult = { totalItems: 0 };
   searchTerm: string;
   exportData: IAttrributeDifinitionResult[];
   exportColumns:any[]
 action: any;
-
+isRtl: boolean = false;
+currentLang:any = ''
   constructor(
     private routerService: RouterService,
     private itemService : ItemsService,
@@ -47,14 +49,17 @@ action: any;
     private dialog: DialogService,
     private title: Title,
     private translate: TranslateService,
-    private langService: LanguageService,
+    public languageService: LanguageService,
 
 
   ){
-    this.title.setTitle(this.langService.transalte('attributeDefinition.attributeDefinition'));
+    this.title.setTitle(this.languageService.transalte('attributeDefinition.attributeDefinition'));
+    this.currentLang = this.languageService.getLang();
+
 
   }
   ngOnInit(): void {
+
     this.initTreasurData()
 
     this.itemService.currentPageInfo.subscribe((currentPageInfo) => {
@@ -62,20 +67,13 @@ action: any;
     });
   }
 
+
   initTreasurData() {
     this.itemService.getListOfAttr('', new PageInfo());
 
     this.itemService.listOfAttrDifinition$.subscribe({
       next: (res) => {
-
-        this.tableData = res;
-        console.log("dd" , this.tableData);
-
-
-      // const dataNemw = this.tableData.filter(item => item.itemAttributes && item.itemAttributes.length >= 0);
-
-      // console.log("Ssssssssssswwqq",  dataNemw );
-
+        this.tableData = res
       },
     });
 
@@ -117,10 +115,9 @@ action: any;
   }
   exportAttrData(searchTerm: string) {
     const columns = [
-      { name: 'nameEn', headerText: this.translate.instant('attributeDefinition.attribute') },
+      { name:this.currentLang === 'en' ? 'nameEn' : 'nameAr', headerText: this.translate.instant('attributeDefinition.attribute') },
       { name: 'itemAttributes', headerText: this.translate.instant('attributeDefinition.values') },
-      { name: 'isActive', headerText: this.translate.instant('attributeDefinition.status') },
-      { name: 'id', headerText: this.translate.instant('attributeDefinition.action') }
+      { name: this.currentLang === 'en' ? 'isActive' : 'isActive', headerText: this.translate.instant('attributeDefinition.status') },
     ];
 
     this.itemService.exportAttrDifinitionList(searchTerm);
@@ -133,11 +130,7 @@ action: any;
 
 
   onEdit(data: any) {
-    console.log(data);
-
     this.routerService.navigateTo(`/masterdata/attribute-definition/edit-attribute/${data.id}`);
-
-
 }
 onDelete(id: number) {
   this.itemService.deleteAttributeGroup(id);
@@ -146,21 +139,16 @@ onDelete(id: number) {
 }
 
 onToggleActive(newStatus: boolean, id: number): void {
-  // Find the row with the corresponding ID and update its isActive value
   const index = this.tableData.findIndex(item => item.id === id);
   if (index !== -1) {
     this.tableData[index].isActive = newStatus;
 
-    // Optionally, trigger a save/update action
     this.saveChanges(this.tableData[index]);
   }
 }
 
 saveChanges(updatedRow: any): void {
-  // // Implement the logic to save the changes (e.g., send to the server)
-  // this.attributeService.updateAttribute(updatedRow.id, updatedRow).subscribe(response => {
-  //   console.log('Updated successfully');
-  // });
+
 }
 
 async confirmChange(newValue: boolean, user: any) {
@@ -196,16 +184,10 @@ onViewttributeValues(selectedId: number) {
   });
 }
 
-onViewttributeValuesList(selectedId: any) {
-  this.routerService.navigateTo(`/masterdata/attribute-definition/list/${selectedId.id}`);
-  // const selectedItem = this.tableData.find(item => item.id === selectedId);
-  // this.dialog.open(AttributeDefinitionListValuesComponent, {
-  //   width: '950px',
-  //   height: '700px',
-  //   data: selectedItem
-  // });
-  // console.log("Selected Item:", selectedItem);
-}
+onViewttributeValuesList(data: any) {
+  this.routerService.navigateTo(`/masterdata/attribute-definition/view/${data.id}`)
 
+
+}
 
 }
