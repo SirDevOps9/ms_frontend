@@ -3,6 +3,7 @@
     title="{{ 'popupSearch.ItemSearch' | translate }}"
     [closeFunction]="onCancel"
     (Submit)="onSubmit()"
+    [footer]="false"
   >
     <div class="table">
       <lib-data-table
@@ -38,7 +39,7 @@
               isSortable: true
             },
             {
-              name: 'itemVariantName',
+              name: selectedLanguage === 'en' ? 'itemVariantNameEn' : 'itemVariantNameAr',
 
               headerText: 'popupSearch.ItemVariant' | translate,
               isGlobalFilter: true,

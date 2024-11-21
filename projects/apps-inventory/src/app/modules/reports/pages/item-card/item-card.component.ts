@@ -78,7 +78,9 @@ export class ItemCardComponent implements OnInit, OnDestroy {
   viewItemTransaction(): void {
     if (this.moreInfoForm.valid) {
       const selectedIds: any = this.moreInfoForm.get('warehouseId')!.value || [];
-      const newIds = selectedIds.filter((id: number) => !this.fetchedDataCache[id]);
+      const newIds = selectedIds.filter((id: number) => {
+        return !this.fetchedDataCache[id];
+      });
 
       // Ensure to set loading state for new warehouse IDs.
       newIds.forEach((id: number) => {
@@ -109,6 +111,7 @@ export class ItemCardComponent implements OnInit, OnDestroy {
           )!.name;
           res.itemName = this.selectedItem.itemName;
           res.itemCode = this.selectedItem.itemCode;
+          this.fetchedDataCache[res.warehouseId] = res;
           this.warehousesTransactionsMap.set(res.warehouseId, res);
 
           if (
@@ -137,11 +140,20 @@ export class ItemCardComponent implements OnInit, OnDestroy {
     const itemsSubscription = this.reportService.sendlatestItemsList$.subscribe((items) => {
       this.filteredItems = items;
       this.filteredItems.forEach((item) => {
-        item.displayName = `${item.itemName} (${item.itemCode})    ${item.itemVariantName}`;
+        item.displayName = `${item.itemName} (${item.itemCode})    ${
+          this.selectedLanguage == 'en' ? item.itemVariantNameEn : item.itemVariantNameAr
+        }`;
       });
     });
     this.subscriptions.push(itemsSubscription);
     this.reportService.getLatestItemsList();
+  }
+
+  warehouseChanged(e: any) {
+    this.fetchedDataCache = {};
+    this.warehousesTransactionsMap.clear();
+    this.warehousesTransactionsTables = [];
+    this.loadingStates = {};
   }
 
   resetState() {
@@ -158,12 +170,22 @@ export class ItemCardComponent implements OnInit, OnDestroy {
       this.selectedItem = this.filteredItems.find((item) => item.itemVariantId === selectedItemId);
     } else {
       this.selectedItem = selectedItemId;
-      this.selectedItem.displayName = `${this.selectedItem.itemName} (${this.selectedItem.itemCode})    ${this.selectedItem.itemVariantName}`;
+      this.selectedItem.displayName = `${this.selectedItem.itemName} (${
+        this.selectedItem.itemCode
+      })    ${
+        this.selectedLanguage == 'en'
+          ? this.selectedItem.itemVariantNameEn
+          : this.selectedItem.itemVariantNameAr
+      }`;
       this.filteredItems = [...this.filteredItems, this.selectedItem];
     }
     if (this.selectedItem) {
       this.moreInfoForm.patchValue({
-        itemDetail: `${this.selectedItem.itemName} - ${this.selectedItem.itemVariantName}`,
+        itemDetail: `${this.selectedItem.itemName} - ${
+          this.selectedLanguage == 'en'
+            ? this.selectedItem.itemVariantNameEn
+            : this.selectedItem.itemVariantNameAr
+        }`,
         itemId: this.selectedItem.itemVariantId,
         itemUom:
           this.selectedLanguage === 'en'

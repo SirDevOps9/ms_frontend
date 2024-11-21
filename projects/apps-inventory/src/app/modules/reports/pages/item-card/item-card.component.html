@@ -64,6 +64,7 @@
                   optionLabel="name"
                   optionValue="id"
                   placeholder="{{ 'OperationalTag.warehouseName' | translate }}"
+                  (valueChanged)="warehouseChanged($event)"
                 ></lib-multi-select>
               </lib-form-group>
               <lib-field-validations [appControl]="moreInfoForm.controls['warehouseId']">
