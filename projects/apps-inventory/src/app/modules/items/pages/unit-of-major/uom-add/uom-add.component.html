@@ -57,13 +57,13 @@
                 {{ 'UOM.systemUnit' | translate }}
               </lib-label>
               <lib-select
-                [showFirst]="false"
                 placeholder="{{ 'UOM.systemUnit' | translate }}"
                 [options]="sytemUnitLookup"
                 [optionLabel]="currentLang == 'en' ? 'nameEn' : 'nameAr'"
                 optionValue="id"
                 formControlName="systemUnitOfMeasureId"
                 (valueChanged)="systemUnitChanged($event)"
+                [showFirst]="false"
               ></lib-select>
               <lib-field-validations
                 [appControl]="UOMFormGroup.controls['systemUnitOfMeasureId']"

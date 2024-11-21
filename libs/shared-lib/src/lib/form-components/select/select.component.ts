@@ -73,10 +73,6 @@ export class SelectComponent implements ControlValueAccessor, Validator, OnChang
     return null;
   }
 
-  // change(m: any) {
-  //   this.onChange(m.target.value);
-  //   this.valueChanged.emit(m.target.value);
-  // }
   change(m: any) {
     this.onChange(m.value);
     this.valueChanged.emit(m.value);
@@ -101,16 +97,15 @@ export class SelectComponent implements ControlValueAccessor, Validator, OnChang
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['options']) {
-      if (this.showFirst) {
-        this.checkSingleOption();
-      }
+    if (changes['options'] && this.showFirst) {
+      this.checkSingleOption();
     }
   }
 
   private checkSingleOption() {
-    if (this.options && this.options.length === 1) {
+    if (this.showFirst && this.options && this.options.length === 1) {
       this.selectedValue = this.options[0][this.optionValue];
+      this.value = this.options[0][this.optionLabel];
       this.onChange(this.selectedValue);
       this.valueChanged.emit(this.selectedValue);
     }

@@ -121,8 +121,6 @@ export class UOMAddComponent implements OnInit {
 
         // Update the list with the filtered data
         this.list[i] = filteredData;
-
-        console.log(item);
       });
     });
 
@@ -154,7 +152,6 @@ export class UOMAddComponent implements OnInit {
   }
   systemUnitListChanged(event: any, uomTableForm: FormGroup, list: any) {
     let data: any = this.sytemUnitLookup.find((elem) => elem.id === event);
-    console.log('ok', data);
     uomTableForm.get('baseUomEn')?.setValue(data?.nameEn);
     uomTableForm.get('nameEn')?.setValue(data?.nameEn);
     uomTableForm.get('nameAr')?.setValue(data?.nameAr);
