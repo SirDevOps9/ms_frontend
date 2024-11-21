@@ -57,7 +57,8 @@
           optionValue="id"
           optionLabel="displayName"
           placeholder="{{ 'stockIn.sourceDoc' | translate }}"
-          [selectedValue]="stockInForm.controls['sourceDocumentId'].value"          [readOnly]="!postedStock"
+          [selectedValue]="stockInForm.controls['sourceDocumentId'].value"
+          [readOnly]="!postedStock"
         >
         </lib-select>
         <lib-field-validations
@@ -197,7 +198,7 @@
                   optionValue="uomId"
                   [optionLabel]="currentLang == 'en' ? 'uomNameEn' : 'uomNameAr'"
                   placeholder="{{ 'stockIn.UOM' | translate }}"
-                  (valueChanged)="uomChanged($event, stockInFormGroup)"
+                  (valueChanged)="uomChanged($event, stockInFormGroup, true)"
                   [selectedValue]="stockInFormGroup.controls['uomId']?.value"
                 ></lib-select>
               </ng-template>
@@ -456,7 +457,7 @@
           >
           </lib-button-micro>
         </div>
-        
+
         <ng-container *ngIf="postedStock">
           <div class="md:col-3">
             <!-- Post Button -->
@@ -470,8 +471,6 @@
             </lib-button-micro>
           </div>
         </ng-container>
-        
-        
       </div>
     </div>
   </div>

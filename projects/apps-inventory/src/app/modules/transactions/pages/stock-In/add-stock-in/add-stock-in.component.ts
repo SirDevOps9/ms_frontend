@@ -16,7 +16,7 @@ import {
   RouterService,
 } from 'shared-lib';
 
-import { skip } from 'rxjs';
+import { catchError, skip } from 'rxjs';
 import {
   OperationalStockIn,
   LatestItems,
@@ -31,6 +31,7 @@ import { TrackingStockInComponent } from '../../../components/tracking-stock-in/
 import { SharedFinanceEnums } from '../../../../items/models/sharedEnumStockIn';
 import { TransactionsService } from '../../../transactions.service';
 import { ItemsService } from '../../../../items/items.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-add-stock-in',
@@ -472,6 +473,8 @@ export class AddStockInComponent implements OnInit {
           this.dataToReadOnly = true;
         } else {
           this.dataToReadOnly = false;
+
+          console.log(res);
         }
       });
     }
