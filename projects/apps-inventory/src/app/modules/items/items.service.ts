@@ -236,6 +236,7 @@ export class ItemsService {
   public EditItemCategoryDataObs = this.EditItemCategoryData.asObservable();
   public variantGeneratedObs = this.variantGenerated.asObservable();
   public getItemCategoryByIdDataObs = this.getItemCategoryByIdData.asObservable();
+  public exportedItemDefinitionListDataSourceObs = this.exportedItemDefinitionListDataSource.asObservable()
   public sendItemCategoryDataSourceObs = this.sendItemCategoryDataSource.asObservable();
   public tagLookupObs = this.tagLookup.asObservable();
   public defaultUnitObs = this.defaultUnit.asObservable();

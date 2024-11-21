@@ -36,7 +36,8 @@
     "AttributeDefinitionView":"Attribute Definition View",
     "AddAttributeDefinition":"Add",
     "OperationalTag":"Operational Tag",
-    "EditOperationalTag":"Edit"
+    "EditOperationalTag":"Edit",
+    "Itemcatalog":"Item catalog"
 
     },
   "Toaster": {
@@ -189,7 +190,8 @@
     "tax": "Tax",
     "variantID": "variant ID",
     "variantName": "variant name",
-    "isActive": "isActive"
+    "isActive": "isActive",
+    "ItemDefinitionPrint":"Item catalog Print"
   },
   "warehouse": {
     "Add": "Add",

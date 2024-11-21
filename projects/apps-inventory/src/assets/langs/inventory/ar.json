@@ -35,7 +35,8 @@
     "AttributeDefinitionView": "عرض تعريف السمة",
     "AddAttributeDefinition": "إضافة",
     "OperationalTag": "علامة تشغيلية",
-     "EditOperationalTag":"تعديل"
+     "EditOperationalTag":"تعديل",
+     "Itemcatalog": "كتالوج الأصناف"
 
 
   },
@@ -162,30 +163,34 @@
     "search": "بحث",
     "ChangeColumn": "تغيير العمود"
   },
-  "itemDefinition": {
-    "name": "الاسم",
-    "type": "النوع",
-    "code": "الرمز",
-    "category": "الفئة",
-    "uom": "وحدة القياس",
-    "barcode": "الرمز الشريطي",
-    "actions": "الإجراءات",
-    "addItemDef": "اضافة تعريف العنصر",
-    "Add": "إضافة",
-    "search": "بحث",
-    "ChangeColumn": "تغيير العمود",
-    "success": "نجاح",
-    "add": "تم إضافة تعريف العنصر بنجاح",
-    "attributeName": "اسم الخاصية",
-    "attributeValues": "اختر قيم الخصائص",
-    "viewVariant": "عرض",
-    "itemTracking": "تتبع العنصر",
-    "SelectItemTracking": "اختر تتبع العنصر",
-    "hasExpiry": "له تاريخ انتهاء",
-    "delete": "تم حذف تعريف العنصر بنجاح",
-    "codeAuto": "توليد الكود تلقائيًا"
 
-  },
+    "itemDefinition": {
+      "name": "الاسم",
+      "type": "النوع",
+      "code": "الرمز",
+      "category": "الفئة",
+      "uom": "وحدة القياس",
+      "barcode": "الرمز الشريطي",
+      "actions": "الإجراءات",
+      "addItemDef": "إضافة تعريف العنصر",
+      "Add": "إضافة",
+      "search": "بحث",
+      "ChangeColumn": "تغيير العمود",
+      "success": "نجاح",
+      "add": "تم إضافة تعريف العنصر بنجاح",
+      "attributeName": "اسم الخاصية",
+      "attributeValues": "اختر قيم الخصائص",
+      "viewVariant": "عرض",
+      "itemTracking": "تتبع العنصر",
+      "SelectItemTracking": "اختر تتبع العنصر",
+      "hasExpiry": "له تاريخ انتهاء",
+      "delete": "تم حذف تعريف العنصر بنجاح",
+      "codeAuto": "توليد الكود تلقائيًا",
+      "ItemDefinitionPrint": "طباعة كتالوج الأصناف",
+      "isActive": "نشط"
+    },
+
+
   "warehouse": {
     "Add": "إضافة",
     "search": "بحث",
