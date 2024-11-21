@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, firstValueFrom, map } from 'rxjs';
+import { BehaviorSubject, catchError, firstValueFrom, map, throwError } from 'rxjs';
 
 import {
   ToasterService,
@@ -23,6 +23,7 @@ import {
   AddStockOutDto,
   itemDefinitionDto,
 } from './models';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -152,47 +153,82 @@ export class TransactionsService {
   }
 
   addStockIn(obj: AddStockIn, stockinForm: FormGroup) {
-    this.transactionsProxy.addStockIn(obj).subscribe({
-      next: (res: any) => {
-        this.addedStockInData.next(res);
-        this.toasterService.showSuccess(
-          this.languageService.transalte('stockIn.success'),
-          this.languageService.transalte('stockIn.stockAdded')
-        );
-        console.log(res);
+    this.transactionsProxy
+      .addStockIn(obj)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          if (error.status === 400) {
+            console.error('Bad Request Error:', error.error);
+            this.toasterService.showError(
+              this.languageService.transalte('Error'),
+              this.languageService.transalte(error.error.message || 'Invalid request')
+            );
+          }
+          // Re-throw the error so it can be handled by the `error` callback in subscribe
+          return throwError(() => error);
+        })
+      )
+      .subscribe({
+        next: (res: any) => {
+          this.loaderService.hide();
 
-        // this.router.navigateTo('/transactions/stock-in');
-        this.loaderService.hide();
-      },
-      error: (err) => {
-        console.log(err);
-        this.toasterService.showError(
-          this.languageService.transalte('stockIn.Error'),
-          this.languageService.transalte(err.message)
-        );
-        this.formsService.setFormValidationErrors(stockinForm, err);
-        this.loaderService.hide();
-      },
-    });
+          this.toasterService.showSuccess(
+            this.languageService.transalte('stockIn.success'),
+            this.languageService.transalte('stockIn.stockAdded')
+          );
+          this.addedStockInData.next(res);
+
+          // Navigate or perform additional actions
+        },
+        error: (error) => {
+          this.loaderService.hide();
+          if (error.messageCode != 4001) {
+            this.toasterService.showError(
+              this.languageService.transalte('Error'),
+              this.languageService.transalte(error.message)
+            );
+          }
+        },
+      });
   }
 
   editStockIn(obj: AddStockIn, stockinForm: FormGroup) {
-    this.transactionsProxy.editStockIn(obj).subscribe({
-      next: (res) => {
-        this.updatedStockInData.next(res);
+    this.transactionsProxy
+      .editStockIn(obj)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          if (error.status === 400) {
+            console.error('Bad Request Error:', error.error);
+            this.toasterService.showError(
+              this.languageService.transalte('Error'),
+              this.languageService.transalte(error.error.message || 'Invalid request')
+            );
+          }
+          // Re-throw the error so it can be handled by the `error` callback in subscribe
+          return throwError(() => error);
+        })
+      )
+      .subscribe({
+        next: (res) => {
+          this.loaderService.hide();
 
-        this.toasterService.showSuccess(
-          this.languageService.transalte('stockIn.success'),
-          this.languageService.transalte('stockIn.stockEdit')
-        );
-        // this.router.navigateTo('/transactions/stock-in');
-        this.loaderService.hide();
-      },
-      error: (err) => {
-        this.formsService.setFormValidationErrors(stockinForm, err);
-        this.loaderService.hide();
-      },
-    });
+          this.toasterService.showSuccess(
+            this.languageService.transalte('stockIn.success'),
+            this.languageService.transalte('stockIn.stockEdit')
+          );
+          this.updatedStockInData.next(res);
+          // this.router.navigateTo('/transactions/stock-in');
+        },
+        error: (error) => {
+          this.loaderService.hide();
+          if (error.messageCode != 4001) {
+            this.toasterService.showError(
+              this.languageService.transalte('Error'),
+              this.languageService.transalte(error.message)
+            );
+          }
+        },
+      });
   }
 
   posteStockIn(id: number) {

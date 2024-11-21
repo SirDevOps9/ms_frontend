@@ -102,8 +102,6 @@ export class EditStockInComponent implements OnInit {
       this.cdr.detectChanges();
     });
 
-   
-
     this.stockInForm.get('sourceDocumentId')?.valueChanges.subscribe((res) => {
       let data = this.oprationalLookup.find((elem) => elem.id == res);
       this.stockInForm.get('warehouseId')?.setValue(data?.warehouseId);
@@ -144,7 +142,6 @@ export class EditStockInComponent implements OnInit {
         });
       }
     });
-  
   }
 
   getListOfItems() {
@@ -161,12 +158,11 @@ export class EditStockInComponent implements OnInit {
       }
     });
   }
-ngAfterViewInit(): void {
-  if (this.id) {
-    this.getStockInById(this.id);
+  ngAfterViewInit(): void {
+    if (this.id) {
+      this.getStockInById(this.id);
+    }
   }
-  
-}
   postedStock: boolean = true;
   getStockInById(id: number) {
     this.transactionService.getStockInById(id);
@@ -372,7 +368,7 @@ ngAfterViewInit(): void {
       .get('hasExpiryDate')
       ?.setValue(clonedStockInFormGroup.hasExpiryDate ?? data?.hasExpiryDate);
     stockInFormGroup.get('uomId')?.setValue(data?.uomId ?? clonedStockInFormGroup?.uomId);
-    this.uomChanged(stockInFormGroup.get('uomId')?.value, stockInFormGroup);
+    this.uomChanged(stockInFormGroup.get('uomId')?.value, stockInFormGroup, false);
     if (data?.hasExpiryDate) {
       stockInFormGroup
         .get('stockInTracking')
@@ -407,9 +403,9 @@ ngAfterViewInit(): void {
     }
   }
 
-  uomChanged(e: any, stockInFormGroup: FormGroup) {
+  uomChanged(e: any, stockInFormGroup: FormGroup, isBarcode: boolean) {
     let data = this.uomLookup.find((item: any) => item.uomId == e);
-
+    if (isBarcode) stockInFormGroup.get('barCode')?.setValue(null);
     stockInFormGroup
       .get('uomName')
       ?.setValue(this.currentLang == 'en' ? data.uomNameEn : data.uomNameAr);
@@ -559,11 +555,15 @@ ngAfterViewInit(): void {
 
     this.transactionService.editStockIn(data, this.stockInForm);
     this.transactionService.updatedStockInData$.subscribe((res: any) => {
-      if (res) {
+      if (res === true) {
         this.savedDataId = res;
         this.dataToReadOnly = true;
         this.postButton = true;
         this.saveButtonEnabled = false;
+      } else {
+        this.dataToReadOnly = false;
+        this.postButton = false;
+        this.saveButtonEnabled = true;
       }
     });
   }

@@ -84,7 +84,6 @@ export class UOMAddComponent implements OnInit {
       }
     });
 
-
     this.getUOMS.valueChanges.subscribe((res: any) => {
       res.forEach((item: any, i: number) => {
         if (i === 0) {
@@ -122,50 +121,27 @@ export class UOMAddComponent implements OnInit {
 
         // Update the list with the filtered data
         this.list[i] = filteredData;
-
-        console.log(item)
-
-      
-
-
-
-
-
       });
-
-
-
-      
-    
-  
-
-
-
-
     });
 
-    this.getUOMS.valueChanges.subscribe(res=>{
-      res.forEach((item : any) => {
+    this.getUOMS.valueChanges.subscribe((res) => {
+      res.forEach((item: any) => {
+        this.filteredSytemUnitLookup = this.filteredSytemUnitLookup?.filter(
+          (elem) =>
+            elem?.systemUnitOfMeasureCategoryId ==
+              this.systemUnitData?.systemUnitOfMeasureCategoryId &&
+            elem?.id !== this.UOMFormGroup.get('systemUnitOfMeasureId')?.value
+        );
 
-        console.log(item)
-
-        let selectedBase : any = this.filteredSytemUnitLookup.find(item=>item.id == this.UOMFormGroup.get('systemUnitOfMeasureId')?.value)
-
-        this.filteredSytemUnitLookup = this.filteredSytemUnitLookup.filter(elem=>elem.systemUnitOfMeasureCategoryId == selectedBase.systemUnitOfMeasureCategoryId )
-
-
-
-     
-
-
-        
+        this.filteredSytemUnitLookup = this.filteredSytemUnitLookup?.filter(
+          (elem) => elem?.nameEn !== item?.nameEn
+        );
+        this.filteredSytemUnitLookup = this.filteredSytemUnitLookup?.filter(
+          (elem) => elem?.id !== item?.systemUnitOfMeasureId
+        );
       });
-    })
-
-
+    });
   }
-
-
 
   systemUnitChanged(event: any) {
     let data = this.sytemUnitLookup.find((elem) => elem.id === event);
@@ -180,8 +156,9 @@ export class UOMAddComponent implements OnInit {
     uomTableForm.get('nameEn')?.setValue(data?.nameEn);
     uomTableForm.get('nameAr')?.setValue(data?.nameAr);
     uomTableForm.get('systemUnitOfMeasureName')?.setValue(data?.nameEn);
-
-  
+    // uomTableForm
+    //   .get('nameEn')
+    //   ?.setValue(data?.systemUnitOfMeasureCategoryId);
   }
 
   get categoryId(): number {
@@ -292,8 +269,10 @@ export class UOMAddComponent implements OnInit {
       systemUnitOfMeasureName: '',
       systemUnitOfMeasureId: new FormControl(uomData?.systemUnitOfMeasureId || null),
       fromUnitOfMeasureId: new FormControl(uomData?.fromUnitOfMeasureId || null),
+      systemUnitOfMeasureCategoryId: '',
     });
 
+    this.filteredSytemUnitLookup = this.sytemUnitLookup;
 
     return formData;
   }
@@ -329,6 +308,11 @@ export class UOMAddComponent implements OnInit {
   }
 
   onDelete(i: number, uomTableForm: FormGroup) {
+    let systemUnit: any = this.sytemUnitLookup.find(
+      (elem) => elem.id == uomTableForm.get('systemUnitOfMeasureId')?.value
+    );
+
+    this.filteredSytemUnitLookup.push(systemUnit);
     const formArray = this.getUOMS;
 
     // Remove elements starting from the given index up to the last element
@@ -337,9 +321,8 @@ export class UOMAddComponent implements OnInit {
     }
   }
 
-  nameChanged(e: any, i: number) {
-    // Clear all entries below the specified index
-    const itemsArray = this.getUOMS;
+  nameChanged(e: any, i: number, uomTableForm: FormGroup) {
+    const itemsArray: any = this.getUOMS;
 
     while (itemsArray.length > i + 1) {
       itemsArray.removeAt(i + 1);

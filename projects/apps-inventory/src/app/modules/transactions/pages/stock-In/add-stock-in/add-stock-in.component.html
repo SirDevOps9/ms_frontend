@@ -194,7 +194,7 @@
                   [readOnly]="dataToReadOnly"
                   [optionLabel]="currentLang == 'en' ? 'uomNameEn' : 'uomNameAr'"
                   placeholder="{{ 'stockIn.UOM' | translate }}"
-                  (valueChanged)="uomChanged($event, stockInFormGroup)"
+                  (valueChanged)="uomChanged($event, stockInFormGroup, true)"
                   [selectedValue]="stockInFormGroup.controls['uomId']?.value"
                 ></lib-select>
               </ng-template>
@@ -219,10 +219,10 @@
                   type="number"
                   placeholder="{{ 'stockIn.QTY' | translate }}"
                   formControlName="quantity"
-                  [readOnly]="stockInFormGroup
-                  .get('stockInTracking')
-                  ?.get('trackingType')
-                  ?.value == this.sharedFinanceEnums.trackingType.Serial"
+                  [readOnly]="
+                    stockInFormGroup.get('stockInTracking')?.get('trackingType')?.value ==
+                    this.sharedFinanceEnums.trackingType.Serial
+                  "
                 ></lib-text-input>
               </ng-template>
               <ng-template pTemplate="output">
@@ -456,7 +456,8 @@
         </div>
         <div class="md:col-3" *ngIf="dataToReadOnly">
           <lib-button-micro
-            n
+            [disabled]="!dataToReadOnly"
+            nameClass="{{ dataToReadOnly ? 'save' : 'disabled' }}"
             title="{{ 'stockIn.Post' | translate }}"
             nameClass="save"
             widthNumber="100%"

@@ -119,6 +119,7 @@ export class EditStockOutComponent implements OnInit {
 
     this.itemsService.getLatestItemsListByWarehouse("", id)
   }
+  
   onFilter(SearchTerm: string) {
     const warehouseId: number = this.addForm.get('warehouseId')?.value
     this.itemsService.getItemsStockOutByWarehouse('', SearchTerm, warehouseId, new PageInfo());
