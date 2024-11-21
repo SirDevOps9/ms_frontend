@@ -332,8 +332,8 @@ export class TransactionsService {
     this.transactionsProxy.addStockOut(obj).subscribe({
       next: (res: any) => {
         this.toasterService.showSuccess(
-          this.languageService.transalte('stockIn.success'),
-          this.languageService.transalte('stockIn.stockAdded')
+          this.languageService.transalte('messages.success'),
+          this.languageService.transalte('stockOut.add')
         );
         this.loaderService.hide();
         this.stockOutSaved.next(res);

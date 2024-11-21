@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ItemsService } from '../../../../items/items.service';
 import { TransactionsService } from '../../../transactions.service';
 import { SearchItemPopUpComponent } from '../../../components/stock-out/search-item-pop-up/search-item-pop-up.component';
-import { format } from 'date-fns';
+import { format, isValid } from 'date-fns';
 
 @Component({
   selector: 'app-edit-stock-out',
@@ -41,7 +41,9 @@ export class EditStockOutComponent implements OnInit {
   addForm: FormGroup = new FormGroup({});
   itemId: number
   stockOutId: number;
-  originalFormData :any
+  originalFormData: any
+  dataLoaded: boolean
+  showPost: boolean
   ngOnInit(): void {
     this.itemId = this.route.snapshot.params['id'];
     this.loadLookups();
@@ -54,16 +56,16 @@ export class EditStockOutComponent implements OnInit {
   getStockOutyId(id: number) {
     this.itemsService.getStockOutById(id);
     this.itemsService.stockOutByIdDataSourceeObservable.subscribe((data: any) => {
-    this.originalFormData=this.mapStockOutData(data)
+
       this.patchForm(data)
-      this.stockOutId= data.id
-     
-    
+      this.stockOutId = data.id
+
+
     })
   }
   patchForm(data: any): void {
     // Patch main form fields
-    
+
     this.addForm.patchValue({
       id: data.id,
       code: data.code,
@@ -84,6 +86,8 @@ export class EditStockOutComponent implements OnInit {
       this.addNewRowWithOutItem()
       this.setRowDataById(index, detail)
     });
+    this.dataLoaded = true
+    this.originalFormData = this.addForm.value
   }
 
   initializeForm() {
@@ -116,17 +120,17 @@ export class EditStockOutComponent implements OnInit {
     this.itemsService.itemsListByWarehouse.subscribe((res: any) => {
       if (res.length > 0) {
         if (this.selectedLanguage === 'ar') {
-          this.filteredItems = res.map((elem: any  ,index:number) => ({
+          this.filteredItems = res.map((elem: any, index: number) => ({
             ...elem,
-            itemNumber:index+1,
+            itemNumber: index + 1,
 
             displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameAr}`,
           }));
         } else {
 
-          this.filteredItems = res.map((elem: any  ,index:number) => ({
+          this.filteredItems = res.map((elem: any, index: number) => ({
             ...elem,
-            itemNumber:index+1,
+            itemNumber: index + 1,
 
             displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameEn}`,
           }));
@@ -146,11 +150,11 @@ export class EditStockOutComponent implements OnInit {
     });
     this.addForm.get('sourceDocumentType')?.valueChanges.subscribe(res => {
       let data = this.lookups[LookupEnum.StockInOutSourceDocumentType]
-      let sourceDocumentTypeData = data?.find(elem => elem.id == res)
+      let sourceDocumentTypeData = data?.find(elem => elem.name == res)
       if (sourceDocumentTypeData?.name == 'OperationalTag') {
 
         this.itemsService.operationTagStockOutDropdown()
-        this.itemsService.perationalTagStockOutDropDown$.subscribe((res:any) => {
+        this.itemsService.perationalTagStockOutDropDown$.subscribe((res: any) => {
           this.oprationalLookup = res.map((elem: any) => ({
             ...elem,
             displayName: `${elem.name} (${elem.code})`,
@@ -161,6 +165,7 @@ export class EditStockOutComponent implements OnInit {
     )
     this.addForm.get('sourceDocumentId')?.valueChanges.subscribe((res) => {
       let data = this.oprationalLookup.find(elem => elem.id == res)
+
       this.addForm.get('warehouseId')?.setValue(data?.warehouseId)
       this.addForm.get('warehouseName')?.setValue(data?.warehouseName)
 
@@ -169,22 +174,35 @@ export class EditStockOutComponent implements OnInit {
       this.filteredItems = res
       if (res.length) {
         if (this.selectedLanguage === 'ar') {
-          this.filteredItems = res.map((elem: any  ,index:number) => ({
+          this.filteredItems = res.map((elem: any, index: number) => ({
             ...elem,
-            itemNumber:index+1,
+            itemNumber: index + 1,
 
             displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameAr}`,
           }));
         } else {
 
-          this.filteredItems = res.map((elem: any  ,index:number) => ({
+          this.filteredItems = res.map((elem: any, index: number) => ({
             ...elem,
-            itemNumber:index+1,
+            itemNumber: index + 1,
 
             displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameEn}`,
           }));
         }
       }
+    })
+    this.addForm.valueChanges.subscribe((res: any) => {
+
+      const x = this.mapStockOutData(this.originalFormData)
+      const y = this.mapStockOutData(res)
+      if (JSON.stringify(x) == JSON.stringify(y)) {
+        this.showPost = true
+      } else {
+        this.showPost = false
+
+      }
+      // return JSON.stringify(this.originalFormData) !== JSON.stringify(res);
+
     })
   }
   loadLookups() {
@@ -212,8 +230,8 @@ export class EditStockOutComponent implements OnInit {
     if (rowForm) {
       rowForm.patchValue({
         itemNumber: selectedItem.itemNumber,
-        barCode: selectedItem.barCode,
-        bardCodeId: selectedItem.bardCodeId,
+        barCode: '',
+        bardCodeId: null,
         itemId: selectedItem.itemId,
         itemVariantId: selectedItem.itemVariantId,
         uomId: selectedItem.uomId,
@@ -496,7 +514,7 @@ export class EditStockOutComponent implements OnInit {
           uomOptions: new FormControl(),
           uomName: new FormControl(''),
           description: new FormControl(''),
-          quantity: new FormControl('', [customValidators.required, customValidators.nonZero ,customValidators.nonNegativeNumbers]),
+          quantity: new FormControl('', [customValidators.required, customValidators.nonZero, customValidators.nonNegativeNumbers]),
           cost: new FormControl('', [customValidators.required]),
           subCost: new FormControl(''),
           notes: new FormControl(''),
@@ -598,9 +616,8 @@ export class EditStockOutComponent implements OnInit {
         this.languageService.transalte('messages.noItemsToAdd')
       );
     } else {
-      const data: AddStockOutDto = this.mapStockOutData(this.addForm.value)
+      const data: any = this.mapStockOutData(this.addForm.value)
       this.itemsService.editStockOut(data);
-      // this.originalFormData = this.addForm.getRawValue();
 
 
     }
@@ -608,26 +625,15 @@ export class EditStockOutComponent implements OnInit {
 
 
   }
-  isFormChanged(): boolean {
-    const x = this.addForm.value
-    x?.stockOutDetails?.forEach((element:any , index:number) => {
-      this.setExpiryDate(index , element.stockOutTracking.batchesOptions ,"0")
-      console.log(index , element.stockOutTracking.batchesOptions,"0");
-      
-    });
-    console.log(x ,"xxxxxxxxxxxx");
-    
-    const currentFormData = this.mapStockOutData(x)
-    console.log(currentFormData ,"currentFormData");
-    console.log(this.originalFormData ,"originalFormData");
-    
-    return JSON.stringify(this.originalFormData) != JSON.stringify(currentFormData);
-  }
+
   mapStockOutData(data: any) {
 
     return {
       id: data.id,
-      receiptDate:  format(new Date(data.receiptDate), 'yyyy-MM-dd'),
+      // receiptDate:  format(new Date(data?.receiptDate), 'yyyy-MM-dd'),
+      receiptDate: data?.receiptDate && isValid(new Date(data.receiptDate))
+        ? format(new Date(data.receiptDate), 'yyyy-MM-dd')
+        : null,
       sourceDocumentType: data.sourceDocumentType,
       sourceDocumentId: data.sourceDocumentId,
       warehouseId: data.warehouseId,
@@ -661,7 +667,7 @@ export class EditStockOutComponent implements OnInit {
   }
   initWareHouseLookupData() {
     this.itemsService.getWareHousesDropDown()
-    this.itemsService.wareHousesDropDownLookup$.subscribe((res:any) => {
+    this.itemsService.wareHousesDropDownLookup$.subscribe((res: any) => {
       this.warhouseLookupData = res
     })
   }
@@ -700,7 +706,7 @@ export class EditStockOutComponent implements OnInit {
     rowForm.get('subCost')?.setValue(Number(rowForm.get('quantity')?.value) * Number(rowForm.get('cost')?.value))
 
   }
- 
+
   async deleteRow(index: number, id: number) {
 
 
@@ -713,7 +719,7 @@ export class EditStockOutComponent implements OnInit {
       }
       else {
         this.itemsService.deleteRowStockOut(id).subscribe({
-          next: (res:any) => {
+          next: (res: any) => {
             this.toasterService.showSuccess(
               this.languageService.transalte('transactions.success'),
               this.languageService.transalte('transactions.deleteStockOut')
@@ -721,7 +727,7 @@ export class EditStockOutComponent implements OnInit {
             this.stockOutDetailsFormArray.removeAt(index);
             this.isDuplicate(index - 1)
           },
-          error: (err:any) => {
+          error: (err: any) => {
             console.error('Error occurred while deleting:', err);
             this.toasterService.showError(
               this.languageService.transalte('transactions.error'),
@@ -737,7 +743,7 @@ export class EditStockOutComponent implements OnInit {
   openDialog(indexLine: number) {
     const ref = this.dialog.open(SearchItemPopUpComponent, {
       width: 'auto',
-      height: '600px',
+      height: '500px',
       data: this.addForm.get('warehouseId')?.value
     });
     ref.onClose.subscribe((selectedItems: any) => {
@@ -751,14 +757,14 @@ export class EditStockOutComponent implements OnInit {
     this.loaderService.show();
 
     this.itemsService.getItemByBarcodeStockOutQuery(e.target.value, this.addForm.get('warehouseId')?.value).subscribe({
-      next: (res:any) => {
+      next: (res: any) => {
         this.loaderService.hide();
 
         this.setRowDataFromBarCode(index, res)
 
 
       },
-      error: (err:any) => {
+      error: (err: any) => {
         this.loaderService.hide();
 
         const rowForm = this.stockOutDetailsFormArray.at(index) as FormGroup;
@@ -836,17 +842,9 @@ export class EditStockOutComponent implements OnInit {
     this.setExpiryDate(indexLine, selectedItem.batches, selectedItem.serialOptions)
     this.isDuplicate(indexLine)
   }
-  addToPost(){
+  addToPost() {
     this.itemsService.postStockOut(this.stockOutId)
 
-    if(this.isFormChanged()){
-      console.log('11111111111111111');
-      
-    }else{
-      console.log('000000000000');
-
-    }
-    // this.itemsService.postStockOut(this.stockOutId)
   }
   constructor(
     private routerService: RouterService,

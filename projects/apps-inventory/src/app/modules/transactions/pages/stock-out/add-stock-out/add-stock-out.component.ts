@@ -162,9 +162,7 @@ export class AddStockOutComponent implements OnInit {
 
 
 
-  setRowData(indexLine: number, selectedItemId: any, list: any) {
-    console.log(list ,selectedItemId ,"lllllllll");
-    
+  setRowData(indexLine: number, selectedItemId: any, list: any) {    
     const selectedItem = list.find((item: any) => item.itemNumber === selectedItemId);
     const rowForm = this.stockOutDetailsFormArray.at(indexLine) as FormGroup;
 
@@ -607,7 +605,7 @@ onSave() {
   openDialog(indexLine: number) {
     const ref = this.dialog.open(SearchItemPopUpComponent, {
       width: 'auto',
-      height: '600px',
+      height: '500px',
       data: this.addForm.get('warehouseId')?.value
     });
     ref.onClose.subscribe((selectedItems: any) => {
