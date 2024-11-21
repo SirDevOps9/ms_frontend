@@ -168,32 +168,28 @@ export class EditStockInComponent implements OnInit {
     this.transactionService.getStockInById(id);
     this.transactionService.stockInByIdData$.subscribe({
       next: (res: any) => {
-        console.log(res);
-        console.log(this.lookups[LookupEnum.StockInOutSourceDocumentType]);
+        this.getItemPatched();
         if (res) {
           if (res.stockInStatus == 'Posted') {
             this.postedStock = false;
           }
-          setTimeout(() => {
-            this.stockInForm?.patchValue({
-              id: res?.id,
-              receiptDate: res?.receiptDate,
-              code: res?.code,
-              // sourceDocumentType: res?.sourceDocumentType,
-              sourceDocumentId: res?.sourceDocumentId,
-              warehouseId: res?.warehouseId,
-              warehouseName: this.oprationalLookup?.find((x) => x.warehouseId == res?.warehouseId)
-                ?.warehouseName,
-              notes: res?.notes,
-            });
-          }, 100);
+          this.stockInForm?.patchValue({
+            id: res?.id,
+            receiptDate: res?.receiptDate,
+            code: res?.code,
+            // sourceDocumentType: res?.sourceDocumentType,
+            sourceDocumentId: res?.sourceDocumentId,
+            warehouseId: res?.warehouseId,
+            warehouseName: this.oprationalLookup?.find((x) => x.warehouseId == res?.warehouseId)
+              ?.warehouseName,
+            notes: res?.notes,
+          });
 
           this.stockIn.clear();
 
           if (res.stockInDetails && Array.isArray(res.stockInDetails)) {
             res.stockInDetails?.forEach((detail: any) => {
               this.patchUom(detail.itemId);
-              // let uomName = this.uomLookup?.find((item: any) => item.uomId == detail.uomId);
 
               let uomName = this.uomLookup?.find((item: any) => item.uomId == detail.uomId);
               const uomDisplayName = uomName
@@ -235,8 +231,6 @@ export class EditStockInComponent implements OnInit {
               // this.displayUomPatched(detail.uomId);
               this.stockIn.push(stockInDetailGroup);
             });
-          } else {
-            return;
           }
         }
       },
@@ -267,6 +261,28 @@ export class EditStockInComponent implements OnInit {
     });
   }
 
+  getItemPatched() {
+    this.transactionService.getItems('', '', new PageInfo());
+
+    this.transactionService.itemsList.subscribe((res: any) => {
+      if (res.length > 0) {
+        if (this.selectedLanguage === 'ar') {
+          this.latestItemsList = res.map((elem: any, index: number) => ({
+            ...elem,
+            itemNumber: index + 1,
+            displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameAr}`,
+          }));
+        } else {
+          this.latestItemsList = res.map((elem: any, index: number) => ({
+            ...elem,
+            itemNumber: index + 1,
+            displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameEn}`,
+          }));
+        }
+      } else {
+      }
+    });
+  }
   initWareHouseLookupData() {
     this.transactionService.getWareHousesDropDown();
     this.transactionService.wareHousesDropDownLookup$.subscribe((res) => {
