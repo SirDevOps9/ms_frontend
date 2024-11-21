@@ -318,10 +318,10 @@ export class TransactionsService {
     });
   }
   getItemsStockOutByWarehouse(queries: string, searchTerm: string, id: number, pageInfo: PageInfo) {
-    this.transactionsProxy
-      .getItemsStockOut(queries, searchTerm, id, pageInfo)
-      .subscribe((res: any) => {
-        this.itemsDataSourceByWarehouse.next(res);
+    this.transactionsProxy.getItemsStockOut(queries, searchTerm, id, pageInfo).subscribe((res: any) => {
+        // this.itemsDataSourceByWarehouse.next(res.result);
+        this.itemsDataSourceByWarehouse.next(res.result);
+        this.currentPageInfo.next(res.pageInfoResult);
       });
   }
 

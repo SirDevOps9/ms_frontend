@@ -147,8 +147,8 @@
           </td>
 
           <td
-            [pEditableColumn]="stockOutFormGroup.controls['itemId']"
-            pEditableColumnField="itemId"
+            [pEditableColumn]="stockOutFormGroup.controls['itemNumber']"
+            pEditableColumnField="itemNumber"
           >
             <p-cellEditor>
               <ng-template pTemplate="input">
@@ -160,7 +160,7 @@
                     optionLabel="displayName"
                     [customClass]="'add-journal'"
                     (valueChanged)="setRowData(rowIndex, $event, filteredItems)"
-                    selectedValue="{{ stockOutFormGroup.controls['itemNumber'].value }}"
+                    [selectedValue]="stockOutFormGroup.controls['itemNumber'].value"
                     (valueSearchChanged)="onFilter($event)"
                     [readOnly]="post"
                   ></lib-select>
@@ -174,7 +174,7 @@
               </ng-template>
             </p-cellEditor>
             <lib-field-validations
-              [appControl]="stockOutFormGroup.controls['itemId']"
+              [appControl]="stockOutFormGroup.controls['itemNumber']"
             ></lib-field-validations>
           </td>
           <td

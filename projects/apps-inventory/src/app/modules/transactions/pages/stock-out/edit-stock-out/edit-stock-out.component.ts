@@ -76,6 +76,11 @@ export class EditStockOutComponent implements OnInit {
       stockOutStatus: data.stockOutStatus,
       notes: data.notes
     });
+    if(      data?.warehouseId
+    ){
+      this.getLatestItemsList(data?.warehouseId)
+
+    }
 
     // Clear existing form array
     const stockOutDetailsFormArray = this.addForm.get('stockOutDetails') as FormArray;
@@ -552,6 +557,7 @@ export class EditStockOutComponent implements OnInit {
 
       let newLine = this.fb.group(
         {
+          itemNumber: new FormControl(''),
           id: new FormControl(0),
           barCode: new FormControl(''),
           bardCodeId: new FormControl(''),
@@ -629,17 +635,17 @@ export class EditStockOutComponent implements OnInit {
   mapStockOutData(data: any) {
 
     return {
-      id: data.id,
+      id: data?.id,
       // receiptDate:  format(new Date(data?.receiptDate), 'yyyy-MM-dd'),
       receiptDate: data?.receiptDate && isValid(new Date(data.receiptDate))
         ? format(new Date(data.receiptDate), 'yyyy-MM-dd')
         : null,
-      sourceDocumentType: data.sourceDocumentType,
-      sourceDocumentId: data.sourceDocumentId,
-      warehouseId: data.warehouseId,
-      notes: data.notes,
-      stockOutStatus: data.stockOutStatus,
-      stockOutDetails: data.stockOutDetails?.map((detail: any) => ({
+      sourceDocumentType: data?.sourceDocumentType,
+      sourceDocumentId: data?.sourceDocumentId,
+      warehouseId: data?.warehouseId,
+      notes: data?.notes,
+      stockOutStatus: data?.stockOutStatus,
+      stockOutDetails: data?.stockOutDetails?.map((detail: any) => ({
 
         id: detail.id,
         barCode: detail.barCode,
