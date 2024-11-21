@@ -26,7 +26,7 @@
         <lib-select 
         formControlName="sourceDocumentType" 
         [options]="lookups[LookupEnum.StockInOutSourceDocumentType]"
-          optionValue="id"
+          optionValue="name"
            optionLabel="name">
         </lib-select>
         <lib-field-validations [appControl]="addForm.controls['sourceDocumentType']"></lib-field-validations>
@@ -348,11 +348,15 @@
           </lib-button-micro>
         </div>
         <div class="md:col-4">
-          <lib-button-micro title="{{ 'Save' | translate }}" nameClass="save" widthNumber="100%" (click)="onSave()">
+          <lib-button-micro title="{{ 'Save' | translate }}" nameClass="disabled" widthNumber="100%"  *ngIf="showPost">
+          </lib-button-micro>
+          <lib-button-micro title="{{ 'Save' | translate }}" nameClass="save" widthNumber="100%" (click)="onSave()" *ngIf="!showPost">
           </lib-button-micro>
         </div>
         <div class="md:col-4">
-          <lib-button-micro title="{{ 'Post' | translate }}" nameClass="save" widthNumber="100%" (click)="addToPost()">
+          <lib-button-micro title="{{ 'Post' | translate }}" nameClass="disabled" widthNumber="100%" *ngIf="!showPost" >
+          </lib-button-micro>
+          <lib-button-micro title="{{ 'Post' | translate }}" nameClass="save" widthNumber="100%" (click)="addToPost()" *ngIf="showPost">
           </lib-button-micro>
         </div>
       </div>
