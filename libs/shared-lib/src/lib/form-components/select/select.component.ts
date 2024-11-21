@@ -21,10 +21,9 @@ import {
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
 })
-export class 
-SelectComponent implements ControlValueAccessor, Validator ,OnChanges {
+export class SelectComponent implements ControlValueAccessor, Validator, OnChanges {
   @Input() label: string;
-  @Input() options: any[] = []
+  @Input() options: any[] = [];
   @Input() optionValue = 'code';
   @Input() optionLabel = 'name';
   @Input() readOnly: boolean;
@@ -87,49 +86,36 @@ SelectComponent implements ControlValueAccessor, Validator ,OnChanges {
       this.controlDir.valueAccessor = this;
     }
   }
-  onFilter(e: any){
+  onFilter(e: any) {
     this.valueSearchChanged.emit(e.filter);
   }
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     if (this.controlDir) {
       setTimeout(() => {
-        this.labelTest=this.controlDir.name
-        if(this.showFirst) {
+        this.labelTest = this.controlDir.name;
+        if (this.showFirst) {
           this.checkSingleOption();
-
         }
       }, 500);
-      
-      
     }
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['options']) {
-      if(this.showFirst) {
+    if (this.showFirst) {
+      if (changes['options']) {
         this.checkSingleOption();
-
       }
     }
   }
 
   private checkSingleOption() {
-      if (this.options && this.options.length === 1) {
-        this.selectedValue = this.options[0][this.optionValue];
-        this.onChange(this.selectedValue);
-        this.valueChanged.emit(this.selectedValue);
-      }
-    
- 
+    if (this.options && this.options.length === 1) {
+      this.selectedValue = this.options[0][this.optionValue];
+      this.onChange(this.selectedValue);
+      this.valueChanged.emit(this.selectedValue);
+    }
   }
 }
-
-
-
-
-
-
-
 
 // import {
 //   Component,
@@ -154,7 +140,7 @@ SelectComponent implements ControlValueAccessor, Validator ,OnChanges {
 //   templateUrl: './select.component.html',
 //   styleUrls: ['./select.component.scss'],
 // })
-// export class 
+// export class
 // SelectComponent implements ControlValueAccessor, Validator ,OnChanges {
 //   @Input() label: string;
 //   @Input() options: any[] = []
@@ -232,8 +218,7 @@ SelectComponent implements ControlValueAccessor, Validator ,OnChanges {
 
 //         }
 //       }, 500);
-      
-      
+
 //     }
 //   }
 
@@ -252,11 +237,9 @@ SelectComponent implements ControlValueAccessor, Validator ,OnChanges {
 //         this.onChange(this.selectedValue);
 //         this.valueChanged.emit(this.selectedValue);
 //       }
-    
- 
+
 //   }
 // }
-
 
 // import {
 //   Component,
@@ -279,7 +262,7 @@ SelectComponent implements ControlValueAccessor, Validator ,OnChanges {
 //   templateUrl: './select.component.html',
 //   styleUrls: ['./select.component.scss'],
 // })
-// export class 
+// export class
 // SelectComponent implements ControlValueAccessor, Validator {
 //   @Input() label: string;
 //   @Input() options: any[];
@@ -352,8 +335,7 @@ SelectComponent implements ControlValueAccessor, Validator ,OnChanges {
 //       setTimeout(() => {
 //         this.labelTest=this.controlDir.name
 //       }, 500);
-      
-      
+
 //     }
 //   }
 // }
