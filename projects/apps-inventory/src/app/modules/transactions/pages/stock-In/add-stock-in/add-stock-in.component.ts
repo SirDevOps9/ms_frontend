@@ -212,7 +212,11 @@ export class AddStockInComponent implements OnInit {
     }
 
     if (!isBarcode) stockInFormGroup.get('barCode')?.setValue(null);
-
+    // stockInFormGroup.get('uomId')?.valueChanges.subscribe((res) => {
+    //   if (res && !isBarcode) {
+    //     stockInFormGroup.get('barCode')?.setValue(null);
+    //   }
+    // });
     stockInFormGroup
       .get('itemCodeName')
       ?.setValue(data?.itemCode ?? clonedStockInFormGroup?.itemCode);
@@ -253,7 +257,7 @@ export class AddStockInComponent implements OnInit {
       .get('hasExpiryDate')
       ?.setValue(clonedStockInFormGroup.hasExpiryDate ?? data?.hasExpiryDate);
     stockInFormGroup.get('uomId')?.setValue(data?.uomId ?? clonedStockInFormGroup?.uomId);
-    this.uomChanged(stockInFormGroup.get('uomId')?.value, stockInFormGroup);
+    this.uomChanged(stockInFormGroup.get('uomId')?.value, stockInFormGroup, false);
     if (data?.hasExpiryDate) {
       stockInFormGroup
         .get('stockInTracking')
@@ -287,9 +291,9 @@ export class AddStockInComponent implements OnInit {
       stockInFormGroup.get('stockInTracking')?.get('serialId')?.updateValueAndValidity();
     }
   }
-  uomChanged(e: any, stockInFormGroup: FormGroup) {
+  uomChanged(e: any, stockInFormGroup: FormGroup, isBarcode: boolean) {
     let data = this.uomLookup.find((item: any) => item.uomId == e);
-
+    if (isBarcode) stockInFormGroup.get('barCode')?.setValue(null);
     stockInFormGroup
       .get('uomName')
       ?.setValue(this.currentLang == 'en' ? data.uomNameEn : data.uomNameAr);
@@ -462,23 +466,14 @@ export class AddStockInComponent implements OnInit {
       };
 
       this.transactionsService.addStockIn(data, this.stockInForm);
-      this.transactionsService.addedStockInData$.subscribe({
-        next: (res: any) => {
-          console.log(res);
-          if (res) {
-            this.savedDataId = res;
-            this.dataToReadOnly = true;
-          }
-          if (Object.keys(res)?.length) {
-            this.dataToReadOnly = false;
-          }
-        },
-        error() {
-          return;
-        },
+      this.transactionsService.addedStockInData$.subscribe((res: number | any) => {
+        if (typeof res == 'number') {
+          this.savedDataId = res;
+          this.dataToReadOnly = true;
+        } else {
+          this.dataToReadOnly = false;
+        }
       });
-    } else {
-      console.error('Form is invalid.');
     }
 
     console.log(this.errorsArray);

@@ -154,24 +154,25 @@ export class TransactionsService {
   addStockIn(obj: AddStockIn, stockinForm: FormGroup) {
     this.transactionsProxy.addStockIn(obj).subscribe({
       next: (res: any) => {
-        this.addedStockInData.next(res);
+        this.loaderService.hide();
+
         this.toasterService.showSuccess(
           this.languageService.transalte('stockIn.success'),
           this.languageService.transalte('stockIn.stockAdded')
         );
-        console.log(res);
+        this.addedStockInData.next(res);
 
         // this.router.navigateTo('/transactions/stock-in');
-        this.loaderService.hide();
+        // this.loaderService.hide();
       },
-      error: (err) => {
-        console.log(err);
-        this.toasterService.showError(
-          this.languageService.transalte('stockIn.Error'),
-          this.languageService.transalte(err.message)
-        );
-        this.formsService.setFormValidationErrors(stockinForm, err);
+      error: (error) => {
         this.loaderService.hide();
+        if (error.messageCode != 4001) {
+          this.toasterService.showError(
+            this.languageService.transalte('Error'),
+            this.languageService.transalte(error.message)
+          );
+        }
       },
     });
   }
