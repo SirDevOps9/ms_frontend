@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { AuthService } from 'microtec-auth-lib';
@@ -60,11 +60,13 @@ export class EditStockInComponent implements OnInit {
   barcodeData: StockInDetail;
   savedDataId: number = 0;
   dataToReadOnly: boolean = false;
+  selectedLanguage: string;
+  postButton: boolean = true;
+  saveButtonEnabled: boolean = true;
+
   constructor(
-    private routerService: RouterService,
     public authService: AuthService,
     private dialog: DialogService,
-    private title: Title,
     private langService: LanguageService,
     private transactionService: TransactionsService,
     private fb: FormBuilder,
@@ -75,14 +77,13 @@ export class EditStockInComponent implements OnInit {
     public sharedFinanceEnums: SharedFinanceEnums,
     private cdr: ChangeDetectorRef
   ) {
-    this.title.setTitle(this.langService.transalte('itemCategory.itemDefinition'));
     this.currentLang = this.langService.getLang();
+    this.selectedLanguage = this.langService.getLang();
     this.id = Number(this._route.snapshot.paramMap.get('id'));
   }
 
   ngOnInit(): void {
     this.getListOfItems();
-
     this.stockInForm = this.fb.group({
       id: [this.id],
       receiptDate: ['', customValidators.required],
@@ -101,6 +102,34 @@ export class EditStockInComponent implements OnInit {
       this.cdr.detectChanges();
     });
 
+   
+
+    this.stockInForm.get('sourceDocumentId')?.valueChanges.subscribe((res) => {
+      let data = this.oprationalLookup.find((elem) => elem.id == res);
+      this.stockInForm.get('warehouseId')?.setValue(data?.warehouseId);
+      this.stockInForm.get('warehouseName')?.setValue(data?.warehouseName);
+    });
+
+    this.initWareHouseLookupData();
+
+    this.addLineStockIn();
+    this.transactionService.sendItemBarcode$.pipe(skip(1)).subscribe((res) => {
+      this.barcodeData = res;
+    });
+    this.stockInForm.valueChanges.subscribe((res) => {
+      if (!res) return;
+      this.dataToReadOnly = false;
+    });
+    this.stockInForm.valueChanges.subscribe(() => {
+      if (!this.saveButtonEnabled) {
+        this.handleFormChanges();
+      }
+    });
+    this.stockIn.valueChanges.subscribe(() => {
+      if (!this.saveButtonEnabled) {
+        this.handleFormChanges();
+      }
+    });
     this.stockInForm.get('sourceDocumentType')?.valueChanges.subscribe((res) => {
       let data = this.lookups[LookupEnum.StockInOutSourceDocumentType];
       let sourceDocumentTypeData = data?.find((elem) => elem.id == res);
@@ -115,31 +144,7 @@ export class EditStockInComponent implements OnInit {
         });
       }
     });
-
-    this.stockInForm.get('sourceDocumentId')?.valueChanges.subscribe((res) => {
-      let data = this.oprationalLookup.find((elem) => elem.id == res);
-      this.stockInForm.get('warehouseId')?.setValue(data?.warehouseId);
-      this.stockInForm.get('warehouseName')?.setValue(data?.warehouseName);
-    });
-
-    this.initWareHouseLookupData();
-
-    if (this.id) {
-      this.getStockInById(this.id);
-    }
-    this.addLineStockIn();
-    this.transactionService.sendItemBarcode$.pipe(skip(1)).subscribe((res) => {
-      this.barcodeData = res;
-    });
-    this.stockInForm.valueChanges.subscribe((res) => {
-      if (!res) return;
-      this.dataToReadOnly = false;
-    });
-
-    this.stockIn.valueChanges.subscribe((res) => {
-      if (!res) return;
-      this.dataToReadOnly = false;
-    });
+  
   }
 
   getListOfItems() {
@@ -149,34 +154,43 @@ export class EditStockInComponent implements OnInit {
       if (res.length) {
         this.latestItemsList = res.map((elem: any, index: number) => ({
           ...elem,
-          itemNumber: index + 1,
-          displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantName}`,
+          displayName: `(${elem.itemCode}) ${elem.itemName}-${
+            this.currentLang == 'en' ? elem.itemVariantNameEn : elem.itemVariantNameAr
+          }`,
         }));
       }
     });
   }
-
+ngAfterViewInit(): void {
+  if (this.id) {
+    this.getStockInById(this.id);
+  }
+  
+}
   postedStock: boolean = true;
   getStockInById(id: number) {
     this.transactionService.getStockInById(id);
     this.transactionService.stockInByIdData$.subscribe({
       next: (res: any) => {
+        console.log(res);
+        console.log(this.lookups[LookupEnum.StockInOutSourceDocumentType]);
         if (res) {
           if (res.stockInStatus == 'Posted') {
             this.postedStock = false;
-          } else {
-            this.postedStock = true;
           }
-          // Patch main form values
-          this.stockInForm?.patchValue({
-            id: res?.id,
-            receiptDate: res?.receiptDate,
-            code: res?.code,
-            sourceDocumentType: res?.sourceDocumentType,
-            sourceDocumentId: res?.sourceDocumentId,
-            warehouseId: res?.warehouseId,
-            notes: res?.notes,
-          });
+          setTimeout(() => {
+            this.stockInForm?.patchValue({
+              id: res?.id,
+              receiptDate: res?.receiptDate,
+              code: res?.code,
+              // sourceDocumentType: res?.sourceDocumentType,
+              sourceDocumentId: res?.sourceDocumentId,
+              warehouseId: res?.warehouseId,
+              warehouseName: this.oprationalLookup?.find((x) => x.warehouseId == res?.warehouseId)
+                ?.warehouseName,
+              notes: res?.notes,
+            });
+          }, 100);
 
           this.stockIn.clear();
 
@@ -196,7 +210,6 @@ export class EditStockInComponent implements OnInit {
               stockInDetailGroup.patchValue({
                 id: detail.id,
                 barCode: detail.barCode,
-                itemNumber: detail.itemNumber,
                 bardCodeId: detail.bardCodeId,
                 description: detail.description,
                 itemId: detail.itemId,
@@ -227,7 +240,7 @@ export class EditStockInComponent implements OnInit {
               this.stockIn.push(stockInDetailGroup);
             });
           } else {
-            console.warn('stockInDetails is undefined or not an array.');
+            return;
           }
         }
       },
@@ -259,7 +272,6 @@ export class EditStockInComponent implements OnInit {
   createStockIn() {
     return this.fb.group({
       id: 0,
-      itemNumber: '',
       barCode: '',
       bardCodeId: null,
       description: '',
@@ -309,19 +321,16 @@ export class EditStockInComponent implements OnInit {
     e: any,
     stockInFormGroup: FormGroup,
     clonedStockInFormGroup?: any,
-    isBarcode?: boolean
+    isBarcode: boolean = false
   ) {
-    let data = this.latestItemsList.find((item: any) => item.itemNumber == e);
+    let data: any = this.latestItemsList.find((item: any) => item.itemId == e);
 
     this.uomLookup = data?.itemsUOM ?? clonedStockInFormGroup.itemsUOM;
     if (clonedStockInFormGroup) {
       stockInFormGroup.get('itemCodeName')?.reset();
     }
 
-    if (!isBarcode) {
-      stockInFormGroup.get('bardCodeId')?.setValue(null);
-      stockInFormGroup.get('barCode')?.setValue('');
-    }
+    if (!isBarcode) stockInFormGroup.get('barCode')?.setValue(null);
 
     stockInFormGroup
       .get('itemCodeName')
@@ -331,11 +340,27 @@ export class EditStockInComponent implements OnInit {
       .get('description')
       ?.setValue(
         ` ${clonedStockInFormGroup?.itemName ?? data?.itemName} - ${
-          clonedStockInFormGroup?.itemVariantName ?? data?.itemVariantName
+          this.currentLang == 'en'
+            ? clonedStockInFormGroup?.itemVariantNameEn ?? data?.itemVariantNameEn
+            : clonedStockInFormGroup?.itemVariantNameAr ?? data?.itemVariantNameAr
         }`
       );
-    stockInFormGroup.get('trackingType')?.setValue(data?.trackingType);
-    stockInFormGroup.get('stockInTracking')?.get('trackingType')?.setValue(data?.trackingType);
+
+    stockInFormGroup
+      .get('trackingType')
+      ?.setValue(clonedStockInFormGroup.trackingType ?? data?.trackingType);
+    stockInFormGroup
+      .get('stockInTracking')
+      ?.get('trackingType')
+      ?.setValue(clonedStockInFormGroup.trackingType ?? data?.trackingType);
+
+    if (
+      stockInFormGroup.get('stockInTracking')?.get('trackingType')?.value ==
+      this.sharedFinanceEnums.trackingType.Serial
+    ) {
+      stockInFormGroup.get('quantity')?.setValue(1);
+    }
+
     stockInFormGroup
       .get('itemVariantId')
       ?.setValue(
@@ -343,7 +368,9 @@ export class EditStockInComponent implements OnInit {
           ? clonedStockInFormGroup?.itemVariantId
           : data?.itemVariantId
       );
-    stockInFormGroup.get('hasExpiryDate')?.setValue(data?.hasExpiryDate);
+    stockInFormGroup
+      .get('hasExpiryDate')
+      ?.setValue(clonedStockInFormGroup.hasExpiryDate ?? data?.hasExpiryDate);
     stockInFormGroup.get('uomId')?.setValue(data?.uomId ?? clonedStockInFormGroup?.uomId);
     this.uomChanged(stockInFormGroup.get('uomId')?.value, stockInFormGroup);
     if (data?.hasExpiryDate) {
@@ -382,10 +409,10 @@ export class EditStockInComponent implements OnInit {
 
   uomChanged(e: any, stockInFormGroup: FormGroup) {
     let data = this.uomLookup.find((item: any) => item.uomId == e);
+
     stockInFormGroup
       .get('uomName')
       ?.setValue(this.currentLang == 'en' ? data.uomNameEn : data.uomNameAr);
-    this.cdr.detectChanges();
   }
 
   addLineStockIn() {
@@ -455,10 +482,11 @@ export class EditStockInComponent implements OnInit {
       if (data) {
         stockInFormGroup.get('itemId')?.setValue(data.itemId);
         // this.sendBarcodeData(data.itemId)
-        this.itemChanged(data.itemId, stockInFormGroup, true, true);
+        this.itemChanged(data.itemId, stockInFormGroup, data, true);
       }
     });
   }
+
   onSave() {
     const stockInDetails = this.stockIn as FormArray;
     this.errorsArray = []; // Array to collect errors for each line
@@ -534,8 +562,15 @@ export class EditStockInComponent implements OnInit {
       if (res) {
         this.savedDataId = res;
         this.dataToReadOnly = true;
+        this.postButton = true;
+        this.saveButtonEnabled = false;
       }
     });
+  }
+
+  private handleFormChanges(): void {
+    this.dataToReadOnly = false;
+    this.postButton = false;
   }
 
   OnDelete(id: number) {
@@ -548,5 +583,33 @@ export class EditStockInComponent implements OnInit {
 
   onPost() {
     this.transactionService.posteStockIn(this.id);
+  }
+
+  onFilter(SearchTerm: string) {
+    const warehouseId: number = this.stockInForm.get('warehouseId')?.value;
+    this.transactionService.getItems('', SearchTerm, new PageInfo());
+    this.transactionService.itemsList.subscribe((res: any) => {
+      if (res.length > 0) {
+        if (this.selectedLanguage === 'ar') {
+          this.latestItemsList = res.map((elem: any, index: number) => ({
+            ...elem,
+            itemNumber: index + 1,
+            displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameAr}`,
+          }));
+        } else {
+          this.latestItemsList = res.map((elem: any, index: number) => ({
+            ...elem,
+            itemNumber: index + 1,
+
+            displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameEn}`,
+          }));
+        }
+      } else {
+        this.getLatestItemsList(warehouseId);
+      }
+    });
+  }
+  getLatestItemsList(id: number) {
+    this.transactionService.getLatestItemsListByWarehouse('', id);
   }
 }

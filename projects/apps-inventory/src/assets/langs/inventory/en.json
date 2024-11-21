@@ -9,14 +9,13 @@
     "serialError": "Can't add more than one item with the same serial.",
     "noBarcode": "This barcode does not exist.",
     "notEdit": "This stockout cannot be edited because it is posted.",
-    "notEdit": "This stockout cannot be edited because it is posted.",
     "stockOutPostedSuccessfully": "Stock Out Posted successfully"
   },
   "BreadCrumb": {
     "ItemsCategory": "Items Category",
     "stockout": "Stock Out",
     "add": "Add",
-    "AddStockIn": "Add",
+    "AddStockIn": "Add Stock In",
     "generalSetting": "General Setting",
     "add_stockOut": "Add StockOut",
     "UnitOfMeasure": "Unit Of Measure",
@@ -24,14 +23,16 @@
     "EditUom": "Edit UOM",
     "uomList": "UOM",
     "edit": "Edit",
-    "edit_stock_in": "Edit",
+    "edit_stock_in": "Edit Stock In",
     "editstockout": "Edit Stock Out",
     "edit_stockOut": "Edit StockOut",
     "EditItembarfixedcostfinition": "Edit Item fixed cost",
     "stockInView": "Stock In View",
     "stockOutView": "Stock Out View",
     "stockIn": "Stock In List",
-    "viewUom": "view"
+    "viewUom": "view",
+    "ViewWarehouse":"View Item Warehouse",
+    "itemCardReport": "Item Card Report"
   },
   "Toaster": {
     "Confirm": {
@@ -188,13 +189,19 @@
   "warehouse": {
     "Add": "Add",
     "AddNew": "Add New",
-
+    "print": "Print",
     "create": "Create",
     "search": "Search",
     "ChangeColumn": "Change Column",
     "save": "Save",
     "cancel": "Cancel",
+    "availableQuantity":"Available Quantity",
     "code": "Code",
+    "uom":"UOM",
+    "WarehouseItemExport":"Warehouse Item",
+    "variant":"Variant",
+    "availablequantity":"Available Quantity",
+    "itemCode":"Item Code",
     "name": "Name",
     "warehouseName": "Warehouse Name",
     "relatedBranch": "Warehouse Related Branch",
@@ -395,6 +402,7 @@
     "import": "Import",
     "edit": "Edit",
     "Post": "Post",
+    "Error": "Error",
     "save": "Save",
     "cancel": "Cancel",
     "delete": "Stock In Deleted Successfully",
@@ -534,5 +542,25 @@
     "Cancel": "Cancel",
     "save": "Save",
     "success": "Success"
+  },
+  "itemCardReport": {
+    "view": "View",
+    "transactionName": "Transaction Name",
+    "transactionCode": "Transaction Code",
+    "serial": "Serial Number",
+    "batchNo": "Batch Number",
+    "expiryDate": "Expiry Date",
+    "in": "In",
+    "out": "Out",
+    "balance": "Balance",
+    "itemCost": "Item Cost",
+    "totalBalanceAmount": "Total Balance Amount",
+    "subTotal": "Subtotal",
+    "subTitles": {
+      "QTY": "Quantity",
+      "cost": "Cost",
+      "subTotal": "Subtotal"
+    },
+    "QTYbalance": "Quantity Balance"
   }
 }

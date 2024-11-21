@@ -88,8 +88,8 @@ export class UOMListComponent implements OnInit {
     this.routerService.navigateTo('/masterdata/uom/add-uom')
     }
     onView(data: any) {
-      const encryptedId = btoa(data.uomCategoryId);
-      this.routerService.navigateTo(`/masterdata/uom/view-uom/${encryptedId}`);  // الانتقال إلى الرابط مع الـ ID المشفر
+
+      this.routerService.navigateTo(`/masterdata/uom/view-uom/${data.uomCategoryId}`);
     }
 
 

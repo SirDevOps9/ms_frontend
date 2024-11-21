@@ -30,7 +30,6 @@ import {
 export class TransactionsService {
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
 
-
   public stockInDataSource = new BehaviorSubject<StockOutDto[]>([]);
   public addedStockInData = new BehaviorSubject<AddStockIn>({} as AddStockIn);
   public updatedStockInData = new BehaviorSubject<AddStockIn>({} as AddStockIn);
@@ -49,7 +48,6 @@ export class TransactionsService {
   public stockInByIdData = new BehaviorSubject<StockInDto>({} as StockInDto);
   sendItemBarcode = new BehaviorSubject<StockInDetail>({} as StockInDetail);
   wareHousesDropDownLookup = new BehaviorSubject<GetWarehouseList[]>([]);
-
 
   public stockInDataViewSource = new BehaviorSubject<StockInDto[]>([]);
 
@@ -70,7 +68,7 @@ export class TransactionsService {
   public stockOutDataSource = new BehaviorSubject<StockOutDto[]>([]);
 
   public stockOutDataSourceeObservable = this.stockOutDataSource.asObservable();
-  public latestItemsListByWarehouse= new BehaviorSubject<LatestItems[]>([]);
+  public latestItemsListByWarehouse = new BehaviorSubject<LatestItems[]>([]);
   public latestItemsListByWarehouse$ = this.latestItemsListByWarehouse.asObservable();
   private itemsDataSourceByWarehouse = new BehaviorSubject<AdvancedSearchDto[]>([]);
   public itemsListByWarehouse = this.itemsDataSourceByWarehouse.asObservable();
@@ -85,7 +83,6 @@ export class TransactionsService {
   public stockOutSaved = new BehaviorSubject<number | undefined>(0);
 
   exportStockOutListDataSourceObservable = this.exportStockOutListDataSource.asObservable();
-
 
   constructor(
     private toasterService: ToasterService,
@@ -162,16 +159,21 @@ export class TransactionsService {
           this.languageService.transalte('stockIn.success'),
           this.languageService.transalte('stockIn.stockAdded')
         );
+        console.log(res);
+
         // this.router.navigateTo('/transactions/stock-in');
         this.loaderService.hide();
       },
       error: (err) => {
-
+        console.log(err);
+        this.toasterService.showError(
+          this.languageService.transalte('stockIn.Error'),
+          this.languageService.transalte(err.message)
+        );
         this.formsService.setFormValidationErrors(stockinForm, err);
         this.loaderService.hide();
       },
     });
-
   }
 
   editStockIn(obj: AddStockIn, stockinForm: FormGroup) {
@@ -227,14 +229,11 @@ export class TransactionsService {
     });
   }
 
-  getItemBarcodeForItem(barcode : string) {
-    this.transactionsProxy.getItemBarcodeForItem(barcode).subscribe(res=>{
-      this.sendItemBarcode.next(res)
-
-    })
-
+  getItemBarcodeForItem(barcode: string) {
+    this.transactionsProxy.getItemBarcodeForItem(barcode).subscribe((res) => {
+      this.sendItemBarcode.next(res);
+    });
   }
-
 
   getLatestItemsList() {
     return this.transactionsProxy.getLatestItemsList().subscribe((res) => {
@@ -286,8 +285,8 @@ export class TransactionsService {
       this.wareHousesDropDownLookup.next(res);
     });
   }
-  getViwStockInById(id:number) {
-    this.transactionsProxy.getByIdViewStockIn(id).subscribe((response:any) => {
+  getViwStockInById(id: number) {
+    this.transactionsProxy.getByIdViewStockIn(id).subscribe((response: any) => {
       this.stockInDataViewSource.next(response);
     });
   }
@@ -298,8 +297,8 @@ export class TransactionsService {
     });
   }
   ////////////////////stock out/////////////
-  getByIdViewStockOut(id:number) {
-    this.transactionsProxy.getByIdViewStockOut(id).subscribe((response:any) => {
+  getByIdViewStockOut(id: number) {
+    this.transactionsProxy.getByIdViewStockOut(id).subscribe((response: any) => {
       this.stockOutDataViewSource.next(response);
     });
   }
@@ -313,22 +312,24 @@ export class TransactionsService {
       },
     });
   }
-  getLatestItemsListByWarehouse(SearchTerm:string , id:number){
-    return this.transactionsProxy.getLatestItemsListByWarehouse(SearchTerm,id).subscribe(res=>{
-      this.latestItemsListByWarehouse.next(res)
-    })
-  }
-  getItemsStockOutByWarehouse(queries: string, searchTerm: string, id: number, pageInfo: PageInfo) {
-    this.transactionsProxy.getItemsStockOut(queries, searchTerm, id, pageInfo).subscribe((res:any) => {
-      this.itemsDataSourceByWarehouse.next(res);
+  getLatestItemsListByWarehouse(SearchTerm: string, id: number) {
+    return this.transactionsProxy.getLatestItemsListByWarehouse(SearchTerm, id).subscribe((res) => {
+      this.latestItemsListByWarehouse.next(res);
     });
   }
-  
-  addStockOut(obj: AddStockOutDto,stockinForm : FormGroup) {
+  getItemsStockOutByWarehouse(queries: string, searchTerm: string, id: number, pageInfo: PageInfo) {
+    this.transactionsProxy
+      .getItemsStockOut(queries, searchTerm, id, pageInfo)
+      .subscribe((res: any) => {
+        this.itemsDataSourceByWarehouse.next(res);
+      });
+  }
+
+  addStockOut(obj: AddStockOutDto, stockinForm: FormGroup) {
     this.loaderService.show();
 
     this.transactionsProxy.addStockOut(obj).subscribe({
-      next: (res:any) => {
+      next: (res: any) => {
         this.toasterService.showSuccess(
           this.languageService.transalte('messages.success'),
           this.languageService.transalte('stockOut.add')
@@ -338,22 +339,17 @@ export class TransactionsService {
 
         // this.router.navigateTo('transactions/stock-out');
       },
-      error: (err:any) => {
-        
+      error: (err: any) => {
         this.loaderService.hide();
       },
     });
- 
   }
-  getItemByBarcodeStockOutQuery(barcode : string , warehouseId:number) {
-
-    return this.transactionsProxy.GetItemByBarcodeStockOutQuery(barcode ,warehouseId).pipe(
+  getItemByBarcodeStockOutQuery(barcode: string, warehouseId: number) {
+    return this.transactionsProxy.GetItemByBarcodeStockOutQuery(barcode, warehouseId).pipe(
       map((res) => {
         return res;
       })
     );
-    
-    
   }
   getStockOutById(id: number) {
     this.transactionsProxy.getByIdStockOut(id).subscribe((response: any) => {
@@ -369,78 +365,74 @@ export class TransactionsService {
           this.languageService.transalte('messages.successfully')
         );
         this.router.navigateTo('transactions/stock-out');
-
       },
-      error: (err:any) => {
+      error: (err: any) => {
         this.toasterService.showError(
           this.languageService.transalte('messages.error'),
           this.languageService.transalte('messages.noItemSelected')
         );
         this.loaderService.hide();
       },
-
     });
   }
   deleteRowStockOut(id: number) {
-    return  this.transactionsProxy.deleteRowStockOut(id).pipe(
-        map((res) => {
-          return res;
-        })
-      )
+    return this.transactionsProxy.deleteRowStockOut(id).pipe(
+      map((res) => {
+        return res;
+      })
+    );
+  }
+  getAllStockOut(quieries: string, pageInfo: PageInfo) {
+    this.transactionsProxy.getAllStockOut(quieries, pageInfo).subscribe((response) => {
+      this.stockOutDataSource.next(response.result);
+      this.currentPageInfo.next(response.pageInfoResult);
+    });
+  }
 
-}
-getAllStockOut(quieries: string, pageInfo: PageInfo) {
-  this.transactionsProxy.getAllStockOut(quieries, pageInfo).subscribe((response) => {
-    this.stockOutDataSource.next(response.result);
-    this.currentPageInfo.next(response.pageInfoResult);
-  });
-}
+  async deleteStockOut(id: number) {
+    const confirmed = await this.toasterService.showConfirm(
+      this.languageService.transalte('ConfirmButtonTexttodelete')
+    );
+    if (confirmed) {
+      this.transactionsProxy.deleteStockOut(id).subscribe({
+        next: (res) => {
+          this.toasterService.showSuccess(
+            this.languageService.transalte('transactions.success'),
+            this.languageService.transalte('transactions.deleteStockOut')
+          );
 
-async deleteStockOut(id: number) {
-  const confirmed = await this.toasterService.showConfirm(
-    this.languageService.transalte('ConfirmButtonTexttodelete')
-  );
-  if (confirmed) {
-    this.transactionsProxy.deleteStockOut(id).subscribe({
-      next: (res) => {
-        this.toasterService.showSuccess(
-          this.languageService.transalte('transactions.success'),
-          this.languageService.transalte('transactions.deleteStockOut')
-        );
-
-        this.getAllStockOut('', new PageInfo());
+          this.getAllStockOut('', new PageInfo());
+        },
+      });
+    }
+  }
+  exportStockOutList(searchTerm?: string, SortBy?: number, SortColumn?: string) {
+    this.transactionsProxy.exportStockOutList(searchTerm, SortBy, SortColumn).subscribe({
+      next: (res: any) => {
+        this.exportStockOutListDataSource.next(res);
       },
     });
   }
-}
-exportStockOutList(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
-  this.transactionsProxy.exportStockOutList(searchTerm ,SortBy,SortColumn).subscribe({
-    next: (res: any) => {
-      this.exportStockOutListDataSource.next(res);
-    },
-  });
-}
-postStockOut(id: number) {
-  this.loaderService.show();
+  postStockOut(id: number) {
+    this.loaderService.show();
 
-  this.transactionsProxy.postStockOut(id).subscribe({
-    next: (res: any) => {
-      this.toasterService.showSuccess(
-        this.languageService.transalte('messages.Success'),
-        this.languageService.transalte('messages.stockOutPostedSuccessfully')
-      );
-      this.loaderService.hide();
+    this.transactionsProxy.postStockOut(id).subscribe({
+      next: (res: any) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('messages.Success'),
+          this.languageService.transalte('messages.stockOutPostedSuccessfully')
+        );
+        this.loaderService.hide();
 
-         this.router.navigateTo('transactions/stock-out');
+        this.router.navigateTo('transactions/stock-out');
       },
-    error: (error:any) => {
-      this.loaderService.hide();
-      this.toasterService.showError(
-        this.languageService.transalte('messages.Error'),
-        this.languageService.transalte(error.message)
-      );
-    },
-  });
-}
-
+      error: (error: any) => {
+        this.loaderService.hide();
+        this.toasterService.showError(
+          this.languageService.transalte('messages.Error'),
+          this.languageService.transalte(error.message)
+        );
+      },
+    });
+  }
 }

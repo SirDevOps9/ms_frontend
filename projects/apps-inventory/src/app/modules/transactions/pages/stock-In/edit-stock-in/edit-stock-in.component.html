@@ -22,6 +22,7 @@
         <lib-calendar
           [ngClass]="{ 'readonly-calendar': !postedStock }"
           formControlName="receiptDate"
+          [ngClass]="{ 'readonly-calendar': dataToReadOnly }"
         ></lib-calendar>
         <lib-field-validations
           [appControl]="stockInForm.controls['receiptDate']"
@@ -45,6 +46,7 @@
           [appControl]="stockInForm.controls['sourceDocumentType']"
         ></lib-field-validations>
       </div>
+
       <div class="md:col-3 my-2">
         <lib-label [appControl]="stockInForm.controls['sourceDocumentId']">
           {{ 'stockIn.sourceDoc' | translate }}
@@ -55,27 +57,19 @@
           optionValue="id"
           optionLabel="displayName"
           placeholder="{{ 'stockIn.sourceDoc' | translate }}"
-          [selectedValue]="stockInForm.controls['sourceDocumentId'].value"
-          [readOnly]="!postedStock"
+          [selectedValue]="stockInForm.controls['sourceDocumentId'].value"          [readOnly]="!postedStock"
         >
         </lib-select>
         <lib-field-validations
           [appControl]="stockInForm.controls['sourceDocumentId']"
         ></lib-field-validations>
       </div>
+
       <div class="md:col-3 my-2">
         <lib-label [appControl]="stockInForm.controls['warehouseName']">
           {{ 'stockIn.warehouse' | translate }}
         </lib-label>
-        <!-- <lib-select
-          formControlName="warehouseName"
-          [options]="warhouseLookupData"
-          optionValue="id"
-          optionLabel="name"
-          placeholder="{{ 'stockIn.warehouse' | translate }}"
-          [selectedValue]="stockInForm.controls['warehouseName'].value"
-        >
-        </lib-select> -->
+
         <lib-text-input
           placeholder="{{ 'stockIn.warehouse' | translate }}"
           formControlName="warehouseName"
@@ -147,7 +141,7 @@
                   placeholder="{{ 'stockIn.barcode' | translate }}"
                   formControlName="barCode"
                   [readOnly]="!postedStock"
-                  (valueChanged)="barcodeCanged($event, stockInFormGroup)"
+                  (keyUp)="barcodeCanged($event, stockInFormGroup)"
                 ></lib-text-input>
               </ng-template>
               <ng-template pTemplate="output">
@@ -160,21 +154,19 @@
           </td>
           <!--  -->
 
-          <td
-            [pEditableColumn]="stockInFormGroup.controls['itemNumber']"
-            pEditableColumnField="itemNumber"
-          >
+          <td [pEditableColumn]="stockInFormGroup.controls['itemId']" pEditableColumnField="itemId">
             <p-cellEditor>
               <ng-template pTemplate="input">
                 <div class="flex justify-content-center gap-2 align-items-center">
                   <lib-select
-                    formControlName="itemNumber"
+                    formControlName="itemId"
                     [options]="latestItemsList"
-                    optionValue="itemNumber"
+                    optionValue="itemId"
                     optionLabel="displayName"
                     placeholder="{{ 'stockIn.itemCode' | translate }}"
                     (valueChanged)="itemChanged($event, stockInFormGroup, false, false)"
                     [readOnly]="dataToReadOnly"
+                    (valueSearchChanged)="onFilter($event)"
                   >
                   </lib-select>
                   <i class="pi pi-search search-circle" (click)="openDialog(stockInFormGroup)"></i>
@@ -230,6 +222,10 @@
                   placeholder="{{ 'stockIn.QTY' | translate }}"
                   formControlName="quantity"
                   [readOnly]="!postedStock"
+                  [readOnly]="
+                    stockInFormGroup.get('stockInTracking')?.get('trackingType')?.value ==
+                    this.sharedFinanceEnums.trackingType.Serial
+                  "
                 ></lib-text-input>
               </ng-template>
               <ng-template pTemplate="output">
@@ -384,11 +380,11 @@
                 >{{ 'stockIn.required' | translate }}</small
               > -->
               <small *ngFor="let elem of errorsArray">
-                <small *ngIf="elem.line == i && !stockInFormGroup.valid" class="danger">{{ 'stockIn.required' | translate }}</small>  
-                </small>
+                <small *ngIf="elem.line == i && !stockInFormGroup.valid" class="danger">{{
+                  'stockIn.required' | translate
+                }}</small>
+              </small>
             </div>
-
-        
           </td>
           <!--  -->
           <td [pEditableColumn]="stockInFormGroup.controls['notes']" pEditableColumnField="notes">
@@ -450,6 +446,7 @@
           </lib-button-micro>
         </div>
         <div class="md:col-3" *ngIf="postedStock">
+          <!-- Save Button -->
           <lib-button-micro
             title="{{ 'Save' | translate }}"
             [disabled]="dataToReadOnly"
@@ -459,19 +456,22 @@
           >
           </lib-button-micro>
         </div>
+        
         <ng-container *ngIf="postedStock">
-          <div class="md:col-3" *ngIf="dataToReadOnly">
+          <div class="md:col-3">
+            <!-- Post Button -->
             <lib-button-micro
-              [disabled]="!dataToReadOnly"
-              nameClass="{{ dataToReadOnly ? 'save' : 'disabled' }}"
+              [disabled]="!postButton"
+              nameClass="{{ !postButton ? 'disabled' : 'save' }}"
               title="{{ 'stockIn.Post' | translate }}"
-              nameClass="save"
               widthNumber="100%"
               (click)="onPost()"
             >
             </lib-button-micro>
           </div>
         </ng-container>
+        
+        
       </div>
     </div>
   </div>

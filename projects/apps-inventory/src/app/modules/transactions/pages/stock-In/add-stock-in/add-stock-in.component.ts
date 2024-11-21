@@ -202,7 +202,7 @@ export class AddStockInComponent implements OnInit {
     e: any,
     stockInFormGroup: FormGroup,
     clonedStockInFormGroup?: any,
-    isBarcode?: boolean
+    isBarcode: boolean = false
   ) {
     let data: any = this.latestItemsList.find((item: any) => item.itemId == e);
 
@@ -211,10 +211,7 @@ export class AddStockInComponent implements OnInit {
       stockInFormGroup.get('itemCodeName')?.reset();
     }
 
-    // if (isBarcode) {
-    //   stockInFormGroup.get('bardCodeId')?.setValue(null);
-    //   stockInFormGroup.get('barCode')?.setValue('');
-    // }
+    if (!isBarcode) stockInFormGroup.get('barCode')?.setValue(null);
 
     stockInFormGroup
       .get('itemCodeName')
@@ -230,7 +227,6 @@ export class AddStockInComponent implements OnInit {
         }`
       );
 
-    console.log('heey', clonedStockInFormGroup);
     stockInFormGroup
       .get('trackingType')
       ?.setValue(clonedStockInFormGroup.trackingType ?? data?.trackingType);
@@ -362,14 +358,16 @@ export class AddStockInComponent implements OnInit {
 
   // manual Barcode Event
   barcodeCanged(e: any, stockInFormGroup: FormGroup) {
-    this.transactionsService.getItemBarcodeForItem(e);
-    this.transactionsService.sendItemBarcode$.pipe(skip(1)).subscribe((data) => {
-      if (data) {
-        stockInFormGroup.get('itemId')?.setValue(data.itemId);
-        // this.sendBarcodeData(data.itemId)
-        this.itemChanged(data.itemId, stockInFormGroup, data);
-      }
-    });
+    if (e) {
+      this.transactionsService.getItemBarcodeForItem(e);
+      this.transactionsService.sendItemBarcode$.pipe(skip(1)).subscribe((data) => {
+        if (data) {
+          stockInFormGroup.get('itemId')?.setValue(data.itemId);
+          // this.sendBarcodeData(data.itemId)
+          this.itemChanged(data.itemId, stockInFormGroup, data, true);
+        }
+      });
+    }
   }
 
   setTracking(setTracking: FormGroup) {
@@ -453,10 +451,8 @@ export class AddStockInComponent implements OnInit {
     });
 
     // If there are errors, log them or display them
-    if (this.errorsArray.length > 0) {
-      console.error('Form contains errors:', this.errorsArray);
-      return; // Prevent form submission
-    }
+    if (!this.formService.validForm(this.stockInForm, false)) return;
+    if (!this.formService.validForm(this.stockIn, false)) return;
 
     // Proceed with saving if no errors
     if (this.stockInForm.valid) {
@@ -468,9 +464,13 @@ export class AddStockInComponent implements OnInit {
       this.transactionsService.addStockIn(data, this.stockInForm);
       this.transactionsService.addedStockInData$.subscribe({
         next: (res: any) => {
+          console.log(res);
           if (res) {
             this.savedDataId = res;
             this.dataToReadOnly = true;
+          }
+          if (Object.keys(res)?.length) {
+            this.dataToReadOnly = false;
           }
         },
         error() {
