@@ -57,6 +57,7 @@
                 {{ 'UOM.systemUnit' | translate }}
               </lib-label>
               <lib-select
+                [showFirst]="false"
                 placeholder="{{ 'UOM.systemUnit' | translate }}"
                 [options]="sytemUnitLookup"
                 [optionLabel]="currentLang == 'en' ? 'nameEn' : 'nameAr'"

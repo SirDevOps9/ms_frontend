@@ -135,13 +135,20 @@ export class UOMAddComponent implements OnInit {
         let selectedBase: any = this.filteredSytemUnitLookup.find(
           (item) => item.id == this.UOMFormGroup.get('systemUnitOfMeasureId')?.value
         );
-
+        // elem?.systemUnitOfMeasureCategoryId == this.systemUnitData?.systemUnitOfMeasureCategoryId &&
         this.filteredSytemUnitLookup = this.filteredSytemUnitLookup?.filter(
           (elem) =>
-            elem?.systemUnitOfMeasureCategoryId == selectedBase?.systemUnitOfMeasureCategoryId &&
-            elem?.id !== this.UOMFormGroup.get('systemUnitOfMeasureId')?.value &&
-            elem?.nameEn !== item?.nameEn
+            elem?.systemUnitOfMeasureCategoryId == this.systemUnitData?.systemUnitOfMeasureCategoryId &&
+            elem?.id !== this.UOMFormGroup.get('systemUnitOfMeasureId')?.value 
+           
         );
+
+        if(item.nameEn) {
+          this.filteredSytemUnitLookup = this.filteredSytemUnitLookup?.filter(
+            (elem) => elem?.nameEn !== item?.nameEn
+             
+          );
+        }
       });
       console.log('this.filteredSytemUnitLookup', this.filteredSytemUnitLookup);
     });
