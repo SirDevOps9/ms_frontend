@@ -815,14 +815,14 @@ public exportedWarehouseDataItemSourceObs = this.exportedWarehouseDataItemSource
   }
 
   attributeGroupsValue(id: number) {
-    this.itemProxy.attributeGroupsGetAttributes(id).subscribe({
+    this.itemProxy.attributeGroupsValue(id).subscribe({
       next: (res: any) => {
         this.attributeValuesDropDownLookup.next(res);
       },
     });
   }
   attributeGroupsValuesData(id: number) {
-    this.itemProxy.attributeGroupsValuesData(id).subscribe({
+    this.itemProxy.attributeGroupsGetAttributes(id).subscribe({
       next: (res: any) => {
         this.attributeValuesData.next(res);
       },
