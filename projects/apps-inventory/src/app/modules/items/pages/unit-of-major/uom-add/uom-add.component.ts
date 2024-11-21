@@ -84,7 +84,6 @@ export class UOMAddComponent implements OnInit {
       }
     });
 
-
     this.getUOMS.valueChanges.subscribe((res: any) => {
       res.forEach((item: any, i: number) => {
         if (i === 0) {
@@ -123,45 +122,30 @@ export class UOMAddComponent implements OnInit {
         // Update the list with the filtered data
         this.list[i] = filteredData;
 
-        console.log(item)
-
-      
-
-
-
-
-
+        console.log(item);
       });
-
-
-
-      
-    
-  
-
-
-
-
     });
 
-    this.getUOMS.valueChanges.subscribe(res=>{
-      res.forEach((item : any) => {
+    this.getUOMS.valueChanges.subscribe((res) => {
+      res.forEach((item: any) => {
+        console.log('itrerate item from Form Array  changes', item);
+        console.log('Form Group Value ', this.UOMFormGroup.get('systemUnitOfMeasureId')?.value);
+        console.log('uom Form Array  changes', res);
 
-        console.log('itrerate item from Form Array  changes',item)
-        console.log("Form Group Value ",this.UOMFormGroup.get('systemUnitOfMeasureId')?.value)
-        console.log("uom Form Array  changes",res)
-        console.log("this.filteredSytemUnitLookup",this.filteredSytemUnitLookup)
+        let selectedBase: any = this.filteredSytemUnitLookup.find(
+          (item) => item.id == this.UOMFormGroup.get('systemUnitOfMeasureId')?.value
+        );
 
-        let selectedBase : any = this.filteredSytemUnitLookup.find(item=>item.id == this.UOMFormGroup.get('systemUnitOfMeasureId')?.value)
-
-        this.filteredSytemUnitLookup = this.filteredSytemUnitLookup.filter(elem=>elem.systemUnitOfMeasureCategoryId == selectedBase.systemUnitOfMeasureCategoryId && elem.id !==  this.UOMFormGroup.get('systemUnitOfMeasureId')?.value && elem.systemUnitOfMeasureCategoryId !== res.systemUnitOfMeasureCategoryId)        
+        this.filteredSytemUnitLookup = this.filteredSytemUnitLookup?.filter(
+          (elem) =>
+            elem?.systemUnitOfMeasureCategoryId == selectedBase?.systemUnitOfMeasureCategoryId &&
+            elem?.id !== this.UOMFormGroup.get('systemUnitOfMeasureId')?.value &&
+            elem?.nameEn !== item?.nameEn
+        );
       });
-    })
-
-
+      console.log('this.filteredSytemUnitLookup', this.filteredSytemUnitLookup);
+    });
   }
-
-
 
   systemUnitChanged(event: any) {
     let data = this.sytemUnitLookup.find((elem) => elem.id === event);
@@ -172,14 +156,14 @@ export class UOMAddComponent implements OnInit {
   }
   systemUnitListChanged(event: any, uomTableForm: FormGroup, list: any) {
     let data: any = this.sytemUnitLookup.find((elem) => elem.id === event);
-    console.log("ok",data)
+    console.log('ok', data);
     uomTableForm.get('baseUomEn')?.setValue(data?.nameEn);
     uomTableForm.get('nameEn')?.setValue(data?.nameEn);
     uomTableForm.get('nameAr')?.setValue(data?.nameAr);
     uomTableForm.get('systemUnitOfMeasureName')?.setValue(data?.nameEn);
-    uomTableForm.get('systemUnitOfMeasureCategoryId')?.setValue(data?.systemUnitOfMeasureCategoryId);
-
-  
+    // uomTableForm
+    //   .get('nameEn')
+    //   ?.setValue(data?.systemUnitOfMeasureCategoryId);
   }
 
   get categoryId(): number {
@@ -290,9 +274,8 @@ export class UOMAddComponent implements OnInit {
       systemUnitOfMeasureName: '',
       systemUnitOfMeasureId: new FormControl(uomData?.systemUnitOfMeasureId || null),
       fromUnitOfMeasureId: new FormControl(uomData?.fromUnitOfMeasureId || null),
-      systemUnitOfMeasureCategoryId : ''
+      systemUnitOfMeasureCategoryId: '',
     });
-
 
     return formData;
   }
