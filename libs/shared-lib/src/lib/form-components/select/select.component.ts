@@ -105,6 +105,8 @@ export class SelectComponent implements ControlValueAccessor, Validator, OnChang
       if (changes['options']) {
         this.checkSingleOption();
       }
+    } else {
+      return;
     }
   }
 
