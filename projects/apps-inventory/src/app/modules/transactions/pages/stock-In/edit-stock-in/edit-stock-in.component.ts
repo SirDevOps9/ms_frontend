@@ -555,11 +555,15 @@ export class EditStockInComponent implements OnInit {
 
     this.transactionService.editStockIn(data, this.stockInForm);
     this.transactionService.updatedStockInData$.subscribe((res: any) => {
-      if (res) {
+      if (res === true) {
         this.savedDataId = res;
         this.dataToReadOnly = true;
         this.postButton = true;
         this.saveButtonEnabled = false;
+      } else {
+        this.dataToReadOnly = false;
+        this.postButton = false;
+        this.saveButtonEnabled = true;
       }
     });
   }
