@@ -200,11 +200,11 @@ export class EditStockInComponent implements OnInit {
     this.transactionService.getLatestItemsList();
     this.transactionService.getItems('', '', new PageInfo());
 
-    this.transactionService.sendlatestItemsList$.pipe(skip(1), take(1))
+    this.transactionService.sendlatestItemsList$
     .subscribe((res) => {
       console.log("first" , res)
       this.latestItemsList = res;
-      if (res.length) {
+      if (res) {
         this.latestItemsList = res.map((elem: any, index: number) => ({
           ...elem,
           displayName: `(${elem.itemCode}) ${elem.itemName}-${
@@ -212,30 +212,33 @@ export class EditStockInComponent implements OnInit {
           }`,
         }));
 
-        this.transactionService.itemsList.pipe(skip(1), take(1))
-        .subscribe((res: any) => {
-          console.log("Second" , res)
-          if (res.length > 0) {
-            if (this.selectedLanguage === 'ar') {
-              this.latestItemsList = res.map((elem: any, index: number) => ({
-                ...elem,
-                itemNumber: index + 1,
-                displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameAr}`,
-              }));
-            } else {
-              this.latestItemsList = res.map((elem: any, index: number) => ({
-                ...elem,
-                itemNumber: index + 1,
-    
-                displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameEn}`,
-              }));
-            }
-    
-            this.getStockInById(this.id);
-          } 
-        });
-    
+      
       }
+      this.transactionService.itemsList
+      .subscribe((res: any) => {
+        console.log("Second" , res)
+        if (res) {
+          if (this.selectedLanguage === 'ar') {
+            this.latestItemsList = res.map((elem: any, index: number) => ({
+              ...elem,
+              itemNumber: index + 1,
+              displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameAr}`,
+            }));
+          } else {
+            this.latestItemsList = res.map((elem: any, index: number) => ({
+              ...elem,
+              itemNumber: index + 1,
+  
+              displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameEn}`,
+            }));
+          }
+  
+        } 
+
+        this.getStockInById(this.id);
+
+      });
+  
     });
 
 

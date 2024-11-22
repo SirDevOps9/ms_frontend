@@ -65,6 +65,8 @@ export class TransactionsService {
   stockInByIdData$ = this.stockInByIdData.asObservable();
   private itemsDataSource = new BehaviorSubject<AdvancedSearchDto[]>([]);
   public itemsList = this.itemsDataSource.asObservable();
+  private itemsDataSourceForAdvanced = new BehaviorSubject<AdvancedSearchDto[]>([]);
+  public itemsList$ = this.itemsDataSourceForAdvanced.asObservable();
   /////////////stock out ///////
   public stockOutDataSource = new BehaviorSubject<StockOutDto[]>([]);
 
@@ -329,6 +331,12 @@ export class TransactionsService {
   getItems(quieries: string, searchTerm: string, pageInfo: PageInfo) {
     this.transactionsProxy.getItems(quieries, searchTerm, pageInfo).subscribe((res) => {
       this.itemsDataSource.next(res.result);
+      this.currentPageInfo.next(res.pageInfoResult);
+    });
+  }
+  getItemsForAdvancedSearch(quieries: string, searchTerm: string, pageInfo: PageInfo) {
+    this.transactionsProxy.getItems(quieries, searchTerm, pageInfo).subscribe((res) => {
+      this.itemsDataSourceForAdvanced.next(res.result);
       this.currentPageInfo.next(res.pageInfoResult);
     });
   }

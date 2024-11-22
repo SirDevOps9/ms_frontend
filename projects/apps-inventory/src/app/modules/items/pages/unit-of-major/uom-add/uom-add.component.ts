@@ -455,7 +455,7 @@ export class UOMAddComponent implements OnInit {
         BaseReversal: 1,
         uomCategoryId: 0,
         systemUnitOfMeasureId: this.UOMFormGroup.get('systemUnitOfMeasureId')?.value,
-        fromUnitOfMeasureId: this.currentLang == 'en' ?    this.UOMFormGroup.get('baseUomEn')?.value : this.UOMFormGroup.get('baseUomAr')?.value,
+        fromUnitOfMeasureId: ''
       };
 
       // this.getUOMS.controls[0]
