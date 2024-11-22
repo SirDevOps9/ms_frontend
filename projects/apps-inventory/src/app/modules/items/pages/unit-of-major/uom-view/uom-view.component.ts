@@ -14,8 +14,8 @@ import { UonViewDto } from '../../../models/UomViewDto';
 export class UomViewComponent {
   currentPageInfo: PageInfoResult = {};
   id: number = 0;
-  uomsData: UonViewDto[] = [];
   uomsDataObject: any = {};
+  uomsData: any[] = [];
   currentLang: string = '';
   searchSubject = new Subject<string>();
   constructor(
@@ -25,10 +25,13 @@ export class UomViewComponent {
     private languageService: LanguageService
   ) {
     this.currentLang = this.languageService.getLang();
-  }
-
-  ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
+  }
+  get systemUnitIdAsString(): string {
+    return this.uomsData[0]?.systemUnitOfMeasureCategoryId?.toString() || '';
+  }
+  ngOnInit(): void {
+
     this.getUomById();
 
     this.searchSubject.pipe(debounceTime(300)).subscribe((searchValue) => {
@@ -46,14 +49,14 @@ export class UomViewComponent {
       }
     });
   }
+
   transformUomData() {
-    if (this.uomsData.length) {
-      this.uomsData = this.uomsData.flatMap((elem: any) => elem.uoMs.map((uoM: any) => ({
-        ...uoM,
-      })));
+    if (this.uomsData && Array.isArray(this.uomsData)) {
+      this.uomsData.map(item => {
+      });
+    } else {
     }
   }
-
 
 
   onSearch(value: any): void {

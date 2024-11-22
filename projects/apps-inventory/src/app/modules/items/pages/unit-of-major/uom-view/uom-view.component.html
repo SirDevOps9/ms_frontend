@@ -59,20 +59,18 @@
             <p class="fw-bold heads">{{ 'UOM.baseUom' | translate }}</p>
           </div>
           <!--  -->
-          <div class="md:col-3">
+          <div class="md:col-3" *ngIf="uomsData && uomsData.length">
             <lib-form-group>
-              <label >
-                {{ 'UOM.systemUnit' | translate }}
-              </label>
+              <label>{{ 'UOM.systemUnit' | translate }}</label>
               <lib-text-input
-              [readOnly]="true"
-              placeholder={{uomsData[0].systemUnitOfMeasureCategoryId}}
-
-              >
+                [readOnly]="true"
+                [placeholder]="systemUnitIdAsString">
               </lib-text-input>
-
             </lib-form-group>
           </div>
+
+
+
           <!--  -->
           <div class="md:col-3">
             <lib-form-group>
@@ -82,7 +80,7 @@
               </label>
               <lib-text-input
               [readOnly]="true"
-              placeholder={{uomsData[0].nameEn}}
+              [placeholder]="uomsData[0]?.nameEn || ''"
 
               >
               </lib-text-input>
@@ -97,7 +95,7 @@
               </label>
               <lib-text-input
               [readOnly]="true"
-              placeholder={{uomsData[0].nameAr}}
+              [placeholder]="uomsData[0]?.nameAr|| ''"
               >
               </lib-text-input>
             </lib-form-group>
@@ -110,8 +108,8 @@
               </label>
               <lib-text-input
               [readOnly]="true"
+              [placeholder]="uomsData[0]?.shortName || ''"
 
-              placeholder={{uomsData[0].shortName}}
 
               >
               </lib-text-input>

@@ -7,7 +7,7 @@
             <p class="fw-bold heads">{{ 'UOM.category' | translate }}</p>
           </div>
           <!--  -->
-      
+
           <div class="md:col-6">
             <lib-form-group>
               <lib-label [appControl]="UOMFormGroup.controls['nameEn']" class="body_b14 mb-2 ms-4">
@@ -166,7 +166,7 @@
         </ng-template>
         <ng-template pTemplate="body" let-uomTableForm let-editing="editing" let-i="rowIndex">
           <tr [formGroup]="uomTableForm">
-        
+
             <td
               [pEditableColumn]="uomTableForm.controls['systemUnitOfMeasureId']"
               pEditableColumnField="systemUnitOfMeasureId"
@@ -287,7 +287,7 @@
                   ></lib-select>
                 </ng-template>
                 <ng-template pTemplate="output">
-                  
+
                   {{(uomTableForm.controls['fromUnitOfMeasureId']?.value | getElementByID : list[i])?.name }}
                 </ng-template>
               </p-cellEditor>
@@ -312,7 +312,7 @@
                   </lib-form-group>
                 </ng-template>
                 <ng-template pTemplate="output" >
-                  
+
                   <small *ngIf="uomTableForm.controls['fromUnitOfMeasureId'].value && uomTableForm.controls['factor'].value ">{{ uomTableForm.controls['calculationShow'].value }}</small>
                   <lib-field-validations
                     [appControl]="uomTableForm.controls['BaseCalculation']"
@@ -348,13 +348,9 @@
 
             <td>
               <div class="actions flex align-items-center">
-                <lib-button-micro
-                  nameClass="cancel"
-                  iconName="pi pi-trash"
-                  type="button"
-                  (click)="onDelete(i , uomTableForm)"
-                >
-                </lib-button-micro>
+           
+
+                <img src="assets/images/table/delete.svg" alt=""  (click)="onDelete(i , uomTableForm)" >
               </div>
             </td>
           </tr>

@@ -24,13 +24,12 @@ export class AttributeDefinitionListValuesComponent implements OnInit {
     private languageService: LanguageService,
     private title: Title
   ) {
-    this._routeid = this._route.snapshot.params['id'];
     this.title.setTitle(
-      this.languageService.transalte('attributeDefinition.AttributeDefinitionView')
+      this.languageService.transalte('attributeDefinition.addattributeDefinition')
     );
   }
   ngOnInit(): void {
-
+    this._routeid = this._route.snapshot.params['id'];
     this.attrTableForm = this.fb.array([this.create_Attr_FormGroup()]);
     this.attributeGroups();
     this.initAttrGroupForm();

@@ -18,9 +18,9 @@
     "generalSetting": "General Setting",
     "add_stockOut": "Add StockOut",
     "UnitOfMeasure": "Unit Of Measure",
-    "addUom": "Add UOM",
-    "EditUom": "Edit UOM",
-    "uomList": "UOM",
+    "addUom": "Add Unit Of Measure",
+    "EditUom": "Edit Unit Of Measure",
+    "uomList": "Unit Of Measure",
     "edit": "Edit",
     "editstockout": "Edit Stock Out",
     "edit_stockOut": "Edit StockOut",
@@ -40,8 +40,12 @@
     "Itemcatalog":"Item catalog",
     "generalItemDefintion":"General Item Catalog",
     "TaxTilte":"Tax Item Catalog",
-      "attributes_ITEMdEFINITION":"Attributes & Variants Item Catalog"
-
+      "attributes_ITEMdEFINITION":"Attributes Item Catalog",
+      "variants_ITEMdEFINITION":" Variants Item Catalog",
+      "fixedCost":"Fixed Cost",
+      "inventory":"Inventory",
+      "warehouse":"Warehouse",
+      "editWarehouseTilte":"Edit Warehouse"
 
     },
   "Toaster": {
@@ -88,6 +92,7 @@
     "specialCareHead": "Special Care",
     "color": "Color",
     "uom": "UOM",
+    "tracking": "Tracking",
     "uomCategory": "UOM Category",
     "selectOneValue": "Select One Value For UOM Screen",
     "uomCode": "UOM Code",
@@ -197,6 +202,11 @@
     "isActive": "isActive",
     "ItemDefinitionPrint":"Item catalog Print"
   },
+  "variants":{
+"variantID":"variant ID",
+"variantName":"variant name"
+  },
+
   "warehouse": {
     "Add": "Add",
     "AddNew": "Add New",
@@ -252,13 +262,16 @@
     "phone": "Phone",
     "postalCode": "Postal Code",
     "radius": "Radius",
-    "salesCostAccount": "Sales Cost Account"
+    "salesCostAccount": "Sales Cost Account",
+     "warehousePrint": "Print Warehouse",
+     "createdOn":"createdOn"
   },
   "UOM": {
     "Add": "Create",
     "conversionRatio": "Conversion Ratio",
     "add_new": "Add New",
     "uomList": "List of unit of measure",
+    "uomListPrint" :"Unit of measure Print",
     "AddNew": "Add New",
     "Search": "Search",
     "delete": "Deleted",
@@ -486,7 +499,16 @@
   "global": {
     "activeOn": "On",
     "activeOff": "Off",
-    "showMoreValues": "...Show More"
+    "showMoreValues": "...Show More",
+    "clickToUpload":"Click to upload",
+    "uploadFile": "Attached file",
+    "select":"Select",
+    "noResults": "No results found",
+    "Physical":"Physical",
+    "Virtual":"Virtual",
+    "VanSales":"VanSales",
+    "English":"( English )",
+    "Arabic":"( Arabic )"
   },
   "stockOut": {
     "import": "Import",

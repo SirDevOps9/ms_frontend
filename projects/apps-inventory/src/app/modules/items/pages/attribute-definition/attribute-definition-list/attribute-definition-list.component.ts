@@ -39,7 +39,7 @@ export class AttributeDefinitionListComponent implements OnInit {
   exportColumns:any[]
 action: any;
 isRtl: boolean = false;
-currentLang:any = ''
+currentLang:string = ''
   constructor(
     private routerService: RouterService,
     private itemService : ItemsService,
@@ -115,7 +115,7 @@ currentLang:any = ''
   }
   exportAttrData(searchTerm: string) {
     let columns = [
-      { name:this.currentLang === 'en' ? 'nameEn' : 'nameAr', headerText: this.translate.instant('attributeDefinition.attribute') },
+      { name: this.currentLang === 'en' ? 'nameEn' : 'nameAr', headerText: this.translate.instant('attributeDefinition.attribute') },
       { name: 'itemAttributes', headerText: this.translate.instant('attributeDefinition.values') },
       { name: this.currentLang === 'en' ? 'isActive' : 'isActive', headerText: this.translate.instant('attributeDefinition.status') },
     ];
@@ -124,9 +124,10 @@ currentLang:any = ''
 
     this.itemService.SendexportAttrDifinitionList$.subscribe((res) => {
       this.exportData = this.exportService.formatItemAttributes(res, columns);
-      console.log('Export data:', this.exportData);
+      // console.log('Export data:', this.exportData);
     });
   }
+
 
 
   onEdit(data: any) {

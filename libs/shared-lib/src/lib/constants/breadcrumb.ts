@@ -99,7 +99,7 @@ export class BreadcrumbLabel {
   static EDIT_ITEM_DIFINITION = 'Edit Item catalog';
   static ITEM_TYPE = 'Item Type';
   static ITEM_CATEGORY = 'Item Category';
-  static WARE_HOUSE = 'Warehouse';
+  static WARE_HOUSE = 'BreadCrumb.warehouse';
   static UNITOFMEASURE = 'BreadCrumb.UnitOfMeasure';
   static ADD_WARE_HOUSE = 'Add Warehouse';
   static UOM = 'UOM';
@@ -111,8 +111,10 @@ export class BreadcrumbLabel {
   static Edit_UOM = 'edit uom';
   static GENERAL_ITEMdEFINITION = 'BreadCrumb.generalItemDefintion';
   static attributes_ITEMdEFINITION = 'BreadCrumb.attributes_ITEMdEFINITION';
+  static variants_ITEMdEFINITION = 'BreadCrumb.variants_ITEMdEFINITION';
   static TaxTilte = 'BreadCrumb.TaxTilte';
   static EditItembarfixedcostfinition = 'BreadCrumb.taxtTitle';
+  static FIXEDCOST = 'BreadCrumb.fixedCost';
 
   // attr attribute-definition
   static Attribute_Definition = 'BreadCrumb.AttributeDefinition';
@@ -122,7 +124,8 @@ export class BreadcrumbLabel {
   static Add_Attribute_Definition = 'BreadCrumb.AddAttributeDefinition';
   static Edit_Attribute_Definition = 'BreadCrumb.EditAttributeDefinition';
   static LIST_Attribute_Definition = 'BreadCrumb.AttributeDefinitionView';
-  static EDIT_WARE_HOUSE = 'Edit Warehouse';
+  static EDIT_WARE_HOUSE = 'BreadCrumb.edit';
+  static EDIT_WARE_HOUSE_TITLE = 'BreadCrumb.editWarehouseTilte';
   static VIEW_WARE_HOUSE = 'BreadCrumb.ViewWarehouse';
   static ITEMS_CATEGORY = 'BreadCrumb.ItemsCategory';
   static STOCKIN = 'BreadCrumb.stockIn';
@@ -175,5 +178,5 @@ export class BreadcrumbLabel {
   static TITLE_PRICE_POLICY_EDIT = 'title.edit';
   static TITLE_PRICE_POLICY_VIEW = 'title.view';
 
-  static INVENTORY = 'Inventory';
+  static INVENTORY = 'BreadCrumb.inventory';
 }

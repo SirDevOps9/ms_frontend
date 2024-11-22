@@ -73,13 +73,13 @@
                 <!--  -->
                 <div>
                   <lib-export
-                    (exportClick)="exportClick($event)"
-                    [exportData]="clonedExportData"
-                    [exportColumns]="exportColumns"
-                    [ExportName]="'Unit Of Measure'"
+                  (exportClick)="exportClick($event)"
+                  [exportData]="exportData"
+                  [exportColumns]="exportColumns"
+                  [ExportName]="('UOM.uomListPrint' |translate)"
 
-                  >
-                  </lib-export>
+                >
+                </lib-export>
                 </div>
                 <!--  -->
                 <div>
