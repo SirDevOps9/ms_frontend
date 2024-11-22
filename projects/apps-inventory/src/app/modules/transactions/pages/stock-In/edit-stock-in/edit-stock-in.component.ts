@@ -83,6 +83,8 @@ export class EditStockInComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.initWareHouseLookupData();
+
     this.getListOfItems();
     this.stockInForm = this.fb.group({
       id: [this.id],
@@ -94,6 +96,20 @@ export class EditStockInComponent implements OnInit {
       warehouseName: [''],
       notes: '',
       stockInDetails: this.fb.array([]),
+    });
+    this.stockInForm.get('sourceDocumentType')?.valueChanges.subscribe((res) => {
+      let data = this.lookups[LookupEnum.StockInOutSourceDocumentType];
+      let sourceDocumentTypeData = data?.find((elem) => elem.id == res);
+      if (sourceDocumentTypeData?.name == 'OperationalTag') {
+        this.transactionService.OperationalTagDropDown();
+        this.transactionService.sendOperationalTagDropDown$.subscribe((res) => {
+          this.oprationalLookup = res;
+          this.oprationalLookup = res.map((elem: any) => ({
+            ...elem,
+            displayName: `${elem.name} (${elem.code})`,
+          }));
+        });
+      }
     });
 
     this.lookupservice.loadLookups([LookupEnum.StockInOutSourceDocumentType]);
@@ -108,7 +124,6 @@ export class EditStockInComponent implements OnInit {
       this.stockInForm.get('warehouseName')?.setValue(data?.warehouseName);
     });
 
-    this.initWareHouseLookupData();
 
     this.addLineStockIn();
     this.transactionService.sendItemBarcode$.pipe(skip(1)).subscribe((res) => {
@@ -125,20 +140,7 @@ export class EditStockInComponent implements OnInit {
         this.handleFormChanges();
       }
     });
-    this.stockInForm.get('sourceDocumentType')?.valueChanges.subscribe((res) => {
-      let data = this.lookups[LookupEnum.StockInOutSourceDocumentType];
-      let sourceDocumentTypeData = data?.find((elem) => elem.id == res);
-      if (sourceDocumentTypeData?.name == 'OperationalTag') {
-        this.transactionService.OperationalTagDropDown();
-        this.transactionService.sendOperationalTagDropDown$.subscribe((res) => {
-          this.oprationalLookup = res;
-          this.oprationalLookup = res.map((elem: any) => ({
-            ...elem,
-            displayName: `${elem.name} (${elem.code})`,
-          }));
-        });
-      }
-    });
+   
   }
 
 
@@ -312,7 +314,7 @@ export class EditStockInComponent implements OnInit {
   }
 
   getItemPatched(data : any) {
-    this.transactionService.getItems('', '', new PageInfo());
+    // this.transactionService.getItems('', '', new PageInfo());
     this.patchValuesToList(data)
     // this.transactionService.itemsList.subscribe((res: any) => {
     //   if (res.length > 0) {
