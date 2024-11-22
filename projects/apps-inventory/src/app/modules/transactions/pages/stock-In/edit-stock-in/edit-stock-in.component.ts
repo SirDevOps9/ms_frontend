@@ -165,71 +165,8 @@ export class EditStockInComponent implements OnInit {
     this.transactionService.getStockInById(id);
     this.transactionService.stockInByIdData$.subscribe({
       next: (res: any) => {
-        this.getItemPatched();
-        if (res) {
-          if (res.stockInStatus == 'Posted') {
-            this.postedStock = false;
-          }
-          this.stockInForm?.patchValue({
-            id: res?.id,
-            receiptDate: res?.receiptDate,
-            code: res?.code,
-            // sourceDocumentType: res?.sourceDocumentType,
-            sourceDocumentId: res?.sourceDocumentId,
-            warehouseId: res?.warehouseId,
-            warehouseName: this.oprationalLookup?.find((x) => x.warehouseId == res?.warehouseId)
-              ?.warehouseName,
-            notes: res?.notes,
-          });
-
-          this.stockIn.clear();
-
-          if (res.stockInDetails && Array.isArray(res.stockInDetails)) {
-            res.stockInDetails?.forEach((detail: any) => {
-              this.patchUom(detail.itemId);
-
-              let uomName = this.uomLookup?.find((item: any) => item.uomId == detail.uomId);
-              const uomDisplayName = uomName
-                ? this.currentLang == 'en'
-                  ? uomName?.uomNameEn
-                  : uomName?.uomNameAr
-                : uomName?.uomNameEn;
-
-              const stockInDetailGroup = this.createStockIn();
-              stockInDetailGroup.patchValue({
-                id: detail.id,
-                barCode: detail.barCode,
-                bardCodeId: detail.bardCodeId,
-                description: detail.description,
-                itemId: detail.itemId,
-                itemCodeName: this.latestItemsList.find((item) => item.itemId == detail.itemId)
-                  ?.itemCode,
-                itemVariantId: detail.itemVariantId,
-                uomName: uomDisplayName,
-                uomId: detail.uomId,
-                quantity: detail.quantity,
-                cost: detail.cost,
-                subTotal: detail.subTotal,
-                notes: detail.notes,
-                hasExpiryDate: detail.hasExpiryDate,
-                stockInEntryMode: detail.stockInEntryMode,
-                trackingType: detail.trackingType,
-                stockInTracking: {
-                  id: detail.stockInTracking.id ?? 0,
-                  vendorBatchNo: detail.stockInTracking.vendorBatchNo,
-                  expireDate: detail.stockInTracking.expireDate,
-                  systemPatchNo: detail.stockInTracking.systemPatchNo,
-                  serialId: detail.stockInTracking.serialId,
-                  trackingType: detail.stockInTracking.trackingType,
-                  selectedValue: detail.stockInTracking.selectedValue,
-                },
-              });
-              this.patchUom(detail.itemId);
-              // this.displayUomPatched(detail.uomId);
-              this.stockIn.push(stockInDetailGroup);
-            });
-          }
-        }
+        this.getItemPatched(this.patchValuesToList(res));
+      
       },
       error: (err) => {
         console.error('Error fetching stock-in data', err);
@@ -237,7 +174,75 @@ export class EditStockInComponent implements OnInit {
     });
   }
 
-  getItemPatched() {
+
+  patchValuesToList(res : any){
+    if (res) {
+      if (res.stockInStatus == 'Posted') {
+        this.postedStock = false;
+      }
+      this.stockInForm?.patchValue({
+        id: res?.id,
+        receiptDate: res?.receiptDate,
+        code: res?.code,
+        // sourceDocumentType: res?.sourceDocumentType,
+        sourceDocumentId: res?.sourceDocumentId,
+        warehouseId: res?.warehouseId,
+        warehouseName: this.oprationalLookup?.find((x) => x.warehouseId == res?.warehouseId)
+          ?.warehouseName,
+        notes: res?.notes,
+      });
+
+      this.stockIn.clear();
+
+      if (res.stockInDetails && Array.isArray(res.stockInDetails)) {
+        res.stockInDetails?.forEach((detail: any) => {
+          this.patchUom(detail.itemId);
+
+          let uomName = this.uomLookup?.find((item: any) => item.uomId == detail.uomId);
+          const uomDisplayName = uomName
+            ? this.currentLang == 'en'
+              ? uomName?.uomNameEn
+              : uomName?.uomNameAr
+            : uomName?.uomNameEn;
+
+          const stockInDetailGroup = this.createStockIn();
+          stockInDetailGroup.patchValue({
+            id: detail.id,
+            barCode: detail.barCode,
+            bardCodeId: detail.bardCodeId,
+            description: detail.description,
+            itemId: detail.itemId,
+            itemCodeName: this.latestItemsList.find((item) => item.itemId == detail.itemId)
+              ?.itemCode,
+            itemVariantId: detail.itemVariantId,
+            uomName: uomDisplayName,
+            uomId: detail.uomId,
+            quantity: detail.quantity,
+            cost: detail.cost,
+            subTotal: detail.subTotal,
+            notes: detail.notes,
+            hasExpiryDate: detail.hasExpiryDate,
+            stockInEntryMode: detail.stockInEntryMode,
+            trackingType: detail.trackingType,
+            stockInTracking: {
+              id: detail.stockInTracking.id ?? 0,
+              vendorBatchNo: detail.stockInTracking.vendorBatchNo,
+              expireDate: detail.stockInTracking.expireDate,
+              systemPatchNo: detail.stockInTracking.systemPatchNo,
+              serialId: detail.stockInTracking.serialId,
+              trackingType: detail.stockInTracking.trackingType,
+              selectedValue: detail.stockInTracking.selectedValue,
+            },
+          });
+          this.patchUom(detail.itemId);
+          // this.displayUomPatched(detail.uomId);
+          this.stockIn.push(stockInDetailGroup);
+        });
+      }
+    }
+  }
+
+  getItemPatched(data : any) {
     this.transactionService.getItems('', '', new PageInfo());
 
     this.transactionService.itemsList.subscribe((res: any) => {
@@ -255,8 +260,11 @@ export class EditStockInComponent implements OnInit {
             displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameEn}`,
           }));
         }
+
+        return data
       } else {
       }
+    
     });
   }
   initWareHouseLookupData() {
