@@ -31,7 +31,7 @@ import { ImportStockInComponent } from '../../../components/import-stock-in/impo
 import { ScanParcodeStockInComponent } from '../../../components/scan-parcode-stock-in/scan-parcode-stock-in.component';
 import { MultiSelectItemStockInComponent } from '../../../components/multi-select-item-stock-in/multi-select-item-stock-in.component';
 import { TrackingStockInComponent } from '../../../components/tracking-stock-in/tracking-stock-in.component';
-import { skip } from 'rxjs';
+import { forkJoin, skip, take } from 'rxjs';
 
 @Component({
   selector: 'app-edit-stock-in',
@@ -141,9 +141,51 @@ export class EditStockInComponent implements OnInit {
     });
   }
 
+
+
+
+  // getListOfItems() {
+  //   // Trigger the necessary service call
+  //   this.transactionService.getLatestItemsList();
+  //   this.transactionService.getItems('', '', new PageInfo());
+  //   // Combine the two BehaviorSubjects using forkJoin
+  //   forkJoin([
+  //     this.transactionService.sendlatestItemsList$, // First observable
+  //     this.transactionService.itemsList,           // Second observable
+  //   ]).subscribe(([latestItems, itemsList]) => {
+  //     console.log('sendlatestItemsList$ first call ', latestItems);
+  //     console.log('itemsList second call', itemsList);
+  
+  //     // Process the first observable's data
+  //     if (latestItems.length) {
+  //       this.latestItemsList = latestItems.map((elem: any, index: number) => ({
+  //         ...elem,
+  //         displayName: `(${elem.itemCode}) ${elem.itemName}-${
+  //           this.currentLang === 'en' ? elem.itemVariantNameEn : elem.itemVariantNameAr
+  //         }`,
+  //       }));
+  //     }
+  
+  //     // Process the second observable's data
+  //     if (itemsList.length > 0) {
+  //       this.latestItemsList = itemsList.map((elem: any, index: number) => ({
+  //         ...elem,
+  //         itemNumber: index + 1,
+  //         displayName: `(${elem.itemCode}) ${elem.itemName}-${
+  //           this.selectedLanguage === 'ar' ? elem.itemVariantNameAr : elem.itemVariantNameEn
+  //         }`,
+  //       }));
+  //     }
+  //   });
+  // }
+
+
   getListOfItems() {
     this.transactionService.getLatestItemsList();
-    this.transactionService.sendlatestItemsList$.subscribe((res) => {
+    this.transactionService.getItems('', '', new PageInfo());
+
+    this.transactionService.sendlatestItemsList$.pipe(skip(1), take(1))
+    .subscribe((res) => {
       console.log("first" , res)
       this.latestItemsList = res;
       if (res.length) {
@@ -155,6 +197,31 @@ export class EditStockInComponent implements OnInit {
         }));
       }
     });
+
+
+    this.transactionService.itemsList.pipe(skip(1), take(1))
+    .subscribe((res: any) => {
+      console.log("Second" , res)
+      if (res.length > 0) {
+        if (this.selectedLanguage === 'ar') {
+          this.latestItemsList = res.map((elem: any, index: number) => ({
+            ...elem,
+            itemNumber: index + 1,
+            displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameAr}`,
+          }));
+        } else {
+          this.latestItemsList = res.map((elem: any, index: number) => ({
+            ...elem,
+            itemNumber: index + 1,
+
+            displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameEn}`,
+          }));
+        }
+      } else {
+      }
+    });
+
+
   }
   ngAfterViewInit(): void {
     if (this.id) {
@@ -166,10 +233,8 @@ export class EditStockInComponent implements OnInit {
     this.transactionService.getStockInById(id);
     this.transactionService.stockInByIdData$.subscribe({
       next: (res: any) => {
-        setTimeout(() => {
           this.getItemPatched(res);
 
-        }, 2000);
       
       },
       error: (err) => {
@@ -248,29 +313,29 @@ export class EditStockInComponent implements OnInit {
 
   getItemPatched(data : any) {
     this.transactionService.getItems('', '', new PageInfo());
+    this.patchValuesToList(data)
+    // this.transactionService.itemsList.subscribe((res: any) => {
+    //   if (res.length > 0) {
+    //     console.log("patch" , res)
+    //     if (this.selectedLanguage === 'ar') {
+    //       this.latestItemsList = res.map((elem: any, index: number) => ({
+    //         ...elem,
+    //         itemNumber: index + 1,
+    //         displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameAr}`,
+    //       }));
+    //     } else {
+    //       this.latestItemsList = res.map((elem: any, index: number) => ({
+    //         ...elem,
+    //         itemNumber: index + 1,
+    //         displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameEn}`,
+    //       }));
+    //     }
+    //     this.patchValuesToList(data)
 
-    this.transactionService.itemsList.subscribe((res: any) => {
-      if (res.length > 0) {
-        console.log("patch" , res)
-        if (this.selectedLanguage === 'ar') {
-          this.latestItemsList = res.map((elem: any, index: number) => ({
-            ...elem,
-            itemNumber: index + 1,
-            displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameAr}`,
-          }));
-        } else {
-          this.latestItemsList = res.map((elem: any, index: number) => ({
-            ...elem,
-            itemNumber: index + 1,
-            displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameEn}`,
-          }));
-        }
-        this.patchValuesToList(data)
-
-      } else {
-      }
+    //   } else {
+    //   }
     
-    });
+    // });
   }
   initWareHouseLookupData() {
     this.transactionService.getWareHousesDropDown();
@@ -611,26 +676,7 @@ export class EditStockInComponent implements OnInit {
   onFilter(SearchTerm: string) {
     const warehouseId: number = this.stockInForm.get('warehouseId')?.value;
     this.transactionService.getItems('', SearchTerm, new PageInfo());
-    this.transactionService.itemsList.subscribe((res: any) => {
-      if (res.length > 0) {
-        if (this.selectedLanguage === 'ar') {
-          this.latestItemsList = res.map((elem: any, index: number) => ({
-            ...elem,
-            itemNumber: index + 1,
-            displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameAr}`,
-          }));
-        } else {
-          this.latestItemsList = res.map((elem: any, index: number) => ({
-            ...elem,
-            itemNumber: index + 1,
-
-            displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameEn}`,
-          }));
-        }
-      } else {
-        this.getLatestItemsList(warehouseId);
-      }
-    });
+   
   }
   getLatestItemsList(id: number) {
     this.transactionService.getLatestItemsListByWarehouse('', id);
