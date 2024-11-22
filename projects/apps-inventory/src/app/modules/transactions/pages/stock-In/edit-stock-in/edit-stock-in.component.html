@@ -458,19 +458,30 @@
           </lib-button-micro>
         </div>
 
-        <ng-container *ngIf="postedStock">
+        <ng-container *ngIf="!disablePost" >
           <div class="md:col-3">
             <!-- Post Button -->
             <lib-button-micro
-              [disabled]="!postButton"
-              nameClass="{{ !postButton ? 'disabled' : 'save' }}"
+              nameClass="{{ 'save' }}"
               title="{{ 'stockIn.Post' | translate }}"
               widthNumber="100%"
               (click)="onPost()"
             >
             </lib-button-micro>
           </div>
+        
         </ng-container>
+        <div class="md:col-3"  *ngIf="disablePost === true">
+          <!-- Post Button -->
+          <lib-button-micro
+            [disabled]="true"
+            nameClass="{{ 'disabled'  }}"
+            title="{{ 'stockIn.Post' | translate }}"
+            widthNumber="100%"
+            (click)="onPost()"
+          >
+          </lib-button-micro>
+        </div>
       </div>
     </div>
   </div>

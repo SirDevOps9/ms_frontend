@@ -44,6 +44,8 @@ export class EditStockInComponent implements OnInit {
   id: number = 0;
   errorsArray: any = [];
 
+  disablePost : boolean = false
+
   lookups: { [key: string]: lookupDto[] };
   oprationalLookup: OperationalStockIn[] = [];
   selectedTraking: any = {};
@@ -136,13 +138,25 @@ export class EditStockInComponent implements OnInit {
       }
     });
     this.stockIn.valueChanges.subscribe(() => {
-      if (!this.saveButtonEnabled) {
         this.handleFormChanges();
-      }
+
+        this.getDirtyTouchedGroups(this.stockIn)
+      
     });
+
+   
    
   }
 
+
+  getDirtyTouchedGroups(formArray: FormArray) {
+    formArray.controls.forEach((control, index) => {
+      if ((control as FormGroup).dirty ||  (control as FormGroup).touched) {
+        this.disablePost = true
+        console.log( this.disablePost)
+      }
+    });
+  }
 
 
 
@@ -655,10 +669,14 @@ export class EditStockInComponent implements OnInit {
         this.dataToReadOnly = true;
         this.postButton = true;
         this.saveButtonEnabled = false;
+
+        this.disablePost = false
       } else {
         this.dataToReadOnly = false;
         this.postButton = false;
         this.saveButtonEnabled = true;
+        this.disablePost = true
+
       }
     });
   }
@@ -666,6 +684,10 @@ export class EditStockInComponent implements OnInit {
   private handleFormChanges(): void {
     this.dataToReadOnly = false;
     this.postButton = false;
+
+    // console.log(this.dataToReadOnly)
+
+
   }
 
   OnDelete(id: number) {
