@@ -197,44 +197,49 @@ export class EditStockInComponent implements OnInit {
             this.currentLang == 'en' ? elem.itemVariantNameEn : elem.itemVariantNameAr
           }`,
         }));
+
+        this.transactionService.itemsList.pipe(skip(1), take(1))
+        .subscribe((res: any) => {
+          console.log("Second" , res)
+          if (res.length > 0) {
+            if (this.selectedLanguage === 'ar') {
+              this.latestItemsList = res.map((elem: any, index: number) => ({
+                ...elem,
+                itemNumber: index + 1,
+                displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameAr}`,
+              }));
+            } else {
+              this.latestItemsList = res.map((elem: any, index: number) => ({
+                ...elem,
+                itemNumber: index + 1,
+    
+                displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameEn}`,
+              }));
+            }
+    
+            this.getStockInById(this.id);
+          } 
+        });
+    
       }
     });
 
 
-    this.transactionService.itemsList.pipe(skip(1), take(1))
-    .subscribe((res: any) => {
-      console.log("Second" , res)
-      if (res.length > 0) {
-        if (this.selectedLanguage === 'ar') {
-          this.latestItemsList = res.map((elem: any, index: number) => ({
-            ...elem,
-            itemNumber: index + 1,
-            displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameAr}`,
-          }));
-        } else {
-          this.latestItemsList = res.map((elem: any, index: number) => ({
-            ...elem,
-            itemNumber: index + 1,
-
-            displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameEn}`,
-          }));
-        }
-      } else {
-      }
-    });
-
+  
 
   }
   ngAfterViewInit(): void {
-    if (this.id) {
-      this.getStockInById(this.id);
-    }
+    // if (this.id) {
+    //   this.getStockInById(this.id);
+    // }
   }
   postedStock: boolean = true;
   getStockInById(id: number) {
     this.transactionService.getStockInById(id);
-    this.transactionService.stockInByIdData$.subscribe({
+    this.transactionService.stockInByIdData$.pipe(skip(1) , take(1))
+    .subscribe({
       next: (res: any) => {
+        console.log("by Id", res)
           this.getItemPatched(res);
 
       
