@@ -44,7 +44,7 @@ export class EditStockInComponent implements OnInit {
   id: number = 0;
   errorsArray: any = [];
 
-  disablePost : boolean = false
+  disablePost: boolean = false;
 
   lookups: { [key: string]: lookupDto[] };
   oprationalLookup: OperationalStockIn[] = [];
@@ -65,6 +65,7 @@ export class EditStockInComponent implements OnInit {
   selectedLanguage: string;
   postButton: boolean = true;
   saveButtonEnabled: boolean = true;
+  postedStock: boolean = true;
 
   constructor(
     public authService: AuthService,
@@ -126,7 +127,6 @@ export class EditStockInComponent implements OnInit {
       this.stockInForm.get('warehouseName')?.setValue(data?.warehouseName);
     });
 
-
     this.addLineStockIn();
     this.transactionService.sendItemBarcode$.pipe(skip(1)).subscribe((res) => {
       this.barcodeData = res;
@@ -138,125 +138,62 @@ export class EditStockInComponent implements OnInit {
       }
     });
     this.stockIn.valueChanges.subscribe(() => {
-        this.handleFormChanges();
+      this.handleFormChanges();
 
-        this.getDirtyTouchedGroups(this.stockIn)
-      
+      this.getDirtyTouchedGroups(this.stockIn);
     });
-
-   
-   
   }
-
 
   getDirtyTouchedGroups(formArray: FormArray) {
     formArray.controls.forEach((control, index) => {
-      if ((control as FormGroup).dirty ||  (control as FormGroup).touched) {
-        this.disablePost = true
-        console.log( this.disablePost)
+      if ((control as FormGroup).dirty || (control as FormGroup).touched) {
+        this.disablePost = true;
+        console.log(this.disablePost);
       }
     });
   }
 
-
-
-  // getListOfItems() {
-  //   // Trigger the necessary service call
-  //   this.transactionService.getLatestItemsList();
-  //   this.transactionService.getItems('', '', new PageInfo());
-  //   // Combine the two BehaviorSubjects using forkJoin
-  //   forkJoin([
-  //     this.transactionService.sendlatestItemsList$, // First observable
-  //     this.transactionService.itemsList,           // Second observable
-  //   ]).subscribe(([latestItems, itemsList]) => {
-  //     console.log('sendlatestItemsList$ first call ', latestItems);
-  //     console.log('itemsList second call', itemsList);
-  
-  //     // Process the first observable's data
-  //     if (latestItems.length) {
-  //       this.latestItemsList = latestItems.map((elem: any, index: number) => ({
-  //         ...elem,
-  //         displayName: `(${elem.itemCode}) ${elem.itemName}-${
-  //           this.currentLang === 'en' ? elem.itemVariantNameEn : elem.itemVariantNameAr
-  //         }`,
-  //       }));
-  //     }
-  
-  //     // Process the second observable's data
-  //     if (itemsList.length > 0) {
-  //       this.latestItemsList = itemsList.map((elem: any, index: number) => ({
-  //         ...elem,
-  //         itemNumber: index + 1,
-  //         displayName: `(${elem.itemCode}) ${elem.itemName}-${
-  //           this.selectedLanguage === 'ar' ? elem.itemVariantNameAr : elem.itemVariantNameEn
-  //         }`,
-  //       }));
-  //     }
-  //   });
-  // }
-
-
   getListOfItems() {
     this.transactionService.getLatestItemsList();
     this.transactionService.getItems('', '', new PageInfo());
-
-    this.transactionService.sendlatestItemsList$.pipe(skip(1), take(1))
-    .subscribe((res) => {
-      console.log("first" , res)
+    this.transactionService.sendlatestItemsList$.subscribe((res) => {
+      console.log('first', res);
       this.latestItemsList = res;
-      if (res.length) {
+      if (res) {
         this.latestItemsList = res.map((elem: any, index: number) => ({
           ...elem,
           displayName: `(${elem.itemCode}) ${elem.itemName}-${
             this.currentLang == 'en' ? elem.itemVariantNameEn : elem.itemVariantNameAr
           }`,
         }));
-
-        this.transactionService.itemsList.pipe(skip(1), take(1))
-        .subscribe((res: any) => {
-          console.log("Second" , res)
-          if (res.length > 0) {
-            if (this.selectedLanguage === 'ar') {
-              this.latestItemsList = res.map((elem: any, index: number) => ({
-                ...elem,
-                itemNumber: index + 1,
-                displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameAr}`,
-              }));
-            } else {
-              this.latestItemsList = res.map((elem: any, index: number) => ({
-                ...elem,
-                itemNumber: index + 1,
-    
-                displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameEn}`,
-              }));
-            }
-    
-            this.getStockInById(this.id);
-          } 
-        });
-    
       }
+      this.transactionService.itemsList.subscribe((res: any) => {
+        console.log('Second', res);
+        if (res) {
+          if (this.selectedLanguage === 'ar') {
+            this.latestItemsList = res.map((elem: any, index: number) => ({
+              ...elem,
+              itemNumber: index + 1,
+              displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameAr}`,
+            }));
+          } else {
+            this.latestItemsList = res.map((elem: any, index: number) => ({
+              ...elem,
+              itemNumber: index + 1,
+              displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameEn}`,
+            }));
+          }
+        }
+        this.getStockInById(this.id);
+      });
     });
-
-
-  
-
   }
-  ngAfterViewInit(): void {
-    // if (this.id) {
-    //   this.getStockInById(this.id);
-    // }
-  }
-  postedStock: boolean = true;
   getStockInById(id: number) {
     this.transactionService.getStockInById(id);
-    this.transactionService.stockInByIdData$.pipe(skip(1) , take(1))
-    .subscribe({
+    this.transactionService.stockInByIdData$.pipe(skip(1), take(1)).subscribe({
       next: (res: any) => {
-        console.log("by Id", res)
-          this.getItemPatched(res);
-
-      
+        console.log('by Id', res);
+        this.getItemPatched(res);
       },
       error: (err) => {
         console.error('Error fetching stock-in data', err);
@@ -264,11 +201,12 @@ export class EditStockInComponent implements OnInit {
     });
   }
 
-
-  patchValuesToList(res : any){
+  hideWhilePosted: boolean = true;
+  patchValuesToList(res: any) {
     if (res) {
       if (res.stockInStatus == 'Posted') {
         this.postedStock = false;
+        this.hideWhilePosted = false;
       }
       this.stockInForm?.patchValue({
         id: res?.id,
@@ -332,31 +270,8 @@ export class EditStockInComponent implements OnInit {
     }
   }
 
-  getItemPatched(data : any) {
-    // this.transactionService.getItems('', '', new PageInfo());
-    this.patchValuesToList(data)
-    // this.transactionService.itemsList.subscribe((res: any) => {
-    //   if (res.length > 0) {
-    //     console.log("patch" , res)
-    //     if (this.selectedLanguage === 'ar') {
-    //       this.latestItemsList = res.map((elem: any, index: number) => ({
-    //         ...elem,
-    //         itemNumber: index + 1,
-    //         displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameAr}`,
-    //       }));
-    //     } else {
-    //       this.latestItemsList = res.map((elem: any, index: number) => ({
-    //         ...elem,
-    //         itemNumber: index + 1,
-    //         displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameEn}`,
-    //       }));
-    //     }
-    //     this.patchValuesToList(data)
-
-    //   } else {
-    //   }
-    
-    // });
+  getItemPatched(data: any) {
+    this.patchValuesToList(data);
   }
   initWareHouseLookupData() {
     this.transactionService.getWareHousesDropDown();
@@ -598,32 +513,26 @@ export class EditStockInComponent implements OnInit {
   onSave() {
     const stockInDetails = this.stockIn as FormArray;
     this.errorsArray = []; // Array to collect errors for each line
-
     // Loop through each FormGroup in the FormArray
     stockInDetails.controls.forEach((control: any, index: number) => {
       const lineErrors: any = {}; // Object to store errors for this line
       const stockInTracking = control.get('stockInTracking') as FormGroup;
-
       // Validate `itemId`
       if (control.get('itemId')?.invalid) {
         lineErrors.itemId = 'Item ID is required';
       }
-
       // Validate `uomId`
       if (control.get('uomId')?.invalid) {
         lineErrors.uomId = 'UOM is required';
       }
-
       // Validate `quantity`
       if (control.get('quantity')?.invalid) {
         lineErrors.quantity = 'Quantity must be a positive number';
       }
-
       // Validate `cost`
       if (control.get('cost')?.invalid) {
         lineErrors.cost = 'Cost must be a positive number';
       }
-
       // Validate `vendorBatchNo` if tracking type is Batch
       if (
         control.get('trackingType')?.value === this.sharedFinanceEnums.trackingType.Batch &&
@@ -631,7 +540,6 @@ export class EditStockInComponent implements OnInit {
       ) {
         lineErrors.vendorBatchNo = 'Vendor Batch Number is required';
       }
-
       // Validate `serialId` if tracking type is Serial
       if (
         control.get('trackingType')?.value === this.sharedFinanceEnums.trackingType.Serial &&
@@ -639,21 +547,16 @@ export class EditStockInComponent implements OnInit {
       ) {
         lineErrors.serialId = 'Serial ID is required';
       }
-
       // Validate `expireDate` if hasExpiryDate is true
       if (control.get('hasExpiryDate')?.value && stockInTracking.get('expireDate')?.invalid) {
         lineErrors.expireDate = 'Expiry Date is required';
       }
-
       // If there are any errors, add them to the errorsArray
       if (Object.keys(lineErrors).length > 0) {
         this.errorsArray.push({ line: index, errors: lineErrors });
       }
     });
-
     // If there are errors, log them or display them
-   
-
     if (!this.formService.validForm(this.stockInForm, false)) return;
     if (!this.formService.validForm(this.stockIn, false)) return;
     let data: AddStockIn = {
@@ -670,13 +573,12 @@ export class EditStockInComponent implements OnInit {
         this.postButton = true;
         this.saveButtonEnabled = false;
 
-        this.disablePost = false
+        this.disablePost = false;
       } else {
         this.dataToReadOnly = false;
         this.postButton = false;
         this.saveButtonEnabled = true;
-        this.disablePost = true
-
+        this.disablePost = true;
       }
     });
   }
@@ -684,10 +586,6 @@ export class EditStockInComponent implements OnInit {
   private handleFormChanges(): void {
     this.dataToReadOnly = false;
     this.postButton = false;
-
-    // console.log(this.dataToReadOnly)
-
-
   }
 
   OnDelete(id: number) {
@@ -705,7 +603,6 @@ export class EditStockInComponent implements OnInit {
   onFilter(SearchTerm: string) {
     const warehouseId: number = this.stockInForm.get('warehouseId')?.value;
     this.transactionService.getItems('', SearchTerm, new PageInfo());
-   
   }
   getLatestItemsList(id: number) {
     this.transactionService.getLatestItemsListByWarehouse('', id);

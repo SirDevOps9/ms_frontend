@@ -16,7 +16,10 @@
         <lib-field-validations [appControl]="stockInForm.controls['code']"></lib-field-validations>
       </div>
       <div [ariaReadOnly]="true" class="md:col-2 my-2">
-        <lib-label [appControl]="stockInForm.controls['receiptDate']">
+        <lib-label
+          [appControl]="stockInForm.controls['receiptDate']"
+          [ngClass]="{ 'readonly-calendar': dataToReadOnly }"
+        >
           {{ 'stockIn.date' | translate }}
         </lib-label>
         <lib-calendar
@@ -160,13 +163,13 @@
               <ng-template pTemplate="input">
                 <div class="flex justify-content-center gap-2 align-items-center">
                   <lib-select
+                    [readOnly]="!postedStock"
                     formControlName="itemId"
                     [options]="latestItemsList"
                     optionValue="itemId"
                     optionLabel="displayName"
                     placeholder="{{ 'stockIn.itemCode' | translate }}"
                     (valueChanged)="itemChanged($event, stockInFormGroup, false, false)"
-                   
                     (valueSearchChanged)="onFilter($event)"
                   >
                   </lib-select>
@@ -222,10 +225,9 @@
                   type="number"
                   placeholder="{{ 'stockIn.QTY' | translate }}"
                   formControlName="quantity"
-                  [readOnly]="!postedStock"
                   [readOnly]="
                     stockInFormGroup.get('stockInTracking')?.get('trackingType')?.value ==
-                    this.sharedFinanceEnums.trackingType.Serial
+                      this.sharedFinanceEnums.trackingType.Serial || !postedStock
                   "
                 ></lib-text-input>
               </ng-template>
@@ -457,31 +459,31 @@
           >
           </lib-button-micro>
         </div>
-
-        <ng-container *ngIf="!disablePost" >
-          <div class="md:col-3">
+        <ng-container *ngIf="hideWhilePosted">
+          <ng-container *ngIf="!disablePost">
+            <div class="md:col-3">
+              <!-- Post Button -->
+              <lib-button-micro
+                nameClass="{{ 'save' }}"
+                title="{{ 'stockIn.Post' | translate }}"
+                widthNumber="100%"
+                (click)="onPost()"
+              >
+              </lib-button-micro>
+            </div>
+          </ng-container>
+          <div class="md:col-3" *ngIf="disablePost === true">
             <!-- Post Button -->
             <lib-button-micro
-              nameClass="{{ 'save' }}"
+              [disabled]="true"
+              nameClass="{{ 'disabled' }}"
               title="{{ 'stockIn.Post' | translate }}"
               widthNumber="100%"
               (click)="onPost()"
             >
             </lib-button-micro>
           </div>
-        
         </ng-container>
-        <div class="md:col-3"  *ngIf="disablePost === true">
-          <!-- Post Button -->
-          <lib-button-micro
-            [disabled]="true"
-            nameClass="{{ 'disabled'  }}"
-            title="{{ 'stockIn.Post' | translate }}"
-            widthNumber="100%"
-            (click)="onPost()"
-          >
-          </lib-button-micro>
-        </div>
       </div>
     </div>
   </div>
