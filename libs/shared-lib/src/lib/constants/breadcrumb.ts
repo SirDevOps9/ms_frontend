@@ -109,10 +109,10 @@ export class BreadcrumbLabel {
   static EDITUOM = 'BreadCrumb.EditUom';
   static UOMLISt = 'BreadCrumb.uomList';
   static Edit_UOM = 'edit uom';
-  static GENERAL_ITEMdEFINITION = 'General Item Defintion';
-  static attributes_ITEMdEFINITION = 'Attributes & Variants Item Defintion';
-  static EditItembarcodedefinition = 'EditItembarcodedefinition';
-  static EditItembarfixedcostfinition = 'BreadCrumb.EditItembarfixedcostfinition';
+  static GENERAL_ITEMdEFINITION = 'BreadCrumb.generalItemDefintion';
+  static attributes_ITEMdEFINITION = 'BreadCrumb.attributes_ITEMdEFINITION';
+  static TaxTilte = 'BreadCrumb.TaxTilte';
+  static EditItembarfixedcostfinition = 'BreadCrumb.taxtTitle';
 
   // attr attribute-definition
   static Attribute_Definition = 'BreadCrumb.AttributeDefinition';

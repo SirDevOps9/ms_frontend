@@ -37,7 +37,11 @@
     "AddAttributeDefinition":"Add",
     "OperationalTag":"Operational Tag",
     "EditOperationalTag":"Edit",
-    "Itemcatalog":"Item catalog"
+    "Itemcatalog":"Item catalog",
+    "generalItemDefintion":"General Item Catalog",
+    "TaxTilte":"Tax Item Catalog",
+      "attributes_ITEMdEFINITION":"Attributes & Variants Item Catalog"
+
 
     },
   "Toaster": {

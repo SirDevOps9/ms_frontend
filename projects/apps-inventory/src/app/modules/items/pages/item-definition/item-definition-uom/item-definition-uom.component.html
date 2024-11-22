@@ -80,8 +80,6 @@
           <ng-template pTemplate="body" let-fg let-editing="editing" let-i="rowIndex">
             <tr  [formGroup]="fg" *ngIf="fg.controls['isBaseUnit'].value === false">
 
-              <!-- {{ (fg.controls['account']?.value | getElementByID : filteredAccounts)?.costCenterConfig == 'Mandatory' || (fg.controls['account']?.value | getElementByID : filteredAccounts)?.costCenterConfig == 'NotAllow' }} -->
-              <!-- formControlName="nameEn" -->
               <td>{{ fg.controls['nameEn'].value }}</td>
               <td>{{ fg.controls['shortName'].value }}</td>
               <td [pEditableColumn]="fg.controls['conversionRatio']" pEditableColumnField="conversionRatio">

@@ -128,8 +128,8 @@ const routes: Routes = [
             path: 'barcode/:id',
             component: ItemDefinitionBarcodeComponent,
             data: {
-              breadcrumb: BreadcrumbLabel.EditItembarcodedefinition,
-              pageTitle: BreadcrumbLabel.EditItembarcodedefinition,
+              breadcrumb: BreadcrumbLabel.TaxTilte,
+              pageTitle: BreadcrumbLabel.TaxTilte,
             },
           },
           {
@@ -145,8 +145,8 @@ const routes: Routes = [
             path: 'tax/:id',
             component: ItemDefintionTaxComponent,
             data: {
-              breadcrumb: BreadcrumbLabel.EditItembarcodedefinition,
-              pageTitle: BreadcrumbLabel.EditItembarcodedefinition,
+              breadcrumb: BreadcrumbLabel.TaxTilte,
+              pageTitle: BreadcrumbLabel.TaxTilte,
             },
           },
           {

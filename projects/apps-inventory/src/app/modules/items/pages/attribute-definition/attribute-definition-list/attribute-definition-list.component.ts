@@ -114,7 +114,7 @@ currentLang:any = ''
     this.exportAttrData(this.searchTerm);
   }
   exportAttrData(searchTerm: string) {
-    const columns = [
+    let columns = [
       { name:this.currentLang === 'en' ? 'nameEn' : 'nameAr', headerText: this.translate.instant('attributeDefinition.attribute') },
       { name: 'itemAttributes', headerText: this.translate.instant('attributeDefinition.values') },
       { name: this.currentLang === 'en' ? 'isActive' : 'isActive', headerText: this.translate.instant('attributeDefinition.status') },

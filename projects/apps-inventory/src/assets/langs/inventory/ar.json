@@ -36,8 +36,10 @@
     "AddAttributeDefinition": "إضافة",
     "OperationalTag": "علامة تشغيلية",
      "EditOperationalTag":"تعديل",
-     "Itemcatalog": "كتالوج الأصناف"
-
+     "Itemcatalog": "كتالوج الأصناف",
+     "generalItemDefintion": "تعريف العنصر العام",
+      "TaxTilte":"فهرس العناصر الضريبية",
+      "attributes_ITEMdEFINITION":"فهرس العناصر و الخصائص و الأنواع"
 
   },
   "success": "نجاح",
@@ -143,7 +145,10 @@
     "barcodesuccess": "تم إضافة الرمز الشريطي بنجاح",
     "generateVariant": "توليد المتغير",
     "variantSuccess": "تم إضافة المتغير بنجاح",
-    "duplicateUomIdError": "لا يمكن تكرار اسم المنتج"
+    "duplicateUomIdError": "لا يمكن تكرار اسم المنتج",
+    "tax": "ضريبة",
+    "taxesValue": "اختر قيمة واحدة",
+ "TaxTilte":"فهرس العناصر الضريبية"
   },
   "itemCategory": {
     "itemDefinition": "تعريف العنصر",
@@ -187,7 +192,14 @@
       "delete": "تم حذف تعريف العنصر بنجاح",
       "codeAuto": "توليد الكود تلقائيًا",
       "ItemDefinitionPrint": "طباعة كتالوج الأصناف",
-      "isActive": "نشط"
+      "isActive": "نشط",
+      "baseUnit":"الوحدة الأساسية",
+      "change": "تغيير",
+      "shortname":"الاسم المختصر",
+      "conversionfactor":"عامل التحويل",
+      "unitusage":"استخدام الوحدة",
+      "uOMdefinitioncategory":"فئة تعريف الوحدة"
+
     },
 
 
