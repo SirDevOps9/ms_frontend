@@ -141,7 +141,7 @@ export class UOMAddComponent implements OnInit {
         );
       });
 
-      console.log("heeeeeeeeyjjjjjj" , this.list)
+      console.log('heeeeeeeeyjjjjjj', this.list);
     });
   }
 
@@ -280,6 +280,8 @@ export class UOMAddComponent implements OnInit {
   }
 
   addLine() {
+    if (!this.formService.validForm(this.getUOMS, false)) return;
+
     this.getUOMS.push(this.create_UOM_FormGroup());
   }
 
@@ -455,7 +457,7 @@ export class UOMAddComponent implements OnInit {
         BaseReversal: 1,
         uomCategoryId: 0,
         systemUnitOfMeasureId: this.UOMFormGroup.get('systemUnitOfMeasureId')?.value,
-        fromUnitOfMeasureId: ''
+        fromUnitOfMeasureId: '',
       };
 
       // this.getUOMS.controls[0]
@@ -502,7 +504,9 @@ export class UOMAddComponent implements OnInit {
 
       // Set the 'fromUnitOfMeasureId' in the newly added base unit
       if (this.getUOMS.controls[0]) {
-        this.getUOMS.controls[0].get('fromUnitOfMeasureId')?.setValue(this.currentLang == 'en' ? base.nameEn : base.nameAr);
+        this.getUOMS.controls[0]
+          .get('fromUnitOfMeasureId')
+          ?.setValue(this.currentLang == 'en' ? base.nameEn : base.nameAr);
       }
 
       // Define UOM category object with form values and unit measures array

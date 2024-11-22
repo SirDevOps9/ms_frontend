@@ -70,7 +70,7 @@ export class UOMEditComponent implements OnInit {
 
     this.initUOMForm();
     this.getUOM_list1();
-  
+
     // Listen to UOMFormGroup value changes to set the first index
     this.UOMFormGroup.valueChanges.subscribe((res) => {
       if (res.baseUomEn) {
@@ -159,12 +159,12 @@ export class UOMEditComponent implements OnInit {
     }, 1000);
 
     this._itemService.getUOMCategoryByIdData$.subscribe((res) => {
-      console.log(res)
+      console.log(res);
       this.getUOMS.clear();
       this.uomsData = res.uoMs;
 
       if (res.uoMs?.length) {
-        res?.uoMs.forEach((elem: any, i : any) => {
+        res?.uoMs.forEach((elem: any, i: any) => {
           if (i == 0) return;
           let formGroup = this.fb.group({
             id: elem.id,
@@ -196,11 +196,9 @@ export class UOMEditComponent implements OnInit {
 
           this.systemUnitChanged(formGroup.get('systemUnitOfMeasureId')?.value);
 
-      
-
           this.getUOMS.push(formGroup);
 
-          console.log("data",this.getUOMS.value)
+          console.log('data', this.getUOMS.value);
         });
 
         this.UOMFormGroup.patchValue({
@@ -213,14 +211,10 @@ export class UOMEditComponent implements OnInit {
         });
       }
     });
-
-
-
   }
 
   getUomById() {
     this._itemService.getUOMCategoryById(this.id);
-  
   }
 
   systemUnitChanged(event: any) {
@@ -451,7 +445,7 @@ export class UOMEditComponent implements OnInit {
         customValidators.required,
         customValidators.onlyEnglishLetters,
       ]),
-      id : null,
+      id: null,
       shortName: new FormControl(uomData?.shortName || ''),
       factor: new FormControl(uomData?.factor || null),
       calculation: new FormControl(uomData?.calculation || null),
@@ -476,6 +470,8 @@ export class UOMEditComponent implements OnInit {
   }
 
   addLine() {
+    if (!this.formService.validForm(this.getUOMS, false)) return;
+
     this.getUOMS.push(this.create_UOM_FormGroup());
   }
 
@@ -522,12 +518,11 @@ export class UOMEditComponent implements OnInit {
   // on save table
 
   onSave() {
-
     if (!this.formService.validForm(this.UOMFormGroup, false)) return;
 
-    if(this.getUOMS.value.length) {
+    if (this.getUOMS.value.length) {
       let base = {
-        id : this.uomsData[0].id,
+        id: this.uomsData[0].id,
         code: '',
         nameAr: this.UOMFormGroup.get('baseUomAr')?.value,
         nameEn: this.UOMFormGroup.get('baseUomEn')?.value,
@@ -540,40 +535,35 @@ export class UOMEditComponent implements OnInit {
         BaseReversal: 1,
         uomCategoryId: 0,
         systemUnitOfMeasureId: this.UOMFormGroup.get('systemUnitOfMeasureId')?.value,
-        fromUnitOfMeasureId: ''
+        fromUnitOfMeasureId: '',
       };
-  
+
       // this.getUOMS.controls[0]
       //   .get('fromUnitOfMeasureId')
       //   ?.setValue(this.currentLang == 'en' ? base.nameEn : base.nameAr);
-  
+
       const formArray = this.getUOMS;
-  
+
       let unitOfMeasures = formArray.getRawValue();
-  
+
       unitOfMeasures.unshift(base);
-      unitOfMeasures = unitOfMeasures.map(elem=>{
-        elem.calculation = elem.calculationShow ?? '1'
-        elem.factor = Number( elem.factor)
-        elem.reversal = elem.BaseReversalShow ?? '1'
-  
-        return elem
-      })
-  
+      unitOfMeasures = unitOfMeasures.map((elem) => {
+        elem.calculation = elem.calculationShow ?? '1';
+        elem.factor = Number(elem.factor);
+        elem.reversal = elem.BaseReversalShow ?? '1';
+
+        return elem;
+      });
+
       let uom = {
-        id : +this.id,
+        id: +this.id,
         nameAr: this.UOMFormGroup.get('nameAr')?.value,
         nameEn: this.UOMFormGroup.get('nameEn')?.value,
         unitOfMeasures: unitOfMeasures,
       };
-      
-  
-  
-  
-      
-  
-      this._itemService.EditUOMCategory(uom)
-    }else {
+
+      this._itemService.EditUOMCategory(uom);
+    } else {
       // Define base unit object with form values, default values, and fallback options
       const base = {
         code: '',
@@ -587,29 +577,24 @@ export class UOMEditComponent implements OnInit {
         uomCategoryId: 0,
         systemUnitOfMeasureId: '',
       };
-    
+
       // Add the base unit to the beginning of the getUOMS array
       this.getUOMS.value.unshift(base);
-    
+
       // Set the 'fromUnitOfMeasureId' in the newly added base unit
       if (this.getUOMS.controls[0]) {
         this.getUOMS.controls[0].get('fromUnitOfMeasureId')?.setValue(base.shortName);
       }
-    
+
       // Define UOM category object with form values and unit measures array
       const uom = {
         nameAr: this.UOMFormGroup.get('nameAr')?.value || '',
         nameEn: this.UOMFormGroup.get('nameEn')?.value || '',
-        unitOfMeasures: this.getUOMS.value
+        unitOfMeasures: this.getUOMS.value,
       };
-    
+
       // Call the service to add the UOM category
-      this._itemService.EditUOMCategory(uom)
-  
+      this._itemService.EditUOMCategory(uom);
     }
-   
-    
-
-
   }
 }
