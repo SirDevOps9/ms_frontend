@@ -144,6 +144,7 @@ export class EditStockInComponent implements OnInit {
   getListOfItems() {
     this.transactionService.getLatestItemsList();
     this.transactionService.sendlatestItemsList$.subscribe((res) => {
+      console.log("first" , res)
       this.latestItemsList = res;
       if (res.length) {
         this.latestItemsList = res.map((elem: any, index: number) => ({
@@ -165,7 +166,10 @@ export class EditStockInComponent implements OnInit {
     this.transactionService.getStockInById(id);
     this.transactionService.stockInByIdData$.subscribe({
       next: (res: any) => {
-        this.getItemPatched(this.patchValuesToList(res));
+        setTimeout(() => {
+          this.getItemPatched(res);
+
+        }, 2000);
       
       },
       error: (err) => {
@@ -247,6 +251,7 @@ export class EditStockInComponent implements OnInit {
 
     this.transactionService.itemsList.subscribe((res: any) => {
       if (res.length > 0) {
+        console.log("patch" , res)
         if (this.selectedLanguage === 'ar') {
           this.latestItemsList = res.map((elem: any, index: number) => ({
             ...elem,
@@ -260,8 +265,8 @@ export class EditStockInComponent implements OnInit {
             displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameEn}`,
           }));
         }
+        this.patchValuesToList(data)
 
-        return data
       } else {
       }
     
