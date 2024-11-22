@@ -114,10 +114,7 @@ export class EditStockInComponent implements OnInit {
     this.transactionService.sendItemBarcode$.pipe(skip(1)).subscribe((res) => {
       this.barcodeData = res;
     });
-    this.stockInForm.valueChanges.subscribe((res) => {
-      if (!res) return;
-      this.dataToReadOnly = false;
-    });
+
     this.stockInForm.valueChanges.subscribe(() => {
       if (!this.saveButtonEnabled) {
         this.handleFormChanges();
@@ -556,10 +553,7 @@ export class EditStockInComponent implements OnInit {
     });
 
     // If there are errors, log them or display them
-    if (this.errorsArray.length > 0) {
-      console.error('Form contains errors:', this.errorsArray);
-      return; // Prevent form submission
-    }
+   
 
     if (!this.formService.validForm(this.stockInForm, false)) return;
     if (!this.formService.validForm(this.stockIn, false)) return;
