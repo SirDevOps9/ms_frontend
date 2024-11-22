@@ -142,7 +142,7 @@ export class ItemsService {
   public sendBarcode = new BehaviorSubject<addBarcode>({} as addBarcode);
   public sendUOM = new BehaviorSubject<AddUom>({} as AddUom);
   public sendUOMCategory = new BehaviorSubject<addUOM>({} as addUOM);
-  public getUOMCategoryByIdData = new BehaviorSubject<addUOM>({} as addUOM);
+  public getUOMCategoryByIdData = new BehaviorSubject<addUOM | any>({} as addUOM);
   public sendAttrDefinition = new BehaviorSubject<addAttributeDifintion>(
     {} as addAttributeDifintion
   );
@@ -876,7 +876,8 @@ public exportedWarehouseDataItemSourceObs = this.exportedWarehouseDataItemSource
 
           const currentUom: any = this.getUOMCategoryByIdData.getValue();
           const updatedUOM: addUOM = currentUom.uoMs.filter((c: any) => c.id !== id);
-          this.getUOMCategoryByIdData.next(updatedUOM);
+          let data = {uoMs : updatedUOM}
+          this.getUOMCategoryByIdData.next(data );
         },
       });
     }

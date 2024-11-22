@@ -494,7 +494,7 @@ export class UOMAddComponent implements OnInit {
         calculation: '1',
         reversal: '1',
         uomCategoryId: 0,
-        systemUnitOfMeasureId: this.UOMFormGroup.get('systemUnitOfMeasureId')?.value || null,
+        systemUnitOfMeasureId: '',
       };
 
       // Add the base unit to the beginning of the getUOMS array

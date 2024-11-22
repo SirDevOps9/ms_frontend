@@ -87,8 +87,7 @@ export class TransactionsService {
 
   exportStockOutListDataSourceObservable = this.exportStockOutListDataSource.asObservable();
 
-  private itemsDataSourceForAdvanced = new BehaviorSubject<AdvancedSearchDto[]>([]);
-  public itemsList$ = this.itemsDataSourceForAdvanced.asObservable();
+
   constructor(
     private toasterService: ToasterService,
     private languageService: LanguageService,
@@ -484,10 +483,4 @@ export class TransactionsService {
     });
   }
 
-  getItemsForAdvancedSearch(quieries: string, searchTerm: string, pageInfo: PageInfo) {
-    this.transactionsProxy.getItems(quieries, searchTerm, pageInfo).subscribe((res) => {
-      this.itemsDataSourceForAdvanced.next(res.result);
-      this.currentPageInfo.next(res.pageInfoResult);
-    });
-  }
 }
