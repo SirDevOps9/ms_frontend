@@ -87,6 +87,8 @@ export class TransactionsService {
 
   exportStockOutListDataSourceObservable = this.exportStockOutListDataSource.asObservable();
 
+  private itemsDataSourceForAdvanced = new BehaviorSubject<AdvancedSearchDto[]>([]);
+  public itemsList$ = this.itemsDataSourceForAdvanced.asObservable();
   constructor(
     private toasterService: ToasterService,
     private languageService: LanguageService,
@@ -362,7 +364,9 @@ export class TransactionsService {
     });
   }
   getItemsStockOutByWarehouse(queries: string, searchTerm: string, id: number, pageInfo: PageInfo) {
-    this.transactionsProxy.getItemsStockOut(queries, searchTerm, id, pageInfo).subscribe((res: any) => {
+    this.transactionsProxy
+      .getItemsStockOut(queries, searchTerm, id, pageInfo)
+      .subscribe((res: any) => {
         // this.itemsDataSourceByWarehouse.next(res.result);
         this.itemsDataSourceByWarehouse.next(res.result);
         this.currentPageInfo.next(res.pageInfoResult);
@@ -477,6 +481,13 @@ export class TransactionsService {
           this.languageService.transalte(error.message)
         );
       },
+    });
+  }
+
+  getItemsForAdvancedSearch(quieries: string, searchTerm: string, pageInfo: PageInfo) {
+    this.transactionsProxy.getItems(quieries, searchTerm, pageInfo).subscribe((res) => {
+      this.itemsDataSourceForAdvanced.next(res.result);
+      this.currentPageInfo.next(res.pageInfoResult);
     });
   }
 }
