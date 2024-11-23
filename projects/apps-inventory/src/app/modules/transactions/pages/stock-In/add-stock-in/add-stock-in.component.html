@@ -46,6 +46,7 @@
         ></lib-field-validations>
       </div>
       <div class="md:col-3 my-2">
+        <lib-form-group>
         <lib-label [appControl]="stockInForm.controls['sourceDocumentId']">
           {{ 'stockIn.sourceDoc' | translate }}
         </lib-label>
@@ -62,6 +63,7 @@
         <lib-field-validations
           [appControl]="stockInForm.controls['sourceDocumentId']"
         ></lib-field-validations>
+      </lib-form-group>
       </div>
       <div class="md:col-3 my-2">
         <lib-label [appControl]="stockInForm.controls['warehouseName']">
@@ -137,7 +139,7 @@
                 <lib-text-input
                   placeholder="{{ 'stockIn.barcode' | translate }}"
                   formControlName="barCode"
-                  (keyUp)="barcodeCanged($event, stockInFormGroup)"
+                  (keyUp)="barcodeCanged($event, stockInFormGroup , i)"
                   [readOnly]="dataToReadOnly"
                 ></lib-text-input>
               </ng-template>
@@ -158,15 +160,15 @@
                   <lib-select
                     formControlName="itemId"
                     [options]="latestItemsList"
-                    optionValue="itemId"
+                    optionValue="itemNumber"
                     optionLabel="displayName"
                     placeholder="{{ 'stockIn.itemCode' | translate }}"
-                    (valueChanged)="itemChanged($event, stockInFormGroup, false, false)"
+                    (valueChanged)="setRowdata(i, $event,latestItemsList)"
                     [readOnly]="dataToReadOnly"
                     (valueSearchChanged)="onFilter($event)"
                   >
                   </lib-select>
-                  <i class="pi pi-search search-circle" (click)="openDialog(stockInFormGroup)"></i>
+                  <i class="pi pi-search search-circle" (click)="openDialog(i , stockInFormGroup)"></i>
                 </div>
               </ng-template>
               <ng-template pTemplate="output">
@@ -189,12 +191,12 @@
               <ng-template pTemplate="input">
                 <lib-select
                   formControlName="uomId"
-                  [options]="uomLookup"
+                  [options]="stockInFormGroup.controls['uomOptions'].value || []"
                   optionValue="uomId"
                   [readOnly]="dataToReadOnly"
                   [optionLabel]="currentLang == 'en' ? 'uomNameEn' : 'uomNameAr'"
                   placeholder="{{ 'stockIn.UOM' | translate }}"
-                  (valueChanged)="uomChanged($event, stockInFormGroup, true)"
+                  (valueChanged)="changeUomName( i , stockInFormGroup.controls['uomOptions'].value)"
                   [selectedValue]="stockInFormGroup.controls['uomId']?.value"
                 ></lib-select>
               </ng-template>
@@ -382,11 +384,9 @@
                 "
                 >{{ 'stockIn.required' | translate }}</small
               > -->
-              <small *ngFor="let elem of errorsArray">
-                <small *ngIf="elem.line == i && !stockInFormGroup.valid" class="danger">{{
+                <small *ngIf="error && lineError== i" class="danger">{{
                   'stockIn.required' | translate
                 }}</small>
-              </small>
             </div>
           </td>
           <!--  -->
