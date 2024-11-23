@@ -8,17 +8,14 @@ import { GetWarehouseList, itemDefinitionDto } from '../../../models';
 import { AddWarehousePopupComponent } from '../../../components/warehouse/add-warehouse-popup/add-warehouse-popup.component';
 import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
 import { TranslateService } from '@ngx-translate/core';
-import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-warehouse-list',
   templateUrl: './warehouse-list.component.html',
   styleUrl: './warehouse-list.component.scss',
-  providers: [DatePipe],
+
 })
 export class WarehouseListComponent implements OnInit {
-pi: string;
-
   constructor(
     private routerService: RouterService,
     public authService: AuthService,
@@ -26,7 +23,6 @@ pi: string;
     private itemsService : ItemsService,
     private exportService:ExportService,
     private translate: TranslateService,
-    private datePipe: DatePipe
   ) {
   }
   exportColumns: any[];
@@ -58,8 +54,6 @@ pi: string;
 
   onPageChange(pageInfo: PageInfo) {
     this.itemsService.getWarehouseList('', pageInfo);
-
-
   }
 
   exportClick(e?: Event) {
@@ -77,16 +71,10 @@ pi: string;
     ];
 
     this.itemsService.exportedWarehouseDataSourceObs.subscribe((res) => {
-      const formattedData = res.map((item: any) => {
-        return {
-          ...item,
-          createdOn: this.datePipe.transform(item.createdOn, 'yyyy/MM/dd') // تنسيق التاريخ
-        };
-      });
-
-      this.exportData = this.exportService.formatCiloma(formattedData, columns);
+      this.exportData = this.exportService.formatCiloma(res, columns);
     });
   }
+
 
   onAdd() {
       const dialogRef = this.dialog.open(AddWarehousePopupComponent, {
