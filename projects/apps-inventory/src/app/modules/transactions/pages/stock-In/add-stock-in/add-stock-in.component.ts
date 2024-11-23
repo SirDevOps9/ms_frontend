@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Title } from '@angular/platform-browser';
 import { AuthService } from 'microtec-auth-lib';
 import { DialogService } from 'primeng/dynamicdialog';
 import {
@@ -17,7 +16,7 @@ import {
   ToasterService,
 } from 'shared-lib';
 
-import { catchError, skip } from 'rxjs';
+import {  skip } from 'rxjs';
 import {
   OperationalStockIn,
   LatestItems,
@@ -31,8 +30,6 @@ import { ScanParcodeStockInComponent } from '../../../components/scan-parcode-st
 import { TrackingStockInComponent } from '../../../components/tracking-stock-in/tracking-stock-in.component';
 import { SharedFinanceEnums } from '../../../../items/models/sharedEnumStockIn';
 import { TransactionsService } from '../../../transactions.service';
-import { ItemsService } from '../../../../items/items.service';
-import { HttpErrorResponse } from '@angular/common/http';
 import { SharedStock } from '../../../models/sharedStockOutEnums';
 
 @Component({
@@ -65,38 +62,11 @@ export class AddStockInComponent implements OnInit {
   lineError:number=-1
   error:boolean
   save:boolean=true
-  constructor(
-    private routerService: RouterService,
-    public authService: AuthService,
-    private dialog: DialogService,
-    private title: Title,
-    private languageService: LanguageService,
-    private transactionsService: TransactionsService,
-    private fb: FormBuilder,
-    private lookupservice: LookupsService,
-    private router: RouterService,
-    public formService: FormsService,
-    public sharedFinanceEnums: SharedFinanceEnums,
-    public sharedStock: SharedStock,
-    private toasterService: ToasterService,
-
-  ) {
-    this.currentLang = this.languageService.getLang();
-    this.selectedLanguage = this.languageService.getLang();
-  }
+ 
   ngOnInit(): void {
     this.initializeForm();
 
-    // this.stockInForm = this.fb.group({
-    //   receiptDate: [new Date(), customValidators.required],
-    //   code: [''],
-    //   sourceDocumentType: ['', customValidators.required],
-    //   sourceDocumentId: ['', customValidators.required],
-    //   warehouseId: ['', customValidators.required],
-    //   warehouseName: [''],
-    //   notes: '',
-    //   stockInDetails: this.fb.array([]),
-    // });
+ 
     this.stockInForm.get('receiptDate')?.disabled;
 
     this.stockInForm.valueChanges.subscribe((res) => {});
@@ -209,9 +179,7 @@ export class AddStockInComponent implements OnInit {
   setRowdata(indexLine: number, selectedItemId: any, list: any){
     const selectedItem = list.find((item: any) => item.itemNumber === selectedItemId);
     const rowForm = this.stockInDetailsFormArray.at(indexLine) as FormGroup;
-    console.log(selectedItem.itemsUOM,"kkkkk");
-    console.log(list ,"kkkkk");
-  
+
     if (!selectedItem) {
       return;
     }
@@ -248,7 +216,6 @@ export class AddStockInComponent implements OnInit {
 
         });
   
-        // Handle the nested form group
         const stockInTracking = rowForm.get('stockInTracking') as FormGroup;
         if (stockInTracking) {
           stockInTracking.patchValue({
@@ -268,8 +235,6 @@ export class AddStockInComponent implements OnInit {
       }
   }
   setUomName(indexLine: number, list: any) {
-    console.log(list ,"kkkkkk");
-
     const rowForm = this.stockInDetailsFormArray.at(indexLine) as FormGroup;
     const selectedItem = list?.find((item: any) => item.uomId === rowForm.get('uomId')?.value);
     if (this.selectedLanguage === 'ar') {
@@ -277,16 +242,10 @@ export class AddStockInComponent implements OnInit {
     } else {
       rowForm.get('uomName')?.setValue(selectedItem.uomNameEn);
     }
-    console.log(rowForm.value ,"kkkkkk");
 
-    // if(rowForm.get('uomId')?.value!=selectedItem){
-    //   rowForm.get('barCode')?.setValue('');
-
-    // }
+  
   }    
   changeUomName(indexLine: number, list: any) {
-    console.log(list,"kkkkkk");
-
     const rowForm = this.stockInDetailsFormArray.at(indexLine) as FormGroup;
     const selectedItem = list?.find((item: any) => item.uomId === rowForm.get('uomId')?.value);
     if (this.selectedLanguage === 'ar') {
@@ -294,12 +253,9 @@ export class AddStockInComponent implements OnInit {
     } else {
       rowForm.get('uomName')?.setValue(selectedItem.uomNameEn);
     }
-    console.log(rowForm.value ,"kkkkkk");
-
-    // if(rowForm.get('uomId')?.value!=selectedItem){
       rowForm.get('barCode')?.setValue('');
 
-    // }
+    
   }
   hasError(formGroup: FormGroup, controlName: string, error: string) {
     const control = formGroup.get(controlName);
@@ -375,11 +331,7 @@ export class AddStockInComponent implements OnInit {
     }
 
     if (!isBarcode) stockInFormGroup.get('barCode')?.setValue(null);
-    // stockInFormGroup.get('uomId')?.valueChanges.subscribe((res) => {
-    //   if (res && !isBarcode) {
-    //     stockInFormGroup.get('barCode')?.setValue(null);
-    //   }
-    // });
+
     stockInFormGroup
       .get('itemCodeName')
       ?.setValue(data?.itemCode ?? clonedStockInFormGroup?.itemCode);
@@ -522,20 +474,17 @@ export class AddStockInComponent implements OnInit {
         stockInFormGroup.get('itemId')?.setValue(selectedItems.itemId);
         this.setRowDataFromBarCode(indexline, selectedItems,'')
 
-        // this.itemChanged(selectedItems.itemId, stockInFormGroup, selectedItems, true);
       }
     });
   }
 
-  // manual Barcode Event
   barcodeCanged(e: any, stockInFormGroup: FormGroup ,index:number) {
     if (e) {
       this.transactionsService.getItemBarcodeForItem(e);
       this.transactionsService.sendItemBarcode$.pipe(skip(1)).subscribe((data) => {
         if (data) {
           stockInFormGroup.get('itemId')?.setValue(data.itemId);
-          // this.sendBarcodeData(data.itemId)
-          // this.itemChanged(data.itemId, stockInFormGroup, data, true);
+      
           this.setRowDataFromBarCode(index, data ,e)
 
         }
@@ -543,9 +492,7 @@ export class AddStockInComponent implements OnInit {
     }
   }
   setRowDataFromBarCode(indexLine: number, selectedItem: any , barcode:string){
-    // const selectedItem = list.find((item: any) => item.itemNumber === selectedItemId);
     const rowForm = this.stockInDetailsFormArray.at(indexLine) as FormGroup;
-  console.log(selectedItem ,"kkkkk");
   
     if (!selectedItem) {
       return;
@@ -564,7 +511,6 @@ export class AddStockInComponent implements OnInit {
               (this.selectedLanguage === 'en' 
                  ? selectedItem?.itemVariantNameEn 
                  : selectedItem?.itemVariantNameAr),
-          // description: selectedItem?.itemName+'-'+ selectedItem?.itemVariantNameEn ,
           itemId:  selectedItem?.itemId ,
           itemCode:selectedItem?.itemCode ,
           itemName: selectedItem?.itemName ,
@@ -587,7 +533,6 @@ export class AddStockInComponent implements OnInit {
             
         });
   
-        // Handle the nested form group
         const stockInTracking = rowForm.get('stockInTracking') as FormGroup;
         if (stockInTracking) {
           stockInTracking.patchValue({
@@ -639,16 +584,13 @@ export class AddStockInComponent implements OnInit {
   onSave() {
     this.isValidData()
     if (!this.formService.validForm(this.stockInForm, false)) return;
-      console.log("555555555555");
       
 
-    // Proceed with saving if no errors
     let data: AddStockIn = {
       ...this.stockInForm.value,
       sourceDocumentType: +this.stockInForm.value.sourceDocumentType,
       stockInDetails: this.stockInDetailsFormArray.value,
     };
-console.log(data,"44444");
 
       this.transactionsService.addStockIn(data, this.stockInForm);
       this.transactionsService.addedStockInData$.subscribe((res: number | any) => {
@@ -661,37 +603,28 @@ console.log(data,"44444");
       });
     
   }
-  
 
-  // onSave() {
-
-  //   if (!this.formService.validForm(this.stockInForm, false)) return;
-  //   if (!this.formService.validForm(this.stockIn, false)) return;
-
-  //   let data: AddStockIn = {
-  //     ...this.stockInForm.value,
-  //     sourceDocumentType: +this.stockInForm.value.sourceDocumentType,
-  //     stockInDetails: this.stockIn.value,
-  //   };
-
-  //   this.transactionsService.addStockIn(data, this.stockInForm);
-  //   this.transactionsService.addedStockInData$.subscribe({
-  //     next: (res: any) => {
-  //       if (res) {
-  //         this.savedDataId = res;
-  //         this.dataToReadOnly = true;
-  //       }
-  //     },
-  //     error() {
-  //       return;
-  //     },
-  //   });
-
-  // }
   OnDelete(i: number) {
     this.stockIn.removeAt(i);
   }
   onPost() {
     this.transactionsService.posteStockIn(this.savedDataId);
+  }
+  constructor(
+    public authService: AuthService,
+    private dialog: DialogService,
+    private languageService: LanguageService,
+    private transactionsService: TransactionsService,
+    private fb: FormBuilder,
+    private lookupservice: LookupsService,
+    private router: RouterService,
+    public formService: FormsService,
+    public sharedFinanceEnums: SharedFinanceEnums,
+    public sharedStock: SharedStock,
+    private toasterService: ToasterService,
+
+  ) {
+    this.currentLang = this.languageService.getLang();
+    this.selectedLanguage = this.languageService.getLang();
   }
 }
