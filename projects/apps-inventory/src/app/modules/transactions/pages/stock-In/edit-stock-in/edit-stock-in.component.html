@@ -71,11 +71,22 @@
           {{ 'stockIn.warehouse' | translate }}
         </lib-label>
 
-        <lib-text-input
+        <!-- <lib-text-input
           placeholder="{{ 'stockIn.warehouse' | translate }}"
           formControlName="warehouseName"
           [readOnly]="true"
-        ></lib-text-input>
+        ></lib-text-input> -->
+        <lib-select
+        [options]="warhouseLookupData"
+        placeholder="{{ 'stockIn.warehouse' | translate }}"
+        formControlName="warehouseName"
+        [readOnly]="true"
+        optionLabel="name"
+        optionValue="id"
+        [selectedValue]="stockInForm.controls['warehouseId'].value"
+        >
+
+        </lib-select>
         <lib-field-validations
           [appControl]="stockInForm.controls['warehouseName']"
         ></lib-field-validations>

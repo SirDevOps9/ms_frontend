@@ -157,7 +157,9 @@ export class AddStockInComponent implements OnInit {
   
   
       }
-    });
+    },
+    this.save=true
+  );
   }
   initializeForm(){
     this.stockInForm = this.fb.group({
@@ -585,6 +587,7 @@ export class AddStockInComponent implements OnInit {
     this.isValidData()
     if (!this.formService.validForm(this.stockInForm, false)) return;
       
+if(this.save){
 
     let data: AddStockIn = {
       ...this.stockInForm.value,
@@ -601,6 +604,7 @@ export class AddStockInComponent implements OnInit {
           this.dataToReadOnly = false;
         }
       });
+    }
     
   }
 

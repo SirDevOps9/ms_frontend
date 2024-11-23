@@ -76,8 +76,9 @@ export class EditStockInComponent implements OnInit {
     this.initializeForm();
     this.loadLookups();
     this.initWareHouseLookupData();
-    this.subscribe();
     this.getStockInById(this.itemId);
+    this.subscribe();
+
 
   }
   subscribe() {
@@ -90,11 +91,7 @@ export class EditStockInComponent implements OnInit {
       this.lookups = l;
     });
 
-    this.stockInForm.get('sourceDocumentId')?.valueChanges.subscribe((res) => {
-      let data = this.oprationalLookup.find((elem) => elem.id == res);
-      this.stockInForm.get('warehouseId')?.setValue(data?.warehouseId);
-      this.stockInForm.get('warehouseName')?.setValue(data?.warehouseName);
-    });
+   
 
     this.transactionService.wareHousesDropDownLookup$.subscribe((res) => {
       this.warhouseLookupData = res;
@@ -125,6 +122,7 @@ export class EditStockInComponent implements OnInit {
         }
       }
     })
+  
     ////////////////////////////////
     this.transactionService.sendItemBarcode$.pipe(skip(1)).subscribe((res) => {
       this.barcodeData = res;
@@ -143,8 +141,14 @@ export class EditStockInComponent implements OnInit {
         this.handleFormChanges();
       }
     });
+    this.stockInForm.get('sourceDocumentId')?.valueChanges.subscribe((res) => {
+      let data = this.oprationalLookup.find((elem) => elem.id == res);
+      this.stockInForm.get('warehouseId')?.setValue(data?.warehouseId);
+      this.stockInForm.get('warehouseName')?.setValue(data?.warehouseName);
+    });
     //////////////////////////////
   }
+ 
   loadLookups() {
     this.lookupservice.loadLookups([
       LookupEnum.StockInOutSourceDocumentType
@@ -574,7 +578,6 @@ export class EditStockInComponent implements OnInit {
           this.lineError = index
           this.error = true
           this.save = false
-          console.log(this.save ,"111111111111111111");
           
 
           this.toasterService.showError(
@@ -588,7 +591,6 @@ export class EditStockInComponent implements OnInit {
           this.lineError = index
           this.error = true
           this.save = false
-          console.log(this.save ,"2222222222222222");
 
 
 
@@ -758,7 +760,6 @@ export class EditStockInComponent implements OnInit {
   onSave() {
     this.isValidData()
     if (!this.formsService.validForm(this.stockInDetailsFormArray, false)) return;
-    console.log(this.save ,"savvvvvv");
     
     if (this.save) {
 
@@ -775,7 +776,7 @@ export class EditStockInComponent implements OnInit {
         stockInDetails: this.stockInDetailsFormArray.value,
       };
 
-      this.transactionService.editStockIn(data, this.stockInForm);
+       this.transactionService.editStockIn(data, this.stockInForm);
       this.transactionService.updatedStockInData$.subscribe((res: any) => {
         if (res === true) {
           this.savedDataId = res;
