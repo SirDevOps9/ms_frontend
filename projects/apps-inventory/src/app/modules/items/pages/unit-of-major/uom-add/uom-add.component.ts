@@ -140,6 +140,8 @@ export class UOMAddComponent implements OnInit {
           (elem) => elem?.id !== item?.systemUnitOfMeasureId
         );
       });
+
+      console.log('heeeeeeeeyjjjjjj', this.list);
     });
   }
 
@@ -278,6 +280,8 @@ export class UOMAddComponent implements OnInit {
   }
 
   addLine() {
+    if (!this.formService.validForm(this.getUOMS, false)) return;
+
     this.getUOMS.push(this.create_UOM_FormGroup());
   }
 
@@ -456,9 +460,9 @@ export class UOMAddComponent implements OnInit {
         fromUnitOfMeasureId: '',
       };
 
-      this.getUOMS.controls[0]
-        .get('fromUnitOfMeasureId')
-        ?.setValue(this.UOMFormGroup.get('shortName')?.value);
+      // this.getUOMS.controls[0]
+      //   .get('fromUnitOfMeasureId')
+      //   ?.setValue( this.currentLang == 'en' ?    this.UOMFormGroup.get('baseUomEn')?.value : this.UOMFormGroup.get('baseUomAr')?.value);
 
       const formArray = this.getUOMS;
 
@@ -492,7 +496,7 @@ export class UOMAddComponent implements OnInit {
         calculation: '1',
         reversal: '1',
         uomCategoryId: 0,
-        systemUnitOfMeasureId: this.UOMFormGroup.get('systemUnitOfMeasureId')?.value || null,
+        systemUnitOfMeasureId: '',
       };
 
       // Add the base unit to the beginning of the getUOMS array
@@ -500,7 +504,9 @@ export class UOMAddComponent implements OnInit {
 
       // Set the 'fromUnitOfMeasureId' in the newly added base unit
       if (this.getUOMS.controls[0]) {
-        this.getUOMS.controls[0].get('fromUnitOfMeasureId')?.setValue(base.shortName);
+        this.getUOMS.controls[0]
+          .get('fromUnitOfMeasureId')
+          ?.setValue(this.currentLang == 'en' ? base.nameEn : base.nameAr);
       }
 
       // Define UOM category object with form values and unit measures array

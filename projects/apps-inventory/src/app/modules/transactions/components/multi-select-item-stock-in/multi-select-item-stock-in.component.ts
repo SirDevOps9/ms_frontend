@@ -46,7 +46,7 @@ export class MultiSelectItemStockInComponent implements OnInit {
   }
 
   subscribes() {
-    this.itemsService.itemsList.subscribe({
+    this.itemsService.itemsList$.subscribe({
       next: (res: any) => {
         this.items = res;
       },
@@ -58,11 +58,11 @@ export class MultiSelectItemStockInComponent implements OnInit {
   }
 
   initItemsData() {
-    this.itemsService.getItems('', '', new PageInfo());
+    this.itemsService.getItemsForAdvancedSearch('', '', new PageInfo());
   }
 
   onPageChange(pageInfo: PageInfo) {
-    this.itemsService.getItems('', '', pageInfo);
+    this.itemsService.getItemsForAdvancedSearch('', '', pageInfo);
   }
 
   onSubmit() {
@@ -81,10 +81,10 @@ export class MultiSelectItemStockInComponent implements OnInit {
 
   onFilterChange() {
     const query = this.buildQuery();
-    this.itemsService.getItems(query, '', new PageInfo());
+    this.itemsService.getItemsForAdvancedSearch(query, '', new PageInfo());
   }
   onSearchChange(event: any) {
-    this.itemsService.getItems('', event, new PageInfo());
+    this.itemsService.getItemsForAdvancedSearch('', event, new PageInfo());
   }
 
   buildQuery(): string {

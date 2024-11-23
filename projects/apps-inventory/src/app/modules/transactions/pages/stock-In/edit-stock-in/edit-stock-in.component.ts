@@ -574,6 +574,8 @@ export class EditStockInComponent implements OnInit {
           this.lineError = index
           this.error = true
           this.save = false
+          console.log(this.save ,"111111111111111111");
+          
 
           this.toasterService.showError(
             this.languageService.transalte('messages.error'),
@@ -586,6 +588,8 @@ export class EditStockInComponent implements OnInit {
           this.lineError = index
           this.error = true
           this.save = false
+          console.log(this.save ,"2222222222222222");
+
 
 
           this.toasterService.showError(
@@ -602,7 +606,10 @@ export class EditStockInComponent implements OnInit {
 
 
       }
-    });
+    },
+    this.save = true
+
+  );
   }
   addLineStockIn() {
     this.isValidData()
@@ -751,6 +758,8 @@ export class EditStockInComponent implements OnInit {
   onSave() {
     this.isValidData()
     if (!this.formsService.validForm(this.stockInDetailsFormArray, false)) return;
+    console.log(this.save ,"savvvvvv");
+    
     if (this.save) {
 
       const stockInDetails = this.stockInDetailsFormArray as FormArray;

@@ -70,9 +70,7 @@ export class UOMEditComponent implements OnInit {
 
     this.initUOMForm();
     this.getUOM_list1();
-    setTimeout(() => {
-      this.getUomById();
-    }, 1000);
+
     // Listen to UOMFormGroup value changes to set the first index
     this.UOMFormGroup.valueChanges.subscribe((res) => {
       if (res.baseUomEn) {
@@ -155,16 +153,18 @@ export class UOMEditComponent implements OnInit {
     //     this.list[0] = defaultBase
     //   }
     // })
-  }
 
-  getUomById() {
-    this._itemService.getUOMCategoryById(this.id);
+    setTimeout(() => {
+      this.getUomById();
+    }, 1000);
+
     this._itemService.getUOMCategoryByIdData$.subscribe((res) => {
+      console.log(res);
       this.getUOMS.clear();
       this.uomsData = res.uoMs;
 
       if (res.uoMs?.length) {
-        res?.uoMs.forEach((elem: any, i) => {
+        res?.uoMs.forEach((elem: any, i: any) => {
           if (i == 0) return;
           let formGroup = this.fb.group({
             id: elem.id,
@@ -196,12 +196,9 @@ export class UOMEditComponent implements OnInit {
 
           this.systemUnitChanged(formGroup.get('systemUnitOfMeasureId')?.value);
 
-          //  if(elem?.systemUnitOfMeasureCategoryId){
-          //   this.filteredSytemUnitLookup = this.filteredSytemUnitLookup.filter(element=>element?.systemUnitOfMeasureCategoryId == elem?.systemUnitOfMeasureCategoryId && element.nameEn !== elem.nameEn && element.nameAr !== elem.nameAr)
-          //  }
-          //  this.filteredSytemUnitLookup = this.filteredSytemUnitLookup.filter(element=> element?.systemUnitOfMeasureCategoryId == this.uomsData[0].systemUnitOfMeasureCategoryId && element.nameEn !== this.uomsData[0].nameEn && element.nameAr !== this.uomsData[0].nameAr)
-
           this.getUOMS.push(formGroup);
+
+          console.log('data', this.getUOMS.value);
         });
 
         this.UOMFormGroup.patchValue({
@@ -214,6 +211,10 @@ export class UOMEditComponent implements OnInit {
         });
       }
     });
+  }
+
+  getUomById() {
+    this._itemService.getUOMCategoryById(this.id);
   }
 
   systemUnitChanged(event: any) {
@@ -444,6 +445,7 @@ export class UOMEditComponent implements OnInit {
         customValidators.required,
         customValidators.onlyEnglishLetters,
       ]),
+      id: null,
       shortName: new FormControl(uomData?.shortName || ''),
       factor: new FormControl(uomData?.factor || null),
       calculation: new FormControl(uomData?.calculation || null),
@@ -468,6 +470,8 @@ export class UOMEditComponent implements OnInit {
   }
 
   addLine() {
+    if (!this.formService.validForm(this.getUOMS, false)) return;
+
     this.getUOMS.push(this.create_UOM_FormGroup());
   }
 
@@ -503,7 +507,6 @@ export class UOMEditComponent implements OnInit {
     );
 
     this.filteredSytemUnitLookup.push(systemUnit);
-    const formArray = this.getUOMS;
     let id = uomTableForm.get('id')?.value;
     if (id) {
       this._itemService.DeleteUomLine(id);
@@ -535,9 +538,9 @@ export class UOMEditComponent implements OnInit {
         fromUnitOfMeasureId: '',
       };
 
-      this.getUOMS.controls[0]
-        .get('fromUnitOfMeasureId')
-        ?.setValue(this.UOMFormGroup.get('shortName')?.value);
+      // this.getUOMS.controls[0]
+      //   .get('fromUnitOfMeasureId')
+      //   ?.setValue(this.currentLang == 'en' ? base.nameEn : base.nameAr);
 
       const formArray = this.getUOMS;
 
@@ -572,7 +575,7 @@ export class UOMEditComponent implements OnInit {
         calculation: '1',
         reversal: '1',
         uomCategoryId: 0,
-        systemUnitOfMeasureId: this.UOMFormGroup.get('systemUnitOfMeasureId')?.value || null,
+        systemUnitOfMeasureId: '',
       };
 
       // Add the base unit to the beginning of the getUOMS array
