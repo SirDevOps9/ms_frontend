@@ -77,15 +77,14 @@
           [readOnly]="true"
         ></lib-text-input> -->
         <lib-select
-        [options]="warhouseLookupData"
-        placeholder="{{ 'stockIn.warehouse' | translate }}"
-        formControlName="warehouseName"
-        [readOnly]="true"
-        optionLabel="name"
-        optionValue="id"
-        [selectedValue]="stockInForm.controls['warehouseId'].value"
+          [options]="warhouseLookupData"
+          placeholder="{{ 'stockIn.warehouse' | translate }}"
+          formControlName="warehouseName"
+          [readOnly]="true"
+          optionLabel="name"
+          optionValue="id"
+          [selectedValue]="stockInForm.controls['warehouseId'].value"
         >
-
         </lib-select>
         <lib-field-validations
           [appControl]="stockInForm.controls['warehouseName']"
@@ -153,7 +152,7 @@
                   placeholder="{{ 'stockIn.barcode' | translate }}"
                   formControlName="barCode"
                   [readOnly]="!postedStock"
-                  (keyUp)="barcodeCanged($event, stockInFormGroup ,i)"
+                  (keyUp)="barcodeCanged($event, stockInFormGroup, i)"
                 ></lib-text-input>
               </ng-template>
               <ng-template pTemplate="output">
@@ -176,14 +175,16 @@
                     optionValue="itemNumber"
                     optionLabel="displayName"
                     placeholder="{{ 'stockIn.itemCode' | translate }}"
-                    (valueChanged)="setRowdata(i, $event ,latestItemsList)"
+                    (valueChanged)="setRowdata(i, $event, latestItemsList)"
                     [readOnly]="dataToReadOnly"
-                    selectedValue="{{stockInFormGroup.controls['itemNumber']?.value}}"
-
+                    selectedValue="{{ stockInFormGroup.controls['itemNumber']?.value }}"
                     (valueSearchChanged)="onFilter($event)"
                   >
                   </lib-select>
-                  <i class="pi pi-search search-circle" (click)="openDialog( i , stockInFormGroup)"></i>
+                  <i
+                    class="pi pi-search search-circle"
+                    (click)="openDialog(i, stockInFormGroup)"
+                  ></i>
                 </div>
               </ng-template>
               <ng-template pTemplate="output">
@@ -212,8 +213,8 @@
                   [optionLabel]="selectedLanguage === 'en' ? 'uomNameEn' : 'uomNameAr'"
                   placeholder="{{ 'stockIn.UOM' | translate }}"
                   (valueChanged)="changeUomName(i, stockInFormGroup.controls['uomOptions'].value)"
-                  selectedValue="{{stockInFormGroup.controls['uomId']?.value}}"
-                  ></lib-select>
+                  selectedValue="{{ stockInFormGroup.controls['uomId']?.value }}"
+                ></lib-select>
               </ng-template>
               <ng-template pTemplate="output">
                 {{ stockInFormGroup.controls['uomName']?.value }}
@@ -315,8 +316,7 @@
               <small
                 class="track"
                 *ngIf="
-                  stockInFormGroup.get('trackingType').value ==
-                  sharedStock.StockOutTracking.Serial
+                  stockInFormGroup.get('trackingType').value == sharedStock.StockOutTracking.Serial
                 "
                 >{{ stockInFormGroup.get('stockInTracking').get('serialId')?.value }}</small
               >
@@ -334,8 +334,7 @@
               <small
                 class="track"
                 *ngIf="
-                  stockInFormGroup.get('trackingType').value ==
-                  sharedStock.StockOutTracking.Batch
+                  stockInFormGroup.get('trackingType').value == sharedStock.StockOutTracking.Batch
                 "
                 >{{ stockInFormGroup.get('stockInTracking').get('vendorBatchNo')?.value }}</small
               >
@@ -381,10 +380,9 @@
               >
             </div>
             <div class="flex justify-content-center mt-2">
-          
-              
-                <small *ngIf="error && lineError== i" class="danger">{{'stockIn.required' | translate}}</small>
-             
+              <small *ngIf="error && lineError == i" class="danger">{{
+                'stockIn.required' | translate
+              }}</small>
             </div>
           </td>
           <!--  -->
@@ -462,8 +460,8 @@
           <div class="md:col-3">
             <!-- Post Button -->
             <lib-button-micro
-              [disabled]="!postButton"
-              nameClass="{{ !postButton ? 'disabled' : 'save' }}"
+              [disabled]="!postButton || !formChanges"
+              nameClass="{{ !postButton || !formChanges ? 'disabled' : 'save' }}"
               title="{{ 'stockIn.Post' | translate }}"
               widthNumber="100%"
               (click)="onPost()"

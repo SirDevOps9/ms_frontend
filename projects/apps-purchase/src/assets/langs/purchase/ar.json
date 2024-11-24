@@ -61,7 +61,6 @@
     "Submit": "إرسال",
     "Post": "ترحيل",
     "costCenter": "مركز التكلفة"
-
   },
   "viewJournal": {
     "JornalCode": "كود اليومية",
@@ -82,9 +81,8 @@
     "debitAmountLocal": "المبلغ المحلي الدائن",
     "creditAmountLocal": "المبلغ المحلي المدين",
     "costCenter": "مركز التكلفة",
-    "Amount" : "الكمية",
-    "add_line" : "اضافه سطر"
-
+    "Amount": "الكمية",
+    "add_line": "اضافه سطر"
   },
 
   "TaxGroup": {
@@ -157,8 +155,8 @@
     "Closingbalance": "الرصيد الختامي",
     "debit": "مدين",
     "credit": "دائن"
-},
-"treasury": {
+  },
+  "treasury": {
     "treasuryCode": "رمز الخزانة",
     "treasuryName": "اسم الخزانة",
     "currency": "العملة",
@@ -187,17 +185,16 @@
   "editTreasury": {
     "edit": "تم تعديل تعريف الخزانة بنجاح"
   },
- "VendorOpeningBalance": {
+  "VendorOpeningBalance": {
     "CustomerOpeningBalance": "رصيد افتتاحي للبائع",
     "OpeningJournalCode": "رمز السجل الافتتاحي",
     "AccountName": "اسم الحساب",
     "Amount": "المبلغ",
     "AmountNature": "طبيعة المبلغ",
     "VendorDeleted": "تم حذف المورد بنجاح",
-  "VendorUpdated": "تم تحديث المورد بنجاح",
-  "VendorAdded": "تم إضافة المورد بنجاح",
-  "Search": "بحث"
-
+    "VendorUpdated": "تم تحديث المورد بنجاح",
+    "VendorAdded": "تم إضافة المورد بنجاح",
+    "Search": "بحث"
   },
   "addVendorOpeneingBalance": {
     "openingJournal": "السجل الافتتاحي",
@@ -214,5 +211,28 @@
     "total": "الإجمالي",
     "add_new_line": "إضافة سطر جديد",
     "ViewDistribution": "عرض التوزيع"
+  },
+  "purchase": {
+    "purchase": "شراء",
+    "invoiceCode": "كود الفاتورة",
+    "invoiceDate": "تاريخ الفاتورة",
+    "vendorCode": "كود المورد",
+    "vendorName": "اسم المورد",
+    "currency": "العملة",
+    "reference": "المرجع",
+    "paymentTerms": "شروط الدفع",
+    "warehouse": "المستودع",
+    "invoiceJournal": "دفتر الفواتير",
+    "stockIn": "حالة الإدخال إلى المخزون",
+    "totalAmount": "المبلغ الإجمالي",
+    "discountAmount": "قيمة الخصم",
+    "totalAfterDiscount": "الإجمالي بعد الخصم",
+    "vatAmount": "قيمة الضريبة المضافة",
+    "totalAfterVat": "الإجمالي بعد الضريبة المضافة",
+    "actions": "الإجراءات",
+    "search": "بحث",
+    "Add": "إنشاء",
+    "btnReserve": "احجز",
+    "btnReserved": "محجوز"
   }
 }
