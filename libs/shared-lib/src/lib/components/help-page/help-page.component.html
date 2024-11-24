@@ -1,0 +1,44 @@
+<div class="bank">
+    <div class="card_micro">
+      <div class="help-page" >
+        <!-- <div>
+          <label for="title">
+            {{ 'Title' | translate }}:</label>
+          <h1>{{ helpPage?.title }}</h1>
+        </div>
+        
+        <div>
+          <label for="sefName">
+            {{ 'Sef Name' | translate }} :</label>
+          <h3>{{ helpPage?.sefName }}</h3>
+        </div>
+        
+        <div>
+          <label for="description">
+            {{ 'Description' | translate }} :</label>
+          <p>{{ helpPage?.helpPageDetails?.description }}</p>
+        </div> -->
+        
+        <!-- Content -->
+        <div >
+          <!-- <label for="content">{{ 'Content' | translate }} -->
+            <!-- </label> -->
+            <div [innerHTML]="sanitizedContent"></div>
+          <!-- <div>{{ helpPage?.helpPageDetails?.content }}</div> -->
+        </div>
+      </div>
+      
+
+
+      <div class="btn_group py-5">
+          <lib-button-micro
+            nameClass="cancel"
+            title="{{ 'back' | translate }}"
+            (click)="goBack()"
+          ></lib-button-micro>
+      </div>
+
+    </div>
+  </div>
+  
+  

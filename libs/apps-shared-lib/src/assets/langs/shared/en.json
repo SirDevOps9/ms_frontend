@@ -106,5 +106,7 @@
   },
   "general" : {
     "noData" : "There Is No Data"
-  }
+  },
+  "back":"back",
+  "help":"Help"
 }

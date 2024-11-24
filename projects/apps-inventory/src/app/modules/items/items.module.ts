@@ -59,6 +59,7 @@ import { ItemFixedCostComponent } from './pages/item-definition/item-fixed-cost/
 import { ViewWarehouseComponent } from './pages/warehouse/view-warehouse/view-warehouse.component';
 import { UomViewComponent } from './pages/unit-of-major/uom-view/uom-view.component';
 import { GeneralSettingInvComponent } from './pages/general-setting-inv/general-setting-inv.component';
+import { HelpPageComponent } from 'libs/shared-lib/src/lib/components/help-page/help-page.component';
 
 const routes: Routes = [
   {
@@ -84,6 +85,16 @@ const routes: Routes = [
           pageTitle: BreadcrumbLabel.ITEM_DIFINITION,
         },
       },
+      {
+        path: 'help-page/:servicePage',
+        component: HelpPageComponent,
+        data: {
+          breadcrumb: BreadcrumbLabel.ITEM_DIFINITION,
+          pageTitle: BreadcrumbLabel.ITEM_DIFINITION,
+        },
+      },
+      //{ path: 'help-page', component: HelpPageComponent } ,// Define route with parameter (e.g., 'id')
+
       {
         path: 'add-item-definition',
         component: ItemCatalogTabsComponent,
@@ -328,6 +339,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     ItemDefinitionListComponent,
+    HelpPageComponent,
     ItemCatalogTabsComponent,
     ItemCategoryListComponent,
     AddItemCategoryComponent,

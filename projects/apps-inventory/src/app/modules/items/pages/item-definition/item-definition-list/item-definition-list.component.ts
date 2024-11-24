@@ -10,6 +10,7 @@ import {
   PageInfoResult,
   MenuModule,
   PageInfo,
+  Pages,
 } from 'shared-lib';
 import { ItemsService } from '../../../items.service';
 import { itemDefinitionDto } from '../../../models';
@@ -18,6 +19,8 @@ import { EditItemDefinitionComponent } from '../../../components/edit-item-defin
 import { ViewItemDefinitionComponent } from '../../../components/view-item-definition/view-item-definition/view-item-definition.component';
 import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
 import { TranslateService } from '@ngx-translate/core';
+import { HelpPageService } from 'libs/shared-lib/src/lib/services/help-page.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-item-definition-list',
@@ -32,7 +35,9 @@ export class ItemDefinitionListComponent implements OnInit {
     private title: Title,
     private translate: TranslateService,
     private itemsService: ItemsService,
-    private exportService:ExportService
+    private exportService:ExportService,
+    private helpPageService: HelpPageService,
+    private router: Router
   ) {}
 
   tableData: itemDefinitionDto[];
@@ -59,6 +64,7 @@ export class ItemDefinitionListComponent implements OnInit {
   currentPageInfo: PageInfoResult = {};
   modulelist: MenuModule[];
   searchTerm: string;
+  hasHelpPage: Boolean=true;
 
   ngOnInit() {
     this.initItemDefinitionData();
@@ -80,6 +86,10 @@ export class ItemDefinitionListComponent implements OnInit {
     this.itemsService.currentPageInfo.subscribe((currentPageInfo) => {
       this.currentPageInfo = currentPageInfo;
     });
+  }
+  navigateHelpPageComponent() {
+    const servicePage = Pages.Item;
+    this.router.navigate(['/masterdata/help-page',servicePage]);  // Navigate to the 'new' component
   }
 
   onPageChange(pageInfo: PageInfo) {
