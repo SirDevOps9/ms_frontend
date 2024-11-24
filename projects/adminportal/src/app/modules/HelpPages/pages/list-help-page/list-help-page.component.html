@@ -1,0 +1,95 @@
+<lib-bread-crumb></lib-bread-crumb>
+<div>
+  <div class="user_page">
+    <lib-data-table [items]="tableData" className="p-datatable-gridlines" [currentPageResult]="currentPageInfo"
+      (pageChange)="onPageChange($event)" [tableConfigs]="{
+      allowPagination: false,
+      allowServerPagination: true,
+      dataKey: 'id',
+      pageSize: 10,
+      columns: [
+        {
+          name: 'helpPageTitle',
+          headerText: ('Page Title'),
+          isGlobalFilter: true,
+          isSortable: false,
+          
+        },
+        {
+                name: 'helpPageSefName',
+                headerText: ('Sef Name'),
+                isGlobalFilter: true,
+                isSortable: false,
+  
+              },
+      {
+              name: 'appNameAr',
+              headerText: ('App Name (Ar)'),
+              isGlobalFilter: true,
+              isSortable: false
+            },{
+
+              name: 'appNameEn',
+              headerText: ('App Name (En)'),
+              isGlobalFilter: true,
+              isSortable: false
+            },
+            {
+              name: 'serviceNameAr',
+              headerText: ('Service Name (Ar)'),
+              isGlobalFilter: true,
+              isSortable: false,
+
+            },
+            {
+              name: 'serviceNameEn',
+              headerText: ('Service Name (En)'),
+              isGlobalFilter: true,
+              isSortable: false,
+
+            },
+       
+            {
+              name: 'hasHelpPage',
+              headerText: ('Has Help Page'),
+              isGlobalFilter: true,
+              isSortable: false,
+              template: status
+
+            },
+
+            {
+              name: 'id',
+              headerText: ('Actions'),
+              template: userCol
+
+            },
+      ]
+    }">
+      <ng-container caption>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 10px" class="mt-1">
+          <div>
+            <lib-text-input type="text" [(ngModel)]="searchTerm" [placeholder]="'Search' | translate"
+              [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'" (keyUp)="onSearchChange()">
+            </lib-text-input>
+          </div>
+        </div>
+      </ng-container>
+      <ng-template #userCol let-tag>
+        <div class="actions flex align-items-center">
+          <lib-button-micro *ngIf="tag.hasHelpPage" nameClass="table_button_edit" (click)="routeToEdit(tag.helpPageId)">
+          </lib-button-micro>
+
+          <lib-button-micro *ngIf="!tag.hasHelpPage" nameClass="table_button_Add" (click)="addNew(tag.serviceId)">
+          </lib-button-micro>
+        </div>
+      </ng-template>
+
+      <ng-template #status let-tag>
+        <div>
+          <lib-input-switch [disabled]="true" [(ngModel)]="tag.hasHelpPage"> </lib-input-switch>
+        </div>
+      </ng-template>
+    </lib-data-table>
+  </div>
+</div>

@@ -12,7 +12,7 @@ export const environment: IEnvironment = {
     clientId: 'microtec_admin_portal',
     logoutRedirectUri: window.location.origin + '/admin-portal/logout-redirect',
     redirectUrl: window.location.origin + '/admin-portal/login-redirect',
-    scopes: 'bo',
+    scopes: 'profile',
     state: '',
   },
   AttachmentServiceConfig: {
