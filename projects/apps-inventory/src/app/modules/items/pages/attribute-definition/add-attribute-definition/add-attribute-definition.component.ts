@@ -27,7 +27,7 @@ export class AddAttributeDefinitionComponent implements OnInit {
   routerService = inject(RouterService);
   constructor() {
     this.title.setTitle(
-      this.languageService.transalte('attributeDefinition.addattributeDefinition')
+      this.languageService.transalte('attributeDefinition.AddAttributeDefinition')
     );
   }
 
@@ -38,7 +38,7 @@ export class AddAttributeDefinitionComponent implements OnInit {
 
   // attr group dropdown
 
-  
+
 
   // init the form
   initAttrGroupForm() {
@@ -46,7 +46,7 @@ export class AddAttributeDefinitionComponent implements OnInit {
       attributeId: [''],
       nameAr: ['', customValidators.required],
       nameEn: ['', customValidators.required],
-      itemAttributeDtos: this.attrTableForm, 
+      itemAttributeDtos: this.attrTableForm,
     });
   }
 

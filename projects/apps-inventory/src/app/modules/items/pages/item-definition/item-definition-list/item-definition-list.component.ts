@@ -42,7 +42,7 @@ export class ItemDefinitionListComponent implements OnInit {
 
   tableData: itemDefinitionDto[];
 
-  exportData: itemDefinitionDto[];
+  exportData: any[];
   cols = [
     {
       field: 'Code',
@@ -58,7 +58,7 @@ export class ItemDefinitionListComponent implements OnInit {
       header: 'shortName',
     },
   ];
-  exportColumns: lookupDto[];
+  exportColumns: any[];
   exportSelectedCols: string[] = [];
 
   currentPageInfo: PageInfoResult = {};
@@ -68,10 +68,7 @@ export class ItemDefinitionListComponent implements OnInit {
 
   ngOnInit() {
     this.initItemDefinitionData();
-    this.exportColumns = this.cols.map((col) => ({
-      id: col.header,
-      name: col.field,
-    }));
+
   }
 
   initItemDefinitionData() {
@@ -103,15 +100,10 @@ export class ItemDefinitionListComponent implements OnInit {
   exportBankData(searchTerm: string) {
     this.itemsService.exportsItemsDefinitionList(searchTerm);
     const columns = [
-      { name: 'code', headerText: this.translate.instant('itemDefinition.code') },
-      { name: 'name', headerText: this.translate.instant('itemDefinition.name') },
-      { name: 'typeName', headerText: this.translate.instant('itemDefinition.type') },
-      { name: 'itemCategoryName', headerText: this.translate.instant('itemDefinition.category') },
-      { name: 'uomName', headerText: this.translate.instant('itemDefinition.uom') },
-      { name: 'isActive', headerText: this.translate.instant('itemDefinition.isActive') },
+      { name: 'name', headerText : this.translate.instant('OperationalTag.name') },
 
     ];
-    this.itemsService.exportedItemDefinitionListDataSource.subscribe((res) => {
+    this.itemsService.exportedItemDefinitionListDataSourceObs.subscribe((res) => {
       this.exportData = this.exportService.formatCiloma(res, columns);
 
     });

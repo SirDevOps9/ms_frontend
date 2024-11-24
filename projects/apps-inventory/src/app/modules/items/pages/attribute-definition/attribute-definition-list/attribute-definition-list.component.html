@@ -3,23 +3,22 @@
       <div class="user_page">
         <lib-data-table
           [items]="tableData"
-
           className="p-datatable-gridlines"
           [currentPageResult]="currentPageInfo"
           (pageChange)="onPageChange($event)"
           [tableConfigs]="{
             allowPagination: false,
-
             allowServerPagination: true,
             dataKey: 'id',
             pageSize: 10,
             columns: [
 
               {
-                name: 'nameEn',
+                name: currentLang === 'en' ? 'nameEn' : 'nameAr',
                 headerText: ('attributeDefinition.attribute' | translate),
                 isGlobalFilter: true,
-                isSortable: true
+                isSortable: true,
+
               },
 
               {
@@ -53,13 +52,16 @@
         >
 
 
+
+
+
         <ng-template #itemAttributesTemplate let-row>
 
 
 
           <div  class="itemAttributes" >
             <p class="itemAttributes-valuse" *ngFor="let item of (row.itemAttributes) | slice:0:5 ; let i = index">
-              {{ row?.itemAttributes[i].nameEn }}<span *ngIf="i < 2"> </span>
+              {{ currentLang === 'en' ? row?.itemAttributes[i].nameEn : row?.itemAttributes[i].nameAr}}<span *ngIf="i < 2"> </span>
             </p>
 
             <p *ngIf=" row?.itemAttributes.length > 4"  (click)="onViewttributeValues(row.id)"class="itemAttributes-valuse">
@@ -92,7 +94,7 @@
                       (exportClick)="exportClick($event)"
                       [exportData]="exportData"
                       [exportColumns]="exportColumns"
-                      [ExportName]="'Attribute Definition'"
+                      [ExportName]="('attributeDefinition.AttributeDefinition' | translate)"
                     >
                     </lib-export>
                   </div>
@@ -112,7 +114,12 @@
             </div>
           </ng-container>
 
+          <ng-template #isActiveName let-row>
 
+           <div>
+
+           </div>
+          </ng-template>
 
           <ng-template #isActive let-row>
             <div   *ngIf="row.isActive !=null" class="flex m-1 align-items-center">
@@ -122,7 +129,7 @@
               (valueChanged)="confirmChange($event, row)">
             </lib-input-switch>
 
-            <span  [ngClass]="{'active-true':row.isActive}" class="ml-2">
+            <span  [ngClass]="{'active-true':row.isActive}" class="ml-2 my-4">
               {{ row.isActive ? ('global.activeOn' | translate) : ('global.activeOff' | translate)}}
             </span>
 
@@ -134,9 +141,11 @@
 
           <ng-template #actions let-action>
             <div class="actions flex align-items-center">
+
+              <img src="assets/images/table/view.svg" alt="" (click)="onViewttributeValuesList(action)" />
               <img src="assets/images/table/edit.svg" alt="" (click)="onEdit(action)" />
+
               <img src="assets/images/table/delete.svg" alt="" (click)="onDelete(action.id)" />
-              <img src="assets/images/table/view.svg" alt="" (click)="onViewttributeValuesList(action.id)" />
 
             </div>
           </ng-template>

@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AppComponent } from './app.component';
 import { AuthGuard } from 'microtec-auth-lib';
-import { LayoutComponent } from './_metronic/layout/layout.component';
 
 export const routes: Routes = [
   {
@@ -14,6 +12,12 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
     loadChildren: () => import('./_metronic/layout/layout.module').then((m) => m.LayoutModule),
   },
+  // {
+  //   path: 'help-pages',
+  //   canActivate: [AuthGuard],
+  //   loadChildren: () => import('./modules/HelpPages/help-pages.module').then((m) => m.HelpPagesModule),
+  // },
+ 
   // { path: '**', redirectTo: 'error/404' },
 ];
 

@@ -74,8 +74,11 @@ export class BreadcrumbLabel {
   static DOMAIN = 'Domain Details';
   static Manage_Apps = 'Manage Apps';
   static BUSSINESS_OWNER = 'Bussiness Owners';
+    static HELP_PAGES='Help Pages';
   static MANAGE_BUSSINESS_OWNER = 'Manage Bussiness Owners';
   static SUBDOMAIN_INFO = 'Subdomain Info';
+    static Edit_Help_Page='Edit Help Page';
+    static Add_Help_Page='Add Help Page';
   static COMPANIES_INFO = 'Company Info';
   static LICENCE_INFO = 'licence Info';
   static USER_INFO = 'USER Info';
@@ -94,7 +97,7 @@ export class BreadcrumbLabel {
   static ADD_JOURNAL_OPENING_BALANCE = 'Add Journal Entry Opening Balance';
   static EDIT_JOURNAL_OPENING_BALANCE = 'Edit Journal Entry Opening Balance';
   static VIEW_JOURNAL_OPENING_BALANCE = 'View Journal Entry Opening Balance';
-  static ITEM_DIFINITION = 'Item catalog';
+  static ITEM_DIFINITION = 'BreadCrumb.Itemcatalog';
   static ADD_ITEM_DIFINITION = 'Add Item catalog';
   static EDIT_ITEM_DIFINITION = 'Edit Item catalog';
   static ITEM_TYPE = 'Item Type';
@@ -115,13 +118,13 @@ export class BreadcrumbLabel {
   static EditItembarfixedcostfinition = 'BreadCrumb.EditItembarfixedcostfinition';
 
   // attr attribute-definition
-  static Attribute_Definition = 'Attribute Definition';
-  static Operational_Tag = 'Operational Tag';
-  static Add_Operational_Tag = 'Add Operational Tag';
-  static Edit_Operational_Tag = 'Edit Operational Tag';
-  static Add_Attribute_Definition = 'Add Attribute Definition';
-  static Edit_Attribute_Definition = 'Edit Attribute Definition';
-  static LIST_Attribute_Definition = 'Attribute Definition List';
+  static Attribute_Definition = 'BreadCrumb.AttributeDefinition';
+  static Operational_Tag = 'BreadCrumb.OperationalTag';
+  static Add_Operational_Tag = 'BreadCrumb.add';
+  static Edit_Operational_Tag = 'BreadCrumb.EditOperationalTag';
+  static Add_Attribute_Definition = 'BreadCrumb.AddAttributeDefinition';
+  static Edit_Attribute_Definition = 'BreadCrumb.EditAttributeDefinition';
+  static LIST_Attribute_Definition = 'BreadCrumb.AttributeDefinitionView';
   static EDIT_WARE_HOUSE = 'Edit Warehouse';
   static VIEW_WARE_HOUSE = 'BreadCrumb.ViewWarehouse';
   static ITEMS_CATEGORY = 'BreadCrumb.ItemsCategory';

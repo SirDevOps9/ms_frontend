@@ -7,7 +7,7 @@ import {
   SimpleChanges,
   ViewContainerRef,
 } from '@angular/core';
-import { SpinnerComponent } from '../components/search-item-pop-up/spinner/spinner.component';
+import { SpinnerComponent } from '../components/spinner/spinner.component';
 
 @Directive({
   selector: '[appLoader]',

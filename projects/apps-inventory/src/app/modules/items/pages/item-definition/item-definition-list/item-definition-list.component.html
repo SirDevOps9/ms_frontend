@@ -15,14 +15,16 @@
             pageSize: 10,
             columns: [
               {
-                name: 'code',
+                name:'code',
                 headerText: ('itemDefinition.code' | translate),
+
                 isGlobalFilter: true,
                 isSortable: true
               },
               {
-                name: 'name',
-                headerText: ('itemDefinition.name' | translate),
+                name:'name',
+               
+                headerText: ('OperationalTag.name' | translate),
                 isGlobalFilter: true,
                 isSortable: true
               },
@@ -75,7 +77,7 @@
               (exportClick)="exportClick($event)"
               [exportData]="exportData"
               [exportColumns]="exportColumns"
-              [ExportName]="'Item Definition'"
+              [ExportName]="('itemDefinition.ItemDefinitionPrint' |translate)"
             >
             </lib-export>
             </div>

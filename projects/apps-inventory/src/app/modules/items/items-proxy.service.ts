@@ -285,7 +285,7 @@ export class ItemsProxyService {
   }
 
   attributeGroups() {
-    return this.httpService.get(`AttributesVariants/GetAllAttributesGroups`);
+    return this.httpService.get(`AttributeGroup/AttributeGroupDropDown`);
   }
 
   getDefaultUnit(catID: number, itemId: number): Observable<{ id: number; name: string }> {
@@ -298,6 +298,9 @@ export class ItemsProxyService {
   }
   attributeGroupsValue(id: number): Observable<itemAttributeValuesByID> {
     return this.httpService.get(`AttributeGroup/${id}`);
+  }
+  attributeGroupsGetAttributes(id: number): Observable<itemAttributeValuesByID> {
+    return this.httpService.get(`AttributeGroup/${id}/GetAttributes`);
   }
   attributeGroupsValuesData(id: number): Observable<itemAttributeValues[]> {
     return this.httpService.get(`api/ItemAttributesGroup/GetAttributesByLineId?Id=${id}`);
@@ -511,28 +514,28 @@ export class ItemsProxyService {
     SortColumn?: string
   ): Observable<GetWarehouseItems[]> {
     let query = `WareHouse/ExportItems?`;
-  
+
     if (warehouseId !== undefined && warehouseId !== null) {
       query += `warehouseId=${warehouseId}`;
     }
-  
+
     const params: string[] = [];
-    
+
     if (SortBy !== undefined) {
       params.push(`SortBy=${SortBy}`);
     }
-    
+
     if (SortColumn) {
       params.push(`SortColumn=${SortColumn}`);
     }
-  
+
     if (params.length > 0) {
       query += '&' + params.join('&');
     }
-  
+
     return this.httpService.get<GetWarehouseItems[]>(query);
   }
-  
+
 
   exportsItemCategoryList(searchTerm: string | undefined): Observable<GetItemCategoryDto[]> {
     let query = `ItemCategory/Export?`;

@@ -19,7 +19,7 @@ import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'lib-data-table',
-  templateUrl: './data-table.component.html', 
+  templateUrl: './data-table.component.html',
   styleUrls: ['./data-table.component.scss'],
 })
 export class DataTableComponent implements OnInit, OnChanges {
@@ -72,8 +72,9 @@ export class DataTableComponent implements OnInit, OnChanges {
   searchColumnsControl = new FormControl([]);
   isRtl: boolean = false;
   showColumnFilter: boolean
-
+  adminPortalTab : boolean = false
   ngOnInit(): void {
+this.adminPortalTab=this.routerService.getCurrentUrl().includes('/bussiness-owners/manage/')
     this.isRtl = this.languageService.ar;
 
     this.filtered_columns = this.tableConfigs.columns
@@ -135,7 +136,7 @@ export class DataTableComponent implements OnInit, OnChanges {
   }
   ngOnChanges(changes: SimpleChanges): void {
     console.log(this.noColumnFilter ,"bool");
-    
+
     this.clonedTableConfigs = { ...this.tableConfigs };
   }
   routeToSequence() {

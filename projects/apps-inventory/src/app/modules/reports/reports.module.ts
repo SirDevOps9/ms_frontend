@@ -6,7 +6,7 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 import { Route, RouterModule } from '@angular/router';
 import { LayoutPageComponent } from 'apps-shared-lib';
 import { SearchItemAdvancedPopUpComponent } from './components/search-item-pop-up/search-item-pop-up.component';
-import { SpinnerComponent } from './components/search-item-pop-up/spinner/spinner.component';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 import { LoaderDirective } from './directives/loader.directive';
 
 const routes: Route[] = [
@@ -18,7 +18,7 @@ const routes: Route[] = [
     },
     children: [
       {
-        path: 'item-card',
+        path: 'item-card-report',
         component: ItemCardComponent,
         data: {
           breadcrumb: BreadcrumbLabel.ITEM_CARD_REPORT,
