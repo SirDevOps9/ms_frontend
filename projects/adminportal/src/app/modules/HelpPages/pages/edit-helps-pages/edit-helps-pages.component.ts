@@ -1,4 +1,4 @@
-import {  Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { LayoutService } from 'apps-shared-lib';
@@ -50,7 +50,7 @@ export class EditHelpsPagesComponent implements OnInit {
     private routerService: RouterService,
     private formService: FormsService,
     private _helpPageService: HelpPageService,
-    private _route: ActivatedRoute,
+    private _route: ActivatedRoute
   ) {}
 
   ngOnInit() {
@@ -114,9 +114,7 @@ export class EditHelpsPagesComponent implements OnInit {
 
     this._helpPageService.updateHelpPage(this.rowId, obj);
 
-    this._helpPageService.updateHlpPage$.subscribe((res: any) => {
-      console.clear()
-      this.routerService.navigateTo('/help-pages');
-    });
+    // this._helpPageService.updateHlpPage$.subscribe((res: any) => {
+    // });
   }
 }

@@ -1,11 +1,6 @@
-import {  Component, inject, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, inject, OnInit, ViewEncapsulation } from '@angular/core';
 
-import {
- 
-  PageInfo,
-  PageInfoResult,
-  RouterService,
-} from 'shared-lib';
+import { PageInfo, PageInfoResult, RouterService } from 'shared-lib';
 import { HelpPageService } from '../../help-page.service';
 import { HelpPagesList } from '../../models/heloPage';
 
@@ -19,22 +14,19 @@ export class ListHelpPageComponent implements OnInit {
   private routerService = inject(RouterService);
 
   tableData: HelpPagesList[];
-  searchTerm: string
+  searchTerm: string;
   active: boolean = false;
   currentPageInfo: PageInfoResult = {};
 
-
   ngOnInit() {
-    this.initgetHelpPagesList()
-
+    this.initgetHelpPagesList();
   }
+  // init help page 
   initgetHelpPagesList() {
     this._helpService.getHelpPagesList('', new PageInfo());
     this._helpService.helpsPageList$.subscribe({
       next: (res) => {
         this.tableData = res;
-        
-        
       },
     });
 
@@ -47,8 +39,7 @@ export class ListHelpPageComponent implements OnInit {
     this._helpService.getHelpPagesList('', pageInfo);
     this._helpService.helpsPageList$.subscribe({
       next: (res) => {
-        this.tableData = res;        
-
+        this.tableData = res;
       },
     });
   }
@@ -65,7 +56,6 @@ export class ListHelpPageComponent implements OnInit {
     this._helpService.currentPageInfo.subscribe((currentPageInfo) => {
       this.currentPageInfo = currentPageInfo;
     });
- 
   }
 
   routeToEdit(ID: number) {

@@ -15,7 +15,7 @@ import { AddHelpPage } from '../../models/heloPage';
 export class AddHelpPageComponent implements OnInit {
   formGroup: FormGroup;
   text: any;
-  rowId:number
+  rowId: number;
   config: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
@@ -25,46 +25,40 @@ export class AddHelpPageComponent implements OnInit {
     translate: 'no',
     defaultParagraphSeparator: 'p',
     defaultFontName: 'Arial',
-    toolbarHiddenButtons: [
-      ['bold']
-      ],
+    toolbarHiddenButtons: [['bold']],
     customClasses: [
       {
-        name: "quote",
-        class: "quote",
+        name: 'quote',
+        class: 'quote',
       },
       {
         name: 'redText',
-        class: 'redText'
+        class: 'redText',
       },
       {
-        name: "titleText",
-        class: "titleText",
-        tag: "h1",
+        name: 'titleText',
+        class: 'titleText',
+        tag: 'h1',
       },
-    ]
-    
+    ],
   };
-  
+
   constructor(
     private fb: FormBuilder,
     public layoutService: LayoutService,
     private routerService: RouterService,
     private formService: FormsService,
     private _helpPageService: HelpPageService,
-    private _route : ActivatedRoute,
-
+    private _route: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    this.rowId =Number(this._route.snapshot.params['id'])
-    
+    this.rowId = Number(this._route.snapshot.params['id']);
 
     this.initForm();
   }
 
   initForm() {
-    
     this.formGroup = this.fb.group({
       title: new FormControl('', customValidators.required),
       isDraft: new FormControl(false),
@@ -80,7 +74,6 @@ export class AddHelpPageComponent implements OnInit {
   }
 
   onSave() {
-    
     if (!this.formService.validForm(this.formGroup, false)) return;
 
     let formVal = this.formGroup.value;
@@ -95,14 +88,7 @@ export class AddHelpPageComponent implements OnInit {
       },
     } as AddHelpPage;
     this._helpPageService.sendHelpPage(obj);
-    this._helpPageService.addHelpPage$.subscribe((res: any) => {
-      if (res) {
-        console.clear()
-
-        this.routerService.navigateTo('/help-pages');
-      } else {
-        return;
-      }
-    });
+  
   }
 }
+
