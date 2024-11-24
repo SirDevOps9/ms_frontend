@@ -12,6 +12,7 @@
         <lib-text-input
           placeholder="{{ 'itemType.code' | translate }}"
           formControlName="code"
+          [readOnly]="true"
         ></lib-text-input>
         <lib-field-validations
           [appControl]="itemDefinitionForm.controls['code']"

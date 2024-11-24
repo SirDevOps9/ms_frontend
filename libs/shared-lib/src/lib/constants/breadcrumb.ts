@@ -30,6 +30,9 @@ export class BreadcrumbLabel {
 
   static readonly TREASURY_LIST = 'BreadCrumb.Treasury';
   static readonly vendor_list = 'BreadCrumb.VendorCategory';
+  static readonly purchaseInvoiceList = 'BreadCrumb.purchaseInvoice';
+  static readonly purchaseInvoiceAdd = 'BreadCrumb.purchaseInvoiceAdd';
+  static readonly purchaseInvoiceEdit = 'BreadCrumb.purchaseInvoiceEdit';
   static readonly vendor_Add = 'BreadCrumb.AddVendorCategory';
   static readonly vendor_Edit = 'BreadCrumb.EditVendorCategory';
   static readonly VENDOR_DEFINITIONS = 'BreadCrumb.VendorDefinitions';
@@ -74,8 +77,11 @@ export class BreadcrumbLabel {
   static DOMAIN = 'Domain Details';
   static Manage_Apps = 'Manage Apps';
   static BUSSINESS_OWNER = 'Bussiness Owners';
+    static HELP_PAGES='Help Pages';
   static MANAGE_BUSSINESS_OWNER = 'Manage Bussiness Owners';
   static SUBDOMAIN_INFO = 'Subdomain Info';
+    static Edit_Help_Page='Edit Help Page';
+    static Add_Help_Page='Add Help Page';
   static COMPANIES_INFO = 'Company Info';
   static LICENCE_INFO = 'licence Info';
   static USER_INFO = 'USER Info';

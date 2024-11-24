@@ -25,3 +25,14 @@
     color: rgb(237, 42, 42);
     text-align: center;
 }
+
+.no-tracking {
+    background-color: #F2F4F8;
+}
+
+.readonly-calendar {
+    pointer-events: none;
+    background-color: #f0f0f0;
+    color: #aaa;
+    cursor: not-allowed;
+}
