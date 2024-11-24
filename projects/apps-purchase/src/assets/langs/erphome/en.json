@@ -10,7 +10,10 @@
     "VendorOpeningBalance":"Vendor Opening Balance",
     "AddVendorOpeningBalance":"Add Vendor Opening Balance",
     "EditVendorOpeningBalance":"Edit Vendor Opening Balance",
-    "ViewVendorOpeningBalance":"View Vendor Opening Balance"
+    "ViewVendorOpeningBalance":"View Vendor Opening Balance",
+    "purchaseInvoice" : "Purchase Invoice",
+    "purchaseInvoiceAdd" : "Add Purchase Invoice",
+    "purchaseInvoiceEdit" : "Edit Purchase Invoice"
 
   },
   "dir": "ltr",
