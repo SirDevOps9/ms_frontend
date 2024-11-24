@@ -309,7 +309,8 @@
                 <ng-template pTemplate="output" >
 
                   <small *ngIf="uomTableForm.controls['fromUnitOfMeasureId'].value && uomTableForm.controls['factor'].value ">{{ uomTableForm.controls['calculationShow'].value }}</small>
-                <ng-template pTemplate="output">
+               </ng-template>
+                  <ng-template pTemplate="output">
                   <small
                     *ngIf="
                       uomTableForm.controls['fromUnitOfMeasureId'].value &&
