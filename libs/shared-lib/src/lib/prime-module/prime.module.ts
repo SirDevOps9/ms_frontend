@@ -28,8 +28,6 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
-import { EditorModule } from 'primeng/editor';
-
 @NgModule({
   providers: [DialogService, MessageService],
   declarations: [],
@@ -59,7 +57,7 @@ import { EditorModule } from 'primeng/editor';
     InputGroupAddonModule,
     InputGroupModule,
     SplitButtonModule,
-    OverlayPanelModule,EditorModule,
+    OverlayPanelModule,
   ],
   exports: [
     TableModule,
@@ -88,7 +86,7 @@ import { EditorModule } from 'primeng/editor';
     InputGroupAddonModule,
     MenuModule,
     InputGroupModule,
-    OverlayPanelModule,EditorModule,
+    OverlayPanelModule,
 
     SplitButtonModule,
   ],
