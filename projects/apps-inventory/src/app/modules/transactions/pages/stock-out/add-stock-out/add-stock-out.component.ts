@@ -162,11 +162,10 @@ export class AddStockOutComponent implements OnInit {
 
 
 
-  setRowData(indexLine: number, selectedItemId: any, list: any) {
-    console.log(list ,selectedItemId ,"lllllllll");
-    
+  setRowData(indexLine: number, selectedItemId: any, list: any) {    
     const selectedItem = list.find((item: any) => item.itemNumber === selectedItemId);
     const rowForm = this.stockOutDetailsFormArray.at(indexLine) as FormGroup;
+console.log(rowForm ,"kkkkkkkkk");
 
     if (!selectedItem) {
       console.error(`Item with ID ${selectedItemId} not found`);
@@ -244,8 +243,10 @@ export class AddStockOutComponent implements OnInit {
     this.setUomName(indexLine, rowForm.get('uomOptions')?.value)
     this.setExpiryDate(indexLine, selectedItem.batches, selectedItem.serialOptions)
     this.isDuplicate(indexLine)
+    
+    
   }
-  isDuplicate(rowIndex: number) {
+  isDuplicate(rowIndex: number) {    
     const rowForm = this.stockOutDetailsFormArray.at(rowIndex) as FormGroup;
 
     this.stockOutDetailsFormArray.controls.some((element: any, index: number) => {
@@ -265,6 +266,7 @@ export class AddStockOutComponent implements OnInit {
 
           return true; // Stop checking on first match
         } else {
+          this.duplicateLine = false;
           this.serialError = false;
           this.rowDuplicate = -1;
 
@@ -607,7 +609,7 @@ onSave() {
   openDialog(indexLine: number) {
     const ref = this.dialog.open(SearchItemPopUpComponent, {
       width: 'auto',
-      height: '600px',
+      height: '500px',
       data: this.addForm.get('warehouseId')?.value
     });
     ref.onClose.subscribe((selectedItems: any) => {

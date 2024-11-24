@@ -1,6 +1,7 @@
 {
   "BreadCrumb": {
-    "Dashboard": "Dashboard"
+    "Dashboard": "Dashboard",
+    "sequence":"Sequence"
   },
   "Save": "Save",
   "Cancel": "Cancel",

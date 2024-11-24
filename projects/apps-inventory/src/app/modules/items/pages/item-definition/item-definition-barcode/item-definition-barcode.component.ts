@@ -146,7 +146,7 @@ export class ItemDefinitionBarcodeComponent {
       barcode: null,
       uomId: [null, [customValidators.required]],
       itemVariantId: [null, [customValidators.required]],
-      sku: [null, [customValidators.required]],
+      sku: [null],
       isActive: true,
       uomName: null,
       itemVariantName: null
