@@ -6,9 +6,10 @@ import {
   BreadcrumbLabel,
   LayoutComponent,
   Modules,
+  Pages,
   SharedLibModule,
 } from 'shared-lib';
-import { LayoutPageComponent } from 'apps-shared-lib';
+import { LayoutPageComponent, SequenceComponent } from 'apps-shared-lib';
 import { AddItemCategoryComponent } from './components/add-item-category/add-item-category.component';
 import { ItemCategoryListComponent } from './pages/item-category/item-category-list/item-category-list.component';
 import { AddItemDefinitionPopupComponent } from './components/add-item-definition/add-item-definition-popup.component';
@@ -39,11 +40,8 @@ import { OperationTagAddComponent } from './pages/operational-tag/operation-tag-
 import { OperationTagEditComponent } from './pages/operational-tag/operation-tag-edit/operation-tag-edit.component';
 import { OperationTagListComponent } from './pages/operational-tag/operation-tag-list/operation-tag-list.component';
 import { OperationTagMainComponent } from './pages/operational-tag/operation-tag-main/operation-tag-main.component';
-import { AddStockInComponent } from './pages/stock-In/add-stock-in/add-stock-in.component';
-import { StockInListComponent } from './pages/stock-In/stock-in-list/stock-in-list.component';
 import { EditWarehouseComponent } from './pages/warehouse/edit-warehouse/edit-warehouse.component';
 import { MainWarehouseComponent } from './pages/warehouse/main-warehouse/main-warehouse.component';
-import { MainStockInListComponentComponent } from './pages/stock-In/main-stock-in-list-component/main-stock-in-list-component.component';
 import { ItemDefinitionGeneralComponent } from './pages/item-definition/item-definition-general/item-definition-general.component';
 import { ItemDefinitionUomComponent } from './pages/item-definition/item-definition-uom/item-definition-uom.component';
 import { ItemDefinitionAttributesVariantsComponent } from './pages/item-definition/item-definition-attributes-variants/item-definition-attributes-variants.component';
@@ -51,8 +49,16 @@ import { ItemDefinitionBarcodeComponent } from './pages/item-definition/item-def
 import { ItemDefinitionInventoryComponent } from './pages/item-definition/item-definition-inventory/item-definition-inventory.component';
 import { ItemCatalogTabsComponent } from './pages/item-definition/item-catalog-tabs/item-catalog-tabs.component';
 import { EditCategoryUomComponent } from './pages/item-definition/item-definition-uom/edit-category/edit-category-uom/edit-category-uom.component';
-import { ItemDefintionVatComponent } from './pages/item-definition/item-defintion-vat/item-defintion-vat.component';
 import { ItemDefintionTaxComponent } from './pages/item-definition/item-defintion-tax/item-defintion-tax.component';
+import { WarehouseTabsComponent } from './pages/warehouse/warehouse-tabs/warehouse-tabs/warehouse-tabs.component';
+import { AttributeDefinitionValuesComponent } from './pages/attribute-definition/attribute-definition-values/attribute-definition-values/attribute-definition-values.component';
+import { AttributeDefinitionListValuesComponent } from './pages/attribute-definition/attribute-definition-list-values/attribute-definition-list-values/attribute-definition-list-values.component';
+import { ItemDefintionVariantComponent } from './pages/item-definition/item-defintion-variants/item-defintion-variant.component';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { ItemFixedCostComponent } from './pages/item-definition/item-fixed-cost/item-fixed-cost.component';
+import { ViewWarehouseComponent } from './pages/warehouse/view-warehouse/view-warehouse.component';
+import { UomViewComponent } from './pages/unit-of-major/uom-view/uom-view.component';
+import { GeneralSettingInvComponent } from './pages/general-setting-inv/general-setting-inv.component';
 
 const routes: Routes = [
   {
@@ -67,8 +73,7 @@ const routes: Routes = [
         component: ItemDefinitionListComponent,
         data: {
           breadcrumb: BreadcrumbLabel.ITEM_DIFINITION,
-          pageTitle : BreadcrumbLabel.ITEM_DIFINITION
-
+          pageTitle: BreadcrumbLabel.ITEM_DIFINITION,
         },
       },
       {
@@ -76,8 +81,7 @@ const routes: Routes = [
         component: ItemDefinitionListComponent,
         data: {
           breadcrumb: BreadcrumbLabel.ITEM_DIFINITION,
-        pageTitle : BreadcrumbLabel.ITEM_DIFINITION
-
+          pageTitle: BreadcrumbLabel.ITEM_DIFINITION,
         },
       },
       {
@@ -85,8 +89,7 @@ const routes: Routes = [
         component: ItemCatalogTabsComponent,
         data: {
           breadcrumb: '',
-          pageTitle : BreadcrumbLabel.EDIT_ITEM_DIFINITION
-
+          pageTitle: BreadcrumbLabel.EDIT_ITEM_DIFINITION,
         },
         children: [
           {
@@ -94,7 +97,7 @@ const routes: Routes = [
             component: ItemDefinitionGeneralComponent,
             data: {
               breadcrumb: BreadcrumbLabel.GENERAL_ITEMdEFINITION,
-              pageTitle : BreadcrumbLabel.GENERAL_ITEMdEFINITION
+              pageTitle: BreadcrumbLabel.GENERAL_ITEMdEFINITION,
             },
           },
           {
@@ -102,15 +105,15 @@ const routes: Routes = [
             component: ItemDefinitionUomComponent,
             data: {
               breadcrumb: BreadcrumbLabel.attributes_ITEMdEFINITION,
-              pageTitle : BreadcrumbLabel.attributes_ITEMdEFINITION
+              pageTitle: BreadcrumbLabel.attributes_ITEMdEFINITION,
             },
           },
           {
             path: 'variants/:id',
-            component: ItemDefintionVatComponent,
+            component: ItemDefintionVariantComponent,
             data: {
               breadcrumb: BreadcrumbLabel.attributes_ITEMdEFINITION,
-              pageTitle : BreadcrumbLabel.attributes_ITEMdEFINITION
+              pageTitle: BreadcrumbLabel.attributes_ITEMdEFINITION,
             },
           },
           {
@@ -118,7 +121,7 @@ const routes: Routes = [
             component: ItemDefinitionAttributesVariantsComponent,
             data: {
               breadcrumb: BreadcrumbLabel.attributes_ITEMdEFINITION,
-              pageTitle : BreadcrumbLabel.attributes_ITEMdEFINITION
+              pageTitle: BreadcrumbLabel.attributes_ITEMdEFINITION,
             },
           },
           {
@@ -126,7 +129,15 @@ const routes: Routes = [
             component: ItemDefinitionBarcodeComponent,
             data: {
               breadcrumb: BreadcrumbLabel.EditItembarcodedefinition,
-              pageTitle : BreadcrumbLabel.EditItembarcodedefinition
+              pageTitle: BreadcrumbLabel.EditItembarcodedefinition,
+            },
+          },
+          {
+            path: 'fixed-cost/:id',
+            component: ItemFixedCostComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.EditItembarfixedcostfinition,
+              pageTitle: BreadcrumbLabel.EditItembarfixedcostfinition,
             },
           },
 
@@ -135,7 +146,7 @@ const routes: Routes = [
             component: ItemDefintionTaxComponent,
             data: {
               breadcrumb: BreadcrumbLabel.EditItembarcodedefinition,
-              pageTitle : BreadcrumbLabel.EditItembarcodedefinition
+              pageTitle: BreadcrumbLabel.EditItembarcodedefinition,
             },
           },
           {
@@ -143,11 +154,10 @@ const routes: Routes = [
             component: ItemDefinitionInventoryComponent,
             data: {
               breadcrumb: BreadcrumbLabel.INVENTORY,
-              pageTitle : BreadcrumbLabel.INVENTORY
+              pageTitle: BreadcrumbLabel.INVENTORY,
             },
           },
         ],
-
       },
       {
         path: 'warehouse',
@@ -161,7 +171,7 @@ const routes: Routes = [
             component: WarehouseListComponent,
             data: {
               breadcrumb: BreadcrumbLabel.WARE_HOUSE,
-              pageTitle : BreadcrumbLabel.WARE_HOUSE
+              pageTitle: BreadcrumbLabel.WARE_HOUSE,
             },
           },
           {
@@ -169,17 +179,24 @@ const routes: Routes = [
             component: AddWarehouseComponent,
             data: {
               breadcrumb: BreadcrumbLabel.ADD_WARE_HOUSE,
-              pageTitle : BreadcrumbLabel.ADD_WARE_HOUSE
-
+              pageTitle: BreadcrumbLabel.ADD_WARE_HOUSE,
             },
           },
+
           {
             path: 'edit-warehouse/:id',
             component: EditWarehouseComponent,
             data: {
               breadcrumb: BreadcrumbLabel.EDIT_WARE_HOUSE,
-              pageTitle : BreadcrumbLabel.EDIT_WARE_HOUSE
-
+              pageTitle: BreadcrumbLabel.EDIT_WARE_HOUSE,
+            },
+          },
+          {
+            path: 'view-warehouse/:id',
+            component: ViewWarehouseComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.VIEW_WARE_HOUSE,
+              pageTitle: BreadcrumbLabel.VIEW_WARE_HOUSE,
             },
           },
         ],
@@ -188,7 +205,7 @@ const routes: Routes = [
         path: 'uom',
         component: UOMMainComponent,
         data: {
-          breadcrumb: BreadcrumbLabel.UNITOFMEASURE
+          breadcrumb: BreadcrumbLabel.UNITOFMEASURE,
         },
         children: [
           {
@@ -196,6 +213,7 @@ const routes: Routes = [
             component: UOMListComponent,
             data: {
               breadcrumb: '',
+              pageTitle: BreadcrumbLabel.UOMLISt,
             },
           },
           {
@@ -203,13 +221,22 @@ const routes: Routes = [
             component: UOMAddComponent,
             data: {
               breadcrumb: BreadcrumbLabel.ADD_UOM,
+              pageTitle: BreadcrumbLabel.ADD_UOM,
             },
           },
           {
             path: 'edit-uom/:id',
             component: UOMEditComponent,
             data: {
-              breadcrumb: BreadcrumbLabel.Edit_UOM,
+              breadcrumb: BreadcrumbLabel.EDITUOM,
+              pageTitle: BreadcrumbLabel.EDITUOM,
+            },
+          },
+          {
+            path: 'view-uom/:id',
+            component: UomViewComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.UOM_VIEW,
             },
           },
         ],
@@ -265,6 +292,13 @@ const routes: Routes = [
               breadcrumb: BreadcrumbLabel.Edit_Attribute_Definition,
             },
           },
+          {
+            path: 'view/:id',
+            component: AttributeDefinitionListValuesComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.LIST_Attribute_Definition,
+            },
+          },
         ],
       },
       {
@@ -272,39 +306,9 @@ const routes: Routes = [
         component: MainItemCategoriesTreeComponent,
         data: {
           breadcrumb: BreadcrumbLabel.ITEMS_CATEGORY,
-          pageTitle : BreadcrumbLabel.ITEMS_CATEGORY
-
+          pageTitle: BreadcrumbLabel.ITEMS_CATEGORY,
         },
       },
-      {
-        path: 'stock-in',
-        component: MainStockInListComponentComponent,
-        data: {
-          breadcrumb: BreadcrumbLabel.STOCKIN,
-        },
-        children: [
-          {
-            path: '',
-            component: StockInListComponent,
-            data: { breadcrumb: '' },
-          },
-          {
-            path: 'add-stock-in',
-            component: AddStockInComponent,
-            data: {
-              breadcrumb: BreadcrumbLabel.ADD_STOCKIN,
-            },
-          },
-          {
-            path: 'add-item-definition/:id',
-            component: ItemCatalogTabsComponent,
-            data: {
-              breadcrumb: BreadcrumbLabel.ADD_ITEM_DIFINITION,
-            },
-          },
-        ],
-      },
-
 
       {
         path: 'item-category',
@@ -312,6 +316,11 @@ const routes: Routes = [
         data: {
           breadcrumb: BreadcrumbLabel.ITEM_CATEGORY,
         },
+      },
+      {
+        path: 'general-setting',
+        component: GeneralSettingInvComponent,
+        data: { breadcrumb: BreadcrumbLabel.GENERAL_SETTING },
       },
     ],
   },
@@ -349,20 +358,29 @@ const routes: Routes = [
     EditWarehouseComponent,
     MainItemCategoriesTreeComponent,
     AddWarehousePopupComponent,
-    StockInListComponent,
-    AddStockInComponent,
     MainWarehouseComponent,
     ViewItemDefinitionComponent,
-    MainStockInListComponentComponent,
     ItemDefinitionGeneralComponent,
     ItemDefinitionUomComponent,
     ItemDefinitionAttributesVariantsComponent,
     ItemDefinitionBarcodeComponent,
     ItemDefinitionInventoryComponent,
     EditCategoryUomComponent,
-    ItemDefintionVatComponent,
-    ItemDefintionTaxComponent
+    ItemDefintionVariantComponent,
+    ItemDefintionTaxComponent,
+    WarehouseTabsComponent,
+    AttributeDefinitionValuesComponent,
+    AttributeDefinitionListValuesComponent,
+    ItemFixedCostComponent,
+    ViewWarehouseComponent,
+    UomViewComponent,
+    GeneralSettingInvComponent,
   ],
-  imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule ],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(routes),
+    SharedLibModule,
+    ZXingScannerModule, // Add the ZXingScannerModule here
+  ],
 })
 export class ItemsModule {}

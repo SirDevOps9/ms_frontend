@@ -12,25 +12,12 @@
             dataKey: 'id',
             pageSize: 10,
             columns: [
-              {
-                name: 'code',
-                headerText: ('OperationalTag.code' | translate),
-                isGlobalFilter: true,
-                isSortable: true
-              },
-              {
-                name: 'glAccountId',
-                headerText: ('OperationalTag.glAccountId' | translate),
-                isGlobalFilter: true,
-                isSortable: true
-              },
-              {
+            {
                 name: 'name',
                 headerText: ('OperationalTag.name' | translate),
                 isGlobalFilter: true,
                 isSortable: true
               },
-         
               {
                 name: 'operationType',
                 headerText: ('OperationalTag.operationType' | translate),
@@ -45,6 +32,14 @@
                 isSortable: true,
 
               },
+
+              {
+                name: 'glAccountId',
+                headerText: ('OperationalTag.glAccountId' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+
               {
                 name: 'isActive',
                 headerText: ('OperationalTag.status' | translate),
@@ -61,7 +56,7 @@
                 template: actions
 
               },
-             
+
             ]
           }"
         >
@@ -75,57 +70,37 @@
                       [placeholder]="'OperationalTag.Search' | translate"
                       [(ngModel)]="searchTerm"
                       (keyUp)="onSearchChange()"
+                      [iconUrl]="'pi pi-search'"
                     ></lib-text-input>
                   </lib-form-group>
                 </div>
-                <!-- <div class="col-span-1">
-                  <lib-form-group>
-                    <lib-text-input
-                      type="text"
-                      [placeholder]="'OperationalTag.Search' | translate"
-                      [(ngModel)]="searchTerm"
-                      (keyUp)="onSearchChange()"
-                    ></lib-text-input>
-                  </lib-form-group>
-                </div>
-                <div class="col-span-1">
-                  <lib-form-group>
-                    <lib-text-input
-                      type="text"
-                      [placeholder]="'OperationalTag.Search' | translate"
-                      [(ngModel)]="searchTerm"
-                      (keyUp)="onSearchChange()"
-                    ></lib-text-input>
-                  </lib-form-group>
-                </div> -->
-              
-  
                 <div class=" flex flex-auto justify-content-end align-items-center gap-2">
                   <div>
+                    <lib-export
+                      (exportClick)="exportClick($event)"
+                      [exportData]="exportData"
+                      [exportColumns]="exportColumns"
+                      [ExportName]="('OperationalTag.OperationalTagPrint' |translate)"
+                    
+                    >
+                    </lib-export>
+                  </div>
+
+                  <div>
                     <lib-button-micro
-                      [title]="'OperationalTag.Add' | translate"
+                      [title]="'OperationalTag.create' | translate"
                       nameClass="save"
                       iconName="pi pi-plus"
                       (click)="Add()"
                     >
                     </lib-button-micro>
                   </div>
-                  <!--  -->
-                  <div>
-                    <lib-export
-                      (exportClick)="exportClick($event)"
-                      [exportData]="exportData"
-                      [exportColumns]="exportColumns"
-                      [ExportName]="'Operational Tag'"
-                    >
-                    </lib-export>
-                  </div>
-                  <!--  -->
+
                 </div>
               </div>
             </div>
           </ng-container>
-    
+
           <ng-template #isActive let-row>
             <div   *ngIf="row.isActive !=null" class="flex align-items-center">
               <lib-input-switch
@@ -133,19 +108,12 @@
               [ngModel]="row.isActive"
               (valueChanged)="confirmChange($event, row)">
             </lib-input-switch>
+            <span  [ngClass]="{'active-true':row.isActive}" class="ml-2">
+              {{ row.isActive ? ('global.activeOn' | translate) : ('global.activeOff' | translate)}}
+
+            </span>
             </div>
           </ng-template>
-       
-          <!-- <ng-template #isActive let-isActive>
-            <div *ngIf="isActive" class="actions flex align-items-center" >
-             {{'OperationalTag.Active'| translate}}
-            
-            </div>
-            <div *ngIf="!isActive" class="actions flex align-items-center" >
-             {{'OperationalTag.inActive'| translate}}
-            
-            </div>
-          </ng-template>  -->
           <ng-template #actions let-action>
             <div class="actions flex align-items-center">
               <img src="assets/images/table/edit.svg" alt="" (click)="onEdit(action)" />
@@ -156,4 +124,3 @@
       </div>
     </div>
   </lib-page-content>
-  

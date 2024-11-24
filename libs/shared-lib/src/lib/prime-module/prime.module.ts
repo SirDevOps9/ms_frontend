@@ -31,9 +31,8 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { EditorModule } from 'primeng/editor';
 
 @NgModule({
-  providers: [DialogService , MessageService],
-  declarations: [
-  ],
+  providers: [DialogService, MessageService],
+  declarations: [],
   imports: [
     TableModule,
     ButtonModule,
@@ -60,7 +59,7 @@ import { EditorModule } from 'primeng/editor';
     InputGroupAddonModule,
     InputGroupModule,
     SplitButtonModule,
-    OverlayPanelModule,EditorModule
+    OverlayPanelModule,EditorModule,
   ],
   exports: [
     TableModule,
@@ -78,7 +77,7 @@ import { EditorModule } from 'primeng/editor';
     DynamicDialogModule,
     PasswordModule,
     CheckboxModule,
-    PaginatorModule, 
+    PaginatorModule,
     RatingModule,
     CalendarModule,
     FieldsetModule,
@@ -90,8 +89,8 @@ import { EditorModule } from 'primeng/editor';
     MenuModule,
     InputGroupModule,
     OverlayPanelModule,EditorModule,
-    
-    SplitButtonModule
+
+    SplitButtonModule,
   ],
 })
 export class PrimeSharedModule {}

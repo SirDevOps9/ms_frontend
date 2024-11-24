@@ -17,6 +17,7 @@ import {
 } from '../../models';
 import { ReportsService } from '../../reports.service';
 import { SourceDocument } from '../../models/source-document-dto';
+import { DateOftheYear } from '../../models/Report-YearDate';
 
 @Component({
   selector: 'app-bank-account-statement',
@@ -39,8 +40,8 @@ export class BankAccountStatementComponent {
   openingBalance: number;
   openingHeader: String;
 
-    fromDate : string = ''
-  toDate : string = ''
+  fromDate: string = '';
+  toDate: string = '';
   constructor(
     private fb: FormBuilder,
     private reportsService: ReportsService,
@@ -52,8 +53,8 @@ export class BankAccountStatementComponent {
   ) {}
 
   ngOnInit() {
-
     this.initializeForm();
+    this.initReportYearDate();
     this.initializeDates();
 
     this.accountStatementForm.valueChanges.subscribe(() => {
@@ -65,10 +66,21 @@ export class BankAccountStatementComponent {
       this.BankDropDown = res;
     });
   }
+  initReportYearDate() {
+    this.reportsService.GetReportYearByDate();
+    this.reportsService.ReportYearByDate$.subscribe({
+      next: (res: DateOftheYear) => {
+        if (res) {
+          this.accountStatementForm.patchValue({
+            dateFrom: new Date(res.fromDate),
+            dateTo: new Date(res.toDate),
+          });
+        }
+      },
+    });
+  }
 
   initializeForm() {
-   
-
     this.accountStatementForm = this.fb.group({
       dateFrom: new FormControl('', [customValidators.required]),
       dateTo: new FormControl('', [customValidators.required]),
@@ -79,8 +91,8 @@ export class BankAccountStatementComponent {
   getAccountingReports() {
     if (!this.formsService.validForm(this.accountStatementForm)) return;
     if (
-      this.accountStatementForm.get('dateFrom')?.value <
-      this.accountStatementForm.get('dateTo')?.value
+      new Date(this.accountStatementForm.get('dateFrom')?.value) <
+      new Date(this.accountStatementForm.get('dateTo')?.value)
     ) {
       this.reportsService.getBankAccountStatement(this.accountStatementForm.value);
 
@@ -98,14 +110,14 @@ export class BankAccountStatementComponent {
     }
   }
   initializeDates() {
-    const today = new Date();
-    let startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
-    startOfMonth.setDate(startOfMonth.getDate() + 1);
-    const endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1);
-    this.accountStatementForm.patchValue({
-      dateFrom: startOfMonth.toISOString().split('T')[0],
-      dateTo: endOfMonth.toISOString().split('T')[0],
-    });
+    // const today = new Date();
+    // let startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+    // startOfMonth.setDate(startOfMonth.getDate() + 1);
+    // const endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1);
+    // this.accountStatementForm.patchValue({
+    //   dateFrom: startOfMonth.toISOString().split('T')[0],
+    //   dateTo: endOfMonth.toISOString().split('T')[0],
+    // });
   }
   printTable(id: string) {
     this.PrintService.print(id);

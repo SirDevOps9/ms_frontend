@@ -360,7 +360,8 @@
       "periodStart" : "Period Start",
       "periodend" : "Period end",
       "periodStatus" : "Period Status",
-      "actions" : "Actions"
+      "actions" : "Actions",
+      "delete" : "Financial Calendar Deleted Successfully"
     },
     "addFinancialCalendar" :  {
        "success":"Success",

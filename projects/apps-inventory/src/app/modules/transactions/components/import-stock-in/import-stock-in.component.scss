@@ -1,0 +1,15 @@
+.group_excel_button{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .file_uplode{
+        width: 100%;
+        margin-bottom: 32px;
+    }
+}
+.conent{
+    display: flex;
+    align-items:center ;
+    justify-content: center;
+}

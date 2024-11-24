@@ -10,6 +10,8 @@ import {
 import { JournalEntryService } from '../../../journal-entry.service';
 import { GetOpenFinancialPeriodDate, reportCostAllData } from '../../../models';
 import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service';
+import { ReportsService } from 'projects/apps-finance/src/app/modules/reports/reports.service';
+import { DateOftheYear } from 'projects/apps-finance/src/app/modules/reports/models/Report-YearDate';
 
 @Component({
   selector: 'app-cost-center-report',
@@ -31,11 +33,15 @@ export class CostCenterReportComponent {
     private ToasterService: ToasterService,
     private PrintService: PrintService,
     public generalService: GeneralService,
+    private reportsService: ReportsService,
+
     private dateTimeService: DateTimeService
   ) {}
 
   ngOnInit() {
     this.initializeForm();
+    this.initReportYearDate();
+
     this.getAccounts();
     this.getOpenFinancialPeriodDate();
     this.reportCostForm.valueChanges.subscribe(() => {
@@ -51,6 +57,19 @@ export class CostCenterReportComponent {
     });
   }
 
+  initReportYearDate() {
+    this.reportsService.GetReportYearByDate();
+    this.reportsService.ReportYearByDate$.subscribe({
+      next: (res: DateOftheYear) => {
+        if (res) {
+          this.reportCostForm.patchValue({
+            dateFrom: new Date(res.fromDate),
+            dateTo: new Date(res.toDate),
+          });
+        }
+      },
+    });
+  }
   initializeForm() {
     this.reportCostForm = this.fb.group({
       dateFrom: new FormControl('', [customValidators.required]),
@@ -62,7 +81,10 @@ export class CostCenterReportComponent {
   }
   getCostCenterReports() {
     if (this.reportCostForm.valid) {
-      if (this.reportCostForm.get('dateFrom')?.value < this.reportCostForm.get('dateTo')?.value) {
+      if (
+        new Date(this.reportCostForm.get('dateFrom')?.value) <
+        new Date(this.reportCostForm.get('dateTo')?.value)
+      ) {
         if (
           this.reportCostForm.get('posted')?.value != true &&
           this.reportCostForm.get('unposted')?.value != true

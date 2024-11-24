@@ -1,0 +1,214 @@
+<lib-page-content [title]="'bank.TaxList' | translate" [subTitle]="'bank.TaxList' | translate">
+  <div class="grid" >
+    <div class="md:col-12 p-0 my-1">
+      <div class="card">
+        <div class="grid m-0 p-0">
+          <div class="md:col-12">
+          </div>
+          <div class="md:col-4">
+            <lib-form-group>
+
+              <label >
+                {{ 'UOM.code' | translate }}
+              </label>
+              <lib-text-input [readOnly]="true"  placeholder={{uomsDataObject.id}}></lib-text-input>
+
+            </lib-form-group>
+          </div>
+          <!--  -->
+          <div class="md:col-4">
+            <lib-form-group>
+
+              <label >
+                {{ 'UOM.categorynameEn' | translate }}
+              </label>
+              <lib-text-input
+              [readOnly]="true"
+
+              placeholder={{uomsDataObject.nameEn}}
+              >
+              </lib-text-input>
+
+            </lib-form-group>
+          </div>
+          <!--  -->
+          <div class="md:col-4">
+            <lib-form-group>
+
+              <label >
+                {{ 'UOM.categorynameAr' | translate }}
+              </label>
+              <lib-text-input
+              [readOnly]="true"
+
+              placeholder={{uomsDataObject.nameAr}}
+              >
+              </lib-text-input>
+
+            </lib-form-group>
+          </div>
+          <!--  -->
+        </div>
+      </div>
+    </div>
+    <!--  -->
+    <div class="md:col-12 p-0 my-1">
+      <div class="card">
+        <div class="grid m-0 p-0">
+          <div class="md:col-12">
+            <p class="fw-bold heads">{{ 'UOM.baseUom' | translate }}</p>
+          </div>
+          <!--  -->
+          <div class="md:col-3">
+            <lib-form-group>
+              <label >
+                {{ 'UOM.systemUnit' | translate }}
+              </label>
+              <lib-text-input
+              [readOnly]="true"
+              placeholder={{uomsData[0].systemUnitOfMeasureCategoryId}}
+
+              >
+              </lib-text-input>
+
+            </lib-form-group>
+          </div>
+          <!--  -->
+          <div class="md:col-3">
+            <lib-form-group>
+
+              <label >
+                {{ 'UOM.nameUomEn' | translate }}
+              </label>
+              <lib-text-input
+              [readOnly]="true"
+              placeholder={{uomsData[0].nameEn}}
+
+              >
+              </lib-text-input>
+            </lib-form-group>
+          </div>
+          <!--  -->
+          <div class="md:col-3">
+            <lib-form-group>
+
+              <label >
+                {{ 'UOM.nameUomAr' | translate }}
+              </label>
+              <lib-text-input
+              [readOnly]="true"
+              placeholder={{uomsData[0].nameAr}}
+              >
+              </lib-text-input>
+            </lib-form-group>
+          </div>
+          <!--  -->
+          <div class="md:col-3">
+            <lib-form-group>
+              <label >
+                {{ 'UOM.shortName' | translate }}
+              </label>
+              <lib-text-input
+              [readOnly]="true"
+
+              placeholder={{uomsData[0].shortName}}
+
+              >
+              </lib-text-input>
+
+            </lib-form-group>
+          </div>
+          <!--  -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="entry_table my-2">
+    <div class="card">
+      <lib-data-table
+      [items]="uomsData"
+      className="p-datatable-gridlines"
+      [currentPageResult]="currentPageInfo"
+      [tableConfigs]="{
+        allowPagination: false,
+        allowServerPagination: true,
+        dataKey: 'id',
+        pageSize: 10,
+        columns: [
+          {
+            name: 'systemUnitOfMeasureCategoryId',
+            headerText: ('UOM.systemUnit' | translate),
+            isGlobalFilter: true,
+            isSortable: true
+          },
+          {
+            name: 'nameEn',
+            headerText: ('UOM.nameEn' | translate),
+            isGlobalFilter: true,
+            isSortable: true
+          },
+          {
+            name: 'nameAr',
+            headerText: ('UOM.nameAr' | translate),
+            isGlobalFilter: true,
+            isSortable: true
+          },
+          {
+            name: 'shortName',
+            headerText: ('UOM.shortName' | translate),
+            isGlobalFilter: true,
+            isSortable: true
+          },
+          {
+            name: 'factor',
+            headerText: ('UOM.factorUOM' | translate),
+            isGlobalFilter: true,
+            isSortable: true
+          },
+          {
+            name: 'fromUnitOfMeasureNameEn',
+            headerText: ('UOM.from' | translate),
+            isGlobalFilter: true,
+            isSortable: true
+          },
+          {
+            name: 'calculation',
+            headerText: ('UOM.calculation' | translate),
+            isGlobalFilter: false,
+            isSortable: true
+          },
+          {
+            name: 'reversal',
+            headerText: ('UOM.reversal' | translate),
+            isGlobalFilter: false,
+            isSortable: true
+          },
+        ]
+      }">
+      <ng-container caption>
+        <div class="grid grid-cols-4 gap-2">
+          <div class="col-span-1">
+            <lib-form-group>
+              <lib-text-input
+                type="text"
+                [placeholder]="'UOM.Search' | translate"
+                [iconUrl]="'pi pi-search'"
+                (input)="onSearch($event.target)">
+              </lib-text-input>
+            </lib-form-group>
+          </div>
+        </div>
+      </ng-container>
+    </lib-data-table>
+
+
+    </div>
+  </div>
+
+</lib-page-content>
+
+
+
+
+
+

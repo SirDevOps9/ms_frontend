@@ -16,6 +16,8 @@ import { itemDefinitionDto } from '../../../models';
 import { AddItemDefinitionPopupComponent } from '../../../components/add-item-definition/add-item-definition-popup.component';
 import { EditItemDefinitionComponent } from '../../../components/edit-item-definition/edit-item-definition.component';
 import { ViewItemDefinitionComponent } from '../../../components/view-item-definition/view-item-definition/view-item-definition.component';
+import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-item-definition-list',
@@ -28,13 +30,14 @@ export class ItemDefinitionListComponent implements OnInit {
     public authService: AuthService,
     private dialog: DialogService,
     private title: Title,
-    private langService: LanguageService,
-    private itemsService: ItemsService
+    private translate: TranslateService,
+    private itemsService: ItemsService,
+    private exportService:ExportService
   ) {}
 
   tableData: itemDefinitionDto[];
 
-  exportData: itemDefinitionDto[];
+  exportData: any[];
   cols = [
     {
       field: 'Code',
@@ -50,7 +53,7 @@ export class ItemDefinitionListComponent implements OnInit {
       header: 'shortName',
     },
   ];
-  exportColumns: lookupDto[];
+  exportColumns: any[];
   exportSelectedCols: string[] = [];
 
   currentPageInfo: PageInfoResult = {};
@@ -59,10 +62,7 @@ export class ItemDefinitionListComponent implements OnInit {
 
   ngOnInit() {
     this.initItemDefinitionData();
-    this.exportColumns = this.cols.map((col) => ({
-      id: col.header,
-      name: col.field,
-    }));
+
   }
 
   initItemDefinitionData() {
@@ -89,10 +89,17 @@ export class ItemDefinitionListComponent implements OnInit {
 
   exportBankData(searchTerm: string) {
     this.itemsService.exportsItemsDefinitionList(searchTerm);
-    this.itemsService.exportedItemDefinitionListDataSource.subscribe((res) => {
-      this.exportData = res;
+    const columns = [
+      { name: 'name', headerText : this.translate.instant('OperationalTag.name') },
+
+    ];
+    this.itemsService.exportedItemDefinitionListDataSourceObs.subscribe((res) => {
+      this.exportData = this.exportService.formatCiloma(res, columns);
+
     });
   }
+
+
 
   onAdd() {
     const dialogRef = this.dialog.open(AddItemDefinitionPopupComponent, {
@@ -104,7 +111,7 @@ export class ItemDefinitionListComponent implements OnInit {
       this.initItemDefinitionData();
     });
 
-    
+
   }
 
   onEdit(data: any) {

@@ -30,7 +30,7 @@ export class EditAttributeDefinitionComponent implements OnInit {
     private title: Title
   ) {
     this.title.setTitle(
-      this.languageService.transalte('attributeDefinition.addattributeDefinition')
+      this.languageService.transalte('attributeDefinition.EditAttributeDefinition')
     );
   }
   ngOnInit(): void {
@@ -47,7 +47,7 @@ export class EditAttributeDefinitionComponent implements OnInit {
     this.itemsService.AttributeGroupDropDown();
     this.itemsService.attributeGroupeDropDownLookup$.subscribe((res) => {
       this.attributeName = res;
- 
+
     });
   }
   attributeGroupsValue(id: number) {
@@ -122,7 +122,7 @@ export class EditAttributeDefinitionComponent implements OnInit {
         this.isLastLineSaved = true;
         this.updateDuplicateLines();
           this.attributeGroups();
-      
+
       }
     }
   }

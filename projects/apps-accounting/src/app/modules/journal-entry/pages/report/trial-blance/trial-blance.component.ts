@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { reportTrialDto } from '../../../models';
 import {
   DateTimeService,
@@ -15,6 +15,8 @@ import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service
 import { Router } from '@angular/router';
 import { DialogService } from 'primeng/dynamicdialog';
 import { MultiSelectDetailedAccountsComponent } from '../../../components/multi-select-detailed-accounts/multi-select-detailed-accounts.component';
+import { ReportsService } from 'projects/apps-finance/src/app/modules/reports/reports.service';
+import { DateOftheYear } from 'projects/apps-finance/src/app/modules/reports/models/Report-YearDate';
 
 @Component({
   selector: 'app-trial-blance',
@@ -27,6 +29,7 @@ export class TrialBlanceComponent implements OnInit {
   defoultSelectedAcounts: number[] = [];
 
   tableData: reportTrialDto[] = [];
+  reportsService = inject(ReportsService);
   constructor(
     private fb: FormBuilder,
     private accountService: AccountService,
@@ -43,14 +46,35 @@ export class TrialBlanceComponent implements OnInit {
   ngOnInit() {
     this.tableData = [];
     this.initializeForm();
+    this.initReportYearDate();
+
     this.getAccounts();
     this.initializeDates();
     this.reportTrialForm.valueChanges.subscribe((res) => {
       this.tableData = [];
     });
+
+    this.reportTrialForm.valueChanges.subscribe((res) => {
+      console.log(res);
+    });
   }
   printTable(id: string) {
     this.PrintService.print(id);
+  }
+
+  // default date
+  initReportYearDate() {
+    this.reportsService.GetReportYearByDate();
+    this.reportsService.ReportYearByDate$.subscribe({
+      next: (res: DateOftheYear) => {
+        if (res) {
+          this.reportTrialForm.patchValue({
+            dateFrom: new Date(res.fromDate),
+            dateTo: new Date(res.toDate),
+          });
+        }
+      },
+    });
   }
 
   getAccounts() {
@@ -76,7 +100,7 @@ export class TrialBlanceComponent implements OnInit {
       const dateFrom = this.reportTrialForm.get('dateFrom')?.value;
       const dateTo = this.reportTrialForm.get('dateTo')?.value;
 
-      if (dateFrom >= dateTo) {
+      if (new Date(dateFrom) >= new Date(dateTo)) {
         this.ToasterService.showError(
           this.languageService.transalte('reportTrial.Error'),
           this.languageService.transalte('reportTrial.DateFromNotBeforeDateTo')
@@ -98,7 +122,7 @@ export class TrialBlanceComponent implements OnInit {
       if (this.reportTrialForm.get('Accounts')?.value == null) {
         this.reportTrialForm.get('Accounts')?.setValue([]);
       }
-
+      console.log(this.reportTrialForm);
       this.journalEntryService.getTrialBalance(this.reportTrialForm.value);
       this.journalEntryService.report.subscribe((res: any) => {
         this.tableData = res.map(

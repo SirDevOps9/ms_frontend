@@ -20,8 +20,16 @@ const routes: Routes = [
       },
       {
         path: 'masterdata',
+        loadChildren: () => import('./modules/items/items.module').then((m) => m.ItemsModule),
+      },
+      {
+        path: 'transactions',
         loadChildren: () =>
-          import('./modules/items/items.module').then((m) => m.ItemsModule),
+          import('./modules/transactions/transactions.module').then((m) => m.TransactionsModule),
+      },
+      {
+        path: 'reports',
+        loadChildren: () => import('./modules/reports/reports.module').then((m) => m.ReportsModule),
       },
     ],
   },
@@ -29,6 +37,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

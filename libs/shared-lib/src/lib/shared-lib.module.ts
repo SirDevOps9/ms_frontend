@@ -118,8 +118,9 @@ import { NewBreadCrumbComponent } from './components/new-bread-crumb/new-bread-c
     TreeModule,
     ProgressSpinnerModule,
     QRCodeModule,
-    InputTextareaModule
-    
+    InputTextareaModule,
+
+
   ],
   exports: [
     GetLookupPipe,
@@ -162,7 +163,7 @@ import { NewBreadCrumbComponent } from './components/new-bread-crumb/new-bread-c
     GetElementByIDPipe,
     ToastComponent,
     UploadMultipeFilesComponent,
-    TablePrintComponent,
+    TablePrintComponent, 
     TabviewComponent,
     ExportComponent,
     ChangeColumnComponent,
@@ -172,5 +173,6 @@ import { NewBreadCrumbComponent } from './components/new-bread-crumb/new-bread-c
     QRCodeModule,ColumnsSelectionComponent,
     InputTextareaModule
   ],
+
 })
 export class SharedLibModule {}

@@ -1,0 +1,20 @@
+<lib-popup-page
+  title="{{ 'attributeDefinition.attributeValues' | translate }}"
+  [closeFunction]="onCancel"
+  [save]="false"
+  [showCancel]="false"
+>
+
+<div class="itemAttributes">
+  <div *ngFor="let item of tableData" class="col-md-3">
+    <p class="itemAttributes-valuse">
+
+      {{ currentLang === 'en' ? item.nameEn : item.nameAr }}
+    </p>
+  </div>
+</div>
+
+
+
+
+</lib-popup-page>

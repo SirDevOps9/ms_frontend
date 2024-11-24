@@ -25,6 +25,8 @@ export class BreadcrumbLabel {
   static readonly PAYMENT_TERM_LIST = 'BreadCrumb.PaymentTermList';
   static readonly PAYMENT_TERM_Add = 'BreadCrumb.AddPaymentTerm';
   static readonly PAYMENT_TERM_Edit = 'BreadCrumb.EditPaymentTerm';
+  static VIEW_STOCKOUT = 'BreadCrumb.stockOutView';
+  static VIEW_STOCKIN = 'BreadCrumb.stockInView';
 
   static readonly TREASURY_LIST = 'BreadCrumb.Treasury';
   static readonly vendor_list = 'BreadCrumb.VendorCategory';
@@ -95,32 +97,47 @@ export class BreadcrumbLabel {
   static ADD_JOURNAL_OPENING_BALANCE = 'Add Journal Entry Opening Balance';
   static EDIT_JOURNAL_OPENING_BALANCE = 'Edit Journal Entry Opening Balance';
   static VIEW_JOURNAL_OPENING_BALANCE = 'View Journal Entry Opening Balance';
-  static ITEM_DIFINITION = 'Item catalog';
+  static ITEM_DIFINITION = 'BreadCrumb.Itemcatalog';
   static ADD_ITEM_DIFINITION = 'Add Item catalog';
   static EDIT_ITEM_DIFINITION = 'Edit Item catalog';
   static ITEM_TYPE = 'Item Type';
   static ITEM_CATEGORY = 'Item Category';
   static WARE_HOUSE = 'Warehouse';
-  static UNITOFMEASURE = 'Unit Of Measure';
+  static UNITOFMEASURE = 'BreadCrumb.UnitOfMeasure';
   static ADD_WARE_HOUSE = 'Add Warehouse';
   static UOM = 'UOM';
   static UOM_LIST = 'uom-list';
-  static ADD_UOM = 'UOM Add';
+  static UOM_VIEW = 'BreadCrumb.viewUom';
+  static ADD_UOM = 'BreadCrumb.addUom';
+  static EDITUOM = 'BreadCrumb.EditUom';
+  static UOMLISt = 'BreadCrumb.uomList';
   static Edit_UOM = 'edit uom';
   static GENERAL_ITEMdEFINITION = 'General Item Defintion';
   static attributes_ITEMdEFINITION = 'Attributes & Variants Item Defintion';
   static EditItembarcodedefinition = 'EditItembarcodedefinition';
+  static EditItembarfixedcostfinition = 'BreadCrumb.EditItembarfixedcostfinition';
+
   // attr attribute-definition
-  static Attribute_Definition = 'Attribute Definition';
-  static Operational_Tag = 'Operational Tag';
-  static Add_Operational_Tag = 'Add Operational Tag';
-  static Edit_Operational_Tag = 'Edit Operational Tag';
-  static Add_Attribute_Definition = 'Add Attribute Definition';
-  static Edit_Attribute_Definition = 'Edit Attribute Definition';
+  static Attribute_Definition = 'BreadCrumb.AttributeDefinition';
+  static Operational_Tag = 'BreadCrumb.OperationalTag';
+  static Add_Operational_Tag = 'BreadCrumb.add';
+  static Edit_Operational_Tag = 'BreadCrumb.EditOperationalTag';
+  static Add_Attribute_Definition = 'BreadCrumb.AddAttributeDefinition';
+  static Edit_Attribute_Definition = 'BreadCrumb.EditAttributeDefinition';
+  static LIST_Attribute_Definition = 'BreadCrumb.AttributeDefinitionView';
   static EDIT_WARE_HOUSE = 'Edit Warehouse';
+  static VIEW_WARE_HOUSE = 'BreadCrumb.ViewWarehouse';
   static ITEMS_CATEGORY = 'BreadCrumb.ItemsCategory';
-  static STOCKIN = 'Stock In';
+  static STOCKIN = 'BreadCrumb.stockIn';
+  static ITEM_CARD_REPORT = 'BreadCrumb.itemCardReport';
   static ADD_STOCKIN = 'Add Stock In';
+  static EDIT_STOCKIN = 'stockIn.edit_stock_in';
+  static readonly STOCKOUT = 'BreadCrumb.stockout';
+  static readonly GENERAL_SETTING = 'BreadCrumb.generalSetting';
+  static readonly ADD_STOCKOUT = 'BreadCrumb.add';
+  static readonly EDIT_STOCKOUT = 'BreadCrumb.edit';
+  static readonly TITLE_ADD_STOCKOUT = 'BreadCrumb.add_stockOut';
+  static readonly TITLE_EDIT_STOCKOUT = 'BreadCrumb.edit_stockOut';
 
   static COST_CENTER = 'Cost Center';
   static PAYMENT_TERM_ADD = 'BreadCrumb.AddPaymentterm';
@@ -155,6 +172,11 @@ export class BreadcrumbLabel {
   static VIEW_PAYMENT_TERM = 'BreadCrumb.ViewPaymentTerm';
   static PRICE_POLICY = 'BreadCrumb.PricePolicy';
   static PRICE_POLICY_ADD = 'BreadCrumb.add';
+  static PRICE_POLICY_EDIT = 'BreadCrumb.edit';
+  static PRICE_POLICY_VIEW = 'BreadCrumb.view';
+  static TITLE_PRICE_POLICY_ADD = 'title.add';
+  static TITLE_PRICE_POLICY_EDIT = 'title.edit';
+  static TITLE_PRICE_POLICY_VIEW = 'title.view';
 
   static INVENTORY = 'Inventory';
 }
