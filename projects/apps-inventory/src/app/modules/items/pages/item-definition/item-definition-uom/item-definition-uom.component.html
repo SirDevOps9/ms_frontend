@@ -71,7 +71,7 @@
               <td [pEditableColumn]="fg.controls['conversionRatio']" pEditableColumnField="conversionRatio">
                 <p-cellEditor>
                   <ng-template pTemplate="input">
-                    <lib-text-input formControlName="conversionRatio" type="number"></lib-text-input>
+                    <lib-text-input formControlName="conversionRatio" type="number" [readOnly]="true"></lib-text-input>
                   </ng-template>
                   <ng-template pTemplate="output">
                     {{ fg.controls['conversionRatio'].value }}

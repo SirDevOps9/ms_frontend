@@ -196,8 +196,8 @@ const routes: Routes = [
             path: 'view-warehouse/:id',
             component: ViewWarehouseComponent,
             data: {
-              breadcrumb: BreadcrumbLabel.VIEW_WARE_HOUSE,
-              pageTitle: BreadcrumbLabel.VIEW_WARE_HOUSE,
+              breadcrumb: BreadcrumbLabel.EDIT_WARE_HOUSE,
+              pageTitle: BreadcrumbLabel.EDIT_WARE_HOUSE,
             },
           },
         ],
@@ -325,8 +325,9 @@ const routes: Routes = [
       {
         path: 'general-setting',
         component: GeneralSettingInvComponent,
-        data: { breadcrumb: BreadcrumbLabel.GENERAL_SETTING ,
-          pageTitle: BreadcrumbLabel.GENERAL_SETTING
+        data: {
+          breadcrumb: BreadcrumbLabel.GENERAL_SETTING,
+          pageTitle: BreadcrumbLabel.GENERAL_SETTING,
         },
       },
     ],

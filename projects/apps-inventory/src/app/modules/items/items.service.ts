@@ -46,7 +46,7 @@ import {
 import { EditItemDefinitionDto } from './models/editItemDefinitionDto';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { variantGroupById } from './models/variantGroupById';
-import { itemAttributeValues } from './models/itemAttributeValues';
+import { ItemAttribute, itemAttributeValues } from './models/itemAttributeValues';
 import { getBarcodeById } from './models/getBarcodeById';
 import { addUOM, AddUom } from './models/addUom';
 import { addAttributeDifintion, IAttrributeDifinitionResult } from './models/AttrbuteDiffintion';
@@ -142,7 +142,7 @@ export class ItemsService {
   public sendBarcode = new BehaviorSubject<addBarcode>({} as addBarcode);
   public sendUOM = new BehaviorSubject<AddUom>({} as AddUom);
   public sendUOMCategory = new BehaviorSubject<addUOM>({} as addUOM);
-  public getUOMCategoryByIdData = new BehaviorSubject<addUOM>({} as addUOM);
+  public getUOMCategoryByIdData = new BehaviorSubject<addUOM | any>({} as addUOM);
   public sendAttrDefinition = new BehaviorSubject<addAttributeDifintion>(
     {} as addAttributeDifintion
   );
@@ -166,7 +166,7 @@ export class ItemsService {
   public sendlatestItemsList = new BehaviorSubject<LatestItems[]>([]);
   public latestItemsListByWarehouse = new BehaviorSubject<LatestItems[]>([]);
   public updateAddStockIn = new BehaviorSubject<AddStockIn>({} as AddStockIn);
-  public attributeValuesDropDownLookup = new BehaviorSubject<itemAttributeValues[]>([]);
+  public attributeValuesDropDownLookup = new BehaviorSubject<ItemAttribute[]>([]);
   public attributeValuesData = new BehaviorSubject<itemAttributeValues[]>([]);
   private itemsDataSource = new BehaviorSubject<AdvancedSearchDto[]>([]);
   public itemsList = this.itemsDataSource.asObservable();
@@ -822,7 +822,7 @@ public exportedWarehouseDataItemSourceObs = this.exportedWarehouseDataItemSource
     });
   }
   attributeGroupsValuesData(id: number) {
-    this.itemProxy.attributeGroupsValuesData(id).subscribe({
+    this.itemProxy.attributeGroupsGetAttributes(id).subscribe({
       next: (res: any) => {
         this.attributeValuesData.next(res);
       },
@@ -876,7 +876,8 @@ public exportedWarehouseDataItemSourceObs = this.exportedWarehouseDataItemSource
 
           const currentUom: any = this.getUOMCategoryByIdData.getValue();
           const updatedUOM: addUOM = currentUom.uoMs.filter((c: any) => c.id !== id);
-          this.getUOMCategoryByIdData.next(updatedUOM);
+          let data = {uoMs : updatedUOM}
+          this.getUOMCategoryByIdData.next(data );
         },
       });
     }

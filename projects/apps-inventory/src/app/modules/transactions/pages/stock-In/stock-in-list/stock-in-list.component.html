@@ -59,11 +59,6 @@
               isSortable: true
             },
             {
-              name: 'isReserved',
-              headerText: ('stockOut.reserve' | translate),
-              template: Reserved
-            },
-            {
               name: 'id',
               headerText: ('stockOut.actions' | translate),
               template: actions
@@ -100,9 +95,9 @@
           <div class="actions flex align-items-center">
             <lib-button-micro nameClass="table_button_view" (click)="onVeiw(action.id)">
             </lib-button-micro>
-            <lib-button-micro nameClass="table_button_edit" (click)="onEdit(action.id)">
+            <lib-button-micro nameClass="table_button_edit" (click)="onEdit(action.id)" *ngIf=" action.stockInStatus != sharedFinanceEnums.stockOutStatus.Posted">
             </lib-button-micro>
-            <lib-button-micro nameClass="table_button_delete" (click)="onDelete(action.id)">
+            <lib-button-micro nameClass="table_button_delete" (click)="onDelete(action.id)" *ngIf=" action.stockInStatus != sharedFinanceEnums.stockOutStatus.Posted">
             </lib-button-micro>
           </div>
         </ng-template>

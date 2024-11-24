@@ -73,9 +73,9 @@ export class AddVariantPopupComponent implements OnInit {
     })
   }
   attributeGroupsValue(id : number) {
-    this.itemsService.attributeGroupsValue(id)
-    this.itemsService.attributeValuesDropDownLookupObs.subscribe((res : any)=>{
-      this.attributeValues = res.itemAttributes
+    this.itemsService.attributeGroupsValuesData(id)
+    this.itemsService.attributeValuesData.subscribe((res : any)=>{
+      this.attributeValues = res
     })
   }
 

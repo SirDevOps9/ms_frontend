@@ -1,0 +1,127 @@
+<lib-bread-crumb></lib-bread-crumb>
+
+<lib-page-content
+  [title]="'AdminPortal.TaxList' | translate"
+  [subTitle]="'OperationalTagTaxList' | translate"
+>
+  <div class="bank">
+    <div class="card_micro">
+      <form [formGroup]="formGroup">
+        <div class="form_header">
+          <div class="d-flex row">
+            <!-- Title -->
+            <div class="col-6">
+              <lib-form-group>
+                <lib-label [appControl]="formGroup.controls['title']">
+                  {{ 'Title' | translate }}
+                </lib-label>
+                <lib-text-input type="text" formControlName="title" />
+                <!-- <lib-field-validations [appControl]="formGroup.controls['title']"></lib-field-validations> -->
+
+                <span
+                  *ngIf="
+                    (formGroup.get('title')?.touched || formGroup.get('title')?.dirty) &&
+                    formGroup.get('title')?.hasError('required')
+                  "
+                  class="error-message mt-2"
+                >
+                  Title is required.
+                </span>
+              </lib-form-group>
+            </div>
+
+            <!-- sefName -->
+            <div class="col-6">
+              <lib-form-group>
+                <lib-label [appControl]="formGroup.controls['sefName']">
+                  {{ 'Sef Name' | translate }}
+                </lib-label>
+                <lib-text-input type="text" formControlName="sefName" />
+                <!-- <lib-field-validations [appControl]="formGroup.controls['sefName']"></lib-field-validations> -->
+                <span
+                  *ngIf="
+                    (formGroup.get('sefName')?.touched || formGroup.get('sefName')?.dirty) &&
+                    formGroup.get('sefName')?.hasError('required')
+                  "
+                  class="error-message mt-2"
+                >
+                  Sef Name is required.
+                </span>
+              </lib-form-group>
+            </div>
+      
+
+            <!-- helpPageDetails -->
+              <div class="col-6 mt-3">
+                <lib-form-group>
+                  <lib-label [appControl]="formGroup.get('description')">
+                    {{ 'Description' | translate }}
+                  </lib-label>
+                  <div>
+                    <textarea
+                      rows="5"
+                      cols="30"
+                      pInputTextarea
+                      formControlName="description"
+                    ></textarea>
+                  </div>
+                  <lib-field-validations
+                    [appControl]="formGroup.get('description')"
+                  ></lib-field-validations>
+                </lib-form-group>
+              </div>
+                    <!-- isDraft -->
+            <div class="col-6 mt-3">
+              <lib-form-group>
+                <lib-label class="d-block mb-2" [appControl]="formGroup.controls['isDraft']">
+                  {{ 'IsDraft' | translate }}
+                </lib-label>
+                <lib-input-switch formControlName="isDraft"></lib-input-switch>
+              </lib-form-group>
+            </div>
+
+              <!-- Editor Content -->
+              <div class="col-12">
+                <lib-form-group>
+                  <lib-label [appControl]="formGroup.get('content')">
+                    {{ 'Content' | translate }}
+                  </lib-label>
+
+                  <angular-editor formControlName="content" [config]="config"></angular-editor>
+
+                  <!-- <lib-field-validations [appControl]="formGroup.get('helpPageDetails.content')"></lib-field-validations> -->
+                  <span
+                    *ngIf="
+                      (formGroup.get('content')?.touched ||
+                        formGroup.get('content')?.dirty) &&
+                      formGroup.get('content')?.hasError('required')
+                    "
+                    class="error-message mt-2"
+                  >
+                    Content is required.
+                  </span>
+                </lib-form-group>
+              </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="btn_group py-5">
+    <div class="d-flex justify-content-end gap-3 mt-4">
+      <lib-button-micro
+        nameClass="cancel"
+        title="{{ 'Cancel' | translate }}"
+        (click)="discard()"
+      ></lib-button-micro>
+      <lib-button-micro
+        nameClass="save w-100"
+        title="{{ 'Save' | translate }}"
+        iconName="pi pi-save"
+        type="button"
+        (click)="onSave()"
+      ></lib-button-micro>
+    </div>
+  </div>
+</lib-page-content>

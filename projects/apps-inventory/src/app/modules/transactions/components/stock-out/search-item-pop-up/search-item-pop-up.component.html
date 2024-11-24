@@ -3,6 +3,7 @@
       title="{{ 'popupSearch.ItemSearch' | translate }}"
       [closeFunction]="onCancel"
       (Submit)="onSubmit()"
+      [footer]="false"
     >
       <div class="table">
         <lib-data-table
@@ -14,8 +15,8 @@
           (pageChange)="onPageChange($event)"
           (selectedRowsChange)="onSelectedRowsChange($event)"
           [tableConfigs]="{
-            allowPagination: true,
-            allowServerPagination: false,
+            allowPagination: false,
+            allowServerPagination: true,
             dataKey: 'id',
             pageSize: 10,
             columns: [

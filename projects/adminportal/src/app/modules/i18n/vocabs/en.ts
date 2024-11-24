@@ -1,6 +1,19 @@
 // USA
 export const locale = {
   lang: 'en',
+  TaxList: "Tax List",
+OperationalTagTaxList: "Operational Tag Tax List",
+  AdminPortal: {
+    TaxList: "Tax List",
+    OperationalTagTaxList: "Operational Tag Tax List",
+    title: "Title",
+    sefName: "SEO-Friendly Name",
+    isDraft: "Is Draft",
+    description: "Description",
+    content: "Content",
+    discard: "Discard",
+    save: "Save"
+  },
   data: {
     TRANSLATOR: {
       SELECT: 'Select your language',

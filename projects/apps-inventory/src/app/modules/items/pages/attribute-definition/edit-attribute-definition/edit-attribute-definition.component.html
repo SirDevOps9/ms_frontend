@@ -87,29 +87,13 @@
     [ngClass]="{'duplicate-row': attrTableForm?.controls['isDuplicate']?.value}"
   >
 
-    <!-- Name in Arabic -->
-    <td [pEditableColumn]="attrTableForm?.controls['nameAr']" pEditableColumnField="nameAr">
-      <p-cellEditor>
-        <ng-template pTemplate="input">
-          <lib-text-input
-            placeholder="{{ 'attributeDefinition.valueEn' | translate }}"
-            formControlName="nameAr"
-          ></lib-text-input>
-        </ng-template>
-        <ng-template pTemplate="output">
-          {{ attrTableForm?.controls['nameAr']?.value }}
-        </ng-template>
-      </p-cellEditor>
-      <lib-field-validations
-        [appControl]="attrTableForm?.controls['nameAr']"
-      ></lib-field-validations>
-    </td>
+  
     <!-- Name in English -->
     <td [pEditableColumn]="attrTableForm?.controls['nameEn']" pEditableColumnField="nameEn">
       <p-cellEditor>
         <ng-template pTemplate="input">
           <lib-text-input
-            placeholder="{{ 'attributeDefinition.valueAr' | translate }}"
+            placeholder="{{ 'attributeDefinition.valueEn' | translate }}"
             formControlName="nameEn"
           ></lib-text-input>
         </ng-template>
@@ -119,6 +103,24 @@
       </p-cellEditor>
       <lib-field-validations
         [appControl]="attrTableForm?.controls['nameEn']"
+      ></lib-field-validations>
+    </td>
+
+    <!-- Name in Arabic -->
+    <td [pEditableColumn]="attrTableForm?.controls['nameAr']" pEditableColumnField="nameAr">
+      <p-cellEditor>
+        <ng-template pTemplate="input">
+          <lib-text-input
+            placeholder="{{ 'attributeDefinition.valueAr' | translate }}"
+            formControlName="nameAr"
+          ></lib-text-input>
+        </ng-template>
+        <ng-template pTemplate="output">
+          {{ attrTableForm?.controls['nameAr']?.value }}
+        </ng-template>
+      </p-cellEditor>
+      <lib-field-validations
+        [appControl]="attrTableForm?.controls['nameAr']"
       ></lib-field-validations>
     </td>
     <td>
