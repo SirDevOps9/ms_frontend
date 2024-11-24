@@ -1,0 +1,164 @@
+<lib-page-content>
+  <div class="user_page">
+    <div class="custom_card">
+      <div class="custom_card_label heading_b26">Account Types</div>
+      <div class="account_types_details">
+        <div class="box">
+          <p class="heading_b18 m-0">second</p>
+          <p class="paragraph_b16 m-0">120.390.02</p>
+        </div>
+        <div class="box">
+          <p class="heading_b18 m-0">second</p>
+          <p class="paragraph_b16 m-0">120.390.02</p>
+        </div>
+        <div class="box">
+          <p class="heading_b18 m-0">second</p>
+          <p class="paragraph_b16 m-0">120.390.02</p>
+        </div>
+        <div class="box">
+          <p class="heading_b18 m-0">second</p>
+          <p class="paragraph_b16 m-0">120.390.02</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="charts">
+      <div class="grid">
+        <div class="lg:col-6 col-12">
+          <app-chart-card [chartDTO]="chart" [chartDetailsConfig]="chartConfig">
+            <div class="chart-header">
+              <div class="title">Status</div>
+              <div class="action">
+                More Details <i class="pi pi-arrow-right"></i>
+                <span class="column-line"></span>
+                <i class="pi pi-heart"></i>
+              </div>
+            </div>
+          </app-chart-card>
+        </div>
+        <div class="lg:col-6 col-12">
+          <app-chart-card [chartDTO]="journalSourcesChart" [chartDetailsConfig]="journalConfig">
+            <div class="chart-header">
+              <div class="title">Journal Sources</div>
+              <div class="action">
+                More Details <i class="pi pi-arrow-right"></i>
+                <span class="column-line"></span>
+                <i class="pi pi-heart"></i>
+              </div>
+            </div>
+          </app-chart-card>
+        </div>
+        <div class="lg:col-6 col-12">
+          <app-chart-card>
+            <div class="chart-header">
+              <div class="title">Accounts</div>
+              <div class="action">
+                More Details <i class="pi pi-arrow-right"></i>
+                <span class="column-line"></span>
+                <i class="pi pi-heart"></i>
+              </div>
+            </div>
+            <div class="chart-body accounts-bank w-full">
+              @for(acc of accounts; track acc) {
+              <div class="row">
+                <span class="detail-name">{{ acc.name }}</span>
+                <span
+                  class="detail-type"
+                  [style.background-color]="acc.type == 'Bank' ? '#e7994f' : '#5eb5af'"
+                  >{{ acc.type }}</span
+                >
+
+                <span class="line"></span>
+                <span class="detail-value">{{ acc.value }}</span>
+              </div>
+              }
+            </div>
+          </app-chart-card>
+        </div>
+        <div class="lg:col-6 col-12">
+          <app-chart-card>
+            <div class="chart-header">
+              <div class="title">Accounts</div>
+              <div class="action">
+                More Details <i class="pi pi-arrow-right"></i>
+                <span class="column-line"></span>
+                <i class="pi pi-heart"></i>
+              </div>
+            </div>
+            <div class="chart-body accounts-bank w-full">
+              @for(acc of accounts; track acc) {
+              <div class="row">
+                <span class="detail-name">{{ acc.name }}</span>
+                <span
+                  class="detail-type"
+                  [style.background-color]="acc.type == 'Bank' ? '#e7994f' : '#5eb5af'"
+                  >{{ acc.type }}</span
+                >
+
+                <span class="line"></span>
+                <span class="detail-value">{{ acc.value }}</span>
+              </div>
+              }
+            </div>
+          </app-chart-card>
+        </div>
+        <div class="lg:col-6 col-12">
+          <app-chart-card>
+            <div class="chart-header">
+              <div class="title">Accounts</div>
+              <div class="action">
+                <i class="pi pi-arrow-down"></i>
+                More Details
+                <span class="column-line"></span>
+                <i class="pi pi-heart"></i>
+              </div>
+            </div>
+            <div class="chart-body accounts-bank w-full">
+              @for(acc of accounts; track acc) {
+              <div class="row">
+                <span class="detail-name">{{ acc.name }}</span>
+                <span
+                  class="detail-type"
+                  [style.background-color]="acc.type == 'Bank' ? '#e7994f' : '#5eb5af'"
+                  >{{ acc.type }}</span
+                >
+
+                <span class="line"></span>
+                <span class="detail-value">{{ acc.value }}</span>
+              </div>
+              }
+            </div>
+          </app-chart-card>
+        </div>
+        <div class="lg:col-6 col-12">
+          <app-chart-card>
+            <div class="chart-header">
+              <div class="title">Accounts</div>
+              <div class="action">
+                <i class="pi pi-arrow-down"></i>
+                More Details
+                <span class="column-line"></span>
+                <i class="pi pi-heart"></i>
+              </div>
+            </div>
+            <div class="chart-body accounts-bank w-full">
+              @for(acc of accounts; track acc) {
+              <div class="row">
+                <span class="detail-name">{{ acc.name }}</span>
+                <span
+                  class="detail-type"
+                  [style.background-color]="acc.type == 'Bank' ? '#e7994f' : '#5eb5af'"
+                  >{{ acc.type }}</span
+                >
+
+                <span class="line"></span>
+                <span class="detail-value">{{ acc.value }}</span>
+              </div>
+              }
+            </div>
+          </app-chart-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</lib-page-content>

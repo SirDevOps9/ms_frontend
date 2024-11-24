@@ -1,0 +1,98 @@
+.custom_card {
+  position: relative;
+  width: 100%;
+  height: 140px;
+  background-color: #14728c;
+  padding: 10px;
+  margin-bottom: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .custom_card_label {
+    color: #fff;
+  }
+}
+
+.account_types_details {
+  display: flex;
+  justify-content: f;
+  overflow-x: auto;
+  overflow-y: hidden;
+  position: relative;
+  bottom: -40px;
+  gap: 10px;
+
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.box {
+  flex: 0 0 auto;
+  width: 150px;
+  background: #ffffff;
+  border-radius: 5px;
+  padding: 10px;
+  border: 1px solid #2ba9cc;
+}
+
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  border-bottom: 2px solid gray;
+
+  .action {
+    display: flex;
+    align-items: center;
+
+    i {
+      margin: 0 5px;
+    }
+  }
+}
+
+.column-line {
+  display: inline-flex !important;
+  width: 2px;
+  height: 25px;
+  margin: 0 10px;
+  flex-grow: 1;
+  background-color: #ededed;
+}
+
+.chart-body {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+
+  .row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+
+    .color-box {
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
+      border-radius: 50%;
+    }
+
+    .detail-name {
+      font-weight: bold;
+      margin-right: 10px;
+    }
+
+    .detail-value {
+      font-weight: normal;
+      flex-wrap: nowrap;
+    }
+    .line {
+      height: 2px;
+      width: 50px;
+      margin: 0 10px;
+      flex-grow: 1;
+      background-color: #ededed;
+    }
+  }
+}
