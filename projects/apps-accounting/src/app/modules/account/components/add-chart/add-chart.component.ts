@@ -79,7 +79,7 @@ export class AddChartComponent {
       accountSectionName: new FormControl(''),
       natureId: new FormControl('', customValidators.required),
       hasNoChild: new FormControl(false),
-      accountTypeId: new FormControl('', customValidators.required),
+      accountTypeId: new FormControl(null),
       accountSectionId: new FormControl('', customValidators.required),
       currencyId: new FormControl(),
       tags: new FormControl([]),
@@ -125,6 +125,9 @@ export class AddChartComponent {
     });
 
     if (this.routerService.currentId) this.onParentAccountChange(this.routerService.currentId);
+
+    this.updateAccountTypeValidators();
+
   }
 
   getTags() {
@@ -173,7 +176,7 @@ export class AddChartComponent {
       this.accountTypes = typeList;
     });
 
-    this.formGroup.patchValue({ accountTypeId: [] });
+    this.formGroup.patchValue({ accountTypeId: null });
   }
 
   onParentAccountChange(event: any) {
@@ -192,7 +195,7 @@ export class AddChartComponent {
         natureId: response.natureId,
         parentId: response.id,
       };
-      this.formGroup.get('accountTypeId')?.setValue([null]);
+      this.formGroup.get('accountTypeId')?.setValue(null);
 
       this.onAccountSectionChange(response.accountSectionId);
       this.formGroup.patchValue(newAccountData);
@@ -201,6 +204,7 @@ export class AddChartComponent {
 
   toggleCurrencyVisibility() {
     this.currencyIsVisible = !this.currencyIsVisible;
+    this.updateAccountTypeValidators();
   }
 
   onRadioButtonChange(value: string) {
@@ -252,5 +256,17 @@ export class AddChartComponent {
       this.savedAddedAccountSubscription.unsubscribe();
     }
 
+  }
+
+  updateAccountTypeValidators() {
+    const accountTypeIdControl = this.formGroup.get('accountTypeId');
+    const hasNoChild = this.formGroup.get('hasNoChild')?.value;
+
+    if (hasNoChild) {
+      accountTypeIdControl?.setValidators([customValidators.required]); 
+    } else {
+      accountTypeIdControl?.clearValidators(); 
+    }
+    accountTypeIdControl?.updateValueAndValidity(); 
   }
 }
