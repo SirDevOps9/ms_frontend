@@ -78,7 +78,7 @@
         <div class="lg:col-6 col-12">
           <app-chart-card>
             <div class="chart-header">
-              <div class="title">Accounts</div>
+              <div class="title">Revenue Stream</div>
               <div class="action">
                 More Details <i class="pi pi-arrow-right"></i>
                 <span class="column-line"></span>
@@ -86,19 +86,24 @@
               </div>
             </div>
             <div class="chart-body accounts-bank w-full">
-              @for(acc of accounts; track acc) {
               <div class="row">
-                <span class="detail-name">{{ acc.name }}</span>
-                <span
-                  class="detail-type"
-                  [style.background-color]="acc.type == 'Bank' ? '#e7994f' : '#5eb5af'"
-                  >{{ acc.type }}</span
-                >
-
+                <span class="color-box" [style.background-color]="'#5eb5af'"></span>
+                <span class="detail-name">Revenue</span>
                 <span class="line"></span>
-                <span class="detail-value">{{ acc.value }}</span>
+                <span class="detail-value">{{ revenueStream.totalRevenues }}</span>
               </div>
-              }
+              <div class="row">
+                <span class="color-box" [style.background-color]="'#5eb5af'"></span>
+                <span class="detail-name">Expenses</span>
+                <span class="line"></span>
+                <span class="detail-value">{{ revenueStream.totalExpenses }}</span>
+              </div>
+              <div class="row">
+                <span class="color-box" [style.background-color]="'#5eb5af'"></span>
+                <span class="detail-name">Gross Profit</span>
+                <span class="line"></span>
+                <span class="detail-value">{{ revenueStream.grossProfit }}</span>
+              </div>
             </div>
           </app-chart-card>
         </div>
@@ -108,23 +113,21 @@
               <div class="title">Accounts</div>
               <div class="action">
                 <i class="pi pi-arrow-down"></i>
-                More Details
+                <div class="caption">
+                  <span>Sort By</span>
+                  <p>The Most Used</p>
+                </div>
                 <span class="column-line"></span>
                 <i class="pi pi-heart"></i>
               </div>
             </div>
             <div class="chart-body accounts-bank w-full">
-              @for(acc of accounts; track acc) {
+              @for(acc of accountsList; track acc) {
               <div class="row">
-                <span class="detail-name">{{ acc.name }}</span>
-                <span
-                  class="detail-type"
-                  [style.background-color]="acc.type == 'Bank' ? '#e7994f' : '#5eb5af'"
-                  >{{ acc.type }}</span
-                >
+                <span class="detail-name">{{ acc.accountName }}</span>
 
                 <span class="line"></span>
-                <span class="detail-value">{{ acc.value }}</span>
+                <span class="detail-value">{{ acc.balance }}</span>
               </div>
               }
             </div>
@@ -133,7 +136,7 @@
         <div class="lg:col-6 col-12">
           <app-chart-card>
             <div class="chart-header">
-              <div class="title">Accounts</div>
+              <div class="title">Cost Center</div>
               <div class="action">
                 <i class="pi pi-arrow-down"></i>
                 More Details
@@ -142,17 +145,11 @@
               </div>
             </div>
             <div class="chart-body accounts-bank w-full">
-              @for(acc of accounts; track acc) {
+              @for(costCenter of costCenters; track costCenter) {
               <div class="row">
-                <span class="detail-name">{{ acc.name }}</span>
-                <span
-                  class="detail-type"
-                  [style.background-color]="acc.type == 'Bank' ? '#e7994f' : '#5eb5af'"
-                  >{{ acc.type }}</span
-                >
-
+                <span class="detail-name">{{ costCenter.costCenterName }}</span>
                 <span class="line"></span>
-                <span class="detail-value">{{ acc.value }}</span>
+                <span class="detail-value">{{ costCenter.totalBalance }}</span>
               </div>
               }
             </div>

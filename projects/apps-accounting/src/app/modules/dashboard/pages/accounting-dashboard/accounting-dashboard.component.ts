@@ -1,5 +1,16 @@
 import { Component } from '@angular/core';
 import { Chart } from 'angular-highcharts';
+import { DashboardService } from '../../dashboard.service';
+import {
+  Account,
+  AccountBalanceDto,
+  AccountsData,
+  CostCenter,
+  JournalEntryTypeCountDto,
+  JournalStatusDto,
+  RevenueStream,
+} from '../../models';
+import { combineLatest, Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-accounting-dashboard',
@@ -7,10 +18,83 @@ import { Chart } from 'angular-highcharts';
   styleUrl: './accounting-dashboard.component.scss',
 })
 export class AccountingDashboardComponent {
-  constructor() {}
+  constructor(private service: DashboardService) {}
+  private destroy$ = new Subject<void>();
 
+  revenueStream: RevenueStream = { totalRevenues: 0, totalExpenses: 0, grossProfit: 0 };
+  accountsList: Account[] = [];
+  costCenters: CostCenter[] = [];
+  accountTypeBalances: AccountBalanceDto[] = [];
+  journalStatus: JournalStatusDto = {} as JournalStatusDto;
+  journalEntryTypeCount: JournalEntryTypeCountDto = {} as JournalEntryTypeCountDto;
+  cashBankAccountsBalance: AccountsData[] = [];
   ngOnInit() {
-    console.log('init dashboard');
+    this.subscriptionsCalls();
+    this.fetchData();
+  }
+
+  fetchData() {
+    this.getAccountTypeBalance();
+    this.getJournalEntryTypeCount();
+    this.getJournalStatus();
+    this.getCashBankAccountBalances();
+    this.getRevenueStreams();
+    this.getAccounts();
+    this.getCostCenters();
+  }
+
+  getAccountTypeBalance() {
+    this.service.fetchAccountTypeBalances();
+  }
+  getJournalStatus() {
+    this.service.fetchJournalStatus();
+  }
+  getJournalEntryTypeCount() {
+    this.service.fetchJournalEntryTypeCount();
+  }
+  getCashBankAccountBalances() {
+    this.service.fetchCashBankAccountBalances();
+  }
+  getRevenueStreams() {
+    this.service.fetchRevenueStream();
+  }
+  getAccounts() {
+    this.service.fetchAccountBalances();
+  }
+  getCostCenters() {
+    this.service.fetchCostCenterBalances();
+  }
+
+  subscriptionsCalls() {
+    combineLatest([
+      this.service.revenueStream$,
+      this.service.accountBalances$,
+      this.service.costCenterBalances$,
+      this.service.cashBankAccountBalances$,
+      this.service.accountTypeBalances$,
+      this.service.journalStatus$,
+      this.service.journalEntryTypeCount$,
+    ])
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(
+        ([
+          revenueStream,
+          accountsList,
+          costCenter,
+          cashBankAccountBalances,
+          accountTypeBalances,
+          journalStatus,
+          journalEntryTypeCount,
+        ]) => {
+          this.revenueStream = revenueStream;
+          this.accountsList = accountsList;
+          this.costCenters = costCenter;
+          this.cashBankAccountsBalance = cashBankAccountBalances;
+          this.accountTypeBalances = accountTypeBalances;
+          this.journalStatus = journalStatus;
+          this.journalEntryTypeCount = journalEntryTypeCount;
+        }
+      );
   }
 
   chart = new Chart({
@@ -142,4 +226,9 @@ export class AccountingDashboardComponent {
       value: '100,000',
     },
   ];
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 }
