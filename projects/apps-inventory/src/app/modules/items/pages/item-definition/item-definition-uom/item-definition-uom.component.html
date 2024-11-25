@@ -13,11 +13,11 @@
                         <lib-label [appControl]="itemUomForm.controls['uomCategoryId']">
                           {{ 'itemDefinition.category' | translate }}
                         </lib-label>
-                        <lib-text-input *ngIf="false" placeholder="{{names}}"
+                        <lib-text-input *ngIf="false" placeholder="{{nameCategory}}"
                           formControlName="uomCategoryId" [readOnly]="true">
 
                         </lib-text-input>
-                        <lib-text-input  placeholder="{{names}}"
+                        <lib-text-input  placeholder="{{nameCategory}}"
                       [readOnly]="true">
 
                       </lib-text-input>
@@ -30,38 +30,24 @@
                         </lib-label>
 
                         <lib-text-input
-                        (value)="test"
-                          placeholder="{{ test}}"
+                        (value)="nameBaseUnit"
+                          placeholder="{{ nameBaseUnit}}"
                           [readOnly]="true">
                         </lib-text-input>
                       </lib-form-group>
-
-
                     </div>
                     <div class="md:col-2 my-5" >
                       <lib-button-micro title="{{ 'itemDefinition.change' | translate }}" nameClass="change"  widthNumber="100%"
-                      (click)="onEdit(names)"
+                      (click)="onEdit(nameCategory)"
                        >
                       </lib-button-micro>
                     </div>
-
-
                   </div>
-
               </div>
             </div>
-
-
           </div>
-
         </div>
       </div>
-
-
-
-
-
-
       <div class="md:col-12 mt-4">
         <p-table [value]="uoms.controls" dataKey="id" styleClass="p-datatable-gridlines p-datatable-striped"
           [tableStyle]="{ 'min-width': '50rem' }">
@@ -80,8 +66,6 @@
           <ng-template pTemplate="body" let-fg let-editing="editing" let-i="rowIndex">
             <tr  [formGroup]="fg" *ngIf="fg.controls['isBaseUnit'].value === false">
 
-              <!-- {{ (fg.controls['account']?.value | getElementByID : filteredAccounts)?.costCenterConfig == 'Mandatory' || (fg.controls['account']?.value | getElementByID : filteredAccounts)?.costCenterConfig == 'NotAllow' }} -->
-              <!-- formControlName="nameEn" -->
               <td>{{ fg.controls['nameEn'].value }}</td>
               <td>{{ fg.controls['shortName'].value }}</td>
               <td [pEditableColumn]="fg.controls['conversionRatio']" pEditableColumnField="conversionRatio">
@@ -104,6 +88,7 @@
                         [options]="userSubDomainModulesLookupData"
                         optionValue="id"
                         optionLabel="name"
+                        placeholder="{{'global.select' | translate}}"
                         formControlName="unitUsages"
                         [selectedValue]="fg.controls['unitUsages'].value"
                         (valueChanged)="usercHN($event, fg)"

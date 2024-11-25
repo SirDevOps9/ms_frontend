@@ -26,6 +26,7 @@ export class ItemDefintionVariantComponent {
   searchTerm: string = '';
   id:number
   tableDataItemVariantsByI:any[]=[]
+  currentLang:string = ''
   constructor(
     private routerService: RouterService,
     public authService: AuthService,
@@ -33,10 +34,13 @@ export class ItemDefintionVariantComponent {
     private title: Title,
     private langService: LanguageService,
     private route: ActivatedRoute,
-    private itemsService: ItemsService
+    private itemsService: ItemsService,
+    public languageService: LanguageService,
+
   ) {
 
     this.id = this.route.snapshot.params['id'];
+    this.currentLang = this.languageService.getLang();
   }
 
   ngOnInit() {
