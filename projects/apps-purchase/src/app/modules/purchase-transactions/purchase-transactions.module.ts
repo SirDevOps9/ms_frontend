@@ -33,7 +33,7 @@ const routes: Routes = [
             },
           },
           {
-            path: 'Add-purchase-invoice',
+            path: 'add-purchase-invoice',
             component: AddPurchaseInvoiceComponent,
             data: {
               breadcrumb: 'BreadcrumbLabel.purchaseInvoiceAdd',
@@ -43,7 +43,7 @@ const routes: Routes = [
             },
           },
           {
-            path: 'Edit-purchase-invoice',
+            path: 'edit-purchase-invoice',
             component: EditPurchaseInvoiceComponent,
             data: {
               breadcrumb: 'BreadcrumbLabel.purchaseInvoiceEdit',
