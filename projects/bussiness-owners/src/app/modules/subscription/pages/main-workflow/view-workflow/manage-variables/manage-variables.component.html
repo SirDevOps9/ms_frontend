@@ -1,0 +1,95 @@
+<lib-page-content
+  [title]="'workflow.variables' | translate"
+  [subTitle]="'workflow.variables' | translate"
+>
+  <div>
+    <div class="user_page">
+      <lib-data-table
+        [items]="tableData"
+        className="p-datatable-gridlines"
+        [currentPageResult]="currentPageInfo"
+        (pageChange)="onPageChange($event)"
+        (addNew)="addNew($event)"
+        [tableConfigs]="{
+          allowPagination: false,
+          allowServerPagination: true,
+          dataKey: 'id',
+          pageSize: 10,
+          columns: [
+            {
+              name: 'name',
+              headerText: ('workflow.variables_name' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'type',
+              headerText: ('workflow.variables_type' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+
+            {
+              name: 'id',
+              headerText: ('workflow.Action' | translate),
+              template: actions
+            }
+          ]
+        }"
+      >
+        <ng-container caption>
+          <div class="">
+            <div class="grid grid-cols-4 gap-2">
+              <div class="col-span-1">
+                <lib-form-group>
+                  <lib-text-input
+                    type="text"
+                    [placeholder]="'workflow.Search' | translate"
+                    [(ngModel)]="searchTerm"
+                    (keyUp)="onSearchChange()"
+                  ></lib-text-input>
+                </lib-form-group>
+              </div>
+
+              <ng-template #usersTemplate let-row>
+                <div *ngFor="let user of row.users">
+                  {{ user.userName }}
+                </div>
+              </ng-template>
+              <div class="flex flex-auto justify-content-end align-items-center gap-2">
+                <div>
+                  <lib-button-micro
+                    [title]="'workflow.Create' | translate"
+                    nameClass="save"
+                    iconName="pi pi-plus"
+                    (click)="addValriables()"
+                  >
+                    <!--  -->
+                  </lib-button-micro>
+                </div>
+                <!--  -->
+                <!-- <div>
+                    <lib-export
+                      (exportClick)="exportClick($event)"
+                      [exportData]="exportData"
+                      [exportColumns]="exportColumns"
+                      [ExportName]="'Operational Tag'"
+                    >
+                    </lib-export>
+                  </div> -->
+                <!--  -->
+              </div>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-template #actions let-action>
+          <div class="actions flex align-items-center">
+            <img src="assets/images/table/edit.svg" alt="" (click)="onEdit(action)" />
+            <img src="assets/images/table/delete.svg" alt="" (click)="onDelete(action.id)" />
+          </div>
+        </ng-template>
+      </lib-data-table>
+    </div>
+  </div>
+</lib-page-content>

@@ -1,13 +1,12 @@
 <lib-page-content>
-
-    <lib-new-bread-crumb >
-      <div class="plan_header ">
-        <button class="btn body_b16" type="button" (click)="openSubdomainModal()">
-          <span class="icon pi pi-plus"></span>
-          {{ 'Subscription.Subdomain.AddSubdomain' | translate }}
-        </button>
-      </div>
-    </lib-new-bread-crumb>
+  <lib-new-bread-crumb>
+    <div class="plan_header">
+      <button class="btn body_b16" type="button" (click)="openSubdomainModal()">
+        <span class="icon pi pi-plus"></span>
+        {{ 'Subscription.Subdomain.AddSubdomain' | translate }}
+      </button>
+    </div>
+  </lib-new-bread-crumb>
 
   <div class="plan_page">
     <div class="card-container card_micro grid" *ngIf="subdomain">
@@ -52,7 +51,7 @@
                   {{ 'Subscription.Subdomain.renew' | translate }}
                 </button>
               </div>
-              <div class="mange_app">
+              <div class="mange_app gap-2">
                 <button
                   class="btn_mange_app body_b14"
                   type="button"
@@ -65,6 +64,14 @@
                 <button class="btn_mange_app body_b14" type="button">
                   <span class="pi pi-building icon_btn"></span>
                   {{ 'Subscription.Subdomain.User_licenses' | translate }}
+                </button>
+                <button
+                  class="btn_mange_app body_b14 d-flex justify-content-center"
+                  (click)="navigateToWorkflow()"
+                  type="button"
+                >
+                  <span class="pi pi-building icon_btn"></span>
+                  {{ 'workflow.workflow' | translate }}
                 </button>
               </div>
               <div class="mange_erp">

@@ -1,0 +1,49 @@
+<div class="new_employee">
+  <div class="grid mainGrid">
+    <div class="" style="width: 20%">
+      <div class="sidebar">
+        <ul>
+          <li
+            class="flex justify-content-between"
+            *ngFor="let item of statusList"
+            [class.active]="selectedStatusId === item.id"
+            (click)="getStatus(item)"
+          >
+            {{ item.name }}
+            <span class="flex justify-content-around gap-1">
+              <lib-button-micro
+                nameClass="table_button_edit"
+                (click)="onEdit(item); $event.stopPropagation()"
+              >
+              </lib-button-micro>
+              <lib-button-micro
+                nameClass="table_button_delete"
+                (click)="onDelete(item.id); $event.stopPropagation()"
+              >
+              </lib-button-micro>
+            </span>
+          </li>
+          <lib-button-micro
+            nameClass="save"
+            title="{{ 'workflow.add_status' | translate }}"
+            class="flex justify-content-center pb-2"
+            (click)="addStatus()"
+          >
+          </lib-button-micro>
+        </ul>
+      </div>
+    </div>
+    <div style="width: 80%">
+      <!-- <ng-container *ngIf="showList"> -->
+
+      <app-list-actions
+        (sendDataToUpdate)="loadObjToUpdate($event)"
+        (showAddAction)="showAddComponent($event)"
+        *ngIf="showList && selectedStatusId"
+        [workflowId]="id"
+        [statusId]="selectedStatusId"
+      ></app-list-actions>
+      <!-- </ng-container> -->
+    </div>
+  </div>
+</div>

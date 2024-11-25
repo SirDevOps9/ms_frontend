@@ -1,0 +1,157 @@
+<!-- ########################new one ###################### -->
+<div class="flex justify-content-end">
+  <lib-button-micro
+    nameClass="save"
+    title="{{ 'workflow.add_new_line' | translate }}"
+    (click)="addLine()"
+  >
+  </lib-button-micro>
+</div>
+<form [formGroup]="actionsForm">
+  <div class="grid w-100">
+    <div class="md:col-12 grid card my-2">
+      <div class="md:col-12 mt-4">
+        <p-table
+          [value]="actions.controls"
+          dataKey="id"
+          styleClass="p-datatable-gridlines p-datatable-striped"
+          [tableStyle]="{ 'min-width': '50rem' }"
+        >
+          <ng-template pTemplate="header">
+            <tr>
+              <th>{{ 'workflow.ActionName' | translate }}</th>
+              <th>{{ 'workflow.ToState' | translate }}</th>
+              <th>{{ 'workflow.Users' | translate }}</th>
+              <th>{{ 'workflow.conditionexprition' | translate }}</th>
+              <th>{{ 'workflow.actions' | translate }}</th>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="body" let-fg let-editing="editing" let-i="rowIndex">
+            <tr [formGroup]="fg">
+              <td [pEditableColumn]="fg.controls['name']" pEditableColumnField="name">
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <lib-text-input formControlName="name" type="text"></lib-text-input>
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    {{ fg.controls['name'].value }}
+                  </ng-template>
+                </p-cellEditor>
+                <lib-field-validations [appControl]="fg.controls['name']"></lib-field-validations>
+              </td>
+
+              <td
+                [pEditableColumn]="fg.controls['toStateId']"
+                pEditableColumnField="attrTableForm.controls['toStateId']"
+              >
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <div class="flex align-items-center">
+                      <lib-form-group>
+                        <lib-select
+                          formControlName="toStateId"
+                          [options]="statusDropdown"
+                          optionValue="id"
+                          optionLabel="name"
+                          placeholder="{{ 'workflow.toStateId' | translate }}"
+                          (valueChanged)="displayState($event, fg)"
+                          [selectedValue]="fg?.controls['toStateId']?.value"
+                        >
+                        </lib-select>
+                      </lib-form-group>
+                    </div>
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    {{ fg.controls['toStateIdName']?.value }}
+                  </ng-template>
+                </p-cellEditor>
+                <lib-field-validations
+                  [appControl]="fg.controls['toStateId']"
+                ></lib-field-validations>
+              </td>
+              <td>
+                <div class="usersArray">
+                  <p
+                    class="usersArray-valuse gap-1"
+                    *ngFor="let row of fg.controls['users']?.value; let i = index"
+                  >
+                    {{ row.userName }}<span *ngIf="i < 2"> </span>
+                  </p>
+                  <ng-container>
+                    <p
+                      *ngIf="fg.controls['users']?.value.length > 0"
+                      class="flex justify-content-center align-items-center"
+                    >
+                      <span *ngIf="fg.controls['users']?.value.length > 2">...</span>
+                      <lib-button-micro
+                        nameClass="table_button_edit"
+                        *ngIf="fg.value.id"
+                        (click)="updateUserDialog(fg)"
+                      >
+                      </lib-button-micro>
+                    </p>
+                    <p class="">
+                      <lib-button-micro
+                        class="p-0"
+                        iconName="pi pi-plus"
+                        *ngIf="fg.value.id"
+                        (click)="addUserDialog(fg)"
+                      >
+                      </lib-button-micro>
+                    </p>
+                  </ng-container>
+                </div>
+              </td>
+              <td>
+                <div class="userArray flex justify-content-center align-items-center">
+                  <p [ngClass]="{ 'usersArray-valuse': fg.get('conditionExpression')?.value }">
+                    {{ fg.get('conditionExpression')?.value }}
+                  </p>
+                  <!-- Displays updated expression -->
+                  <lib-button-micro
+                    class="p-0"
+                    iconName="pi pi-plus"
+                    (click)="addConditionDialog(fg, i)"
+                  >
+                  </lib-button-micro>
+                </div>
+              </td>
+
+              <td>
+                <div class="actions flex align-items-center">
+                  <lib-button-micro
+                    nameClass="table_button_edit"
+                    *ngIf="fg.value.id"
+                    (click)="onUpdate(fg.value)"
+                  >
+                  </lib-button-micro>
+                  <lib-button-micro
+                    iconName="pi pi-check"
+                    *ngIf="!fg.value.id"
+                    (click)="onSave(fg.value)"
+                  >
+                  </lib-button-micro>
+                  <lib-button-micro
+                    nameClass="table_button_delete"
+                    *ngIf="!fg.value.id"
+                    (click)="deleteLine(i)"
+                  >
+                  </lib-button-micro>
+                  <lib-button-micro
+                    nameClass="table_button_delete"
+                    *ngIf="fg.value.id"
+                    (click)="onDelete(i)"
+                  >
+                  </lib-button-micro>
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+      
+  </div>
+</form>
+<!-- ########################new one ###################### -->

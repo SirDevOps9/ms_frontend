@@ -38,6 +38,9 @@ export class MySubscriptionsComponent implements OnInit {
   navigateToManageApp(subdomainId: any) {
     this.routerService.navigateTo('manage-apps/' + subdomainId);
   }
+  navigateToWorkflow() {
+    this.routerService.navigateTo('workflow');
+  }
   navigateToErp(subdomainName: any) {
     let subdomainUrl = this.environmentService.erpLogin?.replace('*', subdomainName);
     window.open(subdomainUrl, '_blank');

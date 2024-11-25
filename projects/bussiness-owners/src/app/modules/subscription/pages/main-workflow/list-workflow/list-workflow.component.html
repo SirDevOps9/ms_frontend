@@ -1,0 +1,103 @@
+<lib-page-content
+  [title]="'workflow.workflow' | translate"
+  [subTitle]="'workflow.workflow' | translate"
+>
+  <lib-new-bread-crumb> </lib-new-bread-crumb>
+  <div>
+    <div class="user_page">
+      <lib-data-table
+        [items]="tableData"
+        className="p-datatable-gridlines"
+        [currentPageResult]="currentPageInfo"
+        (pageChange)="onPageChange($event)"
+        (addNew)="addNew($event)"
+        [tableConfigs]="{
+          allowPagination: false,
+          allowServerPagination: true,
+          dataKey: 'id',
+          pageSize: 10,
+          columns: [
+            {
+              name: 'id',
+              headerText: ('workflow.code' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'name',
+              headerText: ('workflow.name' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'isActive',
+              headerText: ('workflow.Status' | translate),
+              template: status
+            },
+
+            {
+              name: 'id',
+              headerText: ('workflow.Action' | translate),
+
+              template: actions
+            }
+          ]
+        }"
+      >
+        <ng-container caption>
+          <div class="">
+            <div class="grid grid-cols-4 gap-2">
+              <div class="col-span-1">
+                <lib-form-group>
+                  <lib-text-input
+                    type="text"
+                    [placeholder]="'workflow.Search' | translate"
+                    [(ngModel)]="searchTerm"
+                    (keyUp)="onSearchChange()"
+                  ></lib-text-input>
+                </lib-form-group>
+              </div>
+
+              <div class="flex flex-auto justify-content-end align-items-center gap-2">
+                <div>
+                  <lib-button-micro
+                    [title]="'workflow.Create' | translate"
+                    nameClass=" save"
+                    iconName="pi pi-plus"
+                    (click)="newWorkflow()"
+                  >
+                  </lib-button-micro>
+                </div>
+                <!--  -->
+                <!-- <div>
+                    <lib-export
+                      (exportClick)="exportClick($event)"
+                      [exportData]="exportData"
+                      [exportColumns]="exportColumns"
+                      [ExportName]="'Operational Tag'"
+                    >
+                    </lib-export>
+                  </div> -->
+                <!--  -->
+              </div>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-template #status let-Action>
+          <div>
+            <lib-input-switch [disabled]="true" [(ngModel)]="Action.isActive"> </lib-input-switch>
+          </div>
+        </ng-template>
+
+        <ng-template #actions let-action>
+          <div class="actions flex align-items-center">
+            <img src="assets/images/table/edit.svg" alt="" (click)="onView(action.id)" />
+            <!-- <img src="assets/images/table/view.svg" alt="" (click)="onView(action.id)" /> -->
+            <img src="assets/images/table/delete.svg" alt="" (click)="onDelete(action.id)" />
+          </div>
+        </ng-template>
+      </lib-data-table>
+    </div>
+  </div>
+</lib-page-content>

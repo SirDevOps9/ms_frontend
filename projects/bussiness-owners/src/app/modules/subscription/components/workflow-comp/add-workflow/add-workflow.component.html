@@ -1,0 +1,51 @@
+<lib-popup-page
+  title=" {{ 'workflow.Add_Workflow' | translate }}"
+  [closeFunction]="onCancel"
+  (Submit)="onSubmit()"
+>
+  <div>
+    <form class="domain_form" [formGroup]="workflowForm" (ngSubmit)="onSubmit()">
+      <div class="domain_content">
+        <div class="grid m-0">
+          <div class="col-12 my-2">
+            <lib-form-group class="mt-1">
+              <lib-label [appControl]="workflowForm.controls['name']">
+                {{ 'workflow.Name' | translate }}
+              </lib-label>
+              <lib-text-input
+                type="text"
+                formControlName="name"
+                [iconUrl]="'assets/images/fi-rr-text-check@2x.png'"
+                placeholder="{{ 'workflow.name' | translate }}"
+              />
+              <lib-field-validations
+                [appControl]="workflowForm.controls['name']"
+              ></lib-field-validations>
+            </lib-form-group>
+            <lib-form-group class="mt-1">
+              <lib-label [appControl]="workflowForm.controls['isActive']">
+                {{ 'workflow.serviceId' | translate }}
+              </lib-label>
+              <lib-select
+                formControlName="serviceId"
+                placeholder="{{ 'workflow.serviceId' | translate }}"
+                [options]="[]"
+                [selectedValue]="workflowForm.controls['serviceId'].value"
+                optionLabel="name"
+                optionValue="id"
+              >
+              </lib-select>
+            </lib-form-group>
+
+            <lib-label class="mt-1" [appControl]="workflowForm.controls['isActive']">
+              {{ 'workflow.status' | translate }}
+            </lib-label>
+            <lib-form-group class="flex align-items-center mt-1">
+              <lib-input-switch formControlName="isActive" binary="true" inputId="isActive" />
+            </lib-form-group>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</lib-popup-page>

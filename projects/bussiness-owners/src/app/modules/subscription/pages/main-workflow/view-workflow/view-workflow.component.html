@@ -1,0 +1,19 @@
+<lib-page-content
+  [title]="'workflow.viewWorkflow' | translate"
+  [subTitle]="'workflow.viewWorkflow' | translate"
+>
+  <lib-new-bread-crumb> </lib-new-bread-crumb>
+  <div class="card">
+    <p-tabMenu
+      [model]="items"
+      [activeItem]="activeItem"
+      (activeItemChange)="onActiveItemChange($event)"
+    />
+  </div>
+  <app-edit-workflow
+    *ngIf="activeItem?.label === 'General'"
+    [workflowId]="workflowId"
+  ></app-edit-workflow>
+  <app-manage-status *ngIf="activeItem?.label === 'Status'"></app-manage-status>
+  <app-manage-variables *ngIf="activeItem?.label === 'Variables'"></app-manage-variables>
+</lib-page-content>
