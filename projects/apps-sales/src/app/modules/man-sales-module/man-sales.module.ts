@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { TeamMainSalesRoutingModule } from './team-main-sales-routing.module';
 import { ManListTeamComponent } from './pages/man-sales-team/man-list-team/man-list-team.component';
 import { AddManTeamComponent } from './pages/man-sales-team/add-man-team/add-man-team.component';
 import { MainListTeamComponent } from './pages/main-sales-team/main-list-team/main-list-team.component';
@@ -20,20 +19,19 @@ const routes: Routes = [
     },
     children: [
       {
-        path: 'man-team-sales',
+        path: 'man-sales',
         component: ManListComponent,
         data: {
           breadcrumb: BreadcrumbLabel.MAN_SALES,
           pageTitle: BreadcrumbLabel.MAN_SALES,
         },
-        children:[
+        children: [
           {
             path: '',
             component: ManListTeamComponent,
             data: {
               breadcrumb: '',
               pageTitle: BreadcrumbLabel.MAN_SALES,
-
             },
           },
           {
@@ -42,10 +40,9 @@ const routes: Routes = [
             data: {
               breadcrumb: BreadcrumbLabel.ADD_MAN_SALES,
               pageTitle: BreadcrumbLabel.ADD_MAN_SALES,
-
             },
           },
-        ]
+        ],
       },
 
       {
@@ -55,14 +52,13 @@ const routes: Routes = [
           breadcrumb: BreadcrumbLabel.MAIN_SALES,
           pageTitle: BreadcrumbLabel.MAIN_SALES,
         },
-        children:[
+        children: [
           {
             path: '',
             component: MainListTeamComponent,
             data: {
               breadcrumb: '',
               pageTitle: BreadcrumbLabel.MAIN_SALES,
-
             },
           },
           {
@@ -71,39 +67,32 @@ const routes: Routes = [
             data: {
               breadcrumb: BreadcrumbLabel.ADD_MAin_SALES,
               pageTitle: BreadcrumbLabel.ADD_MAin_SALES,
-
             },
           },
-        ]
+        ],
       },
-
     ],
-
-
   },
 ];
 
 @NgModule({
   declarations: [
-
-
     ManListTeamComponent,
-          AddManTeamComponent,
-          MainListTeamComponent,
-          AddMainTeamComponent,
-          ManListComponent,
-          MainListComponent
+    AddManTeamComponent,
+    MainListTeamComponent,
+    AddMainTeamComponent,
+    ManListComponent,
+    MainListComponent,
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule],
 
-
-  exports:[
+  exports: [
     ManListTeamComponent,
-          AddManTeamComponent,
-          MainListTeamComponent,
-          AddMainTeamComponent,
-          ManListComponent,
-          MainListComponent
-  ]
+    AddManTeamComponent,
+    MainListTeamComponent,
+    AddMainTeamComponent,
+    ManListComponent,
+    MainListComponent,
+  ],
 })
-export class TeamMainSalesModule { }
+export class ManSalesModule {}

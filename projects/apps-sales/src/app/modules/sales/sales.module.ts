@@ -53,12 +53,18 @@ const routes: Routes = [
           {
             path: 'add-customer-category',
             component: CreateCustomerCategoryComponent,
-            data: { breadcrumb: BreadcrumbLabel.CUSTOMER_ADD, pageTitle: BreadcrumbLabel.CUSTOMER_ADD },
+            data: {
+              breadcrumb: BreadcrumbLabel.CUSTOMER_ADD,
+              pageTitle: BreadcrumbLabel.CUSTOMER_ADD,
+            },
           },
           {
             path: 'edit-customer-category/:id',
             component: EditCustomerCategoryComponent,
-            data: { breadcrumb: BreadcrumbLabel.CUSTOMER_EDIT, pageTitle: BreadcrumbLabel.CUSTOMER_EDIT },
+            data: {
+              breadcrumb: BreadcrumbLabel.CUSTOMER_EDIT,
+              pageTitle: BreadcrumbLabel.CUSTOMER_EDIT,
+            },
           },
         ],
       },
@@ -79,12 +85,18 @@ const routes: Routes = [
           {
             path: 'add-customer-definitions',
             component: AddCustomerComponent,
-            data: { breadcrumb: BreadcrumbLabel.ADD_CUSTOMER_DEFINITIONS, pageTitle: BreadcrumbLabel.ADD_CUSTOMER_DEFINITIONS },
+            data: {
+              breadcrumb: BreadcrumbLabel.ADD_CUSTOMER_DEFINITIONS,
+              pageTitle: BreadcrumbLabel.ADD_CUSTOMER_DEFINITIONS,
+            },
           },
           {
             path: 'edit-customer-definitions/:id',
             component: EditCustomerComponent,
-            data: { breadcrumb: BreadcrumbLabel.EDIT_CUSTOMER_DEFINITIONS, pageTitle: BreadcrumbLabel.EDIT_CUSTOMER_DEFINITIONS },
+            data: {
+              breadcrumb: BreadcrumbLabel.EDIT_CUSTOMER_DEFINITIONS,
+              pageTitle: BreadcrumbLabel.EDIT_CUSTOMER_DEFINITIONS,
+            },
           },
         ],
       },
@@ -105,17 +117,26 @@ const routes: Routes = [
           {
             path: 'add',
             component: AddCustomerOpeeningBalanceComponent,
-            data: { breadcrumb: BreadcrumbLabel.ADD_CUSTOMER_OPENEING_BALANCE, pageTitle: BreadcrumbLabel.ADD_CUSTOMER_OPENEING_BALANCE },
+            data: {
+              breadcrumb: BreadcrumbLabel.ADD_CUSTOMER_OPENEING_BALANCE,
+              pageTitle: BreadcrumbLabel.ADD_CUSTOMER_OPENEING_BALANCE,
+            },
           },
           {
             path: 'edit/:id',
             component: EditCustomerOpeningBalanceComponent,
-            data: { breadcrumb: BreadcrumbLabel.EDIT_CUSTOMER_OPENEING_BALANCE, pageTitle: BreadcrumbLabel.EDIT_CUSTOMER_OPENEING_BALANCE },
+            data: {
+              breadcrumb: BreadcrumbLabel.EDIT_CUSTOMER_OPENEING_BALANCE,
+              pageTitle: BreadcrumbLabel.EDIT_CUSTOMER_OPENEING_BALANCE,
+            },
           },
           {
             path: 'view/:id',
             component: ViewCustomerOpeningBalanceComponent,
-            data: { breadcrumb: BreadcrumbLabel.VIEW_CUSTOMER_OPENEING_BALANCE, pageTitle: BreadcrumbLabel.VIEW_CUSTOMER_OPENEING_BALANCE },
+            data: {
+              breadcrumb: BreadcrumbLabel.VIEW_CUSTOMER_OPENEING_BALANCE,
+              pageTitle: BreadcrumbLabel.VIEW_CUSTOMER_OPENEING_BALANCE,
+            },
           },
         ],
       },
@@ -136,17 +157,26 @@ const routes: Routes = [
           {
             path: 'add',
             component: AddPricePolicyComponent,
-            data: { breadcrumb: BreadcrumbLabel.PRICE_POLICY_ADD, pageTitle: BreadcrumbLabel.TITLE_PRICE_POLICY_ADD },
+            data: {
+              breadcrumb: BreadcrumbLabel.PRICE_POLICY_ADD,
+              pageTitle: BreadcrumbLabel.TITLE_PRICE_POLICY_ADD,
+            },
           },
           {
             path: 'edit/:id',
             component: EditPricePolicyComponent,
-            data: { breadcrumb: BreadcrumbLabel.PRICE_POLICY_EDIT, pageTitle: BreadcrumbLabel.TITLE_PRICE_POLICY_EDIT },
+            data: {
+              breadcrumb: BreadcrumbLabel.PRICE_POLICY_EDIT,
+              pageTitle: BreadcrumbLabel.TITLE_PRICE_POLICY_EDIT,
+            },
           },
           {
             path: 'view/:id',
             component: ViewPricePolicyComponent,
-            data: { breadcrumb: BreadcrumbLabel.PRICE_POLICY_VIEW, pageTitle: BreadcrumbLabel.TITLE_PRICE_POLICY_VIEW },
+            data: {
+              breadcrumb: BreadcrumbLabel.PRICE_POLICY_VIEW,
+              pageTitle: BreadcrumbLabel.TITLE_PRICE_POLICY_VIEW,
+            },
           },
           {
             path: 'sequence',
@@ -160,7 +190,8 @@ const routes: Routes = [
 
   {
     path: '',
-    loadChildren: () => import('./team-main-sales/team-main-sales.module').then((m) => m.TeamMainSalesModule),
+    loadChildren: () =>
+      import('../man-sales-module/man-sales.module').then((m) => m.ManSalesModule),
   },
 ];
 
@@ -189,9 +220,8 @@ const routes: Routes = [
     UpdetePricePolicyComponent,
     PopupExcelComponent,
     EditPricePolicyComponent,
-    ViewPricePolicyComponent
+    ViewPricePolicyComponent,
   ],
-  imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule
-  ],
+  imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule],
 })
 export class SalesModule {}
