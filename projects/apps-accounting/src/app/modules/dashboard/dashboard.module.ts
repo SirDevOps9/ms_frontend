@@ -6,6 +6,7 @@ import { AccountingDashboardComponent } from './pages/accounting-dashboard/accou
 import { ChartModule } from 'angular-highcharts';
 import { LayoutPageComponent } from 'apps-shared-lib';
 import { ChartCardComponent } from './components/chart-card/chart-card.component';
+import { DecimalSeperatorPipe } from './pipes/decimal-seperator.pipe';
 
 const routes: Route[] = [
   {
@@ -24,7 +25,7 @@ const routes: Route[] = [
 ];
 
 @NgModule({
-  declarations: [AccountingDashboardComponent, ChartCardComponent],
+  declarations: [AccountingDashboardComponent, ChartCardComponent, DecimalSeperatorPipe],
   imports: [CommonModule, SharedLibModule, RouterModule.forChild(routes), ChartModule],
 })
 export class DashboardModule {}

@@ -38,11 +38,15 @@ export class ProxyService {
     return this.http.get<RevenueStream>(`${this.baseHttp}/RevenueSteam`);
   }
 
-  getAccountBalances(counts: number): Observable<Account[]> {
-    return this.http.get(`${this.baseHttp}/AccountsBalances?count=${counts}`);
+  getAccountBalances(counts: number, sortDescending: boolean): Observable<Account[]> {
+    return this.http.get(
+      `${this.baseHttp}/AccountsBalances?count=${counts}&SortByMostUsed=${sortDescending}`
+    );
   }
 
-  getCostCenterBalances(count: number): Observable<CostCenter[]> {
-    return this.http.get<CostCenter[]>(`${this.baseHttp}/CostCenterBalances?count=${count}`);
+  getCostCenterBalances(count: number, sortDescending: boolean): Observable<CostCenter[]> {
+    return this.http.get<CostCenter[]>(
+      `${this.baseHttp}/CostCenterBalances?count=${count}&SortByMostUsed=${sortDescending}`
+    );
   }
 }

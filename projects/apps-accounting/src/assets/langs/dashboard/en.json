@@ -1,6 +1,19 @@
 {
-  "DASHBOARD": {
-    "accountType": "Account Type",
-    "bankCashEquivalents": "Bank, Cash and Equivalents"
+  "dashboard": {
+    "accountTypes": "Account Types",
+    "bankCashEquivalents": "Bank, Cash and Equivalents",
+    "status": "Status",
+    "journalSources": "Journal Sources",
+    "totalCash": "Total Cash",
+    "totalBank": "Total Bank",
+    "costCenter": "Cost Center",
+    "moreDetails": "More Details",
+    "sortBy": "Sort By",
+    "theMostUsed": "The Most Used",
+    "revenueStream": "Revenue Stream",
+    "revenue": "Revenue",
+    "expenses": "Expenses",
+    "grossProfit": "Gross Profit",
+    "accounts": "Accounts"
   }
 }

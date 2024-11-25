@@ -30,6 +30,9 @@ export class AccountingDashboardComponent {
   journalEntryTypeCount: JournalEntryTypeCountDto[] = [];
   cashBankAccountsBalance: AccountsData = {} as AccountsData;
   currentLanguage: string;
+  isAccountsSorted = true;
+  accountsByMostUsed: boolean;
+  costCenterByMostUsed: boolean;
 
   statusChartLabels: string[] = [];
   statusChartValues: any = [];
@@ -44,7 +47,18 @@ export class AccountingDashboardComponent {
   journalStatusLoader: boolean = false;
   journalEntryTypeCountLoader: boolean = false;
 
-  colors = ['#5eb5af', '#d66457', '#e7994f', '#80d657', '#e750b5'];
+  colors = [
+    '#FF5733',
+    '#33C1FF',
+    '#28A745',
+    '#FFC107',
+    '#FF33A6',
+    '#6610F2',
+    '#FF6F61',
+    '#4B8C6A',
+    '#FFB6C1',
+    '#8A2BE2',
+  ];
 
   ngOnInit() {
     this.languageService.language$.subscribe((lang) => (this.currentLanguage = lang));
@@ -60,8 +74,8 @@ export class AccountingDashboardComponent {
     this.getJournalStatus();
     this.getCashBankAccountBalances();
     this.getRevenueStreams();
-    this.getAccounts();
-    this.getCostCenters();
+    this.getAccounts(10, true);
+    this.getCostCenters(10, true);
   }
 
   getAccountTypeBalance() {
@@ -79,11 +93,28 @@ export class AccountingDashboardComponent {
   getRevenueStreams() {
     this.service.fetchRevenueStream();
   }
-  getAccounts() {
-    this.service.fetchAccountBalances(10);
+  getAccounts(count: number, byMostUsed: boolean) {
+    this.accountsByMostUsed = byMostUsed;
+    this.service.fetchAccountBalances(count, byMostUsed);
   }
-  getCostCenters() {
-    this.service.fetchCostCenterBalances(10);
+  getCostCenters(count: number, byMostUsed: boolean) {
+    this.costCenterByMostUsed = byMostUsed;
+    this.service.fetchCostCenterBalances(count, byMostUsed);
+  }
+
+  reSortCostCenters() {
+    if (this.costCenterByMostUsed) {
+      this.getCostCenters(10, false);
+    } else {
+      this.getCostCenters(10, true);
+    }
+  }
+  reSortAccounts() {
+    if (this.accountsByMostUsed) {
+      this.getAccounts(10, false);
+    } else {
+      this.getAccounts(10, true);
+    }
   }
 
   subscriptionsCalls() {
@@ -133,9 +164,9 @@ export class AccountingDashboardComponent {
           return acc + (item.count || 0);
         }, 0);
         this.JournalSourceChartData = journalEntryTypeCount.map((item, index) => ({
-          y: (item.count / sum) * 100,
+          y: parseFloat(((item.count / sum) * 100).toFixed(2)),
           value: item.count,
-          name: item.journalEntryType,
+          name: `${item.journalEntryType} (${parseFloat(((item.count / sum) * 100).toFixed(2))}%)`,
           color: this.colors[index],
         }));
         this.journalSourcesChart = this.donutChart(this.JournalSourceChartData);

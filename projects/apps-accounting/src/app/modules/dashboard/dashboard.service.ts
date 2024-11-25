@@ -93,17 +93,17 @@ export class DashboardService {
     });
   }
 
-  fetchAccountBalances(count: number): void {
+  fetchAccountBalances(count: number, sortDescending: boolean): void {
     this.accountBalancesLoaderSubject.next(true);
-    this.proxyService.getAccountBalances(count).subscribe({
+    this.proxyService.getAccountBalances(count, sortDescending).subscribe({
       next: (data) => this.accountBalancesSubject.next(data),
       complete: () => this.accountBalancesLoaderSubject.next(false),
     });
   }
 
-  fetchCostCenterBalances(count: number): void {
+  fetchCostCenterBalances(count: number, byMostUsed: boolean): void {
     this.costCenterBalancesLoaderSubject.next(true);
-    this.proxyService.getCostCenterBalances(count).subscribe({
+    this.proxyService.getCostCenterBalances(count, byMostUsed).subscribe({
       next: (data) => this.costCenterBalancesSubject.next(data),
       complete: () => this.costCenterBalancesLoaderSubject.next(false),
     });

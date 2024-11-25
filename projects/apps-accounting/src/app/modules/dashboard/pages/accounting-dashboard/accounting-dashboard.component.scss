@@ -1,9 +1,9 @@
 .custom_card {
   position: relative;
   width: 100%;
-  height: 120px;
+  min-height: 120px;
   background-color: #14728c;
-  padding: 0 10px;
+  padding: 5px 24px;
   margin-bottom: 80px;
   display: flex;
   flex-direction: column;
@@ -21,7 +21,7 @@
   overflow-x: auto;
   overflow-y: hidden;
   position: relative;
-  bottom: -40px;
+  bottom: -35px;
   gap: 10px;
 
   scrollbar-width: none;
@@ -33,8 +33,8 @@
   min-width: 150px;
   width: fit-content;
   background: #ffffff;
-  border-radius: 5px;
-  padding: 10px;
+  border-radius: 16px;
+  padding: 20px;
   border: 1px solid #2ba9cc;
   text-wrap: nowrap;
 }
@@ -43,7 +43,7 @@
   display: flex;
   justify-content: space-between;
   padding-bottom: 20px;
-  border-bottom: 2px solid gray;
+  border-bottom: 2px solid #e3e3e3;
 
   .action {
     display: flex;
@@ -74,6 +74,16 @@
     align-items: center;
     margin-bottom: 8px;
 
+    .label-color {
+      color: #5e6278;
+    }
+
+    .detail-type {
+      border-radius: 8px;
+      color: white;
+      padding: 3px 5px;
+    }
+
     .color-box {
       width: 15px;
       height: 15px;
@@ -87,7 +97,6 @@
     }
 
     .detail-value {
-      font-weight: normal;
       flex-wrap: nowrap;
     }
     .line {
@@ -98,4 +107,22 @@
       background-color: #ededed;
     }
   }
+
+  .btn-class {
+    color: white;
+    &.bank-label {
+      background-color: #e79950;
+      border: 1px solid #874c16;
+    }
+    &.cash-label {
+      background-color: #5eb4af;
+      border: 1px solid #20615d;
+    }
+    span {
+      font-weight: bold;
+    }
+  }
+}
+.sort {
+  cursor: pointer;
 }
