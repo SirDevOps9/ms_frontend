@@ -5,8 +5,11 @@ import { AuthService } from 'microtec-auth-lib';
 import { DialogService } from 'primeng/dynamicdialog';
 import { StockInDto } from 'projects/apps-inventory/src/app/modules/items/models';
 import { SharedStock } from 'projects/apps-inventory/src/app/modules/transactions/models/sharedStockOutEnums';
+import { TransactionsProxyService } from 'projects/apps-inventory/src/app/modules/transactions/transactions-proxy.service';
 import { TransactionsService } from 'projects/apps-inventory/src/app/modules/transactions/transactions.service';
 import { RouterService, PageInfoResult, MenuModule, PageInfo } from 'shared-lib';
+import { PurchaseTransactionsService } from '../../../purchase-transactions.service';
+import { IinvoiceDto } from '../../../model/purchase-invoice';
 
 @Component({
   selector: 'app-purchase-invoice-list',
@@ -17,7 +20,7 @@ export class PurchaseInvoiceListComponent implements OnInit {
   // services injections
   routerService = inject(RouterService);
   authService = inject(AuthService);
-  transactionsService = inject(TransactionsService);
+  transactionsService = inject(PurchaseTransactionsService);
   sharedFinanceEnums = inject(SharedStock);
   sequenceService = inject(SequenceService);
   // services injections
@@ -25,7 +28,7 @@ export class PurchaseInvoiceListComponent implements OnInit {
   // sorting and exporting
   SortBy?: number;
   SortColumn?: string;
-  tableData: any[];
+  tableData: IinvoiceDto[];
   exportData: any[];
   exportColumns: any[];
   exportSelectedCols: string[] = [];
@@ -42,7 +45,7 @@ export class PurchaseInvoiceListComponent implements OnInit {
     this.subscribes();
   }
   subscribes() {
-    this.transactionsService.stockInDataSourceeObservable.subscribe({
+    this.transactionsService.invoicePurchaseList.subscribe({
       next: (res) => {
         this.tableData = res;
       },
@@ -51,7 +54,7 @@ export class PurchaseInvoiceListComponent implements OnInit {
 
   // data to list
   initPurchaseData() {
-    this.transactionsService.getAllStockIn('', new PageInfo());
+    this.transactionsService.getInvoiceList('', new PageInfo());
   }
 
   // pagination
