@@ -448,8 +448,8 @@
           <!-- Save Button -->
           <lib-button-micro
             title="{{ 'Save' | translate }}"
-            [disabled]="dataToReadOnly"
-            nameClass="{{ !dataToReadOnly ? 'save' : 'disabled' }}"
+            [disabled]="formChanges"
+            nameClass="{{ !formChanges ? 'save' : 'disabled' }}"
             widthNumber="100%"
             (click)="onSave()"
           >
@@ -460,8 +460,8 @@
           <div class="md:col-3">
             <!-- Post Button -->
             <lib-button-micro
-              [disabled]="!postButton || !formChanges"
-              nameClass="{{ !postButton || !formChanges ? 'disabled' : 'save' }}"
+              [disabled]="!formChanges"
+              nameClass="{{ !formChanges ? 'disabled' : 'save' }}"
               title="{{ 'stockIn.Post' | translate }}"
               widthNumber="100%"
               (click)="onPost()"
