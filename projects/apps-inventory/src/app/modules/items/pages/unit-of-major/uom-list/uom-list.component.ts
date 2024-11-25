@@ -65,16 +65,9 @@ export class UOMListComponent implements OnInit {
     this.itemService.getUOmCategories(this.searchTerm, new PageInfo());
 
 
-    //     this.itemService.listOfUOMs.subscribe({
-    //   next: (res) => {
-    //     this.tableData = res;
-    //     console.log(res);
-    //   },
-    // });
   }
   onPageChange(pageInfo: PageInfo) {
     this.itemService.getUOmCategories('', pageInfo);
-
   }
 
 
@@ -118,11 +111,8 @@ export class UOMListComponent implements OnInit {
   // }
   onEdit(data: any) {
     this.routerService.navigateTo(`/masterdata/uom/edit-uom/${data.uomCategoryId}`);
-
-
 }
-onDelete(id: number) {
-  this.itemService.deleteCategory(id)
+onDelete(id: string) {
+  this.itemService.deleteUom(id);
 }
-
 }

@@ -147,13 +147,7 @@ export class UOMEditComponent implements OnInit {
       });
     });
 
-    // this.UOMFormGroup.valueChanges.subscribe(res=>{
-    //   if(res.baseUomEn) {
-    //     let defaultBase = [{name : res.baseUomEn}]
-    //     this.list[0] = defaultBase
-    //   }
-    // })
-
+  
     setTimeout(() => {
       this.getUomById();
     }, 1000);
@@ -258,7 +252,7 @@ export class UOMEditComponent implements OnInit {
       uoMs: this.fb.array([]),
       nameEn: ['', customValidators.required],
       nameAr: ['', customValidators.required],
-      systemUnitOfMeasureId: ['', customValidators.required],
+      systemUnitOfMeasureId: [null, customValidators.required],
     });
   }
 
@@ -509,7 +503,7 @@ export class UOMEditComponent implements OnInit {
     this.filteredSytemUnitLookup.push(systemUnit);
     let id = uomTableForm.get('id')?.value;
     if (id) {
-      this._itemService.DeleteUomLine(id);
+      this._itemService.deleteUom(id);
     } else {
       this.getUOMS.removeAt(i);
     }
