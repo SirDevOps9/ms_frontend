@@ -47,7 +47,7 @@
             <p class="fw-bold heads">{{ 'UOM.baseUom' | translate }}</p>
           </div>
           <!--  -->
-          <div class="md:col-3">
+          <div class="md:col-3" *ngIf="uomsData && uomsData.length">
             <lib-form-group>
               <label>
                 {{ 'UOM.systemUnit' | translate }}
@@ -59,6 +59,9 @@
               </lib-text-input>
             </lib-form-group>
           </div>
+
+
+
           <!--  -->
           <div class="md:col-3">
             <lib-form-group>

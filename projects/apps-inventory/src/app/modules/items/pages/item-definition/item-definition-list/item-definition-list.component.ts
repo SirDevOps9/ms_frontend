@@ -90,7 +90,11 @@ export class ItemDefinitionListComponent implements OnInit {
   exportBankData(searchTerm: string) {
     this.itemsService.exportsItemsDefinitionList(searchTerm);
     const columns = [
-      { name: 'name', headerText : this.translate.instant('OperationalTag.name') },
+      { name: 'code', headerText : this.translate.instant('itemDefinition.code') },
+      { name: 'name', headerText : this.translate.instant('itemDefinition.name') },
+      { name: 'typeName', headerText : this.translate.instant('itemDefinition.type') },
+      { name: 'itemCategoryName', headerText : this.translate.instant('itemDefinition.category') },
+      { name: 'uomName', headerText : this.translate.instant('itemDefinition.uom') },
 
     ];
     this.itemsService.exportedItemDefinitionListDataSourceObs.subscribe((res) => {
