@@ -62,7 +62,10 @@
     "Actions": "العمليات",
     "Id": "الرقم التعريفي",
     "levelNumber": "مستوى الحساب",
-    "Status": "الحالة"
+    "Status": "الحالة",
+    "chartofaccountsPrint":"طباعة جدول الحسابات",
+      "costCenterPrint":"طباعة مركز التكلفة"
+
   },
   "Journal": {
     "Title": " قائمة القيود اليومية",

@@ -19,6 +19,7 @@
     "EditVendorOpeningBalance": "Edit Vendor Opening Balance",
     "AddVendorOpeningBalance": "Add Vendor Opening Balance",
     "sequence": "sequence"
+
   },
   "COAConfigration": {
     "Success": "Success",
@@ -62,7 +63,9 @@
     "Select": "Select",
     "Id": "Id",
     "levelNumber": "Account Level",
-    "Status": "Status"
+    "Status": "Status",
+    "chartofaccountsPrint":"Chart Of Accounts Print",
+    "costCenterPrint":"Cost Center  Print"
   },
   "Journal": {
     "Title": "Journal Entry List",

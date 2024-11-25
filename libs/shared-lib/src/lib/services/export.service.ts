@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ExportService {
 
-  constructor() { }
+  constructor(    private translate: TranslateService,
+  ) { }
 
   formatItemAttributes(data: any[], columns: { name: string, headerText: string }[]): any[] {
     return data.map(item => {
@@ -27,14 +29,15 @@ export class ExportService {
   formatCiloma(data: any[], columns: { name: string, headerText: string }[]): any[] {
     return data.map(item => {
       const formattedItem: { [key: string]: any } = {};
+
       columns.forEach(column => {
-        formattedItem[column.headerText] = item.hasOwnProperty(column.name) ? item[column.name] : null;
+        const translatedHeader = this.translate.instant(column.headerText);
+        formattedItem[translatedHeader] = item.hasOwnProperty(column.name) ? item[column.name] : null;
       });
 
       return formattedItem;
     });
   }
-
 
 
 }
