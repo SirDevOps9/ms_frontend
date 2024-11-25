@@ -9,6 +9,7 @@ import {
   ExportCurrencyConversionDto,
 } from '../../models';
 import { Title } from '@angular/platform-browser';
+import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
 
 @Component({
   selector: 'app-currency-conversion',
@@ -18,59 +19,43 @@ import { Title } from '@angular/platform-browser';
 export class CurrencyConversionComponent {
   SortBy?: number;
   SortColumn?: string;
-  constructor(private generalSettingService: GeneralSettingService) {}
+  constructor(private generalSettingService: GeneralSettingService,
+    private exportService:ExportService
+  ) {}
   tableData: CurrencyConversionDto[];
   currencies: CountryDto[] = [];
   currentPageInfo: PageInfoResult = {};
   modulelist: MenuModule[];
   searchTerm: string;
   ref: DynamicDialogRef;
-
+  exportColumns:any[]
   mappedExportData: CurrencyConversionDto[];
 
   exportData: ExportCurrencyConversionDto[];
 
-  exportColumns: lookupDto[] = [
-    {
-      id: 'fromCurrencyName',
-      name: 'Currency Name',
-    },
-    {
-      id: 'fromCurrencyRate',
-      name: 'Currency Rate',
-    },
 
-    {
-      id: 'toCurrencyName',
-      name: 'To Currency',
-    },
-    {
-      id: 'reversedRate',
-      name: 'Reversed Rate',
-    },
-    {
-      id: 'note',
-      name: 'Notes',
-    },
 
-    {
-      id: 'id',
-      name: 'Actions',
-    },
-  ];
   ngOnInit() {
     this.getCurrencyConversionList();
     this.getCurrencies();
   }
-  exportedColumns(obj: { SortBy: number; SortColumn: string }) {
-    this.SortBy = obj.SortBy;
-    this.SortColumn = obj.SortColumn;
+  exportClick(e?: Event) {
+    this.exportcurrencyConversionData(this.searchTerm);
   }
 
-  exportClick(){
+  exportcurrencyConversionData(searchTerm:string){
     this.generalSettingService.exportcurrencyData(this.searchTerm ,this.SortBy,this.SortColumn);
+    const columns = [
+      { name: 'fromCurrencyName', headerText:('currencyConversion.FromCurrency') },
+      { name: 'fromCurrencyRate', headerText:('currencyConversion.CurrencyRate') },
+      { name: 'toCurrencyName', headerText:('currencyConversion.ToCurrency') },
+      { name: 'reversedRate', headerText:('currencyConversion.ReversedRate') },
+      { name: 'note', headerText:('currencyConversion.Notes') },
+
+    ];
     this.generalSettingService.exportsCurrencyListDataSourceObservable.subscribe((res) => {
-      this.exportData = res;
+      this.exportData = this.exportService.formatCiloma(res, columns);
+
     });
   }
   getCurrencyConversionList() {

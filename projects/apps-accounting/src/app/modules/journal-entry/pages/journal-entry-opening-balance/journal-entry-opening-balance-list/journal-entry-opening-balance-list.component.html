@@ -69,9 +69,16 @@
       <ng-container action>
 
         <div class="flex gap-2">
-          <lib-export (exportClick)="exportClick($event)" [exportData]="exportData" [exportColumns]="exportColumns"
-            [ExportName]="'Journal Openeing Balance List'">
-          </lib-export>
+
+
+          <lib-export
+          (exportClick)="exportClick($event)"
+          [exportData]="exportData"
+          [exportColumns]="exportColumns"
+          [ExportName]="('Journal.JournalEnteryOpeningPrint' |translate)"
+
+        >
+        </lib-export>
           <!-- <lib-button *ngIf="tableData.length == 0" pRipple className="addToList"
             label="{{ 'EditJournal.add' | translate }}" (onClick)="routeToAdd()" [icon]="'pi pi-plus'">
           </lib-button> -->
@@ -91,7 +98,7 @@
           </lib-button-micro>
           <lib-button-micro nameClass="table_button_edit" (click)="routeToEdit(journal.id)">
           </lib-button-micro>
-        
+
         </div>
       </ng-template>
       <ng-template #userStatus let-journal>

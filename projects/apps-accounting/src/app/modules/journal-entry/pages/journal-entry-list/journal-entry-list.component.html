@@ -14,7 +14,7 @@
         dataKey: 'id',
         pageSize: 10,
         columns: [
-         
+
           {
             name: 'journalCode',
             headerText: 'Journal.journalCode' | translate,
@@ -126,12 +126,13 @@
       <ng-container action>
         <div class="flex gap-2">
           <lib-export
-            (exportClick)="exportJournalEntriesData($event)"
-            [exportData]="exportData"
-            [exportColumns]="exportColumns"
-            [ExportName]="'Journal Entries'"
-          >
-          </lib-export>
+          (exportClick)="exportClick($event)"
+          [exportData]="exportData"
+          [exportColumns]="exportColumns"
+          [ExportName]="('Journal.JournalEnteryPrint' |translate)"
+
+        >
+        </lib-export>
 
           <lib-button-micro
             title="{{ 'create' | translate }}"
