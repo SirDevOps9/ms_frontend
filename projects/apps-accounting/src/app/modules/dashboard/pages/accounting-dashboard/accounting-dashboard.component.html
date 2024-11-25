@@ -14,7 +14,7 @@
                 : accountBalance.accountTypeNameAr
             }}
           </p>
-          <p class="paragraph_b16 m-0">{{ accountBalance.totalBalance }}</p>
+          <p class="paragraph_b16 m-0">{{ accountBalance.totalBalance | decimalSeparator }}</p>
         </div>
         }
       </div>
@@ -70,20 +70,20 @@
                 >
 
                 <span class="line"></span>
-                <span class="detail-value">{{ acc.balance }}</span>
+                <span class="detail-value">{{ acc.balance | decimalSeparator }}</span>
               </div>
               }
               <div class="grid">
                 <div class="lg:col-6 md:col-6 col-12">
                   <p class="btn-class cash-label">
                     {{ 'dashboard.totalCash' | translate }}
-                    <span> {{ cashBankAccountsBalance.totalCashBalance }} </span>
+                    <span> {{ cashBankAccountsBalance.totalCashBalance | decimalSeparator }} </span>
                   </p>
                 </div>
                 <div class="lg:col-6 md:col-6 col-12">
                   <p class="btn-class bank-label">
                     {{ 'dashboard.totalBank' | translate }}
-                    <span> {{ cashBankAccountsBalance.totalBankBalance }} </span>
+                    <span> {{ cashBankAccountsBalance.totalBankBalance | decimalSeparator }} </span>
                   </p>
                 </div>
               </div>
@@ -153,7 +153,7 @@
                 <span class="label-color body_b14">{{ acc.accountName }}</span>
 
                 <span class="line"></span>
-                <span class="detail-value heading_b16">{{ acc.balance }}</span>
+                <span class="detail-value heading_b16">{{ acc.balance | decimalSeparator }}</span>
               </div>
               }
             </div>
@@ -183,7 +183,9 @@
               <div class="row">
                 <span class="label-color body_b14">{{ costCenter.costCenterName }}</span>
                 <span class="line"></span>
-                <span class="detail-value heading_b16">{{ costCenter.totalBalance }}</span>
+                <span class="detail-value heading_b16">{{
+                  costCenter.totalBalance | decimalSeparator
+                }}</span>
               </div>
               }
             </div>
