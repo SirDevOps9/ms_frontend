@@ -12,7 +12,7 @@ const routes: Route[] = [
     path: '',
     component: LayoutPageComponent,
     data: {
-      moduleId: Modules.inventory,
+      moduleId: Modules.Accounting,
     },
     children: [
       {
