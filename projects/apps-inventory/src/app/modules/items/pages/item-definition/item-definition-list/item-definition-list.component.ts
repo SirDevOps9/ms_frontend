@@ -10,7 +10,6 @@ import {
   PageInfoResult,
   MenuModule,
   PageInfo,
-  Pages,
 } from 'shared-lib';
 import { ItemsService } from '../../../items.service';
 import { itemDefinitionDto } from '../../../models';
@@ -20,7 +19,7 @@ import { ViewItemDefinitionComponent } from '../../../components/view-item-defin
 import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
 import { TranslateService } from '@ngx-translate/core';
 import { HelpPageService } from 'libs/shared-lib/src/lib/services/help-page.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-item-definition-list',
@@ -37,7 +36,8 @@ export class ItemDefinitionListComponent implements OnInit {
     private itemsService: ItemsService,
     private exportService:ExportService,
     private helpPageService: HelpPageService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   tableData: itemDefinitionDto[];
@@ -64,11 +64,13 @@ export class ItemDefinitionListComponent implements OnInit {
   currentPageInfo: PageInfoResult = {};
   modulelist: MenuModule[];
   searchTerm: string;
-  hasHelpPage: Boolean=true;
-
+  hasHelpPage: Boolean=false;
+  servicePage:number;
   ngOnInit() {
     this.initItemDefinitionData();
-
+    const state = history.state;
+    this.hasHelpPage =JSON.parse(state?.hashelppage  || "false") ;  // Default to 'false' if no state found
+    this.servicePage=state.servicePage;
   }
 
   initItemDefinitionData() {
@@ -85,8 +87,7 @@ export class ItemDefinitionListComponent implements OnInit {
     });
   }
   navigateHelpPageComponent() {
-    const servicePage = Pages.Item;
-    this.router.navigate(['/masterdata/help-page',servicePage]);  // Navigate to the 'new' component
+    this.router.navigate(['/masterdata/help-page',this.servicePage]);  // Navigate to the 'new' component
   }
 
   onPageChange(pageInfo: PageInfo) {
