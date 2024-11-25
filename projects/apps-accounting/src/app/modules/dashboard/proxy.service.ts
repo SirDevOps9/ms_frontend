@@ -22,27 +22,27 @@ export class ProxyService {
     return this.http.get<AccountBalanceDto[]>(`${this.baseHttp}/AccountTypeBalances`);
   }
 
-  getJournalStatus(): Observable<JournalStatusDto> {
-    return this.http.get<JournalStatusDto>(`${this.baseHttp}/JournalEntryStatus`);
+  getJournalStatus(): Observable<JournalStatusDto[]> {
+    return this.http.get<JournalStatusDto[]>(`${this.baseHttp}/JournalEntryStatus`);
   }
 
-  getJournalEntryTypeCount(): Observable<JournalEntryTypeCountDto> {
-    return this.http.get<JournalEntryTypeCountDto>(`${this.baseHttp}/JournalEntryTypeCount`);
+  getJournalEntryTypeCount(): Observable<JournalEntryTypeCountDto[]> {
+    return this.http.get<JournalEntryTypeCountDto[]>(`${this.baseHttp}/JournalEntryTypeCount`);
   }
 
-  getCashBankAccountBalances(): Observable<AccountsData[]> {
-    return this.http.get<AccountsData[]>(`${this.baseHttp}/CashBankAccountBalances`);
+  getCashBankAccountBalances(count: number): Observable<AccountsData> {
+    return this.http.get<AccountsData>(`${this.baseHttp}/CashBankAccountBalances?count=${count}`);
   }
 
   getRevenueStream(): Observable<RevenueStream> {
     return this.http.get<RevenueStream>(`${this.baseHttp}/RevenueSteam`);
   }
 
-  getAccountBalances(): Observable<Account[]> {
-    return this.http.get(`${this.baseHttp}/AccountsBalances`);
+  getAccountBalances(counts: number): Observable<Account[]> {
+    return this.http.get(`${this.baseHttp}/AccountsBalances?count=${counts}`);
   }
 
-  getCostCenterBalances(): Observable<CostCenter[]> {
-    return this.http.get<CostCenter[]>(`${this.baseHttp}/CostCenterBalances`);
+  getCostCenterBalances(count: number): Observable<CostCenter[]> {
+    return this.http.get<CostCenter[]>(`${this.baseHttp}/CostCenterBalances?count=${count}`);
   }
 }
