@@ -107,23 +107,7 @@
               </lib-field-validations>
             </lib-form-group>
           </div>
-          <div class="md:col-6">
-            <lib-form-group>
-              <lib-label [appControl]="formGroup.controls['accountTypeId']">
-                {{ 'ChartOfAccounts.AccountType' | translate }}
-              </lib-label>
-              <lib-select
-                formControlName="accountTypeId"
-                [options]="accountTypes"
-                optionValue="id"
-                optionLabel="nameEn"
-                [selectedValue]="accountTypeIdValue"
-              >
-              </lib-select>
-              <lib-field-validations [appControl]="formGroup.controls['accountTypeId']">
-              </lib-field-validations>
-            </lib-form-group>
-          </div>
+
           <div class="md:col-6">
             <lib-form-group>
               <lib-label [appControl]="formGroup.controls['tags']">
@@ -154,6 +138,23 @@
                 >
                 </lib-input-switch>
               </div>
+            </div>
+            <div class="md:col-6" *ngIf="!currencyIsVisible">
+              <lib-form-group>
+                <lib-label [appControl]="formGroup.controls['accountTypeId']">
+                  {{ 'ChartOfAccounts.AccountType' | translate }}
+                </lib-label>
+                <lib-select
+                  formControlName="accountTypeId"
+                  [options]="accountTypes"
+                  optionValue="id"
+                  optionLabel="nameEn"
+                  [selectedValue]="accountTypeIdValue"
+                >
+                </lib-select>
+                <lib-field-validations [appControl]="formGroup.controls['accountTypeId']">
+                </lib-field-validations>
+              </lib-form-group>
             </div>
             <div class="md:col-6" *ngIf="!currencyIsVisible">
               <lib-form-group>
