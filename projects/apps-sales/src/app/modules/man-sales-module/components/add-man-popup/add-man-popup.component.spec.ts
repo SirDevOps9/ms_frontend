@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ManListTeamComponent } from './man-list-team.component';
+import { AddManPopupComponent } from './add-man-popup.component';
 
-describe('ManListTeamComponent', () => {
-  let component: ManListTeamComponent;
-  let fixture: ComponentFixture<ManListTeamComponent>;
+describe('AddManPopupComponent', () => {
+  let component: AddManPopupComponent;
+  let fixture: ComponentFixture<AddManPopupComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ManListTeamComponent]
+      declarations: [AddManPopupComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(ManListTeamComponent);
+    fixture = TestBed.createComponent(AddManPopupComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

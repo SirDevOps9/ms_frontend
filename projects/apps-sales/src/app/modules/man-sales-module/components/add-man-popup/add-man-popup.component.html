@@ -1,0 +1,93 @@
+<div class="main">
+  <lib-popup-page
+    title="{{ 'stockIn.ItemSearch' | translate }}"
+    [closeFunction]="onCancel"
+    (Submit)="onSubmit()"
+    [showSave]="false"
+    [showCancel]="false"
+  >
+    <div class="table">
+      <lib-data-table
+        [popup]="true"
+        [items]="items"
+        [noColumnFilter]="false"
+        [showCheckBox]="false"
+        className="p-datatable-gridlines  no-row-click"
+        [currentPageResult]="currentPageInfo"
+        (pageChange)="onPageChange($event)"
+        [tableConfigs]="{
+          allowPagination: false,
+          allowServerPagination: true,
+          dataKey: 'id',
+          pageSize: 10,
+          columns: [
+            {
+              name: 'name',
+              headerText: 'stockIn.name' | translate,
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'email',
+              headerText: 'stockIn.email' | translate,
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'number',
+              headerText: 'stockIn.ItemnumberUOM' | translate,
+              isGlobalFilter: true,
+              isSortable: true
+            },
+
+            {
+              name: 'id',
+              headerText: ('stockIn.id' | translate),
+              template: action
+            }
+          ]
+        }"
+      >
+        <ng-container caption>
+          <div captions class="mb-4 -mt-4 text-center">
+            {{ 'Please select a sales man team and a user to proceed' | translate }}
+          </div>
+        </ng-container>
+
+        <ng-container caption>
+          <div [formGroup]="filterForm" class="grid">
+            <div class="col-12">
+              <lib-form-group>
+                <lib-select
+                  formControlName="teamId"
+                  placeholder="{{ 'Layout.salesTeam' | translate }}"
+                  [options]="[]"
+                  [selectedValue]="filterForm.controls['teamId'].value"
+                  optionLabel="name"
+                  optionValue="id"
+                >
+                </lib-select>
+                <lib-field-validations
+                  [appControl]="filterForm.controls['teamId']"
+                ></lib-field-validations>
+              </lib-form-group>
+            </div>
+            <div class="col-12">
+              <lib-text-input
+                type="text"
+                [placeholder]="'stockIn.search' | translate"
+                [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
+                (keyUp)="onSearchChange($event)"
+              >
+              </lib-text-input>
+            </div>
+          </div>
+        </ng-container>
+        <ng-template #action let-item>
+          <lib-button-micro nameClass="save" title="select" (click)="selectedRow(item)">
+          </lib-button-micro>
+        </ng-template>
+      </lib-data-table>
+    </div>
+  </lib-popup-page>
+</div>

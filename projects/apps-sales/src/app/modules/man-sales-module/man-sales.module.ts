@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ManListTeamComponent } from './pages/man-sales-team/man-list-team/man-list-team.component';
-import { AddManTeamComponent } from './pages/man-sales-team/add-man-team/add-man-team.component';
 import { MainListTeamComponent } from './pages/main-sales-team/main-list-team/main-list-team.component';
 import { AddMainTeamComponent } from './pages/main-sales-team/add-main-team/add-main-team.component';
-import { ManListComponent } from './pages/man-sales-team/man-list/man-list.component';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutPageComponent } from 'apps-shared-lib';
 import { Modules, BreadcrumbLabel, SharedLibModule } from 'shared-lib';
 import { MainListComponent } from './pages/main-sales-team/main-list/main-list.component';
+import { AddManPopupComponent } from './components/add-man-popup/add-man-popup.component';
+import { MainManComponent } from './pages/main-man-component/app-main-man-component';
+import { ManDetailsComponent } from './pages/main-man-component/man-details/man-details.component';
+import { ManListComponent } from './pages/main-man-component/man-list/man-list.component';
 const routes: Routes = [
   {
     path: '',
@@ -20,7 +21,7 @@ const routes: Routes = [
     children: [
       {
         path: 'man-sales',
-        component: ManListComponent,
+        component: MainManComponent,
         data: {
           breadcrumb: BreadcrumbLabel.MAN_SALES,
           pageTitle: BreadcrumbLabel.MAN_SALES,
@@ -28,15 +29,15 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            component: ManListTeamComponent,
+            component: ManListComponent,
             data: {
               breadcrumb: '',
               pageTitle: BreadcrumbLabel.MAN_SALES,
             },
           },
           {
-            path: 'add',
-            component: AddManTeamComponent,
+            path: 'details/:id',
+            component: ManDetailsComponent,
             data: {
               breadcrumb: BreadcrumbLabel.ADD_MAN_SALES,
               pageTitle: BreadcrumbLabel.ADD_MAN_SALES,
@@ -77,22 +78,21 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    ManListTeamComponent,
-    AddManTeamComponent,
     MainListTeamComponent,
     AddMainTeamComponent,
     ManListComponent,
     MainListComponent,
+    MainManComponent,
+    AddManPopupComponent,
+    ManDetailsComponent,
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule],
 
-  exports: [
-    ManListTeamComponent,
-    AddManTeamComponent,
-    MainListTeamComponent,
-    AddMainTeamComponent,
-    ManListComponent,
-    MainListComponent,
-  ],
+  // exports: [
+  //   MainListTeamComponent,
+  //   AddMainTeamComponent,
+  //   ManListComponent,
+  //   MainListComponent,
+  // ],
 })
 export class ManSalesModule {}
