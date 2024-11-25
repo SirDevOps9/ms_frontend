@@ -49,12 +49,6 @@ export class UOMAddComponent implements OnInit {
   get UOMType(): UOMType {
     return this.UOMType;
   }
-
-  uomTypeList = [
-    { id: UOMType.LowerType, name: 'LowerType' },
-    { id: UOMType.DefaultType, name: 'DefaultType' },
-    { id: UOMType.UpperType, name: 'UpperType' },
-  ];
   constructor(
     private fb: FormBuilder,
     private _itemService: ItemsService,
@@ -140,27 +134,24 @@ export class UOMAddComponent implements OnInit {
           (elem) => elem?.id !== item?.systemUnitOfMeasureId
         );
       });
-
-      console.log('heeeeeeeeyjjjjjj', this.list);
     });
   }
 
   systemUnitChanged(event: any) {
     let data = this.sytemUnitLookup.find((elem) => elem.id === event);
     this.systemUnitData = data;
+    this.UOMFormGroup.get('systemUnitOfMeasureId')?.setValue(event);
     this.UOMFormGroup.get('baseUomAr')?.setValue(data?.nameAr);
     this.UOMFormGroup.get('baseUomEn')?.setValue(data?.nameEn);
     this.getUOMS.clear();
   }
   systemUnitListChanged(event: any, uomTableForm: FormGroup, list: any) {
     let data: any = this.sytemUnitLookup.find((elem) => elem.id === event);
+    uomTableForm.get('systemUnitOfMeasureId')?.setValue(event);
     uomTableForm.get('baseUomEn')?.setValue(data?.nameEn);
     uomTableForm.get('nameEn')?.setValue(data?.nameEn);
     uomTableForm.get('nameAr')?.setValue(data?.nameAr);
     uomTableForm.get('systemUnitOfMeasureName')?.setValue(data?.nameEn);
-    // uomTableForm
-    //   .get('nameEn')
-    //   ?.setValue(data?.systemUnitOfMeasureCategoryId);
   }
 
   get categoryId(): number {
@@ -185,7 +176,7 @@ export class UOMAddComponent implements OnInit {
       uoMs: this.fb.array([]),
       nameEn: ['', customValidators.required],
       nameAr: ['', customValidators.required],
-      systemUnitOfMeasureId: ['', customValidators.required],
+      systemUnitOfMeasureId: [null, customValidators.required],
     });
 
     this.UOMFormGroup.get('uomCodeCategory')?.valueChanges.subscribe((res: any) => {
@@ -496,7 +487,7 @@ export class UOMAddComponent implements OnInit {
         calculation: '1',
         reversal: '1',
         uomCategoryId: 0,
-        systemUnitOfMeasureId: '',
+        systemUnitOfMeasureId: this.UOMFormGroup.get('systemUnitOfMeasureId')?.value,
       };
 
       // Add the base unit to the beginning of the getUOMS array

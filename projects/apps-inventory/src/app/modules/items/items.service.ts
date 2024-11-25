@@ -200,18 +200,6 @@ export class ItemsService {
   public sendOperationalTagDropDown = new BehaviorSubject<OperationalStockIn[]>([]);
   public sendItemBarcodeStockOut = new BehaviorSubject<any>({} as any);
 
-  // sendCashSalesLookup = new BehaviorSubject<any>([]);
-  // sendLookup = new BehaviorSubject<any>([]);
-  // sendCreditSalesLookup = new BehaviorSubject<any>([]);
-  // sendSalesReturnLookup = new BehaviorSubject<any>([]);
-  // sendPurchaseAccountLookup = new BehaviorSubject<any>([]);
-  // sendSalesCostCenterLookup = new BehaviorSubject<any>([]);
-  // sendDiscountAccountLookup = new BehaviorSubject<any>([]);
-  // sendEvaluationAccountLookup = new BehaviorSubject<any>([]);
-  // sendAdjustmentAccountLookup = new BehaviorSubject<any>([]);
-  // sendGoodsInTransitLookup = new BehaviorSubject<any>([]);
-  // sendCompanyPhoneLookup = new BehaviorSubject<any>([]);
-
   public SendexportUOMList = new BehaviorSubject<UOMCategoryDto[]>([]);
   public SendexportAttrDifinitionList = new BehaviorSubject<any[]>([]);
   public listOfUOM = new BehaviorSubject<IuomResult[]>([]);
@@ -296,17 +284,6 @@ public exportedWarehouseDataItemSourceObs = this.exportedWarehouseDataItemSource
   public sendBranchesLookupObs = this.sendBranchesLookup.asObservable();
   public sendCitiesLookupObs = this.sendCitiesLookup.asObservable();
   public sendCountriesLookupObs = this.sendCountriesLookup.asObservable();
-  // public sendGlAccountLookupObs = this.sendGlAccountLookup.asObservable()
-  // public sendCashSalesLookupObs = this.sendCashSalesLookup.asObservable()
-  // public sendCreditSalesLookupObs = this.sendCreditSalesLookup.asObservable()
-  // public sendSalesReturnLookupObs = this.sendSalesReturnLookup.asObservable()
-  // public sendPurchaseAccountLookupObs = this.sendPurchaseAccountLookup.asObservable()
-  // public sendSalesCostCenterLookupObs = this.sendSalesCostCenterLookup.asObservable()
-  // public sendDiscountAccountLookupObs = this.sendDiscountAccountLookup.asObservable()
-  // public sendEvaluationAccountLookupObs = this.sendEvaluationAccountLookup.asObservable()
-  // public sendAdjustmentAccountLookupObs = this.sendAdjustmentAccountLookup.asObservable()
-  // public sendGoodsInTransitLookupObs = this.sendGoodsInTransitLookup.asObservable()
-  // public sendCompanyPhoneLookupObs = this.sendCompanyPhoneLookup.asObservable()
 
   public updateUOMobj$ = this.updateUOMobj.asObservable();
   public listOfUOMs = this.listOfUOM.asObservable();
@@ -356,7 +333,6 @@ public exportedWarehouseDataItemSourceObs = this.exportedWarehouseDataItemSource
   getItemBarcodeById(id: number) {
     this.itemProxy.getItemBarcodeById(id).subscribe({
       next: (res: any) => {
-        console.log(res);
         this.dataBarCodeById.next(res);
       },
     });
@@ -365,7 +341,6 @@ public exportedWarehouseDataItemSourceObs = this.exportedWarehouseDataItemSource
   getItemFixedCost(id: number) {
     this.itemProxy.getItemFixedCost(id).subscribe({
       next: (res: any) => {
-        console.log(res);
         this.dataFixedCostById.next(res);
       },
     });
@@ -382,7 +357,6 @@ public exportedWarehouseDataItemSourceObs = this.exportedWarehouseDataItemSource
   getUOmCategories(quieries: string, pageInfo: PageInfo) {
     this.itemProxy.GetUOMCategories(quieries, pageInfo).subscribe(
       (response) => {
-        console.log(response);
         this.GetUOMCategoriesDataSource.next(response.result);
         this.currentPageInfo.next(response.pageInfoResult);
       },
@@ -430,7 +404,6 @@ public exportedWarehouseDataItemSourceObs = this.exportedWarehouseDataItemSource
   addItemDefinition(obj: AddItemDefinitionDto, dialogRef: DynamicDialogRef, text: string) {
     this.itemProxy.addItemDefinition(obj).subscribe((res) => {
       if (res) {
-        console.log('success', res);
 
         this.toasterService.showSuccess(
           this.languageService.transalte('itemDefinition.success'),
@@ -468,7 +441,6 @@ public exportedWarehouseDataItemSourceObs = this.exportedWarehouseDataItemSource
   exportsItemsDefinitionList(searchTerm: string | undefined) {
     this.itemProxy.exportsItemsDefinitionList(searchTerm).subscribe({
       next: (res: any) => {
-        console.log(res);
         this.exportedItemDefinitionListDataSource.next(res);
       },
     });
@@ -608,7 +580,6 @@ public exportedWarehouseDataItemSourceObs = this.exportedWarehouseDataItemSource
         this.taxesDataLookup.next(res);
       },
       error: (err) => {
-        console.error('Failed to load tax data:', err);
         this.taxesDataLookup.next([]);
       },
     });
@@ -861,28 +832,6 @@ public exportedWarehouseDataItemSourceObs = this.exportedWarehouseDataItemSource
       );
     });
   }
-
-  async DeleteUomLine(id: number) {
-    const confirmed = await this.toasterService.showConfirm(
-      this.languageService.transalte('ConfirmButtonTexttodelete')
-    );
-    if (confirmed) {
-      this.itemProxy.DeleteUomLine(id).subscribe({
-        next: (res) => {
-          this.toasterService.showSuccess(
-            this.languageService.transalte('UOM.success'),
-            this.languageService.transalte('UOM.delete')
-          );
-
-          const currentUom: any = this.getUOMCategoryByIdData.getValue();
-          const updatedUOM: addUOM = currentUom.uoMs.filter((c: any) => c.id !== id);
-          let data = {uoMs : updatedUOM}
-          this.getUOMCategoryByIdData.next(data );
-        },
-      });
-    }
-  }
-
   systemUnitLookup() {
     this.itemProxy.systemUnitLookup().subscribe((res) => {
       if (res) {
@@ -949,14 +898,6 @@ public exportedWarehouseDataItemSourceObs = this.exportedWarehouseDataItemSource
         this.deleteAttrDifinitionData.next(data);
       });
     }
-
-    /*
-       this.itemProxy.attributeGroupsValue(id).subscribe({
-      next: (res: any) => {
-        this.attributeValuesDropDownLookup.next(res);
-      },
-    });
-    */
   }
 
   EditUOMCategory(obj: addUOM) {
@@ -969,26 +910,6 @@ public exportedWarehouseDataItemSourceObs = this.exportedWarehouseDataItemSource
       );
       this.sendUOMCategory.next(res);
     });
-  }
-  // attr difinition delete
-  async deleteUOM(id: number) {
-    const confirmed = await this.toasterService.showConfirm(
-      this.languageService.transalte('ConfirmButtonTexttodelete')
-    );
-    if (confirmed) {
-      this.itemProxy.deleteUOM(id).subscribe({
-        next: (res) => {
-          this.toasterService.showSuccess(
-            this.languageService.transalte('UOM.success'),
-            this.languageService.transalte('UOM.delete')
-          );
-
-          const currentUom = this.GetUOMCategoriesDataSource.getValue();
-          const updatedUOM = currentUom.filter((c: any) => c.id !== id);
-          this.GetUOMCategoriesDataSource.next(updatedUOM);
-        },
-      });
-    }
   }
   async deleteCategory(id: number) {
     const confirmed = await this.toasterService.showConfirm(
@@ -1003,16 +924,14 @@ public exportedWarehouseDataItemSourceObs = this.exportedWarehouseDataItemSource
           );
 
           const currentUom = this.GetUOMCategoriesDataSource.getValue();
-          console.log(currentUom);
-          console.log(id);
           const updatedUOM = currentUom.filter((c: any) => c.uomCategoryId !== id);
           this.GetUOMCategoriesDataSource.next(updatedUOM);
         },
       });
     }
   }
-  // attr difinition delete
-  async deleteUomCat(id: number) {
+
+  async deleteUom(id: string) {
     const confirmed = await this.toasterService.showConfirm(
       this.languageService.transalte('ConfirmButtonTexttodelete')
     );
@@ -1023,10 +942,9 @@ public exportedWarehouseDataItemSourceObs = this.exportedWarehouseDataItemSource
             this.languageService.transalte('UOM.success'),
             this.languageService.transalte('UOM.delete')
           );
-
-          const currentUom = this.uomCodeLookup.getValue();
-          const updatedUOM = currentUom.filter((c: any) => c.id !== id);
-          this.uomCodeLookup.next(updatedUOM);
+          const currentList = this.GetUOMCategoriesDataSource.getValue();;
+          const updatedList = currentList.filter((c: any) => c.id !== id);
+          this.GetUOMCategoriesDataSource.next(updatedList);
         },
       });
     }
@@ -1089,8 +1007,6 @@ public exportedWarehouseDataItemSourceObs = this.exportedWarehouseDataItemSource
             this.languageService.transalte('itemType.deleteBarcode')
           );
           const currentVariant: any = this.ItemVariantsById.getValue();
-          console.log(currentVariant);
-          console.log(id);
           const updatedVariants = currentVariant.filter((c: any) => c.variantId !== id);
           this.ItemVariantsById.next(updatedVariants);
         },
@@ -1242,15 +1158,12 @@ public exportedWarehouseDataItemSourceObs = this.exportedWarehouseDataItemSource
   addWarehouse(obj: AddWarehouse, dialogRef: DynamicDialogRef, text: string) {
     this.itemProxy.addWarehouse(obj).subscribe((res) => {
       if (res) {
-        console.log(res);
         this.toasterService.showSuccess(
           this.languageService.transalte('warehouse.success'),
           this.languageService.transalte('warehouse.add')
         );
 
         let dataRes: number = Number(res);
-        console.log(dataRes);
-        console.log(text);
         if (text == 'save') {
           dialogRef.close(res);
         } else {

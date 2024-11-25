@@ -97,23 +97,13 @@ export class UOMListComponent implements OnInit {
     this.itemService.getUOmCategories(this.searchTerm, new PageInfo());
 
 
-    //     this.itemService.listOfUOMs.subscribe({
-    //   next: (res) => {
-    //     this.tableData = res;
-    //     console.log(res);
-    //   },
-    // });
   }
   onPageChange(pageInfo: PageInfo) {
     this.itemService.getUOmCategories('', pageInfo);
-
   }
 
   exportClick(e?: Event) {
-
       this.exportBankData(this.searchTerm);
-
-
   }
   exportBankData(searchTerm: string) {
     this.itemService.exportUOMList(searchTerm)
@@ -121,8 +111,6 @@ export class UOMListComponent implements OnInit {
     this.itemService.SendexportUOMList$.subscribe((res)=>{
       this.exportData = res
     })
-
-
   }
   exportUom(searchTerm: string) {
     this.itemService.exportUOMList(searchTerm)
@@ -130,16 +118,11 @@ export class UOMListComponent implements OnInit {
     this.itemService.SendexportUOMList$.subscribe((res)=>{
       this.exportData = res
     })
-
-
   }
   onEdit(data: any) {
     this.routerService.navigateTo(`/masterdata/uom/edit-uom/${data.uomCategoryId}`);
-
-
 }
-onDelete(id: number) {
-  this.itemService.deleteCategory(id)
+onDelete(id: string) {
+  this.itemService.deleteUom(id);
 }
-
 }
