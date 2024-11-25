@@ -36,6 +36,7 @@ const routes: Routes = [
       moduleId: Modules.Sales,
     },
     children: [
+      // Customer Category Routes
       {
         path: 'customer-category',
         component: MainCustomerCategoryComponent,
@@ -43,189 +44,123 @@ const routes: Routes = [
           breadcrumb: BreadcrumbLabel.CUSTOMER_LIST,
           pageTitle: BreadcrumbLabel.CUSTOMER_LIST,
         },
-        children:[
+        children: [
           {
             path: '',
             component: CustomerCategoryListComponent,
-            data: {
-              breadcrumb: BreadcrumbLabel.CUSTOMER_LIST,
-              pageTitle: BreadcrumbLabel.CUSTOMER_LIST,
-
-            },
+            data: { breadcrumb: '', pageTitle: BreadcrumbLabel.CUSTOMER_LIST },
           },
           {
             path: 'add-customer-category',
             component: CreateCustomerCategoryComponent,
-            // canActivate: [AuthGuard],
-            data: {
-              breadcrumb: BreadcrumbLabel.CUSTOMER_ADD,
-              pageTitle: BreadcrumbLabel.CUSTOMER_ADD,
-
-            },
+            data: { breadcrumb: BreadcrumbLabel.CUSTOMER_ADD, pageTitle: BreadcrumbLabel.CUSTOMER_ADD },
           },
           {
             path: 'edit-customer-category/:id',
             component: EditCustomerCategoryComponent,
-            // canActivate: [AuthGuard],
-            data: {
-              breadcrumb: BreadcrumbLabel.CUSTOMER_EDIT,
-              pageTitle: BreadcrumbLabel.CUSTOMER_EDIT,
-
-            },
+            data: { breadcrumb: BreadcrumbLabel.CUSTOMER_EDIT, pageTitle: BreadcrumbLabel.CUSTOMER_EDIT },
           },
-        ]
+        ],
       },
+      // Customer Definitions Routes
       {
         path: 'customer-definitions',
         component: MainCustomerDefintionComponent,
-        // canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.CUSTOMER_DEFINITIONS,
           pageTitle: BreadcrumbLabel.CUSTOMER_DEFINITIONS,
-
         },
-        children:[
+        children: [
           {
             path: '',
             component: CustomerListComponent,
-            // canActivate: [AuthGuard],
-            data: {
-              breadcrumb: '',
-            },
+            data: { breadcrumb: '', pageTitle: BreadcrumbLabel.CUSTOMER_DEFINITIONS },
           },
           {
             path: 'add-customer-definitions',
             component: AddCustomerComponent,
-            //  canActivate: [AuthGuard],
-            data: {
-              breadcrumb: BreadcrumbLabel.ADD_CUSTOMER_DEFINITIONS,
-              pageTitle: BreadcrumbLabel.ADD_CUSTOMER_DEFINITIONS,
-
-            },
+            data: { breadcrumb: BreadcrumbLabel.ADD_CUSTOMER_DEFINITIONS, pageTitle: BreadcrumbLabel.ADD_CUSTOMER_DEFINITIONS },
           },
           {
             path: 'edit-customer-definitions/:id',
             component: EditCustomerComponent,
-            // canActivate: [AuthGuard],
-            data: {
-              breadcrumb: BreadcrumbLabel.EDIT_CUSTOMER_DEFINITIONS,
-              pageTitle: BreadcrumbLabel.EDIT_CUSTOMER_DEFINITIONS,
-
-            },
-            
+            data: { breadcrumb: BreadcrumbLabel.EDIT_CUSTOMER_DEFINITIONS, pageTitle: BreadcrumbLabel.EDIT_CUSTOMER_DEFINITIONS },
           },
-        ]
+        ],
       },
-
+      // Customer Opening Balance Routes
       {
         path: 'customer-opening-balance',
         component: MainCustomerOpeningBalanceComponent,
-        //  canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.CUSTOMER_OPENEING_BALANCE_List,
           pageTitle: BreadcrumbLabel.CUSTOMER_OPENEING_BALANCE_List,
-
         },
-        children:[
+        children: [
           {
             path: '',
             component: CustomerOpeningBalanceListComponent,
-            //  canActivate: [AuthGuard],
-            data: {
-              breadcrumb: '',
-            }
+            data: { breadcrumb: '', pageTitle: BreadcrumbLabel.CUSTOMER_OPENEING_BALANCE_List },
           },
           {
             path: 'add',
             component: AddCustomerOpeeningBalanceComponent,
-            //  canActivate: [AuthGuard],
-            data: {
-              breadcrumb: BreadcrumbLabel.ADD_CUSTOMER_OPENEING_BALANCE,
-              pageTitle: BreadcrumbLabel.ADD_CUSTOMER_OPENEING_BALANCE,
-
-            }
+            data: { breadcrumb: BreadcrumbLabel.ADD_CUSTOMER_OPENEING_BALANCE, pageTitle: BreadcrumbLabel.ADD_CUSTOMER_OPENEING_BALANCE },
           },
           {
             path: 'edit/:id',
             component: EditCustomerOpeningBalanceComponent,
-            //  canActivate: [AuthGuard],
-            data: {
-              breadcrumb: BreadcrumbLabel.EDIT_CUSTOMER_OPENEING_BALANCE,
-              pageTitle: BreadcrumbLabel.EDIT_CUSTOMER_OPENEING_BALANCE,
-
-            }
+            data: { breadcrumb: BreadcrumbLabel.EDIT_CUSTOMER_OPENEING_BALANCE, pageTitle: BreadcrumbLabel.EDIT_CUSTOMER_OPENEING_BALANCE },
           },
           {
             path: 'view/:id',
             component: ViewCustomerOpeningBalanceComponent,
-            //  canActivate: [AuthGuard],
-            data: {
-              breadcrumb: BreadcrumbLabel.VIEW_CUSTOMER_OPENEING_BALANCE,
-              pageTitle: BreadcrumbLabel.VIEW_CUSTOMER_OPENEING_BALANCE,
-
-            }
-          }
-        ]
+            data: { breadcrumb: BreadcrumbLabel.VIEW_CUSTOMER_OPENEING_BALANCE, pageTitle: BreadcrumbLabel.VIEW_CUSTOMER_OPENEING_BALANCE },
+          },
+        ],
       },
+      // Price Policy Routes
       {
         path: 'price-policy',
         component: PricePolicyMainComponent,
-        //  canActivate: [AuthGuard],
         data: {
           breadcrumb: BreadcrumbLabel.PRICE_POLICY,
           pageTitle: BreadcrumbLabel.PRICE_POLICY,
-
         },
-        children:[
+        children: [
           {
             path: '',
             component: PricePolicyListComponent,
-            //  canActivate: [AuthGuard],
-            data: {
-              breadcrumb: '',
-              pageTitle: BreadcrumbLabel.PRICE_POLICY,
-            }
+            data: { breadcrumb: '', pageTitle: BreadcrumbLabel.PRICE_POLICY },
           },
           {
             path: 'add',
             component: AddPricePolicyComponent,
-            //  canActivate: [AuthGuard],
-            data: {
-              breadcrumb: BreadcrumbLabel.PRICE_POLICY_ADD,
-              pageTitle:BreadcrumbLabel.TITLE_PRICE_POLICY_ADD,
-            }
+            data: { breadcrumb: BreadcrumbLabel.PRICE_POLICY_ADD, pageTitle: BreadcrumbLabel.TITLE_PRICE_POLICY_ADD },
           },
           {
             path: 'edit/:id',
             component: EditPricePolicyComponent,
-            //  canActivate: [AuthGuard],
-            data: {
-              breadcrumb: BreadcrumbLabel.PRICE_POLICY_EDIT,
-              pageTitle:BreadcrumbLabel.TITLE_PRICE_POLICY_EDIT,
-            }
+            data: { breadcrumb: BreadcrumbLabel.PRICE_POLICY_EDIT, pageTitle: BreadcrumbLabel.TITLE_PRICE_POLICY_EDIT },
           },
           {
             path: 'view/:id',
             component: ViewPricePolicyComponent,
-            //  canActivate: [AuthGuard],
-            data: {
-              breadcrumb: BreadcrumbLabel.PRICE_POLICY_VIEW,
-              pageTitle:BreadcrumbLabel.TITLE_PRICE_POLICY_VIEW,
-            }
+            data: { breadcrumb: BreadcrumbLabel.PRICE_POLICY_VIEW, pageTitle: BreadcrumbLabel.TITLE_PRICE_POLICY_VIEW },
           },
           {
             path: 'sequence',
             component: SequenceComponent,
-            data: {
-              moduleId: Modules.Sales,
-              pageId: Pages.PricePolicy,
-              breadcrumb: BreadcrumbLabel.SEQUENCE,
-              pageTitle: BreadcrumbLabel.SEQUENCE
-            },
+            data: { breadcrumb: BreadcrumbLabel.SEQUENCE, pageTitle: BreadcrumbLabel.SEQUENCE },
           },
-        ]
+        ],
       },
     ],
+  },
+
+  {
+    path: '',
+    loadChildren: () => import('./team-main-sales/team-main-sales.module').then((m) => m.TeamMainSalesModule),
   },
 ];
 
@@ -256,7 +191,7 @@ const routes: Routes = [
     EditPricePolicyComponent,
     ViewPricePolicyComponent
   ],
-  imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule 
+  imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule
   ],
 })
 export class SalesModule {}

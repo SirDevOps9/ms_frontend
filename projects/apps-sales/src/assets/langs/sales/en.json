@@ -8,7 +8,11 @@
         "add": "Add",
         "edit": "Edit",
         "view": "View",
-        "sequence": "sequence"
+        "sequence": "sequence",
+        "manSles":"Man Sales",
+        "addManSales":"Add Man Sales",
+        "mainSles":"Main Sles",
+        "addMainSales":"Add Main Sales"
     },
     "pricePolicy": {
         "code": "Code",

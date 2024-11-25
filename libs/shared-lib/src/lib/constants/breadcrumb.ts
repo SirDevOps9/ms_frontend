@@ -180,6 +180,9 @@ export class BreadcrumbLabel {
   static TITLE_PRICE_POLICY_ADD = 'title.add';
   static TITLE_PRICE_POLICY_EDIT = 'title.edit';
   static TITLE_PRICE_POLICY_VIEW = 'title.view';
-
+  static MAN_SALES =  'BreadCrumb.manSles'
+  static MAIN_SALES =  'BreadCrumb.mainSles'
+  static ADD_MAN_SALES =  'BreadCrumb.addManSales'
+    static ADD_MAin_SALES =  'BreadCrumb.addMainSales'
   static INVENTORY = 'Inventory';
 }
