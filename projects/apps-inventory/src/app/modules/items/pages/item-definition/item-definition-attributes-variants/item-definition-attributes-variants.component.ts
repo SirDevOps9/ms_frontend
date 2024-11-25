@@ -8,6 +8,7 @@ import {
   SharedLibraryEnums,
   ToasterService,
   customValidators,
+  LanguageService,
 } from 'shared-lib';
 import { ItemsService } from '../../../items.service';
 import { AddVariantPopupComponent } from '../../../components/add-variant-popup/add-variant-popup.component';
@@ -24,6 +25,7 @@ export class ItemDefinitionAttributesVariantsComponent implements OnInit {
   itemDefinitionForm: FormGroup = new FormGroup({});
   ItemVariantsByItemIdDropDown: { id: number; nameEn: string }[] = [];
   dataItemVariantsById:AttributesVariants[] = []
+  currentLang:string = ''
   constructor(
     private _router: RouterService,
     private fb: FormBuilder,
@@ -32,9 +34,11 @@ export class ItemDefinitionAttributesVariantsComponent implements OnInit {
     private dialog: DialogService,
     private route: ActivatedRoute,
     private toaserService: ToasterService,
-    private itemService: ItemsService
+    private itemService: ItemsService,
+    public languageService: LanguageService,
   ) {
     this.id = this.route.snapshot.params['id'];
+    this.currentLang = this.languageService.getLang();
   }
   ngOnInit(): void {
     this.getItemVariants()
@@ -92,7 +96,7 @@ export class ItemDefinitionAttributesVariantsComponent implements OnInit {
     dialogRef.onClose.subscribe((res) => {
       if (res) {
         this.AttributeForm.push(this.createAttributeFormGroup(res));
-       
+
       }
     });
   }
@@ -129,42 +133,47 @@ export class ItemDefinitionAttributesVariantsComponent implements OnInit {
               this.AttributeForm?.clear()
 
               this.dataItemVariantsById = data;
-          
+
               data.forEach(element => {
+                const nameAttribute= this.currentLang === 'en' ? element.nameEn : element.nameAr;
+
                 const fg = this.fb.group({
                   id: element.id,
-                  name: element.nameEn || '',  // Use default if attributeName is undefined
+
+                  name: nameAttribute || '',  // Use default if attributeName is undefined
                   attributeGroupId: element.attributeGroupId || 0,  // Use default 0 if undefined
                   isActive: element.isActive,
                   attributeGroupDetails: this.fb.array([]),
                   attributeName: this.fb.array([]),
                 });
-          
+
                 this.AttributeForm.push(fg);
-          
+
                 element.itemAttributeGroupDetails.forEach(item => {
                   const attributeNameGroup = this.fb.group({
                       detailName: item.attributeId || '',
                    attributeId : item.attributeId,
-                    
+
                   });
-               
+
                   // Cast to FormArray before pushing to avoid TypeScript errors
                   (fg.get('attributeGroupDetails') as FormArray).push(attributeNameGroup);
                 });
                 element.itemAttributeGroupDetails.forEach(item => {
+                  const nameAttributeValues = this.currentLang === 'en' ? item.nameEn : item.nameAr;
+
                   const attributeValues = this.fb.group({
-                    detailName: item.nameEn || '',
+                    detailName: nameAttributeValues || '',
                     attributeId: item.attributeId || null,
                   });
-          
+
                   // Cast to FormArray before pushing to avoid TypeScript errors
                   (fg.get('attributeName') as FormArray).push(attributeValues);
                 });
               });
             }
           });
-          
+
           // data.itemAttributeGroupDetails?.map((detail: any) =>
           //   this.fb.group({
           //     detailName: detail.nameEn || '',
@@ -201,7 +210,7 @@ export class ItemDefinitionAttributesVariantsComponent implements OnInit {
       height: '430px',
       data: form.value,
     });
-    
+
     dialogRef.onClose.subscribe((res) => {
       if (res) {
         // Clear the form array only once before adding new items
@@ -209,7 +218,7 @@ export class ItemDefinitionAttributesVariantsComponent implements OnInit {
         attributeNameArray.clear();
         const attributeNamesArray = form.get('attributeName') as FormArray;
         attributeNamesArray.clear();
-    
+
         // Iterate over attributeDetails and push each item
         res.attributeDetails.forEach((item: any) => {
           const attributeValues = this.fb.group({
@@ -227,15 +236,15 @@ export class ItemDefinitionAttributesVariantsComponent implements OnInit {
         });
         attributeNamesArray.push(attributeValuesNames)
         });
-      
-        
+
+
 
 
         form.get('name')?.setValue(res.attributeName)
         form.get('attributeGroupId')?.setValue(res.attributeGroupId)
       }
     });
-    
+
   }
 
   onDeleteAttribute(itemDefAttributeGroup: FormGroup , i : number) {

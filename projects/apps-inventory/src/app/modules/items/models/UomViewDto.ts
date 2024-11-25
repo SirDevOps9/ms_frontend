@@ -1,10 +1,10 @@
 export interface UonViewDto {
   id: number;
-  nameAr: string;
-  nameEn: string;
+  nameAr?: any;
+  nameEn?: any;
   uoMs: UomData[];
   systemUnitOfMeasureCategoryId: number;
-  shortName: string ;
+  shortName?: any ;
 }
 
 
