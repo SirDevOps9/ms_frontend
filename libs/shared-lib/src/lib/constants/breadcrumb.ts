@@ -5,13 +5,18 @@ export class BreadcrumbLabel {
   static readonly CostCenter = 'BreadCrumb.CostCenter';
   static readonly JournalEntryList = 'BreadCrumb.JournalEntryList';
   static readonly JournalEntryAdd = 'BreadCrumb.JournalEntryAdd';
+  static readonly JournalEntryAddTilte=  'BreadCrumb.JournalEntryAddTtile';
   static readonly JournalEntryView = 'BreadCrumb.JournalEntryView';
   static readonly JournalEntryEdit = 'BreadCrumb.JournalEntryEdit';
+  static readonly JournalEntryEditTilte = 'BreadCrumb.JournalEntryEditTilte';
   static readonly TrialBalance = 'BreadCrumb.TrialBalance';
   static readonly AccountStatement = 'BreadCrumb.AccountStatement';
   static readonly JournalEntryOpeningBalance = 'BreadCrumb.JournalEntryOpeningBalance';
+  static readonly JournalEntryOpeningBalanceTitle = 'BreadCrumb.JournalEntryOpeningBalance';
   static readonly AddJournalEntryOpeningBalance = 'BreadCrumb.AddJournalEntryOpeningBalance';
+  static readonly AddJournalEntryOpeningBalanceTilte = 'BreadCrumb.AddJournalEntryOpeningBalanceTilte';
   static readonly EditJournalEntryOpeningBalance = 'BreadCrumb.EditJournalEntryOpeningBalance';
+  static readonly EditJournalEntryOpeningBalanceTilte = 'BreadCrumb.EditJournalEntryOpeningBalanceTitle';
   static readonly ViewJournalEntryOpeningBalance = 'BreadCrumb.ViewJournalEntryOpeningBalance';
   static readonly CUSTOMER_DEFINITIONS = 'BreadCrumb.CustomerDefinition';
   static readonly ADD_CUSTOMER_DEFINITIONS = 'BreadCrumb.AddCustomerDefinition';
@@ -40,6 +45,7 @@ export class BreadcrumbLabel {
   static readonly EDIT_VENDOR_DEFINITIONS = 'BreadCrumb.EditVendorDefinition';
   static readonly calendar_list = 'BreadCrumb.FinancialCalendar';
   static readonly calendar_Add = 'BreadCrumb.AddFinancialCalendar';
+  static readonly calendar_AddTitle = 'BreadCrumb.AddFinancialCalendarTitle';
   static readonly calendar_Edit = 'BreadCrumb.EditFinancialCalendar';
   static readonly CURRENCY_DEFINITION_LIST = 'BreadCrumb.CurrencyDefinition';
   static readonly CURRENCY_CONVERSION = 'BreadCrumb.CurrencyConversion';

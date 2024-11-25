@@ -6,13 +6,17 @@
     "CostCenter": "مركز التكلفة",
     "JournalEntryList": "قائمة قيود اليومية",
     "JournalEntryAdd": "إضافة قيد يومية",
+    "JournalEntryAddTtile":"إضافة قيد يومية",
     "JournalEntryView": "عرض قيد يومية",
     "JournalEntryEdit": "تعديل قيد يومية",
+    "JournalEntryEditTilte":"تعديل قيد يومية",
     "TrialBalance": "ميزان المراجعة",
     "AccountStatement": "كشف حساب",
     "JournalEntryOpeningBalance": "رصيد افتتاحي لقيد اليومية",
     "AddJournalEntryOpeningBalance": "إضافة رصيد افتتاحي لقيد اليومية",
+    "AddJournalEntryOpeningBalanceTilte": "إضافة رصيد افتتاحي لقيد اليومية",
     "EditJournalEntryOpeningBalance": "تعديل رصيد افتتاحي لقيد اليومية",
+    "EditJournalEntryOpeningBalanceTitle":"تعديل رصيد افتتاحي لقيد اليومية",
     "ViewJournalEntryOpeningBalance": "عرض رصيد افتتاحي لقيد اليومية",
     "CostCenterReport": "تقرير مركز التكلفة",
     "VendorOpeningBalance": "رصيد افتتاحي للمورد",
@@ -64,7 +68,8 @@
     "levelNumber": "مستوى الحساب",
     "Status": "الحالة",
     "chartofaccountsPrint":"طباعة جدول الحسابات",
-      "costCenterPrint":"طباعة مركز التكلفة"
+      "costCenterPrint":"طباعة مركز التكلفة",
+      "JournalEnteryOpeningPrint":"طباعة قيد افتتاحي"
 
   },
   "Journal": {

@@ -4,14 +4,14 @@
     className="p-datatable-gridlines"
     [currentPageResult]="currentPageInfo"
     (pageChange)="onPageChange($event)"
-    (exportObj)="exportedColumns($event)"
+
     [tableConfigs]="{
                 allowPagination: false,
                 allowServerPagination: true,
                 dataKey: 'id',
                 pageSize: 10,
                 columns: [
-                   
+
                    {
                      name: 'fromCurrencyName',
                      headerText: ('currencyConversion.FromCurrency' | translate),
@@ -24,7 +24,7 @@
                      isGlobalFilter: true,
                      isSortable: true
                    },
-                 
+
                    {
                      name: 'toCurrencyName',
                      headerText: ('currencyConversion.ToCurrency' | translate),
@@ -42,7 +42,7 @@
                      isSortable: true
 
                    },
-             
+
                    {
                      name: 'id',
                      headerText: ('currencyConversion.Actions' | translate),
@@ -63,13 +63,12 @@
         </lib-text-input>
         <div class="flex gap-2">
           <lib-export
-            (exportClick)="exportClick()"
-            [exportData]="exportData"
-            [exportColumns]="exportColumns"
-            [ExportName]="'Currency Conversion'"
-          >
-          </lib-export>
-          
+          (exportClick)="exportClick($event)"
+          [exportData]="exportData"
+          [exportColumns]="exportColumns"
+          [ExportName]="('currencyConversion.currencyConversionPrint' |translate)"        >
+        </lib-export>
+
           <lib-button-micro
             nameClass="save"
             [title]="'currencyConversion.addNew' | translate"
