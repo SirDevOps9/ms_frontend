@@ -8,6 +8,7 @@ import { SharedStock } from 'projects/apps-inventory/src/app/modules/transaction
 import { TransactionsService } from 'projects/apps-inventory/src/app/modules/transactions/transactions.service';
 import { skip } from 'rxjs';
 import { LookupEnum, lookupDto, PageInfoResult, MenuModule, customValidators, PageInfo, LanguageService, LookupsService, RouterService, FormsService, ToasterService } from 'shared-lib';
+import { VendorAdvancedSearchComponent } from '../../../components/vendor-advanced-search/vendor-advanced-search.component';
 
 @Component({
   selector: 'app-add-purchase-invoice',
@@ -48,27 +49,27 @@ export class AddPurchaseInvoiceComponent implements OnInit {
 
     this.stockInForm.valueChanges.subscribe((res) => {});
 
-    this.lookupservice.loadLookups([LookupEnum.StockInOutSourceDocumentType]);
-    this.lookupservice.lookups.subscribe((l) => {
-      this.lookups = l;
-    });
+    // this.lookupservice.loadLookups([LookupEnum.StockInOutSourceDocumentType]);
+    // this.lookupservice.lookups.subscribe((l) => {
+    //   this.lookups = l;
+    // });
 
-    this.stockInForm.get('sourceDocumentType')?.valueChanges.subscribe((res) => {
-      let data = this.lookups[LookupEnum.StockInOutSourceDocumentType];
-      let sourceDocumentTypeData = data.find((elem) => elem.id == res);
-      if (sourceDocumentTypeData?.name == 'OperationalTag') {
-        this.transactionsService.OperationalTagDropDown();
-        this.transactionsService.sendOperationalTagDropDown$.subscribe((res) => {
-          if (res) {
-            this.oprationalLookup = res;
-            this.oprationalLookup = res.map((elem: any) => ({
-              ...elem,
-              displayName: `${elem.name} (${elem.code})`,
-            }));
-          }
-        });
-      }
-    });
+    // this.stockInForm.get('sourceDocumentType')?.valueChanges.subscribe((res) => {
+    //   let data = this.lookups[LookupEnum.StockInOutSourceDocumentType];
+    //   let sourceDocumentTypeData = data.find((elem) => elem.id == res);
+    //   if (sourceDocumentTypeData?.name == 'OperationalTag') {
+    //     this.transactionsService.OperationalTagDropDown();
+    //     this.transactionsService.sendOperationalTagDropDown$.subscribe((res) => {
+    //       if (res) {
+    //         this.oprationalLookup = res;
+    //         this.oprationalLookup = res.map((elem: any) => ({
+    //           ...elem,
+    //           displayName: `${elem.name} (${elem.code})`,
+    //         }));
+    //       }
+    //     });
+    //   }
+    // });
     this.stockInForm.get('sourceDocumentId')?.valueChanges.subscribe((res) => {
       let data = this.oprationalLookup.find((elem) => elem.id == res);
       this.stockInForm.get('warehouseId')?.setValue(data?.warehouseId);
@@ -143,11 +144,15 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     id: new FormControl(''),
     code: new FormControl(''),
     receiptDate: new FormControl(new Date(), [customValidators.required]),
-    sourceDocumentType: new FormControl('', [customValidators.required]),
     sourceDocumentId: new FormControl('' ,[customValidators.required] ),
     warehouseId: new FormControl('', [customValidators.required]),
+    rate: new FormControl('', [customValidators.required]),
     warehouseName: new FormControl(''),
     notes: new FormControl(''),
+    description: new FormControl(''),
+    sourceDocumentType: new FormControl(''),
+    date: new FormControl(new Date() , [customValidators.required]),
+
     stockInStatus: new FormControl(''),
     stockInDetails: this.fb.array([]),
     });
@@ -213,6 +218,9 @@ export class AddPurchaseInvoiceComponent implements OnInit {
  
       }
   }
+
+
+
   setUomName(indexLine: number, list: any) {
     const rowForm = this.stockInDetailsFormArray.at(indexLine) as FormGroup;
     const selectedItem = list?.find((item: any) => item.uomId === rowForm.get('uomId')?.value);
@@ -223,7 +231,20 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     }
 
   
-  }    
+  }  
+  
+  
+  openAdvancedSearch() {
+    const ref = this.dialog.open(VendorAdvancedSearchComponent, {
+      width: '650px',
+      height: '600px',
+    });
+    ref.onClose.subscribe((selectedItems: any[]) => {
+
+    });
+  }
+
+
   changeUomName(indexLine: number, list: any) {
     const rowForm = this.stockInDetailsFormArray.at(indexLine) as FormGroup;
     const selectedItem = list?.find((item: any) => item.uomId === rowForm.get('uomId')?.value);
@@ -270,6 +291,8 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       itemId: [null, customValidators.required],
       itemCodeName: '',
       itemVariantId: '',
+      discount : '',
+      disAmount : '',
       uomName: '',
       uomId: ['', customValidators.required],
       quantity: [
@@ -295,6 +318,25 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       }),
     });
   }
+
+  disAmountChange(purchaseForm : FormGroup) {
+    if(purchaseForm.controls['cost']?.value && purchaseForm.controls['discount']?.value) {
+      let amountAndDiscount;
+
+      amountAndDiscount = purchaseForm.controls['discount']?.value / purchaseForm.controls['cost']?.value * 100
+      purchaseForm.get('disAmount')?.setValue(amountAndDiscount)
+    }
+  }
+
+  amountChange(purchaseForm : FormGroup) {
+     if(purchaseForm.controls['cost']?.value  && purchaseForm.get('disAmount')?.value ){
+      let amountAndDiscount;
+
+      amountAndDiscount = purchaseForm.controls['cost']?.value * purchaseForm.controls['disAmount']?.value /  100
+      purchaseForm.get('discount')?.setValue(amountAndDiscount)
+    }
+  }
+
 
   itemChanged(
     e: any,
