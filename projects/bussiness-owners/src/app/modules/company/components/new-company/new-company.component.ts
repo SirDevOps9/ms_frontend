@@ -56,8 +56,10 @@ export class NewCompanyComponent {
   }
   private initializeForm() {
     this.addCompanyForm = this.formBuilder.group({
-      name: new FormControl('', [customValidators.required]),
-      branchName: new FormControl('', [customValidators.required]),
+      nameAr: new FormControl('', [customValidators.required]),
+      nameEn: new FormControl('', [customValidators.required]),
+      branchNameAr: new FormControl('', [customValidators.required]),
+      branchNameEn: new FormControl('', [customValidators.required]),
       companyType: new FormControl('', [customValidators.required]),
       parentId: new FormControl(),
       companyLogo: new FormControl(''),
