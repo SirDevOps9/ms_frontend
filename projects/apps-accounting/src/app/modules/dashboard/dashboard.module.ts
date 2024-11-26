@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Route, RouterModule } from '@angular/router';
-import { Modules, SharedLibModule } from 'shared-lib';
+import { BreadcrumbLabel, Modules, SharedLibModule } from 'shared-lib';
 import { AccountingDashboardComponent } from './pages/accounting-dashboard/accounting-dashboard.component';
 import { ChartModule } from 'angular-highcharts';
 import { LayoutPageComponent } from 'apps-shared-lib';
@@ -19,6 +19,9 @@ const routes: Route[] = [
       {
         path: '',
         component: AccountingDashboardComponent,
+        data: {
+          breadcrumb: BreadcrumbLabel.DASHBOARD,
+        },
       },
     ],
   },

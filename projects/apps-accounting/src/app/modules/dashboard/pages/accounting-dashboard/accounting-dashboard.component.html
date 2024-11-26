@@ -72,6 +72,10 @@
                 <span class="line"></span>
                 <span class="detail-value heading_b16">{{ acc.balance | decimalSeparator }}</span>
               </div>
+              } @if(cashBankAccountsBalance.accounts.length == 0) {
+              <div class="row">
+                <span class="body-14 mx-1"> {{ 'dashboard.noAccounts' | translate }} </span>
+              </div>
               }
               <div class="grid">
                 <div class="lg:col-6 md:col-6 col-12">
@@ -155,6 +159,10 @@
                 <span class="line"></span>
                 <span class="detail-value heading_b16">{{ acc.balance | decimalSeparator }}</span>
               </div>
+              } @if(accountsList.length == 0) {
+              <div class="row">
+                <span class="body-14 mx-1"> {{ 'dashboard.noAccounts' | translate }} </span>
+              </div>
               }
             </div>
           </app-chart-card>
@@ -186,6 +194,10 @@
                 <span class="detail-value heading_b16">{{
                   costCenter.totalBalance | decimalSeparator
                 }}</span>
+              </div>
+              } @if(costCenters.length === 0) {
+              <div class="row">
+                <span class="body-14 mx-1"> {{ 'dashboard.noAccounts' | translate }} </span>
               </div>
               }
             </div>
