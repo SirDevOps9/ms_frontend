@@ -7,7 +7,6 @@
         [currentPageResult]="currentPageInfo"
         (pageChange)="onPageChange($event)"
         (addNew)="onAdd()"
-        (exportObj)="exportedColumns($event)"
         [tableConfigs]="{
           allowPagination: false,
           allowServerPagination: true,
@@ -68,12 +67,13 @@
         <ng-container action>
           <div class="flex gap-2">
             <lib-export
-              (exportClick)="exportTaxesData()"
-              [exportData]="exportData"
-              [exportColumns]="exportColumns"
-              [ExportName]="'Taxes'"
-            >
-            </lib-export>
+            (exportClick)="exportClick($event)"
+            [exportData]="exportData"
+            [exportColumns]="exportColumns"
+            [ExportName]="('Tax.TaxDefinitionPrint' |translate)"
+
+          >
+          </lib-export>
             <!-- <lib-button pRipple className="addToList" label="{{ 'Tax.AddNew' | translate }}" (onClick)="onAdd()"
               [icon]="'pi pi-plus'">
             </lib-button> -->

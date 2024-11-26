@@ -4,6 +4,7 @@ import { GeneralSettingService } from '../../../general-setting.service';
 import { CurrencyDefinitionDto, currencyListDto } from '../../../models';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Title } from '@angular/platform-browser';
+import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
 
 @Component({
   selector: 'app-currency-definition',
@@ -13,6 +14,7 @@ import { Title } from '@angular/platform-browser';
 export class CurrencyDefinitionComponent {
   constructor(
     private generalSettingService: GeneralSettingService,
+    private exportService:ExportService
   ) {
   }
   exportColumns: lookupDto[];
@@ -23,49 +25,27 @@ export class CurrencyDefinitionComponent {
   searchTerm: string;
   ref: DynamicDialogRef;
   exportData: CurrencyDefinitionDto[];
-  columns: [
-    {
-      name: 'code';
-      headerText: 'code';
-    },
-    {
-      name: 'name';
-      headerText: 'name';
-    },
 
-    {
-      name: 'symbol';
-      headerText: 'symbol';
-    },
-    {
-      name: 'subUnit';
-      headerText: 'subUnit';
-    },
-    {
-      name: 'countryName';
-      headerText: 'country Name';
-    },
-
-    {
-      name: 'id';
-      headerText: 'Actions';
-    }
-  ];
 
   ngOnInit() {
     this.getCurrencyList();
-    this.exportColumns = this.columns?.map((col) => ({
-      id: col.headerText,
-      name: col.name,
-    }));
   }
   exportClick(e?: Event) {
     this.exportcurrencyDefinitionData(this.searchTerm);
   }
   exportcurrencyDefinitionData(searchTerm: string) {
     this.generalSettingService.exportcurrencyDefinitionData(searchTerm);
+    const columns = [
+      { name: 'code', headerText:('currencyDefinition.code') },
+      { name: 'name', headerText:('currencyDefinition.name') },
+      { name: 'symbol', headerText:('currencyDefinition.sympol') },
+      { name: 'subUnit', headerText:('currencyDefinition.Subunit') },
+      { name: 'countryName', headerText:('currencyDefinition.country') },
+
+    ];
     this.generalSettingService.exportcurrencyDefinitionDataSourceObservable.subscribe((res) => {
-      this.exportData = res;
+      this.exportData = this.exportService.formatCiloma(res, columns);
+
     });
   }
 

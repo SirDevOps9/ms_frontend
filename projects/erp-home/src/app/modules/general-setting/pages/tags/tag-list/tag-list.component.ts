@@ -11,6 +11,7 @@ import { GeneralSettingService } from '../../../general-setting.service';
 import { ExportTagDto, TagDto } from '../../../models';
 import { TagEditComponent } from '../../../components/tag-edit/tag-edit.component';
 import { TagAddComponent } from '../../../components/tag-add/tag-add.component';
+import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
 @Component({
   selector: 'app-tag-list',
   templateUrl: './tag-list.component.html',
@@ -25,36 +26,18 @@ export class TagListComponent implements OnInit {
   SortColumn?:string
   mappedExportData: TagDto[];
   exportData: ExportTagDto[];
+  exportColumns: any[];
 
   constructor(
     private generalSettingService: GeneralSettingService,
     public layoutService: LayoutService,
-    private dialog: DialogService
+    private dialog: DialogService,
+    private exportService:ExportService
   ) {
   }
 
-  exportColumns: lookupDto[] = [
-    {
-      id: 'id',
-      name: 'Id',
-    },
-    {
-      id: 'code',
-      name: 'Code',
-    },
-    {
-      id: 'name',
-      name: 'Name',
-    },
-    {
-      id: 'isActive',
-      name: 'Status',
-    },
-    {
-      id: 'modules',
-      name: 'Modules',
-    },
-  ];
+
+
 
   addNew(e: boolean) {
     if (e) {
@@ -141,15 +124,21 @@ export class TagListComponent implements OnInit {
       },
     });
   }
-
-  exportedColumns(obj: { SortBy: number; SortColumn: string }) {
-    this.SortBy = obj.SortBy;
-    this.SortColumn = obj.SortColumn;
+  exportClick(e?: Event) {
+    this.exportTagData(this.searchTerm);
   }
-  exportTagData() {
+
+  exportTagData(searchTerm: string) {
     this.generalSettingService.exportTagData(this.searchTerm ,this.SortBy, this.SortColumn);
+
+    const columns = [
+      { name: 'code', headerText:('tag.code') },
+      { name: 'name', headerText:('tag.Name') },
+      { name: 'modules', headerText:('tag.Modules') },
+      { name: 'isActive', headerText:('tag.status') },
+    ];
     this.generalSettingService.exportsTagDataSourceObservable.subscribe((res) => {
-      this.exportData = res;
+      this.exportData = this.exportService.formatCiloma(res, columns);
     });
   }
 

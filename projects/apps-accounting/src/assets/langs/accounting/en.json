@@ -5,20 +5,25 @@
     "TaxDefinition": "Tax Definition",
     "CostCenter": "Cost Center",
     "JournalEntryList": "Journal Entry List",
-    "JournalEntryAdd": "Add Journal Entry",
+    "JournalEntryAdd": "Add",
+    "JournalEntryAddTtile": "Add Journal Entry",
     "JournalEntryView": "View Journal Entry",
-    "JournalEntryEdit": "Edit Journal Entry",
+    "JournalEntryEdit": "Edit",
+    "JournalEntryEditTilte": "Edit Journal Entry",
     "TrialBalance": "Trial Balance",
     "AccountStatement": "Account Statement",
     "JournalEntryOpeningBalance": "Journal Entry Opening Balance",
-    "AddJournalEntryOpeningBalance": "Add Journal Entry Opening Balance",
-    "EditJournalEntryOpeningBalance": "Edit Journal Entry Opening Balance",
+    "AddJournalEntryOpeningBalance": "Add",
+    "AddJournalEntryOpeningBalanceTilte": "Add Journal Entry Opening Balance",
+    "EditJournalEntryOpeningBalance": "Edit",
+    "EditJournalEntryOpeningBalanceTitle": "Edit Journal Entry Opening Balance",
     "ViewJournalEntryOpeningBalance": "View Journal Entry Opening Balance",
     "CostCenterReport": "Cost Center Report",
     "VendorOpeningBalance": "Vendor Opening Balance",
     "EditVendorOpeningBalance": "Edit Vendor Opening Balance",
     "AddVendorOpeningBalance": "Add Vendor Opening Balance",
     "sequence": "sequence"
+
   },
   "COAConfigration": {
     "Success": "Success",
@@ -62,7 +67,9 @@
     "Select": "Select",
     "Id": "Id",
     "levelNumber": "Account Level",
-    "Status": "Status"
+    "Status": "Status",
+    "chartofaccountsPrint":"Chart Of Accounts Print",
+    "costCenterPrint":"Cost Center  Print"
   },
   "Journal": {
     "Title": "Journal Entry List",
@@ -100,7 +107,9 @@
     "yes": "Yes",
     "no": "No",
     "CostCenterNotAllowed": "This Account doesn't allow cost centers",
-    "InvalidAmount": "please enter valid debit or credit amounts"
+    "InvalidAmount": "please enter valid debit or credit amounts",
+    "JournalEnteryPrint":"Journal Entery Print",
+    "JournalEnteryOpeningPrint":"Journal Entery Opening Print"
   },
   "JournalTitle": "Add Journal",
   "journal_entry_header": "Please Enter journal entry Header",
