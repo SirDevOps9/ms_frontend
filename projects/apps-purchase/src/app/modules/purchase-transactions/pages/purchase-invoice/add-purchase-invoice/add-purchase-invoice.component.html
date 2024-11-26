@@ -2,557 +2,568 @@
   [title]="'purchase.TaxList' | translate"
   [subTitle]="'purchase.TaxList' | translate"
 >
-
-<ng-container  [formGroup]="stockInForm">
-
-  <div class="card_micro">
-    <div class="grid p-0">
-      <div class="md:col-4 mt-2">
-        <div class="card_information">
-          <div class="line"></div>
-          <div class="item">
-            <div class="title heading_b18">
-              <p class="p-0 m-0">{{ 'purchase.mainInformation' | translate }}</p>
-            </div>
-            <div class="item_body">
-              <div class="grid my-3">
-                <div class="md:col-6">
-                  <lib-label [appControl]="stockInForm.controls['code']">
-                    {{ 'purchase.code' | translate }}
-                  </lib-label>
-                  <lib-text-input
-                    placeholder="{{ 'purchase.code' | translate }}"
-                    formControlName="code"
-                  ></lib-text-input>
-                  <lib-field-validations
-                    [appControl]="stockInForm.controls['code']"
-                  ></lib-field-validations>
-                </div>
-                <div class="md:col-6">
-                  <lib-label [appControl]="stockInForm.controls['date']">
-                    {{ 'purchase.date' | translate }}
-                  </lib-label>
-                  <lib-calendar
-                    placeholder="{{ 'purchase.date' | translate }}"
-                    formControlName="date"
-                  ></lib-calendar>
-                  <lib-field-validations [appControl]="stockInForm.controls['date']">
-                  </lib-field-validations>
-                </div>
-                <div class="md:col-12">
-                  <div>
-                    <lib-label [appControl]="stockInForm.controls['description']">
-                      {{ 'purchase.description' | translate }}
+  <ng-container [formGroup]="stockInForm">
+    <div class="card_micro">
+      <div class="grid p-0">
+        <div class="md:col-4 mt-2">
+          <div class="card_information">
+            <div class="line"></div>
+            <div class="item">
+              <div class="title heading_b18">
+                <p class="p-0 m-0">{{ 'purchase.mainInformation' | translate }}</p>
+              </div>
+              <div class="item_body">
+                <div class="grid my-3">
+                  <div class="md:col-6">
+                    <lib-label [appControl]="stockInForm.controls['code']">
+                      {{ 'purchase.code' | translate }}
                     </lib-label>
+                    <lib-text-input
+                      placeholder="{{ 'purchase.code' | translate }}"
+                      formControlName="code"
+                    ></lib-text-input>
+                    <lib-field-validations
+                      [appControl]="stockInForm.controls['code']"
+                    ></lib-field-validations>
                   </div>
-                  <textarea
-                    pInputTextarea
-                    style="width: 100%"
-                    rows="1"
-                    formControlName="description"
-                    placeholder="{{ 'purchase.description' | translate }}"
-                    [readOnly]="dataToReadOnly"
-                  ></textarea>
+                  <div class="md:col-6">
+                    <lib-label [appControl]="stockInForm.controls['date']">
+                      {{ 'purchase.date' | translate }}
+                    </lib-label>
+                    <lib-calendar
+                      placeholder="{{ 'purchase.date' | translate }}"
+                      formControlName="date"
+                    ></lib-calendar>
+                    <lib-field-validations [appControl]="stockInForm.controls['date']">
+                    </lib-field-validations>
+                  </div>
+                  <div class="md:col-12">
+                    <div>
+                      <lib-label [appControl]="stockInForm.controls['description']">
+                        {{ 'purchase.description' | translate }}
+                      </lib-label>
+                    </div>
+                    <textarea
+                      pInputTextarea
+                      style="width: 100%"
+                      rows="1"
+                      formControlName="description"
+                      placeholder="{{ 'purchase.description' | translate }}"
+                      [readOnly]="dataToReadOnly"
+                    ></textarea>
+                  </div>
+                  <div class="md:col-12">
+                    <lib-label [appControl]="stockInForm.controls['warehouseId']">
+                      {{ 'purchase.warehouse' | translate }}
+                    </lib-label>
+                    <lib-select
+                      formControlName="warehouseId"
+                      [options]="warhouseLookupData"
+                      [(ngModel)]="wearhouseSearch"
+                      optionValue="id"
+                      optionLabel="name"
+                      [selectedValue]="stockInForm.controls['warehouseId'].value"
+                      (valueSearchChanged)="warehouseSearch($event)"
+                    ></lib-select>
+                    <lib-field-validations
+                      [appControl]="stockInForm.controls['warehouseId']"
+                    ></lib-field-validations>
+                  </div>
                 </div>
-                <div class="md:col-12">
-                  <lib-label [appControl]="stockInForm.controls['warehouseId']">
-                    {{ 'purchase.warehouse' | translate }}
-                  </lib-label>
-                  <lib-select
-                    formControlName="warehouseId"
-                    [options]="[]"
-                    optionValue="id"
-                    optionLabel="name"
-                    [selectedValue]="stockInForm.controls['warehouseId'].value"
-                  ></lib-select>
-                  <lib-field-validations
-                    [appControl]="stockInForm.controls['warehouseId']"
-                  ></lib-field-validations>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="md:col-8 mt-2">
+          <div class="card_information">
+            <div class="line"></div>
+            <div class="item">
+              <div class="title heading_b18">
+                <p class="p-0 m-0">{{ 'purchase.vendorInformation' | translate }}</p>
+              </div>
+              <div class="item_body">
+                <div class="grid my-3">
+                  <div class="md:col-6">
+                    <lib-label [appControl]="stockInForm.controls['code']">
+                      {{ 'purchase.code' | translate }}
+                    </lib-label>
+                    <div class="grid align-items-center">
+                      <div class="md:col-10">
+                        <lib-select
+                          formControlName="code"
+                          [options]="vendorItems"
+                          optionValue="id"
+                          optionLabel="name"
+                          placeholder="{{ 'purchase.code' | translate }}"
+                          [readOnly]="dataToReadOnly"
+                          (valueSearchChanged)="onFilter($event)"
+                        >
+                        </lib-select>
+                      </div>
+                      <div class="md:col-1">
+                        <i class="pi pi-search search-circle" (click)="openAdvancedSearch()"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="md:col-6">
+                    <lib-label [appControl]="stockInForm.controls['code']">
+                      {{ 'purchase.name' | translate }}
+                    </lib-label>
+                    <lib-text-input
+                      placeholder="{{ 'purchase.name' | translate }}"
+                      formControlName="code"
+                      [readOnly]="true"
+                    ></lib-text-input>
+                    <lib-field-validations
+                      [appControl]="stockInForm.controls['code']"
+                    ></lib-field-validations>
+                  </div>
+                  <div class="md:col-6">
+                    <lib-label [appControl]="stockInForm.controls['code']">
+                      {{ 'purchase.currency' | translate }}
+                    </lib-label>
+                    <lib-text-input
+                      placeholder="{{ 'purchase.currency' | translate }}"
+                      formControlName="code"
+                      [readOnly]="true"
+                    ></lib-text-input>
+                    <lib-field-validations
+                      [appControl]="stockInForm.controls['code']"
+                    ></lib-field-validations>
+                  </div>
+                  <div class="md:col-6">
+                    <lib-label [appControl]="stockInForm.controls['rate']">
+                      {{ 'purchase.rate' | translate }}
+                    </lib-label>
+                    <lib-text-input
+                      placeholder="{{ 'purchase.rate' | translate }}"
+                      formControlName="rate"
+                    ></lib-text-input>
+                    <lib-field-validations
+                      [appControl]="stockInForm.controls['rate']"
+                    ></lib-field-validations>
+                  </div>
+                  <div class="md:col-6">
+                    <lib-label [appControl]="stockInForm.controls['sourceDocumentType']">
+                      {{ 'purchase.paymentTerms' | translate }}
+                    </lib-label>
+                    <lib-text-input
+                      placeholder="{{ 'purchase.paymentTerms' | translate }}"
+                      formControlName="sourceDocumentType"
+                    ></lib-text-input>
+                    <lib-field-validations
+                      [appControl]="stockInForm.controls['sourceDocumentType']"
+                    ></lib-field-validations>
+                  </div>
+                  <div class="md:col-6">
+                    <lib-label [appControl]="stockInForm.controls['code']">
+                      {{ 'purchase.reference' | translate }}
+                    </lib-label>
+                    <lib-text-input
+                      placeholder="{{ 'purchase.reference' | translate }}"
+                      formControlName="code"
+                    ></lib-text-input>
+                    <lib-field-validations
+                      [appControl]="stockInForm.controls['code']"
+                    ></lib-field-validations>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+    <div class="floated">
+      <div class="divCont">
+        <p class="p-0 m-0">{{ 'purchase.invoiceLines' | translate }}</p>
+      </div>
+    </div>
 
-      <div class="md:col-8 mt-2">
-        <div class="card_information">
-          <div class="line"></div>
-          <div class="item">
-            <div class="title heading_b18">
-              <p class="p-0 m-0">{{ 'purchase.vendorInformation' | translate }}</p>
-            </div>
-            <div class="item_body">
-              <div class="grid my-3">
-                <div class="md:col-6">
-                  <lib-label [appControl]="stockInForm.controls['code']">
-                    {{ 'purchase.code' | translate }}
-                  </lib-label>
-                  <div class="grid align-items-center">
-                    <div class="md:col-10">
-                      <lib-select
-                        formControlName="code"
-                        [options]="latestItemsList"
-                        optionValue="itemNumber"
-                        optionLabel="displayName"
-                        placeholder="{{ 'purchase.code' | translate }}"
-                        [readOnly]="dataToReadOnly"
-                        (valueSearchChanged)="onFilter($event)"
-                      >
-                      </lib-select>
-                    </div>
-                    <div class="md:col-1">
-                      <i class="pi pi-search search-circle" (click)="openAdvancedSearch()"></i>
-                    </div>
-                  </div>
-                </div>
-                <div class="md:col-6">
-                  <lib-label [appControl]="stockInForm.controls['code']">
-                    {{ 'purchase.name' | translate }}
-                  </lib-label>
-                  <lib-text-input
-                    placeholder="{{ 'purchase.name' | translate }}"
-                    formControlName="code"
-                    [readOnly]="true"
-                  ></lib-text-input>
-                  <lib-field-validations
-                    [appControl]="stockInForm.controls['code']"
-                  ></lib-field-validations>
-                </div>
-                <div class="md:col-6">
-                  <lib-label [appControl]="stockInForm.controls['code']">
-                    {{ 'purchase.currency' | translate }}
-                  </lib-label>
-                  <lib-text-input
-                    placeholder="{{ 'purchase.currency' | translate }}"
-                    formControlName="code"
-                    [readOnly]="true"
-                  ></lib-text-input>
-                  <lib-field-validations
-                    [appControl]="stockInForm.controls['code']"
-                  ></lib-field-validations>
-                </div>
-                <div class="md:col-6">
-                  <lib-label [appControl]="stockInForm.controls['rate']">
-                    {{ 'purchase.rate' | translate }}
-                  </lib-label>
-                  <lib-text-input
-                    placeholder="{{ 'purchase.rate' | translate }}"
-                    formControlName="rate"
-                  ></lib-text-input>
-                  <lib-field-validations
-                    [appControl]="stockInForm.controls['rate']"
-                  ></lib-field-validations>
-                </div>
-                <div class="md:col-6">
-                  <lib-label [appControl]="stockInForm.controls['sourceDocumentType']">
-                    {{ 'purchase.paymentTerms' | translate }}
-                  </lib-label>
-                  <lib-select
-                    formControlName="sourceDocumentType"
-                    [options]="[]"
-                    optionValue="id"
-                    optionLabel="name"
-                    [selectedValue]="stockInForm.controls['sourceDocumentType'].value"
-                  ></lib-select>
-                  <lib-field-validations
-                    [appControl]="stockInForm.controls['sourceDocumentType']"
-                  ></lib-field-validations>
-                </div>
-                <div class="md:col-6">
-                  <lib-label [appControl]="stockInForm.controls['code']">
-                    {{ 'purchase.reference' | translate }}
-                  </lib-label>
-                  <lib-text-input
-                    placeholder="{{ 'purchase.reference' | translate }}"
-                    formControlName="code"
-                  ></lib-text-input>
-                  <lib-field-validations
-                    [appControl]="stockInForm.controls['code']"
-                  ></lib-field-validations>
-                </div>
-              </div>
-            </div>
-          </div>
+    <div class="my-2 card_micro tableCont p-6">
+      <div class="flex justify-content-between align-items-center gap-4 my-4">
+        <lib-text-input
+          type="text"
+          [placeholder]="'purchase.search' | translate"
+          [(ngModel)]="searchTerm"
+        ></lib-text-input>
+
+        <div class="flex justify-content-end gap-4 my-4">
+          <lib-button-micro
+            [title]="'purchase.upload' | translate"
+            nameClass="outline"
+            iconName="pi pi-file-edit"
+            (click)="getExcel()"
+          >
+          </lib-button-micro>
+          <lib-button-micro
+            [title]="'purchase.scan' | translate"
+            nameClass="outline"
+            iconName="pi pi-expand"
+            (click)="scan()"
+          >
+          </lib-button-micro>
         </div>
       </div>
-    </div>
-  </div>
-  <div class="floated">
-    <div class="divCont">
-      <p class="p-0 m-0">{{ 'purchase.invoiceLines' | translate }}</p>
-    </div>
-  </div>
-
-  <div class="my-2 card_micro tableCont p-6">
-    <div class="flex justify-content-between align-items-center gap-4 my-4">
-      <lib-text-input
-        type="text"
-        [placeholder]="'purchase.search' | translate"
-        [(ngModel)]="searchTerm"
-      ></lib-text-input>
-
-      <div class="flex justify-content-end gap-4 my-4">
-        <lib-button-micro
-          [title]="'purchase.upload' | translate"
-          nameClass="outline"
-          iconName="pi pi-file-edit"
-          (click)="getExcel()"
-        >
-        </lib-button-micro>
-        <lib-button-micro
-          [title]="'purchase.scan' | translate"
-          nameClass="outline"
-          iconName="pi pi-expand"
-          (click)="scan()"
-        >
-        </lib-button-micro>
-      </div>
-    </div>
-    <p-table
-      [value]="stockIn['controls']"
-      dataKey="id"
-      styleClass="p-datatable-gridlines p-datatable-striped"
-      [tableStyle]="{ 'min-width': '50rem' }"
-      styleClass="p-datatable-striped p-datatable-gridlines"
-    >
-      <ng-template pTemplate="header">
-        <tr>
-          <th>{{ 'purchase.barcode' | translate }}</th>
-          <th>{{ 'purchase.itemCode' | translate }}</th>
-          <th>{{ 'purchase.itemDescription' | translate }}</th>
-          <th>{{ 'purchase.UOM' | translate }}</th>
-          <th>{{ 'purchase.QTY' | translate }}</th>
-          <th>{{ 'purchase.cost' | translate }}</th>
-          <th>{{ 'purchase.subTotal' | translate }}</th>
-          <th>{{ 'purchase.discount' | translate }}</th>
-          <th>{{ 'purchase.discountAmt' | translate }}</th>
-          <th>{{ 'purchase.netCost' | translate }}</th>
-          <th>{{ 'purchase.totalAfterDis' | translate }}</th>
-          <th>{{ 'purchase.vat' | translate }}</th>
-          <th>{{ 'purchase.vatAmount' | translate }}</th>
-          <th>{{ 'purchase.grandTotal' | translate }}</th>
-          <th>{{ 'purchase.tracking' | translate }}</th>
-          <th>{{ 'purchase.actions' | translate }}</th>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-stockInFormGroup let-editing="editing" let-i="rowIndex">
-        <tr [formGroup]="stockInFormGroup">
-          <td
-            [pEditableColumn]="stockInFormGroup.controls['barCode']"
-            pEditableColumnField="barCode"
-          >
-            <p-cellEditor>
-              <ng-template pTemplate="input">
-                <lib-text-input
-                  placeholder="{{ 'purchase.barcode' | translate }}"
-                  formControlName="barCode"
-                  (keyUp)="barcodeCanged($event, stockInFormGroup, i)"
-                  [readOnly]="dataToReadOnly"
-                ></lib-text-input>
-              </ng-template>
-              <ng-template pTemplate="output">
-                {{ stockInFormGroup.controls['barCode']?.value }}
-              </ng-template>
-            </p-cellEditor>
-            <lib-field-validations
-              [appControl]="stockInFormGroup.controls['barCode']"
-            ></lib-field-validations>
-          </td>
-          <!--  -->
-
-          <td [pEditableColumn]="stockInFormGroup.controls['itemId']" pEditableColumnField="itemId">
-            <p-cellEditor>
-              <ng-template pTemplate="input">
-                <div class="flex justify-content-center gap-2 align-items-center">
-                  <lib-select
-                    formControlName="itemId"
-                    [options]="latestItemsList"
-                    optionValue="itemNumber"
-                    optionLabel="displayName"
-                    placeholder="{{ 'purchase.itemCode' | translate }}"
-                    (valueChanged)="setRowdata(i, $event, latestItemsList)"
-                    [readOnly]="dataToReadOnly"
-                    (valueSearchChanged)="onFilter($event)"
-                  >
-                  </lib-select>
-                  <i
-                    class="pi pi-search search-circle"
-                    (click)="openDialog(i, stockInFormGroup)"
-                  ></i>
-                </div>
-              </ng-template>
-              <ng-template pTemplate="output">
-                {{ stockInFormGroup.controls['itemCodeName']?.value }}
-              </ng-template>
-            </p-cellEditor>
-            <lib-field-validations
-              [appControl]="stockInFormGroup.controls['itemId']"
-            ></lib-field-validations>
-          </td>
-          <!--  -->
-          <td>
-            {{ stockInFormGroup.controls['description']?.value }}
-          </td>
-          <!--  -->
-
-          <td [pEditableColumn]="stockInFormGroup.controls['uomId']" pEditableColumnField="uomId">
-            <p-cellEditor>
-              <ng-template pTemplate="input">
-                <lib-select
-                  formControlName="uomId"
-                  [options]="stockInFormGroup.controls['uomOptions'].value || []"
-                  optionValue="uomId"
-                  [readOnly]="dataToReadOnly"
-                  [optionLabel]="currentLang == 'en' ? 'uomNameEn' : 'uomNameAr'"
-                  placeholder="{{ 'purchase.UOM' | translate }}"
-                  (valueChanged)="changeUomName(i, stockInFormGroup.controls['uomOptions'].value)"
-                  [selectedValue]="stockInFormGroup.controls['uomId']?.value"
-                ></lib-select>
-              </ng-template>
-              <ng-template pTemplate="output">
-                {{ stockInFormGroup.controls['uomName']?.value }}
-              </ng-template>
-            </p-cellEditor>
-            <lib-field-validations
-              [appControl]="stockInFormGroup.controls['uomId']"
-            ></lib-field-validations>
-          </td>
-          <!--  -->
-
-          <td
-            [pEditableColumn]="stockInFormGroup.controls['quantity']"
-            pEditableColumnField="quantity"
-          >
-            <p-cellEditor>
-              <ng-template pTemplate="input">
-                <lib-text-input
-                  [readOnly]="dataToReadOnly"
-                  type="number"
-                  placeholder="{{ 'purchase.QTY' | translate }}"
-                  formControlName="quantity"
-                  [readOnly]="
-                    stockInFormGroup.get('stockInTracking')?.get('trackingType')?.value ==
-                    this.sharedFinanceEnums.trackingType.Serial
-                  "
-                ></lib-text-input>
-              </ng-template>
-              <ng-template pTemplate="output">
-                {{ stockInFormGroup.controls['quantity']?.value }}
-              </ng-template>
-            </p-cellEditor>
-            <lib-field-validations
-              [appControl]="stockInFormGroup.controls['quantity']"
-            ></lib-field-validations>
-          </td>
-          <!--  -->
-
-          <td [pEditableColumn]="stockInFormGroup.controls['cost']" pEditableColumnField="cost">
-            <p-cellEditor>
-              <ng-template pTemplate="input">
-                <lib-text-input
-                  [readOnly]="dataToReadOnly"
-                  type="number"
-                  placeholder="{{ 'purchase.cost' | translate }}"
-                  formControlName="cost"
-                ></lib-text-input>
-              </ng-template>
-              <ng-template pTemplate="output">
-                {{ stockInFormGroup.controls['cost']?.value }}
-              </ng-template>
-            </p-cellEditor>
-            <lib-field-validations
-              [appControl]="stockInFormGroup.controls['cost']"
-            ></lib-field-validations>
-          </td>
-          <!-- sub Total -->
-          <td>
-            <div
-              *ngIf="
-                stockInFormGroup.controls['quantity']?.value &&
-                stockInFormGroup.controls['cost']?.value
-              "
+      <p-table
+        [value]="stockIn['controls']"
+        dataKey="id"
+        styleClass="p-datatable-gridlines p-datatable-striped"
+        [tableStyle]="{ 'min-width': '50rem' }"
+        styleClass="p-datatable-striped p-datatable-gridlines"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th>{{ 'purchase.barcode' | translate }}</th>
+            <th>{{ 'purchase.itemCode' | translate }}</th>
+            <th>{{ 'purchase.itemDescription' | translate }}</th>
+            <th>{{ 'purchase.UOM' | translate }}</th>
+            <th>{{ 'purchase.QTY' | translate }}</th>
+            <th>{{ 'purchase.cost' | translate }}</th>
+            <th>{{ 'purchase.subTotal' | translate }}</th>
+            <th>{{ 'purchase.discount' | translate }}</th>
+            <th>{{ 'purchase.discountAmt' | translate }}</th>
+            <th>{{ 'purchase.netCost' | translate }}</th>
+            <th>{{ 'purchase.totalAfterDis' | translate }}</th>
+            <th>{{ 'purchase.vat' | translate }}</th>
+            <th>{{ 'purchase.vatAmount' | translate }}</th>
+            <th>{{ 'purchase.grandTotal' | translate }}</th>
+            <th>{{ 'purchase.tracking' | translate }}</th>
+            <th>{{ 'purchase.actions' | translate }}</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-stockInFormGroup let-editing="editing" let-i="rowIndex">
+          <tr [formGroup]="stockInFormGroup">
+            <td
+              [pEditableColumn]="stockInFormGroup.controls['barCode']"
+              pEditableColumnField="barCode"
             >
-              {{
-                stockInFormGroup.controls['quantity']?.value *
-                  stockInFormGroup.controls['cost']?.value
-              }}
-            </div>
-          </td>
-          <td
-          [pEditableColumn]="stockInFormGroup.controls['discount']"
-          pEditableColumnField="discount"
-        >
-          <p-cellEditor>
-            <ng-template pTemplate="input">
-              <lib-text-input
-                placeholder="{{ 'purchase.discount' | translate }}"
-                formControlName="discount"
-                [readOnly]="dataToReadOnly"
-                (keyUp)="disAmountChange(stockInFormGroup)"
-              ></lib-text-input>
-            </ng-template>
-            <ng-template pTemplate="output">
-              {{ stockInFormGroup.controls['discount']?.value }}
-            </ng-template>
-          </p-cellEditor>
-          <lib-field-validations
-            [appControl]="stockInFormGroup.controls['discount']"
-          ></lib-field-validations>
-        </td>
-          <!-- Dis Amount -->
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <lib-text-input
+                    placeholder="{{ 'purchase.barcode' | translate }}"
+                    formControlName="barCode"
+                    (keyUp)="barcodeCanged($event, stockInFormGroup, i)"
+                    [readOnly]="dataToReadOnly"
+                  ></lib-text-input>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ stockInFormGroup.controls['barCode']?.value }}
+                </ng-template>
+              </p-cellEditor>
+              <lib-field-validations
+                [appControl]="stockInFormGroup.controls['barCode']"
+              ></lib-field-validations>
+            </td>
+            <!--  -->
 
             <td
-            [pEditableColumn]="stockInFormGroup.controls['disAmount']"
-            pEditableColumnField="disAmount"
-          >
-            <p-cellEditor>
-              <ng-template pTemplate="input">
-                <lib-text-input
-                  placeholder="{{ 'purchase.disAmount' | translate }}"
-                  formControlName="disAmount"
-                  [readOnly]="dataToReadOnly"
-                  (keyUp)="amountChange(stockInFormGroup)"
-                ></lib-text-input>
-              </ng-template>
-              <ng-template pTemplate="output">
-                {{ stockInFormGroup.controls['disAmount']?.value }}
-              </ng-template>
-            </p-cellEditor>
-            <lib-field-validations
-              [appControl]="stockInFormGroup.controls['disAmount']"
-            ></lib-field-validations>
-
-         
-          </td>
-          <!-- Net Cost -->
-           <td>
-            {{ stockInFormGroup.controls['cost']?.value - stockInFormGroup.controls['disAmount']?.value}}
-           </td>
-             <!-- Total After Discount -->
-           <td>
-            {{stockInFormGroup.controls['quantity']?.value * (stockInFormGroup.controls['cost']?.value - stockInFormGroup.controls['disAmount']?.value)}}
-           </td>
-           <!-- Vat -->
-            <td>
-
+              [pEditableColumn]="stockInFormGroup.controls['itemId']"
+              pEditableColumnField="itemId"
+            >
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <div class="flex justify-content-center gap-2 align-items-center">
+                    <lib-select
+                      formControlName="itemId"
+                      [options]="latestItemsList"
+                      optionValue="itemNumber"
+                      optionLabel="displayName"
+                      placeholder="{{ 'purchase.itemCode' | translate }}"
+                      (valueChanged)="setRowdata(i, $event, latestItemsList)"
+                      [readOnly]="dataToReadOnly"
+                      (valueSearchChanged)="onFilter($event)"
+                    >
+                    </lib-select>
+                    <i
+                      class="pi pi-search search-circle"
+                      (click)="openDialog(i, stockInFormGroup)"
+                    ></i>
+                  </div>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ stockInFormGroup.controls['itemCodeName']?.value }}
+                </ng-template>
+              </p-cellEditor>
+              <lib-field-validations
+                [appControl]="stockInFormGroup.controls['itemId']"
+              ></lib-field-validations>
             </td>
-            <!-- Vat Amount -->
-             <td>
-              {{stockInFormGroup.controls['quantity']?.value - (stockInFormGroup.controls['cost']?.value - stockInFormGroup.controls['disAmount']?.value)}}
-             </td>
-
-           <!-- Grand Total -->
+            <!--  -->
             <td>
-              {{stockInFormGroup.controls['quantity']?.value - (stockInFormGroup.controls['cost']?.value - stockInFormGroup.controls['disAmount']?.value)}}
-
+              {{ stockInFormGroup.controls['description']?.value }}
             </td>
+            <!--  -->
 
+            <td [pEditableColumn]="stockInFormGroup.controls['uomId']" pEditableColumnField="uomId">
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <lib-select
+                    formControlName="uomId"
+                    [options]="stockInFormGroup.controls['uomOptions'].value || []"
+                    optionValue="uomId"
+                    [readOnly]="dataToReadOnly"
+                    [optionLabel]="currentLang == 'en' ? 'uomNameEn' : 'uomNameAr'"
+                    placeholder="{{ 'purchase.UOM' | translate }}"
+                    (valueChanged)="changeUomName(i, stockInFormGroup.controls['uomOptions'].value)"
+                    [selectedValue]="stockInFormGroup.controls['uomId']?.value"
+                  ></lib-select>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ stockInFormGroup.controls['uomName']?.value }}
+                </ng-template>
+              </p-cellEditor>
+              <lib-field-validations
+                [appControl]="stockInFormGroup.controls['uomId']"
+              ></lib-field-validations>
+            </td>
+            <!--  -->
 
-            <!-- tracking -->
-          <td
-            [ngClass]="{
-              'no-tracking':
-                stockInFormGroup.get('trackingType').value ==
-                  sharedFinanceEnums.trackingType.NoTracking &&
-                stockInFormGroup.get('hasExpiryDate')?.value == false
-            }"
-          >
-            <div class="flex align-content-center gap-3 align-items-center justify-content-between">
-              <small
-                class="track"
+            <td
+              [pEditableColumn]="stockInFormGroup.controls['quantity']"
+              pEditableColumnField="quantity"
+            >
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <lib-text-input
+                    [readOnly]="dataToReadOnly"
+                    type="number"
+                    placeholder="{{ 'purchase.QTY' | translate }}"
+                    formControlName="quantity"
+                    [readOnly]="
+                      stockInFormGroup.get('stockInTracking')?.get('trackingType')?.value ==
+                      this.sharedFinanceEnums.trackingType.Serial
+                    "
+                  ></lib-text-input>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ stockInFormGroup.controls['quantity']?.value }}
+                </ng-template>
+              </p-cellEditor>
+              <lib-field-validations
+                [appControl]="stockInFormGroup.controls['quantity']"
+              ></lib-field-validations>
+            </td>
+            <!--  -->
+
+            <td [pEditableColumn]="stockInFormGroup.controls['cost']" pEditableColumnField="cost">
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <lib-text-input
+                    [readOnly]="dataToReadOnly"
+                    type="number"
+                    placeholder="{{ 'purchase.cost' | translate }}"
+                    formControlName="cost"
+                  ></lib-text-input>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ stockInFormGroup.controls['cost']?.value }}
+                </ng-template>
+              </p-cellEditor>
+              <lib-field-validations
+                [appControl]="stockInFormGroup.controls['cost']"
+              ></lib-field-validations>
+            </td>
+            <!-- sub Total -->
+            <td>
+              <div
                 *ngIf="
-                  stockInFormGroup.get('trackingType').value ==
-                    sharedFinanceEnums.trackingType.NoTracking &&
-                  stockInFormGroup.get('hasExpiryDate')?.value == true
+                  stockInFormGroup.controls['quantity']?.value &&
+                  stockInFormGroup.controls['cost']?.value
                 "
               >
                 {{
-                  stockInFormGroup.get('stockInTracking').get('expireDate')?.value
-                    | date : 'dd-MM-yyyy'
+                  stockInFormGroup.controls['quantity']?.value *
+                    stockInFormGroup.controls['cost']?.value
                 }}
-              </small>
-              <small
-                *ngIf="
-                  stockInFormGroup.get('trackingType').value ==
-                    sharedFinanceEnums.trackingType.NoTracking &&
-                  stockInFormGroup.get('hasExpiryDate')?.value == true &&
-                  !stockInFormGroup.get('stockInTracking').get('expireDate')?.value
-                "
-              >
-                {{ 'purchase.Expiry' | translate }}
-              </small>
+              </div>
+            </td>
+            <td
+              [pEditableColumn]="stockInFormGroup.controls['discount']"
+              pEditableColumnField="discount"
+            >
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <lib-text-input
+                    placeholder="{{ 'purchase.discount' | translate }}"
+                    formControlName="discount"
+                    [readOnly]="dataToReadOnly"
+                    (keyUp)="disAmountChange(stockInFormGroup)"
+                  ></lib-text-input>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ stockInFormGroup.controls['discount']?.value }}
+                </ng-template>
+              </p-cellEditor>
+              <lib-field-validations
+                [appControl]="stockInFormGroup.controls['discount']"
+              ></lib-field-validations>
+            </td>
+            <!-- Dis Amount -->
 
-              <!--  -->
-              <small
-                class="track"
-                *ngIf="
-                  stockInFormGroup.get('trackingType').value ==
-                  sharedFinanceEnums.trackingType.Serial
-                "
-                >{{ stockInFormGroup.get('stockInTracking').get('serialId')?.value }}</small
-              >
-              <!--  -->
+            <td
+              [pEditableColumn]="stockInFormGroup.controls['disAmount']"
+              pEditableColumnField="disAmount"
+            >
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <lib-text-input
+                    placeholder="{{ 'purchase.disAmount' | translate }}"
+                    formControlName="disAmount"
+                    [readOnly]="dataToReadOnly"
+                    (keyUp)="amountChange(stockInFormGroup)"
+                  ></lib-text-input>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ stockInFormGroup.controls['disAmount']?.value }}
+                </ng-template>
+              </p-cellEditor>
+              <lib-field-validations
+                [appControl]="stockInFormGroup.controls['disAmount']"
+              ></lib-field-validations>
+            </td>
+            <!-- Net Cost -->
+            <td>
+              {{
+                stockInFormGroup.controls['cost']?.value -
+                  stockInFormGroup.controls['disAmount']?.value
+              }}
+            </td>
+            <!-- Total After Discount -->
+            <td>
+              {{
+                stockInFormGroup.controls['quantity']?.value *
+                  (stockInFormGroup.controls['cost']?.value -
+                    stockInFormGroup.controls['disAmount']?.value)
+              }}
+            </td>
+            <!-- Vat -->
+            <td></td>
+            <!-- Vat Amount -->
+            <td>
+              {{
+                stockInFormGroup.controls['quantity']?.value -
+                  (stockInFormGroup.controls['cost']?.value -
+                    stockInFormGroup.controls['disAmount']?.value)
+              }}
+            </td>
 
-              <small
-                *ngIf="
-                  stockInFormGroup.get('trackingType').value ==
-                    sharedFinanceEnums.trackingType.Serial &&
-                  !stockInFormGroup.get('stockInTracking').get('serialId')?.value
-                "
-                >{{ stockInFormGroup.get('trackingType').value }}</small
-              >
+            <!-- Grand Total -->
+            <td>
+              {{
+                stockInFormGroup.controls['quantity']?.value -
+                  (stockInFormGroup.controls['cost']?.value -
+                    stockInFormGroup.controls['disAmount']?.value)
+              }}
+            </td>
 
-              <small
-                class="track"
-                *ngIf="
-                  stockInFormGroup.get('trackingType').value ==
-                  sharedFinanceEnums.trackingType.Batch
-                "
-                >{{ stockInFormGroup.get('stockInTracking').get('vendorBatchNo')?.value }}</small
-              >
-
-              <small
-                *ngIf="
-                  stockInFormGroup.get('trackingType').value ==
-                    sharedFinanceEnums.trackingType.Batch &&
-                  !stockInFormGroup.get('stockInTracking').get('vendorBatchNo')?.value
-                "
-                >{{ stockInFormGroup.get('trackingType').value }}</small
-              >
-
-              <lib-button-micro
-                [disabled]="dataToReadOnly"
-                title="{{ 'purchase.setTracking' | translate }}"
-                nameClass="{{ !dataToReadOnly ? 'save' : 'disabled' }}"
-                widthNumber="100%"
-                [class.hide]="
+            <!-- tracking -->
+            <td
+              [ngClass]="{
+                'no-tracking':
                   stockInFormGroup.get('trackingType').value ==
                     sharedFinanceEnums.trackingType.NoTracking &&
                   stockInFormGroup.get('hasExpiryDate')?.value == false
-                "
-                (click)="setTracking(stockInFormGroup)"
-                [disabled]="
-                  (stockInFormGroup.get('trackingType').value ==
-                    sharedFinanceEnums.trackingType.NoTracking &&
-                    stockInFormGroup.get('hasExpiryDate')?.value == false) ||
-                  !stockInFormGroup.get('itemId').value
-                "
+              }"
+            >
+              <div
+                class="flex align-content-center gap-3 align-items-center justify-content-between"
               >
-              </lib-button-micro>
+                <small
+                  class="track"
+                  *ngIf="
+                    stockInFormGroup.get('trackingType').value ==
+                      sharedFinanceEnums.trackingType.NoTracking &&
+                    stockInFormGroup.get('hasExpiryDate')?.value == true
+                  "
+                >
+                  {{
+                    stockInFormGroup.get('stockInTracking').get('expireDate')?.value
+                      | date : 'dd-MM-yyyy'
+                  }}
+                </small>
+                <small
+                  *ngIf="
+                    stockInFormGroup.get('trackingType').value ==
+                      sharedFinanceEnums.trackingType.NoTracking &&
+                    stockInFormGroup.get('hasExpiryDate')?.value == true &&
+                    !stockInFormGroup.get('stockInTracking').get('expireDate')?.value
+                  "
+                >
+                  {{ 'purchase.Expiry' | translate }}
+                </small>
 
-              <small
-                class="track m-auto"
-                *ngIf="
-                  stockInFormGroup.get('trackingType').value ==
-                    sharedFinanceEnums.trackingType.NoTracking &&
-                  stockInFormGroup.get('hasExpiryDate')?.value == false
-                "
-                >{{ 'purchase.noTracking' | translate }}</small
-              >
-            </div>
-            <div class="flex justify-content-center mt-2">
-              <!-- <small
+                <!--  -->
+                <small
+                  class="track"
+                  *ngIf="
+                    stockInFormGroup.get('trackingType').value ==
+                    sharedFinanceEnums.trackingType.Serial
+                  "
+                  >{{ stockInFormGroup.get('stockInTracking').get('serialId')?.value }}</small
+                >
+                <!--  -->
+
+                <small
+                  *ngIf="
+                    stockInFormGroup.get('trackingType').value ==
+                      sharedFinanceEnums.trackingType.Serial &&
+                    !stockInFormGroup.get('stockInTracking').get('serialId')?.value
+                  "
+                  >{{ stockInFormGroup.get('trackingType').value }}</small
+                >
+
+                <small
+                  class="track"
+                  *ngIf="
+                    stockInFormGroup.get('trackingType').value ==
+                    sharedFinanceEnums.trackingType.Batch
+                  "
+                  >{{ stockInFormGroup.get('stockInTracking').get('vendorBatchNo')?.value }}</small
+                >
+
+                <small
+                  *ngIf="
+                    stockInFormGroup.get('trackingType').value ==
+                      sharedFinanceEnums.trackingType.Batch &&
+                    !stockInFormGroup.get('stockInTracking').get('vendorBatchNo')?.value
+                  "
+                  >{{ stockInFormGroup.get('trackingType').value }}</small
+                >
+
+                <lib-button-micro
+                  [disabled]="dataToReadOnly"
+                  title="{{ 'purchase.setTracking' | translate }}"
+                  nameClass="{{ !dataToReadOnly ? 'save' : 'disabled' }}"
+                  widthNumber="100%"
+                  [class.hide]="
+                    stockInFormGroup.get('trackingType').value ==
+                      sharedFinanceEnums.trackingType.NoTracking &&
+                    stockInFormGroup.get('hasExpiryDate')?.value == false
+                  "
+                  (click)="setTracking(stockInFormGroup)"
+                  [disabled]="
+                    (stockInFormGroup.get('trackingType').value ==
+                      sharedFinanceEnums.trackingType.NoTracking &&
+                      stockInFormGroup.get('hasExpiryDate')?.value == false) ||
+                    !stockInFormGroup.get('itemId').value
+                  "
+                >
+                </lib-button-micro>
+
+                <small
+                  class="track m-auto"
+                  *ngIf="
+                    stockInFormGroup.get('trackingType').value ==
+                      sharedFinanceEnums.trackingType.NoTracking &&
+                    stockInFormGroup.get('hasExpiryDate')?.value == false
+                  "
+                  >{{ 'purchase.noTracking' | translate }}</small
+                >
+              </div>
+              <div class="flex justify-content-center mt-2">
+                <!-- <small
                 class="danger"
                 *ngIf="
                   stockInFormGroup.get('stockInTracking').get('expireDate').hasError('required') ||
@@ -564,27 +575,27 @@
                 "
                 >{{ 'purchase.required' | translate }}</small
               > -->
-              <small *ngIf="error && lineError == i" class="danger">{{
-                'purchase.required' | translate
-              }}</small>
-            </div>
-          </td>
-       
-          <td>
-            <div class="flex gap-3">
-              <img
-                src="assets/images/table/delete.svg"
-                class="pointer"
-                alt=""
-                (click)="OnDelete(i)"
-              />
-            </div>
-          </td>
-          <!--  -->
-        </tr>
-      </ng-template>
-    </p-table>
-    <!-- <div class="add_new flex justify-content-start">
+                <small *ngIf="error && lineError == i" class="danger">{{
+                  'purchase.required' | translate
+                }}</small>
+              </div>
+            </td>
+
+            <td>
+              <div class="flex gap-3">
+                <img
+                  src="assets/images/table/delete.svg"
+                  class="pointer"
+                  alt=""
+                  (click)="OnDelete(i)"
+                />
+              </div>
+            </td>
+            <!--  -->
+          </tr>
+        </ng-template>
+      </p-table>
+      <!-- <div class="add_new flex justify-content-start">
       <lib-button
         (onClick)="addLineStockIn()"
         className="outline-primary"
@@ -593,133 +604,120 @@
         {{ 'purchase.add' | translate }}
       </lib-button>
     </div> -->
-  </div>
-  <div class="floated">
-    <div class="divCont">
-      <p class="p-0 m-0">{{ 'purchase.invoiceLines' | translate }}</p>
     </div>
-  </div>
-  <div class="card_micro">
-    <div class="grid my-3 foot">
-      <div class="md:col-2">
-        <lib-label [appControl]="stockInForm.controls['numberOfItems']">
-          {{ 'purchase.numberOfItems' | translate }}
-        </lib-label>
-        <lib-text-input
-          placeholder="{{ 'purchase.totalQuantity' | translate }}"
-          formControlName="numberOfItems"
-          [(ngModel)]="numberOfItems"
-        ></lib-text-input>
-        <lib-field-validations
-          [appControl]="stockInForm.controls['numberOfItems']"
-        ></lib-field-validations>
+    <div class="floated">
+      <div class="divCont">
+        <p class="p-0 m-0">{{ 'purchase.invoiceLines' | translate }}</p>
       </div>
-       <div class="md:col-2">
-        <lib-label [appControl]="stockInForm.controls['total']">
-          {{ 'purchase.total' | translate }}
-        </lib-label>
-        <lib-text-input
-          placeholder="{{ 'purchase.total' | translate }}"
-          formControlName="total"
-          [(ngModel)]="total"
-
-        ></lib-text-input>
-       
-      </div>
-       <div class="md:col-2">
-        <lib-label [appControl]="stockInForm.controls['totalAfterDiscount']">
-          {{ 'purchase.totalAfterDiscount' | translate }}
-        </lib-label>
-        <lib-text-input
-          placeholder="{{ 'purchase.totalAfterDiscount' | translate }}"
-          formControlName="totalAfterDiscount"
-          [(ngModel)]="totalAfterDiscount"
-
-        ></lib-text-input>
-       
-      </div>
-      <div class="md:col-2">
-        <lib-label [appControl]="stockInForm.controls['totalQuantity']">
-          {{ 'purchase.totalQuantity' | translate }}
-        </lib-label>
-        <lib-text-input
-          placeholder="{{ 'purchase.totalQuantity' | translate }}"
-          formControlName="totalQuantity"
-          [(ngModel)]="totalQuantity"
-        ></lib-text-input>
-        <lib-field-validations
-          [appControl]="stockInForm.controls['totalQuantity']"
-        ></lib-field-validations>
-      </div>
-      <div class="md:col-2">
-        <lib-label [appControl]="stockInForm.controls['discount']">
-          {{ 'purchase.discount' | translate }}
-        </lib-label>
-        <lib-text-input
-          placeholder="{{ 'purchase.discount' | translate }}"
-          formControlName="discount"
-          [(ngModel)]="discount"
-        ></lib-text-input>
-        <lib-field-validations
-          [appControl]="stockInForm.controls['discount']"
-        ></lib-field-validations>
-      </div>
-   
-      <div class="md:col-2">
-        <lib-label [appControl]="stockInForm.controls['vatAmount']">
-          {{ 'purchase.vatAmount' | translate }}
-        </lib-label>
-        <lib-text-input
-          placeholder="{{ 'purchase.vatAmount' | translate }}"
-          formControlName="vatAmount"
-          [(ngModel)]="vatAmount"
-
-        ></lib-text-input>
-       
-      </div>
-      <div class="md:col-2">
-        <lib-label [appControl]="stockInForm.controls['totalAfterVat']">
-          {{ 'purchase.totalAfterVat' | translate }}
-        </lib-label>
-        <lib-text-input
-          placeholder="{{ 'purchase.totalAfterVat' | translate }}"
-          formControlName="totalAfterVat"
-          [(ngModel)]="totalAfterVat"
-
-        ></lib-text-input>
-      
-      </div>
-     
-      
     </div>
-    <hr>
-    <div class="grid ">
-      <div class="md:col-12 my-3 grid flex justify-content-end p-0 m-0">
-        <div class="md:col-6 grid flex justify-content-end p-0 m-0">
-          <div class="md:col-3">
-            <lib-button-micro
-              title="{{ 'purchase.cancel' | translate }}"
-              nameClass="cancel"
-              widthNumber="100%"
-              (click)="onCancel()"
-            >
-            </lib-button-micro>
+    <div class="card_micro">
+      <div class="grid my-3 foot">
+        <div class="md:col-2">
+          <lib-label [appControl]="stockInForm.controls['numberOfItems']">
+            {{ 'purchase.numberOfItems' | translate }}
+          </lib-label>
+          <lib-text-input
+            placeholder="{{ 'purchase.totalQuantity' | translate }}"
+            formControlName="numberOfItems"
+            [(ngModel)]="numberOfItems"
+          ></lib-text-input>
+          <lib-field-validations
+            [appControl]="stockInForm.controls['numberOfItems']"
+          ></lib-field-validations>
+        </div>
+        <div class="md:col-2">
+          <lib-label [appControl]="stockInForm.controls['total']">
+            {{ 'purchase.total' | translate }}
+          </lib-label>
+          <lib-text-input
+            placeholder="{{ 'purchase.total' | translate }}"
+            formControlName="total"
+            [(ngModel)]="total"
+          ></lib-text-input>
+        </div>
+        <div class="md:col-2">
+          <lib-label [appControl]="stockInForm.controls['totalAfterDiscount']">
+            {{ 'purchase.totalAfterDiscount' | translate }}
+          </lib-label>
+          <lib-text-input
+            placeholder="{{ 'purchase.totalAfterDiscount' | translate }}"
+            formControlName="totalAfterDiscount"
+            [(ngModel)]="totalAfterDiscount"
+          ></lib-text-input>
+        </div>
+        <div class="md:col-2">
+          <lib-label [appControl]="stockInForm.controls['totalQuantity']">
+            {{ 'purchase.totalQuantity' | translate }}
+          </lib-label>
+          <lib-text-input
+            placeholder="{{ 'purchase.totalQuantity' | translate }}"
+            formControlName="totalQuantity"
+            [(ngModel)]="totalQuantity"
+          ></lib-text-input>
+          <lib-field-validations
+            [appControl]="stockInForm.controls['totalQuantity']"
+          ></lib-field-validations>
+        </div>
+        <div class="md:col-2">
+          <lib-label [appControl]="stockInForm.controls['discount']">
+            {{ 'purchase.discount' | translate }}
+          </lib-label>
+          <lib-text-input
+            placeholder="{{ 'purchase.discount' | translate }}"
+            formControlName="discount"
+            [(ngModel)]="discount"
+          ></lib-text-input>
+          <lib-field-validations
+            [appControl]="stockInForm.controls['discount']"
+          ></lib-field-validations>
+        </div>
+
+        <div class="md:col-2">
+          <lib-label [appControl]="stockInForm.controls['vatAmount']">
+            {{ 'purchase.vatAmount' | translate }}
+          </lib-label>
+          <lib-text-input
+            placeholder="{{ 'purchase.vatAmount' | translate }}"
+            formControlName="vatAmount"
+            [(ngModel)]="vatAmount"
+          ></lib-text-input>
+        </div>
+        <div class="md:col-2">
+          <lib-label [appControl]="stockInForm.controls['totalAfterVat']">
+            {{ 'purchase.totalAfterVat' | translate }}
+          </lib-label>
+          <lib-text-input
+            placeholder="{{ 'purchase.totalAfterVat' | translate }}"
+            formControlName="totalAfterVat"
+            [(ngModel)]="totalAfterVat"
+          ></lib-text-input>
+        </div>
+      </div>
+      <hr />
+      <div class="grid">
+        <div class="md:col-12 my-3 grid flex justify-content-end p-0 m-0">
+          <div class="md:col-6 grid flex justify-content-end p-0 m-0">
+            <div class="md:col-3">
+              <lib-button-micro
+                title="{{ 'purchase.cancel' | translate }}"
+                nameClass="cancel"
+                widthNumber="100%"
+                (click)="onCancel()"
+              >
+              </lib-button-micro>
+            </div>
+            <div class="md:col-3">
+              <lib-button-micro
+                title="{{ 'purchase.save' | translate }}"
+                nameClass="save"
+                widthNumber="100%"
+                (click)="onSave()"
+              >
+              </lib-button-micro>
+            </div>
           </div>
-          <div class="md:col-3">
-            <lib-button-micro
-              title="{{ 'purchase.save' | translate }}"
-              nameClass="save"
-              widthNumber="100%"
-              (click)="onSave()"
-            >
-            </lib-button-micro>
-          </div>
-         
         </div>
       </div>
     </div>
-  </div>
-
-
-</ng-container>
+  </ng-container>
 </lib-page-content>

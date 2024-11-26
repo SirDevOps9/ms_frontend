@@ -2,18 +2,38 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms';
 import { AuthService } from 'microtec-auth-lib';
 import { DialogService } from 'primeng/dynamicdialog';
-import { OperationalStockIn, LatestItems, GetWarehouseList, StockInDetail, AddStockIn } from 'projects/apps-inventory/src/app/modules/items/models';
+import {
+  OperationalStockIn,
+  LatestItems,
+  GetWarehouseList,
+  StockInDetail,
+  AddStockIn,
+} from 'projects/apps-inventory/src/app/modules/items/models';
 import { SharedFinanceEnums } from 'projects/apps-inventory/src/app/modules/items/models/sharedEnumStockIn';
 import { SharedStock } from 'projects/apps-inventory/src/app/modules/transactions/models/sharedStockOutEnums';
 import { TransactionsService } from 'projects/apps-inventory/src/app/modules/transactions/transactions.service';
 import { skip } from 'rxjs';
-import { LookupEnum, lookupDto, PageInfoResult, MenuModule, customValidators, PageInfo, LanguageService, LookupsService, RouterService, FormsService, ToasterService } from 'shared-lib';
+import {
+  LookupEnum,
+  lookupDto,
+  PageInfoResult,
+  MenuModule,
+  customValidators,
+  PageInfo,
+  LanguageService,
+  LookupsService,
+  RouterService,
+  FormsService,
+  ToasterService,
+} from 'shared-lib';
+import { PurchaseTransactionsService } from '../../../purchase-transactions.service';
+import { PurchaseService } from '../../../../purchase/purchase.service';
 // import { VendorAdvancedSearchComponent } from '../../../components/vendor-advanced-search/vendor-advanced-search.component';
 
 @Component({
   selector: 'app-add-purchase-invoice',
   templateUrl: './add-purchase-invoice.component.html',
-  styleUrl: './add-purchase-invoice.component.scss'
+  styleUrl: './add-purchase-invoice.component.scss',
 })
 export class AddPurchaseInvoiceComponent implements OnInit {
   stockInForm: FormGroup = new FormGroup({});
@@ -31,37 +51,40 @@ export class AddPurchaseInvoiceComponent implements OnInit {
   currentPageInfo: PageInfoResult = {};
   modulelist: MenuModule[];
   searchTerm: string;
+  wearhouseSearch: string;
   warhouseLookupData: GetWarehouseList[] = [];
+  paymentLookupData: { id: number; name: string }[] = [];
+  vendorItems: any[];
+
   uomLookup: any = [];
   currentLang: string;
   showError: boolean = false;
   barcodeData: StockInDetail;
   selectedLanguage: string;
-  lineError:number=-1
-  error:boolean
-  save:boolean=true;
-  
-  numberOfItems : number
-  total : number
-  totalAfterDiscount : number
-  totalQuantity : number
-  discount : number
-  vatAmount : number
-  totalAfterVat : number
- 
+  lineError: number = -1;
+  error: boolean;
+  save: boolean = true;
+
+  numberOfItems: number;
+  total: number;
+  totalAfterDiscount: number;
+  totalQuantity: number;
+  discount: number;
+  vatAmount: number;
+  totalAfterVat: number;
+
   ngOnInit(): void {
     this.initializeForm();
+    this.initLookups();
 
- 
     this.stockInForm.get('receiptDate')?.disabled;
 
-    this.stockInForm.valueChanges.subscribe((res) => {
-    });
+    this.stockInForm.valueChanges.subscribe((res) => {});
 
     // this.lookupservice.loadLookups([LookupEnum.StockInOutSourceDocumentType]);
     // this.lookupservice.lookups.subscribe((l) => {
     //   this.lookups = l;
-    // }); 
+    // });
 
     // this.stockInForm.get('sourceDocumentType')?.valueChanges.subscribe((res) => {
     //   let data = this.lookups[LookupEnum.StockInOutSourceDocumentType];
@@ -89,7 +112,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       // Ensure `res` is an array
       if (Array.isArray(res)) {
         this.numberOfItems = res.length;
-    
+
         // Calculate totalAfterDiscount for all items using reduce
         this.totalAfterDiscount = res.reduce((acc, item) => {
           const itemTotal = item.quantity * (item.cost - item.disAmount);
@@ -97,21 +120,21 @@ export class AddPurchaseInvoiceComponent implements OnInit {
         }, 0);
 
         this.totalQuantity = res?.reduce((accumulator, item) => {
-          let data =  +accumulator + +item.quantity;
-          return data
-        },0); // Start with 0 explicitly
+          let data = +accumulator + +item.quantity;
+          return data;
+        }, 0); // Start with 0 explicitly
         this.discount = res?.reduce((accumulator, item) => {
-          let data =  +accumulator + +item.discount;
-          return data
-        },0); // Start with 0 explicitly
+          let data = +accumulator + +item.discount;
+          return data;
+        }, 0); // Start with 0 explicitly
         this.discount = res?.reduce((accumulator, item) => {
-          let data =  +accumulator + +item.discount;
-          return data
-        },0); // Start with 0 explicitly
+          let data = +accumulator + +item.discount;
+          return data;
+        }, 0); // Start with 0 explicitly
         this.vatAmount = res?.reduce((accumulator, item) => {
-          let data =  +accumulator + +item.discount;
-          return data
-        },0); // Start with 0 explicitly
+          let data = +accumulator + +item.discount;
+          return data;
+        }, 0); // Start with 0 explicitly
       }
     });
 
@@ -123,7 +146,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       if (res.length) {
         this.latestItemsList = res.map((elem: any, index: number) => ({
           ...elem,
-          itemNumber:index+1,
+          itemNumber: index + 1,
           displayName: `(${elem.itemCode}) ${elem.itemName}-${
             this.currentLang == 'en' ? elem.itemVariantNameEn : elem.itemVariantNameAr
           }`,
@@ -137,136 +160,131 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       this.barcodeData = res;
     });
   }
-  isValidData(){
-    this.lineError=-1
-    this.stockInDetailsFormArray.value.forEach((element:any , index:number) => {
-      let lineNumber =index+1
-      if(element.stockInTracking.trackingType == this.sharedStock.StockOutTracking.Batch){
-        if(element.stockInTracking.vendorBatchNo == null ||element.stockInTracking.vendorBatchNo ==''){
-          this.lineError=index
-          this.error=true
-          this.save=false
-  
-          this.toasterService.showError(
-            this.languageService.transalte('messages.error'),
-            this.languageService.transalte('messages.setTracking' )+lineNumber
-          );
-        }
-      }else if(element.stockInTracking.trackingType == this.sharedStock.StockOutTracking.Serial ){
-  
-        if(element.stockInTracking.serialId == null || element.stockInTracking.serialId == ''){
-          this.lineError=index
-          this.error=true
-          this.save=false
-  
-  
-          this.toasterService.showError(
-            this.languageService.transalte('messages.error'),
-            this.languageService.transalte('messages.setTracking' )+lineNumber
-          );
-          
-        }
-      }else{
-        this.error=false
-        this.save=true
-  
-        this.lineError=-1
-  
-  
-      }
-    },
-    this.save=true
-  );
-  }
-  initializeForm(){
-    this.stockInForm = this.fb.group({
-    id: new FormControl(''),
-    code: new FormControl(''),
-    receiptDate: new FormControl(new Date(), [customValidators.required]),
-    sourceDocumentId: new FormControl('' ,[customValidators.required] ),
-    warehouseId: new FormControl('', [customValidators.required]),
-    rate: new FormControl('', [customValidators.required]),
-    warehouseName: new FormControl(''),
-    notes: new FormControl(''),
-    description: new FormControl(''),
-    sourceDocumentType: new FormControl(''),
-    date: new FormControl(new Date() , [customValidators.required]),
-    numberOfItems : 0,
-    total : 0,
-    totalAfterDiscount : 0,
-    totalQuantity : 0,
-    discount : 0,
-    vatAmount : 0,
-    totalAfterVat : 0,
-   
+  isValidData() {
+    this.lineError = -1;
+    this.stockInDetailsFormArray.value.forEach((element: any, index: number) => {
+      let lineNumber = index + 1;
+      if (element.stockInTracking.trackingType == this.sharedStock.StockOutTracking.Batch) {
+        if (
+          element.stockInTracking.vendorBatchNo == null ||
+          element.stockInTracking.vendorBatchNo == ''
+        ) {
+          this.lineError = index;
+          this.error = true;
+          this.save = false;
 
-    stockInStatus: new FormControl(''),
-    stockInDetails: this.fb.array([]),
+          this.toasterService.showError(
+            this.languageService.transalte('messages.error'),
+            this.languageService.transalte('messages.setTracking') + lineNumber
+          );
+        }
+      } else if (element.stockInTracking.trackingType == this.sharedStock.StockOutTracking.Serial) {
+        if (element.stockInTracking.serialId == null || element.stockInTracking.serialId == '') {
+          this.lineError = index;
+          this.error = true;
+          this.save = false;
+
+          this.toasterService.showError(
+            this.languageService.transalte('messages.error'),
+            this.languageService.transalte('messages.setTracking') + lineNumber
+          );
+        }
+      } else {
+        this.error = false;
+        this.save = true;
+
+        this.lineError = -1;
+      }
+    }, (this.save = true));
+  }
+  initializeForm() {
+    this.stockInForm = this.fb.group({
+      id: new FormControl(''),
+      code: new FormControl(''),
+      receiptDate: new FormControl(new Date(), [customValidators.required]),
+      sourceDocumentId: new FormControl('', [customValidators.required]),
+      warehouseId: new FormControl('', [customValidators.required]),
+      rate: new FormControl('', [customValidators.required]),
+      warehouseName: new FormControl(''),
+      notes: new FormControl(''),
+      description: new FormControl(''),
+      sourceDocumentType: new FormControl(''),
+      date: new FormControl(new Date(), [customValidators.required]),
+      numberOfItems: 0,
+      total: 0,
+      totalAfterDiscount: 0,
+      totalQuantity: 0,
+      discount: 0,
+      vatAmount: 0,
+      totalAfterVat: 0,
+
+      stockInStatus: new FormControl(''),
+      stockInDetails: this.fb.array([]),
     });
   }
   get stockInDetailsFormArray() {
     return this.stockInForm.get('stockInDetails') as FormArray;
   }
-  setRowdata(indexLine: number, selectedItemId: any, list: any){
+  setRowdata(indexLine: number, selectedItemId: any, list: any) {
     const selectedItem = list.find((item: any) => item.itemNumber === selectedItemId);
     const rowForm = this.stockInDetailsFormArray.at(indexLine) as FormGroup;
 
     if (!selectedItem) {
       return;
     }
-  
+
     if (!rowForm) {
       return;
     }
     if (rowForm) {
       if (rowForm) {
         rowForm.patchValue({
-          id:selectedItem?.id ,
-          barCode: selectedItem?.barCode ,
-          bardCodeId: selectedItem?.bardCodeId ,
-          description: selectedItem?.displayName ,
-          itemId:  selectedItem?.itemId ,
-          itemCode:selectedItem?.itemCode ,
-          itemName: selectedItem?.itemName ,
-          itemCodeName: selectedItem?.itemCode ,
-          itemVariantId: selectedItem?.itemVariantId ,
-          itemVariantCode: selectedItem?.itemVariantCode ,
-          itemVariantNameAr: selectedItem?.itemVariantNameAr ,
-          itemVariantNameEn: selectedItem?.itemVariantNameEn ,
-          uomNameAr: selectedItem?.uomNameAr ,
-          uomNameEn: selectedItem?.uomNameEn ,
-          uomId: selectedItem?.uomId ,
-          quantity:  selectedItem?.quantity||1 ,
-          cost: selectedItem?.price , 
-          subTotal: selectedItem?.subCost ,
-          notes:selectedItem?.notes ,
-          hasExpiryDate:selectedItem?.hasExpiryDate ,
-          stockInEntryMode: selectedItem?.stockInEntryMode||'Manual' ,
-          trackingType: selectedItem?.trackingType ,
-          uomOptions:selectedItem.itemsUOM,
-
+          id: selectedItem?.id,
+          barCode: selectedItem?.barCode,
+          bardCodeId: selectedItem?.bardCodeId,
+          description: selectedItem?.displayName,
+          itemId: selectedItem?.itemId,
+          itemCode: selectedItem?.itemCode,
+          itemName: selectedItem?.itemName,
+          itemCodeName: selectedItem?.itemCode,
+          itemVariantId: selectedItem?.itemVariantId,
+          itemVariantCode: selectedItem?.itemVariantCode,
+          itemVariantNameAr: selectedItem?.itemVariantNameAr,
+          itemVariantNameEn: selectedItem?.itemVariantNameEn,
+          uomNameAr: selectedItem?.uomNameAr,
+          uomNameEn: selectedItem?.uomNameEn,
+          uomId: selectedItem?.uomId,
+          quantity: selectedItem?.quantity || 1,
+          cost: selectedItem?.price,
+          subTotal: selectedItem?.subCost,
+          notes: selectedItem?.notes,
+          hasExpiryDate: selectedItem?.hasExpiryDate,
+          stockInEntryMode: selectedItem?.stockInEntryMode || 'Manual',
+          trackingType: selectedItem?.trackingType,
+          uomOptions: selectedItem.itemsUOM,
         });
-  
+
         const stockInTracking = rowForm.get('stockInTracking') as FormGroup;
         if (stockInTracking) {
           stockInTracking.patchValue({
-            id:selectedItem.stockInTracking?.id || 0  ,
-            vendorBatchNo:selectedItem.stockInTracking?.vendorBatchNo  ,
-            expireDate:  selectedItem.stockInTracking?.expireDate  ,
-            systemPatchNo:selectedItem.stockInTracking?.systemPatchNo  ,
-            serialId: selectedItem.stockInTracking?.serialId ,
-            trackingType: selectedItem.trackingType  ,
-            selectedValue:selectedItem.stockInTracking?.quantity  ,
+            id: selectedItem.stockInTracking?.id || 0,
+            vendorBatchNo: selectedItem.stockInTracking?.vendorBatchNo,
+            expireDate: selectedItem.stockInTracking?.expireDate,
+            systemPatchNo: selectedItem.stockInTracking?.systemPatchNo,
+            serialId: selectedItem.stockInTracking?.serialId,
+            trackingType: selectedItem.trackingType,
+            selectedValue: selectedItem.stockInTracking?.quantity,
           });
         }
       }
-      rowForm.get('itemName')?.setValue(selectedItem.itemCode + "-" + selectedItem.itemName + "-" + selectedItem.itemVariantNameAr)
-       this.setUomName(indexLine, rowForm.get('uomOptions')?.value)
- 
-      }
+      rowForm
+        .get('itemName')
+        ?.setValue(
+          selectedItem.itemCode + '-' + selectedItem.itemName + '-' + selectedItem.itemVariantNameAr
+        );
+      this.setUomName(indexLine, rowForm.get('uomOptions')?.value);
+    }
   }
-
-
 
   setUomName(indexLine: number, list: any) {
     const rowForm = this.stockInDetailsFormArray.at(indexLine) as FormGroup;
@@ -276,21 +294,38 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     } else {
       rowForm.get('uomName')?.setValue(selectedItem.uomNameEn);
     }
+  }
+  initLookups() {
+    this.purchasetransactionsService.getSharedWarehousesLookup(this.wearhouseSearch);
+    this.purchasetransactionsService.warehouseLookup.subscribe({
+      next: (res) => {
+        this.warhouseLookupData = res;
+        console.log(res);
+      },
+    });
+    this.purchaseService.getpaymentTermsListDropDown();
+    this.purchaseService.sendPaymentTermsDropDownDataObservable.subscribe({
+      next: (res) => {
+        this.paymentLookupData = res;
+        console.log(res);
+      },
+    });
+    this.purchasetransactionsService.latestVendor(undefined).subscribe((res: any) => {
+      this.vendorItems = res;
+    });
+  }
 
-  
-  }  
-  
-  
+  warehouseSearch(searchItems: string) {
+    this.purchasetransactionsService.getSharedWarehousesLookup(searchItems);
+  }
   openAdvancedSearch() {
     // const ref = this.dialog.open(VendorAdvancedSearchComponent, {
     //   width: '650px',
     //   height: '600px',
     // });
     // ref.onClose.subscribe((selectedItems: any[]) => {
-
     // });
   }
-
 
   changeUomName(indexLine: number, list: any) {
     const rowForm = this.stockInDetailsFormArray.at(indexLine) as FormGroup;
@@ -300,9 +335,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     } else {
       rowForm.get('uomName')?.setValue(selectedItem.uomNameEn);
     }
-      rowForm.get('barCode')?.setValue('');
-
-    
+    rowForm.get('barCode')?.setValue('');
   }
   hasError(formGroup: FormGroup, controlName: string, error: string) {
     const control = formGroup.get(controlName);
@@ -310,10 +343,10 @@ export class AddPurchaseInvoiceComponent implements OnInit {
   }
 
   initWareHouseLookupData() {
-    this.transactionsService.getWareHousesDropDown();
-    this.transactionsService.wareHousesDropDownLookup$.subscribe((res) => {
-      this.warhouseLookupData = res;
-    });
+    // this.transactionsService.getWareHousesDropDown();
+    // this.transactionsService.wareHousesDropDownLookup$.subscribe((res) => {
+    //   this.warhouseLookupData = res;
+    // });
   }
   get stockIn() {
     return this.stockInForm.get('stockInDetails') as FormArray;
@@ -331,15 +364,15 @@ export class AddPurchaseInvoiceComponent implements OnInit {
 
   createStockIn() {
     return this.fb.group({
-      uomOptions:[],
+      uomOptions: [],
       barCode: '',
       bardCodeId: null,
       description: '',
       itemId: [null, customValidators.required],
       itemCodeName: '',
       itemVariantId: '',
-      discount : '',
-      disAmount : '',
+      discount: '',
+      disAmount: '',
       uomName: '',
       uomId: ['', customValidators.required],
       quantity: [
@@ -366,24 +399,25 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     });
   }
 
-  disAmountChange(purchaseForm : FormGroup) {
-    if(purchaseForm.controls['cost']?.value && purchaseForm.controls['discount']?.value) {
+  disAmountChange(purchaseForm: FormGroup) {
+    if (purchaseForm.controls['cost']?.value && purchaseForm.controls['discount']?.value) {
       let amountAndDiscount;
 
-      amountAndDiscount = purchaseForm.controls['discount']?.value / purchaseForm.controls['cost']?.value * 100
-      purchaseForm.get('disAmount')?.setValue(amountAndDiscount)
+      amountAndDiscount =
+        (purchaseForm.controls['discount']?.value / purchaseForm.controls['cost']?.value) * 100;
+      purchaseForm.get('disAmount')?.setValue(amountAndDiscount);
     }
   }
 
-  amountChange(purchaseForm : FormGroup) {
-     if(purchaseForm.controls['cost']?.value  && purchaseForm.get('disAmount')?.value ){
+  amountChange(purchaseForm: FormGroup) {
+    if (purchaseForm.controls['cost']?.value && purchaseForm.get('disAmount')?.value) {
       let amountAndDiscount;
 
-      amountAndDiscount = purchaseForm.controls['cost']?.value * purchaseForm.controls['disAmount']?.value /  100
-      purchaseForm.get('discount')?.setValue(amountAndDiscount)
+      amountAndDiscount =
+        (purchaseForm.controls['cost']?.value * purchaseForm.controls['disAmount']?.value) / 100;
+      purchaseForm.get('discount')?.setValue(amountAndDiscount);
     }
   }
-
 
   itemChanged(
     e: any,
@@ -483,7 +517,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
   }
 
   addLineStockIn() {
-    this.isValidData()
+    this.isValidData();
     if (!this.formService.validForm(this.stockInDetailsFormArray, false)) return;
 
     if (this.stockIn.valid) {
@@ -492,9 +526,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       this.formSubmited = true;
     }
     if (!this.formService.validForm(this.stockIn, false)) return;
-  this.stockIn.push(this.createStockIn());
-
-
+    this.stockIn.push(this.createStockIn());
   }
   onFilter(SearchTerm: string) {
     const warehouseId: number = this.stockInForm.get('warehouseId')?.value;
@@ -532,7 +564,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     // });
   }
 
-  openDialog( indexline:number ,stockInFormGroup: FormGroup) {
+  openDialog(indexline: number, stockInFormGroup: FormGroup) {
     // const ref = this.dialog.open(MultiSelectItemStockInComponent, {
     //   width: 'auto',
     //   height: '600px',
@@ -541,85 +573,85 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     //   if (selectedItems) {
     //     stockInFormGroup.get('itemId')?.setValue(selectedItems.itemId);
     //     this.setRowDataFromBarCode(indexline, selectedItems,'')
-
     //   }
     // });
   }
 
-  barcodeCanged(e: any, stockInFormGroup: FormGroup ,index:number) {
+  barcodeCanged(e: any, stockInFormGroup: FormGroup, index: number) {
     if (e) {
       this.transactionsService.getItemBarcodeForItem(e);
       this.transactionsService.sendItemBarcode$.pipe(skip(1)).subscribe((data) => {
         if (data) {
           stockInFormGroup.get('itemId')?.setValue(data.itemId);
-      
-          this.setRowDataFromBarCode(index, data ,e)
 
+          this.setRowDataFromBarCode(index, data, e);
         }
       });
     }
   }
-  setRowDataFromBarCode(indexLine: number, selectedItem: any , barcode:string){
+  setRowDataFromBarCode(indexLine: number, selectedItem: any, barcode: string) {
     const rowForm = this.stockInDetailsFormArray.at(indexLine) as FormGroup;
-  
+
     if (!selectedItem) {
       return;
     }
-  
+
     if (!rowForm) {
       return;
     }
     if (rowForm) {
       if (rowForm) {
         rowForm.patchValue({
-          id:selectedItem?.id ||0,
-          barCode: barcode ,
-          bardCodeId: selectedItem?.bardCodeId ,
-          description : selectedItem?.itemName + '-' + 
-              (this.selectedLanguage === 'en' 
-                 ? selectedItem?.itemVariantNameEn 
-                 : selectedItem?.itemVariantNameAr),
-          itemId:  selectedItem?.itemId ,
-          itemCode:selectedItem?.itemCode ,
-          itemName: selectedItem?.itemName ,
-          itemCodeName: selectedItem?.itemCode ,
-          itemVariantId: selectedItem?.itemVariantId ,
-          itemVariantCode: selectedItem?.itemVariantCode ,
-          itemVariantNameAr: selectedItem?.itemVariantNameAr ,
-          itemVariantNameEn: selectedItem?.itemVariantNameEn ,
-          uomNameAr: selectedItem?.uomNameAr ,
-          uomNameEn: selectedItem?.uomNameEn ,
-          uomId: selectedItem?.uomId ,
-          quantity:  selectedItem?.quantity|| 1 ,
-          cost: selectedItem?.price , 
-          subTotal: selectedItem?.subCost ,
-          notes:selectedItem?.notes ,
-          hasExpiryDate:selectedItem?.hasExpiryDate ,
-          stockInEntryMode: selectedItem?.stockInEntryMode||'Manual' ,
-          trackingType: selectedItem?.trackingType ,
-          uomOptions:selectedItem?.itemsUOM,
-            
+          id: selectedItem?.id || 0,
+          barCode: barcode,
+          bardCodeId: selectedItem?.bardCodeId,
+          description:
+            selectedItem?.itemName +
+            '-' +
+            (this.selectedLanguage === 'en'
+              ? selectedItem?.itemVariantNameEn
+              : selectedItem?.itemVariantNameAr),
+          itemId: selectedItem?.itemId,
+          itemCode: selectedItem?.itemCode,
+          itemName: selectedItem?.itemName,
+          itemCodeName: selectedItem?.itemCode,
+          itemVariantId: selectedItem?.itemVariantId,
+          itemVariantCode: selectedItem?.itemVariantCode,
+          itemVariantNameAr: selectedItem?.itemVariantNameAr,
+          itemVariantNameEn: selectedItem?.itemVariantNameEn,
+          uomNameAr: selectedItem?.uomNameAr,
+          uomNameEn: selectedItem?.uomNameEn,
+          uomId: selectedItem?.uomId,
+          quantity: selectedItem?.quantity || 1,
+          cost: selectedItem?.price,
+          subTotal: selectedItem?.subCost,
+          notes: selectedItem?.notes,
+          hasExpiryDate: selectedItem?.hasExpiryDate,
+          stockInEntryMode: selectedItem?.stockInEntryMode || 'Manual',
+          trackingType: selectedItem?.trackingType,
+          uomOptions: selectedItem?.itemsUOM,
         });
-  
+
         const stockInTracking = rowForm.get('stockInTracking') as FormGroup;
         if (stockInTracking) {
           stockInTracking.patchValue({
-            id:selectedItem.stockInTracking?.id || 0  ,
-            vendorBatchNo:selectedItem.stockInTracking?.vendorBatchNo  ,
-            expireDate:  selectedItem.stockInTracking?.expireDate  ,
-            systemPatchNo:selectedItem.stockInTracking?.systemPatchNo  ,
-            serialId: selectedItem.stockInTracking?.serialId ,
-            trackingType: selectedItem.trackingType  ,
-            selectedValue:selectedItem.stockInTracking?.quantity  ,
+            id: selectedItem.stockInTracking?.id || 0,
+            vendorBatchNo: selectedItem.stockInTracking?.vendorBatchNo,
+            expireDate: selectedItem.stockInTracking?.expireDate,
+            systemPatchNo: selectedItem.stockInTracking?.systemPatchNo,
+            serialId: selectedItem.stockInTracking?.serialId,
+            trackingType: selectedItem.trackingType,
+            selectedValue: selectedItem.stockInTracking?.quantity,
           });
         }
       }
-       rowForm.get('itemName')?.setValue(selectedItem.itemCode + "-" + selectedItem.itemName + "-" + selectedItem.itemVariantNameAr)
-       this.setUomName(indexLine, rowForm.get('uomOptions')?.value)
-  
-      
-  
-      }
+      rowForm
+        .get('itemName')
+        ?.setValue(
+          selectedItem.itemCode + '-' + selectedItem.itemName + '-' + selectedItem.itemVariantNameAr
+        );
+      this.setUomName(indexLine, rowForm.get('uomOptions')?.value);
+    }
   }
   setTracking(setTracking: FormGroup) {
     // const dialogRef = this.dialog.open(TrackingStockInComponent, {
@@ -634,14 +666,11 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     // dialogRef.onClose.subscribe((res: any) => {
     //   if (res) {
     //     this.selectedTraking = res;
-
     //     setTracking.get('stockInTracking')?.patchValue({ ...res });
     //     setTracking.get('stockInTracking')?.get('selectedValue')?.setValue(res);
     //     this.isValidData()
-
     //   }
     //   this.isValidData()
-
     // });
   }
 
@@ -650,16 +679,15 @@ export class AddPurchaseInvoiceComponent implements OnInit {
   }
 
   onSave() {
-    this.isValidData()
+    this.isValidData();
     if (!this.formService.validForm(this.stockInForm, false)) return;
-      
-if(this.save){
 
-    let data: AddStockIn = {
-      ...this.stockInForm.value,
-      sourceDocumentType: +this.stockInForm.value.sourceDocumentType,
-      stockInDetails: this.stockInDetailsFormArray.value,
-    };
+    if (this.save) {
+      let data: AddStockIn = {
+        ...this.stockInForm.value,
+        sourceDocumentType: +this.stockInForm.value.sourceDocumentType,
+        stockInDetails: this.stockInDetailsFormArray.value,
+      };
 
       this.transactionsService.addStockIn(data, this.stockInForm);
       this.transactionsService.addedStockInData$.subscribe((res: number | any) => {
@@ -671,7 +699,6 @@ if(this.save){
         }
       });
     }
-    
   }
 
   OnDelete(i: number) {
@@ -687,12 +714,13 @@ if(this.save){
     private transactionsService: TransactionsService,
     private fb: FormBuilder,
     private lookupservice: LookupsService,
+    private purchaseService: PurchaseService,
+    private purchasetransactionsService: PurchaseTransactionsService,
     private router: RouterService,
     public formService: FormsService,
     public sharedFinanceEnums: SharedFinanceEnums,
     public sharedStock: SharedStock,
-    private toasterService: ToasterService,
-
+    private toasterService: ToasterService
   ) {
     this.currentLang = this.languageService.getLang();
     this.selectedLanguage = this.languageService.getLang();
