@@ -39,7 +39,15 @@ export class AddPurchaseInvoiceComponent implements OnInit {
   selectedLanguage: string;
   lineError:number=-1
   error:boolean
-  save:boolean=true
+  save:boolean=true;
+  
+  numberOfItems : number
+  total : number
+  totalAfterDiscount : number
+  totalQuantity : number
+  discount : number
+  vatAmount : number
+  totalAfterVat : number
  
   ngOnInit(): void {
     this.initializeForm();
@@ -47,12 +55,13 @@ export class AddPurchaseInvoiceComponent implements OnInit {
  
     this.stockInForm.get('receiptDate')?.disabled;
 
-    this.stockInForm.valueChanges.subscribe((res) => {});
+    this.stockInForm.valueChanges.subscribe((res) => {
+    });
 
     // this.lookupservice.loadLookups([LookupEnum.StockInOutSourceDocumentType]);
     // this.lookupservice.lookups.subscribe((l) => {
     //   this.lookups = l;
-    // });
+    // }); 
 
     // this.stockInForm.get('sourceDocumentType')?.valueChanges.subscribe((res) => {
     //   let data = this.lookups[LookupEnum.StockInOutSourceDocumentType];
@@ -74,6 +83,36 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       let data = this.oprationalLookup.find((elem) => elem.id == res);
       this.stockInForm.get('warehouseId')?.setValue(data?.warehouseId);
       this.stockInForm.get('warehouseName')?.setValue(data?.warehouseName);
+    });
+
+    this.stockIn.valueChanges.subscribe((res: any[]) => {
+      // Ensure `res` is an array
+      if (Array.isArray(res)) {
+        this.numberOfItems = res.length;
+    
+        // Calculate totalAfterDiscount for all items using reduce
+        this.totalAfterDiscount = res.reduce((acc, item) => {
+          const itemTotal = item.quantity * (item.cost - item.disAmount);
+          return acc + itemTotal;
+        }, 0);
+
+        this.totalQuantity = res?.reduce((accumulator, item) => {
+          let data =  +accumulator + +item.quantity;
+          return data
+        },0); // Start with 0 explicitly
+        this.discount = res?.reduce((accumulator, item) => {
+          let data =  +accumulator + +item.discount;
+          return data
+        },0); // Start with 0 explicitly
+        this.discount = res?.reduce((accumulator, item) => {
+          let data =  +accumulator + +item.discount;
+          return data
+        },0); // Start with 0 explicitly
+        this.vatAmount = res?.reduce((accumulator, item) => {
+          let data =  +accumulator + +item.discount;
+          return data
+        },0); // Start with 0 explicitly
+      }
     });
 
     this.initWareHouseLookupData();
@@ -152,6 +191,14 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     description: new FormControl(''),
     sourceDocumentType: new FormControl(''),
     date: new FormControl(new Date() , [customValidators.required]),
+    numberOfItems : 0,
+    total : 0,
+    totalAfterDiscount : 0,
+    totalQuantity : 0,
+    discount : 0,
+    vatAmount : 0,
+    totalAfterVat : 0,
+   
 
     stockInStatus: new FormControl(''),
     stockInDetails: this.fb.array([]),

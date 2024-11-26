@@ -431,7 +431,7 @@
            </td>
              <!-- Total After Discount -->
            <td>
-            {{stockInFormGroup.controls['quantity']?.value - (stockInFormGroup.controls['cost']?.value - stockInFormGroup.controls['disAmount']?.value)}}
+            {{stockInFormGroup.controls['quantity']?.value * (stockInFormGroup.controls['cost']?.value - stockInFormGroup.controls['disAmount']?.value)}}
            </td>
            <!-- Vat -->
             <td>
@@ -602,64 +602,92 @@
   <div class="card_micro">
     <div class="grid my-3 foot">
       <div class="md:col-2">
-        <lib-label [appControl]="stockInForm.controls['code']">
+        <lib-label [appControl]="stockInForm.controls['numberOfItems']">
           {{ 'purchase.numberOfItems' | translate }}
         </lib-label>
         <lib-text-input
           placeholder="{{ 'purchase.totalQuantity' | translate }}"
-          formControlName="code"
+          formControlName="numberOfItems"
+          [(ngModel)]="numberOfItems"
         ></lib-text-input>
         <lib-field-validations
-          [appControl]="stockInForm.controls['code']"
+          [appControl]="stockInForm.controls['numberOfItems']"
         ></lib-field-validations>
       </div>
-      <div class="md:col-2">
-        <lib-label [appControl]="stockInForm.controls['code']">
-          {{ 'purchase.totalQuantity' | translate }}
-        </lib-label>
-        <lib-text-input
-          placeholder="{{ 'purchase.totalQuantity' | translate }}"
-          formControlName="code"
-        ></lib-text-input>
-        <lib-field-validations
-          [appControl]="stockInForm.controls['code']"
-        ></lib-field-validations>
-      </div>
-      <div class="md:col-2">
-        <lib-label [appControl]="stockInForm.controls['code']">
+       <div class="md:col-2">
+        <lib-label [appControl]="stockInForm.controls['total']">
           {{ 'purchase.total' | translate }}
         </lib-label>
         <lib-text-input
           placeholder="{{ 'purchase.total' | translate }}"
-          formControlName="code"
+          formControlName="total"
+          [(ngModel)]="total"
+
+        ></lib-text-input>
+       
+      </div>
+       <div class="md:col-2">
+        <lib-label [appControl]="stockInForm.controls['totalAfterDiscount']">
+          {{ 'purchase.totalAfterDiscount' | translate }}
+        </lib-label>
+        <lib-text-input
+          placeholder="{{ 'purchase.totalAfterDiscount' | translate }}"
+          formControlName="totalAfterDiscount"
+          [(ngModel)]="totalAfterDiscount"
+
+        ></lib-text-input>
+       
+      </div>
+      <div class="md:col-2">
+        <lib-label [appControl]="stockInForm.controls['totalQuantity']">
+          {{ 'purchase.totalQuantity' | translate }}
+        </lib-label>
+        <lib-text-input
+          placeholder="{{ 'purchase.totalQuantity' | translate }}"
+          formControlName="totalQuantity"
+          [(ngModel)]="totalQuantity"
         ></lib-text-input>
         <lib-field-validations
-          [appControl]="stockInForm.controls['code']"
+          [appControl]="stockInForm.controls['totalQuantity']"
         ></lib-field-validations>
       </div>
       <div class="md:col-2">
-        <lib-label [appControl]="stockInForm.controls['code']">
+        <lib-label [appControl]="stockInForm.controls['discount']">
+          {{ 'purchase.discount' | translate }}
+        </lib-label>
+        <lib-text-input
+          placeholder="{{ 'purchase.discount' | translate }}"
+          formControlName="discount"
+          [(ngModel)]="discount"
+        ></lib-text-input>
+        <lib-field-validations
+          [appControl]="stockInForm.controls['discount']"
+        ></lib-field-validations>
+      </div>
+   
+      <div class="md:col-2">
+        <lib-label [appControl]="stockInForm.controls['vatAmount']">
           {{ 'purchase.vatAmount' | translate }}
         </lib-label>
         <lib-text-input
           placeholder="{{ 'purchase.vatAmount' | translate }}"
-          formControlName="code"
+          formControlName="vatAmount"
+          [(ngModel)]="vatAmount"
+
         ></lib-text-input>
-        <lib-field-validations
-          [appControl]="stockInForm.controls['code']"
-        ></lib-field-validations>
+       
       </div>
       <div class="md:col-2">
-        <lib-label [appControl]="stockInForm.controls['code']">
+        <lib-label [appControl]="stockInForm.controls['totalAfterVat']">
           {{ 'purchase.totalAfterVat' | translate }}
         </lib-label>
         <lib-text-input
           placeholder="{{ 'purchase.totalAfterVat' | translate }}"
-          formControlName="code"
+          formControlName="totalAfterVat"
+          [(ngModel)]="totalAfterVat"
+
         ></lib-text-input>
-        <lib-field-validations
-          [appControl]="stockInForm.controls['code']"
-        ></lib-field-validations>
+      
       </div>
      
       

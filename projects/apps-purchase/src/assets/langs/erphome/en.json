@@ -623,7 +623,9 @@
       "total": "Total",
       "totalAfterVat": "Total After VAT",
       "cancel" : "Cancel",
-      "save" : "Save"
+      "save" : "Save",
+      "totalAfterDiscount" : "Total After Discount"
+      
     }
 
 }
