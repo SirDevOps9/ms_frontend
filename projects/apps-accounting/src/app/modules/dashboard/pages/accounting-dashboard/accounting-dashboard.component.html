@@ -145,7 +145,12 @@
                 </a>
                 <div class="caption">
                   <span class="body_b11">{{ 'dashboard.sortBy' | translate }}</span>
-                  <p class="body_b14 my-0">{{ 'dashboard.theMostUsed' | translate }}</p>
+                  <p class="body_b14 my-0">
+                    {{
+                      (accountsByMostUsed ? 'dashboard.theMostUsed' : 'dashboard.theLeastUsed')
+                        | translate
+                    }}
+                  </p>
                 </div>
                 <span class="column-line"></span>
                 <i class="pi pi-heart"></i>
@@ -180,7 +185,12 @@
                 </a>
                 <div class="caption">
                   <span class="body_b11">{{ 'dashboard.sortBy' | translate }}</span>
-                  <p class="body_b14 my-0">{{ 'dashboard.theMostUsed' | translate }}</p>
+                  <p class="body_b14 my-0">
+                    {{
+                      (costCenterByMostUsed ? 'dashboard.theMostUsed' : 'dashboard.theLeastUsed')
+                        | translate
+                    }}
+                  </p>
                 </div>
                 <span class="column-line"></span>
                 <i class="pi pi-heart"></i>
