@@ -64,6 +64,10 @@ body {
       margin-right: 10rem;
     }
   }
+  i.pi-arrow-right,
+  i.pi-arrow-left {
+    transform: rotate(180deg);
+  }
 }
 .pragraph_demd {
   padding: 5px 16px !important;
