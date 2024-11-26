@@ -12,6 +12,7 @@ import {
 } from '../../models';
 import { Subject, takeUntil } from 'rxjs';
 import { LanguageService } from 'shared-lib';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-accounting-dashboard',
@@ -19,7 +20,11 @@ import { LanguageService } from 'shared-lib';
   styleUrl: './accounting-dashboard.component.scss',
 })
 export class AccountingDashboardComponent {
-  constructor(private service: DashboardService, private languageService: LanguageService) {}
+  constructor(
+    private service: DashboardService,
+    private languageService: LanguageService,
+    private router: Router
+  ) {}
   private destroy$ = new Subject<void>();
 
   revenueStream: RevenueStream = { totalRevenues: 0, totalExpenses: 0, grossProfit: 0 };
@@ -66,6 +71,10 @@ export class AccountingDashboardComponent {
     this.fetchData();
     this.subscriptionsCalls();
     this.loadingSubscriptions();
+  }
+
+  navigateToJournalList() {
+    this.router.navigate(['transcations/journalentry']);
   }
 
   fetchData() {

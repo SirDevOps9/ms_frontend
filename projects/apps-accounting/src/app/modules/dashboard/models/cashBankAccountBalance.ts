@@ -3,6 +3,7 @@ export interface Account {
   accountTypeId: number;
   accountTypeName: string;
   balance: number;
+  accountId: number | string;
 }
 
 export interface AccountsData {
