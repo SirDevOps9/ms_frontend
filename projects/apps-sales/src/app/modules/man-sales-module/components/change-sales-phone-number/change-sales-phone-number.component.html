@@ -1,0 +1,35 @@
+<lib-popup-page
+  title=" {{ 'mainSales.ChangeSalesPhonenumber' | translate }}"
+  [closeFunction]="onCancel"
+  (Submit)="onSubmit()"
+>
+  <span class="m-auto text-center break-words w-10">
+    {{
+      'mainSales.popupAttention'
+        | translate
+    }}
+  </span>
+  <div>
+    <form class="domain_form" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+      <div class="domain_content">
+        <div class="grid m-0">
+          <div class="col-12 my-2">
+            <lib-form-group>
+              <lib-text-input
+                type="text"
+                formControlName="phoneNumber"
+                placeholder="{{ 'mainSales.phoneNumber' | translate }}"
+                [readOnly]="true"
+                [iconUrl]="'assets/images/Vector.png'"
+                class="form-control"
+              />
+              <lib-field-validations
+                [appControl]="formGroup.controls['phoneNumber']"
+              ></lib-field-validations>
+            </lib-form-group>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</lib-popup-page>

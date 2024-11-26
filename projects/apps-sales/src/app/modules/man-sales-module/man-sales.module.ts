@@ -11,6 +11,8 @@ import { AddManPopupComponent } from './components/add-man-popup/add-man-popup.c
 import { MainManComponent } from './pages/main-man-component/app-main-man-component';
 import { ManDetailsComponent } from './pages/main-man-component/man-details/man-details.component';
 import { ManListComponent } from './pages/main-man-component/man-list/man-list.component';
+import { ManageInformationForManComponent } from './pages/main-man-component/man-details/manage-information-for-man/manage-information-for-man.component';
+import { ChangeSalesPhoneNumberComponent } from './components/change-sales-phone-number/change-sales-phone-number.component';
 const routes: Routes = [
   {
     path: '',
@@ -85,6 +87,8 @@ const routes: Routes = [
     MainManComponent,
     AddManPopupComponent,
     ManDetailsComponent,
+    ManageInformationForManComponent,
+    ChangeSalesPhoneNumberComponent,
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule],
 

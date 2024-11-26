@@ -1,0 +1,30 @@
+.card {
+    background-color: #ffffff;
+    margin-top: 26px;
+    margin-left: .5px;
+
+}
+
+.heads {
+    font-weight: bold;
+}
+
+::ng-deep .p-multiselect {
+    width: 100% !important;
+}
+
+// .grid {
+//   padding: 0 !important;
+//   margin: 0 !important;
+// }
+.hrSeparate {
+    width: 100%;
+    margin: 0 12px;
+}
+
+.sparateDiv {
+    margin: 14px 0
+}
+.info-lable{
+    color: #30486D;
+}

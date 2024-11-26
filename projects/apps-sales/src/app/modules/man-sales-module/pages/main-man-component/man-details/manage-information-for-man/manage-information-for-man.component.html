@@ -1,0 +1,144 @@
+<div class="grid w-100 card" [formGroup]="formGroup">
+  <div class="grid p-0 m-0">
+    <div class="md:col-12">
+      <p class="heads">{{ 'mainSales.main' | translate }}</p>
+    </div>
+
+    <div class="grid px-4">
+      <div class="md:col-12 flex gap-3">
+        <lib-label [appControl]="formGroup.controls['isActive']">
+          {{ 'mainSales.isActive' | translate }}
+        </lib-label>
+        <div class="ml-4">
+          <lib-input-switch formControlName="isActive"> </lib-input-switch>
+
+          <!-- <lib-toggel formControlName="hasNoChild" (valueChanged)="toggleCurrencyVisibility()">
+                  </lib-toggel> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--  -->
+
+  <hr class="hrSeparate" />
+  <div class="md:col-12">
+    <p class="heads">{{ 'mainSales.salesTeam' | translate }}</p>
+  </div>
+  <!--  -->
+  <div class="md:col-12">
+    <div class="grid flex align-items-center">
+      <div class="md:col-4">
+        <lib-form-group>
+          <lib-label [appControl]="formGroup.controls['countryId']">
+            {{ 'mainSales.countryOfOrigin' | translate }}
+          </lib-label>
+          <lib-select
+            formControlName="countryId"
+            [options]="countriesLookup"
+            optionValue="id"
+            optionLabel="nameEn"
+            [selectedValue]="formGroup.controls['countryId'].value"
+          >
+          </lib-select>
+        </lib-form-group>
+      </div>
+      <div class="md:col-4">
+        <lib-form-group>
+          <lib-label [appControl]="formGroup.controls['countryId']">
+            {{ 'mainSales.branch' | translate }}
+          </lib-label>
+          <lib-select
+            formControlName="countryId"
+            [options]="countriesLookup"
+            optionValue="id"
+            optionLabel="nameEn"
+            [selectedValue]="formGroup.controls['countryId'].value"
+          >
+          </lib-select>
+        </lib-form-group>
+      </div>
+
+      <!--  -->
+      <div class="md:col-1 mt-5">
+        <lib-button-micro
+          title="{{ 'mainSales.Edit' | translate }}"
+          nameClass="save"
+          widthNumber="100%"
+        >
+        </lib-button-micro>
+      </div>
+    </div>
+  </div>
+
+  <hr class="hrSeparate" />
+  <div class="md:col-12">
+    <p class="heads">{{ 'mainSales.personalInformation' | translate }}</p>
+  </div>
+
+  <div class="md:col-12 grid sparateDiv">
+    <div class="col-4">
+      <div class="info-lable">
+        {{ 'mainSales.ID' | translate }}
+      </div>
+      <p>2323</p>
+    </div>
+    <div class="col-4">
+      <div class="info-lable">
+        {{ 'mainSales.Name' | translate }}
+      </div>
+      <p>2323</p>
+    </div>
+    <div class="col-4">
+      <div class="info-lable">
+        {{ 'mainSales.email' | translate }}
+      </div>
+      <p>{{ 'mahmoudzaki@gmail.com' }}</p>
+    </div>
+    <div class="col-4">
+      <div class="info-lable">
+        {{ 'mainSales.personalPhoneNumber' | translate }}
+      </div>
+      <p>01091997883</p>
+    </div>
+    <div class="col-3">
+      <div class="info-lable flex align-items-center gap-2">
+        <img src="assets/images/vansales/Vector.png" alt="" srcset="" />
+        {{ 'mainSales.SalesPhoneNumber' | translate }}
+      </div>
+      <p>2323</p>
+    </div>
+
+    <lib-button-micro
+      class="col-1 p-0"
+      [title]="'mainSales.change' | translate"
+      nameClass="save"
+      (click)="changePhoneNumber()"
+    ></lib-button-micro>
+  </div>
+</div>
+
+<div class="grid">
+  <div class="md:col-12 my-3 grid flex justify-content-end">
+    <div class="md:col-4 grid flex justify-content-end">
+      <div class="md:col-6">
+        <lib-button-micro
+          title="{{ 'mainSales.cancel' | translate }}"
+          nameClass="cancel"
+          widthNumber="100%"
+          (click)="onCancel()"
+        >
+        </lib-button-micro>
+      </div>
+      <div class="md:col-6">
+        <lib-button-micro
+          title="{{ 'mainSales.save' | translate }}"
+          nameClass="save"
+          widthNumber="100%"
+          (click)="onSave()"
+        >
+        </lib-button-micro>
+      </div>
+    </div>
+  </div>
+</div>

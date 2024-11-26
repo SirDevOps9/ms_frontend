@@ -1,0 +1,63 @@
+.new_employee {
+  display: flex;
+  margin: 8px;
+
+  .sidebar {
+    
+      height: 80vh;
+      overflow-y: auto; 
+      &::-webkit-scrollbar {
+        width: 8px; 
+      }
+  
+      &::-webkit-scrollbar-track {
+        background-color: #f1f1f1; 
+        border-radius: 8px;
+      }
+  
+      &::-webkit-scrollbar-thumb {
+        background-color: #1a90b0; 
+        border-radius: 8px;
+        border: 2px solid #f1f1f1; 
+      }
+  
+      &::-webkit-scrollbar-thumb:hover {
+        background-color: #0e5d70; 
+      }
+  
+    ul {
+      list-style: none;
+      border-radius: 8px;
+      overflow: hidden;
+      background-color: #fff;
+      color: #1a90b0;
+      padding: 0;
+      margin: 4px 8px 0px 0px;
+    }
+
+    li {
+      padding: 1rem;
+      border: 1px solid #1a90b0;
+      border-radius: 8px;
+      margin: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:hover {
+        background-color: #1a90b0;
+        color: #fff;
+      }
+
+      &.active {
+        background-color: #1a90b0;
+        color: #fff;
+      }
+    }
+  }
+}
+
+.mainGrid {
+  width: 100%;
+}

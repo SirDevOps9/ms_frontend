@@ -1,6 +1,6 @@
 <div class="main">
   <lib-popup-page
-    title="{{ 'stockIn.ItemSearch' | translate }}"
+    title="{{ 'mainSales.ItemSearch' | translate }}"
     [closeFunction]="onCancel"
     (Submit)="onSubmit()"
     [showSave]="false"
@@ -23,26 +23,26 @@
           columns: [
             {
               name: 'name',
-              headerText: 'stockIn.name' | translate,
+              headerText: 'mainSales.name' | translate,
               isGlobalFilter: true,
               isSortable: true
             },
             {
               name: 'email',
-              headerText: 'stockIn.email' | translate,
+              headerText: 'mainSales.email' | translate,
               isGlobalFilter: true,
               isSortable: true
             },
             {
               name: 'number',
-              headerText: 'stockIn.ItemnumberUOM' | translate,
+              headerText: 'mainSales.number' | translate,
               isGlobalFilter: true,
               isSortable: true
             },
 
             {
               name: 'id',
-              headerText: ('stockIn.id' | translate),
+              headerText: ('mainSales.actions' | translate),
               template: action
             }
           ]
@@ -50,7 +50,7 @@
       >
         <ng-container caption>
           <div captions class="mb-4 -mt-4 text-center">
-            {{ 'Please select a sales man team and a user to proceed' | translate }}
+            {{ 'mainSales.addManpopupAttention' | translate }}
           </div>
         </ng-container>
 
@@ -60,7 +60,7 @@
               <lib-form-group>
                 <lib-select
                   formControlName="teamId"
-                  placeholder="{{ 'Layout.salesTeam' | translate }}"
+                  placeholder="{{ 'mainSales.salesTeam' | translate }}"
                   [options]="[]"
                   [selectedValue]="filterForm.controls['teamId'].value"
                   optionLabel="name"
@@ -75,7 +75,7 @@
             <div class="col-12">
               <lib-text-input
                 type="text"
-                [placeholder]="'stockIn.search' | translate"
+                [placeholder]="'mainSales.search' | translate"
                 [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
                 (keyUp)="onSearchChange($event)"
               >
