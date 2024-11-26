@@ -1,0 +1,91 @@
+<div class="main">
+    <lib-popup-page
+      title="{{ 'popupSearch.ItemSearch' | translate }}"
+      [closeFunction]="onCancel"
+      (Submit)="onSubmit()"
+      [footer]="false"
+    >
+      <div class="table">
+        <lib-data-table
+          [popup]="true"
+          [items]="items"
+          [showCheckBox]="false"
+          className="p-datatable-gridlines"
+          [currentPageResult]="currentPageInfo"
+          (pageChange)="onPageChange($event)"
+          (selectedRowsChange)="onSelectedRowsChange($event)"
+          [tableConfigs]="{
+            allowPagination: false,
+            allowServerPagination: true,
+            dataKey: 'id',
+            pageSize: 10,
+            columns: [
+              {
+                name: 'itemCode',
+                headerText: 'popupSearch.ItemCode' | translate,
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'itemName',
+                headerText: 'popupSearch.ItemName' | translate,
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: selectedLanguage === 'en' ? 'uomNameEn' : 'uomNameAr',
+                headerText: 'popupSearch.ItemUOM' | translate,
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                 name: selectedLanguage === 'en' ? 'itemVariantNameEn' : 'itemVariantNameAr',
+
+                headerText: 'popupSearch.ItemVariant' | translate,
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: selectedLanguage === 'en' ? 'itemCategoryNameEn' : 'itemCategoryNameAr',
+                headerText: 'popupSearch.ItemCategory' | translate,
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                     name: 'itemCode',
+                     headerText: ('popupSearch.Actions' | translate),
+                     template : action
+              },
+            ]
+          }"
+        >
+          <ng-container caption>
+            <div [formGroup]="filterForm" class="grid">
+              <div class="col-12">
+                <lib-text-input
+                  type="text"
+                  [placeholder]="'popupSearch.search' | translate"
+                  [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
+                  (keyUp)="onSearchChange($event)"
+  
+                >
+                </lib-text-input>
+              </div>
+              
+            </div>
+          </ng-container>
+          <ng-template #action let-item>
+            <lib-button-micro
+            nameClass="save"
+            title="{{ 'popupSearch.select' | translate }}"
+            (click)="selectedRow(item)"
+            >
+  
+            </lib-button-micro>
+  </ng-template>
+          
+        </lib-data-table>
+      </div>
+    </lib-popup-page>
+  </div>
+   
