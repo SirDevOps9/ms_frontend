@@ -49,6 +49,10 @@ export class PurchaseInvoiceListComponent implements OnInit {
         this.tableData = res;
       },
     });
+
+    this.transactionsService.currentPageInfo.subscribe((currentPageInfo) => {
+      this.currentPageInfo = currentPageInfo;
+    });
   }
 
   // data to list
