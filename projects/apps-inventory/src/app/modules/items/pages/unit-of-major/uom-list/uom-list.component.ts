@@ -6,6 +6,8 @@ import { FinanceService } from 'projects/apps-finance/src/app/modules/finance/fi
 import { LanguageService, PageInfo, PageInfoResult, RouterService } from 'shared-lib';
 import { ItemsService } from '../../../items.service';
 import { UOMCategoryDto } from '../../../models';
+import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-uom-list',
@@ -20,54 +22,20 @@ export class UOMListComponent implements OnInit {
   clonedExportData: UOMCategoryDto[];
   exportColumns:any[]
 
-  cols = [
-
-    {
-      field: 'Code',
-      header: 'code',
-    },
-
-    {
-      field: 'Name',
-      header: 'name',
-    },
-    {
-      field: 'Short Name',
-      header: 'shortName',
-    },
-    {
-      field: 'UOM Type',
-      header: 'uomType',
-    },
-    {
-      field: 'UOM Name',
-      header: 'uomName',
-    },
-    {
-      field: 'Conversion Ratio',
-      header: 'conversionRatio',
-    },
-
-  ];
   constructor(
     private routerService: RouterService,
     private itemService : ItemsService,
 
     public authService: AuthService,
     private title: Title,
-    private langService: LanguageService,
+    private translate: TranslateService,
+    private exportService:ExportService
 
   ){
 
   }
   ngOnInit(): void {
-    this.exportColumns = this.cols.map((col) => ({
-      id: col.header,
-      name: col.field,
-    }));
     this.initTreasurData()
-
-
   }
 
   initTreasurData() {
@@ -102,23 +70,45 @@ export class UOMListComponent implements OnInit {
     this.itemService.getUOmCategories('', pageInfo);
   }
 
+
   exportClick(e?: Event) {
-      this.exportBankData(this.searchTerm);
+    this.exportOperationalData(this.searchTerm);
   }
-  exportBankData(searchTerm: string) {
-    this.itemService.exportUOMList(searchTerm)
 
-    this.itemService.SendexportUOMList$.subscribe((res)=>{
-      this.exportData = res
-    })
-  }
-  exportUom(searchTerm: string) {
-    this.itemService.exportUOMList(searchTerm)
+  exportOperationalData(searchTerm: string) {
+    this.itemService.exportUOMList(searchTerm);
 
-    this.itemService.SendexportUOMList$.subscribe((res)=>{
-      this.exportData = res
-    })
+    const columns = [
+      { name: 'code', headerText: this.translate.instant('UOM.uomCode') },
+      { name: 'name', headerText: this.translate.instant('UOM.uomName') },
+      { name: 'shortName', headerText: this.translate.instant('UOM.shortName') },
+      { name: 'categoryName', headerText: this.translate.instant('UOM.uomCategory') },
+      { name: 'factor', headerText: this.translate.instant('UOM.uomFactor') },
+    ];
+
+    this.itemService.SendexportUOMList$.subscribe((res) => {
+      this.exportData = this.exportService.formatCiloma(res, columns);
+
+    });
   }
+
+
+  // exportBankData(searchTerm: string) {
+  //   this.itemService.exportUOMList(searchTerm)
+
+  //   this.itemService.SendexportUOMList$.subscribe((res)=>{
+  //     this.exportData = res
+  //   })
+  // }
+  // exportUom(searchTerm: string) {
+  //   this.itemService.exportUOMList(searchTerm)
+
+  //   this.itemService.SendexportUOMList$.subscribe((res)=>{
+  //     this.exportData = res
+  //   })
+
+
+  // }
   onEdit(data: any) {
     this.routerService.navigateTo(`/masterdata/uom/edit-uom/${data.uomCategoryId}`);
 }

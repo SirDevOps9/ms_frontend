@@ -2,6 +2,7 @@
   "BreadCrumb": {
     "FinancialCalendar": "السنة المالية",
     "AddFinancialCalendar": "إضافة سنة مالية",
+    "AddFinancialCalendarTitle": "إضافة سنة مالية",
     "EditFinancialCalendar": "تعديل سنة مالية",
     "CurrencyDefinition": "تعريفات العملة",
     "CurrencyConversion": "تحويلات العملة",
@@ -251,7 +252,7 @@
   "tag": {
     "taglist": "قائمة العلامات",
     "Search": "البحث",
-    "AddNew": "إضافة جديدة",
+    "AddNew": " إنشاء",
     "AddNewTag": "إضافة علامة جديدة",
     "EditTag": "تعديل العلامة",
     "Id": "المعرف",
@@ -266,6 +267,7 @@
     "AddTag": "إضافة علامة",
     "Active": "نشط",
     "Deactivate": "إلغاء التنشيط",
+    "tagPrint":"طباعة الوسم",
     "success": "نجاح",
     "addtag": {
       "title": "إضافة علامة",
@@ -309,7 +311,7 @@
     "Title": "تعريفات العملات",
     "AddTitle": "إضافة تعريف عملة",
     "EditTitle": "تعديل تعريف عملة",
-    "AddNew": "إضافة جديدة",
+    "AddNew": " إنشاء",
     "Search": "بحث",
     "code": "رمز",
     "success": "نجاح",
@@ -325,7 +327,8 @@
     "type": "نوع",
     "category": "فئة",
     "UOM": "وحدة القياس",
-    "actions": "إجراءات"
+    "actions": "إجراءات",
+    "currencyDefinitionPrint":"طباعة تعريف العملة"
   },
   "addcurrency": {
     "title": "إضافة عملة",
@@ -345,7 +348,8 @@
     "AddNewcurrency": "إضافة عملة جديدة",
     "Editcurrency": "تعديل العملة",
     "search": "بحث",
-    "addNew": "إضافة جديدة",
+    "addNew": " إنشاء",
+    "currencyConversionPrint":"طباعة تحويل العملة",
     "save": "حفظ",
     "cancel": "إلغاء",
     "FromCurrency": "من العملة",
@@ -383,7 +387,9 @@
     "periodStart": "بداية الفترة",
     "periodend": "نهاية الفترة",
     "periodStatus": "حالة الفترة",
-    "actions": "الإجراءات"
+    "actions": "الإجراءات",
+    "financialCalendarPrint":"طباعة التقويم المالي"
+
   },
   "addFinancialCalendar": {
     "success": "نجاح",
@@ -437,7 +443,8 @@
     "Action": "العمليات",
     "CountryName": "اسم البلد",
     "TaxGrouplist": "قائمة مجموعة الضرائب",
-    "AddNew": "إضافة جديد",
+    "AddNew": " إنشاء",
+    "TaxGroupPrint":"طباعة مجموعة الضرائب",
     "Search": "بحث",
     "CannotDeleteTaxGroupUsedInTransactions":"لا يمكن حذف مجموعة الضرائب المستخدمة في المعاملات",
 
@@ -469,6 +476,8 @@
     "TaxCode": "كود الضريبة",
     "Ratio": "النسبة",
     "GlAccount": "حساب الأستاذ العام",
+    "TaxDefinitionPrint":"طباعة تعريف الضريبة",
+
     "TaxGroup": "مجموعة الضرائب",
     "TaxGroupId": "معرف مجموعة الضرائب",
     "Save": "حفظ",
@@ -478,7 +487,7 @@
     "Name": "الاسم",
     "Account": "الحساب",
     "Search": "بحث",
-    "AddNew": "إضافة جديد",
+    "AddNew": " إنشاء",
     "Export": "تصدير",
     "CannotEditTaxGroupUsedInTransactions": "لا يمكن تعديل مجموعة الضرائب المستخدمة في المعاملات",
     "CannotDeleteTaxUsedInTransactions": "لا يمكن حذف الضريبة المستخدمة في المعاملات",

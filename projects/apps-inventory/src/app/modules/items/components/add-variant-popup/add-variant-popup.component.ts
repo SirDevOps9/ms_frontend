@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { LayoutService } from 'apps-shared-lib';
 import { DynamicDialogConfig, DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { FormsService, customValidators } from 'shared-lib';
+import { FormsService, LanguageService, customValidators } from 'shared-lib';
 import { ItemsService } from '../../items.service';
 
 @Component({
@@ -13,7 +13,7 @@ import { ItemsService } from '../../items.service';
 export class AddVariantPopupComponent implements OnInit {
   itemDefinitionForm: FormGroup;
   selectedModules: number[] = [];
-
+  currentLang:string = ''
   attributeName : any = []
   attributeValues : any = []
 
@@ -27,8 +27,9 @@ export class AddVariantPopupComponent implements OnInit {
     private ref: DynamicDialogRef,
     private formsService: FormsService,
     private itemsService : ItemsService,
-
+    public languageService: LanguageService,
   ) {
+    this.currentLang = this.languageService.getLang();
 
   }
 
@@ -51,9 +52,9 @@ export class AddVariantPopupComponent implements OnInit {
       }
     })
 
-    
 
-   
+
+
 
 
   }
@@ -62,12 +63,12 @@ export class AddVariantPopupComponent implements OnInit {
     this.itemsService.attributeNameDropDownLookupObs.subscribe(res=>{
       this.attributeName = res
       if(this.config.data.formValue) {
-        let formData =this.config.data.formValue 
+        let formData =this.config.data.formValue
         formData =  formData.map((elem : any)=>elem.attributeGroupId)
         this.attributeName = this.attributeName.filter((item : any)=> !formData.includes(item.id))
- 
-  
-  
+
+
+
       }
     })
   }
@@ -103,7 +104,7 @@ export class AddVariantPopupComponent implements OnInit {
    let attributeValues =  this.attributeValues.filter((elem : any)=> this.itemDefinitionForm.get('attributeGroupDetails')?.value.includes(elem.id)).map((item : any)=>item.nameEn)
         let attributeName : string = this.attributeName.find((elem : any)=>elem.id == this.itemDefinitionForm.value.attributeGroupId).nameEn
         this.ref.close({attributeName : attributeName , attributeDetails  :this.itemDefinitionForm.get('attributeGroupDetails')?.value , values :  attributeValues , attributeGroupId : this.itemDefinitionForm.get('attributeGroupId')?.value} )
-      
+
     // })
 
 

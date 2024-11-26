@@ -3,6 +3,7 @@ import { LanguageService, lookupDto, PageInfo, PageInfoResult, RouterService } f
 import { AccountService } from '../../../account.service';
 import { AccountNature, AccountDto, ExportAccountsDto } from '../../../models';
 import { Title } from '@angular/platform-browser';
+import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
 
 @Component({
   selector: 'app-chat-of-account-list',
@@ -21,6 +22,7 @@ export class ChatOfAccountListComponent implements OnInit {
   constructor(private routerService: RouterService,
     private title: Title,
     private langService: LanguageService,
+    private exportService:ExportService,
     private accountService: AccountService) {
     this.title.setTitle(this.langService.transalte('ChartOfAccount.ChartOfAccountList'));
 
@@ -105,11 +107,25 @@ export class ChatOfAccountListComponent implements OnInit {
   routeToEdit(id: number) {
     this.routerService.navigateTo(`/journalentry/edit/${id}`);
   }
-
+  exportClick(e?: Event) {
+    this.exportAccountsData(this.searchTerm);
+  }
   exportAccountsData(searchTerm: string) {
     this.accountService.exportAccountsData(searchTerm);
+
+    const columns = [
+      { name: 'accountCode', headerText: 'ChartOfAccount.AccountCode' },
+      { name: 'name', headerText: 'ChartOfAccount.AccountName' },
+      { name: 'levelNumber', headerText: 'ChartOfAccount.levelNumber' },
+      { name: 'accountSectionName', headerText: 'ChartOfAccount.AccountSection' },
+      { name: 'accountTypeName', headerText: 'ChartOfAccount.AccountType' },
+      { name: 'natureId', headerText: 'ChartOfAccount.Nature' },
+      { name: 'isActive', headerText: 'ChartOfAccount.Status' }
+    ];
+
     this.accountService.exportsAccountsDataSourceObservable.subscribe((res) => {
-      this.exportData = res;
+      this.exportData = this.exportService.formatCiloma(res, columns);
     });
   }
+
 }

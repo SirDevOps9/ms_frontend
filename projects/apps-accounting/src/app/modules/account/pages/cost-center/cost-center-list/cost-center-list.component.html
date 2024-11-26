@@ -35,7 +35,7 @@
               template: actions
 
             },
-       
+
             ]
           }">
     <ng-container search>
@@ -49,9 +49,15 @@
     </ng-container>
     <ng-container action>
       <div>
-        <lib-export (exportClick)="exportCostCentersData($event)" [exportData]="exportData"
-          [exportColumns]="exportColumns" [ExportName]="'Cost Centers'">
-        </lib-export>
+
+        <lib-export
+        (exportClick)="exportClick($event)"
+        [exportData]="exportData"
+        [exportColumns]="exportColumns"
+        [ExportName]="('ChartOfAccount.costCenterPrint' |translate)"
+
+      >
+      </lib-export>
       </div>
     </ng-container>
 

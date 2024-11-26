@@ -3,6 +3,7 @@ export interface GetWarehouseList {
     code: string
     name: string
     isActive: boolean
-    warehouseType: number
+    warehouseType: number,
+    createdOn?: Date
+
   }
-  
