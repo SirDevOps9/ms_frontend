@@ -3,20 +3,22 @@ export interface HelpPagesList {
     serviceId: number
     serviceName: string
     hasHelpPage: boolean
+    publish: boolean
     appName: string
   }
   
   export interface AddHelpPage {
-    title: string
-    isDraft: boolean
+    nameEn: string
+    nameAr: string
+    titleEn: string
     publishStartDate: string
     publishEndDate: string
-    sefName: string
+    titleAr: string
     serviceId: number
     helpPageDetails: HelpPageDetails
   }
   
   export interface HelpPageDetails {
-    content: string
-    description: string
+    contentEn: string
+    contentAr: string
   }

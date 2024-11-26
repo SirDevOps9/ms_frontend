@@ -3,7 +3,6 @@ import { Component, inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { PageInfo, PageInfoResult, RouterService } from 'shared-lib';
 import { HelpPageService } from '../../help-page.service';
 import { HelpPagesList } from '../../models/heloPage';
-
 @Component({
   selector: 'app-list-help-page',
   templateUrl: './list-help-page.component.html',
@@ -21,7 +20,7 @@ export class ListHelpPageComponent implements OnInit {
   ngOnInit() {
     this.initgetHelpPagesList();
   }
-  // init help page 
+  // init help page
   initgetHelpPagesList() {
     this._helpService.getHelpPagesList('', new PageInfo());
     this._helpService.helpsPageList$.subscribe({
@@ -64,5 +63,12 @@ export class ListHelpPageComponent implements OnInit {
 
   addNew(ID: number) {
     this.routerService.navigateTo(`/help-pages/add-page/${ID}`);
+  }
+
+  async onPublishChange(id: number) {
+    const confirmed = await this._helpService.showConfirm();
+    if (confirmed) {
+      this._helpService.publishChangeById(id);
+    } else this.initgetHelpPagesList();
   }
 }

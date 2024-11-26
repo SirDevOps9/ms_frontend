@@ -9,15 +9,15 @@
       pageSize: 10,
       columns: [
         {
-          name: 'helpPageTitle',
-          headerText: ('Page Title'),
+          name: 'helpPageTitleEn',
+          headerText: ('Title (En)'),
           isGlobalFilter: true,
           isSortable: false,
           
         },
         {
-                name: 'helpPageSefName',
-                headerText: ('Sef Name'),
+                name: 'helpPageTitleAr',
+                headerText: ('Title (Ar)'),
                 isGlobalFilter: true,
                 isSortable: false,
   
@@ -50,8 +50,8 @@
             },
        
             {
-              name: 'hasHelpPage',
-              headerText: ('Has Help Page'),
+              name: 'publish',
+              headerText: ('Publish'),
               isGlobalFilter: true,
               isSortable: false,
               template: status
@@ -87,7 +87,7 @@
 
       <ng-template #status let-tag>
         <div>
-          <lib-input-switch [disabled]="true" [(ngModel)]="tag.hasHelpPage"> </lib-input-switch>
+          <lib-input-switch (click)="onPublishChange(tag.helpPageId)" [disabled]="!tag.hasHelpPage" [(ngModel)]="tag.publish"> </lib-input-switch>
         </div>
       </ng-template>
     </lib-data-table>
