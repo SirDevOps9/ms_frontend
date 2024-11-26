@@ -153,13 +153,16 @@ export class UOMEditComponent implements OnInit {
     }, 1000);
 
     this._itemService.getUOMCategoryByIdData$.subscribe((res) => {
-      console.log(res);
+  
       this.getUOMS.clear();
       this.uomsData = res.uoMs;
 
       if (res.uoMs?.length) {
         res?.uoMs.forEach((elem: any, i: any) => {
-          if (i == 0) return;
+          if (i == 0) {
+            this.systemUnitChanged(res?.uoMs[0]?.systemUnitOfMeasureId)
+            return;
+          } 
           let formGroup = this.fb.group({
             id: elem.id,
             code: elem.code,
