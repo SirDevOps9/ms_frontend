@@ -22,7 +22,7 @@ const routes: Routes = [
     },
     children: [
       {
-        path: 'man-sales',
+        path: 'sales-man',
         component: MainManComponent,
         data: {
           breadcrumb: BreadcrumbLabel.MAN_SALES,

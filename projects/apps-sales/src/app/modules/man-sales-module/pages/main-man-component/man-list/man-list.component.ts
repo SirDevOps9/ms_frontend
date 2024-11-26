@@ -66,7 +66,7 @@ export class ManListComponent implements OnInit {
 
     const ref = this.dialog.open(AddManPopupComponent, {
       width: 'auto',
-      height: '600px',
+      height: '500px',
     });
     ref.onClose.subscribe((res: any) => {
       if (res) {

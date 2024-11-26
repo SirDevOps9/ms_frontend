@@ -1,7 +1,7 @@
 <div class="grid w-100 card" [formGroup]="formGroup">
   <div class="grid p-0 m-0">
     <div class="md:col-12">
-      <p class="heads">{{ 'mainSales.main' | translate }}</p>
+      <p class="heads font-medium text-xl">{{ 'mainSales.main' | translate }}</p>
     </div>
 
     <div class="grid px-4">
@@ -22,16 +22,16 @@
   <!--  -->
 
   <hr class="hrSeparate" />
-  <div class="md:col-12">
-    <p class="heads">{{ 'mainSales.salesTeam' | translate }}</p>
+  <div class="md:col-12 pb-0 mb-0">
+    <p class="heads font-medium text-xl">{{ 'mainSales.salesTeam' | translate }}</p>
   </div>
   <!--  -->
-  <div class="md:col-12">
+  <div class="md:col-12 pt-0 mt-0">
     <div class="grid flex align-items-center">
       <div class="md:col-4">
         <lib-form-group>
           <lib-label [appControl]="formGroup.controls['countryId']">
-            {{ 'mainSales.countryOfOrigin' | translate }}
+            {{ 'mainSales.salesTeam' | translate }}
           </lib-label>
           <lib-select
             formControlName="countryId"
@@ -73,10 +73,10 @@
 
   <hr class="hrSeparate" />
   <div class="md:col-12">
-    <p class="heads">{{ 'mainSales.personalInformation' | translate }}</p>
+    <p class="heads font-medium text-xl">{{ 'mainSales.personalInformation' | translate }}</p>
   </div>
 
-  <div class="md:col-12 grid sparateDiv">
+  <div class="md:col-12 grid">
     <div class="col-4">
       <div class="info-lable">
         {{ 'mainSales.ID' | translate }}
@@ -101,7 +101,7 @@
       </div>
       <p>01091997883</p>
     </div>
-    <div class="col-3">
+    <div class="col-2">
       <div class="info-lable flex align-items-center gap-2">
         <img src="assets/images/vansales/Vector.png" alt="" srcset="" />
         {{ 'mainSales.SalesPhoneNumber' | translate }}

@@ -9,7 +9,7 @@
     "edit": "Edit",
     "view": "View",
     "sequence": "sequence",
-    "manSles": "Man Sales",
+    "manSles": "SalesMan",
     "addManSales": "Add Man Sales",
     "mainSles": "Main Sles",
     "addMainSales": "Add Main Sales"
@@ -70,6 +70,7 @@
     "vehicleid": "Vehicle ID",
     "activation": "Activation",
     "actions": "Actions",
+    "addNewSalesMan": "Add New Sales Man",
     "search": "Search",
     "Add": "Create",
     "activeOn": "Active",
@@ -97,6 +98,7 @@
     "phoneNumber": "Phone Number",
     "ItemSearch": "Item Search",
     "number": "Number",
+    "username": "User Name",
     "addManpopupAttention": "Please select a sales team and a user to proceed."
   }
 }

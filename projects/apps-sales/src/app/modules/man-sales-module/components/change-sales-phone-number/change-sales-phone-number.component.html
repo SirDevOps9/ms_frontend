@@ -3,23 +3,29 @@
   [closeFunction]="onCancel"
   (Submit)="onSubmit()"
 >
-  <span class="m-auto text-center break-words w-10">
-    {{
-      'mainSales.popupAttention'
-        | translate
-    }}
-  </span>
-  <div>
+  <div class="m-auto text-center head-instraction">
+    {{ 'mainSales.popupAttention' | translate }}
+  </div>
+  <div class="pt-3">
     <form class="domain_form" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
       <div class="domain_content">
         <div class="grid m-0">
-          <div class="col-12 my-2">
+          <div class="col-6 my-2">
+            <div class="info-lable flex align-items-center gap-2">
+              <img src="assets/images/vansales/Vector.png" alt="" srcset="" />
+              {{ 'mainSales.SalesPhoneNumber' | translate }}
+            </div>
+            <p>01091997883</p>
+          </div>
+          <div class="col-6 my-2">
             <lib-form-group>
+              <lib-label [appControl]="formGroup.controls['phoneNumber']">
+                {{ 'mainSales.phoneNumber' | translate }}
+              </lib-label>
               <lib-text-input
                 type="text"
                 formControlName="phoneNumber"
                 placeholder="{{ 'mainSales.phoneNumber' | translate }}"
-                [readOnly]="true"
                 [iconUrl]="'assets/images/Vector.png'"
                 class="form-control"
               />
