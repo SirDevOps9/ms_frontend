@@ -78,7 +78,10 @@ export class PurchaseInvoiceListComponent implements OnInit {
   }
 
   // on Delete
-  onDelete(id: number) {}
+  onDelete(id: number) {
+
+    this.transactionsService.deleteInvoiceLine(id);
+  }
 
   exportedColumns(obj: { SortBy: number; SortColumn: string }) {
     this.SortBy = obj.SortBy;

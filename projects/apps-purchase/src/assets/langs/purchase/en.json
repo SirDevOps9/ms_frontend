@@ -238,6 +238,8 @@
     "search": "Search",
     "Add": "Create",
     "btnReserve": "Reserve",
-    "btnReserved": "Reserved"
+    "btnReserved": "Reserved",
+    "success": "Reserved",
+    "delete": "Data Deleted Successfully"
   }
 }

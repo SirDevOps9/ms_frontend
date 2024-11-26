@@ -37,4 +37,8 @@ export class PurchaseTransactionsProxyService {
     query += params.join('&');
     return this.httpService.get<IinvoiceDto[]>(query);
   }
+  // delete from list of purchase
+  deleteInvoiceLine(id: number): Observable<boolean> {
+    return this.httpService.delete<boolean>(`Invoice/${id}`);
+  }
 }

@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { PurchaseTransactionsProxyService } from './purchase-transactions-proxy.service';
 import { BehaviorSubject } from 'rxjs';
-import { PageInfo, PageInfoResult } from 'shared-lib';
+import { LanguageService, PageInfo, PageInfoResult, ToasterService } from 'shared-lib';
 import { IinvoiceDto } from './model/purchase-invoice';
 
 @Injectable({
@@ -9,6 +9,9 @@ import { IinvoiceDto } from './model/purchase-invoice';
 })
 export class PurchaseTransactionsService {
   purchaseProxy = inject(PurchaseTransactionsProxyService);
+  toasterService = inject(ToasterService);
+  languageService = inject(LanguageService);
+
   // paging
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
 
@@ -37,4 +40,24 @@ export class PurchaseTransactionsService {
     });
   }
   // export  purchase inv
+  // delete invoice
+  async deleteInvoiceLine(id: number) {
+    const confirmed = await this.toasterService.showConfirm('Delete');
+    if (confirmed) {
+      this.purchaseProxy.deleteInvoiceLine(id).subscribe({
+        next: (res) => {
+          this.toasterService.showSuccess(
+            this.languageService.transalte('purchase.success'),
+            this.languageService.transalte('purchase.delete')
+          );
+          let data = this.invoicePurchaseList.getValue();
+          const updatedInvoice = data.filter((elem: any) => elem.id !== id);
+          this.invoicePurchaseList.next(updatedInvoice);
+
+          return res;
+        },
+        error: (err) => {},
+      });
+    }
+  }
 }

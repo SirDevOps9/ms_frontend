@@ -1,4 +1,5 @@
 export interface IinvoiceDto {
+  id?: number;
   code: string;
   invoiceDate: string;
   vendorCode: string;

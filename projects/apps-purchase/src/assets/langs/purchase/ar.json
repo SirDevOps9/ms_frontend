@@ -222,17 +222,19 @@
     "reference": "المرجع",
     "paymentTerms": "شروط الدفع",
     "warehouse": "المستودع",
-    "invoiceJournal": "دفتر الفواتير",
-    "stockIn": "حالة الإدخال إلى المخزون",
-    "totalAmount": "المبلغ الإجمالي",
-    "discountAmount": "قيمة الخصم",
+    "invoiceJournal": "سجل الفاتورة",
+    "stockIn": "حالة دخول المخزون",
+    "totalAmount": "إجمالي المبلغ",
+    "discountAmount": "مبلغ الخصم",
     "totalAfterDiscount": "الإجمالي بعد الخصم",
-    "vatAmount": "قيمة الضريبة المضافة",
-    "totalAfterVat": "الإجمالي بعد الضريبة المضافة",
+    "vatAmount": "مبلغ الضريبة",
+    "totalAfterVat": "الإجمالي بعد الضريبة",
     "actions": "الإجراءات",
     "search": "بحث",
     "Add": "إنشاء",
-    "btnReserve": "احجز",
-    "btnReserved": "محجوز"
+    "btnReserve": "حجز",
+    "btnReserved": "تم الحجز",
+    "success": "تم  بنجاح",
+    "delete": "تم حذف البيانات بنجاح"
   }
 }
