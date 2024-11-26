@@ -12,9 +12,9 @@ export class PurchaseTransactionsService {
   // paging
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
 
-  // list of purchase inv
+  // list of purchase inv and export
   invoicePurchaseList = new BehaviorSubject<IinvoiceDto[]>([]);
-  invoicePurchaseList$ = this.invoicePurchaseList.asObservable();
+  exportInvoiceData = new BehaviorSubject<IinvoiceDto[]>([]);
   // list of purchase inv
 
   // list of purchase inv
@@ -27,4 +27,14 @@ export class PurchaseTransactionsService {
     });
   }
   // list of purchase inv
+  // export  purchase inv
+
+  exportInvoiceListData(searchTerm?: string, SortBy?: number, SortColumn?: string) {
+    this.purchaseProxy.exportInvoiceListData(searchTerm, SortBy, SortColumn).subscribe({
+      next: (res) => {
+        this.exportInvoiceData.next(res);
+      },
+    });
+  }
+  // export  purchase inv
 }

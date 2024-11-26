@@ -36,7 +36,6 @@ export class PurchaseInvoiceListComponent implements OnInit {
 
   // other genera properties
   currentPageInfo: PageInfoResult = {};
-  modulelist: MenuModule[];
   searchTerm: string;
   // other genera properties
 
@@ -59,20 +58,19 @@ export class PurchaseInvoiceListComponent implements OnInit {
 
   // pagination
   onPageChange(pageInfo: PageInfo) {
-    // this.transactionsService.getAllStockIn('', pageInfo);
+    this.transactionsService.getInvoiceList('', pageInfo);
   }
 
   onAdd() {
     this.routerService.navigateTo('/transaction/purchase-invoice/Add-purchase-invoice');
   }
-  onVeiw(data: any) {}
 
   onEdit(id: any) {
     this.routerService.navigateTo(`/transaction/purchase-invoice/Edit-purchase-invoice/${id}`);
   }
 
   onSearchChange() {
-    // this.transactionsService.getAllStockIn(this.searchTerm, new PageInfo());
+    this.transactionsService.getInvoiceList(this.searchTerm, new PageInfo());
   }
 
   // on Delete
@@ -84,9 +82,9 @@ export class PurchaseInvoiceListComponent implements OnInit {
   }
   // on export data
   exportClick() {
-    // this.transactionsService.exportStockInList(this.searchTerm, this.SortBy, this.SortColumn);
-    // this.transactionsService.exportStockInListDataSourceObservable.subscribe((res) => {
-    //   this.exportData = res;
-    // });
+    this.transactionsService.exportInvoiceListData(this.searchTerm, this.SortBy, this.SortColumn);
+    this.transactionsService.exportInvoiceData.subscribe((res) => {
+      this.exportData = res;
+    });
   }
 }
