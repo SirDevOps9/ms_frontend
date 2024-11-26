@@ -8,7 +8,7 @@ import { SharedStock } from 'projects/apps-inventory/src/app/modules/transaction
 import { TransactionsService } from 'projects/apps-inventory/src/app/modules/transactions/transactions.service';
 import { skip } from 'rxjs';
 import { LookupEnum, lookupDto, PageInfoResult, MenuModule, customValidators, PageInfo, LanguageService, LookupsService, RouterService, FormsService, ToasterService } from 'shared-lib';
-import { VendorAdvancedSearchComponent } from '../../../components/vendor-advanced-search/vendor-advanced-search.component';
+// import { VendorAdvancedSearchComponent } from '../../../components/vendor-advanced-search/vendor-advanced-search.component';
 
 @Component({
   selector: 'app-add-purchase-invoice',
@@ -282,13 +282,13 @@ export class AddPurchaseInvoiceComponent implements OnInit {
   
   
   openAdvancedSearch() {
-    const ref = this.dialog.open(VendorAdvancedSearchComponent, {
-      width: '650px',
-      height: '600px',
-    });
-    ref.onClose.subscribe((selectedItems: any[]) => {
+    // const ref = this.dialog.open(VendorAdvancedSearchComponent, {
+    //   width: '650px',
+    //   height: '600px',
+    // });
+    // ref.onClose.subscribe((selectedItems: any[]) => {
 
-    });
+    // });
   }
 
 
