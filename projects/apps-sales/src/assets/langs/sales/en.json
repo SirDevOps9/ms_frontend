@@ -12,6 +12,8 @@
     "manSles": "SalesMan",
     "addManSales": "Add Man Sales",
     "mainSles": "Main Sles",
+    "teamSales": "Sales Team ",
+    "salesTeamDetails": "Sales Team Details",
     "addMainSales": "Add Main Sales"
   },
   "pricePolicy": {
@@ -70,6 +72,7 @@
     "vehicleid": "Vehicle ID",
     "activation": "Activation",
     "actions": "Actions",
+    "YouCanViewTheUsersInTheListBelow": "You can view the users in the list below",
     "addNewSalesMan": "Add New Sales Man",
     "search": "Search",
     "Add": "Create",

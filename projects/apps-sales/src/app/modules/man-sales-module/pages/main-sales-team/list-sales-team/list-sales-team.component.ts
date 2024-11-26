@@ -1,12 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { SequenceService } from 'apps-shared-lib';
 import { AuthService } from 'microtec-auth-lib';
 import { DialogService } from 'primeng/dynamicdialog';
 import { StockInDto } from 'projects/apps-inventory/src/app/modules/items/models';
-import { SharedStock } from 'projects/apps-inventory/src/app/modules/transactions/models/sharedStockOutEnums';
 import { TransactionsService } from 'projects/apps-inventory/src/app/modules/transactions/transactions.service';
-import { from, switchMap, tap } from 'rxjs';
 import {
   lookupDto,
   PageInfoResult,
@@ -15,14 +11,14 @@ import {
   RouterService,
   SharedEnums,
 } from 'shared-lib';
-import { AddManPopupComponent } from '../../../components/add-man-popup/add-man-popup.component';
+import { ViewMenInTeamComponent } from '../../../components/view-men-in-team/view-men-in-team.component';
 
 @Component({
-  selector: 'app-main-list-team',
-  templateUrl: './main-list-team.component.html',
-  styleUrl: './main-list-team.component.scss',
+  selector: 'list-sales-team',
+  templateUrl: './list-sales-team.component.html',
+  styleUrl: './list-sales-team.component.scss',
 })
-export class MainListTeamComponent implements OnInit {
+export class ListSalesTeamComponent implements OnInit {
   SortBy?: number;
   SortColumn?: string;
   tableData: any[];
@@ -36,7 +32,6 @@ export class MainListTeamComponent implements OnInit {
   searchTerm: string;
 
   ngOnInit() {
-    this.initStockOutData();
     this.subscribes();
   }
   subscribes() {
@@ -54,28 +49,19 @@ export class MainListTeamComponent implements OnInit {
     this.transactionsService.getAllStockIn('', pageInfo);
   }
 
-  exportBankData(searchTerm: string) {
-    this.transactionsService.exportStockInList(searchTerm);
-    this.transactionsService.exportStockInListDataSourceObservable.subscribe((res) => {
-      this.exportData = res;
-    });
-  }
-
   onAdd() {
-    // this.routerService.navigateTo(`/masterdata/man-sales/add`);
-
-    const ref = this.dialog.open(AddManPopupComponent, {
+    this.routerService.navigateTo(`/masterdata/sales-team/add`);
+  }
+  onVeiw(data: any) {
+    const ref = this.dialog.open(ViewMenInTeamComponent, {
       width: 'auto',
-      height: '600px',
+      height: '400px',
     });
     ref.onClose.subscribe((res: any) => {
       if (res) {
         console.log(res);
       }
     });
-  }
-  onVeiw(data: any) {
-    this.routerService.navigateTo(`transactions/stock-in/view/${data}`);
   }
 
   onEdit(id: any) {
@@ -86,20 +72,7 @@ export class MainListTeamComponent implements OnInit {
     // this.transactionsService.getAllStockIn(this.searchTerm, new PageInfo());
   }
 
-  onDelete(id: number) {
-    from(this.transactionsService.deleteStockIn(id))
-      .pipe(
-        switchMap(() => this.transactionsService.sendStockInDataSourcesObs),
-        tap((data: any) => {
-          if (data) {
-            this.initStockOutData();
-          }
-        })
-      )
-      .subscribe({
-        error: (err: any) => {},
-      });
-  }
+  onDelete(id: number) {}
 
   exportedColumns(obj: { SortBy: number; SortColumn: string }) {
     this.SortBy = obj.SortBy;
@@ -116,11 +89,7 @@ export class MainListTeamComponent implements OnInit {
     private routerService: RouterService,
     public authService: AuthService,
     private dialog: DialogService,
-    private title: Title,
-    private transactionsService: TransactionsService,
-    public sharedFinanceEnums: SharedStock,
-    public sequenceService: SequenceService,
-    public sharedEnums: SharedEnums
+    private transactionsService: TransactionsService
   ) {
     console.log(this.routerService.getCurrentUrl());
   }

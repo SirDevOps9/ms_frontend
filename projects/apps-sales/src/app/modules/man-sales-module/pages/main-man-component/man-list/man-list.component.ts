@@ -65,8 +65,8 @@ export class ManListComponent implements OnInit {
     // this.routerService.navigateTo(`/masterdata/man-sales/add`);
 
     const ref = this.dialog.open(AddManPopupComponent, {
-      width: 'auto',
-      height: '500px',
+      width: '400px',
+      height: '300px',
     });
     ref.onClose.subscribe((res: any) => {
       if (res) {

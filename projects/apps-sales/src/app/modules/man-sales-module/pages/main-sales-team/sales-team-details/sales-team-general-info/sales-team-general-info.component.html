@@ -1,0 +1,40 @@
+<p class="heads font-medium text-xl">{{ 'mainSales.personalInformation' | translate }}</p>
+<div class="grid w-100 card" [formGroup]="formGroup">
+  <div class="grid">
+    <div class="col-4">
+      <div class="info-lable">
+        {{ 'mainSales.ID' | translate }}
+      </div>
+      <p>2323</p>
+    </div>
+    <lib-text-input
+      placeholder="{{ 'mainSales.name' | translate }}"
+      formControlName="name"
+    ></lib-text-input>
+  </div>
+</div>
+
+<div class="grid">
+  <div class="md:col-12 my-3 grid flex justify-content-end">
+    <div class="md:col-4 grid flex justify-content-end">
+      <div class="md:col-6">
+        <lib-button-micro
+          title="{{ 'mainSales.cancel' | translate }}"
+          nameClass="cancel"
+          widthNumber="100%"
+          (click)="onCancel()"
+        >
+        </lib-button-micro>
+      </div>
+      <div class="md:col-6">
+        <lib-button-micro
+          title="{{ 'mainSales.save' | translate }}"
+          nameClass="save"
+          widthNumber="100%"
+          (click)="onSave()"
+        >
+        </lib-button-micro>
+      </div>
+    </div>
+  </div>
+</div>

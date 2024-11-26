@@ -5,7 +5,7 @@ export class BreadcrumbLabel {
   static readonly CostCenter = 'BreadCrumb.CostCenter';
   static readonly JournalEntryList = 'BreadCrumb.JournalEntryList';
   static readonly JournalEntryAdd = 'BreadCrumb.JournalEntryAdd';
-  static readonly JournalEntryAddTilte=  'BreadCrumb.JournalEntryAddTtile';
+  static readonly JournalEntryAddTilte = 'BreadCrumb.JournalEntryAddTtile';
   static readonly JournalEntryView = 'BreadCrumb.JournalEntryView';
   static readonly JournalEntryEdit = 'BreadCrumb.JournalEntryEdit';
   static readonly JournalEntryEditTilte = 'BreadCrumb.JournalEntryEditTilte';
@@ -14,9 +14,11 @@ export class BreadcrumbLabel {
   static readonly JournalEntryOpeningBalance = 'BreadCrumb.JournalEntryOpeningBalance';
   static readonly JournalEntryOpeningBalanceTitle = 'BreadCrumb.JournalEntryOpeningBalance';
   static readonly AddJournalEntryOpeningBalance = 'BreadCrumb.AddJournalEntryOpeningBalance';
-  static readonly AddJournalEntryOpeningBalanceTilte = 'BreadCrumb.AddJournalEntryOpeningBalanceTilte';
+  static readonly AddJournalEntryOpeningBalanceTilte =
+    'BreadCrumb.AddJournalEntryOpeningBalanceTilte';
   static readonly EditJournalEntryOpeningBalance = 'BreadCrumb.EditJournalEntryOpeningBalance';
-  static readonly EditJournalEntryOpeningBalanceTilte = 'BreadCrumb.EditJournalEntryOpeningBalanceTitle';
+  static readonly EditJournalEntryOpeningBalanceTilte =
+    'BreadCrumb.EditJournalEntryOpeningBalanceTitle';
   static readonly ViewJournalEntryOpeningBalance = 'BreadCrumb.ViewJournalEntryOpeningBalance';
   static readonly CUSTOMER_DEFINITIONS = 'BreadCrumb.CustomerDefinition';
   static readonly ADD_CUSTOMER_DEFINITIONS = 'BreadCrumb.AddCustomerDefinition';
@@ -83,11 +85,11 @@ export class BreadcrumbLabel {
   static DOMAIN = 'Domain Details';
   static Manage_Apps = 'Manage Apps';
   static BUSSINESS_OWNER = 'Bussiness Owners';
-    static HELP_PAGES='Help Pages';
+  static HELP_PAGES = 'Help Pages';
   static MANAGE_BUSSINESS_OWNER = 'Manage Bussiness Owners';
   static SUBDOMAIN_INFO = 'Subdomain Info';
-    static Edit_Help_Page='Edit Help Page';
-    static Add_Help_Page='Add Help Page';
+  static Edit_Help_Page = 'Edit Help Page';
+  static Add_Help_Page = 'Add Help Page';
   static COMPANIES_INFO = 'Company Info';
   static LICENCE_INFO = 'licence Info';
   static USER_INFO = 'USER Info';
@@ -189,9 +191,9 @@ export class BreadcrumbLabel {
   static TITLE_PRICE_POLICY_ADD = 'title.add';
   static TITLE_PRICE_POLICY_EDIT = 'title.edit';
   static TITLE_PRICE_POLICY_VIEW = 'title.view';
-  static MAN_SALES =  'BreadCrumb.manSles'
-  static MAIN_SALES =  'BreadCrumb.mainSles'
-  static ADD_MAN_SALES =  'BreadCrumb.addManSales'
-    static ADD_MAin_SALES =  'BreadCrumb.addMainSales'
+  static MAN_SALES = 'BreadCrumb.manSles';
+  static TEAM_SALES = 'BreadCrumb.teamSales';
+  static ADD_MAN_SALES = 'BreadCrumb.addManSales';
+  static SALES_TEAM_DETAILS = 'BreadCrumb.salesTeamDetails';
   static INVENTORY = 'Inventory';
 }

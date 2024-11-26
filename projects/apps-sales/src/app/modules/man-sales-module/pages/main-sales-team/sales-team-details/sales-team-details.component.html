@@ -1,0 +1,21 @@
+<div class="new_employee">
+  <ng-container>
+    <div class="grid card">
+      <!-- Sidebar Section -->
+      <div class="md:col-2">
+        <p class="font-medium text-xl heads"></p>
+        <div class="sidebar">
+          <ul class="ul-border">
+            <li class="active">{{ 'mainSales.general' | translate }}</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Main Content Section -->
+      <div class="md:col-10 mt-2">
+        <!-- <app-manage-information-for-man></app-manage-information-for-man> -->
+        <app-sales-team-general-info />
+      </div>
+    </div>
+  </ng-container>
+</div>
