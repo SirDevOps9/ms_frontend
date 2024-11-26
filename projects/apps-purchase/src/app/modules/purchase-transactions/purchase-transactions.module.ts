@@ -7,6 +7,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { BreadcrumbLabel, Modules, SharedLibModule } from 'shared-lib';
 import { LayoutPageComponent } from 'apps-shared-lib';
 import { MainPurchaseInvoiceComponent } from './pages/purchase-invoice/main-purchase-invoice/main-purchase-invoice.component';
+import { VendorAavancedSearchComponent } from './components/vendor-aavanced-search/vendor-aavanced-search.component';
 
 const routes: Routes = [
   {
@@ -43,11 +44,11 @@ const routes: Routes = [
             },
           },
           {
-            path: 'Edit-purchase-invoice',
+            path: 'edit',
             component: EditPurchaseInvoiceComponent,
             data: {
-              breadcrumb: 'BreadcrumbLabel.purchaseInvoiceEdit',
-              pageTitle: BreadcrumbLabel.purchaseInvoiceEdit,
+              breadcrumb: BreadcrumbLabel.PURCHASE_EDIT,
+              pageTitle: BreadcrumbLabel.TITLE_PURCHASE_EDIT,
 
 
             },
@@ -65,7 +66,8 @@ const routes: Routes = [
     AddPurchaseInvoiceComponent,
     EditPurchaseInvoiceComponent,
     PurchaseInvoiceListComponent,
-    MainPurchaseInvoiceComponent
+    MainPurchaseInvoiceComponent,
+    VendorAavancedSearchComponent
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule],
 
