@@ -1,10 +1,13 @@
 <lib-bread-crumb></lib-bread-crumb>
 <div>
   <div class="user_page">
-    <lib-button-micro  nameClass="table_button_Add" (click)="addNew()">
-    </lib-button-micro>
-    <lib-data-table [items]="tableData" className="p-datatable-gridlines" [currentPageResult]="currentPageInfo"
-      (pageChange)="onPageChange($event)" [tableConfigs]="{
+    <lib-data-table
+      [items]="tableData"
+      className="p-datatable-gridlines"
+      [currentPageResult]="currentPageInfo"
+      (pageChange)="onPageChange($event)"
+      (addNew)="addNew()"
+      [tableConfigs]="{
       allowPagination: false,
       allowServerPagination: true,
       dataKey: 'id',
@@ -51,28 +54,46 @@
               template: userCol
             },
       ]
-    }">
+    }"
+    >
       <ng-container caption>
-        <div style="display: flex; justify-content: space-between; margin-bottom: 10px" class="mt-1">
+        <div
+          style="display: flex; justify-content: space-between; margin-bottom: 10px"
+          class="mt-1"
+        >
           <div>
-            <lib-text-input type="text" [(ngModel)]="searchTerm" [placeholder]="'Search' | translate"
-              [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'" (keyUp)="onSearchChange()">
+            <lib-text-input
+              type="text"
+              [(ngModel)]="searchTerm"
+              [placeholder]="'Search' | translate"
+              [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'"
+              (keyUp)="onSearchChange()"
+            >
             </lib-text-input>
+          </div>
+          <div>
+            <lib-button-micro
+            [title]="'create' | translate"
+            nameClass="save"
+            iconName="pi pi-plus"
+            (click)="addNew()"
+          >
+          </lib-button-micro>
           </div>
         </div>
       </ng-container>
       <ng-template #userCol let-tag>
         <div class="actions flex align-items-center">
-          <lib-button-micro  nameClass="table_button_edit" (click)="routeToEdit(tag.id)">
+          <lib-button-micro nameClass="table_button_edit" (click)="routeToEdit(tag.id)">
           </lib-button-micro>
-
-          
+          <lib-button-micro nameClass="table_button_delete" (click)="onDelete(tag.id)">
+          </lib-button-micro>
         </div>
       </ng-template>
-
       <ng-template #status let-tag>
         <div>
-          <lib-input-switch  [(ngModel)]="tag.published"> </lib-input-switch>
+          <lib-input-switch (click)="onPublishChange(tag.id)" [(ngModel)]="tag.published">
+          </lib-input-switch>
         </div>
       </ng-template>
     </lib-data-table>

@@ -29,4 +29,11 @@ updateCMS( id :number, obj:AddCMS) {
     return this._baseService.post('WebsiteHelpPage/Create' , obj)
   }
 
+  publishChangeById(id : number ): Observable<boolean>{
+    return this._baseService.put(`WebsiteHelpPage/PublishWebsiteHelpPage/${id}`,null)
+  }
+  delete(id : number ): Observable<boolean>{
+    return this._baseService.put(`WebsiteHelpPage/deleteWebsiteHelpPage/${id}`,null)
+  }
+
 }

@@ -64,4 +64,19 @@ export class ListCMSComponent {
   addNew() {
     this.routerService.navigateTo(`/help-cms/add-CMS`);
   }
+
+  async onPublishChange(id: number) {
+    const confirmed = await this._helpService.showConfirm();
+    if (confirmed) {
+      this._helpService.publishChangeById(id);
+    } else this.initgetCMSList();
+  }
+
+  async onDelete(id: number) {
+    const confirmed = await this._helpService.showConfirm();
+    if (confirmed) {
+      this._helpService.delete(id);
+    };
+  }
+
 }

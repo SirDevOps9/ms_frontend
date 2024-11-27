@@ -10,21 +10,21 @@ const routes: Routes = [
       path: '',
       component: ListCMSComponent,
       data: {
-        breadcrumb: BreadcrumbLabel.HELP_PAGES,
+        breadcrumb: BreadcrumbLabel.CMS,
       },
     },
     {
         path: 'add-CMS',
         component: AddCMSComponent,
         data: {
-          breadcrumb: BreadcrumbLabel.Add_Help_Page,
+          breadcrumb: BreadcrumbLabel.Add_CMS,
         },
       },
     {
         path: 'edit-CMS/:id',
         component: EditCMSComponent,
         data: {
-          breadcrumb: BreadcrumbLabel.Edit_Help_Page,
+          breadcrumb: BreadcrumbLabel.Edit_CMSe,
         },
       },
 ]
