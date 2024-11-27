@@ -1,0 +1,13 @@
+{
+  "dashboard": {
+    "stockOverview": "Stock Overview",
+    "categories": "Categories",
+    "warehouses": "Warehouses",
+    "Status": "Status",
+    "lastStockOut": "Last Stock Out",
+    "lastStockIn": "Last Stock In",
+    "stockExpiryAlert": "Stock Expiry Alert",
+    "moreDetails": "More Details",
+    "status": "Status"
+  }
+}

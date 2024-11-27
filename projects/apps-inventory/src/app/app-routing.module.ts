@@ -13,10 +13,8 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: LandingPageComponent,
-        data: {
-          moduleId: Modules.inventory,
-        },
+        loadChildren: () =>
+          import('./modules/dashboard/dashboard.module').then((m) => m.DashboardModule),
       },
       {
         path: 'masterdata',

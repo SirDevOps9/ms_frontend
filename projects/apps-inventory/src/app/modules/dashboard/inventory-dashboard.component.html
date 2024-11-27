@@ -1,0 +1,113 @@
+<lib-page-content>
+  <div class="user-page">
+    <div class="custom_card" [appLoader]="false">
+      <div class="custom_card_label heading_b26">
+        {{ 'dashboard.stockOverview' | translate }} <i class="pi pi-heart"></i>
+      </div>
+      <div class="account_types_details">
+        <!-- @for(accountBalance of accountTypeBalances; track accountBalance) {
+        <div class="box">
+          <p class="heading_b18 m-0">
+            {{
+              currentLanguage == 'en'
+                ? accountBalance.accountTypeNameEn
+                : accountBalance.accountTypeNameAr
+            }}
+          </p>
+          <p class="paragraph_b16 m-0">{{ accountBalance.totalBalance | decimalSeparator }}</p>
+        </div>
+        } -->
+      </div>
+    </div>
+
+    <div class="charts">
+      <div class="grid">
+        <div class="lg:col-4 md:col-6 col-12" [appLoader]="categoriesLoader">
+          <app-chart-card>
+            <div class="chart-header">
+              <div class="title heading_b18">{{ 'dashboard.categories' | translate }}</div>
+              <div class="action body_b14">
+                <span class="pointer">
+                  {{ 'dashboard.moreDetails' | translate }} <i class="pi pi-arrow-right fs-14"></i>
+                </span>
+                <span class="column-line"></span>
+                <i class="pi pi-heart"></i>
+              </div>
+            </div>
+          </app-chart-card>
+        </div>
+        <div class="lg:col-4 md:col-6 col-12" [appLoader]="warehousesLoader">
+          <app-chart-card>
+            <div class="chart-header">
+              <div class="title heading_b18">{{ 'dashboard.warehouses' | translate }}</div>
+              <div class="action body_b14">
+                <span class="pointer">
+                  {{ 'dashboard.moreDetails' | translate }} <i class="pi pi-arrow-right fs-14"></i>
+                </span>
+                <span class="column-line"></span>
+                <i class="pi pi-heart"></i>
+              </div>
+            </div>
+          </app-chart-card>
+        </div>
+        <div class="lg:col-4 md:col-6 col-12" [appLoader]="statusLoader">
+          <app-chart-card>
+            <div class="chart-header">
+              <div class="title heading_b18">{{ 'dashboard.status' | translate }}</div>
+              <div class="action body_b14">
+                <span class="pointer">
+                  {{ 'dashboard.moreDetails' | translate }} <i class="pi pi-arrow-right fs-14"></i>
+                </span>
+                <span class="column-line"></span>
+                <i class="pi pi-heart"></i>
+              </div>
+            </div>
+          </app-chart-card>
+        </div>
+
+        <div class="lg:col-4 md:col-6 col-12" [appLoader]="lastStockOutLoader">
+          <app-chart-card>
+            <div class="chart-header">
+              <div class="title heading_b18">{{ 'dashboard.lastStockOut' | translate }}</div>
+              <div class="action body_b14">
+                <span class="pointer">
+                  {{ 'dashboard.moreDetails' | translate }} <i class="pi pi-arrow-right fs-14"></i>
+                </span>
+                <span class="column-line"></span>
+                <i class="pi pi-heart"></i>
+              </div>
+            </div>
+          </app-chart-card>
+        </div>
+        <div class="lg:col-4 md:col-6 col-12" [appLoader]="lastStockInLoader">
+          <app-chart-card>
+            <div class="chart-header">
+              <div class="title heading_b18">{{ 'dashboard.lastStockIn' | translate }}</div>
+              <div class="action body_b14">
+                <span class="pointer">
+                  {{ 'dashboard.moreDetails' | translate }} <i class="pi pi-arrow-right fs-14"></i>
+                </span>
+                <span class="column-line"></span>
+                <i class="pi pi-heart"></i>
+              </div>
+            </div>
+          </app-chart-card>
+        </div>
+        <div class="lg:col-4 md:col-6 col-12" [appLoader]="stockExpiryDateLoader">
+          <app-chart-card>
+            <div class="chart-header">
+              <div class="title heading_b18">{{ 'dashboard.stockExpiryAlert' | translate }}</div>
+              <div class="action body_b14">
+                <span class="pointer">
+                  {{ 'dashboard.moreDetails' | translate }} <i class="pi pi-arrow-right fs-14"></i>
+                </span>
+                <span class="column-line"></span>
+                <i class="pi pi-heart"></i>
+              </div>
+            </div>
+          </app-chart-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</lib-page-content>
