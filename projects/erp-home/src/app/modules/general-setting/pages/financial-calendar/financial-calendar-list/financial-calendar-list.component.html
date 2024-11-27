@@ -16,7 +16,7 @@
               dataKey: 'id',
               pageSize: 10,
               columns: [
-                 
+
                  {
                    name: 'code',
                    headerText: ('financialCalendar.code' | translate),
@@ -29,7 +29,7 @@
                    isGlobalFilter: true,
                    isSortable: true
                  },
-               
+
                  {
                    name: 'fromDate',
                    headerText: ('financialCalendar.fromDate' | translate),
@@ -42,7 +42,7 @@
                    isSortable: true
 
                  },
-               
+
                  {
                    name: 'status',
                    headerText: ('financialCalendar.status' | translate),
@@ -73,12 +73,11 @@
 
             <div class="flex gap-2">
               <lib-export
-                (exportClick)="exportClick($event)"
-                [exportData]="mappedExportData"
-                [exportColumns]="exportColumns"
-                [ExportName]="'Financial Calendar'"
-              >
-              </lib-export>
+              (exportClick)="exportClick($event)"
+              [exportData]="exportData"
+              [exportColumns]="exportColumns"
+              [ExportName]="('financialCalendar.financialCalendarPrint' |translate)"        >
+            </lib-export>
               <lib-button-micro
               nameClass="save"
               [title]="'financialCalendar.add' | translate"
@@ -110,7 +109,7 @@
   </div>
 </lib-page-content>
 
-<!-- 
+<!--
 this.generalSettingService.exportFinancialCalendarData(searchTerm)
 
 const columns = [

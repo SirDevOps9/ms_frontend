@@ -56,7 +56,7 @@ const routes: Routes = [
             component: CreateJournalEntryComponent,
             data: {
               breadcrumb: BreadcrumbLabel.JournalEntryAdd,
-              pageTitle: BreadcrumbLabel.JournalEntryAdd,
+              pageTitle: BreadcrumbLabel.JournalEntryAddTilte,
             },
           },
           {
@@ -72,7 +72,7 @@ const routes: Routes = [
             component: EditJournalEntryComponent,
             data: {
               breadcrumb: BreadcrumbLabel.JournalEntryEdit,
-              pageTitle: BreadcrumbLabel.JournalEntryEdit,
+              pageTitle: BreadcrumbLabel.JournalEntryEditTilte,
             },
           },
           {
@@ -139,7 +139,7 @@ const routes: Routes = [
             component: AddJournalEntryOpeningBalanceComponent,
             data: {
               breadcrumb: BreadcrumbLabel.AddJournalEntryOpeningBalance,
-              pageTitle: BreadcrumbLabel.AddJournalEntryOpeningBalance,
+              pageTitle: BreadcrumbLabel.AddJournalEntryOpeningBalanceTilte,
             },
           },
           {
@@ -147,7 +147,7 @@ const routes: Routes = [
             component: EditJournalEntryOpeningBalanceComponent,
             data: {
               breadcrumb: BreadcrumbLabel.EditJournalEntryOpeningBalance,
-              pageTitle: BreadcrumbLabel.EditJournalEntryOpeningBalance,
+              pageTitle: BreadcrumbLabel.EditJournalEntryOpeningBalanceTilte,
             },
           },
           {

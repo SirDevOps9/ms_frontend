@@ -3,9 +3,7 @@
 //   pageSize: number;
 // }
 
-import { SortBy } from "./sort-by";
-
-
+import { SortBy } from './sort-by';
 
 export class PageInfo {
   constructor(

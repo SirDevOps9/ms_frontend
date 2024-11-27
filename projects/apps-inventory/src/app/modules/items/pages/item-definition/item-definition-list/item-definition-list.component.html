@@ -23,7 +23,7 @@
               },
               {
                 name:'name',
-               
+
                 headerText: ('OperationalTag.name' | translate),
                 isGlobalFilter: true,
                 isSortable: true
@@ -66,6 +66,7 @@
               type="text"
               [placeholder]="'itemDefinition.search' | translate"
               [(ngModel)]="searchTerm"
+              [iconUrl]="'pi pi-search'"
               (keyUp)="onSearchChange()"
             ></lib-text-input>
             </lib-form-group>

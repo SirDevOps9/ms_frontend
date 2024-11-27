@@ -1,5 +1,5 @@
     <div class="cardAttributes">
-    
+
       <div>
         <p-table
           [value]="AttributeForm['controls']"
@@ -13,7 +13,7 @@
               <th>{{ 'itemType.attributeName' | translate }}</th>
               <th>{{ 'itemType.attributeValues' | translate }}</th>
               <th>{{ 'itemType.status' | translate }}</th>
-  
+
               <th>{{ 'itemType.actions' | translate }}</th>
             </tr>
           </ng-template>
@@ -34,12 +34,12 @@
               <td>
                 <ng-container *ngFor="let detail of itemDefAttributeGroup.get('attributeName').value; let isLast = last">
                   <span>{{ detail.detailName }}</span><span *ngIf="!isLast">, </span>
-                </ng-container>     
+                </ng-container>
            </td>
               <!--  -->
               <!-- (valueChanged)="confirmChange($event, itemDefAttributeGroup)" -->
-  
-  
+
+
               <td>
                 <lib-input-switch
                   formControlName="isActive"
@@ -48,33 +48,27 @@
               </td>
               <!--  -->
               <td>
-                <div class="flex align-items-center gap-4">
-                  <i
-                    class="pi pi-pencil pointer"
-                    (click)="onEditAttribute(itemDefAttributeGroup)"
-                  ></i>
-                  <i
-                    class="pi pi-trash pointer"
-                    (click)="onDeleteAttribute(itemDefAttributeGroup , i)"
-                  ></i>
+                <div class="flex action align-items-center gap-4">
+                <img src="assets/images/table/edit.svg" alt=""   (click)="onEditAttribute(itemDefAttributeGroup)" />
+                <img src="assets/images/table/delete.svg" alt=""  (click)="onDeleteAttribute(itemDefAttributeGroup , i)" />
                 </div>
               </td>
             </tr>
           </ng-template>
         </p-table>
         <div class="add_new  flex justify-content-start gap-2">
-   
+
           <lib-button (onClick)="addLineAttribute()" className="outline-primary">
             {{ 'itemType.add_new' | translate }}
           </lib-button>
         </div>
       </div>
-  
-  
+
+
       <div class="grid">
         <div class="md:col-12 my-3 grid flex justify-content-end">
           <div class="md:col-4 grid flex justify-content-end">
-          
+
             <div  class="md:col-6">
               <lib-button-micro
                 title="{{ 'itemType.save' | translate }}"
@@ -83,13 +77,12 @@
                 (click)="onSave()"
               >
               </lib-button-micro>
-      
+
             </div>
           </div>
-      
-      
+
+
         </div>
       </div>
     </div>
-    
-    
+

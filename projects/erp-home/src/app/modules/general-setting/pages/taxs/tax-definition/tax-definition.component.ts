@@ -7,6 +7,7 @@ import { TaxDefinitionEditComponent } from '../../../components/tax-definition-e
 import { GeneralSettingService } from '../../../general-setting.service';
 import { TaxDto } from '../../../models/tax-dto';
 import { ExportTaxDto } from '../../../models/export-tax-dto';
+import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
 
 @Component({
   selector: 'app-tax-definition',
@@ -17,7 +18,8 @@ export class TaxDefinitionComponent implements OnInit {
   constructor(
     public authService: AuthService,
     private dialog: DialogService,
-    private generalSettingService: GeneralSettingService
+    private generalSettingService: GeneralSettingService,
+    private exportService:ExportService
   ) {}
 
   tableData: TaxDto[];
@@ -25,30 +27,10 @@ export class TaxDefinitionComponent implements OnInit {
   modulelist: MenuModule[];
   searchTerm: string;
   SortBy?: number
+
   SortColumn?:string
   exportData: ExportTaxDto[];
   exportColumns: lookupDto[] = [
-    {
-      id: 'code',
-      name: 'Id',
-    },
-
-    {
-      id: 'name',
-      name: 'Name',
-    },
-    {
-      id: 'ratio',
-      name: 'Ratio',
-    },
-    {
-      id: 'accountName',
-      name: 'Account',
-    },
-    {
-      id: 'taxGroupName',
-      name: 'Tax Group',
-    },
   ];
 
   ngOnInit() {
@@ -109,14 +91,22 @@ export class TaxDefinitionComponent implements OnInit {
   onDelete(id: number) {
     this.generalSettingService.deleteTax(id);
   }
-  exportedColumns(obj: { SortBy: number; SortColumn: string }) {
-    this.SortBy = obj.SortBy;
-    this.SortColumn = obj.SortColumn;
+  exportClick(e?: Event) {
+    this.exportTaxesData(this.searchTerm);
   }
-  exportTaxesData() {
+  exportTaxesData(searchTerm:string) {
     this.generalSettingService.exportTaxesData(this.searchTerm,this.SortBy,this.SortColumn);
+
+    const columns = [
+      { name: 'code', headerText:('Tax.Id') },
+      { name: 'name', headerText:('Tax.Name') },
+      { name: 'ratio', headerText:('Tax.Ratio') },
+      { name: 'accountName', headerText:('Tax.Account') },
+      { name: 'taxGroupName', headerText:('Tax.TaxGroup') },
+    ];
     this.generalSettingService.exportsTaxesDataSourceObservable.subscribe((res) => {
-      this.exportData = res;
+      this.exportData = this.exportService.formatCiloma(res, columns);
+
     });
   }
 }

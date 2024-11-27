@@ -92,7 +92,8 @@ const routes: Routes = [
         path: 'add-item-definition',
         component: ItemCatalogTabsComponent,
         data: {
-          breadcrumb: '',
+          breadcrumb: BreadcrumbLabel.ITEM_DIFINITION,
+
           pageTitle: BreadcrumbLabel.EDIT_ITEM_DIFINITION,
         },
         children: [
@@ -116,12 +117,12 @@ const routes: Routes = [
             path: 'variants/:id',
             component: ItemDefintionVariantComponent,
             data: {
-              breadcrumb: BreadcrumbLabel.attributes_ITEMdEFINITION,
-              pageTitle: BreadcrumbLabel.attributes_ITEMdEFINITION,
+              breadcrumb: BreadcrumbLabel.variants_ITEMdEFINITION,
+              pageTitle: BreadcrumbLabel.variants_ITEMdEFINITION,
             },
           },
           {
-            path: 'attributes-variants/:id',
+            path: 'attributes/:id',
             component: ItemDefinitionAttributesVariantsComponent,
             data: {
               breadcrumb: BreadcrumbLabel.attributes_ITEMdEFINITION,
@@ -132,16 +133,16 @@ const routes: Routes = [
             path: 'barcode/:id',
             component: ItemDefinitionBarcodeComponent,
             data: {
-              breadcrumb: BreadcrumbLabel.EditItembarcodedefinition,
-              pageTitle: BreadcrumbLabel.EditItembarcodedefinition,
+              breadcrumb: BreadcrumbLabel.TaxTilte,
+              pageTitle: BreadcrumbLabel.TaxTilte,
             },
           },
           {
             path: 'fixed-cost/:id',
             component: ItemFixedCostComponent,
             data: {
-              breadcrumb: BreadcrumbLabel.EditItembarfixedcostfinition,
-              pageTitle: BreadcrumbLabel.EditItembarfixedcostfinition,
+              breadcrumb: BreadcrumbLabel.FIXEDCOST,
+              pageTitle: BreadcrumbLabel.FIXEDCOST,
             },
           },
 
@@ -149,8 +150,8 @@ const routes: Routes = [
             path: 'tax/:id',
             component: ItemDefintionTaxComponent,
             data: {
-              breadcrumb: BreadcrumbLabel.EditItembarcodedefinition,
-              pageTitle: BreadcrumbLabel.EditItembarcodedefinition,
+              breadcrumb: BreadcrumbLabel.TaxTilte,
+              pageTitle: BreadcrumbLabel.TaxTilte,
             },
           },
           {
@@ -167,14 +168,14 @@ const routes: Routes = [
         path: 'warehouse',
         component: MainWarehouseComponent,
         data: {
-          breadcrumb: '',
+          breadcrumb: BreadcrumbLabel.WARE_HOUSE
         },
         children: [
           {
             path: '',
             component: WarehouseListComponent,
             data: {
-              breadcrumb: BreadcrumbLabel.WARE_HOUSE,
+              breadcrumb:'',
               pageTitle: BreadcrumbLabel.WARE_HOUSE,
             },
           },
@@ -192,7 +193,7 @@ const routes: Routes = [
             component: EditWarehouseComponent,
             data: {
               breadcrumb: BreadcrumbLabel.EDIT_WARE_HOUSE,
-              pageTitle: BreadcrumbLabel.EDIT_WARE_HOUSE,
+              pageTitle: BreadcrumbLabel.EDIT_WARE_HOUSE_TITLE,
             },
           },
           {
@@ -210,6 +211,8 @@ const routes: Routes = [
         component: UOMMainComponent,
         data: {
           breadcrumb: BreadcrumbLabel.UNITOFMEASURE,
+
+
         },
         children: [
           {
@@ -217,7 +220,7 @@ const routes: Routes = [
             component: UOMListComponent,
             data: {
               breadcrumb: '',
-              pageTitle: BreadcrumbLabel.UOMLISt,
+              pageTitle:  BreadcrumbLabel.UNITOFMEASURE,
             },
           },
           {
@@ -241,6 +244,7 @@ const routes: Routes = [
             component: UomViewComponent,
             data: {
               breadcrumb: BreadcrumbLabel.UOM_VIEW,
+              pageTitle:  BreadcrumbLabel.UNITOFMEASURE,
             },
           },
         ],
@@ -319,6 +323,7 @@ const routes: Routes = [
         component: ItemCategoryListComponent,
         data: {
           breadcrumb: BreadcrumbLabel.ITEM_CATEGORY,
+          pageTitle: BreadcrumbLabel.ITEMS_CATEGORY,
         },
       },
       {

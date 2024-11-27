@@ -7,6 +7,7 @@ import { financialCalendar } from '../../../models';
 import { AuthService } from 'microtec-auth-lib';
 import { AccountService } from 'projects/apps-accounting/src/app/modules/account/account.service';
 import { Title } from '@angular/platform-browser';
+import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
 
 @Component({
   selector: 'app-financial-calendar-list',
@@ -18,6 +19,7 @@ export class FinancialCalendarListComponent implements OnInit {
     public authService: AuthService,
     private generalSettingService: GeneralSettingService,
     private routerService: RouterService,
+    private exportService:ExportService
   ) {}
 
   tableData: financialCalendar[];
@@ -77,14 +79,22 @@ export class FinancialCalendarListComponent implements OnInit {
     });
   }
 
-  exportClick(e?: Event){
+  exportClick(e?: Event) {
     this.exportcurrencyData(this.searchTerm);
-    
   }
+
   exportcurrencyData(searchTerm: string) {
     this.generalSettingService.exportFinancialCalendarData(searchTerm);
+    const columns = [
+      { name: 'code', headerText:('financialCalendar.code') },
+      { name: 'name', headerText:('financialCalendar.name') },
+      { name: 'fromDate', headerText:('financialCalendar.fromDate') },
+      { name: 'toDate', headerText:('financialCalendar.toDate') },
+      { name: 'status', headerText:('financialCalendar.status') },
+
+    ];
     this.generalSettingService.exportsFinancialCalendarDataSourceObservable.subscribe((res) => {
-      this.exportData = res;
+      this.exportData = this.exportService.formatCiloma(res, columns);
       this.mappedExportData = res.map((elem: any) => {
         const { createdOn, ...args } = elem; // Rename `codeNumber` to `code` and use the rest operator
         return { ...args, codeNumber : elem.code }; // Include `code` in the returned object if needed

@@ -111,8 +111,8 @@ export class ItemsProxyService {
   deleteItemDefinition(id: number) {
     return this.httpService.delete(`Item/${id}`);
   }
-  deleteUOM(id: number) {
-    return this.httpService.delete(`UOM/DeleteUOM/${id}`);
+  deleteUOM(id: string) {
+    return this.httpService.delete(`UOM/${id}`);
   }
 
   deleteCategory(id: number) {
@@ -202,10 +202,6 @@ export class ItemsProxyService {
   }
   getInvenrory(id: number) {
     return this.httpService.get(`Item/GetItemExpiryAndTracking/${id}`);
-  }
-
-  DeleteUomLine(id: number) {
-    return this.httpService.delete(`UOM/${id}`); //
   }
 
   getItemBarcodeById(id: number) {
