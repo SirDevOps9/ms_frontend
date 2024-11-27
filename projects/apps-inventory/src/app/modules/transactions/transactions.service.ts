@@ -87,7 +87,6 @@ export class TransactionsService {
 
   exportStockOutListDataSourceObservable = this.exportStockOutListDataSource.asObservable();
 
-
   constructor(
     private toasterService: ToasterService,
     private languageService: LanguageService,
@@ -411,7 +410,7 @@ export class TransactionsService {
           this.languageService.transalte('messages.success'),
           this.languageService.transalte('messages.successfully')
         );
-        this.router.navigateTo('transactions/stock-out');
+        // this.router.navigateTo('transactions/stock-out');
       },
       error: (err: any) => {
         this.toasterService.showError(
@@ -482,5 +481,4 @@ export class TransactionsService {
       },
     });
   }
-
 }
