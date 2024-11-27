@@ -3,13 +3,14 @@ import { Title } from '@angular/platform-browser';
 import {
   PageInfoResult,
   RouterService,
-  LanguageService, 
+  LanguageService,
   LoaderService,
   PageInfo,
   lookupDto,
 } from 'shared-lib';
 import { JournalEntryService } from '../../../journal-entry.service';
 import { JournalEntryDto, SharedJournalEnums } from '../../../models';
+import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
 
 @Component({
   selector: 'app-journal-entry-opening-balance-list',
@@ -25,7 +26,7 @@ export class JournalEntryOpeningBalanceListComponent implements OnInit {
   selectedEntries: JournalEntryDto[];
   tableData: JournalEntryDto[];
   exportData: JournalEntryDto[];
-  cols: any[] = [];
+
   active: boolean = false;
   currentPageInfo: PageInfoResult;
 
@@ -35,70 +36,15 @@ export class JournalEntryOpeningBalanceListComponent implements OnInit {
     private languageService: LanguageService,
     private journalEntryService: JournalEntryService,
     public sharedJouralEnum: SharedJournalEnums,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    private exportService:ExportService
+
   ) {
   }
 
   ngOnInit() {
     this.initJournalEntryData();
-    this.cols = [
-      {
-        field: 'Id',
-        header: 'Id',
-      },
-      {
-        field: 'Journal Code',
-        header: 'JournalCode',
-      },
-      {
-        field: 'Reference',
-        header: 'RefrenceNumber',
-      },
-      {
-        field: 'Date',
-        header: 'JournalDate',
-      },
-      {
-        field: 'Type',
-        header: 'Type',
-      },
-      {
-        field: 'Document Name',
-        header: 'SourceName',
-      },
-      {
-        field: 'Document Code',
-        header: 'SourceCode',
-      },
-      {
-        field: 'Repeated',
-        header: 'IsRepeated',
-      },
-      {
-        field: 'Reversed',
-        header: 'IsReversed',
-      },
-      {
-        field: 'Status',
-        header: 'Status',
-      },
-      {
-        field: 'Debit',
-        header: 'TotalDebitAmount',
-      },
-      {
-        field: 'Credit',
-        header: 'TotalCreditAmount',
-      },
-      {
-        field: 'Returned',
-        header: '',
-      },
-      {
-        field: 'Actions',
-        header: 'Actions',
-      },
-    ];
+
   }
 
   exportClick(e?: Event) {
@@ -107,10 +53,21 @@ export class JournalEntryOpeningBalanceListComponent implements OnInit {
 
   exportGLOpeningBalanceData(searchTerm: string) {
     this.journalEntryService.exportsEmployeesList(searchTerm);
+    const columns = [
+      { name: 'journalCode', headerText: 'Journal.journalCode' },
+      { name: 'refrenceNumber', headerText: 'Journal.referenceNumber' },
+      { name: 'createdOn', headerText: 'Journal.CreatedOn'},
+      { name: 'type', headerText: 'Journal.type' },
+      { name: 'status', headerText: 'Journal.status' },
+      { name: 'totalDebitAmount', headerText: 'Journal.totalDebitAmount' },
+      { name: 'totalCreditAmount', headerText: 'Journal.totalCreditAmount' },
 
-     this.journalEntryService.journalEntriesObs.subscribe((res) => {
-      this.exportData = res;
-     });
+    ];
+
+    this.journalEntryService.journalEntriesObs.subscribe((res) => {
+      this.exportData = this.exportService.formatCiloma(res, columns);
+    });
+
   }
 
   initJournalEntryData() {

@@ -60,7 +60,7 @@ export class EditChartComponent {
       accountSectionName: new FormControl(''),
       natureId: new FormControl('', customValidators.required),
       hasNoChild: new FormControl(false),
-      accountTypeId: new FormControl('', customValidators.required),
+      accountTypeId: new FormControl(null),
       accountSectionId: new FormControl('', customValidators.required),
       currencyId: new FormControl(),
       tags: new FormControl(),
@@ -93,7 +93,11 @@ export class EditChartComponent {
       this.onRadioButtonChange(value);
     });
 
+    this.updateAccountTypeValidators();
+
   }
+
+
   getCurrencies(){
   this.currencyService.getCurrencies('');
   this.currencyService.currencies.subscribe((res) => {
@@ -130,7 +134,7 @@ export class EditChartComponent {
       this.accountTypes = typeList;
     });
 
-    this.formGroup.patchValue({ accountTypeId: [] });
+    this.formGroup.patchValue({ accountTypeId: null });
   }
 
   onParentAccountChange(event: any) {
@@ -140,6 +144,7 @@ export class EditChartComponent {
 
   toggleCurrencyVisibility() {
     this.currencyIsVisible = !this.currencyIsVisible;
+    this.updateAccountTypeValidators();
   }
 
   onRadioButtonChange(value: string) {
@@ -169,7 +174,7 @@ export class EditChartComponent {
   getAccountById(id: any) {
     this.accountService.getAccountById(id);
     this.accountService.selectedAccountById.subscribe((res:any) => {
-      this.currencyIsVisible=res.hasNoChild
+      this.currencyIsVisible=res.hasNoChild 
       this.parentAcountName = res;
 
             if(res.parentId!=null){
@@ -190,7 +195,7 @@ export class EditChartComponent {
               accountSectionName: res.accountSectionName || '',
               natureId: res.natureId || '',
               hasNoChild: res.hasNoChild || false,
-              accountTypeId: res.accountTypeId ,
+              accountTypeId: res.accountTypeId || null,
               accountSectionId: res.accountSectionId || '',
               currencyId: res.currencyId ,
               tags: res.tags ,
@@ -200,10 +205,11 @@ export class EditChartComponent {
               periodicActiveTo: res.periodicActiveTo ? res.periodicActiveTo.replace('T00:00:00' , '') : null,
               costCenterConfig: res.costCenterConfig
             };
+
             // this.formGroup.patchValue({...res});
             this.onAccountSectionChange(res.accountSectionId);
             this.formGroup.patchValue(newAccountData);
-            this.accountTypeIdValue = res.accountTypeId 
+            this.accountTypeIdValue = res.accountTypeId || null
 
             this.onRadioButtonChange(res.accountActivation)
 
@@ -212,5 +218,17 @@ export class EditChartComponent {
   cancel(){
     this.operationCompleted.emit(-1);
 
+  }
+
+  updateAccountTypeValidators() {
+    const accountTypeIdControl = this.formGroup.get('accountTypeId');
+    const hasNoChild = this.formGroup.get('hasNoChild')?.value;
+
+    if (hasNoChild) {
+      accountTypeIdControl?.setValidators([customValidators.required]); 
+    } else {
+      accountTypeIdControl?.clearValidators(); 
+    }
+    accountTypeIdControl?.updateValueAndValidity(); 
   }
 }

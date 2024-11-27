@@ -12,6 +12,7 @@ import { JournalEntryService } from '../../journal-entry.service';
 import { JournalEntryDto, SharedJournalEnums } from '../../models';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
+import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
 
 @Component({
   selector: 'app-journal-entry-list',
@@ -23,17 +24,18 @@ export class JournalEntryListComponent implements OnInit {
   @ViewChild('myTab') myTab: any | undefined;
   selectedEntries: JournalEntryDto[];
   tableData: JournalEntryDto[];
-  cols: any[] = [];
   active: boolean = false;
   currentPageInfo: PageInfoResult;
   exportColumns: lookupDto[];
   exportData: JournalEntryDto[];
+  searchTerm: string;
   constructor(
     private routerService: RouterService,
     private journalEntryService: JournalEntryService,
     public sharedJouralEnum: SharedJournalEnums,
     private loaderService: LoaderService,
-    private router: Router
+    private router: Router,
+    private exportService:ExportService
   ) {
     this.searchColumnsControl = new FormControl([]);
   }
@@ -41,64 +43,6 @@ export class JournalEntryListComponent implements OnInit {
   ngOnInit() {
     this.initJournalEntryData();
 
-    this.cols = [
-      {
-        field: 'Id',
-        header: 'Id',
-      },
-      {
-        field: 'Journal Code',
-        header: 'JournalCode',
-      },
-      {
-        field: 'Reference',
-        header: 'RefrenceNumber',
-      },
-      {
-        field: 'Date',
-        header: 'JournalDate',
-      },
-      {
-        field: 'Type',
-        header: 'Type',
-      },
-      {
-        field: 'Document Name',
-        header: 'SourceName',
-      },
-      {
-        field: 'Document Code',
-        header: 'SourceCode',
-      },
-      {
-        field: 'Repeated',
-        header: 'IsRepeated',
-      },
-      {
-        field: 'Reversed',
-        header: 'IsReversed',
-      },
-      {
-        field: 'Status',
-        header: 'Status',
-      },
-      {
-        field: 'Debit',
-        header: 'TotalDebitAmount',
-      },
-      {
-        field: 'Credit',
-        header: 'TotalCreditAmount',
-      },
-      {
-        field: 'Returned',
-        header: '',
-      },
-      {
-        field: 'Actions',
-        header: 'Actions',
-      },
-    ];
   }
 
   initJournalEntryData() {
@@ -142,13 +86,32 @@ export class JournalEntryListComponent implements OnInit {
       },
     });
   }
+  exportClick(e?: Event) {
+    this.exportJournalEntriesData(this.searchTerm);
+  }
 
   exportJournalEntriesData(searchTerm: string) {
     this.journalEntryService.exportJournalEntriesData(searchTerm);
+
+    const columns = [
+      { name: 'journalCode', headerText: 'Journal.journalCode' },
+      { name: 'refrenceNumber', headerText: 'Journal.referenceNumber' },
+      { name: 'createdOn', headerText: 'Journal.CreatedOn' },
+      { name: 'type', headerText: 'Journal.type' },
+      { name: 'status', headerText: 'Journal.status' },
+      { name: 'isRepeated', headerText: 'Journal.isRepeated' },
+      { name: 'isReversed', headerText: 'Journal.isReversed' },
+      { name: 'totalDebitAmount', headerText: 'Journal.totalDebitAmount' },
+      { name: 'totalCreditAmount', headerText: 'Journal.totalCreditAmount' },
+      { name: 'sourceName', headerText: 'Journal.sourceName' },
+      { name: 'sourceCode', headerText: 'Journal.sourceCode' },
+    ];
     this.journalEntryService.exportsJournalEntriesDataSourceObservable.subscribe((res) => {
-      this.exportData = res;
+      this.exportData = this.exportService.formatCiloma(res, columns);
     });
+
   }
+
 
   routeToPaymentInView(id: number) {
     const url = this.router.serializeUrl(

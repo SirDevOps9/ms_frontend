@@ -75,27 +75,8 @@
     [ngClass]="{'duplicate-row': attrTableForm?.controls['isDuplicate']?.value}"
   >
 
-    <!-- Name in Arabic -->
-    <td [pEditableColumn]="attrTableForm?.controls['nameAr']" pEditableColumnField="nameAr">
-      <p-cellEditor>
-        <ng-template pTemplate="input">
-          <lib-text-input
-            placeholder="{{ 'attributeDefinition.valueAr' | translate }}"
-            formControlName="nameAr"
-            [readOnly]="true"
-          ></lib-text-input>
-        </ng-template>
-        <ng-template pTemplate="output">
-          {{ attrTableForm?.controls['nameAr']?.value }}
-        </ng-template>
-      </p-cellEditor>
-      <lib-field-validations
-        [appControl]="attrTableForm?.controls['nameAr']"
 
-      ></lib-field-validations>
-    </td>
-    <!-- Name in English -->
-    <td [pEditableColumn]="attrTableForm?.controls['nameEn']" pEditableColumnField="nameEn">
+    <td [pEditableColumn]="attrTableForm?.controls['nameEn']" pEditableColumnField="nameAr">
       <p-cellEditor>
         <ng-template pTemplate="input">
           <lib-text-input
@@ -105,12 +86,26 @@
           ></lib-text-input>
         </ng-template>
         <ng-template pTemplate="output">
-          {{ attrTableForm?.controls['nameEn']?.value}}
+          {{ attrTableForm?.controls['nameEn']?.value }}
         </ng-template>
       </p-cellEditor>
-      <lib-field-validations
-        [appControl]="attrTableForm?.controls['nameEn']"
-      ></lib-field-validations>
+
+    </td>
+
+    <td [pEditableColumn]="attrTableForm?.controls['nameAr']" pEditableColumnField="nameEn">
+      <p-cellEditor>
+        <ng-template pTemplate="input">
+          <lib-text-input
+            placeholder="{{ 'attributeDefinition.valueEn' | translate }}"
+            formControlName="nameAr"
+            [readOnly]="true"
+          ></lib-text-input>
+        </ng-template>
+        <ng-template pTemplate="output">
+          {{ attrTableForm?.controls['nameAr']?.value}}
+        </ng-template>
+      </p-cellEditor>
+
     </td>
     <td>
       <div class="flex align-items-center">

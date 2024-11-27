@@ -21,15 +21,14 @@ export class ItemCategoryListComponent implements OnInit {
     private langService: LanguageService,
     private itemsService : ItemsService
   ) {
-    this.title.setTitle(this.langService.transalte('bank.BankDefinitonsList'));
-
+   
   }
 
   tableData: GetItemCategoryDto[];
 
   exportData: GetItemCategoryDto[];
   cols = [
-   
+
     {
       field: 'Code',
       header: 'code',
@@ -43,7 +42,7 @@ export class ItemCategoryListComponent implements OnInit {
       field: 'Short Name',
       header: 'shortName',
     },
-   
+
   ];
   exportColumns: lookupDto[];
   exportSelectedCols: string[] = [];
@@ -105,7 +104,7 @@ export class ItemCategoryListComponent implements OnInit {
   onSearchChange(e : any) {
     this.searchTerm = e
     this.itemsService.getItemCategory(this.searchTerm, new PageInfo());
-    
+
   }
 
   onDelete(id: number) {

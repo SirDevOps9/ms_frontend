@@ -7,6 +7,7 @@ import { TaxGroupEditComponent } from '../../../components/tax-group-edit/tax-gr
 import { Title } from '@angular/platform-browser';
 import { TaxGroupDto } from '../../../models/tax-group-dto';
 import { GeneralSettingService } from '../../../general-setting.service';
+import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
 
 @Component({
   selector: 'app-tax-group',
@@ -25,6 +26,7 @@ export class TaxGroupComponent implements OnInit {
     private generalSettingService: GeneralSettingService,
     public authService: AuthService,
     private dialog: DialogService,
+    private exportService:ExportService
   ) {
 
   }
@@ -60,7 +62,7 @@ export class TaxGroupComponent implements OnInit {
     const dialogRef = this.dialog.open(TaxGroupAddComponent, {
       width: '600px',
       height : '500px'
-    
+
     });
     dialogRef.onClose.subscribe(() => {
       this.initTaxGroupData();
@@ -72,7 +74,7 @@ export class TaxGroupComponent implements OnInit {
       width: '600px',
       height : '500px',
       data : Id
-    
+
     });
     dialogRef.onClose.subscribe(() => {
       this.initTaxGroupData();
@@ -87,11 +89,20 @@ export class TaxGroupComponent implements OnInit {
       },
     });
   }
-
+  exportClick(e?: Event) {
+    this.exportTaxGroupData(this.searchTerm);
+  }
   exportTaxGroupData(searchTerm: string) {
     this.generalSettingService.exportTaxGroupData(searchTerm);
+
+    const columns = [
+      { name: 'code', headerText:('TaxGroup.Code') },
+      { name: 'name', headerText:('TaxGroup.Name') },
+      { name: 'countryName', headerText:('TaxGroup.CountryName') },
+    ];
     this.generalSettingService.exportsTaxGroupDataSourceObservable.subscribe((res) => {
-      this.exportData = res;
+      this.exportData = this.exportService.formatCiloma(res, columns);
+
     });
   }
  async Delete(id: number) {
