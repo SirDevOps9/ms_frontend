@@ -98,6 +98,8 @@ export class BreadcrumbLabel {
   static EDIT_JOURNAL_OPENING_BALANCE = 'Edit Journal Entry Opening Balance';
   static VIEW_JOURNAL_OPENING_BALANCE = 'View Journal Entry Opening Balance';
   static ITEM_DIFINITION = 'BreadCrumb.Itemcatalog';
+  static VIEW_HELP = 'BreadCrumb.helpPage';
+  static HOME_HELP = 'BreadCrumb.homeHelpPage';
   static ADD_ITEM_DIFINITION = 'Add Item catalog';
   static EDIT_ITEM_DIFINITION = 'Edit Item catalog';
   static ITEM_TYPE = 'Item Type';

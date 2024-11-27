@@ -1,27 +1,28 @@
 import { Component, OnInit } from '@angular/core';
-import { HelpPageService } from '../../services/help-page.service';
 import { ActivatedRoute } from '@angular/router';
-import { CreateHelpPageDto } from '../../models/CreateHelpPageDto';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { EditHelpPageDetailsDto } from '../../models/EditHelpPageDetailsDto';
 
 import { Location } from '@angular/common';
+import { HelpPageService } from '../../help-page.service';
+import { CreateHelpPageDto } from '../../models/CreateHelpPageDto';
+import { LanguageService } from 'shared-lib';
 @Component({
   selector: 'lib-help-page',
-  standalone: false,
   templateUrl: './help-page.component.html',
   styleUrl: './help-page.component.css'
 })
 export class HelpPageComponent  implements OnInit {
-  helpPage:CreateHelpPageDto;
+  helpPage!:CreateHelpPageDto;
   servicePage: number;
   sanitizedContent: SafeHtml;
+  language:any
   
   constructor(
     private route: ActivatedRoute,
     private helpPageService: HelpPageService,
     private sanitizer: DomSanitizer,
-    private location: Location
+    private location: Location,
+    private languageService: LanguageService
   ) {
    
   }
@@ -31,19 +32,21 @@ export class HelpPageComponent  implements OnInit {
       this.servicePage = +idParam;  // Convert the id to a number using the unary plus operator
     }
     this.initItemDefinitioHasHelpPage();
+    this.languageService.language$.subscribe((lang) => {
+      this.language = lang
+    });
   }
   initItemDefinitioHasHelpPage() {
       this.helpPageService.GetHelpPageByServiceId(this.servicePage).subscribe({
         next: (res) => {
           this.helpPage=res;
-          if (this.helpPage && this.helpPage.helpPageDetails && this.helpPage.helpPageDetails.content) {
-            this.sanitizedContent = this.sanitizer.bypassSecurityTrustHtml(this.helpPage.helpPageDetails.content);
+          let content=this.language === 'ar'?this.helpPage.helpPageDetails.contentAr:this.helpPage.helpPageDetails.contentEn;
+          if (this.helpPage && this.helpPage.helpPageDetails && content) {
+            this.sanitizedContent = this.sanitizer.bypassSecurityTrustHtml(
+              content);
           }
         },
       });
       
-    }
-    goBack(): void {
-      this.location.back();
     }
 }

@@ -9,6 +9,7 @@ import { SequenceModule } from './modules/sequence/sequence.module';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { ActtachmentViewComponent } from './pages/attachment-view/acttachment-view/acttachment-view.component';
+import { HelpPageModule } from './pages/help-page/help-page.module';
 
 const routes: Routes = [
   { path: 'attachment-view', component: ActtachmentViewComponent },
@@ -25,6 +26,7 @@ const routes: Routes = [
     TranslateModule,
     SharedLibModule,
     SequenceModule,
+    HelpPageModule,
     RouterModule.forChild(routes), // Add the routes here
 
     TranslateModule.forRoot({

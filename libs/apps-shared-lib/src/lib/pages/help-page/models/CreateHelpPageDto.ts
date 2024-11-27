@@ -1,11 +1,10 @@
 import { EditHelpPageDetailsDto } from "./EditHelpPageDetailsDto";
 
 export class CreateHelpPageDto {
-    title: string;                
-    isDraft: boolean;            
+    titleEn: string;                
+    titleAr: string;              
     publishStartDate: Date | null;  
     publishEndDate: Date | null;    
-    sefName: string;              
     serviceId: number;          
     helpPageDetails: EditHelpPageDetailsDto;  
   }

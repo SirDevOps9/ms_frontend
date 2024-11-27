@@ -1,7 +1,9 @@
 {
   "BreadCrumb": {
     "Dashboard": "لوحة التحكم",
-    "sequence": "تسلسل"
+    "sequence": "تسلسل",
+    "homeHelpPage":"المساعدة",
+    "helpPage":"عرض المساعدة"
   },
   "Save": "حفظ",
   "Cancel": "إلغاء",

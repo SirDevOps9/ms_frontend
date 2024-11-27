@@ -18,8 +18,8 @@ import { EditItemDefinitionComponent } from '../../../components/edit-item-defin
 import { ViewItemDefinitionComponent } from '../../../components/view-item-definition/view-item-definition/view-item-definition.component';
 import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
 import { TranslateService } from '@ngx-translate/core';
-import { HelpPageService } from 'libs/shared-lib/src/lib/services/help-page.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { HelpPageService } from 'libs/apps-shared-lib/src/lib/pages/help-page/help-page.service';
 
 @Component({
   selector: 'app-item-definition-list',
@@ -34,7 +34,7 @@ export class ItemDefinitionListComponent implements OnInit {
     private title: Title,
     private translate: TranslateService,
     private itemsService: ItemsService,
-    private exportService:ExportService,
+    private exportService: ExportService,
     private helpPageService: HelpPageService,
     private router: Router,
     private route: ActivatedRoute
@@ -64,13 +64,13 @@ export class ItemDefinitionListComponent implements OnInit {
   currentPageInfo: PageInfoResult = {};
   modulelist: MenuModule[];
   searchTerm: string;
-  hasHelpPage: Boolean=false;
-  servicePage:number;
+  hasHelpPage: Boolean = false;
+  servicePage: number;
   ngOnInit() {
     this.initItemDefinitionData();
     const state = history.state;
-    this.hasHelpPage =JSON.parse(state?.hashelppage  || "false") ;  // Default to 'false' if no state found
-    this.servicePage=state.servicePage;
+    this.hasHelpPage = JSON.parse(state?.hashelppage || 'false'); // Default to 'false' if no state found
+    this.servicePage = state.servicePage;
   }
 
   initItemDefinitionData() {
@@ -87,7 +87,12 @@ export class ItemDefinitionListComponent implements OnInit {
     });
   }
   navigateHelpPageComponent() {
-    this.router.navigate(['/masterdata/help-page',this.servicePage]);  // Navigate to the 'new' component
+    window.open(
+      this.router.serializeUrl(
+        this.router.createUrlTree(['/erp/home-help-page/help-page', this.servicePage])
+      ),
+      '_blank'
+    );
   }
 
   onPageChange(pageInfo: PageInfo) {
@@ -100,17 +105,11 @@ export class ItemDefinitionListComponent implements OnInit {
 
   exportBankData(searchTerm: string) {
     this.itemsService.exportsItemsDefinitionList(searchTerm);
-    const columns = [
-      { name: 'name', headerText : this.translate.instant('OperationalTag.name') },
-
-    ];
+    const columns = [{ name: 'name', headerText: this.translate.instant('OperationalTag.name') }];
     this.itemsService.exportedItemDefinitionListDataSourceObs.subscribe((res) => {
       this.exportData = this.exportService.formatCiloma(res, columns);
-
     });
   }
-
-
 
   onAdd() {
     const dialogRef = this.dialog.open(AddItemDefinitionPopupComponent, {
@@ -121,8 +120,6 @@ export class ItemDefinitionListComponent implements OnInit {
     dialogRef.onClose.subscribe(() => {
       this.initItemDefinitionData();
     });
-
-
   }
 
   onEdit(data: any) {
