@@ -624,7 +624,9 @@
       "totalAfterVat": "Total After VAT",
       "cancel" : "Cancel",
       "save" : "Save",
-      "totalAfterDiscount" : "Total After Discount"
+      "totalAfterDiscount" : "Total After Discount",
+      "success" : "Success",
+      "addInvoice" : "Purchase Invoice Added Successfully"
       
     },
     "popupSearch": {

@@ -8,7 +8,7 @@
     padding: 15px;
     font-weight: bold;
     width: 180px;
-    background-color: #F7F7FA;
+    background-color: #F7F7FA; 
     color: #2E2E2E;
 
 
@@ -73,4 +73,44 @@
 
 .pointer {
     cursor: pointer;
+}
+
+::ng-deep {
+    .p-inputtext {
+        border: 1px solid #e3e3e3;
+        padding-block: 11px;
+        outline: none !important;
+        box-shadow: none !important;
+        width: 100%;
+    }
+}
+
+.search-circle,
+.pointer {
+    cursor: pointer;
+}
+
+.track {
+    font-weight: bold;
+}
+
+.hide {
+    display: none
+}
+
+.danger {
+    color: rgb(237, 42, 42);
+    text-align: center;
+    font-weight: bold;
+}
+
+.no-tracking {
+    background-color: #F2F4F8;
+}
+
+.readonly-calendar {
+    pointer-events: none;
+    background-color: #f0f0f0;
+    color: #aaa;
+    cursor: not-allowed;
 }

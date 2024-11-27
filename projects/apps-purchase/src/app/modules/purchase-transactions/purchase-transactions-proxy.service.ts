@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
 import { LatestItem } from './models';
+import { AddPurchaseInvoiceDto } from './models/addPurchaseInvoice';
 
 @Injectable({
   providedIn: 'root',
@@ -54,6 +55,10 @@ export class PurchaseTransactionsProxyService {
       query += `&${quieries ? quieries : ''}`;
     }
     return this.httpService.get<PaginationVm<LatestItem>>(query);
+  }
+
+  addPurchaseInvoice(obj : AddPurchaseInvoiceDto) {
+    return this.httpService.post('Invoice' , obj)
   }
 
 }

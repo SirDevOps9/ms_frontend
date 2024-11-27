@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { PurchaseTransactionsProxyService } from './purchase-transactions-proxy.service';
 import { BehaviorSubject, map } from 'rxjs';
-import { PageInfo, PageInfoResult } from 'shared-lib';
+import { LanguageService, PageInfo, PageInfoResult, RouterService, ToasterService } from 'shared-lib';
 import { LatestItem } from './models';
+import { AddPurchaseInvoiceDto } from './models/addPurchaseInvoice';
 
 @Injectable({
   providedIn: 'root',
@@ -13,8 +14,11 @@ export class PurchaseTransactionsService {
   public warehouseLookup = new BehaviorSubject<{ id: number; code: string; name: string }[]>([]);
   public lastestItem = new BehaviorSubject<LatestItem[]>([]);
   public itemsDataSourceForAdvanced = new BehaviorSubject<LatestItem[]>([]);
+  public sendPurchaseInvoice = new BehaviorSubject<AddPurchaseInvoiceDto>({} as AddPurchaseInvoiceDto);
 
-  constructor(private TransactionsProxy: PurchaseTransactionsProxyService) {}
+  constructor(private TransactionsProxy: PurchaseTransactionsProxyService ,     private toasterService: ToasterService,
+    private languageService: LanguageService,
+    private router: RouterService,) {}
   latestVendor(searchTerm?: string | undefined) {
     return this.TransactionsProxy.LatestVendor(searchTerm).pipe(
       map((res) => {
@@ -43,6 +47,17 @@ export class PurchaseTransactionsService {
     this.TransactionsProxy.getItemsForAdvancedSearch(quieries, searchTerm, pageInfo).subscribe((res) => {
       this.itemsDataSourceForAdvanced.next(res.result);
       this.currentPageInfo.next(res.pageInfoResult);
+    });
+  }
+
+  addPurchaseInvoice(obj : AddPurchaseInvoiceDto) {
+    this.TransactionsProxy.addPurchaseInvoice(obj).subscribe((res) => {
+      this.toasterService.showSuccess(
+        this.languageService.transalte('purchasing.success'),
+        this.languageService.transalte('purchasing.addInvoice')
+      );
+     this.sendPurchaseInvoice.next(res);
+
     });
   }
 
