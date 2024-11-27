@@ -5,6 +5,7 @@
           [items]="tableData"
           className="p-datatable-gridlines"
           [currentPageResult]="currentPageInfo"
+          (exportObj)="exportClickBySort($event)"
           (pageChange)="onPageChange($event)"
           [tableConfigs]="{
             allowPagination: false,
@@ -77,11 +78,11 @@
                 <div class=" flex flex-auto justify-content-end align-items-center gap-2">
                   <div>
                     <lib-export
-                      (exportClick)="exportClick($event)"
+                      (exportClick)="exportClick()"
                       [exportData]="exportData"
                       [exportColumns]="exportColumns"
                       [ExportName]="('OperationalTag.OperationalTagPrint' |translate)"
-                    
+
                     >
                     </lib-export>
                   </div>

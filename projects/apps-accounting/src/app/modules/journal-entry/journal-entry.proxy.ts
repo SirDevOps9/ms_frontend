@@ -23,7 +23,7 @@ export class JournalEntryProxy {
     if (searchTerm) {
       query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
     }
-  
+
     return this.httpService.get<PaginationVm<JournalEntryDto>>(query);
   }
   getAllJournalEntriesPaginatedOpeningBalance(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<JournalEntryDto>> {
@@ -31,8 +31,8 @@ export class JournalEntryProxy {
     if (searchTerm) {
       query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
     }
-  
-   
+
+
     return this.httpService.get<PaginationVm<JournalEntryDto>>(query);
   }
 
@@ -44,16 +44,21 @@ export class JournalEntryProxy {
   }
 
 
+
   exportGLOpeningBalance(
-    searchTerm: string | undefined
+    searchTerm?: string,
+    SortBy?: number,
+    SortColumn?: string
   ): Observable<JournalEntryDto[]> {
     let query = `OpeningBalanceJournalEntry/Export?`;
-    if (searchTerm) {
-      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
-    }
+    const params: string[] = [];
+    if (searchTerm) params.push(`searchTerm=${encodeURIComponent(searchTerm)}`);
+    if (SortBy) params.push(`SortBy=${SortBy}`);
+    if (SortColumn) params.push(`SortColumn=${SortColumn}`);
+    query += params.join('&');
      return this.httpService.get<JournalEntryDto[]>(query);
   }
-  
+
 
   getById(id: number): Observable<GetJournalEntryByIdDto> {
     return this.httpService.get<GetJournalEntryByIdDto>(`JournalEntry/GetById?Id=${id}`);
@@ -106,14 +111,20 @@ export class JournalEntryProxy {
   getAccountLookup(): Observable<costLookup[]> {
     return this.httpService.get('CostCenter/CostCenterDropDown');
   }
-  
+
+
+
   exportJournalEntriesData(
-    searchTerm: string | undefined
+    searchTerm?: string,
+    SortBy?: number,
+    SortColumn?: string
   ): Observable<JournalEntryDto[]> {
     let query = `JournalEntry/Export?`;
-    if (searchTerm) {
-      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
-    }
+    const params: string[] = [];
+    if (searchTerm) params.push(`searchTerm=${encodeURIComponent(searchTerm)}`);
+    if (SortBy) params.push(`SortBy=${SortBy}`);
+    if (SortColumn) params.push(`SortColumn=${SortColumn}`);
+    query += params.join('&');
      return this.httpService.get<JournalEntryDto[]>(query);
   }
   getCostCenterReports(cost:reportCostAllData){

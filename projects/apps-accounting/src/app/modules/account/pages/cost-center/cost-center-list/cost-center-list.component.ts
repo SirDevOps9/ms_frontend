@@ -18,6 +18,7 @@ import {
 } from '../../../models';
 import { Title } from '@angular/platform-browser';
 import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
+import { SortTableEXport } from 'projects/apps-inventory/src/app/modules/items/models/SortTable';
 
 @Component({
   selector: 'app-cost-center-list',
@@ -31,6 +32,8 @@ export class CostCenterListComponent implements OnInit {
   searchTerm: string;
   exportColumns: lookupDto[];
   exportData: costCenterList[];
+  SortByAll:SortTableEXport
+
   constructor(
     private routerService: RouterService,
     private accountService: AccountService,
@@ -87,11 +90,11 @@ export class CostCenterListComponent implements OnInit {
       user.isActive = !user.isActive;
     }
   }
-  exportClick(e?: Event) {
-    this.exportCostCentersData(this.searchTerm);
+  exportClick() {
+    this.exportCostCentersData(this.searchTerm, this.SortByAll?.SortBy, this.SortByAll?.SortColumn);
   }
-  exportCostCentersData(searchTerm: string) {
-    this.accountService.exportCostCentersData(searchTerm);
+  exportCostCentersData(searchTerm: string, sortBy?: number, sortColumn?: string) {
+    this.accountService.exportCostCentersData(searchTerm , sortBy , sortColumn);
 
     const columns = [
       { name: 'code', headerText: 'TaxGroup.Code' },
@@ -103,6 +106,11 @@ export class CostCenterListComponent implements OnInit {
     this.accountService.exportsCostCentersDataSourceObservable.subscribe((res) => {
       this.exportData = this.exportService.formatCiloma(res, columns);
     });
-
+  }
+  exportClickBySort(e: { SortBy: number; SortColumn: string }) {
+    this.SortByAll = {
+      SortBy: e.SortBy,
+      SortColumn: e.SortColumn,
+    };
   }
 }

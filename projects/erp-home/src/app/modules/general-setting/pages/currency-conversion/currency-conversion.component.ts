@@ -10,6 +10,7 @@ import {
 } from '../../models';
 import { Title } from '@angular/platform-browser';
 import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
+import { SortTableEXport } from 'projects/apps-inventory/src/app/modules/items/models/SortTable';
 
 @Component({
   selector: 'app-currency-conversion',
@@ -30,7 +31,7 @@ export class CurrencyConversionComponent {
   ref: DynamicDialogRef;
   exportColumns:any[]
   mappedExportData: CurrencyConversionDto[];
-
+  SortByAll:SortTableEXport
   exportData: ExportCurrencyConversionDto[];
 
 
@@ -39,12 +40,12 @@ export class CurrencyConversionComponent {
     this.getCurrencyConversionList();
     this.getCurrencies();
   }
-  exportClick(e?: Event) {
-    this.exportcurrencyConversionData(this.searchTerm);
+  exportClick() {
+    this.exportcurrencyConversionData(this.searchTerm, this.SortByAll?.SortBy, this.SortByAll?.SortColumn);
   }
 
-  exportcurrencyConversionData(searchTerm:string){
-    this.generalSettingService.exportcurrencyData(this.searchTerm ,this.SortBy,this.SortColumn);
+  exportcurrencyConversionData(searchTerm: string, sortBy?: number, sortColumn?: string){
+    this.generalSettingService.exportcurrencyData(searchTerm , sortBy , sortColumn);
     const columns = [
       { name: 'fromCurrencyName', headerText:('currencyConversion.FromCurrency') },
       { name: 'fromCurrencyRate', headerText:('currencyConversion.CurrencyRate') },
@@ -55,9 +56,15 @@ export class CurrencyConversionComponent {
     ];
     this.generalSettingService.exportsCurrencyListDataSourceObservable.subscribe((res) => {
       this.exportData = this.exportService.formatCiloma(res, columns);
-
     });
   }
+
+  exportClickBySort(e:{SortBy: number; SortColumn: string}){
+    this.SortByAll={
+     SortBy: e.SortBy,
+     SortColumn:e.SortColumn
+    }
+ }
   getCurrencyConversionList() {
     this.generalSettingService.getCurrencyConversionList('', new PageInfo());
     this.generalSettingService.currencyConversionDataSourceObservable.subscribe({
@@ -108,4 +115,6 @@ export class CurrencyConversionComponent {
   addNew() {
     this.generalSettingService.openCurrencyConversionAdded();
   }
+
+
 }

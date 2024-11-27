@@ -5,6 +5,7 @@
       className="p-datatable-gridlines"
       [currentPageResult]="currentPageInfo"
       (pageChange)="onPageChange($event)"
+      (exportObj)="exportClickBySort($event)"
       [tableConfigs]="{
         allowPagination: false,
         allowServerPagination: true,
@@ -55,7 +56,7 @@
           <div class="flex justify-content-end gap-3">
             <div>
               <lib-export
-                (exportClick)="exportClick($event)"
+                (exportClick)="exportClick()"
                 [exportData]="exportData"
                 [exportColumns]="exportColumns"
                 [ExportName]="'Employees List'"

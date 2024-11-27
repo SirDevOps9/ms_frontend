@@ -46,27 +46,27 @@ export class ExportService {
 
 
  // this is function format Ciloma header tabel list
-  formatCiloma(data: any[], columns: { name: string; headerText: string }[]): any[] {
-    return data.map(item => {
-      const formattedItem: { [key: string]: any } = {};
+ formatCiloma(data: any[], columns: { name: string; headerText: string }[]): any[] {
+  return data.map(item => {
+    const formattedItem: { [key: string]: any } = {};
 
-      columns.forEach(column => {
-        if (column.name === 'itemAttributes' && item.itemAttributes) {
-          formattedItem[this.LanguageService.instant(column.headerText)] = item.itemAttributes
-            .map((attr: { nameAr: string; nameEn: string }) => `${attr.nameAr} (${attr.nameEn})`)
-            .join(', ');
-
-        } else if (item.hasOwnProperty(column.name) && Array.isArray(item[column.name])) {
-          formattedItem[this.LanguageService.instant(column.headerText)] = item[column.name].join(', ');
-
-        } else if (column.name === 'createdOn' && item[column.name]) {
-          formattedItem[this.LanguageService.instant(column.headerText)] = this.formatDate(item[column.name]);
-        } else {
-          formattedItem[this.LanguageService.instant(column.headerText)] = item[column.name];
-        }
-      });
-
-      return formattedItem;
+    columns.forEach(column => {
+      if (column.name === 'itemAttributes' && item.itemAttributes) {
+        formattedItem[this.LanguageService.instant(column.headerText)] = item.itemAttributes
+          .map((attr: { nameAr: string; nameEn: string }) => `${attr.nameAr} (${attr.nameEn})`)
+          .join(', ');
+      } else if (item.hasOwnProperty(column.name) && Array.isArray(item[column.name])) {
+        formattedItem[this.LanguageService.instant(column.headerText)] = item[column.name].join(', ');
+      } else if (column.name === 'createdOn' || column.name ==='receiptDate' && item[column.name]) {
+        formattedItem[this.LanguageService.instant(column.headerText)] = this.formatDate(item[column.name]);
+      } else {
+        formattedItem[this.LanguageService.instant(column.headerText)] = item[column.name];
+      }
     });
-  }
+
+    return formattedItem;
+  });
+}
+
+
 }

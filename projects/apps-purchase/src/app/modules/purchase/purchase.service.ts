@@ -100,10 +100,10 @@ export class PurchaseService {
 
   public JournalLinesDropDownData = new BehaviorSubject<JournalLineDropdownDto[]>([]);
   public JournalLinesDropDownDataObservable =this.JournalLinesDropDownData.asObservable();
-  
+
   public VendorDropDownByAccountId = new BehaviorSubject<DropDownDto[]>([]);
   public VendorDropDownByAccountIdObservable =this.VendorDropDownByAccountId.asObservable();
-  
+
   private vendorDeleted = new BehaviorSubject<boolean>(false);
   public vendorDeletedObser = this.vendorDeleted.asObservable();
 
@@ -112,7 +112,7 @@ export class PurchaseService {
 
 
 
-  
+
 
 
   getVendorCategory(searchTerm: string, pageInfo: PageInfo) {
@@ -301,8 +301,8 @@ export class PurchaseService {
       this.tagsDataSource.next(response);
     });
   }
-  exportVendorCategoriesData(searchTerm:string | undefined) {
-    this.purchaseProxy.exportVendorCategoriesData(searchTerm).subscribe({
+  exportVendorCategoriesData(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
+    this.purchaseProxy.exportVendorCategoriesData(searchTerm , SortBy ,SortColumn).subscribe({
       next: (res) => {
          this.exportsVendorCateogiesDataSource.next(res);
       },

@@ -262,21 +262,31 @@ export class GeneralSettingProxy {
     query += params.join('&');
     return this.httpService.get<ExportCurrencyConversionDto[]>(query);
   }
+
+
+
+
+
   exportcurrencyDefinitionData(
-    searchTerm: string | undefined
+    searchTerm?: string ,SortBy?:number,SortColumn?:string
   ): Observable<CurrencyDefinitionDto[]> {
     let query = `Currency/Export?`;
-    if (searchTerm) {
-      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
-    }
+     const params: string[] = [];
+    if (searchTerm) params.push(`SearchTerm=${encodeURIComponent(searchTerm)}`);
+    if (SortBy) params.push(`SortBy=${SortBy}`);
+    if (SortColumn) params.push(`SortColumn=${SortColumn}`);
+    query += params.join('&');
     return this.httpService.get<CurrencyDefinitionDto[]>(query);
   }
 
-  exportFinancialCalendarData(searchTerm: string | undefined): Observable<financialCalendar[]> {
+
+  exportFinancialCalendarData(searchTerm?: string ,SortBy?:number,SortColumn?:string): Observable<financialCalendar[]> {
     let query = `FinancialYear/Export?`;
-    if (searchTerm) {
-      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
-    }
+    const params: string[] = [];
+    if (searchTerm) params.push(`searchTerm=${encodeURIComponent(searchTerm)}`);
+    if (SortBy) params.push(`SortBy=${SortBy}`);
+    if (SortColumn) params.push(`SortColumn=${SortColumn}`);
+    query += params.join('&');
     return this.httpService.get<financialCalendar[]>(query);
   }
 
@@ -335,11 +345,13 @@ export class GeneralSettingProxy {
     return this.httpService.put('Tax', command);
   }
 
-  exportTaxGroupData(searchTerm: string | undefined): Observable<TaxGroupDto[]> {
+  exportTaxGroupData(searchTerm?: string ,SortBy?:number,SortColumn?:string): Observable<TaxGroupDto[]> {
     let query = `TaxGroup/Export?`;
-    if (searchTerm) {
-      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
-    }
+    const params: string[] = [];
+    if (searchTerm) params.push(`SearchKey=${encodeURIComponent(searchTerm)}`);
+    if (SortBy) params.push(`SortBy=${SortBy}`);
+    if (SortColumn) params.push(`SortColumn=${SortColumn}`);
+    query += params.join('&');
     return this.httpService.get<TaxGroupDto[]>(query);
   }
 

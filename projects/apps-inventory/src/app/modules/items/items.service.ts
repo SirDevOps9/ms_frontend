@@ -438,31 +438,31 @@ public exportedWarehouseDataItemSourceObs = this.exportedWarehouseDataItemSource
     });
   }
 
-  exportsItemsDefinitionList(searchTerm: string | undefined) {
-    this.itemProxy.exportsItemsDefinitionList(searchTerm).subscribe({
+  exportsItemsDefinitionList(SearchTerm: string ,SortBy?: number, SortColumn?: string) {
+    this.itemProxy.exportsItemsDefinitionList(SearchTerm,SortBy,SortColumn).subscribe({
       next: (res: any) => {
         this.exportedItemDefinitionListDataSource.next(res);
       },
     });
   }
 
-  exportUOMList(SearchTerm: string | undefined) {
+  exportUOMList(SearchTerm?: string, SortBy?: number, SortColumn?: string) {
     this.itemProxy.ExportUOMList(SearchTerm).subscribe({
       next: (res: UOMCategoryDto[]) => {
         this.SendexportUOMList.next(res);
       },
     });
   }
-  ExportOperationalTagList(SearchTerm: string | undefined) {
-    this.itemProxy.ExportOperationalTagList(SearchTerm).subscribe({
+  ExportOperationalTagList(SearchTerm: string ,SortBy?: number, SortColumn?: string) {
+    this.itemProxy.ExportOperationalTagList(SearchTerm , SortBy ,SortColumn ).subscribe({
       next: (res: any) => {
         this.SendExportOperationalTagList.next(res);
       },
     });
   }
 
-  exportAttrDifinitionList(SearchTerm: string | undefined) {
-    this.itemProxy.ExporAttrList(SearchTerm).subscribe({
+  exportAttrDifinitionList(SearchTerm: string ,SortBy?: number, SortColumn?: string) {
+    this.itemProxy.ExporAttrList(SearchTerm , SortBy ,SortColumn).subscribe({
       next: (res: any) => {
         this.SendexportAttrDifinitionList.next(res);
       },
@@ -1207,8 +1207,8 @@ public exportedWarehouseDataItemSourceObs = this.exportedWarehouseDataItemSource
       },
     });
   }
-  exportsItemCategoryList(searchTerm: string | undefined) {
-    this.itemProxy.exportsItemCategoryList(searchTerm).subscribe({
+  exportsItemCategoryList(searchTerm?: string, SortBy?: number, SortColumn?: string) {
+    this.itemProxy.exportsItemCategoryList(searchTerm , SortBy, SortColumn).subscribe({
       next: (res: any) => {
         this.exportedItemCategoryDataSource.next(res);
       },
