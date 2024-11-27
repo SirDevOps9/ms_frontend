@@ -81,7 +81,6 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     this.initializeForm();
     this.initLookups();
 
-    this.purchaseInvoiceForm.get('receiptDate')?.disabled;
 
     this.purchaseInvoiceForm.valueChanges.subscribe((res) => {});
 
@@ -110,17 +109,41 @@ export class AddPurchaseInvoiceComponent implements OnInit {
           }, 0)
         );
 
-        this.purchaseInvoiceForm.get('discountPercentage')?.setValue(
-          res?.reduce((accumulator, item) => {
-            let data = +accumulator + +item.discount;
-            return data;
+        this.purchaseInvoiceForm.get('vatAmountTotal')?.setValue(
+          res.reduce((accumulator, item) => {
+            const quantity = +item.quantity || 0; // Fallback to 0 if undefined or null
+            const cost = +item.cost || 0;
+            const discountAmount = +item.discountAmount || 0;
+            const vatPercentage = +item.vatPercentage || 0;
+        
+            // Calculate VAT amount for this item
+            const vatAmount = quantity * (cost - discountAmount) * (vatPercentage / 100);
+        
+            // Accumulate the VAT amounts
+            return accumulator + vatAmount;
           }, 0)
         );
 
-        this.purchaseInvoiceForm.get('vatAmount')?.setValue(
+        this.purchaseInvoiceForm.get('discount')?.setValue(
           res?.reduce((accumulator, item) => {
-            let data = +accumulator + +item.discount;
+            let data = +accumulator + +item.discountPercentage;
             return data;
+          }, 0)
+        );
+        this.purchaseInvoiceForm.get('totalAfterVat')?.setValue(
+          res.reduce((accumulator, item) => {
+            const quantity = +item.quantity || 0; // Fallback to 0 if undefined or null
+            const cost = +item.cost || 0;
+            const discountAmount = +item.discountAmount || 0;
+            const vatPercentage = +item.vatPercentage || 0;
+        
+            // Calculate the total for this item
+            const baseAmount = quantity * (cost - discountAmount); // Base amount without VAT
+            const vatAmount = baseAmount * (vatPercentage / 100); // VAT amount
+            const totalAmount = baseAmount + vatAmount; // Total with VAT
+        
+            // Accumulate the total amounts
+            return accumulator + totalAmount;
           }, 0)
         );
       }
@@ -148,10 +171,10 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     this.lineError = -1;
     this.purchaseInvoiceFormArray.value.forEach((element: any, index: number) => {
       let lineNumber = index + 1;
-      if (element.invoiceEntryMode.trackingType == this.sharedStock.StockOutTracking.Batch) {
+      if (element.invoiceTracking.trackingType == this.sharedStock.StockOutTracking.Batch) {
         if (
-          element.invoiceEntryMode.vendorBatchNo == null ||
-          element.invoiceEntryMode.vendorBatchNo == ''
+          element.invoiceTracking.vendorBatchNo == null ||
+          element.invoiceTracking.vendorBatchNo == ''
         ) {
           this.lineError = index;
           this.error = true;
@@ -163,9 +186,9 @@ export class AddPurchaseInvoiceComponent implements OnInit {
           );
         }
       } else if (
-        element.invoiceEntryMode.trackingType == this.sharedStock.StockOutTracking.Serial
+        element.invoiceTracking.trackingType == this.sharedStock.StockOutTracking.Serial
       ) {
-        if (element.invoiceEntryMode.serialId == null || element.invoiceEntryMode.serialId == '') {
+        if (element.invoiceTracking.serialId == null || element.invoiceTracking.serialId == '') {
           this.lineError = index;
           this.error = true;
           this.save = false;
@@ -187,16 +210,12 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     this.purchaseInvoiceForm = this.fb.group({
       id: new FormControl(''),
       code: new FormControl(''),
-      receiptDate: new FormControl(new Date(), [customValidators.required]),
-      sourceDocumentId: new FormControl('', [customValidators.required]),
       warehouseId: new FormControl('', [customValidators.required]),
-      rate: new FormControl('', [customValidators.required]),
       warehouseName: new FormControl(''),
       notes: new FormControl(''),
       description: new FormControl(''),
       sourceDocumentType: new FormControl(''),
       payementTerm: new FormControl(''),
-      date: new FormControl(new Date(), [customValidators.required]),
       numberOfItems: 0,
       total: 0,
       totalAfterDiscount: 0,
@@ -207,11 +226,11 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       totalAfterVat: 0,
       stockInStatus: new FormControl(''),
       paymentTermName: new FormControl(''),
-      invoiceDate: new FormControl(new Date()),
+      invoiceDate: new FormControl(new Date() , [customValidators.required]),
       currency: new FormControl(''),
-      vendorId: new FormControl(''),
+      vendorId: new FormControl('' , [customValidators.required]),
       vendorName: new FormControl(''),
-      currencyRate: new FormControl(''),
+      currencyRate: new FormControl('' , [customValidators.required]),
       paymentTermId: new FormControl(''),
       reference: new FormControl(''),
 
@@ -252,6 +271,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
           uomNameEn: selectedItem?.uomNameEn,
           uomId: selectedItem?.uomId,
           quantity: selectedItem?.quantity || 1,
+          taxId : selectedItem.taxId,
           cost: selectedItem?.price,
           subTotal: selectedItem?.subCost,
           notes: selectedItem?.notes,
@@ -384,7 +404,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       itemCode : '',
       itemCodeName: '',
       itemVariantId: '',
-      discount: '',
+      discount: 0,
       discountAmount: '',
       uomName: '',
       uomId: ['', customValidators.required],
@@ -405,7 +425,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       trackingType: '',
       discountPercentage: '',
       vatPercentage: '',
-      taxId: 0,
+      taxId: null,
 
       invoiceTracking: this.fb.group({
         vendorBatchNo: '',
@@ -426,10 +446,13 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       let amountAndDiscount;
 
       amountAndDiscount =
-        (purchaseForm.controls['discountPercentage']?.value /
-          purchaseForm.controls['cost']?.value) *
+        (purchaseForm.controls['discountPercentage']?.value *
+          purchaseForm.controls['cost']?.value) /
         100;
-      purchaseForm.get('discountAmount')?.setValue(amountAndDiscount);
+      purchaseForm.get('discountAmount')?.setValue(Number(amountAndDiscount));
+    }else{
+      purchaseForm.get('discountAmount')?.setValue(0);
+
     }
   }
 
@@ -438,10 +461,21 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       let amountAndDiscount;
 
       amountAndDiscount =
-        (purchaseForm.controls['cost']?.value * purchaseForm.controls['discountAmount']?.value) /
+      purchaseForm.controls['discountAmount']?.value /  purchaseForm.controls['cost']?.value * 
         100;
-      purchaseForm.get('discountPercentage')?.setValue(amountAndDiscount);
+      purchaseForm.get('discountPercentage')?.setValue(Number(amountAndDiscount) );
+    }else{
+      purchaseForm.get('discountPercentage')?.setValue(0);
+
     }
+  }
+
+  quantityCostChange(purchaseForm: FormGroup) {
+    
+    purchaseForm.get('discountPercentage')?.setValue(0);
+    purchaseForm.get('discountAmount')?.setValue(0);
+
+
   }
 
   itemChanged(
@@ -710,19 +744,63 @@ export class AddPurchaseInvoiceComponent implements OnInit {
   }
 
   onSave() {
-    // this.isValidData();
-    // if (!this.formService.validForm(this.stockInForm, false)) return;
+    this.isValidData();
+    console.log(this.formService.validForm(this.purchaseInvoiceForm, false))
+    console.log(this.formService.validForm(this.stockIn, false))
+    console.log("purchaseInvoiceForm",this.purchaseInvoiceForm)
+    console.log("stockIn",this.stockIn)
 
+    if (!this.formService.validForm(this.purchaseInvoiceForm, false)) return;
+    if (!this.formService.validForm(this.stockIn, false)) return;
 
-    console.log(this.purchaseInvoiceForm.value)
-    console.log(this.stockIn.value)
+    const mappedInvoice: AddPurchaseInvoiceDto = {
+      invoiceDate: this.purchaseInvoiceForm.value.invoiceDate || null,
+      description: this.purchaseInvoiceForm.value.description || null,
+      warehouseId: this.purchaseInvoiceForm.value.warehouseId || 0,
+      warehouseName: this.purchaseInvoiceForm.value.warehouseName || '',
+      vendorId: this.purchaseInvoiceForm.value.vendorId || 0,
+      vendorName: this.purchaseInvoiceForm.value.vendorName || '',
+      currencyRate: +this.purchaseInvoiceForm.value.currencyRate || 0, // Ensure it's a number
+      paymentTermId: this.purchaseInvoiceForm.value.paymentTermId || 0,
+      reference: this.purchaseInvoiceForm.value.reference || null,
+      invoiceDetails: this.purchaseInvoiceForm.value.invoiceDetails.map((detail: any) => ({
+        barCode: detail.barCode || null,
+        barCodeId: detail.barCodeId || null,
+        itemId: detail.itemId || 0,
+        itemCode: detail.itemCode || '',
+        itemVariantId: detail.itemVariantId || 0,
+        description: detail.description || null,
+        uomId: detail.uomId || '',
+        uomName: detail.uomName || '',
+        quantity: +detail.quantity || 0, // Ensure it's a number
+        cost: +detail.cost || 0, // Ensure it's a number
+        discountPercentage: +detail.discountPercentage || 0, // Ensure it's a number
+        discountAmount: +detail.discountAmount || 0, // Ensure it's a number
+        vatPercentage: detail.vatPercentage || null,
+        taxId: detail.taxId || null,
+        notes: detail.notes || null,
+        invoiceEntryMode: detail.invoiceEntryMode,
+        trackingType: detail.trackingType,
+        hasExpiryDate: detail.hasExpiryDate || false,
+        invoiceTracking: {
+          vendorBatchNo: detail.invoiceTracking.vendorBatchNo || null,
+          quantity: detail.invoiceTracking.quantity || 0,
+          hasExpiryDate: detail.invoiceTracking.hasExpiryDate || false,
+          expireDate: detail.invoiceTracking.expireDate || null,
+          systemPatchNo: detail.invoiceTracking.systemPatchNo || null,
+          serialId: detail.invoiceTracking.serialId || null,
+          trackingType: detail.invoiceTracking.trackingType,
+        },
+      })),
+    };
+
     if (this.save) {
-      let data: AddPurchaseInvoiceDto = {
-        ...this.purchaseInvoiceForm.value,
-      
-      };
+    
 
-      this.purchasetransactionsService.addPurchaseInvoice(data);
+      console.log(mappedInvoice)
+
+
+      this.purchasetransactionsService.addPurchaseInvoice(mappedInvoice);
       this.purchasetransactionsService.sendPurchaseInvoice.subscribe((res: number | any) => {
         if (typeof res == 'number') {
           this.savedDataId = res;

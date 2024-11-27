@@ -626,7 +626,10 @@
       "save" : "Save",
       "totalAfterDiscount" : "Total After Discount",
       "success" : "Success",
-      "addInvoice" : "Purchase Invoice Added Successfully"
+      "addInvoice" : "Purchase Invoice Added Successfully",
+      "vatAmountTotal" : "vat Amount Total", 
+      "discountPercentage" : "Discount Percentage",
+      "disAmount" : "Discount Amount"
       
     },
     "PurchaseInvoiceEdit": {
