@@ -626,6 +626,20 @@
       "save" : "Save",
       "totalAfterDiscount" : "Total After Discount"
       
+    },
+    "popupSearch": {
+      "ItemCode": "كود الصنف",
+      "ItemName": "اسم الصنف",
+      "ItemUOM": "وحدة قياس الصنف",
+      "ItemVariant": "نوع الصنف",
+      "ItemCategory": "فئة الصنف",
+      "IsStorable": "قابل للتخزين",
+      "IsService": "خدمة",
+      "HasExpiryDate": "له تاريخ انتهاء",
+      "Actions": "الإجراءات",
+      "select": "اختيار",
+      "search": "بحث",
+      "ItemSearch": "بحث عن صنف"
     }
 
 }

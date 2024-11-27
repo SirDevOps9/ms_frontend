@@ -28,6 +28,9 @@ import {
 } from 'shared-lib';
 import { PurchaseTransactionsService } from '../../../purchase-transactions.service';
 import { PurchaseService } from '../../../../purchase/purchase.service';
+import { LatestItem } from '../../../models';
+import { VendorPurchasingAdvancedSearchComponent } from '../../../components/vendor-purchasing-advanced-search/vendor-purchasing-advanced-search.component';
+import { PurchaseInvoiceTrackingComponent } from '../../../components/purchase-invoice-tracking/purchase-invoice-tracking.component';
 // import { VendorAdvancedSearchComponent } from '../../../components/vendor-advanced-search/vendor-advanced-search.component';
 
 @Component({
@@ -47,7 +50,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
   savedDataId: number = 0;
   dataToReadOnly: boolean = false;
   exportSelectedCols: string[] = [];
-  latestItemsList: LatestItems[] = [];
+  latestItemsList: LatestItem[] = [];
   currentPageInfo: PageInfoResult = {};
   modulelist: MenuModule[];
   searchTerm: string;
@@ -81,27 +84,6 @@ export class AddPurchaseInvoiceComponent implements OnInit {
 
     this.stockInForm.valueChanges.subscribe((res) => {});
 
-    // this.lookupservice.loadLookups([LookupEnum.StockInOutSourceDocumentType]);
-    // this.lookupservice.lookups.subscribe((l) => {
-    //   this.lookups = l;
-    // });
-
-    // this.stockInForm.get('sourceDocumentType')?.valueChanges.subscribe((res) => {
-    //   let data = this.lookups[LookupEnum.StockInOutSourceDocumentType];
-    //   let sourceDocumentTypeData = data.find((elem) => elem.id == res);
-    //   if (sourceDocumentTypeData?.name == 'OperationalTag') {
-    //     this.transactionsService.OperationalTagDropDown();
-    //     this.transactionsService.sendOperationalTagDropDown$.subscribe((res) => {
-    //       if (res) {
-    //         this.oprationalLookup = res;
-    //         this.oprationalLookup = res.map((elem: any) => ({
-    //           ...elem,
-    //           displayName: `${elem.name} (${elem.code})`,
-    //         }));
-    //       }
-    //     });
-    //   }
-    // });
     this.stockInForm.get('sourceDocumentId')?.valueChanges.subscribe((res) => {
       let data = this.oprationalLookup.find((elem) => elem.id == res);
       this.stockInForm.get('warehouseId')?.setValue(data?.warehouseId);
@@ -111,63 +93,64 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     this.stockIn.valueChanges.subscribe((res: any[]) => {
       // Ensure `res` is an array
       if (Array.isArray(res)) {
-        this.numberOfItems = res.length;
+        this.stockInForm.get('numberOfItems')?.setValue(res.length);
 
         // Calculate totalAfterDiscount for all items using reduce
-        this.totalAfterDiscount = res.reduce((acc, item) => {
-          const itemTotal = item.quantity * (item.cost - item.disAmount);
-          return acc + itemTotal;
-        }, 0);
+        this.stockInForm.get('totalAfterDiscount')?.setValue(
+          res.reduce((acc, item) => {
+            const itemTotal = item.quantity * (item.cost - item.discountAmount);
+            return acc + itemTotal;
+          }, 0)
+        );
+        this.stockInForm.get('totalQuantity')?.setValue(
+          res?.reduce((accumulator, item) => {
+            let data = +accumulator + +item.quantity;
+            return data;
+          }, 0)
+        );
 
-        this.totalQuantity = res?.reduce((accumulator, item) => {
-          let data = +accumulator + +item.quantity;
-          return data;
-        }, 0); // Start with 0 explicitly
-        this.discount = res?.reduce((accumulator, item) => {
-          let data = +accumulator + +item.discount;
-          return data;
-        }, 0); // Start with 0 explicitly
-        this.discount = res?.reduce((accumulator, item) => {
-          let data = +accumulator + +item.discount;
-          return data;
-        }, 0); // Start with 0 explicitly
-        this.vatAmount = res?.reduce((accumulator, item) => {
-          let data = +accumulator + +item.discount;
-          return data;
-        }, 0); // Start with 0 explicitly
+        this.stockInForm.get('discountPercentage')?.setValue(
+          res?.reduce((accumulator, item) => {
+            let data = +accumulator + +item.discount;
+            return data;
+          }, 0)
+        );
+
+        this.stockInForm.get('vatAmount')?.setValue(
+          res?.reduce((accumulator, item) => {
+            let data = +accumulator + +item.discount;
+            return data;
+          }, 0)
+        );
       }
     });
 
     this.initWareHouseLookupData();
-
-    this.transactionsService.getLatestItemsList();
-    this.transactionsService.sendlatestItemsList$.subscribe((res) => {
-      this.latestItemsList = res;
-      if (res.length) {
-        this.latestItemsList = res.map((elem: any, index: number) => ({
-          ...elem,
-          itemNumber: index + 1,
-          displayName: `(${elem.itemCode}) ${elem.itemName}-${
-            this.currentLang == 'en' ? elem.itemVariantNameEn : elem.itemVariantNameAr
-          }`,
-        }));
-      }
-    });
 
     this.addLineStockIn();
 
     this.transactionsService.sendItemBarcode$.pipe(skip(1)).subscribe((res) => {
       this.barcodeData = res;
     });
+
+    this.stockInForm.get('vendorId')?.valueChanges.subscribe((res) => {
+      let data = this.vendorItems.find((elem) => elem.id == res);
+      this.stockInForm.get('vendorName')?.setValue(data?.name);
+      this.stockInForm.get('currency')?.setValue(data?.vendorFinancialCurrencyName);
+      this.stockInForm.get('paymentTermId')?.setValue(data?.paymentTermId);
+      this.stockInForm.get('paymentTermName')?.setValue(data?.paymentTermName);
+      this.stockInForm.get('name')?.setValue(data?.name);
+      console.log('es', data);
+    });
   }
   isValidData() {
     this.lineError = -1;
     this.stockInDetailsFormArray.value.forEach((element: any, index: number) => {
       let lineNumber = index + 1;
-      if (element.stockInTracking.trackingType == this.sharedStock.StockOutTracking.Batch) {
+      if (element.invoiceEntryMode.trackingType == this.sharedStock.StockOutTracking.Batch) {
         if (
-          element.stockInTracking.vendorBatchNo == null ||
-          element.stockInTracking.vendorBatchNo == ''
+          element.invoiceEntryMode.vendorBatchNo == null ||
+          element.invoiceEntryMode.vendorBatchNo == ''
         ) {
           this.lineError = index;
           this.error = true;
@@ -178,8 +161,10 @@ export class AddPurchaseInvoiceComponent implements OnInit {
             this.languageService.transalte('messages.setTracking') + lineNumber
           );
         }
-      } else if (element.stockInTracking.trackingType == this.sharedStock.StockOutTracking.Serial) {
-        if (element.stockInTracking.serialId == null || element.stockInTracking.serialId == '') {
+      } else if (
+        element.invoiceEntryMode.trackingType == this.sharedStock.StockOutTracking.Serial
+      ) {
+        if (element.invoiceEntryMode.serialId == null || element.invoiceEntryMode.serialId == '') {
           this.lineError = index;
           this.error = true;
           this.save = false;
@@ -209,6 +194,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       notes: new FormControl(''),
       description: new FormControl(''),
       sourceDocumentType: new FormControl(''),
+      payementTerm: new FormControl(''),
       date: new FormControl(new Date(), [customValidators.required]),
       numberOfItems: 0,
       total: 0,
@@ -217,13 +203,21 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       discount: 0,
       vatAmount: 0,
       totalAfterVat: 0,
-
       stockInStatus: new FormControl(''),
-      stockInDetails: this.fb.array([]),
+      paymentTermName: new FormControl(''),
+      invoiceDate: new FormControl(new Date()),
+      currency: new FormControl(''),
+      vendorId: new FormControl(''),
+      vendorName: new FormControl(''),
+      currencyRate: new FormControl(''),
+      paymentTermId: new FormControl(''),
+      reference: new FormControl(''),
+
+      invoiceDetails: this.fb.array([]),
     });
   }
   get stockInDetailsFormArray() {
-    return this.stockInForm.get('stockInDetails') as FormArray;
+    return this.stockInForm.get('invoiceDetails') as FormArray;
   }
   setRowdata(indexLine: number, selectedItemId: any, list: any) {
     const selectedItem = list.find((item: any) => item.itemNumber === selectedItemId);
@@ -264,16 +258,16 @@ export class AddPurchaseInvoiceComponent implements OnInit {
           uomOptions: selectedItem.itemsUOM,
         });
 
-        const stockInTracking = rowForm.get('stockInTracking') as FormGroup;
-        if (stockInTracking) {
-          stockInTracking.patchValue({
-            id: selectedItem.stockInTracking?.id || 0,
-            vendorBatchNo: selectedItem.stockInTracking?.vendorBatchNo,
-            expireDate: selectedItem.stockInTracking?.expireDate,
-            systemPatchNo: selectedItem.stockInTracking?.systemPatchNo,
-            serialId: selectedItem.stockInTracking?.serialId,
+        const invoiceEntryMode = rowForm.get('invoiceEntryMode') as FormGroup;
+        if (invoiceEntryMode) {
+          invoiceEntryMode.patchValue({
+            id: selectedItem.invoiceEntryMode?.id || 0,
+            vendorBatchNo: selectedItem.invoiceEntryMode?.vendorBatchNo,
+            expireDate: selectedItem.invoiceEntryMode?.expireDate,
+            systemPatchNo: selectedItem.invoiceEntryMode?.systemPatchNo,
+            serialId: selectedItem.invoiceEntryMode?.serialId,
             trackingType: selectedItem.trackingType,
-            selectedValue: selectedItem.stockInTracking?.quantity,
+            selectedValue: selectedItem.invoiceEntryMode?.quantity,
           });
         }
       }
@@ -313,6 +307,21 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     this.purchasetransactionsService.latestVendor(undefined).subscribe((res: any) => {
       this.vendorItems = res;
     });
+    // get latest Items
+
+    this.purchasetransactionsService.getLatestItemsList();
+    this.purchasetransactionsService.lastestItem.subscribe((res) => {
+      this.latestItemsList = res;
+      if (res.length) {
+        this.latestItemsList = res.map((elem: any, index: number) => ({
+          ...elem,
+          itemNumber: index + 1,
+          displayName: `(${elem.itemCode}) ${elem.itemName}-${
+            this.currentLang == 'en' ? elem.itemVariantNameEn : elem.itemVariantNameAr
+          }`,
+        }));
+      }
+    });
   }
 
   warehouseSearch(searchItems: string) {
@@ -349,7 +358,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     // });
   }
   get stockIn() {
-    return this.stockInForm.get('stockInDetails') as FormArray;
+    return this.stockInForm.get('invoiceDetails') as FormArray;
   }
 
   getExcel() {
@@ -372,7 +381,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       itemCodeName: '',
       itemVariantId: '',
       discount: '',
-      disAmount: '',
+      discountAmount: '',
       uomName: '',
       uomId: ['', customValidators.required],
       quantity: [
@@ -384,11 +393,16 @@ export class AddPurchaseInvoiceComponent implements OnInit {
         [customValidators.required, customValidators.nonZero, customValidators.nonNegativeNumbers],
       ],
       subTotal: '',
+
       notes: '',
       hasExpiryDate: '',
       stockInEntryMode: 'Manual',
       trackingType: '',
-      stockInTracking: this.fb.group({
+      discountPercentage: '',
+      vatPercentage: '',
+      taxId: '',
+
+      invoiceEntryMode: this.fb.group({
         vendorBatchNo: '',
         expireDate: null,
         systemPatchNo: '',
@@ -400,22 +414,28 @@ export class AddPurchaseInvoiceComponent implements OnInit {
   }
 
   disAmountChange(purchaseForm: FormGroup) {
-    if (purchaseForm.controls['cost']?.value && purchaseForm.controls['discount']?.value) {
+    if (
+      purchaseForm.controls['cost']?.value &&
+      purchaseForm.controls['discountPercentage']?.value
+    ) {
       let amountAndDiscount;
 
       amountAndDiscount =
-        (purchaseForm.controls['discount']?.value / purchaseForm.controls['cost']?.value) * 100;
-      purchaseForm.get('disAmount')?.setValue(amountAndDiscount);
+        (purchaseForm.controls['discountPercentage']?.value /
+          purchaseForm.controls['cost']?.value) *
+        100;
+      purchaseForm.get('discountAmount')?.setValue(amountAndDiscount);
     }
   }
 
   amountChange(purchaseForm: FormGroup) {
-    if (purchaseForm.controls['cost']?.value && purchaseForm.get('disAmount')?.value) {
+    if (purchaseForm.controls['cost']?.value && purchaseForm.get('discountAmount')?.value) {
       let amountAndDiscount;
 
       amountAndDiscount =
-        (purchaseForm.controls['cost']?.value * purchaseForm.controls['disAmount']?.value) / 100;
-      purchaseForm.get('discount')?.setValue(amountAndDiscount);
+        (purchaseForm.controls['cost']?.value * purchaseForm.controls['discountAmount']?.value) /
+        100;
+      purchaseForm.get('discountPercentage')?.setValue(amountAndDiscount);
     }
   }
 
@@ -452,12 +472,12 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       .get('trackingType')
       ?.setValue(clonedStockInFormGroup.trackingType ?? data?.trackingType);
     stockInFormGroup
-      .get('stockInTracking')
+      .get('invoiceEntryMode')
       ?.get('trackingType')
       ?.setValue(clonedStockInFormGroup.trackingType ?? data?.trackingType);
 
     if (
-      stockInFormGroup.get('stockInTracking')?.get('trackingType')?.value ==
+      stockInFormGroup.get('invoiceEntryMode')?.get('trackingType')?.value ==
       this.sharedFinanceEnums.trackingType.Serial
     ) {
       stockInFormGroup.get('quantity')?.setValue(1);
@@ -477,35 +497,35 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     this.uomChanged(stockInFormGroup.get('uomId')?.value, stockInFormGroup, false);
     if (data?.hasExpiryDate) {
       stockInFormGroup
-        .get('stockInTracking')
+        .get('invoiceEntryMode')
         ?.get('expireDate')
         ?.setValidators(customValidators.required);
-      stockInFormGroup.get('stockInTracking')?.get('expireDate')?.updateValueAndValidity();
+      stockInFormGroup.get('invoiceEntryMode')?.get('expireDate')?.updateValueAndValidity();
     }
     if (data?.trackingType == this.sharedFinanceEnums.trackingType.Batch) {
       stockInFormGroup
-        .get('stockInTracking')
+        .get('invoiceEntryMode')
         ?.get('vendorBatchNo')
         ?.setValidators(customValidators.required);
-      stockInFormGroup.get('stockInTracking')?.get('vendorBatchNo')?.updateValueAndValidity();
+      stockInFormGroup.get('invoiceEntryMode')?.get('vendorBatchNo')?.updateValueAndValidity();
     }
     if (data?.trackingType == this.sharedFinanceEnums.trackingType.Serial) {
       stockInFormGroup
-        .get('stockInTracking')
+        .get('invoiceEntryMode')
         ?.get('serialId')
         ?.setValidators(customValidators.required);
-      stockInFormGroup.get('stockInTracking')?.get('serialId')?.updateValueAndValidity();
+      stockInFormGroup.get('invoiceEntryMode')?.get('serialId')?.updateValueAndValidity();
     }
     if (
       data?.trackingType == this.sharedFinanceEnums.trackingType.NoTracking &&
       stockInFormGroup.get('hasExpiryDate')?.value == false
     ) {
-      stockInFormGroup.get('stockInTracking')?.get('expireDate')?.clearValidators();
-      stockInFormGroup.get('stockInTracking')?.get('expireDate')?.updateValueAndValidity();
-      stockInFormGroup.get('stockInTracking')?.get('vendorBatchNo')?.clearValidators();
-      stockInFormGroup.get('stockInTracking')?.get('vendorBatchNo')?.updateValueAndValidity();
-      stockInFormGroup.get('stockInTracking')?.get('serialId')?.clearValidators();
-      stockInFormGroup.get('stockInTracking')?.get('serialId')?.updateValueAndValidity();
+      stockInFormGroup.get('invoiceEntryMode')?.get('expireDate')?.clearValidators();
+      stockInFormGroup.get('invoiceEntryMode')?.get('expireDate')?.updateValueAndValidity();
+      stockInFormGroup.get('invoiceEntryMode')?.get('vendorBatchNo')?.clearValidators();
+      stockInFormGroup.get('invoiceEntryMode')?.get('vendorBatchNo')?.updateValueAndValidity();
+      stockInFormGroup.get('invoiceEntryMode')?.get('serialId')?.clearValidators();
+      stockInFormGroup.get('invoiceEntryMode')?.get('serialId')?.updateValueAndValidity();
     }
   }
   uomChanged(e: any, stockInFormGroup: FormGroup, isBarcode: boolean) {
@@ -529,9 +549,10 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     this.stockIn.push(this.createStockIn());
   }
   onFilter(SearchTerm: string) {
+    this.purchasetransactionsService.getLatestItemsList(SearchTerm);
     const warehouseId: number = this.stockInForm.get('warehouseId')?.value;
-    this.transactionsService.getItems('', SearchTerm, new PageInfo());
-    this.transactionsService.itemsList.subscribe((res: any) => {
+    this.purchasetransactionsService.getItemsForAdvancedSearch('', SearchTerm, new PageInfo());
+    this.purchasetransactionsService.itemsDataSourceForAdvanced.subscribe((res: any) => {
       if (res.length > 0) {
         if (this.selectedLanguage === 'ar') {
           this.latestItemsList = res.map((elem: any, index: number) => ({
@@ -565,16 +586,16 @@ export class AddPurchaseInvoiceComponent implements OnInit {
   }
 
   openDialog(indexline: number, stockInFormGroup: FormGroup) {
-    // const ref = this.dialog.open(MultiSelectItemStockInComponent, {
-    //   width: 'auto',
-    //   height: '600px',
-    // });
-    // ref.onClose.subscribe((selectedItems: any) => {
-    //   if (selectedItems) {
-    //     stockInFormGroup.get('itemId')?.setValue(selectedItems.itemId);
-    //     this.setRowDataFromBarCode(indexline, selectedItems,'')
-    //   }
-    // });
+    const ref = this.dialog.open(VendorPurchasingAdvancedSearchComponent, {
+      width: 'auto',
+      height: '600px',
+    });
+    ref.onClose.subscribe((selectedItems: any) => {
+      if (selectedItems) {
+        stockInFormGroup.get('itemId')?.setValue(selectedItems.itemId);
+        this.setRowDataFromBarCode(indexline, selectedItems,'')
+      }
+    });
   }
 
   barcodeCanged(e: any, stockInFormGroup: FormGroup, index: number) {
@@ -632,16 +653,16 @@ export class AddPurchaseInvoiceComponent implements OnInit {
           uomOptions: selectedItem?.itemsUOM,
         });
 
-        const stockInTracking = rowForm.get('stockInTracking') as FormGroup;
-        if (stockInTracking) {
-          stockInTracking.patchValue({
-            id: selectedItem.stockInTracking?.id || 0,
-            vendorBatchNo: selectedItem.stockInTracking?.vendorBatchNo,
-            expireDate: selectedItem.stockInTracking?.expireDate,
-            systemPatchNo: selectedItem.stockInTracking?.systemPatchNo,
-            serialId: selectedItem.stockInTracking?.serialId,
+        const invoiceEntryMode = rowForm.get('invoiceEntryMode') as FormGroup;
+        if (invoiceEntryMode) {
+          invoiceEntryMode.patchValue({
+            id: selectedItem.invoiceEntryMode?.id || 0,
+            vendorBatchNo: selectedItem.invoiceEntryMode?.vendorBatchNo,
+            expireDate: selectedItem.invoiceEntryMode?.expireDate,
+            systemPatchNo: selectedItem.invoiceEntryMode?.systemPatchNo,
+            serialId: selectedItem.invoiceEntryMode?.serialId,
             trackingType: selectedItem.trackingType,
-            selectedValue: selectedItem.stockInTracking?.quantity,
+            selectedValue: selectedItem.invoiceEntryMode?.quantity,
           });
         }
       }
@@ -654,24 +675,27 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     }
   }
   setTracking(setTracking: FormGroup) {
-    // const dialogRef = this.dialog.open(TrackingStockInComponent, {
-    //   width: '60%',
-    //   height: '450px',
-    //   data: {
-    //     trackingType: setTracking.get('trackingType')?.value,
-    //     expiry: setTracking.get('hasExpiryDate')?.value,
-    //     trackingValue: setTracking.get('stockInTracking')?.get('selectedValue')?.value,
-    //   },
-    // });
-    // dialogRef.onClose.subscribe((res: any) => {
-    //   if (res) {
-    //     this.selectedTraking = res;
-    //     setTracking.get('stockInTracking')?.patchValue({ ...res });
-    //     setTracking.get('stockInTracking')?.get('selectedValue')?.setValue(res);
-    //     this.isValidData()
-    //   }
-    //   this.isValidData()
-    // });
+
+    console.log(setTracking.value)
+
+    const dialogRef = this.dialog.open(PurchaseInvoiceTrackingComponent, {
+      width: '60%',
+      height: '450px',
+      data: {
+        trackingType: setTracking.get('trackingType')?.value,
+        expiry: setTracking.get('hasExpiryDate')?.value,
+        trackingValue: setTracking.get('invoiceEntryMode')?.get('selectedValue')?.value,
+      },
+    });
+    dialogRef.onClose.subscribe((res: any) => {
+      if (res) {
+        this.selectedTraking = res;
+        setTracking.get('invoiceEntryMode')?.patchValue({ ...res });
+        setTracking.get('invoiceEntryMode')?.get('selectedValue')?.setValue(res);
+        this.isValidData()
+      }
+      this.isValidData()
+    });
   }
 
   onCancel() {
@@ -679,26 +703,29 @@ export class AddPurchaseInvoiceComponent implements OnInit {
   }
 
   onSave() {
-    this.isValidData();
-    if (!this.formService.validForm(this.stockInForm, false)) return;
+    // this.isValidData();
+    // if (!this.formService.validForm(this.stockInForm, false)) return;
 
-    if (this.save) {
-      let data: AddStockIn = {
-        ...this.stockInForm.value,
-        sourceDocumentType: +this.stockInForm.value.sourceDocumentType,
-        stockInDetails: this.stockInDetailsFormArray.value,
-      };
 
-      this.transactionsService.addStockIn(data, this.stockInForm);
-      this.transactionsService.addedStockInData$.subscribe((res: number | any) => {
-        if (typeof res == 'number') {
-          this.savedDataId = res;
-          this.dataToReadOnly = true;
-        } else {
-          this.dataToReadOnly = false;
-        }
-      });
-    }
+    console.log(this.stockInForm.value)
+    console.log(this.stockIn.value)
+    // if (this.save) {
+    //   let data: AddStockIn = {
+    //     ...this.stockInForm.value,
+    //     sourceDocumentType: +this.stockInForm.value.sourceDocumentType,
+    //     stockInDetails: this.stockInDetailsFormArray.value,
+    //   };
+
+    //   this.transactionsService.addStockIn(data, this.stockInForm);
+    //   this.transactionsService.addedStockInData$.subscribe((res: number | any) => {
+    //     if (typeof res == 'number') {
+    //       this.savedDataId = res;
+    //       this.dataToReadOnly = true;
+    //     } else {
+    //       this.dataToReadOnly = false;
+    //     }
+    //   });
+    // }
   }
 
   OnDelete(i: number) {

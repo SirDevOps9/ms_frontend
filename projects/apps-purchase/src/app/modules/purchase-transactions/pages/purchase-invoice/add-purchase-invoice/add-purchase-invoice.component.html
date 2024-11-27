@@ -2,7 +2,7 @@
   [title]="'purchase.TaxList' | translate"
   [subTitle]="'purchase.TaxList' | translate"
 >
-  <ng-container [formGroup]="stockInForm">
+  <ng-container [formGroup]="stockInForm"> 
     <div class="card_micro">
       <div class="grid p-0">
         <div class="md:col-4 mt-2">
@@ -27,14 +27,14 @@
                     ></lib-field-validations>
                   </div>
                   <div class="md:col-6">
-                    <lib-label [appControl]="stockInForm.controls['date']">
+                    <lib-label [appControl]="stockInForm.controls['invoiceDate']">
                       {{ 'purchase.date' | translate }}
                     </lib-label>
                     <lib-calendar
                       placeholder="{{ 'purchase.date' | translate }}"
-                      formControlName="date"
+                      formControlName="invoiceDate"
                     ></lib-calendar>
-                    <lib-field-validations [appControl]="stockInForm.controls['date']">
+                    <lib-field-validations [appControl]="stockInForm.controls['invoiceDate']">
                     </lib-field-validations>
                   </div>
                   <div class="md:col-12">
@@ -59,7 +59,6 @@
                     <lib-select
                       formControlName="warehouseId"
                       [options]="warhouseLookupData"
-                      [(ngModel)]="wearhouseSearch"
                       optionValue="id"
                       optionLabel="name"
                       [selectedValue]="stockInForm.controls['warehouseId'].value"
@@ -85,13 +84,13 @@
               <div class="item_body">
                 <div class="grid my-3">
                   <div class="md:col-6">
-                    <lib-label [appControl]="stockInForm.controls['code']">
+                    <lib-label [appControl]="stockInForm.controls['vendorId']">
                       {{ 'purchase.code' | translate }}
                     </lib-label>
                     <div class="grid align-items-center">
                       <div class="md:col-10">
                         <lib-select
-                          formControlName="code"
+                          formControlName="vendorId"
                           [options]="vendorItems"
                           optionValue="id"
                           optionLabel="name"
@@ -107,65 +106,66 @@
                     </div>
                   </div>
                   <div class="md:col-6">
-                    <lib-label [appControl]="stockInForm.controls['code']">
+                    <lib-label [appControl]="stockInForm.controls['vendorName']">
                       {{ 'purchase.name' | translate }}
                     </lib-label>
                     <lib-text-input
                       placeholder="{{ 'purchase.name' | translate }}"
-                      formControlName="code"
+                      formControlName="vendorName"
                       [readOnly]="true"
                     ></lib-text-input>
                     <lib-field-validations
-                      [appControl]="stockInForm.controls['code']"
+                      [appControl]="stockInForm.controls['vendorName']"
                     ></lib-field-validations>
                   </div>
                   <div class="md:col-6">
-                    <lib-label [appControl]="stockInForm.controls['code']">
+                    <lib-label [appControl]="stockInForm.controls['currency']">
                       {{ 'purchase.currency' | translate }}
                     </lib-label>
                     <lib-text-input
                       placeholder="{{ 'purchase.currency' | translate }}"
-                      formControlName="code"
+                      formControlName="currency"
                       [readOnly]="true"
                     ></lib-text-input>
                     <lib-field-validations
-                      [appControl]="stockInForm.controls['code']"
+                      [appControl]="stockInForm.controls['currency']"
                     ></lib-field-validations>
                   </div>
                   <div class="md:col-6">
-                    <lib-label [appControl]="stockInForm.controls['rate']">
+                    <lib-label [appControl]="stockInForm.controls['currencyRate']">
                       {{ 'purchase.rate' | translate }}
                     </lib-label>
                     <lib-text-input
                       placeholder="{{ 'purchase.rate' | translate }}"
-                      formControlName="rate"
+                      formControlName="currencyRate"
                     ></lib-text-input>
                     <lib-field-validations
-                      [appControl]="stockInForm.controls['rate']"
+                      [appControl]="stockInForm.controls['currencyRate']"
                     ></lib-field-validations>
                   </div>
                   <div class="md:col-6">
-                    <lib-label [appControl]="stockInForm.controls['sourceDocumentType']">
+                    <lib-label [appControl]="stockInForm.controls['paymentTermName']">
                       {{ 'purchase.paymentTerms' | translate }}
                     </lib-label>
                     <lib-text-input
                       placeholder="{{ 'purchase.paymentTerms' | translate }}"
-                      formControlName="sourceDocumentType"
+                      formControlName="paymentTermName"
+                      [readOnly]="true"
                     ></lib-text-input>
                     <lib-field-validations
-                      [appControl]="stockInForm.controls['sourceDocumentType']"
+                      [appControl]="stockInForm.controls['paymentTermName']"
                     ></lib-field-validations>
                   </div>
                   <div class="md:col-6">
-                    <lib-label [appControl]="stockInForm.controls['code']">
+                    <lib-label [appControl]="stockInForm.controls['reference']">
                       {{ 'purchase.reference' | translate }}
                     </lib-label>
                     <lib-text-input
                       placeholder="{{ 'purchase.reference' | translate }}"
-                      formControlName="code"
+                      formControlName="reference"
                     ></lib-text-input>
                     <lib-field-validations
-                      [appControl]="stockInForm.controls['code']"
+                      [appControl]="stockInForm.controls['reference']"
                     ></lib-field-validations>
                   </div>
                 </div>
@@ -186,7 +186,6 @@
         <lib-text-input
           type="text"
           [placeholder]="'purchase.search' | translate"
-          [(ngModel)]="searchTerm"
         ></lib-text-input>
 
         <div class="flex justify-content-end gap-4 my-4">
@@ -277,7 +276,7 @@
                     >
                     </lib-select>
                     <i
-                      class="pi pi-search search-circle"
+                      class="pi pi-search search-circle pointer"
                       (click)="openDialog(i, stockInFormGroup)"
                     ></i>
                   </div>
@@ -332,7 +331,7 @@
                     placeholder="{{ 'purchase.QTY' | translate }}"
                     formControlName="quantity"
                     [readOnly]="
-                      stockInFormGroup.get('stockInTracking')?.get('trackingType')?.value ==
+                      stockInFormGroup.get('invoiceEntryMode')?.get('trackingType')?.value ==
                       this.sharedFinanceEnums.trackingType.Serial
                     "
                   ></lib-text-input>
@@ -380,54 +379,54 @@
               </div>
             </td>
             <td
-              [pEditableColumn]="stockInFormGroup.controls['discount']"
-              pEditableColumnField="discount"
+              [pEditableColumn]="stockInFormGroup.controls['discountPercentage']"
+              pEditableColumnField="discountPercentage"
             >
               <p-cellEditor>
                 <ng-template pTemplate="input">
                   <lib-text-input
-                    placeholder="{{ 'purchase.discount' | translate }}"
-                    formControlName="discount"
+                    placeholder="{{ 'purchase.discountPercentage' | translate }}"
+                    formControlName="discountPercentage"
                     [readOnly]="dataToReadOnly"
                     (keyUp)="disAmountChange(stockInFormGroup)"
                   ></lib-text-input>
                 </ng-template>
                 <ng-template pTemplate="output">
-                  {{ stockInFormGroup.controls['discount']?.value }}
+                  {{ stockInFormGroup.controls['discountPercentage']?.value }}
                 </ng-template>
               </p-cellEditor>
               <lib-field-validations
-                [appControl]="stockInFormGroup.controls['discount']"
+                [appControl]="stockInFormGroup.controls['discountPercentage']"
               ></lib-field-validations>
             </td>
             <!-- Dis Amount -->
 
             <td
-              [pEditableColumn]="stockInFormGroup.controls['disAmount']"
-              pEditableColumnField="disAmount"
+              [pEditableColumn]="stockInFormGroup.controls['discountAmount']"
+              pEditableColumnField="discountAmount"
             >
               <p-cellEditor>
                 <ng-template pTemplate="input">
                   <lib-text-input
                     placeholder="{{ 'purchase.disAmount' | translate }}"
-                    formControlName="disAmount"
+                    formControlName="discountAmount"
                     [readOnly]="dataToReadOnly"
                     (keyUp)="amountChange(stockInFormGroup)"
                   ></lib-text-input>
                 </ng-template>
                 <ng-template pTemplate="output">
-                  {{ stockInFormGroup.controls['disAmount']?.value }}
+                  {{ stockInFormGroup.controls['discountAmount']?.value }}
                 </ng-template>
               </p-cellEditor>
               <lib-field-validations
-                [appControl]="stockInFormGroup.controls['disAmount']"
+                [appControl]="stockInFormGroup.controls['discountAmount']"
               ></lib-field-validations>
             </td>
             <!-- Net Cost -->
             <td>
               {{
                 stockInFormGroup.controls['cost']?.value -
-                  stockInFormGroup.controls['disAmount']?.value
+                  stockInFormGroup.controls['discountAmount']?.value
               }}
             </td>
             <!-- Total After Discount -->
@@ -435,7 +434,7 @@
               {{
                 stockInFormGroup.controls['quantity']?.value *
                   (stockInFormGroup.controls['cost']?.value -
-                    stockInFormGroup.controls['disAmount']?.value)
+                    stockInFormGroup.controls['discountAmount']?.value)
               }}
             </td>
             <!-- Vat -->
@@ -445,7 +444,7 @@
               {{
                 stockInFormGroup.controls['quantity']?.value -
                   (stockInFormGroup.controls['cost']?.value -
-                    stockInFormGroup.controls['disAmount']?.value)
+                    stockInFormGroup.controls['discountAmount']?.value)
               }}
             </td>
 
@@ -454,7 +453,7 @@
               {{
                 stockInFormGroup.controls['quantity']?.value -
                   (stockInFormGroup.controls['cost']?.value -
-                    stockInFormGroup.controls['disAmount']?.value)
+                    stockInFormGroup.controls['discountAmount']?.value)
               }}
             </td>
 
@@ -479,7 +478,7 @@
                   "
                 >
                   {{
-                    stockInFormGroup.get('stockInTracking').get('expireDate')?.value
+                    stockInFormGroup.get('invoiceEntryMode').get('expireDate')?.value
                       | date : 'dd-MM-yyyy'
                   }}
                 </small>
@@ -488,7 +487,7 @@
                     stockInFormGroup.get('trackingType').value ==
                       sharedFinanceEnums.trackingType.NoTracking &&
                     stockInFormGroup.get('hasExpiryDate')?.value == true &&
-                    !stockInFormGroup.get('stockInTracking').get('expireDate')?.value
+                    !stockInFormGroup.get('invoiceEntryMode').get('expireDate')?.value
                   "
                 >
                   {{ 'purchase.Expiry' | translate }}
@@ -501,7 +500,7 @@
                     stockInFormGroup.get('trackingType').value ==
                     sharedFinanceEnums.trackingType.Serial
                   "
-                  >{{ stockInFormGroup.get('stockInTracking').get('serialId')?.value }}</small
+                  >{{ stockInFormGroup.get('invoiceEntryMode').get('serialId')?.value }}</small
                 >
                 <!--  -->
 
@@ -509,7 +508,7 @@
                   *ngIf="
                     stockInFormGroup.get('trackingType').value ==
                       sharedFinanceEnums.trackingType.Serial &&
-                    !stockInFormGroup.get('stockInTracking').get('serialId')?.value
+                    !stockInFormGroup.get('invoiceEntryMode').get('serialId')?.value
                   "
                   >{{ stockInFormGroup.get('trackingType').value }}</small
                 >
@@ -520,14 +519,14 @@
                     stockInFormGroup.get('trackingType').value ==
                     sharedFinanceEnums.trackingType.Batch
                   "
-                  >{{ stockInFormGroup.get('stockInTracking').get('vendorBatchNo')?.value }}</small
+                  >{{ stockInFormGroup.get('invoiceEntryMode').get('vendorBatchNo')?.value }}</small
                 >
 
                 <small
                   *ngIf="
                     stockInFormGroup.get('trackingType').value ==
                       sharedFinanceEnums.trackingType.Batch &&
-                    !stockInFormGroup.get('stockInTracking').get('vendorBatchNo')?.value
+                    !stockInFormGroup.get('invoiceEntryMode').get('vendorBatchNo')?.value
                   "
                   >{{ stockInFormGroup.get('trackingType').value }}</small
                 >
@@ -566,12 +565,12 @@
                 <!-- <small
                 class="danger"
                 *ngIf="
-                  stockInFormGroup.get('stockInTracking').get('expireDate').hasError('required') ||
+                  stockInFormGroup.get('invoiceEntryMode').get('expireDate').hasError('required') ||
                   stockInFormGroup
-                    .get('stockInTracking')
+                    .get('invoiceEntryMode')
                     .get('vendorBatchNo')
                     .hasError('required') ||
-                  stockInFormGroup.get('stockInTracking').get('serialId').hasError('required') 
+                  stockInFormGroup.get('invoiceEntryMode').get('serialId').hasError('required') 
                 "
                 >{{ 'purchase.required' | translate }}</small
               > -->
@@ -619,7 +618,7 @@
           <lib-text-input
             placeholder="{{ 'purchase.totalQuantity' | translate }}"
             formControlName="numberOfItems"
-            [(ngModel)]="numberOfItems"
+            
           ></lib-text-input>
           <lib-field-validations
             [appControl]="stockInForm.controls['numberOfItems']"
@@ -632,7 +631,6 @@
           <lib-text-input
             placeholder="{{ 'purchase.total' | translate }}"
             formControlName="total"
-            [(ngModel)]="total"
           ></lib-text-input>
         </div>
         <div class="md:col-2">
@@ -642,7 +640,6 @@
           <lib-text-input
             placeholder="{{ 'purchase.totalAfterDiscount' | translate }}"
             formControlName="totalAfterDiscount"
-            [(ngModel)]="totalAfterDiscount"
           ></lib-text-input>
         </div>
         <div class="md:col-2">
@@ -652,7 +649,6 @@
           <lib-text-input
             placeholder="{{ 'purchase.totalQuantity' | translate }}"
             formControlName="totalQuantity"
-            [(ngModel)]="totalQuantity"
           ></lib-text-input>
           <lib-field-validations
             [appControl]="stockInForm.controls['totalQuantity']"
@@ -665,7 +661,6 @@
           <lib-text-input
             placeholder="{{ 'purchase.discount' | translate }}"
             formControlName="discount"
-            [(ngModel)]="discount"
           ></lib-text-input>
           <lib-field-validations
             [appControl]="stockInForm.controls['discount']"
@@ -679,7 +674,6 @@
           <lib-text-input
             placeholder="{{ 'purchase.vatAmount' | translate }}"
             formControlName="vatAmount"
-            [(ngModel)]="vatAmount"
           ></lib-text-input>
         </div>
         <div class="md:col-2">
@@ -689,7 +683,6 @@
           <lib-text-input
             placeholder="{{ 'purchase.totalAfterVat' | translate }}"
             formControlName="totalAfterVat"
-            [(ngModel)]="totalAfterVat"
           ></lib-text-input>
         </div>
       </div>

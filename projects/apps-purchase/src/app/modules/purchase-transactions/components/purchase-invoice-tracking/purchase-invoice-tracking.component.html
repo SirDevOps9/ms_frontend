@@ -16,7 +16,7 @@
         <ng-template pTemplate="header">
           <tr>
             <th>{{ 'stockIn.expiryDate' | translate }}</th>
-            <th>{{ 'stockIn.generatedBatch' | translate }}</th> 
+            <th>{{ 'stockIn.generatedBatch' | translate }}</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-stockInFormGroup let-editing="editing" let-i="rowIndex">
@@ -157,7 +157,7 @@
             <td
               [pEditableColumn]="stockInFormGroup.controls['expireDate']"
               pEditableColumnField="expireDate"
-            >
+            > 
               <p-cellEditor>
                 <ng-template pTemplate="input">
                   <lib-calendar formControlName="expireDate"></lib-calendar>

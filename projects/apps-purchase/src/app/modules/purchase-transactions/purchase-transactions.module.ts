@@ -8,6 +8,8 @@ import { BreadcrumbLabel, Modules, SharedLibModule } from 'shared-lib';
 import { LayoutPageComponent } from 'apps-shared-lib';
 import { MainPurchaseInvoiceComponent } from './pages/purchase-invoice/main-purchase-invoice/main-purchase-invoice.component';
 import { VendorAavancedSearchComponent } from './components/vendor-aavanced-search/vendor-aavanced-search.component';
+import { VendorPurchasingAdvancedSearchComponent } from './components/vendor-purchasing-advanced-search/vendor-purchasing-advanced-search.component';
+import { PurchaseInvoiceTrackingComponent } from './components/purchase-invoice-tracking/purchase-invoice-tracking.component';
 
 const routes: Routes = [
   {
@@ -67,7 +69,9 @@ const routes: Routes = [
     EditPurchaseInvoiceComponent,
     PurchaseInvoiceListComponent,
     MainPurchaseInvoiceComponent,
-    VendorAavancedSearchComponent
+    VendorAavancedSearchComponent,
+    VendorPurchasingAdvancedSearchComponent,
+    PurchaseInvoiceTrackingComponent
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule],
 
