@@ -61,7 +61,6 @@
     "Submit": "إرسال",
     "Post": "ترحيل",
     "costCenter": "مركز التكلفة"
-
   },
   "viewJournal": {
     "JornalCode": "كود اليومية",
@@ -82,9 +81,8 @@
     "debitAmountLocal": "المبلغ المحلي الدائن",
     "creditAmountLocal": "المبلغ المحلي المدين",
     "costCenter": "مركز التكلفة",
-    "Amount" : "الكمية",
-    "add_line" : "اضافه سطر"
-
+    "Amount": "الكمية",
+    "add_line": "اضافه سطر"
   },
 
   "TaxGroup": {
@@ -157,8 +155,8 @@
     "Closingbalance": "الرصيد الختامي",
     "debit": "مدين",
     "credit": "دائن"
-},
-"treasury": {
+  },
+  "treasury": {
     "treasuryCode": "رمز الخزانة",
     "treasuryName": "اسم الخزانة",
     "currency": "العملة",
@@ -187,17 +185,16 @@
   "editTreasury": {
     "edit": "تم تعديل تعريف الخزانة بنجاح"
   },
- "VendorOpeningBalance": {
+  "VendorOpeningBalance": {
     "CustomerOpeningBalance": "رصيد افتتاحي للبائع",
     "OpeningJournalCode": "رمز السجل الافتتاحي",
     "AccountName": "اسم الحساب",
     "Amount": "المبلغ",
     "AmountNature": "طبيعة المبلغ",
     "VendorDeleted": "تم حذف المورد بنجاح",
-  "VendorUpdated": "تم تحديث المورد بنجاح",
-  "VendorAdded": "تم إضافة المورد بنجاح",
-  "Search": "بحث"
-
+    "VendorUpdated": "تم تحديث المورد بنجاح",
+    "VendorAdded": "تم إضافة المورد بنجاح",
+    "Search": "بحث"
   },
   "addVendorOpeneingBalance": {
     "openingJournal": "السجل الافتتاحي",
@@ -215,54 +212,29 @@
     "add_new_line": "إضافة سطر جديد",
     "ViewDistribution": "عرض التوزيع"
   },
-  "PurchaseInvoiceEdit": {
-  "import": "استيراد",
-  "edit": "تعديل",
-  "save": "حفظ",
-  "cancel": "إلغاء",
-  "delete": "تم حذف الإدخال بنجاح",
-  "success": "نجاح",
-  "add": "تم إضافة إخراج المخزون بنجاح",
-  "edits": "تم تعديل إخراج المخزون بنجاح",
-  "code": "الكود",
-  "date": "التاريخ",
-  "description": "الوصف",
-  "sourceDoc": "المستند المصدر",
-  "warehouse": "المستودع",
-  "status": "الحالة",
-  "journalCode": "كود اليومية",
-  "reserve": "كمية الاحتياطي",
-  "actions": "الإجراءات",
-  "Add": "إنشاء",
-  "search": "بحث",
-  "ChangeColumn": "تغيير العمود",
-  "docType": "نوع المستند المصدر",
-  "notes": "ملاحظات",
-  "barcode": "الباركود",
-  "itemCode": "كود الصنف",
-  "itemDescription": "وصف الصنف",
-  "UOM": "وحدة القياس",
-  "QTY": "الكمية",
-  "cost": "التكلفة",
-  "subTotal": "الإجمالي الفرعي",
-  "tracking": "التتبع",
-  "note": "ملاحظة",
-  "action": "إجراء",
-  "btnReserve": "احتياطي",
-  "btnReserved": "محجوز",
-  "batch": "رقم الدفعة",
-  "serial": "الرقم التسلسلي",
-  "expiryDate": "تاريخ الانتهاء",
-  "availability": "التوافر",
-  "noTracking": "بدون تتبع",
-  "AddNewLine": "إضافة سطر جديد",
-  "discount": "الخصم",
-  "discountAmt": "مبلغ الخصم",
-  "netCost": "التكلفة الصافية",
-  "totalAfter": "الإجمالي بعد الخصم",
-  "vat": "ضريبة القيمة المضافة",
-  "VatAmount": "مبلغ الضريبة",
-  "grandTotal": "الإجمالي الكلي"
-}
-
+  "purchase": {
+    "purchase": "شراء",
+    "invoiceCode": "كود الفاتورة",
+    "invoiceDate": "تاريخ الفاتورة",
+    "vendorCode": "كود المورد",
+    "vendorName": "اسم المورد",
+    "currency": "العملة",
+    "reference": "المرجع",
+    "paymentTerms": "شروط الدفع",
+    "warehouse": "المستودع",
+    "invoiceJournal": "سجل الفاتورة",
+    "stockIn": "حالة دخول المخزون",
+    "totalAmount": "إجمالي المبلغ",
+    "discountAmount": "مبلغ الخصم",
+    "totalAfterDiscount": "الإجمالي بعد الخصم",
+    "vatAmount": "مبلغ الضريبة",
+    "totalAfterVat": "الإجمالي بعد الضريبة",
+    "actions": "الإجراءات",
+    "search": "بحث",
+    "Add": "إنشاء",
+    "btnReserve": "حجز",
+    "btnReserved": "تم الحجز",
+    "success": "تم  بنجاح",
+    "delete": "تم حذف البيانات بنجاح"
+  }
 }

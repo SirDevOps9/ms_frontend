@@ -51,6 +51,7 @@ export class ExportComponent implements OnDestroy {
   handleExport(format: string) {
     this.exportClick.emit();
     this.format = format;
+    // console.log(`Exporting data as ${format}`);
   }
 
   performExport() {

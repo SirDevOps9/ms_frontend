@@ -1,4 +1,8 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import { PurchaseTransactionsProxyService } from './purchase-transactions-proxy.service';
+import { BehaviorSubject } from 'rxjs';
+import { LanguageService, PageInfo, PageInfoResult, ToasterService } from 'shared-lib';
+import { IinvoiceDto } from './model/purchase-invoice';
 import { PurchaseTransactionsProxyService } from './purchase-transactions-proxy.service';
 import { BehaviorSubject, map } from 'rxjs';
 import { LanguageService, PageInfo, PageInfoResult, RouterService, ToasterService } from 'shared-lib';

@@ -202,10 +202,10 @@
     "AccountName": "Account Name",
     "Amount": "Amount",
     "AmountNature": "Amount Nature",
-    "VendorDeleted":"Vendor Deleted Successfully",
-    "VendorUpdated":"Vendor Updated Successfully",
-    "VendorAdded":"Vendor Added Successfully",
-    "Search":"Search"
+    "VendorDeleted": "Vendor Deleted Successfully",
+    "VendorUpdated": "Vendor Updated Successfully",
+    "VendorAdded": "Vendor Added Successfully",
+    "Search": "Search"
   },
   "addVendorOpeneingBalance": {
     "openingJournal": "Opening Journal",
@@ -221,7 +221,33 @@
     "distribute": "Distribute",
     "total": "Total",
     "add_new_line": "Add New Line",
-    "ViewDistribution":"View Distribution"
+    "ViewDistribution": "View Distribution"
+  },
+
+  "purchase": {
+    "purchase": "Purchase",
+    "invoiceCode": "Invoice Code",
+    "invoiceDate": "Invoice Date",
+    "vendorCode": "Vendor Code",
+    "vendorName": "Vendor Name",
+    "currency": "Currency",
+    "reference": "Reference",
+    "paymentTerms": "Payment Terms",
+    "warehouse": "Warehouse",
+    "invoiceJournal": "Invoice Journal",
+    "stockIn": "Stock In Status",
+    "totalAmount": "Total Amount",
+    "discountAmount": "Discount Amount",
+    "totalAfterDiscount": "Total After Discount",
+    "vatAmount": "VAT Amount",
+    "totalAfterVat": "Total After VAT",
+    "actions": "Actions",
+    "search": "Search",
+    "Add": "Create",
+    "btnReserve": "Reserve",
+    "btnReserved": "Reserved",
+    "success": "Reserved",
+    "delete": "Data Deleted Successfully"
   },
   "PurchaseInvoiceEdit": {
     "import": "Import",

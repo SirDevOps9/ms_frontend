@@ -5,13 +5,18 @@ export class BreadcrumbLabel {
   static readonly CostCenter = 'BreadCrumb.CostCenter';
   static readonly JournalEntryList = 'BreadCrumb.JournalEntryList';
   static readonly JournalEntryAdd = 'BreadCrumb.JournalEntryAdd';
+  static readonly JournalEntryAddTilte=  'BreadCrumb.JournalEntryAddTtile';
   static readonly JournalEntryView = 'BreadCrumb.JournalEntryView';
   static readonly JournalEntryEdit = 'BreadCrumb.JournalEntryEdit';
+  static readonly JournalEntryEditTilte = 'BreadCrumb.JournalEntryEditTilte';
   static readonly TrialBalance = 'BreadCrumb.TrialBalance';
   static readonly AccountStatement = 'BreadCrumb.AccountStatement';
   static readonly JournalEntryOpeningBalance = 'BreadCrumb.JournalEntryOpeningBalance';
+  static readonly JournalEntryOpeningBalanceTitle = 'BreadCrumb.JournalEntryOpeningBalance';
   static readonly AddJournalEntryOpeningBalance = 'BreadCrumb.AddJournalEntryOpeningBalance';
+  static readonly AddJournalEntryOpeningBalanceTilte = 'BreadCrumb.AddJournalEntryOpeningBalanceTilte';
   static readonly EditJournalEntryOpeningBalance = 'BreadCrumb.EditJournalEntryOpeningBalance';
+  static readonly EditJournalEntryOpeningBalanceTilte = 'BreadCrumb.EditJournalEntryOpeningBalanceTitle';
   static readonly ViewJournalEntryOpeningBalance = 'BreadCrumb.ViewJournalEntryOpeningBalance';
   static readonly CUSTOMER_DEFINITIONS = 'BreadCrumb.CustomerDefinition';
   static readonly ADD_CUSTOMER_DEFINITIONS = 'BreadCrumb.AddCustomerDefinition';
@@ -43,6 +48,7 @@ export class BreadcrumbLabel {
   static readonly EDIT_VENDOR_DEFINITIONS = 'BreadCrumb.EditVendorDefinition';
   static readonly calendar_list = 'BreadCrumb.FinancialCalendar';
   static readonly calendar_Add = 'BreadCrumb.AddFinancialCalendar';
+  static readonly calendar_AddTitle = 'BreadCrumb.AddFinancialCalendarTitle';
   static readonly calendar_Edit = 'BreadCrumb.EditFinancialCalendar';
   static readonly CURRENCY_DEFINITION_LIST = 'BreadCrumb.CurrencyDefinition';
   static readonly CURRENCY_CONVERSION = 'BreadCrumb.CurrencyConversion';
@@ -108,7 +114,7 @@ export class BreadcrumbLabel {
   static EDIT_ITEM_DIFINITION = 'Edit Item catalog';
   static ITEM_TYPE = 'Item Type';
   static ITEM_CATEGORY = 'Item Category';
-  static WARE_HOUSE = 'Warehouse';
+  static WARE_HOUSE = 'BreadCrumb.warehouse';
   static UNITOFMEASURE = 'BreadCrumb.UnitOfMeasure';
   static ADD_WARE_HOUSE = 'Add Warehouse';
   static UOM = 'UOM';
@@ -118,10 +124,12 @@ export class BreadcrumbLabel {
   static EDITUOM = 'BreadCrumb.EditUom';
   static UOMLISt = 'BreadCrumb.uomList';
   static Edit_UOM = 'edit uom';
-  static GENERAL_ITEMdEFINITION = 'General Item Defintion';
-  static attributes_ITEMdEFINITION = 'Attributes & Variants Item Defintion';
-  static EditItembarcodedefinition = 'EditItembarcodedefinition';
-  static EditItembarfixedcostfinition = 'BreadCrumb.EditItembarfixedcostfinition';
+  static GENERAL_ITEMdEFINITION = 'BreadCrumb.generalItemDefintion';
+  static attributes_ITEMdEFINITION = 'BreadCrumb.attributes_ITEMdEFINITION';
+  static variants_ITEMdEFINITION = 'BreadCrumb.variants_ITEMdEFINITION';
+  static TaxTilte = 'BreadCrumb.TaxTilte';
+  static EditItembarfixedcostfinition = 'BreadCrumb.taxtTitle';
+  static FIXEDCOST = 'BreadCrumb.fixedCost';
 
   // attr attribute-definition
   static Attribute_Definition = 'BreadCrumb.AttributeDefinition';
@@ -131,7 +139,8 @@ export class BreadcrumbLabel {
   static Add_Attribute_Definition = 'BreadCrumb.AddAttributeDefinition';
   static Edit_Attribute_Definition = 'BreadCrumb.EditAttributeDefinition';
   static LIST_Attribute_Definition = 'BreadCrumb.AttributeDefinitionView';
-  static EDIT_WARE_HOUSE = 'Edit Warehouse';
+  static EDIT_WARE_HOUSE = 'BreadCrumb.edit';
+  static EDIT_WARE_HOUSE_TITLE = 'BreadCrumb.editWarehouseTilte';
   static VIEW_WARE_HOUSE = 'BreadCrumb.ViewWarehouse';
   static ITEMS_CATEGORY = 'BreadCrumb.ItemsCategory';
   static STOCKIN = 'BreadCrumb.stockIn';
@@ -184,5 +193,5 @@ export class BreadcrumbLabel {
   static TITLE_PRICE_POLICY_EDIT = 'title.edit';
   static TITLE_PRICE_POLICY_VIEW = 'title.view';
 
-  static INVENTORY = 'Inventory';
+  static INVENTORY = 'BreadCrumb.inventory';
 }

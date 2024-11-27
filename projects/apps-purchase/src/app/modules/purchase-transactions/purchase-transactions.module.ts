@@ -26,13 +26,12 @@ const routes: Routes = [
           breadcrumb: BreadcrumbLabel.purchaseInvoiceList,
           pageTitle: BreadcrumbLabel.purchaseInvoiceList,
         },
-        children:[
+        children: [
           {
             path: '',
             component: PurchaseInvoiceListComponent,
             data: {
               breadcrumb: '',
-
             },
           },
           {
@@ -41,24 +40,18 @@ const routes: Routes = [
             data: {
               breadcrumb: BreadcrumbLabel.purchaseInvoiceAdd,
               pageTitle: BreadcrumbLabel.purchaseInvoiceAdd,
-
-
             },
           },
           {
-            path: 'edit',
+            path: 'Edit-purchase-invoice/:id',
             component: EditPurchaseInvoiceComponent,
             data: {
-              breadcrumb: BreadcrumbLabel.PURCHASE_EDIT,
-              pageTitle: BreadcrumbLabel.TITLE_PURCHASE_EDIT,
-
-
+              breadcrumb: 'BreadcrumbLabel.purchaseInvoiceEdit',
+              pageTitle: BreadcrumbLabel.purchaseInvoiceEdit,
             },
           },
-         
-        ]
+        ],
       },
-    
     ],
   },
 ];
@@ -74,6 +67,5 @@ const routes: Routes = [
     PurchaseInvoiceTrackingComponent
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule],
-
 })
-export class PurchaseTransactionsModule { }
+export class PurchaseTransactionsModule {}

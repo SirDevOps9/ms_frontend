@@ -1,11 +1,14 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
+import { IinvoiceDto } from './model/purchase-invoice';
 import { Observable } from 'rxjs';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
 import { LatestItem } from './models';
 import { AddPurchaseInvoiceDto } from './models/addPurchaseInvoice';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root',,
 })
 export class PurchaseTransactionsProxyService {
   constructor(private httpService: HttpService) {}

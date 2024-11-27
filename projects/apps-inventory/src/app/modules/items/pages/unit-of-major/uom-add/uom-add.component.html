@@ -160,6 +160,7 @@
         </ng-template>
         <ng-template pTemplate="body" let-uomTableForm let-editing="editing" let-i="rowIndex">
           <tr [formGroup]="uomTableForm">
+
             <td
               [pEditableColumn]="uomTableForm.controls['systemUnitOfMeasureId']"
               pEditableColumnField="systemUnitOfMeasureId"
@@ -278,6 +279,8 @@
                   ></lib-select>
                 </ng-template>
                 <ng-template pTemplate="output">
+
+                  {{(uomTableForm.controls['fromUnitOfMeasureId']?.value | getElementByID : list[i])?.name }}
                   {{
                     (uomTableForm.controls['fromUnitOfMeasureId']?.value | getElementByID : list[i])
                       ?.name
@@ -303,7 +306,11 @@
                     ></lib-text-input>
                   </lib-form-group>
                 </ng-template>
-                <ng-template pTemplate="output">
+                <ng-template pTemplate="output" >
+
+                  <small *ngIf="uomTableForm.controls['fromUnitOfMeasureId'].value && uomTableForm.controls['factor'].value ">{{ uomTableForm.controls['calculationShow'].value }}</small>
+               </ng-template>
+                  <ng-template pTemplate="output">
                   <small
                     *ngIf="
                       uomTableForm.controls['fromUnitOfMeasureId'].value &&
