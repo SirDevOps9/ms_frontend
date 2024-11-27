@@ -15,10 +15,8 @@ export const ERPRoutes = [
     children: [
       {
         path: '',
-        component: LandingPageComponent,
-        data: {
-          moduleId: Modules.Finance,
-        },
+        loadChildren: () =>
+          import('./modules/dashboard/dashboard.module').then((m) => m.DashboardModule),
       },
       {
         path: 'masterdata',
@@ -26,7 +24,8 @@ export const ERPRoutes = [
       },
       {
         path: 'transcations',
-        loadChildren: () => import('./modules/transcations/transcations.module').then((m) => m.TranscationsModule),
+        loadChildren: () =>
+          import('./modules/transcations/transcations.module').then((m) => m.TranscationsModule),
       },
       {
         path: 'reports',
