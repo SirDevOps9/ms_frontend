@@ -177,6 +177,7 @@
       "BranchCode": "كود ",
       "BranchNameEn": "اسم الفرع بالإنجليزية",
       "BranchNameAr": "اسم الفرع بالعربية",
+      "BranchName": "اسم الفرع",
        "Country": "الدولة",
       "BranchRegion": "منطقة ",
       "BranchCity": "مدينة ",
