@@ -2,8 +2,8 @@
   <div class="user-page">
     <div class="charts">
       <div class="grid">
-        <div class="lg:col-4 md:col-6 col-12">
-          <app-chart-card>
+        <div class="lg:col-4 md:col-6 col-12" [appLoader]="statusLoader">
+          <app-chart-card [chartDTO]="statusChart">
             <div class="chart-header">
               <div class="title heading_b18">{{ 'dashboard.status' | translate }}</div>
               <div class="action body_b14">
@@ -14,8 +14,8 @@
                 <i class="pi pi-heart"></i>
               </div>
             </div>
-            <div class="chart-body accounts-bank w-full">
-              <!-- @for(acc of cashBankAccountsBalance.accounts; track acc) {
+            <!-- <div class="chart-body accounts-bank w-full">
+           @for(acc of cashBankAccountsBalance.accounts; track acc) {
               <div class="row">
                 <span class="body-14 mx-1">{{ acc.accountName }}</span>
                 <span
@@ -29,16 +29,30 @@
                 <span class="line"></span>
                 <span class="detail-value heading_b16">{{ acc.balance | decimalSeparator }}</span>
               </div>
-              } -->
+              }
 
               <div class="grid"></div>
-            </div>
+            </div> -->
           </app-chart-card>
         </div>
-        <div class="lg:col-4 md:col-6 col-12">
+        <div class="lg:col-4 md:col-6 col-12" [appLoader]="cashFlowSummaryLoader">
           <app-chart-card>
             <div class="chart-header">
-              <div class="title heading_b18">{{ 'dashboard.cashFlowSummary' | translate }}</div>
+              <div class="title title-card-wrapper heading_b18">
+                <span>
+                  {{ 'dashboard.cashFlowSummary' | translate }}
+                </span>
+                <lib-select
+                  [options]="currencyDropDown"
+                  optionValue="value"
+                  optionLabel="label"
+                  (valueChanged)="selectCurrency($event)"
+                  [showClear]="false"
+                  [selectedValue]="defaultCurrency.label"
+                >
+                </lib-select>
+              </div>
+
               <div class="action body_b14">
                 <span class="pointer">
                   {{ 'dashboard.moreDetails' | translate }} <i class="pi pi-arrow-right fs-14"></i>
@@ -68,10 +82,23 @@
             </div>
           </app-chart-card>
         </div>
-        <div class="lg:col-4 md:col-6 col-12">
-          <app-chart-card>
+        <div class="lg:col-4 md:col-6 col-12" [appLoader]="totalBankTreasuriesLoader">
+          <app-chart-card [chartDTO]="totalBankTreasuriesChart">
             <div class="chart-header">
-              <div class="title heading_b18">{{ 'dashboard.totalBankTreasuries' | translate }}</div>
+              <div class="title title-card-wrapper heading_b18">
+                <span>
+                  {{ 'dashboard.totalBankTreasuries' | translate }}
+                </span>
+                <lib-select
+                  [options]="currencyDropDown"
+                  optionValue="value"
+                  optionLabel="label"
+                  (valueChanged)="selectCurrency($event)"
+                  [showClear]="false"
+                  [selectedValue]="defaultCurrency.label"
+                >
+                </lib-select>
+              </div>
               <div class="action body_b14">
                 <span class="pointer">
                   {{ 'dashboard.moreDetails' | translate }} <i class="pi pi-arrow-right fs-14"></i>
@@ -83,7 +110,7 @@
           </app-chart-card>
         </div>
 
-        <div class="lg:col-6 col-12">
+        <div class="lg:col-6 col-12" [appLoader]="banksLoader">
           <app-chart-card>
             <div class="chart-header">
               <div class="title heading_b18">{{ 'dashboard.banks' | translate }}</div>
@@ -97,7 +124,7 @@
             </div>
           </app-chart-card>
         </div>
-        <div class="lg:col-6 col-12">
+        <div class="lg:col-6 col-12" [appLoader]="treasuriesLoader">
           <app-chart-card>
             <div class="chart-header">
               <div class="title heading_b18">{{ 'dashboard.treasuries' | translate }}</div>
@@ -112,8 +139,8 @@
           </app-chart-card>
         </div>
 
-        <div class="lg:col-6 col-12">
-          <app-chart-card>
+        <div class="lg:col-6 col-12" [appLoader]="incomeLoader">
+          <app-chart-card [chartDTO]="incomeChart">
             <div class="chart-header">
               <div class="title heading_b18">{{ 'dashboard.income' | translate }}</div>
               <div class="action body_b14">
@@ -145,8 +172,8 @@
             </div>
           </app-chart-card>
         </div>
-        <div class="lg:col-6 col-12">
-          <app-chart-card>
+        <div class="lg:col-6 col-12" [appLoader]="outgoingLoader">
+          <app-chart-card [chartDTO]="outgoingChart">
             <div class="chart-header">
               <div class="title heading_b18">{{ 'dashboard.outgoing' | translate }}</div>
               <div class="action body_b14">
@@ -179,7 +206,7 @@
           </app-chart-card>
         </div>
 
-        <div class="col-12">
+        <div class="col-12" [appLoader]="resentTransactionsLoader">
           <app-chart-card>
             <div class="chart-header">
               <div class="title heading_b18">{{ 'dashboard.resentTransactions' | translate }}</div>

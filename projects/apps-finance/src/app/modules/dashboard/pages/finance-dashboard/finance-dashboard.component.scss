@@ -28,6 +28,11 @@
   padding-bottom: 20px;
   border-bottom: 2px solid #e3e3e3;
 
+  .title-card-wrapper {
+    display: flex;
+    gap: 16px;
+  }
+
   .action {
     display: flex;
     align-items: center;
@@ -108,4 +113,13 @@
 }
 .sort {
   cursor: pointer;
+}
+
+::ng-deep {
+  p-dropdown {
+    .p-dropdown {
+      border: none !important;
+      gap: 8px !important;
+    }
+  }
 }
