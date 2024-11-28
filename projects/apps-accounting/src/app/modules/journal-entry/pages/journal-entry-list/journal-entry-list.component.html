@@ -6,6 +6,7 @@
       className="p-datatable-gridlines"
       [currentPageResult]="currentPageInfo"
       (pageChange)="onPageChange($event)"
+      (exportObj)="exportClickBySort($event)"
       (addNew)="routeToAdd()"
       (fiteredDropdOwn)="fillFilterDropdown($event)"
       [tableConfigs]="{
@@ -126,7 +127,7 @@
       <ng-container action>
         <div class="flex gap-2">
           <lib-export
-          (exportClick)="exportClick($event)"
+          (exportClick)="exportClick()"
           [exportData]="exportData"
           [exportColumns]="exportColumns"
           [ExportName]="('Journal.JournalEnteryPrint' |translate)"

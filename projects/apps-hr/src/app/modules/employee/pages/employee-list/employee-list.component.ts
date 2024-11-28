@@ -10,7 +10,8 @@ import {
 import { EmployeeDto } from '../../models/employeeDto';
 import { Title } from '@angular/platform-browser';
 import { EmployeeService } from '../../employee.service';
-import { ExportService } from 'libs/shared-lib/src/lib/export/exportService';
+import { SortTableEXport } from 'projects/apps-inventory/src/app/modules/items/models/SortTable';
+import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
 
 @Component({
   selector: 'app-employee-list',
@@ -29,42 +30,21 @@ export class EmployeeListComponent implements OnInit {
   searchTerm: string;
   exportColumns: lookupDto[];
   exportSelectedCols: string[] = [];
+  SortByAll:SortTableEXport
 
   constructor(
     private routerService: RouterService,
     private titleService: Title,
     private languageService: LanguageService,
-    private employeeService: EmployeeService
+    private employeeService: EmployeeService,
+    private exportService:ExportService
   ) {}
   ngOnInit() {
     this.titleService.setTitle('Employee List');
     this.languageService.getTranslation('Employee.List.Employees').subscribe((title) => {
       this.titleService.setTitle(title);
     });
-    this.initEmployeeData(this.searchTerm, new PageInfo());
-    this.cols = [
-      {
-        field: 'Id',
-        header: 'Id',
-      },
-      {
-        field: 'Employee Code',
-        header: 'EmployeeCode',
-      },
-
-      {
-        field: 'Attendance Code',
-        header: 'AttendanceCode',
-      },
-      {
-        field: 'Employee Name',
-        header: 'EmployeeName',
-      },
-      {
-        field: 'Employee Photo',
-        header: 'EmployeePhoto',
-      },
-    ];
+    this.initEmployeeData(this.searchTerm, new PageInfo());;
     this.exportColumns = this.cols.map((col) => ({
       id: col.header,
       name: col.field,
@@ -114,15 +94,26 @@ export class EmployeeListComponent implements OnInit {
       this.currentPageInfo = res;
     });
   }
-
-  exportEmployeeData(searchTerm: string) {
-    this.employeeService.exportsEmployeesList(searchTerm);
-
+  exportClick() {
+    this.exportEmployeeData(this.searchTerm, this.SortByAll?.SortBy, this.SortByAll?.SortColumn);
+  }
+  exportEmployeeData(searchTerm: string, sortBy?: number, sortColumn?: string) {
+    this.employeeService.exportsEmployeesList(searchTerm , sortBy , sortColumn);
+    const columns = [
+      { name: 'employeeName', headerText:('Employee.List.Name') },
+      { name: 'employeeCode', headerText:('Employee.List.Code') },
+      { name: 'attendanceCode', headerText:('Employee.List.AttendanceCode') },
+    ];
     this.employeeService.exportedEmployeesList.subscribe((res) => {
-      this.exportData = res;
+      this.exportData = this.exportService.formatCiloma(res, columns);
     });
   }
-
+  exportClickBySort(e:{SortBy: number; SortColumn: string}){
+    this.SortByAll={
+     SortBy: e.SortBy,
+     SortColumn:e.SortColumn
+    }
+ }
   onPageChange(pageInfo: PageInfo) {
     console.log(pageInfo);
     this.initEmployeeData('', pageInfo);
@@ -146,9 +137,7 @@ export class EmployeeListComponent implements OnInit {
     this.initEmployeeData(this.searchTerm, new PageInfo());
   }
 
-  exportClick(e?: Event) {
-    this.exportEmployeeData(this.searchTerm);
-  }
+
   exportExcel() {
     // let filterDto : FilterDto = new FilterDto();
     // console.log(filterDto)

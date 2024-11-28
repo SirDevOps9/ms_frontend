@@ -779,15 +779,15 @@ export class GeneralSettingService {
       },
     });
   }
-  exportcurrencyDefinitionData(searchTerm: string | undefined) {
-    this.GeneralSettingproxy.exportcurrencyDefinitionData(searchTerm).subscribe({
+  exportcurrencyDefinitionData(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
+    this.GeneralSettingproxy.exportcurrencyDefinitionData(searchTerm , SortBy , SortColumn).subscribe({
       next: (res) => {
         this.exportcurrencyDefinitionDataSource.next(res);
       },
     });
   }
-  exportFinancialCalendarData(searchTerm: string | undefined) {
-    this.GeneralSettingproxy.exportFinancialCalendarData(searchTerm).subscribe({
+  exportFinancialCalendarData(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
+    this.GeneralSettingproxy.exportFinancialCalendarData(searchTerm , SortBy , SortColumn).subscribe({
       next: (res) => {
         this.exportsFinancialCalendarDataSource.next(res);
       },
@@ -932,8 +932,8 @@ export class GeneralSettingService {
       },
     });
   }
-  exportTaxGroupData(searchTerm: string | undefined) {
-    this.GeneralSettingproxy.exportTaxGroupData(searchTerm).subscribe({
+  exportTaxGroupData(SearchTerm?: string ,SortBy?:number,SortColumn?:string) {
+    this.GeneralSettingproxy.exportTaxGroupData(SearchTerm , SortBy, SortColumn ).subscribe({
       next: (res) => {
         this.exportsTaxGroupDataSource.next(res);
       },
@@ -1010,7 +1010,7 @@ export class GeneralSettingService {
       })
     );
   }
-  
+
   getAccountsChildrenDropDown() {
     return this.GeneralSettingproxy.getAccountsChildrenDropDown().pipe(
       map((res) => {

@@ -10,6 +10,7 @@ import { AttributeDefinitionValuesComponent } from '../attribute-definition-valu
 import { AttributeDefinitionListValuesComponent } from '../attribute-definition-list-values/attribute-definition-list-values/attribute-definition-list-values.component';
 import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
 import { TranslateService } from '@ngx-translate/core';
+import { SortTableEXport } from '../../../models/SortTable';
 
 interface Attribute {
   nameEn: string;
@@ -32,7 +33,7 @@ interface RowData {
 export class AttributeDefinitionListComponent implements OnInit {
   tableData: RowData[]
   tableDataOb: any={}
-
+  SortByAll:SortTableEXport
   currentPageInfo: PageInfoResult = { totalItems: 0 };
   searchTerm: string;
   exportData: IAttrributeDifinitionResult[];
@@ -108,19 +109,18 @@ currentLang:string = ''
       },
     });
   }
-
-  exportClick(e?: Event) {
-
-    this.exportAttrData(this.searchTerm);
+  exportClick() {
+    this.exportAttrData(this.searchTerm, this.SortByAll?.SortBy, this.SortByAll?.SortColumn);
   }
-  exportAttrData(searchTerm: string) {
+  exportAttrData(searchTerm: string, sortBy?: number, sortColumn?: string) {
+    this.itemService.exportAttrDifinitionList(searchTerm, sortBy, sortColumn);
+
     let columns = [
-      { name: this.currentLang === 'en' ? 'nameEn' : 'nameAr', headerText: this.translate.instant('attributeDefinition.attribute') },
-      { name: 'itemAttributes', headerText: this.translate.instant('attributeDefinition.values') },
-      { name: this.currentLang === 'en' ? 'isActive' : 'isActive', headerText: this.translate.instant('attributeDefinition.status') },
+      { name: this.currentLang === 'en' ? 'nameEn' : 'nameAr', headerText: ('attributeDefinition.attribute') },
+      { name: 'itemAttributes', headerText: ('attributeDefinition.values') },
+      { name: this.currentLang === 'en' ? 'isActive' : 'isActive', headerText: ('attributeDefinition.status') },
     ];
 
-    this.itemService.exportAttrDifinitionList(searchTerm);
 
     this.itemService.SendexportAttrDifinitionList$.subscribe((res) => {
       this.exportData = this.exportService.formatItemAttributes(res, columns);
@@ -128,7 +128,12 @@ currentLang:string = ''
     });
   }
 
-
+  exportClickBySort(e: { SortBy: number; SortColumn: string }) {
+    this.SortByAll = {
+      SortBy: e.SortBy,
+      SortColumn: e.SortColumn,
+    };
+  }
 
   onEdit(data: any) {
     this.routerService.navigateTo(`/masterdata/attribute-definition/edit-attribute/${data.id}`);

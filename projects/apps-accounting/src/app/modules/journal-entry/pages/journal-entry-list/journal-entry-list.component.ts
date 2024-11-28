@@ -13,6 +13,7 @@ import { JournalEntryDto, SharedJournalEnums } from '../../models';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
+import { SortTableEXport } from 'projects/apps-inventory/src/app/modules/items/models/SortTable';
 
 @Component({
   selector: 'app-journal-entry-list',
@@ -29,6 +30,7 @@ export class JournalEntryListComponent implements OnInit {
   exportColumns: lookupDto[];
   exportData: JournalEntryDto[];
   searchTerm: string;
+  SortByAll:SortTableEXport
   constructor(
     private routerService: RouterService,
     private journalEntryService: JournalEntryService,
@@ -86,12 +88,12 @@ export class JournalEntryListComponent implements OnInit {
       },
     });
   }
-  exportClick(e?: Event) {
-    this.exportJournalEntriesData(this.searchTerm);
+  exportClick() {
+    this.exportJournalEntriesData(this.searchTerm, this.SortByAll?.SortBy, this.SortByAll?.SortColumn);
   }
 
-  exportJournalEntriesData(searchTerm: string) {
-    this.journalEntryService.exportJournalEntriesData(searchTerm);
+  exportJournalEntriesData(searchTerm: string, sortBy?: number, sortColumn?: string) {
+    this.journalEntryService.exportJournalEntriesData(searchTerm , sortBy , sortColumn);
 
     const columns = [
       { name: 'journalCode', headerText: 'Journal.journalCode' },
@@ -112,7 +114,12 @@ export class JournalEntryListComponent implements OnInit {
 
   }
 
-
+  exportClickBySort(e: { SortBy: number; SortColumn: string }) {
+    this.SortByAll = {
+      SortBy: e.SortBy,
+      SortColumn: e.SortColumn,
+    };
+  }
   routeToPaymentInView(id: number) {
     const url = this.router.serializeUrl(
       this.router.createUrlTree([`/finance/transcations/paymentin/view/${id}`])
