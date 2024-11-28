@@ -126,7 +126,6 @@ export class ViewInvoiceComponent implements OnInit {
   }
 
   onSearchTermChange(search: any): void {
-    console.log(search.target.value);
     debugger;
     const term = search.target.value?.toLowerCase() || '';
 
