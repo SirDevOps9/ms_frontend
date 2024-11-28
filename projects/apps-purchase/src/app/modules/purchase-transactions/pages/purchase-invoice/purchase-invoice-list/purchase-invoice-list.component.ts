@@ -72,6 +72,9 @@ export class PurchaseInvoiceListComponent implements OnInit {
   onEdit(id: any) {
     this.routerService.navigateTo(`/transaction/purchase-invoice/Edit-purchase-invoice/${id}`);
   }
+  onView(id: any) {
+    this.routerService.navigateTo(`/transaction/purchase-invoice/view-purchase-invoice/${id}`);
+  }
 
   onSearchChange() {
     this.transactionsService.getInvoiceList(this.searchTerm, new PageInfo());
@@ -79,7 +82,6 @@ export class PurchaseInvoiceListComponent implements OnInit {
 
   // on Delete
   onDelete(id: number) {
-
     this.transactionsService.deleteInvoiceLine(id);
   }
 

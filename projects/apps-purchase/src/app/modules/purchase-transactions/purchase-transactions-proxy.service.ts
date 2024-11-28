@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
-import { IinvoiceDto } from './model/purchase-invoice';
+import { IinvoiceDto, viewInvoiceObj } from './model/purchase-invoice';
 
 @Injectable({
   providedIn: 'root',
@@ -40,5 +40,10 @@ export class PurchaseTransactionsProxyService {
   // delete from list of purchase
   deleteInvoiceLine(id: number): Observable<boolean> {
     return this.httpService.delete<boolean>(`Invoice/${id}`);
+  }
+  // Get Invoice View By Id
+  GetInvoiceViewById(id: number): Observable<viewInvoiceObj> {
+    const url = `Invoice/GetInvoiceViewById/${id}`;
+    return this.httpService.get<viewInvoiceObj>(url);
   }
 }
