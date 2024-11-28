@@ -197,7 +197,7 @@
                             <ng-template pTemplate="input">
                                 <lib-text-input placeholder="{{ 'PurchaseInvoiceEdit.barcode' | translate }}"
                                     formControlName="barCode"
-                                    (keydown.enter)="barcodeCanged($event, rowIndex)"></lib-text-input>
+                                   ></lib-text-input>
                             </ng-template>
                             <ng-template pTemplate="output">
                                 {{ invoiceFormGroup.controls['barCode']?.value }}
@@ -250,7 +250,7 @@
                                     formControlName="uomId" [options]="invoiceFormGroup.get('uomOptions')?.value || []"
                                     [optionLabel]="selectedLanguage === 'en' ? 'uomNameEn' : 'uomNameAr'"
                                     selectedValue="{{invoiceFormGroup.controls['uomId'].value}}" optionValue="uomId"
-                                    (valueChanged)="setUomName(rowIndex ,invoiceFormGroup.get('uomOptions').value ) ; isDuplicate(rowIndex)
+                                    (valueChanged)="setUomName(rowIndex ,invoiceFormGroup.get('uomOptions').value ) 
                    ">
 
                                 </lib-select>
@@ -269,7 +269,7 @@
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <lib-text-input type="number" placeholder="{{ 'PurchaseInvoiceEdit.QTY' | translate }}"
-                                    formControlName="quantity" (keyUp)="setCostTotal(rowIndex)  ; isDuplicate(rowIndex)"
+                                    formControlName="quantity" (keyUp)="setCostTotal(rowIndex) "
                                     (valueChanged)="setCostTotal(rowIndex) "></lib-text-input>
                             </ng-template>
                             <ng-template pTemplate="output">
@@ -372,7 +372,7 @@
                                 expire Date
                             </p>
                             <lib-button-micro nameClass="save" title="Set Tracking"
-                                (click)="setStockInTracking(rowIndex)">
+                                (click)="setinvoiceTracking(rowIndex)">
 
                             </lib-button-micro>
                         </div>
