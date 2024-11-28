@@ -61,14 +61,14 @@ export class PurchaseInvoiceListComponent implements OnInit {
   }
 
   onAdd() {
-    this.routerService.navigateTo('/transaction/purchase-invoice/add-purchase-invoice');
+    this.routerService.navigateTo('/transaction/purchase-invoice/add');
   }
 
   onEdit(id: any) {
     this.routerService.navigateTo(`/transaction/purchase-invoice/edit/${id}`);
   }
   onView(id: any) {
-    this.routerService.navigateTo(`/transaction/purchase-invoice/view-purchase-invoice/${id}`);
+    this.routerService.navigateTo(`/transaction/purchase-invoice/view/${id}`);
   }
 
   onSearchChange() {

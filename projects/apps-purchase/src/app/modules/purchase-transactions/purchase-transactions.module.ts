@@ -37,7 +37,7 @@ const routes: Routes = [
             },
           },
           {
-            path: 'add-purchase-invoice',
+            path: 'add',
             component: AddPurchaseInvoiceComponent,
             data: {
               breadcrumb: BreadcrumbLabel.purchaseInvoiceAdd,
@@ -63,7 +63,7 @@ const routes: Routes = [
             },
           },
           {
-            path: 'view-purchase-invoice/:id',
+            path: 'view/:id',
             component: ViewInvoiceComponent,
             data: {
               breadcrumb: BreadcrumbLabel.purchaseInvoiceView,
@@ -86,7 +86,7 @@ const routes: Routes = [
     TrackingEditComponent,
     PurchaseInvoiceTrackingComponent,
     ItemAdvancedSearchPurchaseInvoiceComponent,
-    ViewInvoiceComponent
+    ViewInvoiceComponent,
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule],
 })
