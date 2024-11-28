@@ -47,6 +47,10 @@
             z-index: 1;
             margin-inline-start: -17px;
         }
+        .line_two{
+          width: 103% !important;
+
+        }
         .item{
             position: relative;
             z-index: 10;
@@ -64,4 +68,13 @@
         }
     }
    
+  }
+  .total{
+    background-color: #F2F4F8;
+    border: 1px solid #48A6C0 ;
+    color: #48A6C0;
+    padding: 20px 20px;
+  }
+  .title_Tracking{
+    margin-inline-end: 10px;
   }

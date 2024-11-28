@@ -263,6 +263,25 @@
   "vat": "ضريبة القيمة المضافة",
   "VatAmount": "مبلغ الضريبة",
   "grandTotal": "الإجمالي الكلي"
+},
+"ItemsAdvancedSearch": {
+  "ItemSearch": "بحث عن الصنف",
+  "IsStorable": "قابل للتخزين",
+  "IsService": "خدمة",
+  "HasExpiryDate": "له تاريخ انتهاء",
+  "ItemCode": "كود الصنف",
+  "ItemName": "اسم الصنف",
+  "ItemUOM": "وحدة قياس الصنف",
+  "ItemVariant": "نوع الصنف",
+  "ItemCategory": "فئة الصنف",
+  "Confirm": "تأكيد"
+  },
+  "setTracking": {
+  "setTracking": "تتبع الدفعة",
+  "expiryDate": "تاريخ الانتهاء",
+  "generatedBatch": "دفعة منشأة",
+  "Expiry": "الانتهاء",
+  "vendorBatchNo": "رقم الدفعة"
 }
 
 }

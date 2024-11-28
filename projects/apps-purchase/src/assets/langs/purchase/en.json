@@ -272,5 +272,25 @@
     "VatAmount": "VAT amount",
     "tracking": "Tracking",
     "grandTotal": "grand total"
+  },
+  "ItemsAdvancedSearch": {
+    "ItemSearch": "Item Search",
+    "IsStorable": "IsStorable",
+    "IsService": "IsService",
+    "HasExpiryDate": "Has Expiry Date",
+    "ItemCode": "Item Code",
+    "ItemName": "Item Name",
+    "ItemUOM": "Item UOM",
+    "ItemVariant": "Item Variant",
+    "ItemCategory": "Item Category",
+    "Confirm": "Confirm"
+  },
+  "setTracking": {
+    "setTracking": "Set Tracking",
+    "expiryDate": "Expiry Date",
+    "generatedBatch": "Generated Batch",
+    "Expiry": "Expiry",
+    "vendorBatchNo": "Batch No"
   }
+
 }
