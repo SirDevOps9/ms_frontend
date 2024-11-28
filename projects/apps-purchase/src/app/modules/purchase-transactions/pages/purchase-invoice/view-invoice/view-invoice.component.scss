@@ -1,18 +1,19 @@
-
 :host {
     overflow-x: hidden;
 }
-.divCont{
+
+.divCont {
     border-radius: 5px;
     border: 1px solid #ddd;
     padding: 15px;
     font-weight: bold;
     width: 180px;
-    background-color: #F7F7FA; 
+    background-color: #F7F7FA;
     color: #2E2E2E;
 
 
 }
+
 .floated {
     position: relative;
     top: -20px;
@@ -21,16 +22,17 @@
 }
 
 ::ng-deep .tableCont {
-    .p-datatable.p-datatable-gridlines:has(.p-datatable-thead):has(.p-datatable-tbody) .p-datatable-tbody > tr > td {
+    .p-datatable.p-datatable-gridlines:has(.p-datatable-thead):has(.p-datatable-tbody) .p-datatable-tbody>tr>td {
         border-width: 0 0 1px 1px;
         min-width: 225px;
     }
 }
 
-.card_information{
+.card_information {
     position: relative;
     padding: 5px 0;
-    .line{
+
+    .line {
         position: absolute;
         top: 25px;
         width: 120%;
@@ -39,24 +41,28 @@
         z-index: 1;
         margin-inline-start: -17px;
     }
-    .item{
+
+    .item {
         position: relative;
         z-index: 10;
-        .title{
+
+        .title {
             border-radius: 8px;
             margin-inline-start: 20px;
             width: fit-content;
-            padding: 10px 20px ;
-            background:#F7F7FA ;
+            padding: 10px 20px;
+            background: #F7F7FA;
             color: #2E2E2E;
         }
-        .item_body{
+
+        .item_body {
             padding-inline-start: 34px;
         }
     }
 }
-.foot{
-    padding: 0px 32px !important    ;
+
+.foot {
+    padding: 0px 32px !important;
 }
 
 ::ng-deep {

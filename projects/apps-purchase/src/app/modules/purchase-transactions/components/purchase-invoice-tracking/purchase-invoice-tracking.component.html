@@ -2,7 +2,7 @@
   *ngIf="configData?.tracking == 'NoTracking' || configData?.trackingType == 'NoTracking'"
 >
   <lib-popup-page
-    title="{{ 'stockIn.Expiry' | translate }}"
+    title="{{ 'tracking.Expiry' | translate }}"
     [closeFunction]="onCancel"
     (Submit)="onSubmit()"
   >
@@ -15,14 +15,14 @@
       >
         <ng-template pTemplate="header">
           <tr>
-            <th>{{ 'stockIn.expiryDate' | translate }}</th>
-            <th>{{ 'stockIn.generatedBatch' | translate }}</th> 
+            <th>{{ 'tracking.expiryDate' | translate }}</th>
+            <th>{{ 'tracking.generatedBatch' | translate }}</th>
           </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-stockInFormGroup let-editing="editing" let-i="rowIndex">
-          <tr [formGroup]="stockInFormGroup">
+        <ng-template pTemplate="body" let-trackingFormGroup let-editing="editing" let-i="rowIndex">
+          <tr [formGroup]="trackingFormGroup">
             <td
-              [pEditableColumn]="stockInFormGroup.controls['expireDate']"
+              [pEditableColumn]="trackingFormGroup.controls['expireDate']"
               pEditableColumnField="expireDate"
             >
               <p-cellEditor>
@@ -30,16 +30,16 @@
                   <lib-calendar formControlName="expireDate"></lib-calendar>
                 </ng-template>
                 <ng-template pTemplate="output">
-                  {{ stockInFormGroup.controls['expireDate']?.value | date : 'dd-MM-yyyy' }}
+                  {{ trackingFormGroup.controls['expireDate']?.value | date : 'dd-MM-yyyy' }}
                 </ng-template>
               </p-cellEditor>
               <lib-field-validations
-                [appControl]="stockInFormGroup.controls['expireDate']"
+                [appControl]="trackingFormGroup.controls['expireDate']"
               ></lib-field-validations>
             </td>
             <!--  -->
             <td>
-              {{ stockInFormGroup.controls['systemPatchNo']?.value }}
+              {{ trackingFormGroup.controls['systemPatchNo']?.value }}
             </td>
           </tr>
         </ng-template>
@@ -50,7 +50,7 @@
 <!--  -->
 <ng-container *ngIf="configData?.tracking == 'Batch' || configData?.trackingType == 'Batch'">
   <lib-popup-page
-    title="{{ 'stockIn.vendorBatchNo' | translate }}"
+    title="{{ 'tracking.vendorBatchNo' | translate }}"
     [closeFunction]="onCancel"
     (Submit)="onSubmit()"
   >
@@ -63,35 +63,35 @@
       >
         <ng-template pTemplate="header">
           <tr>
-            <th>{{ 'stockIn.vendorBatchNo' | translate }}</th>
-            <th>{{ 'stockIn.expiryDate' | translate }}</th>
+            <th>{{ 'tracking.vendorBatchNo' | translate }}</th>
+            <th>{{ 'tracking.expiryDate' | translate }}</th>
           </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-stockInFormGroup let-editing="editing" let-i="rowIndex">
-          <tr [formGroup]="stockInFormGroup">
+        <ng-template pTemplate="body" let-trackingFormGroup let-editing="editing" let-i="rowIndex">
+          <tr [formGroup]="trackingFormGroup">
             <td
-              [pEditableColumn]="stockInFormGroup.controls['vendorBatchNo']"
+              [pEditableColumn]="trackingFormGroup.controls['vendorBatchNo']"
               pEditableColumnField="vendorBatchNo"
             >
               <p-cellEditor>
                 <ng-template pTemplate="input">
                   <lib-text-input
-                    placeholder="{{ 'stockIn.vendorBatchNo' | translate }}"
+                    placeholder="{{ 'tracking.vendorBatchNo' | translate }}"
                     formControlName="vendorBatchNo"
                   ></lib-text-input>
                 </ng-template>
                 <ng-template pTemplate="output">
-                  {{ stockInFormGroup.controls['vendorBatchNo']?.value }}
+                  {{ trackingFormGroup.controls['vendorBatchNo']?.value }}
                 </ng-template>
               </p-cellEditor>
               <lib-field-validations
-                [appControl]="stockInFormGroup.controls['vendorBatchNo']"
+                [appControl]="trackingFormGroup.controls['vendorBatchNo']"
               ></lib-field-validations>
             </td>
             <!--  -->
 
             <td
-              [pEditableColumn]="stockInFormGroup.controls['expireDate']"
+              [pEditableColumn]="trackingFormGroup.controls['expireDate']"
               pEditableColumnField="expireDate"
             >
               <p-cellEditor>
@@ -99,11 +99,11 @@
                   <lib-calendar formControlName="expireDate"></lib-calendar>
                 </ng-template>
                 <ng-template pTemplate="output">
-                  {{ stockInFormGroup.controls['expireDate']?.value | date : 'dd-MM-yyyy' }}
+                  {{ trackingFormGroup.controls['expireDate']?.value | date : 'dd-MM-yyyy' }}
                 </ng-template>
               </p-cellEditor>
               <lib-field-validations
-                [appControl]="stockInFormGroup.controls['expireDate']"
+                [appControl]="trackingFormGroup.controls['expireDate']"
               ></lib-field-validations>
             </td>
           </tr>
@@ -114,7 +114,7 @@
 </ng-container>
 <ng-container *ngIf="configData?.tracking == 'Serial' || configData?.trackingType == 'Serial'">
   <lib-popup-page
-    title="{{ 'stockIn.serial' | translate }}"
+    title="{{ 'tracking.serial' | translate }}"
     [closeFunction]="onCancel"
     (Submit)="onSubmit()"
   >
@@ -127,47 +127,47 @@
       >
         <ng-template pTemplate="header">
           <tr>
-            <th>{{ 'stockIn.serialId' | translate }}</th>
-            <th>{{ 'stockIn.expiryDate' | translate }}</th>
+            <th>{{ 'tracking.serialId' | translate }}</th>
+            <th>{{ 'tracking.expiryDate' | translate }}</th>
           </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-stockInFormGroup let-editing="editing" let-i="rowIndex">
-          <tr [formGroup]="stockInFormGroup">
+        <ng-template pTemplate="body" let-trackingFormGroup let-editing="editing" let-i="rowIndex">
+          <tr [formGroup]="trackingFormGroup">
             <td
-              [pEditableColumn]="stockInFormGroup.controls['serialId']"
+              [pEditableColumn]="trackingFormGroup.controls['serialId']"
               pEditableColumnField="serialId"
             >
               <p-cellEditor>
                 <ng-template pTemplate="input">
                   <lib-text-input
-                    placeholder="{{ 'stockIn.serialId' | translate }}"
+                    placeholder="{{ 'tracking.serialId' | translate }}"
                     formControlName="serialId"
                   ></lib-text-input>
                 </ng-template>
                 <ng-template pTemplate="output">
-                  {{ stockInFormGroup.controls['serialId']?.value }}
+                  {{ trackingFormGroup.controls['serialId']?.value }}
                 </ng-template>
               </p-cellEditor>
               <lib-field-validations
-                [appControl]="stockInFormGroup.controls['serialId']"
+                [appControl]="trackingFormGroup.controls['serialId']"
               ></lib-field-validations>
             </td>
             <!--  -->
 
             <td
-              [pEditableColumn]="stockInFormGroup.controls['expireDate']"
+              [pEditableColumn]="trackingFormGroup.controls['expireDate']"
               pEditableColumnField="expireDate"
-            >
+            > 
               <p-cellEditor>
                 <ng-template pTemplate="input">
                   <lib-calendar formControlName="expireDate"></lib-calendar>
                 </ng-template>
                 <ng-template pTemplate="output">
-                  {{ stockInFormGroup.controls['expireDate']?.value | date : 'dd-MM-yyyy' }}
+                  {{ trackingFormGroup.controls['expireDate']?.value | date : 'dd-MM-yyyy' }}
                 </ng-template>
               </p-cellEditor>
               <lib-field-validations
-                [appControl]="stockInFormGroup.controls['expireDate']"
+                [appControl]="trackingFormGroup.controls['expireDate']"
               ></lib-field-validations>
             </td>
           </tr>
