@@ -148,7 +148,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       }
     });
 
-    this.initWareHouseLookupData();
+    // this.initWareHouseLookupData();
 
     this.addLineStockIn();
 
@@ -323,13 +323,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
         console.log(res);
       },
     });
-    // this.purchaseService.getpaymentTermsListDropDown();
-    // this.purchaseService.sendPaymentTermsDropDownDataObservable.subscribe({
-    //   next: (res) => {
-    //     this.paymentLookupData = res;
-    //     console.log(res);
-    //   },
-    // });
+  
     this.purchasetransactionsService.latestVendor(undefined).subscribe((res: any) => {
       this.vendorItems = res;
     });
@@ -367,23 +361,11 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     return control?.hasError(error) && control?.touched;
   }
 
-  initWareHouseLookupData() {
-    // this.transactionsService.getWareHousesDropDown();
-    // this.transactionsService.wareHousesDropDownLookup$.subscribe((res) => {
-    //   this.warhouseLookupData = res;
-    // });
-  }
   get stockIn() {
     return this.purchaseInvoiceForm.get('invoiceDetails') as FormArray;
   }
 
-  getExcel() {
-    // const ref = this.dialog.open(ImportStockInComponent, {
-    //   width: '600px',
-    //   height: '450px',
-    // });
-    // ref.onClose.subscribe((selectedItems: any[]) => {});
-  }
+
 
   onEdit(data: any) {}
 
@@ -577,7 +559,6 @@ export class AddPurchaseInvoiceComponent implements OnInit {
   }
   onFilter(SearchTerm: string) {
     this.purchasetransactionsService.getLatestItemsList(SearchTerm);
-    // const warehouseId: number = this.purchaseInvoiceForm.get('warehouseId')?.value;
     this.purchasetransactionsService.getItemsForAdvancedSearch('', SearchTerm, new PageInfo());
     this.purchasetransactionsService.lastestItem.subscribe((res: any) => {
       if (res.length > 0) {
