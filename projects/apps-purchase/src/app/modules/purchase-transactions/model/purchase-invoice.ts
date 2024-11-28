@@ -8,10 +8,10 @@ export interface IinvoiceDto {
   reference: string;
   paymentTermName: string;
   warehouseName: string;
-  journalCode: string;
+  invoiceJournalCode: string;
   stockInCode: string;
-  totalAmount: number;
-  discountAmount: number;
+  totalNetAmount: number;
+  totalDiscount: number;
   totalAfterDiscount: number;
   vatAmount: number;
   totalAfterVatAmount: number;
