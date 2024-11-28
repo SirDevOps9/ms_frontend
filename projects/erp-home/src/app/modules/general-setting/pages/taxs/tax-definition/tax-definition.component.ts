@@ -8,6 +8,7 @@ import { GeneralSettingService } from '../../../general-setting.service';
 import { TaxDto } from '../../../models/tax-dto';
 import { ExportTaxDto } from '../../../models/export-tax-dto';
 import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
+import { SortTableEXport } from 'projects/apps-inventory/src/app/modules/items/models/SortTable';
 
 @Component({
   selector: 'app-tax-definition',
@@ -27,6 +28,7 @@ export class TaxDefinitionComponent implements OnInit {
   modulelist: MenuModule[];
   searchTerm: string;
   SortBy?: number
+  SortByAll:SortTableEXport
 
   SortColumn?:string
   exportData: ExportTaxDto[];
@@ -91,11 +93,11 @@ export class TaxDefinitionComponent implements OnInit {
   onDelete(id: number) {
     this.generalSettingService.deleteTax(id);
   }
-  exportClick(e?: Event) {
-    this.exportTaxesData(this.searchTerm);
+  exportClick() {
+    this.exportTaxesData(this.searchTerm, this.SortByAll?.SortBy, this.SortByAll?.SortColumn);
   }
-  exportTaxesData(searchTerm:string) {
-    this.generalSettingService.exportTaxesData(this.searchTerm,this.SortBy,this.SortColumn);
+  exportTaxesData(searchTerm: string, sortBy?: number, sortColumn?: string) {
+    this.generalSettingService.exportTaxesData(searchTerm , sortBy , sortColumn);
 
     const columns = [
       { name: 'code', headerText:('Tax.Id') },
@@ -108,5 +110,11 @@ export class TaxDefinitionComponent implements OnInit {
       this.exportData = this.exportService.formatCiloma(res, columns);
 
     });
+  }
+  exportClickBySort(e:{SortBy: number; SortColumn: string}){
+     this.SortByAll={
+      SortBy: e.SortBy,
+      SortColumn:e.SortColumn
+     }
   }
 }

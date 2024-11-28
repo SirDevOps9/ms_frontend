@@ -8,6 +8,7 @@ import { Title } from '@angular/platform-browser';
 import { TaxGroupDto } from '../../../models/tax-group-dto';
 import { GeneralSettingService } from '../../../general-setting.service';
 import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
+import { SortTableEXport } from 'projects/apps-inventory/src/app/modules/items/models/SortTable';
 
 @Component({
   selector: 'app-tax-group',
@@ -21,6 +22,7 @@ export class TaxGroupComponent implements OnInit {
   searchTerm: string;
   exportColumns: lookupDto[];
   exportData: TaxGroupDto[];
+  SortByAll:SortTableEXport
   constructor(
     private routerService: RouterService,
     private generalSettingService: GeneralSettingService,
@@ -89,11 +91,11 @@ export class TaxGroupComponent implements OnInit {
       },
     });
   }
-  exportClick(e?: Event) {
-    this.exportTaxGroupData(this.searchTerm);
+  exportClick() {
+    this.exportTaxGroupData(this.searchTerm, this.SortByAll?.SortBy, this.SortByAll?.SortColumn);
   }
-  exportTaxGroupData(searchTerm: string) {
-    this.generalSettingService.exportTaxGroupData(searchTerm);
+  exportTaxGroupData(searchTerm: string, sortBy?: number, sortColumn?: string) {
+    this.generalSettingService.exportTaxGroupData(searchTerm , sortBy , sortColumn);
 
     const columns = [
       { name: 'code', headerText:('TaxGroup.Code') },
@@ -104,6 +106,13 @@ export class TaxGroupComponent implements OnInit {
       this.exportData = this.exportService.formatCiloma(res, columns);
 
     });
+  }
+
+  exportClickBySort(e: { SortBy: number; SortColumn: string }) {
+    this.SortByAll = {
+      SortBy: e.SortBy,
+      SortColumn: e.SortColumn,
+    };
   }
  async Delete(id: number) {
     const deleted =await this.generalSettingService.deleteTaxGroup(id);

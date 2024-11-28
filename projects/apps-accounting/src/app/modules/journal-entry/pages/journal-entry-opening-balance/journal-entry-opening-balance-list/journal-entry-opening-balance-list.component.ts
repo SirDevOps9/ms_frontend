@@ -11,6 +11,7 @@ import {
 import { JournalEntryService } from '../../../journal-entry.service';
 import { JournalEntryDto, SharedJournalEnums } from '../../../models';
 import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
+import { SortTableEXport } from 'projects/apps-inventory/src/app/modules/items/models/SortTable';
 
 @Component({
   selector: 'app-journal-entry-opening-balance-list',
@@ -22,7 +23,7 @@ export class JournalEntryOpeningBalanceListComponent implements OnInit {
   @ViewChild('myTab') myTab: any | undefined;
   searchTerm: string;
   exportColumns: lookupDto[];
-
+  SortByAll:SortTableEXport
   selectedEntries: JournalEntryDto[];
   tableData: JournalEntryDto[];
   exportData: JournalEntryDto[];
@@ -47,12 +48,12 @@ export class JournalEntryOpeningBalanceListComponent implements OnInit {
 
   }
 
-  exportClick(e?: Event) {
-    this.exportGLOpeningBalanceData(this.searchTerm);
+  exportClick() {
+    this.exportGLOpeningBalanceData(this.searchTerm, this.SortByAll?.SortBy, this.SortByAll?.SortColumn);
   }
 
-  exportGLOpeningBalanceData(searchTerm: string) {
-    this.journalEntryService.exportsEmployeesList(searchTerm);
+  exportGLOpeningBalanceData(searchTerm: string, sortBy?: number, sortColumn?: string) {
+    this.journalEntryService.exportsEmployeesList(searchTerm , sortBy , sortColumn);
     const columns = [
       { name: 'journalCode', headerText: 'Journal.journalCode' },
       { name: 'refrenceNumber', headerText: 'Journal.referenceNumber' },
@@ -68,6 +69,14 @@ export class JournalEntryOpeningBalanceListComponent implements OnInit {
       this.exportData = this.exportService.formatCiloma(res, columns);
     });
 
+  }
+
+
+  exportClickBySort(e: { SortBy: number; SortColumn: string }) {
+    this.SortByAll = {
+      SortBy: e.SortBy,
+      SortColumn: e.SortColumn,
+    };
   }
 
   initJournalEntryData() {

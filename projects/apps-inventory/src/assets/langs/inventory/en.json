@@ -449,6 +449,7 @@
     "code": "Receipt Code",
     "date": "Receipt Date",
     "description": "Description",
+    "stockInPrint":"StockIn Print",
     "sourceDoc": "Source Document",
     "warehouse": "Select Warehouse",
     "status": "Status",
@@ -467,17 +468,12 @@
     "QTY": "QTY",
     "cost": "Cost",
     "subTotal": "Sub Total",
-    "tracking": "Tracking",
     "note": "Note",
     "action": "Action",
-    "setTracking": "Set Tracking",
-    "expiryDate": "Expiry Date",
-    "generatedBatch": "Generated Batch",
-    "vendorBatchNo": "Batch No",
+
+
     "stockAdded": "Stock In Added Successfully",
-    "Expiry": "Expiry",
-    "serial": "Serial",
-    "serialId": "Serial Id",
+   
     "ItemSearch": "Item Search",
     "ItemCode": "Item Code",
     "ItemName": "Item Name",
@@ -490,9 +486,19 @@
     "Actions": "Actions",
     "uploadExcel": "Upload Excel",
     "scan": "Scan Barcode",
+
     "noTracking": "No Tracking",
     "required": "Required",
     "deleteStockInLine": "Item Deleted Successfully",
+    "Expiry": "Expiry",
+    "serial": "Serial",
+    "serialId": "Serial Id",
+    "tracking": "Tracking",
+    "setTracking": "Set Tracking",
+    "expiryDate": "Expiry Date",
+    "generatedBatch": "Generated Batch",
+    "vendorBatchNo": "Batch No",
+    
     "stockEdit": "Data Updated Successfully"
   },
   "transactions": {
@@ -530,6 +536,7 @@
     "sourceDoc": "Source Document",
     "warehouse": "Warehouse",
     "status": "Status",
+    "stockOutPrint":"StockOut Print",
     "journalCode": "Journal Code",
     "reserve": "Reserve Quantity",
     "actions": "Actions",

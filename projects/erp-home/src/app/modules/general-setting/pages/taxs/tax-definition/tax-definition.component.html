@@ -5,6 +5,7 @@
         [items]="tableData"
         className="p-datatable-gridlines"
         [currentPageResult]="currentPageInfo"
+        (exportObj)="exportClickBySort($event)"
         (pageChange)="onPageChange($event)"
         (addNew)="onAdd()"
         [tableConfigs]="{
@@ -67,7 +68,7 @@
         <ng-container action>
           <div class="flex gap-2">
             <lib-export
-            (exportClick)="exportClick($event)"
+            (exportClick)="exportClick()"
             [exportData]="exportData"
             [exportColumns]="exportColumns"
             [ExportName]="('Tax.TaxDefinitionPrint' |translate)"

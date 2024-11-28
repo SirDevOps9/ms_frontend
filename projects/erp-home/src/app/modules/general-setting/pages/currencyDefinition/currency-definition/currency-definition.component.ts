@@ -5,6 +5,7 @@ import { CurrencyDefinitionDto, currencyListDto } from '../../../models';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Title } from '@angular/platform-browser';
 import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
+import { SortTableEXport } from 'projects/apps-inventory/src/app/modules/items/models/SortTable';
 
 @Component({
   selector: 'app-currency-definition',
@@ -18,6 +19,7 @@ export class CurrencyDefinitionComponent {
   ) {
   }
   exportColumns: lookupDto[];
+  SortByAll:SortTableEXport
 
   tableData: currencyListDto[];
   currentPageInfo: PageInfoResult = {};
@@ -30,11 +32,11 @@ export class CurrencyDefinitionComponent {
   ngOnInit() {
     this.getCurrencyList();
   }
-  exportClick(e?: Event) {
-    this.exportcurrencyDefinitionData(this.searchTerm);
+  exportClick() {
+    this.exportcurrencyDefinitionData(this.searchTerm, this.SortByAll?.SortBy, this.SortByAll?.SortColumn);
   }
-  exportcurrencyDefinitionData(searchTerm: string) {
-    this.generalSettingService.exportcurrencyDefinitionData(searchTerm);
+  exportcurrencyDefinitionData(searchTerm: string, sortBy?: number, sortColumn?: string) {
+    this.generalSettingService.exportcurrencyDefinitionData(searchTerm , sortBy , sortColumn);
     const columns = [
       { name: 'code', headerText:('currencyDefinition.code') },
       { name: 'name', headerText:('currencyDefinition.name') },
@@ -48,7 +50,12 @@ export class CurrencyDefinitionComponent {
 
     });
   }
-
+  exportClickBySort(e:{SortBy: number; SortColumn: string}){
+    this.SortByAll={
+     SortBy: e.SortBy,
+     SortColumn:e.SortColumn
+    }
+ }
   Edit(id: number) {
     this.generalSettingService.openCurrencyEdit(id);
   }

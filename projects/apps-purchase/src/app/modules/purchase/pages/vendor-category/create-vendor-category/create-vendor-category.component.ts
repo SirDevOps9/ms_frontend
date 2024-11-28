@@ -30,8 +30,8 @@ export class CreateVendorCategoryComponent implements OnInit {
     pricePolicyId : null,
     paymentTermId : null,
     marketType : null,
-   
-  
+
+
   })
 
   this.purchaseService.getChildrenAccountsDropDown()
@@ -50,9 +50,9 @@ export class CreateVendorCategoryComponent implements OnInit {
 
   }
 
- 
 
-  
+
+
   onSave() {
     if (!this.formsService.validForm(this.formGroup, false)) return;
 
@@ -67,6 +67,6 @@ export class CreateVendorCategoryComponent implements OnInit {
   })
   }
 
-  
-  
+
+
 }

@@ -8,6 +8,7 @@ import { AuthService } from 'microtec-auth-lib';
 import { AccountService } from 'projects/apps-accounting/src/app/modules/account/account.service';
 import { Title } from '@angular/platform-browser';
 import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
+import { SortTableEXport } from 'projects/apps-inventory/src/app/modules/items/models/SortTable';
 
 @Component({
   selector: 'app-financial-calendar-list',
@@ -27,7 +28,7 @@ export class FinancialCalendarListComponent implements OnInit {
   currentPageInfo: PageInfoResult = {};
   modulelist: MenuModule[];
   searchTerm: string;
-
+  SortByAll:SortTableEXport
   exportColumns: lookupDto[];
   exportData: financialCalendar[];
   mappedExportData: financialCalendar[];
@@ -79,12 +80,12 @@ export class FinancialCalendarListComponent implements OnInit {
     });
   }
 
-  exportClick(e?: Event) {
-    this.exportcurrencyData(this.searchTerm);
+  exportClick() {
+    this.exportcurrencyData(this.searchTerm, this.SortByAll?.SortBy, this.SortByAll?.SortColumn);
   }
 
-  exportcurrencyData(searchTerm: string) {
-    this.generalSettingService.exportFinancialCalendarData(searchTerm);
+  exportcurrencyData(searchTerm: string, sortBy?: number, sortColumn?: string) {
+    this.generalSettingService.exportFinancialCalendarData(searchTerm , sortBy , sortColumn);
     const columns = [
       { name: 'code', headerText:('financialCalendar.code') },
       { name: 'name', headerText:('financialCalendar.name') },
@@ -96,11 +97,18 @@ export class FinancialCalendarListComponent implements OnInit {
     this.generalSettingService.exportsFinancialCalendarDataSourceObservable.subscribe((res) => {
       this.exportData = this.exportService.formatCiloma(res, columns);
       this.mappedExportData = res.map((elem: any) => {
-        const { createdOn, ...args } = elem; // Rename `codeNumber` to `code` and use the rest operator
-        return { ...args, codeNumber : elem.code }; // Include `code` in the returned object if needed
+        const { createdOn, ...args } = elem;
+        return { ...args, codeNumber : elem.code };
       });
     });
   }
+
+  exportClickBySort(e:{SortBy: number; SortColumn: string}){
+    this.SortByAll={
+     SortBy: e.SortBy,
+     SortColumn:e.SortColumn
+    }
+ }
   onDelete(id: number) {
     this.generalSettingService.deleteFinancialYear(id);
   }

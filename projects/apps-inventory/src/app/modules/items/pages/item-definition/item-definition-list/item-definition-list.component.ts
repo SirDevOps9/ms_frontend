@@ -18,6 +18,7 @@ import { EditItemDefinitionComponent } from '../../../components/edit-item-defin
 import { ViewItemDefinitionComponent } from '../../../components/view-item-definition/view-item-definition/view-item-definition.component';
 import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
 import { TranslateService } from '@ngx-translate/core';
+import { SortTableEXport } from '../../../models/SortTable';
 
 @Component({
   selector: 'app-item-definition-list',
@@ -36,23 +37,9 @@ export class ItemDefinitionListComponent implements OnInit {
   ) {}
 
   tableData: itemDefinitionDto[];
-
+  SortByAll:SortTableEXport
   exportData: any[];
-  cols = [
-    {
-      field: 'Code',
-      header: 'code',
-    },
 
-    {
-      field: 'Name',
-      header: 'name',
-    },
-    {
-      field: 'Short Name',
-      header: 'shortName',
-    },
-  ];
   exportColumns: any[];
   exportSelectedCols: string[] = [];
 
@@ -83,18 +70,17 @@ export class ItemDefinitionListComponent implements OnInit {
     this.itemsService.getItemDefinition('', pageInfo);
   }
 
-  exportClick(e?: Event) {
-    this.exportBankData(this.searchTerm);
+  exportClick() {
+    this.exportBankData(this.searchTerm, this.SortByAll?.SortBy, this.SortByAll?.SortColumn);
   }
-
-  exportBankData(searchTerm: string) {
-    this.itemsService.exportsItemsDefinitionList(searchTerm);
+  exportBankData(searchTerm: string, sortBy?: number, sortColumn?: string) {
+    this.itemsService.exportsItemsDefinitionList(searchTerm, sortBy, sortColumn);
     const columns = [
-      { name: 'code', headerText : this.translate.instant('itemDefinition.code') },
-      { name: 'name', headerText : this.translate.instant('itemDefinition.name') },
-      { name: 'typeName', headerText : this.translate.instant('itemDefinition.type') },
-      { name: 'itemCategoryName', headerText : this.translate.instant('itemDefinition.category') },
-      { name: 'uomName', headerText : this.translate.instant('itemDefinition.uom') },
+      { name: 'code', headerText :('itemDefinition.code') },
+      { name: 'name', headerText :('itemDefinition.name') },
+      { name: 'typeName', headerText :('itemDefinition.type') },
+      { name: 'itemCategoryName', headerText :('itemDefinition.category') },
+      { name: 'uomName', headerText :('itemDefinition.uom') },
 
     ];
     this.itemsService.exportedItemDefinitionListDataSourceObs.subscribe((res) => {
@@ -103,7 +89,12 @@ export class ItemDefinitionListComponent implements OnInit {
     });
   }
 
-
+  exportClickBySort(e: { SortBy: number; SortColumn: string }) {
+    this.SortByAll = {
+      SortBy: e.SortBy,
+      SortColumn: e.SortColumn,
+    };
+  }
 
   onAdd() {
     const dialogRef = this.dialog.open(AddItemDefinitionPopupComponent, {
