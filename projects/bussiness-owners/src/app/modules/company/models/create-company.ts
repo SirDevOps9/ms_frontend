@@ -1,7 +1,9 @@
 export interface CreateCompany {
   subdomainId: string;
-  name: string;
-  branchName: string;
+  nameEn: string;
+  nameAr: string;
+  branchNameEn: string;
+  branchNameAr: string;
   companyType: number;
   companyLogo: string;
   parentId?: string;
