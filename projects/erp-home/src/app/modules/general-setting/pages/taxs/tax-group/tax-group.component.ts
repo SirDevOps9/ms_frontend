@@ -7,6 +7,8 @@ import { TaxGroupEditComponent } from '../../../components/tax-group-edit/tax-gr
 import { Title } from '@angular/platform-browser';
 import { TaxGroupDto } from '../../../models/tax-group-dto';
 import { GeneralSettingService } from '../../../general-setting.service';
+import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
+import { SortTableEXport } from 'projects/apps-inventory/src/app/modules/items/models/SortTable';
 
 @Component({
   selector: 'app-tax-group',
@@ -20,11 +22,13 @@ export class TaxGroupComponent implements OnInit {
   searchTerm: string;
   exportColumns: lookupDto[];
   exportData: TaxGroupDto[];
+  SortByAll:SortTableEXport
   constructor(
     private routerService: RouterService,
     private generalSettingService: GeneralSettingService,
     public authService: AuthService,
     private dialog: DialogService,
+    private exportService:ExportService
   ) {
 
   }
@@ -60,7 +64,7 @@ export class TaxGroupComponent implements OnInit {
     const dialogRef = this.dialog.open(TaxGroupAddComponent, {
       width: '600px',
       height : '500px'
-    
+
     });
     dialogRef.onClose.subscribe(() => {
       this.initTaxGroupData();
@@ -72,7 +76,7 @@ export class TaxGroupComponent implements OnInit {
       width: '600px',
       height : '500px',
       data : Id
-    
+
     });
     dialogRef.onClose.subscribe(() => {
       this.initTaxGroupData();
@@ -87,12 +91,28 @@ export class TaxGroupComponent implements OnInit {
       },
     });
   }
+  exportClick() {
+    this.exportTaxGroupData(this.searchTerm, this.SortByAll?.SortBy, this.SortByAll?.SortColumn);
+  }
+  exportTaxGroupData(searchTerm: string, sortBy?: number, sortColumn?: string) {
+    this.generalSettingService.exportTaxGroupData(searchTerm , sortBy , sortColumn);
 
-  exportTaxGroupData(searchTerm: string) {
-    this.generalSettingService.exportTaxGroupData(searchTerm);
+    const columns = [
+      { name: 'code', headerText:('TaxGroup.Code') },
+      { name: 'name', headerText:('TaxGroup.Name') },
+      { name: 'countryName', headerText:('TaxGroup.CountryName') },
+    ];
     this.generalSettingService.exportsTaxGroupDataSourceObservable.subscribe((res) => {
-      this.exportData = res;
+      this.exportData = this.exportService.formatCiloma(res, columns);
+
     });
+  }
+
+  exportClickBySort(e: { SortBy: number; SortColumn: string }) {
+    this.SortByAll = {
+      SortBy: e.SortBy,
+      SortColumn: e.SortColumn,
+    };
   }
  async Delete(id: number) {
     const deleted =await this.generalSettingService.deleteTaxGroup(id);

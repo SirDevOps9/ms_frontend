@@ -1,5 +1,7 @@
 <div class="user_page">
-  <lib-data-table [items]="tableData" className="p-datatable-gridlines" [currentPageResult]="currentPageInfo"
+  <lib-data-table [items]="tableData" className="p-datatable-gridlines"
+  (exportObj)="exportClickBySort($event)"
+  [currentPageResult]="currentPageInfo"
     (pageChange)="onPageChange($event)" [tableConfigs]="{
             allowPagination: false,
             allowServerPagination: true,
@@ -35,7 +37,7 @@
               template: actions
 
             },
-       
+
             ]
           }">
     <ng-container search>
@@ -49,9 +51,15 @@
     </ng-container>
     <ng-container action>
       <div>
-        <lib-export (exportClick)="exportCostCentersData($event)" [exportData]="exportData"
-          [exportColumns]="exportColumns" [ExportName]="'Cost Centers'">
-        </lib-export>
+
+        <lib-export
+        (exportClick)="exportClick()"
+        [exportData]="exportData"
+        [exportColumns]="exportColumns"
+        [ExportName]="('ChartOfAccount.costCenterPrint' |translate)"
+
+      >
+      </lib-export>
       </div>
     </ng-container>
 

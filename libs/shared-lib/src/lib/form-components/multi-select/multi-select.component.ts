@@ -29,7 +29,7 @@ export class MultiSelectComponent implements ControlValueAccessor, Validator {
   @Input() readOnly: boolean;
   @Input() disabled: boolean;
   @Input() inputContainerClass: string;
-  @Input() placeholder: string = ' Select';
+  @Input() placeholder: string = '';
   @Input() maxLength: string;
   @Input() id: string;
   @Input() className: string;

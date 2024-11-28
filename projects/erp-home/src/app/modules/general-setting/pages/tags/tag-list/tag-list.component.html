@@ -4,17 +4,17 @@
       <lib-data-table
         [items]="tableData"
         className="p-datatable-gridlines"
+        (exportObj)="exportClickBySort($event)"
         [currentPageResult]="currentPageInfo"
         (pageChange)="onPageChange($event)"
         (addNew)="addNew($event)"
-        (exportObj)="exportedColumns($event)"
         [tableConfigs]="{
           allowPagination: false,
           allowServerPagination: true,
           dataKey: 'id',
           pageSize: 10,
           columns: [
-         
+
             {
               name: 'code',
               headerText: ('tag.code' | translate),
@@ -59,13 +59,14 @@
             </div>
             <div class="flex gap-2">
               <lib-export
-                (exportClick)="exportTagData()"
-                [exportData]="exportData"
-                [exportColumns]="exportColumns"
-                [ExportName]="'Tag'"
-              >
-              </lib-export>
-              
+              (exportClick)="exportClick()"
+              [exportData]="exportData"
+              [exportColumns]="exportColumns"
+              [ExportName]="('tag.tagPrint' |translate)"
+
+            >
+            </lib-export>
+
               <lib-button-micro
               nameClass="save"
               [title]="'tag.AddNew' | translate"

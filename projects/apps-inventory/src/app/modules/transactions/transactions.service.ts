@@ -147,8 +147,8 @@ export class TransactionsService {
     });
   }
 
-  exportStockInList(searchTerm?: string, SortBy?: number, SortColumn?: string) {
-    this.transactionsProxy.exportStockInList(searchTerm, SortBy, SortColumn).subscribe({
+  exportStockInList(SearchTerm: string ,SortBy?: number, SortColumn?: string) {
+    this.transactionsProxy.exportStockInList(SearchTerm, SortBy, SortColumn).subscribe({
       next: (res: any) => {
         this.exportStockInListDataSource.next(res);
       },
@@ -453,8 +453,8 @@ export class TransactionsService {
       });
     }
   }
-  exportStockOutList(searchTerm?: string, SortBy?: number, SortColumn?: string) {
-    this.transactionsProxy.exportStockOutList(searchTerm, SortBy, SortColumn).subscribe({
+  exportStockOutList(SearchTerm: string ,SortBy?: number, SortColumn?: string) {
+    this.transactionsProxy.exportStockOutList(SearchTerm, SortBy, SortColumn).subscribe({
       next: (res: any) => {
         this.exportStockOutListDataSource.next(res);
       },

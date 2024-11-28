@@ -5,6 +5,7 @@
           [items]="tableData"
           className="p-datatable-gridlines"
           [currentPageResult]="currentPageInfo"
+          (exportObj)="exportClickBySort($event)"
           (pageChange)="onPageChange($event)"
           [tableConfigs]="{
             allowPagination: false,
@@ -91,7 +92,7 @@
 
                   <div>
                     <lib-export
-                      (exportClick)="exportClick($event)"
+                      (exportClick)="exportClick()"
                       [exportData]="exportData"
                       [exportColumns]="exportColumns"
                       [ExportName]="('attributeDefinition.AttributeDefinition' | translate)"

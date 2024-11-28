@@ -10,14 +10,16 @@ import {
   PageInfoResult,
   MenuModule,
   PageInfo,
-  
+
   SharedEnums,
-  
+
 } from 'shared-lib';
 import { StockInDto } from '../../../../items/models';
 import { SharedStock } from '../../../../items/models/sharedStockOutEnums';
 import { TransactionsService } from '../../../transactions.service';
 import { SequenceService } from 'apps-shared-lib';
+import { SortTableEXport } from '../../../../items/models/SortTable';
+import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
 
 
 @Component({
@@ -30,10 +32,9 @@ export class StockInListComponent implements OnInit {
   SortColumn?: string;
   tableData: any[];
   exportData: StockInDto[];
-
   exportColumns: lookupDto[];
   exportSelectedCols: string[] = [];
-
+  SortByAll:SortTableEXport
   currentPageInfo: PageInfoResult = {};
   modulelist: MenuModule[];
   searchTerm: string;
@@ -49,6 +50,9 @@ export class StockInListComponent implements OnInit {
         this.tableData = res;
       },
     });
+    this.transactionsService.currentPageInfo.subscribe((currentPageInfo) => {
+      this.currentPageInfo = currentPageInfo;
+    });
   }
   initStockOutData() {
     this.transactionsService.getAllStockIn('', new PageInfo());
@@ -57,14 +61,30 @@ export class StockInListComponent implements OnInit {
   onPageChange(pageInfo: PageInfo) {
     this.transactionsService.getAllStockIn('', pageInfo);
   }
-
-  exportBankData(searchTerm: string) {
-    this.transactionsService.exportStockInList(searchTerm);
+  exportClick() {
+    this.exportBankData(this.searchTerm, this.SortByAll?.SortBy, this.SortByAll?.SortColumn);
+  }
+  exportBankData(searchTerm: string, sortBy?: number, sortColumn?: string) {
+    this.transactionsService.exportStockInList(searchTerm ,sortBy ,sortColumn);
+    const columns = [
+      { name: 'code', headerText: ('stockOut.code') },
+      { name: 'receiptDate', headerText: ('stockOut.date') },
+      { name: 'notes', headerText: ('stockOut.description') },
+      { name: 'sourceDocumentId', headerText: ('stockOut.sourceDoc') },
+      { name: 'warehouseName', headerText: ('stockOut.warehouse') },
+      { name: 'stockInStatus', headerText: ('stockOut.status') },
+      { name: 'journalCode', headerText: ('stockOut.journalCode') },
+    ];
     this.transactionsService.exportStockInListDataSourceObservable.subscribe((res) => {
-      this.exportData = res;
+      this.exportData =this.exportService.formatCiloma(res, columns);
     });
   }
-
+  exportClickBySort(e: { SortBy: number; SortColumn: string }) {
+    this.SortByAll = {
+      SortBy: e.SortBy,
+      SortColumn: e.SortColumn,
+    };
+  }
   onAdd() {
     this.sequenceService.isHaveSequence( this.sharedEnums.Pages.StockIn , '/transactions/stock-in/add-stock-in')
 
@@ -97,27 +117,19 @@ export class StockInListComponent implements OnInit {
       });
   }
 
-  exportedColumns(obj: { SortBy: number; SortColumn: string }) {
-    this.SortBy = obj.SortBy;
-    this.SortColumn = obj.SortColumn;
-  }
-  exportClick() {
-    this.transactionsService.exportStockInList(this.searchTerm, this.SortBy, this.SortColumn);
-    this.transactionsService.exportStockInListDataSourceObservable.subscribe((res) => {
-      this.exportData = res;
-    });
-  }
+
 
   constructor(
     private routerService: RouterService,
     public authService: AuthService,
     private dialog: DialogService,
     private title: Title,
+    private exportService:ExportService,
     private transactionsService: TransactionsService,
     public sharedFinanceEnums: SharedStock,
     public sequenceService: SequenceService,
     public sharedEnums: SharedEnums,
-   
+
 
   ) {
     console.log(this.routerService.getCurrentUrl());

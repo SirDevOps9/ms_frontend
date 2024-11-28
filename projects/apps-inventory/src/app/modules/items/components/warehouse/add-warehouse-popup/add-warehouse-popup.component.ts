@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { LayoutService } from 'apps-shared-lib';
 import { DynamicDialogConfig, DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { FormsService, customValidators } from 'shared-lib';
+import { FormsService, customValidators, LanguageService } from 'shared-lib';
 import { ItemsService } from '../../../items.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-add-warehouse-popup',
@@ -16,9 +17,9 @@ export class AddWarehousePopupComponent implements OnInit {
   // UOMCategoryDropDown : { id: number; nameEn: string }[] = []
   branchesDropDown : any = []
   warehouseType = [
-    { label: 'Physical', value: 1 },
-    { label: 'Virtual', value: 2 },
-    { label: 'VanSales ', value: 3 }
+    { label: this.LanguageService.instant('global.Physical') , value: 1 },
+    { label: this.LanguageService.instant('global.Virtual') , value: 2 },
+    { label: this.LanguageService.instant('global.VanSales') , value: 3 }
 
   ]
   constructor(
@@ -29,6 +30,7 @@ export class AddWarehousePopupComponent implements OnInit {
     private ref: DynamicDialogRef,
     private formsService: FormsService,
     private itemsService : ItemsService,
+    private LanguageService:TranslateService
 
   ) {
 

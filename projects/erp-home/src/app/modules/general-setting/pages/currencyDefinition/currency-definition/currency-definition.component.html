@@ -4,13 +4,14 @@
     className="p-datatable-gridlines"
     [currentPageResult]="currentPageInfo"
     (pageChange)="onPageChange($event)"
+    (exportObj)="exportClickBySort($event)"
     [tableConfigs]="{
             allowPagination: false,
             allowServerPagination: true,
             dataKey: 'id',
             pageSize: 10,
             columns: [
-               
+
                {
                  name: 'code',
                  headerText: ('currencyDefinition.code' | translate),
@@ -23,7 +24,7 @@
                  isGlobalFilter: true,
                  isSortable: true
                },
-             
+
                {
                  name: 'symbol',
                  headerText: ('currencyDefinition.sympol' | translate),
@@ -39,7 +40,7 @@
                  isSortable: true
 
                },
-         
+
                {
                  name: 'id',
                  headerText: ('currencyDefinition.actions' | translate),
@@ -63,8 +64,8 @@
 
         <div class="flex gap-2">
           <!--      <div>
-                  
-                      
+
+
                         <lib-button-micro title="{{ 'currencyDefinition.AddNew' | translate }}" nameClass="save" iconName="pi pi-plus-circle" (click)="addNew()" >
                         </lib-button-micro>
 
@@ -74,12 +75,13 @@
 
           <div>
             <lib-export
-              (exportClick)="exportClick($event)"
-              [exportData]="exportData"
-              [exportColumns]="exportColumns"
-              [ExportName]="'Currency Conversion'"
-            >
-            </lib-export>
+            (exportClick)="exportClick()"
+            [exportData]="exportData"
+            [exportColumns]="exportColumns"
+            [ExportName]="('currencyDefinition.currencyDefinitionPrint' |translate)"
+
+          >
+          </lib-export>
           </div>
         </div>
       </div>

@@ -147,25 +147,22 @@ export class UOMEditComponent implements OnInit {
       });
     });
 
-    // this.UOMFormGroup.valueChanges.subscribe(res=>{
-    //   if(res.baseUomEn) {
-    //     let defaultBase = [{name : res.baseUomEn}]
-    //     this.list[0] = defaultBase
-    //   }
-    // })
-
+  
     setTimeout(() => {
       this.getUomById();
     }, 1000);
 
     this._itemService.getUOMCategoryByIdData$.subscribe((res) => {
-      console.log(res);
+  
       this.getUOMS.clear();
       this.uomsData = res.uoMs;
 
       if (res.uoMs?.length) {
         res?.uoMs.forEach((elem: any, i: any) => {
-          if (i == 0) return;
+          if (i == 0) {
+            this.systemUnitChanged(res?.uoMs[0]?.systemUnitOfMeasureId)
+            return;
+          } 
           let formGroup = this.fb.group({
             id: elem.id,
             code: elem.code,
@@ -258,7 +255,7 @@ export class UOMEditComponent implements OnInit {
       uoMs: this.fb.array([]),
       nameEn: ['', customValidators.required],
       nameAr: ['', customValidators.required],
-      systemUnitOfMeasureId: ['', customValidators.required],
+      systemUnitOfMeasureId: [null, customValidators.required],
     });
   }
 
@@ -509,7 +506,7 @@ export class UOMEditComponent implements OnInit {
     this.filteredSytemUnitLookup.push(systemUnit);
     let id = uomTableForm.get('id')?.value;
     if (id) {
-      this._itemService.DeleteUomLine(id);
+      this._itemService.deleteUom(id);
     } else {
       this.getUOMS.removeAt(i);
     }

@@ -77,7 +77,7 @@ const routes: Routes = [
             // canActivate: [AuthGuard],
             data: {
               breadcrumb: BreadcrumbLabel.calendar_Add,
-              pageTitle: BreadcrumbLabel.calendar_Add,
+              pageTitle: BreadcrumbLabel.calendar_AddTitle,
 
             },
           },

@@ -45,10 +45,17 @@
     "AddAttributeDefinition": "إضافة",
     "OperationalTag": "علامة تشغيلية",
      "EditOperationalTag":"تعديل",
-     "Itemcatalog": "كتالوج الأصناف"
-
-
-  },
+     "Itemcatalog": "كتالوج الأصناف",
+     "generalItemDefintion": "تعريف العنصر العام",
+      "TaxTilte":"فهرس العناصر الضريبية",
+       "attributes_ITEMdEFINITION": "كتالوج خصائص العناصر",
+       "variants_ITEMdEFINITION": "كتالوج أنواع العناصر",
+         "fixedCost":"التكلفة الثابتة",
+         "inventory":"المخزون",
+    "warehouse": "اسم المخزن",
+    "editWarehouseTilte":"تعديل المخزن",
+    "ViewWarehouse": "عرض مخزن العناصر"
+},
   "success": "نجاح",
   "error": "خطأ",
   "noItemSelected": "لم يتم تحديد عنصر للتعديل.",
@@ -98,6 +105,7 @@
     "specialCareHead": "عناية خاصة",
     "color": "اللون",
     "uom": "وحدة القياس",
+   "fixedCost": "التكلفة الثابتة",
     "uomCategory": "فئة وحدة القياس",
     "selectOneValue": "اختر قيمة واحدة لشاشة وحدة القياس",
     "uomCode": "رمز وحدة القياس",
@@ -152,7 +160,13 @@
     "barcodesuccess": "تم إضافة الرمز الشريطي بنجاح",
     "generateVariant": "توليد المتغير",
     "variantSuccess": "تم إضافة المتغير بنجاح",
-    "duplicateUomIdError": "لا يمكن تكرار اسم المنتج"
+    "duplicateUomIdError": "لا يمكن تكرار اسم المنتج",
+    "tax": "ضريبة",
+    "taxesValue": "اختر قيمة واحدة",
+ "TaxTilte":"فهرس العناصر الضريبية",
+ "variants": "الأنواع",
+ "tracking": "تتبع"
+
   },
   "itemCategory": {
     "itemDefinition": "تعريف العنصر",
@@ -196,10 +210,20 @@
       "delete": "تم حذف تعريف العنصر بنجاح",
       "codeAuto": "توليد الكود تلقائيًا",
       "ItemDefinitionPrint": "طباعة كتالوج الأصناف",
-      "isActive": "نشط"
+      "isActive": "نشط",
+      "baseUnit":"الوحدة الأساسية",
+      "change": "تغيير",
+      "shortname":"الاسم المختصر",
+      "conversionfactor":"عامل التحويل",
+      "unitusage":"استخدام الوحدة",
+      "uOMdefinitioncategory":"فئة تعريف الوحدة"
+
     },
 
-
+"variants":{
+  "variantID": "معرف النوع",
+ "variantName": "اسم النوع"
+},
   "warehouse": {
     "Add": "إضافة",
     "search": "بحث",
@@ -208,16 +232,21 @@
     "cancel": "إلغاء",
     "code": "الرمز",
     "name": "الاسم",
+    "warehouseName": "اسم المخزن",
     "print":"طباعة",
     "relatedBranch": "الفرع المرتبط",
     "warehouseType": "نوع المستودع",
     "availableQuantity":"الكميه المتاحة",
     "actions": "الإجراءات",
     "warehouse": "المستودع",
+    "variant": "النوع",
+    "uom": "وحدة القياس",
+    "itemCode": "رمز العنصر",
     "account": "الحساب",
     "costOfGoodsSold": "حساب تكلفة البضاعة المباعة",
     "address": "العنوان",
     "city": "المدينة",
+    "create":"اضافة",
     "companyPhoneNumber": "رقم هاتف الشركة",
     "email": "البريد الإلكتروني",
     "fax": "الفاكس",
@@ -247,7 +276,11 @@
     "phone": "الهاتف",
     "postalCode": "الرمز البريدي",
     "radius": "نصف القطر",
-    "salesCostAccount": "حساب تكلفة المبيعات"
+    "salesCostAccount": "حساب تكلفة المبيعات",
+    "warehousePrint": "طباعة المستودع",
+    "createdOn": "تم الإنشاء في"
+
+
   },
   "itemsCategory": {
     "title": "فئة العناصر",
@@ -278,6 +311,7 @@
     "conversionRatio": "نسبة التحويل",
     "add_new": "إضافة جديد",
     "uomList": "قائمة وحدات القياس",
+    "uomListPrint": "طباعة وحدة القياس",
     "AddNew": "إضافة جديد",
     "Search": "بحث",
     "delete": "تم الحذف",
@@ -408,11 +442,71 @@
     "OperationalTagPrint": "طباعة العلامة التشغيلية"
 
   },
+  "stockIn": {
+    "import": "استيراد",
+    "edit": "تعديل",
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "delete": "تم حذف المخزون بنجاح",
+    "success": "نجاح",
+    "add": "تم إضافة المخزون بنجاح",
+    "edits": "تم تعديل المخزون بنجاح",
+    "code": "رمز الإيصال",
+    "date": "تاريخ الإيصال",
+    "description": "الوصف",
+    "sourceDoc": "وثيقة المصدر",
+    "warehouse": "اختر المخزن",
+    "status": "الحالة",
+    "journalCode": "رمز السجل",
+    "actions": "الإجراءات",
+    "Add": "إضافة",
+    "edit_stock_in": "تعديل المخزون الوارد",
+    "search": "بحث",
+    "ChangeColumn": "تغيير العمود",
+    "docType": "نوع وثيقة المصدر",
+    "notes": "ملاحظات",
+    "barcode": "الرمز الشريطي",
+    "itemCode": "رمز العنصر",
+    "itemDescription": "وصف العنصر",
+    "UOM": "وحدة القياس",
+    "QTY": "الكمية",
+    "stockInPrint":"طباعة المخزون الوارد",
+    "cost": "التكلفة",
+    "subTotal": "المجموع الفرعي",
+    "tracking": "التتبع",
+    "note": "ملاحظة",
+    "action": "الإجراء",
+    "setTracking": "تعيين التتبع",
+    "expiryDate": "تاريخ الانتهاء",
+    "generatedBatch": "الدفعة المولدة",
+    "vendorBatchNo": "رقم الدفعة",
+    "stockAdded": "تم إضافة المخزون بنجاح",
+    "Expiry": "الانتهاء",
+    "serial": "الرقم التسلسلي",
+    "serialId": "معرف الرقم التسلسلي",
+    "ItemSearch": "بحث عن عنصر",
+    "ItemCode": "رمز العنصر",
+    "ItemName": "اسم العنصر",
+    "ItemUOM": "وحدة قياس العنصر",
+    "ItemVariant": "نوع العنصر",
+    "ItemCategory": "فئة العنصر",
+    "IsStorable": "هل يمكن تخزينه",
+    "IsService": "هل هو خدمة",
+    "HasExpiryDate": "هل يحتوي على تاريخ انتهاء",
+    "Actions": "الإجراءات",
+    "uploadExcel": "رفع ملف إكسل",
+    "scan": "مسح الرمز الشريطي",
+    "noTracking": "بدون تتبع",
+    "required": "مطلوب",
+    "deleteStockInLine": "تم حذف العنصر بنجاح",
+    "stockEdit": "تم تحديث البيانات بنجاح"
+},
   "stockOut": {
     "import": "استيراد",
     "edit": "تعديل",
     "save": "حفظ",
     "cancel": "إلغاء",
+    "stockOutPrint":"طباعة المخزون المنفذ",
     "delete": "تم حذف الإدخال بنجاح",
     "success": "نجاح",
     "add": "تمت إضافة الإدخال بنجاح",
@@ -562,7 +656,16 @@
   "global": {
     "activeOn": "تشغيل",
     "activeOff": "إيقاف",
-    "showMoreValues": "...عرض المزيد"
+    "showMoreValues": "...عرض المزيد",
+    "clickToUpload": "انقر للتحميل",
+    "uploadFile": "الملف المرفق",
+    "select":"اختيار",
+    "noResults": "لا توجد نتائج",
+    "Physical": "فعلي",
+  "Virtual": "افتراضي",
+  "VanSales": "مبيعات السيارات",
+"English": "(الإنجليزية)",
+"Arabic": "(العربية)"
   }
 
 }

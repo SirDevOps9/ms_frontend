@@ -111,8 +111,8 @@ export class ItemsProxyService {
   deleteItemDefinition(id: number) {
     return this.httpService.delete(`Item/${id}`);
   }
-  deleteUOM(id: number) {
-    return this.httpService.delete(`UOM/DeleteUOM/${id}`);
+  deleteUOM(id: string) {
+    return this.httpService.delete(`UOM/${id}`);
   }
 
   deleteCategory(id: number) {
@@ -202,10 +202,6 @@ export class ItemsProxyService {
   }
   getInvenrory(id: number) {
     return this.httpService.get(`Item/GetItemExpiryAndTracking/${id}`);
-  }
-
-  DeleteUomLine(id: number) {
-    return this.httpService.delete(`UOM/${id}`); //
   }
 
   getItemBarcodeById(id: number) {
@@ -332,31 +328,53 @@ export class ItemsProxyService {
   EditUOMCategory(obj: addUOM) {
     return this.httpService.put('UOMCategories/Edit', obj);
   }
-  exportsItemsDefinitionList(searchTerm: string | undefined): Observable<itemDefinitionDto[]> {
+  exportsItemsDefinitionList(SearchTerm?: string, SortBy?: number, SortColumn?: string): Observable<itemDefinitionDto[]> {
     let query = `Item/Export?`;
-    if (searchTerm) {
-      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
-    }
+    const params: string[] = [];
+    if (SearchTerm) params.push(`SearchTerm=${encodeURIComponent(SearchTerm)}`);
+    if (SortBy !== undefined) params.push(`SortBy=${SortBy}`);
+    if (SortColumn) params.push(`SortColumn=${SortColumn}`);
+    query += params.join('&');
     return this.httpService.get<itemDefinitionDto[]>(query);
   }
 
+
   //   to export uom list
-  ExportUOMList(SearchTerm: string | undefined) {
-    let url = `UOM/ExportUOM`;
-    if (SearchTerm) url += `SearchTerm=${encodeURIComponent(SearchTerm)}`;
-    return this.httpService.get<any>(url);
+
+
+  ExportUOMList(SearchTerm?: string, SortBy?: number, SortColumn?: string) {
+    let query = `UOM/ExportUOM?`;
+    const params: string[] = [];
+    if (SearchTerm) params.push(`SearchTerm=${encodeURIComponent(SearchTerm)}`);
+    if (SortBy !== undefined) params.push(`SortBy=${SortBy}`);
+    if (SortColumn) params.push(`SortColumn=${SortColumn}`);
+    query += params.join('&');
+    return this.httpService.get<any>(query);
   }
   //   to export operationalTag list
-  ExportOperationalTagList(SearchTerm: string | undefined) {
-    let url = `OperationalTag/ExportOperationalTag`;
-    if (SearchTerm) url += `SearchTerm=${encodeURIComponent(SearchTerm)}`;
-    return this.httpService.get<any>(url);
+  ExportOperationalTagList(searchTerm?: string, SortBy?: number, SortColumn?: string): Observable<any> {
+    let url = `OperationalTag/ExportOperationalTag?`;
+    const params: string[] = [];
+
+    if (searchTerm) params.push(`SearchTerm=${encodeURIComponent(searchTerm)}`);
+    if (SortBy !== undefined) params.push(`SortBy=${SortBy}`);
+    if (SortColumn) params.push(`SortColumn=${SortColumn}`);
+
+    url += params.join('&');
+    return this.httpService.get<any>(url); // HTTP GET request to the backend with parameters
   }
 
+
   //   to export attr list as excel
-  ExporAttrList(SearchTerm: string | undefined) {
-    let url = `AttributeGroup/Export`;
-    if (SearchTerm) url += `SearchTerm=${encodeURIComponent(SearchTerm)}`;
+  ExporAttrList(searchTerm?: string, SortBy?: number, SortColumn?: string) {
+    let url = `AttributeGroup/Export?`;
+    const params: string[] = [];
+
+    if (searchTerm) params.push(`SearchTerm=${encodeURIComponent(searchTerm)}`);
+    if (SortBy !== undefined) params.push(`SortBy=${SortBy}`);
+    if (SortColumn) params.push(`SortColumn=${SortColumn}`);
+
+    url += params.join('&');
     return this.httpService.get<any>(url);
   }
 
@@ -537,11 +555,14 @@ export class ItemsProxyService {
   }
 
 
-  exportsItemCategoryList(searchTerm: string | undefined): Observable<GetItemCategoryDto[]> {
+  exportsItemCategoryList(searchTerm?: string, SortBy?: number, SortColumn?: string): Observable<GetItemCategoryDto[]> {
     let query = `ItemCategory/Export?`;
-    if (searchTerm) {
-      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
-    }
+    const params: string[] = [];
+
+    if (searchTerm) params.push(`SearchTerm=${encodeURIComponent(searchTerm)}`);
+    if (SortBy !== undefined) params.push(`SortBy=${SortBy}`);
+    if (SortColumn) params.push(`SortColumn=${SortColumn}`);
+    query += params.join('&');
     return this.httpService.get<GetItemCategoryDto[]>(query);
   }
   deleteWareHouse(id: number) {

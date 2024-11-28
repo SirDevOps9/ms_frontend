@@ -4,6 +4,7 @@
       [items]="tableData"
       className="p-datatable-gridlines"
       [currentPageResult]="currentPageInfo"
+      (exportObj)="exportClickBySort($event)"
       (pageChange)="onPageChange($event)"
       [tableConfigs]="{
         allowPagination: false,
@@ -71,16 +72,18 @@
       </ng-container>
       <ng-container action>
         <div>
+
           <lib-export
-            (exportClick)="exportAccountsData($event)"
-            [exportData]="exportData"
-            [exportColumns]="exportColumns"
-            [ExportName]="'Accounts'"
-          >
-          </lib-export>
+          (exportClick)="exportClick()"
+          [exportData]="exportData"
+          [exportColumns]="exportColumns"
+          [ExportName]="('ChartOfAccount.chartofaccountsPrint' |translate)"
+
+        >
+        </lib-export>
         </div>
         </ng-container>
-   
+
 
         <ng-template #status let-Account>
           <div>
