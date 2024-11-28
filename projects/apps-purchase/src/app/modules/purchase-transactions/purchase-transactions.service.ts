@@ -16,6 +16,7 @@ export class PurchaseTransactionsService {
   public lastestItem = new BehaviorSubject<LatestItem[]>([]);
   public itemsDataSourceForAdvanced = new BehaviorSubject<LatestItem[]>([]);
   public sendPurchaseInvoice = new BehaviorSubject<AddPurchaseInvoiceDto>({} as AddPurchaseInvoiceDto);
+  public sendcurrency = new BehaviorSubject<{rate : number}>({} as {rate : number});
 
   
     // list of purchase inv and export
@@ -116,15 +117,18 @@ export class PurchaseTransactionsService {
   addPurchaseInvoice(obj : AddPurchaseInvoiceDto) {
     this.TransactionsProxy.addPurchaseInvoice(obj).subscribe((res) => {
       this.toasterService.showSuccess(
-        this.languageService.transalte('purchasing.success'),
-        this.languageService.transalte('purchasing.addInvoice')
+        this.languageService.transalte('purchase.success'),
+        this.languageService.transalte('purchase.addInvoice')
       );
+      this.router.navigateTo('/transaction/purchase-invoice')
      this.sendPurchaseInvoice.next(res);
-
     });
   }
 
-  
+  getCurrencyRate(fromCurrency : number ,toCurrency : number ){
+    this.TransactionsProxy.getCurrencyRate(fromCurrency , toCurrency).subscribe(res=>{
+      this.sendcurrency.next(res)
+    })
+  }
 
-  
 }

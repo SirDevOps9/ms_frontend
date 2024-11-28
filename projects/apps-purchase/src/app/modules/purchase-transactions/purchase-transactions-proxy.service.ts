@@ -29,7 +29,7 @@ export class PurchaseTransactionsProxyService {
   ): Observable<{ id: number; code: string; name: string }[]> {
     let query = `Inventory/SharedWarehousesLookup?`;
     if (searchTerm) {
-      query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
+      query += `SearchTerm=${encodeURIComponent(searchTerm)}`;
     }
     return this.httpService.get<{ id: number; code: string; name: string }[]>(query);
   }
@@ -38,7 +38,7 @@ export class PurchaseTransactionsProxyService {
 
     let query = `Inventory/SharedLatestItemsLookup?`;
     if (searchTerm) {
-      query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
+      query += `SearchTerm=${encodeURIComponent(searchTerm)}`;
     }
     return this.httpService.get<LatestItem[]>(query);
     
@@ -94,5 +94,10 @@ export class PurchaseTransactionsProxyService {
   deleteInvoiceLine(id: number): Observable<boolean> {
     return this.httpService.delete<boolean>(`Invoice/${id}`);
   }
+
+  getCurrencyRate(fromCurrency : number ,toCurrency : number ) : Observable<any>{
+    return this.httpService.get(`CurrencyConversion/rate?FromCurrencyId=${fromCurrency}&ToCurrencyId=${toCurrency}`)
+  }
+  
 
 }

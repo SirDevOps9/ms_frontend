@@ -95,6 +95,7 @@
                           optionValue="id"
                           optionLabel="name"
                           placeholder="{{ 'purchase.code' | translate }}"
+                          
                           [readOnly]="dataToReadOnly"
                           (valueSearchChanged)="onFilter($event)"
                         >
@@ -489,7 +490,7 @@
                   "
                 >
                   {{
-                    purchaseInvoiceFormGroup.get('invoiceEntryMode').get('expireDate')?.value
+                    purchaseInvoiceFormGroup.get('invoiceTracking').get('expireDate')?.value
                       | date : 'dd-MM-yyyy'
                   }}
                 </small>
@@ -498,7 +499,7 @@
                     purchaseInvoiceFormGroup.get('trackingType').value ==
                       sharedFinanceEnums.trackingType.NoTracking &&
                     purchaseInvoiceFormGroup.get('hasExpiryDate')?.value == true &&
-                    !purchaseInvoiceFormGroup.get('invoiceEntryMode').get('expireDate')?.value
+                    !purchaseInvoiceFormGroup.get('invoiceTracking').get('expireDate')?.value
                   "
                 >
                   {{ 'purchase.Expiry' | translate }}
@@ -511,7 +512,7 @@
                     purchaseInvoiceFormGroup.get('trackingType').value ==
                     sharedFinanceEnums.trackingType.Serial
                   "
-                  >{{ purchaseInvoiceFormGroup.get('invoiceEntryMode').get('serialId')?.value }}</small
+                  >{{ purchaseInvoiceFormGroup.get('invoiceTracking').get('serialId')?.value }}</small
                 >
                 <!--  -->
 
@@ -519,7 +520,7 @@
                   *ngIf="
                     purchaseInvoiceFormGroup.get('trackingType').value ==
                       sharedFinanceEnums.trackingType.Serial &&
-                    !purchaseInvoiceFormGroup.get('invoiceEntryMode').get('serialId')?.value
+                    !purchaseInvoiceFormGroup.get('invoiceTracking').get('serialId')?.value
                   "
                   >{{ purchaseInvoiceFormGroup.get('trackingType').value }}</small
                 >
@@ -530,14 +531,14 @@
                     purchaseInvoiceFormGroup.get('trackingType').value ==
                     sharedFinanceEnums.trackingType.Batch
                   "
-                  >{{ purchaseInvoiceFormGroup.get('invoiceEntryMode').get('vendorBatchNo')?.value }}</small
+                  >{{ purchaseInvoiceFormGroup.get('invoiceTracking').get('vendorBatchNo')?.value }}</small
                 >
 
                 <small
                   *ngIf="
                     purchaseInvoiceFormGroup.get('trackingType').value ==
                       sharedFinanceEnums.trackingType.Batch &&
-                    !purchaseInvoiceFormGroup.get('invoiceEntryMode').get('vendorBatchNo')?.value
+                    !purchaseInvoiceFormGroup.get('invoiceTracking').get('vendorBatchNo')?.value
                   "
                   >{{ purchaseInvoiceFormGroup.get('trackingType').value }}</small
                 >
