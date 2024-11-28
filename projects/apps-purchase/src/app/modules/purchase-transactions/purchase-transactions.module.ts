@@ -7,9 +7,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { BreadcrumbLabel, Modules, Pages, SharedLibModule } from 'shared-lib';
 import { LayoutPageComponent, SequenceComponent } from 'apps-shared-lib';
 import { MainPurchaseInvoiceComponent } from './pages/purchase-invoice/main-purchase-invoice/main-purchase-invoice.component';
-import { VendorAavancedSearchComponent } from './components/vendor-aavanced-search/vendor-aavanced-search.component';
-import { VendorPurchasingAdvancedSearchComponent } from './components/vendor-purchasing-advanced-search/vendor-purchasing-advanced-search.component';
 import { PurchaseInvoiceTrackingComponent } from './components/purchase-invoice-tracking/purchase-invoice-tracking.component';
+import { ItemAdvancedSearchPurchaseInvoiceComponent } from './components/item-advanced-search-purchase-invoice/item-advanced-search-purchase-invoice.component';
 
 const routes: Routes = [
   {
@@ -72,9 +71,8 @@ const routes: Routes = [
     EditPurchaseInvoiceComponent,
     PurchaseInvoiceListComponent,
     MainPurchaseInvoiceComponent,
-    VendorAavancedSearchComponent,
-    VendorPurchasingAdvancedSearchComponent,
-    PurchaseInvoiceTrackingComponent
+    PurchaseInvoiceTrackingComponent,
+    ItemAdvancedSearchPurchaseInvoiceComponent
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule],
 })

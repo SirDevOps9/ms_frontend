@@ -9,7 +9,6 @@ import { SharedStock } from 'projects/apps-inventory/src/app/modules/transaction
 import { TransactionsService } from 'projects/apps-inventory/src/app/modules/transactions/transactions.service';
 import { customValidators, FormsService, LanguageService, LoaderService, lookupDto, LookupEnum, LookupsService, MenuModule, PageInfo, PageInfoResult, RouterService, ToasterService } from 'shared-lib';
 import { PurchaseTransactionsService } from '../../../purchase-transactions.service';
-import { VendorAavancedSearchComponent } from '../../../components/vendor-aavanced-search/vendor-aavanced-search.component';
 
 @Component({
   selector: 'app-edit-purchase-invoice',
@@ -69,21 +68,7 @@ export class EditPurchaseInvoiceComponent implements OnInit {
       
     })
   }
-  test(){
-    const ref = this.dialog.open(VendorAavancedSearchComponent, {
-      width: 'auto',
-      height: '500px',
-      data: this.addForm.get('warehouseId')?.value
-    });
-    ref.onClose.subscribe((selectedItems: any) => {
 
-      if (selectedItems) {
-        console.log(selectedItems ,"55555555555");
-        
-        // this.setRowDataFromPopup(indexLine, selectedItems)
-      }
-    });
-  }
   
   onFilter(SearchTerm: string) {
     const warehouseId: number = this.addForm.get('warehouseId')?.value

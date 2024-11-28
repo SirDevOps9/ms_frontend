@@ -30,9 +30,9 @@ import {
 import { PurchaseTransactionsService } from '../../../purchase-transactions.service';
 import { PurchaseService } from '../../../../purchase/purchase.service';
 import { LatestItem } from '../../../models';
-import { VendorPurchasingAdvancedSearchComponent } from '../../../components/vendor-purchasing-advanced-search/vendor-purchasing-advanced-search.component';
 import { PurchaseInvoiceTrackingComponent } from '../../../components/purchase-invoice-tracking/purchase-invoice-tracking.component';
 import { AddPurchaseInvoiceDto } from '../../../models/addPurchaseInvoice';
+import { ItemAdvancedSearchPurchaseInvoiceComponent } from '../../../components/item-advanced-search-purchase-invoice/item-advanced-search-purchase-invoice.component';
 // import { VendorAdvancedSearchComponent } from '../../../components/vendor-advanced-search/vendor-advanced-search.component';
 
 @Component({
@@ -625,7 +625,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
   }
 
   openDialog(indexline: number, stockInFormGroup: FormGroup) {
-    const ref = this.dialog.open(VendorPurchasingAdvancedSearchComponent, {
+    const ref = this.dialog.open(ItemAdvancedSearchPurchaseInvoiceComponent, {
       width: 'auto',
       height: '600px',
     });
