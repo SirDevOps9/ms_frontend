@@ -316,24 +316,24 @@
 
                     </td>
                     <td *ngIf="
-                    invoiceFormGroup.controls['trackingType']?.value == sharedFinanceEnums.StockOutTracking.NoTracking && invoiceFormGroup.controls['hasExpiryDate']?.value === true ||
-                    invoiceFormGroup.controls['trackingType']?.value == sharedFinanceEnums.StockOutTracking.Batch|| 
-                    invoiceFormGroup.controls['trackingType']?.value == sharedFinanceEnums.StockOutTracking.Serial 
+                    invoiceFormGroup.controls['trackingType']?.value == sharedEnums.Tracking.NoTracking && invoiceFormGroup.controls['hasExpiryDate']?.value === true ||
+                    invoiceFormGroup.controls['trackingType']?.value == sharedEnums.Tracking.Batch|| 
+                    invoiceFormGroup.controls['trackingType']?.value == sharedEnums.Tracking.Serial 
                     
                     
                     
                     ">
                         <div class=" flex align-content-center justify-content-between ">
                             <p class="title_Tracking body-b16 "
-                                *ngIf=" invoiceFormGroup.controls['trackingType']?.value == sharedFinanceEnums.StockOutTracking.Serial">
+                                *ngIf=" invoiceFormGroup.controls['trackingType']?.value == sharedEnums.Tracking.Serial">
                                 serial
                             </p>
                             <p class="title_Tracking body-b16 "
-                                *ngIf=" invoiceFormGroup.controls['trackingType']?.value == sharedFinanceEnums.StockOutTracking.Batch">
+                                *ngIf=" invoiceFormGroup.controls['trackingType']?.value == sharedEnums.Tracking.Batch">
                                 Batch
                             </p>
                             <p class="title_Tracking body-b16 "
-                                *ngIf=" invoiceFormGroup.controls['trackingType']?.value == sharedFinanceEnums.StockOutTracking.NoTracking">
+                                *ngIf=" invoiceFormGroup.controls['trackingType']?.value == sharedEnums.Tracking.NoTracking">
                                 expire Date
                             </p>
                             <lib-button-micro nameClass="save" title="Set Tracking"
@@ -343,7 +343,7 @@
                         </div>
                     </td>
                     <td
-                        *ngIf="invoiceFormGroup.controls['trackingType']?.value == sharedFinanceEnums.StockOutTracking.NoTracking && invoiceFormGroup.controls['hasExpiryDate']?.value === false ">
+                        *ngIf="invoiceFormGroup.controls['trackingType']?.value == sharedEnums.Tracking.NoTracking && invoiceFormGroup.controls['hasExpiryDate']?.value === false ">
                         No Tracking
                     </td>
                     <td>
