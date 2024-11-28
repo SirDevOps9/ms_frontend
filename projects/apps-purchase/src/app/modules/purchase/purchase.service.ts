@@ -115,6 +115,10 @@ export class PurchaseService {
 
 
 
+
+  
+
+
   getVendorCategory(searchTerm: string, pageInfo: PageInfo) {
     this.purchaseProxy.getVendorCategory(searchTerm, pageInfo).subscribe({
       next: (res) => {

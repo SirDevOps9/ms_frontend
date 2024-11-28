@@ -4,9 +4,11 @@ import { AddPurchaseInvoiceComponent } from './pages/purchase-invoice/add-purcha
 import { EditPurchaseInvoiceComponent } from './pages/purchase-invoice/edit-purchase-invoice/edit-purchase-invoice.component';
 import { PurchaseInvoiceListComponent } from './pages/purchase-invoice/purchase-invoice-list/purchase-invoice-list.component';
 import { RouterModule, Routes } from '@angular/router';
-import { BreadcrumbLabel, Modules, SharedLibModule } from 'shared-lib';
-import { LayoutPageComponent } from 'apps-shared-lib';
+import { BreadcrumbLabel, Modules, Pages, SharedLibModule } from 'shared-lib';
+import { LayoutPageComponent, SequenceComponent } from 'apps-shared-lib';
 import { MainPurchaseInvoiceComponent } from './pages/purchase-invoice/main-purchase-invoice/main-purchase-invoice.component';
+import { PurchaseInvoiceTrackingComponent } from './components/purchase-invoice-tracking/purchase-invoice-tracking.component';
+import { ItemAdvancedSearchPurchaseInvoiceComponent } from './components/item-advanced-search-purchase-invoice/item-advanced-search-purchase-invoice.component';
 import { ViewInvoiceComponent } from './pages/purchase-invoice/view-invoice/view-invoice.component';
 
 const routes: Routes = [
@@ -33,10 +35,10 @@ const routes: Routes = [
             },
           },
           {
-            path: 'Add-purchase-invoice',
+            path: 'add-purchase-invoice',
             component: AddPurchaseInvoiceComponent,
             data: {
-              breadcrumb: 'BreadcrumbLabel.purchaseInvoiceAdd',
+              breadcrumb: BreadcrumbLabel.purchaseInvoiceAdd,
               pageTitle: BreadcrumbLabel.purchaseInvoiceAdd,
             },
           },
@@ -46,6 +48,16 @@ const routes: Routes = [
             data: {
               breadcrumb: 'BreadcrumbLabel.purchaseInvoiceEdit',
               pageTitle: BreadcrumbLabel.purchaseInvoiceEdit,
+            },
+          },
+          {
+            path: 'sequence',
+            component: SequenceComponent,
+            data: {
+              moduleId: Modules.Purchase,
+              pageId: Pages.PurchaseInvoice,
+              breadcrumb: BreadcrumbLabel.SEQUENCE,
+              pageTitle: BreadcrumbLabel.SEQUENCE,
             },
           },
           {
@@ -68,7 +80,9 @@ const routes: Routes = [
     EditPurchaseInvoiceComponent,
     PurchaseInvoiceListComponent,
     MainPurchaseInvoiceComponent,
-    ViewInvoiceComponent,
+    PurchaseInvoiceTrackingComponent,
+    ItemAdvancedSearchPurchaseInvoiceComponent,
+    ViewInvoiceComponent
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule],
 })
