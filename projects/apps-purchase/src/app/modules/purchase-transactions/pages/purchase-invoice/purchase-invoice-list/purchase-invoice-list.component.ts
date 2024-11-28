@@ -1,13 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
 import { SequenceService } from 'apps-shared-lib';
 import { AuthService } from 'microtec-auth-lib';
-import { DialogService } from 'primeng/dynamicdialog';
-import { StockInDto } from 'projects/apps-inventory/src/app/modules/items/models';
 import { SharedStock } from 'projects/apps-inventory/src/app/modules/transactions/models/sharedStockOutEnums';
-import { TransactionsProxyService } from 'projects/apps-inventory/src/app/modules/transactions/transactions-proxy.service';
-import { TransactionsService } from 'projects/apps-inventory/src/app/modules/transactions/transactions.service';
-import { RouterService, PageInfoResult, MenuModule, PageInfo } from 'shared-lib';
+import { RouterService, PageInfoResult, PageInfo } from 'shared-lib';
 import { PurchaseTransactionsService } from '../../../purchase-transactions.service';
 import { IinvoiceDto } from '../../../model/purchase-invoice';
 
@@ -72,6 +67,9 @@ export class PurchaseInvoiceListComponent implements OnInit {
   onEdit(id: any) {
     this.routerService.navigateTo(`/transaction/purchase-invoice/Edit-purchase-invoice/${id}`);
   }
+  onView(id: any) {
+    this.routerService.navigateTo(`/transaction/purchase-invoice/view-purchase-invoice/${id}`);
+  }
 
   onSearchChange() {
     this.transactionsService.getInvoiceList(this.searchTerm, new PageInfo());
@@ -79,7 +77,6 @@ export class PurchaseInvoiceListComponent implements OnInit {
 
   // on Delete
   onDelete(id: number) {
-
     this.transactionsService.deleteInvoiceLine(id);
   }
 
