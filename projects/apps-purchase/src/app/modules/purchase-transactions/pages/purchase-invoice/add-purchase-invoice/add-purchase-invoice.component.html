@@ -62,7 +62,6 @@
                       optionValue="id"
                       optionLabel="name"
                       [selectedValue]="purchaseInvoiceForm.controls['warehouseId'].value"
-                      (valueSearchChanged)="warehouseSearch($event)"
                     ></lib-select>
                     <lib-field-validations
                       [appControl]="purchaseInvoiceForm.controls['warehouseId']"
@@ -197,14 +196,12 @@
             [title]="'purchase.upload' | translate"
             nameClass="outline"
             iconName="pi pi-file-edit"
-            (click)="getExcel()"
           >
           </lib-button-micro>
           <lib-button-micro
             [title]="'purchase.scan' | translate"
             nameClass="outline"
             iconName="pi pi-expand"
-            (click)="scan()"
           >
           </lib-button-micro>
         </div>
@@ -247,7 +244,6 @@
                   <lib-text-input
                     placeholder="{{ 'purchase.barcode' | translate }}"
                     formControlName="barCode"
-                    (keyUp)="barcodeCanged($event, purchaseInvoiceFormGroup, i)"
                     [readOnly]="dataToReadOnly"
                   ></lib-text-input>
                 </ng-template>

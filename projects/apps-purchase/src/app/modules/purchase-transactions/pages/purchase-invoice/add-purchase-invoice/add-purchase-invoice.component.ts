@@ -33,7 +33,6 @@ import { LatestItem } from '../../../models';
 import { PurchaseInvoiceTrackingComponent } from '../../../components/purchase-invoice-tracking/purchase-invoice-tracking.component';
 import { AddPurchaseInvoiceDto } from '../../../models/addPurchaseInvoice';
 import { ItemAdvancedSearchPurchaseInvoiceComponent } from '../../../components/item-advanced-search-purchase-invoice/item-advanced-search-purchase-invoice.component';
-// import { VendorAdvancedSearchComponent } from '../../../components/vendor-advanced-search/vendor-advanced-search.component';
 
 @Component({
   selector: 'app-add-purchase-invoice',
@@ -350,17 +349,8 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     });
   }
 
-  warehouseSearch(searchItems: string) {
-    this.purchasetransactionsService.getSharedWarehousesLookup(searchItems);
-  }
-  openAdvancedSearch() {
-    // const ref = this.dialog.open(VendorAdvancedSearchComponent, {
-    //   width: '650px',
-    //   height: '600px',
-    // });
-    // ref.onClose.subscribe((selectedItems: any[]) => {
-    // });
-  }
+
+  openAdvancedSearch() { }
 
   changeUomName(indexLine: number, list: any) {
     const rowForm = this.purchaseInvoiceFormArray.at(indexLine) as FormGroup;
@@ -609,20 +599,11 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     });
   }
 
-  // else {
-  //   this.getLatestItemsList(warehouseId);
-  // }
 
   getLatestItemsList(id: number) {
     this.transactionsService.getLatestItemsListByWarehouse('', id);
   }
 
-  scan() {
-    // const ref = this.dialog.open(ScanParcodeStockInComponent, {
-    //   width: '50%',
-    //   height: '450px',
-    // });
-  }
 
   openDialog(indexline: number, stockInFormGroup: FormGroup) {
     const ref = this.dialog.open(ItemAdvancedSearchPurchaseInvoiceComponent, {
@@ -637,18 +618,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     });
   }
 
-  barcodeCanged(e: any, stockInFormGroup: FormGroup, index: number) {
-    if (e) {
-      this.transactionsService.getItemBarcodeForItem(e);
-      this.transactionsService.sendItemBarcode$.pipe(skip(1)).subscribe((data) => {
-        if (data) {
-          stockInFormGroup.get('itemId')?.setValue(data.itemId);
 
-          this.setRowDataFromBarCode(index, data, e);
-        }
-      });
-    }
-  }
   setRowDataFromBarCode(indexLine: number, selectedItem: any, barcode: string) {
     const rowForm = this.purchaseInvoiceFormArray.at(indexLine) as FormGroup;
 
