@@ -3,7 +3,7 @@
     <div class="charts">
       <div class="grid">
         <div class="lg:col-4 md:col-6 col-12" [appLoader]="statusLoader">
-          <app-chart-card [chartDTO]="statusChart">
+          <app-chart-card [chartDTO]="statusChart" [chartDetailsConfig]="statusChartValues">
             <div class="chart-header">
               <div class="title heading_b18">{{ 'dashboard.status' | translate }}</div>
               <div class="action body_b14">
@@ -206,7 +206,40 @@
           </app-chart-card>
         </div>
 
-        <div class="col-12" [appLoader]="resentTransactionsLoader">
+        <div class="lg:col-6 col-12" [appLoader]="recentIncomeTransactionsLoader">
+          <app-chart-card>
+            <div class="chart-header">
+              <div class="title heading_b18">{{ 'dashboard.resentTransactions' | translate }}</div>
+              <div class="action body_b14">
+                <span class="pointer">
+                  {{ 'dashboard.moreDetails' | translate }} <i class="pi pi-arrow-right fs-14"></i>
+                </span>
+                <span class="column-line"></span>
+                <i class="pi pi-heart"></i>
+              </div>
+            </div>
+            <div class="chart-body accounts-bank w-full">
+              <!-- @for(acc of cashBankAccountsBalance.accounts; track acc) {
+          <div class="row">
+            <span class="body-14 mx-1">{{ acc.accountName }}</span>
+            <span
+              class="detail-type body_b14 pointer"
+              [style.background-color]="acc.accountTypeId == 2 ? '#e7994f' : '#5eb5af'"
+              [routerLink]="'transcations/account-statement/' + acc.accountId"
+            >
+              {{ acc.accountTypeName }}
+            </span>
+
+            <span class="line"></span>
+            <span class="detail-value heading_b16">{{ acc.balance | decimalSeparator }}</span>
+          </div>
+          } -->
+
+              <div class="grid"></div>
+            </div>
+          </app-chart-card>
+        </div>
+        <div class="lg:col-6 col-12" [appLoader]="recentIncomeTransactionsLoader">
           <app-chart-card>
             <div class="chart-header">
               <div class="title heading_b18">{{ 'dashboard.resentTransactions' | translate }}</div>

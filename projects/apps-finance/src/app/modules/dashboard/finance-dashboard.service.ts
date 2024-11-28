@@ -1,6 +1,17 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ProxyService } from './proxy.service';
+import {
+  BankAccountsBalance,
+  CashFlowSummary,
+  IncomeTransaction,
+  IncomingReportDto,
+  OutgoingReportDto,
+  OutgoingTransaction,
+  PaymentStatusCount,
+  TotalBankTreasuries,
+  TreasuriesBalance,
+} from './models';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +25,8 @@ export class FinanceDashboardService {
   private treasuriesLoaderSubject = new BehaviorSubject<boolean>(false);
   private incomeLoaderSubject = new BehaviorSubject<boolean>(false);
   private outgoingLoaderSubject = new BehaviorSubject<boolean>(false);
-  private resentTransactionsLoaderSubject = new BehaviorSubject<boolean>(false);
+  private recentIncomeTransactionsLoaderSubject = new BehaviorSubject<boolean>(false);
+  private recentOutgoingTransactionsLoaderSubject = new BehaviorSubject<boolean>(false);
 
   // Loader observables
   statusLoader$ = this.statusLoaderSubject.asObservable();
@@ -24,17 +36,21 @@ export class FinanceDashboardService {
   treasuriesLoader$ = this.treasuriesLoaderSubject.asObservable();
   incomeLoader$ = this.incomeLoaderSubject.asObservable();
   outgoingLoader$ = this.outgoingLoaderSubject.asObservable();
-  resentTransactionsLoader$ = this.resentTransactionsLoaderSubject.asObservable();
+  recentIncomeTransactionsLoader$ = this.recentIncomeTransactionsLoaderSubject.asObservable();
+  recentOutgoingTransactionsLoader$ = this.recentOutgoingTransactionsLoaderSubject.asObservable();
 
   // Data subject
-  private statusSubject = new BehaviorSubject<any>(false);
-  private bankSubject = new BehaviorSubject<any>(false);
-  private cashFlowSummarySubject = new BehaviorSubject<any>(false);
-  private totalBankTreasuriesSubject = new BehaviorSubject<any>(false);
-  private treasuriesSubject = new BehaviorSubject<any>(false);
-  private incomeSubject = new BehaviorSubject<any>(false);
-  private outgoingSubject = new BehaviorSubject<any>(false);
-  private resentTransactionsSubject = new BehaviorSubject<any>(false);
+  private statusSubject = new BehaviorSubject<PaymentStatusCount[]>([]);
+  private bankSubject = new BehaviorSubject<BankAccountsBalance>({} as BankAccountsBalance);
+  private cashFlowSummarySubject = new BehaviorSubject<CashFlowSummary>({} as CashFlowSummary);
+  private totalBankTreasuriesSubject = new BehaviorSubject<TotalBankTreasuries>(
+    {} as TotalBankTreasuries
+  );
+  private treasuriesSubject = new BehaviorSubject<TreasuriesBalance>({} as TreasuriesBalance);
+  private incomeSubject = new BehaviorSubject<IncomingReportDto[]>([]);
+  private outgoingSubject = new BehaviorSubject<OutgoingReportDto[]>([]);
+  private recentIncomeTransactionsSubject = new BehaviorSubject<IncomeTransaction[]>([]);
+  private recentOutgoingTransactionsSubject = new BehaviorSubject<OutgoingTransaction[]>([]);
 
   // Data observables
   status$ = this.statusSubject.asObservable();
@@ -44,7 +60,8 @@ export class FinanceDashboardService {
   treasuries$ = this.treasuriesSubject.asObservable();
   income$ = this.incomeSubject.asObservable();
   outgoing$ = this.outgoingSubject.asObservable();
-  resentTransactions$ = this.resentTransactionsSubject.asObservable();
+  recentIncomeTransactions$ = this.recentIncomeTransactionsSubject.asObservable();
+  recentOutgoingTransactions$ = this.recentOutgoingTransactionsSubject.asObservable();
 
   constructor(private proxy: ProxyService) {}
 
@@ -104,11 +121,18 @@ export class FinanceDashboardService {
     });
   }
 
-  fetchResentTransactions() {
-    this.resentTransactionsLoaderSubject.next(true);
-    this.proxy.getResentTransactions().subscribe({
-      next: (data) => this.resentTransactionsSubject.next(data),
-      complete: () => this.resentTransactionsLoaderSubject.next(false),
+  fetchRecentIncomeTransactions() {
+    this.recentIncomeTransactionsLoaderSubject.next(true);
+    this.proxy.getRecentIncomeTransactions().subscribe({
+      next: (data) => this.recentIncomeTransactionsSubject.next(data),
+      complete: () => this.recentIncomeTransactionsLoaderSubject.next(false),
+    });
+  }
+  fetchRecentOutgoingTransactions() {
+    this.recentOutgoingTransactionsLoaderSubject.next(true);
+    this.proxy.getRecentOutgoingTransactions().subscribe({
+      next: (data) => this.recentOutgoingTransactionsSubject.next(data),
+      complete: () => this.recentOutgoingTransactionsLoaderSubject.next(false),
     });
   }
 }

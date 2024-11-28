@@ -33,6 +33,8 @@ export class FinanceDashboardComponent {
 
   // charts
   statusChart: Chart;
+  statusChartLabel: string[] = [];
+  statusChartValues: any = [];
   totalBankTreasuriesChart: Chart;
   incomeChart: Chart;
   outgoingChart: Chart;
@@ -45,7 +47,8 @@ export class FinanceDashboardComponent {
   treasuriesLoader: boolean = false;
   incomeLoader: boolean = false;
   outgoingLoader: boolean = false;
-  resentTransactionsLoader: boolean = false;
+  recentIncomeTransactionsLoader: boolean = false;
+  recentOutgoingTransactionsLoader: boolean = false;
 
   // clear subscriptions
   private destroy$ = new Subject<void>();
@@ -77,7 +80,21 @@ export class FinanceDashboardComponent {
     this.loadersSubscriptions();
   }
   subscriptions() {
-    this.service.status$.pipe(takeUntil(this.destroy$)).subscribe((data) => {});
+    this.service.status$.pipe(takeUntil(this.destroy$)).subscribe((data) => {
+      data.forEach((status) => {
+        this.statusChartLabel.push(status.status);
+      });
+      this.statusChartValues = data.map((status, index) => ({
+        y: status.count,
+        value: status.count,
+        color: this.colors[index],
+        name: status.status,
+      }));
+      this.statusChart = this.chartService.columnChart(
+        this.statusChartLabel,
+        this.statusChartValues
+      );
+    });
 
     this.service.bank$.pipe(takeUntil(this.destroy$)).subscribe((data) => {});
 
@@ -91,7 +108,8 @@ export class FinanceDashboardComponent {
 
     this.service.outgoing$.pipe(takeUntil(this.destroy$)).subscribe((data) => {});
 
-    this.service.resentTransactions$.pipe(takeUntil(this.destroy$)).subscribe((data) => {});
+    this.service.recentIncomeTransactions$.pipe(takeUntil(this.destroy$)).subscribe((data) => {});
+    this.service.recentOutgoingTransactions$.pipe(takeUntil(this.destroy$)).subscribe((data) => {});
   }
 
   loadersSubscriptions() {
@@ -123,9 +141,13 @@ export class FinanceDashboardComponent {
       .pipe(takeUntil(this.destroy$))
       .subscribe((loader) => (this.outgoingLoader = loader));
 
-    this.service.resentTransactionsLoader$
+    this.service.recentIncomeTransactionsLoader$
       .pipe(takeUntil(this.destroy$))
-      .subscribe((loader) => (this.resentTransactionsLoader = loader));
+      .subscribe((loader) => (this.recentIncomeTransactionsLoader = loader));
+
+    this.service.recentOutgoingTransactionsLoader$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((loader) => (this.recentOutgoingTransactionsLoader = loader));
   }
   fetchData() {
     this.getStatus();
@@ -135,7 +157,8 @@ export class FinanceDashboardComponent {
     this.getTreasuries();
     this.getIncome();
     this.getOutgoing();
-    this.getResentTransactions();
+    this.getRecentIncomeTransactions();
+    // this.getRecentOutgoingTransactions();
   }
 
   getStatus() {
@@ -159,8 +182,11 @@ export class FinanceDashboardComponent {
   getOutgoing() {
     this.service.fetchOutgoing();
   }
-  getResentTransactions() {
-    this.service.fetchResentTransactions();
+  getRecentIncomeTransactions() {
+    this.service.fetchRecentIncomeTransactions();
+  }
+  getRecentOutgoingTransactions() {
+    this.service.fetchRecentOutgoingTransactions();
   }
 
   selectCurrency(e: any) {
