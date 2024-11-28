@@ -645,8 +645,6 @@ export class EditStockInComponent implements OnInit {
       });
       dialogRef.onClose.subscribe((res: any) => {
         if (res) {
-          this.selectedTraking = res;
-
           setTracking.get('stockInTracking')?.patchValue({ ...res });
           setTracking.get('stockInTracking')?.get('selectedValue')?.setValue(res);
           this.cdr.detectChanges();
