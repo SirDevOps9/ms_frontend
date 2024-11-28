@@ -46,7 +46,7 @@ const routes: Routes = [
             },
           },
           {
-            path: 'edit',
+            path: 'edit/:id',
             component: EditPurchaseInvoiceComponent,
             data: {
               breadcrumb: BreadcrumbLabel.PURCHASE_EDIT,

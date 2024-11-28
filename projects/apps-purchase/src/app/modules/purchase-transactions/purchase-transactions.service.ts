@@ -69,7 +69,7 @@ export class PurchaseTransactionsService {
       this.InvoiceByIdDataSource.next(response);
     });
   }
-  editInvoice(obj: any) {
+  editInvoice(obj: any) { 
     this.TransactionsProxy.EditInvoice(obj).subscribe({
       next: (res: any) => {
         this.toasterService.showSuccess(
@@ -77,7 +77,7 @@ export class PurchaseTransactionsService {
           this.languageService.transalte('messages.successfully')
         );
       },
-      error: (err: any) => {
+      error: (err: any) => {        
         this.toasterService.showError(
           this.languageService.transalte('messages.error'),
           this.languageService.transalte('messages.noItemSelected')
@@ -85,5 +85,12 @@ export class PurchaseTransactionsService {
         this.loaderService.hide();
       },
     });
+  }
+  deleteRowInvoice(id: number) {
+    return this.TransactionsProxy.deleteRowInvoice(id).pipe(
+      map((res) => {
+        return res;
+      })
+    );
   }
 }

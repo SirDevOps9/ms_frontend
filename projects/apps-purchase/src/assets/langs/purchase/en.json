@@ -8,6 +8,19 @@
     "discard": "discard",
     "Save": "Save"
   },
+  "messages": {
+    "success": "Success",
+    "error": "Error",
+    "noItemSelected": "No item selected for editing.",
+    "noItemsToAdd": "No items to add",
+    "successfully": "Operation completed successfully.",
+    "duplicateItem": "There is a duplicated item.",
+    "serialError": "Can't add more than one item with the same serial.",
+    "noBarcode": "This barcode does not exist.",
+    "notEdit": "This stockout cannot be edited because it is posted.",
+    "setTracking":"You must set tracking in the row ",
+    "stockOutPostedSuccessfully": "Stock Out Posted successfully"
+  },
   "BreadCrumb":{
    "edit":"edit"
   },

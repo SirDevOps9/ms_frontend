@@ -78,3 +78,10 @@
   .title_Tracking{
     margin-inline-end: 10px;
   }
+  .page_edit_purchase{
+
+    ::ng-deep  .p-datatable.p-datatable-gridlines:has(.p-datatable-thead):has(.p-datatable-tbody) .p-datatable-tbody > tr > td {
+  min-width: 150px;
+  
+    }
+  }

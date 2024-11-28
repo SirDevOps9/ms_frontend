@@ -69,4 +69,7 @@ export class PurchaseTransactionsProxyService {
     EditInvoice(obj: any) {
       return this.httpService.put(`Invoice`, obj);
     }
+    deleteRowInvoice(id: number) {
+      return this.httpService.delete(`Invoice/DeleteLine/${id}`);
+    }
 }

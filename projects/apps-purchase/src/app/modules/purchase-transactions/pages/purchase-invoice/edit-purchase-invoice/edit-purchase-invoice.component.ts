@@ -30,7 +30,9 @@ export class EditPurchaseInvoiceComponent implements OnInit {
   totalDiscount: number;
   totalAfterDiscount: number;
   totalVatAmount : number;
+  vatAmount : number;
   vatAfter : number;
+  vendorId : number;
  
   stockInForm: FormGroup = new FormGroup({});
   LookupEnum = LookupEnum;
@@ -73,55 +75,57 @@ export class EditPurchaseInvoiceComponent implements OnInit {
     this.initItemsData()
     this.subscribe();
     this.calculate();
-    this.getStockOutyId(2)
+    this.getStockOutyId(this.itemId)
 
   }
   calculate(){
     this.totalQuantity = 0;
     this.totalCost = 0;
     this.totalSubTotal = 0;
-    this.totalQuantity = this.stockOutDetailsFormArray.controls.reduce((acc, control) => {
+    this.vatAmount = 0;
+    this.totalQuantity = this.invoiceDetailsFormArray.controls.reduce((acc, control) => {
       // Ensure that debitAmount is treated as a number
       const debitValue = parseFloat(control.get('quantity')?.value) || 0;
       return acc + debitValue;
     }, 0);
-    this.totalCost = this.stockOutDetailsFormArray.controls.reduce((acc, control) => {
+
+    this.totalCost = this.invoiceDetailsFormArray.controls.reduce((acc, control) => {
       // Ensure that debitAmount is treated as a number
       const debitValue = parseFloat(control.get('cost')?.value) || 0;
       return acc + debitValue;
     }, 0);
-    this.totalSubTotal = this.stockOutDetailsFormArray.controls.reduce((acc, control) => {
+    this.totalSubTotal = this.invoiceDetailsFormArray.controls.reduce((acc, control) => {
       // Ensure that debitAmount is treated as a number
       const debitValue = parseFloat(control.get('subCost')?.value) || 0;
       return acc + debitValue;
     }, 0);
-        this.totalItemsCount=this.stockOutDetailsFormArray.value.length
+        this.totalItemsCount=this.invoiceDetailsFormArray.value.length
 
 
 
       ////////////////////////afterdis
-      this.totalAfterDiscount = this.stockOutDetailsFormArray.controls.reduce((acc, control) => {
+      this.totalAfterDiscount = this.invoiceDetailsFormArray.controls.reduce((acc, control) => {
         // Ensure that debitAmount is treated as a number
         const debitValue = parseFloat(control.get('totalAfter')?.value) || 0;
         return acc + debitValue;
       }, 0);
       ////////////////// vat amount 
-      this.totalVatAmount = this.stockOutDetailsFormArray.controls.reduce((acc, control) => {
+      this.totalVatAmount = this.invoiceDetailsFormArray.controls.reduce((acc, control) => {
         // Ensure that debitAmount is treated as a number
         const debitValue = parseFloat(control.get('VatAmount')?.value) || 0;
         return acc + debitValue;
       }, 0);
-      this.vatAfter= this.totalVatAmount+this.totalAfterDiscount
+      this.vatAfter = this.totalVatAmount+this.totalAfterDiscount
       ////////////////// Discount 
-      this.totalDiscount = this.stockOutDetailsFormArray.controls.reduce((acc, control) => {
+      this.totalDiscount = this.invoiceDetailsFormArray.controls.reduce((acc, control) => {
         // Ensure that debitAmount is treated as a number
-        const debitValue = parseFloat(control.get('discountAmt')?.value) || 0;
+        const debitValue = control.get('discountAmt')?.value || null;
         return acc + debitValue;
       }, 0);
       ////////////////// Discount 
-      // this.totalDiscount = this.stockOutDetailsFormArray.controls.reduce((acc, control) => {
+      // this.totalDiscount = this.invoiceDetailsFormArray.controls.reduce((acc, control) => {
       //   // Ensure that debitAmount is treated as a number
-      //   const debitValue = parseFloat(control.get('cost')?.value) || 0;
+      //   const debitValue = parseFloat(control.get('cost')?.value) || null;
       //   return acc + debitValue;
       // }, 0);
   }
@@ -135,25 +139,25 @@ export class EditPurchaseInvoiceComponent implements OnInit {
     this.PurchaseService.getLatestItems('');
   }
   latestVendor(){
-    
     this.PurchaseService.latestVendor(undefined).subscribe((res:any)=>{
-      this.vendorItems=res
-      
+      this.vendorItems=res 
+      // Call setVendorData only after vendorItems is loaded
+    if (this.addForm.get('vendorId')?.value) {
+      this.setVendorData(this.addForm.get('vendorId')?.value);
+    } 
     })
   }
   latestWarehouses(){
     
     this.PurchaseService.LatestWarehouses(undefined).subscribe((res:any)=>{
-       this.warehouses=res
-      console.log(res ,"kkkkk");
-      
-      
+       this.warehouses=res      
     })
   }
     
   onFilterVendor(SearchTerm: string) {
     this.PurchaseService.latestVendor(SearchTerm).subscribe((res:any)=>{
       this.vendorItems=res
+      
       
     })
   }
@@ -165,22 +169,22 @@ export class EditPurchaseInvoiceComponent implements OnInit {
     });
     ref.onClose.subscribe((selectedItems: any) => {
 
-      if (selectedItems) {
-        console.log(selectedItems ,"55555555555");
-        
+      if (selectedItems) {        
         // this.setRowDataFromPopup(indexLine, selectedItems)
       }
     });
   }
   setVendorData(vendorId:number){
-this.vendorItems.find((item) => {
-  if (item.id === vendorId) {
-    this.addForm.get('vendorName')?.setValue(item?.name)
-    this.addForm.get('vendorCurrency')?.setValue(item?.vendorFinancialCurrencyName)
-    this.addForm.get('paymentTermName')?.setValue(item?.paymentTermName)
-this.getAccountCurrencyRate(item.vendorFinancialCurrencyId)
-  }
-});
+      this.vendorItems?.find((item) => {
+        if (item.id === vendorId) {
+          this.addForm.get('vendorName')?.setValue(item?.name)
+          this.addForm.get('currencyRate')?.setValue(item?.vendorFinancialCurrencyName)
+          this.addForm.get('paymentTermName')?.setValue(item?.paymentTermName) 
+          this.addForm.get('paymentTermId')?.setValue(item?.paymentTermId) 
+      this.getAccountCurrencyRate(item.vendorFinancialCurrencyId)
+        }
+      });
+
   }
   onFilterItems(SearchTerm: string) {
     this.PurchaseService.getLatestItems(SearchTerm)
@@ -227,27 +231,18 @@ this.getAccountCurrencyRate(item.vendorFinancialCurrencyId)
     // Patch main form fields
 
     this.addForm.patchValue({
-      id: 0,
+      id: data.id,
       invoiceStatus: data.invoiceStatus,
       invoiceCode: data.code,
       invoiceDate: data.invoiceDate,
       invoiceDescription: data.description,
       warehouseId: data.warehouseId,
-      vendorCode: new FormControl(''),
-      currency: new FormControl(''),
-      rate: new FormControl(''),
-      paymentTerms: new FormControl(''),
-      invoiceJournal: new FormControl(''),
-      stockOut: new FormControl(''),
+      warehouseName: data.warehouseName,
       vendorId: data.vendorId,
-      vendorName: new FormControl(''),
-      vendorCurrency: new FormControl(''),
-      vendorRate: new FormControl(''),
       paymentTermId: data.paymentTermId,
-      paymentTermName: new FormControl(''),
+      paymentTermName: data.paymentTermName,
       reference: data.reference,
     });
-    this.setVendorData(1)
     // if(      data?.warehouseId
     // ){
     //   this.getLatestItemsList(data?.warehouseId)
@@ -255,19 +250,18 @@ this.getAccountCurrencyRate(item.vendorFinancialCurrencyId)
     // }
 
     // Clear existing form array
-    const stockOutDetailsFormArray = this.addForm.get('stockOutDetails') as FormArray;
-    stockOutDetailsFormArray.clear();
-console.log("4444444444444444444444444");
-
-    // Patch stockOutDetails array
-    data?.invoiceDetails?.forEach((detail: any, index: number) => {
-      console.log(detail ,index ,"5555");
-      
+    const invoiceDetailsFormArray = this.addForm.get('invoiceDetails') as FormArray;
+    invoiceDetailsFormArray.clear();
+    // Patch invoiceDetails array
+    data?.invoiceDetails?.forEach((detail: any, index: number) => {      
       this.addNewRowWithOutItem()
       this.setRowDataById(index, detail)
+
     });
     this.dataLoaded = true
     this.originalFormData = this.addForm.value
+    this.setVendorData(data.vendorId )
+
   }
 
   initializeForm() {
@@ -279,6 +273,7 @@ console.log("4444444444444444444444444");
       invoiceDate: new FormControl(new Date(), [customValidators.required]),
       invoiceDescription: new FormControl('', [customValidators.required]),
       warehouseId: new FormControl('', [customValidators.required]),
+      warehouseName: new FormControl('', [customValidators.required]),
       vendorCode: new FormControl(''),
       currency: new FormControl(''),
       rate: new FormControl(''),
@@ -287,18 +282,18 @@ console.log("4444444444444444444444444");
       stockOut: new FormControl(''),
       vendorId: new FormControl(''),
       vendorName: new FormControl(''),
-      vendorCurrency: new FormControl(''),
+      currencyRate: new FormControl(''),
       vendorRate: new FormControl(''),
       paymentTermId: new FormControl(''),
       paymentTermName: new FormControl(''),
       reference: new FormControl(''),
-      stockOutDetails: this.fb.array([]),
+      invoiceDetails: this.fb.array([]),
 
     });
 
   }
-  get stockOutDetailsFormArray() {
-    return this.addForm.get('stockOutDetails') as FormArray;
+  get invoiceDetailsFormArray() {
+    return this.addForm.get('invoiceDetails') as FormArray;
   }
   getLatestItemsList(id: number) {
 
@@ -330,81 +325,18 @@ console.log("4444444444444444444444444");
       },
     });
     this.PurchaseService.accountCurrencyRateDataSource.subscribe((res:CurrencyRateDto)=>{
-      console.log(res.rate ,"p");
       this.addForm.get('vendorRate')?.setValue(res.rate)
       
     })
-    // this.lookupservice.lookups.subscribe((l) => {
-    //   this.lookups = l;
-    // });
-    // this.addForm.get('sourceDocumentType')?.valueChanges.subscribe(res => {
-    //   let data = this.lookups[LookupEnum.StockInOutSourceDocumentType]
-    //   let sourceDocumentTypeData = data?.find(elem => elem.name == res)
-    //   if (sourceDocumentTypeData?.name == 'OperationalTag') {
-
-    //     this.itemsService.operationTagStockOutDropdown()
-    //     this.itemsService.perationalTagStockOutDropDown$.subscribe((res: any) => {
-    //       this.oprationalLookup = res.map((elem: any) => ({
-    //         ...elem,
-    //         displayName: `${elem.name} (${elem.code})`,
-    //       }));
-    //     })
-    //   }
-    // }
-    // )
-    // this.addForm.get('sourceDocumentId')?.valueChanges.subscribe((res) => {
-    //   let data = this.oprationalLookup.find(elem => elem.id == res)
-
-    //   this.addForm.get('warehouseId')?.setValue(data?.warehouseId)
-    //   this.addForm.get('warehouseName')?.setValue(data?.warehouseName)
-
-    // });
-    // this.itemsService.latestItemsListByWarehouse$.subscribe((res: any) => {
-    //   this.filteredItems = res
-    //   if (res.length) {
-    //     if (this.selectedLanguage === 'ar') {
-    //       this.filteredItems = res.map((elem: any, index: number) => ({
-    //         ...elem,
-    //         itemNumber: index + 1,
-
-    //         displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameAr}`,
-    //       }));
-    //     } else {
-
-    //       this.filteredItems = res.map((elem: any, index: number) => ({
-    //         ...elem,
-    //         itemNumber: index + 1,
-
-    //         displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameEn}`,
-    //       }));
-    //     }
-    //   }
-    // })
-    // this.addForm.valueChanges.subscribe((res: any) => {
-
-    //   const x = this.mapStockOutData(this.originalFormData)
-    //   const y = this.mapStockOutData(res)
-    //   if (JSON.stringify(x) == JSON.stringify(y)) {
-    //     this.showPost = true
-    //   } else {
-    //     this.showPost = false
-
-    //   }
-    //   // return JSON.stringify(this.originalFormData) !== JSON.stringify(res);
-
-    // })
+  
   }
-  loadLookups() {
-    // this.lookupservice.loadLookups([
-    //   LookupEnum.StockInOutSourceDocumentType
-    // ]);
-  }
+  
 
 
 
   setRowData(indexLine: number, selectedItemId: any, list: any) {    
     const selectedItem = list.find((item: any) => item.itemNumber === selectedItemId);
-    const rowForm = this.stockOutDetailsFormArray.at(indexLine) as FormGroup;
+    const rowForm = this.invoiceDetailsFormArray.at(indexLine) as FormGroup;
 
     if (!selectedItem) {
       return;
@@ -452,13 +384,12 @@ console.log("4444444444444444444444444");
     }
     rowForm.get('itemName')?.setValue(selectedItem.itemCode + "-" + selectedItem.itemName + "-" + selectedItem.itemVariantNameEn)
     this.setUomName(indexLine , rowForm.get('uomOptions')?.value )
-console.log(rowForm.value,"5555555555555555555555");
 
   }
   isDuplicate(rowIndex: number) {
-    const rowForm = this.stockOutDetailsFormArray.at(rowIndex) as FormGroup;
+    const rowForm = this.invoiceDetailsFormArray.at(rowIndex) as FormGroup;
 
-    this.stockOutDetailsFormArray.controls.some((element: any, index: number) => {
+    this.invoiceDetailsFormArray.controls.some((element: any, index: number) => {
       if (rowForm.get('showSerial')?.value == true) {
 
         const quantity = rowForm.get('quantity')?.value;
@@ -516,77 +447,47 @@ console.log(rowForm.value,"5555555555555555555555");
     )
   }
   setRowDataFromPopup(indexLine: number, selectedItem: any) {
-    const rowForm = this.stockOutDetailsFormArray.at(indexLine) as FormGroup;
+    const rowForm = this.invoiceDetailsFormArray.at(indexLine) as FormGroup;
 
-
-
-
-
-    // Ensure row form controls are present before updating
     if (rowForm) {
       rowForm.patchValue({
-        barCode: selectedItem.barCode,
-        bardCodeId: selectedItem.bardCodeId,
+        itemNumber: selectedItem.itemNumber,
+        id:selectedItem.id||0,
+        barCode: '',
+        bardCodeId: null,
         itemId: selectedItem.itemId,
+        itemName: selectedItem.itemName,
         itemVariantId: selectedItem.itemVariantId,
         uomId: selectedItem.uomId,
         uomOptions: selectedItem.itemsUOM,
         description: selectedItem.itemName + "-" + selectedItem.itemVariantNameEn,
-        AllTotalQuantity: selectedItem.totalQuantity,
-        cost: selectedItem.cost,
-        subCost: selectedItem.subCost,
-        notes: selectedItem.notes,
-        stockOutEntryMode: selectedItem.stockOutEntryMode,
+        cost:(1),
+        vat: selectedItem.taxRatio||0,
         trackingType: selectedItem.trackingType,
-        trackingNo: selectedItem.trackingNo || '',
         hasExpiryDate: selectedItem.hasExpiryDate,
-        expireDate: selectedItem.expireDate,
-        availability: selectedItem.availability
+      
       });
 
       // Handle the nested form group
-      const stockOutTrackingGroup = rowForm.get('stockOutTracking') as FormGroup;
-      if (stockOutTrackingGroup) {
-        stockOutTrackingGroup.patchValue({
-          batchNo: selectedItem.stockOutTracking?.batchNo || '',
-          expireDate: selectedItem.stockOutTracking?.expireDate || null,
-          quantity: selectedItem.stockOutTracking?.quantity || '',
-          serialId: selectedItem.stockOutTracking?.serialId || '',
-          trackingType: selectedItem.stockOutTracking?.trackingType || '',
+      const invoiceTrackingGroup = rowForm.get('invoiceTracking') as FormGroup;
+      if (invoiceTrackingGroup) {
+        invoiceTrackingGroup.patchValue({
+          invoiceDetailId: selectedItem?.invoiceTrackingGroup?.invoiceDetailId||0,
+          vendorBatchNo: selectedItem.invoiceTrackingGroup?.vendorBatchNo||'',
+          quantity: selectedItem.quantity,
           hasExpiryDate: selectedItem.hasExpiryDate,
-          serialOptions: selectedItem.serials,
-          batchesOptions: selectedItem.batches
+          expireDate: selectedItem.expireDate,
+          systemPatchNo: selectedItem.invoiceTrackingGroup?.systemPatchNo||'',
+          serialId: selectedItem.invoiceTrackingGroup?.serialId||null,
+          trackingType: selectedItem.trackingType,
         });
       }
     }
-    if (selectedItem) {
-      if (selectedItem.hasExpiryDate) {
-        if (selectedItem.trackingType == this.sharedFinanceEnums.StockOutTracking.NoTracking) {
-          rowForm.get('showSerial')?.setValue(false);
-          rowForm.get('showBatch')?.setValue(true);
-        }
-        else if (selectedItem.trackingType == this.sharedFinanceEnums.StockOutTracking.Serial) {
-          rowForm.get('showSerial')?.setValue(true);
-          rowForm.get('showBatch')?.setValue(false);
-        }
-        else if (selectedItem.trackingType == this.sharedFinanceEnums.StockOutTracking.Batch) {
-          rowForm.get('showSerial')?.setValue(false);
-          rowForm.get('showBatch')?.setValue(true);
-        }
-      } else {
-        if (selectedItem.trackingType == this.sharedFinanceEnums.StockOutTracking.NoTracking) {
-          rowForm.get('showSerial')?.setValue(false);
-          rowForm.get('showBatch')?.setValue(false);
-        }
-      }
-    }
-    rowForm.get('itemName')?.setValue(selectedItem.itemCode + "-" + selectedItem.itemName + "-" + selectedItem.itemVariantNameAr)
-    this.setUomName(indexLine, rowForm.get('uomOptions')?.value)
-    this.setExpiryDate(indexLine, selectedItem.batches, selectedItem.serialOptions)
-    this.isDuplicate(indexLine)
+    rowForm.get('itemName')?.setValue(selectedItem.itemCode + "-" + selectedItem.itemName + "-" + selectedItem.itemVariantNameEn)
+    this.setUomName(indexLine , rowForm.get('uomOptions')?.value )  
   }
   setRowDataById(indexLine: number, selectedItem: any) {
-    const rowForm = this.stockOutDetailsFormArray.at(indexLine) as FormGroup;
+    const rowForm = this.invoiceDetailsFormArray.at(indexLine) as FormGroup;
         // Ensure row form controls are present before updating
         if (rowForm) {
           rowForm.patchValue({
@@ -621,13 +522,13 @@ console.log(rowForm.value,"5555555555555555555555");
           const invoiceTrackingGroup = rowForm.get('invoiceTracking') as FormGroup;
           if (invoiceTrackingGroup) {
             invoiceTrackingGroup.patchValue({
-              invoiceDetailId: selectedItem?.invoiceTrackingGroup?.invoiceDetailId||0,
-              vendorBatchNo: selectedItem.invoiceTrackingGroup?.vendorBatchNo||'',
+              invoiceDetailId: selectedItem?.invoiceTracking?.invoiceDetailId||0,
+              vendorBatchNo: selectedItem.invoiceTracking?.vendorBatchNo||'',
               quantity: selectedItem.quantity,
               hasExpiryDate: selectedItem.hasExpiryDate,
-              expireDate: selectedItem.expireDate,
-              systemPatchNo: selectedItem.invoiceTrackingGroup?.systemPatchNo||'',
-              serialId: selectedItem.invoiceTrackingGroup?.serialId||null,
+              expireDate: selectedItem.invoiceTracking?.expireDate,
+              systemPatchNo: selectedItem.invoiceTracking?.systemPatchNo||'',
+              serialId: selectedItem.invoiceTracking?.serialId||null,
               trackingType: selectedItem.trackingType,
             });
           }
@@ -635,13 +536,12 @@ console.log(rowForm.value,"5555555555555555555555");
         // rowForm.get('itemName')?.setValue(selectedItem.itemCode + "-" + selectedItem.itemName + "-" + selectedItem.itemVariantNameEn)
         rowForm.get('itemName')?.setValue(selectedItem.itemCode )
          this.setUomName(indexLine , rowForm.get('uomOptions')?.value )
-    console.log(rowForm.value,"5555555555555555555555");
     this.calculate()
   }
 
   addNewRow() {
     // if (!this.duplicateLine) {
-      // if (!this.formsService.validForm(this.addForm, false)) return;
+       if (!this.formsService.validForm(this.invoiceDetailsFormArray, false)) return;
       // this.getLatestItemsList(this.addForm.get('warehouseId')?.value)
 
 
@@ -685,7 +585,7 @@ console.log(rowForm.value,"5555555555555555555555");
 
         }
       );
-      this.stockOutDetailsFormArray.push(newLine);
+      this.invoiceDetailsFormArray.push(newLine);
        this.calculate();
 
     // }
@@ -731,17 +631,14 @@ console.log(rowForm.value,"5555555555555555555555");
 
       }
     );
-    this.stockOutDetailsFormArray.push(newLine);
+    this.invoiceDetailsFormArray.push(newLine);
      this.calculate();
     // }
   }
 
   setUomName(indexLine: number, list: any) {
-    const rowForm = this.stockOutDetailsFormArray.at(indexLine) as FormGroup;
-    console.log(rowForm.value ,"999999999999");
-    
+    const rowForm = this.invoiceDetailsFormArray.at(indexLine) as FormGroup;    
     const selectedItem = list.find((item: any) => item.uomId === rowForm.get('uomId')?.value);
-    console.log(selectedItem ,"66666666666666");
 
     if (this.selectedLanguage === 'ar') {
       rowForm.get('uomName')?.setValue(selectedItem.uomNameAr);
@@ -751,13 +648,13 @@ console.log(rowForm.value,"5555555555555555555555");
   }
 
   onCancel() {
-    this.routerService.navigateTo('transactions/stock-out');
+    this.routerService.navigateTo('transactions/purchase-invoice');
 
   }
 
   onSave() {
     // if (!this.formsService.validForm(this.addForm, false)) return;
-    // if (this.stockOutDetailsFormArray.value.length == 0) {
+    // if (this.invoiceDetailsFormArray.value.length == 0) {
     //   this.toasterService.showError(
     //     this.languageService.transalte('messages.error'),
     //     this.languageService.transalte('messages.noItemsToAdd')
@@ -768,8 +665,10 @@ console.log(rowForm.value,"5555555555555555555555");
 
 
     // }
+    //  if (!this.formsService.validForm(this.addForm, false)) return;
+    if (!this.formsService.validForm(this.invoiceDetailsFormArray, false)) return;
 
-this.PurchaseService.editInvoice(this.addForm)
+    this.PurchaseService.editInvoice(this.refactoredData(this.addForm.value))
 
   }
 
@@ -786,7 +685,7 @@ this.PurchaseService.editInvoice(this.addForm)
       warehouseId: data?.warehouseId,
       notes: data?.notes,
       stockOutStatus: data?.stockOutStatus,
-      stockOutDetails: data?.stockOutDetails?.map((detail: any) => ({
+      invoiceDetails: data?.invoiceDetails?.map((detail: any) => ({
 
         id: detail.id,
         barCode: detail.barCode,
@@ -819,12 +718,12 @@ this.PurchaseService.editInvoice(this.addForm)
     // })
   }
   setTrackingNo(indexLine: number, event: string) {
-    const rowForm = this.stockOutDetailsFormArray.at(indexLine) as FormGroup;
+    const rowForm = this.invoiceDetailsFormArray.at(indexLine) as FormGroup;
     rowForm.get('trackingNo')?.setValue(event)
   }
   setExpiryDate(indexLine: number, batchesOptions: any, serialsOptions: any) {
 
-    const rowForm = this.stockOutDetailsFormArray.at(indexLine) as FormGroup;
+    const rowForm = this.invoiceDetailsFormArray.at(indexLine) as FormGroup;
     const selectedItem = batchesOptions?.find((item: any) => item.trackingNo == rowForm.get('trackingNo')?.value);
 
     if (selectedItem != undefined) {
@@ -848,33 +747,35 @@ this.PurchaseService.editInvoice(this.addForm)
 
   }
   setCostTotal(indexLine: number) {
-    const rowForm = this.stockOutDetailsFormArray.at(indexLine) as FormGroup;
+    const rowForm = this.invoiceDetailsFormArray.at(indexLine) as FormGroup;
 
     rowForm.get('subCost')?.setValue(Number(rowForm.get('quantity')?.value) * Number(rowForm.get('cost')?.value))
     rowForm.get('netCost')?.setValue( rowForm.get('cost')?.value - rowForm.get('discountAmt')?.value)
     rowForm.get('totalAfter')?.setValue( rowForm.get('quantity')?.value * rowForm.get('netCost')?.value)
+
     this.calculate()
     this.setDiscount(indexLine)
   }
   
   setDiscount(indexLine: number) {
-    const rowForm = this.stockOutDetailsFormArray.at(indexLine) as FormGroup;
+    const rowForm = this.invoiceDetailsFormArray.at(indexLine) as FormGroup;
     const  discount = (rowForm.get('discountAmt')?.value / ( rowForm.get('cost')?.value /100))
     rowForm.get('discount')?.setValue(discount)
     rowForm.get('netCost')?.setValue( rowForm.get('cost')?.value - rowForm.get('discountAmt')?.value)
     rowForm.get('totalAfter')?.setValue( rowForm.get('quantity')?.value * rowForm.get('netCost')?.value)
+
     this.calculate()
 
  
   }
   setDiscountAmt(indexLine: number) {
   
-    const rowForm = this.stockOutDetailsFormArray.at(indexLine) as FormGroup;
+    const rowForm = this.invoiceDetailsFormArray.at(indexLine) as FormGroup;
     // const  discount = (rowForm.get('discount')?.value * ( rowForm.get('subCost')?.value))/100
 const discountValue = Number(rowForm.get('discount')?.value) || 0;
 const subCostValue = rowForm.get('cost')?.value;
 const discount:any = (discountValue * subCostValue) / 100;
-    rowForm.get('discountAmt')?.setValue(Math.round(discount))
+    rowForm.get('discountAmt')?.setValue(discount)
     rowForm.get('netCost')?.setValue( rowForm.get('cost')?.value - rowForm.get('discountAmt')?.value)
     rowForm.get('totalAfter')?.setValue( rowForm.get('quantity')?.value * rowForm.get('netCost')?.value)
     this.calculate()
@@ -888,17 +789,17 @@ const discount:any = (discountValue * subCostValue) / 100;
     const confirmed = await this.toasterService.showConfirm('Delete');
     if (confirmed) {
       if (id == 0) {
-        this.stockOutDetailsFormArray.removeAt(index);
-        this.isDuplicate(index - 1)
+        this.invoiceDetailsFormArray.removeAt(index);
+        // this.isDuplicate(index - 1)
       }
       else {
-        this.itemsService.deleteRowStockOut(id).subscribe({
+        this.PurchaseService.deleteRowInvoice(id).subscribe({
           next: (res: any) => {
             this.toasterService.showSuccess(
               this.languageService.transalte('transactions.success'),
               this.languageService.transalte('transactions.deleteStockOut')
             );
-            this.stockOutDetailsFormArray.removeAt(index);
+            this.invoiceDetailsFormArray.removeAt(index);
             this.isDuplicate(index - 1)
           },
           error: (err: any) => {
@@ -921,7 +822,7 @@ const discount:any = (discountValue * subCostValue) / 100;
     });
     ref.onClose.subscribe((selectedItems: ItemDto) => {
       if (selectedItems) {
-       
+       this.setRowDataFromPopup(indexLine ,selectedItems )
       }
 
     });
@@ -940,7 +841,7 @@ const discount:any = (discountValue * subCostValue) / 100;
       error: (err: any) => {
         this.loaderService.hide();
 
-        const rowForm = this.stockOutDetailsFormArray.at(index) as FormGroup;
+        const rowForm = this.invoiceDetailsFormArray.at(index) as FormGroup;
         rowForm.reset();
         this.toasterService.showError(
           this.languageService.transalte('messages.Error'),
@@ -951,7 +852,7 @@ const discount:any = (discountValue * subCostValue) / 100;
 
   }
   setRowDataFromBarCode(indexLine: number, selectedItem: any) {
-    const rowForm = this.stockOutDetailsFormArray.at(indexLine) as FormGroup;
+    const rowForm = this.invoiceDetailsFormArray.at(indexLine) as FormGroup;
     if (rowForm) {
       rowForm.patchValue({
         id: 0,
@@ -1020,8 +921,6 @@ const discount:any = (discountValue * subCostValue) / 100;
 
   }
   setTracking(setTracking: FormGroup) {
-console.log(setTracking.value.invoiceTracking ,"ddddd");
-
     let patchedValue = setTracking.value.invoiceTracking;
     // if (this.showPost) {
       const dialogRef = this.dialog.open(TrackingEditComponent, {
@@ -1040,8 +939,6 @@ console.log(setTracking.value.invoiceTracking ,"ddddd");
       });
       dialogRef.onClose.subscribe((res: any) => {
         if (res) {
-        console.log(res ,"55555");
-        console.log(setTracking.value.invoiceTracking ,"55555");
         const invoiceTrackingGroup = setTracking.get('invoiceTracking') as FormGroup;
         if (invoiceTrackingGroup) {
           invoiceTrackingGroup.patchValue({
@@ -1062,11 +959,70 @@ console.log(setTracking.value.invoiceTracking ,"ddddd");
     //   return;
     // }
   }
-  setStockInTracking(indexLine: number) {
-    console.log("rrrrrrrrrrrrrrrrrrr");
-    
-    const rowForm = this.stockOutDetailsFormArray.at(indexLine) as FormGroup;
+  setStockInTracking(indexLine: number) {    
+    const rowForm = this.invoiceDetailsFormArray.at(indexLine) as FormGroup;
        this.setTracking(rowForm)
+  }
+
+  refactoredData(data:any){
+    const refactoredData = {
+      id: data.id,
+      invoiceDate: new Date(data.invoiceDate).toISOString(),
+      description: data.invoiceDescription,
+      warehouseId: data.warehouseId,
+      warehouseName: data.warehouseName,
+      vendorId: data.vendorId,
+      vendorName: data.vendorName,
+      currencyRate: data.vendorRate,
+      paymentTermId: data.paymentTermId,
+      reference: data.reference || null,
+      invoiceDetails: data.invoiceDetails.map((detail:any) => ({
+        id: detail.id,
+        barCode: detail.barCode || null,
+        barCodeId: detail.bardCodeId || null,
+        itemId: detail.itemId,
+        itemCode: detail.itemName || null,
+        itemVariantId: detail.itemVariantId,
+        description: detail.description,
+        uomId: detail.uomId,
+        uomName: detail.uomName,
+        quantity: detail.quantity,
+        cost: detail.cost,
+        discountPercentage: detail.discount,
+        discountAmount: detail.discountAmt,
+        vatPercentage: detail.vat || null,
+        taxId: detail.taxId || null,
+        notes: detail.notes || null,
+        invoiceEntryMode: "Manual", // Assuming a default value
+        trackingType: detail.trackingType || null,
+        hasExpiryDate: detail.hasExpiryDate,
+        invoiceTracking: {
+          id: detail.invoiceTracking.invoiceDetailId || 0,
+          vendorBatchNo: detail.invoiceTracking.vendorBatchNo || null,
+          quantity: detail.invoiceTracking.quantity,
+          hasExpiryDate: detail.invoiceTracking.hasExpiryDate,
+          expireDate: detail.invoiceTracking.expireDate
+            ? new Date(detail.invoiceTracking.expireDate).toISOString()
+            : null,
+          systemPatchNo: detail.invoiceTracking.systemPatchNo || null,
+          serialId: detail.invoiceTracking.serialId || null,
+          trackingType: detail.invoiceTracking.trackingType,
+        },
+      })),
+    };
+    return refactoredData
+  }
+  getTotalVatAmount(): number {
+    const invoiceDetailsFormArray = this.addForm.get('invoiceDetails') as FormArray;
+    let total = 0;
+  
+    invoiceDetailsFormArray.controls.forEach((group: any) => {
+      const vat = group.get('vat')?.value || 0;
+      const totalAfter = group.get('totalAfter')?.value || 0;
+      total += (vat * totalAfter) / 100;
+    });
+  
+    return total;
   }
   constructor(
     private routerService: RouterService,
