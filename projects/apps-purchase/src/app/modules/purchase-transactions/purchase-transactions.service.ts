@@ -134,7 +134,7 @@ export class PurchaseTransactionsService {
 
   // Get Invoice View By Id
   GetInvoiceViewById(id: number) {
-    this.purchaseProxy.GetInvoiceViewById(id).subscribe((res) => {
+    this.TransactionsProxy.GetInvoiceViewById(id).subscribe((res) => {
       this.viewInvoiceDataByID.next(res);
     });
   }

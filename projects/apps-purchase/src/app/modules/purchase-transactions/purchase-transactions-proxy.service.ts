@@ -1,9 +1,9 @@
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IinvoiceDto } from './model/purchase-invoice';
+import { IinvoiceDto, viewInvoiceObj } from './model/purchase-invoice';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
 import { LatestItem } from './models';
-import { AddPurchaseInvoiceDto, viewInvoiceObj } from './models/addPurchaseInvoice';
+import { AddPurchaseInvoiceDto } from './models/addPurchaseInvoice';
 
 @Injectable({
   providedIn: 'root',

@@ -81,8 +81,8 @@ const routes: Routes = [
     PurchaseInvoiceListComponent,
     MainPurchaseInvoiceComponent,
     PurchaseInvoiceTrackingComponent,
-    ItemAdvancedSearchPurchaseInvoiceComponent
-    ViewInvoiceComponent,
+    ItemAdvancedSearchPurchaseInvoiceComponent,
+    ViewInvoiceComponent
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule],
 })
