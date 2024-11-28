@@ -20,13 +20,21 @@ export class UOMListComponent implements OnInit {
   clonedExportData: UOMCategoryDto[];
   exportColumns:any[]
   SortByAll:SortTableEXport
+  filteredColumns: string[] = [];
+  columns: { name: any; headerText: any }[] = [
+    { name: 'code', headerText:('UOM.uomCode') },
+    { name: 'name', headerText:('UOM.uomName') },
+    { name: 'shortName', headerText:('UOM.shortName') },
+    { name: 'categoryName', headerText:('UOM.uomCategory') },
+    { name: 'factor', headerText:('UOM.uomFactor') },
+
+  ]
   constructor(
     private routerService: RouterService,
     private itemService : ItemsService,
     public authService: AuthService,
     private title: Title,
       private exportService:ExportService
-
   ){
 
   }
@@ -73,17 +81,10 @@ export class UOMListComponent implements OnInit {
 
   exportOperationalData(searchTerm: string, sortBy?: number, sortColumn?: string) {
     this.itemService.exportUOMList(searchTerm, sortBy, sortColumn);
-
-    const columns = [
-      { name: 'code', headerText:('UOM.uomCode') },
-      { name: 'name', headerText:('UOM.uomName') },
-      { name: 'shortName', headerText:('UOM.shortName') },
-      { name: 'categoryName', headerText:('UOM.uomCategory') },
-      { name: 'factor', headerText:('UOM.uomFactor') },
-    ];
+    const filteredColumns = this.columns.filter(col => this.filteredColumns.includes(col.name));
 
     this.itemService.SendexportUOMList$.subscribe((res) => {
-      this.exportData = this.exportService.formatCiloma(res, columns);
+      this.exportData = this.exportService.formatCiloma(res, filteredColumns);
 
     });
   }
@@ -93,6 +94,20 @@ export class UOMListComponent implements OnInit {
       SortColumn: e.SortColumn,
     };
   }
+
+  onFilterColumn(e: string[]) {
+    console.log('new new', e);
+    this.filteredColumns = e;
+    e.forEach(selectedColumn => {
+      const columnExists = this.columns.some(column => column.name === selectedColumn);
+      if (columnExists) {
+        // console.log(`${selectedColumn} exists in predefined columns`);
+      } else {
+        // console.log(`${selectedColumn} does not exist in predefined columns`);
+      }
+    });
+  }
+
 
   // exportBankData(searchTerm: string) {
   //   this.itemService.exportUOMList(searchTerm)

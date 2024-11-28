@@ -7,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { GetWarehouseItems } from '../../../models/GetWarehouseItem';
 import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
 import { TranslateService } from '@ngx-translate/core';
+import { SortTableEXport } from '../../../models/SortTable';
 
 
 @Component({
@@ -23,8 +24,6 @@ id:any
     private Print_Service: PrintService,
     private itemsService : ItemsService,
     private translate: TranslateService,
-
-
     private exportService:ExportService
   ) {
     this.id = this.route.snapshot.params['id']
@@ -35,9 +34,16 @@ id:any
   searchTerm: string;
   SortBy?: number;
   SortColumn?: string;
+  SortByAll:SortTableEXport
+  filteredColumns: string[] = [];
+  columns: { name: any; headerText: any }[] = [
+    { name: 'itemCode', headerText: this.translate.instant('warehouse.itemCode') },
+    { name: 'unitOfMeasureEn', headerText: this.translate.instant('warehouse.uom') },
+    { name: 'variantEn', headerText: this.translate.instant('warehouse.variant') },
+    { name: 'availableQuantity', headerText: this.translate.instant('warehouse.availableQuantity') },
+  ]
   ngOnInit() {
 this.initItemDefinitionData()
-   
   }
 
   initItemDefinitionData() {
@@ -58,9 +64,9 @@ this.initItemDefinitionData()
   }
 
   onSearchChange(event: any) {
-    const warehouseId = this.id 
+    const warehouseId = this.id
     this.itemsService.getWarehouseListView(event, warehouseId, new PageInfo());
-  
+
     this.itemsService.WarehouseViewDataSourceObs.subscribe({
       next: (res) => {
         this.tableData = res;
@@ -70,20 +76,37 @@ this.initItemDefinitionData()
   exportClick(e?: Event) {
     this.exportOperationalData(this.searchTerm);
   }
+
   exportOperationalData(data:any) {
-  data =this.id, this.SortBy, this.SortColumn 
+  data =this.id, this.SortBy, this.SortColumn
       this.itemsService.exportsWayehouseItemView(data);
-      const columns = [
-        { name: 'itemCode', headerText: this.translate.instant('warehouse.itemCode') },
-        { name: 'unitOfMeasureEn', headerText: this.translate.instant('warehouse.uom') },
-        { name: 'variantEn', headerText: this.translate.instant('warehouse.variant') },
-        { name: 'availableQuantity', headerText: this.translate.instant('warehouse.availableQuantity') },
-      ];
+      const filteredColumns = this.columns.filter(col => this.filteredColumns.includes(col.name));
+
       this.itemsService.exportedWarehouseDataItemSource.subscribe((res) => {
-        this.exportData = this.exportService.formatCiloma(res, columns);
+        this.exportData = this.exportService.formatCiloma(res, filteredColumns);
       });
   }
-  
+
+
+  exportClickBySort(e: { SortBy: number; SortColumn: string }) {
+    this.SortByAll = {
+      SortBy: e.SortBy,
+      SortColumn: e.SortColumn,
+    };
+  }
+  onFilterColumn(e: string[]) {
+    console.log('new new', e);
+    this.filteredColumns = e;
+    e.forEach(selectedColumn => {
+      const columnExists = this.columns.some(column => column.name === selectedColumn);
+      if (columnExists) {
+        // console.log(`${selectedColumn} exists in predefined columns`);
+      } else {
+        // console.log(`${selectedColumn} does not exist in predefined columns`);
+      }
+    });
+  }
+
   printTable(id: string) {
     this.Print_Service.print(id);
   }

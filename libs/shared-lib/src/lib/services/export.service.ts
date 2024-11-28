@@ -57,7 +57,7 @@ export class ExportService {
           .join(', ');
       } else if (item.hasOwnProperty(column.name) && Array.isArray(item[column.name])) {
         formattedItem[this.LanguageService.instant(column.headerText)] = item[column.name].join(', ');
-      } else if (column.name === 'createdOn' || column.name ==='receiptDate' && item[column.name]) {
+      } else if (column.name === 'createdOn' || column.name === 'receiptDate' && item[column.name]) {
         formattedItem[this.LanguageService.instant(column.headerText)] = this.formatDate(item[column.name]);
       } else {
         formattedItem[this.LanguageService.instant(column.headerText)] = item[column.name];

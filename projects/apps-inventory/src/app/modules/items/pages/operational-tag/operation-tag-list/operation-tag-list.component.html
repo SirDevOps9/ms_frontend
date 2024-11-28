@@ -3,6 +3,7 @@
       <div class="user_page">
         <lib-data-table
           [items]="tableData"
+          (columnsFiltered)="onFilterColumn($event)"
           className="p-datatable-gridlines"
           [currentPageResult]="currentPageInfo"
           (exportObj)="exportClickBySort($event)"

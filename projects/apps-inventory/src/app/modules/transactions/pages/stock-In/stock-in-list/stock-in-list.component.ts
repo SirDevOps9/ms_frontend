@@ -39,6 +39,17 @@ export class StockInListComponent implements OnInit {
   modulelist: MenuModule[];
   searchTerm: string;
 
+  filteredColumns: string[] = [];
+  columns: { name: any; headerText: any }[] = [
+    { name: 'code', headerText: ('stockOut.code') },
+    { name: 'receiptDate', headerText: ('stockOut.date') },
+    { name: 'notes', headerText: ('stockOut.description') },
+    { name: 'sourceDocumentId', headerText: ('stockOut.sourceDoc') },
+    { name: 'warehouseName', headerText: ('stockOut.warehouse') },
+    { name: 'stockInStatus', headerText: ('stockOut.status') },
+    { name: 'journalCode', headerText: ('stockOut.journalCode') },
+
+  ]
   ngOnInit() {
     this.initStockOutData();
     this.subscribes();
@@ -64,19 +75,13 @@ export class StockInListComponent implements OnInit {
   exportClick() {
     this.exportBankData(this.searchTerm, this.SortByAll?.SortBy, this.SortByAll?.SortColumn);
   }
+
   exportBankData(searchTerm: string, sortBy?: number, sortColumn?: string) {
     this.transactionsService.exportStockInList(searchTerm ,sortBy ,sortColumn);
-    const columns = [
-      { name: 'code', headerText: ('stockOut.code') },
-      { name: 'receiptDate', headerText: ('stockOut.date') },
-      { name: 'notes', headerText: ('stockOut.description') },
-      { name: 'sourceDocumentId', headerText: ('stockOut.sourceDoc') },
-      { name: 'warehouseName', headerText: ('stockOut.warehouse') },
-      { name: 'stockInStatus', headerText: ('stockOut.status') },
-      { name: 'journalCode', headerText: ('stockOut.journalCode') },
-    ];
+    const filteredColumns = this.columns.filter(col => this.filteredColumns.includes(col.name));
+
     this.transactionsService.exportStockInListDataSourceObservable.subscribe((res) => {
-      this.exportData =this.exportService.formatCiloma(res, columns);
+      this.exportData =this.exportService.formatCiloma(res, filteredColumns);
     });
   }
   exportClickBySort(e: { SortBy: number; SortColumn: string }) {
@@ -84,6 +89,18 @@ export class StockInListComponent implements OnInit {
       SortBy: e.SortBy,
       SortColumn: e.SortColumn,
     };
+  }
+  onFilterColumn(e: string[]) {
+    console.log('new new', e);
+    this.filteredColumns = e;
+    e.forEach(selectedColumn => {
+      const columnExists = this.columns.some(column => column.name === selectedColumn);
+      if (columnExists) {
+        // console.log(`${selectedColumn} exists in predefined columns`);
+      } else {
+        // console.log(`${selectedColumn} does not exist in predefined columns`);
+      }
+    });
   }
   onAdd() {
     this.sequenceService.isHaveSequence( this.sharedEnums.Pages.StockIn , '/transactions/stock-in/add-stock-in')

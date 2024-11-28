@@ -30,7 +30,18 @@ export class StockOutListComponent implements OnInit {
   SortColumn?: string;
   tableData: any[];
   exportData: StockOutDto[];
+  filteredColumns: string[] = [];
+  columns: { name: any; headerText: any }[] = [
+    { name: 'code', headerText: ('stockOut.code') },
+    { name: 'receiptDate', headerText: ('stockOut.date') },
+    { name: 'notes', headerText: ('stockOut.description') },
+    { name: 'sourceDocumentId', headerText: ('stockOut.sourceDoc') },
+    { name: 'warehouseName', headerText: ('stockOut.warehouse') },
+    { name: 'stockInStatus', headerText: ('stockOut.status') },
+    { name: 'journalCode', headerText: ('stockOut.journalCode') },
+    { name: 'isReserved', headerText: ('stockOut.reserve') },
 
+  ]
   exportColumns: lookupDto[];
   exportSelectedCols: string[] = [];
   SortByAll:SortTableEXport
@@ -84,21 +95,12 @@ export class StockOutListComponent implements OnInit {
   exportClick() {
     this.exportBankData(this.searchTerm, this.SortByAll?.SortBy, this.SortByAll?.SortColumn);
   }
+
   exportBankData(searchTerm: string, sortBy?: number, sortColumn?: string) {
     this.itemsService.exportStockOutList(searchTerm ,sortBy ,sortColumn);
-    const columns = [
-      { name: 'code', headerText: ('stockOut.code') },
-      { name: 'receiptDate', headerText: ('stockOut.date') },
-      { name: 'notes', headerText: ('stockOut.description') },
-      { name: 'sourceDocumentId', headerText: ('stockOut.sourceDoc') },
-      { name: 'warehouseName', headerText: ('stockOut.warehouse') },
-      { name: 'stockInStatus', headerText: ('stockOut.status') },
-      { name: 'journalCode', headerText: ('stockOut.journalCode') },
-      { name: 'isReserved', headerText: ('stockOut.reserve') },
-
-    ];
+    const filteredColumns = this.columns.filter(col => this.filteredColumns.includes(col.name));
     this.itemsService.exportStockOutListDataSource.subscribe((res: any) => {
-      this.exportData = this.exportService.formatCiloma(res, columns);
+      this.exportData = this.exportService.formatCiloma(res, filteredColumns);
     });
   }
   exportClickBySort(e: { SortBy: number; SortColumn: string }) {
@@ -106,6 +108,19 @@ export class StockOutListComponent implements OnInit {
       SortBy: e.SortBy,
       SortColumn: e.SortColumn,
     };
+  }
+
+  onFilterColumn(e: string[]) {
+    console.log('new new', e);
+    this.filteredColumns = e;
+    e.forEach(selectedColumn => {
+      const columnExists = this.columns.some(column => column.name === selectedColumn);
+      if (columnExists) {
+        // console.log(`${selectedColumn} exists in predefined columns`);
+      } else {
+        // console.log(`${selectedColumn} does not exist in predefined columns`);
+      }
+    });
   }
   constructor(
     private routerService: RouterService,

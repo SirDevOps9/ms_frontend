@@ -6,6 +6,7 @@
 
           className="p-datatable-gridlines"
           [currentPageResult]="currentPageInfo"
+          (columnsFiltered)="onFilterColumn($event)"
           (pageChange)="onPageChange($event)"
           (exportObj)="exportClickBySort($event)"
           (addNew)="onAdd()"

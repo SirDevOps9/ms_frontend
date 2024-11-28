@@ -41,6 +41,14 @@ export class AttributeDefinitionListComponent implements OnInit {
 action: any;
 isRtl: boolean = false;
 currentLang:string = ''
+filteredColumns: string[] = [];
+columns: { name: any; headerText: any }[] = [
+  { name: 'nameEn' , headerText: ('attributeDefinition.nameEn') },
+  { name: 'nameAr' , headerText: ('attributeDefinition.nameAr') },
+  { name: 'itemAttributes', headerText: ('attributeDefinition.values') },
+  { name: this.currentLang === 'en' ? 'isActive' : 'isActive', headerText: ('attributeDefinition.status') },
+
+]
   constructor(
     private routerService: RouterService,
     private itemService : ItemsService,
@@ -56,16 +64,12 @@ currentLang:string = ''
   ){
     this.title.setTitle(this.languageService.transalte('attributeDefinition.attributeDefinition'));
     this.currentLang = this.languageService.getLang();
-
-
   }
   ngOnInit(): void {
 
     this.initTreasurData()
 
-    this.itemService.currentPageInfo.subscribe((currentPageInfo) => {
-      this.currentPageInfo = currentPageInfo;
-    });
+
   }
 
 
@@ -114,16 +118,9 @@ currentLang:string = ''
   }
   exportAttrData(searchTerm: string, sortBy?: number, sortColumn?: string) {
     this.itemService.exportAttrDifinitionList(searchTerm, sortBy, sortColumn);
-
-    let columns = [
-      { name: this.currentLang === 'en' ? 'nameEn' : 'nameAr', headerText: ('attributeDefinition.attribute') },
-      { name: 'itemAttributes', headerText: ('attributeDefinition.values') },
-      { name: this.currentLang === 'en' ? 'isActive' : 'isActive', headerText: ('attributeDefinition.status') },
-    ];
-
-
+    const filteredColumns = this.columns.filter(col => this.filteredColumns.includes(col.name));
     this.itemService.SendexportAttrDifinitionList$.subscribe((res) => {
-      this.exportData = this.exportService.formatItemAttributes(res, columns);
+      this.exportData = this.exportService.formatItemAttributes(res, filteredColumns);
       // console.log('Export data:', this.exportData);
     });
   }
@@ -135,6 +132,18 @@ currentLang:string = ''
     };
   }
 
+  onFilterColumn(e: string[]) {
+    console.log('new new', e);
+    this.filteredColumns = e;
+    e.forEach(selectedColumn => {
+      const columnExists = this.columns.some(column => column.name === selectedColumn);
+      if (columnExists) {
+        // console.log(`${selectedColumn} exists in predefined columns`);
+      } else {
+        // console.log(`${selectedColumn} does not exist in predefined columns`);
+      }
+    });
+  }
   onEdit(data: any) {
     this.routerService.navigateTo(`/masterdata/attribute-definition/edit-attribute/${data.id}`);
 }
