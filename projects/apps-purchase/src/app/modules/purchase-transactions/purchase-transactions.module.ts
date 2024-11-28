@@ -7,7 +7,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { BreadcrumbLabel, Modules, SharedLibModule } from 'shared-lib';
 import { LayoutPageComponent } from 'apps-shared-lib';
 import { MainPurchaseInvoiceComponent } from './pages/purchase-invoice/main-purchase-invoice/main-purchase-invoice.component';
-import { VendorAavancedSearchComponent } from './components/vendor-aavanced-search/vendor-aavanced-search.component';
 import { ItemAdvancedSearchEditComponent } from './components/item-advanced-search-edit/item-advanced-search-edit.component';
 import { TrackingEditComponent } from './components/tracking-edit/tracking-edit.component';
 
@@ -69,7 +68,6 @@ const routes: Routes = [
     EditPurchaseInvoiceComponent,
     PurchaseInvoiceListComponent,
     MainPurchaseInvoiceComponent,
-    VendorAavancedSearchComponent,
     ItemAdvancedSearchEditComponent,
     TrackingEditComponent
   ],

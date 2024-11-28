@@ -7,7 +7,6 @@ import { OperationalStockIn, GetWarehouseList } from 'projects/apps-inventory/sr
 import { SharedStock } from 'projects/apps-inventory/src/app/modules/transactions/models/sharedStockOutEnums';
 import { CurrentUserService, customValidators, FormsService, LanguageService, LoaderService, lookupDto, LookupEnum, LookupsService, MenuModule, PageInfo, PageInfoResult, RouterService, ToasterService } from 'shared-lib';
 import { PurchaseTransactionsService } from '../../../purchase-transactions.service';
-import { VendorAavancedSearchComponent } from '../../../components/vendor-aavanced-search/vendor-aavanced-search.component';
 import { ItemDto } from 'projects/apps-sales/src/app/modules/sales/models';
 import { ItemAdvancedSearchEditComponent } from '../../../components/item-advanced-search-edit/item-advanced-search-edit.component';
 import { CurrencyRateDto } from 'projects/apps-finance/src/app/modules/finance/models';
@@ -156,19 +155,7 @@ export class EditPurchaseInvoiceComponent implements OnInit {
 
     })
   }
-  test() {
-    const ref = this.dialog.open(VendorAavancedSearchComponent, {
-      width: 'auto',
-      height: '500px',
-      data: this.addForm.get('warehouseId')?.value
-    });
-    ref.onClose.subscribe((selectedItems: any) => {
-
-      if (selectedItems) {
-        // this.setRowDataFromPopup(indexLine, selectedItems)
-      }
-    });
-  }
+ 
   setVendorData(vendorId: number) {
     this.vendorItems?.find((item) => {
       if (item.id === vendorId) {

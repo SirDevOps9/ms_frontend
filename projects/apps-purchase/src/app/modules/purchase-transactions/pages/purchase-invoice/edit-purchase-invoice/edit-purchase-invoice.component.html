@@ -2,171 +2,136 @@
 
 <div class="page_edit_purchase">
 
-    <div class="main_header card_micro " [formGroup]="addForm">
+    <div class="main_header card_micro" [formGroup]="addForm">
         <div class="grid">
+            <!-- Main Information Section -->
             <div class="col-12 md:col-4">
                 <div class="card_information">
-                    <div class="line line_two">
-                    </div>
+                    <div class="line line_two"></div>
                     <div class="item">
                         <div class="title heading_b18">
-                            main information
+                            {{ 'PurchaseInvoiceEdit.mainInformation' | translate }}
                         </div>
                         <div class="item_body">
                             <div class="grid">
                                 <div class="col-12 md:col-4">
                                     <lib-form-group>
                                         <lib-label [appControl]="addForm.controls['invoiceCode']">
-                                            invoice code
+                                            {{ 'PurchaseInvoiceEdit.invoiceCode' | translate }}
                                         </lib-label>
-                                        <lib-text-input [readOnly]="true" formControlName="invoiceCode">
-
-                                        </lib-text-input>
+                                        <lib-text-input [readOnly]="true" formControlName="invoiceCode"></lib-text-input>
                                     </lib-form-group>
                                 </div>
                                 <div class="col-12 md:col-8">
                                     <lib-form-group>
                                         <lib-label [appControl]="addForm.controls['invoiceDate']">
-                                            invoice Date
+                                            {{ 'PurchaseInvoiceEdit.invoiceDate' | translate }}
                                         </lib-label>
                                         <lib-calendar formControlName="invoiceDate"></lib-calendar>
                                     </lib-form-group>
                                 </div>
-                                <div class="col-12 ">
+                                <div class="col-12">
                                     <lib-form-group>
                                         <lib-label [appControl]="addForm.controls['invoiceDescription']">
-                                            invoice description
+                                            {{ 'PurchaseInvoiceEdit.invoiceDescription' | translate }}
                                         </lib-label>
-
-                                        <lib-text-input [readOnly]="true" formControlName="invoiceDescription">
-
-                                        </lib-text-input> </lib-form-group>
+                                        <lib-text-input [readOnly]="true" formControlName="invoiceDescription"></lib-text-input>
+                                    </lib-form-group>
                                 </div>
-                                <div class="col-12 ">
+                                <div class="col-12">
                                     <lib-form-group>
                                         <lib-label [appControl]="addForm.controls['warehouseId']">
-                                            warehouse
+                                            {{ 'PurchaseInvoiceEdit.warehouse' | translate }}
                                         </lib-label>
-                                        <lib-select formControlName="warehouseId" [options]="warehouses" optionLabel="name"
+                                        <lib-select
+                                            formControlName="warehouseId"
+                                            [options]="warehouses"
+                                            optionLabel="name"
                                             optionValue="id"
-                                            [selectedValue]="addForm.controls['warehouseId'].value"
-                                            >
-
-                                        </lib-select> </lib-form-group>
+                                            [selectedValue]="addForm.controls['warehouseId'].value">
+                                        </lib-select>
+                                    </lib-form-group>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
+    
+            <!-- Related Operation Section -->
             <div class="col-12 md:col-8">
                 <div class="card_information">
-                    <div class="line line_two">
-                    </div>
+                    <div class="line line_two"></div>
                     <div class="item">
                         <div class="title heading_b18">
-                            related operation </div>
+                            {{ 'PurchaseInvoiceEdit.relatedOperation' | translate }}
+                        </div>
                         <div class="item_body">
                             <div class="grid">
                                 <div class="col-12 md:col-6">
                                     <lib-form-group>
                                         <lib-label [appControl]="addForm.controls['vendorId']">
-                                            vendor code
+                                            {{ 'PurchaseInvoiceEdit.vendorCode' | translate }}
                                         </lib-label>
-                                        <!-- <div class="flex gap-2 align-items-center"> -->
-                                        <lib-select formControlName="vendorId" [options]="vendorItems" optionValue="id"
+                                        <lib-select
+                                            formControlName="vendorId"
+                                            [options]="vendorItems"
+                                            optionValue="id"
                                             optionLabel="code"
                                             [selectedValue]="addForm.controls['vendorId'].value"
                                             (valueChanged)="setVendorData(addForm.controls['vendorId'].value)"
-                                            (valueSearchChanged)="onFilterVendor($event )"></lib-select>
-                                        <!-- <i class="pi pi-search search-circle"></i> -->
-                                        <!-- </div> -->
-
+                                            (valueSearchChanged)="onFilterVendor($event)">
+                                        </lib-select>
                                     </lib-form-group>
                                 </div>
                                 <div class="col-12 md:col-6">
                                     <lib-form-group>
                                         <lib-label [appControl]="addForm.controls['vendorName']">
-                                            vendor name </lib-label>
-                                        <lib-text-input [readOnly]="true" formControlName="vendorName">
-                                        </lib-text-input> </lib-form-group>
-                                </div>
-                                <div class="col-12 md:col-6 ">
-                                    <lib-form-group>
-                                        <lib-label [appControl]="addForm.controls['currencyRate']">
-                                            currency </lib-label>
-
-                                        <lib-text-input [readOnly]="true" formControlName="currencyRate">
-
-                                        </lib-text-input> </lib-form-group>
-
-                                </div>
-                                <div class="col-12 md:col-6 ">
-                                    <lib-form-group>
-                                        <lib-label [appControl]="addForm.controls['vendorRate']">
-                                            rate </lib-label>
-                                        <lib-text-input formControlName="vendorRate">
-
-                                        </lib-text-input> </lib-form-group>
-                                </div>
-                                <div class="col-12 md:col-6 ">
-                                    <lib-form-group>
-                                        <lib-label [appControl]="addForm.controls['paymentTermName']">
-                                            payment terms </lib-label>
-                                        <lib-text-input [readOnly]="true" formControlName="paymentTermName">
-                                        </lib-text-input>
+                                            {{ 'PurchaseInvoiceEdit.vendorName' | translate }}
+                                        </lib-label>
+                                        <lib-text-input [readOnly]="true" formControlName="vendorName"></lib-text-input>
                                     </lib-form-group>
                                 </div>
-                                <div class="col-12 md:col-6 ">
+                                <div class="col-12 md:col-6">
+                                    <lib-form-group>
+                                        <lib-label [appControl]="addForm.controls['currencyRate']">
+                                            {{ 'PurchaseInvoiceEdit.currency' | translate }}
+                                        </lib-label>
+                                        <lib-text-input [readOnly]="true" formControlName="currencyRate"></lib-text-input>
+                                    </lib-form-group>
+                                </div>
+                                <div class="col-12 md:col-6">
+                                    <lib-form-group>
+                                        <lib-label [appControl]="addForm.controls['vendorRate']">
+                                            {{ 'PurchaseInvoiceEdit.rate' | translate }}
+                                        </lib-label>
+                                        <lib-text-input formControlName="vendorRate"></lib-text-input>
+                                    </lib-form-group>
+                                </div>
+                                <div class="col-12 md:col-6">
+                                    <lib-form-group>
+                                        <lib-label [appControl]="addForm.controls['paymentTermName']">
+                                            {{ 'PurchaseInvoiceEdit.paymentTerms' | translate }}
+                                        </lib-label>
+                                        <lib-text-input [readOnly]="true" formControlName="paymentTermName"></lib-text-input>
+                                    </lib-form-group>
+                                </div>
+                                <div class="col-12 md:col-6">
                                     <lib-form-group>
                                         <lib-label [appControl]="addForm.controls['reference']">
-                                            reference </lib-label>
-                                        <lib-text-input formControlName="reference">
-
-                                        </lib-text-input> </lib-form-group>
+                                            {{ 'PurchaseInvoiceEdit.reference' | translate }}
+                                        </lib-label>
+                                        <lib-text-input formControlName="reference"></lib-text-input>
+                                    </lib-form-group>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- <div class="col-12 md:col-4">
-                <div class="card_information">
-                    <div class="line">
-                    </div>
-                    <div class="item">
-                        <div class="title heading_b18">
-                            main information
-                        </div>
-                        <div class="item_body">
-                            <div class="grid">
-                                <div class="col-12 md:col-8 ">
-                                    <lib-form-group>
-                                        <lib-label [appControl]="addForm.controls['code']">
-                                            invoice journal </lib-label>
-                                        <lib-text-input formControlName="code">
-
-                                        </lib-text-input> </lib-form-group>
-                                </div>
-                                <div class="col-12  md:col-8  ">
-                                    <lib-form-group>
-                                        <lib-label [appControl]="addForm.controls['code']">
-                                            stock out </lib-label>
-                                        <lib-text-input formControlName="code">
-
-                                        </lib-text-input> </lib-form-group>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div> -->
         </div>
-
     </div>
+    
     <div class="my-2 card_micro">
         <p-table [value]="invoiceDetailsFormArray.controls" dataKey="id"
             styleClass="p-datatable-gridlines p-datatable-striped" [tableStyle]="{ 'min-width': '50rem' }">
@@ -418,15 +383,14 @@
             </lib-button>
         </div>
     </div>
-    <div class="main_header card_micro " [formGroup]="addForm">
+    <div class="main_header card_micro" [formGroup]="addForm">
         <div class="grid">
             <div class="col-12">
                 <div class="card_information">
-                    <div class="line line_two">
-                    </div>
+                    <div class="line line_two"></div>
                     <div class="item">
                         <div class="title heading_b18">
-                            invoice summary
+                            {{ 'PurchaseInvoiceEdit.invoiceSummary' | translate }}
                         </div>
                         <div class="item_body">
                             <div class="grid">
@@ -434,72 +398,70 @@
                                     <div class="grid">
                                         <div class="md:col-4">
                                             <p class="headsCont heading_b16">
-                                                Number of items
+                                                {{ 'PurchaseInvoiceEdit.numberOfItems' | translate }}
                                             </p>
                                             <p class="subHead paragraph_b16 pragraph_demd">
-                                                {{totalItemsCount}}
+                                                {{ totalItemsCount }}
                                             </p>
                                         </div>
-                                        <div class="md:col-4  ">
+                                        <div class="md:col-4">
                                             <p class="headsCont heading_b16">
-                                                total
+                                                {{ 'PurchaseInvoiceEdit.total' | translate }}
                                             </p>
                                             <p class="subHead paragraph_b16 pragraph_demd">
-                                                {{totalSubTotal}}
+                                                {{ totalSubTotal }}
                                             </p>
                                         </div>
-                                        <div class="md:col-4  ">
+                                        <div class="md:col-4">
                                             <p class="headsCont heading_b16">
-                                                total after discount
+                                                {{ 'PurchaseInvoiceEdit.totalAfterDiscount' | translate }}
                                             </p>
                                             <p class="subHead paragraph_b16 pragraph_demd">
-                                                {{totalAfterDiscount}}
+                                                {{ totalAfterDiscount }}
                                             </p>
                                         </div>
-                                        <div class="md:col-4  ">
+                                        <div class="md:col-4">
                                             <p class="headsCont heading_b16">
-                                                total of qty
+                                                {{ 'PurchaseInvoiceEdit.totalOfQuantity' | translate }}
                                             </p>
                                             <p class="subHead paragraph_b16 pragraph_demd">
-                                                {{totalQuantity}}
+                                                {{ totalQuantity }}
                                             </p>
                                         </div>
-                                        <div class="md:col-4  ">
+                                        <div class="md:col-4">
                                             <p class="headsCont heading_b16">
-                                                discount
+                                                {{ 'PurchaseInvoiceEdit.discount' | translate }}
                                             </p>
                                             <p class="subHead paragraph_b16 pragraph_demd">
-                                                {{totalDiscount}}
+                                                {{ totalDiscount }}
                                             </p>
                                         </div>
-                                       
-                                        
-                                        <div class="md:col-2  ">
+                                        <div class="md:col-2">
                                             <p class="headsCont heading_b16">
-                                                vat amount
+                                                {{ 'PurchaseInvoiceEdit.vatAmount' | translate }}
                                             </p>
                                             <p class="subHead paragraph_b16 pragraph_demd">
                                                 {{ getTotalVatAmount() }}
                                             </p>
                                         </div>
-                                        <div class="md:col-2  ">
+                                        <div class="md:col-2">
                                             <p class="headsCont heading_b16">
-                                                 after vat
+                                                {{ 'PurchaseInvoiceEdit.afterVat' | translate }}
                                             </p>
                                             <p class="subHead paragraph_b16 pragraph_demd">
-                                                {{vatAfter}}
+                                                {{ vatAfter }}
                                             </p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    
 
     <div class="grid">
         <div class="md:col-12 my-3 grid flex justify-content-end">
