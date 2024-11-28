@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { PurchaseTransactionsProxyService } from './purchase-transactions-proxy.service';
 import { BehaviorSubject, map } from 'rxjs';
 import { LanguageService, LoaderService, PageInfo, PageInfoResult, ToasterService } from 'shared-lib';
-import { ItemDto } from 'projects/apps-sales/src/app/modules/sales/models';
-import { CurrencyRateDto } from 'projects/apps-finance/src/app/modules/finance/models';
+import { ItemDto } from './models/itemDto';
+import { CurrencyRateDto } from './models/currencyRateDto';
 
 @Injectable({
   providedIn: 'root'

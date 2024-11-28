@@ -3,14 +3,14 @@ import { FormGroup, FormArray, FormControl, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'microtec-auth-lib';
 import { DialogService } from 'primeng/dynamicdialog';
-import { OperationalStockIn, GetWarehouseList } from 'projects/apps-inventory/src/app/modules/items/models';
-import { SharedStock } from 'projects/apps-inventory/src/app/modules/transactions/models/sharedStockOutEnums';
 import { CurrentUserService, customValidators, FormsService, LanguageService, LoaderService, lookupDto, LookupEnum, LookupsService, MenuModule, PageInfo, PageInfoResult, RouterService, ToasterService } from 'shared-lib';
 import { PurchaseTransactionsService } from '../../../purchase-transactions.service';
-import { ItemDto } from 'projects/apps-sales/src/app/modules/sales/models';
 import { ItemAdvancedSearchEditComponent } from '../../../components/item-advanced-search-edit/item-advanced-search-edit.component';
-import { CurrencyRateDto } from 'projects/apps-finance/src/app/modules/finance/models';
 import { TrackingEditComponent } from '../../../components/tracking-edit/tracking-edit.component';
+import { ItemDto } from '../../../models/itemDto';
+import { CurrencyRateDto } from '../../../models/currencyRateDto';
+import { SharedEnum } from '../../../models/sharedEnums';
+import { GetWarehouseList } from '../../../models/getWarehouseDto';
 
 @Component({
   selector: 'app-edit-purchase-invoice',
@@ -41,7 +41,6 @@ export class EditPurchaseInvoiceComponent implements OnInit {
   tableData: any[];
   lookups: { [key: string]: lookupDto[] };
 
-  oprationalLookup: OperationalStockIn[] = [];
   warhouseLookupData: GetWarehouseList[] = []
 
   filteredItems: any[];
@@ -674,20 +673,20 @@ export class EditPurchaseInvoiceComponent implements OnInit {
     }
     if (selectedItem) {
       if (selectedItem.hasExpiryDate) {
-        if (selectedItem.trackingType == this.sharedFinanceEnums.StockOutTracking.NoTracking) {
+        if (selectedItem.trackingType == this.sharedEnums.Tracking.NoTracking) {
           rowForm.get('showSerial')?.setValue(false);
           rowForm.get('showBatch')?.setValue(true);
         }
-        else if (selectedItem.trackingType == this.sharedFinanceEnums.StockOutTracking.Serial) {
+        else if (selectedItem.trackingType == this.sharedEnums.Tracking.Serial) {
           rowForm.get('showSerial')?.setValue(true);
           rowForm.get('showBatch')?.setValue(false);
         }
-        else if (selectedItem.trackingType == this.sharedFinanceEnums.StockOutTracking.Batch) {
+        else if (selectedItem.trackingType == this.sharedEnums.Tracking.Batch) {
           rowForm.get('showSerial')?.setValue(false);
           rowForm.get('showBatch')?.setValue(true);
         }
       } else {
-        if (selectedItem.trackingType == this.sharedFinanceEnums.StockOutTracking.NoTracking) {
+        if (selectedItem.trackingType == this.sharedEnums.Tracking.NoTracking) {
           rowForm.get('showSerial')?.setValue(false);
           rowForm.get('showBatch')?.setValue(false);
         }
@@ -810,7 +809,7 @@ export class EditPurchaseInvoiceComponent implements OnInit {
     private languageService: LanguageService,
     private fb: FormBuilder,
     private formsService: FormsService,
-    public sharedFinanceEnums: SharedStock,
+    public sharedEnums: SharedEnum,
     private toasterService: ToasterService,
     private route: ActivatedRoute,
     private PurchaseService: PurchaseTransactionsService,

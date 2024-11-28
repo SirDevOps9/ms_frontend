@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { CurrencyRateDto } from 'projects/apps-finance/src/app/modules/finance/models';
-import { ItemDto } from 'projects/apps-sales/src/app/modules/sales/models';
 import { Observable } from 'rxjs';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
+import { ItemDto } from './models/itemDto';
+import { CurrencyRateDto } from './models/currencyRateDto';
 
 @Injectable({
   providedIn: 'root'
