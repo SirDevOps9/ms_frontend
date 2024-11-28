@@ -1,6 +1,7 @@
 export interface editBranch {
   id: string;
-  branchName: string;
+  branchNameEn: string;
+  branchNameAr: string;
   branchRegion: string | null;
   branchCity: string | null;
   branchAddress: string | null;

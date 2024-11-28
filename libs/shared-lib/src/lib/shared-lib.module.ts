@@ -59,6 +59,7 @@ import { QRCodeModule } from 'angularx-qrcode';
 import { ColumnsSelectionComponent } from './form-components/columns-selection/columns-selection.component';
 import { ActtachmentViewComponent } from 'libs/apps-shared-lib/src/lib/pages/attachment-view/acttachment-view/acttachment-view.component';
 import { NewBreadCrumbComponent } from './components/new-bread-crumb/new-bread-crumb.component';
+import { LoaderDirective } from './directives/loader.directive';
 
 @NgModule({
   declarations: [
@@ -101,7 +102,9 @@ import { NewBreadCrumbComponent } from './components/new-bread-crumb/new-bread-c
     ExportComponent,
     ChangeColumnComponent,
     NumberFormatPipe,
-    PopupPageComponent,ColumnsSelectionComponent
+    PopupPageComponent,
+    ColumnsSelectionComponent,
+    LoaderDirective,
   ],
   imports: [
     HttpClientModule,
@@ -119,8 +122,6 @@ import { NewBreadCrumbComponent } from './components/new-bread-crumb/new-bread-c
     ProgressSpinnerModule,
     QRCodeModule,
     InputTextareaModule,
-
-
   ],
   exports: [
     GetLookupPipe,
@@ -163,16 +164,17 @@ import { NewBreadCrumbComponent } from './components/new-bread-crumb/new-bread-c
     GetElementByIDPipe,
     ToastComponent,
     UploadMultipeFilesComponent,
-    TablePrintComponent, 
+    TablePrintComponent,
     TabviewComponent,
     ExportComponent,
     ChangeColumnComponent,
     NumberFormatPipe,
     PopupPageComponent,
     NumberFormatDirective,
-    QRCodeModule,ColumnsSelectionComponent,
-    InputTextareaModule
+    QRCodeModule,
+    ColumnsSelectionComponent,
+    InputTextareaModule,
+    LoaderDirective,
   ],
-
 })
 export class SharedLibModule {}
