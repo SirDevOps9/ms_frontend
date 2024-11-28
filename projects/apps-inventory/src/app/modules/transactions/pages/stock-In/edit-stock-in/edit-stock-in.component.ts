@@ -5,6 +5,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 import {
   customValidators,
   FormsService,
+  IsEqual,
   LanguageService,
   lookupDto,
   LookupEnum,
@@ -21,7 +22,6 @@ import {
   OperationalStockIn,
   StockInDetail,
 } from '../../../../items/models';
-
 
 import { ActivatedRoute } from '@angular/router';
 import { TransactionsService } from '../../../transactions.service';
@@ -64,10 +64,17 @@ export class EditStockInComponent implements OnInit {
   saveButtonEnabled: boolean = true;
   postedStock: boolean = true;
   duplicateLine: boolean;
-  lineError: number = -1
-  error: boolean
-  save: boolean = true
+  lineError: number = -1;
+  error: boolean;
+  save: boolean = true;
 
+  formValurCash: unknown = '';
+
+  get formChanges(): boolean {
+    const { code, sourceDocumentType, warehouseName, ...formValue } =
+      this.stockInForm.getRawValue();
+    return IsEqual(formValue, this.formValurCash);
+  }
 
   ngOnInit(): void {
     this.itemId = this._route.snapshot.params['id'];
@@ -78,20 +85,13 @@ export class EditStockInComponent implements OnInit {
     this.initWareHouseLookupData();
     this.getStockInById(this.itemId);
     this.subscribe();
-
-
   }
   subscribe() {
-    this.languageService.language$.subscribe((lang) => [
-      this.selectedLanguage = lang,
-
-    ])
+    this.languageService.language$.subscribe((lang) => [(this.selectedLanguage = lang)]);
 
     this.lookupservice.lookups.subscribe((l) => {
       this.lookups = l;
     });
-
-   
 
     this.transactionService.wareHousesDropDownLookup$.subscribe((res) => {
       this.warhouseLookupData = res;
@@ -121,8 +121,8 @@ export class EditStockInComponent implements OnInit {
           }));
         }
       }
-    })
-  
+    });
+
     ////////////////////////////////
     this.transactionService.sendItemBarcode$.pipe(skip(1)).subscribe((res) => {
       this.barcodeData = res;
@@ -131,7 +131,7 @@ export class EditStockInComponent implements OnInit {
       if (!res) return;
       this.dataToReadOnly = false;
     });
-    this.stockInForm.valueChanges.subscribe(() => {
+    this.stockInForm.valueChanges.subscribe((val) => {
       if (!this.saveButtonEnabled) {
         this.handleFormChanges();
       }
@@ -148,15 +148,12 @@ export class EditStockInComponent implements OnInit {
     });
     //////////////////////////////
   }
- 
+
   loadLookups() {
-    this.lookupservice.loadLookups([
-      LookupEnum.StockInOutSourceDocumentType
-    ]);
+    this.lookupservice.loadLookups([LookupEnum.StockInOutSourceDocumentType]);
   }
   initializeForm() {
     this.stockInForm = this.fb.group({
-
       id: new FormControl(''),
       code: new FormControl(''),
       receiptDate: new FormControl(new Date(), [customValidators.required]),
@@ -178,8 +175,9 @@ export class EditStockInComponent implements OnInit {
         this.latestItemsList = res.map((elem: any, index: number) => ({
           ...elem,
           itemNumber: index + 1,
-          displayName: `(${elem.itemCode}) ${elem.itemName}-${this.currentLang == 'en' ? elem.itemVariantNameEn : elem.itemVariantNameAr
-            }`,
+          displayName: `(${elem.itemCode}) ${elem.itemName}-${
+            this.currentLang == 'en' ? elem.itemVariantNameEn : elem.itemVariantNameAr
+          }`,
         }));
       }
     });
@@ -187,95 +185,91 @@ export class EditStockInComponent implements OnInit {
   getStockInById(id: number) {
     this.transactionService.getStockInById(id);
     this.transactionService.stockInByIdData$.subscribe((data: any) => {
-
-      this.patchForm(data)
-    })
-
+      this.patchForm(data);
+    });
   }
   patchForm(data: any): void {
-
     this.stockInForm.patchValue({
+      receiptDate: data.receiptDate,
+      sourceDocumentId: data.sourceDocumentId,
+      notes: data.notes,
       id: data.id,
       code: data.code,
-      receiptDate: data.receiptDate,
       sourceDocumentType: data.sourceDocumentType,
-      sourceDocumentId: data.sourceDocumentId,
       warehouseId: data.warehouseId,
       stockOutStatus: data.stockOutStatus,
-      notes: data.notes
     });
-    if (data?.warehouseId
-    ) {
-      this.getLatestItemsList(data?.warehouseId)
 
+    if (data?.warehouseId) {
+      this.getLatestItemsList(data?.warehouseId);
     }
 
     const stockInDetailsFormArray = this.stockInForm.get('stockInDetails') as FormArray;
     stockInDetailsFormArray.clear();
 
     data?.stockInDetails?.forEach((detail: any, index: number) => {
-      this.addNewRowWithOutItem()
-      this.setRowDataById(index, detail)
+      this.addNewRowWithOutItem();
+      this.setRowDataById(index, detail);
     });
 
+    this.resetComparasion();
+    // const { code, sourceDocumentType, warehouseName, ...formValue } =
+    //   this.stockInForm.getRawValue();
+    // this.formValurCash = structuredClone(formValue);
   }
   addNewRowWithOutItem() {
     if (!this.duplicateLine) {
       if (!this.formsService.validForm(this.stockInForm, false)) return;
 
-
-      let newLine = this.fb.group(
-        {
-          itemNumber: new FormControl(''),
+      let newLine = this.fb.group({
+        itemNumber: new FormControl(''),
+        id: new FormControl(0),
+        barCode: new FormControl(''),
+        itemCode: new FormControl(''),
+        itemName: new FormControl(''),
+        bardCodeId: new FormControl(null),
+        description: new FormControl(''),
+        itemId: new FormControl(null, [customValidators.required]),
+        itemCodeName: new FormControl(''),
+        itemVariantId: new FormControl(''),
+        itemVariantCode: new FormControl(''),
+        itemVariantNameAr: new FormControl(''),
+        itemVariantNameEn: new FormControl(''),
+        uomName: new FormControl(''),
+        uomNameAr: new FormControl(''),
+        uomNameEn: new FormControl(''),
+        uomId: new FormControl('', [customValidators.required]),
+        quantity: new FormControl(1, [
+          customValidators.required,
+          customValidators.nonZero,
+          customValidators.nonNegativeNumbers,
+        ]),
+        cost: new FormControl('', [
+          customValidators.required,
+          customValidators.nonZero,
+          customValidators.nonNegativeNumbers,
+        ]),
+        subTotal: new FormControl(''),
+        notes: new FormControl(''),
+        hasExpiryDate: new FormControl(''),
+        stockInEntryMode: 'Manual',
+        trackingType: new FormControl(''),
+        uomOptions: new FormControl([]),
+        stockInTracking: this.fb.group({
           id: new FormControl(0),
-          barCode: new FormControl(''),
-          itemCode: new FormControl(''),
-          itemName: new FormControl(''),
-          bardCodeId: new FormControl(null),
-          description: new FormControl(''),
-          itemId: new FormControl(null, [customValidators.required]),
-          itemCodeName: new FormControl(''),
-          itemVariantId: new FormControl(''),
-          itemVariantCode: new FormControl(''),
-          itemVariantNameAr: new FormControl(''),
-          itemVariantNameEn: new FormControl(''),
-          uomName: new FormControl(''),
-          uomNameAr: new FormControl(''),
-          uomNameEn: new FormControl(''),
-          uomId: new FormControl('', [customValidators.required]),
-          quantity: new FormControl(1, [customValidators.required, customValidators.nonZero, customValidators.nonNegativeNumbers]),
-          cost: new FormControl('', [customValidators.required, customValidators.nonZero, customValidators.nonNegativeNumbers]),
-          subTotal: new FormControl(''),
-          notes: new FormControl(''),
-          hasExpiryDate: new FormControl(''),
-          stockInEntryMode: 'Manual',
+          vendorBatchNo: new FormControl(''),
+          expireDate: new FormControl(null),
+          systemPatchNo: new FormControl(''),
+          serialId: new FormControl(''),
           trackingType: new FormControl(''),
-          uomOptions: new FormControl([]),
-          stockInTracking: this.fb.group({
-            id: new FormControl(0),
-            vendorBatchNo: new FormControl(''),
-            expireDate: new FormControl(null),
-            systemPatchNo: new FormControl(''),
-            serialId: new FormControl(''),
-            trackingType: new FormControl(''),
-            selectedValue: new FormControl(''),
-
-
-          })
-
-
-
-        }
-      );
+          selectedValue: new FormControl(''),
+        }),
+      });
       this.stockInDetailsFormArray.push(newLine);
     }
   }
   setRowDataById(indexLine: number, selectedItem: any) {
     const rowForm = this.stockInDetailsFormArray.at(indexLine) as FormGroup;
-
-
-
-
 
     // Ensure row form controls are present before updating
     if (rowForm) {
@@ -303,7 +297,6 @@ export class EditStockInComponent implements OnInit {
         stockInEntryMode: selectedItem.stockInEntryMode || 'Manual',
         trackingType: selectedItem.trackingType,
         uomOptions: selectedItem.itemsUOM,
-
       });
 
       // Handle the nested form group
@@ -321,9 +314,12 @@ export class EditStockInComponent implements OnInit {
       }
     }
 
-    rowForm.get('itemName')?.setValue(selectedItem.itemCode + "-" + selectedItem.itemName + "-" + selectedItem.itemVariantNameAr)
-    this.setUomName(indexLine, rowForm.get('uomOptions')?.value)
-
+    rowForm
+      .get('itemName')
+      ?.setValue(
+        selectedItem.itemCode + '-' + selectedItem.itemName + '-' + selectedItem.itemVariantNameAr
+      );
+    this.setUomName(indexLine, rowForm.get('uomOptions')?.value);
   }
   setUomName(indexLine: number, list: any) {
     const rowForm = this.stockInDetailsFormArray.at(indexLine) as FormGroup;
@@ -333,7 +329,6 @@ export class EditStockInComponent implements OnInit {
     } else {
       rowForm.get('uomName')?.setValue(selectedItem.uomNameEn);
     }
-
   }
   changeUomName(indexLine: number, list: any) {
     const rowForm = this.stockInDetailsFormArray.at(indexLine) as FormGroup;
@@ -345,9 +340,7 @@ export class EditStockInComponent implements OnInit {
     }
 
     rowForm.get('barCode')?.setValue('');
-
   }
-
 
   initWareHouseLookupData() {
     this.transactionService.getWareHousesDropDown();
@@ -362,7 +355,7 @@ export class EditStockInComponent implements OnInit {
       width: '600px',
       height: '450px',
     });
-    ref.onClose.subscribe((selectedItems: any[]) => { });
+    ref.onClose.subscribe((selectedItems: any[]) => {});
   }
 
   createStockIn() {
@@ -417,7 +410,6 @@ export class EditStockInComponent implements OnInit {
     const selectedItem = list.find((item: any) => item.itemNumber === selectedItemId);
     const rowForm = this.stockInDetailsFormArray.at(indexLine) as FormGroup;
 
-
     if (!selectedItem) {
       return;
     }
@@ -451,7 +443,6 @@ export class EditStockInComponent implements OnInit {
           stockInEntryMode: selectedItem?.stockInEntryMode || 'Manual',
           trackingType: selectedItem?.trackingType,
           uomOptions: selectedItem?.itemsUOM,
-
         });
 
         // Handle the nested form group
@@ -468,9 +459,7 @@ export class EditStockInComponent implements OnInit {
           });
         }
       }
-      this.setUomName(indexLine, rowForm.get('uomOptions')?.value)
-
-
+      this.setUomName(indexLine, rowForm.get('uomOptions')?.value);
     }
   }
   itemChanged(
@@ -495,9 +484,10 @@ export class EditStockInComponent implements OnInit {
     stockInFormGroup
       .get('description')
       ?.setValue(
-        ` ${clonedStockInFormGroup?.itemName ?? data?.itemName} - ${this.currentLang == 'en'
-          ? clonedStockInFormGroup?.itemVariantNameEn ?? data?.itemVariantNameEn
-          : clonedStockInFormGroup?.itemVariantNameAr ?? data?.itemVariantNameAr
+        ` ${clonedStockInFormGroup?.itemName ?? data?.itemName} - ${
+          this.currentLang == 'en'
+            ? clonedStockInFormGroup?.itemVariantNameEn ?? data?.itemVariantNameEn
+            : clonedStockInFormGroup?.itemVariantNameAr ?? data?.itemVariantNameAr
         }`
       );
 
@@ -570,15 +560,17 @@ export class EditStockInComponent implements OnInit {
       ?.setValue(this.currentLang == 'en' ? data.uomNameEn : data.uomNameAr);
   }
   isValidData() {
-    this.lineError = -1
+    this.lineError = -1;
     this.stockInDetailsFormArray.value.forEach((element: any, index: number) => {
-      let lineNumber = index + 1
+      let lineNumber = index + 1;
       if (element.stockInTracking.trackingType == this.sharedStock.StockOutTracking.Batch) {
-        if (element.stockInTracking.vendorBatchNo == null || element.stockInTracking.vendorBatchNo == '') {
-          this.lineError = index
-          this.error = true
-          this.save = false
-          
+        if (
+          element.stockInTracking.vendorBatchNo == null ||
+          element.stockInTracking.vendorBatchNo == ''
+        ) {
+          this.lineError = index;
+          this.error = true;
+          this.save = false;
 
           this.toasterService.showError(
             this.languageService.transalte('messages.error'),
@@ -586,38 +578,30 @@ export class EditStockInComponent implements OnInit {
           );
         }
       } else if (element.stockInTracking.trackingType == this.sharedStock.StockOutTracking.Serial) {
-
         if (element.stockInTracking.serialId == null || element.stockInTracking.serialId == '') {
-          this.lineError = index
-          this.error = true
-          this.save = false
-
-
+          this.lineError = index;
+          this.error = true;
+          this.save = false;
 
           this.toasterService.showError(
             this.languageService.transalte('messages.error'),
             this.languageService.transalte('messages.setTracking') + lineNumber
           );
-
         }
       } else {
-        this.error = false
-        this.save = true
+        this.error = false;
+        this.save = true;
 
-        this.lineError = -1
-
-
+        this.lineError = -1;
       }
-    },
-    this.save = true
-
-  );
+    }, (this.save = true));
   }
   addLineStockIn() {
-    this.isValidData()
+    this.isValidData();
     if (!this.formsService.validForm(this.stockInDetailsFormArray, false)) return;
     this.stockInDetailsFormArray.push(this.createStockIn());
-    this.getLatestItemsList(this.stockInForm.get('warehouseId')?.value)
+    this.getLatestItemsList(this.stockInForm.get('warehouseId')?.value);
+    this.postButton = false;
   }
 
   scan() {
@@ -637,13 +621,12 @@ export class EditStockInComponent implements OnInit {
         stockInFormGroup.get('itemId')?.setValue(selectedItems.itemId);
 
         // this.itemChanged(selectedItems.itemId, stockInFormGroup, selectedItems);
-        this.setRowDataFromBarCode(indexLine, selectedItems, '')
+        this.setRowDataFromBarCode(indexLine, selectedItems, '');
       }
     });
   }
 
   setTracking(setTracking: FormGroup) {
-
     let patchedValue = setTracking.value.stockInTracking;
     if (this.postedStock) {
       const dialogRef = this.dialog.open(TrackingStockInComponent, {
@@ -668,17 +651,15 @@ export class EditStockInComponent implements OnInit {
           setTracking.get('stockInTracking')?.get('selectedValue')?.setValue(res);
           this.cdr.detectChanges();
         }
-        this.isValidData()
-
+        this.isValidData();
       });
-
     } else {
       return;
     }
   }
   setStockInTracking(indexLine: number) {
     const rowForm = this.stockInDetailsFormArray.at(indexLine) as FormGroup;
-       this.setTracking(rowForm)
+    this.setTracking(rowForm);
   }
   onCancel() {
     this.router.navigateTo('/transactions/stock-in');
@@ -689,7 +670,7 @@ export class EditStockInComponent implements OnInit {
     this.transactionService.sendItemBarcode$.pipe(skip(1)).subscribe((data) => {
       if (data) {
         stockInFormGroup.get('itemId')?.setValue(data.itemId);
-        this.setRowDataFromBarCode(index, data, e)
+        this.setRowDataFromBarCode(index, data, e);
       }
     });
   }
@@ -709,7 +690,9 @@ export class EditStockInComponent implements OnInit {
           id: selectedItem?.id || 0,
           barCode: barcode,
           bardCodeId: selectedItem?.bardCodeId,
-          description: selectedItem?.itemName + '-' +
+          description:
+            selectedItem?.itemName +
+            '-' +
             (this.selectedLanguage === 'en'
               ? selectedItem?.itemVariantNameEn
               : selectedItem?.itemVariantNameAr),
@@ -732,7 +715,6 @@ export class EditStockInComponent implements OnInit {
           stockInEntryMode: selectedItem?.stockInEntryMode || 'Manual',
           trackingType: selectedItem?.trackingType,
           uomOptions: selectedItem?.itemsUOM,
-
         });
 
         // Handle the nested form group
@@ -749,24 +731,22 @@ export class EditStockInComponent implements OnInit {
           });
         }
       }
-      rowForm.get('itemName')?.setValue(selectedItem.itemCode + "-" + selectedItem.itemName + "-" + selectedItem.itemVariantNameAr)
-      this.setUomName(indexLine, rowForm.get('uomOptions')?.value)
-
-
-
+      rowForm
+        .get('itemName')
+        ?.setValue(
+          selectedItem.itemCode + '-' + selectedItem.itemName + '-' + selectedItem.itemVariantNameAr
+        );
+      this.setUomName(indexLine, rowForm.get('uomOptions')?.value);
     }
   }
 
   onSave() {
-    this.isValidData()
+    this.isValidData();
     if (!this.formsService.validForm(this.stockInDetailsFormArray, false)) return;
-    
-    if (this.save) {
 
+    if (this.save) {
       const stockInDetails = this.stockInDetailsFormArray as FormArray;
       this.errorsArray = []; // Array to collect errors for each line
-
-
 
       if (!this.formsService.validForm(this.stockInForm, false)) return;
       if (!this.formsService.validForm(this.stockInDetailsFormArray, false)) return;
@@ -776,7 +756,7 @@ export class EditStockInComponent implements OnInit {
         stockInDetails: this.stockInDetailsFormArray.value,
       };
 
-       this.transactionService.editStockIn(data, this.stockInForm);
+      this.transactionService.editStockIn(data, this.stockInForm);
       this.transactionService.updatedStockInData$.subscribe((res: any) => {
         if (res === true) {
           this.savedDataId = res;
@@ -788,10 +768,17 @@ export class EditStockInComponent implements OnInit {
           this.postButton = false;
           this.saveButtonEnabled = true;
         }
+
+        this.resetComparasion();
       });
     }
+  }
 
-
+  // comparison compares between  the form after batch and after change
+  private resetComparasion(): void {
+    const { code, sourceDocumentType, warehouseName, ...formValue } =
+      this.stockInForm.getRawValue();
+    this.formValurCash = formValue;
   }
 
   private handleFormChanges(): void {
@@ -850,8 +837,6 @@ export class EditStockInComponent implements OnInit {
     private formsService: FormsService,
     public sharedStock: SharedStock,
     private cdr: ChangeDetectorRef,
-    private toasterService: ToasterService,
-
-  ) {
-  }
+    private toasterService: ToasterService
+  ) {}
 }

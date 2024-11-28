@@ -11,21 +11,37 @@
             <div class="grid">
               <div class="md:col-12">
                 <lib-form-group>
-                  <lib-label [appControl]="addCompanyForm.controls['name']">
-                    {{ 'Company.Add.CompanyName' | translate }}
+                  <lib-form-group>
+                    <lib-label [appControl]="addCompanyForm.controls['nameEn']">
+                      {{ 'Company.Add.CompanyNameEn' | translate }}
+                    </lib-label>
+                    <lib-text-input type="text" formControlName="nameEn" />
+                    <lib-field-validations [appControl]="addCompanyForm.controls['nameEn']">
+                    </lib-field-validations>
+                  </lib-form-group>
+                  <lib-label [appControl]="addCompanyForm.controls['nameAr']">
+                    {{ 'Company.Add.CompanyNameAr' | translate }}
                   </lib-label>
-                  <lib-text-input type="text" formControlName="name" />
-                  <lib-field-validations [appControl]="addCompanyForm.controls['name']">
+                  <lib-text-input type="text" formControlName="nameAr" />
+                  <lib-field-validations [appControl]="addCompanyForm.controls['nameAr']">
                   </lib-field-validations>
                 </lib-form-group>
               </div>
               <div class="md:col-12">
                 <lib-form-group>
-                  <lib-label [appControl]="addCompanyForm.controls['branchName']">
-                    {{ 'Company.Add.BranchName' | translate }}
+                  <lib-label [appControl]="addCompanyForm.controls['branchNameEn']">
+                    {{ 'Company.Add.BranchNameEn' | translate }}
                   </lib-label>
-                  <lib-text-input type="text" formControlName="branchName" />
-                  <lib-field-validations [appControl]="addCompanyForm.controls['branchName']">
+                  <lib-text-input type="text" formControlName="branchNameEn" />
+                  <lib-field-validations [appControl]="addCompanyForm.controls['branchNameEn']">
+                  </lib-field-validations>
+                </lib-form-group>
+                <lib-form-group>
+                  <lib-label [appControl]="addCompanyForm.controls['branchNameAr']">
+                    {{ 'Company.Add.BranchNameAr' | translate }}
+                  </lib-label>
+                  <lib-text-input type="text" formControlName="branchNameAr" />
+                  <lib-field-validations [appControl]="addCompanyForm.controls['branchNameAr']">
                   </lib-field-validations>
                 </lib-form-group>
               </div>
