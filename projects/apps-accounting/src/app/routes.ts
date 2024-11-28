@@ -13,7 +13,8 @@ export const ERPRoutes = [
     children: [
       {
         path: '',
-        component: LandingPageComponent,
+        loadChildren: () =>
+          import('./modules/dashboard/dashboard.module').then((m) => m.DashboardModule),
       },
       {
         path: 'transcations',
