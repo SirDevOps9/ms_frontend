@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { PurchaseTransactionsProxyService } from './purchase-transactions-proxy.service';
-import { IinvoiceDto } from './model/purchase-invoice';
+import { IinvoiceDto, viewInvoiceObj } from './model/purchase-invoice';
 import { BehaviorSubject, map } from 'rxjs';
 import { LanguageService, PageInfo, PageInfoResult, RouterService, ToasterService } from 'shared-lib';
 import { LatestItem } from './models';
@@ -22,7 +22,8 @@ export class PurchaseTransactionsService {
     // list of purchase inv and export
     invoicePurchaseList = new BehaviorSubject<IinvoiceDto[]>([]);
     exportInvoiceData = new BehaviorSubject<IinvoiceDto[]>([]);
-    // list of purchase inv
+    viewInvoiceDataByID = new BehaviorSubject<viewInvoiceObj>({} as viewInvoiceObj);
+  // list of purchase inv
 
 
 
@@ -131,4 +132,10 @@ export class PurchaseTransactionsService {
     })
   }
 
+  // Get Invoice View By Id
+  GetInvoiceViewById(id: number) {
+    this.purchaseProxy.GetInvoiceViewById(id).subscribe((res) => {
+      this.viewInvoiceDataByID.next(res);
+    });
+  }
 }

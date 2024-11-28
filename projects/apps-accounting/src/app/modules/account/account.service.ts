@@ -48,7 +48,7 @@ export class AccountService {
   private tagsDataSource = new BehaviorSubject<TagDropDownDto[]>([]);
   private companysDataSource = new BehaviorSubject<companyDropDownDto[]>([]);
   public savedAccountDataSource = new BehaviorSubject<AccountDto | undefined>(undefined);
- 
+
   private editAccountDataSource = new BehaviorSubject<accountById | undefined>(undefined);
   public savedCostCenter = new BehaviorSubject<addCostCenter | undefined>(undefined);
   public parentAccountsostCenter = new BehaviorSubject<parentCostCenter[]>([]);
@@ -56,7 +56,7 @@ export class AccountService {
   private costCenterDetails = new BehaviorSubject<costCenterDetails>({} as costCenterDetails);
   public editCostCenter = new BehaviorSubject<costById | undefined>(undefined);
   private costCenterActivat = new BehaviorSubject<costCenterActivation | undefined>(undefined);
-  
+
   private exportsAccountsDataSource = new BehaviorSubject<ExportAccountsDto[]>([]);
   public exportsAccountsDataSourceObservable = this.exportsAccountsDataSource.asObservable();
   private exportsCostCentersDataSource = new BehaviorSubject<costCenterList[]>([]);
@@ -78,7 +78,7 @@ export class AccountService {
   public tags = this.tagsDataSource.asObservable();
   public companyDropdown = this.companysDataSource.asObservable();
   public savedAddedAccount = this.savedAccountDataSource.asObservable();
-  
+
   public editedAccount = this.editAccountDataSource.asObservable();
 
   public costCenterListView = this.costCenterList.asObservable();
@@ -123,7 +123,7 @@ export class AccountService {
     return this.accountproxy.getAccountLookup();
   }
 
-  
+
 
   getDetailedAccounts() {
     return this.accountproxy.getAccountsChildrenDropDown().pipe(
@@ -146,7 +146,7 @@ export class AccountService {
     });
   }
 
-  
+
 
   getTreeList() {
     return this.accountproxy.getTreeList().pipe(
@@ -238,8 +238,8 @@ export class AccountService {
       },
     });
   }
-  
- 
+
+
 
 
   editAccount(account: accountById) {
@@ -258,7 +258,7 @@ export class AccountService {
     });
   }
 
-  
+
 
   async deleteAccount(accountId: number) {
     const confirmed = await this.toasterService.showConfirm(
@@ -283,12 +283,12 @@ export class AccountService {
 
   // taxesSignal = signal<PaginationVm<TaxDto>>({} as PaginationVm<TaxDto>);
 
-  
+
 
   // getTaxDefinitionsSignal = signal({});
 
 
-  
+
 
   allocationCenter(model: any, dialogRef: DynamicDialogRef) {
     // this.loaderService.show();
@@ -307,11 +307,11 @@ export class AccountService {
     // });
   }
 
- 
- 
 
-  
-  AddCostCenter(command: addCostCenter) {    
+
+
+
+  AddCostCenter(command: addCostCenter) {
     this.accountproxy.AddCostCenter(command).subscribe({
       next: (res) => {
         this.savedCostCenter.next(res);
@@ -397,18 +397,18 @@ export class AccountService {
     });
   }
 
-  
 
-  exportAccountsData(searchTerm: string | undefined) {
-    this.accountproxy.exportAccountsData(searchTerm).subscribe({
+
+  exportAccountsData(SearchTerm: string ,SortBy?: number, SortColumn?: string) {
+    this.accountproxy.exportAccountsData(SearchTerm ,SortBy , SortColumn).subscribe({
       next: (res) => {
         this.exportsAccountsDataSource.next(res);
       },
     });
   }
 
-  exportCostCentersData(searchTerm: string | undefined) {
-    this.accountproxy.exportCostCentersData(searchTerm).subscribe({
+  exportCostCentersData(SearchTerm: string ,SortBy?: number, SortColumn?: string) {
+    this.accountproxy.exportCostCentersData(SearchTerm ,SortBy , SortColumn).subscribe({
       next: (res) => {
         this.exportsCostCentersDataSource.next(res);
       },

@@ -9,6 +9,7 @@
         className="p-datatable-gridlines"
         [currentPageResult]="currentPageInfo"
         (pageChange)="onPageChange($event)"
+        (exportObj)="exportClickBySort($event)"
         (addNew)="routeToAdd()"
         [tableConfigs]="{
               allowPagination: false,
@@ -73,7 +74,7 @@
 
             <div class="flex gap-2">
               <lib-export
-              (exportClick)="exportClick($event)"
+              (exportClick)="exportClick()"
               [exportData]="exportData"
               [exportColumns]="exportColumns"
               [ExportName]="('financialCalendar.financialCalendarPrint' |translate)"        >

@@ -112,11 +112,14 @@ export class PurchaseProxyService {
     return this.httpService.get<TagDropDownDto[]>(`Tag/Tagdropdown?moduleId=` + moduleId);
   }
 
-  exportVendorCategoriesData(searchTerm: string | undefined): Observable<VendorCategoryDto[]> {
+
+  exportVendorCategoriesData(  searchTerm?: string ,SortBy?:number,SortColumn?:string): Observable<VendorCategoryDto[]> {
     let query = `VendorCategory/Export?`;
-    if (searchTerm) {
-      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
-    }
+    const params: string[] = [];
+    if (searchTerm) params.push(`SearchTerm=${encodeURIComponent(searchTerm)}`);
+    if (SortBy) params.push(`SortBy=${SortBy}`);
+    if (SortColumn) params.push(`SortColumn=${SortColumn}`);
+    query += params.join('&');
     return this.httpService.get<VendorCategoryDto[]>(query);
   }
 

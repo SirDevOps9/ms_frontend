@@ -4,6 +4,7 @@ import { AccountService } from '../../../account.service';
 import { AccountNature, AccountDto, ExportAccountsDto } from '../../../models';
 import { Title } from '@angular/platform-browser';
 import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
+import { SortTableEXport } from 'projects/apps-inventory/src/app/modules/items/models/SortTable';
 
 @Component({
   selector: 'app-chat-of-account-list',
@@ -16,7 +17,7 @@ export class ChatOfAccountListComponent implements OnInit {
   accountNature = AccountNature;
   searchTerm: string;
   mappedExportData: AccountDto[];
-
+  SortByAll:SortTableEXport
   exportData: ExportAccountsDto[];
 
   constructor(private routerService: RouterService,
@@ -107,11 +108,11 @@ export class ChatOfAccountListComponent implements OnInit {
   routeToEdit(id: number) {
     this.routerService.navigateTo(`/journalentry/edit/${id}`);
   }
-  exportClick(e?: Event) {
-    this.exportAccountsData(this.searchTerm);
+  exportClick() {
+    this.exportAccountsData(this.searchTerm, this.SortByAll?.SortBy, this.SortByAll?.SortColumn);
   }
-  exportAccountsData(searchTerm: string) {
-    this.accountService.exportAccountsData(searchTerm);
+  exportAccountsData(searchTerm: string, sortBy?: number, sortColumn?: string) {
+    this.accountService.exportAccountsData(searchTerm ,sortBy ,sortColumn);
 
     const columns = [
       { name: 'accountCode', headerText: 'ChartOfAccount.AccountCode' },
@@ -128,4 +129,10 @@ export class ChatOfAccountListComponent implements OnInit {
     });
   }
 
+  exportClickBySort(e: { SortBy: number; SortColumn: string }) {
+    this.SortByAll = {
+      SortBy: e.SortBy,
+      SortColumn: e.SortColumn,
+    };
+  }
 }

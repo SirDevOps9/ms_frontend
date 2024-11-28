@@ -9,6 +9,7 @@ import { LayoutPageComponent, SequenceComponent } from 'apps-shared-lib';
 import { MainPurchaseInvoiceComponent } from './pages/purchase-invoice/main-purchase-invoice/main-purchase-invoice.component';
 import { PurchaseInvoiceTrackingComponent } from './components/purchase-invoice-tracking/purchase-invoice-tracking.component';
 import { ItemAdvancedSearchPurchaseInvoiceComponent } from './components/item-advanced-search-purchase-invoice/item-advanced-search-purchase-invoice.component';
+import { ViewInvoiceComponent } from './pages/purchase-invoice/view-invoice/view-invoice.component';
 
 const routes: Routes = [
   {
@@ -59,6 +60,14 @@ const routes: Routes = [
               pageTitle: BreadcrumbLabel.SEQUENCE,
             },
           },
+          {
+            path: 'view-purchase-invoice/:id',
+            component: ViewInvoiceComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.purchaseInvoiceView,
+              pageTitle: BreadcrumbLabel.purchaseInvoiceView,
+            },
+          },
         ],
       },
     ],
@@ -73,6 +82,7 @@ const routes: Routes = [
     MainPurchaseInvoiceComponent,
     PurchaseInvoiceTrackingComponent,
     ItemAdvancedSearchPurchaseInvoiceComponent
+    ViewInvoiceComponent,
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule],
 })

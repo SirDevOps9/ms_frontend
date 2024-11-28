@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { IinvoiceDto } from './model/purchase-invoice';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
 import { LatestItem } from './models';
-import { AddPurchaseInvoiceDto } from './models/addPurchaseInvoice';
+import { AddPurchaseInvoiceDto, viewInvoiceObj } from './models/addPurchaseInvoice';
 
 @Injectable({
   providedIn: 'root',
@@ -100,4 +100,9 @@ export class PurchaseTransactionsProxyService {
   }
   
 
+  // Get Invoice View By Id
+  GetInvoiceViewById(id: number): Observable<viewInvoiceObj> {
+    const url = `Invoice/GetInvoiceViewById/${id}`;
+    return this.httpService.get<viewInvoiceObj>(url);
+  }
 }

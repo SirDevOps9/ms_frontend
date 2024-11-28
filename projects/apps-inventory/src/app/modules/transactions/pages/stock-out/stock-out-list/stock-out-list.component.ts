@@ -17,6 +17,8 @@ import { SharedStock } from '../../../models/sharedStockOutEnums';
 import { ItemsService } from '../../../../items/items.service';
 import { TransactionsService } from '../../../transactions.service';
 import { SequenceService } from 'apps-shared-lib';
+import { SortTableEXport } from '../../../../items/models/SortTable';
+import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
 
 @Component({
   selector: 'app-stock-out-list',
@@ -31,7 +33,7 @@ export class StockOutListComponent implements OnInit {
 
   exportColumns: lookupDto[];
   exportSelectedCols: string[] = [];
-
+  SortByAll:SortTableEXport
   currentPageInfo: PageInfoResult = {};
   modulelist: MenuModule[];
   searchTerm: string;
@@ -44,6 +46,9 @@ export class StockOutListComponent implements OnInit {
       next: (res: any) => {
         this.tableData = res;
       },
+    });
+    this.itemsService.currentPageInfo.subscribe((currentPageInfo) => {
+      this.currentPageInfo = currentPageInfo;
     });
   }
   initStockOutData() {
@@ -76,15 +81,31 @@ export class StockOutListComponent implements OnInit {
   onDelete(id: number) {
     this.itemsService.deleteStockOut(id);
   }
-  exportedColumns(obj: { SortBy: number; SortColumn: string }) {
-    this.SortBy = obj.SortBy;
-    this.SortColumn = obj.SortColumn;
-  }
   exportClick() {
-    this.itemsService.exportStockOutList(this.searchTerm, this.SortBy, this.SortColumn);
+    this.exportBankData(this.searchTerm, this.SortByAll?.SortBy, this.SortByAll?.SortColumn);
+  }
+  exportBankData(searchTerm: string, sortBy?: number, sortColumn?: string) {
+    this.itemsService.exportStockOutList(searchTerm ,sortBy ,sortColumn);
+    const columns = [
+      { name: 'code', headerText: ('stockOut.code') },
+      { name: 'receiptDate', headerText: ('stockOut.date') },
+      { name: 'notes', headerText: ('stockOut.description') },
+      { name: 'sourceDocumentId', headerText: ('stockOut.sourceDoc') },
+      { name: 'warehouseName', headerText: ('stockOut.warehouse') },
+      { name: 'stockInStatus', headerText: ('stockOut.status') },
+      { name: 'journalCode', headerText: ('stockOut.journalCode') },
+      { name: 'isReserved', headerText: ('stockOut.reserve') },
+
+    ];
     this.itemsService.exportStockOutListDataSource.subscribe((res: any) => {
-      this.exportData = res;
+      this.exportData = this.exportService.formatCiloma(res, columns);
     });
+  }
+  exportClickBySort(e: { SortBy: number; SortColumn: string }) {
+    this.SortByAll = {
+      SortBy: e.SortBy,
+      SortColumn: e.SortColumn,
+    };
   }
   constructor(
     private routerService: RouterService,
@@ -95,7 +116,9 @@ export class StockOutListComponent implements OnInit {
     private itemsService: TransactionsService,
     public sharedFinanceEnums: SharedStock,
     public sequenceService: SequenceService,
-    public sharedEnums: SharedEnums
+    public sharedEnums: SharedEnums,
+    private exportService:ExportService,
+
   ) {
     // this.title.setTitle(this.langService.transalte('itemCategory.itemDefinition'));
   }

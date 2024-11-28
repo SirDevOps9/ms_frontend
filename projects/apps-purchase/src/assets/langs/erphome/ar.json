@@ -11,9 +11,10 @@
     "AddVendorOpeningBalance": "إضافة رصيد افتتاحي للمورد",
     "EditVendorOpeningBalance": "تعديل الرصيد الافتتاحي للمورد",
     "ViewVendorOpeningBalance": "عرض الرصيد الافتتاحي للمورد",
-    "purchaseInvoice" : "فاتوره الشراء",
-    "purchaseInvoiceAdd" : "اضافه فاتوره الشراء",
-    "purchaseInvoiceEdit" : "تعديل فاتوره الشراء"
+    "purchaseInvoice": "فاتوره الشراء",
+    "purchaseInvoiceAdd": "اضافه فاتوره الشراء",
+    "purchaseInvoiceEdit": "تعديل فاتوره الشراء",
+    "purchaseInvoiceView": "عرض فاتوره الشراء"
   },
   "dir": "rtl",
   "Welcome": "مرحبا",
