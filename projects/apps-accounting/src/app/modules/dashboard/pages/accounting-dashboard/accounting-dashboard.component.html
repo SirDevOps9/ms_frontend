@@ -1,0 +1,222 @@
+<lib-page-content>
+  <div class="user_page">
+    <div class="custom_card" [appLoader]="accountTypeBalancesLoader">
+      <div class="custom_card_label heading_b26">
+        {{ 'dashboard.accountTypes' | translate }} <i class="pi pi-heart"></i>
+      </div>
+      <div class="account_types_details">
+        @for(accountBalance of accountTypeBalances; track accountBalance) {
+        <div class="box">
+          <p class="heading_b18 m-0">
+            {{
+              currentLanguage == 'en'
+                ? accountBalance.accountTypeNameEn
+                : accountBalance.accountTypeNameAr
+            }}
+          </p>
+          <p class="paragraph_b16 m-0">{{ accountBalance.totalBalance | decimalSeparator }}</p>
+        </div>
+        }
+      </div>
+    </div>
+
+    <div class="charts">
+      <div class="grid">
+        <div class="lg:col-6 col-12" [appLoader]="journalStatusLoader">
+          <app-chart-card [chartDTO]="chart" [chartDetailsConfig]="this.statusChartValues">
+            <div class="chart-header">
+              <div class="title heading_b18">{{ 'dashboard.status' | translate }}</div>
+              <div class="action body_b14">
+                <span (click)="navigateToJournalList()" class="pointer">
+                  {{ 'dashboard.moreDetails' | translate }} <i class="pi pi-arrow-right fs-14"></i>
+                </span>
+                <span class="column-line"></span>
+                <i class="pi pi-heart"></i>
+              </div>
+            </div>
+          </app-chart-card>
+        </div>
+        <div class="lg:col-6 col-12" [appLoader]="journalEntryTypeCountLoader">
+          <app-chart-card
+            [chartDTO]="journalSourcesChart"
+            [chartDetailsConfig]="this.JournalSourceChartData"
+          >
+            <div class="chart-header">
+              <div class="title heading_b18">{{ 'dashboard.journalSources' | translate }}</div>
+              <div class="action body_b14">
+                <span (click)="navigateToJournalList()" class="pointer">
+                  {{ 'dashboard.moreDetails' | translate }} <i class="pi pi-arrow-right fs-14"></i>
+                </span>
+                <span class="column-line"></span>
+                <i class="pi pi-heart"></i>
+              </div>
+            </div>
+          </app-chart-card>
+        </div>
+        <div class="lg:col-6 col-12" [appLoader]="cashBankAccountBalancesLoader">
+          <app-chart-card>
+            <div class="chart-header">
+              <div class="title heading_b18">{{ 'dashboard.bankCashEquivalents' | translate }}</div>
+              <div class="action">
+                <i class="pi pi-heart"></i>
+              </div>
+            </div>
+            <div class="chart-body accounts-bank w-full">
+              @for(acc of cashBankAccountsBalance.accounts; track acc) {
+              <div class="row">
+                <span class="body-14 mx-1">{{ acc.accountName }}</span>
+                <span
+                  class="detail-type body_b14 pointer"
+                  [style.background-color]="acc.accountTypeId == 2 ? '#e7994f' : '#5eb5af'"
+                  [routerLink]="'transcations/account-statement/' + acc.accountId"
+                >
+                  {{ acc.accountTypeName }}
+                </span>
+
+                <span class="line"></span>
+                <span class="detail-value heading_b16">{{ acc.balance | decimalSeparator }}</span>
+              </div>
+              }
+              <!-- @if(cashBankAccountsBalance.accounts.length == 0) {
+              <div class="row">
+                <span class="body-14 mx-1"> {{ 'dashboard.noAccounts' | translate }} </span>
+              </div>
+              } -->
+              <div class="grid">
+                <div class="lg:col-6 md:col-6 col-12">
+                  <p class="btn-class cash-label">
+                    {{ 'dashboard.totalCash' | translate }}
+                    <span> {{ cashBankAccountsBalance.totalCashBalance | decimalSeparator }} </span>
+                  </p>
+                </div>
+                <div class="lg:col-6 md:col-6 col-12">
+                  <p class="btn-class bank-label">
+                    {{ 'dashboard.totalBank' | translate }}
+                    <span> {{ cashBankAccountsBalance.totalBankBalance | decimalSeparator }} </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </app-chart-card>
+        </div>
+        <div class="lg:col-6 col-12" [appLoader]="revenueStreamLoader">
+          <app-chart-card>
+            <div class="chart-header">
+              <div class="title heading_b18">{{ 'dashboard.revenueStream' | translate }}</div>
+              <div class="action body_b14">
+                <i class="pi pi-heart"></i>
+              </div>
+            </div>
+            <div class="chart-body accounts-bank w-full">
+              <div class="row">
+                <span class="color-box" [style.background-color]="'#1A90B0'"></span>
+                <span class="label-color"> {{ 'dashboard.revenue' | translate }}</span>
+                <span class="line"></span>
+                <span class="detail-value heading_b16">{{
+                  revenueStream.totalRevenues | decimalSeparator
+                }}</span>
+              </div>
+              <div class="row">
+                <span class="color-box" [style.background-color]="'#CC3F2D'"></span>
+                <span class="label-color">{{ 'dashboard.expenses' | translate }}</span>
+                <span class="line"></span>
+                <span class="detail-value heading_b16">{{
+                  revenueStream.totalExpenses | decimalSeparator
+                }}</span>
+              </div>
+              <div class="row">
+                <span class="color-box" [style.background-color]="'#36A19B'"></span>
+                <span class="label-color">{{ 'dashboard.grossProfit' | translate }}</span>
+                <span class="line"></span>
+                <span class="detail-value heading_b16">{{
+                  revenueStream.grossProfit | decimalSeparator
+                }}</span>
+              </div>
+            </div>
+          </app-chart-card>
+        </div>
+        <div class="lg:col-6 col-12" [appLoader]="accountsListLoader">
+          <app-chart-card>
+            <div class="chart-header">
+              <div class="title heading_b18">{{ 'dashboard.accounts' | translate }}</div>
+              <div class="action">
+                <a (click)="reSortAccounts()" class="sort">
+                  <i
+                    class="pi"
+                    [ngClass]="accountsByMostUsed ? 'pi-arrow-down' : 'pi-arrow-up'"
+                  ></i>
+                </a>
+                <div class="caption">
+                  <span class="body_b11">{{ 'dashboard.sortBy' | translate }}</span>
+                  <p class="body_b14 my-0">
+                    {{
+                      (accountsByMostUsed ? 'dashboard.theMostUsed' : 'dashboard.theLeastUsed')
+                        | translate
+                    }}
+                  </p>
+                </div>
+                <span class="column-line"></span>
+                <i class="pi pi-heart"></i>
+              </div>
+            </div>
+            <div class="chart-body accounts-bank w-full">
+              @for(acc of accountsList; track acc) {
+              <div class="row">
+                <span class="label-color body_b14">{{ acc.accountName }}</span>
+
+                <span class="line"></span>
+                <span class="detail-value heading_b16">{{ acc.balance | decimalSeparator }}</span>
+              </div>
+              } @if(accountsList.length == 0) {
+              <div class="row">
+                <span class="body-14 mx-1"> {{ 'dashboard.noAccounts' | translate }} </span>
+              </div>
+              }
+            </div>
+          </app-chart-card>
+        </div>
+        <div class="lg:col-6 col-12" [appLoader]="costCentersLoader">
+          <app-chart-card>
+            <div class="chart-header">
+              <div class="title heading_b18">{{ 'dashboard.costCenter' | translate }}</div>
+              <div class="action">
+                <a (click)="reSortCostCenters()" class="sort">
+                  <i
+                    class="pi"
+                    [ngClass]="costCenterByMostUsed ? 'pi-arrow-down' : 'pi-arrow-up'"
+                  ></i>
+                </a>
+                <div class="caption">
+                  <span class="body_b11">{{ 'dashboard.sortBy' | translate }}</span>
+                  <p class="body_b14 my-0">
+                    {{
+                      (costCenterByMostUsed ? 'dashboard.theMostUsed' : 'dashboard.theLeastUsed')
+                        | translate
+                    }}
+                  </p>
+                </div>
+                <span class="column-line"></span>
+                <i class="pi pi-heart"></i>
+              </div>
+            </div>
+            <div class="chart-body accounts-bank w-full">
+              @for(costCenter of costCenters; track costCenter) {
+              <div class="row">
+                <span class="label-color body_b14">{{ costCenter.costCenterName }}</span>
+                <span class="line"></span>
+                <span class="detail-value heading_b16">{{
+                  costCenter.totalBalance | decimalSeparator
+                }}</span>
+              </div>
+              } @if(costCenters.length === 0) {
+              <div class="row">
+                <span class="body-14 mx-1"> {{ 'dashboard.noAccounts' | translate }} </span>
+              </div>
+              }
+            </div>
+          </app-chart-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</lib-page-content>

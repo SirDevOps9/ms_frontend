@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { FormsService, customValidators, lookupDto } from 'shared-lib';
+import { Cultures, FormsService, LanguageService, customValidators, lookupDto } from 'shared-lib';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { CreateInvitedUser } from '../../models';
 import { UserService } from '../../user.service';
@@ -21,8 +21,10 @@ export class UserInviteFormComponent implements OnInit {
   Licenses: TenantLicenseDto[];
   selected: any = [];
   subdomainName: string;
+  currentLang:any = ''
 
   ngOnInit() {
+    this.currentLang = this.languageService.getLang();
     this.getSubdomainById();
     this.getCompanies();
     this.getTenantLicense();
@@ -54,7 +56,12 @@ export class UserInviteFormComponent implements OnInit {
 
   getCompanies() {
     this.companyService.getAllCompanies(this.subdomainId).subscribe((res) => {
-      this.Companies = res;
+      this.Companies = res.map((company) => {
+        return {
+          id: company.id,
+          name: this.currentLang == Cultures.English ? company.nameEn : company.nameAr
+        };
+      });
     });
   }
 
@@ -74,9 +81,14 @@ export class UserInviteFormComponent implements OnInit {
     const companyId = event;
     if (!companyId) return;
     this.companyService.loadBranches(companyId);
+
     this.companyService.branches.subscribe((branchList) => {
-      this.branches = branchList;
+      this.branches = branchList.map((branch) => ({
+        ...branch, 
+        name: this.currentLang == Cultures.English ? branch.nameEn : branch.nameAr, 
+      }));
     });
+
 
     this.inviteForm.patchValue({ branchIds: [] });
     this.selected = [];
@@ -94,6 +106,7 @@ export class UserInviteFormComponent implements OnInit {
     private ref: DynamicDialogRef,
     private userService: UserService,
     private companyService: CompanyService,
-    private subscriptionService: SubscriptionService
+    private subscriptionService: SubscriptionService,
+    public languageService: LanguageService,
   ) {}
 }
