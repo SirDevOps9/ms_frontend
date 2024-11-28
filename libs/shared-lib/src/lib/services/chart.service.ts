@@ -7,6 +7,19 @@ import { Chart } from 'angular-highcharts';
 export class ChartService {
   constructor() {}
 
+  colors = [
+    '#FF5733',
+    '#33C1FF',
+    '#28A745',
+    '#FFC107',
+    '#FF33A6',
+    '#6610F2',
+    '#FF6F61',
+    '#4B8C6A',
+    '#FFB6C1',
+    '#8A2BE2',
+  ];
+
   donutChart(values: any, tooltip: string = '') {
     return new Chart({
       chart: {
@@ -157,6 +170,11 @@ export class ChartService {
   }
 
   multipleColumnChart(labels: string[], values: any, tooltip: string = '') {
+    const coloredValues = values.map((dataset: any, index: number) => ({
+      ...dataset,
+      color: this.colors[index % this.colors.length],
+    }));
+
     return new Chart({
       chart: {
         type: 'column',
@@ -177,7 +195,7 @@ export class ChartService {
       },
       yAxis: {
         min: 0,
-        tickInterval: 20,
+        tickInterval: 5000,
         title: {
           text: null,
         },
@@ -188,12 +206,14 @@ export class ChartService {
       },
       plotOptions: {
         column: {
-          pointPadding: 0.2,
+          pointPadding: 0.1,
           borderWidth: 0,
+          groupPadding: 0.1,
+          pointWidth: 20,
         },
       },
       exporting: {},
-      series: values,
+      series: coloredValues,
       credits: {
         enabled: false,
       },

@@ -3,6 +3,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { ChartService, LanguageService } from 'shared-lib';
 import { FinanceDashboardService } from '../../finance-dashboard.service';
 import { Chart } from 'angular-highcharts';
+import { BankAccountsBalance, CashFlowSummary } from '../../models';
 
 @Component({
   selector: 'app-finance-dashboard',
@@ -36,8 +37,12 @@ export class FinanceDashboardComponent {
   statusChartLabel: string[] = [];
   statusChartValues: any = [];
   totalBankTreasuriesChart: Chart;
+  totalBankTreasuriesData: any = [];
   incomeChart: Chart;
   outgoingChart: Chart;
+  outGoingChartData: any = [];
+  cashFlowSummary: CashFlowSummary = {} as CashFlowSummary;
+  bankAccounts: BankAccountsBalance = {} as BankAccountsBalance;
 
   // loaders
   statusLoader: boolean = false;
@@ -96,17 +101,74 @@ export class FinanceDashboardComponent {
       );
     });
 
-    this.service.bank$.pipe(takeUntil(this.destroy$)).subscribe((data) => {});
+    this.service.bank$.pipe(takeUntil(this.destroy$)).subscribe((data) => {
+      this.bankAccounts = data;
+    });
 
-    this.service.cashFlowSummary$.pipe(takeUntil(this.destroy$)).subscribe((data) => {});
+    this.service.cashFlowSummary$.pipe(takeUntil(this.destroy$)).subscribe((data) => {
+      this.cashFlowSummary = data;
+    });
 
-    this.service.totalBankTreasuries$.pipe(takeUntil(this.destroy$)).subscribe((data) => {});
+    this.service.totalBankTreasuries$.pipe(takeUntil(this.destroy$)).subscribe((data: any) => {
+      let sum = 0;
+      for (let i in data) {
+        sum += data[i];
+      }
+      Object.keys(data).forEach((key, index) => {
+        this.totalBankTreasuriesData.push({
+          name: key,
+          y: parseFloat(((data[key] / sum) * 100).toFixed(2)),
+          value: data[key],
+          color: this.colors[index],
+        });
+      });
+      this.totalBankTreasuriesChart = this.chartService.donutChart(this.totalBankTreasuriesData);
+    });
 
     this.service.treasuries$.pipe(takeUntil(this.destroy$)).subscribe((data) => {});
 
-    this.service.income$.pipe(takeUntil(this.destroy$)).subscribe((data) => {});
+    this.service.income$.pipe(takeUntil(this.destroy$)).subscribe((data) => {
+      const months: string[] = [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December',
+      ];
+      const categories = Array.from(new Set(data.map((item) => item.paidBy)));
+      const dataSeries = categories.map((category) => ({
+        name: category,
+        data: months.map((month) => {
+          const found = data.find(
+            (item) => item.paidBy === category && item.month.startsWith(month)
+          );
+          return found ? found.totalAmount : 0;
+        }),
+      }));
 
-    this.service.outgoing$.pipe(takeUntil(this.destroy$)).subscribe((data) => {});
+      this.incomeChart = this.chartService.multipleColumnChart(months, dataSeries);
+    });
+
+    this.service.outgoing$.pipe(takeUntil(this.destroy$)).subscribe((data) => {
+      const sum = data.reduce((acc: number, item: any) => {
+        return acc + (item.totalAmount || 0);
+      }, 0);
+      this.outGoingChartData = data.map((item, index) => ({
+        y: parseFloat(((item.totalAmount / sum) * 100).toFixed(2)),
+        value: item.totalAmount,
+        name: item.paidBy,
+        color: this.colors[index],
+      }));
+
+      this.outgoingChart = this.chartService.donutChart(this.outGoingChartData);
+    });
 
     this.service.recentIncomeTransactions$.pipe(takeUntil(this.destroy$)).subscribe((data) => {});
     this.service.recentOutgoingTransactions$.pipe(takeUntil(this.destroy$)).subscribe((data) => {});
