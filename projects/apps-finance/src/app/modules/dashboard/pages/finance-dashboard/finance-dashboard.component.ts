@@ -3,7 +3,13 @@ import { Subject, takeUntil } from 'rxjs';
 import { ChartService, LanguageService } from 'shared-lib';
 import { FinanceDashboardService } from '../../finance-dashboard.service';
 import { Chart } from 'angular-highcharts';
-import { BankAccountsBalance, CashFlowSummary } from '../../models';
+import {
+  BankAccountsBalance,
+  CashFlowSummary,
+  IncomeTransaction,
+  OutgoingTransaction,
+  TreasuriesBalance,
+} from '../../models';
 
 @Component({
   selector: 'app-finance-dashboard',
@@ -43,6 +49,9 @@ export class FinanceDashboardComponent {
   outGoingChartData: any = [];
   cashFlowSummary: CashFlowSummary = {} as CashFlowSummary;
   bankAccounts: BankAccountsBalance = {} as BankAccountsBalance;
+  recentIncomeTransactionData: IncomeTransaction[] = [];
+  recentOutgoingTransactionData: OutgoingTransaction[] = [];
+  treasuries: TreasuriesBalance = {} as TreasuriesBalance;
 
   // loaders
   statusLoader: boolean = false;
@@ -101,10 +110,6 @@ export class FinanceDashboardComponent {
       );
     });
 
-    this.service.bank$.pipe(takeUntil(this.destroy$)).subscribe((data) => {
-      this.bankAccounts = data;
-    });
-
     this.service.cashFlowSummary$.pipe(takeUntil(this.destroy$)).subscribe((data) => {
       this.cashFlowSummary = data;
     });
@@ -125,7 +130,13 @@ export class FinanceDashboardComponent {
       this.totalBankTreasuriesChart = this.chartService.donutChart(this.totalBankTreasuriesData);
     });
 
-    this.service.treasuries$.pipe(takeUntil(this.destroy$)).subscribe((data) => {});
+    this.service.bank$.pipe(takeUntil(this.destroy$)).subscribe((data) => {
+      this.bankAccounts = data;
+    });
+
+    this.service.treasuries$.pipe(takeUntil(this.destroy$)).subscribe((data) => {
+      this.treasuries = data;
+    });
 
     this.service.income$.pipe(takeUntil(this.destroy$)).subscribe((data) => {
       const months: string[] = [
@@ -170,8 +181,12 @@ export class FinanceDashboardComponent {
       this.outgoingChart = this.chartService.donutChart(this.outGoingChartData);
     });
 
-    this.service.recentIncomeTransactions$.pipe(takeUntil(this.destroy$)).subscribe((data) => {});
-    this.service.recentOutgoingTransactions$.pipe(takeUntil(this.destroy$)).subscribe((data) => {});
+    this.service.recentIncomeTransactions$.pipe(takeUntil(this.destroy$)).subscribe((data) => {
+      this.recentIncomeTransactionData = data;
+    });
+    this.service.recentOutgoingTransactions$.pipe(takeUntil(this.destroy$)).subscribe((data) => {
+      this.recentOutgoingTransactionData = data;
+    });
   }
 
   loadersSubscriptions() {
@@ -220,7 +235,7 @@ export class FinanceDashboardComponent {
     this.getIncome();
     this.getOutgoing();
     this.getRecentIncomeTransactions();
-    // this.getRecentOutgoingTransactions();
+    this.getRecentOutgoingTransactions();
   }
 
   getStatus() {

@@ -9,6 +9,11 @@
     "cashFlowSummary": "Cash Flow Summary",
     "resentTransactions": "Resent Transactions",
     "glAccounts": "GL Accounts",
-    "moreDetails": "More Details"
+    "moreDetails": "More Details",
+    "recentIncomeTransaction": "Recent Income Transaction",
+    "recentOutgoingTransaction": "Recent Outgoing Transaction",
+    "paymentIn": "Payment In",
+    "paymentOut": "Payment Out",
+    "cashFlow": "Cash Flow"
   }
 }

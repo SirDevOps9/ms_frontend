@@ -123,3 +123,11 @@
     }
   }
 }
+
+.code-details {
+  display: flex;
+  flex-direction: column;
+  .code {
+    color: #5e6278;
+  }
+}

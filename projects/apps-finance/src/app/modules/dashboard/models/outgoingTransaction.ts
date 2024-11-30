@@ -4,4 +4,5 @@ export interface OutgoingTransaction {
   paymentHubDetails: string;
   paymentInDate: string;
   paymentInId: number;
+  code: string;
 }

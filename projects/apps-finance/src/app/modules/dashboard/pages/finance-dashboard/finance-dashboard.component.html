@@ -67,6 +67,7 @@
           <app-chart-card
             [chartDTO]="totalBankTreasuriesChart"
             [chartDetailsConfig]="totalBankTreasuriesData"
+            [smallSize]="true"
           >
             <div class="chart-header">
               <div class="title title-card-wrapper heading_b18">
@@ -129,16 +130,16 @@
               </div>
             </div>
             <div class="chart-body accounts-bank w-full">
-              @for(acc of bankAccounts.accounts; track acc) {
+              @for(treasure of treasuries.treasuries; track treasure) {
               <div class="row">
-                <span class="body-14 mx-1">{{ acc.bankName }}</span>
-                <span class="detail-type body_b14 pointer">
-                  {{ acc.accountNumber }}
+                <span class="body-14 mx-1">{{ treasure.treasuryName }}</span>
+                <span class="body_b14 pointer">
+                  {{ treasure.treasuryCode }}
                 </span>
 
                 <span class="line"></span>
                 <span class="detail-value heading_b16">{{
-                  acc.currentBalance | decimalSeparator
+                  treasure.currentBalance | decimalSeparator
                 }}</span>
               </div>
               }
@@ -218,7 +219,9 @@
         <div class="lg:col-6 col-12" [appLoader]="recentIncomeTransactionsLoader">
           <app-chart-card>
             <div class="chart-header">
-              <div class="title heading_b18">{{ 'dashboard.resentTransactions' | translate }}</div>
+              <div class="title heading_b18">
+                {{ 'dashboard.recentIncomeTransaction' | translate }}
+              </div>
               <div class="action body_b14">
                 <span class="pointer">
                   {{ 'dashboard.moreDetails' | translate }} <i class="pi pi-arrow-right fs-14"></i>
@@ -228,30 +231,34 @@
               </div>
             </div>
             <div class="chart-body accounts-bank w-full">
-              <!-- @for(acc of cashBankAccountsBalance.accounts; track acc) {
-          <div class="row">
-            <span class="body-14 mx-1">{{ acc.accountName }}</span>
-            <span
-              class="detail-type body_b14 pointer"
-              [style.background-color]="acc.accountTypeId == 2 ? '#e7994f' : '#5eb5af'"
-              [routerLink]="'transcations/account-statement/' + acc.accountId"
-            >
-              {{ acc.accountTypeName }}
-            </span>
+              @for(acc of recentIncomeTransactionData; track acc) {
+              <div class="row">
+                <div class="code-details">
+                  <span class="code body_b11">{{ acc.code || 'code' }}</span>
+                  <span class="body-14 mx-1">{{ acc.paymentHubDetails }}</span>
+                </div>
+                <span class="line"></span>
 
-            <span class="line"></span>
-            <span class="detail-value heading_b16">{{ acc.balance | decimalSeparator }}</span>
-          </div>
-          } -->
+                <span class="body-14 mx-1">{{ acc.name }}</span>
+                <span class="line"></span>
+
+                <span class="body-14 mx-1">{{ acc.paymentInDate }}</span>
+                <span class="line"></span>
+
+                <span class="body-14 mx-1">{{ acc.amount | decimalSeparator }}</span>
+              </div>
+              }
 
               <div class="grid"></div>
             </div>
           </app-chart-card>
         </div>
-        <div class="lg:col-6 col-12" [appLoader]="recentIncomeTransactionsLoader">
+        <div class="lg:col-6 col-12" [appLoader]="recentOutgoingTransactionsLoader">
           <app-chart-card>
             <div class="chart-header">
-              <div class="title heading_b18">{{ 'dashboard.resentTransactions' | translate }}</div>
+              <div class="title heading_b18">
+                {{ 'dashboard.recentOutgoingTransaction' | translate }}
+              </div>
               <div class="action body_b14">
                 <span class="pointer">
                   {{ 'dashboard.moreDetails' | translate }} <i class="pi pi-arrow-right fs-14"></i>
@@ -261,21 +268,23 @@
               </div>
             </div>
             <div class="chart-body accounts-bank w-full">
-              <!-- @for(acc of cashBankAccountsBalance.accounts; track acc) {
-          <div class="row">
-            <span class="body-14 mx-1">{{ acc.accountName }}</span>
-            <span
-              class="detail-type body_b14 pointer"
-              [style.background-color]="acc.accountTypeId == 2 ? '#e7994f' : '#5eb5af'"
-              [routerLink]="'transcations/account-statement/' + acc.accountId"
-            >
-              {{ acc.accountTypeName }}
-            </span>
+              @for(acc of recentOutgoingTransactionData; track acc) {
+              <div class="row">
+                <div class="code-details">
+                  <div class="code body_b11">{{ acc.code || 'code' }}</div>
+                  <span class="body-14 mx-1">{{ acc.paymentHubDetails }}</span>
+                </div>
+                <span class="line"></span>
 
-            <span class="line"></span>
-            <span class="detail-value heading_b16">{{ acc.balance | decimalSeparator }}</span>
-          </div>
-          } -->
+                <span class="body-14 mx-1">{{ acc.name }}</span>
+                <span class="line"></span>
+
+                <span class="body-14 mx-1">{{ acc.paymentInDate }}</span>
+                <span class="line"></span>
+
+                <span class="body-14 mx-1">{{ acc.amount | decimalSeparator }}</span>
+              </div>
+              }
 
               <div class="grid"></div>
             </div>

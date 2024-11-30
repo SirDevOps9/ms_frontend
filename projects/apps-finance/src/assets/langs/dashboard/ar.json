@@ -9,6 +9,11 @@
     "cashFlowSummary": "ملخص النقود المالية",
     "resentTransactions": "المعاملات الحديثة",
     "glAccounts": "حسابات السيولة",
-    "moreDetails": "المزيد من التفاصيل"
+    "moreDetails": "المزيد من التفاصيل",
+    "recentIncomeTransaction": "أحدث المعاملات الدخل",
+    "recentOutgoingTransaction": "أحدث المعاملات الصادر",
+    "paymentIn": "دخول",
+    "paymentOut": "صادر",
+    "cashFlow": "نقود المالية"
   }
 }

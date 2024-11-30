@@ -140,7 +140,7 @@ export class ChartService {
       },
       yAxis: {
         min: 0,
-        tickInterval: 20,
+        tickInterval: 200,
         title: {
           text: null,
         },
@@ -206,7 +206,7 @@ export class ChartService {
       },
       plotOptions: {
         column: {
-          pointPadding: 0.1,
+          pointPadding: 0.2,
           borderWidth: 0,
           groupPadding: 0.1,
           pointWidth: 20,

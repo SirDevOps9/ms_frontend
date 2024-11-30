@@ -6,5 +6,5 @@ export interface TreasuriesAccount {
 
 export interface TreasuriesBalance {
   totalBalance: number;
-  treasuries: TreasuriesBalance[];
+  treasuries: TreasuriesAccount[];
 }
