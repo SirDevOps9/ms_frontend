@@ -9,7 +9,8 @@ export interface ItemDto {
   uomNameEn: string;
   itemVariantId: number;
   itemVariantCode: string;
-  itemVariantName: string;
+  itemVariantNameAr: string;
+  itemVariantNameEn: string;
   itemCategoryNameAr: string;
   itemCategoryNameEn: string;
   categoryType: string;

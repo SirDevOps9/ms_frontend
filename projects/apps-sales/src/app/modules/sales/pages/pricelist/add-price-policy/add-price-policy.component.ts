@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { customValidators, FormsService, LanguageService, RouterService, ToasterService } from 'shared-lib';
+import { Cultures, customValidators, FormsService, LanguageService, RouterService, ToasterService } from 'shared-lib';
 import { MultiSelectItemsComponent } from '../../../components/multi-select-items/multi-select-items.component';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ItemDto } from '../../../models';
@@ -31,6 +31,11 @@ export class AddPricePolicyComponent implements OnInit ,OnDestroy  {
     this.initItemsData()
     this.initializeForm()
   }
+
+  get currentLang(): string {
+    return this.languageService.getLang();
+  }
+
   initializeForm() {
     this.addForm = this.formBuilder.group({
 
@@ -108,10 +113,12 @@ export class AddPricePolicyComponent implements OnInit ,OnDestroy  {
       rowForm.get('uomOptions')?.setValue(uomOptions);
       rowForm.get('uomId')?.reset(); // Reset the UOM value to avoid conflicts
       rowForm.get('uomId')?.setValue(selectedItem.uomId);
-      rowForm.get('uomName')?.setValue(selectedItem.uomNameEn);
+      const uomName = this.currentLang == Cultures.English ? selectedItem.uomNameEn : selectedItem.uomNameAr
+      rowForm.get('uomName')?.setValue(uomName);
       rowForm.get('itemName')?.setValue(selectedItem.itemName);
       rowForm.get('itemVariantId')?.setValue(selectedItem.itemVariantId);
-      rowForm.get('itemVariantName')?.setValue(selectedItem.itemVariantName);
+      const itemVariantName = this.currentLang == Cultures.English ? selectedItem.itemVariantNameEn : selectedItem.itemVariantNameAr
+      rowForm.get('itemVariantName')?.setValue(itemVariantName);
       rowForm.get('itemId')?.setValue(selectedItem.itemId);
       rowForm.get('itemCode')?.setValue(selectedItem.itemCode);
       rowForm.get('taxId')?.setValue(selectedItem.taxId || null);
@@ -193,10 +200,14 @@ export class AddPricePolicyComponent implements OnInit ,OnDestroy  {
       rowForm.get('uomOptions')?.setValue(uomOptions);
       rowForm.get('uomId')?.reset(); // Reset the UOM value to avoid conflicts
       rowForm.get('uomId')?.setValue(selectedItem.uomId);
-      rowForm.get('uomName')?.setValue(selectedItem.uomNameEn);
+      const uomName = this.currentLang == Cultures.English ? 
+      selectedItem.uomNameEn : selectedItem.uomNameAr
+      rowForm.get('uomName')?.setValue(uomName);
       rowForm.get('itemName')?.setValue(selectedItem.itemName);
       rowForm.get('itemVariantId')?.setValue(selectedItem.itemVariantId);
-      rowForm.get('itemVariantName')?.setValue(selectedItem.itemVariantName);
+      const itemVariantName =  this.currentLang == Cultures.English ? 
+      selectedItem.itemVariantNameEn : selectedItem.itemVariantNameAr
+      rowForm.get('itemVariantName')?.setValue(itemVariantName);
       rowForm.get('itemId')?.setValue(selectedItem.itemId);
       rowForm.get('itemCode')?.setValue(selectedItem.itemCode);
       rowForm.get('taxId')?.setValue(selectedItem.taxId || null);
@@ -331,10 +342,15 @@ this.salesService.pricePolicyListObser.subscribe((res) => {
         rowForm.get('uomOptions')?.setValue(uomOptions); // Store options for template access
         rowForm.get('uomId')?.reset(); // Reset the UOM value to avoid conflicts
         rowForm.get('uomId')?.setValue(selectedItems.uomId); // Optionally set the first UOM
+        const uomName = this.currentLang == Cultures.English ? 
+        selectedItems.uomNameEn : selectedItems.uomNameAr
+        rowForm.get('uomName')?.setValue(uomName);
         rowForm.get('uomName')?.setValue(selectedItems.uomNameAr); // Optionally set the first UOM
         rowForm.get('itemName')?.setValue(selectedItems.itemName); // Optionally set the first UOM
         rowForm.get('itemVariantId')?.setValue(selectedItems.itemVariantId); // Optionally set the first UOM
-        rowForm.get('itemVariantName')?.setValue(selectedItems.itemVariantName); // Optionally set the first UOM
+        const itemVariantName = this.currentLang == Cultures.English ? 
+        selectedItems.itemVariantNameEn : selectedItems.itemVariantNameAr
+        rowForm.get('itemVariantName')?.setValue(itemVariantName); // Optionally set the first UOM
         rowForm.get('itemId')?.setValue(selectedItems.itemId)
         rowForm.get('itemCode')?.setValue(selectedItems.itemCode)
         rowForm.get('taxId')?.setValue(selectedItems.taxId)
