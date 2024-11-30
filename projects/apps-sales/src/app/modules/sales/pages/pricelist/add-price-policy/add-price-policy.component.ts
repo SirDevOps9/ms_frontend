@@ -314,9 +314,13 @@ export class AddPricePolicyComponent implements OnInit ,OnDestroy  {
         // this.items = res;
         this.items = res.map((item, index) => ({
           ...item,    // Spread existing properties from the original item
-          id: index + 1 // Add an `id` field starting from 1
+          id: index + 1, // Add an `id` field starting from 1
+          displayName: `(${item.itemCode}) ${item.itemName}-${
+            this.currentLang == 'en' ? item.itemVariantNameEn : item.itemVariantNameAr
+          }`
         }));
       },
+      
     });
 this.salesService.pricePolicyListObser.subscribe((res) => {
   if(res.id){
