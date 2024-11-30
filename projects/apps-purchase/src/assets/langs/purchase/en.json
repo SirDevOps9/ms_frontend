@@ -8,6 +8,19 @@
     "discard": "discard",
     "Save": "Save"
   },
+  "messages": {
+    "success": "Success",
+    "error": "Error",
+    "noItemSelected": "No item selected for editing.",
+    "noItemsToAdd": "No items to add",
+    "successfully": "Operation completed successfully.",
+    "duplicateItem": "There is a duplicated item.",
+    "serialError": "Can't add more than one item with the same serial.",
+    "noBarcode": "This barcode does not exist.",
+    "notEdit": "This stockout cannot be edited because it is posted.",
+    "setTracking":"You must set tracking in the row ",
+    "stockOutPostedSuccessfully": "Stock Out Posted successfully"
+  },
   "BreadCrumb":{
    "edit":"edit"
   },
@@ -325,6 +338,46 @@
     "vat": "VAT",
     "VatAmount": "VAT amount",
     "tracking": "Tracking",
-    "grandTotal": "grand total"
+    "grandTotal": "grand total",
+    "mainInformation": "Main Information",
+    "invoiceCode": "Invoice Code",
+    "invoiceDate": "Invoice Date",
+    "invoiceDescription": "Invoice Description",
+    "warehouse": "Warehouse",
+    "relatedOperation": "Related Operation",
+    "vendorCode": "Vendor Code",
+    "vendorName": "Vendor Name",
+    "currency": "Currency",
+    "rate": "Rate",
+    "paymentTerms": "Payment Terms",
+    "reference": "Reference",
+    "invoiceSummary": "Invoice Summary",
+  "numberOfItems": "Number of items",
+  "total": "Total",
+  "totalAfterDiscount": "Total after discount",
+  "totalOfQuantity": "Total of quantity",
+  "discount": "Discount",
+  "vatAmount": "VAT Amount",
+  "afterVat": "After VAT"
+  },
+  "ItemsAdvancedSearch": {
+    "ItemSearch": "Item Search",
+    "IsStorable": "IsStorable",
+    "IsService": "IsService",
+    "HasExpiryDate": "Has Expiry Date",
+    "ItemCode": "Item Code",
+    "ItemName": "Item Name",
+    "ItemUOM": "Item UOM",
+    "ItemVariant": "Item Variant",
+    "ItemCategory": "Item Category",
+    "Confirm": "Confirm"
+  },
+  "setTracking": {
+    "setTracking": "Set Tracking",
+    "expiryDate": "Expiry Date",
+    "generatedBatch": "Generated Batch",
+    "Expiry": "Expiry",
+    "vendorBatchNo": "Batch No"
   }
+
 }

@@ -7,6 +7,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { BreadcrumbLabel, Modules, Pages, SharedLibModule } from 'shared-lib';
 import { LayoutPageComponent, SequenceComponent } from 'apps-shared-lib';
 import { MainPurchaseInvoiceComponent } from './pages/purchase-invoice/main-purchase-invoice/main-purchase-invoice.component';
+import { ItemAdvancedSearchEditComponent } from './components/item-advanced-search-edit/item-advanced-search-edit.component';
+import { TrackingEditComponent } from './components/tracking-edit/tracking-edit.component';
 import { PurchaseInvoiceTrackingComponent } from './components/purchase-invoice-tracking/purchase-invoice-tracking.component';
 import { ItemAdvancedSearchPurchaseInvoiceComponent } from './components/item-advanced-search-purchase-invoice/item-advanced-search-purchase-invoice.component';
 import { ViewInvoiceComponent } from './pages/purchase-invoice/view-invoice/view-invoice.component';
@@ -35,7 +37,7 @@ const routes: Routes = [
             },
           },
           {
-            path: 'add-purchase-invoice',
+            path: 'add',
             component: AddPurchaseInvoiceComponent,
             data: {
               breadcrumb: BreadcrumbLabel.purchaseInvoiceAdd,
@@ -43,11 +45,11 @@ const routes: Routes = [
             },
           },
           {
-            path: 'Edit-purchase-invoice/:id',
+            path: 'edit/:id',
             component: EditPurchaseInvoiceComponent,
             data: {
-              breadcrumb: 'BreadcrumbLabel.purchaseInvoiceEdit',
-              pageTitle: BreadcrumbLabel.purchaseInvoiceEdit,
+              breadcrumb: BreadcrumbLabel.PURCHASE_EDIT,
+              pageTitle: BreadcrumbLabel.TITLE_PURCHASE_EDIT,
             },
           },
           {
@@ -61,7 +63,7 @@ const routes: Routes = [
             },
           },
           {
-            path: 'view-purchase-invoice/:id',
+            path: 'view/:id',
             component: ViewInvoiceComponent,
             data: {
               breadcrumb: BreadcrumbLabel.purchaseInvoiceView,
@@ -80,9 +82,11 @@ const routes: Routes = [
     EditPurchaseInvoiceComponent,
     PurchaseInvoiceListComponent,
     MainPurchaseInvoiceComponent,
+    ItemAdvancedSearchEditComponent,
+    TrackingEditComponent,
     PurchaseInvoiceTrackingComponent,
     ItemAdvancedSearchPurchaseInvoiceComponent,
-    ViewInvoiceComponent
+    ViewInvoiceComponent,
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule],
 })
