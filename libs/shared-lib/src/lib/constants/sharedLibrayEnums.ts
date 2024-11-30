@@ -26,6 +26,10 @@ export class SharedLibraryEnums {
     return Licenses;
   }
 
+  get ServiceTypes(): typeof Services {
+    return Services;
+  }
+  
   get CulturesEnum(): typeof Cultures {
     return Cultures;
   }
