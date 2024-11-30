@@ -1,10 +1,9 @@
-import { Component, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'microtec-auth-lib';
-import { LanguageService, PageInfoResult, RouterService, customValidators } from 'shared-lib';
+import { PageInfoResult, RouterService } from 'shared-lib';
 
-import { Table } from 'primeng/table';
 import { TransactionsService } from '../../../transactions.service';
 import { SharedFinanceEnums } from '../../../models/sharedEnumStockIn';
 
@@ -15,6 +14,11 @@ import { SharedFinanceEnums } from '../../../models/sharedEnumStockIn';
 })
 export class ViewStockInComponent {
   stockInForm: FormGroup;
+  currentPageInfo: PageInfoResult = {};
+  selectedLanguage: string;
+  tableData: any[];
+  filteredData: any[];
+
   globalFilterFields: string[] = [
     'barCode',
     'description',
@@ -26,17 +30,12 @@ export class ViewStockInComponent {
     'notes',
   ];
 
-  currentPageInfo: PageInfoResult = {};
-
-  selectedLanguage: string;
-  tableData: any[];
-  filteredData: any[];
-
   ngOnInit(): void {
     const id = this._route.snapshot.params['id'];
     this.initForm();
     this.getStockInViewById(id);
   }
+
   initForm() {
     this.stockInForm = this.fb.group({
       receiptDate: '',
@@ -67,7 +66,7 @@ export class ViewStockInComponent {
   }
 
   onCancel() {
-    this.router.navigateTo('/transactions/stock-in');
+    this.router.navigateTo('/transactions/stock-out');
   }
 
   populateInvoiceDetails(details: any[]) {
@@ -77,7 +76,6 @@ export class ViewStockInComponent {
 
   onSearchTermChange(search: any): void {
     const term = search.target.value?.toLowerCase() || '';
-
     this.filteredData = this.tableData.filter((item) => {
       return this.globalFilterFields.some((key) => {
         const value = item[key];
@@ -89,7 +87,6 @@ export class ViewStockInComponent {
   constructor(
     public authService: AuthService,
     private transactions_services: TransactionsService,
-    private langService: LanguageService,
     public sharedFinanceEnums: SharedFinanceEnums,
     public router: RouterService,
 
