@@ -2,7 +2,7 @@ export interface OutgoingTransaction {
   amount: number;
   name: string;
   paymentHubDetails: string;
-  paymentInDate: string;
+  paymentOutDate: string;
   paymentInId: number;
   code: string;
 }

@@ -3,7 +3,7 @@
     <ng-content select=".chart-header"></ng-content>
   </div>
 
-  <div class="chart-card-body grid">
+  <div class="chart-card-body grid" [ngClass]="hideFooter ? 'hide-footer' : ''">
     @if(chartDTO && chartDetailsConfig) {
     <div
       class="cart"
@@ -14,9 +14,9 @@
       @for(detail of chartDetailsConfig; track detail) {
       <div class="detail-row w-full">
         <span class="color-box" [style.background-color]="detail.color"></span>
-        <span class="detail-name">{{ detail.name }}</span>
+        <span class="detail-name paragraph_b14">{{ detail.name }}</span>
         <span class="line"></span>
-        <span class="detail-value">{{ detail.value }}</span>
+        <span class="detail-value heading_b16">{{ detail.value }}</span>
       </div>
       }
     </div>

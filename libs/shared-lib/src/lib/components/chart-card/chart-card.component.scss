@@ -1,6 +1,8 @@
 ::ng-deep {
-  .highcharts-legend.highcharts-no-tooltip {
-    display: none;
+  .hide-footer {
+    .highcharts-legend.highcharts-no-tooltip {
+      display: none;
+    }
   }
 }
 
@@ -33,7 +35,6 @@
       }
 
       .detail-name {
-        font-weight: bold;
         margin-right: 10px;
       }
 

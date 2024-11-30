@@ -14,6 +14,8 @@
     "recentOutgoingTransaction": "أحدث المعاملات الصادر",
     "paymentIn": "دخول",
     "paymentOut": "صادر",
-    "cashFlow": "نقود المالية"
+    "cashFlow": "نقود المالية",
+    "totalInBank": "المجموع في البنك",
+    "totalInTreasury": "المجموع في الخصومات"
   }
 }

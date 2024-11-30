@@ -18,25 +18,6 @@ import {
 })
 export class FinanceDashboardComponent {
   currentLanguage: string;
-  currencyDropDown = [
-    {
-      label: 'EGP',
-      value: 'EGP',
-    },
-    {
-      label: 'USD',
-      value: 'USD',
-    },
-    {
-      label: 'EUR',
-      value: 'EUR',
-    },
-    {
-      label: 'GBP',
-      value: 'GBP',
-    },
-  ];
-  defaultCurrency = this.currencyDropDown[0];
 
   // charts
   statusChart: Chart;
@@ -139,7 +120,7 @@ export class FinanceDashboardComponent {
     });
 
     this.service.income$.pipe(takeUntil(this.destroy$)).subscribe((data) => {
-      const months: string[] = [
+      const monthsEn: string[] = [
         'January',
         'February',
         'March',
@@ -153,6 +134,22 @@ export class FinanceDashboardComponent {
         'November',
         'December',
       ];
+      const monthsAr: string[] = [
+        'يناير',
+        'فبراير',
+        'مارس',
+        'أبريل',
+        'مايو',
+        'يونيو',
+        'يوليو',
+        'أغسطس',
+        'سبتمبر',
+        'أكتوبر',
+        'نوفمبر',
+        'ديسمبر',
+      ];
+      const months = this.currentLanguage === 'en' ? monthsEn : monthsAr;
+
       const categories = Array.from(new Set(data.map((item) => item.paidBy)));
       const dataSeries = categories.map((category) => ({
         name: category,
@@ -264,10 +261,6 @@ export class FinanceDashboardComponent {
   }
   getRecentOutgoingTransactions() {
     this.service.fetchRecentOutgoingTransactions();
-  }
-
-  selectCurrency(e: any) {
-    console.log(e);
   }
 
   ngOnDestroy() {
