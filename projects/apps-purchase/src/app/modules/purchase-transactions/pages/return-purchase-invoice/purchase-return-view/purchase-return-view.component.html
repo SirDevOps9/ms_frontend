@@ -279,9 +279,9 @@
               "
             >
               {{
-                tracking.invoiceTracking.systemPatchNo +
+                tracking.returnInvoiceTracking.systemPatchNo +
                   ' - ' +
-                  (tracking.invoiceTracking.expireDate | date : 'dd/MM/yyyy')
+                  (tracking.returnInvoiceTracking.expireDate | date : 'dd/MM/yyyy')
               }}
             </p>
             <!-- notracking  and no has  -->
@@ -301,9 +301,9 @@
               "
             >
               {{
-                tracking.invoiceTracking.serialId +
+                tracking.returnInvoiceTracking.serialId +
                   ' - ' +
-                  (tracking.invoiceTracking.expireDate | date : 'dd/MM/yyyy')
+                  (tracking.returnInvoiceTracking.expireDate | date : 'dd/MM/yyyy')
               }}
             </p>
             <!-- serial and no has -->
@@ -313,7 +313,7 @@
                 tracking.trackingType == this.sharedFinanceEnums.trackingType.Serial
               "
             >
-              {{ tracking.invoiceTracking.serialId }}
+              {{ tracking.returnInvoiceTracking.serialId }}
             </p>
             <!-- batch and  has -->
             <p
@@ -323,9 +323,9 @@
               "
             >
               {{
-                tracking.invoiceTracking.vendorBatchNo +
+                tracking.returnInvoiceTracking.vendorBatchNo +
                   ' - ' +
-                  (tracking.invoiceTracking.expireDate | date : 'dd/MM/yyyy')
+                  (tracking.returnInvoiceTracking.expireDate | date : 'dd/MM/yyyy')
               }}
             </p>
             <!-- batch and no  has -->
@@ -335,7 +335,7 @@
                 tracking.trackingType == this.sharedFinanceEnums.trackingType.Batch
               "
             >
-              {{ tracking.invoiceTracking.vendorBatchNo }}
+              {{ tracking.returnInvoiceTracking.vendorBatchNo }}
             </p>
           </ng-template>
         </lib-data-table>

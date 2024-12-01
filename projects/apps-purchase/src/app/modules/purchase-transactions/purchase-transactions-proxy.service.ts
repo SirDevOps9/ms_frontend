@@ -182,4 +182,9 @@ export class PurchaseTransactionsProxyService {
     const url = `ReturnInvoice/GetViewById/${id}`;
     return this.httpService.get<viewInvoiceReturnObj>(url);
   }
+
+  // delete
+  deleteInvoiceReturnLine(id: number): Observable<boolean> {
+    return this.httpService.delete<boolean>(`ReturnInvoice/${id}`);
+  }
 }

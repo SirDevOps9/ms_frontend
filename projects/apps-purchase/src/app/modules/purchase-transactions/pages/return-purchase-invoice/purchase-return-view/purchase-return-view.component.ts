@@ -15,11 +15,11 @@ import { SharedFinanceEnums } from 'projects/apps-inventory/src/app/modules/tran
 })
 export class PurchaseReturnViewComponent {
   addForm: FormGroup = new FormGroup({});
-  tableData: any[];
+  tableData: any[] = [];
 
   currentPageInfo: PageInfoResult = {};
 
-  filteredData: any[];
+  filteredData: any[] = [];
 
   ngOnInit(): void {
     const id = this.route.snapshot.params['id'];
@@ -61,7 +61,7 @@ export class PurchaseReturnViewComponent {
   getViewInvoice(id: number) {
     this.purchasetransactionsService.GetInvoiceReturnViewById(id);
     this.purchasetransactionsService.viewInvoiceReturnDataByID.subscribe({
-      next: (res) => {
+      next: (res: any) => {
         if (res) {
           this.addForm.patchValue({
             code: res.code,
@@ -111,7 +111,7 @@ export class PurchaseReturnViewComponent {
     const term = search.target.value?.toLowerCase() || '';
 
     this.filteredData = this.tableData.filter((item) => {
-      return ['barCode', 'uomName', 'itemCode', 'description'].some((key) => {
+      return ['uomName', 'itemCode', 'description'].some((key) => {
         const value = item[key];
         return value && value.toString().toLowerCase().includes(term);
       });

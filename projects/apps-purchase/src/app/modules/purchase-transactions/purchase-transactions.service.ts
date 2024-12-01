@@ -231,4 +231,25 @@ export class PurchaseTransactionsService {
       this.viewInvoiceReturnDataByID.next(res);
     });
   }
+  // delete
+  // delete invoice
+  async deleteInvoiceReturnLine(id: number) {
+    const confirmed = await this.toasterService.showConfirm('purchase.success');
+    if (confirmed) {
+      this.TransactionsProxy.deleteInvoiceReturnLine(id).subscribe({
+        next: (res) => {
+          this.toasterService.showSuccess(
+            this.languageService.transalte('purchase.success'),
+            this.languageService.transalte('purchase.delete')
+          );
+          let data = this.invoicePurchaseReturnList.getValue();
+          const updatedInvoice = data.filter((elem: any) => elem.id !== id);
+          this.invoicePurchaseReturnList.next(updatedInvoice);
+
+          return res;
+        },
+        error: (err) => {},
+      });
+    }
+  }
 }
