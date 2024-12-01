@@ -61,8 +61,8 @@ export class EmployeeService {
       },
     });
   }
-  exportsEmployeesList(searchTerm:string | undefined) {
-    this.employeeProxy.export(searchTerm).subscribe({
+  exportsEmployeesList(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
+    this.employeeProxy.export(searchTerm , SortBy , SortColumn).subscribe({
       next: (res) => {
         this.exportedEmployeeDataSource.next(res);
       },

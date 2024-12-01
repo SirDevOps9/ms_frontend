@@ -33,7 +33,8 @@ export class EditBranchesComponent {
   }
   initializeForm() {
     this.editBrancheForm = this.fb.group({
-      branchName: new FormControl('', [customValidators.required]),
+      nameEn: new FormControl('', [customValidators.required]),
+      nameAr: new FormControl('', [customValidators.required]),
       countryCode: new FormControl('', [customValidators.required]),
       branchRegion: new FormControl(),
       branchCity: new FormControl(),

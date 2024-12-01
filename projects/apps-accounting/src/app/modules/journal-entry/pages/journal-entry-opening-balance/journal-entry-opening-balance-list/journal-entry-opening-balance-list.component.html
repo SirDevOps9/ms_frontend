@@ -1,6 +1,8 @@
 <lib-page-content>
   <div class="entry_tableCont">
-    <lib-data-table [items]="tableData" className="p-datatable-gridlines" [currentPageResult]="currentPageInfo"
+    <lib-data-table [items]="tableData" className="p-datatable-gridlines"
+    (exportObj)="exportClickBySort($event)"
+    [currentPageResult]="currentPageInfo"
       (pageChange)="onPageChange($event)" (addNew)="routeToAdd()" [tableConfigs]="{
         allowPagination: false,
         allowServerPagination: true,
@@ -72,7 +74,7 @@
 
 
           <lib-export
-          (exportClick)="exportClick($event)"
+          (exportClick)="exportClick()"
           [exportData]="exportData"
           [exportColumns]="exportColumns"
           [ExportName]="('Journal.JournalEnteryOpeningPrint' |translate)"

@@ -6,6 +6,8 @@ import { RouterService, LanguageService, lookupDto, PageInfoResult, MenuModule, 
 import { ItemsService } from '../../../items.service';
 import { GetItemCategoryDto, ItemTypeDto } from '../../../models';
 import { AddItemCategoryComponent } from '../../../components/add-item-category/add-item-category.component';
+import { SortTableEXport } from '../../../models/SortTable';
+import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
 
 @Component({
   selector: 'app-item-category-list',
@@ -19,44 +21,24 @@ export class ItemCategoryListComponent implements OnInit {
     private dialog: DialogService,
     private title: Title,
     private langService: LanguageService,
-    private itemsService : ItemsService
+    private itemsService : ItemsService,
+    private exportService:ExportService,
   ) {
-   
+
   }
 
   tableData: GetItemCategoryDto[];
 
   exportData: GetItemCategoryDto[];
-  cols = [
-
-    {
-      field: 'Code',
-      header: 'code',
-    },
-
-    {
-      field: 'Name',
-      header: 'name',
-    },
-    {
-      field: 'Short Name',
-      header: 'shortName',
-    },
-
-  ];
   exportColumns: lookupDto[];
   exportSelectedCols: string[] = [];
-
+  SortByAll:SortTableEXport
   currentPageInfo: PageInfoResult = {};
   modulelist: MenuModule[];
   searchTerm: string;
 
   ngOnInit() {
     this.initItemTypeData();
-    this.exportColumns = this.cols.map((col) => ({
-      id: col.header,
-      name: col.field,
-    }));
   }
 
   initItemTypeData() {
@@ -78,17 +60,41 @@ export class ItemCategoryListComponent implements OnInit {
     this.itemsService.getItemCategory('', pageInfo);
   }
 
-  exportItemClick(e: any) {
-    this.exportItemData(this.searchTerm);
+  exportItemClick() {
+    this.exportItemData(this.searchTerm, this.SortByAll?.SortBy, this.SortByAll?.SortColumn);
   }
 
-  exportItemData(searchTerm: string) {
-    this.itemsService.exportsItemCategoryList(searchTerm);
+  exportItemData(searchTerm: string, sortBy?: number, sortColumn?: string) {
+    this.itemsService.exportsItemCategoryList(searchTerm, sortBy, sortColumn);
+
+    let columns = [
+      { name: 'id', headerText: ('itemsCategory.code') },
+      { name: 'name', headerText: ('itemsCategory.name') },
+      { name: 'parentCategoryName', headerText: ('itemsCategory.parentCategory') },
+      { name: 'isDetailed', headerText: ('itemsCategory.isDetails') },
+      { name: 'isActive', headerText: ('itemsCategory.status') },
+      { name: 'categoryType', headerText: ('itemsCategory.categoryType') },
+
+
+
+    ];
+
+
     this.itemsService.exportedItemCategoryDataSourceObs.subscribe((res) => {
-      this.exportData = res;
+      this.exportData = this.exportService.formatItemAttributes(res, columns);
+      // console.log('Export data:', this.exportData);
     });
   }
 
+
+
+
+  exportClickBySort(e: { SortBy: number; SortColumn: string }) {
+    this.SortByAll = {
+      SortBy: e.SortBy,
+      SortColumn: e.SortColumn,
+    };
+  }
   onAdd() {
     this.dialog.open(AddItemCategoryComponent, {
       width: '647px',

@@ -2,7 +2,9 @@
   <div>
     <div class="user_page">
       <lib-data-table  [items]="tableData"
-        className="p-datatable-gridlines" [currentPageResult]="currentPageInfo" (pageChange)="onPageChange($event)"
+        className="p-datatable-gridlines"
+        (exportObj)="exportClickBySort($event)"
+        [currentPageResult]="currentPageInfo" (pageChange)="onPageChange($event)"
               [tableConfigs]="{
             allowPagination: false,
             allowServerPagination: true,
@@ -73,7 +75,7 @@
 
 
             <lib-export
-            (exportClick)="exportClick($event)"
+            (exportClick)="exportClick()"
             [exportData]="exportData"
             [exportColumns]="exportColumns"
             [ExportName]="('warehouse.warehousePrint' |translate)"

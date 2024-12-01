@@ -246,7 +246,7 @@ export class CompanyService {
     return this.companyProxy.getAllHoldingCompanies(subdomainId);
   }
 
-  getAllCompanies(subdomainId: string): Observable<lookupDto[]> {
+  getAllCompanies(subdomainId: string): Observable<any[]> {
     return this.companyProxy.getAllCompanies(subdomainId);
   }
 

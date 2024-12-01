@@ -79,8 +79,8 @@ export class JournalEntryService {
       });
   }
 
-  exportsEmployeesList(searchTerm: string | undefined) {
-    this.journalEntryProxy.exportGLOpeningBalance(searchTerm).subscribe({
+  exportsEmployeesList(SearchTerm: string ,SortBy?: number, SortColumn?: string) {
+    this.journalEntryProxy.exportGLOpeningBalance(SearchTerm , SortBy , SortColumn).subscribe({
       next: (res) => {
         this.journalEntriesOpeningBalanceDataSource.next(res);
       },
@@ -273,8 +273,8 @@ export class JournalEntryService {
     });
   }
 
-  exportJournalEntriesData(searchTerm: string | undefined) {
-    this.journalEntryProxy.exportJournalEntriesData(searchTerm).subscribe({
+  exportJournalEntriesData(SearchTerm: string ,SortBy?: number, SortColumn?: string) {
+    this.journalEntryProxy.exportJournalEntriesData(SearchTerm , SortBy , SortColumn ).subscribe({
       next: (res) => {
         this.exportsJournalEntriesDataSource.next(res);
       },
@@ -325,7 +325,7 @@ export class JournalEntryService {
 
           this.toasterService.showError(
             this.languageService.transalte('error'),
-            this.languageService.transalte('CannotDeleteattachment')   
+            this.languageService.transalte('CannotDeleteattachment')
 
           );
         },

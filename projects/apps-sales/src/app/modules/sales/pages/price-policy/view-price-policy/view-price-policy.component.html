@@ -43,12 +43,12 @@
                    isSortable: true
                  },
                  {
-                    name: selectedLanguage === 'en' ? 'uomNameEn' : 'uomNameAr',
+                    name: selectedLanguage === sharedLib.CulturesEnum.English  ? 'uomNameEn' : 'uomNameAr',
                     headerText: ('pricePolicy.UOM' | translate),
                  },
                  {
-                   name: 'itemVariantName',
-                   headerText: ('pricePolicy.varient' | translate),
+                  name: selectedLanguage === sharedLib.CulturesEnum.English  ? 'itemVariantNameEn' : 'itemVariantNameAr',
+                  headerText: ('pricePolicy.varient' | translate),
                  },
                  {
                    name: 'price',

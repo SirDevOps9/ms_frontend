@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AttachmentFileTypeEnum, LookupEnum } from '../models';
 import { Actions, Apps, Licenses, Services } from 'microtec-auth-lib';
+import { Cultures } from 'shared-lib';
 
 @Injectable({
   providedIn: 'root',
@@ -28,4 +29,9 @@ export class SharedLibraryEnums {
   get ServiceTypes(): typeof Services {
     return Services;
   }
+  
+  get CulturesEnum(): typeof Cultures {
+    return Cultures;
+  }
+
 }

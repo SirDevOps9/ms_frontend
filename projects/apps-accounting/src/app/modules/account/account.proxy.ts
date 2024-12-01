@@ -118,19 +118,19 @@ export class AccountProxy {
     return this.httpService.get<accountById>(`ChartOfAccounts/GetById?id=${id}`);
   }
 
- 
 
-  
+
+
 
   getAccountLookup(): Observable<costLookup[]> {
     return this.httpService.get('CostCenter/CostCenterDropDown');
   }
 
-  
 
-  
 
-  
+
+
+
   AddCostCenter(command: addCostCenter): Observable<addCostCenter> {
     return this.httpService.post('CostCenter/AddCostCenter', command);
   }
@@ -167,19 +167,32 @@ export class AccountProxy {
   }
 
 
-  exportAccountsData(searchTerm: string | undefined): Observable<ExportAccountsDto[]> {
+  exportAccountsData(
+    searchTerm?: string,
+    SortBy?: number,
+    SortColumn?: string): Observable<ExportAccountsDto[]> {
     let query = `ChartOfAccounts/Export?`;
-    if (searchTerm) {
-      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
-    }
+    const params: string[] = [];
+    if (searchTerm) params.push(`searchTerm=${encodeURIComponent(searchTerm)}`);
+    if (SortBy) params.push(`SortBy=${SortBy}`);
+    if (SortColumn) params.push(`SortColumn=${SortColumn}`);
+    query += params.join('&');
     return this.httpService.get<ExportAccountsDto[]>(query);
   }
 
-  exportCostCentersData(searchTerm: string | undefined): Observable<costCenterList[]> {
+
+
+
+  exportCostCentersData(
+    searchTerm?: string,
+    SortBy?: number,
+    SortColumn?: string): Observable<costCenterList[]> {
     let query = `CostCenter/Export?`;
-    if (searchTerm) {
-      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
-    }
+    const params: string[] = [];
+    if (searchTerm) params.push(`searchTerm=${encodeURIComponent(searchTerm)}`);
+    if (SortBy) params.push(`SortBy=${SortBy}`);
+    if (SortColumn) params.push(`SortColumn=${SortColumn}`);
+    query += params.join('&');
     return this.httpService.get<costCenterList[]>(query);
   }
 

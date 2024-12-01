@@ -86,7 +86,7 @@ export class UOMAddComponent implements OnInit {
         }
 
         // Initialize an array to hold the names
-        const currentData = [];
+        const currentData = [];  
 
         // Add nameUom from UOMFormGroup
         currentData.push({
