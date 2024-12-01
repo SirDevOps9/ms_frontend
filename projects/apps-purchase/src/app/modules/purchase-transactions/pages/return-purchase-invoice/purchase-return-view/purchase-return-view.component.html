@@ -1,0 +1,438 @@
+<lib-page-content>
+  <div class="page_edit_purchase">
+    <div class="main_header card_micro" [formGroup]="addForm">
+      <div class="grid">
+        <div class="card_information">
+          <div class="line line_two"></div>
+          <div class="grid">
+            <!-- Main Information Section -->
+            <div class="col-12 md:col-4">
+              <div class="card_information">
+                <!-- <div class="line line_two"></div> -->
+                <div class="item">
+                  <div class="title heading_b18">
+                    {{ 'PurchaseInvoiceEdit.mainInformation' | translate }}
+                  </div>
+                  <div class="item_body">
+                    <div class="grid">
+                      <div class="col-12 md:col-4">
+                        <lib-form-group>
+                          <lib-label [appControl]="addForm.controls['invoiceCode']">
+                            {{ 'PurchaseInvoiceEdit.invoiceCode' | translate }}
+                          </lib-label>
+                          <lib-text-input
+                            [readOnly]="true"
+                            formControlName="invoiceCode"
+                          ></lib-text-input>
+                        </lib-form-group>
+                      </div>
+                      <div class="col-12 md:col-8">
+                        <lib-form-group>
+                          <lib-label [appControl]="addForm.controls['invoiceDate']">
+                            {{ 'PurchaseInvoiceEdit.invoiceDate' | translate }}
+                          </lib-label>
+                          <lib-calendar formControlName="invoiceDate"></lib-calendar>
+                        </lib-form-group>
+                      </div>
+                      <div class="col-12">
+                        <lib-form-group>
+                          <lib-label [appControl]="addForm.controls['invoiceDescription']">
+                            {{ 'PurchaseInvoiceEdit.invoiceDescription' | translate }}
+                          </lib-label>
+                          <lib-text-input
+                            formControlName="invoiceDescription"
+                            [readOnly]="true"
+                          ></lib-text-input>
+                        </lib-form-group>
+                      </div>
+                      <div class="col-12">
+                        <lib-form-group>
+                          <lib-label [appControl]="addForm.controls['warehouseId']">
+                            {{ 'PurchaseInvoiceEdit.warehouse' | translate }}
+                          </lib-label>
+                          <lib-text-input
+                            [readOnly]="true"
+                            formControlName="warehouseId"
+                          ></lib-text-input>
+                        </lib-form-group>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Related Operation Section -->
+            <div class="col-12 md:col-4">
+              <div class="card_information">
+                <!-- <div class="line line_two"></div> -->
+                <div class="item">
+                  <div class="title heading_b18">
+                    {{ 'PurchaseInvoiceEdit.vendorInformation' | translate }}
+                  </div>
+                  <div class="item_body">
+                    <div class="grid">
+                      <div class="col-12 md:col-6">
+                        <lib-form-group>
+                          <lib-label [appControl]="addForm.controls['vendorId']">
+                            {{ 'PurchaseInvoiceEdit.vendorCode' | translate }}
+                          </lib-label>
+                          <lib-text-input
+                            [readOnly]="true"
+                            formControlName="vendorId"
+                          ></lib-text-input>
+                        </lib-form-group>
+                      </div>
+                      <div class="col-12 md:col-6">
+                        <lib-form-group>
+                          <lib-label [appControl]="addForm.controls['vendorName']">
+                            {{ 'PurchaseInvoiceEdit.vendorName' | translate }}
+                          </lib-label>
+                          <lib-text-input
+                            [readOnly]="true"
+                            formControlName="vendorName"
+                          ></lib-text-input>
+                        </lib-form-group>
+                      </div>
+                      <div class="col-12 md:col-6">
+                        <lib-form-group>
+                          <lib-label [appControl]="addForm.controls['currencyRate']">
+                            {{ 'PurchaseInvoiceEdit.currency' | translate }}
+                          </lib-label>
+                          <lib-text-input
+                            [readOnly]="true"
+                            formControlName="currencyRate"
+                          ></lib-text-input>
+                        </lib-form-group>
+                      </div>
+                      <div class="col-12 md:col-6">
+                        <lib-form-group>
+                          <lib-label [appControl]="addForm.controls['vendorRate']">
+                            {{ 'PurchaseInvoiceEdit.rate' | translate }}
+                          </lib-label>
+                          <lib-text-input
+                            [readOnly]="true"
+                            formControlName="vendorRate"
+                          ></lib-text-input>
+                        </lib-form-group>
+                      </div>
+                      <div class="col-12 md:col-6">
+                        <lib-form-group>
+                          <lib-label [appControl]="addForm.controls['paymentTermName']">
+                            {{ 'PurchaseInvoiceEdit.purchaseInvoice' | translate }}
+                          </lib-label>
+                          <lib-text-input
+                            [readOnly]="true"
+                            formControlName="paymentTermName"
+                          ></lib-text-input>
+                        </lib-form-group>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- main information Section -->
+
+            <div class="col-12 md:col-4">
+              <div class="card_information">
+                <!-- <div class="line">
+                        </div> -->
+                <div class="item">
+                  <div class="title heading_b18">
+                    {{ 'PurchaseInvoiceEdit.operation' | translate }}
+                  </div>
+                  <div class="item_body">
+                    <div class="grid">
+                      <div class="col-12 md:col-7">
+                        <lib-form-group>
+                          <lib-label [appControl]="addForm.controls['paymentTermName']">
+                            {{ 'PurchaseInvoiceEdit.invoiceJornal' | translate }}
+                          </lib-label>
+                          <lib-text-input
+                            [readOnly]="true"
+                            formControlName="paymentTermName"
+                          ></lib-text-input>
+                        </lib-form-group>
+                      </div>
+                      <div class="col-12 md:col-7">
+                        <lib-form-group>
+                          <lib-label [appControl]="addForm.controls['paymentTermName']">
+                            {{ 'PurchaseInvoiceEdit.stockOut' | translate }}
+                          </lib-label>
+                          <lib-text-input
+                            [readOnly]="true"
+                            formControlName="paymentTermName"
+                          ></lib-text-input>
+                        </lib-form-group>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="my-2 card_micro tableCont">
+      <div class="user_page">
+        <lib-data-table
+          [items]="filteredData"
+          class="mt-2"
+          className="p-datatable-gridlines "
+          [currentPageResult]="currentPageInfo"
+          [sequence]="false"
+          [tableConfigs]="{
+            allowPagination: true,
+            allowServerPagination: false,
+            dataKey: 'id',
+            pageSize: 10,
+            columns: [
+              {
+                name: 'itemCode',
+                headerText: ('purchase.itemCode' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'description',
+                headerText: ('purchase.description' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'uomName',
+                headerText: ('purchase.uomName' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'toReturnQuantity',
+                headerText: ('purchase.toReturnQuantity' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'quantity',
+                headerText: ('purchase.quantity' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'cost',
+                headerText: ('purchase.cost' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'subCost',
+                headerText: ('purchase.subCost' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'vatPercentage',
+                headerText: ('purchase.vatPercentage' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'grandTotal',
+                headerText: ('purchase.grandTotal' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'trackingType',
+                headerText: ('purchase.trackingType' | translate),
+                isGlobalFilter: true,
+                isSortable: true,
+                template: tracking
+              }
+            ]
+          }"
+        >
+          <ng-container search>
+            <lib-text-input
+              class="mt-1"
+              type="text"
+              [placeholder]="'purchase.search' | translate"
+              (input)="onSearchTermChange($event)"
+            ></lib-text-input>
+          </ng-container>
+          <ng-container action> </ng-container>
+          <ng-template #date let-date>
+            <p>
+              <span class="pi pi-calendar"></span>
+              {{ date.invoiceDate | date : 'dd/MM/yyyy' }}
+            </p>
+          </ng-template>
+          <ng-template #tracking let-tracking>
+            <!-- notracking  and has  -->
+            <p
+              *ngIf="
+                tracking.hasExpiryDate &&
+                tracking.trackingType == this.sharedFinanceEnums.trackingType.NoTracking
+              "
+            >
+              {{
+                tracking.invoiceTracking.systemPatchNo +
+                  ' - ' +
+                  (tracking.invoiceTracking.expireDate | date : 'dd/MM/yyyy')
+              }}
+            </p>
+            <!-- notracking  and no has  -->
+            <p
+              *ngIf="
+                !tracking.hasExpiryDate &&
+                tracking.trackingType == this.sharedFinanceEnums.trackingType.NoTracking
+              "
+            >
+              {{ 'No Tracking' }}
+            </p>
+            <!-- serial and has  -->
+            <p
+              *ngIf="
+                tracking.hasExpiryDate &&
+                tracking.trackingType == this.sharedFinanceEnums.trackingType.Serial
+              "
+            >
+              {{
+                tracking.invoiceTracking.serialId +
+                  ' - ' +
+                  (tracking.invoiceTracking.expireDate | date : 'dd/MM/yyyy')
+              }}
+            </p>
+            <!-- serial and no has -->
+            <p
+              *ngIf="
+                !tracking.hasExpiryDate &&
+                tracking.trackingType == this.sharedFinanceEnums.trackingType.Serial
+              "
+            >
+              {{ tracking.invoiceTracking.serialId }}
+            </p>
+            <!-- batch and  has -->
+            <p
+              *ngIf="
+                tracking.hasExpiryDate &&
+                tracking.trackingType == this.sharedFinanceEnums.trackingType.Batch
+              "
+            >
+              {{
+                tracking.invoiceTracking.vendorBatchNo +
+                  ' - ' +
+                  (tracking.invoiceTracking.expireDate | date : 'dd/MM/yyyy')
+              }}
+            </p>
+            <!-- batch and no  has -->
+            <p
+              *ngIf="
+                !tracking.hasExpiryDate &&
+                tracking.trackingType == this.sharedFinanceEnums.trackingType.Batch
+              "
+            >
+              {{ tracking.invoiceTracking.vendorBatchNo }}
+            </p>
+          </ng-template>
+        </lib-data-table>
+      </div>
+    </div>
+    <div class="main_header card_micro" [formGroup]="addForm">
+      <div class="grid">
+        <div class="col-12">
+          <div class="card_information">
+            <div class="line line_two"></div>
+            <div class="item">
+              <div class="title heading_b18">
+                {{ 'PurchaseInvoiceEdit.invoiceSummary' | translate }}
+              </div>
+              <div class="item_body">
+                <div class="grid">
+                  <div class="md:col-12">
+                    <div class="grid">
+                      <!-- ############ -->
+                      <div class="md:col-2">
+                        <lib-label [appControl]="addForm.controls['numberOfItems']">
+                          {{ 'purchase.numberOfItems' | translate }}
+                        </lib-label>
+                        <lib-text-input
+                          placeholder="{{ 'purchase.numberOfItems' | translate }}"
+                          formControlName="numberOfItems"
+                          [readOnly]="true"
+                        ></lib-text-input>
+                      </div>
+                      <!-- ############ totalOfQuantity-->
+                      <div class="md:col-2">
+                        <lib-label [appControl]="addForm.controls['totalOfQuantity']">
+                          {{ 'purchase.totalOfQuantity' | translate }}
+                        </lib-label>
+                        <lib-text-input
+                          placeholder="{{ 'purchase.totalOfQuantity' | translate }}"
+                          formControlName="totalOfQuantity"
+                          [readOnly]="true"
+                        ></lib-text-input>
+                      </div>
+                      <!-- ############total -->
+                      <div class="md:col-2">
+                        <lib-label [appControl]="addForm.controls['total']">
+                          {{ 'purchase.total' | translate }}
+                        </lib-label>
+                        <lib-text-input
+                          placeholder="{{ 'purchase.total' | translate }}"
+                          formControlName="total"
+                          [readOnly]="true"
+                        ></lib-text-input>
+                      </div>
+                      <!-- ############vatAmount -->
+                      <div class="md:col-2">
+                        <lib-label [appControl]="addForm.controls['vatAmount']">
+                          {{ 'purchase.vatAmount' | translate }}
+                        </lib-label>
+                        <lib-text-input
+                          placeholder="{{ 'purchase.vatAmount' | translate }}"
+                          formControlName="vatAmount"
+                          [readOnly]="true"
+                        ></lib-text-input>
+                      </div>
+                      <!-- ############ -->
+                      <div class="md:col-2">
+                        <lib-label [appControl]="addForm.controls['totalAfterVat']">
+                          {{ 'purchase.totalAfterVat' | translate }}
+                        </lib-label>
+                        <lib-text-input
+                          placeholder="{{ 'purchase.totalAfterVat' | translate }}"
+                          formControlName="totalAfterVat"
+                          [readOnly]="true"
+                        ></lib-text-input>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="md:col-12 my-3 grid flex justify-content-end">
+        <div class="md:col-6 grid flex justify-content-end">
+          <div class="md:col-4">
+            <lib-button-micro
+              title="{{ 'Cancel' | translate }}"
+              nameClass="cancel"
+              widthNumber="100%"
+              (click)="onCancel()"
+            >
+            </lib-button-micro>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</lib-page-content>

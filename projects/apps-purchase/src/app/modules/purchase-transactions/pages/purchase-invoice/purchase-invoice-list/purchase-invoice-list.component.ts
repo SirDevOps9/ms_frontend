@@ -4,7 +4,7 @@ import { AuthService } from 'microtec-auth-lib';
 import { SharedStock } from 'projects/apps-inventory/src/app/modules/transactions/models/sharedStockOutEnums';
 import { RouterService, PageInfoResult, PageInfo } from 'shared-lib';
 import { PurchaseTransactionsService } from '../../../purchase-transactions.service';
-import { IinvoiceDto } from '../../../model/purchase-invoice';
+import { IinvoiceDto } from '../../../models/purchase-invoice';
 
 @Component({
   selector: 'app-purchase-invoice-list',

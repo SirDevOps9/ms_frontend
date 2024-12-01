@@ -14,7 +14,8 @@
     "purchaseInvoice": "فاتوره الشراء",
     "purchaseInvoiceAdd": "اضافه فاتوره الشراء",
     "purchaseInvoiceEdit": "تعديل فاتوره الشراء",
-    "purchaseInvoiceView": "عرض فاتوره الشراء"
+    "purchaseInvoiceView": "عرض فاتوره الشراء",
+    "purchaseReturnInvoice": "فاتورة مرتجع مشتريات"
   },
   "dir": "rtl",
   "Welcome": "مرحبا",
@@ -616,5 +617,21 @@
     "expiryDate": "تاريخ الصلاحية",
     "generatedBatch": "الدفعة المولدة",
     "vendorBatchNo": "رقم الدفعة"
+  },
+  "purchaseReturn": {
+    "purchaseReturn": "مرتجع المشتريات",
+    "code": "الكود",
+    "returnInvoiceDate": "تاريخ المرتجع",
+    "vendorCode": "كود المورد",
+    "vendorName": "اسم المورد",
+    "warehouseName": "المخزن",
+    "invoiceJournalCode": "السجل المحاسبي",
+    "stockOutCode": "إخراج المخزون",
+    "totalNetAmount": "إجمالي المبلغ",
+    "vatAmount": "قيمة الضريبة المضافة",
+    "grandTotal": "الإجمالي بعد الضريبة",
+    "actions": "الإجراءات",
+    "search": "بحث",
+    "Add": "إنشاء"
   }
 }

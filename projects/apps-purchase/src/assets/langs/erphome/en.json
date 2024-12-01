@@ -12,6 +12,7 @@
     "EditVendorOpeningBalance": "Edit Vendor Opening Balance",
     "ViewVendorOpeningBalance": "View Vendor Opening Balance",
     "purchaseInvoice": "Purchase Invoice",
+    "purchaseReturnInvoice": "Purchase Return Invoice",
     "purchaseInvoiceAdd": "Add",
     "purchaseInvoiceEdit": "Edit Purchase Invoice",
     "purchaseInvoiceView": "View"
@@ -675,7 +676,20 @@
     "totalAfter": "Total After Discount",
     "vat": "VAT",
     "VatAmount": "VAT Amount",
-    "grandTotal": "Grand Total"
+    "grandTotal": "Grand Total",
+    "mainInformation": "Main Information",
+    "invoiceCode": "Invoice Code",
+    "invoiceDate": "Invoice Date",
+    "invoiceDescription": "Invoice Description",
+    "vendorInformation": "Vendor Information",
+    "vendorCode": "Vendor Code",
+    "vendorName": "Vendor Name",
+    "currency": "Currency",
+    "rate": "Rate",
+    "purchaseInvoice": "Purchase Invoice",
+    "operation": "Operation",
+    "invoiceJornal": "Invoice Journal",
+    "stockOut": "Stock Out"
   },
   "popupSearch": {
     "ItemCode": "Item Code",
@@ -716,5 +730,21 @@
     "expiryDate": "Expiry Date",
     "generatedBatch": "Generated Batch",
     "vendorBatchNo": "Batch No"
+  },
+  "purchaseReturn": {
+    "purchaseReturn": "Purchase Return",
+    "code": "Code",
+    "returnInvoiceDate": "Return  Date",
+    "vendorCode": "Vendor Code",
+    "vendorName": "Vendor Name",
+    "warehouseName": "Warehouse",
+    "invoiceJournalCode": "Invoice Journal",
+    "stockOutCode": "Stock Out",
+    "totalNetAmount": "Total Amount",
+    "vatAmount": "VAT Amount",
+    "grandTotal": "Total After Vat",
+    "actions": "Actions",
+    "search": "Search",
+    "Add": "Create"
   }
 }
