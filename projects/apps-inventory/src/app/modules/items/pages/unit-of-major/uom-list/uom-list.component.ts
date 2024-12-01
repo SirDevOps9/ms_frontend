@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { AuthService } from 'microtec-auth-lib';
-import { DialogService } from 'primeng/dynamicdialog';
-import { FinanceService } from 'projects/apps-finance/src/app/modules/finance/finance.service';
-import { LanguageService, PageInfo, PageInfoResult, RouterService } from 'shared-lib';
+import { PageInfo, PageInfoResult, RouterService } from 'shared-lib';
 import { ItemsService } from '../../../items.service';
 import { UOMCategoryDto } from '../../../models';
 import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
-import { TranslateService } from '@ngx-translate/core';
+import { SortTableEXport } from '../../../models/SortTable';
 
 @Component({
   selector: 'app-uom-list',
@@ -21,15 +19,13 @@ export class UOMListComponent implements OnInit {
   exportData: UOMCategoryDto[];
   clonedExportData: UOMCategoryDto[];
   exportColumns:any[]
-
+  SortByAll:SortTableEXport
   constructor(
     private routerService: RouterService,
     private itemService : ItemsService,
-
     public authService: AuthService,
     private title: Title,
-    private translate: TranslateService,
-    private exportService:ExportService
+      private exportService:ExportService
 
   ){
 
@@ -71,19 +67,19 @@ export class UOMListComponent implements OnInit {
   }
 
 
-  exportClick(e?: Event) {
-    this.exportOperationalData(this.searchTerm);
+  exportClick() {
+    this.exportOperationalData(this.searchTerm, this.SortByAll?.SortBy, this.SortByAll?.SortColumn);
   }
 
-  exportOperationalData(searchTerm: string) {
-    this.itemService.exportUOMList(searchTerm);
+  exportOperationalData(searchTerm: string, sortBy?: number, sortColumn?: string) {
+    this.itemService.exportUOMList(searchTerm, sortBy, sortColumn);
 
     const columns = [
-      { name: 'code', headerText: this.translate.instant('UOM.uomCode') },
-      { name: 'name', headerText: this.translate.instant('UOM.uomName') },
-      { name: 'shortName', headerText: this.translate.instant('UOM.shortName') },
-      { name: 'categoryName', headerText: this.translate.instant('UOM.uomCategory') },
-      { name: 'factor', headerText: this.translate.instant('UOM.uomFactor') },
+      { name: 'code', headerText:('UOM.uomCode') },
+      { name: 'name', headerText:('UOM.uomName') },
+      { name: 'shortName', headerText:('UOM.shortName') },
+      { name: 'categoryName', headerText:('UOM.uomCategory') },
+      { name: 'factor', headerText:('UOM.uomFactor') },
     ];
 
     this.itemService.SendexportUOMList$.subscribe((res) => {
@@ -91,7 +87,12 @@ export class UOMListComponent implements OnInit {
 
     });
   }
-
+  exportClickBySort(e: { SortBy: number; SortColumn: string }) {
+    this.SortByAll = {
+      SortBy: e.SortBy,
+      SortColumn: e.SortColumn,
+    };
+  }
 
   // exportBankData(searchTerm: string) {
   //   this.itemService.exportUOMList(searchTerm)

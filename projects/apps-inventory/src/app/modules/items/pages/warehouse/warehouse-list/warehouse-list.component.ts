@@ -8,6 +8,7 @@ import { GetWarehouseList, itemDefinitionDto } from '../../../models';
 import { AddWarehousePopupComponent } from '../../../components/warehouse/add-warehouse-popup/add-warehouse-popup.component';
 import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
 import { TranslateService } from '@ngx-translate/core';
+import { SortTableEXport } from '../../../models/SortTable';
 
 @Component({
   selector: 'app-warehouse-list',
@@ -34,6 +35,7 @@ export class WarehouseListComponent implements OnInit {
   searchTerm: string;
   SortBy?: number;
   SortColumn?: string;
+  SortByAll:SortTableEXport
   ngOnInit() {
     this.initItemDefinitionData();
   }
@@ -56,25 +58,30 @@ export class WarehouseListComponent implements OnInit {
     this.itemsService.getWarehouseList('', pageInfo);
   }
 
-  exportClick(e?: Event) {
-    this.exportOperationalData(this.searchTerm);
+  exportClick() {
+    this.exportOperationalData(this.searchTerm, this.SortByAll?.SortBy, this.SortByAll?.SortColumn);
   }
 
-  exportOperationalData(searchTerm: string) {
-    this.itemsService.exportsWayehouseList(searchTerm);
+  exportOperationalData(searchTerm: string, sortBy?: number, sortColumn?: string) {
+    this.itemsService.exportsWayehouseList(searchTerm, sortBy, sortColumn);
 
     const columns = [
-      { name: 'code', headerText: this.translate.instant('warehouse.code') },
-      { name: 'name', headerText: this.translate.instant('warehouse.name') },
-      { name: 'warehouseType', headerText: this.translate.instant('warehouse.warehouseType') },
-      { name: 'createdOn', headerText: this.translate.instant('warehouse.createdOn') }
+      { name: 'code', headerText:('warehouse.code') },
+      { name: 'name', headerText:('warehouse.name') },
+      { name: 'warehouseType', headerText:('warehouse.warehouseType') },
+      { name: 'createdOn', headerText:('warehouse.createdOn') }
     ];
 
     this.itemsService.exportedWarehouseDataSourceObs.subscribe((res) => {
       this.exportData = this.exportService.formatCiloma(res, columns);
     });
   }
-
+  exportClickBySort(e: { SortBy: number; SortColumn: string }) {
+    this.SortByAll = {
+      SortBy: e.SortBy,
+      SortColumn: e.SortColumn,
+    };
+  }
 
   onAdd() {
       const dialogRef = this.dialog.open(AddWarehousePopupComponent, {

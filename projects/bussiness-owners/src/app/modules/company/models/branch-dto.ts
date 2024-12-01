@@ -1,7 +1,8 @@
 export interface BranchDto {
   id?: string;
   code: string;
-  branchName: string;
+  nameEn: string;
+  nameAr: string;
   branchRegion: string | null;
   branchCity: string | null;
   branchAddress: string | null;

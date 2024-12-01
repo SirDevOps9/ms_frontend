@@ -86,6 +86,7 @@ export class TransactionsProxyService {
     return this.httpService.get(`Item/GetLatestItemsList`);
   }
 
+
   getWareHousesDropDown() {
     return this.httpService.get<any>(`WareHouse/WareHousesDropDown`);
   }

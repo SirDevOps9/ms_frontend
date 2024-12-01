@@ -12,6 +12,7 @@ import { ExportTagDto, TagDto } from '../../../models';
 import { TagEditComponent } from '../../../components/tag-edit/tag-edit.component';
 import { TagAddComponent } from '../../../components/tag-add/tag-add.component';
 import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
+import { SortTableEXport } from 'projects/apps-inventory/src/app/modules/items/models/SortTable';
 @Component({
   selector: 'app-tag-list',
   templateUrl: './tag-list.component.html',
@@ -27,7 +28,7 @@ export class TagListComponent implements OnInit {
   mappedExportData: TagDto[];
   exportData: ExportTagDto[];
   exportColumns: any[];
-
+  SortByAll:SortTableEXport
   constructor(
     private generalSettingService: GeneralSettingService,
     public layoutService: LayoutService,
@@ -124,12 +125,12 @@ export class TagListComponent implements OnInit {
       },
     });
   }
-  exportClick(e?: Event) {
-    this.exportTagData(this.searchTerm);
+  exportClick() {
+    this.exportTagData(this.searchTerm, this.SortByAll?.SortBy, this.SortByAll?.SortColumn);
   }
 
-  exportTagData(searchTerm: string) {
-    this.generalSettingService.exportTagData(this.searchTerm ,this.SortBy, this.SortColumn);
+  exportTagData(searchTerm: string, sortBy?: number, sortColumn?: string) {
+    this.generalSettingService.exportTagData(searchTerm , sortBy , sortColumn);
 
     const columns = [
       { name: 'code', headerText:('tag.code') },
@@ -142,6 +143,14 @@ export class TagListComponent implements OnInit {
     });
   }
 
+  exportClickBySort(e: { SortBy: number; SortColumn: string }) {
+    this.SortByAll = {
+      SortBy: e.SortBy,
+      SortColumn: e.SortColumn,
+    };
+  }
+
+  
   Delete(id: number) {
     this.generalSettingService.deleteTag(id);
   }

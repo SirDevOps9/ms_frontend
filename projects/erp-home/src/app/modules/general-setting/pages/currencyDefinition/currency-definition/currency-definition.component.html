@@ -4,6 +4,7 @@
     className="p-datatable-gridlines"
     [currentPageResult]="currentPageInfo"
     (pageChange)="onPageChange($event)"
+    (exportObj)="exportClickBySort($event)"
     [tableConfigs]="{
             allowPagination: false,
             allowServerPagination: true,
@@ -74,7 +75,7 @@
 
           <div>
             <lib-export
-            (exportClick)="exportClick($event)"
+            (exportClick)="exportClick()"
             [exportData]="exportData"
             [exportColumns]="exportColumns"
             [ExportName]="('currencyDefinition.currencyDefinitionPrint' |translate)"

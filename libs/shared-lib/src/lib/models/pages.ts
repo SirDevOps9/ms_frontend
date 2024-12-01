@@ -7,5 +7,6 @@ export enum Pages {
   PricePolicy=6,
   StockIn = 11,
   StockOut= 12,
+  PurchaseInvoice = 13,
   Item=27
 }

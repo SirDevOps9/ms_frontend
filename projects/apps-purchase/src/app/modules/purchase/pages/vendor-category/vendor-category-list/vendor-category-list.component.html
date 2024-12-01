@@ -6,6 +6,7 @@
         className="p-datatable-gridlines"
         [currentPageResult]="currentPageInfo"
         (addNew)="routeToAdd()"
+        (exportObj)="exportClickBySort($event)"
         (pageChange)="onPageChange($event)"
         [tableConfigs]="{
               allowPagination: false,
@@ -13,7 +14,7 @@
               dataKey: 'id',
               pageSize: 10,
               columns: [
-                 
+
                  {
                    name: 'code',
                    headerText: ('vendorCategory.categoryCode' | translate),
@@ -26,7 +27,7 @@
                    isGlobalFilter: true,
                    isSortable: true
                  },
-               
+
                  {
                    name: 'payableAccountName',
                    headerText: ('vendorCategory.payableGlAccount' | translate),
@@ -37,7 +38,7 @@
                    headerText: ('vendorCategory.purchaseGlAccount' | translate) ,
                    isSortable: true
                  },
-               
+
                  {
                    name: 'purchaseReturnAccountName',
                    headerText: ('vendorCategory.purchaseReturnGlAccount' | translate),
@@ -90,7 +91,7 @@
         <ng-container action>
           <div class="group flex gap-2">
             <lib-export
-              (exportClick)="exportVendorCategoriesData($event)"
+              (exportClick)="exportClick()"
               [exportData]="exportData"
               [exportColumns]="exportColumns"
               [ExportName]="'Vendor Cateogries'"

@@ -77,7 +77,7 @@
                 <ng-template pTemplate="input">
                   <div class="flex gap-2 align-items-center">
 
-                    <lib-select [options]="items" optionValue="id" [customClass]="'add-journal'" optionLabel="itemCode"
+                    <lib-select [options]="items" optionValue="id" [customClass]="'add-journal'" optionLabel="displayName"
                       formControlName="itemId"
                       (valueChanged)="setRowData(rowIndex ,pricePolicy.controls['itemId'].value  , 0 )"
                       [selectedValue]="pricePolicy.controls['itemId'].value">

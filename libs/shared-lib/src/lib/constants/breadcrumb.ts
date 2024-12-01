@@ -5,7 +5,7 @@ export class BreadcrumbLabel {
   static readonly CostCenter = 'BreadCrumb.CostCenter';
   static readonly JournalEntryList = 'BreadCrumb.JournalEntryList';
   static readonly JournalEntryAdd = 'BreadCrumb.JournalEntryAdd';
-  static readonly JournalEntryAddTilte=  'BreadCrumb.JournalEntryAddTtile';
+  static readonly JournalEntryAddTilte = 'BreadCrumb.JournalEntryAddTtile';
   static readonly JournalEntryView = 'BreadCrumb.JournalEntryView';
   static readonly JournalEntryEdit = 'BreadCrumb.JournalEntryEdit';
   static readonly JournalEntryEditTilte = 'BreadCrumb.JournalEntryEditTilte';
@@ -14,9 +14,11 @@ export class BreadcrumbLabel {
   static readonly JournalEntryOpeningBalance = 'BreadCrumb.JournalEntryOpeningBalance';
   static readonly JournalEntryOpeningBalanceTitle = 'BreadCrumb.JournalEntryOpeningBalance';
   static readonly AddJournalEntryOpeningBalance = 'BreadCrumb.AddJournalEntryOpeningBalance';
-  static readonly AddJournalEntryOpeningBalanceTilte = 'BreadCrumb.AddJournalEntryOpeningBalanceTilte';
+  static readonly AddJournalEntryOpeningBalanceTilte =
+    'BreadCrumb.AddJournalEntryOpeningBalanceTilte';
   static readonly EditJournalEntryOpeningBalance = 'BreadCrumb.EditJournalEntryOpeningBalance';
-  static readonly EditJournalEntryOpeningBalanceTilte = 'BreadCrumb.EditJournalEntryOpeningBalanceTitle';
+  static readonly EditJournalEntryOpeningBalanceTilte =
+    'BreadCrumb.EditJournalEntryOpeningBalanceTitle';
   static readonly ViewJournalEntryOpeningBalance = 'BreadCrumb.ViewJournalEntryOpeningBalance';
   static readonly CUSTOMER_DEFINITIONS = 'BreadCrumb.CustomerDefinition';
   static readonly ADD_CUSTOMER_DEFINITIONS = 'BreadCrumb.AddCustomerDefinition';
@@ -38,6 +40,10 @@ export class BreadcrumbLabel {
   static readonly purchaseInvoiceList = 'BreadCrumb.purchaseInvoice';
   static readonly purchaseInvoiceAdd = 'BreadCrumb.purchaseInvoiceAdd';
   static readonly purchaseInvoiceEdit = 'BreadCrumb.purchaseInvoiceEdit';
+  static readonly TITLE_PURCHASE_EDIT = 'title.purchaseInvoiceEdit';
+  static readonly PURCHASE_EDIT = 'BreadCrumb.edit';
+
+  static readonly purchaseInvoiceView = 'BreadCrumb.purchaseInvoiceView';
   static readonly vendor_Add = 'BreadCrumb.AddVendorCategory';
   static readonly vendor_Edit = 'BreadCrumb.EditVendorCategory';
   static readonly VENDOR_DEFINITIONS = 'BreadCrumb.VendorDefinitions';
@@ -83,11 +89,11 @@ export class BreadcrumbLabel {
   static DOMAIN = 'Domain Details';
   static Manage_Apps = 'Manage Apps';
   static BUSSINESS_OWNER = 'Bussiness Owners';
-    static HELP_PAGES='Help Pages';
+  static HELP_PAGES = 'Help Pages';
   static MANAGE_BUSSINESS_OWNER = 'Manage Bussiness Owners';
   static SUBDOMAIN_INFO = 'Subdomain Info';
-    static Edit_Help_Page='Edit Help Page';
-    static Add_Help_Page='Add Help Page';
+  static Edit_Help_Page = 'Edit Help Page';
+  static Add_Help_Page = 'Add Help Page';
   static COMPANIES_INFO = 'Company Info';
   static LICENCE_INFO = 'licence Info';
   static USER_INFO = 'USER Info';
