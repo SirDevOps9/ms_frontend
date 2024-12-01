@@ -101,7 +101,7 @@ export class PurchaseReturnViewComponent {
   }
 
   onCancel() {
-    this.routerService.navigateTo('transactions/return-purchase');
+    this.routerService.navigateTo('/transaction/return-purchase');
   }
 
   onSearchTermChange(search: any): void {
