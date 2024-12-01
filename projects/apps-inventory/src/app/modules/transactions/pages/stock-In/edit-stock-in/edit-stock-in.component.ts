@@ -29,7 +29,7 @@ import { ImportStockInComponent } from '../../../components/import-stock-in/impo
 import { ScanParcodeStockInComponent } from '../../../components/scan-parcode-stock-in/scan-parcode-stock-in.component';
 import { MultiSelectItemStockInComponent } from '../../../components/multi-select-item-stock-in/multi-select-item-stock-in.component';
 import { TrackingStockInComponent } from '../../../components/tracking-stock-in/tracking-stock-in.component';
-import { skip } from 'rxjs';
+import { skip, take } from 'rxjs';
 import { SharedStock } from '../../../models/sharedStockOutEnums';
 
 @Component({
@@ -645,8 +645,6 @@ export class EditStockInComponent implements OnInit {
       });
       dialogRef.onClose.subscribe((res: any) => {
         if (res) {
-          this.selectedTraking = res;
-
           setTracking.get('stockInTracking')?.patchValue({ ...res });
           setTracking.get('stockInTracking')?.get('selectedValue')?.setValue(res);
           this.cdr.detectChanges();
@@ -666,11 +664,11 @@ export class EditStockInComponent implements OnInit {
   }
   // manual Barcode Event
   barcodeCanged(e: any, stockInFormGroup: FormGroup, index: number) {
-    this.transactionService.getItemBarcodeForItem(e);
-    this.transactionService.sendItemBarcode$.pipe(skip(1)).subscribe((data) => {
+    this.transactionService.getItemBarcodeForItem(e.target.value);
+    this.transactionService.sendItemBarcode$.pipe(skip(1), take(1)).subscribe((data) => {
       if (data) {
         stockInFormGroup.get('itemId')?.setValue(data.itemId);
-        this.setRowDataFromBarCode(index, data, e);
+        this.setRowDataFromBarCode(index, data, e.target.value);
       }
     });
   }

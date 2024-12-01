@@ -16,7 +16,7 @@ import {
   ToasterService,
 } from 'shared-lib';
 
-import {  skip } from 'rxjs';
+import {  skip, take } from 'rxjs';
 import {
   OperationalStockIn,
   LatestItems,
@@ -482,12 +482,11 @@ export class AddStockInComponent implements OnInit {
 
   barcodeCanged(e: any, stockInFormGroup: FormGroup ,index:number) {
     if (e) {
-      this.transactionsService.getItemBarcodeForItem(e);
-      this.transactionsService.sendItemBarcode$.pipe(skip(1)).subscribe((data) => {
+      this.transactionsService.getItemBarcodeForItem(e.target.value);
+      this.transactionsService.sendItemBarcode$.pipe(skip(1),take(1)).subscribe((data) => {
         if (data) {
           stockInFormGroup.get('itemId')?.setValue(data.itemId);
-      
-          this.setRowDataFromBarCode(index, data ,e)
+          this.setRowDataFromBarCode(index, data ,e.target.value)
 
         }
       });
@@ -596,7 +595,8 @@ if(this.save){
     };
 
       this.transactionsService.addStockIn(data, this.stockInForm);
-      this.transactionsService.addedStockInData$.subscribe((res: number | any) => {
+      this.transactionsService.addedStockInData$.
+      pipe(skip(1) , take (1)).subscribe((res: number | any) => {
         if (typeof res == 'number') {
           this.savedDataId = res;
           this.dataToReadOnly = true;

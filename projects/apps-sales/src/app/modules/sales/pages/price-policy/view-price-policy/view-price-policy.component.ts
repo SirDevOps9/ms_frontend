@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { SalesService } from '../../../sales.service';
 import { ActivatedRoute } from '@angular/router';
-import { LanguageService } from 'shared-lib';
+import { LanguageService, SharedLibraryEnums } from 'shared-lib';
 
 @Component({
   selector: 'app-view-price-policy',
@@ -11,6 +11,7 @@ import { LanguageService } from 'shared-lib';
 export class ViewPricePolicyComponent {
   item:any
   selectedLanguage: string
+  
   ngOnInit() {
     const id =this.router.snapshot.params['id']
     this.salesService.viewPricePolicy(id)
@@ -28,7 +29,7 @@ this.item=res
    constructor(
     private salesService: SalesService,    
     private router: ActivatedRoute,
-    private languageService:LanguageService
-
+    private languageService:LanguageService,
+    public sharedLib: SharedLibraryEnums,
   ) { }
 }

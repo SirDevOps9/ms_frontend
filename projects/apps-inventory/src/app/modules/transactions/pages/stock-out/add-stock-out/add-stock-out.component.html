@@ -177,25 +177,8 @@
               [appControl]="stockOutFormGroup.controls['itemNumber']"
             ></lib-field-validations>
           </td>
-          <td
-            [pEditableColumn]="stockOutFormGroup.controls['description']"
-            pEditableColumnField="description"
-          >
-            <p-cellEditor>
-              <ng-template pTemplate="input">
-                <lib-text-input
-                  placeholder="{{ 'stockOut.itemDescription' | translate }}"
-                  formControlName="description"
-                  [readOnly]="post"
-                ></lib-text-input>
-              </ng-template>
-              <ng-template pTemplate="output">
-                {{ stockOutFormGroup.controls['description']?.value }}
-              </ng-template>
-            </p-cellEditor>
-            <lib-field-validations
-              [appControl]="stockOutFormGroup.controls['description']"
-            ></lib-field-validations>
+          <td>
+            {{ stockOutFormGroup.controls['description']?.value }}
           </td>
 
           <td
