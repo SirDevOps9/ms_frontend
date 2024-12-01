@@ -358,7 +358,18 @@
   "totalOfQuantity": "Total of quantity",
   "discount": "Discount",
   "vatAmount": "VAT Amount",
-  "afterVat": "After VAT"
+  "afterVat": "After VAT",
+  "remainQTY":"remain QTY",
+  "toreturnQTY":"To Return QTY",
+  "originalQTY":"original QTY",
+  "Batch":"Batch no .",
+  "ExpiryDate":"Expiry date",
+  "serials":"serials",
+  "invoicejournal":"invoice journal",
+  "stockOut":"stock Out",
+  "operation":"related operation"
+
+
   },
   "ItemsAdvancedSearch": {
     "ItemSearch": "Item Search",

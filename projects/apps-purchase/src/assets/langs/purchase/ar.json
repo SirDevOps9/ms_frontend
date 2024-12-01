@@ -330,7 +330,16 @@
     "totalAfterDiscount": "الإجمالي بعد الخصم",
     "totalOfQuantity": "إجمالي الكمية",
     "vatAmount": "مبلغ ضريبة القيمة المضافة",
-    "afterVat": "بعد ضريبة القيمة المضافة"
+    "afterVat": "بعد ضريبة القيمة المضافة",
+    "remainQTY": "الكمية المتبقية",
+    "toreturnQTY": "الكمية المرتجعة",
+    "originalQTY": "الكمية الأصلية",
+    "Batch": "رقم الدفعة",
+    "ExpiryDate": "تاريخ الانتهاء",
+    "serials": "الأرقام التسلسلية",
+    "invoicejournal": "دفتر الفواتير",
+    "stockOut": "الخروج من المخزون",
+    "operation": "العملية ذات الصلة"
 }
 
 }
