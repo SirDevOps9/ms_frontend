@@ -66,8 +66,6 @@ export class PurchaseReturnListComponent implements OnInit {
 
   // on Delete
   onDelete(id: number) {
-    console.log(id);
-
     this.transactionsService.deleteInvoiceReturnLine(id);
   }
 

@@ -91,9 +91,7 @@ export class PurchaseReturnViewComponent {
           this.populateInvoiceDetails(res.returnInvoiceDetails);
         }
       },
-      error: (err) => {
-        console.error('Error fetching invoice details:', err);
-      },
+      error: (err) => {},
     });
   }
 
