@@ -157,14 +157,16 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     });
 
     this.purchaseInvoiceForm.get('vendorId')?.valueChanges.subscribe((res) => {
+      console.log(res)
       let data = this.vendorItems.find((elem) => elem.id == res);
       this.purchaseInvoiceForm.get('vendorName')?.setValue(data?.name);
       this.purchaseInvoiceForm.get('currency')?.setValue(data?.vendorFinancialCurrencyName);
       this.purchaseInvoiceForm.get('paymentTermId')?.setValue(data?.paymentTermId);
       this.purchaseInvoiceForm.get('paymentTermName')?.setValue(data?.paymentTermName);
       this.purchaseInvoiceForm.get('name')?.setValue(data?.name);
+      
       this.purchasetransactionsService.getCurrencyRate(
-        data.vendorFinancialCurrencyId,
+        data.vendorFinancialCurrencyId ?? this.currentUserService.getCurrency(),
         this.currentUserService.getCurrency()
       );
       this.purchasetransactionsService.sendcurrency.pipe(skip(1), take(1)).subscribe((res) => {
@@ -576,6 +578,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
             displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameEn}`,
           }));
         }
+
       }
     });
   }
@@ -593,7 +596,9 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     });
     ref.onClose.subscribe((selectedItems: any) => {
       if (selectedItems) {
+        console.log(selectedItems)
         stockInFormGroup.get('itemId')?.setValue(selectedItems.itemId);
+        stockInFormGroup.get('vatPercentage')?.setValue(selectedItems.taxRatio);
         this.setRowDataFromBarCode(indexline, selectedItems, '');
       }
     });
@@ -769,8 +774,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     private languageService: LanguageService,
     private transactionsService: TransactionsService,
     private fb: FormBuilder,
-    private lookupservice: LookupsService,
-    private purchaseService: PurchaseService,
+
     private purchasetransactionsService: PurchaseTransactionsService,
     private router: RouterService,
     public formService: FormsService,
