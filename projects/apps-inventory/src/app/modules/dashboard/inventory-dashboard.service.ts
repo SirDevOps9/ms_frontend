@@ -1,6 +1,15 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ProxyService } from './proxy.service';
+import {
+  ExpiryItemsReportDto,
+  GetLastStockInTransactionDto,
+  GetLastStockOutTransactionDto,
+  GetStockInOutStatusCountDto,
+  InventoryTotalsDto,
+  ItemCategoryReportDto,
+  ItemWarehouseReportDto,
+} from './models';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +22,7 @@ export class InventoryDashboardService {
   private lastStockInLoaderSubject = new BehaviorSubject<boolean>(false);
   private lastStockOutLoaderSubject = new BehaviorSubject<boolean>(false);
   private stockExpiryDateLoaderSubject = new BehaviorSubject<boolean>(false);
+  private totalStockOverviewLoader = new BehaviorSubject<boolean>(false);
 
   // Loader observables
   statusLoader$ = this.statusLoaderSubject.asObservable();
@@ -21,14 +31,16 @@ export class InventoryDashboardService {
   lastStockInLoader$ = this.lastStockInLoaderSubject.asObservable();
   lastStockOutLoader$ = this.lastStockOutLoaderSubject.asObservable();
   stockExpiryDateLoader$ = this.stockExpiryDateLoaderSubject.asObservable();
+  totalStockOverviewLoader$ = this.totalStockOverviewLoader.asObservable();
 
   // Data subject
-  private statusSubject = new BehaviorSubject<any>(false);
-  private categoriesSubject = new BehaviorSubject<any>(false);
-  private warehousesSubject = new BehaviorSubject<any>(false);
-  private lastStockInSubject = new BehaviorSubject<any>(false);
-  private lastStockOutSubject = new BehaviorSubject<any>(false);
-  private stockExpiryDateSubject = new BehaviorSubject<any>(false);
+  private statusSubject = new BehaviorSubject<GetStockInOutStatusCountDto[]>([]);
+  private categoriesSubject = new BehaviorSubject<ItemCategoryReportDto[]>([]);
+  private warehousesSubject = new BehaviorSubject<ItemWarehouseReportDto[]>([]);
+  private lastStockInSubject = new BehaviorSubject<GetLastStockInTransactionDto[]>([]);
+  private lastStockOutSubject = new BehaviorSubject<GetLastStockOutTransactionDto[]>([]);
+  private stockExpiryDateSubject = new BehaviorSubject<ExpiryItemsReportDto[]>([]);
+  private totalStockOverviewSubject = new BehaviorSubject<InventoryTotalsDto>({} as InventoryTotalsDto);
 
   // Data observables
   status$ = this.statusSubject.asObservable();
@@ -37,6 +49,7 @@ export class InventoryDashboardService {
   lastStockIn$ = this.lastStockInSubject.asObservable();
   lastStockOut$ = this.lastStockOutSubject.asObservable();
   stockExpiryDate$ = this.stockExpiryDateSubject.asObservable();
+  totalStockOverView$ = this.totalStockOverviewSubject.asObservable();
 
   constructor(private proxy: ProxyService) {}
 
@@ -48,43 +61,51 @@ export class InventoryDashboardService {
     });
   }
 
-  fetchCategories() {
+  fetchCategories(counts: number) {
     this.categoriesLoaderSubject.next(true);
-    this.proxy.getCategories().subscribe({
+    this.proxy.getCategories(counts).subscribe({
       next: (data) => this.categoriesSubject.next(data),
       complete: () => this.categoriesLoaderSubject.next(false),
     });
   }
 
-  fetchWarehouses() {
+  fetchWarehouses(counts: number) {
     this.warehousesLoaderSubject.next(true);
-    this.proxy.getWarehouses().subscribe({
+    this.proxy.getWarehouses(counts).subscribe({
       next: (data) => this.warehousesSubject.next(data),
       complete: () => this.warehousesLoaderSubject.next(false),
     });
   }
 
-  fetchLastStockIn() {
+  fetchLastStockIn(counts: number) {
     this.lastStockInLoaderSubject.next(true);
-    this.proxy.getLastStockIn().subscribe({
+    this.proxy.getLastStockIn(counts).subscribe({
       next: (data) => this.lastStockInSubject.next(data),
       complete: () => this.lastStockInLoaderSubject.next(false),
     });
   }
 
-  fetchLastStockOut() {
+  fetchLastStockOut(counts: number) {
     this.lastStockOutLoaderSubject.next(true);
-    this.proxy.getLastStockOut().subscribe({
+    this.proxy.getLastStockOut(counts).subscribe({
       next: (data) => this.lastStockOutSubject.next(data),
       complete: () => this.lastStockOutLoaderSubject.next(false),
     });
   }
 
-  fetchStockExpiryDate() {
+  fetchStockExpiryDate(counts: number) {
     this.stockExpiryDateLoaderSubject.next(true);
-    this.proxy.getStockExpiryDate().subscribe({
+    this.proxy.getStockExpiryDate(counts).subscribe({
       next: (data) => this.stockExpiryDateSubject.next(data),
       complete: () => this.stockExpiryDateLoaderSubject.next(false),
+    });
+  }
+
+  fetchTotalStockOverview() {
+    this.totalStockOverviewLoader.next(true);
+    this.proxy.getTotalStockOverview().subscribe({
+      next: (data) => this.totalStockOverviewSubject.next(data),
+      complete: () => this.totalStockOverviewLoader.next(false),
     });
   }
 }

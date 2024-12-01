@@ -8,6 +8,8 @@
     "lastStockIn": "Last Stock In",
     "stockExpiryAlert": "Stock Expiry Alert",
     "moreDetails": "More Details",
-    "status": "Status"
+    "status": "Status",
+    "totalQuantity": "Total Quantity",
+    "totalValue": "Total Value"
   }
 }

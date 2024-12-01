@@ -8,6 +8,8 @@
     "lastStockIn": "آخر إدراج في المخزون",
     "stockExpiryAlert": "تنبيه عن انتهاء صلاحية المخزون",
     "moreDetails": "المزيد من التفاصيل",
-    "status": "الحالة"
+    "status": "الحالة",
+    "totalQuantity": "الكمية الكلية",
+    "totalValue": "القيمة الكلية"
   }
 }

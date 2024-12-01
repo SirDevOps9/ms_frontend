@@ -1,29 +1,33 @@
 <lib-page-content>
   <div class="user-page">
-    <div class="custom_card" [appLoader]="false">
+    <div class="custom_card" [appLoader]="totalStockOverviewLoader">
       <div class="custom_card_label heading_b26">
         {{ 'dashboard.stockOverview' | translate }} <i class="pi pi-heart"></i>
       </div>
       <div class="account_types_details">
-        <!-- @for(accountBalance of accountTypeBalances; track accountBalance) {
         <div class="box">
           <p class="heading_b18 m-0">
-            {{
-              currentLanguage == 'en'
-                ? accountBalance.accountTypeNameEn
-                : accountBalance.accountTypeNameAr
-            }}
+            {{ 'dashboard.totalQuantity' | translate }}
           </p>
-          <p class="paragraph_b16 m-0">{{ accountBalance.totalBalance | decimalSeparator }}</p>
+          <p class="paragraph_b16 m-0">{{ stockOverview.totalQuantity | decimalSeparator }}</p>
         </div>
-        } -->
+        <div class="box">
+          <p class="heading_b18 m-0">
+            {{ 'dashboard.totalValue' | translate }}
+          </p>
+          <p class="paragraph_b16 m-0">{{ stockOverview.totalValue | decimalSeparator }}</p>
+        </div>
       </div>
     </div>
 
     <div class="charts">
       <div class="grid">
         <div class="lg:col-4 md:col-6 col-12" [appLoader]="categoriesLoader">
-          <app-chart-card>
+          <app-chart-card
+            [chartDTO]="categoriesChart"
+            [chartDetailsConfig]="categoriesChartData"
+            [smallSize]="true"
+          >
             <div class="chart-header">
               <div class="title heading_b18">{{ 'dashboard.categories' | translate }}</div>
               <div class="action body_b14">
@@ -37,7 +41,11 @@
           </app-chart-card>
         </div>
         <div class="lg:col-4 md:col-6 col-12" [appLoader]="warehousesLoader">
-          <app-chart-card>
+          <app-chart-card
+            [chartDTO]="warehousesChart"
+            [chartDetailsConfig]="warehouseChartData"
+            [smallSize]="true"
+          >
             <div class="chart-header">
               <div class="title heading_b18">{{ 'dashboard.warehouses' | translate }}</div>
               <div class="action body_b14">
@@ -51,14 +59,10 @@
           </app-chart-card>
         </div>
         <div class="lg:col-4 md:col-6 col-12" [appLoader]="statusLoader">
-          <app-chart-card>
+          <app-chart-card [chartDTO]="statusChart" [chartDetailsConfig]="statusChartValues">
             <div class="chart-header">
               <div class="title heading_b18">{{ 'dashboard.status' | translate }}</div>
               <div class="action body_b14">
-                <span class="pointer">
-                  {{ 'dashboard.moreDetails' | translate }} <i class="pi pi-arrow-right fs-14"></i>
-                </span>
-                <span class="column-line"></span>
                 <i class="pi pi-heart"></i>
               </div>
             </div>
@@ -77,6 +81,21 @@
                 <i class="pi pi-heart"></i>
               </div>
             </div>
+            <div class="chart-body w-full">
+              @for(stockOut of lastStockOut; track stockOut) {
+              <div class="row">
+                <span class="body-14 mx-1">{{ stockOut.description }}</span>
+                <span class="detail-type body_b14 pointer">
+                  {{ stockOut.itemId }}
+                </span>
+
+                <span class="line"></span>
+                <span class="body-14">{{ stockOut.quantity }}</span>
+                <div class="line"></div>
+                <span class="detail-value heading_b16">{{ stockOut.totalCost }}</span>
+              </div>
+              }
+            </div>
           </app-chart-card>
         </div>
         <div class="lg:col-4 md:col-6 col-12" [appLoader]="lastStockInLoader">
@@ -91,6 +110,21 @@
                 <i class="pi pi-heart"></i>
               </div>
             </div>
+            <div class="chart-body w-full">
+              @for(stockIn of lastStockIn; track stockIn) {
+              <div class="row">
+                <span class="body-14 mx-1">{{ stockIn.description }}</span>
+                <span class="detail-type body_b14 pointer">
+                  {{ stockIn.itemId }}
+                </span>
+
+                <span class="line"></span>
+                <span class="body-14">{{ stockIn.quantity }}</span>
+                <div class="line"></div>
+                <span class="detail-value heading_b16">{{ stockIn.totalCost }}</span>
+              </div>
+              }
+            </div>
           </app-chart-card>
         </div>
         <div class="lg:col-4 md:col-6 col-12" [appLoader]="stockExpiryDateLoader">
@@ -104,6 +138,20 @@
                 <span class="column-line"></span>
                 <i class="pi pi-heart"></i>
               </div>
+            </div>
+            <div class="chart-body w-full">
+              @for(stockExpiry of stockExpiryDate; track stockExpiry) {
+              <div class="row">
+                <div class="code-details">
+                  <div class="code body_b11">{{ stockExpiry.itemVariantId }}</div>
+                  <span class="body-14 mx-1">{{ stockExpiry.name }}</span>
+                </div>
+
+                <span class="line"></span>
+
+                <span class="detail-value heading_b16">{{ stockExpiry.expiryDate }}</span>
+              </div>
+              }
             </div>
           </app-chart-card>
         </div>

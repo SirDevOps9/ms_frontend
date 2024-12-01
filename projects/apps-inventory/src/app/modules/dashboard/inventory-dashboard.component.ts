@@ -3,6 +3,14 @@ import { Chart } from 'angular-highcharts';
 import { Subject } from 'rxjs';
 import { ChartService, LanguageService } from 'shared-lib';
 import { InventoryDashboardService } from './inventory-dashboard.service';
+import {
+  ExpiryItemsReportDto,
+  GetLastStockInTransactionDto,
+  GetLastStockOutTransactionDto,
+  InventoryTotalsDto,
+  ItemCategoryReportDto,
+  ItemWarehouseReportDto,
+} from './models';
 
 @Component({
   selector: 'app-inventory-dashboard',
@@ -12,9 +20,18 @@ import { InventoryDashboardService } from './inventory-dashboard.service';
 export class InventoryDashboardComponent {
   currentLanguage: string;
 
+  // charts and data
   statusChart: Chart;
+  statusChartLabels: string[] = [];
+  statusChartValues: any[] = [];
   categoriesChart: Chart;
+  categoriesChartData: any;
   warehousesChart: Chart;
+  warehouseChartData: any;
+  stockOverview: InventoryTotalsDto = {} as InventoryTotalsDto;
+  lastStockOut: GetLastStockOutTransactionDto[] = [];
+  lastStockIn: GetLastStockInTransactionDto[] = [];
+  stockExpiryDate: ExpiryItemsReportDto[] = [];
 
   // loaders
   statusLoader: boolean = false;
@@ -23,6 +40,7 @@ export class InventoryDashboardComponent {
   lastStockInLoader: boolean = false;
   lastStockOutLoader: boolean = false;
   stockExpiryDateLoader: boolean = false;
+  totalStockOverviewLoader: boolean = false;
 
   // clear subscriptions
   private destroy$ = new Subject<void>();
@@ -56,19 +74,71 @@ export class InventoryDashboardComponent {
 
   fetchData() {
     this.getStatus();
-    this.getCategories();
-    this.getWarehouses();
-    this.getLastStockIn();
-    this.getLastStockOut();
-    this.getStockExpiryDate();
+    this.getCategories(4);
+    this.getWarehouses(4);
+    this.getLastStockIn(10);
+    this.getLastStockOut(10);
+    this.getStockExpiryDate(7);
+    this.getTotalStockOverview();
   }
   subscriptions() {
-    this.service.status$.subscribe((data) => {});
-    this.service.categories$.subscribe((data) => {});
-    this.service.warehouses$.subscribe((data) => {});
-    this.service.lastStockIn$.subscribe((data) => {});
-    this.service.lastStockOut$.subscribe((data) => {});
-    this.service.stockExpiryDate$.subscribe((data) => {});
+    this.service.status$.subscribe((data) => {
+      data.forEach((status) => {
+        this.statusChartLabels.push(status.status);
+      });
+      this.statusChartValues = data.map((item, index) => ({
+        y: item.count,
+        value: item.count,
+        color: this.colors[index],
+        name: item.status,
+      }));
+      this.statusChart = this.chartService.columnChart(
+        this.statusChartLabels,
+        this.statusChartValues
+      );
+    });
+
+    this.service.categories$.subscribe((data) => {
+      const sum = data.reduce((acc: number, item: ItemCategoryReportDto) => {
+        return acc + (item.itemCount || 0);
+      }, 0);
+      this.categoriesChartData = data.map((item, index) => ({
+        y: parseFloat(((item.itemCount / sum) * 100).toFixed(2)),
+        value: item.itemCount,
+        name: `${this.currentLanguage == 'ar' ? item.nameAr : item.nameEn} (${parseFloat(
+          ((item.itemCount / sum) * 100).toFixed(2)
+        )}%)`,
+        color: this.colors[index],
+      }));
+      this.categoriesChart = this.chartService.donutChart(this.categoriesChartData);
+    });
+
+    this.service.warehouses$.subscribe((data) => {
+      const sum = data.reduce((acc: number, item: ItemWarehouseReportDto) => {
+        return acc + (item.totalQuantity || 0);
+      }, 0);
+      this.warehouseChartData = data.map((item, index) => ({
+        y: parseFloat(((item.totalQuantity / sum) * 100).toFixed(2)),
+        value: item.totalQuantity,
+        name: `${item.name} (${parseFloat(((item.totalQuantity / sum) * 100).toFixed(2))}%)`,
+        color: this.colors[index],
+      }));
+      this.warehousesChart = this.chartService.donutChart(this.warehouseChartData);
+    });
+
+    this.service.lastStockIn$.subscribe((data) => {
+      this.lastStockIn = data;
+    });
+    this.service.lastStockOut$.subscribe((data) => {
+      this.lastStockOut = data;
+    });
+    this.service.stockExpiryDate$.subscribe((data) => {
+      this.stockExpiryDate = data;
+    });
+
+    this.service.totalStockOverView$.subscribe((data) => {
+      this.stockOverview = data;
+    });
   }
   loaderSubscriptions() {
     this.service.statusLoader$.subscribe((loader) => {
@@ -89,25 +159,31 @@ export class InventoryDashboardComponent {
     this.service.stockExpiryDateLoader$.subscribe((loader) => {
       this.stockExpiryDateLoader = loader;
     });
+    this.service.totalStockOverviewLoader$.subscribe((loader) => {
+      this.totalStockOverviewLoader = loader;
+    });
   }
 
   getStatus() {
     this.service.fetchStatus();
   }
-  getCategories() {
-    this.service.fetchCategories();
+  getCategories(numberOfItems: number) {
+    this.service.fetchCategories(numberOfItems);
   }
-  getWarehouses() {
-    this.service.fetchWarehouses();
+  getWarehouses(numberOfItems: number) {
+    this.service.fetchWarehouses(numberOfItems);
   }
-  getLastStockIn() {
-    this.service.fetchLastStockIn();
+  getLastStockIn(numberOfItems: number) {
+    this.service.fetchLastStockIn(numberOfItems);
   }
-  getLastStockOut() {
-    this.service.fetchLastStockOut();
+  getLastStockOut(numberOfItems: number) {
+    this.service.fetchLastStockOut(numberOfItems);
   }
-  getStockExpiryDate() {
-    this.service.fetchStockExpiryDate();
+  getStockExpiryDate(numberOfItems: number) {
+    this.service.fetchStockExpiryDate(numberOfItems);
+  }
+  getTotalStockOverview() {
+    this.service.fetchTotalStockOverview();
   }
 
   ngOnDestroy() {
