@@ -58,13 +58,14 @@ export class EditStockOutComponent implements OnInit {
   dataLoaded: boolean;
   showPost: boolean;
   ngOnInit(): void {
+    this.initializeForm();
+
+    this.subscribe();
+
     this.itemId = this.route.snapshot.params['id'];
     this.loadLookups();
-
-    this.initWareHouseLookupData();
-    this.initializeForm();
-    this.subscribe();
     this.getStockOutyId(this.itemId);
+    this.initWareHouseLookupData();
   }
   getStockOutyId(id: number) {
     this.itemsService.getStockOutById(id);
@@ -80,7 +81,7 @@ export class EditStockOutComponent implements OnInit {
       id: data.id,
       code: data.code,
       receiptDate: data.receiptDate,
-      sourceDocumentType: data.sourceDocumentType,
+      // sourceDocumentType: data.sourceDocumentType,
       sourceDocumentId: data.sourceDocumentId,
       warehouseId: data.warehouseId,
       stockOutStatus: data.stockOutStatus,
@@ -90,6 +91,7 @@ export class EditStockOutComponent implements OnInit {
       this.getLatestItemsList(data?.warehouseId);
     }
 
+  
     // Clear existing form array
     const stockOutDetailsFormArray = this.addForm.get('stockOutDetails') as FormArray;
     stockOutDetailsFormArray.clear();
@@ -101,6 +103,8 @@ export class EditStockOutComponent implements OnInit {
     });
     this.dataLoaded = true;
     this.originalFormData = this.addForm.value;
+
+   
   }
 
   initializeForm() {
@@ -153,10 +157,15 @@ export class EditStockOutComponent implements OnInit {
     this.languageService.language$.subscribe((lang) => [(this.selectedLanguage = lang)]);
     this.lookupservice.lookups.subscribe((l) => {
       this.lookups = l;
+     
+       if(this.lookups[LookupEnum.StockInOutSourceDocumentType]?.length) {
+      this.addForm.get('sourceDocumentType')?.setValue(this.lookups[LookupEnum.StockInOutSourceDocumentType][0]?.id)
+    }
+     
     });
     this.addForm.get('sourceDocumentType')?.valueChanges.subscribe((res) => {
       let data = this.lookups[LookupEnum.StockInOutSourceDocumentType];
-      let sourceDocumentTypeData = data?.find((elem) => elem.name == res);
+      let sourceDocumentTypeData = data?.find((elem) => elem.id == res);
       if (sourceDocumentTypeData?.name == 'OperationalTag') {
         this.itemsService.operationTagStockOutDropdown();
         this.itemsService.perationalTagStockOutDropDown$.subscribe((res: any) => {
@@ -666,6 +675,8 @@ export class EditStockOutComponent implements OnInit {
     if (selectedItem != undefined) {
       rowForm.get('expiryDate')?.setValue(selectedItem.expiryDate);
       rowForm.get('totalQuantity')?.setValue(selectedItem.totalQuantity);
+      rowForm.get('cost')?.setValue(selectedItem.cost);
+
     } else {
       const serialOption = rowForm.get('stockOutTracking')?.get('serialOptions')?.value;
       const selectedItem = serialOption?.find(
@@ -674,6 +685,8 @@ export class EditStockOutComponent implements OnInit {
       if (selectedItem != undefined) {
         rowForm.get('expiryDate')?.setValue(selectedItem.expiryDate);
         rowForm.get('totalQuantity')?.setValue(selectedItem.totalQuantity);
+        rowForm.get('cost')?.setValue(selectedItem.cost);
+
       } else {
         rowForm.get('expiryDate')?.setValue('');
         rowForm.get('totalQuantity')?.setValue(rowForm.get('AllTotalQuantity')?.value);
