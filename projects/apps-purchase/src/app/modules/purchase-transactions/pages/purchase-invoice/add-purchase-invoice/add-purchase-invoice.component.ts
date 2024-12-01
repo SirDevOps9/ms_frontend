@@ -711,7 +711,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       description: this.purchaseInvoiceForm.value.description || null,
       warehouseId: this.purchaseInvoiceForm.value.warehouseId || 0,
       warehouseName: this.purchaseInvoiceForm.value.warehouseName || '',
-      vendorId: this.purchaseInvoiceForm.value.vendorId || 0,
+      vendorId: this.purchaseInvoiceForm.value.vendorId || null,
       vendorName: this.purchaseInvoiceForm.value.vendorName || '',
       currencyRate: +this.purchaseInvoiceForm.value.currencyRate || 0, // Ensure it's a number
       paymentTermId: this.purchaseInvoiceForm.value.paymentTermId ?? null,
