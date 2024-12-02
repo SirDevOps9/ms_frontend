@@ -7,6 +7,7 @@ import { PurchaseTransactionsService } from '../../../purchase-transactions.serv
 
 import { SharedEnum } from '../../../models/sharedEnums';
 import { SharedFinanceEnums } from 'projects/apps-inventory/src/app/modules/transactions/models/sharedEnumStockIn';
+import { ReturnInvoiceDetail } from '../../../models';
 
 @Component({
   selector: 'app-purchase-return-view',
@@ -15,11 +16,11 @@ import { SharedFinanceEnums } from 'projects/apps-inventory/src/app/modules/tran
 })
 export class PurchaseReturnViewComponent {
   addForm: FormGroup = new FormGroup({});
-  tableData: any[] = [];
+  tableData: ReturnInvoiceDetail[] = [];
 
   currentPageInfo: PageInfoResult = {};
 
-  filteredData: any[] = [];
+  filteredData: ReturnInvoiceDetail[] = [];
 
   ngOnInit(): void {
     const id = this.route.snapshot.params['id'];
@@ -49,7 +50,7 @@ export class PurchaseReturnViewComponent {
       vendorRate: [''],
       paymentTermId: [''],
       paymentTermName: [''],
-      reference: [''],
+      purchaseInvoiceCode: [''],
       numberOfItems: [''],
       totalOfQuantity: [''],
       total: [''],
@@ -70,17 +71,16 @@ export class PurchaseReturnViewComponent {
             invoiceDescription: res.description,
             warehouseId: res.warehouseName,
             warehouseName: res.warehouseName,
-            vendorCode: res.vendorCode,
-            currency: res.currencyRate,
-            rate: res.currencyRate,
+            vendorName: res.vendorName,
+            currency: res.currencyName,
             invoiceJournal: res.invoiceJournalCode,
             stockOut: res.stockOutCode,
-            vendorId: res.vendorName,
+            vendorId: res.vendorCode,
             currencyRate: res.currencyRate,
             // vendorRate: res.vendorRate,
             // paymentTermId: res.paymentTermId,
             // paymentTermName: res.paymentTermName,
-            reference: res.reference,
+            purchaseInvoiceCode: res.purchaseInvoiceCode,
             numberOfItems: res.numberOfItems,
             totalOfQuantity: res.totalOfQuantity,
             total: res.totalNetAmount,
@@ -88,7 +88,7 @@ export class PurchaseReturnViewComponent {
             totalAfterVat: res.grandTotal,
           });
 
-          this.populateInvoiceDetails(res.returnInvoiceDetails);
+          this.populateInvoiceDetails(res?.returnInvoiceDetails);
         }
       },
       error: (err) => {},
@@ -99,7 +99,6 @@ export class PurchaseReturnViewComponent {
     this.tableData = details;
     this.filteredData = [...this.tableData];
   }
-
   onCancel() {
     this.routerService.navigateTo('/transaction/return-purchase');
   }
@@ -108,7 +107,7 @@ export class PurchaseReturnViewComponent {
     debugger;
     const term = search.target.value?.toLowerCase() || '';
 
-    this.filteredData = this.tableData.filter((item) => {
+    this.filteredData = this.tableData.filter((item: any) => {
       return ['uomName', 'itemCode', 'description'].some((key) => {
         const value = item[key];
         return value && value.toString().toLowerCase().includes(term);

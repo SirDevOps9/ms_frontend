@@ -9,7 +9,7 @@
         [items]="tableData"
         className="p-datatable-gridlines"
         [currentPageResult]="currentPageInfo"
-        (exportObj)="exportedColumns($event)"
+        (exportObj)="exportClickBySort($event)"
         [sequence]="true"
         (pageChange)="onPageChange($event)"
         [tableConfigs]="{
@@ -42,8 +42,14 @@
               isSortable: true
             },
             {
+              name: 'currencyName',
+              headerText: ('purchase.currencyName' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
               name: 'currencyRate',
-              headerText: ('purchase.currency' | translate),
+              headerText: ('purchase.currencyRate' | translate),
               isGlobalFilter: true,
               isSortable: true
             },

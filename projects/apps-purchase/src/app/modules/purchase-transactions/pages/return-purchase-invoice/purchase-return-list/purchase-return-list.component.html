@@ -9,7 +9,7 @@
         [items]="tableData"
         className="p-datatable-gridlines"
         [currentPageResult]="currentPageInfo"
-        (exportObj)="exportedColumns($event)"
+        (exportObj)="exportClickBySort($event)"
         [sequence]="true"
         (pageChange)="onPageChange($event)"
         [tableConfigs]="{
@@ -68,7 +68,7 @@
               isSortable: true
             },
             {
-              name: 'vatAmount',
+              name: 'totalVatAmount',
               headerText: ('purchaseReturn.vatAmount' | translate),
               isGlobalFilter: true,
               isSortable: true

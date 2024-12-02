@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class ExportService {
   constructor(private LanguageService: TranslateService) {}
- // this is function format data to (YYYY/MM/dd)
+  // this is function format data to (YYYY/MM/dd)
   private formatDate(date: string | Date): string {
     if (!date) return '';
     const parsedDate = new Date(date);
@@ -15,12 +15,12 @@ export class ExportService {
     const day = String(parsedDate.getDate()).padStart(2, '0');
     return `${year}/${month}/${day}`;
   }
- // this is function format temAttributes list array
+  // this is function format temAttributes list array
   formatItemAttributes(data: any[], columns: { name: string; headerText: string }[]): any[] {
-    return data.map(item => {
+    return data.map((item) => {
       const formattedItem: { [key: string]: any } = {};
 
-      columns.forEach(column => {
+      columns.forEach((column) => {
         if (column.name === 'itemAttributes' && item.itemAttributes) {
           const nameEnAttributes = item.itemAttributes
             .map((attr: { nameEn: string }) => attr.nameEn)
@@ -30,11 +30,20 @@ export class ExportService {
             .map((attr: { nameAr: string }) => attr.nameAr)
             .join(', ');
 
-          formattedItem[`${this.LanguageService.instant(column.headerText)} ${this.LanguageService.instant('global.English')}`] = nameEnAttributes;
-          formattedItem[`${this.LanguageService.instant(column.headerText)} ${this.LanguageService.instant('global.Arabic')}`] = nameArAttributes;
-
+          formattedItem[
+            `${this.LanguageService.instant(column.headerText)} ${this.LanguageService.instant(
+              'global.English'
+            )}`
+          ] = nameEnAttributes;
+          formattedItem[
+            `${this.LanguageService.instant(column.headerText)} ${this.LanguageService.instant(
+              'global.Arabic'
+            )}`
+          ] = nameArAttributes;
         } else if (column.name === 'createdOn' && item[column.name]) {
-          formattedItem[this.LanguageService.instant(column.headerText)] = this.formatDate(item[column.name]);
+          formattedItem[this.LanguageService.instant(column.headerText)] = this.formatDate(
+            item[column.name]
+          );
         } else {
           formattedItem[this.LanguageService.instant(column.headerText)] = item[column.name];
         }
@@ -44,29 +53,34 @@ export class ExportService {
     });
   }
 
+  // this is function format Ciloma header tabel list
+  formatCiloma(data: any[], columns: { name: string; headerText: string }[]): any[] {
+    return data.map((item) => {
+      const formattedItem: { [key: string]: any } = {};
 
- // this is function format Ciloma header tabel list
- formatCiloma(data: any[], columns: { name: string; headerText: string }[]): any[] {
-  return data.map(item => {
-    const formattedItem: { [key: string]: any } = {};
+      columns.forEach((column) => {
+        if (column.name === 'itemAttributes' && item.itemAttributes) {
+          formattedItem[this.LanguageService.instant(column.headerText)] = item.itemAttributes
+            .map((attr: { nameAr: string; nameEn: string }) => `${attr.nameAr} (${attr.nameEn})`)
+            .join(', ');
+        } else if (item.hasOwnProperty(column.name) && Array.isArray(item[column.name])) {
+          formattedItem[this.LanguageService.instant(column.headerText)] =
+            item[column.name].join(', ');
+        } else if (
+          column.name === 'createdOn' ||
+          column.name === 'receiptDate' ||
+          column.name === 'invoiceDate' ||
+          (column.name === 'returnInvoiceDate' && item[column.name])
+        ) {
+          formattedItem[this.LanguageService.instant(column.headerText)] = this.formatDate(
+            item[column.name]
+          );
+        } else {
+          formattedItem[this.LanguageService.instant(column.headerText)] = item[column.name];
+        }
+      });
 
-    columns.forEach(column => {
-      if (column.name === 'itemAttributes' && item.itemAttributes) {
-        formattedItem[this.LanguageService.instant(column.headerText)] = item.itemAttributes
-          .map((attr: { nameAr: string; nameEn: string }) => `${attr.nameAr} (${attr.nameEn})`)
-          .join(', ');
-      } else if (item.hasOwnProperty(column.name) && Array.isArray(item[column.name])) {
-        formattedItem[this.LanguageService.instant(column.headerText)] = item[column.name].join(', ');
-      } else if (column.name === 'createdOn' || column.name ==='receiptDate' && item[column.name]) {
-        formattedItem[this.LanguageService.instant(column.headerText)] = this.formatDate(item[column.name]);
-      } else {
-        formattedItem[this.LanguageService.instant(column.headerText)] = item[column.name];
-      }
+      return formattedItem;
     });
-
-    return formattedItem;
-  });
-}
-
-
+  }
 }

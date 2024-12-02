@@ -5,6 +5,8 @@ import { SharedStock } from 'projects/apps-inventory/src/app/modules/transaction
 import { RouterService, PageInfoResult, PageInfo } from 'shared-lib';
 import { PurchaseTransactionsService } from '../../../purchase-transactions.service';
 import { IinvoiceDto } from '../../../models/purchase-invoice';
+import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
+import { SortTableEXport } from 'projects/apps-inventory/src/app/modules/items/models/SortTable';
 
 @Component({
   selector: 'app-purchase-invoice-list',
@@ -12,14 +14,6 @@ import { IinvoiceDto } from '../../../models/purchase-invoice';
   styleUrl: './purchase-invoice-list.component.scss',
 })
 export class PurchaseInvoiceListComponent implements OnInit {
-  // services injections
-  routerService = inject(RouterService);
-  authService = inject(AuthService);
-  transactionsService = inject(PurchaseTransactionsService);
-  sharedFinanceEnums = inject(SharedStock);
-  sequenceService = inject(SequenceService);
-  // services injections
-
   // sorting and exporting
   SortBy?: number;
   SortColumn?: string;
@@ -27,6 +21,8 @@ export class PurchaseInvoiceListComponent implements OnInit {
   exportData: any[];
   exportColumns: any[];
   exportSelectedCols: string[] = [];
+  SortByAll?: SortTableEXport;
+
   // sorting and exporting
 
   // other genera properties
@@ -80,15 +76,59 @@ export class PurchaseInvoiceListComponent implements OnInit {
     this.transactionsService.deleteInvoiceLine(id);
   }
 
-  exportedColumns(obj: { SortBy: number; SortColumn: string }) {
-    this.SortBy = obj.SortBy;
-    this.SortColumn = obj.SortColumn;
-  }
-  // on export data
+  // exportedColumns(obj: { SortBy: number; SortColumn: string }) {
+  //   this.SortBy = obj.SortBy;
+  //   this.SortColumn = obj.SortColumn;
+  // }
+  // // on export data
+  // exportClick() {
+  //   this.transactionsService.exportInvoiceListData(this.searchTerm, this.SortBy, this.SortColumn);
+  //   this.transactionsService.exportInvoiceData.subscribe((res) => {
+  //     this.exportData = res;
+  //   });
+  // }
+  // #############Export section #################
   exportClick() {
-    this.transactionsService.exportInvoiceListData(this.searchTerm, this.SortBy, this.SortColumn);
+    this.exportTableData(this.searchTerm, this.SortByAll?.SortBy, this.SortByAll?.SortColumn);
+  }
+
+  exportTableData(searchTerm: string, sortBy?: number, sortColumn?: string) {
+    this.transactionsService.exportInvoiceListData(searchTerm, sortBy, sortColumn);
+    const columns = [
+      { name: 'code', headerText: 'purchase.invoiceCode' },
+      { name: 'invoiceDate', headerText: 'purchase.invoiceDate' },
+      { name: 'vendorCode', headerText: 'purchase.vendorCode' },
+      { name: 'vendorName', headerText: 'purchase.vendorName' },
+      { name: 'currencyName', headerText: 'purchase.currencyName' },
+      { name: 'currencyRate', headerText: 'purchase.currencyRate' },
+      { name: 'reference', headerText: 'purchase.reference' },
+      { name: 'paymentTermName', headerText: 'purchase.paymentTermName' },
+      { name: 'warehouseName', headerText: 'purchase.warehouseName' },
+      { name: 'invoiceJournalCode', headerText: 'purchase.invoiceJournalCode' },
+      { name: 'stockInCode', headerText: 'purchase.stockInCode' },
+      { name: 'totalNetAmount', headerText: 'purchase.totalNetAmount' },
+      { name: 'totalDiscount', headerText: 'purchase.totalDiscount' },
+      { name: 'totalAfterDiscount', headerText: 'purchase.totalAfterDiscount' },
+      { name: 'vatAmount', headerText: 'purchase.vatAmount' },
+      { name: 'totalAfterVatAmount', headerText: 'purchase.totalAfterVatAmount' },
+      { name: 'id', headerText: 'purchase.actions' },
+    ];
     this.transactionsService.exportInvoiceData.subscribe((res) => {
-      this.exportData = res;
+      this.exportData = this.exportService.formatCiloma(res, columns);
     });
   }
+
+  exportClickBySort(e: { SortBy: number; SortColumn: string }) {
+    this.SortByAll = {
+      SortBy: e.SortBy,
+      SortColumn: e.SortColumn,
+    };
+  }
+  // #############Export section #################
+
+  constructor(
+    private routerService: RouterService,
+    private transactionsService: PurchaseTransactionsService,
+    private exportService: ExportService
+  ) {}
 }

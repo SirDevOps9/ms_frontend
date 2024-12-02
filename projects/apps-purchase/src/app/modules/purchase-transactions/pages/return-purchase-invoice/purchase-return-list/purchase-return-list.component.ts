@@ -2,6 +2,8 @@ import { Component, inject, OnInit } from '@angular/core';
 import { RouterService, PageInfoResult, PageInfo } from 'shared-lib';
 import { PurchaseTransactionsService } from '../../../purchase-transactions.service';
 import { PurchaseReturnInvoice } from '../../../models';
+import { SortTableEXport } from 'projects/apps-inventory/src/app/modules/items/models/SortTable';
+import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
 
 @Component({
   selector: 'app-purchase-return-list',
@@ -16,6 +18,8 @@ export class PurchaseReturnListComponent implements OnInit {
   exportData: any[];
   exportColumns: any[];
   exportSelectedCols: string[] = [];
+  SortByAll?: SortTableEXport;
+
   // sorting and exporting
 
   // other genera properties
@@ -73,19 +77,42 @@ export class PurchaseReturnListComponent implements OnInit {
     this.SortBy = obj.SortBy;
     this.SortColumn = obj.SortColumn;
   }
-  // on export data
+
+  // #############Export section #################
   exportClick() {
-    this.transactionsService.exportInvoiceReturnListData(
-      this.searchTerm,
-      this.SortBy,
-      this.SortColumn
-    );
+    this.exportTableData(this.searchTerm, this.SortByAll?.SortBy, this.SortByAll?.SortColumn);
+  }
+
+  exportTableData(searchTerm: string, sortBy?: number, sortColumn?: string) {
+    this.transactionsService.exportInvoiceReturnListData(searchTerm, sortBy, sortColumn);
+    const columns = [
+      { name: 'code', headerText: 'purchaseReturn.code' },
+      { name: 'returnInvoiceDate', headerText: 'purchaseReturn.returnInvoiceDate' },
+      { name: 'vendorCode', headerText: 'purchaseReturn.vendorCode' },
+      { name: 'vendorName', headerText: 'purchaseReturn.vendorName' },
+      { name: 'warehouseName', headerText: 'purchaseReturn.warehouseName' },
+      { name: 'invoiceJournalCode', headerText: 'purchaseReturn.invoiceJournalCode' },
+      { name: 'stockOutCode', headerText: 'purchaseReturn.stockOutCode' },
+      { name: 'totalNetAmount', headerText: 'purchaseReturn.totalNetAmount' },
+      { name: 'vatAmount', headerText: 'purchaseReturn.vatAmount' },
+      { name: 'grandTotal', headerText: 'purchaseReturn.grandTotal' },
+    ];
     this.transactionsService.exportInvoiceReturnData.subscribe((res) => {
-      this.exportData = res;
+      this.exportData = this.exportService.formatCiloma(res, columns);
     });
   }
+
+  exportClickBySort(e: { SortBy: number; SortColumn: string }) {
+    this.SortByAll = {
+      SortBy: e.SortBy,
+      SortColumn: e.SortColumn,
+    };
+  }
+  // #############Export section #################
+
   constructor(
     private routerService: RouterService,
-    private transactionsService: PurchaseTransactionsService
+    private transactionsService: PurchaseTransactionsService,
+    private exportService: ExportService
   ) {}
 }

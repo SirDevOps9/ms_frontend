@@ -217,16 +217,20 @@
     "invoiceCode": "رمز الفاتورة",
     "invoiceDate": "تاريخ الفاتورة",
     "totalAmount": "المبلغ الإجمالي",
-    "totalOfQuantity": "إجمالي الكمية",
     "totalAfterDiscount": "إجمالي بعد الخصم",
     "totalAfterVat": "إجمالي بعد ضريبة القيمة المضافة",
     "actions": "الإجراءات",
     "discount": "الخصم",
+    "quantity_": "الكمية الأصلية",
+    "totalOfQuantity": "إجمالي الكمية",
+    "transactionRemainQuantity": "الكمية المتبقية",
+
     "cancel": "إلغاء",
     "vatAmountTotal": "إجمالي ضريبة القيمة المضافة",
     "totalNetAmount": "الإجمالي",
     "numberOfItems": "عدد العناصر",
     "Add": "إنشاء",
+    "toReturnQuantity": "الكمية المراد إرجاعها",
     "btnReserve": "حجز",
     "btnReserved": "تم الحجز",
     "success": "تم الحجز بنجاح",
@@ -265,7 +269,7 @@
     "NoTracking": "لا يوجد تتبع"
   },
 
-"PurchaseInvoiceEdit": {
+  "PurchaseInvoiceEdit": {
     "import": "استيراد",
     "edit": "تعديل",
     "save": "حفظ",
@@ -340,6 +344,5 @@
     "invoicejournal": "دفتر الفواتير",
     "stockOut": "الخروج من المخزون",
     "operation": "العملية ذات الصلة"
-}
-
+  }
 }

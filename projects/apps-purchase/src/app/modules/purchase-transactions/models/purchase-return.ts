@@ -8,7 +8,7 @@ export interface PurchaseReturnInvoice {
   invoiceJournalCode: string;
   stockOutCode: string;
   totalNetAmount: number;
-  vatAmount: number;
+  totalVatAmount: number;
   grandTotal: number;
   createdOn: Date;
 }
@@ -21,7 +21,7 @@ export interface viewInvoiceReturnObj {
   vendorCode: string;
   vendorName: string;
   currencyRate: number;
-  reference: string;
+  purchaseInvoiceCode: string;
   invoiceJournalCode: string;
   stockOutCode: string;
   returnInvoiceDetails: ReturnInvoiceDetail[];
@@ -36,9 +36,9 @@ export interface ReturnInvoiceDetail {
   itemCode: string;
   description: string;
   uomName: string;
-  remainQuantity: number;
+  transactionRemainQuantity: number;
   toReturnQuantity: number;
-  quantity: number;
+  originalQuantity: number;
   cost: number;
   subCost: number;
   vatPercentage: number;

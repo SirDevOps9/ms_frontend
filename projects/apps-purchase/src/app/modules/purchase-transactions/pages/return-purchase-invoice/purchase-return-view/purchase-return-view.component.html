@@ -31,7 +31,10 @@
                           <lib-label [appControl]="addForm.controls['invoiceDate']">
                             {{ 'PurchaseInvoiceEdit.invoiceDate' | translate }}
                           </lib-label>
-                          <lib-calendar formControlName="invoiceDate"></lib-calendar>
+                          <lib-calendar
+                            [ngClass]="{ 'readonly-calendar': true }"
+                            formControlName="invoiceDate"
+                          ></lib-calendar>
                         </lib-form-group>
                       </div>
                       <div class="col-12">
@@ -96,8 +99,19 @@
                       </div>
                       <div class="col-12 md:col-6">
                         <lib-form-group>
-                          <lib-label [appControl]="addForm.controls['currencyRate']">
+                          <lib-label [appControl]="addForm.controls['currency']">
                             {{ 'PurchaseInvoiceEdit.currency' | translate }}
+                          </lib-label>
+                          <lib-text-input
+                            [readOnly]="true"
+                            formControlName="currency"
+                          ></lib-text-input>
+                        </lib-form-group>
+                      </div>
+                      <div class="col-12 md:col-6">
+                        <lib-form-group>
+                          <lib-label [appControl]="addForm.controls['currencyRate']">
+                            {{ 'PurchaseInvoiceEdit.rate' | translate }}
                           </lib-label>
                           <lib-text-input
                             [readOnly]="true"
@@ -107,23 +121,12 @@
                       </div>
                       <div class="col-12 md:col-6">
                         <lib-form-group>
-                          <lib-label [appControl]="addForm.controls['vendorRate']">
-                            {{ 'PurchaseInvoiceEdit.rate' | translate }}
-                          </lib-label>
-                          <lib-text-input
-                            [readOnly]="true"
-                            formControlName="vendorRate"
-                          ></lib-text-input>
-                        </lib-form-group>
-                      </div>
-                      <div class="col-12 md:col-6">
-                        <lib-form-group>
-                          <lib-label [appControl]="addForm.controls['paymentTermName']">
+                          <lib-label [appControl]="addForm.controls['purchaseInvoiceCode']">
                             {{ 'PurchaseInvoiceEdit.purchaseInvoice' | translate }}
                           </lib-label>
                           <lib-text-input
                             [readOnly]="true"
-                            formControlName="paymentTermName"
+                            formControlName="purchaseInvoiceCode"
                           ></lib-text-input>
                         </lib-form-group>
                       </div>
@@ -147,23 +150,23 @@
                     <div class="grid">
                       <div class="col-12 md:col-7">
                         <lib-form-group>
-                          <lib-label [appControl]="addForm.controls['paymentTermName']">
+                          <lib-label [appControl]="addForm.controls['invoiceJournal']">
                             {{ 'PurchaseInvoiceEdit.invoiceJornal' | translate }}
                           </lib-label>
                           <lib-text-input
                             [readOnly]="true"
-                            formControlName="paymentTermName"
+                            formControlName="invoiceJournal"
                           ></lib-text-input>
                         </lib-form-group>
                       </div>
                       <div class="col-12 md:col-7">
                         <lib-form-group>
-                          <lib-label [appControl]="addForm.controls['paymentTermName']">
+                          <lib-label [appControl]="addForm.controls['stockOut']">
                             {{ 'PurchaseInvoiceEdit.stockOut' | translate }}
                           </lib-label>
                           <lib-text-input
                             [readOnly]="true"
-                            formControlName="paymentTermName"
+                            formControlName="stockOut"
                           ></lib-text-input>
                         </lib-form-group>
                       </div>
@@ -210,14 +213,20 @@
                 isSortable: true
               },
               {
+                name: 'transactionRemainQuantity',
+                headerText: ('purchase.transactionRemainQuantity' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
                 name: 'toReturnQuantity',
                 headerText: ('purchase.toReturnQuantity' | translate),
                 isGlobalFilter: true,
                 isSortable: true
               },
               {
-                name: 'quantity',
-                headerText: ('purchase.quantity' | translate),
+                name: 'originalQuantity',
+                headerText: ('purchase.quantity_' | translate),
                 isGlobalFilter: true,
                 isSortable: true
               },
@@ -278,6 +287,7 @@
                 tracking.trackingType == this.sharedFinanceEnums.trackingType.NoTracking
               "
             >
+              {{ ('purchase.systembatch' | translate) + '-' }}
               {{
                 tracking.returnInvoiceTracking.systemPatchNo +
                   ' - ' +
@@ -291,7 +301,7 @@
                 tracking.trackingType == this.sharedFinanceEnums.trackingType.NoTracking
               "
             >
-              {{ 'No Tracking' }}
+              {{ 'purchase.NoTracking' | translate }}
             </p>
             <!-- serial and has  -->
             <p
@@ -300,6 +310,8 @@
                 tracking.trackingType == this.sharedFinanceEnums.trackingType.Serial
               "
             >
+              {{ ('purchase.Serial' | translate) + '-' }}
+
               {{
                 tracking.returnInvoiceTracking.serialId +
                   ' - ' +
@@ -313,6 +325,8 @@
                 tracking.trackingType == this.sharedFinanceEnums.trackingType.Serial
               "
             >
+              {{ ('purchase.Serial' | translate) + '-' }}
+
               {{ tracking.returnInvoiceTracking.serialId }}
             </p>
             <!-- batch and  has -->
@@ -322,6 +336,8 @@
                 tracking.trackingType == this.sharedFinanceEnums.trackingType.Batch
               "
             >
+              {{ ('purchase.Batch' | translate) + '-' }}
+
               {{
                 tracking.returnInvoiceTracking.vendorBatchNo +
                   ' - ' +
@@ -335,6 +351,8 @@
                 tracking.trackingType == this.sharedFinanceEnums.trackingType.Batch
               "
             >
+              {{ ('purchase.Batch' | translate) + '-' }}
+
               {{ tracking.returnInvoiceTracking.vendorBatchNo }}
             </p>
           </ng-template>
