@@ -162,7 +162,13 @@ export class EditPurchaseInvoiceComponent implements OnInit {
         this.addForm.get('currencyRate')?.setValue(item?.vendorFinancialCurrencyName)
         this.addForm.get('paymentTermName')?.setValue(item?.paymentTermName)
         this.addForm.get('paymentTermId')?.setValue(item?.paymentTermId)
+        this.addForm.get('currencyName')?.setValue(item?.vendorFinancialCurrencyName);
+        this.addForm.get('currencyId')?.setValue(item?.vendorFinancialCurrencyId);
         this.getAccountCurrencyRate(item.vendorFinancialCurrencyId)
+        if(!this.addForm.get('currencyId')?.value) {
+          this.addForm.get('currencyId')?.setValue(this.currentUserService.getCurrency());
+          this.addForm.get('currencyName')?.setValue('Egyptian Pound');
+        }
       }
     });
 
@@ -226,7 +232,7 @@ export class EditPurchaseInvoiceComponent implements OnInit {
       code: new FormControl(''),
       invoiceCode: new FormControl(''),
       invoiceDate: new FormControl(new Date(), [customValidators.required]),
-      invoiceDescription: new FormControl('', [customValidators.required]),
+      invoiceDescription: new FormControl(''),
       warehouseId: new FormControl('', [customValidators.required]),
       warehouseName: new FormControl('', [customValidators.required]),
       vendorCode: new FormControl(''),
@@ -242,6 +248,8 @@ export class EditPurchaseInvoiceComponent implements OnInit {
       paymentTermId: new FormControl(''),
       paymentTermName: new FormControl(''),
       reference: new FormControl(''),
+      currencyId: new FormControl(''),
+      currencyName: new FormControl(''),
       invoiceDetails: this.fb.array([]),
 
     });
@@ -324,7 +332,7 @@ export class EditPurchaseInvoiceComponent implements OnInit {
       if (invoiceTrackingGroup) {
         invoiceTrackingGroup.patchValue({
           invoiceDetailId: selectedItem?.invoiceTrackingGroup?.invoiceDetailId || 0,
-          vendorBatchNo: selectedItem.invoiceTrackingGroup?.vendorBatchNo || '',
+          vendorBatchNo: selectedItem.invoiceTrackingGroup?.vendorBatchNo|| null,
           quantity: selectedItem.quantity,
           hasExpiryDate: selectedItem.hasExpiryDate,
           expireDate: selectedItem.expireDate,
@@ -607,7 +615,6 @@ export class EditPurchaseInvoiceComponent implements OnInit {
             this.invoiceDetailsFormArray.removeAt(index);
           },
           error: (err: any) => {
-            console.error('Error occurred while deleting:', err);
             this.toasterService.showError(
               this.languageService.transalte('transactions.error'),
               this.languageService.transalte('transactions.deleteFailed')
@@ -754,6 +761,8 @@ export class EditPurchaseInvoiceComponent implements OnInit {
       currencyRate: data.vendorRate,
       paymentTermId: data.paymentTermId,
       reference: data.reference || null,
+      currencyId : data.currencyId || null,
+      currencyName : data.currencyName ,
       invoiceDetails: data.invoiceDetails.map((detail: any) => ({
         id: detail.id,
         barCode: detail.barCode || null,
@@ -765,6 +774,7 @@ export class EditPurchaseInvoiceComponent implements OnInit {
         uomId: detail.uomId,
         uomName: detail.uomName,
         quantity: detail.quantity,
+     
         cost: detail.cost,
         discountPercentage: detail.discount,
         discountAmount: detail.discountAmt,

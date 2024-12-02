@@ -629,6 +629,8 @@
     "vatAmountTotal": "vat Amount Total",
     "discountPercentage": "Discount Percentage",
     "disAmount": "Discount Amount",
+    "batch": "batch no.",
+    "serial": "Serial",
     "systembatch": "System Batch",
     "NoTracking": "No Tracking",
     "Serial": "Serial",
