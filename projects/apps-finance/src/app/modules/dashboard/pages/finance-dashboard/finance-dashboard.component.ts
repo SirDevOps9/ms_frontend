@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
-import { ChartService, LanguageService } from 'shared-lib';
+import { ChartService, DASHBOARD_COLORS, LanguageService, MONTHS_AR, MONTHS_EN } from 'shared-lib';
 import { FinanceDashboardService } from '../../finance-dashboard.service';
 import { Chart } from 'angular-highcharts';
 import {
@@ -48,18 +48,7 @@ export class FinanceDashboardComponent {
   // clear subscriptions
   private destroy$ = new Subject<void>();
 
-  colors = [
-    '#FF5733',
-    '#33C1FF',
-    '#28A745',
-    '#FFC107',
-    '#FF33A6',
-    '#6610F2',
-    '#FF6F61',
-    '#4B8C6A',
-    '#FFB6C1',
-    '#8A2BE2',
-  ];
+  colors = DASHBOARD_COLORS;
 
   constructor(
     private chartService: ChartService,
@@ -120,34 +109,8 @@ export class FinanceDashboardComponent {
     });
 
     this.service.income$.pipe(takeUntil(this.destroy$)).subscribe((data) => {
-      const monthsEn: string[] = [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July',
-        'August',
-        'September',
-        'October',
-        'November',
-        'December',
-      ];
-      const monthsAr: string[] = [
-        'يناير',
-        'فبراير',
-        'مارس',
-        'أبريل',
-        'مايو',
-        'يونيو',
-        'يوليو',
-        'أغسطس',
-        'سبتمبر',
-        'أكتوبر',
-        'نوفمبر',
-        'ديسمبر',
-      ];
+      const monthsEn: string[] = MONTHS_EN;
+      const monthsAr: string[] = MONTHS_AR;
       const months = this.currentLanguage === 'en' ? monthsEn : monthsAr;
 
       const categories = Array.from(new Set(data.map((item) => item.paidBy)));

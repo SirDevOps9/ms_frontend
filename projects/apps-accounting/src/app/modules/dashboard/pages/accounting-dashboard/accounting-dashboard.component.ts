@@ -11,7 +11,7 @@ import {
   RevenueStream,
 } from '../../models';
 import { Subject, takeUntil } from 'rxjs';
-import { ChartService, LanguageService } from 'shared-lib';
+import { ChartService, DASHBOARD_COLORS, LanguageService } from 'shared-lib';
 import { Router } from '@angular/router';
 
 @Component({
@@ -53,18 +53,7 @@ export class AccountingDashboardComponent {
   journalStatusLoader: boolean = false;
   journalEntryTypeCountLoader: boolean = false;
 
-  colors = [
-    '#FF5733',
-    '#33C1FF',
-    '#28A745',
-    '#FFC107',
-    '#FF33A6',
-    '#6610F2',
-    '#FF6F61',
-    '#4B8C6A',
-    '#FFB6C1',
-    '#8A2BE2',
-  ];
+  colors = DASHBOARD_COLORS;
 
   ngOnInit() {
     this.languageService.language$.subscribe((lang) => (this.currentLanguage = lang));
