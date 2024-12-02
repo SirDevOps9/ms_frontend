@@ -41,7 +41,7 @@ export interface ReturnInvoiceDetail {
   originalQuantity: number;
   cost: number;
   subCost: number;
-  vatPercentage: number;
+  vatAmount: number;
   grandTotal: number;
   trackingType: string;
   hasExpiryDate: boolean;

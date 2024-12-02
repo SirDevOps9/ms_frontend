@@ -67,7 +67,7 @@ export class PurchaseReturnViewComponent {
           this.addForm.patchValue({
             code: res.code,
             invoiceCode: res.code,
-            invoiceDate: res.returnInvoiceDate, // Make sure the date is in the correct format
+            invoiceDate: res.returnInvoiceDate,
             invoiceDescription: res.description,
             warehouseId: res.warehouseName,
             warehouseName: res.warehouseName,
@@ -77,9 +77,7 @@ export class PurchaseReturnViewComponent {
             stockOut: res.stockOutCode,
             vendorId: res.vendorCode,
             currencyRate: res.currencyRate,
-            // vendorRate: res.vendorRate,
-            // paymentTermId: res.paymentTermId,
-            // paymentTermName: res.paymentTermName,
+
             purchaseInvoiceCode: res.purchaseInvoiceCode,
             numberOfItems: res.numberOfItems,
             totalOfQuantity: res.totalOfQuantity,
