@@ -19,6 +19,7 @@ const routes: Route[] = [
         component: FinanceDashboardComponent,
         data: {
           breadcrumb: BreadcrumbLabel.DASHBOARD,
+          pageTitle: BreadcrumbLabel.DASHBOARD,
         },
       },
     ],

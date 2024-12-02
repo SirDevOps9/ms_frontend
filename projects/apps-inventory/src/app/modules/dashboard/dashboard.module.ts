@@ -18,6 +18,7 @@ const routes: Routes = [
         component: InventoryDashboardComponent,
         data: {
           breadcrumb: BreadcrumbLabel.DASHBOARD,
+          pageTitle: BreadcrumbLabel.DASHBOARD,
         },
       },
     ],
