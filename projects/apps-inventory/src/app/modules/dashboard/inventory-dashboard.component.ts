@@ -92,10 +92,12 @@ export class InventoryDashboardComponent {
         color: this.colors[index],
         name: item.status,
       }));
-      this.statusChart = this.chartService.columnChart(
-        this.statusChartLabels,
-        this.statusChartValues
-      );
+      if (this.statusChartValues.length > 0) {
+        this.statusChart = this.chartService.columnChart(
+          this.statusChartLabels,
+          this.statusChartValues
+        );
+      }
     });
 
     this.service.categories$.subscribe((data) => {
@@ -110,7 +112,9 @@ export class InventoryDashboardComponent {
         )}%)`,
         color: this.colors[index],
       }));
-      this.categoriesChart = this.chartService.donutChart(this.categoriesChartData);
+      if (this.categoriesChartData.length > 0) {
+        this.categoriesChart = this.chartService.donutChart(this.categoriesChartData);
+      }
     });
 
     this.service.warehouses$.subscribe((data) => {
@@ -123,7 +127,9 @@ export class InventoryDashboardComponent {
         name: `${item.name} (${parseFloat(((item.totalQuantity / sum) * 100).toFixed(2))}%)`,
         color: this.colors[index],
       }));
-      this.warehousesChart = this.chartService.donutChart(this.warehouseChartData);
+      if (this.warehouseChartData.length > 0) {
+        this.warehousesChart = this.chartService.donutChart(this.warehouseChartData);
+      }
     });
 
     this.service.lastStockIn$.subscribe((data) => {
@@ -184,6 +190,13 @@ export class InventoryDashboardComponent {
   }
   getTotalStockOverview() {
     this.service.fetchTotalStockOverview();
+  }
+
+  isExpired(date: string) {
+    const currentDate = new Date();
+    const selectedDate = new Date(date);
+
+    return selectedDate.getTime() < currentDate.getTime();
   }
 
   ngOnDestroy() {

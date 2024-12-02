@@ -10,6 +10,7 @@
     "moreDetails": "المزيد من التفاصيل",
     "status": "الحالة",
     "totalQuantity": "الكمية الكلية",
-    "totalValue": "القيمة الكلية"
+    "totalValue": "القيمة الكلية",
+    "noELements": "لا يوجد عناصر"
   }
 }

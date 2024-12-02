@@ -10,6 +10,7 @@
     "moreDetails": "More Details",
     "status": "Status",
     "totalQuantity": "Total Quantity",
-    "totalValue": "Total Value"
+    "totalValue": "Total Value",
+    "noElements": "No Elements"
   }
 }

@@ -84,16 +84,20 @@
             <div class="chart-body w-full">
               @for(stockOut of lastStockOut; track stockOut) {
               <div class="row">
-                <span class="body-14 mx-1">{{ stockOut.description }}</span>
+                <span class="body_b14 mx-1">{{ stockOut.description }}</span>
                 <span class="detail-type body_b14 pointer">
                   {{ stockOut.itemId }}
                 </span>
 
                 <span class="line"></span>
-                <span class="body-14">{{ stockOut.quantity }}</span>
+                <span class="body_b14">{{ stockOut.quantity }}</span>
                 <div class="line"></div>
-                <span class="detail-value heading_b16">{{ stockOut.totalCost }}</span>
+                <span class="detail-value heading_b16">{{
+                  stockOut.totalCost | decimalSeparator
+                }}</span>
               </div>
+              } @empty {
+              <p class="body_b14">{{ 'dashboard.noElements' | translate }}</p>
               }
             </div>
           </app-chart-card>
@@ -113,16 +117,20 @@
             <div class="chart-body w-full">
               @for(stockIn of lastStockIn; track stockIn) {
               <div class="row">
-                <span class="body-14 mx-1">{{ stockIn.description }}</span>
+                <span class="body_b14 mx-1">{{ stockIn.description }}</span>
                 <span class="detail-type body_b14 pointer">
                   {{ stockIn.itemId }}
                 </span>
 
                 <span class="line"></span>
-                <span class="body-14">{{ stockIn.quantity }}</span>
+                <span class="body_b14">{{ stockIn.quantity }}</span>
                 <div class="line"></div>
-                <span class="detail-value heading_b16">{{ stockIn.totalCost }}</span>
+                <span class="detail-value heading_b16">{{
+                  stockIn.totalCost | decimalSeparator
+                }}</span>
               </div>
+              } @empty {
+              <p class="body_b14">{{ 'dashboard.noElements' | translate }}</p>
               }
             </div>
           </app-chart-card>
@@ -141,16 +149,26 @@
             </div>
             <div class="chart-body w-full">
               @for(stockExpiry of stockExpiryDate; track stockExpiry) {
-              <div class="row">
+              <div class="row expiry-row">
+                @if(stockExpiry.expiryDate && isExpired(stockExpiry.expiryDate) ) {
+                <i class="pi pi-ban"></i>
+                }@else {
+                <i class="pi pi-thumbs-up"></i>
+
+                }
                 <div class="code-details">
-                  <div class="code body_b11">{{ stockExpiry.itemVariantId }}</div>
-                  <span class="body-14 mx-1">{{ stockExpiry.name }}</span>
+                  <div class="code body_b11">{{ stockExpiry.trackingNo }}</div>
+                  <span class="body_b14 mx-1">{{ stockExpiry.name }}</span>
                 </div>
 
                 <span class="line"></span>
 
-                <span class="detail-value heading_b16">{{ stockExpiry.expiryDate }}</span>
+                <span class="detail-value heading_b16">{{
+                  stockExpiry.expiryDate | date : 'dd/MM/yyyy'
+                }}</span>
               </div>
+              } @empty {
+              <p class="body_b14">{{ 'dashboard.noElements' | translate }}</p>
               }
             </div>
           </app-chart-card>

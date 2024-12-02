@@ -74,6 +74,10 @@
     align-items: center;
     margin-bottom: 8px;
 
+    &.expiry-row {
+      gap: 5px;
+    }
+
     .label-color {
       color: #5e6278;
     }
@@ -132,4 +136,15 @@
   .code {
     color: #5e6278;
   }
+}
+
+i.pi-ban,
+i.pi-thumbs-up {
+  font-size: 21px;
+}
+i.pi-ban {
+  color: #cc3f2d;
+}
+i.pi-thumbs-up {
+  color: #36a19b;
 }

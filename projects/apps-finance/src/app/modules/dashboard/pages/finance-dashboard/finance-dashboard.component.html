@@ -212,7 +212,7 @@
                 <span class="body-14 mx-1">{{ acc.name }}</span>
                 <span class="line"></span>
 
-                <span class="body-14 mx-1">{{ acc.paymentInDate | date }}</span>
+                <span class="body-14 mx-1">{{ acc.paymentInDate | date : 'dd/MM/yyyy' }}</span>
                 <span class="line"></span>
 
                 <span class="mx-1 heading_b16">{{ acc.amount | decimalSeparator }}</span>
@@ -249,7 +249,7 @@
                 <span class="body-14 mx-1">{{ acc.name }}</span>
                 <span class="line"></span>
 
-                <span class="body-14 mx-1">{{ acc.paymentOutDate | date }}</span>
+                <span class="body-14 mx-1">{{ acc.paymentOutDate | date : 'dd/MM/yyyy' }}</span>
                 <span class="line"></span>
 
                 <span class="mx-1 heading_b16">{{ acc.amount | decimalSeparator }}</span>
