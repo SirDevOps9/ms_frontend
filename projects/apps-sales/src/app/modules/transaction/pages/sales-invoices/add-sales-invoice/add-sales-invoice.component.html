@@ -253,457 +253,457 @@
 
 
 
-
-
-
+    <div class="my-2 card_micro tableCont p-6">
+      <div class="flex justify-content-between align-items-center gap-4 my-4">
+        <lib-text-input type="text" [placeholder]="'purchase.search' | translate"></lib-text-input>
   
-  </div>
-
-  <div class="my-2 card_micro tableCont p-6">
-    <div class="flex justify-content-between align-items-center gap-4 my-4">
-      <lib-text-input type="text" [placeholder]="'purchase.search' | translate"></lib-text-input>
-
-      <div class="flex justify-content-end gap-4 my-4">
-        <lib-button-micro
-          [title]="'purchase.upload' | translate"
-          nameClass="outline"
-          iconName="pi pi-file-edit"
-        >
-        </lib-button-micro>
-        <lib-button-micro
-          [title]="'purchase.scan' | translate"
-          nameClass="outline"
-          iconName="pi pi-expand"
-        >
-        </lib-button-micro>
+        <div class="flex justify-content-end gap-4 my-4">
+          <lib-button-micro
+            [title]="'purchase.upload' | translate"
+            nameClass="outline"
+            iconName="pi pi-file-edit"
+          >
+          </lib-button-micro>
+          <lib-button-micro
+            [title]="'purchase.scan' | translate"
+            nameClass="outline"
+            iconName="pi pi-expand"
+          >
+          </lib-button-micro>
+        </div>
       </div>
-    </div>
-    <p-table
-      [value]="stockIn['controls']"
-      dataKey="id"
-      styleClass="p-datatable-gridlines p-datatable-striped"
-      [tableStyle]="{ 'min-width': '50rem' }"
-      styleClass="p-datatable-striped p-datatable-gridlines"
-    >
-      <ng-template pTemplate="header">
-        <tr>
-          <th>{{ 'purchase.barcode' | translate }}</th>
-          <th>{{ 'purchase.itemCode' | translate }}</th>
-          <th>{{ 'purchase.itemDescription' | translate }}</th>
-          <th>{{ 'purchase.UOM' | translate }}</th>
-          <th>{{ 'purchase.QTY' | translate }}</th>
-          <th>{{ 'purchase.cost' | translate }}</th>
-          <th>{{ 'purchase.subTotal' | translate }}</th>
-          <th>{{ 'purchase.discount' | translate }}</th>
-          <th>{{ 'purchase.discountAmt' | translate }}</th>
-          <th>{{ 'purchase.netCost' | translate }}</th>
-          <th>{{ 'purchase.totalAfterDis' | translate }}</th>
-          <th>{{ 'purchase.vat' | translate }}</th>
-          <th>{{ 'purchase.vatAmount' | translate }}</th>
-          <th>{{ 'purchase.grandTotal' | translate }}</th>
-          <th>{{ 'purchase.tracking' | translate }}</th>
-          <th>{{ 'purchase.actions' | translate }}</th>
-        </tr>
-      </ng-template>
-      <ng-template
-        pTemplate="body"
-        let-purchaseInvoiceFormGroup
-        let-editing="editing"
-        let-i="rowIndex"
+      <p-table
+        [value]="stockIn['controls']"
+        dataKey="id"
+        styleClass="p-datatable-gridlines p-datatable-striped"
+        [tableStyle]="{ 'min-width': '50rem' }"
+        styleClass="p-datatable-striped p-datatable-gridlines"
       >
-        <tr [formGroup]="purchaseInvoiceFormGroup">
-          <td
-            [pEditableColumn]="purchaseInvoiceFormGroup.controls['barCode']"
-            pEditableColumnField="barCode"
-          >
-            <p-cellEditor>
-              <ng-template pTemplate="input">
-                <lib-text-input
-                  placeholder="{{ 'purchase.barcode' | translate }}"
-                  formControlName="barCode"
-                  [readOnly]="dataToReadOnly"
-                ></lib-text-input>
-              </ng-template>
-              <ng-template pTemplate="output">
-                {{ purchaseInvoiceFormGroup.controls['barCode']?.value }}
-              </ng-template>
-            </p-cellEditor>
-            <lib-field-validations
-              [appControl]="purchaseInvoiceFormGroup.controls['barCode']"
-            ></lib-field-validations>
-          </td>
-          <!--  -->
-
-          <td
-            [pEditableColumn]="purchaseInvoiceFormGroup.controls['itemId']"
-            pEditableColumnField="itemId"
-          >
-            <p-cellEditor>
-              <ng-template pTemplate="input">
-                <div class="flex justify-content-center gap-2 align-items-center">
-                  <lib-select
-                    formControlName="itemId"
-                    [options]="latestItemsList"
-                    optionValue="itemNumber"
-                    optionLabel="displayName"
-                    placeholder="{{ 'purchase.itemCode' | translate }}"
-                    (valueChanged)="setRowdata(i, $event, latestItemsList)"
-                    [readOnly]="dataToReadOnly"
-                    (valueSearchChanged)="onFilter($event)"
-                  >
-                  </lib-select>
-                  <i
-                    class="pi pi-search search-circle pointer"
-                    (click)="openDialog(i, purchaseInvoiceFormGroup)"
-                  ></i>
-                </div>
-              </ng-template>
-              <ng-template pTemplate="output">
-                {{ purchaseInvoiceFormGroup.controls['itemCodeName']?.value }}
-              </ng-template>
-            </p-cellEditor>
-            <lib-field-validations
-              [appControl]="purchaseInvoiceFormGroup.controls['itemId']"
-            ></lib-field-validations>
-          </td>
-          <!--  -->
-          <td>
-            {{ purchaseInvoiceFormGroup.controls['description']?.value }}
-          </td>
-          <!--  -->
-
-          <td
-            [pEditableColumn]="purchaseInvoiceFormGroup.controls['uomId']"
-            pEditableColumnField="uomId"
-          >
-            <p-cellEditor>
-              <ng-template pTemplate="input">
-                <lib-select
-                  formControlName="uomId"
-                  [options]="purchaseInvoiceFormGroup.controls['uomOptions'].value || []"
-                  optionValue="uomId"
-                  [readOnly]="dataToReadOnly"
-                  [optionLabel]="currentLang == 'en' ? 'uomNameEn' : 'uomNameAr'"
-                  placeholder="{{ 'purchase.UOM' | translate }}"
-                  (valueChanged)="
-                    changeUomName(i, purchaseInvoiceFormGroup.controls['uomOptions'].value)
-                  "
-                  [selectedValue]="purchaseInvoiceFormGroup.controls['uomId']?.value"
-                ></lib-select>
-              </ng-template>
-              <ng-template pTemplate="output">
-                {{ purchaseInvoiceFormGroup.controls['uomName']?.value }}
-              </ng-template>
-            </p-cellEditor>
-            <lib-field-validations
-              [appControl]="purchaseInvoiceFormGroup.controls['uomId']"
-            ></lib-field-validations>
-          </td>
-          <!--  -->
-
-          <td
-            [pEditableColumn]="purchaseInvoiceFormGroup.controls['quantity']"
-            pEditableColumnField="quantity"
-          >
-            <p-cellEditor>
-              <ng-template pTemplate="input">
-                <lib-text-input
-                  [readOnly]="dataToReadOnly"
-                  type="number"
-                  placeholder="{{ 'purchase.QTY' | translate }}"
-                  formControlName="quantity"
-                  (keyUp)="quantityCostChange(purchaseInvoiceFormGroup)"
-                  [readOnly]="
-                    purchaseInvoiceFormGroup.get('invoiceEntryMode')?.get('trackingType')
-                      ?.value == this.sharedFinanceEnums.trackingType.Serial
-                  "
-                ></lib-text-input>
-              </ng-template>
-              <ng-template pTemplate="output">
-                {{ purchaseInvoiceFormGroup.controls['quantity']?.value }}
-              </ng-template>
-            </p-cellEditor>
-            <lib-field-validations
-              [appControl]="purchaseInvoiceFormGroup.controls['quantity']"
-            ></lib-field-validations>
-          </td>
-          <!--  -->
-
-          <td
-            [pEditableColumn]="purchaseInvoiceFormGroup.controls['cost']"
-            pEditableColumnField="cost"
-          >
-            <p-cellEditor>
-              <ng-template pTemplate="input">
-                <lib-text-input
-                  [readOnly]="dataToReadOnly"
-                  type="number"
-                  placeholder="{{ 'purchase.cost' | translate }}"
-                  formControlName="cost"
-                  (keyUp)="quantityCostChange(purchaseInvoiceFormGroup)"
-                ></lib-text-input>
-              </ng-template>
-              <ng-template pTemplate="output">
-                {{ purchaseInvoiceFormGroup.controls['cost']?.value }}
-              </ng-template>
-            </p-cellEditor>
-            <lib-field-validations
-              [appControl]="purchaseInvoiceFormGroup.controls['cost']"
-            ></lib-field-validations>
-          </td>
-          <!-- sub Total -->
-          <td>
-            <div
-              *ngIf="
-                purchaseInvoiceFormGroup.controls['quantity']?.value &&
-                purchaseInvoiceFormGroup.controls['cost']?.value
-              "
+        <ng-template pTemplate="header">
+          <tr>
+            <th>{{ 'purchase.barcode' | translate }}</th>
+            <th>{{ 'purchase.itemCode' | translate }}</th>
+            <th>{{ 'purchase.itemDescription' | translate }}</th>
+            <th>{{ 'purchase.UOM' | translate }}</th>
+            <th>{{ 'purchase.QTY' | translate }}</th>
+            <th>{{ 'purchase.cost' | translate }}</th>
+            <th>{{ 'purchase.subTotal' | translate }}</th>
+            <th>{{ 'purchase.discount' | translate }}</th>
+            <th>{{ 'purchase.discountAmt' | translate }}</th>
+            <th>{{ 'purchase.netCost' | translate }}</th>
+            <th>{{ 'purchase.totalAfterDis' | translate }}</th>
+            <th>{{ 'purchase.vat' | translate }}</th>
+            <th>{{ 'purchase.vatAmount' | translate }}</th>
+            <th>{{ 'purchase.grandTotal' | translate }}</th>
+            <th>{{ 'purchase.tracking' | translate }}</th>
+            <th>{{ 'purchase.actions' | translate }}</th>
+          </tr>
+        </ng-template>
+        <ng-template
+          pTemplate="body"
+          let-purchaseInvoiceFormGroup
+          let-editing="editing"
+          let-i="rowIndex"
+        >
+          <tr [formGroup]="purchaseInvoiceFormGroup">
+            <td
+              [pEditableColumn]="purchaseInvoiceFormGroup.controls['barCode']"
+              pEditableColumnField="barCode"
             >
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <lib-text-input
+                    placeholder="{{ 'purchase.barcode' | translate }}"
+                    formControlName="barCode"
+                    [readOnly]="dataToReadOnly"
+                  ></lib-text-input>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ purchaseInvoiceFormGroup.controls['barCode']?.value }}
+                </ng-template>
+              </p-cellEditor>
+              <lib-field-validations
+                [appControl]="purchaseInvoiceFormGroup.controls['barCode']"
+              ></lib-field-validations>
+            </td>
+            <!--  -->
+  
+            <td
+              [pEditableColumn]="purchaseInvoiceFormGroup.controls['itemId']"
+              pEditableColumnField="itemId"
+            >
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <div class="flex justify-content-center gap-2 align-items-center">
+                    <lib-select
+                      formControlName="itemId"
+                      [options]="latestItemsList"
+                      optionValue="itemNumber"
+                      optionLabel="displayName"
+                      placeholder="{{ 'purchase.itemCode' | translate }}"
+                      (valueChanged)="setRowdata(i, $event, latestItemsList)"
+                      [readOnly]="dataToReadOnly"
+                      (valueSearchChanged)="onFilter($event)"
+                    >
+                    </lib-select>
+                    <i
+                      class="pi pi-search search-circle pointer"
+                      (click)="openDialog(i, purchaseInvoiceFormGroup)"
+                    ></i>
+                  </div>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ purchaseInvoiceFormGroup.controls['itemCodeName']?.value }}
+                </ng-template>
+              </p-cellEditor>
+              <lib-field-validations
+                [appControl]="purchaseInvoiceFormGroup.controls['itemId']"
+              ></lib-field-validations>
+            </td>
+            <!--  -->
+            <td>
+              {{ purchaseInvoiceFormGroup.controls['description']?.value }}
+            </td>
+            <!--  -->
+  
+            <td
+              [pEditableColumn]="purchaseInvoiceFormGroup.controls['uomId']"
+              pEditableColumnField="uomId"
+            >
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <lib-select
+                    formControlName="uomId"
+                    [options]="purchaseInvoiceFormGroup.controls['uomOptions'].value || []"
+                    optionValue="uomId"
+                    [readOnly]="dataToReadOnly"
+                    [optionLabel]="currentLang == 'en' ? 'uomNameEn' : 'uomNameAr'"
+                    placeholder="{{ 'purchase.UOM' | translate }}"
+                    (valueChanged)="
+                      changeUomName(i, purchaseInvoiceFormGroup.controls['uomOptions'].value)
+                    "
+                    [selectedValue]="purchaseInvoiceFormGroup.controls['uomId']?.value"
+                  ></lib-select>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ purchaseInvoiceFormGroup.controls['uomName']?.value }}
+                </ng-template>
+              </p-cellEditor>
+              <lib-field-validations
+                [appControl]="purchaseInvoiceFormGroup.controls['uomId']"
+              ></lib-field-validations>
+            </td>
+            <!--  -->
+  
+            <td
+              [pEditableColumn]="purchaseInvoiceFormGroup.controls['quantity']"
+              pEditableColumnField="quantity"
+            >
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <lib-text-input
+                    [readOnly]="dataToReadOnly"
+                    type="number"
+                    placeholder="{{ 'purchase.QTY' | translate }}"
+                    formControlName="quantity"
+                    (keyUp)="quantityCostChange(purchaseInvoiceFormGroup)"
+                    [readOnly]="
+                      purchaseInvoiceFormGroup.get('invoiceEntryMode')?.get('trackingType')
+                        ?.value == this.sharedFinanceEnums.trackingType.Serial
+                    "
+                  ></lib-text-input>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ purchaseInvoiceFormGroup.controls['quantity']?.value }}
+                </ng-template>
+              </p-cellEditor>
+              <lib-field-validations
+                [appControl]="purchaseInvoiceFormGroup.controls['quantity']"
+              ></lib-field-validations>
+            </td>
+            <!--  -->
+  
+            <td
+              [pEditableColumn]="purchaseInvoiceFormGroup.controls['cost']"
+              pEditableColumnField="cost"
+            >
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <lib-text-input
+                    [readOnly]="dataToReadOnly"
+                    type="number"
+                    placeholder="{{ 'purchase.cost' | translate }}"
+                    formControlName="cost"
+                    (keyUp)="quantityCostChange(purchaseInvoiceFormGroup)"
+                  ></lib-text-input>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ purchaseInvoiceFormGroup.controls['cost']?.value }}
+                </ng-template>
+              </p-cellEditor>
+              <lib-field-validations
+                [appControl]="purchaseInvoiceFormGroup.controls['cost']"
+              ></lib-field-validations>
+            </td>
+            <!-- sub Total -->
+            <td>
+              <div
+                *ngIf="
+                  purchaseInvoiceFormGroup.controls['quantity']?.value &&
+                  purchaseInvoiceFormGroup.controls['cost']?.value
+                "
+              >
+                {{
+                  purchaseInvoiceFormGroup.controls['quantity']?.value *
+                    purchaseInvoiceFormGroup.controls['cost']?.value
+                }}
+              </div>
+            </td>
+            <td
+              [pEditableColumn]="purchaseInvoiceFormGroup.controls['discountPercentage']"
+              pEditableColumnField="discountPercentage"
+            >
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <lib-text-input
+                    placeholder="{{ 'purchase.discountPercentage' | translate }}"
+                    formControlName="discountPercentage"
+                    [readOnly]="dataToReadOnly"
+                    (keyUp)="disAmountChange(purchaseInvoiceFormGroup)"
+                  ></lib-text-input>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ purchaseInvoiceFormGroup.controls['discountPercentage']?.value }}
+                </ng-template>
+              </p-cellEditor>
+              <lib-field-validations
+                [appControl]="purchaseInvoiceFormGroup.controls['discountPercentage']"
+              ></lib-field-validations>
+            </td>
+            <!-- Dis Amount -->
+  
+            <td
+              [pEditableColumn]="purchaseInvoiceFormGroup.controls['discountAmount']"
+              pEditableColumnField="discountAmount"
+            >
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <lib-text-input
+                    placeholder="{{ 'purchase.disAmount' | translate }}"
+                    formControlName="discountAmount"
+                    [readOnly]="dataToReadOnly"
+                    (keyUp)="amountChange(purchaseInvoiceFormGroup)"
+                  ></lib-text-input>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ purchaseInvoiceFormGroup.controls['discountAmount']?.value }}
+                </ng-template>
+              </p-cellEditor>
+              <lib-field-validations
+                [appControl]="purchaseInvoiceFormGroup.controls['discountAmount']"
+              ></lib-field-validations>
+            </td>
+            <!-- Net Cost -->
+            <td>
+              {{
+                purchaseInvoiceFormGroup.controls['cost']?.value -
+                  purchaseInvoiceFormGroup.controls['discountAmount']?.value
+              }}
+            </td>
+            <!-- Total After Discount -->
+            <td>
               {{
                 purchaseInvoiceFormGroup.controls['quantity']?.value *
-                  purchaseInvoiceFormGroup.controls['cost']?.value
+                  (purchaseInvoiceFormGroup.controls['cost']?.value -
+                    purchaseInvoiceFormGroup.controls['discountAmount']?.value)
               }}
-            </div>
-          </td>
-          <td
-            [pEditableColumn]="purchaseInvoiceFormGroup.controls['discountPercentage']"
-            pEditableColumnField="discountPercentage"
-          >
-            <p-cellEditor>
-              <ng-template pTemplate="input">
-                <lib-text-input
-                  placeholder="{{ 'purchase.discountPercentage' | translate }}"
-                  formControlName="discountPercentage"
-                  [readOnly]="dataToReadOnly"
-                  (keyUp)="disAmountChange(purchaseInvoiceFormGroup)"
-                ></lib-text-input>
-              </ng-template>
-              <ng-template pTemplate="output">
-                {{ purchaseInvoiceFormGroup.controls['discountPercentage']?.value }}
-              </ng-template>
-            </p-cellEditor>
-            <lib-field-validations
-              [appControl]="purchaseInvoiceFormGroup.controls['discountPercentage']"
-            ></lib-field-validations>
-          </td>
-          <!-- Dis Amount -->
-
-          <td
-            [pEditableColumn]="purchaseInvoiceFormGroup.controls['discountAmount']"
-            pEditableColumnField="discountAmount"
-          >
-            <p-cellEditor>
-              <ng-template pTemplate="input">
-                <lib-text-input
-                  placeholder="{{ 'purchase.disAmount' | translate }}"
-                  formControlName="discountAmount"
-                  [readOnly]="dataToReadOnly"
-                  (keyUp)="amountChange(purchaseInvoiceFormGroup)"
-                ></lib-text-input>
-              </ng-template>
-              <ng-template pTemplate="output">
-                {{ purchaseInvoiceFormGroup.controls['discountAmount']?.value }}
-              </ng-template>
-            </p-cellEditor>
-            <lib-field-validations
-              [appControl]="purchaseInvoiceFormGroup.controls['discountAmount']"
-            ></lib-field-validations>
-          </td>
-          <!-- Net Cost -->
-          <td>
-            {{
-              purchaseInvoiceFormGroup.controls['cost']?.value -
-                purchaseInvoiceFormGroup.controls['discountAmount']?.value
-            }}
-          </td>
-          <!-- Total After Discount -->
-          <td>
-            {{
-              purchaseInvoiceFormGroup.controls['quantity']?.value *
-                (purchaseInvoiceFormGroup.controls['cost']?.value -
-                  purchaseInvoiceFormGroup.controls['discountAmount']?.value)
-            }}
-          </td>
-          <!-- Vat -->
-          <td>
-            {{ purchaseInvoiceFormGroup.controls['vatPercentage']?.value }}
-          </td>
-          <!-- Vat Amount -->
-          <td>
-            {{
-              (purchaseInvoiceFormGroup.controls['quantity']?.value *
-                (purchaseInvoiceFormGroup.controls['cost']?.value -
-                  purchaseInvoiceFormGroup.controls['discountAmount']?.value) *
-                purchaseInvoiceFormGroup.controls['vatPercentage']?.value) /
-                100
-            }}
-          </td>
-
-          <!-- Grand Total -->
-          <td>
-            {{
-              purchaseInvoiceFormGroup.controls['quantity']?.value *
-                (purchaseInvoiceFormGroup.controls['cost']?.value -
-                  purchaseInvoiceFormGroup.controls['discountAmount']?.value) +
+            </td>
+            <!-- Vat -->
+            <td>
+              {{ purchaseInvoiceFormGroup.controls['vatPercentage']?.value }}
+            </td>
+            <!-- Vat Amount -->
+            <td>
+              {{
                 (purchaseInvoiceFormGroup.controls['quantity']?.value *
                   (purchaseInvoiceFormGroup.controls['cost']?.value -
                     purchaseInvoiceFormGroup.controls['discountAmount']?.value) *
                   purchaseInvoiceFormGroup.controls['vatPercentage']?.value) /
                   100
-            }}
-          </td>
-
-          <!-- tracking -->
-          <td
-            [ngClass]="{
-              'no-tracking':
-                purchaseInvoiceFormGroup.get('trackingType').value ==
-                  sharedFinanceEnums.trackingType.NoTracking &&
-                purchaseInvoiceFormGroup.get('hasExpiryDate')?.value == false
-            }"
-          >
-            <div
-              class="flex align-content-center gap-3 align-items-center justify-content-between"
+              }}
+            </td>
+  
+            <!-- Grand Total -->
+            <td>
+              {{
+                purchaseInvoiceFormGroup.controls['quantity']?.value *
+                  (purchaseInvoiceFormGroup.controls['cost']?.value -
+                    purchaseInvoiceFormGroup.controls['discountAmount']?.value) +
+                  (purchaseInvoiceFormGroup.controls['quantity']?.value *
+                    (purchaseInvoiceFormGroup.controls['cost']?.value -
+                      purchaseInvoiceFormGroup.controls['discountAmount']?.value) *
+                    purchaseInvoiceFormGroup.controls['vatPercentage']?.value) /
+                    100
+              }}
+            </td>
+  
+            <!-- tracking -->
+            <td
+              [ngClass]="{
+                'no-tracking':
+                  purchaseInvoiceFormGroup.get('trackingType').value ==
+                    sharedFinanceEnums.trackingType.NoTracking &&
+                  purchaseInvoiceFormGroup.get('hasExpiryDate')?.value == false
+              }"
             >
-              <small
-                class="track"
+              <div
+                class="flex align-content-center gap-3 align-items-center justify-content-between"
+              >
+                <small
+                  class="track"
+                  *ngIf="
+                    purchaseInvoiceFormGroup.get('trackingType').value ==
+                      sharedFinanceEnums.trackingType.NoTracking &&
+                    purchaseInvoiceFormGroup.get('hasExpiryDate')?.value == true
+                  "
+                >
+                  {{
+                    purchaseInvoiceFormGroup.get('invoiceTracking').get('expireDate')?.value
+                      | date : 'dd-MM-yyyy'
+                  }}
+                </small>
+                <small
+                  *ngIf="
+                    purchaseInvoiceFormGroup.get('trackingType').value ==
+                      sharedFinanceEnums.trackingType.NoTracking &&
+                    purchaseInvoiceFormGroup.get('hasExpiryDate')?.value == true &&
+                    !purchaseInvoiceFormGroup.get('invoiceTracking').get('expireDate')?.value
+                  "
+                >
+                  {{ 'purchase.Expiry' | translate }}
+                </small>
+  
+                <!--  -->
+                <small
+                  class="track"
+                  *ngIf="
+                    purchaseInvoiceFormGroup.get('trackingType').value ==
+                    sharedFinanceEnums.trackingType.Serial
+                  "
+                  >{{
+                    purchaseInvoiceFormGroup.get('invoiceTracking').get('serialId')?.value
+                  }}</small
+                >
+                <!--  -->
+  
+                <small
+                  *ngIf="
+                    purchaseInvoiceFormGroup.get('trackingType').value ==
+                      sharedFinanceEnums.trackingType.Serial &&
+                    !purchaseInvoiceFormGroup.get('invoiceTracking').get('serialId')?.value
+                  "
+                  >{{ purchaseInvoiceFormGroup.get('trackingType').value }}</small
+                >
+  
+                <small
+                  class="track"
+                  *ngIf="
+                    purchaseInvoiceFormGroup.get('trackingType').value ==
+                    sharedFinanceEnums.trackingType.Batch
+                  "
+                  >{{
+                    purchaseInvoiceFormGroup.get('invoiceTracking').get('vendorBatchNo')?.value
+                  }}</small
+                >
+  
+                <small
+                  *ngIf="
+                    purchaseInvoiceFormGroup.get('trackingType').value ==
+                      sharedFinanceEnums.trackingType.Batch &&
+                    !purchaseInvoiceFormGroup.get('invoiceTracking').get('vendorBatchNo')?.value
+                  "
+                  >{{ purchaseInvoiceFormGroup.get('trackingType').value }}</small
+                >
+  
+                <lib-button-micro
+                  [disabled]="dataToReadOnly"
+                  title="{{ 'purchase.setTracking' | translate }}"
+                  nameClass="{{ !dataToReadOnly ? 'save' : 'disabled' }}"
+                  widthNumber="100%"
+                  [class.hide]="
+                    purchaseInvoiceFormGroup.get('trackingType').value ==
+                      sharedFinanceEnums.trackingType.NoTracking &&
+                    purchaseInvoiceFormGroup.get('hasExpiryDate')?.value == false
+                  "
+                  (click)="setTracking(purchaseInvoiceFormGroup)"
+                  [disabled]="
+                    (purchaseInvoiceFormGroup.get('trackingType').value ==
+                      sharedFinanceEnums.trackingType.NoTracking &&
+                      purchaseInvoiceFormGroup.get('hasExpiryDate')?.value == false) ||
+                    !purchaseInvoiceFormGroup.get('itemId').value
+                  "
+                >
+                </lib-button-micro>
+  
+                <small
+                  class="track m-auto"
+                  *ngIf="
+                    purchaseInvoiceFormGroup.get('trackingType').value ==
+                      sharedFinanceEnums.trackingType.NoTracking &&
+                    purchaseInvoiceFormGroup.get('hasExpiryDate')?.value == false
+                  "
+                  >{{ 'purchase.noTracking' | translate }}</small
+                >
+              </div>
+              <div class="flex justify-content-center mt-2">
+                <!-- <small
+                class="danger"
                 *ngIf="
-                  purchaseInvoiceFormGroup.get('trackingType').value ==
-                    sharedFinanceEnums.trackingType.NoTracking &&
-                  purchaseInvoiceFormGroup.get('hasExpiryDate')?.value == true
+                  purchaseInvoiceFormGroup.get('invoiceEntryMode').get('expireDate').hasError('required') ||
+                  purchaseInvoiceFormGroup
+                    .get('invoiceEntryMode')
+                    .get('vendorBatchNo')
+                    .hasError('required') ||
+                  purchaseInvoiceFormGroup.get('invoiceEntryMode').get('serialId').hasError('required') 
                 "
-              >
-                {{
-                  purchaseInvoiceFormGroup.get('invoiceTracking').get('expireDate')?.value
-                    | date : 'dd-MM-yyyy'
-                }}
-              </small>
-              <small
-                *ngIf="
-                  purchaseInvoiceFormGroup.get('trackingType').value ==
-                    sharedFinanceEnums.trackingType.NoTracking &&
-                  purchaseInvoiceFormGroup.get('hasExpiryDate')?.value == true &&
-                  !purchaseInvoiceFormGroup.get('invoiceTracking').get('expireDate')?.value
-                "
-              >
-                {{ 'purchase.Expiry' | translate }}
-              </small>
-
-              <!--  -->
-              <small
-                class="track"
-                *ngIf="
-                  purchaseInvoiceFormGroup.get('trackingType').value ==
-                  sharedFinanceEnums.trackingType.Serial
-                "
-                >{{
-                  purchaseInvoiceFormGroup.get('invoiceTracking').get('serialId')?.value
-                }}</small
-              >
-              <!--  -->
-
-              <small
-                *ngIf="
-                  purchaseInvoiceFormGroup.get('trackingType').value ==
-                    sharedFinanceEnums.trackingType.Serial &&
-                  !purchaseInvoiceFormGroup.get('invoiceTracking').get('serialId')?.value
-                "
-                >{{ purchaseInvoiceFormGroup.get('trackingType').value }}</small
-              >
-
-              <small
-                class="track"
-                *ngIf="
-                  purchaseInvoiceFormGroup.get('trackingType').value ==
-                  sharedFinanceEnums.trackingType.Batch
-                "
-                >{{
-                  purchaseInvoiceFormGroup.get('invoiceTracking').get('vendorBatchNo')?.value
-                }}</small
-              >
-
-              <small
-                *ngIf="
-                  purchaseInvoiceFormGroup.get('trackingType').value ==
-                    sharedFinanceEnums.trackingType.Batch &&
-                  !purchaseInvoiceFormGroup.get('invoiceTracking').get('vendorBatchNo')?.value
-                "
-                >{{ purchaseInvoiceFormGroup.get('trackingType').value }}</small
-              >
-
-              <lib-button-micro
-                [disabled]="dataToReadOnly"
-                title="{{ 'purchase.setTracking' | translate }}"
-                nameClass="{{ !dataToReadOnly ? 'save' : 'disabled' }}"
-                widthNumber="100%"
-                [class.hide]="
-                  purchaseInvoiceFormGroup.get('trackingType').value ==
-                    sharedFinanceEnums.trackingType.NoTracking &&
-                  purchaseInvoiceFormGroup.get('hasExpiryDate')?.value == false
-                "
-                (click)="setTracking(purchaseInvoiceFormGroup)"
-                [disabled]="
-                  (purchaseInvoiceFormGroup.get('trackingType').value ==
-                    sharedFinanceEnums.trackingType.NoTracking &&
-                    purchaseInvoiceFormGroup.get('hasExpiryDate')?.value == false) ||
-                  !purchaseInvoiceFormGroup.get('itemId').value
-                "
-              >
-              </lib-button-micro>
-
-              <small
-                class="track m-auto"
-                *ngIf="
-                  purchaseInvoiceFormGroup.get('trackingType').value ==
-                    sharedFinanceEnums.trackingType.NoTracking &&
-                  purchaseInvoiceFormGroup.get('hasExpiryDate')?.value == false
-                "
-                >{{ 'purchase.noTracking' | translate }}</small
-              >
-            </div>
-            <div class="flex justify-content-center mt-2">
-              <!-- <small
-              class="danger"
-              *ngIf="
-                purchaseInvoiceFormGroup.get('invoiceEntryMode').get('expireDate').hasError('required') ||
-                purchaseInvoiceFormGroup
-                  .get('invoiceEntryMode')
-                  .get('vendorBatchNo')
-                  .hasError('required') ||
-                purchaseInvoiceFormGroup.get('invoiceEntryMode').get('serialId').hasError('required') 
-              "
-              >{{ 'purchase.required' | translate }}</small
-            > -->
-              <small *ngIf="error && lineError == i" class="danger">{{
-                'purchase.required' | translate
-              }}</small>
-            </div>
-          </td>
-
-          <td>
-            <div class="flex gap-3">
-              <img
-                src="assets/images/table/delete.svg"
-                class="pointer"
-                alt=""
-                (click)="OnDelete(i)"
-              />
-            </div>
-          </td>
-          <!--  -->
-        </tr>
-      </ng-template>
-    </p-table>
-    <div class="add_new flex justify-content-start">
-      <lib-button
-        (onClick)="addLineStockIn()"
-        className="outline-primary"
-        [disabled]="dataToReadOnly"
-      >
-        {{ 'purchase.add' | translate }}
-      </lib-button>
+                >{{ 'purchase.required' | translate }}</small
+              > -->
+                <small *ngIf="error && lineError == i" class="danger">{{
+                  'purchase.required' | translate
+                }}</small>
+              </div>
+            </td>
+  
+            <td>
+              <div class="flex gap-3">
+                <img
+                  src="assets/images/table/delete.svg"
+                  class="pointer"
+                  alt=""
+                  (click)="OnDelete(i)"
+                />
+              </div>
+            </td>
+            <!--  -->
+          </tr>
+        </ng-template>
+      </p-table>
+      <div class="add_new flex justify-content-start">
+        <lib-button
+          (onClick)="addLineStockIn()"
+          className="outline-primary"
+          [disabled]="dataToReadOnly"
+        >
+          {{ 'purchase.add' | translate }}
+        </lib-button>
+      </div>
     </div>
+  
+
+
+  
   </div>
+
 
 
 </lib-page-content>

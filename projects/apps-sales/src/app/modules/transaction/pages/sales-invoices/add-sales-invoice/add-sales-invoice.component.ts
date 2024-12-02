@@ -7,8 +7,7 @@ import { SharedFinanceEnums } from 'projects/apps-inventory/src/app/modules/item
 // import { SearchItemPopUpComponent } from 'projects/apps-inventory/src/app/modules/transactions/components/stock-out/search-item-pop-up/search-item-pop-up.component';
 import { SharedStock } from 'projects/apps-inventory/src/app/modules/transactions/models/sharedStockOutEnums';
 import { TransactionsService } from 'projects/apps-inventory/src/app/modules/transactions/transactions.service';
-import { ItemAdvancedSearchPurchaseInvoiceComponent } from 'projects/apps-purchase/src/app/modules/purchase-transactions/components/item-advanced-search-purchase-invoice/item-advanced-search-purchase-invoice.component';
-import { PurchaseInvoiceTrackingComponent } from 'projects/apps-purchase/src/app/modules/purchase-transactions/components/purchase-invoice-tracking/purchase-invoice-tracking.component';
+// import { PurchaseInvoiceTrackingComponent } from 'projects/apps-purchase/src/app/modules/purchase-transactions/components/purchase-invoice-tracking/purchase-invoice-tracking.component';
 import { LatestItem } from 'projects/apps-purchase/src/app/modules/purchase-transactions/models';
 import { AddPurchaseInvoiceDto } from 'projects/apps-purchase/src/app/modules/purchase-transactions/models/addPurchaseInvoice';
 import { PurchaseTransactionsService } from 'projects/apps-purchase/src/app/modules/purchase-transactions/purchase-transactions.service';
@@ -654,24 +653,24 @@ export class AddSalesInvoiceComponent implements OnInit {
   setTracking(setTracking: FormGroup) {
     console.log(setTracking.value);
 
-    const dialogRef = this.dialog.open(PurchaseInvoiceTrackingComponent, {
-      width: '60%',
-      height: '450px',
-      data: {
-        trackingType: setTracking.get('trackingType')?.value,
-        expiry: setTracking.get('hasExpiryDate')?.value,
-        trackingValue: setTracking.get('invoiceTracking')?.get('selectedValue')?.value,
-      },
-    });
-    dialogRef.onClose.subscribe((res: any) => {
-      if (res) {
-        this.selectedTraking = res;
-        setTracking.get('invoiceTracking')?.patchValue({ ...res });
-        setTracking.get('invoiceTracking')?.get('selectedValue')?.setValue(res);
-        this.isValidData();
-      }
-      this.isValidData();
-    });
+    // const dialogRef = this.dialog.open(PurchaseInvoiceTrackingComponent, {
+    //   width: '60%',
+    //   height: '450px',
+    //   data: {
+    //     trackingType: setTracking.get('trackingType')?.value,
+    //     expiry: setTracking.get('hasExpiryDate')?.value,
+    //     trackingValue: setTracking.get('invoiceTracking')?.get('selectedValue')?.value,
+    //   },
+    // });
+    // dialogRef.onClose.subscribe((res: any) => {
+    //   if (res) {
+    //     this.selectedTraking = res;
+    //     setTracking.get('invoiceTracking')?.patchValue({ ...res });
+    //     setTracking.get('invoiceTracking')?.get('selectedValue')?.setValue(res);
+    //     this.isValidData();
+    //   }
+    //   this.isValidData();
+    // });
   }
 
   onCancel() {
