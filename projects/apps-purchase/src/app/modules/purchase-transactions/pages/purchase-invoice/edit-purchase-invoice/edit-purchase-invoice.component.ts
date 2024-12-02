@@ -344,7 +344,6 @@ export class EditPurchaseInvoiceComponent implements OnInit {
     }
     rowForm.get('itemName')?.setValue(selectedItem.itemCode + "-" + selectedItem.itemName + "-" + selectedItem.itemVariantNameEn)
     this.setUomName(indexLine, rowForm.get('uomOptions')?.value)
-console.log(rowForm.value ,"5555555555555");
 
   }
 
@@ -616,7 +615,6 @@ console.log(rowForm.value ,"5555555555555");
             this.invoiceDetailsFormArray.removeAt(index);
           },
           error: (err: any) => {
-            console.error('Error occurred while deleting:', err);
             this.toasterService.showError(
               this.languageService.transalte('transactions.error'),
               this.languageService.transalte('transactions.deleteFailed')
