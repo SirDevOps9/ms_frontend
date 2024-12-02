@@ -79,17 +79,6 @@ export class PurchaseInvoiceListComponent implements OnInit {
     this.transactionsService.deleteInvoiceLine(id);
   }
 
-  // exportedColumns(obj: { SortBy: number; SortColumn: string }) {
-  //   this.SortBy = obj.SortBy;
-  //   this.SortColumn = obj.SortColumn;
-  // }
-  // // on export data
-  // exportClick() {
-  //   this.transactionsService.exportInvoiceListData(this.searchTerm, this.SortBy, this.SortColumn);
-  //   this.transactionsService.exportInvoiceData.subscribe((res) => {
-  //     this.exportData = res;
-  //   });
-  // }
   // #############Export section #################
   exportClick() {
     this.exportTableData(this.searchTerm, this.SortByAll?.SortBy, this.SortByAll?.SortColumn);
@@ -132,6 +121,8 @@ export class PurchaseInvoiceListComponent implements OnInit {
   constructor(
     private routerService: RouterService,
     private transactionsService: PurchaseTransactionsService,
-    private exportService: ExportService
+    private exportService: ExportService,
+    private sequenceService: SequenceService,
+    private sharedEnums: SharedEnums
   ) {}
 }
