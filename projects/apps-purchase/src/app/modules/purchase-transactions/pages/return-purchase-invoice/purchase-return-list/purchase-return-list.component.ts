@@ -1,9 +1,10 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { RouterService, PageInfoResult, PageInfo } from 'shared-lib';
+import { RouterService, PageInfoResult, PageInfo, SharedEnums } from 'shared-lib';
 import { PurchaseTransactionsService } from '../../../purchase-transactions.service';
 import { PurchaseReturnInvoice } from '../../../models';
 import { SortTableEXport } from 'projects/apps-inventory/src/app/modules/items/models/SortTable';
 import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
+import { SequenceService } from 'apps-shared-lib';
 
 @Component({
   selector: 'app-purchase-return-list',
@@ -54,7 +55,11 @@ export class PurchaseReturnListComponent implements OnInit {
   }
 
   onAdd() {
-    this.routerService.navigateTo('/transaction/return-purchase/add');
+    // this.routerService.navigateTo('/transaction/return-purchase/add');
+    this.sequenceService.isHaveSequence(
+      this.sharedEnums.Pages.PurchaseReturnInvoice,
+      '/transaction/return-purchase/add'
+    );
   }
 
   onEdit(id: any) {
@@ -113,6 +118,8 @@ export class PurchaseReturnListComponent implements OnInit {
   constructor(
     private routerService: RouterService,
     private transactionsService: PurchaseTransactionsService,
-    private exportService: ExportService
+    private exportService: ExportService,
+    private sequenceService: SequenceService,
+    public sharedEnums: SharedEnums
   ) {}
 }
