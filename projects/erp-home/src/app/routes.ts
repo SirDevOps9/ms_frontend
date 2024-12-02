@@ -28,6 +28,10 @@ export const ERPRoutes = [
         loadChildren: () =>
           import('./modules/home/dashboard.module').then((m) => m.DashboardModule),
       },
+      {
+       path: 'home-help-page',
+       loadChildren: () => import('libs/apps-shared-lib/src/lib/pages/help-page/help-page.module').then((m) => m.HelpPageModule),
+     },
     ],
   },
 ];
