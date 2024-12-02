@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Chart } from 'angular-highcharts';
+import { DASHBOARD_COLORS } from '../constants/dashboard.colors';
 
 @Injectable({
   providedIn: 'root',
@@ -7,18 +8,7 @@ import { Chart } from 'angular-highcharts';
 export class ChartService {
   constructor() {}
 
-  colors = [
-    '#FF5733',
-    '#33C1FF',
-    '#28A745',
-    '#FFC107',
-    '#FF33A6',
-    '#6610F2',
-    '#FF6F61',
-    '#4B8C6A',
-    '#FFB6C1',
-    '#8A2BE2',
-  ];
+  colors = DASHBOARD_COLORS;
 
   donutChart(values: any, tooltip: string = '') {
     return new Chart({

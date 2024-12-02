@@ -6,3 +6,5 @@ export * from './culutreenum';
 export * from './breadcrumb';
 export * from './sharedLibrayEnums';
 export * from './breadcrumbhome';
+export * from './dashboard.colors';
+export * from './months';
