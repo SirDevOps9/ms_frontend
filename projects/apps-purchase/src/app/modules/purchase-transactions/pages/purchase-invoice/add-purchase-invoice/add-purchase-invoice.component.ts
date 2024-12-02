@@ -160,17 +160,29 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       let data = this.vendorItems.find((elem) => elem.id == res);
       this.purchaseInvoiceForm.get('vendorName')?.setValue(data?.name);
       this.purchaseInvoiceForm.get('currency')?.setValue(data?.vendorFinancialCurrencyName);
+      this.purchaseInvoiceForm.get('currencyName')?.setValue(data?.vendorFinancialCurrencyName);
+      this.purchaseInvoiceForm.get('currencyId')?.setValue(data?.vendorFinancialCurrencyId);
       this.purchaseInvoiceForm.get('paymentTermId')?.setValue(data?.paymentTermId);
       this.purchaseInvoiceForm.get('paymentTermName')?.setValue(data?.paymentTermName);
       this.purchaseInvoiceForm.get('name')?.setValue(data?.name);
+      
       this.purchasetransactionsService.getCurrencyRate(
-        data.vendorFinancialCurrencyId,
+        data.vendorFinancialCurrencyId ?? this.currentUserService.getCurrency(),
         this.currentUserService.getCurrency()
       );
-      this.purchasetransactionsService.sendcurrency.pipe(skip(1), take(1)).subscribe((res) => {
-        this.purchaseInvoiceForm.get('currencyRate')?.setValue(res.rate);
+      this.purchasetransactionsService.sendcurrency.pipe(skip(1), take(1)).subscribe((dataCurrency) => {
+        this.purchaseInvoiceForm.get('currencyRate')?.setValue(dataCurrency.rate);
+        if(!data.vendorFinancialCurrencyId) {
+          this.purchaseInvoiceForm.get('currencyId')?.setValue(this.currentUserService.getCurrency());
+          this.purchaseInvoiceForm.get('currencyName')?.setValue('Egyptian Pound');
+        }
+      
+
       });
+      console.log(this.purchaseInvoiceForm.value)
+
     });
+
   }
   isValidData() {
     this.lineError = -1;
@@ -236,8 +248,10 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       currencyRate: new FormControl('', [customValidators.required]),
       paymentTermId: new FormControl(''),
       reference: new FormControl(''),
-
+      currencyId: new FormControl(''),
+      currencyName: new FormControl(''),
       invoiceDetails: this.fb.array([]),
+
     });
   }
   get purchaseInvoiceFormArray() {
@@ -576,6 +590,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
             displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameEn}`,
           }));
         }
+
       }
     });
   }
@@ -593,7 +608,9 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     });
     ref.onClose.subscribe((selectedItems: any) => {
       if (selectedItems) {
+        console.log(selectedItems)
         stockInFormGroup.get('itemId')?.setValue(selectedItems.itemId);
+        stockInFormGroup.get('vatPercentage')?.setValue(selectedItems.taxRatio);
         this.setRowDataFromBarCode(indexline, selectedItems, '');
       }
     });
@@ -706,10 +723,12 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       description: this.purchaseInvoiceForm.value.description || null,
       warehouseId: this.purchaseInvoiceForm.value.warehouseId || 0,
       warehouseName: this.purchaseInvoiceForm.value.warehouseName || '',
-      vendorId: this.purchaseInvoiceForm.value.vendorId || 0,
+      vendorId: this.purchaseInvoiceForm.value.vendorId || null,
+      currencyId : this.purchaseInvoiceForm.value.currencyId || null,
+      currencyName : this.purchaseInvoiceForm.value.currencyName ,
       vendorName: this.purchaseInvoiceForm.value.vendorName || '',
       currencyRate: +this.purchaseInvoiceForm.value.currencyRate || 0, // Ensure it's a number
-      paymentTermId: this.purchaseInvoiceForm.value.paymentTermId || 0,
+      paymentTermId: this.purchaseInvoiceForm.value.paymentTermId ?? null,
       reference: this.purchaseInvoiceForm.value.reference || null,
       invoiceDetails: this.purchaseInvoiceForm.value.invoiceDetails.map((detail: any) => ({
         barCode: detail.barCode || null,
@@ -769,8 +788,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     private languageService: LanguageService,
     private transactionsService: TransactionsService,
     private fb: FormBuilder,
-    private lookupservice: LookupsService,
-    private purchaseService: PurchaseService,
+
     private purchasetransactionsService: PurchaseTransactionsService,
     private router: RouterService,
     public formService: FormsService,

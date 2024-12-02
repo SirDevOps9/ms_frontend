@@ -8,6 +8,8 @@ export interface AddPurchaseInvoiceDto {
     currencyRate: number
     paymentTermId: number
     reference: string
+    currencyId: string
+    currencyName: string
     invoiceDetails: InvoiceDetail[]
   }
   

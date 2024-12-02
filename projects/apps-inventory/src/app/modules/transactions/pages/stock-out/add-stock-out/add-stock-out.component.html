@@ -35,7 +35,8 @@
           [options]="lookups[LookupEnum.StockInOutSourceDocumentType]"
           optionValue="id"
           optionLabel="name"
-          [readOnly]="post"
+          [readOnly]="true"
+          [selectedValue]="addForm.controls['sourceDocumentType'].value"
         >
         </lib-select>
         <lib-field-validations

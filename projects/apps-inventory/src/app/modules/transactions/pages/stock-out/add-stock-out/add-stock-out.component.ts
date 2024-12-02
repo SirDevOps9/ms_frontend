@@ -106,6 +106,9 @@ export class AddStockOutComponent implements OnInit {
     this.languageService.language$.subscribe((lang) => [(this.selectedLanguage = lang)]);
     this.lookupservice.lookups.subscribe((l) => {
       this.lookups = l;
+      if(l[LookupEnum.StockInOutSourceDocumentType]?.length) {
+        this.addForm.get('sourceDocumentType')?.setValue(l[LookupEnum.StockInOutSourceDocumentType][0]?.id)
+      }
     });
     this.addForm.get('sourceDocumentType')?.valueChanges.subscribe((res) => {
       let data = this.lookups[LookupEnum.StockInOutSourceDocumentType];
@@ -560,6 +563,7 @@ export class AddStockOutComponent implements OnInit {
     if (selectedItem != undefined) {
       rowForm.get('expiryDate')?.setValue(selectedItem.expiryDate);
       rowForm.get('totalQuantity')?.setValue(selectedItem.totalQuantity);
+      rowForm.get('cost')?.setValue(selectedItem.cost);
     } else {
       const serialOption = rowForm.get('stockOutTracking')?.get('serialOptions')?.value;
       const selectedItem = serialOption?.find(
@@ -568,6 +572,7 @@ export class AddStockOutComponent implements OnInit {
       if (selectedItem != undefined) {
         rowForm.get('expiryDate')?.setValue(selectedItem.expiryDate);
         rowForm.get('totalQuantity')?.setValue(selectedItem.totalQuantity);
+        rowForm.get('cost')?.setValue(selectedItem.cost);
       } else {
         rowForm.get('expiryDate')?.setValue('');
         rowForm.get('totalQuantity')?.setValue(rowForm.get('AllTotalQuantity')?.value);
