@@ -45,7 +45,10 @@
       </div>
 
       <div class="lg:col-6 col-12" [appLoader]="mostPurchasedProductsChartLoader">
-        <app-chart-card>
+        <app-chart-card
+          [chartDTO]="mostPurchasedProductsChart"
+          [chartDetailsConfig]="mostPurchasedProductsChartData"
+        >
           <div class="chart-header">
             <div class="title heading_b18">{{ 'dashboard.mostPurchasedProducts' | translate }}</div>
             <div class="action body_b14">
@@ -86,6 +89,19 @@
               <span class="column-line"></span>
               <i class="pi pi-heart"></i>
             </div>
+          </div>
+          <div class="chart-body accounts-bank w-full">
+            @for(vendor of topVendors; track vendor) {
+            <div class="row">
+              <span class="body-14 mx-1">{{ vendor.VendorName }}</span>
+              <span class="line"></span>
+              <span class="body-14 mx-1">{{ vendor.InvoiceCount }}</span>
+              <span class="line"></span>
+              <span class="detail-value heading_b16">{{
+                vendor.TotalInvoiceAmount | decimalSeparator
+              }}</span>
+            </div>
+            }
           </div>
         </app-chart-card>
       </div>

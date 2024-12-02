@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Chart } from 'angular-highcharts';
-import { TopVendorsReportDto } from './models';
+import { InvoiceStatusReportDto, TopPurchasedProductsDto, TopVendorsReportDto } from './models';
 import { Subject } from 'rxjs';
-import { ChartService, LanguageService } from 'shared-lib';
+import { takeUntil } from 'rxjs/operators';
+import { ChartService, ChartValueDto, DASHBOARD_COLORS, LanguageService } from 'shared-lib';
 import { DashboardService } from './dashboard.service';
 
 @Component({
@@ -10,11 +11,11 @@ import { DashboardService } from './dashboard.service';
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit, OnDestroy {
   currentLang: string = '';
   private destroy$ = new Subject<void>();
 
-  // charts && data
+  // Charts & Data
   statusChart: Chart;
   statusChartData: any = [];
 
@@ -24,14 +25,14 @@ export class DashboardComponent {
   monthlyPurchasesCHart: Chart;
 
   mostPurchasedProductsChart: Chart;
-  mostPurchasedProductsChartData: any = [];
+  mostPurchasedProductsChartData: ChartValueDto[] = [];
 
   mostPurchasedCategoriesChart: Chart;
-  mostPurchasedCategoriesChartData: any = [];
+  mostPurchasedCategoriesChartData: ChartValueDto[] = [];
 
   topVendors: TopVendorsReportDto[] = [];
 
-  // loaders
+  // Loaders
   statusChartLoader: boolean = false;
   returnStatusChartLoader: boolean = false;
   monthlyPurchasesChartLoader: boolean = false;
@@ -39,18 +40,7 @@ export class DashboardComponent {
   mostPurchasedCategoriesChartLoader: boolean = false;
   topVendorsLoader: boolean = false;
 
-  colors = [
-    '#FF5733',
-    '#33C1FF',
-    '#28A745',
-    '#FFC107',
-    '#FF33A6',
-    '#6610F2',
-    '#FF6F61',
-    '#4B8C6A',
-    '#FFB6C1',
-    '#8A2BE2',
-  ];
+  colors = DASHBOARD_COLORS;
 
   constructor(
     private languageService: LanguageService,
@@ -59,6 +49,10 @@ export class DashboardComponent {
   ) {}
 
   ngOnInit() {
+    this.languageService.language$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((lang) => (this.currentLang = lang));
+
     this.fetchData();
     this.subscriptions();
     this.loaderSubscriptions();
@@ -73,34 +67,76 @@ export class DashboardComponent {
   }
 
   subscriptions() {
-    this.service.status$.subscribe((status) => {});
-    this.service.returnStatus$.subscribe((status) => {});
-    this.service.monthlyPurchase$.subscribe((monthlyPurchase) => {});
-    this.service.topPurchaseProducts$.forEach((topPurchaseProduct) => {});
-    this.service.topVendors$.subscribe((topVendors) => {});
+    this.service.status$.pipe(takeUntil(this.destroy$)).subscribe((status) => {
+      const statusLabels: string[] = [];
+      status.forEach((status) => statusLabels.push(status.InvoiceStatus));
+      this.statusChartData = status.map((item: InvoiceStatusReportDto, index) => ({
+        y: item.Count,
+        value: item.Count,
+        color: this.colors[index],
+        name: item.InvoiceStatus,
+      }));
+
+      this.statusChart = this.chartService.columnChart(statusLabels, this.statusChartData);
+    });
+
+    this.service.returnStatus$.pipe(takeUntil(this.destroy$)).subscribe((status) => {
+      // Handle return status data if needed
+    });
+
+    this.service.monthlyPurchase$.pipe(takeUntil(this.destroy$)).subscribe((monthlyPurchase) => {
+      // Handle monthly purchase data if needed
+    });
+
+    this.service.topPurchaseProducts$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((topPurchaseProduct) => {
+        const sum = topPurchaseProduct.reduce((acc: number, item: TopPurchasedProductsDto) => {
+          return acc + item.Quantity;
+        }, 0);
+
+        this.mostPurchasedProductsChartData = topPurchaseProduct.map((item, index) => ({
+          y: parseFloat(((item.Quantity / sum) * 100).toFixed(2)),
+          value: item.Cost,
+          name: item.Description,
+          color: this.colors[index],
+        }));
+        this.mostPurchasedProductsChart = this.chartService.donutChart(
+          this.mostPurchasedProductsChartData
+        );
+      });
+
+    this.service.topVendors$.pipe(takeUntil(this.destroy$)).subscribe((topVendors) => {
+      this.topVendors = topVendors;
+    });
   }
 
   loaderSubscriptions() {
-    this.service.statusLoader$.subscribe((loader) => {
-      this.statusChartLoader = loader;
-    });
-    this.service.returnStatusLoader$.subscribe((returnStatus) => {
-      this.returnStatusChartLoader = returnStatus;
-    });
-    this.service.monthlyPurchaseLoader$.subscribe((loader) => {
-      this.monthlyPurchasesChartLoader = loader;
-    });
-    this.service.topPurchaseProductsLoader$.subscribe((loader) => {
-      this.mostPurchasedProductsChartLoader = loader;
-    });
-    this.service.topVendorsLoader$.subscribe((loader) => {
-      this.topVendorsLoader = loader;
-    });
+    this.service.statusLoader$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((loader) => (this.statusChartLoader = loader));
+
+    this.service.returnStatusLoader$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((returnStatus) => (this.returnStatusChartLoader = returnStatus));
+
+    this.service.monthlyPurchaseLoader$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((loader) => (this.monthlyPurchasesChartLoader = loader));
+
+    this.service.topPurchaseProductsLoader$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((loader) => (this.mostPurchasedProductsChartLoader = loader));
+
+    this.service.topVendorsLoader$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((loader) => (this.topVendorsLoader = loader));
   }
 
   getStatusReport() {
     this.service.fetchStatusReport();
   }
+
   getReturnStatusReport() {
     this.service.fetchReturnStatusReport();
   }
@@ -115,5 +151,10 @@ export class DashboardComponent {
 
   getTopVendors() {
     this.service.fetchTopVendors();
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

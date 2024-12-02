@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Chart } from 'angular-highcharts';
 import { Subject } from 'rxjs';
-import { ChartService, DASHBOARD_COLORS, LanguageService } from 'shared-lib';
+import { ChartService, ChartValueDto, DASHBOARD_COLORS, LanguageService } from 'shared-lib';
 import { InventoryDashboardService } from './inventory-dashboard.service';
 import {
   ExpiryItemsReportDto,
@@ -23,11 +23,11 @@ export class InventoryDashboardComponent {
   // charts and data
   statusChart: Chart;
   statusChartLabels: string[] = [];
-  statusChartValues: any[] = [];
+  statusChartValues: ChartValueDto[] = [];
   categoriesChart: Chart;
-  categoriesChartData: any;
+  categoriesChartData: ChartValueDto[];
   warehousesChart: Chart;
-  warehouseChartData: any;
+  warehouseChartData: ChartValueDto[];
   stockOverview: InventoryTotalsDto = {} as InventoryTotalsDto;
   lastStockOut: GetLastStockOutTransactionDto[] = [];
   lastStockIn: GetLastStockInTransactionDto[] = [];

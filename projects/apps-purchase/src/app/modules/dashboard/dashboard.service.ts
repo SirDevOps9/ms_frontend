@@ -75,6 +75,14 @@ export class DashboardService {
     });
   }
 
+  fetchTopPurchaseCategories() {
+    this.topPurchaseProductsLoaderSubject.next(true);
+    this.proxy.topPurchaseProducts().subscribe({
+      next: (data) => this.topPurchaseProductsSubject.next(data),
+      complete: () => this.topPurchaseProductsLoaderSubject.next(false),
+    });
+  }
+
   fetchTopVendors() {
     this.topVendorsLoaderSubject.next(true);
     this.proxy.topVendors().subscribe({
