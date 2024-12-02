@@ -2,7 +2,7 @@ import { IEnvironment } from 'shared-lib';
 
 export const environment: IEnvironment = {
   production: false,
-  baseUrl: 'http://localhost:2008',
+  baseUrl: 'http://localhost:5001/inventory-apis',
   Version: 'V1',
   ClientId: 'Erp.Inventory',
   Platform: 'Web',

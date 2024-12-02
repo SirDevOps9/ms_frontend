@@ -633,7 +633,7 @@
     </div>
     <div class="floated">
       <div class="divCont">
-        <p class="p-0 m-0">{{ 'purchase.invoiceLines' | translate }}</p>
+        <p class="p-0 m-0">{{ 'purchase.invoiceSummary' | translate }}</p>
       </div>
     </div>
     <div class="card_micro">
@@ -645,6 +645,7 @@
           <lib-text-input
             placeholder="{{ 'purchase.totalQuantity' | translate }}"
             formControlName="numberOfItems"
+            [readOnly]="true"
           ></lib-text-input>
           <lib-field-validations
             [appControl]="purchaseInvoiceForm.controls['numberOfItems']"
@@ -658,6 +659,7 @@
           <lib-text-input
             placeholder="{{ 'purchase.totalAfterDiscount' | translate }}"
             formControlName="totalAfterDiscount"
+            [readOnly]="true"
           ></lib-text-input>
         </div>
         <div class="md:col-2">
@@ -667,6 +669,7 @@
           <lib-text-input
             placeholder="{{ 'purchase.totalQuantity' | translate }}"
             formControlName="totalQuantity"
+            [readOnly]="true"
           ></lib-text-input>
           <lib-field-validations
             [appControl]="purchaseInvoiceForm.controls['totalQuantity']"
@@ -679,6 +682,7 @@
           <lib-text-input
             placeholder="{{ 'purchase.discount' | translate }}"
             formControlName="discount"
+            [readOnly]="true"
           ></lib-text-input>
           <lib-field-validations
             [appControl]="purchaseInvoiceForm.controls['discount']"
@@ -692,6 +696,7 @@
           <lib-text-input
             placeholder="{{ 'purchase.vatAmountTotal' | translate }}"
             formControlName="vatAmountTotal"
+            [readOnly]="true"
           ></lib-text-input>
         </div>
         <div class="md:col-2">
@@ -701,6 +706,7 @@
           <lib-text-input
             placeholder="{{ 'purchase.totalAfterVat' | translate }}"
             formControlName="totalAfterVat"
+            [readOnly]="true"
           ></lib-text-input>
         </div>
       </div>

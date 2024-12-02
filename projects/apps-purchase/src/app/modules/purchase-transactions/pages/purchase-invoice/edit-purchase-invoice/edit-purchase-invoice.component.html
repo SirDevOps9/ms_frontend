@@ -35,7 +35,7 @@
                                         <lib-label [appControl]="addForm.controls['invoiceDescription']">
                                             {{ 'PurchaseInvoiceEdit.invoiceDescription' | translate }}
                                         </lib-label>
-                                        <lib-text-input [readOnly]="true" formControlName="invoiceDescription"></lib-text-input>
+                                        <lib-text-input  formControlName="invoiceDescription"></lib-text-input>
                                     </lib-form-group>
                                 </div>
                                 <div class="col-12">
@@ -64,7 +64,7 @@
                     <div class="line line_two"></div>
                     <div class="item">
                         <div class="title heading_b18">
-                            {{ 'PurchaseInvoiceEdit.relatedOperation' | translate }}
+                            {{ 'purchase.vendorInformation' | translate }}
                         </div>
                         <div class="item_body">
                             <div class="grid">
@@ -325,16 +325,21 @@
                     ">
                         <div class=" flex align-content-center justify-content-between ">
                             <p class="title_Tracking body-b16 "
-                                *ngIf=" invoiceFormGroup.controls['trackingType']?.value == sharedEnums.Tracking.Serial">
-                                serial
+                                *ngIf="invoiceFormGroup.controls['trackingType']?.value == sharedEnums.Tracking.Serial">
+                                {{invoiceFormGroup.get('invoiceTracking').get('serialId')?.value ??  'purchase.serial' | translate }}
                             </p>
                             <p class="title_Tracking body-b16 "
                                 *ngIf=" invoiceFormGroup.controls['trackingType']?.value == sharedEnums.Tracking.Batch">
-                                Batch
+                                
+                                {{invoiceFormGroup.get('invoiceTracking').get('vendorBatchNo')?.value ?? 'purchase.batch'| translate }}
+
                             </p>
                             <p class="title_Tracking body-b16 "
                                 *ngIf=" invoiceFormGroup.controls['trackingType']?.value == sharedEnums.Tracking.NoTracking">
-                                expire Date
+                                
+                                {{invoiceFormGroup.get('invoiceTracking').get('expireDate')?.value ??` 'purchase.Expiry' | translate }}
+                                
+
                             </p>
                             <lib-button-micro nameClass="save" title="Set Tracking"
                                 (click)="setinvoiceTracking(rowIndex)">

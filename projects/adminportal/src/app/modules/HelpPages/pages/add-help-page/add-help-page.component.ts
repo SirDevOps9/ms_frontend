@@ -19,7 +19,7 @@ export class AddHelpPageComponent implements OnInit {
   config: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
-    height: '15rem',
+    height: '50rem',
     minHeight: '5rem',
     placeholder: 'Enter text here...',
     translate: 'no',
@@ -61,11 +61,10 @@ export class AddHelpPageComponent implements OnInit {
   initForm() {
     this.formGroup = this.fb.group({
       title: new FormControl('', customValidators.required),
-      isDraft: new FormControl(false),
-      sefName: new FormControl('', customValidators.required),
+      titleAr: new FormControl('', customValidators.required),
       serviceId: new FormControl(this.rowId, customValidators.required),
       content: new FormControl('', customValidators.required),
-      description: [''],
+      contentAr: new FormControl('', customValidators.required),
     });
   }
 
@@ -78,13 +77,12 @@ export class AddHelpPageComponent implements OnInit {
 
     let formVal = this.formGroup.value;
     let obj = {
-      title: formVal.title,
-      isDraft: formVal.isDraft,
-      sefName: formVal.sefName,
+      titleEn: formVal.title,
+      titleAr: formVal.titleAr,
       serviceId: formVal.serviceId,
       helpPageDetails: {
-        content: formVal.content,
-        description: formVal.description,
+        contentEn: formVal.content,
+        contentAr: formVal.contentAr,
       },
     } as AddHelpPage;
     this._helpPageService.sendHelpPage(obj);

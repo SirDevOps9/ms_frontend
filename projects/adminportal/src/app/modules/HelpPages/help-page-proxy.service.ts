@@ -21,6 +21,10 @@ getAllHelpsPages(searchTerm: string, pageInfo: PageInfo): Observable<PaginationV
 getPageById(id : number ): Observable<AddHelpPage>{
   return this._baseService.get(`HelpPage/HelpPage/${id}`)
 }
+
+publishChangeById(id : number ): Observable<boolean>{
+  return this._baseService.put(`HelpPage/PublishHelpPage/${id}`,null)
+}
 updateHelpPage( id :number, obj:AddHelpPage) {
   return this._baseService.put(`HelpPage/edit/${id}` , obj) 
  }
@@ -28,6 +32,5 @@ updateHelpPage( id :number, obj:AddHelpPage) {
   addHelpPage(obj:AddHelpPage) {
     return this._baseService.post('HelpPage/Create' , obj)
   }
-
 
 }

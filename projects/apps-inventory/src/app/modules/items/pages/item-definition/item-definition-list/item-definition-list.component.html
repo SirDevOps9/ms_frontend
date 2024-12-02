@@ -93,6 +93,15 @@
             >
             </lib-button-micro>
             </div>
+
+            <div *ngIf="hasHelpPage">
+              <lib-button-micro
+              [title]="'help' | translate"
+              nameClass="save"
+              (click)="navigateHelpPageComponent()"
+            >
+            </lib-button-micro>
+            </div>
             </ng-container>
 
 
