@@ -1,8 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
-import { PageInfo, PageInfoResult } from 'shared-lib';
-import { ItemDto, SharedSalesEnums } from '../../models'; 
+import {
+  Cultures,
+  LanguageService,
+  PageInfo,
+  PageInfoResult,
+  SharedLibraryEnums,
+} from 'shared-lib';
+import { ItemDto, SharedSalesEnums } from '../../models';
 import { SalesService } from '../../sales.service';
 
 @Component({
@@ -18,17 +24,14 @@ export class MultiSelectItemsComponent implements OnInit {
   selectedRows: ItemDto[] = [];
   selectAll: boolean = false;
 
+  get currentLang(): string {
+    return this.languageService.getLang();
+  }
+
   filterForm: FormGroup = this.fb.group({
     categoryType: new FormControl(),
     hasExpiryDate: new FormControl(false),
   });
-
-  constructor(
-    private salesService: SalesService,
-    public sharedEnums: SharedSalesEnums,
-    private ref: DynamicDialogRef,
-    private fb: FormBuilder
-  ) {}
 
   ngOnInit(): void {
     this.subscribes();
@@ -40,7 +43,7 @@ export class MultiSelectItemsComponent implements OnInit {
 
   subscribes() {
     this.salesService.itemsList.subscribe({
-      next: (res:any) => {
+      next: (res: any) => {
         this.items = res;
       },
     });
@@ -53,7 +56,6 @@ export class MultiSelectItemsComponent implements OnInit {
   initItemsData() {
     this.salesService.getItems('', '', new PageInfo());
   }
-  
 
   onPageChange(pageInfo: PageInfo) {
     this.salesService.getItems('', '', pageInfo);
@@ -63,18 +65,15 @@ export class MultiSelectItemsComponent implements OnInit {
     this.ref.close(this.selectedRows);
   }
 
-  
   onSelectedRowsChange(selectedRows: any[]) {
     this.selectedRows = selectedRows;
-    console.log(selectedRows ,"00000000");
-    
+    console.log(selectedRows, '00000000');
   }
   selectedRow(selectedRow: any[]) {
-    console.log(selectedRow ,"00000000");
+    console.log(selectedRow, '00000000');
     this.ref.close(selectedRow);
-
-    
   }
+
   onCancel() {
     this.ref.close();
   }
@@ -97,11 +96,20 @@ export class MultiSelectItemsComponent implements OnInit {
       console.log('Item', checkbox);
       query.push(`${checkbox}=${checkbox}`);
     });
-    
+
     if (hasExpiryDate.length > 0) query.push(`HasExpiryDate=${hasExpiryDate}`);
 
     const result = query.join('&');
 
     return result;
   }
+
+  constructor(
+    private salesService: SalesService,
+    public sharedEnums: SharedSalesEnums,
+    private ref: DynamicDialogRef,
+    private fb: FormBuilder,
+    private languageService: LanguageService,
+    public sharedLib: SharedLibraryEnums
+  ) {}
 }

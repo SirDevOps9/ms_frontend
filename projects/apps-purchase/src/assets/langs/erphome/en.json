@@ -616,6 +616,7 @@
     "add": "Add Line",
     "search": "Search",
     "invoiceLines": "Invoice Lines",
+    "invoiceSummary": "Invoice Summary",
     "numberOfItems": "Number of Items",
     "totalQuantity": "Total Quantity",
     "total": "Total",

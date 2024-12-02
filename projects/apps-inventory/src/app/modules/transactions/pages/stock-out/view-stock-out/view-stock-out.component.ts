@@ -1,42 +1,42 @@
-import { Component, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'microtec-auth-lib';
-import { DialogService } from 'primeng/dynamicdialog';
-import {  LanguageService, customValidators } from 'shared-lib';
-import { Table } from 'primeng/table';
+import { PageInfoResult, RouterService } from 'shared-lib';
 import { TransactionsService } from '../../../transactions.service';
-
+import { SharedFinanceEnums } from '../../../models/sharedEnumStockIn';
 
 @Component({
   selector: 'app-view-stock-out',
   templateUrl: './view-stock-out.component.html',
-  styleUrl: './view-stock-out.component.scss'
+  styleUrl: './view-stock-out.component.scss',
 })
 export class ViewStockOutComponent {
-  stockOutForm: FormGroup = new FormGroup({});
+  stockOutForm: FormGroup;
   stockOutDataById: any;
-  currentLang: string;
-  _routeid:number
-  globalFilterFields: string[] = ['barCode', 'description', 'uomId', 'quantity', 'cost', 'subTotal', 'trackingType', 'notes'];
-  @ViewChild('dt') dt: Table | undefined;
-  first: number = 0;
-  rows: number = 10;
-  currentPageData: any[] = [];
-  constructor(
-    public authService: AuthService,
-    private dialog: DialogService,
-    private item_services:TransactionsService,
-    private langService: LanguageService,
-    private fb: FormBuilder,
-    private _route: ActivatedRoute,
+  globalFilterFields: string[] = [
+    'barCode',
+    'description',
+    'uomId',
+    'quantity',
+    'cost',
+    'subTotal',
+    'trackingType',
+    'notes',
+  ];
+  currentPageInfo: PageInfoResult = {};
 
-  ) {
-    this.currentLang = this.langService.getLang();
-  }
+  selectedLanguage: string;
+  tableData: any[];
+  filteredData: any[];
+
   ngOnInit(): void {
-    this._routeid = this._route.snapshot.params['id'];
+    const id = this._route.snapshot.params['id'];
 
+    this.initForm();
+    this.getStockOutViewById(id);
+  }
+  initForm() {
     this.stockOutForm = this.fb.group({
       receiptDate: '',
       code: '',
@@ -44,40 +44,13 @@ export class ViewStockOutComponent {
       sourceDocumentId: 0,
       warehouseId: 0,
       notes: '',
-      stockInDetails: this.fb.array([]),
-    });
-
-    this.getStockOutViewById();
-  }
-
-  get stockOut(): FormArray {
-    return this.stockOutForm.get('stockInDetails') as FormArray;
-  }
-
-  createStockOut(item: any): FormGroup {
-    return this.fb.group({
-      barCode: [item.barCode || ''],
-      description: [item.description || ''],
-      hasExpiryDate: '',
-      uomId: [item.uomNameEn || ''],
-      quantity: [item.quantity || null, [customValidators.required, customValidators.nonZero]],
-      cost: [item.cost || null, [customValidators.required, customValidators.nonZero]],
-      notes: [item.notes || ''],
-      subTotal: [{ value: item.quantity * item.cost, disabled: true }],
-      trackingType: '',
-      stockOutTracking: this.fb.group({
-        vendorBatchNo: [item.vendorBatchNo ||''],
-        expireDate: [item.expireDate ||''],
-        systemPatchNo: [item.systemPatchNo ||''],
-        serialId: [item.serialId ||''],
-        trackingType: [item.trackingType ||''],
-      })
     });
   }
-  getStockOutViewById() {
-    this.item_services.getByIdViewStockOut(this._routeid);
+
+  getStockOutViewById(id: number) {
+    this.item_services.getByIdViewStockOut(id);
     this.item_services.stockOutDataViewSourceeObservable.subscribe((data: any) => {
-      if (data && data.stockOutDetails && Array.isArray(data.stockOutDetails)) {
+      if (data) {
         this.stockOutForm.patchValue({
           receiptDate: data.receiptDate,
           code: data.code,
@@ -87,46 +60,37 @@ export class ViewStockOutComponent {
           notes: data.notes,
         });
 
-        this.stockOutForm.updateValueAndValidity();
-
-        this.stockOut.clear();
-        data.stockOutDetails.forEach((item: any) => {
-          const formGroup = this.fb.group({
-            barCode: [item.barCode],
-            description: [item.description],
-            uomId: [item.uomNameEn],
-            quantity: [item.quantity],
-            cost: [item.cost],
-            trackingType: [item.trackingType],
-            hasExpiryDate: [item.hasExpiryDate],
-            batchNo: [item.stockOutTracking.batchNo],
-            serialId: [item.stockOutTracking.serialId],
-            expireDate: [item.stockOutTracking.expireDate],
-            notes: [item.notes],
-          });
-          this.stockOut.push(formGroup);
-        });
-        this.updateCurrentPageData();
+        this.populateInvoiceDetails(data.stockOutDetails);
       }
-      this.stockOutDataById = data;
     });
   }
 
-  filterTable(value: any) {
-    if (this.dt) {
-      this.dt.filterGlobal(value.target.value, 'contains');
-    }
+  onCancel() {
+    this.router.navigateTo('/transactions/stock-in');
   }
-  onPageChange(event: any) {
-    this.first = event.first;
-    this.rows = event.rows;
-    this.updateCurrentPageData();
-  }
-  updateCurrentPageData() {
-    const startIndex = this.first;
-    const endIndex = this.first + this.rows;
-    this.currentPageData = [...this.stockOut.value];
-    // this.currentPageData = this.stockOut.controls.slice(startIndex, endIndex);
 
+  populateInvoiceDetails(details: any[]) {
+    this.tableData = details;
+    this.filteredData = [...this.tableData];
   }
+
+  onSearchTermChange(search: any): void {
+    const term = search.target.value?.toLowerCase() || '';
+
+    this.filteredData = this.tableData.filter((item) => {
+      return this.globalFilterFields.some((key) => {
+        const value = item[key];
+        return value && value.toString().toLowerCase().includes(term);
+      });
+    });
+  }
+
+  constructor(
+    public authService: AuthService,
+    private item_services: TransactionsService,
+    public sharedFinanceEnums: SharedFinanceEnums,
+    public router: RouterService,
+    private fb: FormBuilder,
+    private _route: ActivatedRoute
+  ) {}
 }

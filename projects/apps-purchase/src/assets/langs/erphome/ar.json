@@ -516,6 +516,7 @@
     "add": "إضافة صف",
     "search": "بحث",
     "invoiceLines": "بنود الفاتورة",
+    "invoiceSummary": "ملخص الفاتورة",
     "numberOfItems": "عدد الأصناف",
     "totalQuantity": "إجمالي الكمية",
     "total": "الإجمالي",
