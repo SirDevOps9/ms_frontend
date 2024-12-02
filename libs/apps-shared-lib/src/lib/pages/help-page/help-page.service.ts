@@ -14,7 +14,7 @@ export class HelpPageService {
   GetHelpPageByServiceId(
     serviceId: Number
   ): Observable<CreateHelpPageDto> {
-    let query = `AppsPortalHelpPage/GetHelpPageByServiceId?serviceId=${serviceId}`;
+    let query = `ERPHelpPage/GetHelpPageByServiceId?serviceId=${serviceId}`;
     return this.httpService.get<CreateHelpPageDto>(query);
   }
 }
