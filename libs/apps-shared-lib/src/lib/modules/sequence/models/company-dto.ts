@@ -1,0 +1,19 @@
+export interface userInfoDto {
+  companies: CompanyInUserInfo[];
+}
+
+export interface CompanyInUserInfo {
+  id: string;
+  name: string;
+  code: string;
+  currencyId: number;
+  currencyName: string;
+  companyType: string;
+  branches: BranchInUserInfo[];
+}
+
+export interface BranchInUserInfo {
+  id: string;
+  name: string;
+  isDefault: boolean;
+}
