@@ -2,7 +2,7 @@
   [title]="'salesInvoice.TaxList' | translate"
   [subTitle]="'salesInvoice.TaxList' | translate"
 >
-  <div [formGroup]="addForm" class="stockInForm_header card_micro">
+  <div [formGroup]="purchaseInvoiceForm" class="stockInForm_header card_micro">
     <div class="md:col-12 mt-2">
       <div class="card_information">
         <div class="line"></div>
@@ -13,7 +13,7 @@
           <div class="item_body">
             <div class="grid">
               <div class="md:col-2 my-2">
-                <lib-label [appControl]="addForm.controls['code']">
+                <lib-label [appControl]="purchaseInvoiceForm.controls['code']">
                   {{ 'salesInvoice.code' | translate }}
                 </lib-label>
                 <lib-text-input
@@ -21,25 +21,25 @@
                   placeholder="{{ 'salesInvoice.code' | translate }}"
                   formControlName="code"
                 ></lib-text-input>
-                <lib-field-validations [appControl]="addForm.controls['code']"></lib-field-validations>
+                <lib-field-validations [appControl]="purchaseInvoiceForm.controls['code']"></lib-field-validations>
               </div>
               <div class="md:col-2 my-2">
-                <lib-label [appControl]="addForm.controls['receiptDate']">
+                <lib-label [appControl]="purchaseInvoiceForm.controls['receiptDate']">
                   {{ 'salesInvoice.invoiceDate' | translate }}
                 </lib-label>
                 <lib-calendar formControlName="receiptDate" ></lib-calendar>
                 <lib-field-validations
-                  [appControl]="addForm.controls['receiptDate']"
+                  [appControl]="purchaseInvoiceForm.controls['receiptDate']"
                 ></lib-field-validations>
               </div>
         
               <div class="md:col-2 my-2">
-                <lib-label [appControl]="addForm.controls['receiptDate']">
+                <lib-label [appControl]="purchaseInvoiceForm.controls['receiptDate']">
                   {{ 'salesInvoice.invoiceDueDate' | translate }}
                 </lib-label>
                 <lib-calendar formControlName="receiptDate" ></lib-calendar>
                 <lib-field-validations
-                  [appControl]="addForm.controls['receiptDate']"
+                  [appControl]="purchaseInvoiceForm.controls['receiptDate']"
                 ></lib-field-validations>
               </div>
               <!-- this in not empty div -->
@@ -49,7 +49,7 @@
         
               <div class="md:col-4 my-2">
                 <div>
-                  <lib-label [appControl]="addForm.controls['notes']">
+                  <lib-label [appControl]="purchaseInvoiceForm.controls['notes']">
                     {{ 'salesInvoice.description' | translate }}
                   </lib-label>
                 </div>
@@ -64,7 +64,7 @@
               </div>
         
               <div class="md:col-4 my-2">
-                <lib-label [appControl]="addForm.controls['sourceDocumentId']">
+                <lib-label [appControl]="purchaseInvoiceForm.controls['sourceDocumentId']">
                   {{ 'salesInvoice.warehouse' | translate }}
                 </lib-label>
                 <lib-select
@@ -73,15 +73,15 @@
                   optionValue="id"
                   optionLabel="displayName"
                   placeholder="{{ 'salesInvoice.warehouse' | translate }}"
-                  [selectedValue]="addForm.controls['sourceDocumentId'].value"
+                  [selectedValue]="purchaseInvoiceForm.controls['sourceDocumentId'].value"
                 >
                 </lib-select>
                 <lib-field-validations
-                  [appControl]="addForm.controls['sourceDocumentId']"
+                  [appControl]="purchaseInvoiceForm.controls['sourceDocumentId']"
                 ></lib-field-validations>
               </div>
               <div class="md:col-4 my-2">
-                <lib-label [appControl]="addForm.controls['sourceDocumentId']">
+                <lib-label [appControl]="purchaseInvoiceForm.controls['sourceDocumentId']">
                   {{ 'salesInvoice.salesMan' | translate }}
                 </lib-label>
                 <lib-select
@@ -90,11 +90,11 @@
                   optionValue="id"
                   optionLabel="displayName"
                   placeholder="{{ 'salesInvoice.salesMan' | translate }}"
-                  [selectedValue]="addForm.controls['sourceDocumentId'].value"
+                  [selectedValue]="purchaseInvoiceForm.controls['sourceDocumentId'].value"
                 >
                 </lib-select>
                 <lib-field-validations
-                  [appControl]="addForm.controls['sourceDocumentId']"
+                  [appControl]="purchaseInvoiceForm.controls['sourceDocumentId']"
                 ></lib-field-validations>
               </div>
              
@@ -115,29 +115,29 @@
           <div class="item_body">
             <div class="grid">
               <div class="md:col-3 my-2">
-                <lib-label [appControl]="addForm.controls['code']">
+                <lib-label [appControl]="purchaseInvoiceForm.controls['code']">
                   {{ 'salesInvoice.customerCode' | translate }}
                 </lib-label>
                 <lib-text-input
                   placeholder="{{ 'salesInvoice.customerCode' | translate }}"
                   formControlName="code"
                 ></lib-text-input>
-                <lib-field-validations [appControl]="addForm.controls['code']"></lib-field-validations>
+                <lib-field-validations [appControl]="purchaseInvoiceForm.controls['code']"></lib-field-validations>
               </div>
               <!--  -->
               <div class="md:col-3 my-2">
-                <lib-label [appControl]="addForm.controls['code']">
+                <lib-label [appControl]="purchaseInvoiceForm.controls['code']">
                   {{ 'salesInvoice.customerName' | translate }}
                 </lib-label>
                 <lib-text-input
                   placeholder="{{ 'salesInvoice.customerName' | translate }}"
                   formControlName="code"
                 ></lib-text-input>
-                <lib-field-validations [appControl]="addForm.controls['code']"></lib-field-validations>
+                <lib-field-validations [appControl]="purchaseInvoiceForm.controls['code']"></lib-field-validations>
               </div>
               <!--  -->
               <div class="md:col-3 my-2">
-                <lib-label [appControl]="addForm.controls['sourceDocumentId']">
+                <lib-label [appControl]="purchaseInvoiceForm.controls['sourceDocumentId']">
                   {{ 'salesInvoice.currency' | translate }}
                 </lib-label>
                 <lib-select
@@ -146,27 +146,27 @@
                   optionValue="id"
                   optionLabel="displayName"
                   placeholder="{{ 'salesInvoice.currency' | translate }}"
-                  [selectedValue]="addForm.controls['sourceDocumentId'].value"
+                  [selectedValue]="purchaseInvoiceForm.controls['sourceDocumentId'].value"
                 >
                 </lib-select>
                 <lib-field-validations
-                  [appControl]="addForm.controls['sourceDocumentId']"
+                  [appControl]="purchaseInvoiceForm.controls['sourceDocumentId']"
                 ></lib-field-validations>
               </div>
               <!--  -->
               <div class="md:col-3 my-2">
-                <lib-label [appControl]="addForm.controls['code']">
+                <lib-label [appControl]="purchaseInvoiceForm.controls['code']">
                   {{ 'salesInvoice.rate' | translate }}
                 </lib-label>
                 <lib-text-input
                   placeholder="{{ 'salesInvoice.rate' | translate }}"
                   formControlName="code"
                 ></lib-text-input>
-                <lib-field-validations [appControl]="addForm.controls['code']"></lib-field-validations>
+                <lib-field-validations [appControl]="purchaseInvoiceForm.controls['code']"></lib-field-validations>
               </div>
               <!--  -->
               <div class="md:col-3 my-2">
-                <lib-label [appControl]="addForm.controls['sourceDocumentId']">
+                <lib-label [appControl]="purchaseInvoiceForm.controls['sourceDocumentId']">
                   {{ 'salesInvoice.paymentTerms' | translate }}
                 </lib-label>
                 <lib-select
@@ -175,27 +175,27 @@
                   optionValue="id"
                   optionLabel="displayName"
                   placeholder="{{ 'salesInvoice.paymentTerms' | translate }}"
-                  [selectedValue]="addForm.controls['sourceDocumentId'].value"
+                  [selectedValue]="purchaseInvoiceForm.controls['sourceDocumentId'].value"
                 >
                 </lib-select>
                 <lib-field-validations
-                  [appControl]="addForm.controls['sourceDocumentId']"
+                  [appControl]="purchaseInvoiceForm.controls['sourceDocumentId']"
                 ></lib-field-validations>
               </div>
               <!--  -->
               <div class="md:col-3 my-2">
-                <lib-label [appControl]="addForm.controls['code']">
+                <lib-label [appControl]="purchaseInvoiceForm.controls['code']">
                   {{ 'salesInvoice.creditLimit' | translate }}
                 </lib-label>
                 <lib-text-input
                   placeholder="{{ 'salesInvoice.creditLimit' | translate }}"
                   formControlName="code"
                 ></lib-text-input>
-                <lib-field-validations [appControl]="addForm.controls['code']"></lib-field-validations>
+                <lib-field-validations [appControl]="purchaseInvoiceForm.controls['code']"></lib-field-validations>
               </div>
               <!--  -->
               <div class="md:col-2 my-2">
-                <lib-label [appControl]="addForm.controls['sourceDocumentId']">
+                <lib-label [appControl]="purchaseInvoiceForm.controls['sourceDocumentId']">
                   {{ 'salesInvoice.pricePolicy' | translate }}
                 </lib-label>
                 <lib-select
@@ -204,34 +204,34 @@
                   optionValue="id"
                   optionLabel="displayName"
                   placeholder="{{ 'salesInvoice.pricePolicy' | translate }}"
-                  [selectedValue]="addForm.controls['sourceDocumentId'].value"
+                  [selectedValue]="purchaseInvoiceForm.controls['sourceDocumentId'].value"
                 >
                 </lib-select>
                 <lib-field-validations
-                  [appControl]="addForm.controls['sourceDocumentId']"
+                  [appControl]="purchaseInvoiceForm.controls['sourceDocumentId']"
                 ></lib-field-validations>
               </div>
               <!--  -->
               <div class="md:col-2 my-2">
-                <lib-label [appControl]="addForm.controls['code']">
+                <lib-label [appControl]="purchaseInvoiceForm.controls['code']">
                   {{ 'salesInvoice.relatedJournal' | translate }}
                 </lib-label>
                 <lib-text-input
                   placeholder="{{ 'salesInvoice.relatedJournal' | translate }}"
                   formControlName="code"
                 ></lib-text-input>
-                <lib-field-validations [appControl]="addForm.controls['code']"></lib-field-validations>
+                <lib-field-validations [appControl]="purchaseInvoiceForm.controls['code']"></lib-field-validations>
               </div>
               <!--  -->
               <div class="md:col-2 my-2">
-                <lib-label [appControl]="addForm.controls['code']">
+                <lib-label [appControl]="purchaseInvoiceForm.controls['code']">
                   {{ 'salesInvoice.createdStockout' | translate }}
                 </lib-label>
                 <lib-text-input
                   placeholder="{{ 'salesInvoice.createdStockout' | translate }}"
                   formControlName="code"
                 ></lib-text-input>
-                <lib-field-validations [appControl]="addForm.controls['code']"></lib-field-validations>
+                <lib-field-validations [appControl]="purchaseInvoiceForm.controls['code']"></lib-field-validations>
               </div>
              
             </div>

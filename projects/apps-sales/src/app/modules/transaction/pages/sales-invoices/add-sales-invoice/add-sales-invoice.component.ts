@@ -194,6 +194,10 @@ export class AddSalesInvoiceComponent implements OnInit {
   }
   initializeForm() {
     this.purchaseInvoiceForm = this.fb.group({
+
+      receiptDate : '',
+      sourceDocumentId : '',
+
       id: new FormControl(''),
       code: new FormControl(''),
       warehouseId: new FormControl('', [customValidators.required]),
