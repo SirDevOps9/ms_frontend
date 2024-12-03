@@ -5,7 +5,7 @@ import { HttpService, LanguageService, StorageKeys, StorageService } from 'share
   providedIn: 'root',
 })
 export class CurrentUserService {
-  getCurrencyId(): number {
+  getCurrency(): number {
     let obj = this.localStorage.getItem(StorageKeys.CURRENCEY_OBJ);
     // Replace with your logic to get the currency value
     return obj.currencyId;
