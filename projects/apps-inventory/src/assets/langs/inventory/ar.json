@@ -652,20 +652,7 @@
     "Cancel": "إلغاء",
     "save": "حفظ",
     "success": "نجاح"
-  },
-  "global": {
-    "activeOn": "تشغيل",
-    "activeOff": "إيقاف",
-    "showMoreValues": "...عرض المزيد",
-    "clickToUpload": "انقر للتحميل",
-    "uploadFile": "الملف المرفق",
-    "select":"اختيار",
-    "noResults": "لا توجد نتائج",
-    "Physical": "فعلي",
-  "Virtual": "افتراضي",
-  "VanSales": "مبيعات السيارات",
-"English": "(الإنجليزية)",
-"Arabic": "(العربية)"
   }
+
 
 }
