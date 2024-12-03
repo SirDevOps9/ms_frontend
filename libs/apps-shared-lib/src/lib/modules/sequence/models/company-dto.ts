@@ -1,4 +1,4 @@
-export interface userInfoDto {
+export interface CurrentuserInfoDto {
   companies: CompanyInUserInfo[];
 }
 

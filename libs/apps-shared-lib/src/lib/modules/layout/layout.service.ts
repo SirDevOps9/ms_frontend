@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { SideMenuModel, StorageKeys, MenuModule, StorageService } from 'shared-lib';
 import { LayoutProxy } from './layout.proxy';
 import { BehaviorSubject } from 'rxjs';
-import { userInfoDto } from '../sequence/models/company-dto';
+import { CurrentuserInfoDto } from '../sequence/models/company-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -45,7 +45,7 @@ export class LayoutService {
     }
   }
 
-  currentUserInfo = new BehaviorSubject<userInfoDto>({} as userInfoDto);
+  currentUserInfo = new BehaviorSubject<CurrentuserInfoDto>({} as CurrentuserInfoDto);
 
   GetCurrentUserInfo() {
     this.layoutProxy.GetCurrentUserInfo().subscribe({

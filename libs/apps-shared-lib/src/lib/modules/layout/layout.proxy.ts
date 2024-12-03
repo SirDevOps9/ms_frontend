@@ -2,7 +2,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService, SideMenuModel } from 'shared-lib';
-import { userInfoDto } from '../sequence/models/company-dto';
+import { CurrentuserInfoDto } from '../sequence/models/company-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -38,7 +38,7 @@ export class LayoutProxy {
   }
 
   //  get Current User Info
-  GetCurrentUserInfo(): Observable<userInfoDto> {
-    return this.baseService.get<userInfoDto>(`CurrentUserInfo`);
+  GetCurrentUserInfo(): Observable<CurrentuserInfoDto> {
+    return this.baseService.get<CurrentuserInfoDto>(`CurrentUserInfo`);
   }
 }
