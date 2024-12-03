@@ -36,6 +36,14 @@ export class WarehouseListComponent implements OnInit {
   SortBy?: number;
   SortColumn?: string;
   SortByAll:SortTableEXport
+  filteredColumns: string[] = [];
+  columns: { name: any; headerText: any }[] = [
+    { name: 'code', headerText:('warehouse.code') },
+    { name: 'name', headerText:('warehouse.name') },
+    { name: 'warehouseType', headerText:('warehouse.warehouseType') },
+    { name: 'createdOn', headerText:('warehouse.createdOn') }
+
+  ]
   ngOnInit() {
     this.initItemDefinitionData();
   }
@@ -65,15 +73,10 @@ export class WarehouseListComponent implements OnInit {
   exportOperationalData(searchTerm: string, sortBy?: number, sortColumn?: string) {
     this.itemsService.exportsWayehouseList(searchTerm, sortBy, sortColumn);
 
-    const columns = [
-      { name: 'code', headerText:('warehouse.code') },
-      { name: 'name', headerText:('warehouse.name') },
-      { name: 'warehouseType', headerText:('warehouse.warehouseType') },
-      { name: 'createdOn', headerText:('warehouse.createdOn') }
-    ];
+    const filteredColumns = this.columns.filter(col => this.filteredColumns.includes(col.name));
 
     this.itemsService.exportedWarehouseDataSourceObs.subscribe((res) => {
-      this.exportData = this.exportService.formatCiloma(res, columns);
+      this.exportData = this.exportService.formatCiloma(res, filteredColumns);
     });
   }
   exportClickBySort(e: { SortBy: number; SortColumn: string }) {
@@ -81,6 +84,10 @@ export class WarehouseListComponent implements OnInit {
       SortBy: e.SortBy,
       SortColumn: e.SortColumn,
     };
+  }
+  onFilterColumn(e: string[]) {
+    this.filteredColumns = e;
+
   }
 
   onAdd() {

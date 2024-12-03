@@ -3,6 +3,7 @@
         <div class="user_page">
             <lib-data-table (addNew)="onAdd()" [sequence]="true"
             [items]="tableData" className="p-datatable-gridlines"
+            (columnsFiltered)="onFilterColumn($event)"
                 [currentPageResult]="currentPageInfo" (exportObj)="exportClickBySort($event)"
                 (pageChange)="onPageChange($event)" [tableConfigs]="{
             allowPagination: false,
