@@ -33,8 +33,10 @@
         <lib-select
           formControlName="sourceDocumentType"
           [options]="lookups[LookupEnum.StockInOutSourceDocumentType]"
-          optionValue="name"
+          optionValue="id"
           optionLabel="name"
+          [readOnly]="true"
+          [selectedValue]="addForm.controls['sourceDocumentType'].value"
         >
         </lib-select>
         <lib-field-validations

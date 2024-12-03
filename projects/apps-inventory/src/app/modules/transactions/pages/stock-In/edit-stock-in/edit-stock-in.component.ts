@@ -91,6 +91,9 @@ export class EditStockInComponent implements OnInit {
 
     this.lookupservice.lookups.subscribe((l) => {
       this.lookups = l;
+      if(l[LookupEnum.StockInOutSourceDocumentType]?.length) {
+        this.stockInForm.get('sourceDocumentType')?.setValue(l[LookupEnum.StockInOutSourceDocumentType][0]?.id)
+      }
     });
 
     this.transactionService.wareHousesDropDownLookup$.subscribe((res) => {
@@ -195,7 +198,7 @@ export class EditStockInComponent implements OnInit {
       notes: data.notes,
       id: data.id,
       code: data.code,
-      sourceDocumentType: data.sourceDocumentType,
+      // sourceDocumentType: data.sourceDocumentType,
       warehouseId: data.warehouseId,
       stockOutStatus: data.stockOutStatus,
     });

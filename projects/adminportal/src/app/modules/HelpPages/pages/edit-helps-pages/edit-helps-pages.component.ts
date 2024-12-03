@@ -20,7 +20,7 @@ export class EditHelpsPagesComponent implements OnInit {
   config: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
-    height: '15rem',
+    height: '50rem',
     minHeight: '5rem',
     placeholder: 'Enter text here...',
     translate: 'no',
@@ -44,6 +44,7 @@ export class EditHelpsPagesComponent implements OnInit {
       },
     ],
   };
+  isDisabled: boolean = false;
   constructor(
     private fb: FormBuilder,
     public layoutService: LayoutService,
@@ -54,6 +55,7 @@ export class EditHelpsPagesComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    
     this.rowId = Number(this._route.snapshot.params['id']);
     this.initForm();
 
@@ -64,12 +66,13 @@ export class EditHelpsPagesComponent implements OnInit {
 
   initForm() {
     this.formGroup = this.fb.group({
+      nameEn: new FormControl(''),
+      nameAr: new FormControl(''),
       title: new FormControl('', customValidators.required),
-      isDraft: new FormControl(false),
-      sefName: new FormControl('', customValidators.required),
-      serviceId: new FormControl(null, customValidators.required),
+      titleAr: new FormControl('', customValidators.required),
+      serviceId: new FormControl(this.rowId, customValidators.required),
       content: new FormControl('', customValidators.required),
-      description: [''],
+      contentAr: new FormControl('', customValidators.required),
     });
   }
 
@@ -82,12 +85,13 @@ export class EditHelpsPagesComponent implements OnInit {
     this._helpPageService.helpPageObj$.subscribe((res: any) => {
       if (Object.keys(res).length && res.helpPageDetails) {
         this.formGroup.patchValue({
-          title: res.title,
-          isDraft: res.isDraft,
-          sefName: res.sefName,
+          nameEn: res.nameEn,
+          nameAr: res.nameAr,
+          title: res.titleEn,
+          titleAr: res.titleAr,
           serviceId: res.serviceId,
-          content: res.helpPageDetails.content,
-          description: res.helpPageDetails.description,
+          content: res.helpPageDetails.contentEn,
+          contentAr: res.helpPageDetails.contentAr,
         });
       }
     });
@@ -98,17 +102,19 @@ export class EditHelpsPagesComponent implements OnInit {
     this.formGroup.get('helpPageDetails.content')?.setValue(this.text); // Sync form control
   }
 
+
   onSave() {
     if (!this.formService.validForm(this.formGroup, false)) return;
     let formVal = this.formGroup.value;
     let obj = {
-      title: formVal.title,
-      isDraft: formVal.isDraft,
-      sefName: formVal.sefName,
+      nameEn: formVal.nameEn,
+      nameAr: formVal.nameAr,
+      titleEn: formVal.title,
+      titleAr: formVal.titleAr,
       serviceId: formVal.serviceId,
       helpPageDetails: {
-        content: formVal.content,
-        description: formVal.description,
+        contentEn: formVal.content,
+        contentAr: formVal.contentAr,
       },
     } as AddHelpPage;
 

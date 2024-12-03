@@ -17,6 +17,11 @@ const Routing: Routes = [
       import('../modules/HelpPages/help-pages.module').then((m) => m.HelpPagesModule),
   },
   {
+    path: 'help-cms',
+    loadChildren: () =>
+      import('../modules/CMS/cms.module').then((m) => m.CmsModule),
+  },
+  {
     path: 'builder',
     loadChildren: () =>
       import('./builder/builder.module').then((m) => m.BuilderModule),

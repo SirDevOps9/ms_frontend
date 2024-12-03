@@ -11,3 +11,4 @@ export interface SideMenuModel {
   parentId?: number;
   children?: SideMenuModel[];
 }
+

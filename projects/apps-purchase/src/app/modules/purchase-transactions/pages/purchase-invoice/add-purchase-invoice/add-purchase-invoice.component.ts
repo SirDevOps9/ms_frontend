@@ -157,10 +157,11 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     });
 
     this.purchaseInvoiceForm.get('vendorId')?.valueChanges.subscribe((res) => {
-      console.log(res)
       let data = this.vendorItems.find((elem) => elem.id == res);
       this.purchaseInvoiceForm.get('vendorName')?.setValue(data?.name);
       this.purchaseInvoiceForm.get('currency')?.setValue(data?.vendorFinancialCurrencyName);
+      this.purchaseInvoiceForm.get('currencyName')?.setValue(data?.vendorFinancialCurrencyName);
+      this.purchaseInvoiceForm.get('currencyId')?.setValue(data?.vendorFinancialCurrencyId);
       this.purchaseInvoiceForm.get('paymentTermId')?.setValue(data?.paymentTermId);
       this.purchaseInvoiceForm.get('paymentTermName')?.setValue(data?.paymentTermName);
       this.purchaseInvoiceForm.get('name')?.setValue(data?.name);
@@ -169,10 +170,19 @@ export class AddPurchaseInvoiceComponent implements OnInit {
         data.vendorFinancialCurrencyId ?? this.currentUserService.getCurrency(),
         this.currentUserService.getCurrency()
       );
-      this.purchasetransactionsService.sendcurrency.pipe(skip(1), take(1)).subscribe((res) => {
-        this.purchaseInvoiceForm.get('currencyRate')?.setValue(res.rate);
+      this.purchasetransactionsService.sendcurrency.pipe(skip(1), take(1)).subscribe((dataCurrency) => {
+        this.purchaseInvoiceForm.get('currencyRate')?.setValue(dataCurrency.rate);
+        if(!data.vendorFinancialCurrencyId) {
+          this.purchaseInvoiceForm.get('currencyId')?.setValue(this.currentUserService.getCurrency());
+          this.purchaseInvoiceForm.get('currencyName')?.setValue('Egyptian Pound');
+        }
+      
+
       });
+      console.log(this.purchaseInvoiceForm.value)
+
     });
+
   }
   isValidData() {
     this.lineError = -1;
@@ -238,8 +248,10 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       currencyRate: new FormControl('', [customValidators.required]),
       paymentTermId: new FormControl(''),
       reference: new FormControl(''),
-
+      currencyId: new FormControl(''),
+      currencyName: new FormControl(''),
       invoiceDetails: this.fb.array([]),
+
     });
   }
   get purchaseInvoiceFormArray() {
@@ -712,6 +724,8 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       warehouseId: this.purchaseInvoiceForm.value.warehouseId || 0,
       warehouseName: this.purchaseInvoiceForm.value.warehouseName || '',
       vendorId: this.purchaseInvoiceForm.value.vendorId || null,
+      currencyId : this.purchaseInvoiceForm.value.currencyId || null,
+      currencyName : this.purchaseInvoiceForm.value.currencyName ,
       vendorName: this.purchaseInvoiceForm.value.vendorName || '',
       currencyRate: +this.purchaseInvoiceForm.value.currencyRate || 0, // Ensure it's a number
       paymentTermId: this.purchaseInvoiceForm.value.paymentTermId ?? null,

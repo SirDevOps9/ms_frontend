@@ -73,7 +73,10 @@ export class AddStockInComponent implements OnInit {
 
     this.lookupservice.loadLookups([LookupEnum.StockInOutSourceDocumentType]);
     this.lookupservice.lookups.subscribe((l) => {
-      this.lookups = l;
+      this.lookups = l
+      if(l[LookupEnum.StockInOutSourceDocumentType]?.length) {
+        this.stockInForm.get('sourceDocumentType')?.setValue(l[LookupEnum.StockInOutSourceDocumentType][0]?.id)
+      }
     });
 
     this.stockInForm.get('sourceDocumentType')?.valueChanges.subscribe((res) => {
