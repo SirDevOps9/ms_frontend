@@ -9,6 +9,7 @@
         [items]="tableData"
         className="p-datatable-gridlines"
         [currentPageResult]="currentPageInfo"
+        (columnsFiltered)="onFilterColumn($event)"
         (exportObj)="exportClickBySort($event)"
         [sequence]="true"
         (pageChange)="onPageChange($event)"

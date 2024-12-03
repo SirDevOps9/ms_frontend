@@ -59,24 +59,19 @@ export class ExportService {
       const formattedItem: { [key: string]: any } = {};
 
       columns.forEach((column) => {
-        if (column.name === 'itemAttributes' && item.itemAttributes) {
-          formattedItem[this.LanguageService.instant(column.headerText)] = item.itemAttributes
+        const value = item[column.name];
+
+        if (column.name === 'itemAttributes' && value) {
+          formattedItem[this.LanguageService.instant(column.headerText)] = value
             .map((attr: { nameAr: string; nameEn: string }) => `${attr.nameAr} (${attr.nameEn})`)
             .join(', ');
-        } else if (item.hasOwnProperty(column.name) && Array.isArray(item[column.name])) {
-          formattedItem[this.LanguageService.instant(column.headerText)] =
-            item[column.name].join(', ');
-        } else if (
-          column.name === 'createdOn' ||
-          column.name === 'receiptDate' ||
-          column.name === 'invoiceDate' ||
-          (column.name === 'returnInvoiceDate' && item[column.name])
-        ) {
-          formattedItem[this.LanguageService.instant(column.headerText)] = this.formatDate(
-            item[column.name]
-          );
+        } else if (Array.isArray(value)) {
+          formattedItem[this.LanguageService.instant(column.headerText)] = value.join(', ');
+        } else if (!isNaN(Date.parse(value))) {
+          // Check if the value is a valid date
+          formattedItem[this.LanguageService.instant(column.headerText)] = this.formatDate(value);
         } else {
-          formattedItem[this.LanguageService.instant(column.headerText)] = item[column.name];
+          formattedItem[this.LanguageService.instant(column.headerText)] = value;
         }
       });
 

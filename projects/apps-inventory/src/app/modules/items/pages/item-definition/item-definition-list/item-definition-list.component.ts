@@ -44,7 +44,15 @@ export class ItemDefinitionListComponent implements OnInit {
   tableData: itemDefinitionDto[];
   SortByAll:SortTableEXport
   exportData: any[];
+  filteredColumns: string[] = [];
+  columns: { name: any; headerText: any }[] = [
+    { name: 'code', headerText :('itemDefinition.code') },
+    { name: 'name', headerText :('itemDefinition.name') },
+    { name: 'typeName', headerText :('itemDefinition.type') },
+    { name: 'itemCategoryName', headerText :('itemDefinition.category') },
+    { name: 'uomName', headerText :('itemDefinition.uom') },
 
+  ]
   exportColumns: any[];
   exportSelectedCols: string[] = [];
 
@@ -91,16 +99,9 @@ export class ItemDefinitionListComponent implements OnInit {
   }
   exportBankData(searchTerm: string, sortBy?: number, sortColumn?: string) {
     this.itemsService.exportsItemsDefinitionList(searchTerm, sortBy, sortColumn);
-    const columns = [
-      { name: 'code', headerText :('itemDefinition.code') },
-      { name: 'name', headerText :('itemDefinition.name') },
-      { name: 'typeName', headerText :('itemDefinition.type') },
-      { name: 'itemCategoryName', headerText :('itemDefinition.category') },
-      { name: 'uomName', headerText :('itemDefinition.uom') },
-
-    ];
+    const filteredColumns = this.columns.filter(col => this.filteredColumns.includes(col.name));
     this.itemsService.exportedItemDefinitionListDataSourceObs.subscribe((res) => {
-      this.exportData = this.exportService.formatCiloma(res, columns);
+      this.exportData = this.exportService.formatCiloma(res, filteredColumns);
     });
   }
 
@@ -109,6 +110,11 @@ export class ItemDefinitionListComponent implements OnInit {
       SortBy: e.SortBy,
       SortColumn: e.SortColumn,
     };
+  }
+
+  onFilterColumn(e: string[]) {
+    this.filteredColumns = e;
+
   }
 
   onAdd() {
