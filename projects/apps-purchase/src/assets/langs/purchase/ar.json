@@ -8,6 +8,20 @@
     "discard": "تجاهل",
     "Save": "حفظ"
   },
+  "messages": {
+  "success": "نجاح",
+  "error": "خطأ",
+  "noItemSelected": "لم يتم اختيار عنصر للتعديل.",
+  "noItemsToAdd": "لا توجد عناصر للإضافة.",
+  "successfully": "تمت العملية بنجاح.",
+  "duplicateItem": "يوجد عنصر مكرر.",
+  "serialError": "لا يمكن إضافة أكثر من عنصر بنفس الرقم التسلسلي.",
+  "noBarcode": "هذا الباركود غير موجود.",
+  "notEdit": "لا يمكن تعديل هذا الخروج لأنه تم ترحيله.",
+  "setTracking": "يجب تعيين التتبع في الصف ",
+  "stockOutPostedSuccessfully": "تم ترحيل الخروج بنجاح.",
+  "errorReturnQuantity": "الكمية المرتجعة لا يمكن أن تكون أكبر من الكمية المتبقية"
+},
   "JournalTitle": "انشاء قيد اليومية",
   "journal_entry_header": "الرجاء إدخال عنوان دفتر اليومية",
   "reference_number": "رقم المرجع",

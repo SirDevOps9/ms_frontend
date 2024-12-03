@@ -19,7 +19,8 @@
     "noBarcode": "This barcode does not exist.",
     "notEdit": "This stockout cannot be edited because it is posted.",
     "setTracking":"You must set tracking in the row ",
-    "stockOutPostedSuccessfully": "Stock Out Posted successfully"
+    "stockOutPostedSuccessfully": "Stock Out Posted successfully",
+    "errorReturnQuantity": "The return quantity cannot be greater than the remaining quantity"
   },
   "BreadCrumb":{
    "edit":"edit"
@@ -367,7 +368,13 @@
   "serials":"serials",
   "invoicejournal":"invoice journal",
   "stockOut":"stock Out",
-  "operation":"related operation"
+  "stockIn":"stock In",
+  "operation":"related operation",
+  "vendorOperation":"vendor information",
+  "returnCode":"Return code",
+  "returnDate":"Return Date",
+  "returnDescription":"Return Description"
+
 
 
   },
