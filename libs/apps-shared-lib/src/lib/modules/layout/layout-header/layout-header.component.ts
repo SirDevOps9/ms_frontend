@@ -76,10 +76,10 @@ export class LayoutHeaderComponent implements OnInit, AfterViewInit {
   patchUserInfo() {
     const userInf = this.localstoarage.getItem(StorageKeys.USER_INFO);
     this.companyList = userInf?.companies;
-    let dCompany = userInf?.companies.find((x: any) => x.companyType == CompanyTypes.Holding);
+    let dCompany = userInf?.companies?.find((x: any) => x.companyType == CompanyTypes.Holding);
     this.branchList = dCompany?.branches;
 
-    let dBranch = dCompany?.branches.find((x: any) => x.isDefault == true);
+    let dBranch = dCompany?.branches?.find((x: any) => x.isDefault == true);
     this.coBrForm.patchValue({
       companyId: dCompany?.id,
       branchId: dBranch?.id,
