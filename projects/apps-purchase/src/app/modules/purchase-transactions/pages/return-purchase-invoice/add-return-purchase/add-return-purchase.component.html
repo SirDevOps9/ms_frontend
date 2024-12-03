@@ -255,7 +255,7 @@
                             <td></td>
                         }
                   
-                    <td ><p> <span class="pi pi-calendar"></span></p> {{invoiceFormGroup?.get('invoiceTracking')?.get('expireDate')?.value}} </td>
+                    <td > <span class="pi pi-calendar"></span> {{invoiceFormGroup?.get('invoiceTracking')?.get('expireDate')?.value  | date : 'dd/MM/yyyy'}} </td>
                     <!-- <td *ngIf="invoiceFormGroup.controls['trackingType'].value == sharedEnums.Tracking.Serial">{{invoiceFormGroup?.get('invoiceTracking')?.get('serialId')?.value}}</td>
                     <td *ngIf="invoiceFormGroup.controls['trackingType'].value != sharedEnums.Tracking.Serial"></td> -->
                         @if (invoiceFormGroup.controls['trackingType'].value == sharedEnums.Tracking.Serial){

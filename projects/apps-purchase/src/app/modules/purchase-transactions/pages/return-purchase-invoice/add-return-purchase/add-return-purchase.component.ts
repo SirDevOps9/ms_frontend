@@ -161,19 +161,25 @@ export class AddReturnPurchaseComponent {
 
   }
   routeToStockIn() {
+    if(this.addForm.get('stockInId')?.value){
+
     const url = this.router.serializeUrl(
       this.router.createUrlTree([`/inventory/transactions/stock-in/view/${this.addForm.get('stockInId')?.value}`])
     );
     window.open(url, '_blank');
 
   }
+}
+
   routeTojournal() {
+    if(this.addForm.get('journalId')?.value){
     const url = this.router.serializeUrl(
       this.router.createUrlTree([`/accounting/transcations/journalentry/view/${this.addForm.get('journalId')?.value}`])
     );
     window.open(url, '_blank');
 
   }
+}
   setRowDataById(indexLine: number, selectedItem: any) {
     const rowForm = this.invoiceDetailsFormArray.at(indexLine) as FormGroup;
     // Ensure row form controls are present before updating
