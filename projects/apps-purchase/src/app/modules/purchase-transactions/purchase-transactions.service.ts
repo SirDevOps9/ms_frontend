@@ -178,7 +178,6 @@ export class PurchaseTransactionsService {
         this.languageService.transalte('purchase.success'),
         this.languageService.transalte('purchase.addInvoice')
       );
-      this.router.navigateTo('/transaction/purchase-invoice')
      this.sendPurchaseInvoice.next(res);
     });
   }
