@@ -1,7 +1,9 @@
 {
   "BreadCrumb": {
     "Dashboard": "Dashboard",
-    "sequence":"Sequence"
+    "sequence":"Sequence",
+    "homeHelpPage":"Home Help Page",
+    "helpPage":"help Page"
   },
   "Save": "Save",
   "Cancel": "Cancel",
@@ -118,5 +120,7 @@
   },
   "general" : {
     "noData" : "There Is No Data"
-  }
+  },
+  "back":"back",
+  "help":"Help"
 }

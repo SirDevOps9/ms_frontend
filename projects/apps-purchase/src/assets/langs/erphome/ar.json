@@ -515,6 +515,7 @@
     "add": "إضافة سطر",
     "search": "بحث",
     "invoiceLines": "أسطر الفاتورة",
+    "invoiceSummary": "ملخص الفاتورة",
     "numberOfItems": "عدد الأصناف",
     "totalQuantity": "إجمالي الكمية",
     "total": "الإجمالي",
