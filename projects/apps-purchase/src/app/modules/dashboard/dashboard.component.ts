@@ -1,9 +1,20 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Chart } from 'angular-highcharts';
-import { InvoiceStatusReportDto, TopPurchasedProductsDto, TopVendorsReportDto } from './models';
+import {
+  InvoiceStatusReportDto,
+  ReturnInvoiceStatusReportDto,
+  TopPurchasedProductsDto,
+  TopVendorsReportDto,
+} from './models';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { ChartService, ChartValueDto, DASHBOARD_COLORS, LanguageService } from 'shared-lib';
+import {
+  ChartService,
+  ChartValueDto,
+  DASHBOARD_COLORS,
+  LanguageService,
+  MONTHS_DTO,
+} from 'shared-lib';
 import { DashboardService } from './dashboard.service';
 
 @Component({
@@ -22,7 +33,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   returnStatusChart: Chart;
   returnStatusChartData: any = [];
 
-  monthlyPurchasesCHart: Chart;
+  monthlyPurchasesChart: Chart;
 
   mostPurchasedProductsChart: Chart;
   mostPurchasedProductsChartData: ChartValueDto[] = [];
@@ -81,11 +92,36 @@ export class DashboardComponent implements OnInit, OnDestroy {
     });
 
     this.service.returnStatus$.pipe(takeUntil(this.destroy$)).subscribe((status) => {
-      // Handle return status data if needed
+      const statusLabels: string[] = [];
+      status.forEach((status) => statusLabels.push(status.ReturnInvoiceStatus));
+      this.returnStatusChartData = status.map((item: ReturnInvoiceStatusReportDto, index) => ({
+        y: item.Count,
+        value: item.Count,
+        color: this.colors[index],
+        name: item.ReturnInvoiceStatus,
+      }));
+
+      this.returnStatusChart = this.chartService.columnChart(
+        statusLabels,
+        this.returnStatusChartData
+      );
     });
 
     this.service.monthlyPurchase$.pipe(takeUntil(this.destroy$)).subscribe((monthlyPurchase) => {
-      // Handle monthly purchase data if needed
+      const MonthLabels = MONTHS_DTO.map((month) =>
+        this.currentLang == 'en' ? month.en : month.ar
+      );
+      const dataSeries = {
+        name: 'Total Purchases',
+        data: monthlyPurchase.map((data) => data.totalPurchases),
+      };
+      const returnSeries = {
+        name: 'Total Returns',
+        data: monthlyPurchase.map((data) => data.totalReturns),
+      };
+      const series = [dataSeries, returnSeries];
+
+      this.monthlyPurchasesChart = this.chartService.multipleColumnChart(MonthLabels, series);
     });
 
     this.service.topPurchaseProducts$
@@ -100,6 +136,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
           value: item.Cost,
           name: item.Description,
           color: this.colors[index],
+          quantity: `X ${item.Quantity}`,
         }));
         this.mostPurchasedProductsChart = this.chartService.donutChart(
           this.mostPurchasedProductsChartData

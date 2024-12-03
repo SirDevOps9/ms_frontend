@@ -3,6 +3,7 @@ export interface ChartValueDto {
   value: number;
   color: string;
   name: string;
+  quantity?: number | string;
 }
 
 // y the value which displayed in the chart
