@@ -13,29 +13,31 @@ import {
   providedIn: 'root',
 })
 export class ProxyService {
-  private baseUrl = '';
+  private baseUrl = 'dashboard';
 
   constructor(private http: HttpService) {}
 
   getStatusReport(): Observable<InvoiceStatusReportDto[]> {
-    return this.http.get<InvoiceStatusReportDto[]>(`${this.baseUrl}/status-report`);
+    return this.http.get<InvoiceStatusReportDto[]>(`${this.baseUrl}/GetInvoiceStatusReport`);
   }
 
   getReturnStatusReport(): Observable<ReturnInvoiceStatusReportDto[]> {
-    return this.http.get<ReturnInvoiceStatusReportDto[]>(`${this.baseUrl}/return-status-report`);
+    return this.http.get<ReturnInvoiceStatusReportDto[]>(
+      `${this.baseUrl}/GetReturnInvoiceStatusReport`
+    );
   }
 
   monthlyPurchaseReport(): Observable<MonthlyPurchaseReturnReportDto[]> {
     return this.http.get<MonthlyPurchaseReturnReportDto[]>(
-      `${this.baseUrl}/monthly-purchase-report`
+      `${this.baseUrl}/GetMonthlyPurchaseReturnReport`
     );
   }
 
   topPurchaseProducts(): Observable<TopPurchasedProductsDto[]> {
-    return this.http.get<TopPurchasedProductsDto[]>(`${this.baseUrl}/top-purchase-products`);
+    return this.http.get<TopPurchasedProductsDto[]>(`${this.baseUrl}/GetTopPurchasedProducts`);
   }
 
   topVendors(): Observable<TopVendorsReportDto[]> {
-    return this.http.get<TopVendorsReportDto[]>(`${this.baseUrl}/top-vendors`);
+    return this.http.get<TopVendorsReportDto[]>(`${this.baseUrl}/GetTopVendorsReport`);
   }
 }
