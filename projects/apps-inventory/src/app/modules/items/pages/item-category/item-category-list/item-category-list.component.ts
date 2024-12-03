@@ -94,9 +94,7 @@ export class ItemCategoryListComponent implements OnInit {
     e.forEach(selectedColumn => {
       const columnExists = this.columns.some(column => column.name === selectedColumn);
       if (columnExists) {
-        // console.log(`${selectedColumn} exists in predefined columns`);
       } else {
-        // console.log(`${selectedColumn} does not exist in predefined columns`);
       }
     });
   }

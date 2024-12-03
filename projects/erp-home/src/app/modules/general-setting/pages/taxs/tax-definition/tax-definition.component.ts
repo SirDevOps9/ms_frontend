@@ -29,11 +29,17 @@ export class TaxDefinitionComponent implements OnInit {
   searchTerm: string;
   SortBy?: number
   SortByAll:SortTableEXport
-
   SortColumn?:string
   exportData: ExportTaxDto[];
-  exportColumns: lookupDto[] = [
-  ];
+  exportColumns: lookupDto[] = [];
+  filteredColumns: string[] = [];
+  columns: { name: any; headerText: any }[] = [
+    { name: 'code', headerText:('Tax.Id') },
+    { name: 'name', headerText:('Tax.Name') },
+    { name: 'ratio', headerText:('Tax.Ratio') },
+    { name: 'accountName', headerText:('Tax.Account') },
+    { name: 'taxGroupName', headerText:('Tax.TaxGroup') },
+  ]
 
   ngOnInit() {
     this.initTaxData();
@@ -98,16 +104,9 @@ export class TaxDefinitionComponent implements OnInit {
   }
   exportTaxesData(searchTerm: string, sortBy?: number, sortColumn?: string) {
     this.generalSettingService.exportTaxesData(searchTerm , sortBy , sortColumn);
-
-    const columns = [
-      { name: 'code', headerText:('Tax.Id') },
-      { name: 'name', headerText:('Tax.Name') },
-      { name: 'ratio', headerText:('Tax.Ratio') },
-      { name: 'accountName', headerText:('Tax.Account') },
-      { name: 'taxGroupName', headerText:('Tax.TaxGroup') },
-    ];
+    const filteredColumns = this.columns.filter(col => this.filteredColumns.includes(col.name));
     this.generalSettingService.exportsTaxesDataSourceObservable.subscribe((res) => {
-      this.exportData = this.exportService.formatCiloma(res, columns);
+      this.exportData = this.exportService.formatCiloma(res, filteredColumns);
 
     });
   }
@@ -117,4 +116,16 @@ export class TaxDefinitionComponent implements OnInit {
       SortColumn:e.SortColumn
      }
   }
+
+  onFilterColumn(e: string[]) {
+    console.log('new new', e);
+    this.filteredColumns = e;
+    e.forEach(selectedColumn => {
+      const columnExists = this.columns.some(column => column.name === selectedColumn);
+      if (columnExists) {
+      } else {
+      }
+    });
+  }
+
 }

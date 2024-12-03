@@ -47,7 +47,6 @@ columns: { name: any; headerText: any }[] = [
   { name: 'nameAr' , headerText: ('attributeDefinition.nameAr') },
   { name: 'itemAttributes', headerText: ('attributeDefinition.values') },
   { name: this.currentLang === 'en' ? 'isActive' : 'isActive', headerText: ('attributeDefinition.status') },
-
 ]
   constructor(
     private routerService: RouterService,
@@ -94,8 +93,6 @@ columns: { name: any; headerText: any }[] = [
 
   onSearchChange() {
     this.itemService.getListOfAttr(this.searchTerm, new PageInfo());
-
-
         this.itemService.listOfAttrDifinition$.subscribe({
       next: (res) => {
         this.tableData = res;
@@ -138,9 +135,7 @@ columns: { name: any; headerText: any }[] = [
     e.forEach(selectedColumn => {
       const columnExists = this.columns.some(column => column.name === selectedColumn);
       if (columnExists) {
-        // console.log(`${selectedColumn} exists in predefined columns`);
       } else {
-        // console.log(`${selectedColumn} does not exist in predefined columns`);
       }
     });
   }
@@ -150,14 +145,12 @@ columns: { name: any; headerText: any }[] = [
 onDelete(id: number) {
   this.itemService.deleteAttributeGroup(id);
   this.initTreasurData()
-
 }
 
 onToggleActive(newStatus: boolean, id: number): void {
   const index = this.tableData.findIndex(item => item.id === id);
   if (index !== -1) {
     this.tableData[index].isActive = newStatus;
-
     this.saveChanges(this.tableData[index]);
   }
 }
@@ -169,19 +162,14 @@ saveChanges(updatedRow: any): void {
 async confirmChange(newValue: boolean, user: any) {
   user.isActive =!user.isActive
   const confirmed = await this.toasterService.showConfirm('ConfirmButtonTexttochangestatus');
-
   if (confirmed) {
     const command = {
       id: user.id,
       status: user.isActive,
     };
-
-
     this.itemService.editStatusAttributeGroup(command)
-
   } else {
     user.isActive =!user.isActive
-
     console.log('Change was canceled', user.isActive);
   }
 }
@@ -190,7 +178,6 @@ async confirmChange(newValue: boolean, user: any) {
 
 onViewttributeValues(selectedId: number) {
   const selectedItem = this.tableData.find(item => item.id === selectedId);
-
   this.dialog.open(AttributeDefinitionValuesComponent, {
     width: '750px',
     height: 'auto',
@@ -201,8 +188,6 @@ onViewttributeValues(selectedId: number) {
 
 onViewttributeValuesList(data: any) {
   this.routerService.navigateTo(`/masterdata/attribute-definition/view/${data.id}`)
-
-
 }
 
 }

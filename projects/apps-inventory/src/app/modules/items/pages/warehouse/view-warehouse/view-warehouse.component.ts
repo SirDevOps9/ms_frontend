@@ -100,13 +100,10 @@ this.initItemDefinitionData()
     e.forEach(selectedColumn => {
       const columnExists = this.columns.some(column => column.name === selectedColumn);
       if (columnExists) {
-        // console.log(`${selectedColumn} exists in predefined columns`);
       } else {
-        // console.log(`${selectedColumn} does not exist in predefined columns`);
       }
     });
   }
-
   printTable(id: string) {
     this.Print_Service.print(id);
   }

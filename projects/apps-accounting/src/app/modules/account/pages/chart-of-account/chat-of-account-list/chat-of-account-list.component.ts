@@ -19,7 +19,16 @@ export class ChatOfAccountListComponent implements OnInit {
   mappedExportData: AccountDto[];
   SortByAll:SortTableEXport
   exportData: ExportAccountsDto[];
-
+  filteredColumns: string[] = [];
+  columns: { name: any; headerText: any }[] = [
+    { name: 'accountCode', headerText: 'ChartOfAccount.AccountCode' },
+    { name: 'name', headerText: 'ChartOfAccount.AccountName' },
+    { name: 'levelNumber', headerText: 'ChartOfAccount.levelNumber' },
+    { name: 'accountSectionName', headerText: 'ChartOfAccount.AccountSection' },
+    { name: 'accountTypeName', headerText: 'ChartOfAccount.AccountType' },
+    { name: 'natureId', headerText: 'ChartOfAccount.Nature' },
+    { name: 'isActive', headerText: 'ChartOfAccount.Status' }
+  ]
   constructor(private routerService: RouterService,
     private title: Title,
     private langService: LanguageService,
@@ -111,21 +120,12 @@ export class ChatOfAccountListComponent implements OnInit {
   exportClick() {
     this.exportAccountsData(this.searchTerm, this.SortByAll?.SortBy, this.SortByAll?.SortColumn);
   }
+
   exportAccountsData(searchTerm: string, sortBy?: number, sortColumn?: string) {
     this.accountService.exportAccountsData(searchTerm ,sortBy ,sortColumn);
-
-    const columns = [
-      { name: 'accountCode', headerText: 'ChartOfAccount.AccountCode' },
-      { name: 'name', headerText: 'ChartOfAccount.AccountName' },
-      { name: 'levelNumber', headerText: 'ChartOfAccount.levelNumber' },
-      { name: 'accountSectionName', headerText: 'ChartOfAccount.AccountSection' },
-      { name: 'accountTypeName', headerText: 'ChartOfAccount.AccountType' },
-      { name: 'natureId', headerText: 'ChartOfAccount.Nature' },
-      { name: 'isActive', headerText: 'ChartOfAccount.Status' }
-    ];
-
+    const filteredColumns = this.columns.filter(col => this.filteredColumns.includes(col.name));
     this.accountService.exportsAccountsDataSourceObservable.subscribe((res) => {
-      this.exportData = this.exportService.formatCiloma(res, columns);
+      this.exportData = this.exportService.formatCiloma(res, filteredColumns);
     });
   }
 
@@ -135,4 +135,16 @@ export class ChatOfAccountListComponent implements OnInit {
       SortColumn: e.SortColumn,
     };
   }
+
+  onFilterColumn(e: string[]) {
+    console.log('new new', e);
+    this.filteredColumns = e;
+    e.forEach(selectedColumn => {
+      const columnExists = this.columns.some(column => column.name === selectedColumn);
+      if (columnExists) {
+      } else {
+      }
+    });
+  }
+
 }

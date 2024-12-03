@@ -29,6 +29,13 @@ export class TagListComponent implements OnInit {
   exportData: ExportTagDto[];
   exportColumns: any[];
   SortByAll:SortTableEXport
+  filteredColumns: string[] = [];
+  columns: { name: any; headerText: any }[] = [
+    { name: 'code', headerText:('tag.code') },
+    { name: 'name', headerText:('tag.Name') },
+    { name: 'modules', headerText:('tag.Modules') },
+    { name: 'isActive', headerText:('tag.status') },
+  ]
   constructor(
     private generalSettingService: GeneralSettingService,
     public layoutService: LayoutService,
@@ -131,15 +138,10 @@ export class TagListComponent implements OnInit {
 
   exportTagData(searchTerm: string, sortBy?: number, sortColumn?: string) {
     this.generalSettingService.exportTagData(searchTerm , sortBy , sortColumn);
+    const filteredColumns = this.columns.filter(col => this.filteredColumns.includes(col.name));
 
-    const columns = [
-      { name: 'code', headerText:('tag.code') },
-      { name: 'name', headerText:('tag.Name') },
-      { name: 'modules', headerText:('tag.Modules') },
-      { name: 'isActive', headerText:('tag.status') },
-    ];
     this.generalSettingService.exportsTagDataSourceObservable.subscribe((res) => {
-      this.exportData = this.exportService.formatCiloma(res, columns);
+      this.exportData = this.exportService.formatCiloma(res, filteredColumns);
     });
   }
 
@@ -150,7 +152,17 @@ export class TagListComponent implements OnInit {
     };
   }
 
-  
+  onFilterColumn(e: string[]) {
+    console.log('new new', e);
+    this.filteredColumns = e;
+    e.forEach(selectedColumn => {
+      const columnExists = this.columns.some(column => column.name === selectedColumn);
+      if (columnExists) {
+      } else {
+      }
+    });
+  }
+
   Delete(id: number) {
     this.generalSettingService.deleteTag(id);
   }

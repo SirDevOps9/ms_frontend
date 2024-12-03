@@ -33,7 +33,14 @@ export class CostCenterListComponent implements OnInit {
   exportColumns: lookupDto[];
   exportData: costCenterList[];
   SortByAll:SortTableEXport
-
+  filteredColumns: string[] = [];
+  columns: { name: any; headerText: any }[] = [
+    { name: 'code', headerText: 'TaxGroup.Code' },
+      { name: 'name', headerText: 'TaxGroup.Name' },
+      { name: 'parentCostCenter', headerText: 'TaxGroup.parent' },
+      { name: 'type', headerText: 'TaxGroup.type' },
+      { name: 'status', headerText: 'TaxGroup.status' },
+  ]
   constructor(
     private routerService: RouterService,
     private accountService: AccountService,
@@ -93,18 +100,12 @@ export class CostCenterListComponent implements OnInit {
   exportClick() {
     this.exportCostCentersData(this.searchTerm, this.SortByAll?.SortBy, this.SortByAll?.SortColumn);
   }
+
   exportCostCentersData(searchTerm: string, sortBy?: number, sortColumn?: string) {
     this.accountService.exportCostCentersData(searchTerm , sortBy , sortColumn);
-
-    const columns = [
-      { name: 'code', headerText: 'TaxGroup.Code' },
-      { name: 'name', headerText: 'TaxGroup.Name' },
-      { name: 'parentCostCenter', headerText: 'TaxGroup.parent' },
-      { name: 'type', headerText: 'TaxGroup.type' },
-      { name: 'status', headerText: 'TaxGroup.status' },
-    ];
+    const filteredColumns = this.columns.filter(col => this.filteredColumns.includes(col.name));
     this.accountService.exportsCostCentersDataSourceObservable.subscribe((res) => {
-      this.exportData = this.exportService.formatCiloma(res, columns);
+      this.exportData = this.exportService.formatCiloma(res, filteredColumns);
     });
   }
   exportClickBySort(e: { SortBy: number; SortColumn: string }) {
@@ -113,4 +114,16 @@ export class CostCenterListComponent implements OnInit {
       SortColumn: e.SortColumn,
     };
   }
+
+  onFilterColumn(e: string[]) {
+    console.log('new new', e);
+    this.filteredColumns = e;
+    e.forEach(selectedColumn => {
+      const columnExists = this.columns.some(column => column.name === selectedColumn);
+      if (columnExists) {
+      } else {
+      }
+    });
+  }
+
 }

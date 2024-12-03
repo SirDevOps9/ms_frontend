@@ -23,6 +23,12 @@ export class TaxGroupComponent implements OnInit {
   exportColumns: lookupDto[];
   exportData: TaxGroupDto[];
   SortByAll:SortTableEXport
+  filteredColumns: string[] = [];
+  columns: { name: any; headerText: any }[] = [
+    { name: 'code', headerText:('TaxGroup.Code') },
+    { name: 'name', headerText:('TaxGroup.Name') },
+    { name: 'countryName', headerText:('TaxGroup.CountryName') },
+  ]
   constructor(
     private routerService: RouterService,
     private generalSettingService: GeneralSettingService,
@@ -96,14 +102,10 @@ export class TaxGroupComponent implements OnInit {
   }
   exportTaxGroupData(searchTerm: string, sortBy?: number, sortColumn?: string) {
     this.generalSettingService.exportTaxGroupData(searchTerm , sortBy , sortColumn);
+    const filteredColumns = this.columns.filter(col => this.filteredColumns.includes(col.name));
 
-    const columns = [
-      { name: 'code', headerText:('TaxGroup.Code') },
-      { name: 'name', headerText:('TaxGroup.Name') },
-      { name: 'countryName', headerText:('TaxGroup.CountryName') },
-    ];
     this.generalSettingService.exportsTaxGroupDataSourceObservable.subscribe((res) => {
-      this.exportData = this.exportService.formatCiloma(res, columns);
+      this.exportData = this.exportService.formatCiloma(res, filteredColumns);
 
     });
   }
@@ -113,6 +115,17 @@ export class TaxGroupComponent implements OnInit {
       SortBy: e.SortBy,
       SortColumn: e.SortColumn,
     };
+  }
+
+  onFilterColumn(e: string[]) {
+    console.log('new new', e);
+    this.filteredColumns = e;
+    e.forEach(selectedColumn => {
+      const columnExists = this.columns.some(column => column.name === selectedColumn);
+      if (columnExists) {
+      } else {
+      }
+    });
   }
  async Delete(id: number) {
     const deleted =await this.generalSettingService.deleteTaxGroup(id);

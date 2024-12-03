@@ -28,7 +28,15 @@ export class CurrencyDefinitionComponent {
   ref: DynamicDialogRef;
   exportData: CurrencyDefinitionDto[];
 
+  filteredColumns: string[] = [];
+  columns: { name: any; headerText: any }[] = [
+    { name: 'code', headerText:('currencyDefinition.code') },
+    { name: 'name', headerText:('currencyDefinition.name') },
+    { name: 'symbol', headerText:('currencyDefinition.sympol') },
+    { name: 'subUnit', headerText:('currencyDefinition.Subunit') },
+    { name: 'countryName', headerText:('currencyDefinition.country') },
 
+  ]
   ngOnInit() {
     this.getCurrencyList();
   }
@@ -37,16 +45,10 @@ export class CurrencyDefinitionComponent {
   }
   exportcurrencyDefinitionData(searchTerm: string, sortBy?: number, sortColumn?: string) {
     this.generalSettingService.exportcurrencyDefinitionData(searchTerm , sortBy , sortColumn);
-    const columns = [
-      { name: 'code', headerText:('currencyDefinition.code') },
-      { name: 'name', headerText:('currencyDefinition.name') },
-      { name: 'symbol', headerText:('currencyDefinition.sympol') },
-      { name: 'subUnit', headerText:('currencyDefinition.Subunit') },
-      { name: 'countryName', headerText:('currencyDefinition.country') },
+    const filteredColumns = this.columns.filter(col => this.filteredColumns.includes(col.name));
 
-    ];
     this.generalSettingService.exportcurrencyDefinitionDataSourceObservable.subscribe((res) => {
-      this.exportData = this.exportService.formatCiloma(res, columns);
+      this.exportData = this.exportService.formatCiloma(res, filteredColumns);
 
     });
   }
@@ -56,6 +58,16 @@ export class CurrencyDefinitionComponent {
      SortColumn:e.SortColumn
     }
  }
+ onFilterColumn(e: string[]) {
+  console.log('new new', e);
+  this.filteredColumns = e;
+  e.forEach(selectedColumn => {
+    const columnExists = this.columns.some(column => column.name === selectedColumn);
+    if (columnExists) {
+    } else {
+    }
+  });
+}
   Edit(id: number) {
     this.generalSettingService.openCurrencyEdit(id);
   }

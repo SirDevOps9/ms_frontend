@@ -31,6 +31,20 @@ export class JournalEntryListComponent implements OnInit {
   exportData: JournalEntryDto[];
   searchTerm: string;
   SortByAll:SortTableEXport
+  filteredColumns: string[] = [];
+  columns: { name: any; headerText: any }[] = [
+    { name: 'journalCode', headerText: 'Journal.journalCode' },
+      { name: 'refrenceNumber', headerText: 'Journal.referenceNumber' },
+      { name: 'createdOn', headerText: 'Journal.CreatedOn' },
+      { name: 'type', headerText: 'Journal.type' },
+      { name: 'status', headerText: 'Journal.status' },
+      { name: 'isRepeated', headerText: 'Journal.isRepeated' },
+      { name: 'isReversed', headerText: 'Journal.isReversed' },
+      { name: 'totalDebitAmount', headerText: 'Journal.totalDebitAmount' },
+      { name: 'totalCreditAmount', headerText: 'Journal.totalCreditAmount' },
+      { name: 'sourceName', headerText: 'Journal.sourceName' },
+      { name: 'sourceCode', headerText: 'Journal.sourceCode' },
+  ]
   constructor(
     private routerService: RouterService,
     private journalEntryService: JournalEntryService,
@@ -94,22 +108,10 @@ export class JournalEntryListComponent implements OnInit {
 
   exportJournalEntriesData(searchTerm: string, sortBy?: number, sortColumn?: string) {
     this.journalEntryService.exportJournalEntriesData(searchTerm , sortBy , sortColumn);
+    const filteredColumns = this.columns.filter(col => this.filteredColumns.includes(col.name));
 
-    const columns = [
-      { name: 'journalCode', headerText: 'Journal.journalCode' },
-      { name: 'refrenceNumber', headerText: 'Journal.referenceNumber' },
-      { name: 'createdOn', headerText: 'Journal.CreatedOn' },
-      { name: 'type', headerText: 'Journal.type' },
-      { name: 'status', headerText: 'Journal.status' },
-      { name: 'isRepeated', headerText: 'Journal.isRepeated' },
-      { name: 'isReversed', headerText: 'Journal.isReversed' },
-      { name: 'totalDebitAmount', headerText: 'Journal.totalDebitAmount' },
-      { name: 'totalCreditAmount', headerText: 'Journal.totalCreditAmount' },
-      { name: 'sourceName', headerText: 'Journal.sourceName' },
-      { name: 'sourceCode', headerText: 'Journal.sourceCode' },
-    ];
     this.journalEntryService.exportsJournalEntriesDataSourceObservable.subscribe((res) => {
-      this.exportData = this.exportService.formatCiloma(res, columns);
+      this.exportData = this.exportService.formatCiloma(res, filteredColumns);
     });
 
   }
@@ -119,6 +121,17 @@ export class JournalEntryListComponent implements OnInit {
       SortBy: e.SortBy,
       SortColumn: e.SortColumn,
     };
+  }
+
+  onFilterColumn(e: string[]) {
+    console.log('new new', e);
+    this.filteredColumns = e;
+    e.forEach(selectedColumn => {
+      const columnExists = this.columns.some(column => column.name === selectedColumn);
+      if (columnExists) {
+      } else {
+      }
+    });
   }
   routeToPaymentInView(id: number) {
     const url = this.router.serializeUrl(
