@@ -4,6 +4,7 @@
       <lib-data-table  [items]="tableData"
         className="p-datatable-gridlines"
         (exportObj)="exportClickBySort($event)"
+        (columnsFiltered)="onFilterColumn($event)"
         [currentPageResult]="currentPageInfo" (pageChange)="onPageChange($event)"
               [tableConfigs]="{
             allowPagination: false,

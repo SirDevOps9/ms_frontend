@@ -61,6 +61,7 @@
             [options]="filtered_columns.slice(0,-1)"
             [(ngModel)]="selected_filtered_columns"
             optionLabel="name"
+            (columnsFiltered)="handleFilterColumns($event)"
             optionValue="name"
             [className]="'pi pi-list'"
             (filterColumns)="handleFilterColumns($event)"
