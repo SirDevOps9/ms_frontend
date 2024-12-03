@@ -95,14 +95,8 @@ this.initItemDefinitionData()
     };
   }
   onFilterColumn(e: string[]) {
-    console.log('new new', e);
     this.filteredColumns = e;
-    e.forEach(selectedColumn => {
-      const columnExists = this.columns.some(column => column.name === selectedColumn);
-      if (columnExists) {
-      } else {
-      }
-    });
+
   }
   printTable(id: string) {
     this.Print_Service.print(id);

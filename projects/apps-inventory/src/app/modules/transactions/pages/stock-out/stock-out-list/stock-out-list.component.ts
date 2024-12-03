@@ -111,16 +111,8 @@ export class StockOutListComponent implements OnInit {
   }
 
   onFilterColumn(e: string[]) {
-    console.log('new new', e);
     this.filteredColumns = e;
-    e.forEach(selectedColumn => {
-      const columnExists = this.columns.some(column => column.name === selectedColumn);
-      if (columnExists) {
-        // console.log(`${selectedColumn} exists in predefined columns`);
-      } else {
-        // console.log(`${selectedColumn} does not exist in predefined columns`);
-      }
-    });
+
   }
   constructor(
     private routerService: RouterService,

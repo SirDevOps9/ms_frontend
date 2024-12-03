@@ -86,14 +86,8 @@ export class WarehouseListComponent implements OnInit {
     };
   }
   onFilterColumn(e: string[]) {
-    console.log('new new', e);
     this.filteredColumns = e;
-    e.forEach(selectedColumn => {
-      const columnExists = this.columns.some(column => column.name === selectedColumn);
-      if (columnExists) {
-      } else {
-      }
-    });
+
   }
 
   onAdd() {

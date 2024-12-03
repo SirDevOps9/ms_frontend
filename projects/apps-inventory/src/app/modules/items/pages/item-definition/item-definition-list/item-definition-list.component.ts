@@ -100,7 +100,6 @@ export class ItemDefinitionListComponent implements OnInit {
   exportBankData(searchTerm: string, sortBy?: number, sortColumn?: string) {
     this.itemsService.exportsItemsDefinitionList(searchTerm, sortBy, sortColumn);
     const filteredColumns = this.columns.filter(col => this.filteredColumns.includes(col.name));
-
     this.itemsService.exportedItemDefinitionListDataSourceObs.subscribe((res) => {
       this.exportData = this.exportService.formatCiloma(res, filteredColumns);
     });
@@ -113,16 +112,30 @@ export class ItemDefinitionListComponent implements OnInit {
     };
   }
 
-  onFilterColumn(e: string[]) {
-    console.log('new new', e);
-    this.filteredColumns = e;
-    e.forEach(selectedColumn => {
+/**
+ * This function filters the columns based on the selected values.
+ * @param e - An array of strings containing the names of the columns to be filtered.
+ *
+ * Steps:
+ * 1. Logs the selected column names to the console for debugging purposes.
+ * 2. Updates the `filteredColumns` property with the new filtered column names.
+ * 3. Iterates through each selected column:
+ *    - If the column exists in the original `columns` array, perform a specific action (logic can be added here).
+ *    - If the column does not exist, perform a different action (logic can also be added here).
+ */
+onFilterColumn(e: string[]) {
+  console.log('new new', e); // Log the new selected column names to the console
+  this.filteredColumns = e; // Update the filtered columns array
+  e.forEach(selectedColumn => {
       const columnExists = this.columns.some(column => column.name === selectedColumn);
       if (columnExists) {
+          // Add logic here for when the column exists in the original list
       } else {
+          // Add logic here for when the column does not exist in the original list
       }
-    });
-  }
+  });
+}
+
 
   onAdd() {
     const dialogRef = this.dialog.open(AddItemDefinitionPopupComponent, {

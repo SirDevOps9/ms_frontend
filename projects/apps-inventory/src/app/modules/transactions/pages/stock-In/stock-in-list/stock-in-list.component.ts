@@ -91,16 +91,8 @@ export class StockInListComponent implements OnInit {
     };
   }
   onFilterColumn(e: string[]) {
-    console.log('new new', e);
     this.filteredColumns = e;
-    e.forEach(selectedColumn => {
-      const columnExists = this.columns.some(column => column.name === selectedColumn);
-      if (columnExists) {
-        // console.log(`${selectedColumn} exists in predefined columns`);
-      } else {
-        // console.log(`${selectedColumn} does not exist in predefined columns`);
-      }
-    });
+ 
   }
   onAdd() {
     this.sequenceService.isHaveSequence( this.sharedEnums.Pages.StockIn , '/transactions/stock-in/add-stock-in')
