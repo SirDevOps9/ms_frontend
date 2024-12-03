@@ -30,6 +30,7 @@ export class PurchaseTransactionsService {
     viewInvoiceDataByID = new BehaviorSubject<viewInvoiceObj>({} as viewInvoiceObj);
     invoiceData = new BehaviorSubject<any>([]);
     returnInvoiceData = new BehaviorSubject<any>([]);
+    returnItemsInvoiceData = new BehaviorSubject<any>([]);
   // list of purchase inv
   constructor(  
       private TransactionsProxy: PurchaseTransactionsProxyService,
@@ -224,5 +225,10 @@ export class PurchaseTransactionsService {
         return res;
       })
     );
+  }
+  getReturnInvoiceByIdToEdit(id: number) {
+    this.TransactionsProxy.getReturnInvoiceByIdToEdit(id).subscribe((response: any) => {
+      this.returnItemsInvoiceData.next(response);
+    });
   }
 }

@@ -170,4 +170,7 @@ export class PurchaseTransactionsProxyService {
   deleteRowReturnInvoice(id: number) {
     return this.httpService.delete(`ReturnInvoice/DeleteLine/${id}`);
   }
+  getReturnInvoiceByIdToEdit(id: number) {
+    return this.httpService.get(`ReturnInvoice/${id}`);
+  }
 }

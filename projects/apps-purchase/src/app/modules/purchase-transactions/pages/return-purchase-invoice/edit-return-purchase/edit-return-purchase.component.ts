@@ -4,7 +4,7 @@ import { AuthService } from 'microtec-auth-lib';
 import { customValidators, FormsService, LanguageService, RouterService, ToasterService } from 'shared-lib';
 import { SharedEnum } from '../../../models/sharedEnums';
 import { PurchaseTransactionsService } from '../../../purchase-transactions.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-return-purchase',
@@ -26,15 +26,22 @@ export class EditReturnPurchaseComponent {
   addForm: FormGroup = new FormGroup({});
   showPost: boolean
   invoiceList: any
+  itemId: number
+
   ngOnInit(): void {
+    this.itemId = this.route.snapshot.params['id'];
 
     this.initializeForm();
-    this.latestVendor()
-    this.latestWarehouses()
-    this.initItemsData()
+    // this.latestVendor()
+    // this.latestWarehouses()
+     this.initItemsData()
+    // this.getStockOutyId(this.itemId)
+
     this.subscribe();
     this.calculate();
+
   }
+ 
   calculate() {
     this.totalQuantity = 0;
     this.totalReturnQuantity = 0;
@@ -57,7 +64,7 @@ export class EditReturnPurchaseComponent {
     }, 0);
   }
   initItemsData() {
-    this.PurchaseService.getLatestItems('');
+    this.PurchaseService.getReturnInvoiceByIdToEdit(this.itemId);
   }
   latestVendor() {
     this.PurchaseService.latestVendor(undefined).subscribe((res: any) => {
@@ -130,14 +137,16 @@ export class EditReturnPurchaseComponent {
   setData(data: any) {
     this.addForm.patchValue({
       id: data.id,
+      invoiceCode: data.code,
+      warehouseName: data.warehouseName,
       vendorId: data.vendorId,
       vendorName: data.vendorName,
-      currencyRate: data.currencyRate,
+      currencyRate: data.currencyName,
       vendorRate: data.currencyRate,
       warehouseId: data.warehouseId,
     });
     this.invoiceDetailsFormArray.clear();
-    data?.invoiceDetails?.forEach((detail: any, index: number) => {
+    data?.returnInvoiceDetails?.forEach((detail: any, index: number) => {
       this.addNewRow()
       this.setRowDataById(index, detail)
     });
@@ -150,7 +159,7 @@ export class EditReturnPurchaseComponent {
       this.invoiceList = invoiceList
 
     })
-    this.PurchaseService.returnInvoiceData.subscribe((data: any) => {
+    this.PurchaseService.returnItemsInvoiceData.subscribe((data: any) => {
       this.setData(data)
     })
 
@@ -342,6 +351,8 @@ export class EditReturnPurchaseComponent {
     private toasterService: ToasterService,
     private PurchaseService: PurchaseTransactionsService,
     private router: Router,
+    private route: ActivatedRoute,
+
 
   ) {
   }

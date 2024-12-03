@@ -294,28 +294,7 @@ export class AddReturnPurchaseComponent {
 
     const confirmed = await this.toasterService.showConfirm('Delete');
     if (confirmed) {
-      // if (id == 0) {
       this.invoiceDetailsFormArray.removeAt(index);
-      // }
-      // else {
-      //   this.PurchaseService.deleteRowReturnInvoice(id).subscribe({
-      //     next: (res: any) => {
-      //       this.toasterService.showSuccess(
-      //         this.languageService.transalte('transactions.success'),
-      //         this.languageService.transalte('transactions.deleteStockOut')
-      //       );
-      //       this.invoiceDetailsFormArray.removeAt(index);
-      //     },
-      //     error: (err: any) => {
-      //       console.error('Error occurred while deleting:', err);
-      //       this.toasterService.showError(
-      //         this.languageService.transalte('transactions.error'),
-      //         this.languageService.transalte('transactions.deleteFailed')
-      //       );
-      //     },
-      //   });
-      // }
-
     }
 
   }
@@ -349,35 +328,7 @@ export class AddReturnPurchaseComponent {
     return isValid;
   }
   
-  // beforeSave(): boolean {
-  //   let isValid = true;
   
-  //   this.invoiceDetailsFormArray.controls.forEach((control: any ,index:number) => {
-  //     const rowForm = control as FormGroup;
-  //     const returnQuantity = rowForm.get('returnQuantity')?.value;
-  //     const remainQuantity = rowForm.get('remainQuantity')?.value;
-  
-  //     if (returnQuantity > remainQuantity) {
-  //       this.duplicateLine=true
-  //       this.rowDuplicate=index
-  //       isValid = false;
-  //       this.toasterService.showError(
-  //                 this.languageService.transalte('messages.error'),
-  //                 this.languageService.transalte('messages.error')
-  //               );
-                
-  //               return true; // Exit the loop
-  //             }
-          
-  //             return false; // Continue the loop
-  //           });
-  
-  //   if (!isValid) {
-  //     return false;
-  //   }
-  
-  //   return true;
-  // }
   refactoredData(data: any) {
 
     const refactoredData = {
