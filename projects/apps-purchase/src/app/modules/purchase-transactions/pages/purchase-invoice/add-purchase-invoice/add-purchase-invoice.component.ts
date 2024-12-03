@@ -178,14 +178,16 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       );
       this.purchasetransactionsService.sendcurrency.pipe(skip(1), take(1)).subscribe((dataCurrency) => {
         this.purchaseInvoiceForm.get('currencyRate')?.setValue(dataCurrency.rate);
+
         if(!data.vendorFinancialCurrencyId) {
+
           this.purchaseInvoiceForm.get('currencyId')?.setValue(this.currentUserService.getCurrency());
           this.purchaseInvoiceForm.get('currencyName')?.setValue('Egyptian Pound');
+          this.purchaseInvoiceForm.get('currency')?.setValue('Egyptian Pound');
         }
       
 
       });
-      console.log(this.purchaseInvoiceForm.value)
 
     });
 
@@ -340,7 +342,6 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     this.purchasetransactionsService.warehouseLookup.subscribe({
       next: (res) => {
         this.warhouseLookupData = res;
-        console.log(res);
       },
     });
   
@@ -614,12 +615,58 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     });
     ref.onClose.subscribe((selectedItems: any) => {
       if (selectedItems) {
-        console.log(selectedItems)
         stockInFormGroup.get('itemId')?.setValue(selectedItems.itemId);
         stockInFormGroup.get('vatPercentage')?.setValue(selectedItems.taxRatio);
         this.setRowDataFromBarCode(indexline, selectedItems, '');
+        this.setRowDataFromPopup(indexline, selectedItems)
+
       }
+
+      console.log(this.purchaseInvoiceFormArray.value)
     });
+
+
+  }
+
+  setRowDataFromPopup(indexLine: number, selectedItem: any) {
+    const rowForm = this.purchaseInvoiceFormArray.at(indexLine) as FormGroup;
+
+    if (rowForm) {
+      rowForm.patchValue({
+        itemNumber: selectedItem.itemNumber,
+        id: selectedItem.id || 0,
+        barCode: '',
+        bardCodeId: null,
+        itemId: selectedItem.itemId,
+        itemName: selectedItem.itemName,
+        itemVariantId: selectedItem.itemVariantId,
+        uomId: selectedItem.uomId,
+        uomOptions: selectedItem.itemsUOM,
+        description: selectedItem.itemName + "-" + selectedItem.itemVariantNameEn,
+        cost: (1),
+        vat: selectedItem.taxRatio || 0,
+        trackingType: selectedItem.trackingType,
+        hasExpiryDate: selectedItem.hasExpiryDate,
+
+      });
+
+      // Handle the nested form group
+      const invoiceTrackingGroup = rowForm.get('invoiceTracking') as FormGroup;
+      if (invoiceTrackingGroup) {
+        invoiceTrackingGroup.patchValue({
+          invoiceDetailId: selectedItem?.invoiceTrackingGroup?.invoiceDetailId || 0,
+          vendorBatchNo: selectedItem.invoiceTrackingGroup?.vendorBatchNo || '',
+          quantity: selectedItem.quantity,
+          hasExpiryDate: selectedItem.hasExpiryDate,
+          expireDate: selectedItem.expireDate,
+          systemPatchNo: selectedItem.invoiceTrackingGroup?.systemPatchNo || '',
+          serialId: selectedItem.invoiceTrackingGroup?.serialId || null,
+          trackingType: selectedItem.trackingType,
+        });
+      }
+    }
+    rowForm.get('itemName')?.setValue(selectedItem.itemCode + "-" + selectedItem.itemName + "-" + selectedItem.itemVariantNameEn)
+    this.setUomName(indexLine, rowForm.get('uomOptions')?.value)
   }
 
 
@@ -688,7 +735,6 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     }
   }
   setTracking(setTracking: FormGroup) {
-    console.log(setTracking.value);
 
     const dialogRef = this.dialog.open(PurchaseInvoiceTrackingComponent, {
       width: '60%',

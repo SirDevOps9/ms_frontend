@@ -129,8 +129,9 @@ export class EditPurchaseInvoiceComponent implements OnInit {
     // }, 0);
   }
   getAccountCurrencyRate(accountCurrency: number) {
+  
     this.PurchaseService.getAccountCurrencyRate(
-      accountCurrency,
+      accountCurrency ?? this.currentUserService.getCurrency(),
       this.currentUserService.getCurrency()
     );
   }
@@ -174,6 +175,7 @@ export class EditPurchaseInvoiceComponent implements OnInit {
         if(!this.addForm.get('currencyId')?.value) {
           this.addForm.get('currencyId')?.setValue(this.currentUserService.getCurrency());
           this.addForm.get('currencyName')?.setValue('Egyptian Pound');
+          this.addForm.get('currencyRate')?.setValue('Egyptian Pound');
         }
       }
     });
@@ -449,7 +451,7 @@ export class EditPurchaseInvoiceComponent implements OnInit {
       const invoiceTrackingGroup = rowForm.get('invoiceTracking') as FormGroup;
       if (invoiceTrackingGroup) {
         invoiceTrackingGroup.patchValue({
-          invoiceDetailId: selectedItem?.invoiceTracking?.invoiceDetailId || 0,
+          invoiceDetailId: selectedItem?.invoiceTracking?.id || 0,
           vendorBatchNo: selectedItem.invoiceTracking?.vendorBatchNo || '',
           quantity: selectedItem.quantity,
           hasExpiryDate: selectedItem.hasExpiryDate,
@@ -464,6 +466,8 @@ export class EditPurchaseInvoiceComponent implements OnInit {
     rowForm.get('itemName')?.setValue(selectedItem.itemCode)
     this.setUomName(indexLine, rowForm.get('uomOptions')?.value)
     this.calculate()
+    console.log(rowForm,"888888888888888");
+    
   }
 
   addNewRow() {
@@ -740,6 +744,7 @@ this.isValidData()
   }
   setTracking(setTracking: FormGroup) {
     let patchedValue = setTracking.value.invoiceTracking;
+    
     // if (this.showPost) {
     const dialogRef = this.dialog.open(TrackingEditComponent, {
       width: '60%',
@@ -820,6 +825,7 @@ this.isValidData()
   }
 
   refactoredData(data: any) {
+    console.log(data)
     const refactoredData = {
       id: data.id,
       invoiceDate: new Date(data.invoiceDate).toISOString(),
@@ -868,6 +874,7 @@ this.isValidData()
         },
       })),
     };
+    
     return refactoredData
   }
   getTotalVatAmount(): number {

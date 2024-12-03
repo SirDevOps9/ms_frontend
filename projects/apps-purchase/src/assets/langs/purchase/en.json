@@ -19,7 +19,7 @@
     "noBarcode": "This barcode does not exist.",
     "notEdit": "This stockout cannot be edited because it is posted.",
     "setTracking":"You must set tracking in the row ",
-    "stockOutPostedSuccessfully": "Stock Out Posted successfully"
+    "purchaseinvoicePostedSuccessfully": "Purchase Invoice Posted successfully"
   },
   "BreadCrumb":{
    "edit":"edit"
