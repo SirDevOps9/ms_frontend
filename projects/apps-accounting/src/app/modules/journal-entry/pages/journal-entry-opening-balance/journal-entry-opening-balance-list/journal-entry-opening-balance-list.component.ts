@@ -27,10 +27,18 @@ export class JournalEntryOpeningBalanceListComponent implements OnInit {
   selectedEntries: JournalEntryDto[];
   tableData: JournalEntryDto[];
   exportData: JournalEntryDto[];
-
   active: boolean = false;
   currentPageInfo: PageInfoResult;
-
+  filteredColumns: string[] = [];
+  columns: { name: any; headerText: any }[] = [
+    { name: 'journalCode', headerText: 'Journal.journalCode' },
+    { name: 'refrenceNumber', headerText: 'Journal.referenceNumber' },
+    { name: 'createdOn', headerText: 'Journal.CreatedOn'},
+    { name: 'type', headerText: 'Journal.type' },
+    { name: 'status', headerText: 'Journal.status' },
+    { name: 'totalDebitAmount', headerText: 'Journal.totalDebitAmount' },
+    { name: 'totalCreditAmount', headerText: 'Journal.totalCreditAmount' },
+  ]
   constructor(
     private routerService: RouterService,
     private titleService: Title,
@@ -54,29 +62,23 @@ export class JournalEntryOpeningBalanceListComponent implements OnInit {
 
   exportGLOpeningBalanceData(searchTerm: string, sortBy?: number, sortColumn?: string) {
     this.journalEntryService.exportsEmployeesList(searchTerm , sortBy , sortColumn);
-    const columns = [
-      { name: 'journalCode', headerText: 'Journal.journalCode' },
-      { name: 'refrenceNumber', headerText: 'Journal.referenceNumber' },
-      { name: 'createdOn', headerText: 'Journal.CreatedOn'},
-      { name: 'type', headerText: 'Journal.type' },
-      { name: 'status', headerText: 'Journal.status' },
-      { name: 'totalDebitAmount', headerText: 'Journal.totalDebitAmount' },
-      { name: 'totalCreditAmount', headerText: 'Journal.totalCreditAmount' },
-
-    ];
+    const filteredColumns = this.columns.filter(col => this.filteredColumns.includes(col.name));
 
     this.journalEntryService.journalEntriesObs.subscribe((res) => {
-      this.exportData = this.exportService.formatCiloma(res, columns);
+      this.exportData = this.exportService.formatCiloma(res, filteredColumns);
     });
 
   }
-
-
   exportClickBySort(e: { SortBy: number; SortColumn: string }) {
     this.SortByAll = {
       SortBy: e.SortBy,
       SortColumn: e.SortColumn,
     };
+  }
+
+  onFilterColumn(e: string[]) {
+    this.filteredColumns = e;
+
   }
 
   initJournalEntryData() {

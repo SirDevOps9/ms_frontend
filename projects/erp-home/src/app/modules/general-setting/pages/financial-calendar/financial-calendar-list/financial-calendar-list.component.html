@@ -10,6 +10,7 @@
         [currentPageResult]="currentPageInfo"
         (pageChange)="onPageChange($event)"
         (exportObj)="exportClickBySort($event)"
+        (columnsFiltered)="onFilterColumn($event)"
         (addNew)="routeToAdd()"
         [tableConfigs]="{
               allowPagination: false,
