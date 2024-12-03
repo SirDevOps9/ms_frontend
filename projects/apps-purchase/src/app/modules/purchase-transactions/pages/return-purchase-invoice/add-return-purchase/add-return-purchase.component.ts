@@ -381,7 +381,7 @@ export class AddReturnPurchaseComponent {
       returnInvoiceDetails: data.invoiceDetails
         .filter((detail: any) => detail.returnQuantity > 0) // Exclude items where quantity <= 0
         .map((detail: any) => ({
-          quantity: detail.returnQuantity,
+          toReturnQuantity: detail.returnQuantity,
           invoiceDetailId: detail.id,
         })),
     };
