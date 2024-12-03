@@ -124,16 +124,7 @@ export class ItemDefinitionListComponent implements OnInit {
  *    - If the column does not exist, perform a different action (logic can also be added here).
  */
 onFilterColumn(e: string[]) {
-  console.log('new new', e); // Log the new selected column names to the console
   this.filteredColumns = e; // Update the filtered columns array
-  e.forEach(selectedColumn => {
-      const columnExists = this.columns.some(column => column.name === selectedColumn);
-      if (columnExists) {
-          // Add logic here for when the column exists in the original list
-      } else {
-          // Add logic here for when the column does not exist in the original list
-      }
-  });
 }
 
 
