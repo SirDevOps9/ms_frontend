@@ -195,4 +195,26 @@ export class PurchaseTransactionsService {
       this.viewInvoiceDataByID.next(res);
     });
   }
+  postInvoice(id: number) {
+    this.loaderService.show();
+
+    this.TransactionsProxy.PostInvoice(id).subscribe({
+      next: (res: any) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('messages.Success'),
+          this.languageService.transalte('messages.stockOutPostedSuccessfully')
+        );
+        this.loaderService.hide();
+
+        this.router.navigateTo('transactions/stock-out');
+      },
+      error: (error: any) => {
+        this.loaderService.hide();
+        this.toasterService.showError(
+          this.languageService.transalte('messages.Error'),
+          this.languageService.transalte(error.message)
+        );
+      },
+    });
+  }
 }

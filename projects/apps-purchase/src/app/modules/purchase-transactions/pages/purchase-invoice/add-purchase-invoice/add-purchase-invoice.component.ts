@@ -63,6 +63,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
   uomLookup: any = [];
   currentLang: string;
   showError: boolean = false;
+  showPost: boolean ;
   barcodeData: StockInDetail;
   selectedLanguage: string;
   lineError: number = -1;
@@ -76,6 +77,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
   discount: number;
   vatAmount: number;
   totalAfterVat: number;
+  itemPostId: number;
 
   ngOnInit(): void {
     this.initializeForm();
@@ -154,6 +156,10 @@ export class AddPurchaseInvoiceComponent implements OnInit {
 
     this.transactionsService.sendItemBarcode$.pipe(skip(1)).subscribe((res) => {
       this.barcodeData = res;
+    });
+
+    this.purchasetransactionsService.sendPurchaseInvoice.subscribe((res:any) => {
+      this.itemPostId = res;
     });
 
     this.purchaseInvoiceForm.get('vendorId')?.valueChanges.subscribe((res) => {
@@ -710,11 +716,6 @@ export class AddPurchaseInvoiceComponent implements OnInit {
 
   onSave() {
     this.isValidData();
-    console.log(this.formService.validForm(this.purchaseInvoiceForm, false));
-    console.log(this.formService.validForm(this.stockIn, false));
-    console.log('purchaseInvoiceForm', this.purchaseInvoiceForm);
-    console.log('stockIn', this.stockIn);
-
     if (!this.formService.validForm(this.purchaseInvoiceForm, false)) return;
     if (!this.formService.validForm(this.stockIn, false)) return;
 
@@ -762,15 +763,15 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     };
 
     if (this.save) {
-      console.log(mappedInvoice);
-
       this.purchasetransactionsService.addPurchaseInvoice(mappedInvoice);
       this.purchasetransactionsService.sendPurchaseInvoice.subscribe((res: number | any) => {
         if (typeof res == 'number') {
           this.savedDataId = res;
           this.dataToReadOnly = true;
+          this.showPost = true;
         } else {
           this.dataToReadOnly = false;
+          this.showPost = false;
         }
       });
     }
@@ -779,8 +780,9 @@ export class AddPurchaseInvoiceComponent implements OnInit {
   OnDelete(i: number) {
     this.stockIn.removeAt(i);
   }
-  onPost() {
-    this.transactionsService.posteStockIn(this.savedDataId);
+  addToPost() {
+    this.purchasetransactionsService.postInvoice(this.savedDataId);
+
   }
   constructor(
     public authService: AuthService,

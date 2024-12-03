@@ -11,6 +11,7 @@ import { ItemDto } from '../../../models/itemDto';
 import { CurrencyRateDto } from '../../../models/currencyRateDto';
 import { SharedEnum } from '../../../models/sharedEnums';
 import { GetWarehouseList } from '../../../models/getWarehouseDto';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'app-edit-purchase-invoice',
@@ -58,7 +59,12 @@ export class EditPurchaseInvoiceComponent implements OnInit {
   stockOutId: number;
   originalFormData: any
   dataLoaded: boolean
-  showPost: boolean
+  showPost: boolean;
+  view: boolean;
+  isFormLoaded = false;
+  lineError: number = -1;
+  error: boolean;
+  save: boolean = true;
   ngOnInit(): void {
 
     this.itemId = this.route.snapshot.params['id'];
@@ -68,7 +74,7 @@ export class EditPurchaseInvoiceComponent implements OnInit {
     this.initItemsData()
     this.subscribe();
     this.calculate();
-    this.getStockOutyId(this.itemId)
+    this.getInvoiceById(this.itemId)
 
   }
   calculate() {
@@ -142,7 +148,7 @@ export class EditPurchaseInvoiceComponent implements OnInit {
   }
   latestWarehouses() {
 
-    this.PurchaseService.LatestWarehouses(undefined).subscribe((res: any) => {
+    this.PurchaseService?.LatestWarehouses(undefined)?.subscribe((res: any) => {
       this.warehouses = res
     })
   }
@@ -178,12 +184,11 @@ export class EditPurchaseInvoiceComponent implements OnInit {
 
   }
 
-  getStockOutyId(id: number) {
+  getInvoiceById(id: number) {
     this.PurchaseService.getInvoiceById(id);
     this.PurchaseService.InvoiceByIdDataSource.subscribe((data: any) => {
 
       this.patchForm(data)
-      this.stockOutId = data.id
 
 
     })
@@ -204,11 +209,19 @@ export class EditPurchaseInvoiceComponent implements OnInit {
       paymentTermName: data.paymentTermName,
       reference: data.reference,
     });
-    // if(      data?.warehouseId
-    // ){
-    //   this.getLatestItemsList(data?.warehouseId)
 
-    // }
+    if(data.invoiceStatus == this.sharedEnums.InvoiceStatus.Saved){
+      this.showPost =true
+
+    }else if(data.invoiceStatus == this.sharedEnums.InvoiceStatus.Posted){
+      this.showPost =false
+      this.view =true
+    }
+    else{
+      this.showPost =false
+      this.view =false
+
+    }
 
     // Clear existing form array
     const invoiceDetailsFormArray = this.addForm.get('invoiceDetails') as FormArray;
@@ -222,6 +235,7 @@ export class EditPurchaseInvoiceComponent implements OnInit {
     this.dataLoaded = true
     this.originalFormData = this.addForm.value
     this.setVendorData(data.vendorId)
+    this.isFormLoaded=true
 
   }
 
@@ -288,7 +302,19 @@ export class EditPurchaseInvoiceComponent implements OnInit {
       this.addForm.get('vendorRate')?.setValue(res.rate)
 
     })
-
+    this.addForm.valueChanges.pipe(
+      debounceTime(400),  // تأخير قبل أن يتم تنفيذ الكود
+      distinctUntilChanged()  // التحقق من أن القيمة تغيرت
+    ).subscribe((res: any) => {
+     
+      const x = this.refactoredData( this.originalFormData)
+      const y = this.refactoredData( res)
+      if (JSON.stringify(x) == JSON.stringify(y)) {
+          this.showPost=true
+      } else {
+        this.showPost=false
+      }
+    });
   }
 
 
@@ -441,6 +467,7 @@ export class EditPurchaseInvoiceComponent implements OnInit {
   }
 
   addNewRow() {
+    this.isValidData()
     if (!this.formsService.validForm(this.invoiceDetailsFormArray, false)) return;
 
 
@@ -484,7 +511,10 @@ export class EditPurchaseInvoiceComponent implements OnInit {
 
       }
     );
-    this.invoiceDetailsFormArray.push(newLine);
+    if(this.save){
+      this.invoiceDetailsFormArray.push(newLine);
+
+    }
     this.calculate();
 
     // }
@@ -552,10 +582,12 @@ export class EditPurchaseInvoiceComponent implements OnInit {
   }
 
   onSave() {
-
+this.isValidData()
     if (!this.formsService.validForm(this.invoiceDetailsFormArray, false)) return;
+    if(this.save){
+      this.PurchaseService.editInvoice(this.refactoredData(this.addForm.value))
 
-    this.PurchaseService.editInvoice(this.refactoredData(this.addForm.value))
+    }
 
   }
 
@@ -703,6 +735,7 @@ export class EditPurchaseInvoiceComponent implements OnInit {
     this.setUomName(indexLine, rowForm.get('uomOptions')?.value)
   }
   addToPost() {
+    this.PurchaseService.postInvoice(this.itemId);
 
   }
   setTracking(setTracking: FormGroup) {
@@ -743,6 +776,43 @@ export class EditPurchaseInvoiceComponent implements OnInit {
     // } else {
     //   return;
     // }
+  }
+  isValidData() {
+    this.lineError = -1;
+    this.invoiceDetailsFormArray.value.forEach((element: any, index: number) => {
+      let lineNumber = index + 1;
+      if (element.invoiceTracking.trackingType == this.sharedEnums.Tracking.Batch) {
+        if (
+          element.invoiceTracking.vendorBatchNo == null ||
+          element.invoiceTracking.vendorBatchNo == ''
+        ) {
+          this.lineError = index;
+          this.error = true;
+          this.save = false;
+
+          this.toasterService.showError(
+            this.languageService.transalte('messages.error'),
+            this.languageService.transalte('messages.setTracking') + lineNumber
+          );
+        }
+      } else if (element.invoiceTracking.trackingType == this.sharedEnums.Tracking.Serial) {
+        if (element.invoiceTracking.serialId == null || element.invoiceTracking.serialId == '') {
+          this.lineError = index;
+          this.error = true;
+          this.save = false;
+
+          this.toasterService.showError(
+            this.languageService.transalte('messages.error'),
+            this.languageService.transalte('messages.setTracking') + lineNumber
+          );
+        }
+      } else {
+        this.error = false;
+        this.save = true;
+
+        this.lineError = -1;
+      }
+    }, (this.save = true));
   }
   setinvoiceTracking(indexLine: number) {
     const rowForm = this.invoiceDetailsFormArray.at(indexLine) as FormGroup;
@@ -824,6 +894,7 @@ export class EditPurchaseInvoiceComponent implements OnInit {
     private route: ActivatedRoute,
     private PurchaseService: PurchaseTransactionsService,
     private currentUserService: CurrentUserService,
+
 
 
   ) {
