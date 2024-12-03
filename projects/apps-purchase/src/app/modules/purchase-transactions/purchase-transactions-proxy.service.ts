@@ -152,4 +152,8 @@ export class PurchaseTransactionsProxyService {
     const url = `Invoice/GetInvoiceViewById/${id}`;
     return this.httpService.get<viewInvoiceObj>(url);
   }
+  PostInvoice(id:number){
+    return this.httpService.post(`Invoice/${id}/Post`, null);
+
+  }
 }
