@@ -28,7 +28,15 @@ export class ItemCategoryListComponent implements OnInit {
   }
 
   tableData: GetItemCategoryDto[];
-
+  filteredColumns: string[] = [];
+  columns: { name: any; headerText: any }[] = [
+    { name: 'id', headerText: ('itemsCategory.code') },
+    { name: 'name', headerText: ('itemsCategory.name') },
+    { name: 'parentCategoryName', headerText: ('itemsCategory.parentCategory') },
+    { name: 'isDetailed', headerText: ('itemsCategory.isDetails') },
+    { name: 'isActive', headerText: ('itemsCategory.status') },
+    { name: 'categoryType', headerText: ('itemsCategory.categoryType') },
+  ]
   exportData: GetItemCategoryDto[];
   exportColumns: lookupDto[];
   exportSelectedCols: string[] = [];
@@ -66,34 +74,23 @@ export class ItemCategoryListComponent implements OnInit {
 
   exportItemData(searchTerm: string, sortBy?: number, sortColumn?: string) {
     this.itemsService.exportsItemCategoryList(searchTerm, sortBy, sortColumn);
-
-    let columns = [
-      { name: 'id', headerText: ('itemsCategory.code') },
-      { name: 'name', headerText: ('itemsCategory.name') },
-      { name: 'parentCategoryName', headerText: ('itemsCategory.parentCategory') },
-      { name: 'isDetailed', headerText: ('itemsCategory.isDetails') },
-      { name: 'isActive', headerText: ('itemsCategory.status') },
-      { name: 'categoryType', headerText: ('itemsCategory.categoryType') },
-
-
-
-    ];
-
-
+    const filteredColumns = this.columns.filter(col => this.filteredColumns.includes(col.name));
     this.itemsService.exportedItemCategoryDataSourceObs.subscribe((res) => {
-      this.exportData = this.exportService.formatItemAttributes(res, columns);
+      this.exportData = this.exportService.formatItemAttributes(res, filteredColumns);
       // console.log('Export data:', this.exportData);
     });
   }
-
-
-
 
   exportClickBySort(e: { SortBy: number; SortColumn: string }) {
     this.SortByAll = {
       SortBy: e.SortBy,
       SortColumn: e.SortColumn,
     };
+  }
+
+  onFilterColumn(e: string[]) {
+    this.filteredColumns = e;
+
   }
   onAdd() {
     this.dialog.open(AddItemCategoryComponent, {
