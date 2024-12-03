@@ -1,0 +1,4088 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>microtecadminfrontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">microtecadminfrontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Injectables</li>
+  <li class="breadcrumb-item" >PurchaseService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>projects/apps-purchase/src/app/modules/purchase/purchase.service.ts</code>
+        </p>
+
+
+
+
+
+            <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#addVendorCategoryData" >addVendorCategoryData</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#addVendorCategoryDataObservable" >addVendorCategoryDataObservable</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#cities" >cities</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#cityDataSource" >cityDataSource</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#countries" >countries</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#countryDataSource" >countryDataSource</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#currencies" >currencies</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#currenciesDataSource" >currenciesDataSource</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#currentPageInfo" >currentPageInfo</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#exportsVendorCateogiesDataSource" >exportsVendorCateogiesDataSource</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#exportsVendorCateogiesDataSourceObservable" >exportsVendorCateogiesDataSourceObservable</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#exportsVendorsDataSource" >exportsVendorsDataSource</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#exportsVendorsDataSourceObservable" >exportsVendorsDataSourceObservable</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#JournalLinesDropDownData" >JournalLinesDropDownData</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#JournalLinesDropDownDataObservable" >JournalLinesDropDownDataObservable</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#openingBalanceJournalEntryDropdownData" >openingBalanceJournalEntryDropdownData</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#openingBalanceJournalEntryDropdownDataObservable" >openingBalanceJournalEntryDropdownDataObservable</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#sendChildrenAccountsDropDownData" >sendChildrenAccountsDropDownData</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#sendChildrenAccountsDropDownDataObservable" >sendChildrenAccountsDropDownDataObservable</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#sendgetVendorCategoryDropdownData" >sendgetVendorCategoryDropdownData</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#sendgetVendorCategoryDropdownDataObservable" >sendgetVendorCategoryDropdownDataObservable</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#sendPaymentTermsDropDownData" >sendPaymentTermsDropDownData</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#sendPaymentTermsDropDownDataObservable" >sendPaymentTermsDropDownDataObservable</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#sendPriceListsDropDownData" >sendPriceListsDropDownData</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#sendPriceListsDropDownDataObservable" >sendPriceListsDropDownDataObservable</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#tags" >tags</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#tagsDataSource" >tagsDataSource</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#vendorCategoryDataByID" >vendorCategoryDataByID</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#vendorCategoryDataByIDObservable" >vendorCategoryDataByIDObservable</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#vendorCategoryDataSource" >vendorCategoryDataSource</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#vendorCategoryDataSourceObservable" >vendorCategoryDataSourceObservable</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#vendorDefinitionDataByID" >vendorDefinitionDataByID</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#vendorDefinitionDataByIDObservable" >vendorDefinitionDataByIDObservable</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#vendorDefinitionDataSource" >vendorDefinitionDataSource</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#vendorDefinitionDataSourceObservable" >vendorDefinitionDataSourceObservable</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#vendorDeleted" >vendorDeleted</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#vendorDeletedObser" >vendorDeletedObser</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#VendorDropDownByAccountId" >VendorDropDownByAccountId</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#VendorDropDownByAccountIdObservable" >VendorDropDownByAccountIdObservable</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#vendorOpeningBalanceDataSource" >vendorOpeningBalanceDataSource</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#vendorOpeningBalanceDataSourceObservable" >vendorOpeningBalanceDataSourceObservable</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#VendorOpeningBalanceView" >VendorOpeningBalanceView</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#VendorOpeningBalanceViewObservable" >VendorOpeningBalanceViewObservable</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#vendorOpeningBalnceDataByID" >vendorOpeningBalnceDataByID</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#vendorOpeningBalnceDataByIDObservable" >vendorOpeningBalnceDataByIDObservable</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#addNewVendorDefinition" >addNewVendorDefinition</a>
+                            </li>
+                            <li>
+                                <a href="#addVendorCategory" >addVendorCategory</a>
+                            </li>
+                            <li>
+                                <a href="#AddVendorOpeningBalance" >AddVendorOpeningBalance</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#deleteVendorCategory" >deleteVendorCategory</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#deletevendorDefinition" >deletevendorDefinition</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#deletevendorOpeningBalance" >deletevendorOpeningBalance</a>
+                            </li>
+                            <li>
+                                <a href="#EditVendorCategory" >EditVendorCategory</a>
+                            </li>
+                            <li>
+                                <a href="#editVendorDefinition" >editVendorDefinition</a>
+                            </li>
+                            <li>
+                                <a href="#EditVendorOpeningBalance" >EditVendorOpeningBalance</a>
+                            </li>
+                            <li>
+                                <a href="#exportVendorCategoriesData" >exportVendorCategoriesData</a>
+                            </li>
+                            <li>
+                                <a href="#exportVendorsData" >exportVendorsData</a>
+                            </li>
+                            <li>
+                                <a href="#getAllVendorOpeningBalance" >getAllVendorOpeningBalance</a>
+                            </li>
+                            <li>
+                                <a href="#getChildrenAccountsDropDown" >getChildrenAccountsDropDown</a>
+                            </li>
+                            <li>
+                                <a href="#getCurrencies" >getCurrencies</a>
+                            </li>
+                            <li>
+                                <a href="#getLinesDropDown" >getLinesDropDown</a>
+                            </li>
+                            <li>
+                                <a href="#getpaymentTermsListDropDown" >getpaymentTermsListDropDown</a>
+                            </li>
+                            <li>
+                                <a href="#getpriceListDropDown" >getpriceListDropDown</a>
+                            </li>
+                            <li>
+                                <a href="#getTags" >getTags</a>
+                            </li>
+                            <li>
+                                <a href="#getVendorCategory" >getVendorCategory</a>
+                            </li>
+                            <li>
+                                <a href="#getVendorCategoryByID" >getVendorCategoryByID</a>
+                            </li>
+                            <li>
+                                <a href="#getVendorCategoryDropdown" >getVendorCategoryDropdown</a>
+                            </li>
+                            <li>
+                                <a href="#getVendorDefinition" >getVendorDefinition</a>
+                            </li>
+                            <li>
+                                <a href="#getVendorDefinitionByID" >getVendorDefinitionByID</a>
+                            </li>
+                            <li>
+                                <a href="#getVendorDropDownByAccountId" >getVendorDropDownByAccountId</a>
+                            </li>
+                            <li>
+                                <a href="#getVendorOpeningBalanceByID" >getVendorOpeningBalanceByID</a>
+                            </li>
+                            <li>
+                                <a href="#getVendorOpeningBalanceView" >getVendorOpeningBalanceView</a>
+                            </li>
+                            <li>
+                                <a href="#loadCities" >loadCities</a>
+                            </li>
+                            <li>
+                                <a href="#loadCountries" >loadCountries</a>
+                            </li>
+                            <li>
+                                <a href="#openingBalanceJournalEntryDropdown" >openingBalanceJournalEntryDropdown</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(loaderService: <a href="../injectables/LoaderService.html" target="_self">LoaderService</a>, languageService: <a href="../injectables/LanguageService.html" target="_self">LanguageService</a>, toasterService: <a href="../injectables/ToasterService.html" target="_self">ToasterService</a>, routerService: <a href="../injectables/RouterService.html" target="_self">RouterService</a>, purchaseProxy: <a href="../injectables/PurchaseProxyService.html" target="_self">PurchaseProxyService</a>, formsService: <a href="../injectables/FormsService.html" target="_self">FormsService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:38</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>loaderService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/LoaderService.html" target="_self" >LoaderService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>languageService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/LanguageService.html" target="_self" >LanguageService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>toasterService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ToasterService.html" target="_self" >ToasterService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>routerService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/RouterService.html" target="_self" >RouterService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>purchaseProxy</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/PurchaseProxyService.html" target="_self" >PurchaseProxyService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>formsService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/FormsService.html" target="_self" >FormsService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addNewVendorDefinition"></a>
+                    <span class="name">
+                        <span ><b>addNewVendorDefinition</b></span>
+                        <a href="#addNewVendorDefinition"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>addNewVendorDefinition(vendor: <a href="../interfaces/AddVendorCommand.html" target="_self">AddVendorCommand</a>, vendorForm: FormGroup)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="219"
+                                    class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:219</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>vendor</td>
+                                            <td>
+                                                            <code><a href="../interfaces/AddVendorCommand.html" target="_self" >AddVendorCommand</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>vendorForm</td>
+                                            <td>
+                                                        <code>FormGroup</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addVendorCategory"></a>
+                    <span class="name">
+                        <span ><b>addVendorCategory</b></span>
+                        <a href="#addVendorCategory"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>addVendorCategory(addvendorCategory: <a href="../interfaces/AddVendorCategory.html" target="_self">AddVendorCategory</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="137"
+                                    class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:137</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>addvendorCategory</td>
+                                            <td>
+                                                            <code><a href="../interfaces/AddVendorCategory.html" target="_self" >AddVendorCategory</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="AddVendorOpeningBalance"></a>
+                    <span class="name">
+                        <span ><b>AddVendorOpeningBalance</b></span>
+                        <a href="#AddVendorOpeningBalance"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>AddVendorOpeningBalance(vendor: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="351"
+                                    class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:351</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>vendor</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteVendorCategory"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>deleteVendorCategory</b></span>
+                        <a href="#deleteVendorCategory"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>deleteVendorCategory(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="163"
+                                    class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:163</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deletevendorDefinition"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>deletevendorDefinition</b></span>
+                        <a href="#deletevendorDefinition"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>deletevendorDefinition(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="193"
+                                    class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:193</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deletevendorOpeningBalance"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>deletevendorOpeningBalance</b></span>
+                        <a href="#deletevendorOpeningBalance"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>deletevendorOpeningBalance(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="383"
+                                    class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:383</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="EditVendorCategory"></a>
+                    <span class="name">
+                        <span ><b>EditVendorCategory</b></span>
+                        <a href="#EditVendorCategory"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>EditVendorCategory(editvendorCategory: <a href="../interfaces/EditVendorCategoryDto.html" target="_self">EditVendorCategoryDto</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="151"
+                                    class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:151</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>editvendorCategory</td>
+                                            <td>
+                                                            <code><a href="../interfaces/EditVendorCategoryDto.html" target="_self" >EditVendorCategoryDto</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editVendorDefinition"></a>
+                    <span class="name">
+                        <span ><b>editVendorDefinition</b></span>
+                        <a href="#editVendorDefinition"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>editVendorDefinition(vendor: <a href="../interfaces/EditVendorCommand.html" target="_self">EditVendorCommand</a>, vendorForm: FormGroup)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="238"
+                                    class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:238</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>vendor</td>
+                                            <td>
+                                                            <code><a href="../interfaces/EditVendorCommand.html" target="_self" >EditVendorCommand</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>vendorForm</td>
+                                            <td>
+                                                        <code>FormGroup</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="EditVendorOpeningBalance"></a>
+                    <span class="name">
+                        <span ><b>EditVendorOpeningBalance</b></span>
+                        <a href="#EditVendorOpeningBalance"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>EditVendorOpeningBalance(vendor: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="369"
+                                    class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:369</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>vendor</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportVendorCategoriesData"></a>
+                    <span class="name">
+                        <span ><b>exportVendorCategoriesData</b></span>
+                        <a href="#exportVendorCategoriesData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportVendorCategoriesData(searchTerm?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, SortBy?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, SortColumn?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="308"
+                                    class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:308</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>searchTerm</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>SortBy</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>SortColumn</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportVendorsData"></a>
+                    <span class="name">
+                        <span ><b>exportVendorsData</b></span>
+                        <a href="#exportVendorsData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportVendorsData(searchTerm: string | undefined)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="315"
+                                    class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:315</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>searchTerm</td>
+                                            <td>
+                                                        <code>string | undefined</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getAllVendorOpeningBalance"></a>
+                    <span class="name">
+                        <span ><b>getAllVendorOpeningBalance</b></span>
+                        <a href="#getAllVendorOpeningBalance"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getAllVendorOpeningBalance(searchTerm: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, pageInfo: <a href="../classes/PageInfo.html" target="_self">PageInfo</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="322"
+                                    class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:322</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>searchTerm</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>pageInfo</td>
+                                            <td>
+                                                            <code><a href="../classes/PageInfo.html" target="_self" >PageInfo</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getChildrenAccountsDropDown"></a>
+                    <span class="name">
+                        <span ><b>getChildrenAccountsDropDown</b></span>
+                        <a href="#getChildrenAccountsDropDown"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getChildrenAccountsDropDown()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="265"
+                                    class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:265</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getCurrencies"></a>
+                    <span class="name">
+                        <span ><b>getCurrencies</b></span>
+                        <a href="#getCurrencies"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getCurrencies(searchKey: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="297"
+                                    class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:297</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>searchKey</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getLinesDropDown"></a>
+                    <span class="name">
+                        <span ><b>getLinesDropDown</b></span>
+                        <a href="#getLinesDropDown"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getLinesDropDown(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="337"
+                                    class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:337</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getpaymentTermsListDropDown"></a>
+                    <span class="name">
+                        <span ><b>getpaymentTermsListDropDown</b></span>
+                        <a href="#getpaymentTermsListDropDown"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getpaymentTermsListDropDown()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="279"
+                                    class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:279</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getpriceListDropDown"></a>
+                    <span class="name">
+                        <span ><b>getpriceListDropDown</b></span>
+                        <a href="#getpriceListDropDown"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getpriceListDropDown()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="272"
+                                    class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:272</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getTags"></a>
+                    <span class="name">
+                        <span ><b>getTags</b></span>
+                        <a href="#getTags"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getTags(moduleId: <a href="../undefineds/Modules.html" target="_self">Modules</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="303"
+                                    class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:303</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>moduleId</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/enumerations.html#Modules" target="_self" >Modules</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getVendorCategory"></a>
+                    <span class="name">
+                        <span ><b>getVendorCategory</b></span>
+                        <a href="#getVendorCategory"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getVendorCategory(searchTerm: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, pageInfo: <a href="../classes/PageInfo.html" target="_self">PageInfo</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="122"
+                                    class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:122</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>searchTerm</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>pageInfo</td>
+                                            <td>
+                                                            <code><a href="../classes/PageInfo.html" target="_self" >PageInfo</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getVendorCategoryByID"></a>
+                    <span class="name">
+                        <span ><b>getVendorCategoryByID</b></span>
+                        <a href="#getVendorCategoryByID"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getVendorCategoryByID(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="131"
+                                    class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:131</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getVendorCategoryDropdown"></a>
+                    <span class="name">
+                        <span ><b>getVendorCategoryDropdown</b></span>
+                        <a href="#getVendorCategoryDropdown"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getVendorCategoryDropdown()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="211"
+                                    class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:211</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getVendorDefinition"></a>
+                    <span class="name">
+                        <span ><b>getVendorDefinition</b></span>
+                        <a href="#getVendorDefinition"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getVendorDefinition(searchTerm: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, pageInfo: <a href="../classes/PageInfo.html" target="_self">PageInfo</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="184"
+                                    class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:184</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>searchTerm</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>pageInfo</td>
+                                            <td>
+                                                            <code><a href="../classes/PageInfo.html" target="_self" >PageInfo</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getVendorDefinitionByID"></a>
+                    <span class="name">
+                        <span ><b>getVendorDefinitionByID</b></span>
+                        <a href="#getVendorDefinitionByID"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getVendorDefinitionByID(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="257"
+                                    class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:257</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getVendorDropDownByAccountId"></a>
+                    <span class="name">
+                        <span ><b>getVendorDropDownByAccountId</b></span>
+                        <a href="#getVendorDropDownByAccountId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getVendorDropDownByAccountId(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="344"
+                                    class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:344</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getVendorOpeningBalanceByID"></a>
+                    <span class="name">
+                        <span ><b>getVendorOpeningBalanceByID</b></span>
+                        <a href="#getVendorOpeningBalanceByID"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getVendorOpeningBalanceByID(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="407"
+                                    class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:407</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getVendorOpeningBalanceView"></a>
+                    <span class="name">
+                        <span ><b>getVendorOpeningBalanceView</b></span>
+                        <a href="#getVendorOpeningBalanceView"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getVendorOpeningBalanceView(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="412"
+                                    class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:412</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadCities"></a>
+                    <span class="name">
+                        <span ><b>loadCities</b></span>
+                        <a href="#loadCities"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>loadCities(countryCode: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="292"
+                                    class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:292</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>countryCode</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadCountries"></a>
+                    <span class="name">
+                        <span ><b>loadCountries</b></span>
+                        <a href="#loadCountries"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>loadCountries()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="287"
+                                    class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:287</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openingBalanceJournalEntryDropdown"></a>
+                    <span class="name">
+                        <span ><b>openingBalanceJournalEntryDropdown</b></span>
+                        <a href="#openingBalanceJournalEntryDropdown"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openingBalanceJournalEntryDropdown()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="330"
+                                    class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:330</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+            <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addVendorCategoryData"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>addVendorCategoryData</b></span>
+                        <a href="#addVendorCategoryData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new BehaviorSubject&lt;AddVendorCategory&gt;({} as AddVendorCategory)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:48</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addVendorCategoryDataObservable"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>addVendorCategoryDataObservable</b></span>
+                        <a href="#addVendorCategoryDataObservable"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.addVendorCategoryData.asObservable()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:63</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cities"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>cities</b></span>
+                        <a href="#cities"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.cityDataSource.asObservable()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="87" class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:87</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cityDataSource"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>cityDataSource</b></span>
+                        <a href="#cityDataSource"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new BehaviorSubject&lt;CityDto[]&gt;([])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="74" class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:74</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="countries"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>countries</b></span>
+                        <a href="#countries"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.countryDataSource.asObservable()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="89" class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:89</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="countryDataSource"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>countryDataSource</b></span>
+                        <a href="#countryDataSource"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new BehaviorSubject&lt;CountryDto[]&gt;([])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="73" class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:73</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="currencies"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>currencies</b></span>
+                        <a href="#currencies"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.currenciesDataSource.asObservable()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="85" class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:85</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="currenciesDataSource"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>currenciesDataSource</b></span>
+                        <a href="#currenciesDataSource"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new BehaviorSubject&lt;CurrencyDto[]&gt;([])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="75" class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:75</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="currentPageInfo"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>currentPageInfo</b></span>
+                        <a href="#currentPageInfo"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new BehaviorSubject&lt;PageInfoResult&gt;({})</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:53</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportsVendorCateogiesDataSource"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>exportsVendorCateogiesDataSource</b></span>
+                        <a href="#exportsVendorCateogiesDataSource"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new BehaviorSubject&lt;VendorCategoryDto[]&gt;([])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="92" class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:92</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportsVendorCateogiesDataSourceObservable"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>exportsVendorCateogiesDataSourceObservable</b></span>
+                        <a href="#exportsVendorCateogiesDataSourceObservable"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.exportsVendorCateogiesDataSource.asObservable()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="93" class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:93</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportsVendorsDataSource"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>exportsVendorsDataSource</b></span>
+                        <a href="#exportsVendorsDataSource"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new BehaviorSubject&lt;vendorDefinitionDto[]&gt;([])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="95" class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:95</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportsVendorsDataSourceObservable"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>exportsVendorsDataSourceObservable</b></span>
+                        <a href="#exportsVendorsDataSourceObservable"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.exportsVendorsDataSource.asObservable()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="96" class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:96</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="JournalLinesDropDownData"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>JournalLinesDropDownData</b></span>
+                        <a href="#JournalLinesDropDownData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new BehaviorSubject&lt;JournalLineDropdownDto[]&gt;([])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="101" class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:101</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="JournalLinesDropDownDataObservable"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>JournalLinesDropDownDataObservable</b></span>
+                        <a href="#JournalLinesDropDownDataObservable"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.JournalLinesDropDownData.asObservable()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="102" class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:102</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openingBalanceJournalEntryDropdownData"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>openingBalanceJournalEntryDropdownData</b></span>
+                        <a href="#openingBalanceJournalEntryDropdownData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new BehaviorSubject&lt;DropDownDto[]&gt;([])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="98" class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:98</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openingBalanceJournalEntryDropdownDataObservable"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>openingBalanceJournalEntryDropdownDataObservable</b></span>
+                        <a href="#openingBalanceJournalEntryDropdownDataObservable"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.openingBalanceJournalEntryDropdownData.asObservable()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="99" class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:99</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sendChildrenAccountsDropDownData"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>sendChildrenAccountsDropDownData</b></span>
+                        <a href="#sendChildrenAccountsDropDownData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new BehaviorSubject&lt;any&gt;([])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:54</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sendChildrenAccountsDropDownDataObservable"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>sendChildrenAccountsDropDownDataObservable</b></span>
+                        <a href="#sendChildrenAccountsDropDownDataObservable"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.sendChildrenAccountsDropDownData.asObservable()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="81" class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:81</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sendgetVendorCategoryDropdownData"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>sendgetVendorCategoryDropdownData</b></span>
+                        <a href="#sendgetVendorCategoryDropdownData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new BehaviorSubject&lt;CategoryDropdownDto[]&gt;([])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:49</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sendgetVendorCategoryDropdownDataObservable"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>sendgetVendorCategoryDropdownDataObservable</b></span>
+                        <a href="#sendgetVendorCategoryDropdownDataObservable"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.sendgetVendorCategoryDropdownData.asObservable()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="65" class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:65</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sendPaymentTermsDropDownData"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>sendPaymentTermsDropDownData</b></span>
+                        <a href="#sendPaymentTermsDropDownData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new BehaviorSubject&lt;{ id: number; name: string }[]&gt;([])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:56</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sendPaymentTermsDropDownDataObservable"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>sendPaymentTermsDropDownDataObservable</b></span>
+                        <a href="#sendPaymentTermsDropDownDataObservable"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.sendPaymentTermsDropDownData.asObservable()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="84" class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:84</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sendPriceListsDropDownData"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>sendPriceListsDropDownData</b></span>
+                        <a href="#sendPriceListsDropDownData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new BehaviorSubject&lt;{ id: number; name: string }[]&gt;([])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:55</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sendPriceListsDropDownDataObservable"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>sendPriceListsDropDownDataObservable</b></span>
+                        <a href="#sendPriceListsDropDownDataObservable"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.sendPriceListsDropDownData.asObservable()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="83" class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:83</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="tags"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>tags</b></span>
+                        <a href="#tags"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.tagsDataSource.asObservable()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="90" class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:90</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="tagsDataSource"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>tagsDataSource</b></span>
+                        <a href="#tagsDataSource"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new BehaviorSubject&lt;TagDropDownDto[]&gt;([])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="71" class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:71</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="vendorCategoryDataByID"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>vendorCategoryDataByID</b></span>
+                        <a href="#vendorCategoryDataByID"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new BehaviorSubject&lt;EditVendorCategoryDto&gt;(
+    {} as EditVendorCategoryDto
+  )</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:50</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="vendorCategoryDataByIDObservable"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>vendorCategoryDataByIDObservable</b></span>
+                        <a href="#vendorCategoryDataByIDObservable"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.vendorCategoryDataByID.asObservable()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="67" class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:67</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="vendorCategoryDataSource"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>vendorCategoryDataSource</b></span>
+                        <a href="#vendorCategoryDataSource"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new BehaviorSubject&lt;VendorCategoryDto[]&gt;([])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:47</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="vendorCategoryDataSourceObservable"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>vendorCategoryDataSourceObservable</b></span>
+                        <a href="#vendorCategoryDataSourceObservable"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.vendorCategoryDataSource.asObservable()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="64" class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:64</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="vendorDefinitionDataByID"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>vendorDefinitionDataByID</b></span>
+                        <a href="#vendorDefinitionDataByID"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new BehaviorSubject&lt;GetVendorById | undefined&gt;({} as GetVendorById | undefined)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:57</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="vendorDefinitionDataByIDObservable"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>vendorDefinitionDataByIDObservable</b></span>
+                        <a href="#vendorDefinitionDataByIDObservable"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.vendorDefinitionDataByID.asObservable()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="68" class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:68</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="vendorDefinitionDataSource"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>vendorDefinitionDataSource</b></span>
+                        <a href="#vendorDefinitionDataSource"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new BehaviorSubject&lt;vendorDefinitionDto[]&gt;([])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:58</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="vendorDefinitionDataSourceObservable"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>vendorDefinitionDataSourceObservable</b></span>
+                        <a href="#vendorDefinitionDataSourceObservable"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.vendorDefinitionDataSource.asObservable()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="77" class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:77</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="vendorDeleted"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>vendorDeleted</b></span>
+                        <a href="#vendorDeleted"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new BehaviorSubject&lt;boolean&gt;(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="107" class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:107</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="vendorDeletedObser"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>vendorDeletedObser</b></span>
+                        <a href="#vendorDeletedObser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.vendorDeleted.asObservable()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="108" class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:108</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="VendorDropDownByAccountId"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>VendorDropDownByAccountId</b></span>
+                        <a href="#VendorDropDownByAccountId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new BehaviorSubject&lt;DropDownDto[]&gt;([])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="104" class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:104</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="VendorDropDownByAccountIdObservable"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>VendorDropDownByAccountIdObservable</b></span>
+                        <a href="#VendorDropDownByAccountIdObservable"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.VendorDropDownByAccountId.asObservable()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="105" class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:105</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="vendorOpeningBalanceDataSource"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>vendorOpeningBalanceDataSource</b></span>
+                        <a href="#vendorOpeningBalanceDataSource"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new BehaviorSubject&lt;VendorOpeningBalanceListDto[]&gt;([])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="59" class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:59</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="vendorOpeningBalanceDataSourceObservable"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>vendorOpeningBalanceDataSourceObservable</b></span>
+                        <a href="#vendorOpeningBalanceDataSourceObservable"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.vendorOpeningBalanceDataSource.asObservable()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="78" class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:78</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="VendorOpeningBalanceView"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>VendorOpeningBalanceView</b></span>
+                        <a href="#VendorOpeningBalanceView"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new BehaviorSubject&lt;GetVendorOpeningBalanceViewDto | undefined&gt;(undefined)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="110" class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:110</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="VendorOpeningBalanceViewObservable"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>VendorOpeningBalanceViewObservable</b></span>
+                        <a href="#VendorOpeningBalanceViewObservable"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.VendorOpeningBalanceView.asObservable()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="111" class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:111</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="vendorOpeningBalnceDataByID"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>vendorOpeningBalnceDataByID</b></span>
+                        <a href="#vendorOpeningBalnceDataByID"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new BehaviorSubject&lt;AddVendorOpeningBalanceDto | undefined&gt;({} as AddVendorOpeningBalanceDto | undefined)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:60</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="vendorOpeningBalnceDataByIDObservable"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>vendorOpeningBalnceDataByIDObservable</b></span>
+                        <a href="#vendorOpeningBalnceDataByIDObservable"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.vendorOpeningBalnceDataByID.asObservable()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="69" class="link-to-prism">projects/apps-purchase/src/app/modules/purchase/purchase.service.ts:69</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
+import { BehaviorSubject } from &#x27;rxjs&#x27;;
+import {
+  LoaderService,
+  LanguageService,
+  ToasterService,
+  RouterService,
+  PageInfo,
+  PageInfoResult,
+  FormsService,
+  Modules,
+} from &#x27;shared-lib&#x27;;
+import {
+  VendorCategoryDto,
+  AddVendorCategory,
+  EditVendorCategoryDto,
+  vendorDefinitionDto,
+  AddVendorCommand,
+  CityDto,
+  CountryDto,
+  CurrencyDto,
+  TagDropDownDto,
+  CategoryDropdownDto,
+  EditVendorCommand,
+  GetVendorById,
+  VendorOpeningBalanceListDto,
+  JournalLineDropdownDto,
+  DropDownDto,
+  AddVendorOpeningBalanceDto,
+  GetVendorOpeningBalanceViewDto,
+} from &#x27;./models&#x27;;
+import { PurchaseProxyService } from &#x27;./purchase-proxy.service&#x27;;
+import { FormGroup } from &#x27;@angular/forms&#x27;;
+
+@Injectable({
+  providedIn: &#x27;root&#x27;,
+})
+export class PurchaseService {
+  constructor(
+    private loaderService: LoaderService,
+    private languageService: LanguageService,
+    private toasterService: ToasterService,
+    private routerService: RouterService,
+    private purchaseProxy: PurchaseProxyService,
+    private formsService: FormsService
+  ) {}
+  private vendorCategoryDataSource &#x3D; new BehaviorSubject&lt;VendorCategoryDto[]&gt;([]);
+  private addVendorCategoryData &#x3D; new BehaviorSubject&lt;AddVendorCategory&gt;({} as AddVendorCategory);
+  private sendgetVendorCategoryDropdownData &#x3D; new BehaviorSubject&lt;CategoryDropdownDto[]&gt;([]);
+  private vendorCategoryDataByID &#x3D; new BehaviorSubject&lt;EditVendorCategoryDto&gt;(
+    {} as EditVendorCategoryDto
+  );
+  public currentPageInfo &#x3D; new BehaviorSubject&lt;PageInfoResult&gt;({});
+  private sendChildrenAccountsDropDownData &#x3D; new BehaviorSubject&lt;any&gt;([]);
+  private sendPriceListsDropDownData &#x3D; new BehaviorSubject&lt;{ id: number; name: string }[]&gt;([]);
+  private sendPaymentTermsDropDownData &#x3D; new BehaviorSubject&lt;{ id: number; name: string }[]&gt;([]);
+  public vendorDefinitionDataByID &#x3D; new BehaviorSubject&lt;GetVendorById | undefined&gt;({} as GetVendorById | undefined);
+  private vendorDefinitionDataSource &#x3D; new BehaviorSubject&lt;vendorDefinitionDto[]&gt;([]);
+  private vendorOpeningBalanceDataSource &#x3D; new BehaviorSubject&lt;VendorOpeningBalanceListDto[]&gt;([]);
+  public vendorOpeningBalnceDataByID &#x3D; new BehaviorSubject&lt;AddVendorOpeningBalanceDto | undefined&gt;({} as AddVendorOpeningBalanceDto | undefined);
+
+
+  public addVendorCategoryDataObservable &#x3D; this.addVendorCategoryData.asObservable();
+  public vendorCategoryDataSourceObservable &#x3D; this.vendorCategoryDataSource.asObservable();
+  public sendgetVendorCategoryDropdownDataObservable &#x3D;
+    this.sendgetVendorCategoryDropdownData.asObservable();
+  public vendorCategoryDataByIDObservable &#x3D; this.vendorCategoryDataByID.asObservable();
+  public vendorDefinitionDataByIDObservable &#x3D; this.vendorDefinitionDataByID.asObservable();
+  public vendorOpeningBalnceDataByIDObservable &#x3D; this.vendorOpeningBalnceDataByID.asObservable();
+
+  private tagsDataSource &#x3D; new BehaviorSubject&lt;TagDropDownDto[]&gt;([]);
+
+  private countryDataSource &#x3D; new BehaviorSubject&lt;CountryDto[]&gt;([]);
+  private cityDataSource &#x3D; new BehaviorSubject&lt;CityDto[]&gt;([]);
+  private currenciesDataSource &#x3D; new BehaviorSubject&lt;CurrencyDto[]&gt;([]);
+
+  public vendorDefinitionDataSourceObservable &#x3D; this.vendorDefinitionDataSource.asObservable();
+  public vendorOpeningBalanceDataSourceObservable &#x3D; this.vendorOpeningBalanceDataSource.asObservable();
+
+
+  public sendChildrenAccountsDropDownDataObservable &#x3D;
+    this.sendChildrenAccountsDropDownData.asObservable();
+  public sendPriceListsDropDownDataObservable &#x3D; this.sendPriceListsDropDownData.asObservable();
+  public sendPaymentTermsDropDownDataObservable &#x3D; this.sendPaymentTermsDropDownData.asObservable();
+  public currencies &#x3D; this.currenciesDataSource.asObservable();
+
+  public cities &#x3D; this.cityDataSource.asObservable();
+
+  public countries &#x3D; this.countryDataSource.asObservable();
+  public tags &#x3D; this.tagsDataSource.asObservable();
+
+  private exportsVendorCateogiesDataSource &#x3D; new BehaviorSubject&lt;VendorCategoryDto[]&gt;([]);
+  public exportsVendorCateogiesDataSourceObservable &#x3D; this.exportsVendorCateogiesDataSource.asObservable();
+
+  private exportsVendorsDataSource &#x3D; new BehaviorSubject&lt;vendorDefinitionDto[]&gt;([]);
+  public exportsVendorsDataSourceObservable &#x3D; this.exportsVendorsDataSource.asObservable();
+
+  private openingBalanceJournalEntryDropdownData &#x3D; new BehaviorSubject&lt;DropDownDto[]&gt;([]);
+  public openingBalanceJournalEntryDropdownDataObservable &#x3D;this.openingBalanceJournalEntryDropdownData.asObservable();
+
+  public JournalLinesDropDownData &#x3D; new BehaviorSubject&lt;JournalLineDropdownDto[]&gt;([]);
+  public JournalLinesDropDownDataObservable &#x3D;this.JournalLinesDropDownData.asObservable();
+
+  public VendorDropDownByAccountId &#x3D; new BehaviorSubject&lt;DropDownDto[]&gt;([]);
+  public VendorDropDownByAccountIdObservable &#x3D;this.VendorDropDownByAccountId.asObservable();
+
+  private vendorDeleted &#x3D; new BehaviorSubject&lt;boolean&gt;(false);
+  public vendorDeletedObser &#x3D; this.vendorDeleted.asObservable();
+
+  private VendorOpeningBalanceView &#x3D; new BehaviorSubject&lt;GetVendorOpeningBalanceViewDto | undefined&gt;(undefined);
+  public VendorOpeningBalanceViewObservable &#x3D; this.VendorOpeningBalanceView.asObservable();
+
+
+
+
+
+
+
+  
+
+
+  getVendorCategory(searchTerm: string, pageInfo: PageInfo) {
+    this.purchaseProxy.getVendorCategory(searchTerm, pageInfo).subscribe({
+      next: (res) &#x3D;&gt; {
+        this.vendorCategoryDataSource.next(res.result);
+        this.currentPageInfo.next(res.pageInfoResult);
+      },
+    });
+  }
+
+  getVendorCategoryByID(id: number) {
+    this.purchaseProxy.getVendorCategoryByID(id).subscribe((res) &#x3D;&gt; {
+      this.vendorCategoryDataByID.next(res);
+    });
+  }
+
+  addVendorCategory(addvendorCategory: AddVendorCategory) {
+    this.purchaseProxy.addvendorCategory(addvendorCategory).subscribe({
+      next: (res) &#x3D;&gt; {
+        this.toasterService.showSuccess(
+          this.languageService.transalte(&#x27;VendorCategory.success&#x27;),
+          this.languageService.transalte(&#x27;VendorCategory.successAdd&#x27;)
+        );
+        if (res) {
+          this.addVendorCategoryData.next(res);
+        }
+      },
+    });
+  }
+
+  EditVendorCategory(editvendorCategory: EditVendorCategoryDto) {
+    this.purchaseProxy.EditVendorCategory(editvendorCategory).subscribe({
+      next: (res) &#x3D;&gt; {
+        this.toasterService.showSuccess(
+          this.languageService.transalte(&#x27;VendorCategory.success&#x27;),
+          this.languageService.transalte(&#x27;VendorCategory.successEdit&#x27;)
+        );
+        if (res) this.routerService.navigateTo(&#x27;/masterdata/vendor-category&#x27;);
+      },
+    });
+  }
+
+  async deleteVendorCategory(id: number) {
+    const confirmed &#x3D; await this.toasterService.showConfirm(&#x27;Delete&#x27;);
+    if (confirmed) {
+      this.purchaseProxy.deleteVendorCategory(id).subscribe({
+        next: (res) &#x3D;&gt; {
+          this.toasterService.showSuccess(
+            this.languageService.transalte(&#x27;deleteVendorCategory.success&#x27;),
+            this.languageService.transalte(&#x27;deleteVendorCategory.delete&#x27;)
+          );
+          let data &#x3D; this.vendorCategoryDataSource.getValue();
+          const updatedVendor &#x3D; data.filter((elem) &#x3D;&gt; elem.id !&#x3D;&#x3D; id);
+          this.vendorCategoryDataSource.next(updatedVendor);
+
+          return res;
+        },
+        error: (err) &#x3D;&gt; {},
+      });
+    }
+  }
+
+  // vendor
+  getVendorDefinition(searchTerm: string, pageInfo: PageInfo) {
+    this.purchaseProxy.getVendorDefinition(searchTerm, pageInfo).subscribe({
+      next: (res) &#x3D;&gt; {
+        this.vendorDefinitionDataSource.next(res.result);
+        this.currentPageInfo.next(res.pageInfoResult);
+      },
+    });
+  }
+
+  async deletevendorDefinition(id: number) {
+    const confirmed &#x3D; await this.toasterService.showConfirm(&#x27;Delete&#x27;);
+    if (confirmed) {
+      this.purchaseProxy.deleteVendorDefinition(id).subscribe({
+        next: (res) &#x3D;&gt; {
+          this.toasterService.showSuccess(
+            this.languageService.transalte(&#x27;deleteVendorDefinition.success&#x27;),
+            this.languageService.transalte(&#x27;deleteVendorDefinition.delete&#x27;)
+          );
+          let data &#x3D; this.vendorDefinitionDataSource.getValue();
+          const updatedVendor &#x3D; data.filter((elem) &#x3D;&gt; elem.id !&#x3D;&#x3D; id);
+          this.vendorDefinitionDataSource.next(updatedVendor);
+
+          return res;
+        },
+      });
+    }
+  }
+  getVendorCategoryDropdown() {
+    this.purchaseProxy.getVendorCategoryDropdown().subscribe((res) &#x3D;&gt; {
+      if (res) {
+        this.sendgetVendorCategoryDropdownData.next(res);
+      }
+    });
+  }
+
+  addNewVendorDefinition(vendor: AddVendorCommand, vendorForm: FormGroup) {
+    this.loaderService.show();
+    this.purchaseProxy.addNewVendorDefinition(vendor).subscribe({
+      next: (res) &#x3D;&gt; {
+        this.toasterService.showSuccess(
+          this.languageService.transalte(&#x27;VendorDefinition.success&#x27;),
+          this.languageService.transalte(&#x27;VendorDefinition.successAdd&#x27;)
+        );
+        this.routerService.navigateTo(&#x60;/masterdata/vendor-definitions&#x60;);
+        // this.addVendorCategoryRes.next(res)
+        this.loaderService.hide();
+      },
+      error: (err) &#x3D;&gt; {
+        this.formsService.setFormValidationErrors(vendorForm, err);
+        this.loaderService.hide();
+      },
+    });
+  }
+
+  editVendorDefinition(vendor: EditVendorCommand, vendorForm: FormGroup) {
+    this.loaderService.show();
+    this.purchaseProxy.editVendorDefinition(vendor).subscribe({
+      next: (res) &#x3D;&gt; {
+        this.toasterService.showSuccess(
+          this.languageService.transalte(&#x27;VendorDefinition.success&#x27;),
+          this.languageService.transalte(&#x27;VendorDefinition.successEdit&#x27;)
+        );
+        // this.addVendorCategoryRes.next(res)
+        this.routerService.navigateTo(&#x60;/masterdata/vendor-definitions&#x60;);
+        this.loaderService.hide();
+      },
+      error: (err) &#x3D;&gt; {
+        this.formsService.setFormValidationErrors(vendorForm, err);
+        this.loaderService.hide();
+      },
+    });
+  }
+
+  getVendorDefinitionByID(id: number) {
+    this.purchaseProxy.getVendorDefinitionByID(id).subscribe((res) &#x3D;&gt; {
+      this.vendorDefinitionDataByID.next(res);
+    });
+  }
+
+  //
+
+  getChildrenAccountsDropDown() {
+    this.purchaseProxy.getChildrenAccountsDropDown().subscribe((res) &#x3D;&gt; {
+      if (res) {
+        this.sendChildrenAccountsDropDownData.next(res);
+      }
+    });
+  }
+  getpriceListDropDown() {
+    this.purchaseProxy.getpriceListDropDown().subscribe((res) &#x3D;&gt; {
+      if (res) {
+        this.sendPriceListsDropDownData.next(res);
+      }
+    });
+  }
+  getpaymentTermsListDropDown() {
+    this.purchaseProxy.getpaymentTermsListDropDown().subscribe((res) &#x3D;&gt; {
+      if (res) {
+        this.sendPaymentTermsDropDownData.next(res);
+      }
+    });
+  }
+
+  loadCountries() {
+    this.purchaseProxy.getAllCountries().subscribe((response) &#x3D;&gt; {
+      this.countryDataSource.next(response);
+    });
+  }
+  loadCities(countryCode: string) {
+    this.purchaseProxy.getCities(countryCode).subscribe((response) &#x3D;&gt; {
+      this.cityDataSource.next(response);
+    });
+  }
+  getCurrencies(searchKey: string) {
+    this.purchaseProxy.getCurrencies(searchKey).subscribe((res) &#x3D;&gt; {
+      this.currenciesDataSource.next(res);
+    });
+  }
+
+  getTags(moduleId:Modules) {
+    this.purchaseProxy.getTags(moduleId).subscribe((response) &#x3D;&gt; {
+      this.tagsDataSource.next(response);
+    });
+  }
+  exportVendorCategoriesData(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
+    this.purchaseProxy.exportVendorCategoriesData(searchTerm , SortBy ,SortColumn).subscribe({
+      next: (res) &#x3D;&gt; {
+         this.exportsVendorCateogiesDataSource.next(res);
+      },
+    });
+  }
+  exportVendorsData(searchTerm:string | undefined) {
+    this.purchaseProxy.exportVendorsData(searchTerm).subscribe({
+      next: (res) &#x3D;&gt; {
+         this.exportsVendorsDataSource.next(res);
+      },
+    });
+  }
+  getAllVendorOpeningBalance(searchTerm: string, pageInfo: PageInfo) {
+    this.purchaseProxy.getAllVendorOpeningBalance(searchTerm, pageInfo).subscribe({
+      next: (res) &#x3D;&gt; {
+        this.vendorOpeningBalanceDataSource.next(res.result);
+        this.currentPageInfo.next(res.pageInfoResult);
+      },
+    });
+  }
+  openingBalanceJournalEntryDropdown() {
+    this.purchaseProxy.openingBalanceJournalEntryDropdown().subscribe((res) &#x3D;&gt; {
+      if (res) {
+        this.openingBalanceJournalEntryDropdownData.next(res);
+      }
+    });
+  }
+  getLinesDropDown(id: number) {
+    this.purchaseProxy.GetLinesDropDown(id).subscribe((res) &#x3D;&gt; {
+      if (res) {
+        this.JournalLinesDropDownData.next(res);
+      }
+    });
+  }
+  getVendorDropDownByAccountId(id: number) {
+    this.purchaseProxy.VendorDropDownByAccountId(id).subscribe((res) &#x3D;&gt; {
+      if (res) {
+        this.VendorDropDownByAccountId.next(res);
+      }
+    });
+  }
+  AddVendorOpeningBalance(vendor: any) {
+    this.loaderService.show();
+    this.purchaseProxy.addVendorOpeningBalance(vendor).subscribe({
+      next: (res) &#x3D;&gt; {
+        this.toasterService.showSuccess(
+          this.languageService.transalte(&#x27;addCustomerDefinition.success&#x27;),
+          this.languageService.transalte(&#x27;openeingBalance.VendorAdded&#x27;)
+        );
+        if (res) {
+          this.loaderService.hide();
+          this.routerService.navigateTo(&#x27;/masterdata/vendor-opening-balance&#x27;);
+        }
+      },
+      error: (err) &#x3D;&gt; {
+        this.loaderService.hide();
+      },
+    });
+  }
+  EditVendorOpeningBalance(vendor: any) {
+    this.purchaseProxy.editVendorrOpeningBalance(vendor).subscribe({
+      next: (res) &#x3D;&gt; {
+        this.toasterService.showSuccess(
+          this.languageService.transalte(&#x27;Success&#x27;),
+          this.languageService.transalte(&#x27;VendorOpeningBalance.VendorUpdated&#x27;)
+        );
+        if (res) {
+          this.routerService.navigateTo(&#x27;/masterdata/vendor-opening-balance&#x27;);
+        }
+      },
+    });
+  }
+
+  async deletevendorOpeningBalance(id: number) {
+    const confirmed &#x3D; await this.toasterService.showConfirm(&#x27;Delete&#x27;);
+    if (confirmed) {
+      this.loaderService.show();
+
+      this.purchaseProxy.deleteVendorOpeningBalance(id).subscribe({
+        next: (res) &#x3D;&gt; {
+          this.toasterService.showSuccess(
+            this.languageService.transalte(&#x27;Success&#x27;),
+            this.languageService.transalte(&#x27;VendorOpeningBalance.VendorDeleted&#x27;)
+          );
+          this.loaderService.hide();
+          this.vendorDeleted.next(res);
+        },
+        error: () &#x3D;&gt; {
+          this.loaderService.hide();
+          this.toasterService.showError(
+            this.languageService.transalte(&#x27;Error&#x27;),
+            this.languageService.transalte(&#x27;DeleteError&#x27;)
+          );
+        },
+      });
+    }
+  }
+  getVendorOpeningBalanceByID(id: number) {
+    this.purchaseProxy.getVendorOpeningBalanceByID(id).subscribe((res) &#x3D;&gt; {
+      this.vendorOpeningBalnceDataByID.next(res);
+    });
+  }
+  getVendorOpeningBalanceView(id: number) {
+    this.purchaseProxy.GetVendorOpeningBalanceView(id).subscribe((res) &#x3D;&gt; {
+      if (res) {
+        this.VendorOpeningBalanceView.next(res);
+      }
+    });
+  }
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'PurchaseService.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

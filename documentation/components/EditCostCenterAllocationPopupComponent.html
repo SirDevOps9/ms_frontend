@@ -1,0 +1,1721 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>microtecadminfrontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">microtecadminfrontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  EditCostCenterAllocationPopupComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>projects/apps-accounting/src/app/modules/journal-entry/pages/components/edit-cost-center-allocation-popup/edit-cost-center-allocation-popup.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+                <code>AfterViewInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-edit-cost-center-allocation-popup</code></td>
+            </tr>
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./edit-cost-center-allocation-popup.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./edit-cost-center-allocation-popup.component.scss</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#accountLookup" >accountLookup</a>
+                            </li>
+                            <li>
+                                <a href="#allocationform" >allocationform</a>
+                            </li>
+                            <li>
+                                <a href="#amountForm" >amountForm</a>
+                            </li>
+                            <li>
+                                <a href="#calcAmount" >calcAmount</a>
+                            </li>
+                            <li>
+                                <a href="#calcPercentage" >calcPercentage</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#generalService" >generalService</a>
+                            </li>
+                            <li>
+                                <a href="#lookupValues" >lookupValues</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#select" >select</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#addItem" >addItem</a>
+                            </li>
+                            <li>
+                                <a href="#checkForDuplicateCostCenters" >checkForDuplicateCostCenters</a>
+                            </li>
+                            <li>
+                                <a href="#clickSave" >clickSave</a>
+                            </li>
+                            <li>
+                                <a href="#close" >close</a>
+                            </li>
+                            <li>
+                                <a href="#createItem" >createItem</a>
+                            </li>
+                            <li>
+                                <a href="#initValueChangeHandlers" >initValueChangeHandlers</a>
+                            </li>
+                            <li>
+                                <a href="#ngAfterViewInit" >ngAfterViewInit</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onDelete" >onDelete</a>
+                            </li>
+                            <li>
+                                <a href="#onSave" >onSave</a>
+                            </li>
+                            <li>
+                                <a href="#subscribeToAmountChanges" >subscribeToAmountChanges</a>
+                            </li>
+                            <li>
+                                <a href="#subscribeToPercentageChanges" >subscribeToPercentageChanges</a>
+                            </li>
+                            <li>
+                                <a href="#validateInput" >validateInput</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(fb: FormBuilder, config: DynamicDialogConfig, accountService: <a href="../injectables/AccountService.html" target="_self">AccountService</a>, formsService: <a href="../injectables/FormsService.html" target="_self">FormsService</a>, ref: DynamicDialogRef, cdr: ChangeDetectorRef, toasterService: <a href="../injectables/ToasterService.html" target="_self">ToasterService</a>, languageService: <a href="../injectables/LanguageService.html" target="_self">LanguageService</a>, generalService: <a href="../injectables/GeneralService.html" target="_self">GeneralService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">projects/apps-accounting/src/app/modules/journal-entry/pages/components/edit-cost-center-allocation-popup/edit-cost-center-allocation-popup.component.ts:20</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>fb</td>
+                                                  
+                                                        <td>
+                                                                    <code>FormBuilder</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>config</td>
+                                                  
+                                                        <td>
+                                                                    <code>DynamicDialogConfig</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>accountService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AccountService.html" target="_self" >AccountService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>formsService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/FormsService.html" target="_self" >FormsService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>ref</td>
+                                                  
+                                                        <td>
+                                                                    <code>DynamicDialogRef</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>cdr</td>
+                                                  
+                                                        <td>
+                                                                    <code>ChangeDetectorRef</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>toasterService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ToasterService.html" target="_self" >ToasterService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>languageService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/LanguageService.html" target="_self" >LanguageService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>generalService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/GeneralService.html" target="_self" >GeneralService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addItem"></a>
+                    <span class="name">
+                        <span ><b>addItem</b></span>
+                        <a href="#addItem"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>addItem()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="135"
+                                    class="link-to-prism">projects/apps-accounting/src/app/modules/journal-entry/pages/components/edit-cost-center-allocation-popup/edit-cost-center-allocation-popup.component.ts:135</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="checkForDuplicateCostCenters"></a>
+                    <span class="name">
+                        <span ><b>checkForDuplicateCostCenters</b></span>
+                        <a href="#checkForDuplicateCostCenters"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>checkForDuplicateCostCenters()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="160"
+                                    class="link-to-prism">projects/apps-accounting/src/app/modules/journal-entry/pages/components/edit-cost-center-allocation-popup/edit-cost-center-allocation-popup.component.ts:160</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="clickSave"></a>
+                    <span class="name">
+                        <span ><b>clickSave</b></span>
+                        <a href="#clickSave"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>clickSave(event: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="175"
+                                    class="link-to-prism">projects/apps-accounting/src/app/modules/journal-entry/pages/components/edit-cost-center-allocation-popup/edit-cost-center-allocation-popup.component.ts:175</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="close"></a>
+                    <span class="name">
+                        <span ><b>close</b></span>
+                        <a href="#close"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>close()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="178"
+                                    class="link-to-prism">projects/apps-accounting/src/app/modules/journal-entry/pages/components/edit-cost-center-allocation-popup/edit-cost-center-allocation-popup.component.ts:178</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createItem"></a>
+                    <span class="name">
+                        <span ><b>createItem</b></span>
+                        <a href="#createItem"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>createItem()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="126"
+                                    class="link-to-prism">projects/apps-accounting/src/app/modules/journal-entry/pages/components/edit-cost-center-allocation-popup/edit-cost-center-allocation-popup.component.ts:126</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>FormGroup</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="initValueChangeHandlers"></a>
+                    <span class="name">
+                        <span ><b>initValueChangeHandlers</b></span>
+                        <a href="#initValueChangeHandlers"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>initValueChangeHandlers()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="90"
+                                    class="link-to-prism">projects/apps-accounting/src/app/modules/journal-entry/pages/components/edit-cost-center-allocation-popup/edit-cost-center-allocation-popup.component.ts:90</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngAfterViewInit"></a>
+                    <span class="name">
+                        <span ><b>ngAfterViewInit</b></span>
+                        <a href="#ngAfterViewInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngAfterViewInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="25"
+                                    class="link-to-prism">projects/apps-accounting/src/app/modules/journal-entry/pages/components/edit-cost-center-allocation-popup/edit-cost-center-allocation-popup.component.ts:25</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="40"
+                                    class="link-to-prism">projects/apps-accounting/src/app/modules/journal-entry/pages/components/edit-cost-center-allocation-popup/edit-cost-center-allocation-popup.component.ts:40</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onDelete"></a>
+                    <span class="name">
+                        <span ><b>onDelete</b></span>
+                        <a href="#onDelete"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onDelete(index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="139"
+                                    class="link-to-prism">projects/apps-accounting/src/app/modules/journal-entry/pages/components/edit-cost-center-allocation-popup/edit-cost-center-allocation-popup.component.ts:139</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>index</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onSave"></a>
+                    <span class="name">
+                        <span ><b>onSave</b></span>
+                        <a href="#onSave"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onSave()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="165"
+                                    class="link-to-prism">projects/apps-accounting/src/app/modules/journal-entry/pages/components/edit-cost-center-allocation-popup/edit-cost-center-allocation-popup.component.ts:165</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="subscribeToAmountChanges"></a>
+                    <span class="name">
+                        <span ><b>subscribeToAmountChanges</b></span>
+                        <a href="#subscribeToAmountChanges"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>subscribeToAmountChanges(formGroup: FormGroup)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="98"
+                                    class="link-to-prism">projects/apps-accounting/src/app/modules/journal-entry/pages/components/edit-cost-center-allocation-popup/edit-cost-center-allocation-popup.component.ts:98</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>formGroup</td>
+                                            <td>
+                                                        <code>FormGroup</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="subscribeToPercentageChanges"></a>
+                    <span class="name">
+                        <span ><b>subscribeToPercentageChanges</b></span>
+                        <a href="#subscribeToPercentageChanges"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>subscribeToPercentageChanges(formGroup: FormGroup)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="111"
+                                    class="link-to-prism">projects/apps-accounting/src/app/modules/journal-entry/pages/components/edit-cost-center-allocation-popup/edit-cost-center-allocation-popup.component.ts:111</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>formGroup</td>
+                                            <td>
+                                                        <code>FormGroup</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="validateInput"></a>
+                    <span class="name">
+                        <span ><b>validateInput</b></span>
+                        <a href="#validateInput"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>validateInput(event: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="144"
+                                    class="link-to-prism">projects/apps-accounting/src/app/modules/journal-entry/pages/components/edit-cost-center-allocation-popup/edit-cost-center-allocation-popup.component.ts:144</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="accountLookup"></a>
+                    <span class="name">
+                        <span ><b>accountLookup</b></span>
+                        <a href="#accountLookup"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">projects/apps-accounting/src/app/modules/journal-entry/pages/components/edit-cost-center-allocation-popup/edit-cost-center-allocation-popup.component.ts:17</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="allocationform"></a>
+                    <span class="name">
+                        <span ><b>allocationform</b></span>
+                        <a href="#allocationform"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>FormArray</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.fb.array([])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="122" class="link-to-prism">projects/apps-accounting/src/app/modules/journal-entry/pages/components/edit-cost-center-allocation-popup/edit-cost-center-allocation-popup.component.ts:122</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="amountForm"></a>
+                    <span class="name">
+                        <span ><b>amountForm</b></span>
+                        <a href="#amountForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>FormGroup</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="124" class="link-to-prism">projects/apps-accounting/src/app/modules/journal-entry/pages/components/edit-cost-center-allocation-popup/edit-cost-center-allocation-popup.component.ts:124</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="calcAmount"></a>
+                    <span class="name">
+                        <span ><b>calcAmount</b></span>
+                        <a href="#calcAmount"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">projects/apps-accounting/src/app/modules/journal-entry/pages/components/edit-cost-center-allocation-popup/edit-cost-center-allocation-popup.component.ts:19</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="calcPercentage"></a>
+                    <span class="name">
+                        <span ><b>calcPercentage</b></span>
+                        <a href="#calcPercentage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">projects/apps-accounting/src/app/modules/journal-entry/pages/components/edit-cost-center-allocation-popup/edit-cost-center-allocation-popup.component.ts:18</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="generalService"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>generalService</b></span>
+                        <a href="#generalService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../injectables/GeneralService.html" target="_self" >GeneralService</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">projects/apps-accounting/src/app/modules/journal-entry/pages/components/edit-cost-center-allocation-popup/edit-cost-center-allocation-popup.component.ts:24</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="lookupValues"></a>
+                    <span class="name">
+                        <span ><b>lookupValues</b></span>
+                        <a href="#lookupValues"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">projects/apps-accounting/src/app/modules/journal-entry/pages/components/edit-cost-center-allocation-popup/edit-cost-center-allocation-popup.component.ts:20</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="select"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>select</b></span>
+                        <a href="#select"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../components/SelectComponent.html" target="_self" >SelectComponent</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;select&#x27;)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">projects/apps-accounting/src/app/modules/journal-entry/pages/components/edit-cost-center-allocation-popup/edit-cost-center-allocation-popup.component.ts:16</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from &#x27;@angular/core&#x27;;
+import { FormBuilder, FormGroup, FormArray, FormControl } from &#x27;@angular/forms&#x27;;
+import { SelectComponent } from &#x27;libs/shared-lib/src/lib/form-components&#x27;;
+import { DynamicDialogConfig, DynamicDialogRef } from &#x27;primeng/dynamicdialog&#x27;;
+import { FormsService, LanguageService, ToasterService, customValidators } from &#x27;shared-lib&#x27;;
+import { AccountService } from &#x27;../../../../account/account.service&#x27;;
+import { costLookup } from &#x27;../../../models&#x27;;
+import { GeneralService } from &#x27;libs/shared-lib/src/lib/services/general.service&#x27;;
+
+@Component({
+  selector: &#x27;app-edit-cost-center-allocation-popup&#x27;,
+  templateUrl: &#x27;./edit-cost-center-allocation-popup.component.html&#x27;,
+  styleUrl: &#x27;./edit-cost-center-allocation-popup.component.scss&#x27;
+})
+export class EditCostCenterAllocationPopupComponent implements OnInit  , AfterViewInit{
+  @ViewChild(&#x27;select&#x27;)select : SelectComponent
+  accountLookup : any  &#x3D; [];
+  calcPercentage : number
+  calcAmount : number
+  lookupValues : any &#x3D; []
+
+  constructor(private fb : FormBuilder , private config : DynamicDialogConfig , private accountService : AccountService 
+    , private formsService : FormsService , private ref : DynamicDialogRef , private cdr : ChangeDetectorRef 
+    , private toasterService : ToasterService , private languageService : LanguageService,public generalService: GeneralService){}
+  ngAfterViewInit(): void {
+
+    if(this.config.data?.costCenters?.length) {
+      this.allocationform.clear();
+      this.config.data.costCenters.forEach((element : any) &#x3D;&gt; {
+         this.lookupValues.push(Number(element.costCenterId) ) 
+        this.cdr.detectChanges()
+
+        this.allocationform.push(this.fb.group({
+          ...element
+        }))
+      });
+    }
+  }
+
+  ngOnInit(): void {
+    this.amountForm &#x3D; this.fb.group({
+      amount : 0
+    })
+    if(this.config.data.creditAmount &#x3D;&#x3D; 0 || !this.config.data.creditAmount) {
+      this.amountForm.get(&#x27;amount&#x27;)?.setValue(this.config.data.debitAmount)
+    }
+     if(this.config.data.debitAmount &#x3D;&#x3D; 0 || !this.config.data.debitAmount) {
+      this.amountForm.get(&#x27;amount&#x27;)?.setValue(this.config.data.creditAmount)
+
+    }
+
+    this.allocationform.push(this.createItem())
+
+
+  
+
+
+
+    this.allocationform.valueChanges.subscribe(res&#x3D;&gt;{
+      this.initValueChangeHandlers();
+
+      this.calcPercentage &#x3D; res.reduce((accumulator : any, currentValue : any) &#x3D;&gt; {
+    
+        return accumulator + Number(currentValue.percentage);
+      }, 0);
+      this.calcAmount &#x3D; res.reduce((accumulator : any, currentValue : any) &#x3D;&gt; {
+        return accumulator + Number(currentValue.amount);
+      }, 0);
+    })
+
+
+
+
+    this.accountService.getCostCenterLookup().subscribe((res : costLookup[])&#x3D;&gt;{
+      this.accountLookup &#x3D; res.map(costCenter &#x3D;&gt; ({
+          ...costCenter,
+          displayName: &#x60;${costCenter.name} (${costCenter.code})&#x60;
+        }));
+
+
+      
+ 
+      
+    })
+
+  }
+
+
+
+  initValueChangeHandlers() {
+    this.allocationform.controls.forEach(control &#x3D;&gt; {
+      const formGroup &#x3D; control as FormGroup;
+      this.subscribeToAmountChanges(formGroup);
+      this.subscribeToPercentageChanges(formGroup);
+    });
+  }
+
+  subscribeToAmountChanges(formGroup: FormGroup) {
+    formGroup.get(&#x27;amount&#x27;)?.valueChanges.subscribe(amount &#x3D;&gt; {
+      const percentageControl &#x3D; formGroup.get(&#x27;percentage&#x27;);
+      if (percentageControl &amp;&amp; amount !&#x3D;&#x3D; null &amp;&amp; amount !&#x3D;&#x3D; undefined &amp;&amp; !isNaN(amount)) {
+        const percentage &#x3D; (amount / this.amountForm.get(&#x27;amount&#x27;)?.value) * 100;
+
+        if (percentageControl.value !&#x3D;&#x3D; percentage) {
+          percentageControl.setValue(percentage, { emitEvent: false });
+        }
+      }
+    });
+  }
+
+  subscribeToPercentageChanges(formGroup: FormGroup) {
+    formGroup.get(&#x27;percentage&#x27;)?.valueChanges.subscribe(percentage &#x3D;&gt; {
+      const amountControl &#x3D; formGroup.get(&#x27;amount&#x27;);
+      if (amountControl &amp;&amp; percentage !&#x3D;&#x3D; null &amp;&amp; percentage !&#x3D;&#x3D; undefined &amp;&amp; !isNaN(percentage)) {
+        const amount &#x3D; (percentage * this.amountForm.get(&#x27;amount&#x27;)?.value) / 100;
+        if (amountControl.value !&#x3D;&#x3D; amount) {
+          amountControl.setValue(amount, { emitEvent: false });
+        }
+      }
+    });
+  }
+  allocationform : FormArray &#x3D; this.fb.array([])
+
+  amountForm : FormGroup
+
+  createItem(): FormGroup {
+    return this.fb.group({
+      costCenterId: new FormControl(&#x27;&#x27;,customValidators.required),
+      name: [&#x27;&#x27;],
+      amount :  new FormControl(&#x27;&#x27;),
+      percentage :  new FormControl(&#x27;&#x27;,customValidators.required)
+    });
+  }
+
+  addItem() {
+    this.allocationform.push(this.createItem())
+  }
+
+  onDelete(index:number ) {
+      this.allocationform.removeAt(index);
+    
+  }
+
+  validateInput(event: any): void {
+    const input &#x3D; event.target as HTMLInputElement;
+    const value &#x3D; input.value;
+
+    // Regular expression to match numbers and one decimal point
+    const regex &#x3D; /^\d*\.?\d*$/;
+
+    // If the value does not match the regex, remove the invalid characters
+    if (!regex.test(value)) {
+      event.preventDefault();
+
+      input.value &#x3D; value.slice(0, -1);
+    }
+
+  
+  }
+  checkForDuplicateCostCenters(): boolean {
+    const costCenterIds &#x3D; this.allocationform.value.map((item: any) &#x3D;&gt; item.costCenterId);
+    const duplicateIds &#x3D; costCenterIds.filter((id: string, index: number) &#x3D;&gt; costCenterIds.indexOf(id) !&#x3D;&#x3D; index);
+    return duplicateIds.length &gt; 0;
+  }
+  onSave() {
+    if (!this.formsService.validForm(this.allocationform, false)) return;
+    if (this.checkForDuplicateCostCenters()) {
+      this.toasterService.showError(this.languageService.transalte(&#x27;Journal.Error&#x27;) , this.languageService.transalte(&#x27;Journal.cannotDuplicate&#x27;))
+   
+      return;
+    }
+    this.ref.close(this.allocationform.value)
+
+  }
+  clickSave(event:any){
+    this.onSave()
+  }
+close(){
+  this.ref.close()
+
+}
+
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">
+  &lt;lib-popup-page
+title&#x3D;&quot;{{&#x27;CostCenterAllocation&#x27; | translate}}&quot;
+[closeFunction]&#x3D;&quot;close&quot;
+(Submit)&#x3D;&quot;clickSave($event)&quot;
+[disabled]&#x3D;&quot;calcPercentage &gt; 100 || !allocationform.valid&quot;
+[showSecondSave]&#x3D;&quot;true&quot;
+&gt;
+&lt;div class&#x3D;&quot;flex justify-content-between align-items-center mt-2&quot;&gt;
+  &lt;div class&#x3D;&quot;flex gap-3&quot;&gt;
+      &lt;p class&#x3D;&quot;heading_b20 m-0&quot;&gt;{{&#x27;Amount&#x27; | translate}}&lt;/p&gt;
+      &lt;form [formGroup]&#x3D;&quot;amountForm&quot;&gt;
+          &lt;lib-text-input
+          formControlName&#x3D;&quot;amount&quot;
+          type&#x3D;&quot;text&quot;
+          [readOnly]&#x3D;&quot;true&quot;
+        &gt;&lt;/lib-text-input&gt;
+      &lt;/form&gt;
+
+  &lt;/div&gt;
+  &lt;!--  --&gt;
+  &lt;!-- &lt;div&gt;
+      &lt;lib-button [className]&#x3D;&quot;&#x27;saveBtn&#x27;&quot; (onClick)&#x3D;&quot;onSave()&quot; [disabled]&#x3D;&quot;calcPercentage &gt; 100 || !allocationform.valid&quot;&gt;
+      {{&#x27;save&#x27; | translate}}
+      &lt;/lib-button&gt;
+  &lt;/div&gt; --&gt;
+  &lt;!--  --&gt;
+&lt;/div&gt;
+&lt;!-- draw Table as a form Array --&gt;
+&lt;div class&#x3D;&quot;mt-5 costCont&quot;&gt;
+    &lt;p-table [value]&#x3D;&quot;allocationform.controls&quot; class&#x3D;&quot;p-datatable p-datatable-bordered&quot;&gt;
+      &lt;ng-template pTemplate&#x3D;&quot;header&quot;&gt;
+        &lt;tr&gt;
+          &lt;th&gt;Cost Center&lt;/th&gt;
+          &lt;th&gt;Percentage ({{calcPercentage}}) %&lt;/th&gt;
+          &lt;th&gt;Amount ({{calcAmount}})&lt;/th&gt;
+          &lt;th&gt;Action&lt;/th&gt;
+        &lt;/tr&gt;
+      &lt;/ng-template&gt;
+      &lt;ng-template pTemplate&#x3D;&quot;body&quot; let-costCenter let-i&#x3D;&quot;rowIndex&quot;&gt;
+        &lt;tr [formGroup]&#x3D;&quot;costCenter&quot;&gt;
+          &lt;td class&#x3D;&quot;code&quot; &gt;
+            &lt;lib-form-group&gt;
+
+            &lt;lib-select
+            formControlName&#x3D;&quot;costCenterId&quot;
+            [options]&#x3D;&quot;accountLookup&quot;
+            optionValue&#x3D;&quot;id&quot;
+            optionLabel&#x3D;&quot;displayName&quot;
+            [selectedValue]&#x3D;&quot;lookupValues.length ? lookupValues[i] : &#x27;&#x27;&quot;
+          &gt;
+          &lt;/lib-select&gt;
+          &lt;/lib-form-group&gt;
+          &lt;lib-field-validations [appControl]&#x3D;&quot;costCenter.controls[&#x27;costCenterId&#x27;]&quot;&gt;
+          &lt;/lib-field-validations&gt;
+
+          &lt;/td&gt;
+          &lt;!--  --&gt;
+          &lt;!--  --&gt;
+          &lt;td class&#x3D;&quot;code&quot;&gt;
+            &lt;lib-text-input
+            formControlName&#x3D;&quot;percentage&quot;
+            type&#x3D;&quot;text&quot;
+            (keyUpFullEvent)&#x3D;&quot;validateInput($event)&quot;
+
+
+          &gt;&lt;/lib-text-input&gt;
+          &lt;small class&#x3D;&quot;text-danger&quot; *ngIf&#x3D;&quot;calcPercentage &gt; 100&quot;&gt;Percentage Calculation Shouldn&#x27;t be more than 100&lt;/small&gt;
+
+          &lt;/td&gt;
+          &lt;!--  --&gt;
+          &lt;td class&#x3D;&quot;code&quot;&gt;
+            &lt;lib-text-input
+            formControlName&#x3D;&quot;amount&quot;
+            type&#x3D;&quot;text&quot;
+            (keyUpFullEvent)&#x3D;&quot;validateInput($event)&quot;
+
+          &gt;&lt;/lib-text-input&gt;
+          &lt;/td&gt;
+          &lt;!--  --&gt;
+          &lt;td&gt;
+            &lt;img src&#x3D;&quot;assets/images/table/delete.svg&quot;
+            class&#x3D;&quot;pointer&quot; alt&#x3D;&quot;&quot; (click)&#x3D;&quot;onDelete(i)&quot; /&gt;
+            &lt;!-- &lt;i class&#x3D;&quot;pi pi-trash pointer&quot; (click)&#x3D;&quot;onDelete(i )&quot;&gt;&lt;/i&gt; --&gt;
+          &lt;/td&gt;
+
+
+        &lt;/tr&gt;
+      &lt;/ng-template&gt;
+    &lt;/p-table&gt;
+
+    &lt;div class&#x3D;&quot;pt-2&quot;&gt;
+      &lt;lib-button className&#x3D;&quot;new-line&quot; (onClick)&#x3D;&quot;addItem()&quot;&gt;
+        {{&#x27;JournalTemplate.add&#x27; | translate }}
+      &lt;/lib-button&gt;
+    &lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/lib-popup-page&gt;
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div>  <lib-popup-pagetitle="{{\'CostCenterAllocation\' | translate}}"[closeFunction]="close"(Submit)="clickSave($event)"[disabled]="calcPercentage > 100 || !allocationform.valid"[showSecondSave]="true"><div class="flex justify-content-between align-items-center mt-2">  <div class="flex gap-3">      <p class="heading_b20 m-0">{{\'Amount\' | translate}}</p>      <form [formGroup]="amountForm">          <lib-text-input          formControlName="amount"          type="text"          [readOnly]="true"        ></lib-text-input>      </form>  </div>  <!--  -->  <!-- <div>      <lib-button [className]="\'saveBtn\'" (onClick)="onSave()" [disabled]="calcPercentage > 100 || !allocationform.valid">      {{\'save\' | translate}}      </lib-button>  </div> -->  <!--  --></div><!-- draw Table as a form Array --><div class="mt-5 costCont">    <p-table [value]="allocationform.controls" class="p-datatable p-datatable-bordered">      <ng-template pTemplate="header">        <tr>          <th>Cost Center</th>          <th>Percentage ({{calcPercentage}}) %</th>          <th>Amount ({{calcAmount}})</th>          <th>Action</th>        </tr>      </ng-template>      <ng-template pTemplate="body" let-costCenter let-i="rowIndex">        <tr [formGroup]="costCenter">          <td class="code" >            <lib-form-group>            <lib-select            formControlName="costCenterId"            [options]="accountLookup"            optionValue="id"            optionLabel="displayName"            [selectedValue]="lookupValues.length ? lookupValues[i] : \'\'"          >          </lib-select>          </lib-form-group>          <lib-field-validations [appControl]="costCenter.controls[\'costCenterId\']">          </lib-field-validations>          </td>          <!--  -->          <!--  -->          <td class="code">            <lib-text-input            formControlName="percentage"            type="text"            (keyUpFullEvent)="validateInput($event)"          ></lib-text-input>          <small class="text-danger" *ngIf="calcPercentage > 100">Percentage Calculation Shouldn\'t be more than 100</small>          </td>          <!--  -->          <td class="code">            <lib-text-input            formControlName="amount"            type="text"            (keyUpFullEvent)="validateInput($event)"          ></lib-text-input>          </td>          <!--  -->          <td>            <img src="assets/images/table/delete.svg"            class="pointer" alt="" (click)="onDelete(i)" />            <!-- <i class="pi pi-trash pointer" (click)="onDelete(i )"></i> -->          </td>        </tr>      </ng-template>    </p-table>    <div class="pt-2">      <lib-button className="new-line" (onClick)="addItem()">        {{\'JournalTemplate.add\' | translate }}      </lib-button>    </div></div></lib-popup-page></div>'
+    var COMPONENTS = [{'name': 'AccordionComponent', 'selector': 'lib-accordion'},{'name': 'AccountComponent', 'selector': 'app-account'},{'name': 'AccountingComponent', 'selector': 'app-accounting'},{'name': 'AccountingDashboardComponent', 'selector': 'app-accounting-dashboard'},{'name': 'AccountsComponent', 'selector': 'app-accounts'},{'name': 'AccountStatementComponent', 'selector': 'app-account-statement'},{'name': 'ActivityDrawerComponent', 'selector': 'app-activity-drawer'},{'name': 'ActtachmentViewComponent', 'selector': 'lib-acttachment-view'},{'name': 'AddAttributeDefinitionComponent', 'selector': 'app-add-attribute-definition'},{'name': 'AddBankDefinitionComponent', 'selector': 'app-add-bank-definition'},{'name': 'AddBarcodePopupComponent', 'selector': 'app-add-barcode-popup'},{'name': 'AddChartComponent', 'selector': 'app-add-chart'},{'name': 'AddCMSComponent', 'selector': 'app-add-cms'},{'name': 'AddCostCenterComponent', 'selector': 'app-add-cost-center'},{'name': 'AddCostCenterComponent', 'selector': 'app-add-cost-center'},{'name': 'AddCurrencyConversionComponent', 'selector': 'app-add-currency-conversion'},{'name': 'AddCurrencyDefinitionComponent', 'selector': 'app-add-currency-definition'},{'name': 'AddCustomerComponent', 'selector': 'app-add-customer'},{'name': 'AddCustomerOpeeningBalanceComponent', 'selector': 'app-add-customer-opeening-balance'},{'name': 'AddDomainSpaceComponent', 'selector': 'app-add-domain-space'},{'name': 'AddHelpPageComponent', 'selector': 'app-add-help-page'},{'name': 'AddItemCategoryComponent', 'selector': 'app-add-item-category'},{'name': 'AddItemDefinitionPopupComponent', 'selector': 'app-add-item-definition-popup'},{'name': 'AddItemsCategoryComponent', 'selector': 'app-add-items-category'},{'name': 'AddJournalEntryOpeningBalanceComponent', 'selector': 'app-add-journal-entry-opening-balance'},{'name': 'AddPaymentInComponent', 'selector': 'app-add-payment-in'},{'name': 'AddPaymentMethodComponent', 'selector': 'app-add-payment-method'},{'name': 'AddPaymentOutComponent', 'selector': 'app-add-payment-out'},{'name': 'AddPaymentOutCostCenterComponent', 'selector': 'app-add-payment-out-cost-center'},{'name': 'AddPaymentTermComponent', 'selector': 'app-add-payment-term'},{'name': 'AddPricePolicyComponent', 'selector': 'app-add-price-policy'},{'name': 'AddPurchaseInvoiceComponent', 'selector': 'app-add-purchase-invoice'},{'name': 'AddStockInComponent', 'selector': 'app-add-stock-in'},{'name': 'AddStockOutComponent', 'selector': 'app-add-stock-out'},{'name': 'AddTreasuryComponent', 'selector': 'app-add-treasury'},{'name': 'AddVariantPopupComponent', 'selector': 'app-add-variant-popup'},{'name': 'AddVendorDefinitionsComponent', 'selector': 'app-add-vendor-definitions'},{'name': 'AddWarehouseComponent', 'selector': 'app-add-warehouse'},{'name': 'AddWarehousePopupComponent', 'selector': 'app-add-warehouse-popup'},{'name': 'AdvanceTablesWidget1Component', 'selector': 'app-advance-tables-widget1'},{'name': 'AdvanceTablesWidget2Component', 'selector': 'app-advance-tables-widget2'},{'name': 'AdvanceTablesWidget7Component', 'selector': 'app-advance-tables-widget7'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AppDetailsComponent', 'selector': 'app-app-details'},{'name': 'AppInfoListComponent', 'selector': 'app-app-info-list'},{'name': 'AsideComponent', 'selector': 'app-aside'},{'name': 'AsideMenuComponent', 'selector': 'app-aside-menu'},{'name': 'AttachmentsComponent', 'selector': 'app-attachments'},{'name': 'AttachmentViewerComponent', 'selector': 'lib-attachment-viewer'},{'name': 'AttributeDefinitionComponent', 'selector': 'app-attribute-definition'},{'name': 'AttributeDefinitionListComponent', 'selector': 'app-attribute-definition-list'},{'name': 'AttributeDefinitionListValuesComponent', 'selector': 'app-attribute-definition-list-values'},{'name': 'AttributeDefinitionValuesComponent', 'selector': 'app-attribute-definition-values'},{'name': 'BankAccountStatementComponent', 'selector': 'app-bank-account-statement'},{'name': 'BankDefinitionListComponent', 'selector': 'app-bank-definition-list'},{'name': 'BaseTablesWidget1Component', 'selector': 'app-base-tables-widget1'},{'name': 'BaseTablesWidget2Component', 'selector': 'app-base-tables-widget2'},{'name': 'BaseTablesWidget6Component', 'selector': 'app-base-tables-widget6'},{'name': 'BreadCrumbComponent', 'selector': 'lib-bread-crumb'},{'name': 'BuilderComponent', 'selector': 'app-builder'},{'name': 'BussinessOwnersListComponent', 'selector': 'app-bussiness-owners-list'},{'name': 'ButtonComponent', 'selector': 'lib-button'},{'name': 'ButtonMicroComponent', 'selector': 'lib-button-micro'},{'name': 'CalendarComponent', 'selector': 'lib-calendar'},{'name': 'CampaignsComponent', 'selector': 'app-campaigns'},{'name': 'Card1Component', 'selector': 'app-card1'},{'name': 'Card2Component', 'selector': 'app-card2'},{'name': 'Card3Component', 'selector': 'app-card3'},{'name': 'Card4Component', 'selector': 'app-card4'},{'name': 'Card5Component', 'selector': 'app-card5'},{'name': 'CardsWidget17Component', 'selector': 'app-cards-widget17'},{'name': 'CardsWidget18Component', 'selector': 'app-cards-widget18'},{'name': 'CardsWidget20Component', 'selector': 'app-cards-widget20'},{'name': 'CardsWidget7Component', 'selector': 'app-cards-widget7'},{'name': 'CartComponent', 'selector': ''},{'name': 'CartItemDetailComponent', 'selector': ''},{'name': 'ChangeColumnComponent', 'selector': 'lib-change-column'},{'name': 'ChartCardComponent', 'selector': 'app-chart-card'},{'name': 'ChartOfAccountConfigurationComponent', 'selector': 'app-chart-of-account-configuration'},{'name': 'ChartOfAccountTreeComponent', 'selector': 'app-chart-of-account-tree'},{'name': 'ChartsComponent', 'selector': 'app-charts'},{'name': 'ChartsWidget1Component', 'selector': 'app-charts-widget1'},{'name': 'ChartsWidget2Component', 'selector': 'app-charts-widget2'},{'name': 'ChartsWidget3Component', 'selector': 'app-charts-widget3'},{'name': 'ChartsWidget4Component', 'selector': 'app-charts-widget4'},{'name': 'ChartsWidget5Component', 'selector': 'app-charts-widget5'},{'name': 'ChartsWidget6Component', 'selector': 'app-charts-widget6'},{'name': 'ChartsWidget7Component', 'selector': 'app-charts-widget7'},{'name': 'ChartsWidget8Component', 'selector': 'app-charts-widget8'},{'name': 'ChatComponent', 'selector': 'app-chat'},{'name': 'ChatInnerComponent', 'selector': 'app-chat-inner'},{'name': 'ChatOfAccountListComponent', 'selector': 'app-chat-of-account-list'},{'name': 'ClassicComponent', 'selector': 'app-classic'},{'name': 'ColumnsSelectionComponent', 'selector': 'lib-columns-selection'},{'name': 'CompaniesDetailsInfoComponent', 'selector': 'app-companies-details-info'},{'name': 'CompaniesListComponent', 'selector': 'app-companies-list'},{'name': 'CompanyAddresComponent', 'selector': 'app-company-addres'},{'name': 'CompanyBranchesComponent', 'selector': 'app-company-branches'},{'name': 'CompanyContactComponent', 'selector': 'app-company-contact'},{'name': 'CompanyHierarchyComponent', 'selector': 'app-company-hierarchy'},{'name': 'CompanyLegalComponent', 'selector': 'app-company-legal'},{'name': 'ConfirmComponent', 'selector': 'app-confirm'},{'name': 'ConfirmOpeningBalanceComponent', 'selector': 'app-confirm-opening-balance'},{'name': 'ConfirmSequenceComponent', 'selector': 'lib-confirm-sequence'},{'name': 'ConnectedAccountsComponent', 'selector': 'app-connected-accounts'},{'name': 'ConnectionsComponent', 'selector': 'app-connections'},{'name': 'ContentComponent', 'selector': 'app-content'},{'name': 'CostCenterAllocationPopupComponent', 'selector': 'app-cost-center-allocation-popup'},{'name': 'CostCenterListComponent', 'selector': 'app-cost-center-list'},{'name': 'CostCenterReportComponent', 'selector': 'app-cost-center-report'},{'name': 'CostCenterTreeComponent', 'selector': 'app-cost-center-tree'},{'name': 'CreateCustomerCategoryComponent', 'selector': 'app-create-customer-category'},{'name': 'CreateEmployeeComponent', 'selector': 'app-create-employee'},{'name': 'CreateFinancialCalendarComponent', 'selector': 'app-create-financial-calendar'},{'name': 'CreateJournalEntryComponent', 'selector': 'app-journal-entry'},{'name': 'CreateVendorCategoryComponent', 'selector': 'app-create-vendor-category'},{'name': 'CurrencyConversionComponent', 'selector': 'app-currency-conversion'},{'name': 'CurrencyDefinitionComponent', 'selector': 'app-currency-definition'},{'name': 'CustomerCategoryListComponent', 'selector': 'app-customer-category-list'},{'name': 'CustomerListComponent', 'selector': 'app-customer-list'},{'name': 'CustomerObViewDistributionComponent', 'selector': 'app-customer-ob-view-distribution'},{'name': 'CustomerOpeningBalanceDistributeComponent', 'selector': 'app-customer-opening-balance-distribute'},{'name': 'CustomerOpeningBalanceListComponent', 'selector': 'app-customer-opening-balance-list'},{'name': 'CustomerOpeningBalanceNoChildrenComponent', 'selector': 'app-customer-opening-balance-no-children'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DataTableComponent', 'selector': 'lib-data-table'},{'name': 'DeactivateAccountComponent', 'selector': 'app-deactivate-account'},{'name': 'DocumentsComponent', 'selector': 'app-documents'},{'name': 'DomainSpaceInfoComponent', 'selector': 'app-domain-space-info'},{'name': 'DrawerChatComponent', 'selector': 'app-drawer-chat'},{'name': 'DropdownMenu1Component', 'selector': 'app-dropdown-menu1'},{'name': 'DropdownMenu2Component', 'selector': 'app-dropdown-menu2'},{'name': 'DropdownMenu3Component', 'selector': 'app-dropdown-menu3'},{'name': 'EditAttributeDefinitionComponent', 'selector': 'app-edit-attribute-definition'},{'name': 'EditBankDefinitionComponent', 'selector': 'app-edit-bank-definition'},{'name': 'EditBranchesComponent', 'selector': 'app-edit-branches'},{'name': 'EditBussinessOwnerComponent', 'selector': 'app-edit-bussiness-owner'},{'name': 'EditCategoryUomComponent', 'selector': 'app-edit-category-uom'},{'name': 'EditChartComponent', 'selector': 'app-edit-chart'},{'name': 'EditCMSComponent', 'selector': 'app-edit-cms'},{'name': 'EditCompanyComponent', 'selector': 'app-edit-company'},{'name': 'EditCostCenterAllocationPopupComponent', 'selector': 'app-edit-cost-center-allocation-popup'},{'name': 'EditCostCenterComponent', 'selector': 'app-edit-cost-center'},{'name': 'EditCurrencyConversionComponent', 'selector': 'app-edit-currency-conversion'},{'name': 'EditCurrencyDefinitionComponent', 'selector': 'app-edit-currency-definition'},{'name': 'EditCustomerCategoryComponent', 'selector': 'app-edit-customer-category'},{'name': 'EditCustomerComponent', 'selector': 'app-edit-customer'},{'name': 'EditCustomerOpeningBalanceComponent', 'selector': 'app-edit-customer-opening-balance'},{'name': 'EditEmployeeComponent', 'selector': 'app-edit-employee'},{'name': 'EditFinancialCalendarComponent', 'selector': 'app-edit-financial-calendar'},{'name': 'EditHelpsPagesComponent', 'selector': 'app-edit-helps-pages'},{'name': 'EditItemCategoryComponent', 'selector': 'app-edit-item-category'},{'name': 'EditItemDefinitionComponent', 'selector': 'app-edit-item-definition'},{'name': 'EditJournalEntryComponent', 'selector': 'app-edit-journal-entry'},{'name': 'EditJournalEntryOpeningBalanceComponent', 'selector': 'app-edit-journal-entry-opening-balance'},{'name': 'EditMultipeFilesComponent', 'selector': 'lib-edit-multipe-files'},{'name': 'EditPaymentInComponent', 'selector': 'app-edit-payment-in'},{'name': 'EditPaymentMethodComponent', 'selector': 'app-edit-payment-method'},{'name': 'EditPaymentOutComponent', 'selector': 'app-edit-payment-out'},{'name': 'EditPaymentTermComponent', 'selector': 'app-edit-payment-term'},{'name': 'EditPricePolicyComponent', 'selector': 'app-edit-price-policy'},{'name': 'EditPurchaseInvoiceComponent', 'selector': 'app-edit-purchase-invoice'},{'name': 'EditStockInComponent', 'selector': 'app-edit-stock-in'},{'name': 'EditStockOutComponent', 'selector': 'app-edit-stock-out'},{'name': 'EditTreasuryComponent', 'selector': 'app-edit-treasury'},{'name': 'EditVendorCategoryComponent', 'selector': 'app-edit-vendor-category'},{'name': 'EditVendorDefinitionsComponent', 'selector': 'app-edit-vendor-definitions'},{'name': 'EditWarehouseComponent', 'selector': 'app-edit-warehouse'},{'name': 'EmailPreferencesComponent', 'selector': 'app-email-preferences'},{'name': 'EmployeeListComponent', 'selector': 'app-employee-list'},{'name': 'EngagesComponent', 'selector': 'app-engages'},{'name': 'EngageWidget10Component', 'selector': 'app-engage-widget10'},{'name': 'ERPUserComponent', 'selector': 'app-erpuser'},{'name': 'Error404Component', 'selector': 'app-error404'},{'name': 'Error500Component', 'selector': 'app-error500'},{'name': 'ErrorsComponent', 'selector': 'app-errors'},{'name': 'ExploreMainDrawerComponent', 'selector': 'app-explore-main-drawer'},{'name': 'ExportComponent', 'selector': 'lib-export'},{'name': 'ExtendedComponent', 'selector': 'app-extended'},{'name': 'FeedsComponent', 'selector': 'app-feeds'},{'name': 'FeedsWidget2Component', 'selector': 'app-feeds-widget2'},{'name': 'FeedsWidget3Component', 'selector': 'app-feeds-widget3'},{'name': 'FeedsWidget4Component', 'selector': 'app-feeds-widget4'},{'name': 'FeedsWidget5Component', 'selector': 'app-feeds-widget5'},{'name': 'FeedsWidget6Component', 'selector': 'app-feeds-widget6'},{'name': 'FieldValidationsComponent', 'selector': 'lib-field-validations'},{'name': 'FildestComponent', 'selector': 'lib-fildest'},{'name': 'FileUploaderComponent', 'selector': 'lib-file-uploader'},{'name': 'FinancialCalendarListComponent', 'selector': 'app-financial-calendar-list'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FormGroupComponent', 'selector': 'lib-form-group'},{'name': 'GeneralSettingInvComponent', 'selector': 'app-general-setting-inv'},{'name': 'GroupChatComponent', 'selector': 'app-group-chat'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HeaderMenuComponent', 'selector': 'app-header-menu'},{'name': 'HelpDrawerComponent', 'selector': 'app-help-drawer'},{'name': 'HelpPageComponent', 'selector': 'lib-help-page'},{'name': 'HomeHelpPageComponent', 'selector': 'lib-home-help-page'},{'name': 'HomePageComponent', 'selector': 'app-home-page'},{'name': 'HomePageComponent', 'selector': 'app-home-page'},{'name': 'HorizontalComponent', 'selector': 'app-horizontal'},{'name': 'ImportStockInComponent', 'selector': 'app-import-stock-in'},{'name': 'InputSwitchComponent', 'selector': 'lib-input-switch'},{'name': 'InviteUsersModalComponent', 'selector': 'app-invite-users-modal'},{'name': 'ItemAdvancedSearchEditComponent', 'selector': 'app-item-advanced-search-edit'},{'name': 'ItemAdvancedSearchPurchaseInvoiceComponent', 'selector': 'app-item-advanced-search-purchase-invoice'},{'name': 'ItemCardComponent', 'selector': 'app-item-card'},{'name': 'ItemCatalogTabsComponent', 'selector': 'item-catalog-tabs'},{'name': 'ItemCategoryListComponent', 'selector': 'app-item-category-list'},{'name': 'ItemDefinitionAttributesVariantsComponent', 'selector': 'app-item-definition-attributes-variants'},{'name': 'ItemDefinitionBarcodeComponent', 'selector': 'app-item-definition-barcode'},{'name': 'ItemDefinitionGeneralComponent', 'selector': 'app-item-definition-general'},{'name': 'ItemDefinitionInventoryComponent', 'selector': 'app-item-definition-inventory'},{'name': 'ItemDefinitionListComponent', 'selector': 'app-item-definition-list'},{'name': 'ItemDefinitionUomComponent', 'selector': 'app-item-definition-uom'},{'name': 'ItemDefintionTaxComponent', 'selector': 'app-item-defintion-tax'},{'name': 'ItemDefintionVariantComponent', 'selector': 'app-item-defintion-vat'},{'name': 'ItemFixedCostComponent', 'selector': 'app-item-fixed-cost'},{'name': 'ItemsCategoryTreeComponent', 'selector': 'app-items-category-tree'},{'name': 'JournalEntryListComponent', 'selector': 'app-journal-entry-list'},{'name': 'JournalEntryOpeningBalanceListComponent', 'selector': 'app-journal-entry-opening-balance-list'},{'name': 'JournalTemplatePopupComponent', 'selector': 'app-journal-template-popup'},{'name': 'LabelComponent', 'selector': 'lib-label'},{'name': 'LandingPageComponent', 'selector': 'app-landing-page'},{'name': 'LayoutComponent', 'selector': 'app-layout'},{'name': 'LayoutComponent', 'selector': 'app-layout'},{'name': 'LayoutComponent', 'selector': 'app-layout'},{'name': 'LayoutHeaderComponent', 'selector': 'app-layout-header'},{'name': 'LayoutHeaderComponent', 'selector': 'app-layout-header'},{'name': 'LayoutPageComponent', 'selector': 'app-layout-page'},{'name': 'LayoutScrollTopComponent', 'selector': 'app-scroll-top'},{'name': 'LayoutSidebarComponent', 'selector': 'app-layout-sidebar'},{'name': 'LayoutSidebarComponent', 'selector': 'app-layout-sidebar'},{'name': 'LicenceInfoListComponent', 'selector': 'app-licence-info-list'},{'name': 'ListAppsComponent', 'selector': 'app-list-apps'},{'name': 'ListCMSComponent', 'selector': 'app-list-cms'},{'name': 'ListHelpPageComponent', 'selector': 'app-list-help-page'},{'name': 'ListsComponent', 'selector': 'app-lists'},{'name': 'ListsWidget1Component', 'selector': 'app-lists-widget1'},{'name': 'ListsWidget26Component', 'selector': 'app-lists-widget26'},{'name': 'ListsWidget2Component', 'selector': 'app-lists-widget2'},{'name': 'ListsWidget3Component', 'selector': 'app-lists-widget3'},{'name': 'ListsWidget4Component', 'selector': 'app-lists-widget4'},{'name': 'ListsWidget5Component', 'selector': 'app-lists-widget5'},{'name': 'ListsWidget6Component', 'selector': 'app-lists-widget6'},{'name': 'ListsWidget7Component', 'selector': 'app-lists-widget7'},{'name': 'ListsWidget8Component', 'selector': 'app-lists-widget8'},{'name': 'LoaderComponent', 'selector': 'app-loader'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LoginRedirectComponent', 'selector': 'app-login-redirect'},{'name': 'LogoutComponent', 'selector': 'app-logout'},{'name': 'LogoutRedirectComponent', 'selector': 'app-logout-redirect'},{'name': 'MainBankDefinitionComponent', 'selector': 'app-main-bank-definition'},{'name': 'MainChartOfAccountComponent', 'selector': 'app-main-chart-of-account'},{'name': 'MainCostCenterComponent', 'selector': 'app-main-cost-center'},{'name': 'MainCustomerCategoryComponent', 'selector': 'app-main-customer-category'},{'name': 'MainCustomerDefintionComponent', 'selector': 'app-main-customer-defintion'},{'name': 'MainCustomerOpeningBalanceComponent', 'selector': 'app-main-customer-opening-balance'},{'name': 'MainEmployeeComponent', 'selector': 'app-main-employee'},{'name': 'MainFinancialCalendarComponent', 'selector': 'app-main-financial-calendar'},{'name': 'MainHelpComponent', 'selector': 'lib-main-help'},{'name': 'MainItemCategoriesTreeComponent', 'selector': 'app-main-item-categories-tree'},{'name': 'MainJournalComponent', 'selector': 'app-main-journal'},{'name': 'MainModalComponent', 'selector': 'app-main-modal'},{'name': 'MainOpeningBalanceComponent', 'selector': 'app-main-opening-balance'},{'name': 'MainPageComponent', 'selector': 'app-main-page'},{'name': 'MainPaymentInComponent', 'selector': 'app-main-payment-in'},{'name': 'MainPaymentMethodComponent', 'selector': 'app-main-payment-method'},{'name': 'MainPaymentOutComponent', 'selector': 'app-main-payment-out'},{'name': 'MainPaymentTermComponent', 'selector': 'app-main-payment-term'},{'name': 'MainPurchaseInvoiceComponent', 'selector': 'app-main-purchase-invoice'},{'name': 'MainStockInListComponentComponent', 'selector': 'app-main-stock-in-list-component'},{'name': 'MainStockOutComponent', 'selector': 'app-main-stock-out'},{'name': 'MainVendorCategoryComponent', 'selector': 'app-main-vendor-category'},{'name': 'MainVendorDefintionsComponent', 'selector': 'app-main-vendor-defintions'},{'name': 'MainWarehouseComponent', 'selector': 'app-main-warehouse'},{'name': 'ManageAppsComponent', 'selector': 'app-manage-apps'},{'name': 'MessengerDrawerComponent', 'selector': 'app-messenger-drawer'},{'name': 'MixedComponent', 'selector': 'app-mixed'},{'name': 'MixedWidget10Component', 'selector': 'app-mixed-widget10'},{'name': 'MixedWidget11Component', 'selector': 'app-mixed-widget11'},{'name': 'MixedWidget1Component', 'selector': 'app-mixed-widget1'},{'name': 'MixedWidget2Component', 'selector': 'app-mixed-widget2'},{'name': 'MixedWidget3Component', 'selector': 'app-mixed-widget3'},{'name': 'MixedWidget4Component', 'selector': 'app-mixed-widget4'},{'name': 'MixedWidget5Component', 'selector': 'app-mixed-widget5'},{'name': 'MixedWidget6Component', 'selector': 'app-mixed-widget6'},{'name': 'MixedWidget7Component', 'selector': 'app-mixed-widget7'},{'name': 'MixedWidget8Component', 'selector': 'app-mixed-widget8'},{'name': 'MixedWidget9Component', 'selector': 'app-mixed-widget9'},{'name': 'ModalComponent', 'selector': 'app-modal'},{'name': 'ModuleListComponent', 'selector': 'lib-module-list'},{'name': 'MultiSelectComponent', 'selector': 'lib-multi-select'},{'name': 'MultiSelectDetailedAccountsComponent', 'selector': 'app-multi-select-detailed-accounts'},{'name': 'MultiSelectItemsComponent', 'selector': 'app-multi-select-items'},{'name': 'MultiSelectItemStockInComponent', 'selector': 'app-multi-select-item-stock-in'},{'name': 'MySubscriptionsComponent', 'selector': ''},{'name': 'NamedFileUploaderComponent', 'selector': 'lib-named-file-uploader'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'NewBranchesComponent', 'selector': 'app-new-branches'},{'name': 'NewBreadCrumbComponent', 'selector': 'lib-new-bread-crumb'},{'name': 'NewChartsWidget8Component', 'selector': 'app-new-charts-widget8'},{'name': 'NewCompanyComponent', 'selector': 'app-new-company'},{'name': 'NoChildrenAccountsComponent', 'selector': 'app-nochildaccounts'},{'name': 'NoChildrenAccountsComponent', 'selector': 'app-nochildaccounts'},{'name': 'NoChildrenAccountsComponent', 'selector': 'app-no-children-accounts'},{'name': 'NotFoundComponent', 'selector': 'app-not-found'},{'name': 'NotificationsComponent', 'selector': 'app-notifications'},{'name': 'NotificationsInnerComponent', 'selector': 'app-notifications-inner'},{'name': 'OperationTagAddComponent', 'selector': 'app-operation-tag-add'},{'name': 'OperationTagEditComponent', 'selector': 'app-operation-tag-edit'},{'name': 'OperationTagListComponent', 'selector': 'app-operation-tag-list'},{'name': 'OperationTagMainComponent', 'selector': 'app-operation-tag-main'},{'name': 'OverviewComponent', 'selector': 'app-overview'},{'name': 'OverviewComponent', 'selector': 'app-overview'},{'name': 'PageContentComponent', 'selector': 'lib-page-content'},{'name': 'PageTitleComponent', 'selector': 'app-page-title'},{'name': 'PaginatorComponent', 'selector': 'lib-paginator'},{'name': 'PaymentInListComponent', 'selector': 'app-payment-in-list'},{'name': 'PaymentMethodComponent', 'selector': 'app-payment-method'},{'name': 'PaymentMethodListComponent', 'selector': 'app-payment-method-list'},{'name': 'PaymentOutListComponent', 'selector': 'app-payment-out-list'},{'name': 'PaymentOutPaymentMethodComponent', 'selector': 'app-payment-out-payment-method'},{'name': 'PaymentSuccesfulComponent', 'selector': 'app-payment-succesful'},{'name': 'PaymentTermListComponent', 'selector': 'app-payment-term-list'},{'name': 'PopupAccountsComponent', 'selector': 'app-popup-accounts'},{'name': 'PopupExcelComponent', 'selector': 'app-popup-excel'},{'name': 'PopupPageComponent', 'selector': 'lib-popup-page'},{'name': 'PricePolicyListComponent', 'selector': 'app-price-policy-list'},{'name': 'PricePolicyMainComponent', 'selector': 'app-price-policy-main'},{'name': 'PrivateChatComponent', 'selector': 'app-private-chat'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfileDetailsComponent', 'selector': 'app-profile-details'},{'name': 'ProjectsComponent', 'selector': 'app-projects'},{'name': 'PurchaseInvoiceListComponent', 'selector': 'app-purchase-invoice-list'},{'name': 'PurchaseInvoiceTrackingComponent', 'selector': 'app-purchase-invoice-tracking'},{'name': 'PurchaseToolbarComponent', 'selector': 'app-purchase-toolbar'},{'name': 'QuickLinksInnerComponent', 'selector': 'app-quick-links-inner'},{'name': 'RatingComponent', 'selector': 'lib-rating'},{'name': 'ReadExcelComponent', 'selector': 'app-read-excel'},{'name': 'ReportsComponent', 'selector': 'app-reports'},{'name': 'SaasComponent', 'selector': 'app-saas'},{'name': 'ScanParcodeStockInComponent', 'selector': 'app-scan-parcode-stock-in'},{'name': 'ScriptsInitComponent', 'selector': 'app-scripts-init'},{'name': 'SearchEngineComponent', 'selector': 'app-search-engine'},{'name': 'SearchItemAdvancedPopUpComponent', 'selector': 'app-search-item-pop-up'},{'name': 'SearchItemPopUpComponent', 'selector': 'app-search-item-pop-up'},{'name': 'SearchResultInnerComponent', 'selector': 'app-search-result-inner'},{'name': 'SelectComponent', 'selector': 'lib-select'},{'name': 'SelectIconComponent', 'selector': 'lib-selectIcon'},{'name': 'SelectSubdomainComponent', 'selector': 'app-selectsubdomain'},{'name': 'SequenceComponent', 'selector': 'lib-sequence'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'SharedFormComponent', 'selector': 'app-shared-form'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SidebarFooterComponent', 'selector': 'app-sidebar-footer'},{'name': 'SidebarLogoComponent', 'selector': 'app-sidebar-logo'},{'name': 'SidebarMenuComponent', 'selector': 'app-sidebar-menu'},{'name': 'SignInMethodComponent', 'selector': 'app-sign-in-method'},{'name': 'SpinnerComponent', 'selector': 'app-spinner'},{'name': 'SpinnerComponent', 'selector': 'app-spinner'},{'name': 'SplashScreenComponent', 'selector': 'app-splash-screen'},{'name': 'StatisticsComponent', 'selector': 'app-statistics'},{'name': 'StatsWidget1Component', 'selector': 'app-stats-widget1'},{'name': 'StatsWidget2Component', 'selector': 'app-stats-widget2'},{'name': 'StatsWidget3Component', 'selector': 'app-stats-widget3'},{'name': 'StatsWidget4Component', 'selector': 'app-stats-widget4'},{'name': 'StatsWidget5Component', 'selector': 'app-stats-widget5'},{'name': 'StatsWidget6Component', 'selector': 'app-stats-widget6'},{'name': 'Step1Component', 'selector': 'app-step1'},{'name': 'Step2Component', 'selector': 'app-step2'},{'name': 'Step3Component', 'selector': 'app-step3'},{'name': 'Step4Component', 'selector': 'app-step4'},{'name': 'Step5Component', 'selector': 'app-step5'},{'name': 'StockInListComponent', 'selector': 'app-stock-in-list'},{'name': 'StockOutListComponent', 'selector': 'app-stock-out-list'},{'name': 'SubscriptionComponent', 'selector': 'app-subscription'},{'name': 'TablePaginatorComponent', 'selector': 'lib-table-paginator'},{'name': 'TablePrintComponent', 'selector': 'lib-table-print'},{'name': 'TablesComponent', 'selector': 'app-tables'},{'name': 'TablesWidget10Component', 'selector': 'app-tables-widget10'},{'name': 'TablesWidget11Component', 'selector': 'app-tables-widget11'},{'name': 'TablesWidget12Component', 'selector': 'app-tables-widget12'},{'name': 'TablesWidget13Component', 'selector': 'app-tables-widget13'},{'name': 'TablesWidget14Component', 'selector': 'app-tables-widget14'},{'name': 'TablesWidget16Component', 'selector': 'app-tables-widget16'},{'name': 'TablesWidget1Component', 'selector': 'app-tables-widget1'},{'name': 'TablesWidget2Component', 'selector': 'app-tables-widget2'},{'name': 'TablesWidget3Component', 'selector': 'app-tables-widget3'},{'name': 'TablesWidget4Component', 'selector': 'app-tables-widget4'},{'name': 'TablesWidget5Component', 'selector': 'app-tables-widget5'},{'name': 'TablesWidget6Component', 'selector': 'app-tables-widget6'},{'name': 'TablesWidget7Component', 'selector': 'app-tables-widget7'},{'name': 'TablesWidget8Component', 'selector': 'app-tables-widget8'},{'name': 'TablesWidget9Component', 'selector': 'app-tables-widget9'},{'name': 'TabviewComponent', 'selector': 'lib-tabview'},{'name': 'TagAddComponent', 'selector': 'app-tag-add'},{'name': 'TagEditComponent', 'selector': 'app-tag-edit'},{'name': 'TagListComponent', 'selector': 'app-tag-list'},{'name': 'TaxDefinitionAddComponent', 'selector': 'app-tax-definition-add'},{'name': 'TaxDefinitionComponent', 'selector': 'app-tax-definition'},{'name': 'TaxDefinitionEditComponent', 'selector': 'app-tax-definition-edit'},{'name': 'TaxGroupAddComponent', 'selector': 'app-tax-group-add'},{'name': 'TaxGroupComponent', 'selector': 'app-tax-group'},{'name': 'TaxGroupEditComponent', 'selector': 'app-tax-group-edit'},{'name': 'TextInputComponent', 'selector': 'lib-text-input'},{'name': 'ThemeModeSwitcherComponent', 'selector': 'app-theme-mode-switcher'},{'name': 'TilesWidget10Component', 'selector': 'app-tiles-widget10'},{'name': 'TilesWidget11Component', 'selector': 'app-tiles-widget11'},{'name': 'TilesWidget12Component', 'selector': 'app-tiles-widget12'},{'name': 'TilesWidget13Component', 'selector': 'app-tiles-widget13'},{'name': 'TilesWidget14Component', 'selector': 'app-tiles-widget14'},{'name': 'TilesWidget1Component', 'selector': 'app-tiles-widget1'},{'name': 'TilesWidget3Component', 'selector': 'app-tiles-widget3'},{'name': 'ToastComponent', 'selector': 'lib-toast'},{'name': 'ToggelComponent', 'selector': 'lib-toggel'},{'name': 'ToolbarComponent', 'selector': 'app-toolbar'},{'name': 'TopbarComponent', 'selector': 'app-topbar'},{'name': 'TrackingEditComponent', 'selector': 'app-tracking-edit'},{'name': 'TrackingStockInComponent', 'selector': 'app-tracking-stock-in'},{'name': 'TreasuryStatementComponent', 'selector': 'app-treasury-statement'},{'name': 'TreauryDefinitionListComponent', 'selector': 'app-treaury-definition-list'},{'name': 'TrialBlanceComponent', 'selector': 'app-trial-blance'},{'name': 'UnAuthorizedComponent', 'selector': 'app-un-authorized'},{'name': 'UOMAddComponent', 'selector': 'app-uom-add'},{'name': 'UOMEditComponent', 'selector': 'app-uom-edit'},{'name': 'UOMListComponent', 'selector': 'app-uom-list'},{'name': 'UOMMainComponent', 'selector': 'app-UOM-main'},{'name': 'UomViewComponent', 'selector': 'app-uom-view'},{'name': 'UpdetePricePolicyComponent', 'selector': 'app-updete-price-policy'},{'name': 'UpgradePlanModalComponent', 'selector': 'app-upgrade-plan-modal'},{'name': 'UploadMultipeFilesComponent', 'selector': 'lib-upload-multipe-files'},{'name': 'UserconfirmationComponent', 'selector': 'app-userconfirmation'},{'name': 'UserDetailsComponent', 'selector': 'app-user-details'},{'name': 'UserInfoListComponent', 'selector': 'app-user-info-list'},{'name': 'UserInnerComponent', 'selector': 'app-user-inner'},{'name': 'UserInviteFormComponent', 'selector': 'app-user-invite-form'},{'name': 'UserListComponent', 'selector': 'app-user-list'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'VendorCategoryListComponent', 'selector': 'app-vendor-category-list'},{'name': 'VendorDefinitionsListComponent', 'selector': 'app-vendor-definitions-list'},{'name': 'VendorOpeningBalanceAddComponent', 'selector': 'app-vendor-opening-balance-add'},{'name': 'VendorOpeningBalanceComponent', 'selector': 'app-vendor-opening-balance'},{'name': 'VendorOpeningBalanceDistributeComponent', 'selector': 'app-vendor-opening-balance-distribute'},{'name': 'VendorOpeningBalanceDistributeViewComponent', 'selector': 'app-vendor-opening-balance-distribute-view'},{'name': 'VendorOpeningBalanceEditComponent', 'selector': 'app-vendor-opening-balance-edit'},{'name': 'VendorOpeningBalanceListComponent', 'selector': 'app-vendor-opening-balance-list'},{'name': 'VendorOpeningBalanceMainComponent', 'selector': 'app-vendor-opening-balance-main'},{'name': 'VendorOpeningBalanceViewComponent', 'selector': 'app-vendor-opening-balance-view'},{'name': 'VerticalComponent', 'selector': 'app-vertical'},{'name': 'ViewBankDefinitionComponent', 'selector': 'app-view-bank-definition'},{'name': 'ViewChartComponent', 'selector': 'app-view-chart'},{'name': 'ViewCostCenterComponent', 'selector': 'app-view-cost-center'},{'name': 'ViewCustomerOpeningBalanceComponent', 'selector': 'app-view-customer-opening-balance'},{'name': 'ViewEmployeeComponent', 'selector': 'app-view-employee'},{'name': 'ViewInvoiceComponent', 'selector': 'app-view-invoice'},{'name': 'ViewItemCategoryComponent', 'selector': 'app-view-item-category'},{'name': 'ViewItemDefinitionComponent', 'selector': 'app-view-item-definition'},{'name': 'ViewJournalEntryComponent', 'selector': 'app-view-journal-entry'},{'name': 'ViewJournalEntryOpeningBalanceComponent', 'selector': 'app-view-journal-entry-opening-balance'},{'name': 'ViewPaymentInComponent', 'selector': 'app-view-payment-in'},{'name': 'ViewPaymentMethodComponent', 'selector': 'app-view-payment-method'},{'name': 'ViewPaymentOutComponent', 'selector': 'app-view-payment-out'},{'name': 'ViewPaymentTermComponent', 'selector': 'app-view-payment-term'},{'name': 'ViewPricePolicyComponent', 'selector': 'app-view-price-policy'},{'name': 'ViewQRcodeComponent', 'selector': 'app-view-qrcode'},{'name': 'ViewStockInComponent', 'selector': 'app-view-stock-in'},{'name': 'ViewStockOutComponent', 'selector': 'app-view-stock-out'},{'name': 'ViewTreasuryComponent', 'selector': 'app-view-treasury'},{'name': 'ViewVariantPopupComponent', 'selector': 'app-view-variant-popup'},{'name': 'ViewWarehouseComponent', 'selector': 'app-view-warehouse'},{'name': 'WarehouseListComponent', 'selector': 'app-warehouse-list'},{'name': 'WarehouseTabsComponent', 'selector': 'app-warehouse-tabs'},{'name': 'WidgetsExamplesComponent', 'selector': 'app-widgets-examples'},{'name': 'WizardsComponent', 'selector': 'app-wizards'}];
+    var DIRECTIVES = [{'name': 'HasPermissionDirective', 'selector': '[appHasPermission]'},{'name': 'LoaderDirective', 'selector': '[appLoader]'},{'name': 'LoaderDirective', 'selector': '[appLoader]'},{'name': 'NumberFormatDirective', 'selector': '[appNumberFormat]'}];
+    var ACTUAL_COMPONENT = {'name': 'EditCostCenterAllocationPopupComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'EditCostCenterAllocationPopupComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

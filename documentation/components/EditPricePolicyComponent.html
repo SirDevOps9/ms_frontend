@@ -1,0 +1,2674 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>microtecadminfrontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">microtecadminfrontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  EditPricePolicyComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>projects/apps-sales/src/app/modules/sales/pages/price-policy/edit-price-policy/edit-price-policy.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-edit-price-policy</code></td>
+            </tr>
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./edit-price-policy.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./edit-price-policy.component.scss</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#addForm" >addForm</a>
+                            </li>
+                            <li>
+                                <a href="#data" >data</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#dt" >dt</a>
+                            </li>
+                            <li>
+                                <a href="#duplicateLine" >duplicateLine</a>
+                            </li>
+                            <li>
+                                <a href="#filteredPricePolicies" >filteredPricePolicies</a>
+                            </li>
+                            <li>
+                                <a href="#items" >items</a>
+                            </li>
+                            <li>
+                                <a href="#listOfExcel" >listOfExcel</a>
+                            </li>
+                            <li>
+                                <a href="#rowDataMap" >rowDataMap</a>
+                            </li>
+                            <li>
+                                <a href="#rowDuplicate" >rowDuplicate</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#addNewRow" >addNewRow</a>
+                            </li>
+                            <li>
+                                <a href="#applyFilterGlobal" >applyFilterGlobal</a>
+                            </li>
+                            <li>
+                                <a href="#cancel" >cancel</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#deleteRow" >deleteRow</a>
+                            </li>
+                            <li>
+                                <a href="#getExcel" >getExcel</a>
+                            </li>
+                            <li>
+                                <a href="#gitData" >gitData</a>
+                            </li>
+                            <li>
+                                <a href="#initializeForm" >initializeForm</a>
+                            </li>
+                            <li>
+                                <a href="#initializeFormWithData" >initializeFormWithData</a>
+                            </li>
+                            <li>
+                                <a href="#initItemsData" >initItemsData</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#openDialog" >openDialog</a>
+                            </li>
+                            <li>
+                                <a href="#save" >save</a>
+                            </li>
+                            <li>
+                                <a href="#setExcelData" >setExcelData</a>
+                            </li>
+                            <li>
+                                <a href="#setPriceWithVat" >setPriceWithVat</a>
+                            </li>
+                            <li>
+                                <a href="#setRowData" >setRowData</a>
+                            </li>
+                            <li>
+                                <a href="#setUomIdValue" >setUomIdValue</a>
+                            </li>
+                            <li>
+                                <a href="#subscribes" >subscribes</a>
+                            </li>
+                            <li>
+                                <a href="#update" >update</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#currentLang" >currentLang</a>
+                                </li>
+                                <li>
+                                    <a href="#pricePolicyFormArray" >pricePolicyFormArray</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(formBuilder: FormBuilder, formsService: <a href="../injectables/FormsService.html" target="_self">FormsService</a>, dialog: DialogService, salesService: <a href="../injectables/SalesService.html" target="_self">SalesService</a>, languageService: <a href="../injectables/LanguageService.html" target="_self">LanguageService</a>, toasterService: <a href="../injectables/ToasterService.html" target="_self">ToasterService</a>, routerService: <a href="../injectables/RouterService.html" target="_self">RouterService</a>, router: ActivatedRoute)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="570" class="link-to-prism">projects/apps-sales/src/app/modules/sales/pages/price-policy/edit-price-policy/edit-price-policy.component.ts:570</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>formBuilder</td>
+                                                  
+                                                        <td>
+                                                                    <code>FormBuilder</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>formsService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/FormsService.html" target="_self" >FormsService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>dialog</td>
+                                                  
+                                                        <td>
+                                                                    <code>DialogService</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>salesService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/SalesService.html" target="_self" >SalesService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>languageService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/LanguageService.html" target="_self" >LanguageService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>toasterService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ToasterService.html" target="_self" >ToasterService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>routerService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/RouterService.html" target="_self" >RouterService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                    <code>ActivatedRoute</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addNewRow"></a>
+                    <span class="name">
+                        <span ><b>addNewRow</b></span>
+                        <a href="#addNewRow"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>addNewRow()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="67"
+                                    class="link-to-prism">projects/apps-sales/src/app/modules/sales/pages/price-policy/edit-price-policy/edit-price-policy.component.ts:67</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="applyFilterGlobal"></a>
+                    <span class="name">
+                        <span ><b>applyFilterGlobal</b></span>
+                        <a href="#applyFilterGlobal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>applyFilterGlobal(event: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, stringVal: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="508"
+                                    class="link-to-prism">projects/apps-sales/src/app/modules/sales/pages/price-policy/edit-price-policy/edit-price-policy.component.ts:508</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>stringVal</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cancel"></a>
+                    <span class="name">
+                        <span ><b>cancel</b></span>
+                        <a href="#cancel"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>cancel()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="504"
+                                    class="link-to-prism">projects/apps-sales/src/app/modules/sales/pages/price-policy/edit-price-policy/edit-price-policy.component.ts:504</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteRow"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>deleteRow</b></span>
+                        <a href="#deleteRow"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>deleteRow(index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="316"
+                                    class="link-to-prism">projects/apps-sales/src/app/modules/sales/pages/price-policy/edit-price-policy/edit-price-policy.component.ts:316</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>index</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getExcel"></a>
+                    <span class="name">
+                        <span ><b>getExcel</b></span>
+                        <a href="#getExcel"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getExcel()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="515"
+                                    class="link-to-prism">projects/apps-sales/src/app/modules/sales/pages/price-policy/edit-price-policy/edit-price-policy.component.ts:515</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="gitData"></a>
+                    <span class="name">
+                        <span ><b>gitData</b></span>
+                        <a href="#gitData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>gitData()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="40"
+                                    class="link-to-prism">projects/apps-sales/src/app/modules/sales/pages/price-policy/edit-price-policy/edit-price-policy.component.ts:40</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="initializeForm"></a>
+                    <span class="name">
+                        <span ><b>initializeForm</b></span>
+                        <a href="#initializeForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>initializeForm()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="51"
+                                    class="link-to-prism">projects/apps-sales/src/app/modules/sales/pages/price-policy/edit-price-policy/edit-price-policy.component.ts:51</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="initializeFormWithData"></a>
+                    <span class="name">
+                        <span ><b>initializeFormWithData</b></span>
+                        <a href="#initializeFormWithData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>initializeFormWithData(data: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="341"
+                                    class="link-to-prism">projects/apps-sales/src/app/modules/sales/pages/price-policy/edit-price-policy/edit-price-policy.component.ts:341</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>data</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="initItemsData"></a>
+                    <span class="name">
+                        <span ><b>initItemsData</b></span>
+                        <a href="#initItemsData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>initItemsData()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="323"
+                                    class="link-to-prism">projects/apps-sales/src/app/modules/sales/pages/price-policy/edit-price-policy/edit-price-policy.component.ts:323</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="30"
+                                    class="link-to-prism">projects/apps-sales/src/app/modules/sales/pages/price-policy/edit-price-policy/edit-price-policy.component.ts:30</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openDialog"></a>
+                    <span class="name">
+                        <span ><b>openDialog</b></span>
+                        <a href="#openDialog"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openDialog(index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="357"
+                                    class="link-to-prism">projects/apps-sales/src/app/modules/sales/pages/price-policy/edit-price-policy/edit-price-policy.component.ts:357</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>index</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="save"></a>
+                    <span class="name">
+                        <span ><b>save</b></span>
+                        <a href="#save"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>save()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="458"
+                                    class="link-to-prism">projects/apps-sales/src/app/modules/sales/pages/price-policy/edit-price-policy/edit-price-policy.component.ts:458</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setExcelData"></a>
+                    <span class="name">
+                        <span ><b>setExcelData</b></span>
+                        <a href="#setExcelData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setExcelData(rowIndex: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, selectedItemId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, selectedItem: <a href="../interfaces/ItemDto.html" target="_self">ItemDto</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="211"
+                                    class="link-to-prism">projects/apps-sales/src/app/modules/sales/pages/price-policy/edit-price-policy/edit-price-policy.component.ts:211</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>rowIndex</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>selectedItemId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>selectedItem</td>
+                                            <td>
+                                                            <code><a href="../interfaces/ItemDto.html" target="_self" >ItemDto</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setPriceWithVat"></a>
+                    <span class="name">
+                        <span ><b>setPriceWithVat</b></span>
+                        <a href="#setPriceWithVat"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setPriceWithVat(index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, price: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="305"
+                                    class="link-to-prism">projects/apps-sales/src/app/modules/sales/pages/price-policy/edit-price-policy/edit-price-policy.component.ts:305</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>index</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>price</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setRowData"></a>
+                    <span class="name">
+                        <span ><b>setRowData</b></span>
+                        <a href="#setRowData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setRowData(rowIndex: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, selectedItemId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, price: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="122"
+                                    class="link-to-prism">projects/apps-sales/src/app/modules/sales/pages/price-policy/edit-price-policy/edit-price-policy.component.ts:122</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>rowIndex</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>selectedItemId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>price</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setUomIdValue"></a>
+                    <span class="name">
+                        <span ><b>setUomIdValue</b></span>
+                        <a href="#setUomIdValue"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setUomIdValue(indexLine: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, e: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="426"
+                                    class="link-to-prism">projects/apps-sales/src/app/modules/sales/pages/price-policy/edit-price-policy/edit-price-policy.component.ts:426</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>indexLine</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>e</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="subscribes"></a>
+                    <span class="name">
+                        <span ><b>subscribes</b></span>
+                        <a href="#subscribes"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>subscribes()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="326"
+                                    class="link-to-prism">projects/apps-sales/src/app/modules/sales/pages/price-policy/edit-price-policy/edit-price-policy.component.ts:326</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="update"></a>
+                    <span class="name">
+                        <span ><b>update</b></span>
+                        <a href="#update"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>update()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="385"
+                                    class="link-to-prism">projects/apps-sales/src/app/modules/sales/pages/price-policy/edit-price-policy/edit-price-policy.component.ts:385</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addForm"></a>
+                    <span class="name">
+                        <span ><b>addForm</b></span>
+                        <a href="#addForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>FormGroup</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">projects/apps-sales/src/app/modules/sales/pages/price-policy/edit-price-policy/edit-price-policy.component.ts:27</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="data"></a>
+                    <span class="name">
+                        <span ><b>data</b></span>
+                        <a href="#data"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">projects/apps-sales/src/app/modules/sales/pages/price-policy/edit-price-policy/edit-price-policy.component.ts:21</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dt"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>dt</b></span>
+                        <a href="#dt"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any | undefined</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;dt&#x27;)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">projects/apps-sales/src/app/modules/sales/pages/price-policy/edit-price-policy/edit-price-policy.component.ts:28</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="duplicateLine"></a>
+                    <span class="name">
+                        <span ><b>duplicateLine</b></span>
+                        <a href="#duplicateLine"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">projects/apps-sales/src/app/modules/sales/pages/price-policy/edit-price-policy/edit-price-policy.component.ts:20</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filteredPricePolicies"></a>
+                    <span class="name">
+                        <span ><b>filteredPricePolicies</b></span>
+                        <a href="#filteredPricePolicies"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">projects/apps-sales/src/app/modules/sales/pages/price-policy/edit-price-policy/edit-price-policy.component.ts:25</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="items"></a>
+                    <span class="name">
+                        <span ><b>items</b></span>
+                        <a href="#items"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ItemDto[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">projects/apps-sales/src/app/modules/sales/pages/price-policy/edit-price-policy/edit-price-policy.component.ts:24</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="listOfExcel"></a>
+                    <span class="name">
+                        <span ><b>listOfExcel</b></span>
+                        <a href="#listOfExcel"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">projects/apps-sales/src/app/modules/sales/pages/price-policy/edit-price-policy/edit-price-policy.component.ts:23</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="rowDataMap"></a>
+                    <span class="name">
+                        <span ><b>rowDataMap</b></span>
+                        <a href="#rowDataMap"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>literal type</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">projects/apps-sales/src/app/modules/sales/pages/price-policy/edit-price-policy/edit-price-policy.component.ts:19</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="rowDuplicate"></a>
+                    <span class="name">
+                        <span ><b>rowDuplicate</b></span>
+                        <a href="#rowDuplicate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">projects/apps-sales/src/app/modules/sales/pages/price-policy/edit-price-policy/edit-price-policy.component.ts:22</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-accessors">
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="currentLang"></a>
+                        <span class="name"><b>currentLang</b><a href="#currentLang"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>currentLang()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">projects/apps-sales/src/app/modules/sales/pages/price-policy/edit-price-policy/edit-price-policy.component.ts:37</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="pricePolicyFormArray"></a>
+                        <span class="name"><b>pricePolicyFormArray</b><a href="#pricePolicyFormArray"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>pricePolicyFormArray()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="64" class="link-to-prism">projects/apps-sales/src/app/modules/sales/pages/price-policy/edit-price-policy/edit-price-policy.component.ts:64</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, ViewChild } from &#x27;@angular/core&#x27;;
+import { FormArray, FormBuilder, FormControl, FormGroup } from &#x27;@angular/forms&#x27;;
+import { Cultures, customValidators, FormsService, LanguageService, RouterService, ToasterService } from &#x27;shared-lib&#x27;;
+import { MultiSelectItemsComponent } from &#x27;../../../components/multi-select-items/multi-select-items.component&#x27;;
+import { DialogService } from &#x27;primeng/dynamicdialog&#x27;;
+import { ItemDto } from &#x27;../../../models&#x27;;
+import { SalesService } from &#x27;../../../sales.service&#x27;;
+import { UpdetePricePolicyComponent } from &#x27;../../../components/updete-price-policy/updete-price-policy.component&#x27;;
+import { PopupExcelComponent } from &#x27;../../../components/popup-excel/popup-excel.component&#x27;;
+import { take } from &#x27;rxjs&#x27;;
+import { ActivatedRoute } from &#x27;@angular/router&#x27;;
+
+@Component({
+  selector: &#x27;app-edit-price-policy&#x27;,
+  templateUrl: &#x27;./edit-price-policy.component.html&#x27;,
+  styleUrl: &#x27;./edit-price-policy.component.scss&#x27;
+})
+export class EditPricePolicyComponent {
+  rowDataMap: { [key: number]: { uomOptions: any[] } } &#x3D; {};
+  duplicateLine: boolean;
+  data: any;
+  rowDuplicate: number;
+  listOfExcel: any[] &#x3D; [];
+  items: ItemDto[] &#x3D; [];
+  filteredPricePolicies: any;
+
+  addForm: FormGroup;
+  @ViewChild(&#x27;dt&#x27;) dt: any | undefined;
+
+  ngOnInit() {
+  this.gitData()
+    this.subscribes()
+    this.initItemsData()
+    this.initializeForm()
+  }
+
+  get currentLang(): string {
+    return this.languageService.getLang();
+  }
+  gitData(){
+    const id &#x3D;this.router.snapshot.params[&#x27;id&#x27;]
+    this.salesService.getPricePolicyById(id)
+    this.salesService.pricePolicyListObser.subscribe((res) &#x3D;&gt; {
+      if(res.id){
+        console.log(res ,&quot;1111111111&quot;);
+        
+        this.initializeFormWithData(res);
+      }
+        });
+  }
+  initializeForm() {
+    this.addForm &#x3D; this.formBuilder.group({
+      id: new FormControl(&#x27;&#x27;),
+      code: new FormControl(&#x27;&#x27;),
+      isDefault: new FormControl(false),
+      policySource: new FormControl(&#x27;Manual&#x27;),
+      name: new FormControl(&#x27;&#x27;, [customValidators.required, customValidators.length(1, 100)]),
+      policyItemsList: this.formBuilder.array([]),
+
+    });
+
+  }
+  
+  get pricePolicyFormArray() {
+    return this.addForm.get(&#x27;policyItemsList&#x27;) as FormArray;
+  }
+  addNewRow() {
+    if (!this.duplicateLine) {
+      const policyItemsList &#x3D; this.addForm.get(&#x27;policyItemsList&#x27;) as FormArray;
+
+      // Assign validators for each item in the FormArray
+      policyItemsList.controls.forEach((control) &#x3D;&gt; {
+        control.get(&#x27;price&#x27;)?.clearValidators();
+        control.get(&#x27;price&#x27;)?.updateValueAndValidity(); // Update each control after setting validators
+
+      });
+
+      // Update the main form&#x27;s validity
+      this.addForm.updateValueAndValidity();
+      if (!this.formsService.validForm(this.pricePolicyFormArray, false)) return;
+
+
+      let newLine &#x3D; this.formBuilder.group(
+        {
+          itemId: new FormControl(&#x27;&#x27;, [customValidators.required]),
+          itemName: new FormControl(&#x27;&#x27;),
+          itemCode: new FormControl(&#x27;&#x27;),
+          isVatApplied: new FormControl(false),
+          uomId: new FormControl(&#x27;&#x27;),
+          uomName: new FormControl(&#x27;&#x27;),
+          itemVariantId: new FormControl(&#x27;&#x27;),
+          itemVariantName: new FormControl(&#x27;&#x27;),
+          price: new FormControl(Number(0), [customValidators.required]),
+          priceWithVat: new FormControl(0),
+          taxId: new FormControl(null),
+          taxRatio: new FormControl(&#x27;&#x27;),
+          uomOptions: new FormControl(&#x27;&#x27;),
+          itemCategoryNameAr: new FormControl(&#x27;&#x27;),
+          itemCategoryNameEn: new FormControl(&#x27;&#x27;),
+          hasExpiryDate: new FormControl(&#x27;&#x27;),
+          uomNameAr: new FormControl(&#x27;&#x27;),
+          uomNameEn: new FormControl(&#x27;&#x27;),
+          categoryType: new FormControl(&#x27;&#x27;),
+          name: new FormControl(&#x27;&#x27;),
+          id: new FormControl(),
+
+        }
+      );
+      newLine.updateValueAndValidity();
+      this.pricePolicyFormArray.push(newLine);
+
+      this.filteredPricePolicies &#x3D; this.pricePolicyFormArray
+    } else {
+      
+      this.toasterService.showError(
+        this.languageService.transalte(&#x27;messages.error&#x27;),
+        this.languageService.transalte(&#x27;messages.duplicateItem&#x27;)
+      );
+    }
+  }
+
+  setRowData(rowIndex: number, selectedItemId: number, price: number) {
+    const selectedItem &#x3D; this.items.find(item &#x3D;&gt; item.id &#x3D;&#x3D;&#x3D; selectedItemId);
+    const rowForm &#x3D; this.pricePolicyFormArray.at(rowIndex) as FormGroup;
+
+    if (selectedItem) {
+      const uomOptions: any &#x3D; selectedItem.itemsUOM;
+      rowForm.get(&#x27;uomOptions&#x27;)?.setValue(uomOptions);
+      rowForm.get(&#x27;uomId&#x27;)?.reset(); // Reset the UOM value to avoid conflicts
+      rowForm.get(&#x27;uomId&#x27;)?.setValue(selectedItem.uomId);
+      const uomName &#x3D; this.currentLang &#x3D;&#x3D; Cultures.English ?
+       selectedItem.uomNameEn : selectedItem.uomNameAr
+      rowForm.get(&#x27;uomName&#x27;)?.setValue(uomName);
+      rowForm.get(&#x27;itemName&#x27;)?.setValue(selectedItem.itemName);
+      rowForm.get(&#x27;itemVariantId&#x27;)?.setValue(selectedItem.itemVariantId);
+      const itemVariantName &#x3D; this.currentLang &#x3D;&#x3D; Cultures.English ?
+       selectedItem.itemVariantNameEn : selectedItem.itemVariantNameAr
+      rowForm.get(&#x27;itemVariantName&#x27;)?.setValue(itemVariantName);
+      rowForm.get(&#x27;itemId&#x27;)?.setValue(selectedItem.itemId);
+      rowForm.get(&#x27;itemCode&#x27;)?.setValue(selectedItem.itemCode);
+      rowForm.get(&#x27;taxId&#x27;)?.setValue(selectedItem.taxId || null);
+      rowForm.get(&#x27;taxRatio&#x27;)?.setValue(selectedItem.taxRatio);
+
+      // Additional fields
+      rowForm.get(&#x27;itemCategoryNameAr&#x27;)?.setValue(selectedItem.itemCategoryNameAr);
+      rowForm.get(&#x27;itemCategoryNameEn&#x27;)?.setValue(selectedItem.itemCategoryNameEn);
+      rowForm.get(&#x27;hasExpiryDate&#x27;)?.setValue(selectedItem.hasExpiryDate);
+      rowForm.get(&#x27;uomNameAr&#x27;)?.setValue(selectedItem.uomNameAr);
+      rowForm.get(&#x27;uomNameEn&#x27;)?.setValue(selectedItem.uomNameEn);
+      rowForm.get(&#x27;categoryType&#x27;)?.setValue(selectedItem.categoryType);
+      rowForm.get(&#x27;id&#x27;)?.setValue(rowIndex + 1);
+      rowForm.get(&#x27;price&#x27;)?.setValue(price);
+
+      const isDuplicate &#x3D; this.pricePolicyFormArray.controls.some((element: any, index: number) &#x3D;&gt; {
+        if (index !&#x3D;&#x3D; rowIndex) {
+          const { uomId, itemId, itemVariantId } &#x3D; element.value;
+          const rowUomId &#x3D; rowForm.get(&#x27;uomId&#x27;)?.value;
+          const rowItemId &#x3D; rowForm.get(&#x27;itemId&#x27;)?.value;
+          const rowItemVariantId &#x3D; rowForm.get(&#x27;itemVariantId&#x27;)?.value;
+
+          if (uomId &#x3D;&#x3D;&#x3D; rowUomId &amp;&amp; itemId &#x3D;&#x3D;&#x3D; rowItemId &amp;&amp; itemVariantId &#x3D;&#x3D;&#x3D; rowItemVariantId) {
+            this.toasterService.showError(
+              this.languageService.transalte(&#x27;messages.error&#x27;),
+              this.languageService.transalte(&#x27;messages.duplicateItem&#x27;)
+            );
+            this.rowDuplicate &#x3D; rowIndex;
+            this.duplicateLine &#x3D; true;
+            return true; // Stop checking on first match
+          }
+          this.duplicateLine &#x3D; false;
+
+          return false;
+        }
+        this.duplicateLine &#x3D; false;
+
+        return false;
+      });
+    } else {
+      if (this.rowDuplicate &#x3D;&#x3D; rowIndex) {
+        this.rowDuplicate &#x3D; 0
+      }
+      rowForm.reset();
+      rowForm.get(&#x27;uomOptions&#x27;)?.setValue([]);
+      const isDuplicate &#x3D; this.pricePolicyFormArray.controls.some((element: any, index: number) &#x3D;&gt; {
+        if (rowIndex !&#x3D;&#x3D; index) {
+          const { uomId, itemId, itemVariantId } &#x3D; element.value;
+          const rowUomId &#x3D; rowForm.get(&#x27;uomId&#x27;)?.value;
+          const rowItemId &#x3D; rowForm.get(&#x27;itemId&#x27;)?.value;
+          const rowItemVariantId &#x3D; rowForm.get(&#x27;itemVariantId&#x27;)?.value;
+
+          if (uomId &#x3D;&#x3D;&#x3D; rowUomId &amp;&amp; itemId &#x3D;&#x3D;&#x3D; rowItemId &amp;&amp; itemVariantId &#x3D;&#x3D;&#x3D; rowItemVariantId) {
+            this.toasterService.showError(
+              this.languageService.transalte(&#x27;messages.error&#x27;),
+              this.languageService.transalte(&#x27;messages.duplicateItem&#x27;)
+            );
+            this.rowDuplicate &#x3D; rowIndex
+            this.duplicateLine &#x3D; true
+            return true; // يوقف التكرار عند أول تطابق
+          }
+          this.rowDuplicate &#x3D; 0
+          this.duplicateLine &#x3D; false
+
+          return false;
+        }
+        return false;
+      });
+
+    }
+
+  }
+  setExcelData(rowIndex: number, selectedItemId: number, selectedItem: ItemDto) {
+    const selectedItems &#x3D; this.items.find(item &#x3D;&gt; item.id &#x3D;&#x3D;&#x3D; selectedItemId);
+    const rowForm &#x3D; this.pricePolicyFormArray.at(rowIndex) as FormGroup;
+
+    if (selectedItems) {
+      const uomOptions: any &#x3D; selectedItem.itemsUOM;
+      rowForm.get(&#x27;uomOptions&#x27;)?.setValue(uomOptions);
+      rowForm.get(&#x27;uomId&#x27;)?.reset(); // Reset the UOM value to avoid conflicts
+      rowForm.get(&#x27;uomId&#x27;)?.setValue(selectedItem.uomId);
+      const uomName &#x3D; this.currentLang &#x3D;&#x3D; Cultures.English ? 
+      selectedItem.uomNameEn : selectedItem.uomNameAr
+      rowForm.get(&#x27;uomName&#x27;)?.setValue(uomName);
+      rowForm.get(&#x27;itemName&#x27;)?.setValue(selectedItem.itemName);
+      rowForm.get(&#x27;itemVariantId&#x27;)?.setValue(selectedItem.itemVariantId);
+      const itemVariantName &#x3D; this.currentLang &#x3D;&#x3D; Cultures.English ? 
+      selectedItem.itemVariantNameEn : selectedItem.itemVariantNameAr
+      rowForm.get(&#x27;itemVariantName&#x27;)?.setValue(itemVariantName);
+      rowForm.get(&#x27;itemId&#x27;)?.setValue(selectedItem.itemId);
+      rowForm.get(&#x27;itemCode&#x27;)?.setValue(selectedItem.itemCode);
+      rowForm.get(&#x27;taxId&#x27;)?.setValue(selectedItem.taxId || null);
+      rowForm.get(&#x27;taxRatio&#x27;)?.setValue(selectedItem.taxRatio);
+
+      // Additional fields
+      rowForm.get(&#x27;itemCategoryNameAr&#x27;)?.setValue(selectedItem.itemCategoryNameAr);
+      rowForm.get(&#x27;itemCategoryNameEn&#x27;)?.setValue(selectedItem.itemCategoryNameEn);
+      rowForm.get(&#x27;hasExpiryDate&#x27;)?.setValue(selectedItem.hasExpiryDate);
+      rowForm.get(&#x27;uomNameAr&#x27;)?.setValue(selectedItem.uomNameAr);
+      rowForm.get(&#x27;uomNameEn&#x27;)?.setValue(selectedItem.uomNameEn);
+      rowForm.get(&#x27;categoryType&#x27;)?.setValue(selectedItem.categoryType);
+      rowForm.get(&#x27;id&#x27;)?.setValue(rowIndex + 1);
+      rowForm.get(&#x27;price&#x27;)?.setValue(selectedItem.price);
+      rowForm.get(&#x27;isVatApplied&#x27;)?.setValue(selectedItem.isVatApplied);
+
+      const isDuplicate &#x3D; this.pricePolicyFormArray.controls.some((element: any, index: number) &#x3D;&gt; {
+        if (index !&#x3D;&#x3D; rowIndex) {
+          const { uomId, itemId, itemVariantId } &#x3D; element.value;
+          const rowUomId &#x3D; rowForm.get(&#x27;uomId&#x27;)?.value;
+          const rowItemId &#x3D; rowForm.get(&#x27;itemId&#x27;)?.value;
+          const rowItemVariantId &#x3D; rowForm.get(&#x27;itemVariantId&#x27;)?.value;
+
+          if (uomId &#x3D;&#x3D;&#x3D; rowUomId &amp;&amp; itemId &#x3D;&#x3D;&#x3D; rowItemId &amp;&amp; itemVariantId &#x3D;&#x3D;&#x3D; rowItemVariantId) {
+            this.toasterService.showError(
+              this.languageService.transalte(&#x27;messages.error&#x27;),
+              this.languageService.transalte(&#x27;messages.duplicateItem&#x27;)
+            );
+            this.rowDuplicate &#x3D; rowIndex;
+            this.duplicateLine &#x3D; true;
+            return true; // Stop checking on first match
+          }
+          this.duplicateLine &#x3D; false;
+
+          return false;
+        }
+        this.duplicateLine &#x3D; false;
+
+        return false;
+      });
+      this.setPriceWithVat(rowIndex, selectedItem.price)
+    } else {
+      if (this.rowDuplicate &#x3D;&#x3D; rowIndex) {
+        this.rowDuplicate &#x3D; 0
+      }
+      rowForm.reset();
+      rowForm.get(&#x27;uomOptions&#x27;)?.setValue([]);
+      const isDuplicate &#x3D; this.pricePolicyFormArray.controls.some((element: any, index: number) &#x3D;&gt; {
+        if (rowIndex !&#x3D;&#x3D; index) {
+          const { uomId, itemId, itemVariantId } &#x3D; element.value;
+          const rowUomId &#x3D; rowForm.get(&#x27;uomId&#x27;)?.value;
+          const rowItemId &#x3D; rowForm.get(&#x27;itemId&#x27;)?.value;
+          const rowItemVariantId &#x3D; rowForm.get(&#x27;itemVariantId&#x27;)?.value;
+
+          if (uomId &#x3D;&#x3D;&#x3D; rowUomId &amp;&amp; itemId &#x3D;&#x3D;&#x3D; rowItemId &amp;&amp; itemVariantId &#x3D;&#x3D;&#x3D; rowItemVariantId) {
+           
+            this.toasterService.showError(
+              this.languageService.transalte(&#x27;messages.error&#x27;),
+              this.languageService.transalte(&#x27;messages.duplicateItem&#x27;)
+            );
+            this.rowDuplicate &#x3D; rowIndex
+            this.duplicateLine &#x3D; true
+            return true; // يوقف التكرار عند أول تطابق
+          }
+          this.rowDuplicate &#x3D; 0
+          this.duplicateLine &#x3D; false
+
+          return false;
+        }
+        return false;
+      });
+
+    }
+
+  }
+
+
+  setPriceWithVat(index: number, price: any) {
+    const rowForm &#x3D; this.pricePolicyFormArray.at(index) as FormGroup;
+    rowForm.get(&#x27;priceWithVat&#x27;)?.setValue(0);
+    const taxRatio: any &#x3D; rowForm.get(&#x27;taxRatio&#x27;)?.value
+    let priceWithVat &#x3D; Number(price) + ((Number(price) * taxRatio) / 100)
+    if (rowForm.get(&#x27;isVatApplied&#x27;)?.value &#x3D;&#x3D; true) {
+      rowForm.get(&#x27;priceWithVat&#x27;)?.setValue(priceWithVat);
+    } else {
+      rowForm.get(&#x27;priceWithVat&#x27;)?.setValue(price);
+    }
+  }
+  async deleteRow(index: number) {
+    const confirmed &#x3D; await this.toasterService.showConfirm(&#x27;Delete&#x27;);
+    if (confirmed) {
+      this.pricePolicyFormArray.removeAt(index);
+
+    }
+  }
+  initItemsData() {
+    this.salesService.getLatestItems(&#x27;&#x27;);
+  }
+  subscribes() {
+    this.salesService.latestItemsList.subscribe({
+      next: (res) &#x3D;&gt; {
+        // this.items &#x3D; res;
+        this.items &#x3D; res.map((item, index) &#x3D;&gt; ({
+          ...item,    // Spread existing properties from the original item
+          id: index + 1, // Add an &#x60;id&#x60; field starting from 1
+          displayName: &#x60;(${item.itemCode}) ${item.itemName}-${
+            this.currentLang &#x3D;&#x3D; &#x27;en&#x27; ? item.itemVariantNameEn : item.itemVariantNameAr
+          }&#x60;        
+        }));
+      },
+    });
+ 
+  }
+  initializeFormWithData(data: any) {
+    // Set values for simple fields
+    this.addForm.patchValue({
+      id:data.id,
+      code: data.code,
+      name: data.name,
+      isDefault:data.isDefault
+    });
+    data.policyItemsList.forEach((element: any, index: number) &#x3D;&gt; {
+      this.addNewRow();
+      this.setExcelData(index, element.itemId, element);
+    });   
+  }
+
+ 
+
+  openDialog(index: number) {
+    const ref &#x3D; this.dialog.open(MultiSelectItemsComponent, {
+      width: &#x27;1000px&#x27;,
+      height: &#x27;600px&#x27;,
+    });
+    ref.onClose.subscribe((selectedItems: ItemDto) &#x3D;&gt; {
+      if (selectedItems) {
+        const uomOptions: any &#x3D; selectedItems.itemsUOM
+        const rowForm &#x3D; this.pricePolicyFormArray.at(index) as FormGroup;
+        rowForm.get(&#x27;uomOptions&#x27;)?.setValue(uomOptions); // Store options for template access
+        rowForm.get(&#x27;uomId&#x27;)?.reset(); // Reset the UOM value to avoid conflicts
+        rowForm.get(&#x27;uomId&#x27;)?.setValue(selectedItems.uomId); // Optionally set the first UOM
+        const uomName &#x3D; this.currentLang &#x3D;&#x3D; Cultures.English ? 
+        selectedItems.uomNameEn : selectedItems.uomNameAr
+        rowForm.get(&#x27;uomName&#x27;)?.setValue(uomName);
+        rowForm.get(&#x27;itemName&#x27;)?.setValue(selectedItems.itemName); // Optionally set the first UOM
+        rowForm.get(&#x27;itemVariantId&#x27;)?.setValue(selectedItems.itemVariantId); // Optionally set the first UOM
+        const itemVariantName &#x3D; this.currentLang &#x3D;&#x3D; Cultures.English ? 
+        selectedItems.itemVariantNameEn : selectedItems.itemVariantNameAr
+        rowForm.get(&#x27;itemVariantName&#x27;)?.setValue(itemVariantName);
+        rowForm.get(&#x27;itemId&#x27;)?.setValue(selectedItems.itemId)
+        rowForm.get(&#x27;itemCode&#x27;)?.setValue(selectedItems.itemCode)
+        rowForm.get(&#x27;taxId&#x27;)?.setValue(selectedItems.taxId)
+        rowForm.get(&#x27;id&#x27;)?.setValue(index + 1)
+      }
+
+    });
+  }
+  update() {
+    if (this.pricePolicyFormArray.value.length &gt;0) {
+
+
+      if (!this.duplicateLine) {
+
+        const ref &#x3D; this.dialog.open(UpdetePricePolicyComponent, {
+          width: &#x27;1000px&#x27;,
+          height: &#x27;600px&#x27;,
+          data: this.pricePolicyFormArray
+        });
+
+        ref.onClose.subscribe((selectedItems: any) &#x3D;&gt; {
+          if (selectedItems) {
+            selectedItems.value.forEach((item: ItemDto) &#x3D;&gt; {
+              const index &#x3D; this.pricePolicyFormArray.controls.findIndex(
+                (control) &#x3D;&gt; control.get(&#x27;id&#x27;)?.value &#x3D;&#x3D;&#x3D; item.id
+              );
+
+              if (index !&#x3D;&#x3D; -1) {
+                this.pricePolicyFormArray.at(index).patchValue(item);
+                this.setPriceWithVat(index, item.price)
+              }
+            });
+          }
+        });
+      } else {
+        this.toasterService.showError(
+          this.languageService.transalte(&#x27;messages.error&#x27;),
+          this.languageService.transalte(&#x27;messages.duplicateItem&#x27;)
+        );
+
+      }
+    } else {
+      this.toasterService.showError(
+        this.languageService.transalte(&#x27;messages.error&#x27;),
+        this.languageService.transalte(&#x27;messages.noItemSelected&#x27;)
+      );
+
+    }
+  }
+  setUomIdValue(indexLine: number, e: any) {
+    const rowForm &#x3D; this.pricePolicyFormArray.at(indexLine) as FormGroup;
+    const options &#x3D; rowForm.get(&#x27;uomOptions&#x27;)?.value
+    const selectedItem &#x3D; options.find((item: any) &#x3D;&gt; item.uomId &#x3D;&#x3D;&#x3D; e);
+    rowForm.get(&#x27;uomName&#x27;)?.setValue(selectedItem.uomNameAr); // Optionally set the first UOM
+
+    const isDuplicate &#x3D; this.pricePolicyFormArray.controls.some((element: any, index: number) &#x3D;&gt; {
+      if (indexLine !&#x3D;&#x3D; index) {
+        const { uomId, itemId, itemVariantId } &#x3D; element.value;
+        const rowUomId &#x3D; rowForm.get(&#x27;uomId&#x27;)?.value;
+        const rowItemId &#x3D; rowForm.get(&#x27;itemId&#x27;)?.value;
+        const rowItemVariantId &#x3D; rowForm.get(&#x27;itemVariantId&#x27;)?.value;
+
+        if (uomId &#x3D;&#x3D;&#x3D; rowUomId &amp;&amp; itemId &#x3D;&#x3D;&#x3D; rowItemId &amp;&amp; itemVariantId &#x3D;&#x3D;&#x3D; rowItemVariantId) {
+          this.toasterService.showError(
+            this.languageService.transalte(&#x27;messages.error&#x27;),
+            this.languageService.transalte(&#x27;messages.duplicateItem&#x27;)
+          );
+          this.rowDuplicate &#x3D; indexLine
+          this.duplicateLine &#x3D; true
+          return true; // يوقف التكرار عند أول تطابق
+        }
+        this.rowDuplicate &#x3D; 0
+        this.duplicateLine &#x3D; false
+
+        return false;
+      }
+      return false;
+    });
+
+
+  }
+  save() {
+    if (this.addForm.value.policyItemsList.length &gt; 0) {
+      if (!this.duplicateLine) {
+        const policyItemsList &#x3D; this.addForm.get(&#x27;policyItemsList&#x27;) as FormArray;
+
+        // Assign validators for each item in the FormArray
+        policyItemsList.controls.forEach((control) &#x3D;&gt; {
+          control.get(&#x27;price&#x27;)?.setValidators([customValidators.nonZero, customValidators.required]);
+          control.get(&#x27;price&#x27;)?.updateValueAndValidity(); // Update each control after setting validators
+
+        });
+
+        // Update the main form&#x27;s validity
+        this.addForm.updateValueAndValidity();
+        if (!this.formsService.validForm(this.addForm, false)) return;
+
+        const transformedFormValue &#x3D; {
+          ...this.addForm.value,
+          policyItemsList: this.addForm.value.policyItemsList.map((detail: any) &#x3D;&gt; ({
+            price: Number(detail.price),  // Ensure price is a number
+            priceWithVat: Number(detail.priceWithVat),  // If applicable
+            itemId: detail.itemId,
+            uomId: detail.uomId,
+            itemVariantId: detail.itemVariantId,
+            isVatApplied: detail.isVatApplied, // Ensure it&#x27;s a boolean
+            taxId: detail.taxId || null,
+          }
+          )),
+        };
+
+        this.salesService.editPricePolicy(transformedFormValue);
+      } else {
+        this.toasterService.showError(
+          this.languageService.transalte(&#x27;messages.error&#x27;),
+          this.languageService.transalte(&#x27;messages.duplicateItem&#x27;)
+        );
+      }
+    } else {
+      this.toasterService.showError(
+        this.languageService.transalte(&#x27;messages.error&#x27;),
+        this.languageService.transalte(&#x27;messages.noItemsToAdd&#x27;)
+      );
+    }
+  }
+
+
+  cancel() {
+    this.routerService.navigateTo(&#x27;/masterdata/price-policy&#x27;);
+  }
+
+  applyFilterGlobal(event: any, stringVal: string) {
+    const inputElement &#x3D; event.target as HTMLInputElement;
+    if (inputElement) {
+      this.dt.filterGlobal(inputElement.value, stringVal);
+    }
+  }
+
+  getExcel() {
+    const ref &#x3D; this.dialog.open(PopupExcelComponent, {
+      width: &#x27;600px&#x27;,
+      height: &#x27;450px&#x27;,
+    });
+
+    ref.onClose.subscribe((selectedItems: any[]) &#x3D;&gt; {
+      if (selectedItems) {
+
+        // Helper function to compare two objects for equality
+        const areObjectsEqual &#x3D; (obj1: any, obj2: any): boolean &#x3D;&gt; {
+          return Object.keys(obj1).every(key &#x3D;&gt; obj1[key] &#x3D;&#x3D;&#x3D; obj2[key]) &amp;&amp;
+            Object.keys(obj2).every(key &#x3D;&gt; obj1[key] &#x3D;&#x3D;&#x3D; obj2[key]);
+        };
+
+        // Loop through selectedItems to find duplicates
+        const duplicates: any[] &#x3D; [];
+        for (let i &#x3D; 0; i &lt; selectedItems.length; i++) {
+          for (let j &#x3D; i + 1; j &lt; selectedItems.length; j++) {
+            if (areObjectsEqual(selectedItems[i], selectedItems[j])) {
+              duplicates.push(selectedItems[i]);
+            }
+          }
+        }
+
+        // Proceed if there are no duplicates
+        if (duplicates.length &#x3D;&#x3D;&#x3D; 0) {
+
+          const policyItemsList &#x3D; selectedItems.map((item: any) &#x3D;&gt; ({
+            itemCode: item.itemCode,
+            uomCode: item.uomCode,
+            itemVariantCode: item.itemVariantCode,
+            price: item.price,
+            taxId: item.taxId
+
+          }));
+
+          this.salesService.validateExcel({ policyItemsList });
+
+          this.salesService.listOfExcelObser.subscribe((res: any) &#x3D;&gt; {
+            const rowLength: number &#x3D; this.pricePolicyFormArray.value.length
+
+            res.forEach((element: any, index: number) &#x3D;&gt; {
+              this.addNewRow();
+              this.setExcelData(index + rowLength, element.itemId, element);
+            });
+          });
+        } else {
+          this.toasterService.showError(
+            this.languageService.transalte(&#x27;messages.error&#x27;),
+            this.languageService.transalte(&#x27;messages.duplicateItem&#x27;)
+          );
+        }
+      }
+    });
+  }
+
+  // ngOnDestroy(): void {
+  //   this.salesService.pricePolicyList.next([])
+  // }
+  constructor(
+    private formBuilder: FormBuilder,
+    private formsService: FormsService,
+    private dialog: DialogService,
+    private salesService: SalesService,
+    private languageService: LanguageService,
+    private toasterService: ToasterService,
+    private routerService: RouterService,
+    private router: ActivatedRoute,
+
+  ) { }
+}</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;lib-page-content&gt;
+    &lt;div class&#x3D;&quot;card_micro&quot;&gt;
+      &lt;div class&#x3D;&quot;grid&quot; [formGroup]&#x3D;&quot;addForm&quot;&gt;
+        &lt;div class&#x3D;&quot;col-12 md:col-3&quot;&gt;
+          &lt;lib-form-group&gt;
+            &lt;lib-label [appControl]&#x3D;&quot;addForm.controls[&#x27;code&#x27;]&quot;&gt;
+              {{ &#x27;pricePolicy.code&#x27; | translate }}
+            &lt;/lib-label&gt;
+            &lt;lib-text-input formControlName&#x3D;&quot;code&quot; [readOnly]&#x3D;&quot;true&quot;&gt;
+  
+            &lt;/lib-text-input&gt;
+          &lt;/lib-form-group&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;col-12 md:col-3&quot;&gt;
+          &lt;lib-form-group&gt;
+            &lt;lib-label [appControl]&#x3D;&quot;addForm.controls[&#x27;name&#x27;]&quot;&gt;
+              {{ &#x27;pricePolicy.name&#x27; | translate }}
+            &lt;/lib-label&gt;
+            &lt;lib-text-input formControlName&#x3D;&quot;name&quot;&gt;
+  
+            &lt;/lib-text-input&gt;
+            &lt;lib-field-validations [appControl]&#x3D;&quot;addForm.controls[&#x27;name&#x27;]&quot;&gt;
+  
+            &lt;/lib-field-validations&gt;
+          &lt;/lib-form-group&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;col-12 md:col-3&quot; *ngIf&#x3D;&quot;addForm.controls[&#x27;isDefault&#x27;].value&quot;&gt;
+
+          &lt;lib-label [appControl]&#x3D;&quot;addForm.controls[&#x27;isDefault&#x27;]&quot;&gt;
+            {{ &#x27;pricePolicy.default&#x27; | translate }}
+          &lt;/lib-label&gt;
+          &lt;lib-input-switch
+           [disabled]&#x3D;&quot;true&quot; 
+           formControlName&#x3D;&quot;isDefault&quot;
+          
+          &gt;
+          &lt;/lib-input-switch&gt;
+        &lt;/div&gt;
+  
+      &lt;/div&gt;
+  
+    &lt;/div&gt;
+  
+    &lt;div class&#x3D;&quot;entry_tableCont&quot;&gt;
+      &lt;div class&#x3D;&quot;card&quot;&gt;
+        &lt;div class&#x3D;&quot;grid mb-3&quot;&gt;
+          &lt;div class&#x3D;&quot;flex justify-content-between w-full &quot;&gt;
+            &lt;div class&#x3D;&quot;&quot;&gt;
+              &lt;lib-text-input (keyUp)&#x3D;&quot;applyFilterGlobal($event , &#x27;contains&#x27;)&quot;
+                [iconUrl]&#x3D;&quot;&#x27;pi pi-search&#x27;&quot;&gt;
+  
+              &lt;/lib-text-input&gt;
+  
+            &lt;/div&gt;
+  
+            &lt;div class&#x3D;&quot;actions&quot;&gt;
+              &lt;lib-button-micro [title]&#x3D;&quot;&#x27;pricePolicy.uploadExcel&#x27;|translate&quot; nameClass&#x3D;&quot;outline&quot;
+                iconName&#x3D;&quot;pi pi-file-edit&quot; (click)&#x3D;&quot;getExcel()&quot;&gt;
+              &lt;/lib-button-micro&gt;
+              &lt;lib-button-micro [title]&#x3D;&quot;&#x27;pricePolicy.updatePrice&#x27;|translate&quot; nameClass&#x3D;&quot;outline&quot; iconName&#x3D;&quot;pi pi-file&quot;
+                (click)&#x3D;&quot;update()&quot;&gt;
+              &lt;/lib-button-micro&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+  
+  
+        &lt;/div&gt;
+        &lt;p-table #dt [globalFilterFields]&#x3D;&quot;[&#x27;itemVariantName&#x27;]&quot; [resizableColumns]&#x3D;&quot;true&quot;
+          [value]&#x3D;&quot;pricePolicyFormArray.controls&quot; dataKey&#x3D;&quot;id&quot; styleClass&#x3D;&quot;p-datatable-gridlines p-datatable-striped&quot;
+          [tableStyle]&#x3D;&quot;{ &#x27;min-width&#x27;: &#x27;50rem&#x27; }&quot;&gt;
+  
+          &lt;ng-template pTemplate&#x3D;&quot;header&quot;&gt;
+            &lt;tr&gt;
+              &lt;th&gt;{{ &#x27;pricePolicy.code&#x27; | translate }}&lt;/th&gt;
+              &lt;th&gt;{{ &#x27;pricePolicy.name&#x27; | translate }}&lt;/th&gt;
+              &lt;th&gt;{{ &#x27;pricePolicy.UOM&#x27; | translate }}&lt;/th&gt;
+              &lt;th&gt;{{ &#x27;pricePolicy.varient&#x27; | translate }}&lt;/th&gt;
+              &lt;th&gt;{{ &#x27;pricePolicy.price&#x27; | translate }}&lt;/th&gt;
+              &lt;th&gt;{{ &#x27;pricePolicy.VAT&#x27; | translate }}&lt;/th&gt;
+              &lt;th&gt;{{ &#x27;pricePolicy.priceVAT&#x27; | translate }}&lt;/th&gt;
+              &lt;th&gt;{{ &#x27;pricePolicy.action&#x27; | translate }}&lt;/th&gt;
+  
+            &lt;/tr&gt;
+          &lt;/ng-template&gt;
+          &lt;ng-template pTemplate&#x3D;&quot;body&quot; let-pricePolicy let-rowIndex&#x3D;&quot;rowIndex&quot;&gt;
+            &lt;tr [formGroup]&#x3D;&quot;pricePolicy&quot;&gt;
+              &lt;td [pEditableColumn]&#x3D;&quot;pricePolicy.itemId&quot; pEditableColumnField&#x3D;&quot;itemId&quot; field&#x3D;&quot;code&quot;&gt;
+                &lt;p-cellEditor&gt;
+                  &lt;ng-template pTemplate&#x3D;&quot;input&quot;&gt;
+                    &lt;div class&#x3D;&quot;flex gap-2 align-items-center&quot;&gt;
+  
+                      &lt;lib-select [options]&#x3D;&quot;items&quot; optionValue&#x3D;&quot;id&quot; [customClass]&#x3D;&quot;&#x27;add-journal&#x27;&quot; optionLabel&#x3D;&quot;displayName&quot;
+                        formControlName&#x3D;&quot;itemId&quot;
+                        (valueChanged)&#x3D;&quot;setRowData(rowIndex ,pricePolicy.controls[&#x27;itemId&#x27;].value  , 0 )&quot;
+                        [selectedValue]&#x3D;&quot;pricePolicy.controls[&#x27;itemId&#x27;].value&quot;&gt;
+  
+                      &lt;/lib-select&gt;
+                      &lt;i class&#x3D;&quot;pi pi-search search-circle&quot; (click)&#x3D;&quot;openDialog(rowIndex)&quot;&gt;&lt;/i&gt;
+  
+                    &lt;/div&gt;
+                  &lt;/ng-template&gt;
+                  &lt;ng-template pTemplate&#x3D;&quot;output&quot;&gt;
+                    {{ pricePolicy.get(&#x27;itemCode&#x27;).value }}
+                  &lt;/ng-template&gt;
+                &lt;/p-cellEditor&gt;
+                &lt;lib-field-validations [appControl]&#x3D;&quot;pricePolicy.controls[&#x27;itemId&#x27;]&quot;&gt;
+                &lt;/lib-field-validations&gt;
+              &lt;/td&gt;
+              &lt;td field&#x3D;&quot;name&quot;&gt;
+                &lt;p&gt; {{ pricePolicy.get(&#x27;itemName&#x27;).value }}
+                &lt;/p&gt;
+              &lt;/td&gt;
+              &lt;td [pEditableColumn]&#x3D;&quot;pricePolicy.uomId&quot; pEditableColumnField&#x3D;&quot;uomId&quot;
+                [ngClass]&#x3D;&quot; {&#x27;error&#x27;:rowIndex&#x3D;&#x3D;rowDuplicate &amp;&amp; rowDuplicate!&#x3D;0}&quot;&gt;
+                &lt;p-cellEditor&gt;
+                  &lt;ng-template pTemplate&#x3D;&quot;input&quot;&gt;
+                    &lt;div class&#x3D;&quot;flex gap-2 align-items-center&quot;&gt;
+                      &lt;lib-select formControlName&#x3D;&quot;uomId&quot; [options]&#x3D;&quot;pricePolicy.get(&#x27;uomOptions&#x27;).value&quot;
+                        [customClass]&#x3D;&quot;&#x27;add-journal&#x27;&quot; [selectedValue]&#x3D;&quot;pricePolicy.get(&#x27;uomId&#x27;).value&quot;
+                        optionLabel&#x3D;&quot;uomNameEn&quot; optionValue&#x3D;&quot;uomId&quot;
+                        (valueChanged)&#x3D;&quot;setUomIdValue(rowIndex, $event)&quot;&gt;&lt;/lib-select&gt;
+                    &lt;/div&gt;
+                  &lt;/ng-template&gt;
+                  &lt;ng-template pTemplate&#x3D;&quot;output&quot;&gt;
+                    {{ pricePolicy.get(&#x27;uomName&#x27;).value ||&#x27;&#x27; }}
+                  &lt;/ng-template&gt;
+                &lt;/p-cellEditor&gt;
+                &lt;lib-field-validations [appControl]&#x3D;&quot;pricePolicy.controls[&#x27;uomId&#x27;]&quot;&gt;
+                &lt;/lib-field-validations&gt;
+              &lt;/td&gt;
+  
+              &lt;td pSortableColumn&#x3D;&quot;itemVariantName&quot;&gt;
+                &lt;p&gt;{{pricePolicy.get(&#x27;itemVariantName&#x27;).value}}&lt;/p&gt;
+  
+              &lt;/td&gt;
+              &lt;td [pEditableColumn]&#x3D;&quot;pricePolicy.price&quot; pEditableColumnField&#x3D;&quot;price&quot;&gt;
+                &lt;p-cellEditor&gt;
+                  &lt;ng-template pTemplate&#x3D;&quot;input&quot;&gt;
+                    &lt;div class&#x3D;&quot;flex gap-2 align-items-center&quot;&gt;
+                      &lt;lib-text-input type&#x3D;&quot;number&quot; formControlName&#x3D;&quot;price&quot; (keyUp)&#x3D;&quot;setPriceWithVat( rowIndex ,$event )&quot;&gt;
+                      &lt;/lib-text-input&gt;
+                    &lt;/div&gt;
+                  &lt;/ng-template&gt;
+                  &lt;ng-template pTemplate&#x3D;&quot;output&quot;&gt;
+                    {{ pricePolicy.get(&#x27;price&#x27;).value }}
+                  &lt;/ng-template&gt;
+                &lt;/p-cellEditor&gt;
+                &lt;lib-field-validations [appControl]&#x3D;&quot;pricePolicy.controls[&#x27;price&#x27;]&quot;&gt;
+                &lt;/lib-field-validations&gt;
+              &lt;/td&gt;
+              &lt;td&gt;
+                &lt;lib-input-switch formControlName&#x3D;&quot;isVatApplied&quot;
+                  (ngModelChange)&#x3D;&quot;setPriceWithVat(rowIndex ,pricePolicy.get(&#x27;price&#x27;).value )&quot;&gt;
+  
+                &lt;/lib-input-switch&gt;
+              &lt;/td&gt;
+              &lt;td class&#x3D;&quot;readOnly&quot;&gt;
+                {{ pricePolicy.get(&#x27;priceWithVat&#x27;).value }}
+              &lt;/td&gt;
+              &lt;td&gt;
+                &lt;lib-button-micro nameClass&#x3D;&quot;table_button_delete&quot; (click)&#x3D;&quot;deleteRow(rowIndex)&quot;&gt;&lt;/lib-button-micro&gt;
+              &lt;/td&gt;
+  
+            &lt;/tr&gt;
+          &lt;/ng-template&gt;
+  
+        &lt;/p-table&gt;
+        &lt;div class&#x3D;&quot;add_new&quot;&gt;
+          &lt;div class&#x3D;&quot;grid&quot;&gt;
+            &lt;div class&#x3D;&quot;md:col-3&quot;&gt;
+              &lt;div class&#x3D;&quot;grid&quot;&gt;
+                &lt;div class&#x3D;&quot;md:col-6&quot;&gt;
+                  &lt;lib-button-micro nameClass&#x3D;&quot;outline&quot; widthNumber&#x3D;&quot;100%&quot; title&#x3D;&quot;{{ &#x27;add_new_line&#x27; | translate }}&quot;
+                    (click)&#x3D;&quot;addNewRow()&quot;&gt;
+                  &lt;/lib-button-micro&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;btn_group&quot;&gt;
+      &lt;div class&#x3D;&quot;grid&quot;&gt;
+        &lt;div class&#x3D;&quot;md:col-3&quot;&gt;
+          &lt;div class&#x3D;&quot;grid&quot;&gt;
+            &lt;div class&#x3D;&quot;md:col-6&quot;&gt;
+              &lt;lib-button-micro title&#x3D;&quot;{{ &#x27;Cancel&#x27; | translate }}&quot; nameClass&#x3D;&quot;cancel&quot; widthNumber&#x3D;&quot;100%&quot;
+                (click)&#x3D;&quot;cancel()&quot;&gt;
+              &lt;/lib-button-micro&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;md:col-6&quot;&gt;
+              &lt;lib-button-micro title&#x3D;&quot;{{ &#x27;Save&#x27; | translate }}&quot; nameClass&#x3D;&quot;save&quot; widthNumber&#x3D;&quot;100%&quot; (click)&#x3D;&quot;save()&quot;&gt;
+              &lt;/lib-button-micro&gt;
+  
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/lib-page-content&gt;</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><lib-page-content>    <div class="card_micro">      <div class="grid" [formGroup]="addForm">        <div class="col-12 md:col-3">          <lib-form-group>            <lib-label [appControl]="addForm.controls[\'code\']">              {{ \'pricePolicy.code\' | translate }}            </lib-label>            <lib-text-input formControlName="code" [readOnly]="true">              </lib-text-input>          </lib-form-group>        </div>        <div class="col-12 md:col-3">          <lib-form-group>            <lib-label [appControl]="addForm.controls[\'name\']">              {{ \'pricePolicy.name\' | translate }}            </lib-label>            <lib-text-input formControlName="name">              </lib-text-input>            <lib-field-validations [appControl]="addForm.controls[\'name\']">              </lib-field-validations>          </lib-form-group>        </div>        <div class="col-12 md:col-3" *ngIf="addForm.controls[\'isDefault\'].value">          <lib-label [appControl]="addForm.controls[\'isDefault\']">            {{ \'pricePolicy.default\' | translate }}          </lib-label>          <lib-input-switch           [disabled]="true"            formControlName="isDefault"                    >          </lib-input-switch>        </div>        </div>      </div>      <div class="entry_tableCont">      <div class="card">        <div class="grid mb-3">          <div class="flex justify-content-between w-full ">            <div class="">              <lib-text-input (keyUp)="applyFilterGlobal($event , \'contains\')"                [iconUrl]="\'pi pi-search\'">                </lib-text-input>              </div>              <div class="actions">              <lib-button-micro [title]="\'pricePolicy.uploadExcel\'|translate" nameClass="outline"                iconName="pi pi-file-edit" (click)="getExcel()">              </lib-button-micro>              <lib-button-micro [title]="\'pricePolicy.updatePrice\'|translate" nameClass="outline" iconName="pi pi-file"                (click)="update()">              </lib-button-micro>            </div>          </div>            </div>        <p-table #dt [globalFilterFields]="[\'itemVariantName\']" [resizableColumns]="true"          [value]="pricePolicyFormArray.controls" dataKey="id" styleClass="p-datatable-gridlines p-datatable-striped"          [tableStyle]="{ \'min-width\': \'50rem\' }">            <ng-template pTemplate="header">            <tr>              <th>{{ \'pricePolicy.code\' | translate }}</th>              <th>{{ \'pricePolicy.name\' | translate }}</th>              <th>{{ \'pricePolicy.UOM\' | translate }}</th>              <th>{{ \'pricePolicy.varient\' | translate }}</th>              <th>{{ \'pricePolicy.price\' | translate }}</th>              <th>{{ \'pricePolicy.VAT\' | translate }}</th>              <th>{{ \'pricePolicy.priceVAT\' | translate }}</th>              <th>{{ \'pricePolicy.action\' | translate }}</th>              </tr>          </ng-template>          <ng-template pTemplate="body" let-pricePolicy let-rowIndex="rowIndex">            <tr [formGroup]="pricePolicy">              <td [pEditableColumn]="pricePolicy.itemId" pEditableColumnField="itemId" field="code">                <p-cellEditor>                  <ng-template pTemplate="input">                    <div class="flex gap-2 align-items-center">                        <lib-select [options]="items" optionValue="id" [customClass]="\'add-journal\'" optionLabel="displayName"                        formControlName="itemId"                        (valueChanged)="setRowData(rowIndex ,pricePolicy.controls[\'itemId\'].value  , 0 )"                        [selectedValue]="pricePolicy.controls[\'itemId\'].value">                        </lib-select>                      <i class="pi pi-search search-circle" (click)="openDialog(rowIndex)"></i>                      </div>                  </ng-template>                  <ng-template pTemplate="output">                    {{ pricePolicy.get(\'itemCode\').value }}                  </ng-template>                </p-cellEditor>                <lib-field-validations [appControl]="pricePolicy.controls[\'itemId\']">                </lib-field-validations>              </td>              <td field="name">                <p> {{ pricePolicy.get(\'itemName\').value }}                </p>              </td>              <td [pEditableColumn]="pricePolicy.uomId" pEditableColumnField="uomId"                [ngClass]=" {\'error\':rowIndex==rowDuplicate && rowDuplicate!=0}">                <p-cellEditor>                  <ng-template pTemplate="input">                    <div class="flex gap-2 align-items-center">                      <lib-select formControlName="uomId" [options]="pricePolicy.get(\'uomOptions\').value"                        [customClass]="\'add-journal\'" [selectedValue]="pricePolicy.get(\'uomId\').value"                        optionLabel="uomNameEn" optionValue="uomId"                        (valueChanged)="setUomIdValue(rowIndex, $event)"></lib-select>                    </div>                  </ng-template>                  <ng-template pTemplate="output">                    {{ pricePolicy.get(\'uomName\').value ||\'\' }}                  </ng-template>                </p-cellEditor>                <lib-field-validations [appControl]="pricePolicy.controls[\'uomId\']">                </lib-field-validations>              </td>                <td pSortableColumn="itemVariantName">                <p>{{pricePolicy.get(\'itemVariantName\').value}}</p>                </td>              <td [pEditableColumn]="pricePolicy.price" pEditableColumnField="price">                <p-cellEditor>                  <ng-template pTemplate="input">                    <div class="flex gap-2 align-items-center">                      <lib-text-input type="number" formControlName="price" (keyUp)="setPriceWithVat( rowIndex ,$event )">                      </lib-text-input>                    </div>                  </ng-template>                  <ng-template pTemplate="output">                    {{ pricePolicy.get(\'price\').value }}                  </ng-template>                </p-cellEditor>                <lib-field-validations [appControl]="pricePolicy.controls[\'price\']">                </lib-field-validations>              </td>              <td>                <lib-input-switch formControlName="isVatApplied"                  (ngModelChange)="setPriceWithVat(rowIndex ,pricePolicy.get(\'price\').value )">                  </lib-input-switch>              </td>              <td class="readOnly">                {{ pricePolicy.get(\'priceWithVat\').value }}              </td>              <td>                <lib-button-micro nameClass="table_button_delete" (click)="deleteRow(rowIndex)"></lib-button-micro>              </td>              </tr>          </ng-template>          </p-table>        <div class="add_new">          <div class="grid">            <div class="md:col-3">              <div class="grid">                <div class="md:col-6">                  <lib-button-micro nameClass="outline" widthNumber="100%" title="{{ \'add_new_line\' | translate }}"                    (click)="addNewRow()">                  </lib-button-micro>                </div>              </div>            </div>          </div>        </div>      </div>    </div>    <div class="btn_group">      <div class="grid">        <div class="md:col-3">          <div class="grid">            <div class="md:col-6">              <lib-button-micro title="{{ \'Cancel\' | translate }}" nameClass="cancel" widthNumber="100%"                (click)="cancel()">              </lib-button-micro>            </div>            <div class="md:col-6">              <lib-button-micro title="{{ \'Save\' | translate }}" nameClass="save" widthNumber="100%" (click)="save()">              </lib-button-micro>              </div>          </div>        </div>      </div>    </div>  </lib-page-content></div>'
+    var COMPONENTS = [{'name': 'AccordionComponent', 'selector': 'lib-accordion'},{'name': 'AccountComponent', 'selector': 'app-account'},{'name': 'AccountingComponent', 'selector': 'app-accounting'},{'name': 'AccountingDashboardComponent', 'selector': 'app-accounting-dashboard'},{'name': 'AccountsComponent', 'selector': 'app-accounts'},{'name': 'AccountStatementComponent', 'selector': 'app-account-statement'},{'name': 'ActivityDrawerComponent', 'selector': 'app-activity-drawer'},{'name': 'ActtachmentViewComponent', 'selector': 'lib-acttachment-view'},{'name': 'AddAttributeDefinitionComponent', 'selector': 'app-add-attribute-definition'},{'name': 'AddBankDefinitionComponent', 'selector': 'app-add-bank-definition'},{'name': 'AddBarcodePopupComponent', 'selector': 'app-add-barcode-popup'},{'name': 'AddChartComponent', 'selector': 'app-add-chart'},{'name': 'AddCMSComponent', 'selector': 'app-add-cms'},{'name': 'AddCostCenterComponent', 'selector': 'app-add-cost-center'},{'name': 'AddCostCenterComponent', 'selector': 'app-add-cost-center'},{'name': 'AddCurrencyConversionComponent', 'selector': 'app-add-currency-conversion'},{'name': 'AddCurrencyDefinitionComponent', 'selector': 'app-add-currency-definition'},{'name': 'AddCustomerComponent', 'selector': 'app-add-customer'},{'name': 'AddCustomerOpeeningBalanceComponent', 'selector': 'app-add-customer-opeening-balance'},{'name': 'AddDomainSpaceComponent', 'selector': 'app-add-domain-space'},{'name': 'AddHelpPageComponent', 'selector': 'app-add-help-page'},{'name': 'AddItemCategoryComponent', 'selector': 'app-add-item-category'},{'name': 'AddItemDefinitionPopupComponent', 'selector': 'app-add-item-definition-popup'},{'name': 'AddItemsCategoryComponent', 'selector': 'app-add-items-category'},{'name': 'AddJournalEntryOpeningBalanceComponent', 'selector': 'app-add-journal-entry-opening-balance'},{'name': 'AddPaymentInComponent', 'selector': 'app-add-payment-in'},{'name': 'AddPaymentMethodComponent', 'selector': 'app-add-payment-method'},{'name': 'AddPaymentOutComponent', 'selector': 'app-add-payment-out'},{'name': 'AddPaymentOutCostCenterComponent', 'selector': 'app-add-payment-out-cost-center'},{'name': 'AddPaymentTermComponent', 'selector': 'app-add-payment-term'},{'name': 'AddPricePolicyComponent', 'selector': 'app-add-price-policy'},{'name': 'AddPurchaseInvoiceComponent', 'selector': 'app-add-purchase-invoice'},{'name': 'AddStockInComponent', 'selector': 'app-add-stock-in'},{'name': 'AddStockOutComponent', 'selector': 'app-add-stock-out'},{'name': 'AddTreasuryComponent', 'selector': 'app-add-treasury'},{'name': 'AddVariantPopupComponent', 'selector': 'app-add-variant-popup'},{'name': 'AddVendorDefinitionsComponent', 'selector': 'app-add-vendor-definitions'},{'name': 'AddWarehouseComponent', 'selector': 'app-add-warehouse'},{'name': 'AddWarehousePopupComponent', 'selector': 'app-add-warehouse-popup'},{'name': 'AdvanceTablesWidget1Component', 'selector': 'app-advance-tables-widget1'},{'name': 'AdvanceTablesWidget2Component', 'selector': 'app-advance-tables-widget2'},{'name': 'AdvanceTablesWidget7Component', 'selector': 'app-advance-tables-widget7'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AppDetailsComponent', 'selector': 'app-app-details'},{'name': 'AppInfoListComponent', 'selector': 'app-app-info-list'},{'name': 'AsideComponent', 'selector': 'app-aside'},{'name': 'AsideMenuComponent', 'selector': 'app-aside-menu'},{'name': 'AttachmentsComponent', 'selector': 'app-attachments'},{'name': 'AttachmentViewerComponent', 'selector': 'lib-attachment-viewer'},{'name': 'AttributeDefinitionComponent', 'selector': 'app-attribute-definition'},{'name': 'AttributeDefinitionListComponent', 'selector': 'app-attribute-definition-list'},{'name': 'AttributeDefinitionListValuesComponent', 'selector': 'app-attribute-definition-list-values'},{'name': 'AttributeDefinitionValuesComponent', 'selector': 'app-attribute-definition-values'},{'name': 'BankAccountStatementComponent', 'selector': 'app-bank-account-statement'},{'name': 'BankDefinitionListComponent', 'selector': 'app-bank-definition-list'},{'name': 'BaseTablesWidget1Component', 'selector': 'app-base-tables-widget1'},{'name': 'BaseTablesWidget2Component', 'selector': 'app-base-tables-widget2'},{'name': 'BaseTablesWidget6Component', 'selector': 'app-base-tables-widget6'},{'name': 'BreadCrumbComponent', 'selector': 'lib-bread-crumb'},{'name': 'BuilderComponent', 'selector': 'app-builder'},{'name': 'BussinessOwnersListComponent', 'selector': 'app-bussiness-owners-list'},{'name': 'ButtonComponent', 'selector': 'lib-button'},{'name': 'ButtonMicroComponent', 'selector': 'lib-button-micro'},{'name': 'CalendarComponent', 'selector': 'lib-calendar'},{'name': 'CampaignsComponent', 'selector': 'app-campaigns'},{'name': 'Card1Component', 'selector': 'app-card1'},{'name': 'Card2Component', 'selector': 'app-card2'},{'name': 'Card3Component', 'selector': 'app-card3'},{'name': 'Card4Component', 'selector': 'app-card4'},{'name': 'Card5Component', 'selector': 'app-card5'},{'name': 'CardsWidget17Component', 'selector': 'app-cards-widget17'},{'name': 'CardsWidget18Component', 'selector': 'app-cards-widget18'},{'name': 'CardsWidget20Component', 'selector': 'app-cards-widget20'},{'name': 'CardsWidget7Component', 'selector': 'app-cards-widget7'},{'name': 'CartComponent', 'selector': ''},{'name': 'CartItemDetailComponent', 'selector': ''},{'name': 'ChangeColumnComponent', 'selector': 'lib-change-column'},{'name': 'ChartCardComponent', 'selector': 'app-chart-card'},{'name': 'ChartOfAccountConfigurationComponent', 'selector': 'app-chart-of-account-configuration'},{'name': 'ChartOfAccountTreeComponent', 'selector': 'app-chart-of-account-tree'},{'name': 'ChartsComponent', 'selector': 'app-charts'},{'name': 'ChartsWidget1Component', 'selector': 'app-charts-widget1'},{'name': 'ChartsWidget2Component', 'selector': 'app-charts-widget2'},{'name': 'ChartsWidget3Component', 'selector': 'app-charts-widget3'},{'name': 'ChartsWidget4Component', 'selector': 'app-charts-widget4'},{'name': 'ChartsWidget5Component', 'selector': 'app-charts-widget5'},{'name': 'ChartsWidget6Component', 'selector': 'app-charts-widget6'},{'name': 'ChartsWidget7Component', 'selector': 'app-charts-widget7'},{'name': 'ChartsWidget8Component', 'selector': 'app-charts-widget8'},{'name': 'ChatComponent', 'selector': 'app-chat'},{'name': 'ChatInnerComponent', 'selector': 'app-chat-inner'},{'name': 'ChatOfAccountListComponent', 'selector': 'app-chat-of-account-list'},{'name': 'ClassicComponent', 'selector': 'app-classic'},{'name': 'ColumnsSelectionComponent', 'selector': 'lib-columns-selection'},{'name': 'CompaniesDetailsInfoComponent', 'selector': 'app-companies-details-info'},{'name': 'CompaniesListComponent', 'selector': 'app-companies-list'},{'name': 'CompanyAddresComponent', 'selector': 'app-company-addres'},{'name': 'CompanyBranchesComponent', 'selector': 'app-company-branches'},{'name': 'CompanyContactComponent', 'selector': 'app-company-contact'},{'name': 'CompanyHierarchyComponent', 'selector': 'app-company-hierarchy'},{'name': 'CompanyLegalComponent', 'selector': 'app-company-legal'},{'name': 'ConfirmComponent', 'selector': 'app-confirm'},{'name': 'ConfirmOpeningBalanceComponent', 'selector': 'app-confirm-opening-balance'},{'name': 'ConfirmSequenceComponent', 'selector': 'lib-confirm-sequence'},{'name': 'ConnectedAccountsComponent', 'selector': 'app-connected-accounts'},{'name': 'ConnectionsComponent', 'selector': 'app-connections'},{'name': 'ContentComponent', 'selector': 'app-content'},{'name': 'CostCenterAllocationPopupComponent', 'selector': 'app-cost-center-allocation-popup'},{'name': 'CostCenterListComponent', 'selector': 'app-cost-center-list'},{'name': 'CostCenterReportComponent', 'selector': 'app-cost-center-report'},{'name': 'CostCenterTreeComponent', 'selector': 'app-cost-center-tree'},{'name': 'CreateCustomerCategoryComponent', 'selector': 'app-create-customer-category'},{'name': 'CreateEmployeeComponent', 'selector': 'app-create-employee'},{'name': 'CreateFinancialCalendarComponent', 'selector': 'app-create-financial-calendar'},{'name': 'CreateJournalEntryComponent', 'selector': 'app-journal-entry'},{'name': 'CreateVendorCategoryComponent', 'selector': 'app-create-vendor-category'},{'name': 'CurrencyConversionComponent', 'selector': 'app-currency-conversion'},{'name': 'CurrencyDefinitionComponent', 'selector': 'app-currency-definition'},{'name': 'CustomerCategoryListComponent', 'selector': 'app-customer-category-list'},{'name': 'CustomerListComponent', 'selector': 'app-customer-list'},{'name': 'CustomerObViewDistributionComponent', 'selector': 'app-customer-ob-view-distribution'},{'name': 'CustomerOpeningBalanceDistributeComponent', 'selector': 'app-customer-opening-balance-distribute'},{'name': 'CustomerOpeningBalanceListComponent', 'selector': 'app-customer-opening-balance-list'},{'name': 'CustomerOpeningBalanceNoChildrenComponent', 'selector': 'app-customer-opening-balance-no-children'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DataTableComponent', 'selector': 'lib-data-table'},{'name': 'DeactivateAccountComponent', 'selector': 'app-deactivate-account'},{'name': 'DocumentsComponent', 'selector': 'app-documents'},{'name': 'DomainSpaceInfoComponent', 'selector': 'app-domain-space-info'},{'name': 'DrawerChatComponent', 'selector': 'app-drawer-chat'},{'name': 'DropdownMenu1Component', 'selector': 'app-dropdown-menu1'},{'name': 'DropdownMenu2Component', 'selector': 'app-dropdown-menu2'},{'name': 'DropdownMenu3Component', 'selector': 'app-dropdown-menu3'},{'name': 'EditAttributeDefinitionComponent', 'selector': 'app-edit-attribute-definition'},{'name': 'EditBankDefinitionComponent', 'selector': 'app-edit-bank-definition'},{'name': 'EditBranchesComponent', 'selector': 'app-edit-branches'},{'name': 'EditBussinessOwnerComponent', 'selector': 'app-edit-bussiness-owner'},{'name': 'EditCategoryUomComponent', 'selector': 'app-edit-category-uom'},{'name': 'EditChartComponent', 'selector': 'app-edit-chart'},{'name': 'EditCMSComponent', 'selector': 'app-edit-cms'},{'name': 'EditCompanyComponent', 'selector': 'app-edit-company'},{'name': 'EditCostCenterAllocationPopupComponent', 'selector': 'app-edit-cost-center-allocation-popup'},{'name': 'EditCostCenterComponent', 'selector': 'app-edit-cost-center'},{'name': 'EditCurrencyConversionComponent', 'selector': 'app-edit-currency-conversion'},{'name': 'EditCurrencyDefinitionComponent', 'selector': 'app-edit-currency-definition'},{'name': 'EditCustomerCategoryComponent', 'selector': 'app-edit-customer-category'},{'name': 'EditCustomerComponent', 'selector': 'app-edit-customer'},{'name': 'EditCustomerOpeningBalanceComponent', 'selector': 'app-edit-customer-opening-balance'},{'name': 'EditEmployeeComponent', 'selector': 'app-edit-employee'},{'name': 'EditFinancialCalendarComponent', 'selector': 'app-edit-financial-calendar'},{'name': 'EditHelpsPagesComponent', 'selector': 'app-edit-helps-pages'},{'name': 'EditItemCategoryComponent', 'selector': 'app-edit-item-category'},{'name': 'EditItemDefinitionComponent', 'selector': 'app-edit-item-definition'},{'name': 'EditJournalEntryComponent', 'selector': 'app-edit-journal-entry'},{'name': 'EditJournalEntryOpeningBalanceComponent', 'selector': 'app-edit-journal-entry-opening-balance'},{'name': 'EditMultipeFilesComponent', 'selector': 'lib-edit-multipe-files'},{'name': 'EditPaymentInComponent', 'selector': 'app-edit-payment-in'},{'name': 'EditPaymentMethodComponent', 'selector': 'app-edit-payment-method'},{'name': 'EditPaymentOutComponent', 'selector': 'app-edit-payment-out'},{'name': 'EditPaymentTermComponent', 'selector': 'app-edit-payment-term'},{'name': 'EditPricePolicyComponent', 'selector': 'app-edit-price-policy'},{'name': 'EditPurchaseInvoiceComponent', 'selector': 'app-edit-purchase-invoice'},{'name': 'EditStockInComponent', 'selector': 'app-edit-stock-in'},{'name': 'EditStockOutComponent', 'selector': 'app-edit-stock-out'},{'name': 'EditTreasuryComponent', 'selector': 'app-edit-treasury'},{'name': 'EditVendorCategoryComponent', 'selector': 'app-edit-vendor-category'},{'name': 'EditVendorDefinitionsComponent', 'selector': 'app-edit-vendor-definitions'},{'name': 'EditWarehouseComponent', 'selector': 'app-edit-warehouse'},{'name': 'EmailPreferencesComponent', 'selector': 'app-email-preferences'},{'name': 'EmployeeListComponent', 'selector': 'app-employee-list'},{'name': 'EngagesComponent', 'selector': 'app-engages'},{'name': 'EngageWidget10Component', 'selector': 'app-engage-widget10'},{'name': 'ERPUserComponent', 'selector': 'app-erpuser'},{'name': 'Error404Component', 'selector': 'app-error404'},{'name': 'Error500Component', 'selector': 'app-error500'},{'name': 'ErrorsComponent', 'selector': 'app-errors'},{'name': 'ExploreMainDrawerComponent', 'selector': 'app-explore-main-drawer'},{'name': 'ExportComponent', 'selector': 'lib-export'},{'name': 'ExtendedComponent', 'selector': 'app-extended'},{'name': 'FeedsComponent', 'selector': 'app-feeds'},{'name': 'FeedsWidget2Component', 'selector': 'app-feeds-widget2'},{'name': 'FeedsWidget3Component', 'selector': 'app-feeds-widget3'},{'name': 'FeedsWidget4Component', 'selector': 'app-feeds-widget4'},{'name': 'FeedsWidget5Component', 'selector': 'app-feeds-widget5'},{'name': 'FeedsWidget6Component', 'selector': 'app-feeds-widget6'},{'name': 'FieldValidationsComponent', 'selector': 'lib-field-validations'},{'name': 'FildestComponent', 'selector': 'lib-fildest'},{'name': 'FileUploaderComponent', 'selector': 'lib-file-uploader'},{'name': 'FinancialCalendarListComponent', 'selector': 'app-financial-calendar-list'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FormGroupComponent', 'selector': 'lib-form-group'},{'name': 'GeneralSettingInvComponent', 'selector': 'app-general-setting-inv'},{'name': 'GroupChatComponent', 'selector': 'app-group-chat'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HeaderMenuComponent', 'selector': 'app-header-menu'},{'name': 'HelpDrawerComponent', 'selector': 'app-help-drawer'},{'name': 'HelpPageComponent', 'selector': 'lib-help-page'},{'name': 'HomeHelpPageComponent', 'selector': 'lib-home-help-page'},{'name': 'HomePageComponent', 'selector': 'app-home-page'},{'name': 'HomePageComponent', 'selector': 'app-home-page'},{'name': 'HorizontalComponent', 'selector': 'app-horizontal'},{'name': 'ImportStockInComponent', 'selector': 'app-import-stock-in'},{'name': 'InputSwitchComponent', 'selector': 'lib-input-switch'},{'name': 'InviteUsersModalComponent', 'selector': 'app-invite-users-modal'},{'name': 'ItemAdvancedSearchEditComponent', 'selector': 'app-item-advanced-search-edit'},{'name': 'ItemAdvancedSearchPurchaseInvoiceComponent', 'selector': 'app-item-advanced-search-purchase-invoice'},{'name': 'ItemCardComponent', 'selector': 'app-item-card'},{'name': 'ItemCatalogTabsComponent', 'selector': 'item-catalog-tabs'},{'name': 'ItemCategoryListComponent', 'selector': 'app-item-category-list'},{'name': 'ItemDefinitionAttributesVariantsComponent', 'selector': 'app-item-definition-attributes-variants'},{'name': 'ItemDefinitionBarcodeComponent', 'selector': 'app-item-definition-barcode'},{'name': 'ItemDefinitionGeneralComponent', 'selector': 'app-item-definition-general'},{'name': 'ItemDefinitionInventoryComponent', 'selector': 'app-item-definition-inventory'},{'name': 'ItemDefinitionListComponent', 'selector': 'app-item-definition-list'},{'name': 'ItemDefinitionUomComponent', 'selector': 'app-item-definition-uom'},{'name': 'ItemDefintionTaxComponent', 'selector': 'app-item-defintion-tax'},{'name': 'ItemDefintionVariantComponent', 'selector': 'app-item-defintion-vat'},{'name': 'ItemFixedCostComponent', 'selector': 'app-item-fixed-cost'},{'name': 'ItemsCategoryTreeComponent', 'selector': 'app-items-category-tree'},{'name': 'JournalEntryListComponent', 'selector': 'app-journal-entry-list'},{'name': 'JournalEntryOpeningBalanceListComponent', 'selector': 'app-journal-entry-opening-balance-list'},{'name': 'JournalTemplatePopupComponent', 'selector': 'app-journal-template-popup'},{'name': 'LabelComponent', 'selector': 'lib-label'},{'name': 'LandingPageComponent', 'selector': 'app-landing-page'},{'name': 'LayoutComponent', 'selector': 'app-layout'},{'name': 'LayoutComponent', 'selector': 'app-layout'},{'name': 'LayoutComponent', 'selector': 'app-layout'},{'name': 'LayoutHeaderComponent', 'selector': 'app-layout-header'},{'name': 'LayoutHeaderComponent', 'selector': 'app-layout-header'},{'name': 'LayoutPageComponent', 'selector': 'app-layout-page'},{'name': 'LayoutScrollTopComponent', 'selector': 'app-scroll-top'},{'name': 'LayoutSidebarComponent', 'selector': 'app-layout-sidebar'},{'name': 'LayoutSidebarComponent', 'selector': 'app-layout-sidebar'},{'name': 'LicenceInfoListComponent', 'selector': 'app-licence-info-list'},{'name': 'ListAppsComponent', 'selector': 'app-list-apps'},{'name': 'ListCMSComponent', 'selector': 'app-list-cms'},{'name': 'ListHelpPageComponent', 'selector': 'app-list-help-page'},{'name': 'ListsComponent', 'selector': 'app-lists'},{'name': 'ListsWidget1Component', 'selector': 'app-lists-widget1'},{'name': 'ListsWidget26Component', 'selector': 'app-lists-widget26'},{'name': 'ListsWidget2Component', 'selector': 'app-lists-widget2'},{'name': 'ListsWidget3Component', 'selector': 'app-lists-widget3'},{'name': 'ListsWidget4Component', 'selector': 'app-lists-widget4'},{'name': 'ListsWidget5Component', 'selector': 'app-lists-widget5'},{'name': 'ListsWidget6Component', 'selector': 'app-lists-widget6'},{'name': 'ListsWidget7Component', 'selector': 'app-lists-widget7'},{'name': 'ListsWidget8Component', 'selector': 'app-lists-widget8'},{'name': 'LoaderComponent', 'selector': 'app-loader'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LoginRedirectComponent', 'selector': 'app-login-redirect'},{'name': 'LogoutComponent', 'selector': 'app-logout'},{'name': 'LogoutRedirectComponent', 'selector': 'app-logout-redirect'},{'name': 'MainBankDefinitionComponent', 'selector': 'app-main-bank-definition'},{'name': 'MainChartOfAccountComponent', 'selector': 'app-main-chart-of-account'},{'name': 'MainCostCenterComponent', 'selector': 'app-main-cost-center'},{'name': 'MainCustomerCategoryComponent', 'selector': 'app-main-customer-category'},{'name': 'MainCustomerDefintionComponent', 'selector': 'app-main-customer-defintion'},{'name': 'MainCustomerOpeningBalanceComponent', 'selector': 'app-main-customer-opening-balance'},{'name': 'MainEmployeeComponent', 'selector': 'app-main-employee'},{'name': 'MainFinancialCalendarComponent', 'selector': 'app-main-financial-calendar'},{'name': 'MainHelpComponent', 'selector': 'lib-main-help'},{'name': 'MainItemCategoriesTreeComponent', 'selector': 'app-main-item-categories-tree'},{'name': 'MainJournalComponent', 'selector': 'app-main-journal'},{'name': 'MainModalComponent', 'selector': 'app-main-modal'},{'name': 'MainOpeningBalanceComponent', 'selector': 'app-main-opening-balance'},{'name': 'MainPageComponent', 'selector': 'app-main-page'},{'name': 'MainPaymentInComponent', 'selector': 'app-main-payment-in'},{'name': 'MainPaymentMethodComponent', 'selector': 'app-main-payment-method'},{'name': 'MainPaymentOutComponent', 'selector': 'app-main-payment-out'},{'name': 'MainPaymentTermComponent', 'selector': 'app-main-payment-term'},{'name': 'MainPurchaseInvoiceComponent', 'selector': 'app-main-purchase-invoice'},{'name': 'MainStockInListComponentComponent', 'selector': 'app-main-stock-in-list-component'},{'name': 'MainStockOutComponent', 'selector': 'app-main-stock-out'},{'name': 'MainVendorCategoryComponent', 'selector': 'app-main-vendor-category'},{'name': 'MainVendorDefintionsComponent', 'selector': 'app-main-vendor-defintions'},{'name': 'MainWarehouseComponent', 'selector': 'app-main-warehouse'},{'name': 'ManageAppsComponent', 'selector': 'app-manage-apps'},{'name': 'MessengerDrawerComponent', 'selector': 'app-messenger-drawer'},{'name': 'MixedComponent', 'selector': 'app-mixed'},{'name': 'MixedWidget10Component', 'selector': 'app-mixed-widget10'},{'name': 'MixedWidget11Component', 'selector': 'app-mixed-widget11'},{'name': 'MixedWidget1Component', 'selector': 'app-mixed-widget1'},{'name': 'MixedWidget2Component', 'selector': 'app-mixed-widget2'},{'name': 'MixedWidget3Component', 'selector': 'app-mixed-widget3'},{'name': 'MixedWidget4Component', 'selector': 'app-mixed-widget4'},{'name': 'MixedWidget5Component', 'selector': 'app-mixed-widget5'},{'name': 'MixedWidget6Component', 'selector': 'app-mixed-widget6'},{'name': 'MixedWidget7Component', 'selector': 'app-mixed-widget7'},{'name': 'MixedWidget8Component', 'selector': 'app-mixed-widget8'},{'name': 'MixedWidget9Component', 'selector': 'app-mixed-widget9'},{'name': 'ModalComponent', 'selector': 'app-modal'},{'name': 'ModuleListComponent', 'selector': 'lib-module-list'},{'name': 'MultiSelectComponent', 'selector': 'lib-multi-select'},{'name': 'MultiSelectDetailedAccountsComponent', 'selector': 'app-multi-select-detailed-accounts'},{'name': 'MultiSelectItemsComponent', 'selector': 'app-multi-select-items'},{'name': 'MultiSelectItemStockInComponent', 'selector': 'app-multi-select-item-stock-in'},{'name': 'MySubscriptionsComponent', 'selector': ''},{'name': 'NamedFileUploaderComponent', 'selector': 'lib-named-file-uploader'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'NewBranchesComponent', 'selector': 'app-new-branches'},{'name': 'NewBreadCrumbComponent', 'selector': 'lib-new-bread-crumb'},{'name': 'NewChartsWidget8Component', 'selector': 'app-new-charts-widget8'},{'name': 'NewCompanyComponent', 'selector': 'app-new-company'},{'name': 'NoChildrenAccountsComponent', 'selector': 'app-nochildaccounts'},{'name': 'NoChildrenAccountsComponent', 'selector': 'app-nochildaccounts'},{'name': 'NoChildrenAccountsComponent', 'selector': 'app-no-children-accounts'},{'name': 'NotFoundComponent', 'selector': 'app-not-found'},{'name': 'NotificationsComponent', 'selector': 'app-notifications'},{'name': 'NotificationsInnerComponent', 'selector': 'app-notifications-inner'},{'name': 'OperationTagAddComponent', 'selector': 'app-operation-tag-add'},{'name': 'OperationTagEditComponent', 'selector': 'app-operation-tag-edit'},{'name': 'OperationTagListComponent', 'selector': 'app-operation-tag-list'},{'name': 'OperationTagMainComponent', 'selector': 'app-operation-tag-main'},{'name': 'OverviewComponent', 'selector': 'app-overview'},{'name': 'OverviewComponent', 'selector': 'app-overview'},{'name': 'PageContentComponent', 'selector': 'lib-page-content'},{'name': 'PageTitleComponent', 'selector': 'app-page-title'},{'name': 'PaginatorComponent', 'selector': 'lib-paginator'},{'name': 'PaymentInListComponent', 'selector': 'app-payment-in-list'},{'name': 'PaymentMethodComponent', 'selector': 'app-payment-method'},{'name': 'PaymentMethodListComponent', 'selector': 'app-payment-method-list'},{'name': 'PaymentOutListComponent', 'selector': 'app-payment-out-list'},{'name': 'PaymentOutPaymentMethodComponent', 'selector': 'app-payment-out-payment-method'},{'name': 'PaymentSuccesfulComponent', 'selector': 'app-payment-succesful'},{'name': 'PaymentTermListComponent', 'selector': 'app-payment-term-list'},{'name': 'PopupAccountsComponent', 'selector': 'app-popup-accounts'},{'name': 'PopupExcelComponent', 'selector': 'app-popup-excel'},{'name': 'PopupPageComponent', 'selector': 'lib-popup-page'},{'name': 'PricePolicyListComponent', 'selector': 'app-price-policy-list'},{'name': 'PricePolicyMainComponent', 'selector': 'app-price-policy-main'},{'name': 'PrivateChatComponent', 'selector': 'app-private-chat'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfileDetailsComponent', 'selector': 'app-profile-details'},{'name': 'ProjectsComponent', 'selector': 'app-projects'},{'name': 'PurchaseInvoiceListComponent', 'selector': 'app-purchase-invoice-list'},{'name': 'PurchaseInvoiceTrackingComponent', 'selector': 'app-purchase-invoice-tracking'},{'name': 'PurchaseToolbarComponent', 'selector': 'app-purchase-toolbar'},{'name': 'QuickLinksInnerComponent', 'selector': 'app-quick-links-inner'},{'name': 'RatingComponent', 'selector': 'lib-rating'},{'name': 'ReadExcelComponent', 'selector': 'app-read-excel'},{'name': 'ReportsComponent', 'selector': 'app-reports'},{'name': 'SaasComponent', 'selector': 'app-saas'},{'name': 'ScanParcodeStockInComponent', 'selector': 'app-scan-parcode-stock-in'},{'name': 'ScriptsInitComponent', 'selector': 'app-scripts-init'},{'name': 'SearchEngineComponent', 'selector': 'app-search-engine'},{'name': 'SearchItemAdvancedPopUpComponent', 'selector': 'app-search-item-pop-up'},{'name': 'SearchItemPopUpComponent', 'selector': 'app-search-item-pop-up'},{'name': 'SearchResultInnerComponent', 'selector': 'app-search-result-inner'},{'name': 'SelectComponent', 'selector': 'lib-select'},{'name': 'SelectIconComponent', 'selector': 'lib-selectIcon'},{'name': 'SelectSubdomainComponent', 'selector': 'app-selectsubdomain'},{'name': 'SequenceComponent', 'selector': 'lib-sequence'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'SharedFormComponent', 'selector': 'app-shared-form'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SidebarFooterComponent', 'selector': 'app-sidebar-footer'},{'name': 'SidebarLogoComponent', 'selector': 'app-sidebar-logo'},{'name': 'SidebarMenuComponent', 'selector': 'app-sidebar-menu'},{'name': 'SignInMethodComponent', 'selector': 'app-sign-in-method'},{'name': 'SpinnerComponent', 'selector': 'app-spinner'},{'name': 'SpinnerComponent', 'selector': 'app-spinner'},{'name': 'SplashScreenComponent', 'selector': 'app-splash-screen'},{'name': 'StatisticsComponent', 'selector': 'app-statistics'},{'name': 'StatsWidget1Component', 'selector': 'app-stats-widget1'},{'name': 'StatsWidget2Component', 'selector': 'app-stats-widget2'},{'name': 'StatsWidget3Component', 'selector': 'app-stats-widget3'},{'name': 'StatsWidget4Component', 'selector': 'app-stats-widget4'},{'name': 'StatsWidget5Component', 'selector': 'app-stats-widget5'},{'name': 'StatsWidget6Component', 'selector': 'app-stats-widget6'},{'name': 'Step1Component', 'selector': 'app-step1'},{'name': 'Step2Component', 'selector': 'app-step2'},{'name': 'Step3Component', 'selector': 'app-step3'},{'name': 'Step4Component', 'selector': 'app-step4'},{'name': 'Step5Component', 'selector': 'app-step5'},{'name': 'StockInListComponent', 'selector': 'app-stock-in-list'},{'name': 'StockOutListComponent', 'selector': 'app-stock-out-list'},{'name': 'SubscriptionComponent', 'selector': 'app-subscription'},{'name': 'TablePaginatorComponent', 'selector': 'lib-table-paginator'},{'name': 'TablePrintComponent', 'selector': 'lib-table-print'},{'name': 'TablesComponent', 'selector': 'app-tables'},{'name': 'TablesWidget10Component', 'selector': 'app-tables-widget10'},{'name': 'TablesWidget11Component', 'selector': 'app-tables-widget11'},{'name': 'TablesWidget12Component', 'selector': 'app-tables-widget12'},{'name': 'TablesWidget13Component', 'selector': 'app-tables-widget13'},{'name': 'TablesWidget14Component', 'selector': 'app-tables-widget14'},{'name': 'TablesWidget16Component', 'selector': 'app-tables-widget16'},{'name': 'TablesWidget1Component', 'selector': 'app-tables-widget1'},{'name': 'TablesWidget2Component', 'selector': 'app-tables-widget2'},{'name': 'TablesWidget3Component', 'selector': 'app-tables-widget3'},{'name': 'TablesWidget4Component', 'selector': 'app-tables-widget4'},{'name': 'TablesWidget5Component', 'selector': 'app-tables-widget5'},{'name': 'TablesWidget6Component', 'selector': 'app-tables-widget6'},{'name': 'TablesWidget7Component', 'selector': 'app-tables-widget7'},{'name': 'TablesWidget8Component', 'selector': 'app-tables-widget8'},{'name': 'TablesWidget9Component', 'selector': 'app-tables-widget9'},{'name': 'TabviewComponent', 'selector': 'lib-tabview'},{'name': 'TagAddComponent', 'selector': 'app-tag-add'},{'name': 'TagEditComponent', 'selector': 'app-tag-edit'},{'name': 'TagListComponent', 'selector': 'app-tag-list'},{'name': 'TaxDefinitionAddComponent', 'selector': 'app-tax-definition-add'},{'name': 'TaxDefinitionComponent', 'selector': 'app-tax-definition'},{'name': 'TaxDefinitionEditComponent', 'selector': 'app-tax-definition-edit'},{'name': 'TaxGroupAddComponent', 'selector': 'app-tax-group-add'},{'name': 'TaxGroupComponent', 'selector': 'app-tax-group'},{'name': 'TaxGroupEditComponent', 'selector': 'app-tax-group-edit'},{'name': 'TextInputComponent', 'selector': 'lib-text-input'},{'name': 'ThemeModeSwitcherComponent', 'selector': 'app-theme-mode-switcher'},{'name': 'TilesWidget10Component', 'selector': 'app-tiles-widget10'},{'name': 'TilesWidget11Component', 'selector': 'app-tiles-widget11'},{'name': 'TilesWidget12Component', 'selector': 'app-tiles-widget12'},{'name': 'TilesWidget13Component', 'selector': 'app-tiles-widget13'},{'name': 'TilesWidget14Component', 'selector': 'app-tiles-widget14'},{'name': 'TilesWidget1Component', 'selector': 'app-tiles-widget1'},{'name': 'TilesWidget3Component', 'selector': 'app-tiles-widget3'},{'name': 'ToastComponent', 'selector': 'lib-toast'},{'name': 'ToggelComponent', 'selector': 'lib-toggel'},{'name': 'ToolbarComponent', 'selector': 'app-toolbar'},{'name': 'TopbarComponent', 'selector': 'app-topbar'},{'name': 'TrackingEditComponent', 'selector': 'app-tracking-edit'},{'name': 'TrackingStockInComponent', 'selector': 'app-tracking-stock-in'},{'name': 'TreasuryStatementComponent', 'selector': 'app-treasury-statement'},{'name': 'TreauryDefinitionListComponent', 'selector': 'app-treaury-definition-list'},{'name': 'TrialBlanceComponent', 'selector': 'app-trial-blance'},{'name': 'UnAuthorizedComponent', 'selector': 'app-un-authorized'},{'name': 'UOMAddComponent', 'selector': 'app-uom-add'},{'name': 'UOMEditComponent', 'selector': 'app-uom-edit'},{'name': 'UOMListComponent', 'selector': 'app-uom-list'},{'name': 'UOMMainComponent', 'selector': 'app-UOM-main'},{'name': 'UomViewComponent', 'selector': 'app-uom-view'},{'name': 'UpdetePricePolicyComponent', 'selector': 'app-updete-price-policy'},{'name': 'UpgradePlanModalComponent', 'selector': 'app-upgrade-plan-modal'},{'name': 'UploadMultipeFilesComponent', 'selector': 'lib-upload-multipe-files'},{'name': 'UserconfirmationComponent', 'selector': 'app-userconfirmation'},{'name': 'UserDetailsComponent', 'selector': 'app-user-details'},{'name': 'UserInfoListComponent', 'selector': 'app-user-info-list'},{'name': 'UserInnerComponent', 'selector': 'app-user-inner'},{'name': 'UserInviteFormComponent', 'selector': 'app-user-invite-form'},{'name': 'UserListComponent', 'selector': 'app-user-list'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'VendorCategoryListComponent', 'selector': 'app-vendor-category-list'},{'name': 'VendorDefinitionsListComponent', 'selector': 'app-vendor-definitions-list'},{'name': 'VendorOpeningBalanceAddComponent', 'selector': 'app-vendor-opening-balance-add'},{'name': 'VendorOpeningBalanceComponent', 'selector': 'app-vendor-opening-balance'},{'name': 'VendorOpeningBalanceDistributeComponent', 'selector': 'app-vendor-opening-balance-distribute'},{'name': 'VendorOpeningBalanceDistributeViewComponent', 'selector': 'app-vendor-opening-balance-distribute-view'},{'name': 'VendorOpeningBalanceEditComponent', 'selector': 'app-vendor-opening-balance-edit'},{'name': 'VendorOpeningBalanceListComponent', 'selector': 'app-vendor-opening-balance-list'},{'name': 'VendorOpeningBalanceMainComponent', 'selector': 'app-vendor-opening-balance-main'},{'name': 'VendorOpeningBalanceViewComponent', 'selector': 'app-vendor-opening-balance-view'},{'name': 'VerticalComponent', 'selector': 'app-vertical'},{'name': 'ViewBankDefinitionComponent', 'selector': 'app-view-bank-definition'},{'name': 'ViewChartComponent', 'selector': 'app-view-chart'},{'name': 'ViewCostCenterComponent', 'selector': 'app-view-cost-center'},{'name': 'ViewCustomerOpeningBalanceComponent', 'selector': 'app-view-customer-opening-balance'},{'name': 'ViewEmployeeComponent', 'selector': 'app-view-employee'},{'name': 'ViewInvoiceComponent', 'selector': 'app-view-invoice'},{'name': 'ViewItemCategoryComponent', 'selector': 'app-view-item-category'},{'name': 'ViewItemDefinitionComponent', 'selector': 'app-view-item-definition'},{'name': 'ViewJournalEntryComponent', 'selector': 'app-view-journal-entry'},{'name': 'ViewJournalEntryOpeningBalanceComponent', 'selector': 'app-view-journal-entry-opening-balance'},{'name': 'ViewPaymentInComponent', 'selector': 'app-view-payment-in'},{'name': 'ViewPaymentMethodComponent', 'selector': 'app-view-payment-method'},{'name': 'ViewPaymentOutComponent', 'selector': 'app-view-payment-out'},{'name': 'ViewPaymentTermComponent', 'selector': 'app-view-payment-term'},{'name': 'ViewPricePolicyComponent', 'selector': 'app-view-price-policy'},{'name': 'ViewQRcodeComponent', 'selector': 'app-view-qrcode'},{'name': 'ViewStockInComponent', 'selector': 'app-view-stock-in'},{'name': 'ViewStockOutComponent', 'selector': 'app-view-stock-out'},{'name': 'ViewTreasuryComponent', 'selector': 'app-view-treasury'},{'name': 'ViewVariantPopupComponent', 'selector': 'app-view-variant-popup'},{'name': 'ViewWarehouseComponent', 'selector': 'app-view-warehouse'},{'name': 'WarehouseListComponent', 'selector': 'app-warehouse-list'},{'name': 'WarehouseTabsComponent', 'selector': 'app-warehouse-tabs'},{'name': 'WidgetsExamplesComponent', 'selector': 'app-widgets-examples'},{'name': 'WizardsComponent', 'selector': 'app-wizards'}];
+    var DIRECTIVES = [{'name': 'HasPermissionDirective', 'selector': '[appHasPermission]'},{'name': 'LoaderDirective', 'selector': '[appLoader]'},{'name': 'LoaderDirective', 'selector': '[appLoader]'},{'name': 'NumberFormatDirective', 'selector': '[appNumberFormat]'}];
+    var ACTUAL_COMPONENT = {'name': 'EditPricePolicyComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'EditPricePolicyComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

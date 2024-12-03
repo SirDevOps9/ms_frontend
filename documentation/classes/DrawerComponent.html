@@ -1,0 +1,1933 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>microtecadminfrontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">microtecadminfrontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content class">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Classes</li>
+  <li class="breadcrumb-item" >DrawerComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>projects/adminportal/src/app/_metronic/kt/components/_DrawerComponent.ts</code>
+        </p>
+
+
+
+
+
+
+            <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#_createOverlay" >_createOverlay</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#_deleteOverlay" >_deleteOverlay</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#_getDirection" >_getDirection</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#_getOption" >_getOption</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#_getWidth" >_getWidth</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#_handlers" >_handlers</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#_hide" >_hide</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#_show" >_show</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#_toggle" >_toggle</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#_update" >_update</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Static</span>
+                                <a href="#bootstrap" >bootstrap</a>
+                            </li>
+                            <li>
+                                <a href="#closeElement" >closeElement</a>
+                            </li>
+                            <li>
+                                <a href="#element" >element</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Static</span>
+                                <a href="#getInstance" >getInstance</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#goElement" >goElement</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Static</span>
+                                <a href="#handleDismiss" >handleDismiss</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Static</span>
+                                <a href="#hasInstace" >hasInstace</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#hide" >hide</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Static</span>
+                                <a href="#hideAll" >hideAll</a>
+                            </li>
+                            <li>
+                                <a href="#instanceUid" >instanceUid</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#isShown" >isShown</a>
+                            </li>
+                            <li>
+                                <a href="#lastWidth" >lastWidth</a>
+                            </li>
+                            <li>
+                                <a href="#name" >name</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#off" >off</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#on" >on</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#one" >one</a>
+                            </li>
+                            <li>
+                                <a href="#options" >options</a>
+                            </li>
+                            <li>
+                                <a href="#overlayElement" >overlayElement</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Static</span>
+                                <a href="#reinitialization" >reinitialization</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#show" >show</a>
+                            </li>
+                            <li>
+                                <a href="#shown" >shown</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#toggle" >toggle</a>
+                            </li>
+                            <li>
+                                <a href="#toggleElement" >toggleElement</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#trigger" >trigger</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#update" >update</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Static</span>
+                                <a href="#updateAll" >updateAll</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Static</span>
+                                <a href="#createInstances" >createInstances</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Static</span>
+                                <a href="#initGlobalHandlers" >initGlobalHandlers</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(_element: HTMLElement, options: <a href="../interfaces/DrawerOptions.html" target="_self">DrawerOptions</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="71" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_DrawerComponent.ts:71</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>_element</td>
+                                                  
+                                                        <td>
+                                                                    <code>HTMLElement</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>options</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../interfaces/DrawerOptions.html" target="_self" >DrawerOptions</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_createOverlay"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>_createOverlay</b></span>
+                        <a href="#_createOverlay"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="212" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_DrawerComponent.ts:212</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_deleteOverlay"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>_deleteOverlay</b></span>
+                        <a href="#_deleteOverlay"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="232" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_DrawerComponent.ts:232</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_getDirection"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>_getDirection</b></span>
+                        <a href="#_getDirection"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="238" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_DrawerComponent.ts:238</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_getOption"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>_getOption</b></span>
+                        <a href="#_getOption"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="140" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_DrawerComponent.ts:140</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_getWidth"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>_getWidth</b></span>
+                        <a href="#_getWidth"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="242" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_DrawerComponent.ts:242</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_handlers"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>_handlers</b></span>
+                        <a href="#_handlers"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="89" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_DrawerComponent.ts:89</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_hide"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>_hide</b></span>
+                        <a href="#_hide"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="178" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_DrawerComponent.ts:178</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_show"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>_show</b></span>
+                        <a href="#_show"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="195" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_DrawerComponent.ts:195</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_toggle"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>_toggle</b></span>
+                        <a href="#_toggle"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="164" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_DrawerComponent.ts:164</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_update"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>_update</b></span>
+                        <a href="#_update"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="111" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_DrawerComponent.ts:111</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="bootstrap"></a>
+                    <span class="name">
+                            <span class="modifier">Static</span>
+                        <span ><b>bootstrap</b></span>
+                        <a href="#bootstrap"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="371" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_DrawerComponent.ts:371</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeElement"></a>
+                    <span class="name">
+                        <span ><b>closeElement</b></span>
+                        <a href="#closeElement"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>HTMLElement | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="71" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_DrawerComponent.ts:71</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="element"></a>
+                    <span class="name">
+                        <span ><b>element</b></span>
+                        <a href="#element"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>HTMLElement</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_DrawerComponent.ts:63</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getInstance"></a>
+                    <span class="name">
+                            <span class="modifier">Static</span>
+                        <span ><b>getInstance</b></span>
+                        <a href="#getInstance"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="300" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_DrawerComponent.ts:300</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="goElement"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>goElement</b></span>
+                        <a href="#goElement"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="274" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_DrawerComponent.ts:274</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="handleDismiss"></a>
+                    <span class="name">
+                            <span class="modifier">Static</span>
+                        <span ><b>handleDismiss</b></span>
+                        <a href="#handleDismiss"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="333" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_DrawerComponent.ts:333</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="hasInstace"></a>
+                    <span class="name">
+                            <span class="modifier">Static</span>
+                        <span ><b>hasInstace</b></span>
+                        <a href="#hasInstace"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="296" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_DrawerComponent.ts:296</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="hide"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>hide</b></span>
+                        <a href="#hide"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="262" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_DrawerComponent.ts:262</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="hideAll"></a>
+                    <span class="name">
+                            <span class="modifier">Static</span>
+                        <span ><b>hideAll</b></span>
+                        <a href="#hideAll"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="304" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_DrawerComponent.ts:304</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="instanceUid"></a>
+                    <span class="name">
+                        <span ><b>instanceUid</b></span>
+                        <a href="#instanceUid"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="67" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_DrawerComponent.ts:67</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isShown"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>isShown</b></span>
+                        <a href="#isShown"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="266" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_DrawerComponent.ts:266</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="lastWidth"></a>
+                    <span class="name">
+                        <span ><b>lastWidth</b></span>
+                        <a href="#lastWidth"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="70" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_DrawerComponent.ts:70</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="name"></a>
+                    <span class="name">
+                        <span ><b>name</b></span>
+                        <a href="#name"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="68" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_DrawerComponent.ts:68</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="off"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>off</b></span>
+                        <a href="#off"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="287" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_DrawerComponent.ts:287</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="on"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>on</b></span>
+                        <a href="#on"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="279" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_DrawerComponent.ts:279</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="one"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>one</b></span>
+                        <a href="#one"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="283" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_DrawerComponent.ts:283</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="options"></a>
+                    <span class="name">
+                        <span ><b>options</b></span>
+                        <a href="#options"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/DrawerOptions.html" target="_self" >DrawerOptions</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="66" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_DrawerComponent.ts:66</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="overlayElement"></a>
+                    <span class="name">
+                        <span ><b>overlayElement</b></span>
+                        <a href="#overlayElement"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>HTMLElement | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="64" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_DrawerComponent.ts:64</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="reinitialization"></a>
+                    <span class="name">
+                            <span class="modifier">Static</span>
+                        <span ><b>reinitialization</b></span>
+                        <a href="#reinitialization"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="377" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_DrawerComponent.ts:377</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="show"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>show</b></span>
+                        <a href="#show"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="258" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_DrawerComponent.ts:258</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="shown"></a>
+                    <span class="name">
+                        <span ><b>shown</b></span>
+                        <a href="#shown"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="69" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_DrawerComponent.ts:69</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggle"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>toggle</b></span>
+                        <a href="#toggle"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="254" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_DrawerComponent.ts:254</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleElement"></a>
+                    <span class="name">
+                        <span ><b>toggleElement</b></span>
+                        <a href="#toggleElement"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>HTMLElement | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="65" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_DrawerComponent.ts:65</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="trigger"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>trigger</b></span>
+                        <a href="#trigger"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="291" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_DrawerComponent.ts:291</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="update"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>update</b></span>
+                        <a href="#update"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="270" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_DrawerComponent.ts:270</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateAll"></a>
+                    <span class="name">
+                            <span class="modifier">Static</span>
+                        <span ><b>updateAll</b></span>
+                        <a href="#updateAll"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="311" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_DrawerComponent.ts:311</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createInstances"></a>
+                    <span class="name">
+                            <span class="modifier">Static</span>
+                        <span ><b>createInstances</b></span>
+                        <a href="#createInstances"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>createInstances(selector: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="319"
+                                    class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_DrawerComponent.ts:319</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>selector</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="initGlobalHandlers"></a>
+                    <span class="name">
+                            <span class="modifier">Static</span>
+                        <span ><b>initGlobalHandlers</b></span>
+                        <a href="#initGlobalHandlers"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>initGlobalHandlers()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="348"
+                                    class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_DrawerComponent.ts:348</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+
+
+
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  EventHandlerUtil,
+  getUniqueIdWithPrefix,
+  getObjectPropertyValueByKey,
+  stringSnakeToCamel,
+  getAttributeValueByBreakpoint,
+  throttle,
+  getCSS,
+  DOMEventHandlerUtil,
+  ElementStyleUtil,
+} from &#x27;../_utils/index&#x27;
+
+export class DrawerStore {
+  static store: Map&lt;string, DrawerComponent&gt; &#x3D; new Map()
+
+  public static set(instanceId: string, drawerComponentObj: DrawerComponent): void {
+    if (DrawerStore.has(instanceId)) {
+      return
+    }
+
+    DrawerStore.store.set(instanceId, drawerComponentObj)
+  }
+
+  public static get(instanceId: string): DrawerComponent | undefined {
+    if (!DrawerStore.has(instanceId)) {
+      return
+    }
+    return DrawerStore.store.get(instanceId)
+  }
+
+  public static remove(instanceId: string): void {
+    if (!DrawerStore.has(instanceId)) {
+      return
+    }
+
+    DrawerStore.store.delete(instanceId)
+  }
+
+  public static has(instanceId: string): boolean {
+    return DrawerStore.store.has(instanceId)
+  }
+
+  public static getAllInstances() {
+    return DrawerStore.store
+  }
+}
+
+export interface DrawerOptions {
+  overlay: boolean
+  baseClass: string
+  overlayClass: string
+  direction: string
+}
+
+const defaultDrawerOptions: DrawerOptions &#x3D; {
+  overlay: true,
+  baseClass: &#x27;drawer&#x27;,
+  overlayClass: &#x27;drawer-overlay&#x27;,
+  direction: &#x27;end&#x27;,
+}
+
+class DrawerComponent {
+  element: HTMLElement
+  overlayElement: HTMLElement | null &#x3D; null
+  toggleElement: HTMLElement | null &#x3D; null
+  options: DrawerOptions
+  instanceUid: string
+  name: string &#x3D; &#x27;&#x27;
+  shown: boolean &#x3D; false
+  lastWidth: number &#x3D; 0
+  closeElement: HTMLElement | null &#x3D; null
+
+  constructor(_element: HTMLElement, options: DrawerOptions) {
+    this.element &#x3D; _element
+    this.options &#x3D; Object.assign(defaultDrawerOptions, options)
+    this.instanceUid &#x3D; getUniqueIdWithPrefix(&#x27;drawer&#x27;)
+    this.overlayElement &#x3D; null
+    this.name &#x3D; this.element.getAttribute(&#x27;data-kt-drawer-name&#x27;) || &#x27;&#x27;
+    this.shown &#x3D; false
+    this.toggleElement &#x3D; null
+    // Event Handlers
+    this._handlers()
+    // Update Instance
+    this._update()
+    // Bind Instance
+    DrawerStore.set(this.element.id, this)
+  }
+
+  private _handlers &#x3D; () &#x3D;&gt; {
+    const togglers &#x3D; this._getOption(&#x27;toggle&#x27;) as string
+    const closers &#x3D; this._getOption(&#x27;close&#x27;) as string
+
+    if (togglers !&#x3D;&#x3D; null &amp;&amp; togglers.length &gt; 0) {
+      DOMEventHandlerUtil.on(document.body, togglers, &#x27;click&#x27;, (e: Event) &#x3D;&gt; {
+        e.preventDefault()
+        this.toggleElement &#x3D; document.getElementById(togglers)
+        this._toggle()
+      })
+    }
+
+    if (closers !&#x3D;&#x3D; null &amp;&amp; closers.length &gt; 0) {
+      DOMEventHandlerUtil.on(document.body, closers, &#x27;click&#x27;, (e: Event) &#x3D;&gt; {
+        e.preventDefault()
+        this.closeElement &#x3D; document.getElementById(closers)
+
+        this._hide()
+      })
+    }
+  }
+
+  private _update &#x3D; () &#x3D;&gt; {
+    const width &#x3D; String(this._getOption(&#x27;width&#x27;))
+    const direction &#x3D; String(this._getOption(&#x27;direction&#x27;))
+
+    // Reset state
+    const hasBaseClass &#x3D; this.element.classList.contains(&#x60;${this.options.baseClass}-on&#x60;)
+    const bodyCanvasAttr &#x3D; String(document.body.getAttribute(&#x60;data-kt-drawer-${this.name}-&#x60;))
+
+    if (hasBaseClass &#x3D;&#x3D;&#x3D; true &amp;&amp; bodyCanvasAttr &#x3D;&#x3D;&#x3D; &#x27;on&#x27;) {
+      this.shown &#x3D; true
+    } else {
+      this.shown &#x3D; false
+    }
+
+    // Activate/deactivate
+    if (this._getOption(&#x27;activate&#x27;) &#x3D;&#x3D;&#x3D; true) {
+      this.element.classList.add(this.options.baseClass)
+      this.element.classList.add(&#x60;${this.options.baseClass}-${direction}&#x60;)
+      ElementStyleUtil.set(this.element, &#x27;width&#x27;, width, true)
+
+      this.lastWidth &#x3D; parseInt(width)
+    } else {
+      ElementStyleUtil.set(this.element, &#x27;width&#x27;, &#x27;&#x27;)
+      this.element.classList.remove(this.options.baseClass)
+      this.element.classList.remove(&#x60;${this.options.baseClass}-${direction}&#x60;)
+      this._hide()
+    }
+  }
+
+  private _getOption &#x3D; (name: string) &#x3D;&gt; {
+    const attr &#x3D; this.element.getAttribute(&#x60;data-kt-drawer-${name}&#x60;)
+    if (attr) {
+      let value &#x3D; getAttributeValueByBreakpoint(attr)
+      if (value !&#x3D;&#x3D; null &amp;&amp; String(value) &#x3D;&#x3D;&#x3D; &#x27;true&#x27;) {
+        return true
+      } else {
+        if (value !&#x3D;&#x3D; null &amp;&amp; String(value) &#x3D;&#x3D;&#x3D; &#x27;false&#x27;) {
+          return false
+        }
+      }
+
+      return value
+    } else {
+      const optionName &#x3D; stringSnakeToCamel(name)
+      const option &#x3D; getObjectPropertyValueByKey(this.options, optionName)
+      if (option) {
+        return getAttributeValueByBreakpoint(option)
+      } else {
+        return null
+      }
+    }
+  }
+
+  private _toggle &#x3D; () &#x3D;&gt; {
+    if (EventHandlerUtil.trigger(this.element, &#x27;kt.drawer.toggle&#x27;) &#x3D;&#x3D;&#x3D; false) {
+      return
+    }
+
+    if (this.shown) {
+      this._hide()
+    } else {
+      this._show()
+    }
+
+    EventHandlerUtil.trigger(this.element, &#x27;kt.drawer.toggled&#x27;)
+  }
+
+  private _hide &#x3D; () &#x3D;&gt; {
+    if (EventHandlerUtil.trigger(this.element, &#x27;kt.drawer.hide&#x27;) &#x3D;&#x3D;&#x3D; false) {
+      return
+    }
+
+    this.shown &#x3D; false
+    this._deleteOverlay()
+    document.body.removeAttribute(&#x60;data-kt-drawer-${this.name}&#x60;)
+    document.body.removeAttribute(&#x60;data-kt-drawer&#x60;)
+    this.element.classList.remove(&#x60;${this.options.baseClass}-on&#x60;)
+    if (this.toggleElement !&#x3D; null) {
+      this.toggleElement.classList.remove(&#x27;active&#x27;)
+    }
+
+    EventHandlerUtil.trigger(this.element, &#x27;kt.drawer.after.hidden&#x27;)
+  }
+
+  private _show &#x3D; () &#x3D;&gt; {
+    if (EventHandlerUtil.trigger(this.element, &#x27;kt.drawer.show&#x27;) &#x3D;&#x3D;&#x3D; false) {
+      return
+    }
+
+    this.shown &#x3D; true
+    this._createOverlay()
+    document.body.setAttribute(&#x60;data-kt-drawer-${this.name}&#x60;, &#x27;on&#x27;)
+    document.body.setAttribute(&#x27;data-kt-drawer&#x27;, &#x27;on&#x27;)
+    this.element.classList.add(&#x60;${this.options.baseClass}-on&#x60;)
+    if (this.toggleElement !&#x3D;&#x3D; null) {
+      this.toggleElement.classList.add(&#x27;active&#x27;)
+    }
+
+    EventHandlerUtil.trigger(this.element, &#x27;kt.drawer.shown&#x27;)
+  }
+
+  private _createOverlay &#x3D; () &#x3D;&gt; {
+    if (this._getOption(&#x27;overlay&#x27;) &#x3D;&#x3D;&#x3D; true) {
+      this.overlayElement &#x3D; document.createElement(&#x27;DIV&#x27;)
+      const elementZIndex &#x3D; getCSS(this.element, &#x27;z-index&#x27;)
+      if (elementZIndex) {
+        const overlayZindex &#x3D; parseInt(elementZIndex) - 1
+        ElementStyleUtil.set(this.overlayElement, &#x27;z-index&#x27;, overlayZindex) // update
+      }
+      document.body.append(this.overlayElement)
+      const overlayClassOption &#x3D; this._getOption(&#x27;overlay-class&#x27;)
+      if (overlayClassOption) {
+        this.overlayElement.classList.add(overlayClassOption.toString())
+      }
+      this.overlayElement.addEventListener(&#x27;click&#x27;, (e) &#x3D;&gt; {
+        e.preventDefault()
+        this._hide()
+      })
+    }
+  }
+
+  private _deleteOverlay &#x3D; () &#x3D;&gt; {
+    if (this.overlayElement !&#x3D;&#x3D; null &amp;&amp; this.overlayElement.parentNode) {
+      this.overlayElement.parentNode.removeChild(this.overlayElement)
+    }
+  }
+
+  private _getDirection &#x3D; () &#x3D;&gt; {
+    return String(this._getOption(&#x27;direction&#x27;)) &#x3D;&#x3D;&#x3D; &#x27;left&#x27; ? &#x27;left&#x27; : &#x27;right&#x27;
+  }
+
+  private _getWidth &#x3D; () &#x3D;&gt; {
+    let width &#x3D; this._getOption(&#x27;width&#x27;)
+    if (width &amp;&amp; width &#x3D;&#x3D;&#x3D; &#x27;auto&#x27;) {
+      width &#x3D; getCSS(this.element, &#x27;width&#x27;)
+    }
+
+    return width
+  }
+
+  ///////////////////////
+  // ** Public API  ** //
+  ///////////////////////
+  public toggle &#x3D; () &#x3D;&gt; {
+    this._toggle()
+  }
+
+  public show &#x3D; () &#x3D;&gt; {
+    this._show()
+  }
+
+  public hide &#x3D; () &#x3D;&gt; {
+    this._hide()
+  }
+
+  public isShown &#x3D; () &#x3D;&gt; {
+    return this.shown
+  }
+
+  public update &#x3D; () &#x3D;&gt; {
+    this._update()
+  }
+
+  public goElement &#x3D; () &#x3D;&gt; {
+    return this.element
+  }
+
+  // Event API
+  public on &#x3D; (name: string, handler: Function) &#x3D;&gt; {
+    return EventHandlerUtil.on(this.element, name, handler)
+  }
+
+  public one &#x3D; (name: string, handler: Function) &#x3D;&gt; {
+    return EventHandlerUtil.one(this.element, name, handler)
+  }
+
+  public off &#x3D; (name: string, handerId: string) &#x3D;&gt; {
+    return EventHandlerUtil.off(this.element, name, handerId)
+  }
+
+  public trigger &#x3D; (name: string, event: Event) &#x3D;&gt; {
+    return EventHandlerUtil.trigger(this.element, name, event)
+  }
+
+  // Static methods
+  public static hasInstace &#x3D; (elementId: string): boolean &#x3D;&gt; {
+    return DrawerStore.has(elementId)
+  }
+
+  public static getInstance &#x3D; (elementId: string) &#x3D;&gt; {
+    return DrawerStore.get(elementId)
+  }
+
+  public static hideAll &#x3D; () &#x3D;&gt; {
+    const oldInstances &#x3D; DrawerStore.getAllInstances()
+    oldInstances.forEach((dr) &#x3D;&gt; {
+      dr.hide()
+    })
+  }
+
+  public static updateAll &#x3D; () &#x3D;&gt; {
+    const oldInstances &#x3D; DrawerStore.getAllInstances()
+    oldInstances.forEach((dr) &#x3D;&gt; {
+      dr.update()
+    })
+  }
+
+  // Create Instances
+  public static createInstances(selector: string): void {
+    const elements &#x3D; document.body.querySelectorAll(selector)
+    elements.forEach((element) &#x3D;&gt; {
+      const item &#x3D; element as HTMLElement
+      let drawer &#x3D; DrawerComponent.getInstance(item.id)
+      if (!drawer) {
+        drawer &#x3D; new DrawerComponent(item, defaultDrawerOptions)
+      }
+      drawer.element &#x3D; item
+      drawer.hide()
+    })
+  }
+
+  // Dismiss instances
+  public static handleDismiss &#x3D; () &#x3D;&gt; {
+    // External drawer toggle handler
+    DOMEventHandlerUtil.on(document.body, &#x27;[data-kt-drawer-dismiss&#x3D;&quot;true&quot;]&#x27;, &#x27;click&#x27;, () &#x3D;&gt; {
+      /* @ts-ignore */
+      const element &#x3D; this.closest(&#x27;[data-kt-drawer&#x3D;&quot;true&quot;]&#x27;)
+      if (element) {
+        const drawer &#x3D; DrawerComponent.getInstance(element)
+        if (drawer &amp;&amp; drawer.isShown()) {
+          drawer.hide()
+        }
+      }
+    })
+  }
+
+  // Global Initialization
+  public static initGlobalHandlers(): void {
+    // Window Resize Handling
+    window.addEventListener(&#x27;resize&#x27;, function () {
+      let timer: number | undefined
+      throttle(
+        timer,
+        () &#x3D;&gt; {
+          // Locate and update Drawer instances on window resize
+          const elements &#x3D; document.body.querySelectorAll(&#x27;[data-kt-drawer&#x3D;&quot;true&quot;]&#x27;)
+          elements.forEach((el) &#x3D;&gt; {
+            const item &#x3D; el as HTMLElement
+            const instance &#x3D; DrawerComponent.getInstance(item.id)
+            if (instance) {
+              instance.element &#x3D; item
+              instance.update()
+            }
+          })
+        },
+        200
+      )
+    })
+  }
+
+  public static bootstrap &#x3D; () &#x3D;&gt; {
+    DrawerComponent.createInstances(&#x27;[data-kt-drawer&#x3D;&quot;true&quot;]&#x27;)
+    DrawerComponent.initGlobalHandlers()
+    DrawerComponent.handleDismiss()
+  }
+
+  public static reinitialization &#x3D; () &#x3D;&gt; {
+    DrawerComponent.createInstances(&#x27;[data-kt-drawer&#x3D;&quot;true&quot;]&#x27;)
+    DrawerComponent.hideAll()
+    DrawerComponent.updateAll()
+    DrawerComponent.handleDismiss()
+  }
+}
+
+export {DrawerComponent, defaultDrawerOptions}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
+            var COMPODOC_CURRENT_PAGE_URL = 'DrawerComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

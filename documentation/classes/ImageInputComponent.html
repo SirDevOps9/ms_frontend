@@ -1,0 +1,1390 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>microtecadminfrontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">microtecadminfrontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content class">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Classes</li>
+  <li class="breadcrumb-item" >ImageInputComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>projects/adminportal/src/app/_metronic/kt/components/_ImageInputComponent.ts</code>
+        </p>
+
+
+
+
+
+
+            <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#_cancel" >_cancel</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#_change" >_change</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#_remove" >_remove</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Static</span>
+                                <a href="#bootstrap" >bootstrap</a>
+                            </li>
+                            <li>
+                                <a href="#cancelElement" >cancelElement</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Static</span>
+                                <a href="#createInsance" >createInsance</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Static</span>
+                                <a href="#createInstances" >createInstances</a>
+                            </li>
+                            <li>
+                                <a href="#element" >element</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Static</span>
+                                <a href="#getInstance" >getInstance</a>
+                            </li>
+                            <li>
+                                <a href="#hiddenElement" >hiddenElement</a>
+                            </li>
+                            <li>
+                                <a href="#inputElement" >inputElement</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#off" >off</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#on" >on</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#one" >one</a>
+                            </li>
+                            <li>
+                                <a href="#options" >options</a>
+                            </li>
+                            <li>
+                                <a href="#queries" >queries</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Static</span>
+                                <a href="#reinitialization" >reinitialization</a>
+                            </li>
+                            <li>
+                                <a href="#removeElement" >removeElement</a>
+                            </li>
+                            <li>
+                                <a href="#src" >src</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#trigger" >trigger</a>
+                            </li>
+                            <li>
+                                <a href="#uid" >uid</a>
+                            </li>
+                            <li>
+                                <a href="#value" >value</a>
+                            </li>
+                            <li>
+                                <a href="#wrapperElement" >wrapperElement</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#getElement" >getElement</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#getInputElement" >getInputElement</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#handlers" >handlers</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(_element: HTMLElement, _options: <a href="../interfaces/IImageInputOptions.html" target="_self">IImageInputOptions</a>, _queries: <a href="../interfaces/IImageInputQueries.html" target="_self">IImageInputQueries</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_ImageInputComponent.ts:38</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>_element</td>
+                                                  
+                                                        <td>
+                                                                    <code>HTMLElement</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>_options</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../interfaces/IImageInputOptions.html" target="_self" >IImageInputOptions</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>_queries</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../interfaces/IImageInputQueries.html" target="_self" >IImageInputQueries</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_cancel"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>_cancel</b></span>
+                        <a href="#_cancel"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="101" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_ImageInputComponent.ts:101</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_change"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>_change</b></span>
+                        <a href="#_change"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="75" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_ImageInputComponent.ts:75</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_remove"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>_remove</b></span>
+                        <a href="#_remove"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="124" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_ImageInputComponent.ts:124</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="bootstrap"></a>
+                    <span class="name">
+                            <span class="modifier">Static</span>
+                        <span ><b>bootstrap</b></span>
+                        <a href="#bootstrap"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="221" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_ImageInputComponent.ts:221</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cancelElement"></a>
+                    <span class="name">
+                        <span ><b>cancelElement</b></span>
+                        <a href="#cancelElement"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>HTMLElement | null</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_ImageInputComponent.ts:31</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createInsance"></a>
+                    <span class="name">
+                            <span class="modifier">Static</span>
+                        <span ><b>createInsance</b></span>
+                        <a href="#createInsance"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="204" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_ImageInputComponent.ts:204</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createInstances"></a>
+                    <span class="name">
+                            <span class="modifier">Static</span>
+                        <span ><b>createInstances</b></span>
+                        <a href="#createInstances"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="189" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_ImageInputComponent.ts:189</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="element"></a>
+                    <span class="name">
+                        <span ><b>element</b></span>
+                        <a href="#element"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>HTMLElement</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_ImageInputComponent.ts:28</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getInstance"></a>
+                    <span class="name">
+                            <span class="modifier">Static</span>
+                        <span ><b>getInstance</b></span>
+                        <a href="#getInstance"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="179" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_ImageInputComponent.ts:179</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="hiddenElement"></a>
+                    <span class="name">
+                        <span ><b>hiddenElement</b></span>
+                        <a href="#hiddenElement"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>HTMLInputElement | null</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_ImageInputComponent.ts:33</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="inputElement"></a>
+                    <span class="name">
+                        <span ><b>inputElement</b></span>
+                        <a href="#inputElement"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>HTMLInputElement | null</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_ImageInputComponent.ts:29</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="off"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>off</b></span>
+                        <a href="#off"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="170" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_ImageInputComponent.ts:170</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="on"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>on</b></span>
+                        <a href="#on"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="162" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_ImageInputComponent.ts:162</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="one"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>one</b></span>
+                        <a href="#one"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="166" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_ImageInputComponent.ts:166</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="options"></a>
+                    <span class="name">
+                        <span ><b>options</b></span>
+                        <a href="#options"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/IImageInputOptions.html" target="_self" >IImageInputOptions</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_ImageInputComponent.ts:35</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="queries"></a>
+                    <span class="name">
+                        <span ><b>queries</b></span>
+                        <a href="#queries"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/IImageInputQueries.html" target="_self" >IImageInputQueries</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_ImageInputComponent.ts:36</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="reinitialization"></a>
+                    <span class="name">
+                            <span class="modifier">Static</span>
+                        <span ><b>reinitialization</b></span>
+                        <a href="#reinitialization"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="225" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_ImageInputComponent.ts:225</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="removeElement"></a>
+                    <span class="name">
+                        <span ><b>removeElement</b></span>
+                        <a href="#removeElement"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>HTMLElement | null</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_ImageInputComponent.ts:32</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="src"></a>
+                    <span class="name">
+                        <span ><b>src</b></span>
+                        <a href="#src"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_ImageInputComponent.ts:34</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="trigger"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>trigger</b></span>
+                        <a href="#trigger"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="174" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_ImageInputComponent.ts:174</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="uid"></a>
+                    <span class="name">
+                        <span ><b>uid</b></span>
+                        <a href="#uid"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_ImageInputComponent.ts:37</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="value"></a>
+                    <span class="name">
+                        <span ><b>value</b></span>
+                        <a href="#value"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_ImageInputComponent.ts:38</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="wrapperElement"></a>
+                    <span class="name">
+                        <span ><b>wrapperElement</b></span>
+                        <a href="#wrapperElement"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>HTMLElement | null</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_ImageInputComponent.ts:30</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getElement"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>getElement</b></span>
+                        <a href="#getElement"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getElement()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="157"
+                                    class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_ImageInputComponent.ts:157</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>HTMLElement</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getInputElement"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>getInputElement</b></span>
+                        <a href="#getInputElement"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getInputElement()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="153"
+                                    class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_ImageInputComponent.ts:153</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>HTMLInputElement | null</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="handlers"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>handlers</b></span>
+                        <a href="#handlers"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>handlers()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="63"
+                                    class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_ImageInputComponent.ts:63</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+
+
+
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {EventHandlerUtil, DataUtil, getUniqueIdWithPrefix, getCSS} from &#x27;../_utils/index&#x27;
+
+export interface IImageInputOptions {}
+
+export interface IImageInputQueries {
+  componentName: string
+  instanseQuery: string
+  inputQuery: string
+  wrapperQuery: string
+  cancelQuery: string
+  removeQuery: string
+  hiddenQuery: string
+}
+
+const defaultImageInputOptions &#x3D; {}
+
+const defaultImageInputQueires: IImageInputQueries &#x3D; {
+  componentName: &#x27;image-input&#x27;,
+  instanseQuery: &#x27;[data-kt-image-input]&#x27;,
+  inputQuery: &#x27;input[type&#x3D;&quot;file&quot;]&#x27;,
+  wrapperQuery: &#x27;.image-input-wrapper&#x27;,
+  cancelQuery: &#x27;[data-kt-image-input-action&#x3D;&quot;cancel&quot;]&#x27;,
+  removeQuery: &#x27;[data-kt-image-input-action&#x3D;&quot;remove&quot;]&#x27;,
+  hiddenQuery: &#x27;input[type&#x3D;&quot;hidden&quot;]&#x27;,
+}
+
+class ImageInputComponent {
+  element: HTMLElement
+  inputElement: HTMLInputElement | null
+  wrapperElement: HTMLElement | null
+  cancelElement: HTMLElement | null
+  removeElement: HTMLElement | null
+  hiddenElement: HTMLInputElement | null
+  src: string &#x3D; &#x27;&#x27;
+  options: IImageInputOptions
+  queries: IImageInputQueries
+  uid: string
+  value: string &#x3D; &#x27;&#x27;
+
+  constructor(_element: HTMLElement, _options: IImageInputOptions, _queries: IImageInputQueries) {
+    // Variables
+    this.options &#x3D; Object.assign(defaultImageInputOptions, _options)
+    this.queries &#x3D; _queries
+    this.uid &#x3D; getUniqueIdWithPrefix(this.queries.componentName)
+
+    // Elements
+    this.element &#x3D; _element
+    this.inputElement &#x3D; this.element.querySelector(this.queries.inputQuery)
+    this.wrapperElement &#x3D; this.element.querySelector(this.queries.wrapperQuery)
+    this.cancelElement &#x3D; this.element.querySelector(this.queries.cancelQuery)
+    this.removeElement &#x3D; this.element.querySelector(this.queries.removeQuery)
+    this.hiddenElement &#x3D; this.element.querySelector(this.queries.hiddenQuery)
+    if (this.wrapperElement) {
+      this.src &#x3D; getCSS(this.wrapperElement, &#x27;backgroundImage&#x27;)
+    }
+
+    // Event Handlers
+    this.handlers()
+
+    DataUtil.set(this.element, this.queries.componentName, this)
+  }
+
+  private handlers(): void {
+    this.element.addEventListener(&#x27;change&#x27;, this._change)
+    if (this.cancelElement) {
+      this.cancelElement.addEventListener(&#x27;click&#x27;, this._cancel)
+    }
+
+    if (this.removeElement) {
+      this.removeElement.addEventListener(&#x27;click&#x27;, this._cancel)
+    }
+  }
+
+  // Event Handlers
+  private _change &#x3D; (e: Event) &#x3D;&gt; {
+    e.preventDefault()
+
+    if (this.inputElement !&#x3D;&#x3D; null &amp;&amp; this.inputElement.files &amp;&amp; this.inputElement.files[0]) {
+      // Fire change event
+      if (EventHandlerUtil.trigger(this.element, &#x27;kt.imageinput.change&#x27;, e) &#x3D;&#x3D;&#x3D; false) {
+        return
+      }
+
+      const reader &#x3D; new FileReader()
+
+      reader.onload &#x3D; (e: ProgressEvent&lt;FileReader&gt;) &#x3D;&gt; {
+        if (this.wrapperElement &amp;&amp; e.target) {
+          this.wrapperElement.style.setProperty(&#x27;background-image&#x27;, &#x60;url(&#x27;${e.target.result}&#x27;)&#x60;)
+        }
+      }
+
+      reader.readAsDataURL(this.inputElement.files[0])
+      this.element.classList.add(&#x27;image-input-changed&#x27;)
+      this.element.classList.remove(&#x27;image-input-empty&#x27;)
+
+      // Fire removed event
+      EventHandlerUtil.trigger(this.element, &#x27;kt.imageinput.changed&#x27;, e)
+    }
+  }
+
+  private _cancel &#x3D; (e: Event) &#x3D;&gt; {
+    e.preventDefault()
+
+    // Fire cancel event
+    if (EventHandlerUtil.trigger(this.element, &#x27;kt.imageinput.cancel&#x27;, e) &#x3D;&#x3D;&#x3D; false) {
+      return
+    }
+
+    this.element.classList.remove(&#x27;image-input-changed&#x27;)
+    this.element.classList.remove(&#x27;image-input-empty&#x27;)
+    this.element.style.setProperty(&#x27;background-image&#x27;, this.src)
+    if (this.inputElement) {
+      this.inputElement.value &#x3D; &#x27;&#x27;
+    }
+
+    if (this.hiddenElement !&#x3D;&#x3D; null) {
+      this.hiddenElement.value &#x3D; &#x27;0&#x27;
+    }
+
+    // Fire canceled event
+    EventHandlerUtil.trigger(this.element, &#x27;kt.imageinput.canceled&#x27;, e)
+  }
+
+  private _remove &#x3D; (e: Event) &#x3D;&gt; {
+    e.preventDefault()
+
+    // Fire remove event
+    if (EventHandlerUtil.trigger(this.element, &#x27;kt.imageinput.remove&#x27;, e) &#x3D;&#x3D;&#x3D; false) {
+      return
+    }
+
+    this.element.classList.remove(&#x27;image-input-changed&#x27;)
+    this.element.classList.add(&#x27;image-input-empty&#x27;)
+    if (this.wrapperElement) {
+      this.wrapperElement.style.setProperty(&#x27;background-image&#x27;, &#x27;none&#x27;)
+    }
+
+    if (this.inputElement) {
+      this.inputElement.value &#x3D; &#x27;&#x27;
+    }
+
+    if (this.hiddenElement !&#x3D;&#x3D; null) {
+      this.hiddenElement.value &#x3D; &#x27;1&#x27;
+    }
+
+    // Fire removed event
+    EventHandlerUtil.trigger(this.element, &#x27;kt.imageinput.removed&#x27;, e)
+  }
+
+  ///////////////////////
+  // ** Public API  ** //
+  ///////////////////////
+  public getInputElement(): HTMLInputElement | null {
+    return this.inputElement
+  }
+
+  public getElement(): HTMLElement {
+    return this.element
+  }
+
+  // Event API
+  public on &#x3D; (name: string, handler: Function) &#x3D;&gt; {
+    return EventHandlerUtil.on(this.element, name, handler)
+  }
+
+  public one &#x3D; (name: string, handler: Function) &#x3D;&gt; {
+    return EventHandlerUtil.one(this.element, name, handler)
+  }
+
+  public off &#x3D; (name: string, handlerId: string) &#x3D;&gt; {
+    return EventHandlerUtil.off(this.element, name, handlerId)
+  }
+
+  public trigger &#x3D; (name: string, event: Event) &#x3D;&gt; {
+    return EventHandlerUtil.trigger(this.element, name, event)
+  }
+
+  // Static methods
+  public static getInstance &#x3D; (
+    el: HTMLElement,
+    componentName: string &#x3D; defaultImageInputQueires.componentName
+  ): ImageInputComponent | undefined &#x3D;&gt; {
+    const ImageInput &#x3D; DataUtil.get(el, componentName)
+    if (ImageInput) {
+      return ImageInput as ImageInputComponent
+    }
+  }
+
+  public static createInstances &#x3D; (
+    selector: string &#x3D; defaultImageInputQueires.instanseQuery,
+    options: IImageInputOptions &#x3D; defaultImageInputOptions,
+    queries: IImageInputQueries &#x3D; defaultImageInputQueires
+  ) &#x3D;&gt; {
+    const elements &#x3D; document.body.querySelectorAll(selector)
+    elements.forEach((el) &#x3D;&gt; {
+      const item &#x3D; el as HTMLElement
+      let ImageInput &#x3D; ImageInputComponent.getInstance(item)
+      if (!ImageInput) {
+        ImageInput &#x3D; new ImageInputComponent(item, options, queries)
+      }
+    })
+  }
+
+  public static createInsance &#x3D; (
+    selector: string &#x3D; defaultImageInputQueires.instanseQuery,
+    options: IImageInputOptions &#x3D; defaultImageInputOptions,
+    queries: IImageInputQueries &#x3D; defaultImageInputQueires
+  ): ImageInputComponent | undefined &#x3D;&gt; {
+    const element &#x3D; document.body.querySelector(selector)
+    if (!element) {
+      return
+    }
+    const item &#x3D; element as HTMLElement
+    let ImageInput &#x3D; ImageInputComponent.getInstance(item)
+    if (!ImageInput) {
+      ImageInput &#x3D; new ImageInputComponent(item, options, queries)
+    }
+    return ImageInput
+  }
+
+  public static bootstrap &#x3D; (selector: string &#x3D; defaultImageInputQueires.instanseQuery) &#x3D;&gt; {
+    ImageInputComponent.createInstances(selector)
+  }
+
+  public static reinitialization &#x3D; (selector: string &#x3D; defaultImageInputQueires.instanseQuery) &#x3D;&gt; {
+    ImageInputComponent.createInstances(selector)
+  }
+}
+export {ImageInputComponent, defaultImageInputOptions, defaultImageInputQueires}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
+            var COMPODOC_CURRENT_PAGE_URL = 'ImageInputComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

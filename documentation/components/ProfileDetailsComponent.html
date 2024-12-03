@@ -1,0 +1,1349 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>microtecadminfrontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">microtecadminfrontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  ProfileDetailsComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>projects/adminportal/src/app/modules/account/settings/forms/profile-details/profile-details.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+                <code>OnDestroy</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-profile-details</code></td>
+            </tr>
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./profile-details.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#isLoading" >isLoading</a>
+                            </li>
+                            <li>
+                                <a href="#isLoading$" >isLoading$</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#unsubscribe" >unsubscribe</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#ngOnDestroy" >ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#saveSettings" >saveSettings</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(cdr: ChangeDetectorRef)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">projects/adminportal/src/app/modules/account/settings/forms/profile-details/profile-details.component.ts:11</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>cdr</td>
+                                                  
+                                                        <td>
+                                                                    <code>ChangeDetectorRef</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <span ><b>ngOnDestroy</b></span>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="30"
+                                    class="link-to-prism">projects/adminportal/src/app/modules/account/settings/forms/profile-details/profile-details.component.ts:30</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="20"
+                                    class="link-to-prism">projects/adminportal/src/app/modules/account/settings/forms/profile-details/profile-details.component.ts:20</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="saveSettings"></a>
+                    <span class="name">
+                        <span ><b>saveSettings</b></span>
+                        <a href="#saveSettings"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>saveSettings()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="22"
+                                    class="link-to-prism">projects/adminportal/src/app/modules/account/settings/forms/profile-details/profile-details.component.ts:22</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isLoading"></a>
+                    <span class="name">
+                        <span ><b>isLoading</b></span>
+                        <a href="#isLoading"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">projects/adminportal/src/app/modules/account/settings/forms/profile-details/profile-details.component.ts:10</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isLoading$"></a>
+                    <span class="name">
+                        <span ><b>isLoading$</b></span>
+                        <a href="#isLoading$"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>BehaviorSubject&lt;boolean&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new BehaviorSubject&lt;boolean&gt;(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">projects/adminportal/src/app/modules/account/settings/forms/profile-details/profile-details.component.ts:9</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="unsubscribe"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>unsubscribe</b></span>
+                        <a href="#unsubscribe"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Subscription[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">projects/adminportal/src/app/modules/account/settings/forms/profile-details/profile-details.component.ts:11</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ChangeDetectorRef, Component, OnDestroy, OnInit } from &#x27;@angular/core&#x27;;
+import { BehaviorSubject, Subscription } from &#x27;rxjs&#x27;;
+
+@Component({
+  selector: &#x27;app-profile-details&#x27;,
+  templateUrl: &#x27;./profile-details.component.html&#x27;,
+})
+export class ProfileDetailsComponent implements OnInit, OnDestroy {
+  isLoading$: BehaviorSubject&lt;boolean&gt; &#x3D; new BehaviorSubject&lt;boolean&gt;(false);
+  isLoading: boolean;
+  private unsubscribe: Subscription[] &#x3D; [];
+
+  constructor(private cdr: ChangeDetectorRef) {
+    const loadingSubscr &#x3D; this.isLoading$
+      .asObservable()
+      .subscribe((res) &#x3D;&gt; (this.isLoading &#x3D; res));
+    this.unsubscribe.push(loadingSubscr);
+  }
+
+  ngOnInit(): void {}
+
+  saveSettings() {
+    this.isLoading$.next(true);
+    setTimeout(() &#x3D;&gt; {
+      this.isLoading$.next(false);
+      this.cdr.detectChanges();
+    }, 1500);
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe.forEach((sb) &#x3D;&gt; sb.unsubscribe());
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;card mb-5 mb-xl-10&quot;&gt;
+  &lt;div
+    class&#x3D;&quot;card-header border-0 cursor-pointer&quot;
+    role&#x3D;&quot;button&quot;
+    data-bs-toggle&#x3D;&quot;collapse&quot;
+    data-bs-target&#x3D;&quot;#kt_account_profile_details&quot;
+    aria-expanded&#x3D;&quot;true&quot;
+    aria-controls&#x3D;&quot;kt_account_profile_details&quot;
+  &gt;
+    &lt;div class&#x3D;&quot;card-title m-0&quot;&gt;
+      &lt;h3 class&#x3D;&quot;fw-bolder m-0&quot;&gt;Profile Details&lt;/h3&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div id&#x3D;&quot;kt_account_profile_details&quot; class&#x3D;&quot;collapse show&quot;&gt;
+    &lt;form novalidate&#x3D;&quot;&quot; class&#x3D;&quot;form&quot;&gt;
+      &lt;div class&#x3D;&quot;card-body border-top p-9&quot;&gt;
+        &lt;div class&#x3D;&quot;row mb-6&quot;&gt;
+          &lt;label class&#x3D;&quot;col-lg-4 col-form-label fw-bold fs-6&quot;&gt;Avatar&lt;/label&gt;
+          &lt;div class&#x3D;&quot;col-lg-8&quot;&gt;
+            &lt;div
+              class&#x3D;&quot;image-input image-input-outline&quot;
+              data-kt-image-input&#x3D;&quot;true&quot;
+              [style.background-image]&#x3D;&quot;&#x27;url(./assets/media/avatars/blank.png&#x27;&quot;
+            &gt;
+              &lt;div
+                class&#x3D;&quot;image-input-wrapper w-125px h-125px&quot;
+                [style.background-image]&#x3D;&quot;
+                  &#x27;url(./assets/media/avatars/300-1.jpg&#x27;
+                &quot;
+              &gt;&lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;row mb-6&quot;&gt;
+          &lt;label class&#x3D;&quot;col-lg-4 col-form-label required fw-bold fs-6&quot;
+            &gt;Full Name&lt;/label
+          &gt;
+          &lt;div class&#x3D;&quot;col-lg-8&quot;&gt;
+            &lt;div class&#x3D;&quot;row&quot;&gt;
+              &lt;div class&#x3D;&quot;col-lg-6 fv-row&quot;&gt;
+                &lt;input
+                  type&#x3D;&quot;text&quot;
+                  class&#x3D;&quot;
+                    form-control form-control-lg form-control-solid
+                    mb-3 mb-lg-0
+                  &quot;
+                  placeholder&#x3D;&quot;First name&quot;
+                  name&#x3D;&quot;fName&quot;
+                  value&#x3D;&quot;Max&quot;
+                /&gt;
+              &lt;/div&gt;
+              &lt;div class&#x3D;&quot;col-lg-6 fv-row&quot;&gt;
+                &lt;input
+                  type&#x3D;&quot;text&quot;
+                  class&#x3D;&quot;form-control form-control-lg form-control-solid&quot;
+                  placeholder&#x3D;&quot;Last name&quot;
+                  name&#x3D;&quot;lName&quot;
+                  value&#x3D;&quot;Smith&quot;
+                /&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;row mb-6&quot;&gt;
+          &lt;label class&#x3D;&quot;col-lg-4 col-form-label required fw-bold fs-6&quot;
+            &gt;Company&lt;/label
+          &gt;
+          &lt;div class&#x3D;&quot;col-lg-8 fv-row&quot;&gt;
+            &lt;input
+              type&#x3D;&quot;text&quot;
+              class&#x3D;&quot;form-control form-control-lg form-control-solid&quot;
+              placeholder&#x3D;&quot;Company name&quot;
+              name&#x3D;&quot;company&quot;
+              value&#x3D;&quot;Keenthemes&quot;
+            /&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;row mb-6&quot;&gt;
+          &lt;label class&#x3D;&quot;col-lg-4 col-form-label fw-bold fs-6&quot;
+            &gt;&lt;span class&#x3D;&quot;required&quot;&gt;Contact Phone&lt;/span&gt;&lt;/label
+          &gt;
+          &lt;div class&#x3D;&quot;col-lg-8 fv-row&quot;&gt;
+            &lt;input
+              type&#x3D;&quot;tel&quot;
+              class&#x3D;&quot;form-control form-control-lg form-control-solid&quot;
+              placeholder&#x3D;&quot;Phone number&quot;
+              name&#x3D;&quot;contactPhone&quot;
+              value&#x3D;&quot;044 3276 454 935&quot;
+            /&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;row mb-6&quot;&gt;
+          &lt;label class&#x3D;&quot;col-lg-4 col-form-label fw-bold fs-6&quot;
+            &gt;&lt;span class&#x3D;&quot;required&quot;&gt;Company Site&lt;/span&gt;&lt;/label
+          &gt;
+          &lt;div class&#x3D;&quot;col-lg-8 fv-row&quot;&gt;
+            &lt;input
+              type&#x3D;&quot;text&quot;
+              class&#x3D;&quot;form-control form-control-lg form-control-solid&quot;
+              placeholder&#x3D;&quot;Company website&quot;
+              name&#x3D;&quot;companySite&quot;
+              value&#x3D;&quot;keenthemes.com&quot;
+            /&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;row mb-6&quot;&gt;
+          &lt;label class&#x3D;&quot;col-lg-4 col-form-label fw-bold fs-6&quot;
+            &gt;&lt;span class&#x3D;&quot;required&quot;&gt;Country&lt;/span&gt;&lt;/label
+          &gt;
+          &lt;div class&#x3D;&quot;col-lg-8 fv-row&quot;&gt;
+            &lt;select
+              class&#x3D;&quot;form-select form-select-solid form-select-lg fw-bold&quot;
+              name&#x3D;&quot;country&quot;
+            &gt;
+              &lt;option value&#x3D;&quot;&quot;&gt;Select a Country...&lt;/option&gt;
+              &lt;option value&#x3D;&quot;AF&quot;&gt;Afghanistan&lt;/option&gt;
+              &lt;option value&#x3D;&quot;AX&quot;&gt;Aland Islands&lt;/option&gt;
+              &lt;option value&#x3D;&quot;AL&quot;&gt;Albania&lt;/option&gt;
+              &lt;option value&#x3D;&quot;DZ&quot;&gt;Algeria&lt;/option&gt;
+              &lt;option value&#x3D;&quot;AS&quot;&gt;American Samoa&lt;/option&gt;
+              &lt;option value&#x3D;&quot;AD&quot;&gt;Andorra&lt;/option&gt;
+              &lt;option value&#x3D;&quot;AO&quot;&gt;Angola&lt;/option&gt;
+              &lt;option value&#x3D;&quot;AI&quot;&gt;Anguilla&lt;/option&gt;
+              &lt;option value&#x3D;&quot;AQ&quot;&gt;Antarctica&lt;/option&gt;
+              &lt;option value&#x3D;&quot;AG&quot;&gt;Antigua and Barbuda&lt;/option&gt;
+              &lt;option value&#x3D;&quot;AR&quot;&gt;Argentina&lt;/option&gt;
+              &lt;option value&#x3D;&quot;AM&quot;&gt;Armenia&lt;/option&gt;
+              &lt;option value&#x3D;&quot;AW&quot;&gt;Aruba&lt;/option&gt;
+              &lt;option value&#x3D;&quot;AU&quot;&gt;Australia&lt;/option&gt;
+              &lt;option value&#x3D;&quot;AT&quot;&gt;Austria&lt;/option&gt;
+              &lt;option value&#x3D;&quot;AZ&quot;&gt;Azerbaijan&lt;/option&gt;
+              &lt;option value&#x3D;&quot;BS&quot;&gt;Bahamas&lt;/option&gt;
+              &lt;option value&#x3D;&quot;BH&quot;&gt;Bahrain&lt;/option&gt;
+              &lt;option value&#x3D;&quot;BD&quot;&gt;Bangladesh&lt;/option&gt;
+              &lt;option value&#x3D;&quot;BB&quot;&gt;Barbados&lt;/option&gt;
+              &lt;option value&#x3D;&quot;BY&quot;&gt;Belarus&lt;/option&gt;
+              &lt;option value&#x3D;&quot;BE&quot;&gt;Belgium&lt;/option&gt;
+              &lt;option value&#x3D;&quot;BZ&quot;&gt;Belize&lt;/option&gt;
+              &lt;option value&#x3D;&quot;BJ&quot;&gt;Benin&lt;/option&gt;
+              &lt;option value&#x3D;&quot;BM&quot;&gt;Bermuda&lt;/option&gt;
+              &lt;option value&#x3D;&quot;BT&quot;&gt;Bhutan&lt;/option&gt;
+              &lt;option value&#x3D;&quot;BO&quot;&gt;Bolivia, Plurinational State of&lt;/option&gt;
+              &lt;option value&#x3D;&quot;BQ&quot;&gt;Bonaire, Sint Eustatius and Saba&lt;/option&gt;
+              &lt;option value&#x3D;&quot;BA&quot;&gt;Bosnia and Herzegovina&lt;/option&gt;
+              &lt;option value&#x3D;&quot;BW&quot;&gt;Botswana&lt;/option&gt;
+              &lt;option value&#x3D;&quot;BV&quot;&gt;Bouvet Island&lt;/option&gt;
+              &lt;option value&#x3D;&quot;BR&quot;&gt;Brazil&lt;/option&gt;
+              &lt;option value&#x3D;&quot;IO&quot;&gt;British Indian Ocean Territory&lt;/option&gt;
+              &lt;option value&#x3D;&quot;BN&quot;&gt;Brunei Darussalam&lt;/option&gt;
+              &lt;option value&#x3D;&quot;BG&quot;&gt;Bulgaria&lt;/option&gt;
+              &lt;option value&#x3D;&quot;BF&quot;&gt;Burkina Faso&lt;/option&gt;
+              &lt;option value&#x3D;&quot;BI&quot;&gt;Burundi&lt;/option&gt;
+              &lt;option value&#x3D;&quot;KH&quot;&gt;Cambodia&lt;/option&gt;
+              &lt;option value&#x3D;&quot;CM&quot;&gt;Cameroon&lt;/option&gt;
+              &lt;option value&#x3D;&quot;CA&quot;&gt;Canada&lt;/option&gt;
+              &lt;option value&#x3D;&quot;CV&quot;&gt;Cape Verde&lt;/option&gt;
+              &lt;option value&#x3D;&quot;KY&quot;&gt;Cayman Islands&lt;/option&gt;
+              &lt;option value&#x3D;&quot;CF&quot;&gt;Central African Republic&lt;/option&gt;
+              &lt;option value&#x3D;&quot;TD&quot;&gt;Chad&lt;/option&gt;
+              &lt;option value&#x3D;&quot;CL&quot;&gt;Chile&lt;/option&gt;
+              &lt;option value&#x3D;&quot;CN&quot;&gt;China&lt;/option&gt;
+              &lt;option value&#x3D;&quot;CX&quot;&gt;Christmas Island&lt;/option&gt;
+              &lt;option value&#x3D;&quot;CC&quot;&gt;Cocos (Keeling) Islands&lt;/option&gt;
+              &lt;option value&#x3D;&quot;CO&quot;&gt;Colombia&lt;/option&gt;
+              &lt;option value&#x3D;&quot;KM&quot;&gt;Comoros&lt;/option&gt;
+              &lt;option value&#x3D;&quot;CG&quot;&gt;Congo&lt;/option&gt;
+              &lt;option value&#x3D;&quot;CD&quot;&gt;Congo, the Democratic Republic of the&lt;/option&gt;
+              &lt;option value&#x3D;&quot;CK&quot;&gt;Cook Islands&lt;/option&gt;
+              &lt;option value&#x3D;&quot;CR&quot;&gt;Costa Rica&lt;/option&gt;
+              &lt;option value&#x3D;&quot;CI&quot;&gt;Côte d&#x27;Ivoire&lt;/option&gt;
+              &lt;option value&#x3D;&quot;HR&quot;&gt;Croatia&lt;/option&gt;
+              &lt;option value&#x3D;&quot;CU&quot;&gt;Cuba&lt;/option&gt;
+              &lt;option value&#x3D;&quot;CW&quot;&gt;Curaçao&lt;/option&gt;
+              &lt;option value&#x3D;&quot;CY&quot;&gt;Cyprus&lt;/option&gt;
+              &lt;option value&#x3D;&quot;CZ&quot;&gt;Czech Republic&lt;/option&gt;
+              &lt;option value&#x3D;&quot;DK&quot;&gt;Denmark&lt;/option&gt;
+              &lt;option value&#x3D;&quot;DJ&quot;&gt;Djibouti&lt;/option&gt;
+              &lt;option value&#x3D;&quot;DM&quot;&gt;Dominica&lt;/option&gt;
+              &lt;option value&#x3D;&quot;DO&quot;&gt;Dominican Republic&lt;/option&gt;
+              &lt;option value&#x3D;&quot;EC&quot;&gt;Ecuador&lt;/option&gt;
+              &lt;option value&#x3D;&quot;EG&quot;&gt;Egypt&lt;/option&gt;
+              &lt;option value&#x3D;&quot;SV&quot;&gt;El Salvador&lt;/option&gt;
+              &lt;option value&#x3D;&quot;GQ&quot;&gt;Equatorial Guinea&lt;/option&gt;
+              &lt;option value&#x3D;&quot;ER&quot;&gt;Eritrea&lt;/option&gt;
+              &lt;option value&#x3D;&quot;EE&quot;&gt;Estonia&lt;/option&gt;
+              &lt;option value&#x3D;&quot;ET&quot;&gt;Ethiopia&lt;/option&gt;
+              &lt;option value&#x3D;&quot;FK&quot;&gt;Falkland Islands (Malvinas)&lt;/option&gt;
+              &lt;option value&#x3D;&quot;FO&quot;&gt;Faroe Islands&lt;/option&gt;
+              &lt;option value&#x3D;&quot;FJ&quot;&gt;Fiji&lt;/option&gt;
+              &lt;option value&#x3D;&quot;FI&quot;&gt;Finland&lt;/option&gt;
+              &lt;option value&#x3D;&quot;FR&quot;&gt;France&lt;/option&gt;
+              &lt;option value&#x3D;&quot;GF&quot;&gt;French Guiana&lt;/option&gt;
+              &lt;option value&#x3D;&quot;PF&quot;&gt;French Polynesia&lt;/option&gt;
+              &lt;option value&#x3D;&quot;TF&quot;&gt;French Southern Territories&lt;/option&gt;
+              &lt;option value&#x3D;&quot;GA&quot;&gt;Gabon&lt;/option&gt;
+              &lt;option value&#x3D;&quot;GM&quot;&gt;Gambia&lt;/option&gt;
+              &lt;option value&#x3D;&quot;GE&quot;&gt;Georgia&lt;/option&gt;
+              &lt;option value&#x3D;&quot;DE&quot;&gt;Germany&lt;/option&gt;
+              &lt;option value&#x3D;&quot;GH&quot;&gt;Ghana&lt;/option&gt;
+              &lt;option value&#x3D;&quot;GI&quot;&gt;Gibraltar&lt;/option&gt;
+              &lt;option value&#x3D;&quot;GR&quot;&gt;Greece&lt;/option&gt;
+              &lt;option value&#x3D;&quot;GL&quot;&gt;Greenland&lt;/option&gt;
+              &lt;option value&#x3D;&quot;GD&quot;&gt;Grenada&lt;/option&gt;
+              &lt;option value&#x3D;&quot;GP&quot;&gt;Guadeloupe&lt;/option&gt;
+              &lt;option value&#x3D;&quot;GU&quot;&gt;Guam&lt;/option&gt;
+              &lt;option value&#x3D;&quot;GT&quot;&gt;Guatemala&lt;/option&gt;
+              &lt;option value&#x3D;&quot;GG&quot;&gt;Guernsey&lt;/option&gt;
+              &lt;option value&#x3D;&quot;GN&quot;&gt;Guinea&lt;/option&gt;
+              &lt;option value&#x3D;&quot;GW&quot;&gt;Guinea-Bissau&lt;/option&gt;
+              &lt;option value&#x3D;&quot;GY&quot;&gt;Guyana&lt;/option&gt;
+              &lt;option value&#x3D;&quot;HT&quot;&gt;Haiti&lt;/option&gt;
+              &lt;option value&#x3D;&quot;HM&quot;&gt;Heard Island and McDonald Islands&lt;/option&gt;
+              &lt;option value&#x3D;&quot;VA&quot;&gt;Holy See (Vatican City State)&lt;/option&gt;
+              &lt;option value&#x3D;&quot;HN&quot;&gt;Honduras&lt;/option&gt;
+              &lt;option value&#x3D;&quot;HK&quot;&gt;Hong Kong&lt;/option&gt;
+              &lt;option value&#x3D;&quot;HU&quot;&gt;Hungary&lt;/option&gt;
+              &lt;option value&#x3D;&quot;IS&quot;&gt;Iceland&lt;/option&gt;
+              &lt;option value&#x3D;&quot;IN&quot;&gt;India&lt;/option&gt;
+              &lt;option value&#x3D;&quot;ID&quot;&gt;Indonesia&lt;/option&gt;
+              &lt;option value&#x3D;&quot;IR&quot;&gt;Iran, Islamic Republic of&lt;/option&gt;
+              &lt;option value&#x3D;&quot;IQ&quot;&gt;Iraq&lt;/option&gt;
+              &lt;option value&#x3D;&quot;IE&quot;&gt;Ireland&lt;/option&gt;
+              &lt;option value&#x3D;&quot;IM&quot;&gt;Isle of Man&lt;/option&gt;
+              &lt;option value&#x3D;&quot;IL&quot;&gt;Israel&lt;/option&gt;
+              &lt;option value&#x3D;&quot;IT&quot;&gt;Italy&lt;/option&gt;
+              &lt;option value&#x3D;&quot;JM&quot;&gt;Jamaica&lt;/option&gt;
+              &lt;option value&#x3D;&quot;JP&quot;&gt;Japan&lt;/option&gt;
+              &lt;option value&#x3D;&quot;JE&quot;&gt;Jersey&lt;/option&gt;
+              &lt;option value&#x3D;&quot;JO&quot;&gt;Jordan&lt;/option&gt;
+              &lt;option value&#x3D;&quot;KZ&quot;&gt;Kazakhstan&lt;/option&gt;
+              &lt;option value&#x3D;&quot;KE&quot;&gt;Kenya&lt;/option&gt;
+              &lt;option value&#x3D;&quot;KI&quot;&gt;Kiribati&lt;/option&gt;
+              &lt;option value&#x3D;&quot;KP&quot;&gt;Korea, Democratic People&#x27;s Republic of&lt;/option&gt;
+              &lt;option value&#x3D;&quot;KW&quot;&gt;Kuwait&lt;/option&gt;
+              &lt;option value&#x3D;&quot;KG&quot;&gt;Kyrgyzstan&lt;/option&gt;
+              &lt;option value&#x3D;&quot;LA&quot;&gt;Lao People&#x27;s Democratic Republic&lt;/option&gt;
+              &lt;option value&#x3D;&quot;LV&quot;&gt;Latvia&lt;/option&gt;
+              &lt;option value&#x3D;&quot;LB&quot;&gt;Lebanon&lt;/option&gt;
+              &lt;option value&#x3D;&quot;LS&quot;&gt;Lesotho&lt;/option&gt;
+              &lt;option value&#x3D;&quot;LR&quot;&gt;Liberia&lt;/option&gt;
+              &lt;option value&#x3D;&quot;LY&quot;&gt;Libya&lt;/option&gt;
+              &lt;option value&#x3D;&quot;LI&quot;&gt;Liechtenstein&lt;/option&gt;
+              &lt;option value&#x3D;&quot;LT&quot;&gt;Lithuania&lt;/option&gt;
+              &lt;option value&#x3D;&quot;LU&quot;&gt;Luxembourg&lt;/option&gt;
+              &lt;option value&#x3D;&quot;MO&quot;&gt;Macao&lt;/option&gt;
+              &lt;option value&#x3D;&quot;MK&quot;&gt;
+                Macedonia, the former Yugoslav Republic of
+              &lt;/option&gt;
+              &lt;option value&#x3D;&quot;MG&quot;&gt;Madagascar&lt;/option&gt;
+              &lt;option value&#x3D;&quot;MW&quot;&gt;Malawi&lt;/option&gt;
+              &lt;option value&#x3D;&quot;MY&quot;&gt;Malaysia&lt;/option&gt;
+              &lt;option value&#x3D;&quot;MV&quot;&gt;Maldives&lt;/option&gt;
+              &lt;option value&#x3D;&quot;ML&quot;&gt;Mali&lt;/option&gt;
+              &lt;option value&#x3D;&quot;MT&quot;&gt;Malta&lt;/option&gt;
+              &lt;option value&#x3D;&quot;MH&quot;&gt;Marshall Islands&lt;/option&gt;
+              &lt;option value&#x3D;&quot;MQ&quot;&gt;Martinique&lt;/option&gt;
+              &lt;option value&#x3D;&quot;MR&quot;&gt;Mauritania&lt;/option&gt;
+              &lt;option value&#x3D;&quot;MU&quot;&gt;Mauritius&lt;/option&gt;
+              &lt;option value&#x3D;&quot;YT&quot;&gt;Mayotte&lt;/option&gt;
+              &lt;option value&#x3D;&quot;MX&quot;&gt;Mexico&lt;/option&gt;
+              &lt;option value&#x3D;&quot;FM&quot;&gt;Micronesia, Federated States of&lt;/option&gt;
+              &lt;option value&#x3D;&quot;MD&quot;&gt;Moldova, Republic of&lt;/option&gt;
+              &lt;option value&#x3D;&quot;MC&quot;&gt;Monaco&lt;/option&gt;
+              &lt;option value&#x3D;&quot;MN&quot;&gt;Mongolia&lt;/option&gt;
+              &lt;option value&#x3D;&quot;ME&quot;&gt;Montenegro&lt;/option&gt;
+              &lt;option value&#x3D;&quot;MS&quot;&gt;Montserrat&lt;/option&gt;
+              &lt;option value&#x3D;&quot;MA&quot;&gt;Morocco&lt;/option&gt;
+              &lt;option value&#x3D;&quot;MZ&quot;&gt;Mozambique&lt;/option&gt;
+              &lt;option value&#x3D;&quot;MM&quot;&gt;Myanmar&lt;/option&gt;
+              &lt;option value&#x3D;&quot;NA&quot;&gt;Namibia&lt;/option&gt;
+              &lt;option value&#x3D;&quot;NR&quot;&gt;Nauru&lt;/option&gt;
+              &lt;option value&#x3D;&quot;NP&quot;&gt;Nepal&lt;/option&gt;
+              &lt;option value&#x3D;&quot;NL&quot;&gt;Netherlands&lt;/option&gt;
+              &lt;option value&#x3D;&quot;NC&quot;&gt;New Caledonia&lt;/option&gt;
+              &lt;option value&#x3D;&quot;NZ&quot;&gt;New Zealand&lt;/option&gt;
+              &lt;option value&#x3D;&quot;NI&quot;&gt;Nicaragua&lt;/option&gt;
+              &lt;option value&#x3D;&quot;NE&quot;&gt;Niger&lt;/option&gt;
+              &lt;option value&#x3D;&quot;NG&quot;&gt;Nigeria&lt;/option&gt;
+              &lt;option value&#x3D;&quot;NU&quot;&gt;Niue&lt;/option&gt;
+              &lt;option value&#x3D;&quot;NF&quot;&gt;Norfolk Island&lt;/option&gt;
+              &lt;option value&#x3D;&quot;MP&quot;&gt;Northern Mariana Islands&lt;/option&gt;
+              &lt;option value&#x3D;&quot;NO&quot;&gt;Norway&lt;/option&gt;
+              &lt;option value&#x3D;&quot;OM&quot;&gt;Oman&lt;/option&gt;
+              &lt;option value&#x3D;&quot;PK&quot;&gt;Pakistan&lt;/option&gt;
+              &lt;option value&#x3D;&quot;PW&quot;&gt;Palau&lt;/option&gt;
+              &lt;option value&#x3D;&quot;PS&quot;&gt;Palestinian Territory, Occupied&lt;/option&gt;
+              &lt;option value&#x3D;&quot;PA&quot;&gt;Panama&lt;/option&gt;
+              &lt;option value&#x3D;&quot;PG&quot;&gt;Papua New Guinea&lt;/option&gt;
+              &lt;option value&#x3D;&quot;PY&quot;&gt;Paraguay&lt;/option&gt;
+              &lt;option value&#x3D;&quot;PE&quot;&gt;Peru&lt;/option&gt;
+              &lt;option value&#x3D;&quot;PH&quot;&gt;Philippines&lt;/option&gt;
+              &lt;option value&#x3D;&quot;PN&quot;&gt;Pitcairn&lt;/option&gt;
+              &lt;option value&#x3D;&quot;PL&quot;&gt;Poland&lt;/option&gt;
+              &lt;option value&#x3D;&quot;PT&quot;&gt;Portugal&lt;/option&gt;
+              &lt;option value&#x3D;&quot;PR&quot;&gt;Puerto Rico&lt;/option&gt;
+              &lt;option value&#x3D;&quot;QA&quot;&gt;Qatar&lt;/option&gt;
+              &lt;option value&#x3D;&quot;RE&quot;&gt;Réunion&lt;/option&gt;
+              &lt;option value&#x3D;&quot;RO&quot;&gt;Romania&lt;/option&gt;
+              &lt;option value&#x3D;&quot;RU&quot;&gt;Russian Federation&lt;/option&gt;
+              &lt;option value&#x3D;&quot;RW&quot;&gt;Rwanda&lt;/option&gt;
+              &lt;option value&#x3D;&quot;BL&quot;&gt;Saint Barthélemy&lt;/option&gt;
+              &lt;option value&#x3D;&quot;SH&quot;&gt;
+                Saint Helena, Ascension and Tristan da Cunha
+              &lt;/option&gt;
+              &lt;option value&#x3D;&quot;KN&quot;&gt;Saint Kitts and Nevis&lt;/option&gt;
+              &lt;option value&#x3D;&quot;LC&quot;&gt;Saint Lucia&lt;/option&gt;
+              &lt;option value&#x3D;&quot;MF&quot;&gt;Saint Martin (French part)&lt;/option&gt;
+              &lt;option value&#x3D;&quot;PM&quot;&gt;Saint Pierre and Miquelon&lt;/option&gt;
+              &lt;option value&#x3D;&quot;VC&quot;&gt;Saint Vincent and the Grenadines&lt;/option&gt;
+              &lt;option value&#x3D;&quot;WS&quot;&gt;Samoa&lt;/option&gt;
+              &lt;option value&#x3D;&quot;SM&quot;&gt;San Marino&lt;/option&gt;
+              &lt;option value&#x3D;&quot;ST&quot;&gt;Sao Tome and Principe&lt;/option&gt;
+              &lt;option value&#x3D;&quot;SA&quot;&gt;Saudi Arabia&lt;/option&gt;
+              &lt;option value&#x3D;&quot;SN&quot;&gt;Senegal&lt;/option&gt;
+              &lt;option value&#x3D;&quot;RS&quot;&gt;Serbia&lt;/option&gt;
+              &lt;option value&#x3D;&quot;SC&quot;&gt;Seychelles&lt;/option&gt;
+              &lt;option value&#x3D;&quot;SL&quot;&gt;Sierra Leone&lt;/option&gt;
+              &lt;option value&#x3D;&quot;SG&quot;&gt;Singapore&lt;/option&gt;
+              &lt;option value&#x3D;&quot;SX&quot;&gt;Sint Maarten (Dutch part)&lt;/option&gt;
+              &lt;option value&#x3D;&quot;SK&quot;&gt;Slovakia&lt;/option&gt;
+              &lt;option value&#x3D;&quot;SI&quot;&gt;Slovenia&lt;/option&gt;
+              &lt;option value&#x3D;&quot;SB&quot;&gt;Solomon Islands&lt;/option&gt;
+              &lt;option value&#x3D;&quot;SO&quot;&gt;Somalia&lt;/option&gt;
+              &lt;option value&#x3D;&quot;ZA&quot;&gt;South Africa&lt;/option&gt;
+              &lt;option value&#x3D;&quot;GS&quot;&gt;
+                South Georgia and the South Sandwich Islands
+              &lt;/option&gt;
+              &lt;option value&#x3D;&quot;KR&quot;&gt;South Korea&lt;/option&gt;
+              &lt;option value&#x3D;&quot;SS&quot;&gt;South Sudan&lt;/option&gt;
+              &lt;option value&#x3D;&quot;ES&quot;&gt;Spain&lt;/option&gt;
+              &lt;option value&#x3D;&quot;LK&quot;&gt;Sri Lanka&lt;/option&gt;
+              &lt;option value&#x3D;&quot;SD&quot;&gt;Sudan&lt;/option&gt;
+              &lt;option value&#x3D;&quot;SR&quot;&gt;Suriname&lt;/option&gt;
+              &lt;option value&#x3D;&quot;SJ&quot;&gt;Svalbard and Jan Mayen&lt;/option&gt;
+              &lt;option value&#x3D;&quot;SZ&quot;&gt;Swaziland&lt;/option&gt;
+              &lt;option value&#x3D;&quot;SE&quot;&gt;Sweden&lt;/option&gt;
+              &lt;option value&#x3D;&quot;CH&quot;&gt;Switzerland&lt;/option&gt;
+              &lt;option value&#x3D;&quot;SY&quot;&gt;Syrian Arab Republic&lt;/option&gt;
+              &lt;option value&#x3D;&quot;TW&quot;&gt;Taiwan, Province of China&lt;/option&gt;
+              &lt;option value&#x3D;&quot;TJ&quot;&gt;Tajikistan&lt;/option&gt;
+              &lt;option value&#x3D;&quot;TZ&quot;&gt;Tanzania, United Republic of&lt;/option&gt;
+              &lt;option value&#x3D;&quot;TH&quot;&gt;Thailand&lt;/option&gt;
+              &lt;option value&#x3D;&quot;TL&quot;&gt;Timor-Leste&lt;/option&gt;
+              &lt;option value&#x3D;&quot;TG&quot;&gt;Togo&lt;/option&gt;
+              &lt;option value&#x3D;&quot;TK&quot;&gt;Tokelau&lt;/option&gt;
+              &lt;option value&#x3D;&quot;TO&quot;&gt;Tonga&lt;/option&gt;
+              &lt;option value&#x3D;&quot;TT&quot;&gt;Trinidad and Tobago&lt;/option&gt;
+              &lt;option value&#x3D;&quot;TN&quot;&gt;Tunisia&lt;/option&gt;
+              &lt;option value&#x3D;&quot;TR&quot;&gt;Turkey&lt;/option&gt;
+              &lt;option value&#x3D;&quot;TM&quot;&gt;Turkmenistan&lt;/option&gt;
+              &lt;option value&#x3D;&quot;TC&quot;&gt;Turks and Caicos Islands&lt;/option&gt;
+              &lt;option value&#x3D;&quot;TV&quot;&gt;Tuvalu&lt;/option&gt;
+              &lt;option value&#x3D;&quot;UG&quot;&gt;Uganda&lt;/option&gt;
+              &lt;option value&#x3D;&quot;UA&quot;&gt;Ukraine&lt;/option&gt;
+              &lt;option value&#x3D;&quot;AE&quot;&gt;United Arab Emirates&lt;/option&gt;
+              &lt;option value&#x3D;&quot;GB&quot;&gt;United Kingdom&lt;/option&gt;
+              &lt;option value&#x3D;&quot;US&quot;&gt;United States&lt;/option&gt;
+              &lt;option value&#x3D;&quot;UY&quot;&gt;Uruguay&lt;/option&gt;
+              &lt;option value&#x3D;&quot;UZ&quot;&gt;Uzbekistan&lt;/option&gt;
+              &lt;option value&#x3D;&quot;VU&quot;&gt;Vanuatu&lt;/option&gt;
+              &lt;option value&#x3D;&quot;VE&quot;&gt;Venezuela, Bolivarian Republic of&lt;/option&gt;
+              &lt;option value&#x3D;&quot;VN&quot;&gt;Vietnam&lt;/option&gt;
+              &lt;option value&#x3D;&quot;VI&quot;&gt;Virgin Islands&lt;/option&gt;
+              &lt;option value&#x3D;&quot;WF&quot;&gt;Wallis and Futuna&lt;/option&gt;
+              &lt;option value&#x3D;&quot;EH&quot;&gt;Western Sahara&lt;/option&gt;
+              &lt;option value&#x3D;&quot;YE&quot;&gt;Yemen&lt;/option&gt;
+              &lt;option value&#x3D;&quot;ZM&quot;&gt;Zambia&lt;/option&gt;
+              &lt;option value&#x3D;&quot;ZW&quot;&gt;Zimbabwe&lt;/option&gt;
+            &lt;/select&gt;
+            &lt;!-- &lt;div class&#x3D;&quot;fv-plugins-message-container&quot;&gt;
+              &lt;div class&#x3D;&quot;fv-help-block&quot;&gt;Country is required&lt;/div&gt;
+            &lt;/div&gt; --&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;row mb-6&quot;&gt;
+          &lt;label class&#x3D;&quot;col-lg-4 col-form-label required fw-bold fs-6&quot;
+            &gt;Language&lt;/label
+          &gt;
+          &lt;div class&#x3D;&quot;col-lg-8 fv-row&quot;&gt;
+            &lt;select
+              class&#x3D;&quot;form-select form-select-solid form-select-lg&quot;
+              name&#x3D;&quot;language&quot;
+            &gt;
+              &lt;option value&#x3D;&quot;&quot;&gt;Select a Language...&lt;/option&gt;
+              &lt;option value&#x3D;&quot;id&quot;&gt;Bahasa Indonesia - Indonesian&lt;/option&gt;
+              &lt;option value&#x3D;&quot;msa&quot;&gt;Bahasa Melayu - Malay&lt;/option&gt;
+              &lt;option value&#x3D;&quot;ca&quot;&gt;Català - Catalan&lt;/option&gt;
+              &lt;option value&#x3D;&quot;cs&quot;&gt;Čeština - Czech&lt;/option&gt;
+              &lt;option value&#x3D;&quot;da&quot;&gt;Dansk - Danish&lt;/option&gt;
+              &lt;option value&#x3D;&quot;de&quot;&gt;Deutsch - German&lt;/option&gt;
+              &lt;option value&#x3D;&quot;en&quot;&gt;English&lt;/option&gt;
+              &lt;option value&#x3D;&quot;en-gb&quot;&gt;English UK - British English&lt;/option&gt;
+              &lt;option value&#x3D;&quot;es&quot;&gt;Español - Spanish&lt;/option&gt;
+              &lt;option value&#x3D;&quot;fil&quot;&gt;Filipino&lt;/option&gt;
+              &lt;option value&#x3D;&quot;fr&quot;&gt;Français - French&lt;/option&gt;
+              &lt;option value&#x3D;&quot;ga&quot;&gt;Gaeilge - Irish (beta)&lt;/option&gt;
+              &lt;option value&#x3D;&quot;gl&quot;&gt;Galego - Galician (beta)&lt;/option&gt;
+              &lt;option value&#x3D;&quot;hr&quot;&gt;Hrvatski - Croatian&lt;/option&gt;
+              &lt;option value&#x3D;&quot;it&quot;&gt;Italiano - Italian&lt;/option&gt;
+              &lt;option value&#x3D;&quot;hu&quot;&gt;Magyar - Hungarian&lt;/option&gt;
+              &lt;option value&#x3D;&quot;nl&quot;&gt;Nederlands - Dutch&lt;/option&gt;
+              &lt;option value&#x3D;&quot;no&quot;&gt;Norsk - Norwegian&lt;/option&gt;
+              &lt;option value&#x3D;&quot;pl&quot;&gt;Polski - Polish&lt;/option&gt;
+              &lt;option value&#x3D;&quot;pt&quot;&gt;Português - Portuguese&lt;/option&gt;
+              &lt;option value&#x3D;&quot;ro&quot;&gt;Română - Romanian&lt;/option&gt;
+              &lt;option value&#x3D;&quot;sk&quot;&gt;Slovenčina - Slovak&lt;/option&gt;
+              &lt;option value&#x3D;&quot;fi&quot;&gt;Suomi - Finnish&lt;/option&gt;
+              &lt;option value&#x3D;&quot;sv&quot;&gt;Svenska - Swedish&lt;/option&gt;
+              &lt;option value&#x3D;&quot;vi&quot;&gt;Tiếng Việt - Vietnamese&lt;/option&gt;
+              &lt;option value&#x3D;&quot;tr&quot;&gt;Türkçe - Turkish&lt;/option&gt;
+              &lt;option value&#x3D;&quot;el&quot;&gt;Ελληνικά - Greek&lt;/option&gt;
+              &lt;option value&#x3D;&quot;bg&quot;&gt;Български език - Bulgarian&lt;/option&gt;
+              &lt;option value&#x3D;&quot;ru&quot;&gt;Русский - Russian&lt;/option&gt;
+              &lt;option value&#x3D;&quot;sr&quot;&gt;Српски - Serbian&lt;/option&gt;
+              &lt;option value&#x3D;&quot;uk&quot;&gt;Українська мова - Ukrainian&lt;/option&gt;
+              &lt;option value&#x3D;&quot;he&quot;&gt;עִבְרִית - Hebrew&lt;/option&gt;
+              &lt;option value&#x3D;&quot;ur&quot;&gt;اردو - Urdu (beta)&lt;/option&gt;
+              &lt;option value&#x3D;&quot;ar&quot;&gt;العربية - Arabic&lt;/option&gt;
+              &lt;option value&#x3D;&quot;fa&quot;&gt;فارسی - Persian&lt;/option&gt;
+              &lt;option value&#x3D;&quot;mr&quot;&gt;मराठी - Marathi&lt;/option&gt;
+              &lt;option value&#x3D;&quot;hi&quot;&gt;हिन्दी - Hindi&lt;/option&gt;
+              &lt;option value&#x3D;&quot;bn&quot;&gt;বাংলা - Bangla&lt;/option&gt;
+              &lt;option value&#x3D;&quot;gu&quot;&gt;ગુજરાતી - Gujarati&lt;/option&gt;
+              &lt;option value&#x3D;&quot;ta&quot;&gt;தமிழ் - Tamil&lt;/option&gt;
+              &lt;option value&#x3D;&quot;kn&quot;&gt;ಕನ್ನಡ - Kannada&lt;/option&gt;
+              &lt;option value&#x3D;&quot;th&quot;&gt;ภาษาไทย - Thai&lt;/option&gt;
+              &lt;option value&#x3D;&quot;ko&quot;&gt;한국어 - Korean&lt;/option&gt;
+              &lt;option value&#x3D;&quot;ja&quot;&gt;日本語 - Japanese&lt;/option&gt;
+              &lt;option value&#x3D;&quot;zh-cn&quot;&gt;简体中文 - Simplified Chinese&lt;/option&gt;
+              &lt;option value&#x3D;&quot;zh-tw&quot;&gt;繁體中文 - Traditional Chinese&lt;/option&gt;
+            &lt;/select&gt;
+            &lt;div class&#x3D;&quot;form-text&quot;&gt;
+              Please select a preferred language, including date, time, and
+              number formatting.
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;row mb-6&quot;&gt;
+          &lt;label class&#x3D;&quot;col-lg-4 col-form-label required fw-bold fs-6&quot;
+            &gt;Time Zone&lt;/label
+          &gt;
+          &lt;div class&#x3D;&quot;col-lg-8 fv-row&quot;&gt;
+            &lt;select
+              class&#x3D;&quot;form-select form-select-solid form-select-lg&quot;
+              name&#x3D;&quot;timeZone&quot;
+            &gt;
+              &lt;option value&#x3D;&quot;&quot;&gt;Select a Timezone..&lt;/option&gt;
+              &lt;option value&#x3D;&quot;International Date Line West&quot;&gt;
+                (GMT-11:00) International Date Line West
+              &lt;/option&gt;
+              &lt;option value&#x3D;&quot;Midway Island&quot;&gt;(GMT-11:00) Midway Island&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Samoa&quot;&gt;(GMT-11:00) Samoa&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Hawaii&quot;&gt;(GMT-10:00) Hawaii&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Alaska&quot;&gt;(GMT-08:00) Alaska&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Pacific Time (US &amp;amp; Canada)&quot;&gt;
+                (GMT-07:00) Pacific Time (US &amp;amp; Canada)
+              &lt;/option&gt;
+              &lt;option value&#x3D;&quot;Tijuana&quot;&gt;(GMT-07:00) Tijuana&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Arizona&quot;&gt;(GMT-07:00) Arizona&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Mountain Time (US &amp;amp; Canada)&quot;&gt;
+                (GMT-06:00) Mountain Time (US &amp;amp; Canada)
+              &lt;/option&gt;
+              &lt;option value&#x3D;&quot;Chihuahua&quot;&gt;(GMT-06:00) Chihuahua&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Mazatlan&quot;&gt;(GMT-06:00) Mazatlan&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Saskatchewan&quot;&gt;(GMT-06:00) Saskatchewan&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Central America&quot;&gt;
+                (GMT-06:00) Central America
+              &lt;/option&gt;
+              &lt;option value&#x3D;&quot;Central Time (US &amp;amp; Canada)&quot;&gt;
+                (GMT-05:00) Central Time (US &amp;amp; Canada)
+              &lt;/option&gt;
+              &lt;option value&#x3D;&quot;Guadalajara&quot;&gt;(GMT-05:00) Guadalajara&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Mexico City&quot;&gt;(GMT-05:00) Mexico City&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Monterrey&quot;&gt;(GMT-05:00) Monterrey&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Bogota&quot;&gt;(GMT-05:00) Bogota&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Lima&quot;&gt;(GMT-05:00) Lima&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Quito&quot;&gt;(GMT-05:00) Quito&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Eastern Time (US &amp;amp; Canada)&quot;&gt;
+                (GMT-04:00) Eastern Time (US &amp;amp; Canada)
+              &lt;/option&gt;
+              &lt;option value&#x3D;&quot;Indiana (East)&quot;&gt;(GMT-04:00) Indiana (East)&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Caracas&quot;&gt;(GMT-04:00) Caracas&lt;/option&gt;
+              &lt;option value&#x3D;&quot;La Paz&quot;&gt;(GMT-04:00) La Paz&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Georgetown&quot;&gt;(GMT-04:00) Georgetown&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Atlantic Time (Canada)&quot;&gt;
+                (GMT-03:00) Atlantic Time (Canada)
+              &lt;/option&gt;
+              &lt;option value&#x3D;&quot;Santiago&quot;&gt;(GMT-03:00) Santiago&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Brasilia&quot;&gt;(GMT-03:00) Brasilia&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Buenos Aires&quot;&gt;(GMT-03:00) Buenos Aires&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Newfoundland&quot;&gt;(GMT-02:30) Newfoundland&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Greenland&quot;&gt;(GMT-02:00) Greenland&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Mid-Atlantic&quot;&gt;(GMT-02:00) Mid-Atlantic&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Cape Verde Is.&quot;&gt;(GMT-01:00) Cape Verde Is.&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Azores&quot;&gt;(GMT) Azores&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Monrovia&quot;&gt;(GMT) Monrovia&lt;/option&gt;
+              &lt;option value&#x3D;&quot;UTC&quot;&gt;(GMT) UTC&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Dublin&quot;&gt;(GMT+01:00) Dublin&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Edinburgh&quot;&gt;(GMT+01:00) Edinburgh&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Lisbon&quot;&gt;(GMT+01:00) Lisbon&lt;/option&gt;
+              &lt;option value&#x3D;&quot;London&quot;&gt;(GMT+01:00) London&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Casablanca&quot;&gt;(GMT+01:00) Casablanca&lt;/option&gt;
+              &lt;option value&#x3D;&quot;West Central Africa&quot;&gt;
+                (GMT+01:00) West Central Africa
+              &lt;/option&gt;
+              &lt;option value&#x3D;&quot;Belgrade&quot;&gt;(GMT+02:00) Belgrade&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Bratislava&quot;&gt;(GMT+02:00) Bratislava&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Budapest&quot;&gt;(GMT+02:00) Budapest&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Ljubljana&quot;&gt;(GMT+02:00) Ljubljana&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Prague&quot;&gt;(GMT+02:00) Prague&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Sarajevo&quot;&gt;(GMT+02:00) Sarajevo&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Skopje&quot;&gt;(GMT+02:00) Skopje&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Warsaw&quot;&gt;(GMT+02:00) Warsaw&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Zagreb&quot;&gt;(GMT+02:00) Zagreb&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Brussels&quot;&gt;(GMT+02:00) Brussels&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Copenhagen&quot;&gt;(GMT+02:00) Copenhagen&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Madrid&quot;&gt;(GMT+02:00) Madrid&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Paris&quot;&gt;(GMT+02:00) Paris&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Amsterdam&quot;&gt;(GMT+02:00) Amsterdam&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Berlin&quot;&gt;(GMT+02:00) Berlin&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Bern&quot;&gt;(GMT+02:00) Bern&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Rome&quot;&gt;(GMT+02:00) Rome&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Stockholm&quot;&gt;(GMT+02:00) Stockholm&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Vienna&quot;&gt;(GMT+02:00) Vienna&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Cairo&quot;&gt;(GMT+02:00) Cairo&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Harare&quot;&gt;(GMT+02:00) Harare&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Pretoria&quot;&gt;(GMT+02:00) Pretoria&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Bucharest&quot;&gt;(GMT+03:00) Bucharest&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Helsinki&quot;&gt;(GMT+03:00) Helsinki&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Kiev&quot;&gt;(GMT+03:00) Kiev&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Kyiv&quot;&gt;(GMT+03:00) Kyiv&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Riga&quot;&gt;(GMT+03:00) Riga&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Sofia&quot;&gt;(GMT+03:00) Sofia&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Tallinn&quot;&gt;(GMT+03:00) Tallinn&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Vilnius&quot;&gt;(GMT+03:00) Vilnius&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Athens&quot;&gt;(GMT+03:00) Athens&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Istanbul&quot;&gt;(GMT+03:00) Istanbul&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Minsk&quot;&gt;(GMT+03:00) Minsk&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Jerusalem&quot;&gt;(GMT+03:00) Jerusalem&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Moscow&quot;&gt;(GMT+03:00) Moscow&lt;/option&gt;
+              &lt;option value&#x3D;&quot;St. Petersburg&quot;&gt;(GMT+03:00) St. Petersburg&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Volgograd&quot;&gt;(GMT+03:00) Volgograd&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Kuwait&quot;&gt;(GMT+03:00) Kuwait&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Riyadh&quot;&gt;(GMT+03:00) Riyadh&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Nairobi&quot;&gt;(GMT+03:00) Nairobi&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Baghdad&quot;&gt;(GMT+03:00) Baghdad&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Abu Dhabi&quot;&gt;(GMT+04:00) Abu Dhabi&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Muscat&quot;&gt;(GMT+04:00) Muscat&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Baku&quot;&gt;(GMT+04:00) Baku&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Tbilisi&quot;&gt;(GMT+04:00) Tbilisi&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Yerevan&quot;&gt;(GMT+04:00) Yerevan&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Tehran&quot;&gt;(GMT+04:30) Tehran&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Kabul&quot;&gt;(GMT+04:30) Kabul&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Ekaterinburg&quot;&gt;(GMT+05:00) Ekaterinburg&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Islamabad&quot;&gt;(GMT+05:00) Islamabad&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Karachi&quot;&gt;(GMT+05:00) Karachi&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Tashkent&quot;&gt;(GMT+05:00) Tashkent&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Chennai&quot;&gt;(GMT+05:30) Chennai&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Kolkata&quot;&gt;(GMT+05:30) Kolkata&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Mumbai&quot;&gt;(GMT+05:30) Mumbai&lt;/option&gt;
+              &lt;option value&#x3D;&quot;New Delhi&quot;&gt;(GMT+05:30) New Delhi&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Sri Jayawardenepura&quot;&gt;
+                (GMT+05:30) Sri Jayawardenepura
+              &lt;/option&gt;
+              &lt;option value&#x3D;&quot;Kathmandu&quot;&gt;(GMT+05:45) Kathmandu&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Astana&quot;&gt;(GMT+06:00) Astana&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Dhaka&quot;&gt;(GMT+06:00) Dhaka&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Almaty&quot;&gt;(GMT+06:00) Almaty&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Urumqi&quot;&gt;(GMT+06:00) Urumqi&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Rangoon&quot;&gt;(GMT+06:30) Rangoon&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Novosibirsk&quot;&gt;(GMT+07:00) Novosibirsk&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Bangkok&quot;&gt;(GMT+07:00) Bangkok&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Hanoi&quot;&gt;(GMT+07:00) Hanoi&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Jakarta&quot;&gt;(GMT+07:00) Jakarta&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Krasnoyarsk&quot;&gt;(GMT+07:00) Krasnoyarsk&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Beijing&quot;&gt;(GMT+08:00) Beijing&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Chongqing&quot;&gt;(GMT+08:00) Chongqing&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Hong Kong&quot;&gt;(GMT+08:00) Hong Kong&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Kuala Lumpur&quot;&gt;(GMT+08:00) Kuala Lumpur&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Singapore&quot;&gt;(GMT+08:00) Singapore&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Taipei&quot;&gt;(GMT+08:00) Taipei&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Perth&quot;&gt;(GMT+08:00) Perth&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Irkutsk&quot;&gt;(GMT+08:00) Irkutsk&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Ulaan Bataar&quot;&gt;(GMT+08:00) Ulaan Bataar&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Seoul&quot;&gt;(GMT+09:00) Seoul&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Osaka&quot;&gt;(GMT+09:00) Osaka&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Sapporo&quot;&gt;(GMT+09:00) Sapporo&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Tokyo&quot;&gt;(GMT+09:00) Tokyo&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Yakutsk&quot;&gt;(GMT+09:00) Yakutsk&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Darwin&quot;&gt;(GMT+09:30) Darwin&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Adelaide&quot;&gt;(GMT+09:30) Adelaide&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Canberra&quot;&gt;(GMT+10:00) Canberra&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Melbourne&quot;&gt;(GMT+10:00) Melbourne&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Sydney&quot;&gt;(GMT+10:00) Sydney&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Brisbane&quot;&gt;(GMT+10:00) Brisbane&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Hobart&quot;&gt;(GMT+10:00) Hobart&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Vladivostok&quot;&gt;(GMT+10:00) Vladivostok&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Guam&quot;&gt;(GMT+10:00) Guam&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Port Moresby&quot;&gt;(GMT+10:00) Port Moresby&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Solomon Is.&quot;&gt;(GMT+10:00) Solomon Is.&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Magadan&quot;&gt;(GMT+11:00) Magadan&lt;/option&gt;
+              &lt;option value&#x3D;&quot;New Caledonia&quot;&gt;(GMT+11:00) New Caledonia&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Fiji&quot;&gt;(GMT+12:00) Fiji&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Kamchatka&quot;&gt;(GMT+12:00) Kamchatka&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Marshall Is.&quot;&gt;(GMT+12:00) Marshall Is.&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Auckland&quot;&gt;(GMT+12:00) Auckland&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Wellington&quot;&gt;(GMT+12:00) Wellington&lt;/option&gt;
+              &lt;option value&#x3D;&quot;Nuku&#x27;alofa&quot;&gt;(GMT+13:00) Nuku&#x27;alofa&lt;/option&gt;
+            &lt;/select&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;row mb-6&quot;&gt;
+          &lt;label class&#x3D;&quot;col-lg-4 col-form-label required fw-bold fs-6&quot;
+            &gt;Currency&lt;/label
+          &gt;
+          &lt;div class&#x3D;&quot;col-lg-8 fv-row&quot;&gt;
+            &lt;select
+              class&#x3D;&quot;form-select form-select-solid form-select-lg&quot;
+              name&#x3D;&quot;currency&quot;
+            &gt;
+              &lt;option value&#x3D;&quot;&quot;&gt;Select a currency..&lt;/option&gt;
+              &lt;option value&#x3D;&quot;USD&quot;&gt;USD - USA dollar&lt;/option&gt;
+              &lt;option value&#x3D;&quot;GBP&quot;&gt;GBP - British pound&lt;/option&gt;
+              &lt;option value&#x3D;&quot;AUD&quot;&gt;AUD - Australian dollar&lt;/option&gt;
+              &lt;option value&#x3D;&quot;JPY&quot;&gt;JPY - Japanese yen&lt;/option&gt;
+              &lt;option value&#x3D;&quot;SEK&quot;&gt;SEK - Swedish krona&lt;/option&gt;
+              &lt;option value&#x3D;&quot;CAD&quot;&gt;CAD - Canadian dollar&lt;/option&gt;
+              &lt;option value&#x3D;&quot;CHF&quot;&gt;CHF - Swiss franc&lt;/option&gt;
+            &lt;/select&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;row mb-6&quot;&gt;
+          &lt;label class&#x3D;&quot;col-lg-4 col-form-label fw-bold fs-6&quot;
+            &gt;Communication&lt;/label
+          &gt;
+          &lt;div class&#x3D;&quot;col-lg-8 fv-row&quot;&gt;
+            &lt;div class&#x3D;&quot;d-flex align-items-center mt-3&quot;&gt;
+              &lt;label class&#x3D;&quot;form-check form-check-inline form-check-solid me-5&quot;
+                &gt;&lt;input
+                  class&#x3D;&quot;form-check-input&quot;
+                  name&#x3D;&quot;communication[]&quot;
+                  type&#x3D;&quot;checkbox&quot;
+                /&gt;&lt;span class&#x3D;&quot;fw-bold ps-2 fs-6&quot;&gt;Email&lt;/span&gt;&lt;/label
+              &gt;&lt;label class&#x3D;&quot;form-check form-check-inline form-check-solid&quot;
+                &gt;&lt;input
+                  class&#x3D;&quot;form-check-input&quot;
+                  name&#x3D;&quot;communication[]&quot;
+                  type&#x3D;&quot;checkbox&quot;
+                /&gt;&lt;span class&#x3D;&quot;fw-bold ps-2 fs-6&quot;&gt;Phone&lt;/span&gt;&lt;/label
+              &gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;row mb-0&quot;&gt;
+          &lt;label class&#x3D;&quot;col-lg-4 col-form-label fw-bold fs-6&quot;
+            &gt;Allow Marketing&lt;/label
+          &gt;
+          &lt;div class&#x3D;&quot;col-lg-8 d-flex align-items-center&quot;&gt;
+            &lt;div class&#x3D;&quot;form-check form-check-solid form-switch fv-row&quot;&gt;
+              &lt;input
+                class&#x3D;&quot;form-check-input w-45px h-30px&quot;
+                type&#x3D;&quot;checkbox&quot;
+                id&#x3D;&quot;allowmarketing&quot;
+              /&gt;&lt;label class&#x3D;&quot;form-check-label&quot;&gt;&lt;/label&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;card-footer d-flex justify-content-end py-6 px-9&quot;&gt;
+        &lt;button
+          type&#x3D;&quot;button&quot;
+          class&#x3D;&quot;btn btn-primary&quot;
+          [disabled]&#x3D;&quot;isLoading&quot;
+          (click)&#x3D;&quot;saveSettings()&quot;
+        &gt;
+          &lt;ng-container *ngIf&#x3D;&quot;!isLoading&quot;&gt;Save Changes&lt;/ng-container&gt;
+          &lt;ng-container *ngIf&#x3D;&quot;isLoading&quot;&gt;
+            &lt;span clas&#x3D;&quot;indicator-progress&quot; [style.display]&#x3D;&quot;&#x27;block&#x27;&quot;&gt;
+              Please wait...{{ &quot; &quot; }}
+              &lt;span
+                class&#x3D;&quot;spinner-border spinner-border-sm align-middle ms-2&quot;
+              &gt;&lt;/span&gt;
+            &lt;/span&gt;
+          &lt;/ng-container&gt;
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/form&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="card mb-5 mb-xl-10">  <div    class="card-header border-0 cursor-pointer"    role="button"    data-bs-toggle="collapse"    data-bs-target="#kt_account_profile_details"    aria-expanded="true"    aria-controls="kt_account_profile_details"  >    <div class="card-title m-0">      <h3 class="fw-bolder m-0">Profile Details</h3>    </div>  </div>  <div id="kt_account_profile_details" class="collapse show">    <form novalidate="" class="form">      <div class="card-body border-top p-9">        <div class="row mb-6">          <label class="col-lg-4 col-form-label fw-bold fs-6">Avatar</label>          <div class="col-lg-8">            <div              class="image-input image-input-outline"              data-kt-image-input="true"              [style.background-image]="\'url(./assets/media/avatars/blank.png\'"            >              <div                class="image-input-wrapper w-125px h-125px"                [style.background-image]="                  \'url(./assets/media/avatars/300-1.jpg\'                "              ></div>            </div>          </div>        </div>        <div class="row mb-6">          <label class="col-lg-4 col-form-label required fw-bold fs-6"            >Full Name</label          >          <div class="col-lg-8">            <div class="row">              <div class="col-lg-6 fv-row">                <input                  type="text"                  class="                    form-control form-control-lg form-control-solid                    mb-3 mb-lg-0                  "                  placeholder="First name"                  name="fName"                  value="Max"                />              </div>              <div class="col-lg-6 fv-row">                <input                  type="text"                  class="form-control form-control-lg form-control-solid"                  placeholder="Last name"                  name="lName"                  value="Smith"                />              </div>            </div>          </div>        </div>        <div class="row mb-6">          <label class="col-lg-4 col-form-label required fw-bold fs-6"            >Company</label          >          <div class="col-lg-8 fv-row">            <input              type="text"              class="form-control form-control-lg form-control-solid"              placeholder="Company name"              name="company"              value="Keenthemes"            />          </div>        </div>        <div class="row mb-6">          <label class="col-lg-4 col-form-label fw-bold fs-6"            ><span class="required">Contact Phone</span></label          >          <div class="col-lg-8 fv-row">            <input              type="tel"              class="form-control form-control-lg form-control-solid"              placeholder="Phone number"              name="contactPhone"              value="044 3276 454 935"            />          </div>        </div>        <div class="row mb-6">          <label class="col-lg-4 col-form-label fw-bold fs-6"            ><span class="required">Company Site</span></label          >          <div class="col-lg-8 fv-row">            <input              type="text"              class="form-control form-control-lg form-control-solid"              placeholder="Company website"              name="companySite"              value="keenthemes.com"            />          </div>        </div>        <div class="row mb-6">          <label class="col-lg-4 col-form-label fw-bold fs-6"            ><span class="required">Country</span></label          >          <div class="col-lg-8 fv-row">            <select              class="form-select form-select-solid form-select-lg fw-bold"              name="country"            >              <option value="">Select a Country...</option>              <option value="AF">Afghanistan</option>              <option value="AX">Aland Islands</option>              <option value="AL">Albania</option>              <option value="DZ">Algeria</option>              <option value="AS">American Samoa</option>              <option value="AD">Andorra</option>              <option value="AO">Angola</option>              <option value="AI">Anguilla</option>              <option value="AQ">Antarctica</option>              <option value="AG">Antigua and Barbuda</option>              <option value="AR">Argentina</option>              <option value="AM">Armenia</option>              <option value="AW">Aruba</option>              <option value="AU">Australia</option>              <option value="AT">Austria</option>              <option value="AZ">Azerbaijan</option>              <option value="BS">Bahamas</option>              <option value="BH">Bahrain</option>              <option value="BD">Bangladesh</option>              <option value="BB">Barbados</option>              <option value="BY">Belarus</option>              <option value="BE">Belgium</option>              <option value="BZ">Belize</option>              <option value="BJ">Benin</option>              <option value="BM">Bermuda</option>              <option value="BT">Bhutan</option>              <option value="BO">Bolivia, Plurinational State of</option>              <option value="BQ">Bonaire, Sint Eustatius and Saba</option>              <option value="BA">Bosnia and Herzegovina</option>              <option value="BW">Botswana</option>              <option value="BV">Bouvet Island</option>              <option value="BR">Brazil</option>              <option value="IO">British Indian Ocean Territory</option>              <option value="BN">Brunei Darussalam</option>              <option value="BG">Bulgaria</option>              <option value="BF">Burkina Faso</option>              <option value="BI">Burundi</option>              <option value="KH">Cambodia</option>              <option value="CM">Cameroon</option>              <option value="CA">Canada</option>              <option value="CV">Cape Verde</option>              <option value="KY">Cayman Islands</option>              <option value="CF">Central African Republic</option>              <option value="TD">Chad</option>              <option value="CL">Chile</option>              <option value="CN">China</option>              <option value="CX">Christmas Island</option>              <option value="CC">Cocos (Keeling) Islands</option>              <option value="CO">Colombia</option>              <option value="KM">Comoros</option>              <option value="CG">Congo</option>              <option value="CD">Congo, the Democratic Republic of the</option>              <option value="CK">Cook Islands</option>              <option value="CR">Costa Rica</option>              <option value="CI">Côte d\'Ivoire</option>              <option value="HR">Croatia</option>              <option value="CU">Cuba</option>              <option value="CW">Curaçao</option>              <option value="CY">Cyprus</option>              <option value="CZ">Czech Republic</option>              <option value="DK">Denmark</option>              <option value="DJ">Djibouti</option>              <option value="DM">Dominica</option>              <option value="DO">Dominican Republic</option>              <option value="EC">Ecuador</option>              <option value="EG">Egypt</option>              <option value="SV">El Salvador</option>              <option value="GQ">Equatorial Guinea</option>              <option value="ER">Eritrea</option>              <option value="EE">Estonia</option>              <option value="ET">Ethiopia</option>              <option value="FK">Falkland Islands (Malvinas)</option>              <option value="FO">Faroe Islands</option>              <option value="FJ">Fiji</option>              <option value="FI">Finland</option>              <option value="FR">France</option>              <option value="GF">French Guiana</option>              <option value="PF">French Polynesia</option>              <option value="TF">French Southern Territories</option>              <option value="GA">Gabon</option>              <option value="GM">Gambia</option>              <option value="GE">Georgia</option>              <option value="DE">Germany</option>              <option value="GH">Ghana</option>              <option value="GI">Gibraltar</option>              <option value="GR">Greece</option>              <option value="GL">Greenland</option>              <option value="GD">Grenada</option>              <option value="GP">Guadeloupe</option>              <option value="GU">Guam</option>              <option value="GT">Guatemala</option>              <option value="GG">Guernsey</option>              <option value="GN">Guinea</option>              <option value="GW">Guinea-Bissau</option>              <option value="GY">Guyana</option>              <option value="HT">Haiti</option>              <option value="HM">Heard Island and McDonald Islands</option>              <option value="VA">Holy See (Vatican City State)</option>              <option value="HN">Honduras</option>              <option value="HK">Hong Kong</option>              <option value="HU">Hungary</option>              <option value="IS">Iceland</option>              <option value="IN">India</option>              <option value="ID">Indonesia</option>              <option value="IR">Iran, Islamic Republic of</option>              <option value="IQ">Iraq</option>              <option value="IE">Ireland</option>              <option value="IM">Isle of Man</option>              <option value="IL">Israel</option>              <option value="IT">Italy</option>              <option value="JM">Jamaica</option>              <option value="JP">Japan</option>              <option value="JE">Jersey</option>              <option value="JO">Jordan</option>              <option value="KZ">Kazakhstan</option>              <option value="KE">Kenya</option>              <option value="KI">Kiribati</option>              <option value="KP">Korea, Democratic People\'s Republic of</option>              <option value="KW">Kuwait</option>              <option value="KG">Kyrgyzstan</option>              <option value="LA">Lao People\'s Democratic Republic</option>              <option value="LV">Latvia</option>              <option value="LB">Lebanon</option>              <option value="LS">Lesotho</option>              <option value="LR">Liberia</option>              <option value="LY">Libya</option>              <option value="LI">Liechtenstein</option>              <option value="LT">Lithuania</option>              <option value="LU">Luxembourg</option>              <option value="MO">Macao</option>              <option value="MK">                Macedonia, the former Yugoslav Republic of              </option>              <option value="MG">Madagascar</option>              <option value="MW">Malawi</option>              <option value="MY">Malaysia</option>              <option value="MV">Maldives</option>              <option value="ML">Mali</option>              <option value="MT">Malta</option>              <option value="MH">Marshall Islands</option>              <option value="MQ">Martinique</option>              <option value="MR">Mauritania</option>              <option value="MU">Mauritius</option>              <option value="YT">Mayotte</option>              <option value="MX">Mexico</option>              <option value="FM">Micronesia, Federated States of</option>              <option value="MD">Moldova, Republic of</option>              <option value="MC">Monaco</option>              <option value="MN">Mongolia</option>              <option value="ME">Montenegro</option>              <option value="MS">Montserrat</option>              <option value="MA">Morocco</option>              <option value="MZ">Mozambique</option>              <option value="MM">Myanmar</option>              <option value="NA">Namibia</option>              <option value="NR">Nauru</option>              <option value="NP">Nepal</option>              <option value="NL">Netherlands</option>              <option value="NC">New Caledonia</option>              <option value="NZ">New Zealand</option>              <option value="NI">Nicaragua</option>              <option value="NE">Niger</option>              <option value="NG">Nigeria</option>              <option value="NU">Niue</option>              <option value="NF">Norfolk Island</option>              <option value="MP">Northern Mariana Islands</option>              <option value="NO">Norway</option>              <option value="OM">Oman</option>              <option value="PK">Pakistan</option>              <option value="PW">Palau</option>              <option value="PS">Palestinian Territory, Occupied</option>              <option value="PA">Panama</option>              <option value="PG">Papua New Guinea</option>              <option value="PY">Paraguay</option>              <option value="PE">Peru</option>              <option value="PH">Philippines</option>              <option value="PN">Pitcairn</option>              <option value="PL">Poland</option>              <option value="PT">Portugal</option>              <option value="PR">Puerto Rico</option>              <option value="QA">Qatar</option>              <option value="RE">Réunion</option>              <option value="RO">Romania</option>              <option value="RU">Russian Federation</option>              <option value="RW">Rwanda</option>              <option value="BL">Saint Barthélemy</option>              <option value="SH">                Saint Helena, Ascension and Tristan da Cunha              </option>              <option value="KN">Saint Kitts and Nevis</option>              <option value="LC">Saint Lucia</option>              <option value="MF">Saint Martin (French part)</option>              <option value="PM">Saint Pierre and Miquelon</option>              <option value="VC">Saint Vincent and the Grenadines</option>              <option value="WS">Samoa</option>              <option value="SM">San Marino</option>              <option value="ST">Sao Tome and Principe</option>              <option value="SA">Saudi Arabia</option>              <option value="SN">Senegal</option>              <option value="RS">Serbia</option>              <option value="SC">Seychelles</option>              <option value="SL">Sierra Leone</option>              <option value="SG">Singapore</option>              <option value="SX">Sint Maarten (Dutch part)</option>              <option value="SK">Slovakia</option>              <option value="SI">Slovenia</option>              <option value="SB">Solomon Islands</option>              <option value="SO">Somalia</option>              <option value="ZA">South Africa</option>              <option value="GS">                South Georgia and the South Sandwich Islands              </option>              <option value="KR">South Korea</option>              <option value="SS">South Sudan</option>              <option value="ES">Spain</option>              <option value="LK">Sri Lanka</option>              <option value="SD">Sudan</option>              <option value="SR">Suriname</option>              <option value="SJ">Svalbard and Jan Mayen</option>              <option value="SZ">Swaziland</option>              <option value="SE">Sweden</option>              <option value="CH">Switzerland</option>              <option value="SY">Syrian Arab Republic</option>              <option value="TW">Taiwan, Province of China</option>              <option value="TJ">Tajikistan</option>              <option value="TZ">Tanzania, United Republic of</option>              <option value="TH">Thailand</option>              <option value="TL">Timor-Leste</option>              <option value="TG">Togo</option>              <option value="TK">Tokelau</option>              <option value="TO">Tonga</option>              <option value="TT">Trinidad and Tobago</option>              <option value="TN">Tunisia</option>              <option value="TR">Turkey</option>              <option value="TM">Turkmenistan</option>              <option value="TC">Turks and Caicos Islands</option>              <option value="TV">Tuvalu</option>              <option value="UG">Uganda</option>              <option value="UA">Ukraine</option>              <option value="AE">United Arab Emirates</option>              <option value="GB">United Kingdom</option>              <option value="US">United States</option>              <option value="UY">Uruguay</option>              <option value="UZ">Uzbekistan</option>              <option value="VU">Vanuatu</option>              <option value="VE">Venezuela, Bolivarian Republic of</option>              <option value="VN">Vietnam</option>              <option value="VI">Virgin Islands</option>              <option value="WF">Wallis and Futuna</option>              <option value="EH">Western Sahara</option>              <option value="YE">Yemen</option>              <option value="ZM">Zambia</option>              <option value="ZW">Zimbabwe</option>            </select>            <!-- <div class="fv-plugins-message-container">              <div class="fv-help-block">Country is required</div>            </div> -->          </div>        </div>        <div class="row mb-6">          <label class="col-lg-4 col-form-label required fw-bold fs-6"            >Language</label          >          <div class="col-lg-8 fv-row">            <select              class="form-select form-select-solid form-select-lg"              name="language"            >              <option value="">Select a Language...</option>              <option value="id">Bahasa Indonesia - Indonesian</option>              <option value="msa">Bahasa Melayu - Malay</option>              <option value="ca">Català - Catalan</option>              <option value="cs">Čeština - Czech</option>              <option value="da">Dansk - Danish</option>              <option value="de">Deutsch - German</option>              <option value="en">English</option>              <option value="en-gb">English UK - British English</option>              <option value="es">Español - Spanish</option>              <option value="fil">Filipino</option>              <option value="fr">Français - French</option>              <option value="ga">Gaeilge - Irish (beta)</option>              <option value="gl">Galego - Galician (beta)</option>              <option value="hr">Hrvatski - Croatian</option>              <option value="it">Italiano - Italian</option>              <option value="hu">Magyar - Hungarian</option>              <option value="nl">Nederlands - Dutch</option>              <option value="no">Norsk - Norwegian</option>              <option value="pl">Polski - Polish</option>              <option value="pt">Português - Portuguese</option>              <option value="ro">Română - Romanian</option>              <option value="sk">Slovenčina - Slovak</option>              <option value="fi">Suomi - Finnish</option>              <option value="sv">Svenska - Swedish</option>              <option value="vi">Tiếng Việt - Vietnamese</option>              <option value="tr">Türkçe - Turkish</option>              <option value="el">Ελληνικά - Greek</option>              <option value="bg">Български език - Bulgarian</option>              <option value="ru">Русский - Russian</option>              <option value="sr">Српски - Serbian</option>              <option value="uk">Українська мова - Ukrainian</option>              <option value="he">עִבְרִית - Hebrew</option>              <option value="ur">اردو - Urdu (beta)</option>              <option value="ar">العربية - Arabic</option>              <option value="fa">فارسی - Persian</option>              <option value="mr">मराठी - Marathi</option>              <option value="hi">हिन्दी - Hindi</option>              <option value="bn">বাংলা - Bangla</option>              <option value="gu">ગુજરાતી - Gujarati</option>              <option value="ta">தமிழ் - Tamil</option>              <option value="kn">ಕನ್ನಡ - Kannada</option>              <option value="th">ภาษาไทย - Thai</option>              <option value="ko">한국어 - Korean</option>              <option value="ja">日本語 - Japanese</option>              <option value="zh-cn">简体中文 - Simplified Chinese</option>              <option value="zh-tw">繁體中文 - Traditional Chinese</option>            </select>            <div class="form-text">              Please select a preferred language, including date, time, and              number formatting.            </div>          </div>        </div>        <div class="row mb-6">          <label class="col-lg-4 col-form-label required fw-bold fs-6"            >Time Zone</label          >          <div class="col-lg-8 fv-row">            <select              class="form-select form-select-solid form-select-lg"              name="timeZone"            >              <option value="">Select a Timezone..</option>              <option value="International Date Line West">                (GMT-11:00) International Date Line West              </option>              <option value="Midway Island">(GMT-11:00) Midway Island</option>              <option value="Samoa">(GMT-11:00) Samoa</option>              <option value="Hawaii">(GMT-10:00) Hawaii</option>              <option value="Alaska">(GMT-08:00) Alaska</option>              <option value="Pacific Time (US &amp; Canada)">                (GMT-07:00) Pacific Time (US &amp; Canada)              </option>              <option value="Tijuana">(GMT-07:00) Tijuana</option>              <option value="Arizona">(GMT-07:00) Arizona</option>              <option value="Mountain Time (US &amp; Canada)">                (GMT-06:00) Mountain Time (US &amp; Canada)              </option>              <option value="Chihuahua">(GMT-06:00) Chihuahua</option>              <option value="Mazatlan">(GMT-06:00) Mazatlan</option>              <option value="Saskatchewan">(GMT-06:00) Saskatchewan</option>              <option value="Central America">                (GMT-06:00) Central America              </option>              <option value="Central Time (US &amp; Canada)">                (GMT-05:00) Central Time (US &amp; Canada)              </option>              <option value="Guadalajara">(GMT-05:00) Guadalajara</option>              <option value="Mexico City">(GMT-05:00) Mexico City</option>              <option value="Monterrey">(GMT-05:00) Monterrey</option>              <option value="Bogota">(GMT-05:00) Bogota</option>              <option value="Lima">(GMT-05:00) Lima</option>              <option value="Quito">(GMT-05:00) Quito</option>              <option value="Eastern Time (US &amp; Canada)">                (GMT-04:00) Eastern Time (US &amp; Canada)              </option>              <option value="Indiana (East)">(GMT-04:00) Indiana (East)</option>              <option value="Caracas">(GMT-04:00) Caracas</option>              <option value="La Paz">(GMT-04:00) La Paz</option>              <option value="Georgetown">(GMT-04:00) Georgetown</option>              <option value="Atlantic Time (Canada)">                (GMT-03:00) Atlantic Time (Canada)              </option>              <option value="Santiago">(GMT-03:00) Santiago</option>              <option value="Brasilia">(GMT-03:00) Brasilia</option>              <option value="Buenos Aires">(GMT-03:00) Buenos Aires</option>              <option value="Newfoundland">(GMT-02:30) Newfoundland</option>              <option value="Greenland">(GMT-02:00) Greenland</option>              <option value="Mid-Atlantic">(GMT-02:00) Mid-Atlantic</option>              <option value="Cape Verde Is.">(GMT-01:00) Cape Verde Is.</option>              <option value="Azores">(GMT) Azores</option>              <option value="Monrovia">(GMT) Monrovia</option>              <option value="UTC">(GMT) UTC</option>              <option value="Dublin">(GMT+01:00) Dublin</option>              <option value="Edinburgh">(GMT+01:00) Edinburgh</option>              <option value="Lisbon">(GMT+01:00) Lisbon</option>              <option value="London">(GMT+01:00) London</option>              <option value="Casablanca">(GMT+01:00) Casablanca</option>              <option value="West Central Africa">                (GMT+01:00) West Central Africa              </option>              <option value="Belgrade">(GMT+02:00) Belgrade</option>              <option value="Bratislava">(GMT+02:00) Bratislava</option>              <option value="Budapest">(GMT+02:00) Budapest</option>              <option value="Ljubljana">(GMT+02:00) Ljubljana</option>              <option value="Prague">(GMT+02:00) Prague</option>              <option value="Sarajevo">(GMT+02:00) Sarajevo</option>              <option value="Skopje">(GMT+02:00) Skopje</option>              <option value="Warsaw">(GMT+02:00) Warsaw</option>              <option value="Zagreb">(GMT+02:00) Zagreb</option>              <option value="Brussels">(GMT+02:00) Brussels</option>              <option value="Copenhagen">(GMT+02:00) Copenhagen</option>              <option value="Madrid">(GMT+02:00) Madrid</option>              <option value="Paris">(GMT+02:00) Paris</option>              <option value="Amsterdam">(GMT+02:00) Amsterdam</option>              <option value="Berlin">(GMT+02:00) Berlin</option>              <option value="Bern">(GMT+02:00) Bern</option>              <option value="Rome">(GMT+02:00) Rome</option>              <option value="Stockholm">(GMT+02:00) Stockholm</option>              <option value="Vienna">(GMT+02:00) Vienna</option>              <option value="Cairo">(GMT+02:00) Cairo</option>              <option value="Harare">(GMT+02:00) Harare</option>              <option value="Pretoria">(GMT+02:00) Pretoria</option>              <option value="Bucharest">(GMT+03:00) Bucharest</option>              <option value="Helsinki">(GMT+03:00) Helsinki</option>              <option value="Kiev">(GMT+03:00) Kiev</option>              <option value="Kyiv">(GMT+03:00) Kyiv</option>              <option value="Riga">(GMT+03:00) Riga</option>              <option value="Sofia">(GMT+03:00) Sofia</option>              <option value="Tallinn">(GMT+03:00) Tallinn</option>              <option value="Vilnius">(GMT+03:00) Vilnius</option>              <option value="Athens">(GMT+03:00) Athens</option>              <option value="Istanbul">(GMT+03:00) Istanbul</option>              <option value="Minsk">(GMT+03:00) Minsk</option>              <option value="Jerusalem">(GMT+03:00) Jerusalem</option>              <option value="Moscow">(GMT+03:00) Moscow</option>              <option value="St. Petersburg">(GMT+03:00) St. Petersburg</option>              <option value="Volgograd">(GMT+03:00) Volgograd</option>              <option value="Kuwait">(GMT+03:00) Kuwait</option>              <option value="Riyadh">(GMT+03:00) Riyadh</option>              <option value="Nairobi">(GMT+03:00) Nairobi</option>              <option value="Baghdad">(GMT+03:00) Baghdad</option>              <option value="Abu Dhabi">(GMT+04:00) Abu Dhabi</option>              <option value="Muscat">(GMT+04:00) Muscat</option>              <option value="Baku">(GMT+04:00) Baku</option>              <option value="Tbilisi">(GMT+04:00) Tbilisi</option>              <option value="Yerevan">(GMT+04:00) Yerevan</option>              <option value="Tehran">(GMT+04:30) Tehran</option>              <option value="Kabul">(GMT+04:30) Kabul</option>              <option value="Ekaterinburg">(GMT+05:00) Ekaterinburg</option>              <option value="Islamabad">(GMT+05:00) Islamabad</option>              <option value="Karachi">(GMT+05:00) Karachi</option>              <option value="Tashkent">(GMT+05:00) Tashkent</option>              <option value="Chennai">(GMT+05:30) Chennai</option>              <option value="Kolkata">(GMT+05:30) Kolkata</option>              <option value="Mumbai">(GMT+05:30) Mumbai</option>              <option value="New Delhi">(GMT+05:30) New Delhi</option>              <option value="Sri Jayawardenepura">                (GMT+05:30) Sri Jayawardenepura              </option>              <option value="Kathmandu">(GMT+05:45) Kathmandu</option>              <option value="Astana">(GMT+06:00) Astana</option>              <option value="Dhaka">(GMT+06:00) Dhaka</option>              <option value="Almaty">(GMT+06:00) Almaty</option>              <option value="Urumqi">(GMT+06:00) Urumqi</option>              <option value="Rangoon">(GMT+06:30) Rangoon</option>              <option value="Novosibirsk">(GMT+07:00) Novosibirsk</option>              <option value="Bangkok">(GMT+07:00) Bangkok</option>              <option value="Hanoi">(GMT+07:00) Hanoi</option>              <option value="Jakarta">(GMT+07:00) Jakarta</option>              <option value="Krasnoyarsk">(GMT+07:00) Krasnoyarsk</option>              <option value="Beijing">(GMT+08:00) Beijing</option>              <option value="Chongqing">(GMT+08:00) Chongqing</option>              <option value="Hong Kong">(GMT+08:00) Hong Kong</option>              <option value="Kuala Lumpur">(GMT+08:00) Kuala Lumpur</option>              <option value="Singapore">(GMT+08:00) Singapore</option>              <option value="Taipei">(GMT+08:00) Taipei</option>              <option value="Perth">(GMT+08:00) Perth</option>              <option value="Irkutsk">(GMT+08:00) Irkutsk</option>              <option value="Ulaan Bataar">(GMT+08:00) Ulaan Bataar</option>              <option value="Seoul">(GMT+09:00) Seoul</option>              <option value="Osaka">(GMT+09:00) Osaka</option>              <option value="Sapporo">(GMT+09:00) Sapporo</option>              <option value="Tokyo">(GMT+09:00) Tokyo</option>              <option value="Yakutsk">(GMT+09:00) Yakutsk</option>              <option value="Darwin">(GMT+09:30) Darwin</option>              <option value="Adelaide">(GMT+09:30) Adelaide</option>              <option value="Canberra">(GMT+10:00) Canberra</option>              <option value="Melbourne">(GMT+10:00) Melbourne</option>              <option value="Sydney">(GMT+10:00) Sydney</option>              <option value="Brisbane">(GMT+10:00) Brisbane</option>              <option value="Hobart">(GMT+10:00) Hobart</option>              <option value="Vladivostok">(GMT+10:00) Vladivostok</option>              <option value="Guam">(GMT+10:00) Guam</option>              <option value="Port Moresby">(GMT+10:00) Port Moresby</option>              <option value="Solomon Is.">(GMT+10:00) Solomon Is.</option>              <option value="Magadan">(GMT+11:00) Magadan</option>              <option value="New Caledonia">(GMT+11:00) New Caledonia</option>              <option value="Fiji">(GMT+12:00) Fiji</option>              <option value="Kamchatka">(GMT+12:00) Kamchatka</option>              <option value="Marshall Is.">(GMT+12:00) Marshall Is.</option>              <option value="Auckland">(GMT+12:00) Auckland</option>              <option value="Wellington">(GMT+12:00) Wellington</option>              <option value="Nuku\'alofa">(GMT+13:00) Nuku\'alofa</option>            </select>          </div>        </div>        <div class="row mb-6">          <label class="col-lg-4 col-form-label required fw-bold fs-6"            >Currency</label          >          <div class="col-lg-8 fv-row">            <select              class="form-select form-select-solid form-select-lg"              name="currency"            >              <option value="">Select a currency..</option>              <option value="USD">USD - USA dollar</option>              <option value="GBP">GBP - British pound</option>              <option value="AUD">AUD - Australian dollar</option>              <option value="JPY">JPY - Japanese yen</option>              <option value="SEK">SEK - Swedish krona</option>              <option value="CAD">CAD - Canadian dollar</option>              <option value="CHF">CHF - Swiss franc</option>            </select>          </div>        </div>        <div class="row mb-6">          <label class="col-lg-4 col-form-label fw-bold fs-6"            >Communication</label          >          <div class="col-lg-8 fv-row">            <div class="d-flex align-items-center mt-3">              <label class="form-check form-check-inline form-check-solid me-5"                ><input                  class="form-check-input"                  name="communication[]"                  type="checkbox"                /><span class="fw-bold ps-2 fs-6">Email</span></label              ><label class="form-check form-check-inline form-check-solid"                ><input                  class="form-check-input"                  name="communication[]"                  type="checkbox"                /><span class="fw-bold ps-2 fs-6">Phone</span></label              >            </div>          </div>        </div>        <div class="row mb-0">          <label class="col-lg-4 col-form-label fw-bold fs-6"            >Allow Marketing</label          >          <div class="col-lg-8 d-flex align-items-center">            <div class="form-check form-check-solid form-switch fv-row">              <input                class="form-check-input w-45px h-30px"                type="checkbox"                id="allowmarketing"              /><label class="form-check-label"></label>            </div>          </div>        </div>      </div>      <div class="card-footer d-flex justify-content-end py-6 px-9">        <button          type="button"          class="btn btn-primary"          [disabled]="isLoading"          (click)="saveSettings()"        >          <ng-container *ngIf="!isLoading">Save Changes</ng-container>          <ng-container *ngIf="isLoading">            <span clas="indicator-progress" [style.display]="\'block\'">              Please wait...{{ " " }}              <span                class="spinner-border spinner-border-sm align-middle ms-2"              ></span>            </span>          </ng-container>        </button>      </div>    </form>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AccordionComponent', 'selector': 'lib-accordion'},{'name': 'AccountComponent', 'selector': 'app-account'},{'name': 'AccountingComponent', 'selector': 'app-accounting'},{'name': 'AccountingDashboardComponent', 'selector': 'app-accounting-dashboard'},{'name': 'AccountsComponent', 'selector': 'app-accounts'},{'name': 'AccountStatementComponent', 'selector': 'app-account-statement'},{'name': 'ActivityDrawerComponent', 'selector': 'app-activity-drawer'},{'name': 'ActtachmentViewComponent', 'selector': 'lib-acttachment-view'},{'name': 'AddAttributeDefinitionComponent', 'selector': 'app-add-attribute-definition'},{'name': 'AddBankDefinitionComponent', 'selector': 'app-add-bank-definition'},{'name': 'AddBarcodePopupComponent', 'selector': 'app-add-barcode-popup'},{'name': 'AddChartComponent', 'selector': 'app-add-chart'},{'name': 'AddCMSComponent', 'selector': 'app-add-cms'},{'name': 'AddCostCenterComponent', 'selector': 'app-add-cost-center'},{'name': 'AddCostCenterComponent', 'selector': 'app-add-cost-center'},{'name': 'AddCurrencyConversionComponent', 'selector': 'app-add-currency-conversion'},{'name': 'AddCurrencyDefinitionComponent', 'selector': 'app-add-currency-definition'},{'name': 'AddCustomerComponent', 'selector': 'app-add-customer'},{'name': 'AddCustomerOpeeningBalanceComponent', 'selector': 'app-add-customer-opeening-balance'},{'name': 'AddDomainSpaceComponent', 'selector': 'app-add-domain-space'},{'name': 'AddHelpPageComponent', 'selector': 'app-add-help-page'},{'name': 'AddItemCategoryComponent', 'selector': 'app-add-item-category'},{'name': 'AddItemDefinitionPopupComponent', 'selector': 'app-add-item-definition-popup'},{'name': 'AddItemsCategoryComponent', 'selector': 'app-add-items-category'},{'name': 'AddJournalEntryOpeningBalanceComponent', 'selector': 'app-add-journal-entry-opening-balance'},{'name': 'AddPaymentInComponent', 'selector': 'app-add-payment-in'},{'name': 'AddPaymentMethodComponent', 'selector': 'app-add-payment-method'},{'name': 'AddPaymentOutComponent', 'selector': 'app-add-payment-out'},{'name': 'AddPaymentOutCostCenterComponent', 'selector': 'app-add-payment-out-cost-center'},{'name': 'AddPaymentTermComponent', 'selector': 'app-add-payment-term'},{'name': 'AddPricePolicyComponent', 'selector': 'app-add-price-policy'},{'name': 'AddPurchaseInvoiceComponent', 'selector': 'app-add-purchase-invoice'},{'name': 'AddStockInComponent', 'selector': 'app-add-stock-in'},{'name': 'AddStockOutComponent', 'selector': 'app-add-stock-out'},{'name': 'AddTreasuryComponent', 'selector': 'app-add-treasury'},{'name': 'AddVariantPopupComponent', 'selector': 'app-add-variant-popup'},{'name': 'AddVendorDefinitionsComponent', 'selector': 'app-add-vendor-definitions'},{'name': 'AddWarehouseComponent', 'selector': 'app-add-warehouse'},{'name': 'AddWarehousePopupComponent', 'selector': 'app-add-warehouse-popup'},{'name': 'AdvanceTablesWidget1Component', 'selector': 'app-advance-tables-widget1'},{'name': 'AdvanceTablesWidget2Component', 'selector': 'app-advance-tables-widget2'},{'name': 'AdvanceTablesWidget7Component', 'selector': 'app-advance-tables-widget7'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AppDetailsComponent', 'selector': 'app-app-details'},{'name': 'AppInfoListComponent', 'selector': 'app-app-info-list'},{'name': 'AsideComponent', 'selector': 'app-aside'},{'name': 'AsideMenuComponent', 'selector': 'app-aside-menu'},{'name': 'AttachmentsComponent', 'selector': 'app-attachments'},{'name': 'AttachmentViewerComponent', 'selector': 'lib-attachment-viewer'},{'name': 'AttributeDefinitionComponent', 'selector': 'app-attribute-definition'},{'name': 'AttributeDefinitionListComponent', 'selector': 'app-attribute-definition-list'},{'name': 'AttributeDefinitionListValuesComponent', 'selector': 'app-attribute-definition-list-values'},{'name': 'AttributeDefinitionValuesComponent', 'selector': 'app-attribute-definition-values'},{'name': 'BankAccountStatementComponent', 'selector': 'app-bank-account-statement'},{'name': 'BankDefinitionListComponent', 'selector': 'app-bank-definition-list'},{'name': 'BaseTablesWidget1Component', 'selector': 'app-base-tables-widget1'},{'name': 'BaseTablesWidget2Component', 'selector': 'app-base-tables-widget2'},{'name': 'BaseTablesWidget6Component', 'selector': 'app-base-tables-widget6'},{'name': 'BreadCrumbComponent', 'selector': 'lib-bread-crumb'},{'name': 'BuilderComponent', 'selector': 'app-builder'},{'name': 'BussinessOwnersListComponent', 'selector': 'app-bussiness-owners-list'},{'name': 'ButtonComponent', 'selector': 'lib-button'},{'name': 'ButtonMicroComponent', 'selector': 'lib-button-micro'},{'name': 'CalendarComponent', 'selector': 'lib-calendar'},{'name': 'CampaignsComponent', 'selector': 'app-campaigns'},{'name': 'Card1Component', 'selector': 'app-card1'},{'name': 'Card2Component', 'selector': 'app-card2'},{'name': 'Card3Component', 'selector': 'app-card3'},{'name': 'Card4Component', 'selector': 'app-card4'},{'name': 'Card5Component', 'selector': 'app-card5'},{'name': 'CardsWidget17Component', 'selector': 'app-cards-widget17'},{'name': 'CardsWidget18Component', 'selector': 'app-cards-widget18'},{'name': 'CardsWidget20Component', 'selector': 'app-cards-widget20'},{'name': 'CardsWidget7Component', 'selector': 'app-cards-widget7'},{'name': 'CartComponent', 'selector': ''},{'name': 'CartItemDetailComponent', 'selector': ''},{'name': 'ChangeColumnComponent', 'selector': 'lib-change-column'},{'name': 'ChartCardComponent', 'selector': 'app-chart-card'},{'name': 'ChartOfAccountConfigurationComponent', 'selector': 'app-chart-of-account-configuration'},{'name': 'ChartOfAccountTreeComponent', 'selector': 'app-chart-of-account-tree'},{'name': 'ChartsComponent', 'selector': 'app-charts'},{'name': 'ChartsWidget1Component', 'selector': 'app-charts-widget1'},{'name': 'ChartsWidget2Component', 'selector': 'app-charts-widget2'},{'name': 'ChartsWidget3Component', 'selector': 'app-charts-widget3'},{'name': 'ChartsWidget4Component', 'selector': 'app-charts-widget4'},{'name': 'ChartsWidget5Component', 'selector': 'app-charts-widget5'},{'name': 'ChartsWidget6Component', 'selector': 'app-charts-widget6'},{'name': 'ChartsWidget7Component', 'selector': 'app-charts-widget7'},{'name': 'ChartsWidget8Component', 'selector': 'app-charts-widget8'},{'name': 'ChatComponent', 'selector': 'app-chat'},{'name': 'ChatInnerComponent', 'selector': 'app-chat-inner'},{'name': 'ChatOfAccountListComponent', 'selector': 'app-chat-of-account-list'},{'name': 'ClassicComponent', 'selector': 'app-classic'},{'name': 'ColumnsSelectionComponent', 'selector': 'lib-columns-selection'},{'name': 'CompaniesDetailsInfoComponent', 'selector': 'app-companies-details-info'},{'name': 'CompaniesListComponent', 'selector': 'app-companies-list'},{'name': 'CompanyAddresComponent', 'selector': 'app-company-addres'},{'name': 'CompanyBranchesComponent', 'selector': 'app-company-branches'},{'name': 'CompanyContactComponent', 'selector': 'app-company-contact'},{'name': 'CompanyHierarchyComponent', 'selector': 'app-company-hierarchy'},{'name': 'CompanyLegalComponent', 'selector': 'app-company-legal'},{'name': 'ConfirmComponent', 'selector': 'app-confirm'},{'name': 'ConfirmOpeningBalanceComponent', 'selector': 'app-confirm-opening-balance'},{'name': 'ConfirmSequenceComponent', 'selector': 'lib-confirm-sequence'},{'name': 'ConnectedAccountsComponent', 'selector': 'app-connected-accounts'},{'name': 'ConnectionsComponent', 'selector': 'app-connections'},{'name': 'ContentComponent', 'selector': 'app-content'},{'name': 'CostCenterAllocationPopupComponent', 'selector': 'app-cost-center-allocation-popup'},{'name': 'CostCenterListComponent', 'selector': 'app-cost-center-list'},{'name': 'CostCenterReportComponent', 'selector': 'app-cost-center-report'},{'name': 'CostCenterTreeComponent', 'selector': 'app-cost-center-tree'},{'name': 'CreateCustomerCategoryComponent', 'selector': 'app-create-customer-category'},{'name': 'CreateEmployeeComponent', 'selector': 'app-create-employee'},{'name': 'CreateFinancialCalendarComponent', 'selector': 'app-create-financial-calendar'},{'name': 'CreateJournalEntryComponent', 'selector': 'app-journal-entry'},{'name': 'CreateVendorCategoryComponent', 'selector': 'app-create-vendor-category'},{'name': 'CurrencyConversionComponent', 'selector': 'app-currency-conversion'},{'name': 'CurrencyDefinitionComponent', 'selector': 'app-currency-definition'},{'name': 'CustomerCategoryListComponent', 'selector': 'app-customer-category-list'},{'name': 'CustomerListComponent', 'selector': 'app-customer-list'},{'name': 'CustomerObViewDistributionComponent', 'selector': 'app-customer-ob-view-distribution'},{'name': 'CustomerOpeningBalanceDistributeComponent', 'selector': 'app-customer-opening-balance-distribute'},{'name': 'CustomerOpeningBalanceListComponent', 'selector': 'app-customer-opening-balance-list'},{'name': 'CustomerOpeningBalanceNoChildrenComponent', 'selector': 'app-customer-opening-balance-no-children'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DataTableComponent', 'selector': 'lib-data-table'},{'name': 'DeactivateAccountComponent', 'selector': 'app-deactivate-account'},{'name': 'DocumentsComponent', 'selector': 'app-documents'},{'name': 'DomainSpaceInfoComponent', 'selector': 'app-domain-space-info'},{'name': 'DrawerChatComponent', 'selector': 'app-drawer-chat'},{'name': 'DropdownMenu1Component', 'selector': 'app-dropdown-menu1'},{'name': 'DropdownMenu2Component', 'selector': 'app-dropdown-menu2'},{'name': 'DropdownMenu3Component', 'selector': 'app-dropdown-menu3'},{'name': 'EditAttributeDefinitionComponent', 'selector': 'app-edit-attribute-definition'},{'name': 'EditBankDefinitionComponent', 'selector': 'app-edit-bank-definition'},{'name': 'EditBranchesComponent', 'selector': 'app-edit-branches'},{'name': 'EditBussinessOwnerComponent', 'selector': 'app-edit-bussiness-owner'},{'name': 'EditCategoryUomComponent', 'selector': 'app-edit-category-uom'},{'name': 'EditChartComponent', 'selector': 'app-edit-chart'},{'name': 'EditCMSComponent', 'selector': 'app-edit-cms'},{'name': 'EditCompanyComponent', 'selector': 'app-edit-company'},{'name': 'EditCostCenterAllocationPopupComponent', 'selector': 'app-edit-cost-center-allocation-popup'},{'name': 'EditCostCenterComponent', 'selector': 'app-edit-cost-center'},{'name': 'EditCurrencyConversionComponent', 'selector': 'app-edit-currency-conversion'},{'name': 'EditCurrencyDefinitionComponent', 'selector': 'app-edit-currency-definition'},{'name': 'EditCustomerCategoryComponent', 'selector': 'app-edit-customer-category'},{'name': 'EditCustomerComponent', 'selector': 'app-edit-customer'},{'name': 'EditCustomerOpeningBalanceComponent', 'selector': 'app-edit-customer-opening-balance'},{'name': 'EditEmployeeComponent', 'selector': 'app-edit-employee'},{'name': 'EditFinancialCalendarComponent', 'selector': 'app-edit-financial-calendar'},{'name': 'EditHelpsPagesComponent', 'selector': 'app-edit-helps-pages'},{'name': 'EditItemCategoryComponent', 'selector': 'app-edit-item-category'},{'name': 'EditItemDefinitionComponent', 'selector': 'app-edit-item-definition'},{'name': 'EditJournalEntryComponent', 'selector': 'app-edit-journal-entry'},{'name': 'EditJournalEntryOpeningBalanceComponent', 'selector': 'app-edit-journal-entry-opening-balance'},{'name': 'EditMultipeFilesComponent', 'selector': 'lib-edit-multipe-files'},{'name': 'EditPaymentInComponent', 'selector': 'app-edit-payment-in'},{'name': 'EditPaymentMethodComponent', 'selector': 'app-edit-payment-method'},{'name': 'EditPaymentOutComponent', 'selector': 'app-edit-payment-out'},{'name': 'EditPaymentTermComponent', 'selector': 'app-edit-payment-term'},{'name': 'EditPricePolicyComponent', 'selector': 'app-edit-price-policy'},{'name': 'EditPurchaseInvoiceComponent', 'selector': 'app-edit-purchase-invoice'},{'name': 'EditStockInComponent', 'selector': 'app-edit-stock-in'},{'name': 'EditStockOutComponent', 'selector': 'app-edit-stock-out'},{'name': 'EditTreasuryComponent', 'selector': 'app-edit-treasury'},{'name': 'EditVendorCategoryComponent', 'selector': 'app-edit-vendor-category'},{'name': 'EditVendorDefinitionsComponent', 'selector': 'app-edit-vendor-definitions'},{'name': 'EditWarehouseComponent', 'selector': 'app-edit-warehouse'},{'name': 'EmailPreferencesComponent', 'selector': 'app-email-preferences'},{'name': 'EmployeeListComponent', 'selector': 'app-employee-list'},{'name': 'EngagesComponent', 'selector': 'app-engages'},{'name': 'EngageWidget10Component', 'selector': 'app-engage-widget10'},{'name': 'ERPUserComponent', 'selector': 'app-erpuser'},{'name': 'Error404Component', 'selector': 'app-error404'},{'name': 'Error500Component', 'selector': 'app-error500'},{'name': 'ErrorsComponent', 'selector': 'app-errors'},{'name': 'ExploreMainDrawerComponent', 'selector': 'app-explore-main-drawer'},{'name': 'ExportComponent', 'selector': 'lib-export'},{'name': 'ExtendedComponent', 'selector': 'app-extended'},{'name': 'FeedsComponent', 'selector': 'app-feeds'},{'name': 'FeedsWidget2Component', 'selector': 'app-feeds-widget2'},{'name': 'FeedsWidget3Component', 'selector': 'app-feeds-widget3'},{'name': 'FeedsWidget4Component', 'selector': 'app-feeds-widget4'},{'name': 'FeedsWidget5Component', 'selector': 'app-feeds-widget5'},{'name': 'FeedsWidget6Component', 'selector': 'app-feeds-widget6'},{'name': 'FieldValidationsComponent', 'selector': 'lib-field-validations'},{'name': 'FildestComponent', 'selector': 'lib-fildest'},{'name': 'FileUploaderComponent', 'selector': 'lib-file-uploader'},{'name': 'FinancialCalendarListComponent', 'selector': 'app-financial-calendar-list'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FormGroupComponent', 'selector': 'lib-form-group'},{'name': 'GeneralSettingInvComponent', 'selector': 'app-general-setting-inv'},{'name': 'GroupChatComponent', 'selector': 'app-group-chat'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HeaderMenuComponent', 'selector': 'app-header-menu'},{'name': 'HelpDrawerComponent', 'selector': 'app-help-drawer'},{'name': 'HelpPageComponent', 'selector': 'lib-help-page'},{'name': 'HomeHelpPageComponent', 'selector': 'lib-home-help-page'},{'name': 'HomePageComponent', 'selector': 'app-home-page'},{'name': 'HomePageComponent', 'selector': 'app-home-page'},{'name': 'HorizontalComponent', 'selector': 'app-horizontal'},{'name': 'ImportStockInComponent', 'selector': 'app-import-stock-in'},{'name': 'InputSwitchComponent', 'selector': 'lib-input-switch'},{'name': 'InviteUsersModalComponent', 'selector': 'app-invite-users-modal'},{'name': 'ItemAdvancedSearchEditComponent', 'selector': 'app-item-advanced-search-edit'},{'name': 'ItemAdvancedSearchPurchaseInvoiceComponent', 'selector': 'app-item-advanced-search-purchase-invoice'},{'name': 'ItemCardComponent', 'selector': 'app-item-card'},{'name': 'ItemCatalogTabsComponent', 'selector': 'item-catalog-tabs'},{'name': 'ItemCategoryListComponent', 'selector': 'app-item-category-list'},{'name': 'ItemDefinitionAttributesVariantsComponent', 'selector': 'app-item-definition-attributes-variants'},{'name': 'ItemDefinitionBarcodeComponent', 'selector': 'app-item-definition-barcode'},{'name': 'ItemDefinitionGeneralComponent', 'selector': 'app-item-definition-general'},{'name': 'ItemDefinitionInventoryComponent', 'selector': 'app-item-definition-inventory'},{'name': 'ItemDefinitionListComponent', 'selector': 'app-item-definition-list'},{'name': 'ItemDefinitionUomComponent', 'selector': 'app-item-definition-uom'},{'name': 'ItemDefintionTaxComponent', 'selector': 'app-item-defintion-tax'},{'name': 'ItemDefintionVariantComponent', 'selector': 'app-item-defintion-vat'},{'name': 'ItemFixedCostComponent', 'selector': 'app-item-fixed-cost'},{'name': 'ItemsCategoryTreeComponent', 'selector': 'app-items-category-tree'},{'name': 'JournalEntryListComponent', 'selector': 'app-journal-entry-list'},{'name': 'JournalEntryOpeningBalanceListComponent', 'selector': 'app-journal-entry-opening-balance-list'},{'name': 'JournalTemplatePopupComponent', 'selector': 'app-journal-template-popup'},{'name': 'LabelComponent', 'selector': 'lib-label'},{'name': 'LandingPageComponent', 'selector': 'app-landing-page'},{'name': 'LayoutComponent', 'selector': 'app-layout'},{'name': 'LayoutComponent', 'selector': 'app-layout'},{'name': 'LayoutComponent', 'selector': 'app-layout'},{'name': 'LayoutHeaderComponent', 'selector': 'app-layout-header'},{'name': 'LayoutHeaderComponent', 'selector': 'app-layout-header'},{'name': 'LayoutPageComponent', 'selector': 'app-layout-page'},{'name': 'LayoutScrollTopComponent', 'selector': 'app-scroll-top'},{'name': 'LayoutSidebarComponent', 'selector': 'app-layout-sidebar'},{'name': 'LayoutSidebarComponent', 'selector': 'app-layout-sidebar'},{'name': 'LicenceInfoListComponent', 'selector': 'app-licence-info-list'},{'name': 'ListAppsComponent', 'selector': 'app-list-apps'},{'name': 'ListCMSComponent', 'selector': 'app-list-cms'},{'name': 'ListHelpPageComponent', 'selector': 'app-list-help-page'},{'name': 'ListsComponent', 'selector': 'app-lists'},{'name': 'ListsWidget1Component', 'selector': 'app-lists-widget1'},{'name': 'ListsWidget26Component', 'selector': 'app-lists-widget26'},{'name': 'ListsWidget2Component', 'selector': 'app-lists-widget2'},{'name': 'ListsWidget3Component', 'selector': 'app-lists-widget3'},{'name': 'ListsWidget4Component', 'selector': 'app-lists-widget4'},{'name': 'ListsWidget5Component', 'selector': 'app-lists-widget5'},{'name': 'ListsWidget6Component', 'selector': 'app-lists-widget6'},{'name': 'ListsWidget7Component', 'selector': 'app-lists-widget7'},{'name': 'ListsWidget8Component', 'selector': 'app-lists-widget8'},{'name': 'LoaderComponent', 'selector': 'app-loader'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LoginRedirectComponent', 'selector': 'app-login-redirect'},{'name': 'LogoutComponent', 'selector': 'app-logout'},{'name': 'LogoutRedirectComponent', 'selector': 'app-logout-redirect'},{'name': 'MainBankDefinitionComponent', 'selector': 'app-main-bank-definition'},{'name': 'MainChartOfAccountComponent', 'selector': 'app-main-chart-of-account'},{'name': 'MainCostCenterComponent', 'selector': 'app-main-cost-center'},{'name': 'MainCustomerCategoryComponent', 'selector': 'app-main-customer-category'},{'name': 'MainCustomerDefintionComponent', 'selector': 'app-main-customer-defintion'},{'name': 'MainCustomerOpeningBalanceComponent', 'selector': 'app-main-customer-opening-balance'},{'name': 'MainEmployeeComponent', 'selector': 'app-main-employee'},{'name': 'MainFinancialCalendarComponent', 'selector': 'app-main-financial-calendar'},{'name': 'MainHelpComponent', 'selector': 'lib-main-help'},{'name': 'MainItemCategoriesTreeComponent', 'selector': 'app-main-item-categories-tree'},{'name': 'MainJournalComponent', 'selector': 'app-main-journal'},{'name': 'MainModalComponent', 'selector': 'app-main-modal'},{'name': 'MainOpeningBalanceComponent', 'selector': 'app-main-opening-balance'},{'name': 'MainPageComponent', 'selector': 'app-main-page'},{'name': 'MainPaymentInComponent', 'selector': 'app-main-payment-in'},{'name': 'MainPaymentMethodComponent', 'selector': 'app-main-payment-method'},{'name': 'MainPaymentOutComponent', 'selector': 'app-main-payment-out'},{'name': 'MainPaymentTermComponent', 'selector': 'app-main-payment-term'},{'name': 'MainPurchaseInvoiceComponent', 'selector': 'app-main-purchase-invoice'},{'name': 'MainStockInListComponentComponent', 'selector': 'app-main-stock-in-list-component'},{'name': 'MainStockOutComponent', 'selector': 'app-main-stock-out'},{'name': 'MainVendorCategoryComponent', 'selector': 'app-main-vendor-category'},{'name': 'MainVendorDefintionsComponent', 'selector': 'app-main-vendor-defintions'},{'name': 'MainWarehouseComponent', 'selector': 'app-main-warehouse'},{'name': 'ManageAppsComponent', 'selector': 'app-manage-apps'},{'name': 'MessengerDrawerComponent', 'selector': 'app-messenger-drawer'},{'name': 'MixedComponent', 'selector': 'app-mixed'},{'name': 'MixedWidget10Component', 'selector': 'app-mixed-widget10'},{'name': 'MixedWidget11Component', 'selector': 'app-mixed-widget11'},{'name': 'MixedWidget1Component', 'selector': 'app-mixed-widget1'},{'name': 'MixedWidget2Component', 'selector': 'app-mixed-widget2'},{'name': 'MixedWidget3Component', 'selector': 'app-mixed-widget3'},{'name': 'MixedWidget4Component', 'selector': 'app-mixed-widget4'},{'name': 'MixedWidget5Component', 'selector': 'app-mixed-widget5'},{'name': 'MixedWidget6Component', 'selector': 'app-mixed-widget6'},{'name': 'MixedWidget7Component', 'selector': 'app-mixed-widget7'},{'name': 'MixedWidget8Component', 'selector': 'app-mixed-widget8'},{'name': 'MixedWidget9Component', 'selector': 'app-mixed-widget9'},{'name': 'ModalComponent', 'selector': 'app-modal'},{'name': 'ModuleListComponent', 'selector': 'lib-module-list'},{'name': 'MultiSelectComponent', 'selector': 'lib-multi-select'},{'name': 'MultiSelectDetailedAccountsComponent', 'selector': 'app-multi-select-detailed-accounts'},{'name': 'MultiSelectItemsComponent', 'selector': 'app-multi-select-items'},{'name': 'MultiSelectItemStockInComponent', 'selector': 'app-multi-select-item-stock-in'},{'name': 'MySubscriptionsComponent', 'selector': ''},{'name': 'NamedFileUploaderComponent', 'selector': 'lib-named-file-uploader'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'NewBranchesComponent', 'selector': 'app-new-branches'},{'name': 'NewBreadCrumbComponent', 'selector': 'lib-new-bread-crumb'},{'name': 'NewChartsWidget8Component', 'selector': 'app-new-charts-widget8'},{'name': 'NewCompanyComponent', 'selector': 'app-new-company'},{'name': 'NoChildrenAccountsComponent', 'selector': 'app-nochildaccounts'},{'name': 'NoChildrenAccountsComponent', 'selector': 'app-nochildaccounts'},{'name': 'NoChildrenAccountsComponent', 'selector': 'app-no-children-accounts'},{'name': 'NotFoundComponent', 'selector': 'app-not-found'},{'name': 'NotificationsComponent', 'selector': 'app-notifications'},{'name': 'NotificationsInnerComponent', 'selector': 'app-notifications-inner'},{'name': 'OperationTagAddComponent', 'selector': 'app-operation-tag-add'},{'name': 'OperationTagEditComponent', 'selector': 'app-operation-tag-edit'},{'name': 'OperationTagListComponent', 'selector': 'app-operation-tag-list'},{'name': 'OperationTagMainComponent', 'selector': 'app-operation-tag-main'},{'name': 'OverviewComponent', 'selector': 'app-overview'},{'name': 'OverviewComponent', 'selector': 'app-overview'},{'name': 'PageContentComponent', 'selector': 'lib-page-content'},{'name': 'PageTitleComponent', 'selector': 'app-page-title'},{'name': 'PaginatorComponent', 'selector': 'lib-paginator'},{'name': 'PaymentInListComponent', 'selector': 'app-payment-in-list'},{'name': 'PaymentMethodComponent', 'selector': 'app-payment-method'},{'name': 'PaymentMethodListComponent', 'selector': 'app-payment-method-list'},{'name': 'PaymentOutListComponent', 'selector': 'app-payment-out-list'},{'name': 'PaymentOutPaymentMethodComponent', 'selector': 'app-payment-out-payment-method'},{'name': 'PaymentSuccesfulComponent', 'selector': 'app-payment-succesful'},{'name': 'PaymentTermListComponent', 'selector': 'app-payment-term-list'},{'name': 'PopupAccountsComponent', 'selector': 'app-popup-accounts'},{'name': 'PopupExcelComponent', 'selector': 'app-popup-excel'},{'name': 'PopupPageComponent', 'selector': 'lib-popup-page'},{'name': 'PricePolicyListComponent', 'selector': 'app-price-policy-list'},{'name': 'PricePolicyMainComponent', 'selector': 'app-price-policy-main'},{'name': 'PrivateChatComponent', 'selector': 'app-private-chat'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProfileDetailsComponent', 'selector': 'app-profile-details'},{'name': 'ProjectsComponent', 'selector': 'app-projects'},{'name': 'PurchaseInvoiceListComponent', 'selector': 'app-purchase-invoice-list'},{'name': 'PurchaseInvoiceTrackingComponent', 'selector': 'app-purchase-invoice-tracking'},{'name': 'PurchaseToolbarComponent', 'selector': 'app-purchase-toolbar'},{'name': 'QuickLinksInnerComponent', 'selector': 'app-quick-links-inner'},{'name': 'RatingComponent', 'selector': 'lib-rating'},{'name': 'ReadExcelComponent', 'selector': 'app-read-excel'},{'name': 'ReportsComponent', 'selector': 'app-reports'},{'name': 'SaasComponent', 'selector': 'app-saas'},{'name': 'ScanParcodeStockInComponent', 'selector': 'app-scan-parcode-stock-in'},{'name': 'ScriptsInitComponent', 'selector': 'app-scripts-init'},{'name': 'SearchEngineComponent', 'selector': 'app-search-engine'},{'name': 'SearchItemAdvancedPopUpComponent', 'selector': 'app-search-item-pop-up'},{'name': 'SearchItemPopUpComponent', 'selector': 'app-search-item-pop-up'},{'name': 'SearchResultInnerComponent', 'selector': 'app-search-result-inner'},{'name': 'SelectComponent', 'selector': 'lib-select'},{'name': 'SelectIconComponent', 'selector': 'lib-selectIcon'},{'name': 'SelectSubdomainComponent', 'selector': 'app-selectsubdomain'},{'name': 'SequenceComponent', 'selector': 'lib-sequence'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'SharedFormComponent', 'selector': 'app-shared-form'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SidebarFooterComponent', 'selector': 'app-sidebar-footer'},{'name': 'SidebarLogoComponent', 'selector': 'app-sidebar-logo'},{'name': 'SidebarMenuComponent', 'selector': 'app-sidebar-menu'},{'name': 'SignInMethodComponent', 'selector': 'app-sign-in-method'},{'name': 'SpinnerComponent', 'selector': 'app-spinner'},{'name': 'SpinnerComponent', 'selector': 'app-spinner'},{'name': 'SplashScreenComponent', 'selector': 'app-splash-screen'},{'name': 'StatisticsComponent', 'selector': 'app-statistics'},{'name': 'StatsWidget1Component', 'selector': 'app-stats-widget1'},{'name': 'StatsWidget2Component', 'selector': 'app-stats-widget2'},{'name': 'StatsWidget3Component', 'selector': 'app-stats-widget3'},{'name': 'StatsWidget4Component', 'selector': 'app-stats-widget4'},{'name': 'StatsWidget5Component', 'selector': 'app-stats-widget5'},{'name': 'StatsWidget6Component', 'selector': 'app-stats-widget6'},{'name': 'Step1Component', 'selector': 'app-step1'},{'name': 'Step2Component', 'selector': 'app-step2'},{'name': 'Step3Component', 'selector': 'app-step3'},{'name': 'Step4Component', 'selector': 'app-step4'},{'name': 'Step5Component', 'selector': 'app-step5'},{'name': 'StockInListComponent', 'selector': 'app-stock-in-list'},{'name': 'StockOutListComponent', 'selector': 'app-stock-out-list'},{'name': 'SubscriptionComponent', 'selector': 'app-subscription'},{'name': 'TablePaginatorComponent', 'selector': 'lib-table-paginator'},{'name': 'TablePrintComponent', 'selector': 'lib-table-print'},{'name': 'TablesComponent', 'selector': 'app-tables'},{'name': 'TablesWidget10Component', 'selector': 'app-tables-widget10'},{'name': 'TablesWidget11Component', 'selector': 'app-tables-widget11'},{'name': 'TablesWidget12Component', 'selector': 'app-tables-widget12'},{'name': 'TablesWidget13Component', 'selector': 'app-tables-widget13'},{'name': 'TablesWidget14Component', 'selector': 'app-tables-widget14'},{'name': 'TablesWidget16Component', 'selector': 'app-tables-widget16'},{'name': 'TablesWidget1Component', 'selector': 'app-tables-widget1'},{'name': 'TablesWidget2Component', 'selector': 'app-tables-widget2'},{'name': 'TablesWidget3Component', 'selector': 'app-tables-widget3'},{'name': 'TablesWidget4Component', 'selector': 'app-tables-widget4'},{'name': 'TablesWidget5Component', 'selector': 'app-tables-widget5'},{'name': 'TablesWidget6Component', 'selector': 'app-tables-widget6'},{'name': 'TablesWidget7Component', 'selector': 'app-tables-widget7'},{'name': 'TablesWidget8Component', 'selector': 'app-tables-widget8'},{'name': 'TablesWidget9Component', 'selector': 'app-tables-widget9'},{'name': 'TabviewComponent', 'selector': 'lib-tabview'},{'name': 'TagAddComponent', 'selector': 'app-tag-add'},{'name': 'TagEditComponent', 'selector': 'app-tag-edit'},{'name': 'TagListComponent', 'selector': 'app-tag-list'},{'name': 'TaxDefinitionAddComponent', 'selector': 'app-tax-definition-add'},{'name': 'TaxDefinitionComponent', 'selector': 'app-tax-definition'},{'name': 'TaxDefinitionEditComponent', 'selector': 'app-tax-definition-edit'},{'name': 'TaxGroupAddComponent', 'selector': 'app-tax-group-add'},{'name': 'TaxGroupComponent', 'selector': 'app-tax-group'},{'name': 'TaxGroupEditComponent', 'selector': 'app-tax-group-edit'},{'name': 'TextInputComponent', 'selector': 'lib-text-input'},{'name': 'ThemeModeSwitcherComponent', 'selector': 'app-theme-mode-switcher'},{'name': 'TilesWidget10Component', 'selector': 'app-tiles-widget10'},{'name': 'TilesWidget11Component', 'selector': 'app-tiles-widget11'},{'name': 'TilesWidget12Component', 'selector': 'app-tiles-widget12'},{'name': 'TilesWidget13Component', 'selector': 'app-tiles-widget13'},{'name': 'TilesWidget14Component', 'selector': 'app-tiles-widget14'},{'name': 'TilesWidget1Component', 'selector': 'app-tiles-widget1'},{'name': 'TilesWidget3Component', 'selector': 'app-tiles-widget3'},{'name': 'ToastComponent', 'selector': 'lib-toast'},{'name': 'ToggelComponent', 'selector': 'lib-toggel'},{'name': 'ToolbarComponent', 'selector': 'app-toolbar'},{'name': 'TopbarComponent', 'selector': 'app-topbar'},{'name': 'TrackingEditComponent', 'selector': 'app-tracking-edit'},{'name': 'TrackingStockInComponent', 'selector': 'app-tracking-stock-in'},{'name': 'TreasuryStatementComponent', 'selector': 'app-treasury-statement'},{'name': 'TreauryDefinitionListComponent', 'selector': 'app-treaury-definition-list'},{'name': 'TrialBlanceComponent', 'selector': 'app-trial-blance'},{'name': 'UnAuthorizedComponent', 'selector': 'app-un-authorized'},{'name': 'UOMAddComponent', 'selector': 'app-uom-add'},{'name': 'UOMEditComponent', 'selector': 'app-uom-edit'},{'name': 'UOMListComponent', 'selector': 'app-uom-list'},{'name': 'UOMMainComponent', 'selector': 'app-UOM-main'},{'name': 'UomViewComponent', 'selector': 'app-uom-view'},{'name': 'UpdetePricePolicyComponent', 'selector': 'app-updete-price-policy'},{'name': 'UpgradePlanModalComponent', 'selector': 'app-upgrade-plan-modal'},{'name': 'UploadMultipeFilesComponent', 'selector': 'lib-upload-multipe-files'},{'name': 'UserconfirmationComponent', 'selector': 'app-userconfirmation'},{'name': 'UserDetailsComponent', 'selector': 'app-user-details'},{'name': 'UserInfoListComponent', 'selector': 'app-user-info-list'},{'name': 'UserInnerComponent', 'selector': 'app-user-inner'},{'name': 'UserInviteFormComponent', 'selector': 'app-user-invite-form'},{'name': 'UserListComponent', 'selector': 'app-user-list'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'VendorCategoryListComponent', 'selector': 'app-vendor-category-list'},{'name': 'VendorDefinitionsListComponent', 'selector': 'app-vendor-definitions-list'},{'name': 'VendorOpeningBalanceAddComponent', 'selector': 'app-vendor-opening-balance-add'},{'name': 'VendorOpeningBalanceComponent', 'selector': 'app-vendor-opening-balance'},{'name': 'VendorOpeningBalanceDistributeComponent', 'selector': 'app-vendor-opening-balance-distribute'},{'name': 'VendorOpeningBalanceDistributeViewComponent', 'selector': 'app-vendor-opening-balance-distribute-view'},{'name': 'VendorOpeningBalanceEditComponent', 'selector': 'app-vendor-opening-balance-edit'},{'name': 'VendorOpeningBalanceListComponent', 'selector': 'app-vendor-opening-balance-list'},{'name': 'VendorOpeningBalanceMainComponent', 'selector': 'app-vendor-opening-balance-main'},{'name': 'VendorOpeningBalanceViewComponent', 'selector': 'app-vendor-opening-balance-view'},{'name': 'VerticalComponent', 'selector': 'app-vertical'},{'name': 'ViewBankDefinitionComponent', 'selector': 'app-view-bank-definition'},{'name': 'ViewChartComponent', 'selector': 'app-view-chart'},{'name': 'ViewCostCenterComponent', 'selector': 'app-view-cost-center'},{'name': 'ViewCustomerOpeningBalanceComponent', 'selector': 'app-view-customer-opening-balance'},{'name': 'ViewEmployeeComponent', 'selector': 'app-view-employee'},{'name': 'ViewInvoiceComponent', 'selector': 'app-view-invoice'},{'name': 'ViewItemCategoryComponent', 'selector': 'app-view-item-category'},{'name': 'ViewItemDefinitionComponent', 'selector': 'app-view-item-definition'},{'name': 'ViewJournalEntryComponent', 'selector': 'app-view-journal-entry'},{'name': 'ViewJournalEntryOpeningBalanceComponent', 'selector': 'app-view-journal-entry-opening-balance'},{'name': 'ViewPaymentInComponent', 'selector': 'app-view-payment-in'},{'name': 'ViewPaymentMethodComponent', 'selector': 'app-view-payment-method'},{'name': 'ViewPaymentOutComponent', 'selector': 'app-view-payment-out'},{'name': 'ViewPaymentTermComponent', 'selector': 'app-view-payment-term'},{'name': 'ViewPricePolicyComponent', 'selector': 'app-view-price-policy'},{'name': 'ViewQRcodeComponent', 'selector': 'app-view-qrcode'},{'name': 'ViewStockInComponent', 'selector': 'app-view-stock-in'},{'name': 'ViewStockOutComponent', 'selector': 'app-view-stock-out'},{'name': 'ViewTreasuryComponent', 'selector': 'app-view-treasury'},{'name': 'ViewVariantPopupComponent', 'selector': 'app-view-variant-popup'},{'name': 'ViewWarehouseComponent', 'selector': 'app-view-warehouse'},{'name': 'WarehouseListComponent', 'selector': 'app-warehouse-list'},{'name': 'WarehouseTabsComponent', 'selector': 'app-warehouse-tabs'},{'name': 'WidgetsExamplesComponent', 'selector': 'app-widgets-examples'},{'name': 'WizardsComponent', 'selector': 'app-wizards'}];
+    var DIRECTIVES = [{'name': 'HasPermissionDirective', 'selector': '[appHasPermission]'},{'name': 'LoaderDirective', 'selector': '[appLoader]'},{'name': 'LoaderDirective', 'selector': '[appLoader]'},{'name': 'NumberFormatDirective', 'selector': '[appNumberFormat]'}];
+    var ACTUAL_COMPONENT = {'name': 'ProfileDetailsComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'ProfileDetailsComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

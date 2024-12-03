@@ -21,24 +21,21 @@ export class ExportService {
       const formattedItem: { [key: string]: any } = {};
 
       columns.forEach(column => {
-        if (column.name === 'itemAttributes' && item.itemAttributes) {
-          const nameEnAttributes = item.itemAttributes
-            .map((attr: { nameEn: string }) => attr.nameEn)
-            .join(', ');
+        const value = item[column.name];
 
-          const nameArAttributes = item.itemAttributes
-            .map((attr: { nameAr: string }) => attr.nameAr)
-            .join(', ');
-
-          formattedItem[`${this.LanguageService.instant(column.headerText)} ${this.LanguageService.instant('global.English')}`] = nameEnAttributes;
-          formattedItem[`${this.LanguageService.instant(column.headerText)} ${this.LanguageService.instant('global.Arabic')}`] = nameArAttributes;
-
-        } else if (column.name === 'createdOn' && item[column.name]) {
-          formattedItem[this.LanguageService.instant(column.headerText)] = this.formatDate(item[column.name]);
+        if (column.name === 'itemAttributes' && value) {
+          formattedItem[this.LanguageService.instant(column.headerText).trim()] = value
+            .map((attr: { nameAr: string; nameEn: string }) => `${attr.nameAr.trim()} (${attr.nameEn.trim()})`)
+            .join(' , ');
+        } else if (Array.isArray(value)) {
+          formattedItem[this.LanguageService.instant(column.headerText).trim()] = value.map(v => v.trim())
+        } else if (!isNaN(Date.parse(value))) {
+          formattedItem[this.LanguageService.instant(column.headerText).trim()] = this.formatDate(value);
         } else {
-          formattedItem[this.LanguageService.instant(column.headerText)] = item[column.name];
+          formattedItem[this.LanguageService.instant(column.headerText).trim()] = value?.trim() || '';
         }
       });
+
 
       return formattedItem;
     });
@@ -58,7 +55,7 @@ export class ExportService {
           .map((attr: { nameAr: string; nameEn: string }) => `${attr.nameAr} (${attr.nameEn})`)
           .join(', ');
       } else if (Array.isArray(value)) {
-        formattedItem[this.LanguageService.instant(column.headerText)] = value.join(', ');
+        formattedItem[this.LanguageService.instant(column.headerText)] = value.join('   ,   ');
       } else if (!isNaN(Date.parse(value))) {
         // Check if the value is a valid date
         formattedItem[this.LanguageService.instant(column.headerText)] = this.formatDate(value);

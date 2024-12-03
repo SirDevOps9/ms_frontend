@@ -1,0 +1,2073 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>microtecadminfrontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">microtecadminfrontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content class">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Classes</li>
+  <li class="breadcrumb-item" >StepperComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>projects/adminportal/src/app/_metronic/kt/components/_StepperComponent.ts</code>
+        </p>
+
+
+
+
+
+
+            <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#_getStepDirection" >_getStepDirection</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#_goTo" >_goTo</a>
+                            </li>
+                            <li>
+                                <a href="#btnNext" >btnNext</a>
+                            </li>
+                            <li>
+                                <a href="#btnPrev" >btnPrev</a>
+                            </li>
+                            <li>
+                                <a href="#btnSubmit" >btnSubmit</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Static</span>
+                                <a href="#createInsance" >createInsance</a>
+                            </li>
+                            <li>
+                                <a href="#currentStepIndex" >currentStepIndex</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#destroy" >destroy</a>
+                            </li>
+                            <li>
+                                <a href="#element" >element</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#getCurrentStepIndex" >getCurrentStepIndex</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#getElement" >getElement</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#getLastStepIndex" >getLastStepIndex</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#getNextStepIndex" >getNextStepIndex</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#getPassedStepIndex" >getPassedStepIndex</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#getPrevStepIndex" >getPrevStepIndex</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#getStepContent" >getStepContent</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#getTotalStepsNumber" >getTotalStepsNumber</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#goFirst" >goFirst</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#goLast" >goLast</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#goNext" >goNext</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#goPrev" >goPrev</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#goto" >goto</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#initHandlers" >initHandlers</a>
+                            </li>
+                            <li>
+                                <a href="#instanceUid" >instanceUid</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#isBetweenStep" >isBetweenStep</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#isFirstStep" >isFirstStep</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#isLastStep" >isLastStep</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#off" >off</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#on" >on</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#one" >one</a>
+                            </li>
+                            <li>
+                                <a href="#options" >options</a>
+                            </li>
+                            <li>
+                                <a href="#passedStepIndex" >passedStepIndex</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#refreshUI" >refreshUI</a>
+                            </li>
+                            <li>
+                                <a href="#steps" >steps</a>
+                            </li>
+                            <li>
+                                <a href="#totatStepsNumber" >totatStepsNumber</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#trigger" >trigger</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Static</span>
+                                <a href="#bootstrap" >bootstrap</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Static</span>
+                                <a href="#createInstances" >createInstances</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Static</span>
+                                <a href="#getInstance" >getInstance</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Static</span>
+                                <a href="#hasInstace" >hasInstace</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(_element: HTMLElement, options: <a href="../interfaces/IStepperOptions.html" target="_self">IStepperOptions</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StepperComponent.ts:38</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>_element</td>
+                                                  
+                                                        <td>
+                                                                    <code>HTMLElement</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>options</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../interfaces/IStepperOptions.html" target="_self" >IStepperOptions</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_getStepDirection"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>_getStepDirection</b></span>
+                        <a href="#_getStepDirection"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="138" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StepperComponent.ts:138</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_goTo"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>_goTo</b></span>
+                        <a href="#_goTo"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="76" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StepperComponent.ts:76</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="btnNext"></a>
+                    <span class="name">
+                        <span ><b>btnNext</b></span>
+                        <a href="#btnNext"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>HTMLElement | null</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StepperComponent.ts:33</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="btnPrev"></a>
+                    <span class="name">
+                        <span ><b>btnPrev</b></span>
+                        <a href="#btnPrev"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>HTMLElement | null</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StepperComponent.ts:34</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="btnSubmit"></a>
+                    <span class="name">
+                        <span ><b>btnSubmit</b></span>
+                        <a href="#btnSubmit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>HTMLElement | null</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StepperComponent.ts:35</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createInsance"></a>
+                    <span class="name">
+                            <span class="modifier">Static</span>
+                        <span ><b>createInsance</b></span>
+                        <a href="#createInsance"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="342" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StepperComponent.ts:342</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="currentStepIndex"></a>
+                    <span class="name">
+                        <span ><b>currentStepIndex</b></span>
+                        <a href="#currentStepIndex"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>1</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StepperComponent.ts:38</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="destroy"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>destroy</b></span>
+                        <a href="#destroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="307" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StepperComponent.ts:307</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="element"></a>
+                    <span class="name">
+                        <span ><b>element</b></span>
+                        <a href="#element"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>HTMLElement</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StepperComponent.ts:29</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getCurrentStepIndex"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>getCurrentStepIndex</b></span>
+                        <a href="#getCurrentStepIndex"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="266" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StepperComponent.ts:266</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getElement"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>getElement</b></span>
+                        <a href="#getElement"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="290" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StepperComponent.ts:290</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getLastStepIndex"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>getLastStepIndex</b></span>
+                        <a href="#getLastStepIndex"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="157" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StepperComponent.ts:157</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getNextStepIndex"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>getNextStepIndex</b></span>
+                        <a href="#getNextStepIndex"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="270" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StepperComponent.ts:270</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getPassedStepIndex"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>getPassedStepIndex</b></span>
+                        <a href="#getPassedStepIndex"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="278" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StepperComponent.ts:278</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getPrevStepIndex"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>getPrevStepIndex</b></span>
+                        <a href="#getPrevStepIndex"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="282" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StepperComponent.ts:282</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getStepContent"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>getStepContent</b></span>
+                        <a href="#getStepContent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="142" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StepperComponent.ts:142</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getTotalStepsNumber"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>getTotalStepsNumber</b></span>
+                        <a href="#getTotalStepsNumber"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="161" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StepperComponent.ts:161</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="goFirst"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>goFirst</b></span>
+                        <a href="#goFirst"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="258" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StepperComponent.ts:258</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="goLast"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>goLast</b></span>
+                        <a href="#goLast"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="262" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StepperComponent.ts:262</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="goNext"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>goNext</b></span>
+                        <a href="#goNext"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="250" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StepperComponent.ts:250</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="goPrev"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>goPrev</b></span>
+                        <a href="#goPrev"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="254" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StepperComponent.ts:254</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="goto"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>goto</b></span>
+                        <a href="#goto"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="246" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StepperComponent.ts:246</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="initHandlers"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>initHandlers</b></span>
+                        <a href="#initHandlers"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="99" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StepperComponent.ts:99</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="instanceUid"></a>
+                    <span class="name">
+                        <span ><b>instanceUid</b></span>
+                        <a href="#instanceUid"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StepperComponent.ts:31</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isBetweenStep"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>isBetweenStep</b></span>
+                        <a href="#isBetweenStep"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="237" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StepperComponent.ts:237</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isFirstStep"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>isFirstStep</b></span>
+                        <a href="#isFirstStep"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="233" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StepperComponent.ts:233</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isLastStep"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>isLastStep</b></span>
+                        <a href="#isLastStep"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="229" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StepperComponent.ts:229</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="off"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>off</b></span>
+                        <a href="#off"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="303" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StepperComponent.ts:303</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="on"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>on</b></span>
+                        <a href="#on"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="295" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StepperComponent.ts:295</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="one"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>one</b></span>
+                        <a href="#one"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="299" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StepperComponent.ts:299</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="options"></a>
+                    <span class="name">
+                        <span ><b>options</b></span>
+                        <a href="#options"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/IStepperOptions.html" target="_self" >IStepperOptions</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StepperComponent.ts:30</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="passedStepIndex"></a>
+                    <span class="name">
+                        <span ><b>passedStepIndex</b></span>
+                        <a href="#passedStepIndex"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StepperComponent.ts:37</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="refreshUI"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>refreshUI</b></span>
+                        <a href="#refreshUI"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="165" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StepperComponent.ts:165</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="steps"></a>
+                    <span class="name">
+                        <span ><b>steps</b></span>
+                        <a href="#steps"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>NodeListOf&lt;HTMLElement&gt;</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StepperComponent.ts:32</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="totatStepsNumber"></a>
+                    <span class="name">
+                        <span ><b>totatStepsNumber</b></span>
+                        <a href="#totatStepsNumber"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StepperComponent.ts:36</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="trigger"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>trigger</b></span>
+                        <a href="#trigger"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="310" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StepperComponent.ts:310</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="bootstrap"></a>
+                    <span class="name">
+                            <span class="modifier">Static</span>
+                        <span ><b>bootstrap</b></span>
+                        <a href="#bootstrap"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>bootstrap(attr: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="356"
+                                    class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StepperComponent.ts:356</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Default value</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>attr</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                                    <code>&#x27;[data-kt-stepper]&#x27;</code>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createInstances"></a>
+                    <span class="name">
+                            <span class="modifier">Static</span>
+                        <span ><b>createInstances</b></span>
+                        <a href="#createInstances"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>createInstances(selector: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="331"
+                                    class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StepperComponent.ts:331</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>selector</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getInstance"></a>
+                    <span class="name">
+                            <span class="modifier">Static</span>
+                        <span ><b>getInstance</b></span>
+                        <a href="#getInstance"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getInstance(element: HTMLElement)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="319"
+                                    class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StepperComponent.ts:319</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>element</td>
+                                            <td>
+                                                        <code>HTMLElement</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../classes/StepperComponent.html" target="_self" >StepperComponent | undefined</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="hasInstace"></a>
+                    <span class="name">
+                            <span class="modifier">Static</span>
+                        <span ><b>hasInstace</b></span>
+                        <a href="#hasInstace"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>hasInstace(element: HTMLElement)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="315"
+                                    class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StepperComponent.ts:315</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>element</td>
+                                            <td>
+                                                        <code>HTMLElement</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+
+
+
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  getElementIndex,
+  getUniqueIdWithPrefix,
+  ElementAnimateUtil,
+  EventHandlerUtil,
+  DataUtil,
+  DOMEventHandlerUtil,
+  ElementStyleUtil,
+} from &#x27;../_utils/index&#x27;;
+
+export interface IStepperOptions {
+  startIndex: number;
+  animation: boolean;
+  animationSpeed: string;
+  animationNextClass: string;
+  animationPreviousClass: string;
+}
+
+const defaultStepperOptions: IStepperOptions &#x3D; {
+  startIndex: 1,
+  animation: false,
+  animationSpeed: &#x27;0.3s&#x27;,
+  animationNextClass: &#x27;animate__animated animate__slideInRight animate__fast&#x27;,
+  animationPreviousClass:
+    &#x27;animate__animated animate__slideInLeft animate__fast&#x27;,
+};
+
+class StepperComponent {
+  element: HTMLElement;
+  options: IStepperOptions;
+  instanceUid: string;
+  steps: NodeListOf&lt;HTMLElement&gt;;
+  btnNext: HTMLElement | null;
+  btnPrev: HTMLElement | null;
+  btnSubmit: HTMLElement | null;
+  totatStepsNumber: number &#x3D; 0;
+  passedStepIndex: number &#x3D; 0;
+  currentStepIndex: number &#x3D; 1;
+
+  constructor(_element: HTMLElement, options: IStepperOptions) {
+    this.element &#x3D; _element;
+    this.options &#x3D; Object.assign(defaultStepperOptions, options);
+    this.instanceUid &#x3D; getUniqueIdWithPrefix(&#x27;stepper&#x27;);
+
+    // Elements
+    this.steps &#x3D; this.element.querySelectorAll(
+      &#x27;[data-kt-stepper-element&#x3D;&quot;nav&quot;]&#x27;
+    );
+    this.btnNext &#x3D; this.element.querySelector(
+      &#x27;[data-kt-stepper-action&#x3D;&quot;next&quot;]&#x27;
+    );
+    this.btnPrev &#x3D; this.element.querySelector(
+      &#x27;[data-kt-stepper-action&#x3D;&quot;previous&quot;]&#x27;
+    );
+    this.btnSubmit &#x3D; this.element.querySelector(
+      &#x27;[data-kt-stepper-action&#x3D;&quot;submit&quot;]&#x27;
+    );
+
+    // Variables
+    this.totatStepsNumber &#x3D; this.steps?.length | 0;
+    this.passedStepIndex &#x3D; 0;
+    this.currentStepIndex &#x3D; 1;
+
+    // Set Current Step
+    if (this.options.startIndex &gt; 1) {
+      this._goTo(this.options.startIndex);
+    }
+
+    // Event Handlers
+    this.initHandlers();
+
+    // Bind Instance
+    DataUtil.set(this.element, &#x27;stepper&#x27;, this);
+  }
+
+  private _goTo &#x3D; (index: number) &#x3D;&gt; {
+    EventHandlerUtil.trigger(this.element, &#x27;kt.stepper.change&#x27;);
+    // Skip if this step is already shown
+    if (
+      index &#x3D;&#x3D;&#x3D; this.currentStepIndex ||
+      index &gt; this.totatStepsNumber ||
+      index &lt; 0
+    ) {
+      return;
+    }
+
+    // Validate step number
+    index &#x3D; parseInt(index.toString());
+    // Set current step
+    this.passedStepIndex &#x3D; this.currentStepIndex;
+    this.currentStepIndex &#x3D; index;
+
+    // Refresh elements
+    this.refreshUI();
+
+    EventHandlerUtil.trigger(this.element, &#x27;kt.stepper.changed&#x27;);
+  };
+
+  private initHandlers &#x3D; () &#x3D;&gt; {
+    this.btnNext?.addEventListener(&#x27;click&#x27;, (e: Event) &#x3D;&gt; {
+      e.preventDefault();
+
+      EventHandlerUtil.trigger(this.element, &#x27;kt.stepper.next&#x27;, e);
+    });
+
+    this.btnPrev?.addEventListener(&#x27;click&#x27;, (e: Event) &#x3D;&gt; {
+      e.preventDefault();
+
+      EventHandlerUtil.trigger(this.element, &#x27;kt.stepper.previous&#x27;, e);
+    });
+
+    DOMEventHandlerUtil.on(
+      this.element,
+      &#x27;[data-kt-stepper-action&#x3D;&quot;step&quot;]&#x27;,
+      &#x27;click&#x27;,
+      (e: Event) &#x3D;&gt; {
+        e.preventDefault();
+
+        if (this.steps &amp;&amp; this.steps.length &gt; 0) {
+          for (let i &#x3D; 0; i &lt; this.steps.length; i++) {
+            if ((this.steps[i] as HTMLElement) &#x3D;&#x3D;&#x3D; this.element) {
+              let index &#x3D; i + 1;
+
+              const stepDirection &#x3D; this._getStepDirection(index);
+              EventHandlerUtil.trigger(
+                this.element,
+                &#x60;stepper.${stepDirection}&#x60;,
+                e
+              );
+              return;
+            }
+          }
+        }
+      }
+    );
+  };
+
+  private _getStepDirection &#x3D; (index: number) &#x3D;&gt; {
+    return index &gt; this.currentStepIndex ? &#x27;next&#x27; : &#x27;previous&#x27;;
+  };
+
+  private getStepContent &#x3D; (index: number) &#x3D;&gt; {
+    const content &#x3D; this.element.querySelectorAll(
+      &#x27;[data-kt-stepper-element&#x3D;&quot;content&quot;]&#x27;
+    );
+    if (!content) {
+      return false;
+    }
+
+    if (content[index - 1]) {
+      return content[index - 1];
+    }
+
+    return false;
+  };
+
+  private getLastStepIndex &#x3D; () &#x3D;&gt; {
+    return this.totatStepsNumber;
+  };
+
+  private getTotalStepsNumber &#x3D; () &#x3D;&gt; {
+    return this.totatStepsNumber;
+  };
+
+  private refreshUI &#x3D; () &#x3D;&gt; {
+    let state &#x3D; &#x27;&#x27;;
+
+    if (this.isLastStep()) {
+      state &#x3D; &#x27;last&#x27;;
+    } else if (this.isFirstStep()) {
+      state &#x3D; &#x27;first&#x27;;
+    } else {
+      state &#x3D; &#x27;between&#x27;;
+    }
+
+    // Set state class
+    this.element.classList.remove(&#x27;last&#x27;);
+    this.element.classList.remove(&#x27;first&#x27;);
+    this.element.classList.remove(&#x27;between&#x27;);
+
+    this.element.classList.add(state);
+
+    // Step Items
+    const elements &#x3D; this.element.querySelectorAll(
+      &#x27;[data-kt-stepper-element&#x3D;&quot;nav&quot;], [data-kt-stepper-element&#x3D;&quot;content&quot;], [data-kt-stepper-element&#x3D;&quot;info&quot;]&#x27;
+    );
+
+    if (!elements || elements.length &lt;&#x3D; 0) {
+      return;
+    }
+
+    for (var i &#x3D; 0, len &#x3D; elements.length; i &lt; len; i++) {
+      var element &#x3D; elements[i] as HTMLElement;
+      var index &#x3D; getElementIndex(element) + 1;
+
+      element.classList.remove(&#x27;current&#x27;);
+      element.classList.remove(&#x27;completed&#x27;);
+      element.classList.remove(&#x27;pending&#x27;);
+
+      if (index &#x3D;&#x3D;&#x3D; this.currentStepIndex) {
+        element.classList.add(&#x27;current&#x27;);
+
+        if (
+          this.options.animation !&#x3D;&#x3D; false &amp;&amp;
+          element.getAttribute(&#x27;data-kt-stepper-element&#x27;) &#x3D;&#x3D;&#x3D; &#x27;content&#x27;
+        ) {
+          ElementStyleUtil.set(
+            element,
+            &#x27;animationDuration&#x27;,
+            this.options.animationSpeed
+          );
+
+          const animation &#x3D;
+            this._getStepDirection(this.passedStepIndex) &#x3D;&#x3D;&#x3D; &#x27;previous&#x27;
+              ? this.options.animationPreviousClass
+              : this.options.animationNextClass;
+          ElementAnimateUtil.animateClass(element, animation);
+        }
+      } else {
+        if (index &lt; this.currentStepIndex) {
+          element.classList.add(&#x27;completed&#x27;);
+        } else {
+          element.classList.add(&#x27;pending&#x27;);
+        }
+      }
+    }
+  };
+
+  private isLastStep &#x3D; () &#x3D;&gt; {
+    return this.currentStepIndex &#x3D;&#x3D;&#x3D; this.totatStepsNumber;
+  };
+
+  private isFirstStep &#x3D; () &#x3D;&gt; {
+    return this.currentStepIndex &#x3D;&#x3D;&#x3D; 1;
+  };
+
+  private isBetweenStep &#x3D; () &#x3D;&gt; {
+    return this.isLastStep() &#x3D;&#x3D;&#x3D; false &amp;&amp; this.isFirstStep() &#x3D;&#x3D;&#x3D; false;
+  };
+
+  //   ///////////////////////
+  //   // ** Public API  ** //
+  //   ///////////////////////
+
+  //   // Plugin API
+  public goto &#x3D; (index: number) &#x3D;&gt; {
+    return this._goTo(index);
+  };
+
+  public goNext &#x3D; () &#x3D;&gt; {
+    return this.goto(this.getNextStepIndex());
+  };
+
+  public goPrev &#x3D; () &#x3D;&gt; {
+    return this.goto(this.getPrevStepIndex());
+  };
+
+  public goFirst &#x3D; () &#x3D;&gt; {
+    return this.goto(1);
+  };
+
+  public goLast &#x3D; () &#x3D;&gt; {
+    return this.goto(this.getLastStepIndex());
+  };
+
+  public getCurrentStepIndex &#x3D; () &#x3D;&gt; {
+    return this.currentStepIndex;
+  };
+
+  public getNextStepIndex &#x3D; () &#x3D;&gt; {
+    if (this.totatStepsNumber &gt;&#x3D; this.currentStepIndex + 1) {
+      return this.currentStepIndex + 1;
+    } else {
+      return this.totatStepsNumber;
+    }
+  };
+
+  public getPassedStepIndex &#x3D; () &#x3D;&gt; {
+    return this.passedStepIndex;
+  };
+
+  public getPrevStepIndex &#x3D; () &#x3D;&gt; {
+    if (this.currentStepIndex - 1 &gt; 1) {
+      return this.currentStepIndex - 1;
+    } else {
+      return 1;
+    }
+  };
+
+  public getElement &#x3D; (index: number) &#x3D;&gt; {
+    return this.element;
+  };
+
+  // Event API
+  public on &#x3D; (name: string, handler: Function) &#x3D;&gt; {
+    return EventHandlerUtil.on(this.element, name, handler);
+  };
+
+  public one &#x3D; (name: string, handler: Function) &#x3D;&gt; {
+    return EventHandlerUtil.one(this.element, name, handler);
+  };
+
+  public off &#x3D; (name: string, handlerId: string) &#x3D;&gt; {
+    return EventHandlerUtil.off(this.element, name, handlerId);
+  };
+
+  public destroy &#x3D; () &#x3D;&gt; {
+  };
+
+  public trigger &#x3D; (name: string, event: Event) &#x3D;&gt; {
+    return EventHandlerUtil.trigger(this.element, name, event);
+  };
+
+  // Static methods
+  public static hasInstace(element: HTMLElement): boolean {
+    return DataUtil.has(element, &#x27;stepper&#x27;);
+  }
+
+  public static getInstance(
+    element: HTMLElement
+  ): StepperComponent | undefined {
+    if (element !&#x3D;&#x3D; null &amp;&amp; StepperComponent.hasInstace(element)) {
+      const data &#x3D; DataUtil.get(element, &#x27;stepper&#x27;);
+      if (data) {
+        return data as StepperComponent;
+      }
+    }
+  }
+
+  // Create Instances
+  public static createInstances(selector: string): void {
+    const elements &#x3D; document.body.querySelectorAll(selector);
+    elements.forEach((element) &#x3D;&gt; {
+      const item &#x3D; element as HTMLElement;
+      let stepper &#x3D; StepperComponent.getInstance(item);
+      if (!stepper) {
+        stepper &#x3D; new StepperComponent(item, defaultStepperOptions);
+      }
+    });
+  }
+
+  public static createInsance &#x3D; (
+    element: HTMLElement,
+    options: IStepperOptions &#x3D; defaultStepperOptions
+  ): StepperComponent | null &#x3D;&gt; {
+    if (!element) {
+      return null;
+    }
+    let stepper &#x3D; StepperComponent.getInstance(element);
+    if (!stepper) {
+      stepper &#x3D; new StepperComponent(element, options);
+    }
+    return stepper;
+  };
+
+  public static bootstrap(attr: string &#x3D; &#x27;[data-kt-stepper]&#x27;) {
+    StepperComponent.createInstances(attr);
+  }
+}
+
+export { StepperComponent, defaultStepperOptions };
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
+            var COMPODOC_CURRENT_PAGE_URL = 'StepperComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

@@ -1,0 +1,484 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>microtecadminfrontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">microtecadminfrontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content miscellaneous-typealiases">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Miscellaneous</li>
+  <li class="breadcrumb-item">Type aliases</li>
+</ol>
+
+<section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <ul class="index-list">
+                        <li>
+                            <a href="#CSSClassesType" title="projects/adminportal/src/app/_metronic/layout/core/configs/config.ts" ><b>CSSClassesType</b>&nbsp;&nbsp;&nbsp;(projects/.../config.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#HTMLAttributesType" title="projects/adminportal/src/app/_metronic/layout/core/configs/config.ts" ><b>HTMLAttributesType</b>&nbsp;&nbsp;&nbsp;(projects/.../config.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#LayoutType" title="projects/adminportal/src/app/_metronic/layout/core/configs/config.ts" ><b>LayoutType</b>&nbsp;&nbsp;&nbsp;(projects/.../config.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#Mode" title="projects/adminportal/src/app/_metronic/kt/layout/ThemeMode.ts" ><b>Mode</b>&nbsp;&nbsp;&nbsp;(projects/.../ThemeMode.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#NotificationsTabsType" title="projects/adminportal/src/app/_metronic/partials/layout/extras/dropdown-inner/notifications-inner/notifications-inner.component.ts" ><b>NotificationsTabsType</b>&nbsp;&nbsp;&nbsp;(projects/.../notifications-inner.component.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#PopperPlacement" title="projects/adminportal/src/app/_metronic/kt/components/MenuComponent.ts" ><b>PopperPlacement</b>&nbsp;&nbsp;&nbsp;(projects/.../MenuComponent.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#Resource" title="libs/shared-lib/src/lib/services/translationHttpLoader.ts" ><b>Resource</b>&nbsp;&nbsp;&nbsp;(libs/.../translationHttpLoader.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#Tabs" title="projects/adminportal/src/app/pages/builder/builder.component.ts" ><b>Tabs</b>&nbsp;&nbsp;&nbsp;(projects/.../builder.component.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#Tabs" title="projects/adminportal/src/app/_metronic/partials/content/widgets/tables/tables-widget4/tables-widget4.component.ts" ><b>Tabs</b>&nbsp;&nbsp;&nbsp;(projects/.../tables-widget4.component.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#Tabs" title="projects/adminportal/src/app/_metronic/partials/content/widgets/tables/tables-widget5/tables-widget5.component.ts" ><b>Tabs</b>&nbsp;&nbsp;&nbsp;(projects/.../tables-widget5.component.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#Tabs" title="projects/adminportal/src/app/_metronic/partials/content/widgets/tables/tables-widget6/tables-widget6.component.ts" ><b>Tabs</b>&nbsp;&nbsp;&nbsp;(projects/.../tables-widget6.component.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#Tabs" title="projects/adminportal/src/app/_metronic/partials/content/widgets/tables/tables-widget7/tables-widget7.component.ts" ><b>Tabs</b>&nbsp;&nbsp;&nbsp;(projects/.../tables-widget7.component.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#Tabs" title="projects/adminportal/src/app/_metronic/partials/content/widgets/tables/tables-widget8/tables-widget8.component.ts" ><b>Tabs</b>&nbsp;&nbsp;&nbsp;(projects/.../tables-widget8.component.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#ThemeModeType" title="projects/adminportal/src/app/_metronic/partials/layout/theme-mode-switcher/theme-mode.service.ts" ><b>ThemeModeType</b>&nbsp;&nbsp;&nbsp;(projects/.../theme-mode.service.ts)</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    <h3>projects/adminportal/src/app/_metronic/layout/core/configs/config.ts</h3>
+    <section data-compodoc="block-typealias">
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="CSSClassesType"></a>
+                    <span class="name "><b>CSSClassesType</b><a href="#CSSClassesType"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>literal type</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="HTMLAttributesType"></a>
+                    <span class="name "><b>HTMLAttributesType</b><a href="#HTMLAttributesType"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>literal type</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="LayoutType"></a>
+                    <span class="name "><b>LayoutType</b><a href="#LayoutType"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>&quot;dark-sidebar&quot; | &quot;light-sidebar&quot; | &quot;dark-header&quot; | &quot;light-header&quot;</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>projects/adminportal/src/app/_metronic/kt/layout/ThemeMode.ts</h3>
+    <section data-compodoc="block-typealias">
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="Mode"></a>
+                    <span class="name "><b>Mode</b><a href="#Mode"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>&quot;light&quot; | &quot;dark&quot; | &quot;system&quot;</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>projects/adminportal/src/app/_metronic/partials/layout/extras/dropdown-inner/notifications-inner/notifications-inner.component.ts</h3>
+    <section data-compodoc="block-typealias">
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="NotificationsTabsType"></a>
+                    <span class="name "><b>NotificationsTabsType</b><a href="#NotificationsTabsType"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>&quot;kt_topbar_notifications_1&quot; | &quot;kt_topbar_notifications_2&quot; | &quot;kt_topbar_notifications_3&quot;</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>projects/adminportal/src/app/_metronic/kt/components/MenuComponent.ts</h3>
+    <section data-compodoc="block-typealias">
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="PopperPlacement"></a>
+                    <span class="name "><b>PopperPlacement</b><a href="#PopperPlacement"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>&quot;right&quot; | &quot;auto&quot; | &quot;auto-start&quot; | &quot;auto-end&quot; | &quot;top&quot; | &quot;bottom&quot; | &quot;left&quot; | &quot;top-start&quot; | &quot;top-end&quot; | &quot;bottom-start&quot; | &quot;bottom-end&quot; | &quot;right-start&quot; | &quot;right-end&quot; | &quot;left-start&quot; | &quot;left-end&quot; | undefined</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>libs/shared-lib/src/lib/services/translationHttpLoader.ts</h3>
+    <section data-compodoc="block-typealias">
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="Resource"></a>
+                    <span class="name "><b>Resource</b><a href="#Resource"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>literal type</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>projects/adminportal/src/app/pages/builder/builder.component.ts</h3>
+    <section data-compodoc="block-typealias">
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="Tabs"></a>
+                    <span class="name "><b>Tabs</b><a href="#Tabs"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>&quot;Sidebar&quot; | &quot;Header&quot; | &quot;Toolbar&quot;</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>projects/adminportal/src/app/_metronic/partials/content/widgets/tables/tables-widget4/tables-widget4.component.ts</h3>
+    <section data-compodoc="block-typealias">
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="Tabs"></a>
+                    <span class="name "><b>Tabs</b><a href="#Tabs"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>&quot;kt_table_widget_4_tab_1&quot; | &quot;kt_table_widget_4_tab_2&quot; | &quot;kt_table_widget_4_tab_3&quot;</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>projects/adminportal/src/app/_metronic/partials/content/widgets/tables/tables-widget5/tables-widget5.component.ts</h3>
+    <section data-compodoc="block-typealias">
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="Tabs"></a>
+                    <span class="name "><b>Tabs</b><a href="#Tabs"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>&quot;kt_table_widget_5_tab_1&quot; | &quot;kt_table_widget_5_tab_2&quot; | &quot;kt_table_widget_5_tab_3&quot;</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>projects/adminportal/src/app/_metronic/partials/content/widgets/tables/tables-widget6/tables-widget6.component.ts</h3>
+    <section data-compodoc="block-typealias">
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="Tabs"></a>
+                    <span class="name "><b>Tabs</b><a href="#Tabs"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>&quot;kt_table_widget_6_tab_1&quot; | &quot;kt_table_widget_6_tab_2&quot; | &quot;kt_table_widget_6_tab_3&quot;</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>projects/adminportal/src/app/_metronic/partials/content/widgets/tables/tables-widget7/tables-widget7.component.ts</h3>
+    <section data-compodoc="block-typealias">
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="Tabs"></a>
+                    <span class="name "><b>Tabs</b><a href="#Tabs"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>&quot;kt_table_widget_7_tab_1&quot; | &quot;kt_table_widget_7_tab_2&quot; | &quot;kt_table_widget_7_tab_3&quot;</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>projects/adminportal/src/app/_metronic/partials/content/widgets/tables/tables-widget8/tables-widget8.component.ts</h3>
+    <section data-compodoc="block-typealias">
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="Tabs"></a>
+                    <span class="name "><b>Tabs</b><a href="#Tabs"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>&quot;kt_table_widget_8_tab_1&quot; | &quot;kt_table_widget_8_tab_2&quot; | &quot;kt_table_widget_8_tab_3&quot;</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>projects/adminportal/src/app/_metronic/partials/layout/theme-mode-switcher/theme-mode.service.ts</h3>
+    <section data-compodoc="block-typealias">
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ThemeModeType"></a>
+                    <span class="name "><b>ThemeModeType</b><a href="#ThemeModeType"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>&quot;dark&quot; | &quot;light&quot; | &quot;system&quot;</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'miscellaneous-typealiases';
+            var COMPODOC_CURRENT_PAGE_URL = 'typealiases.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

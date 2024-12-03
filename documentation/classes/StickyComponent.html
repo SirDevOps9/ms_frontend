@@ -1,0 +1,1498 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>microtecadminfrontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">microtecadminfrontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content class">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Classes</li>
+  <li class="breadcrumb-item" >StickyComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>projects/adminportal/src/app/_metronic/kt/components/_StickyComponent.ts</code>
+        </p>
+
+
+
+
+
+
+            <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#attributeName" >attributeName</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Static</span>
+                                <a href="#createInsance" >createInsance</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#disable" >disable</a>
+                            </li>
+                            <li>
+                                <a href="#element" >element</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#enable" >enable</a>
+                            </li>
+                            <li>
+                                <a href="#eventTriggerState" >eventTriggerState</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#getOption" >getOption</a>
+                            </li>
+                            <li>
+                                <a href="#instanceName" >instanceName</a>
+                            </li>
+                            <li>
+                                <a href="#instanceUid" >instanceUid</a>
+                            </li>
+                            <li>
+                                <a href="#lastScrollTop" >lastScrollTop</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#off" >off</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#on" >on</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#one" >one</a>
+                            </li>
+                            <li>
+                                <a href="#options" >options</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#scroll" >scroll</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#trigger" >trigger</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#update" >update</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Static</span>
+                                <a href="#bootstrap" >bootstrap</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Static</span>
+                                <a href="#createInstances" >createInstances</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Static</span>
+                                <a href="#getInstance" >getInstance</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Static</span>
+                                <a href="#hasInstace" >hasInstace</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Static</span>
+                                <a href="#reInitialization" >reInitialization</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(_element: HTMLElement, options: <a href="../interfaces/StickyOptions.html" target="_self">StickyOptions</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StickyComponent.ts:38</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>_element</td>
+                                                  
+                                                        <td>
+                                                                    <code>HTMLElement</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>options</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../interfaces/StickyOptions.html" target="_self" >StickyOptions</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="attributeName"></a>
+                    <span class="name">
+                        <span ><b>attributeName</b></span>
+                        <a href="#attributeName"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StickyComponent.ts:36</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createInsance"></a>
+                    <span class="name">
+                            <span class="modifier">Static</span>
+                        <span ><b>createInsance</b></span>
+                        <a href="#createInsance"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="261" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StickyComponent.ts:261</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="disable"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>disable</b></span>
+                        <a href="#disable"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="157" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StickyComponent.ts:157</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="element"></a>
+                    <span class="name">
+                        <span ><b>element</b></span>
+                        <a href="#element"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>HTMLElement</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StickyComponent.ts:32</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="enable"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>enable</b></span>
+                        <a href="#enable"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="166" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StickyComponent.ts:166</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="eventTriggerState"></a>
+                    <span class="name">
+                        <span ><b>eventTriggerState</b></span>
+                        <a href="#eventTriggerState"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StickyComponent.ts:37</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getOption"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>getOption</b></span>
+                        <a href="#getOption"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="135" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StickyComponent.ts:135</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="instanceName"></a>
+                    <span class="name">
+                        <span ><b>instanceName</b></span>
+                        <a href="#instanceName"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StickyComponent.ts:35</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="instanceUid"></a>
+                    <span class="name">
+                        <span ><b>instanceUid</b></span>
+                        <a href="#instanceUid"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StickyComponent.ts:34</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="lastScrollTop"></a>
+                    <span class="name">
+                        <span ><b>lastScrollTop</b></span>
+                        <a href="#lastScrollTop"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StickyComponent.ts:38</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="off"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>off</b></span>
+                        <a href="#off"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="227" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StickyComponent.ts:227</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="on"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>on</b></span>
+                        <a href="#on"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="219" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StickyComponent.ts:219</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="one"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>one</b></span>
+                        <a href="#one"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="223" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StickyComponent.ts:223</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="options"></a>
+                    <span class="name">
+                        <span ><b>options</b></span>
+                        <a href="#options"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/StickyOptions.html" target="_self" >StickyOptions</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StickyComponent.ts:33</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="scroll"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>scroll</b></span>
+                        <a href="#scroll"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StickyComponent.ts:58</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="trigger"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>trigger</b></span>
+                        <a href="#trigger"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="231" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StickyComponent.ts:231</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="update"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>update</b></span>
+                        <a href="#update"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="209" class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StickyComponent.ts:209</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="bootstrap"></a>
+                    <span class="name">
+                            <span class="modifier">Static</span>
+                        <span ><b>bootstrap</b></span>
+                        <a href="#bootstrap"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>bootstrap(attr: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="277"
+                                    class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StickyComponent.ts:277</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Default value</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>attr</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                                    <code>&#x27;[data-kt-sticky&#x3D;&quot;true&quot;]&#x27;</code>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createInstances"></a>
+                    <span class="name">
+                            <span class="modifier">Static</span>
+                        <span ><b>createInstances</b></span>
+                        <a href="#createInstances"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>createInstances(selector: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="250"
+                                    class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StickyComponent.ts:250</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>selector</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getInstance"></a>
+                    <span class="name">
+                            <span class="modifier">Static</span>
+                        <span ><b>getInstance</b></span>
+                        <a href="#getInstance"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getInstance(element: HTMLElement)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="240"
+                                    class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StickyComponent.ts:240</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>element</td>
+                                            <td>
+                                                        <code>HTMLElement</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../classes/StickyComponent.html" target="_self" >StickyComponent | any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="hasInstace"></a>
+                    <span class="name">
+                            <span class="modifier">Static</span>
+                        <span ><b>hasInstace</b></span>
+                        <a href="#hasInstace"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>hasInstace(element: HTMLElement)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="236"
+                                    class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StickyComponent.ts:236</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>element</td>
+                                            <td>
+                                                        <code>HTMLElement</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="reInitialization"></a>
+                    <span class="name">
+                            <span class="modifier">Static</span>
+                        <span ><b>reInitialization</b></span>
+                        <a href="#reInitialization"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>reInitialization(attr: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="281"
+                                    class="link-to-prism">projects/adminportal/src/app/_metronic/kt/components/_StickyComponent.ts:281</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Default value</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>attr</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                                    <code>&#x27;[data-kt-sticky&#x3D;&quot;true&quot;]&#x27;</code>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+
+
+
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  getElementOffset,
+  getScrollTop,
+  getAttributeValueByBreakpoint,
+  getUniqueIdWithPrefix,
+  getObjectPropertyValueByKey,
+  stringSnakeToCamel,
+  getCSS,
+  DataUtil,
+  ElementAnimateUtil,
+  ElementStyleUtil,
+  EventHandlerUtil,
+} from &#x27;../_utils/index&#x27;
+
+export interface StickyOptions {
+  offset: number
+  reverse: boolean
+  animation: boolean
+  animationSpeed: string
+  animationClass: string
+}
+
+const defaultStickyOptions: StickyOptions &#x3D; {
+  offset: 200,
+  reverse: false,
+  animation: true,
+  animationSpeed: &#x27;0.3s&#x27;,
+  animationClass: &#x27;animation-slide-in-down&#x27;,
+}
+
+class StickyComponent {
+  element: HTMLElement
+  options: StickyOptions
+  instanceUid: string
+  instanceName: string | null &#x3D; &#x27;&#x27;
+  attributeName: string
+  eventTriggerState: boolean
+  lastScrollTop: number
+
+  constructor(_element: HTMLElement, options: StickyOptions) {
+    this.element &#x3D; _element
+    this.options &#x3D; Object.assign(defaultStickyOptions, options)
+    this.instanceUid &#x3D; getUniqueIdWithPrefix(&#x27;sticky&#x27;)
+    this.instanceName &#x3D; this.element.getAttribute(&#x27;data-kt-sticky-name&#x27;)
+    this.attributeName &#x3D; &#x27;data-kt-sticky-&#x27; + this.instanceName
+    this.eventTriggerState &#x3D; true
+    this.lastScrollTop &#x3D; 0
+
+    // Event Handlers
+    window.addEventListener(&#x27;scroll&#x27;, this.scroll)
+
+    // Initial Launch
+    this.scroll()
+
+    DataUtil.set(this.element, &#x27;sticky&#x27;, this)
+  }
+
+  private scroll &#x3D; () &#x3D;&gt; {
+    let offset &#x3D; this.getOption(&#x27;offset&#x27;)
+    let reverse &#x3D; this.getOption(&#x27;reverse&#x27;)
+
+    // Exit if false
+    if (offset &#x3D;&#x3D;&#x3D; false) {
+      return
+    }
+
+    let offsetNum &#x3D; 0
+    if (typeof offset &#x3D;&#x3D;&#x3D; &#x27;string&#x27;) {
+      offsetNum &#x3D; parseInt(offset)
+    }
+
+    const st &#x3D; getScrollTop()
+
+    // Reverse scroll mode
+    if (reverse &#x3D;&#x3D;&#x3D; true) {
+      // Release on reverse scroll mode
+      if (st &gt; offsetNum &amp;&amp; this.lastScrollTop &lt; st) {
+        if (document.body.hasAttribute(this.attributeName) &#x3D;&#x3D;&#x3D; false) {
+          this.enable()
+          document.body.setAttribute(this.attributeName, &#x27;on&#x27;)
+        }
+
+        if (this.eventTriggerState &#x3D;&#x3D;&#x3D; true) {
+          EventHandlerUtil.trigger(this.element, &#x27;kt.sticky.on&#x27;)
+          EventHandlerUtil.trigger(this.element, &#x27;kt.sticky.change&#x27;)
+
+          this.eventTriggerState &#x3D; false
+        }
+      } else {
+        // Back scroll mode
+        if (document.body.hasAttribute(this.attributeName)) {
+          this.disable()
+          document.body.removeAttribute(this.attributeName)
+        }
+
+        if (this.eventTriggerState &#x3D;&#x3D;&#x3D; false) {
+          EventHandlerUtil.trigger(this.element, &#x27;kt.sticky.off&#x27;)
+          EventHandlerUtil.trigger(this.element, &#x27;kt.sticky.change&#x27;)
+
+          this.eventTriggerState &#x3D; true
+        }
+      }
+
+      this.lastScrollTop &#x3D; st
+      return
+    }
+
+    // Classic scroll mode
+    if (st &gt; offsetNum) {
+      if (document.body.hasAttribute(this.attributeName) &#x3D;&#x3D;&#x3D; false) {
+        this.enable()
+        document.body.setAttribute(this.attributeName, &#x27;on&#x27;)
+      }
+
+      if (this.eventTriggerState &#x3D;&#x3D;&#x3D; true) {
+        EventHandlerUtil.trigger(this.element, &#x27;kt.sticky.on&#x27;)
+        EventHandlerUtil.trigger(this.element, &#x27;kt.sticky.change&#x27;)
+        this.eventTriggerState &#x3D; false
+      }
+    } else {
+      // back scroll mode
+      if (document.body.hasAttribute(this.attributeName) &#x3D;&#x3D;&#x3D; true) {
+        this.disable()
+        document.body.removeAttribute(this.attributeName)
+      }
+
+      if (this.eventTriggerState &#x3D;&#x3D;&#x3D; false) {
+        EventHandlerUtil.trigger(this.element, &#x27;kt.sticky.off&#x27;)
+        EventHandlerUtil.trigger(this.element, &#x27;kt.sticky.change&#x27;)
+        this.eventTriggerState &#x3D; true
+      }
+    }
+  }
+
+  private getOption &#x3D; (name: string) &#x3D;&gt; {
+    const dataStickyAttr &#x3D; &#x27;data-kt-sticky-&#x27; + name
+    if (this.element.hasAttribute(dataStickyAttr) &#x3D;&#x3D;&#x3D; true) {
+      const attrValueInStr &#x3D; this.element.getAttribute(dataStickyAttr)
+      const attrValue &#x3D; getAttributeValueByBreakpoint(attrValueInStr || &#x27;&#x27;)
+      if (attrValue !&#x3D;&#x3D; null &amp;&amp; String(attrValue) &#x3D;&#x3D;&#x3D; &#x27;true&#x27;) {
+        return true
+      } else if (attrValue !&#x3D;&#x3D; null &amp;&amp; String(attrValue) &#x3D;&#x3D;&#x3D; &#x27;false&#x27;) {
+        return false
+      }
+
+      return attrValue
+    } else {
+      const optionName &#x3D; stringSnakeToCamel(name)
+      const option &#x3D; getObjectPropertyValueByKey(this.options, optionName)
+      if (option) {
+        return getAttributeValueByBreakpoint(option)
+      }
+      return null
+    }
+  }
+
+  private disable &#x3D; () &#x3D;&gt; {
+    ElementStyleUtil.remove(this.element, &#x27;top&#x27;)
+    ElementStyleUtil.remove(this.element, &#x27;width&#x27;)
+    ElementStyleUtil.remove(this.element, &#x27;left&#x27;)
+    ElementStyleUtil.remove(this.element, &#x27;right&#x27;)
+    ElementStyleUtil.remove(this.element, &#x27;z-index&#x27;)
+    ElementStyleUtil.remove(this.element, &#x27;position&#x27;)
+  }
+
+  private enable &#x3D; (update: boolean &#x3D; false) &#x3D;&gt; {
+    const top &#x3D; this.getOption(&#x27;top&#x27;)
+    const left &#x3D; this.getOption(&#x27;left&#x27;)
+    // const right &#x3D; this.getOption(&quot;right&quot;);
+    let width &#x3D; this.getOption(&#x27;width&#x27;)
+    const zindex &#x3D; this.getOption(&#x27;zindex&#x27;)
+
+    if (update !&#x3D;&#x3D; true &amp;&amp; this.getOption(&#x27;animation&#x27;) &#x3D;&#x3D;&#x3D; true) {
+      ElementStyleUtil.set(this.element, &#x27;animationDuration&#x27;, this.getOption(&#x27;animationSpeed&#x27;))
+      ElementAnimateUtil.animateClass(this.element, &#x27;animation &#x27; + this.getOption(&#x27;animationClass&#x27;))
+    }
+
+    if (zindex !&#x3D;&#x3D; null) {
+      ElementStyleUtil.set(this.element, &#x27;z-index&#x27;, zindex)
+      ElementStyleUtil.set(this.element, &#x27;position&#x27;, &#x27;fixed&#x27;)
+    }
+
+    if (top !&#x3D;&#x3D; null) {
+      ElementStyleUtil.set(this.element, &#x27;top&#x27;, top)
+    }
+
+    if (width !&#x3D;&#x3D; null &amp;&amp; width !&#x3D;&#x3D; undefined) {
+      const widthTarget &#x3D; getObjectPropertyValueByKey(width, &#x27;target&#x27;)
+      if (widthTarget) {
+        const targetElement &#x3D; document.querySelector(widthTarget)
+        if (targetElement) {
+          width &#x3D; getCSS(targetElement, &#x27;width&#x27;)
+        }
+      }
+      ElementStyleUtil.set(this.element, &#x27;width&#x27;, width)
+    }
+
+    if (left !&#x3D;&#x3D; null) {
+      if (String(left).toLowerCase() &#x3D;&#x3D;&#x3D; &#x27;auto&#x27;) {
+        var offsetLeft &#x3D; getElementOffset(this.element).left
+
+        if (offsetLeft &gt; 0) {
+          ElementStyleUtil.set(this.element, &#x27;left&#x27;, String(offsetLeft) + &#x27;px&#x27;)
+        }
+      }
+    }
+  }
+
+  public update &#x3D; () &#x3D;&gt; {
+    if (document.body.hasAttribute(this.attributeName) &#x3D;&#x3D;&#x3D; true) {
+      this.disable()
+      document.body.removeAttribute(this.attributeName)
+      this.enable(true)
+      document.body.setAttribute(this.attributeName, &#x27;on&#x27;)
+    }
+  }
+
+  // Event API
+  public on &#x3D; (name: string, callBack: Function) &#x3D;&gt; {
+    return EventHandlerUtil.on(this.element, name, callBack)
+  }
+
+  public one &#x3D; (name: string, callback: Function) &#x3D;&gt; {
+    return EventHandlerUtil.one(this.element, name, callback)
+  }
+
+  public off &#x3D; (name: string, handlerId: string) &#x3D;&gt; {
+    return EventHandlerUtil.off(this.element, name, handlerId)
+  }
+
+  public trigger &#x3D; (name: string) &#x3D;&gt; {
+    return EventHandlerUtil.trigger(this.element, name)
+  }
+
+  // Static methods
+  public static hasInstace(element: HTMLElement) {
+    return DataUtil.has(element, &#x27;sticky&#x27;)
+  }
+
+  public static getInstance(element: HTMLElement): StickyComponent | any {
+    if (element !&#x3D;&#x3D; null &amp;&amp; StickyComponent.hasInstace(element)) {
+      const data &#x3D; DataUtil.get(element, &#x27;sticky&#x27;)
+      if (data) {
+        return data as StickyComponent
+      }
+    }
+  }
+
+  // Create Instances
+  public static createInstances(selector: string) {
+    const elements &#x3D; document.body.querySelectorAll(selector)
+    elements.forEach((element) &#x3D;&gt; {
+      const item &#x3D; element as HTMLElement
+      let sticky &#x3D; StickyComponent.getInstance(item)
+      if (!sticky) {
+        sticky &#x3D; new StickyComponent(item, defaultStickyOptions)
+      }
+    })
+  }
+
+  public static createInsance &#x3D; (
+    selector: string,
+    options: StickyOptions &#x3D; defaultStickyOptions
+  ): StickyComponent | undefined &#x3D;&gt; {
+    const element &#x3D; document.body.querySelector(selector)
+    if (!element) {
+      return
+    }
+    const item &#x3D; element as HTMLElement
+    let sticky &#x3D; StickyComponent.getInstance(item)
+    if (!sticky) {
+      sticky &#x3D; new StickyComponent(item, options)
+    }
+    return sticky
+  }
+
+  public static bootstrap(attr: string &#x3D; &#x27;[data-kt-sticky&#x3D;&quot;true&quot;]&#x27;) {
+    StickyComponent.createInstances(attr)
+  }
+
+  public static reInitialization(attr: string &#x3D; &#x27;[data-kt-sticky&#x3D;&quot;true&quot;]&#x27;) {
+    StickyComponent.createInstances(attr)
+  }
+}
+
+export {StickyComponent, defaultStickyOptions}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
+            var COMPODOC_CURRENT_PAGE_URL = 'StickyComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
