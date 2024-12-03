@@ -1,0 +1,34 @@
+<lib-page-content
+  [title]="'itemDefinition.TaxList' | translate"
+  [subTitle]="'itemDefinition.TaxList' | translate"
+>
+
+<div class="grid page-content">
+  <div *ngFor="let medule of groupedData | keyvalue" class="col-4">
+    <p-accordion  [activeIndex]="0">
+      <p-accordionTab [header]="medule.key">
+        <ul class="grid">
+          <li class="col-12" *ngFor="let submedule of medule.value">
+            <p-accordion>
+              <p-accordionTab [header]="submedule.name">
+                <ul>
+                  <ng-container *ngFor="let page of submedule.subMenu">
+                    <li *ngIf="page.hasHelpPage">
+                      <a [href]="'./home-help-page/help-page/' + page.serviceId" target="_blank" class="enhanced-link">
+                        {{ page.name }}
+                      </a>
+                    </li>
+                  </ng-container>
+                </ul>
+              </p-accordionTab>
+            </p-accordion>
+          </li>
+        </ul>
+      </p-accordionTab>
+    </p-accordion>
+  </div>
+</div>
+</lib-page-content>
+
+
+

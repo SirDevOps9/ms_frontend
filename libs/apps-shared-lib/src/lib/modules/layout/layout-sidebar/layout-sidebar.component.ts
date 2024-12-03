@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output, effect, inject, signal } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Cultures, LanguageService, SideMenuModel } from 'shared-lib';
 import { LayoutService } from '../layout.service';
 import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service';
@@ -99,10 +99,11 @@ export class LayoutSidebarComponent {
         key: item.key.toString(),
         // name: item.labelEn,
         name: lang === 'ar' ? item.labelAr : item.labelEn,
-
         icon: item.icon,
         type: item.type.toLowerCase(),
         link: item.routePath,
+        hasHelpPage:item.hasHelpPage,
+        serviceId:item.serviceId,
         subMenu: item.children ? this.mapToTreeNodes(item.children , lang) : [],
       };
     });
@@ -151,7 +152,19 @@ export class LayoutSidebarComponent {
   constructor(
     public layoutService: LayoutService,
     private router: ActivatedRoute,
+    private routers: Router,
     private generalService: GeneralService,
     private languageService: LanguageService
   ) {}
+
+
+  navigateWithFragment(event: MouseEvent): void {
+    const target = event.target as HTMLAnchorElement;
+    const hasHelpPage = target.getAttribute('hashelppage') || 'false'; // Get value from the a tag
+    const href = target.getAttribute('link') || ''; // Get value from the a tag
+    const servicePage = target.getAttribute('servicePage') || ''; // Get value from the a tag
+    this.routers.navigate([href],
+       { state: { hashelppage: hasHelpPage,servicePage:servicePage } }
+      );
+  }
 }

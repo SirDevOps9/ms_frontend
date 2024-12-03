@@ -90,11 +90,14 @@ export class BreadcrumbLabel {
   static DOMAIN = 'Domain Details';
   static Manage_Apps = 'Manage Apps';
   static BUSSINESS_OWNER = 'Bussiness Owners';
-  static HELP_PAGES = 'Help Pages';
+    static HELP_PAGES='Help Pages';
+    static CMS='CMS';
   static MANAGE_BUSSINESS_OWNER = 'Manage Bussiness Owners';
   static SUBDOMAIN_INFO = 'Subdomain Info';
-  static Edit_Help_Page = 'Edit Help Page';
-  static Add_Help_Page = 'Add Help Page';
+    static Edit_Help_Page='Edit Help Page';
+    static Edit_CMSe='Edit CMS';
+    static Add_Help_Page='Add Help Page';
+    static Add_CMS='Add CMS';
   static COMPANIES_INFO = 'Company Info';
   static LICENCE_INFO = 'licence Info';
   static USER_INFO = 'USER Info';
@@ -114,6 +117,8 @@ export class BreadcrumbLabel {
   static EDIT_JOURNAL_OPENING_BALANCE = 'Edit Journal Entry Opening Balance';
   static VIEW_JOURNAL_OPENING_BALANCE = 'View Journal Entry Opening Balance';
   static ITEM_DIFINITION = 'BreadCrumb.Itemcatalog';
+  static VIEW_HELP = 'BreadCrumb.helpPage';
+  static HOME_HELP = 'BreadCrumb.homeHelpPage';
   static ADD_ITEM_DIFINITION = 'Add Item catalog';
   static EDIT_ITEM_DIFINITION = 'Edit Item catalog';
   static ITEM_TYPE = 'Item Type';
