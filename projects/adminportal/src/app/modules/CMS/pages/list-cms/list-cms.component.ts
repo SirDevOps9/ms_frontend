@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { PageInfo, PageInfoResult, RouterService } from 'shared-lib';
 import { CMSList } from '../../models/cms';
 import { CMSService } from '../../cms.service';
+import { CMSProxyService } from '../../cms-proxy.service';
 
 @Component({
   selector: 'app-list-cms',
@@ -10,7 +11,7 @@ import { CMSService } from '../../cms.service';
 })
 export class ListCMSComponent {
   private _helpService = inject(CMSService);
-  private routerService = inject(RouterService);
+  private _cMSProxyService = inject(CMSProxyService);
 
   tableData: CMSList[];
   searchTerm: string;
@@ -58,12 +59,13 @@ export class ListCMSComponent {
   }
 
   routeToEdit(ID: number) {
-    this.routerService.navigateTo(`/help-cms/edit-CMS/${ID}`);
+    this._cMSProxyService.routeToEdit(ID);
   }
 
   addNew() {
-    this.routerService.navigateTo(`/help-cms/add-CMS`);
+    this._cMSProxyService.addNew();
   }
+
 
   async onPublishChange(id: number) {
     const confirmed = await this._helpService.showConfirm();
