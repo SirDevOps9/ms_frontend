@@ -1,7 +1,9 @@
 {
   "BreadCrumb": {
     "Dashboard": "Dashboard",
-    "sequence":"Sequence"
+    "sequence":"Sequence",
+    "homeHelpPage":"Home Help Page",
+    "helpPage":"help Page"
   },
   "Save": "Save",
   "Cancel": "Cancel",
@@ -118,5 +120,22 @@
   },
   "general" : {
     "noData" : "There Is No Data"
+  },
+  "back":"back",
+  "help":"Help",
+
+  "global": {
+    "activeOn": "On",
+    "activeOff": "Off",
+    "showMoreValues": "...Show More",
+    "clickToUpload": "Click to upload",
+    "uploadFile": "Attached file",
+    "select": "Select",
+    "noResults": "No results found",
+    "Physical": "Physical",
+    "Virtual": "Virtual",
+    "VanSales": "VanSales",
+    "English": "( English )",
+    "Arabic": "( Arabic )"
   }
 }

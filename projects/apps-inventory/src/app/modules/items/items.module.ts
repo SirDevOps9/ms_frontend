@@ -59,6 +59,7 @@ import { ItemFixedCostComponent } from './pages/item-definition/item-fixed-cost/
 import { ViewWarehouseComponent } from './pages/warehouse/view-warehouse/view-warehouse.component';
 import { UomViewComponent } from './pages/unit-of-major/uom-view/uom-view.component';
 import { GeneralSettingInvComponent } from './pages/general-setting-inv/general-setting-inv.component';
+import { HelpPageComponent } from 'libs/apps-shared-lib/src/lib/pages/help-page/components/view-help-page/help-page.component';
 
 const routes: Routes = [
   {
@@ -84,6 +85,9 @@ const routes: Routes = [
           pageTitle: BreadcrumbLabel.ITEM_DIFINITION,
         },
       },
+      
+      //{ path: 'help-page', component: HelpPageComponent } ,// Define route with parameter (e.g., 'id')
+
       {
         path: 'add-item-definition',
         component: ItemCatalogTabsComponent,
@@ -196,8 +200,8 @@ const routes: Routes = [
             path: 'view-warehouse/:id',
             component: ViewWarehouseComponent,
             data: {
-              breadcrumb: BreadcrumbLabel.EDIT_WARE_HOUSE,
-              pageTitle: BreadcrumbLabel.EDIT_WARE_HOUSE,
+              breadcrumb: BreadcrumbLabel.VIEW_WARE_HOUSE,
+              pageTitle: BreadcrumbLabel.VIEW_WARE_HOUSE,
             },
           },
         ],

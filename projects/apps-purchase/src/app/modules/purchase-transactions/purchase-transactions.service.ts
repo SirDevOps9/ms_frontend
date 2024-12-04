@@ -181,7 +181,6 @@ export class PurchaseTransactionsService {
         this.languageService.transalte('purchase.success'),
         this.languageService.transalte('purchase.addInvoice')
       );
-      this.router.navigateTo('/transaction/purchase-invoice')
      this.sendPurchaseInvoice.next(res);
     });
   }
@@ -229,6 +228,28 @@ export class PurchaseTransactionsService {
   getReturnInvoiceByIdToEdit(id: number) {
     this.TransactionsProxy.getReturnInvoiceByIdToEdit(id).subscribe((response: any) => {
       this.returnItemsInvoiceData.next(response);
+    });
+  }
+  postInvoice(id: number) {
+    this.loaderService.show();
+
+    this.TransactionsProxy.PostInvoice(id).subscribe({
+      next: (res: any) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('messages.Success'),
+          this.languageService.transalte('messages.purchaseinvoicePostedSuccessfully')
+        );
+        this.loaderService.hide();
+
+        this.router.navigateTo('transaction/purchase-invoice');
+      },
+      error: (error: any) => {
+        this.loaderService.hide();
+        this.toasterService.showError(
+          this.languageService.transalte('messages.Error'),
+          this.languageService.transalte(error.message)
+        );
+      },
     });
   }
 }

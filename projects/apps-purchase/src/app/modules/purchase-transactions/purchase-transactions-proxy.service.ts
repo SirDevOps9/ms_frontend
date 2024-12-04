@@ -173,4 +173,8 @@ export class PurchaseTransactionsProxyService {
   getReturnInvoiceByIdToEdit(id: number) {
     return this.httpService.get(`ReturnInvoice/${id}`);
   }
+  PostInvoice(id:number){
+    return this.httpService.post(`Invoice/${id}/Post`, null);
+
+  }
 }

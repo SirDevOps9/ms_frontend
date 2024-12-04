@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { SequenceService } from 'apps-shared-lib';
 import { AuthService } from 'microtec-auth-lib';
 import { SharedStock } from 'projects/apps-inventory/src/app/modules/transactions/models/sharedStockOutEnums';
-import { RouterService, PageInfoResult, PageInfo } from 'shared-lib';
+import { RouterService, PageInfoResult, PageInfo, SharedEnums } from 'shared-lib';
 import { PurchaseTransactionsService } from '../../../purchase-transactions.service';
 import { IinvoiceDto } from '../../../model/purchase-invoice';
 
@@ -61,7 +61,8 @@ export class PurchaseInvoiceListComponent implements OnInit {
   }
 
   onAdd() {
-    this.routerService.navigateTo('/transaction/purchase-invoice/add');
+    this.sequenceService.isHaveSequence( this.sharedEnums.Pages.PurchaseInvoice , '/transaction/purchase-invoice/add')
+
   }
 
   onEdit(id: any) {
@@ -90,5 +91,10 @@ export class PurchaseInvoiceListComponent implements OnInit {
     this.transactionsService.exportInvoiceData.subscribe((res) => {
       this.exportData = res;
     });
+  }
+
+  constructor(    public sharedEnums: SharedEnums,
+  ) {
+
   }
 }

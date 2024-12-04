@@ -27,6 +27,7 @@ import { LayoutService } from '../layout.service';
 import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { CompanyTypes } from '../../sequence/models/companyTypes';
+import { BranchInUserInfo, CompanyInUserInfo } from '../../sequence/models/company-dto';
 
 @Component({
   selector: 'app-layout-header',
@@ -46,8 +47,8 @@ export class LayoutHeaderComponent implements OnInit, AfterViewInit {
   userPhoto: string;
   ref: DynamicDialogRef;
   userEmail: string;
-  branchList: { id: string; name: string; isDefault: boolean }[] = [];
-  companyList: { id: string; name: string; code: string; companyType: string }[] = [];
+  branchList: BranchInUserInfo[] = [];
+  companyList: CompanyInUserInfo[] = [];
 
   _fb = inject(FormBuilder);
   localstoarage = inject(StorageService);
@@ -65,11 +66,24 @@ export class LayoutHeaderComponent implements OnInit, AfterViewInit {
     else if (this.router.snapshot.data['moduleId'] === Modules.Purchase)
       this.moduleName = 'Purchase';
     else if (this.router.snapshot.data['moduleId'] === Modules.Sales) this.moduleName = 'Sales';
-    const companies = this.localstoarage.getItem(StorageKeys.COMPANIES_LIST);
-    if (!companies) {
-      this.getCompany();
+    const userInf = this.localstoarage.getItem('currentUserInfo');
+    if (!userInf || !this.coBrForm.get('companyId')?.value) {
+      this.GetCurrentUserInfoApi();
     }
-    this.setDefaultCompany();
+    this.patchUserInfo();
+  }
+
+  patchUserInfo() {
+    const userInf = this.localstoarage.getItem(StorageKeys.USER_INFO);
+    this.companyList = userInf?.companies;
+    let dCompany = userInf?.companies?.find((x: any) => x.companyType == CompanyTypes.Holding);
+    this.branchList = dCompany?.branches;
+
+    let dBranch = dCompany?.branches?.find((x: any) => x.isDefault == true);
+    this.coBrForm.patchValue({
+      companyId: dCompany?.id,
+      branchId: dBranch?.id,
+    });
   }
 
   toggleLanguage(): void {
@@ -149,77 +163,27 @@ export class LayoutHeaderComponent implements OnInit, AfterViewInit {
   }
   ngAfterViewInit(): void {}
   initForm() {
-    const storedCompanyId = this.localstoarage.getItem(StorageKeys.DEFAULT_COMPANY);
-    const storedBranchId = this.localstoarage.getItem(StorageKeys.DEFAULT_BRANCHE);
     this.coBrForm = this._fb.group({
-      companyId: storedCompanyId || null,
-      branchId: storedBranchId || null,
+      companyId: [],
+      branchId: [],
     });
   }
-  setDefaultCompany() {
-    const companies = this.localstoarage.getItem(StorageKeys.COMPANIES_LIST);
-    const storedCompanyId = this.localstoarage.getItem(StorageKeys.DEFAULT_COMPANY);
-    const storedBranchId = this.localstoarage.getItem(StorageKeys.DEFAULT_BRANCHE);
 
-    this.companyList = companies;
-    let matchedCompany = companies?.filter(
-      (x: { id: string; name: string; code: string; companyType: string }) =>
-        x.id === storedCompanyId.id
-    );
+  GetCurrentUserInfoApi() {
+    this.layoutService.GetCurrentUserInfo();
+    this.layoutService.currentUserInfo.subscribe((res) => {
+      this.localstoarage.setItem(StorageKeys.USER_INFO, res);
+      let dCompany = res?.companies?.find((x: any) => x?.companyType == CompanyTypes.Holding);
+      let currencies = {
+        currencyId: dCompany?.currencyId,
+        currencyName: dCompany?.currencyName,
+      };
+      this.localstoarage.setItem(StorageKeys.CURRENCEY_OBJ, currencies);
 
-    this.coBrForm.get('companyId')?.setValue(matchedCompany[0]?.id);
-
-    this.setDefaultBranch(storedBranchId?.id);
-  }
-  setDefaultBranch(id: string) {
-    const branches = this.localstoarage.getItem(StorageKeys.BRANCHES_LIST);
-    this.branchList = branches;
-    if (branches) {
-      let matchedBranch = branches?.filter(
-        (x: { id: string; name: string; isDefault: boolean }) => x.id === id
-      );
-
-      this.coBrForm.get('branchId')?.setValue(matchedBranch[0]?.id);
-    }
-  }
-
-  getCompany() {
-    this.layoutService.GetFirstCompany();
-    this.layoutService.GetFirstCompanyDropdown$.subscribe((res) => {
-      this.localstoarage.setItem(StorageKeys.COMPANIES_LIST, res);
-      if (res && res.length > 0) {
-        this.companyList = res;
-        const holdingCompany = res.find((x) => x.companyType === CompanyTypes.Holding);
-        if (holdingCompany) {
-          this.localstoarage.setItem(StorageKeys.DEFAULT_COMPANY, holdingCompany);
-          this.getBranch(holdingCompany.id);
-          this.coBrForm.get('companyId')?.setValue(holdingCompany.id);
-        }
-      }
-    });
-  }
-  getBranch(id: string) {
-    this.layoutService.branchesDropDown(id);
-    this.layoutService.branceDropDown$.subscribe((res) => {
       if (res) {
-        this.branchList = res;
-        let matchedBranch = res?.filter(
-          (x: { id: string; name: string; isDefault: boolean }) => x.isDefault === true
-        );
+        this.companyList = res.companies;
 
-        this.coBrForm.get('branchId')?.setValue(matchedBranch[0]?.id);
-
-        this.localstoarage.setItem(StorageKeys.BRANCHES_LIST, res);
-
-        const filtered = res.find((x) => x.isDefault === true);
-        if (filtered) {
-          this.localstoarage.setItem(StorageKeys.DEFAULT_BRANCHE, filtered);
-        } else {
-          let otherBranch = res.find((x) => x.isDefault === false);
-          this.localstoarage.setItem(StorageKeys.DEFAULT_BRANCHE, otherBranch);
-        }
-      } else {
-        return;
+        this.patchUserInfo();
       }
     });
   }

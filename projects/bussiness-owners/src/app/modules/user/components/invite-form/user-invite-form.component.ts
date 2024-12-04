@@ -21,10 +21,12 @@ export class UserInviteFormComponent implements OnInit {
   Licenses: TenantLicenseDto[];
   selected: any = [];
   subdomainName: string;
-  currentLang:any = ''
+
+  get currentLang(): string {
+    return this.languageService.getLang();
+  }
 
   ngOnInit() {
-    this.currentLang = this.languageService.getLang();
     this.getSubdomainById();
     this.getCompanies();
     this.getTenantLicense();

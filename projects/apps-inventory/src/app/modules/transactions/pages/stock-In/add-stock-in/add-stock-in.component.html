@@ -139,7 +139,7 @@
                 <lib-text-input
                   placeholder="{{ 'stockIn.barcode' | translate }}"
                   formControlName="barCode"
-                  (keyUp)="barcodeCanged($event, stockInFormGroup , i)"
+                  (keydown.enter)="barcodeCanged($event, stockInFormGroup , i)"
                   [readOnly]="dataToReadOnly"
                 ></lib-text-input>
               </ng-template>

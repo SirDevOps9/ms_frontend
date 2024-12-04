@@ -22,9 +22,7 @@ export class FinancialCalendarListComponent implements OnInit {
     private routerService: RouterService,
     private exportService:ExportService
   ) {}
-
   tableData: financialCalendar[];
-
   currentPageInfo: PageInfoResult = {};
   modulelist: MenuModule[];
   searchTerm: string;
@@ -32,6 +30,14 @@ export class FinancialCalendarListComponent implements OnInit {
   exportColumns: lookupDto[];
   exportData: financialCalendar[];
   mappedExportData: financialCalendar[];
+  filteredColumns: string[] = [];
+  columns: { name: any; headerText: any }[] = [
+    { name: 'code', headerText:('financialCalendar.code') },
+    { name: 'name', headerText:('financialCalendar.name') },
+    { name: 'fromDate', headerText:('financialCalendar.fromDate') },
+    { name: 'toDate', headerText:('financialCalendar.toDate') },
+    { name: 'status', headerText:('financialCalendar.status') },
+  ]
 
   ngOnInit() {
     this.initFinancialCalendarData();
@@ -86,16 +92,10 @@ export class FinancialCalendarListComponent implements OnInit {
 
   exportcurrencyData(searchTerm: string, sortBy?: number, sortColumn?: string) {
     this.generalSettingService.exportFinancialCalendarData(searchTerm , sortBy , sortColumn);
-    const columns = [
-      { name: 'code', headerText:('financialCalendar.code') },
-      { name: 'name', headerText:('financialCalendar.name') },
-      { name: 'fromDate', headerText:('financialCalendar.fromDate') },
-      { name: 'toDate', headerText:('financialCalendar.toDate') },
-      { name: 'status', headerText:('financialCalendar.status') },
+    const filteredColumns = this.columns.filter(col => this.filteredColumns.includes(col.name));
 
-    ];
     this.generalSettingService.exportsFinancialCalendarDataSourceObservable.subscribe((res) => {
-      this.exportData = this.exportService.formatCiloma(res, columns);
+      this.exportData = this.exportService.formatCiloma(res, filteredColumns);
       this.mappedExportData = res.map((elem: any) => {
         const { createdOn, ...args } = elem;
         return { ...args, codeNumber : elem.code };
@@ -109,6 +109,11 @@ export class FinancialCalendarListComponent implements OnInit {
      SortColumn:e.SortColumn
     }
  }
+ onFilterColumn(e: string[]) {
+  this.filteredColumns = e;
+
+}
+
   onDelete(id: number) {
     this.generalSettingService.deleteFinancialYear(id);
   }

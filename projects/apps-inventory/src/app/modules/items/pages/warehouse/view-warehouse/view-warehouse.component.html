@@ -2,7 +2,8 @@
   <div>
     <div class="user_page">
         <lib-data-table  [items]="tableData"
-     
+        (columnsFiltered)="onFilterColumn($event)"
+        (exportObj)="exportClickBySort($event)"
         className="p-datatable-gridlines" [currentPageResult]="currentPageInfo" (pageChange)="onPageChange($event)"
        [tableConfigs]="{
             allowPagination: false,
@@ -37,7 +38,7 @@
                 isGlobalFilter: true,
                 isSortable: true
               },
-              
+
 
             ]
           }">
@@ -52,9 +53,9 @@
         <ng-container action>
 
           <div>
-            <lib-export      (exportClick)="exportClick($event)"[exportData]="exportData" 
+            <lib-export      (exportClick)="exportClick($event)"[exportData]="exportData"
             [ExportName]="('warehouse.WarehouseItemExport' | translate)">
-           
+
             </lib-export>
           </div>
           <!--  -->
@@ -70,8 +71,8 @@
 
       <div  id="printableTable">
         <lib-data-table  [items]="tableData"
-     
-        className="p-datatable-gridlines" 
+
+        className="p-datatable-gridlines"
    [tableConfigs]="{
             allowPagination: false,
             allowServerPagination:false,
@@ -103,7 +104,7 @@
             ]
           }">
 
-  
+
 
       </lib-data-table>
       </div>

@@ -29,7 +29,7 @@ import { ImportStockInComponent } from '../../../components/import-stock-in/impo
 import { ScanParcodeStockInComponent } from '../../../components/scan-parcode-stock-in/scan-parcode-stock-in.component';
 import { MultiSelectItemStockInComponent } from '../../../components/multi-select-item-stock-in/multi-select-item-stock-in.component';
 import { TrackingStockInComponent } from '../../../components/tracking-stock-in/tracking-stock-in.component';
-import { skip } from 'rxjs';
+import { skip, take } from 'rxjs';
 import { SharedStock } from '../../../models/sharedStockOutEnums';
 
 @Component({
@@ -91,6 +91,9 @@ export class EditStockInComponent implements OnInit {
 
     this.lookupservice.lookups.subscribe((l) => {
       this.lookups = l;
+      if(l[LookupEnum.StockInOutSourceDocumentType]?.length) {
+        this.stockInForm.get('sourceDocumentType')?.setValue(l[LookupEnum.StockInOutSourceDocumentType][0]?.id)
+      }
     });
 
     this.transactionService.wareHousesDropDownLookup$.subscribe((res) => {
@@ -195,7 +198,7 @@ export class EditStockInComponent implements OnInit {
       notes: data.notes,
       id: data.id,
       code: data.code,
-      sourceDocumentType: data.sourceDocumentType,
+      // sourceDocumentType: data.sourceDocumentType,
       warehouseId: data.warehouseId,
       stockOutStatus: data.stockOutStatus,
     });
@@ -664,11 +667,11 @@ export class EditStockInComponent implements OnInit {
   }
   // manual Barcode Event
   barcodeCanged(e: any, stockInFormGroup: FormGroup, index: number) {
-    this.transactionService.getItemBarcodeForItem(e);
-    this.transactionService.sendItemBarcode$.pipe(skip(1)).subscribe((data) => {
+    this.transactionService.getItemBarcodeForItem(e.target.value);
+    this.transactionService.sendItemBarcode$.pipe(skip(1), take(1)).subscribe((data) => {
       if (data) {
         stockInFormGroup.get('itemId')?.setValue(data.itemId);
-        this.setRowDataFromBarCode(index, data, e);
+        this.setRowDataFromBarCode(index, data, e.target.value);
       }
     });
   }

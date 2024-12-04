@@ -19,7 +19,7 @@
     "noBarcode": "This barcode does not exist.",
     "notEdit": "This stockout cannot be edited because it is posted.",
     "setTracking":"You must set tracking in the row ",
-    "stockOutPostedSuccessfully": "Stock Out Posted successfully",
+    "purchaseinvoicePostedSuccessfully": "Purchase Invoice Posted successfully",
     "errorReturnQuantity": "The return quantity cannot be greater than the remaining quantity"
   },
   "BreadCrumb":{
@@ -289,7 +289,9 @@
     "trackingType": "Tracking Type",
     "search": "Search",
     "invoiceSummary": "Invoice Summary",
-    "NoTracking": "No Tracking"
+    "NoTracking": "No Tracking",
+    "batch": "batch no.",
+    "serial": "Serial"
   },
   "PurchaseInvoiceEdit": {
     "import": "Import",
@@ -332,7 +334,6 @@
     "availability": "Availability",
     "noTracking": "No tracking",
     "AddNewLine": "Add New Line",
-    "discount": "Discount",
     "discountAmt": "discount amt.",
     "netCost": "net cost",
     "totalAfter": "Total After Dis",
