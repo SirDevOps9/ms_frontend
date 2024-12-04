@@ -15,6 +15,11 @@ import { ViewInvoiceComponent } from './pages/purchase-invoice/view-invoice/view
 import { AddReturnPurchaseComponent } from './pages/return-purchase-invoice/add-return-purchase/add-return-purchase.component';
 import { EditReturnPurchaseComponent } from './pages/return-purchase-invoice/edit-return-purchase/edit-return-purchase.component';
 import { MainReturnPurchaseComponent } from './pages/return-purchase-invoice/main-return-purchase/main-return-purchase.component';
+import { PurchaseReturnListComponent } from './pages/return-purchase-invoice/purchase-return-list/purchase-return-list.component';
+import { PurchaseReturnViewComponent } from './pages/return-purchase-invoice/purchase-return-view/purchase-return-view.component';
+
+import { AuthGuard } from 'microtec-auth-lib';
+
 const routes: Routes = [
   {
     path: '',
@@ -78,13 +83,13 @@ const routes: Routes = [
         path: 'return-purchase',
         component: MainReturnPurchaseComponent,
         data: {
-          breadcrumb: BreadcrumbLabel.purchaseInvoiceList,
-          pageTitle: BreadcrumbLabel.purchaseInvoiceList,
+          breadcrumb: BreadcrumbLabel.purchaseInvoiceReturnList,
+          pageTitle: BreadcrumbLabel.purchaseInvoiceReturnList,
         },
         children: [
           {
             path: '',
-            component: PurchaseInvoiceListComponent,
+            component: PurchaseReturnListComponent,
             data: {
               breadcrumb: '',
             },
@@ -106,21 +111,21 @@ const routes: Routes = [
             },
           },
           {
+            path: 'view/:id',
+            component: PurchaseReturnViewComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.purchaseInvoiceView,
+              pageTitle: BreadcrumbLabel.purchaseInvoiceView,
+            },
+          },
+          {
             path: 'sequence',
             component: SequenceComponent,
             data: {
               moduleId: Modules.Purchase,
-              pageId: Pages.PurchaseInvoice,
+              pageId: Pages.PurchaseReturnInvoice,
               breadcrumb: BreadcrumbLabel.SEQUENCE,
               pageTitle: BreadcrumbLabel.SEQUENCE,
-            },
-          },
-          {
-            path: 'view/:id',
-            component: ViewInvoiceComponent,
-            data: {
-              breadcrumb: BreadcrumbLabel.purchaseInvoiceView,
-              pageTitle: BreadcrumbLabel.purchaseInvoiceView,
             },
           },
         ],
@@ -142,8 +147,9 @@ const routes: Routes = [
     ViewInvoiceComponent,
     AddReturnPurchaseComponent,
     EditReturnPurchaseComponent,
-    MainReturnPurchaseComponent
-
+    MainReturnPurchaseComponent,
+    PurchaseReturnListComponent,
+    PurchaseReturnViewComponent,
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule],
 })

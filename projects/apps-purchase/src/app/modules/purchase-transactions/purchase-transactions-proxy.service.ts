@@ -1,10 +1,10 @@
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IinvoiceDto, viewInvoiceObj } from './model/purchase-invoice';
+import { IinvoiceDto, viewInvoiceObj } from './models/purchase-invoice';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
 import { ItemDto } from './models/itemDto';
 import { CurrencyRateDto } from './models/currencyRateDto';
-import { LatestItem } from './models';
+import { LatestItem, PurchaseReturnInvoice, viewInvoiceReturnObj } from './models';
 import { AddPurchaseInvoiceDto } from './models/addPurchaseInvoice';
 
 @Injectable({
@@ -33,44 +33,42 @@ export class PurchaseTransactionsProxyService {
     }
     return this.httpService.get<PaginationVm<any>>(query);
   }
-    GetLatestItems(
-      searchTerm: string,
-    ): Observable<ItemDto> {
-      let query = `Inventory/SharedLatestItemsLookup`;
-      if (searchTerm) {
-        query += `?searchTerm=${encodeURIComponent(searchTerm)}`;
-      }
-     
-      return this.httpService.get<ItemDto>(query);
+  GetLatestItems(searchTerm: string): Observable<ItemDto> {
+    let query = `Inventory/SharedLatestItemsLookup`;
+    if (searchTerm) {
+      query += `?searchTerm=${encodeURIComponent(searchTerm)}`;
     }
-    GetItems(
-      quieries: string,
-      searchTerm: string,
-      pageInfo: PageInfo
-    ): Observable<PaginationVm<ItemDto>> {
-      let query = `Inventory/SharedItemsLookup?${pageInfo.toQuery}`;
-      if (searchTerm) {
-        query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
-      }
-      if (quieries) {
-        query += `&${quieries ? quieries : ''}`;
-      }
-      return this.httpService.get<PaginationVm<ItemDto>>(query);
+
+    return this.httpService.get<ItemDto>(query);
+  }
+  GetItems(
+    quieries: string,
+    searchTerm: string,
+    pageInfo: PageInfo
+  ): Observable<PaginationVm<ItemDto>> {
+    let query = `Inventory/SharedItemsLookup?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
     }
-    getAccountCurrencyRate(currentCurrency: number, accountCurrency: number) {
-      return this.httpService.get<CurrencyRateDto>(
-        `CurrencyConversion/rate?FromCurrencyId=${currentCurrency}&ToCurrencyId=${accountCurrency}`
-      );
+    if (quieries) {
+      query += `&${quieries ? quieries : ''}`;
     }
-    getInvoiceById(id: number) {
-      return this.httpService.get(`Invoice/GetById/${id}`);
-    }
-    EditInvoice(obj: any) {
-      return this.httpService.put(`Invoice`, obj);
-    }
-    deleteRowInvoice(id: number) {
-      return this.httpService.delete(`Invoice/DeleteLine/${id}`);
-    }
+    return this.httpService.get<PaginationVm<ItemDto>>(query);
+  }
+  getAccountCurrencyRate(currentCurrency: number, accountCurrency: number) {
+    return this.httpService.get<CurrencyRateDto>(
+      `CurrencyConversion/rate?FromCurrencyId=${currentCurrency}&ToCurrencyId=${accountCurrency}`
+    );
+  }
+  getInvoiceById(id: number) {
+    return this.httpService.get(`Invoice/GetById/${id}`);
+  }
+  EditInvoice(obj: any) {
+    return this.httpService.put(`Invoice`, obj);
+  }
+  deleteRowInvoice(id: number) {
+    return this.httpService.delete(`Invoice/DeleteLine/${id}`);
+  }
   getSharedWarehousesLookup(
     searchTerm: string
   ): Observable<{ id: number; code: string; name: string }[]> {
@@ -81,14 +79,12 @@ export class PurchaseTransactionsProxyService {
     return this.httpService.get<{ id: number; code: string; name: string }[]>(query);
   }
 
-  getLatestItemsList(searchTerm?:string): Observable<LatestItem[]> {
-
+  getLatestItemsList(searchTerm?: string): Observable<LatestItem[]> {
     let query = `Inventory/SharedLatestItemsLookup?`;
     if (searchTerm) {
       query += `SearchTerm=${encodeURIComponent(searchTerm)}`;
     }
     return this.httpService.get<LatestItem[]>(query);
-    
   }
   getItemsForAdvancedSearch(
     quieries: string,
@@ -105,11 +101,9 @@ export class PurchaseTransactionsProxyService {
     return this.httpService.get<PaginationVm<LatestItem>>(query);
   }
 
-  addPurchaseInvoice(obj : AddPurchaseInvoiceDto) {
-    return this.httpService.post('Invoice' , obj)
+  addPurchaseInvoice(obj: AddPurchaseInvoiceDto) {
+    return this.httpService.post('Invoice', obj);
   }
-
-
 
   // list of purchase inv
 
@@ -142,17 +136,18 @@ export class PurchaseTransactionsProxyService {
     return this.httpService.delete<boolean>(`Invoice/${id}`);
   }
 
-  getCurrencyRate(fromCurrency : number ,toCurrency : number ) : Observable<any>{
-    return this.httpService.get(`CurrencyConversion/rate?FromCurrencyId=${fromCurrency}&ToCurrencyId=${toCurrency}`)
+  getCurrencyRate(fromCurrency: number, toCurrency: number): Observable<any> {
+    return this.httpService.get(
+      `CurrencyConversion/rate?FromCurrencyId=${fromCurrency}&ToCurrencyId=${toCurrency}`
+    );
   }
-  
 
   // Get Invoice View By Id
   GetInvoiceViewById(id: number): Observable<viewInvoiceObj> {
     const url = `Invoice/GetInvoiceViewById/${id}`;
     return this.httpService.get<viewInvoiceObj>(url);
   }
-  InvoiceLookup(  searchTerm?: string ,vendorId?:number,SortColumn?:string): Observable<any[]> {
+  InvoiceLookup(searchTerm?: string, vendorId?: number, SortColumn?: string): Observable<any[]> {
     let query = `Invoice/InvoiceLookup?`;
     const params: string[] = [];
     if (searchTerm) params.push(`SearchTerm=${encodeURIComponent(searchTerm)}`);
@@ -164,8 +159,8 @@ export class PurchaseTransactionsProxyService {
   getReturnInvoiceById(id: number) {
     return this.httpService.get(`Invoice/${id}/GetInvoiceToReturnById`);
   }
-  addReturnInvoice(obj : AddPurchaseInvoiceDto) {
-    return this.httpService.post('ReturnInvoice' , obj)
+  addReturnInvoice(obj: AddPurchaseInvoiceDto) {
+    return this.httpService.post('ReturnInvoice', obj);
   }
   deleteRowReturnInvoice(id: number) {
     return this.httpService.delete(`ReturnInvoice/DeleteLine/${id}`);
@@ -173,8 +168,47 @@ export class PurchaseTransactionsProxyService {
   getReturnInvoiceByIdToEdit(id: number) {
     return this.httpService.get(`ReturnInvoice/${id}`);
   }
-  PostInvoice(id:number){
-    return this.httpService.post(`Invoice/${id}/Post`, null);
 
+  // #############################invoice return ######################
+  // list
+  getReturnInvoiceList(
+    searchTerm: string,
+    pageInfo: PageInfo
+  ): Observable<PaginationVm<PurchaseReturnInvoice>> {
+    let query = `ReturnInvoice?${pageInfo.toQuery}`;
+    if (searchTerm) {
+      query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+
+    return this.httpService.get<PaginationVm<PurchaseReturnInvoice>>(query);
+  }
+
+  // export
+  exportInvoiceReturnListData(
+    searchTerm?: string,
+    SortBy?: number,
+    SortColumn?: string
+  ): Observable<PurchaseReturnInvoice[]> {
+    let query = `ReturnInvoice/Export?`;
+    const params: string[] = [];
+    if (searchTerm) params.push(`SearchTerm=${encodeURIComponent(searchTerm)}`);
+    if (SortBy) params.push(`SortBy=${SortBy}`);
+    if (SortColumn) params.push(`SortColumn=${SortColumn}`);
+    query += params.join('&');
+    return this.httpService.get<PurchaseReturnInvoice[]>(query);
+  }
+
+  // view
+  GetInvoiceReturnViewById(id: number): Observable<viewInvoiceReturnObj> {
+    const url = `ReturnInvoice/${id}/GetViewById`;
+    return this.httpService.get<viewInvoiceReturnObj>(url);
+  }
+
+  // delete
+  deleteInvoiceReturnLine(id: number): Observable<boolean> {
+    return this.httpService.delete<boolean>(`ReturnInvoice/${id}`);
+  }
+  PostInvoice(id: number) {
+    return this.httpService.post(`Invoice/${id}/Post`, null);
   }
 }

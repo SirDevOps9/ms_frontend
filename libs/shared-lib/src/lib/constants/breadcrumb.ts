@@ -38,6 +38,7 @@ export class BreadcrumbLabel {
   static readonly TREASURY_LIST = 'BreadCrumb.Treasury';
   static readonly vendor_list = 'BreadCrumb.VendorCategory';
   static readonly purchaseInvoiceList = 'BreadCrumb.purchaseInvoice';
+  static readonly purchaseInvoiceReturnList = 'BreadCrumb.purchaseReturnInvoice';
   static readonly purchaseInvoiceAdd = 'BreadCrumb.purchaseInvoiceAdd';
   static readonly purchaseInvoiceEdit = 'BreadCrumb.purchaseInvoiceEdit';
   static readonly TITLE_PURCHASE_EDIT = 'title.purchaseInvoiceEdit';

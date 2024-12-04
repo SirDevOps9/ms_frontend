@@ -1,6 +1,6 @@
 <lib-page-content
-  [title]="'purchase.purchase' | translate"
-  [subTitle]="'purchase.purchase' | translate"
+  [title]="'purchaseReturn.purchaseReturn' | translate"
+  [subTitle]="'purchaseReturn.purchaseReturn' | translate"
 >
   <div>
     <div class="user_page">
@@ -20,102 +20,69 @@
           columns: [
             {
               name: 'code',
-              headerText: ('purchase.invoiceCode' | translate),
+              headerText: ('purchaseReturn.code' | translate),
               isGlobalFilter: true,
               isSortable: true
             },
             {
-              name: 'invoiceDate',
-              headerText: ('purchase.invoiceDate' | translate),
+              name: 'returnInvoiceDate',
+              headerText: ('purchaseReturn.returnInvoiceDate' | translate),
+              isGlobalFilter: true,
+              isSortable: true,
               template: date
             },
             {
               name: 'vendorCode',
-              headerText: ('purchase.vendorCode' | translate),
+              headerText: ('purchaseReturn.vendorCode' | translate),
               isGlobalFilter: true,
               isSortable: true
             },
             {
               name: 'vendorName',
-              headerText: ('purchase.vendorName' | translate),
-              isGlobalFilter: true,
-              isSortable: true
-            },
-            {
-              name: 'currencyName',
-              headerText: ('purchase.currencyName' | translate),
-              isGlobalFilter: true,
-              isSortable: true
-            },
-            {
-              name: 'currencyRate',
-              headerText: ('purchase.currencyRate' | translate),
-              isGlobalFilter: true,
-              isSortable: true
-            },
-            {
-              name: 'reference',
-              headerText: ('purchase.reference' | translate),
-              isGlobalFilter: true,
-              isSortable: true
-            },
-            {
-              name: 'paymentTermName',
-              headerText: ('purchase.paymentTerms' | translate),
+              headerText: ('purchaseReturn.vendorName' | translate),
               isGlobalFilter: true,
               isSortable: true
             },
             {
               name: 'warehouseName',
-              headerText: ('purchase.warehouse' | translate),
+              headerText: ('purchaseReturn.warehouseName' | translate),
               isGlobalFilter: true,
               isSortable: true
             },
             {
               name: 'invoiceJournalCode',
-              headerText: ('purchase.invoiceJournal' | translate),
+              headerText: ('purchaseReturn.invoiceJournalCode' | translate),
               isGlobalFilter: true,
               isSortable: true
             },
             {
-              name: 'stockInCode',
-              headerText: ('purchase.stockIn' | translate),
+              name: 'stockOutCode',
+              headerText: ('purchaseReturn.stockOutCode' | translate),
               isGlobalFilter: true,
               isSortable: true
             },
             {
               name: 'totalNetAmount',
-              headerText: ('purchase.totalAmount' | translate),
+              headerText: ('purchaseReturn.totalNetAmount' | translate),
               isGlobalFilter: true,
               isSortable: true
             },
             {
-              name: 'totalDiscount',
-              headerText: ('purchase.discountAmount' | translate),
+              name: 'totalVatAmount',
+              headerText: ('purchaseReturn.vatAmount' | translate),
               isGlobalFilter: true,
               isSortable: true
             },
             {
-              name: 'totalAfterDiscount',
-              headerText: ('purchase.totalAfterDiscount' | translate),
+              name: 'grandTotal',
+              headerText: ('purchaseReturn.grandTotal' | translate),
               isGlobalFilter: true,
               isSortable: true
             },
-            {
-              name: 'vatAmount',
-              headerText: ('purchase.vatAmount' | translate),
-              isGlobalFilter: true,
-              isSortable: true
-            },
-            {
-              name: 'totalAfterVatAmount',
-              headerText: ('purchase.totalAfterVat' | translate),
-              isGlobalFilter: true,
-              isSortable: true
-            },
+
             {
               name: 'id',
-              headerText: ('purchase.actions' | translate),
+              headerText: ('purchaseReturn.actions' | translate),
               template: actions
             }
           ]
@@ -124,7 +91,7 @@
         <ng-container search>
           <lib-text-input
             type="text"
-            [placeholder]="'purchase.search' | translate"
+            [placeholder]="'purchaseReturn.search' | translate"
             [(ngModel)]="searchTerm"
             (keyUp)="onSearchChange()"
           ></lib-text-input>
@@ -134,11 +101,11 @@
             (exportClick)="exportClick()"
             [exportData]="exportData"
             [exportColumns]="exportColumns"
-            [ExportName]="'purchase invoice'"
+            [ExportName]="'Purchase Return Invoice'"
           >
           </lib-export>
           <lib-button-micro
-            [title]="'purchase.Add' | translate"
+            [title]="'purchaseReturn.Add' | translate"
             nameClass="save"
             iconName="pi pi-plus"
             (click)="onAdd()"
@@ -148,7 +115,7 @@
         <ng-template #date let-date>
           <p>
             <span class="pi pi-calendar"></span>
-            {{ date.invoiceDate | date : 'dd/MM/yyyy' }}
+            {{ date.returnInvoiceDate | date : 'dd/MM/yyyy' }}
           </p>
         </ng-template>
         <ng-template #actions let-action>
