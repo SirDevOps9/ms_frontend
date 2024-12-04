@@ -187,4 +187,7 @@ export class PurchaseTransactionsProxyService {
   deleteInvoiceReturnLine(id: number): Observable<boolean> {
     return this.httpService.delete<boolean>(`ReturnInvoice/${id}`);
   }
+  PostInvoice(id: number) {
+    return this.httpService.post(`Invoice/${id}/Post`, null);
+  }
 }
