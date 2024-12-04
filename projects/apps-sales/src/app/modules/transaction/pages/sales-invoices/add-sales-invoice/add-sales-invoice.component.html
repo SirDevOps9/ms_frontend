@@ -255,17 +255,17 @@
 
     <div class="my-2 card_micro tableCont p-6">
       <div class="flex justify-content-between align-items-center gap-4 my-4">
-        <lib-text-input type="text" [placeholder]="'purchase.search' | translate"></lib-text-input>
+        <lib-text-input type="text" [placeholder]="'salesInvoice.search' | translate"></lib-text-input>
   
         <div class="flex justify-content-end gap-4 my-4">
           <lib-button-micro
-            [title]="'purchase.upload' | translate"
+            [title]="'salesInvoice.upload' | translate"
             nameClass="outline"
             iconName="pi pi-file-edit"
           >
           </lib-button-micro>
           <lib-button-micro
-            [title]="'purchase.scan' | translate"
+            [title]="'salesInvoice.scan' | translate"
             nameClass="outline"
             iconName="pi pi-expand"
           >
@@ -281,22 +281,22 @@
       >
         <ng-template pTemplate="header">
           <tr>
-            <th>{{ 'purchase.barcode' | translate }}</th>
-            <th>{{ 'purchase.itemCode' | translate }}</th>
-            <th>{{ 'purchase.itemDescription' | translate }}</th>
-            <th>{{ 'purchase.UOM' | translate }}</th>
-            <th>{{ 'purchase.QTY' | translate }}</th>
-            <th>{{ 'purchase.cost' | translate }}</th>
-            <th>{{ 'purchase.subTotal' | translate }}</th>
-            <th>{{ 'purchase.discount' | translate }}</th>
-            <th>{{ 'purchase.discountAmt' | translate }}</th>
-            <th>{{ 'purchase.netCost' | translate }}</th>
-            <th>{{ 'purchase.totalAfterDis' | translate }}</th>
-            <th>{{ 'purchase.vat' | translate }}</th>
-            <th>{{ 'purchase.vatAmount' | translate }}</th>
-            <th>{{ 'purchase.grandTotal' | translate }}</th>
-            <th>{{ 'purchase.tracking' | translate }}</th>
-            <th>{{ 'purchase.actions' | translate }}</th>
+            <th>{{ 'salesInvoice.barcode' | translate }}</th>
+            <th>{{ 'salesInvoice.itemCode' | translate }}</th>
+            <th>{{ 'salesInvoice.itemDescription' | translate }}</th>
+            <th>{{ 'salesInvoice.UOM' | translate }}</th>
+            <th>{{ 'salesInvoice.QTY' | translate }}</th>
+            <th>{{ 'salesInvoice.cost' | translate }}</th>
+            <th>{{ 'salesInvoice.subTotal' | translate }}</th>
+            <th>{{ 'salesInvoice.discount' | translate }}</th>
+            <th>{{ 'salesInvoice.discountAmt' | translate }}</th>
+            <th>{{ 'salesInvoice.netCost' | translate }}</th>
+            <th>{{ 'salesInvoice.totalAfterDis' | translate }}</th>
+            <th>{{ 'salesInvoice.vat' | translate }}</th>
+            <th>{{ 'salesInvoice.vatAmount' | translate }}</th>
+            <th>{{ 'salesInvoice.grandTotal' | translate }}</th>
+            <th>{{ 'salesInvoice.tracking' | translate }}</th>
+            <th>{{ 'salesInvoice.actions' | translate }}</th>
           </tr>
         </ng-template>
         <ng-template
@@ -313,7 +313,7 @@
               <p-cellEditor>
                 <ng-template pTemplate="input">
                   <lib-text-input
-                    placeholder="{{ 'purchase.barcode' | translate }}"
+                    placeholder="{{ 'salesInvoice.barcode' | translate }}"
                     formControlName="barCode"
                     [readOnly]="dataToReadOnly"
                   ></lib-text-input>
@@ -340,7 +340,7 @@
                       [options]="latestItemsList"
                       optionValue="itemNumber"
                       optionLabel="displayName"
-                      placeholder="{{ 'purchase.itemCode' | translate }}"
+                      placeholder="{{ 'salesInvoice.itemCode' | translate }}"
                       (valueChanged)="setRowdata(i, $event, latestItemsList)"
                       [readOnly]="dataToReadOnly"
                       (valueSearchChanged)="onFilter($event)"
@@ -378,7 +378,7 @@
                     optionValue="uomId"
                     [readOnly]="dataToReadOnly"
                     [optionLabel]="currentLang == 'en' ? 'uomNameEn' : 'uomNameAr'"
-                    placeholder="{{ 'purchase.UOM' | translate }}"
+                    placeholder="{{ 'salesInvoice.UOM' | translate }}"
                     (valueChanged)="
                       changeUomName(i, purchaseInvoiceFormGroup.controls['uomOptions'].value)
                     "
@@ -404,7 +404,7 @@
                   <lib-text-input
                     [readOnly]="dataToReadOnly"
                     type="number"
-                    placeholder="{{ 'purchase.QTY' | translate }}"
+                    placeholder="{{ 'salesInvoice.QTY' | translate }}"
                     formControlName="quantity"
                     (keyUp)="quantityCostChange(purchaseInvoiceFormGroup)"
                     [readOnly]="
@@ -432,7 +432,7 @@
                   <lib-text-input
                     [readOnly]="dataToReadOnly"
                     type="number"
-                    placeholder="{{ 'purchase.cost' | translate }}"
+                    placeholder="{{ 'salesInvoice.cost' | translate }}"
                     formControlName="cost"
                     (keyUp)="quantityCostChange(purchaseInvoiceFormGroup)"
                   ></lib-text-input>
@@ -466,7 +466,7 @@
               <p-cellEditor>
                 <ng-template pTemplate="input">
                   <lib-text-input
-                    placeholder="{{ 'purchase.discountPercentage' | translate }}"
+                    placeholder="{{ 'salesInvoice.discountPercentage' | translate }}"
                     formControlName="discountPercentage"
                     [readOnly]="dataToReadOnly"
                     (keyUp)="disAmountChange(purchaseInvoiceFormGroup)"
@@ -489,7 +489,7 @@
               <p-cellEditor>
                 <ng-template pTemplate="input">
                   <lib-text-input
-                    placeholder="{{ 'purchase.disAmount' | translate }}"
+                    placeholder="{{ 'salesInvoice.disAmount' | translate }}"
                     formControlName="discountAmount"
                     [readOnly]="dataToReadOnly"
                     (keyUp)="amountChange(purchaseInvoiceFormGroup)"
@@ -580,7 +580,7 @@
                     !purchaseInvoiceFormGroup.get('invoiceTracking').get('expireDate')?.value
                   "
                 >
-                  {{ 'purchase.Expiry' | translate }}
+                  {{ 'salesInvoice.Expiry' | translate }}
                 </small>
   
                 <!--  -->
@@ -627,7 +627,7 @@
   
                 <lib-button-micro
                   [disabled]="dataToReadOnly"
-                  title="{{ 'purchase.setTracking' | translate }}"
+                  title="{{ 'salesInvoice.setTracking' | translate }}"
                   nameClass="{{ !dataToReadOnly ? 'save' : 'disabled' }}"
                   widthNumber="100%"
                   [class.hide]="
@@ -652,7 +652,7 @@
                       sharedFinanceEnums.trackingType.NoTracking &&
                     purchaseInvoiceFormGroup.get('hasExpiryDate')?.value == false
                   "
-                  >{{ 'purchase.noTracking' | translate }}</small
+                  >{{ 'salesInvoice.noTracking' | translate }}</small
                 >
               </div>
               <div class="flex justify-content-center mt-2">
@@ -666,10 +666,10 @@
                     .hasError('required') ||
                   purchaseInvoiceFormGroup.get('invoiceEntryMode').get('serialId').hasError('required') 
                 "
-                >{{ 'purchase.required' | translate }}</small
+                >{{ 'salesInvoice.required' | translate }}</small
               > -->
                 <small *ngIf="error && lineError == i" class="danger">{{
-                  'purchase.required' | translate
+                  'salesInvoice.required' | translate
                 }}</small>
               </div>
             </td>
@@ -694,7 +694,7 @@
           className="outline-primary"
           [disabled]="dataToReadOnly"
         >
-          {{ 'purchase.add' | translate }}
+          {{ 'salesInvoice.add' | translate }}
         </lib-button>
       </div>
     </div>
