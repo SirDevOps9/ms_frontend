@@ -352,6 +352,17 @@ export class EditPurchaseInvoiceComponent implements OnInit {
         vat: selectedItem.taxRatio || 0,
         trackingType: selectedItem.trackingType,
         hasExpiryDate: selectedItem.hasExpiryDate,
+        taxId: selectedItem.taxId,
+        categoryId:selectedItem.categoryId,
+        itemCategoryNameAr: selectedItem.itemCategoryNameAr,
+        itemCategoryNameEn:selectedItem.itemCategoryNameEn,
+        categoryType: selectedItem.categoryType,
+        itemVariantCode: selectedItem.itemVariantCode,
+        itemVariantNameAr:selectedItem.itemVariantNameAr,
+        itemVariantNameEn: selectedItem.itemVariantNameEn,
+        uomCode: selectedItem.uomCode,
+        uomNameAr:selectedItem.uomNameAr,
+        uomNameEn: selectedItem.uomNameEn,
 
       });
 
@@ -394,6 +405,17 @@ export class EditPurchaseInvoiceComponent implements OnInit {
         vat: selectedItem.taxRatio || 0,
         trackingType: selectedItem.trackingType,
         hasExpiryDate: selectedItem.hasExpiryDate,
+        taxId: selectedItem.taxId,
+        categoryId:selectedItem.categoryId,
+        itemCategoryNameAr: selectedItem.itemCategoryNameAr,
+        itemCategoryNameEn:selectedItem.itemCategoryNameEn,
+        categoryType: selectedItem.categoryType,
+        itemVariantCode: selectedItem.itemVariantCode,
+        itemVariantNameAr:selectedItem.itemVariantNameAr,
+        itemVariantNameEn: selectedItem.itemVariantNameEn,
+        uomCode: selectedItem.uomCode,
+        uomNameAr:selectedItem.uomNameAr,
+        uomNameEn: selectedItem.uomNameEn,
 
       });
 
@@ -444,6 +466,16 @@ export class EditPurchaseInvoiceComponent implements OnInit {
         trackingType: selectedItem.trackingType,
         hasExpiryDate: selectedItem.hasExpiryDate,
         taxId: selectedItem.taxId,
+        categoryId:selectedItem.categoryId,
+        itemCategoryNameAr: selectedItem.itemCategoryNameAr,
+        itemCategoryNameEn:selectedItem.itemCategoryNameEn,
+        categoryType: selectedItem.categoryType,
+        itemVariantCode: selectedItem.itemVariantCode,
+        itemVariantNameAr:selectedItem.itemVariantNameAr,
+        itemVariantNameEn: selectedItem.itemVariantNameEn,
+        uomCode: selectedItem.uomCode,
+        uomNameAr:selectedItem.uomNameAr,
+        uomNameEn: selectedItem.uomNameEn,
 
       });
 
@@ -493,7 +525,7 @@ export class EditPurchaseInvoiceComponent implements OnInit {
         cost: new FormControl('', [customValidators.required]),
         subCost: new FormControl(''),
         discount: new FormControl(''),
-        discountAmt: new FormControl(''),
+        discountAmt: new FormControl(0),
         netCost: new FormControl(''),
         totalAfter: new FormControl(''),
         vat: new FormControl(''),
@@ -501,7 +533,16 @@ export class EditPurchaseInvoiceComponent implements OnInit {
         grandTotal: new FormControl(''),
         trackingType: new FormControl(''),
         hasExpiryDate: new FormControl(''),
-        taxId: new FormControl(''),
+        categoryId:new FormControl(''),
+        itemCategoryNameAr: new FormControl(''),
+        itemCategoryNameEn:new FormControl(''),
+        categoryType: new FormControl(''),
+        itemVariantCode: new FormControl(''),
+        itemVariantNameAr:new FormControl(''),
+        itemVariantNameEn: new FormControl(''),
+        uomCode: new FormControl(''),
+        uomNameAr:new FormControl(''),
+        uomNameEn: new FormControl(''),
         invoiceTracking: this.fb.group({
           invoiceDetailId: new FormControl(''),
           vendorBatchNo: new FormControl(''),
@@ -543,7 +584,7 @@ export class EditPurchaseInvoiceComponent implements OnInit {
         cost: new FormControl('', [customValidators.required]),
         subCost: new FormControl(''),
         discount: new FormControl(''),
-        discountAmt: new FormControl(''),
+        discountAmt: new FormControl(0),
         netCost: new FormControl(''),
         totalAfter: new FormControl(''),
         vat: new FormControl(''),
@@ -551,6 +592,16 @@ export class EditPurchaseInvoiceComponent implements OnInit {
         grandTotal: new FormControl(''),
         trackingType: new FormControl(''),
         hasExpiryDate: new FormControl(''),
+        categoryId:new FormControl(''),
+        itemCategoryNameAr: new FormControl(''),
+        itemCategoryNameEn:new FormControl(''),
+        categoryType: new FormControl(''),
+        itemVariantCode: new FormControl(''),
+        itemVariantNameAr:new FormControl(''),
+        itemVariantNameEn: new FormControl(''),
+        uomCode: new FormControl(''),
+        uomNameAr:new FormControl(''),
+        uomNameEn: new FormControl(''),
         invoiceTracking: this.fb.group({
           invoiceDetailId: new FormControl(''),
           vendorBatchNo: new FormControl(''),
@@ -589,6 +640,8 @@ export class EditPurchaseInvoiceComponent implements OnInit {
 this.isValidData()
     if (!this.formsService.validForm(this.invoiceDetailsFormArray, false)) return;
     if(this.save){
+          console.log(this.refactoredData(this.addForm.value) ,"refactoredData");
+
       this.PurchaseService.editInvoice(this.refactoredData(this.addForm.value))
 
     }
@@ -825,7 +878,8 @@ this.isValidData()
   }
 
   refactoredData(data: any) {
-    console.log(data)
+    console.log(data,"dddddddddddddddddddddddd");
+    
     const refactoredData = {
       id: data.id,
       invoiceDate: new Date(data.invoiceDate).toISOString(),
@@ -839,6 +893,7 @@ this.isValidData()
       reference: data.reference || null,
       currencyId : data.currencyId || null,
       currencyName : data.currencyName ,
+    
       invoiceDetails: data.invoiceDetails.map((detail: any) => ({
         id: detail.id,
         barCode: detail.barCode || null,
@@ -860,6 +915,17 @@ this.isValidData()
         invoiceEntryMode: "Manual", // Assuming a default value
         trackingType: detail.trackingType || null,
         hasExpiryDate: detail.hasExpiryDate,
+        categoryId:detail.categoryId,
+        itemCategoryNameAr: detail.itemCategoryNameAr,
+        itemCategoryNameEn:detail.itemCategoryNameEn,
+        categoryType: detail.categoryType,
+        itemVariantCode: detail.itemVariantCode,
+        itemVariantNameAr:detail.itemVariantNameAr,
+        itemVariantNameEn: detail.itemVariantNameEn,
+        uomCode: detail.uomCode,
+        uomNameAr:detail.uomNameAr,
+        uomNameEn: detail.uomNameEn,
+        itemName: detail.itemName,
         invoiceTracking: {
           id: detail.invoiceTracking.invoiceDetailId || 0,
           vendorBatchNo: detail.invoiceTracking.vendorBatchNo || null,
@@ -874,7 +940,7 @@ this.isValidData()
         },
       })),
     };
-    
+
     return refactoredData
   }
   getTotalVatAmount(): number {
