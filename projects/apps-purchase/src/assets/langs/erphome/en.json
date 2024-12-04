@@ -627,7 +627,10 @@
     "addInvoice": "Purchase Invoice Added Successfully",
     "vatAmountTotal": "vat Amount Total",
     "discountPercentage": "Discount Percentage",
-    "disAmount": "Discount Amount"
+    "disAmount": "Discount Amount",
+    "batch": "batch no.",
+    "serial": "Serial"
+
   },
   "PurchaseInvoiceEdit": {
     "import": "Import",

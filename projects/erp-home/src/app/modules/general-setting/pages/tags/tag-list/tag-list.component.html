@@ -7,6 +7,7 @@
         (exportObj)="exportClickBySort($event)"
         [currentPageResult]="currentPageInfo"
         (pageChange)="onPageChange($event)"
+        (columnsFiltered)="onFilterColumn($event)"
         (addNew)="addNew($event)"
         [tableConfigs]="{
           allowPagination: false,

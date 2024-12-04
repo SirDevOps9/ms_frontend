@@ -399,6 +399,8 @@
               <p-cellEditor>
                 <ng-template pTemplate="input">
                   <lib-text-input
+                  [readOnly]="dataToReadOnly"
+
                     placeholder="{{ 'purchase.discountPercentage' | translate }}"
                     formControlName="discountPercentage"
                     [readOnly]="dataToReadOnly"
@@ -608,14 +610,28 @@
             </td>
 
             <td>
-              <div class="flex gap-3">
+              @if(dataToReadOnly){
+                <lib-button-micro
+                nameClass="table_button_delete"
+                >
+
+                </lib-button-micro>
+              }@else{
+                <lib-button-micro
+                nameClass="table_button_delete"
+                (click)="OnDelete(i)"
+                >
+
+                </lib-button-micro>
+              }
+              <!-- <div class="flex gap-3">
                 <img
                   src="assets/images/table/delete.svg"
                   class="pointer"
                   alt=""
                   (click)="OnDelete(i)"
                 />
-              </div>
+              </div> -->
             </td>
             <!--  -->
           </tr>
@@ -711,7 +727,7 @@
         </div>
       </div>
       <hr />
-      <div class="grid">
+      <!-- <div class="grid">
         <div class="md:col-12 my-3 grid flex justify-content-end p-0 m-0">
           <div class="md:col-6 grid flex justify-content-end p-0 m-0">
             <div class="md:col-3">
@@ -734,7 +750,35 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
+    
+      <div class="grid" >
+        <div class="md:col-12 my-3 grid flex justify-content-end">
+            <div class="md:col-6 grid flex justify-content-end">
+                <div class="md:col-4">
+                    <lib-button-micro title="{{ 'Cancel' | translate }}" nameClass="cancel" widthNumber="100%"
+                        (click)="onCancel()">
+                    </lib-button-micro>
+                </div>
+                <div class="md:col-4">
+                    <lib-button-micro title="{{ 'Save' | translate }}" nameClass="disabled" widthNumber="100%"
+                        *ngIf="showPost">
+                    </lib-button-micro>
+                    <lib-button-micro title="{{ 'Save' | translate }}" nameClass="save" widthNumber="100%"
+                        (click)="onSave()" *ngIf="!showPost">
+                    </lib-button-micro>
+                </div>
+                <div class="md:col-4">
+                    <lib-button-micro title="{{ 'Post' | translate }}" nameClass="disabled" widthNumber="100%"
+                        *ngIf="!showPost">
+                    </lib-button-micro>
+                    <lib-button-micro title="{{ 'Post' | translate }}" nameClass="save" widthNumber="100%"
+                        (click)="addToPost()" *ngIf="showPost">
+                    </lib-button-micro>
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
   </ng-container>
 </lib-page-content>

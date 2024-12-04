@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LandingPageComponent, LayoutPageComponent } from 'apps-shared-lib';
-import { Modules, SharedLibModule } from 'shared-lib';
+import { AuthGuard } from 'microtec-auth-lib';
+import { Modules } from 'shared-lib';
 
 const routes: Routes = [
   {
     path: '',
     component: LayoutPageComponent,
+    canActivate: [AuthGuard],
     data: {
       moduleId: Modules.inventory,
     },

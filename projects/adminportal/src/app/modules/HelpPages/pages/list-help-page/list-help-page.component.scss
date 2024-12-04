@@ -41,4 +41,16 @@
 ::ng-deep .p-datatable .p-datatable-wrapper table thead th {
 width: 100px;
 }
-
+*:disabled,
+[disabled] {
+    pointer-events: none; /* Disable interactions */
+    opacity: 0.5; /* Visual cue for disabled state */
+    cursor: not-allowed; /* Change cursor to indicate unavailability */
+}
+[ng-reflect-disabled="true"],
+[ng-reflect-is-disabled="true"],
+.p-disabled {
+    pointer-events: none; /* Disable all user interactions */
+    opacity: 0.5; /* Dim the component for visual feedback */
+    cursor: not-allowed; /* Show a disabled cursor */
+}
