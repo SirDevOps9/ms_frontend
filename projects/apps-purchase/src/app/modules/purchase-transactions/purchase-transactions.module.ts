@@ -17,6 +17,9 @@ import { EditReturnPurchaseComponent } from './pages/return-purchase-invoice/edi
 import { MainReturnPurchaseComponent } from './pages/return-purchase-invoice/main-return-purchase/main-return-purchase.component';
 import { PurchaseReturnListComponent } from './pages/return-purchase-invoice/purchase-return-list/purchase-return-list.component';
 import { PurchaseReturnViewComponent } from './pages/return-purchase-invoice/purchase-return-view/purchase-return-view.component';
+
+import { AuthGuard } from 'microtec-auth-lib';
+
 const routes: Routes = [
   {
     path: '',
@@ -120,7 +123,7 @@ const routes: Routes = [
             component: SequenceComponent,
             data: {
               moduleId: Modules.Purchase,
-              pageId: Pages.PurchaseInvoice,
+              pageId: Pages.PurchaseReturnInvoice,
               breadcrumb: BreadcrumbLabel.SEQUENCE,
               pageTitle: BreadcrumbLabel.SEQUENCE,
             },

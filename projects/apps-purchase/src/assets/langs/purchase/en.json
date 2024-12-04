@@ -282,6 +282,8 @@
     "barCode": "Bar Code",
     "itemCode": "Item Code",
     "uomName": "UOM Name",
+    "uomNameAr": "UOM Name (AR)",
+    "uomNameEn": "UOM Name (EN)",
     "quantity": "QTY",
     "quantity_": "Original QTY",
     "cost": "Cost",

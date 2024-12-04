@@ -200,7 +200,7 @@ export class PurchaseTransactionsProxyService {
 
   // view
   GetInvoiceReturnViewById(id: number): Observable<viewInvoiceReturnObj> {
-    const url = `ReturnInvoice/GetViewById/${id}`;
+    const url = `ReturnInvoice/${id}/GetViewById`;
     return this.httpService.get<viewInvoiceReturnObj>(url);
   }
 
