@@ -12,7 +12,7 @@ import { CMSProxyService } from '../../cms-proxy.service';
 export class ListCMSComponent {
   constructor(
     private helpService: CMSService,
-    public cMSProxyService: CMSProxyService
+    private cMSProxyService: CMSProxyService
   ) {}
 
 

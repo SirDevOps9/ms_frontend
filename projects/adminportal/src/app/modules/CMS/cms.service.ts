@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { CMSProxyService } from './cms-proxy.service';
 import { BehaviorSubject } from 'rxjs';
-import { ToasterService, LanguageService, RouterService, PageInfoResult,PageInfo } from 'shared-lib';
+import { ToasterService, LanguageService, PageInfoResult,PageInfo } from 'shared-lib';
 import { AddCMS, CMSList } from './models/cms';
 import Swal from 'sweetalert2';
 
@@ -12,8 +12,7 @@ export class CMSService {
   constructor(
     private proxyService: CMSProxyService,
     private toasterService: ToasterService,
-    private languageService: LanguageService,
-    public routerService: RouterService
+    private languageService: LanguageService
   ) {}
 
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
@@ -38,7 +37,7 @@ export class CMSService {
         this.languageService.transalte('Createed'),
         this.languageService.transalte('Data Saved Successfully ')
       );
-      this.routerService.navigateTo('/help-cms');
+      this.proxyService.backToList();
     });
   }
 
@@ -48,7 +47,7 @@ export class CMSService {
         this.languageService.transalte('Updated'),
         this.languageService.transalte('Data Updated Successfully ')
       );
-      this.routerService.navigateTo('/help-cms');
+      this.proxyService.backToList();
     });
   }
   getCMSById(id: number) {

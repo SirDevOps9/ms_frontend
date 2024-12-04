@@ -9,7 +9,7 @@ import { AddCMS, CMSList } from './models/cms';
 export class CMSProxyService {
   constructor(
     private baseService: HttpService,
-    public routerService: RouterService
+    private routerService: RouterService
   ) {}
 
 getAllCMS(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<CMSList[]>> {
@@ -45,5 +45,8 @@ updateCMS( id :number, obj:AddCMS) {
 
   addNew() {
     this.routerService.navigateTo(`/help-cms/add-CMS`);
+  }
+  backToList() {
+    this.routerService.navigateTo(`/help-cms`);
   }
 }
