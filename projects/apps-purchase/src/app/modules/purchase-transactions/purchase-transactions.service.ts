@@ -2,7 +2,14 @@ import { inject, Injectable } from '@angular/core';
 import { PurchaseTransactionsProxyService } from './purchase-transactions-proxy.service';
 import { IinvoiceDto, viewInvoiceObj } from './model/purchase-invoice';
 import { BehaviorSubject, map } from 'rxjs';
-import { LanguageService, LoaderService, PageInfo, PageInfoResult, RouterService, ToasterService } from 'shared-lib';
+import {
+  LanguageService,
+  LoaderService,
+  PageInfo,
+  PageInfoResult,
+  RouterService,
+  ToasterService,
+} from 'shared-lib';
 import { ItemDto } from './models/itemDto';
 import { CurrencyRateDto } from './models/currencyRateDto';
 import { LatestItem } from './models';
@@ -19,24 +26,25 @@ export class PurchaseTransactionsService {
   public itemsDataSource = new BehaviorSubject<ItemDto[]>([]);
   public accountCurrencyRateDataSource = new BehaviorSubject<CurrencyRateDto>({ rate: 0 });
   public InvoiceByIdDataSource = new BehaviorSubject<any[]>([]);
-  public warehouseLookup = new BehaviorSubject<any >([]);
+  public warehouseLookup = new BehaviorSubject<any>([]);
   public lastestItem = new BehaviorSubject<LatestItem[]>([]);
   public itemsDataSourceForAdvanced = new BehaviorSubject<LatestItem[]>([]);
-  public sendPurchaseInvoice = new BehaviorSubject<AddPurchaseInvoiceDto>({} as AddPurchaseInvoiceDto);
-  public sendcurrency = new BehaviorSubject<{rate : number}>({} as {rate : number});
-    // list of purchase inv and export
-    invoicePurchaseList = new BehaviorSubject<IinvoiceDto[]>([]);
-    exportInvoiceData = new BehaviorSubject<IinvoiceDto[]>([]);
-    viewInvoiceDataByID = new BehaviorSubject<viewInvoiceObj>({} as viewInvoiceObj);
+  public sendPurchaseInvoice = new BehaviorSubject<AddPurchaseInvoiceDto>(
+    {} as AddPurchaseInvoiceDto
+  );
+  public sendcurrency = new BehaviorSubject<{ rate: number }>({} as { rate: number });
+  // list of purchase inv and export
+  invoicePurchaseList = new BehaviorSubject<IinvoiceDto[]>([]);
+  exportInvoiceData = new BehaviorSubject<IinvoiceDto[]>([]);
+  viewInvoiceDataByID = new BehaviorSubject<viewInvoiceObj>({} as viewInvoiceObj);
   // list of purchase inv
-  constructor(  
-      private TransactionsProxy: PurchaseTransactionsProxyService,
-      private toasterService: ToasterService,
-      private languageService: LanguageService,
-      private loaderService: LoaderService,
-      private router: RouterService,
-
-  ) { }
+  constructor(
+    private TransactionsProxy: PurchaseTransactionsProxyService,
+    private toasterService: ToasterService,
+    private languageService: LanguageService,
+    private loaderService: LoaderService,
+    private router: RouterService
+  ) {}
   // list of purchase inv
   getInvoiceList(searchTerm: string, pageInfo: PageInfo) {
     this.TransactionsProxy.getInvoiceList(searchTerm, pageInfo).subscribe({
@@ -78,28 +86,20 @@ export class PurchaseTransactionsService {
     }
   }
 
-
-
-
-
-
-
-
-  latestVendor(searchTerm: string | undefined){
-    return  this.TransactionsProxy.LatestVendor(searchTerm).pipe(
+  latestVendor(searchTerm: string | undefined) {
+    return this.TransactionsProxy.LatestVendor(searchTerm).pipe(
       map((res) => {
         return res;
       })
     );
   }
- 
-  LatestWarehouses(searchTerm: string | undefined){
-    return  this.TransactionsProxy.LatestWarehouses(searchTerm).pipe(
+
+  LatestWarehouses(searchTerm: string | undefined) {
+    return this.TransactionsProxy.LatestWarehouses(searchTerm).pipe(
       map((res) => {
         return res;
       })
     );
-   
   }
   getAllVendor(quieries: string, pageInfo: PageInfo) {
     this.TransactionsProxy.GetAllVendor(quieries, pageInfo).subscribe((response) => {
@@ -107,8 +107,8 @@ export class PurchaseTransactionsService {
       this.currentPageInfo.next(response.pageInfoResult);
     });
   }
-  getLatestItems( searchTerm: string,) {
-    this.TransactionsProxy.GetLatestItems( searchTerm).subscribe((res:any) => {
+  getLatestItems(searchTerm: string) {
+    this.TransactionsProxy.GetLatestItems(searchTerm).subscribe((res: any) => {
       this.latestItemsDataSource.next(res);
     });
   }
@@ -130,7 +130,7 @@ export class PurchaseTransactionsService {
       this.InvoiceByIdDataSource.next(response);
     });
   }
-  editInvoice(obj: any) { 
+  editInvoice(obj: any) {
     this.TransactionsProxy.EditInvoice(obj).subscribe({
       next: (res: any) => {
         this.toasterService.showSuccess(
@@ -138,7 +138,7 @@ export class PurchaseTransactionsService {
           this.languageService.transalte('messages.successfully')
         );
       },
-      error: (err: any) => {        
+      error: (err: any) => {
         this.toasterService.showError(
           this.languageService.transalte('messages.error'),
           this.languageService.transalte('messages.noItemSelected')
@@ -166,26 +166,28 @@ export class PurchaseTransactionsService {
   }
 
   getItemsForAdvancedSearch(quieries: string, searchTerm: string, pageInfo: PageInfo) {
-    this.TransactionsProxy.getItemsForAdvancedSearch(quieries, searchTerm, pageInfo).subscribe((res) => {
-      this.itemsDataSourceForAdvanced.next(res.result);
-      this.currentPageInfo.next(res.pageInfoResult);
-    });
+    this.TransactionsProxy.getItemsForAdvancedSearch(quieries, searchTerm, pageInfo).subscribe(
+      (res) => {
+        this.itemsDataSourceForAdvanced.next(res.result);
+        this.currentPageInfo.next(res.pageInfoResult);
+      }
+    );
   }
 
-  addPurchaseInvoice(obj : AddPurchaseInvoiceDto) {
+  addPurchaseInvoice(obj: AddPurchaseInvoiceDto) {
     this.TransactionsProxy.addPurchaseInvoice(obj).subscribe((res) => {
       this.toasterService.showSuccess(
         this.languageService.transalte('purchase.success'),
         this.languageService.transalte('purchase.addInvoice')
       );
-     this.sendPurchaseInvoice.next(res);
+      this.sendPurchaseInvoice.next(res);
     });
   }
 
-  getCurrencyRate(fromCurrency : number ,toCurrency : number ){
-    this.TransactionsProxy.getCurrencyRate(fromCurrency , toCurrency).subscribe(res=>{
-      this.sendcurrency.next(res)
-    })
+  getCurrencyRate(fromCurrency: number, toCurrency: number) {
+    this.TransactionsProxy.getCurrencyRate(fromCurrency, toCurrency).subscribe((res) => {
+      this.sendcurrency.next(res);
+    });
   }
 
   // Get Invoice View By Id
@@ -215,5 +217,12 @@ export class PurchaseTransactionsService {
         );
       },
     });
+  }
+  GetItemByBarcodePurchase(barcode: string) {
+    return this.TransactionsProxy.GetItemByBarcodePurchase(barcode).pipe(
+      map((res) => {
+        return res;
+      })
+    );
   }
 }

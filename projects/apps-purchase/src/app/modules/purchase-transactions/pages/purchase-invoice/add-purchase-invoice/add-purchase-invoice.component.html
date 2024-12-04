@@ -248,6 +248,7 @@
                   <lib-text-input
                     placeholder="{{ 'purchase.barcode' | translate }}"
                     formControlName="barCode"
+                    (keydown.enter)="barcodeCanged($event, purchaseInvoiceFormGroup, i)"
                     [readOnly]="dataToReadOnly"
                   ></lib-text-input>
                 </ng-template>
@@ -371,7 +372,7 @@
                   ></lib-text-input>
                 </ng-template>
                 <ng-template pTemplate="output">
-                  {{ purchaseInvoiceFormGroup.controls['cost']?.value }}
+                  {{ purchaseInvoiceFormGroup.controls['cost']?.value | numberFormat }}
                 </ng-template>
               </p-cellEditor>
               <lib-field-validations
@@ -388,7 +389,7 @@
               >
                 {{
                   purchaseInvoiceFormGroup.controls['quantity']?.value *
-                    purchaseInvoiceFormGroup.controls['cost']?.value
+                    purchaseInvoiceFormGroup.controls['cost']?.value | numberFormat
                 }}
               </div>
             </td>
@@ -399,8 +400,7 @@
               <p-cellEditor>
                 <ng-template pTemplate="input">
                   <lib-text-input
-                  [readOnly]="dataToReadOnly"
-
+                    [readOnly]="dataToReadOnly"
                     placeholder="{{ 'purchase.discountPercentage' | translate }}"
                     formControlName="discountPercentage"
                     [readOnly]="dataToReadOnly"
@@ -408,7 +408,10 @@
                   ></lib-text-input>
                 </ng-template>
                 <ng-template pTemplate="output">
-                  {{ purchaseInvoiceFormGroup.controls['discountPercentage']?.value }}
+                  {{
+                    purchaseInvoiceFormGroup.controls['discountPercentage']?.value | numberFormat
+                  }}
+                  %
                 </ng-template>
               </p-cellEditor>
               <lib-field-validations
@@ -431,7 +434,7 @@
                   ></lib-text-input>
                 </ng-template>
                 <ng-template pTemplate="output">
-                  {{ purchaseInvoiceFormGroup.controls['discountAmount']?.value }}
+                  {{ purchaseInvoiceFormGroup.controls['discountAmount']?.value | numberFormat }}
                 </ng-template>
               </p-cellEditor>
               <lib-field-validations
@@ -442,7 +445,7 @@
             <td>
               {{
                 purchaseInvoiceFormGroup.controls['cost']?.value -
-                  purchaseInvoiceFormGroup.controls['discountAmount']?.value
+                  purchaseInvoiceFormGroup.controls['discountAmount']?.value | numberFormat
               }}
             </td>
             <!-- Total After Discount -->
@@ -450,13 +453,11 @@
               {{
                 purchaseInvoiceFormGroup.controls['quantity']?.value *
                   (purchaseInvoiceFormGroup.controls['cost']?.value -
-                    purchaseInvoiceFormGroup.controls['discountAmount']?.value)
+                    purchaseInvoiceFormGroup.controls['discountAmount']?.value) | numberFormat
               }}
             </td>
             <!-- Vat -->
-            <td>
-              {{ purchaseInvoiceFormGroup.controls['vatPercentage']?.value }}
-            </td>
+            <td>{{ purchaseInvoiceFormGroup.controls['vatPercentage']?.value | numberFormat }}%</td>
             <!-- Vat Amount -->
             <td>
               {{
@@ -464,7 +465,7 @@
                   (purchaseInvoiceFormGroup.controls['cost']?.value -
                     purchaseInvoiceFormGroup.controls['discountAmount']?.value) *
                   purchaseInvoiceFormGroup.controls['vatPercentage']?.value) /
-                  100
+                  100 | numberFormat
               }}
             </td>
 
@@ -478,7 +479,7 @@
                     (purchaseInvoiceFormGroup.controls['cost']?.value -
                       purchaseInvoiceFormGroup.controls['discountAmount']?.value) *
                     purchaseInvoiceFormGroup.controls['vatPercentage']?.value) /
-                    100
+                    100 | numberFormat
               }}
             </td>
 
@@ -611,18 +612,10 @@
 
             <td>
               @if(dataToReadOnly){
-                <lib-button-micro
-                nameClass="table_button_delete"
-                >
-
-                </lib-button-micro>
+              <lib-button-micro nameClass="table_button_delete"> </lib-button-micro>
               }@else{
-                <lib-button-micro
-                nameClass="table_button_delete"
-                (click)="OnDelete(i)"
-                >
-
-                </lib-button-micro>
+              <lib-button-micro nameClass="table_button_delete" (click)="OnDelete(i)">
+              </lib-button-micro>
               }
               <!-- <div class="flex gap-3">
                 <img
@@ -751,34 +744,56 @@
           </div>
         </div>
       </div> -->
-    
-      <div class="grid" >
+
+      <div class="grid">
         <div class="md:col-12 my-3 grid flex justify-content-end">
-            <div class="md:col-6 grid flex justify-content-end">
-                <div class="md:col-4">
-                    <lib-button-micro title="{{ 'Cancel' | translate }}" nameClass="cancel" widthNumber="100%"
-                        (click)="onCancel()">
-                    </lib-button-micro>
-                </div>
-                <div class="md:col-4">
-                    <lib-button-micro title="{{ 'Save' | translate }}" nameClass="disabled" widthNumber="100%"
-                        *ngIf="showPost">
-                    </lib-button-micro>
-                    <lib-button-micro title="{{ 'Save' | translate }}" nameClass="save" widthNumber="100%"
-                        (click)="onSave()" *ngIf="!showPost">
-                    </lib-button-micro>
-                </div>
-                <div class="md:col-4">
-                    <lib-button-micro title="{{ 'Post' | translate }}" nameClass="disabled" widthNumber="100%"
-                        *ngIf="!showPost">
-                    </lib-button-micro>
-                    <lib-button-micro title="{{ 'Post' | translate }}" nameClass="save" widthNumber="100%"
-                        (click)="addToPost()" *ngIf="showPost">
-                    </lib-button-micro>
-                </div>
+          <div class="md:col-6 grid flex justify-content-end">
+            <div class="md:col-4">
+              <lib-button-micro
+                title="{{ 'Cancel' | translate }}"
+                nameClass="cancel"
+                widthNumber="100%"
+                (click)="onCancel()"
+              >
+              </lib-button-micro>
             </div>
+            <div class="md:col-4">
+              <lib-button-micro
+                title="{{ 'Save' | translate }}"
+                nameClass="disabled"
+                widthNumber="100%"
+                *ngIf="showPost"
+              >
+              </lib-button-micro>
+              <lib-button-micro
+                title="{{ 'Save' | translate }}"
+                nameClass="save"
+                widthNumber="100%"
+                (click)="onSave()"
+                *ngIf="!showPost"
+              >
+              </lib-button-micro>
+            </div>
+            <div class="md:col-4">
+              <lib-button-micro
+                title="{{ 'Post' | translate }}"
+                nameClass="disabled"
+                widthNumber="100%"
+                *ngIf="!showPost"
+              >
+              </lib-button-micro>
+              <lib-button-micro
+                title="{{ 'Post' | translate }}"
+                nameClass="save"
+                widthNumber="100%"
+                (click)="addToPost()"
+                *ngIf="showPost"
+              >
+              </lib-button-micro>
+            </div>
+          </div>
         </div>
-    </div>
+      </div>
     </div>
   </ng-container>
 </lib-page-content>

@@ -126,7 +126,6 @@ export class ViewInvoiceComponent implements OnInit {
   }
 
   onSearchTermChange(search: any): void {
-    debugger;
     const term = search.target.value?.toLowerCase() || '';
 
     this.filteredData = this.tableData.filter((item) => {
