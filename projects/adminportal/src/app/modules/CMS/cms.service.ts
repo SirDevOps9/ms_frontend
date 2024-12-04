@@ -9,10 +9,12 @@ import Swal from 'sweetalert2';
   providedIn: 'root'
 })
 export class CMSService {
-  private _proxyService = inject(CMSProxyService);
-  private toasterService = inject(ToasterService);
-  private languageService = inject(LanguageService);
-  private routerService = inject(RouterService);
+  constructor(
+    private proxyService: CMSProxyService,
+    private toasterService: ToasterService,
+    private languageService: LanguageService,
+    public routerService: RouterService
+  ) {}
 
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
 
@@ -22,7 +24,7 @@ export class CMSService {
   public helpPageObj$ = this.helpPageObj.asObservable();
 
   getCMSList(quieries: string, pageInfo: PageInfo) {
-    return this._proxyService.getAllCMS(quieries, pageInfo).subscribe({
+    return this.proxyService.getAllCMS(quieries, pageInfo).subscribe({
       next: (res: any) => {
         this.helpsPageList.next(res.result);
         this.currentPageInfo.next(res.pageInfoResult);
@@ -31,7 +33,7 @@ export class CMSService {
   }
 
   sendCMS(obj: AddCMS) {
-    this._proxyService.addCMS(obj).subscribe((res) => {
+    this.proxyService.addCMS(obj).subscribe((res) => {
       this.toasterService.showSuccess(
         this.languageService.transalte('Createed'),
         this.languageService.transalte('Data Saved Successfully ')
@@ -41,7 +43,7 @@ export class CMSService {
   }
 
   updateCMS(id: number, obj: AddCMS) {
-    return this._proxyService.updateCMS(id, obj).subscribe((res) => {
+    return this.proxyService.updateCMS(id, obj).subscribe((res) => {
       this.toasterService.showSuccess(
         this.languageService.transalte('Updated'),
         this.languageService.transalte('Data Updated Successfully ')
@@ -50,7 +52,7 @@ export class CMSService {
     });
   }
   getCMSById(id: number) {
-    this._proxyService.getCMSById(id).subscribe((res) => {
+    this.proxyService.getCMSById(id).subscribe((res) => {
       if (res) {
         this.helpPageObj.next(res);
       }
@@ -73,7 +75,7 @@ export class CMSService {
   }
 
   publishChangeById(id: number) {
-    this._proxyService.publishChangeById(id).subscribe({
+    this.proxyService.publishChangeById(id).subscribe({
       next: (res) => {
         this.toasterService.showSuccess(
           this.languageService.transalte('Success'),
@@ -86,7 +88,7 @@ export class CMSService {
   }
   
   delete(id: number) {
-    this._proxyService.delete(id).subscribe({
+    this.proxyService.delete(id).subscribe({
       next: (res) => {
         this.toasterService.showSuccess(
           this.languageService.transalte('Success'),

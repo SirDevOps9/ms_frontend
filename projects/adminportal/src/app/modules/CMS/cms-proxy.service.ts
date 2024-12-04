@@ -7,34 +7,35 @@ import { AddCMS, CMSList } from './models/cms';
   providedIn: 'root'
 })
 export class CMSProxyService {
-
-  private _baseService= inject(HttpService)
-  private routerService = inject(RouterService);
+  constructor(
+    private baseService: HttpService,
+    public routerService: RouterService
+  ) {}
 
 getAllCMS(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<CMSList[]>> {
   let query = `WebsiteHelpPage/pages-with-help?${pageInfo.toQuery}`;
   if (searchTerm) {
     query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
   }
-  return this._baseService.get<PaginationVm<CMSList[]>>(query)
+  return this.baseService.get<PaginationVm<CMSList[]>>(query)
 }
 
 getCMSById(id : number ): Observable<AddCMS>{
-  return this._baseService.get(`WebsiteHelpPage/WebsiteHelpPage/${id}`)
+  return this.baseService.get(`WebsiteHelpPage/WebsiteHelpPage/${id}`)
 }
 updateCMS( id :number, obj:AddCMS) {
-  return this._baseService.put(`WebsiteHelpPage/edit/${id}` , obj) 
+  return this.baseService.put(`WebsiteHelpPage/edit/${id}` , obj) 
  }
   //  add 
   addCMS(obj:AddCMS) {
-    return this._baseService.post('WebsiteHelpPage/Create' , obj)
+    return this.baseService.post('WebsiteHelpPage/Create' , obj)
   }
 
   publishChangeById(id : number ): Observable<boolean>{
-    return this._baseService.put(`WebsiteHelpPage/PublishWebsiteHelpPage/${id}`,null)
+    return this.baseService.put(`WebsiteHelpPage/PublishWebsiteHelpPage/${id}`,null)
   }
   delete(id : number ): Observable<boolean>{
-    return this._baseService.put(`WebsiteHelpPage/deleteWebsiteHelpPage/${id}`,null)
+    return this.baseService.put(`WebsiteHelpPage/deleteWebsiteHelpPage/${id}`,null)
   }
 
   
