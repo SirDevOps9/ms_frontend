@@ -2,8 +2,10 @@ import { Component } from '@angular/core';
 import {
   PageInfoResult,
   PageInfo,
+  RouterService,
 } from 'shared-lib';
 import {  Router } from '@angular/router';
+import { SalesInvoiceListView } from '../../../models/sales-invoice-dto';
 
 @Component({
   selector: 'app-sales-invoice',
@@ -11,7 +13,7 @@ import {  Router } from '@angular/router';
   styleUrl: './sales-invoice.component.scss'
 })
 export class SalesInvoiceComponent {
-  tableData: any[] = [
+  tableData: SalesInvoiceListView[] = [
     {
       invoiceCode: "INV001",
       invoiceDate: "2024-12-04",
@@ -53,6 +55,7 @@ export class SalesInvoiceComponent {
       totalAfterVat: 787.5
     }
   ];
+
   currentPageInfo: PageInfoResult = {};
   searchTerm: string;
   exportData: any[];
@@ -79,10 +82,10 @@ export class SalesInvoiceComponent {
     );
   }
   onAdd(){
-
+      this.routerService.navigateTo(`transaction/sales-invoice/add`);
   }
 
-  constructor(    private router: Router){
+  constructor( private routerService: RouterService, private router: Router){
 
   }
 }

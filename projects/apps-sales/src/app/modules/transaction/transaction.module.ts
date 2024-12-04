@@ -33,7 +33,7 @@ const routes: Routes = [
             path: '',
             component: SalesInvoiceComponent,
             data: {
-              breadcrumb: '',
+              breadcrumb:  BreadcrumbLabel.SALES_INVOICE_LIST_VIEW,
               pageTitle: BreadcrumbLabel.SALES_INVOICE_LIST,
             }
           },

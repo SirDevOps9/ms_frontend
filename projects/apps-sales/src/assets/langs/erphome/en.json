@@ -13,7 +13,8 @@
     "PricePolicy":"Price Policy",
     "salesInvoiceList" : "Sales Invoice",
     "salesInvoiceAdd" : "Add",
-     "salesInvoiceView":"Sales Invoice View"
+     "salesInvoiceView":"Sales Invoice View",
+     "salesInvoiceListView":"Sales Invoice List View"
 
 
   },
