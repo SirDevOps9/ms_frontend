@@ -10,8 +10,11 @@ import { CMSProxyService } from '../../cms-proxy.service';
   styleUrl: './list-cms.component.scss'
 })
 export class ListCMSComponent {
-  private _helpService = inject(CMSService);
-  private _cMSProxyService = inject(CMSProxyService);
+  constructor(
+    private helpService: CMSService,
+    private cMSProxyService: CMSProxyService
+  ) {}
+
 
   tableData: CMSList[];
   searchTerm: string;
@@ -23,21 +26,21 @@ export class ListCMSComponent {
   }
   // init help page 
   initgetCMSList() {
-    this._helpService.getCMSList('', new PageInfo());
-    this._helpService.helpsPageList$.subscribe({
+    this.helpService.getCMSList('', new PageInfo());
+    this.helpService.helpsPageList$.subscribe({
       next: (res) => {
         this.tableData = res;
       },
     });
 
-    this._helpService.currentPageInfo.subscribe((currentPageInfo) => {
+    this.helpService.currentPageInfo.subscribe((currentPageInfo) => {
       this.currentPageInfo = currentPageInfo;
     });
   }
 
   onPageChange(pageInfo: PageInfo) {
-    this._helpService.getCMSList('', pageInfo);
-    this._helpService.helpsPageList$.subscribe({
+    this.helpService.getCMSList('', pageInfo);
+    this.helpService.helpsPageList$.subscribe({
       next: (res) => {
         this.tableData = res;
       },
@@ -45,39 +48,39 @@ export class ListCMSComponent {
   }
 
   onSearchChange() {
-    this._helpService.getCMSList(this.searchTerm, new PageInfo());
+    this.helpService.getCMSList(this.searchTerm, new PageInfo());
 
-    this._helpService.helpsPageList$.subscribe({
+    this.helpService.helpsPageList$.subscribe({
       next: (res) => {
         this.tableData = res;
       },
     });
 
-    this._helpService.currentPageInfo.subscribe((currentPageInfo) => {
+    this.helpService.currentPageInfo.subscribe((currentPageInfo) => {
       this.currentPageInfo = currentPageInfo;
     });
   }
 
   routeToEdit(ID: number) {
-    this._cMSProxyService.routeToEdit(ID);
+    this.cMSProxyService.routeToEdit(ID);
   }
 
   addNew() {
-    this._cMSProxyService.addNew();
+    this.cMSProxyService.addNew();
   }
 
 
   async onPublishChange(id: number) {
-    const confirmed = await this._helpService.showConfirm();
+    const confirmed = await this.helpService.showConfirm();
     if (confirmed) {
-      this._helpService.publishChangeById(id);
+      this.helpService.publishChangeById(id);
     } else this.initgetCMSList();
   }
 
   async onDelete(id: number) {
-    const confirmed = await this._helpService.showConfirm();
+    const confirmed = await this.helpService.showConfirm();
     if (confirmed) {
-      this._helpService.delete(id);
+      this.helpService.delete(id);
     };
   }
 
