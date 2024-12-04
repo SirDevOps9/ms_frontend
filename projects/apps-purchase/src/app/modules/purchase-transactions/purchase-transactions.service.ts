@@ -38,6 +38,9 @@ export class PurchaseTransactionsService {
   viewInvoiceDataByID = new BehaviorSubject<viewInvoiceObj>({} as viewInvoiceObj);
   exportInvoiceData = new BehaviorSubject<IinvoiceDto[]>([]);
 
+  invoiceData = new BehaviorSubject<any>([]);
+  returnInvoiceData = new BehaviorSubject<any>([]);
+  returnItemsInvoiceData = new BehaviorSubject<any>([]);
   // list of purchase inv
   // ################ purchase return ###############
 
@@ -250,6 +253,39 @@ export class PurchaseTransactionsService {
         error: (err) => {},
       });
     }
+  }
+  ///////////////
+  invoiceLookup(searchTerm?: string, vendorId?: number, SortColumn?: string) {
+    this.TransactionsProxy.InvoiceLookup(searchTerm, vendorId, SortColumn).subscribe({
+      next: (res) => {
+        this.invoiceData.next(res);
+      },
+    });
+  }
+  getReturnInvoiceById(id: number) {
+    this.TransactionsProxy.getReturnInvoiceById(id).subscribe((response: any) => {
+      this.returnInvoiceData.next(response);
+    });
+  }
+  addReturnInvoice(obj: any) {
+    this.TransactionsProxy.addReturnInvoice(obj).subscribe((res) => {
+      this.toasterService.showSuccess(
+        this.languageService.transalte('purchase.success'),
+        this.languageService.transalte('purchase.addInvoice')
+      );
+    });
+  }
+  deleteRowReturnInvoice(id: number) {
+    return this.TransactionsProxy.deleteRowReturnInvoice(id).pipe(
+      map((res) => {
+        return res;
+      })
+    );
+  }
+  getReturnInvoiceByIdToEdit(id: number) {
+    this.TransactionsProxy.getReturnInvoiceByIdToEdit(id).subscribe((response: any) => {
+      this.returnItemsInvoiceData.next(response);
+    });
   }
   postInvoice(id: number) {
     this.loaderService.show();

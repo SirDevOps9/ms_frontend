@@ -21,7 +21,7 @@
                                     <div class="col-12 md:col-4">
                                         <lib-form-group>
                                             <lib-label [appControl]="addForm.controls['invoiceCode']">
-                                                {{ 'PurchaseInvoiceEdit.invoiceCode' | translate }}
+                                                {{ 'PurchaseInvoiceEdit.returnCode' | translate }}
                                             </lib-label>
                                             <lib-text-input [readOnly]="true" formControlName="invoiceCode"></lib-text-input>
                                         </lib-form-group>
@@ -29,17 +29,17 @@
                                     <div class="col-12 md:col-8">
                                         <lib-form-group>
                                             <lib-label [appControl]="addForm.controls['invoiceDate']">
-                                                {{ 'PurchaseInvoiceEdit.invoiceDate' | translate }}
+                                                {{ 'PurchaseInvoiceEdit.returnDate' | translate }}
                                             </lib-label>
                                             <lib-calendar formControlName="invoiceDate"></lib-calendar>
                                         </lib-form-group>
                                     </div>
                                     <div class="col-12">
                                         <lib-form-group>
-                                            <lib-label [appControl]="addForm.controls['invoiceDescription']">
-                                                {{ 'PurchaseInvoiceEdit.invoiceDescription' | translate }}
+                                            <lib-label [appControl]="addForm.controls['returnDescription']">
+                                                {{ 'PurchaseInvoiceEdit.returnDescription' | translate }}
                                             </lib-label>
-                                            <lib-text-input  formControlName="invoiceDescription"></lib-text-input>
+                                            <lib-text-input  formControlName="returnDescription"></lib-text-input>
                                         </lib-form-group>
                                     </div>
                                     <div class="col-12">
@@ -69,7 +69,7 @@
                         <!-- <div class="line line_two"></div> -->
                         <div class="item">
                             <div class="title heading_b18">
-                                {{ 'PurchaseInvoiceEdit.relatedOperation' | translate }}
+                                {{ 'PurchaseInvoiceEdit.vendorOperation' | translate }}
                             </div>
                             <div class="item_body">
                                 <div class="grid">
@@ -118,17 +118,16 @@
                                             <lib-label [appControl]="addForm.controls['paymentTermName']">
                                                 purchase invoice
                                             </lib-label>
-<lib-select></lib-select>
+                                                <lib-select
+                                                formControlName="paymentTermName"
+                                                [options]="invoiceList"
+                                                optionLabel="code"
+                                                optionValue="id"
+                                                (valueChanged)="patchData(addForm.controls['paymentTermName'].value)"
+                                                ></lib-select>
                                         </lib-form-group>
                                     </div>
-                                    <!-- <div class="col-12 md:col-6">
-                                        <lib-form-group>
-                                            <lib-label [appControl]="addForm.controls['reference']">
-                                                {{ 'PurchaseInvoiceEdit.reference' | translate }}
-                                            </lib-label>
-                                            <lib-text-input formControlName="reference"></lib-text-input>
-                                        </lib-form-group>
-                                    </div> -->
+                                  
                                 </div>
                             </div>
                         </div>
@@ -138,45 +137,7 @@
             </div>
             
             </div>
-                <!-- main information Section -->
-                <div class="card_information">
-                    <div class="line line_two"></div>
-                    <div class="grid">
-                  <div class="col-12 md:col-4">
-                <div class="card_information">
-                    <!-- <div class="line">
-                    </div> -->
-                    <div class="item">
-                        <div class="title heading_b18">
-                            {{ 'PurchaseInvoiceEdit.operation' | translate }}
-                        </div>
-                        <div class="item_body">
-                            <div class="grid">
-                                <div class="col-12 md:col-8 ">
-                                    <p class="headsCont heading_b16">
-                                        {{ 'PurchaseInvoiceEdit.invoicejournal' | translate }}
-                                    </p>
-                                    <p class="subHead paragraph_b16 pragraph_click">
-                                        {{ getTotalVatAmount() }}
-                                    </p>
-                                </div>
-                                <div class="col-12 md:col-8 ">
-                                    <p class="headsCont heading_b16">
-                                        {{ 'PurchaseInvoiceEdit.stockOut' | translate }}
-                                    </p>
-                                    <p class="subHead paragraph_b16 pragraph_click">
-                                        {{ getTotalVatAmount() }}
-                                    </p>
-                                </div>
-                              
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                  </div>
-            </div>
-            </div>
+              
         </div>
         
         <div class="my-2 card_micro">
@@ -203,87 +164,22 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-invoiceFormGroup let-editing="editing" let-rowIndex="rowIndex">
                     <tr [formGroup]="invoiceFormGroup">
-                        <!-- <td [pEditableColumn]="invoiceFormGroup.controls['itemId']" pEditableColumnField="itemId">
-                            <p-cellEditor>
-                                <ng-template pTemplate="input">
-                                    <div class="flex gap-2 align-items-center">
-                                        <lib-select formControlName="itemNumber" [options]="items" optionValue="itemNumber"
-                                            optionLabel="displayName" [customClass]="'add-journal'"
-                                            (valueChanged)="setRowData(rowIndex, $event ,items)"
-                                            selectedValue="{{invoiceFormGroup.controls['itemNumber']?.value}}"
-                                            (valueSearchChanged)="onFilterItems($event )"></lib-select>
-                                        <i class="pi pi-search search-circle" (click)="openDialog(rowIndex)"></i>
-                                    </div>
-                                </ng-template>
-                                <ng-template pTemplate="output">
-                                    {{ invoiceFormGroup.get('itemName').value }}
-                                </ng-template>
-                            </p-cellEditor>
-                            <lib-field-validations
-                                [appControl]="invoiceFormGroup.controls['itemId']"></lib-field-validations>
-                        </td> -->
-                        <td></td>
-                        <td [pEditableColumn]="invoiceFormGroup.controls['description']"
-                            pEditableColumnField="description">
-                            <p-cellEditor>
-                                <ng-template pTemplate="input">
-                                    <lib-text-input placeholder="{{ 'PurchaseInvoiceEdit.itemDescription' | translate }}"
-                                        formControlName="description"></lib-text-input>
-                                </ng-template>
-                                <ng-template pTemplate="output">
-                                    {{ invoiceFormGroup.controls['description']?.value }}
-                                </ng-template>
-                            </p-cellEditor>
-                            <lib-field-validations
-                                [appControl]="invoiceFormGroup.controls['description']"></lib-field-validations>
-                        </td>
-    
-                        <td [pEditableColumn]="invoiceFormGroup.controls['uomId']" pEditableColumnField="uomId"
-                            [ngClass]=" {'error':rowIndex==rowDuplicate && invoiceFormGroup.controls['showSerial']?.value ==false && invoiceFormGroup.controls['showBatch']?.value ==false  }">
-                            <p-cellEditor>
-                                <ng-template pTemplate="input">
-    
-                                    <lib-select placeholder="{{ 'PurchaseInvoiceEdit.UOM' | translate }}"
-                                        formControlName="uomId" [options]="invoiceFormGroup.get('uomOptions')?.value || []"
-                                        [optionLabel]="selectedLanguage === 'en' ? 'uomNameEn' : 'uomNameAr'"
-                                        selectedValue="{{invoiceFormGroup.controls['uomId'].value}}" optionValue="uomId"
-                                        (valueChanged)="setUomName(rowIndex ,invoiceFormGroup.get('uomOptions').value ) 
-                       ">
-    
-                                    </lib-select>
-                                    <!-- <lib-text-input placeholder="{{ 'PurchaseInvoiceEdit.UOM' | translate }}" formControlName="uomId"></lib-text-input> -->
-                                </ng-template>
-                                <ng-template pTemplate="output">
-                                    {{ invoiceFormGroup.controls['uomName']?.value }}
-                                </ng-template>
-                            </p-cellEditor>
-                            <lib-field-validations
-                                [appControl]="invoiceFormGroup.controls['uomId']"></lib-field-validations>
-                        </td>
-    
-                        <td [pEditableColumn]="invoiceFormGroup.controls['remainQuantity']" pEditableColumnField="remainQuantity">
-                            <p-cellEditor>
-                                <ng-template pTemplate="input">
-                                    <lib-text-input type="number" placeholder="{{ 'PurchaseInvoiceEdit.QTY' | translate }}"
-                                        formControlName="remainQuantity" 
-                                        (keyUp)="setCostTotal(rowIndex) "
-                                        (valueChanged)="setCostTotal(rowIndex) 
-                                        "></lib-text-input>
-                                </ng-template>
-                                <ng-template pTemplate="output">
-                                    {{ invoiceFormGroup.controls['remainQuantity']?.value }}
-                                </ng-template>
-                            </p-cellEditor>
-                            <lib-field-validations
-                                [appControl]="invoiceFormGroup.controls['remainQuantity']"></lib-field-validations>
-                        </td>
-                        <td [pEditableColumn]="invoiceFormGroup.controls['returnQuantity']" pEditableColumnField="returnQuantity">
+                        <td>{{invoiceFormGroup.controls['itemCode'].value}}</td>
+                        <td>{{invoiceFormGroup.controls['description'].value}}</td>
+                        <td>{{invoiceFormGroup.controls['uomNameEn'].value}}</td>
+                        <td>{{invoiceFormGroup.controls['remainQuantity'].value}}</td>
+                       
+                        <td [pEditableColumn]="invoiceFormGroup.controls['returnQuantity']" pEditableColumnField="returnQuantity"
+                        [ngClass]="{
+                            error: rowIndex == rowDuplicate 
+                          }"
+                        >
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
                                     <lib-text-input type="number" placeholder="{{ 'PurchaseInvoiceEdit.QTY' | translate }}"
                                         formControlName="returnQuantity" 
-                                        (keyUp)="setCostTotal(rowIndex) "
-                                        (valueChanged)="setCostTotal(rowIndex) 
+                                        (keyUp)="setReturnQuantity(rowIndex) "
+                                        (valueChanged)="setReturnQuantity(rowIndex) 
                                         "></lib-text-input>
                                 </ng-template>
                                 <ng-template pTemplate="output">
@@ -293,37 +189,11 @@
                             <lib-field-validations
                                 [appControl]="invoiceFormGroup.controls['returnQuantity']"></lib-field-validations>
                         </td>
-                        <td [pEditableColumn]="invoiceFormGroup.controls['originalQuantity']" pEditableColumnField="originalQuantity">
-                            <p-cellEditor>
-                                <ng-template pTemplate="input">
-                                    <lib-text-input type="number" placeholder="{{ 'PurchaseInvoiceEdit.QTY' | translate }}"
-                                        formControlName="originalQuantity" 
-                                        (keyUp)="setCostTotal(rowIndex) "
-                                        (valueChanged)="setCostTotal(rowIndex) 
-                                        "></lib-text-input>
-                                </ng-template>
-                                <ng-template pTemplate="output">
-                                    {{ invoiceFormGroup.controls['originalQuantity']?.value }}
-                                </ng-template>
-                            </p-cellEditor>
-                            <lib-field-validations
-                                [appControl]="invoiceFormGroup.controls['originalQuantity']"></lib-field-validations>
-                        </td>
+                        <td>{{invoiceFormGroup.controls['originalQuantity'].value}}</td>
+                        <td>{{invoiceFormGroup.controls['netCost'].value}}</td>
+
     
-                        <td [pEditableColumn]="invoiceFormGroup.controls['netCost']" pEditableColumnField="netCost">
-                            <p-cellEditor>
-                                <ng-template pTemplate="input">
-                                    <lib-text-input placeholder="{{ 'PurchaseInvoiceEdit.cost' | translate }}"
-                                        formControlName="netCost" type="number" (keyUp)="setCostTotal(rowIndex)"
-                                        (valueChanged)="setCostTotal(rowIndex)"></lib-text-input>
-                                </ng-template>
-                                <ng-template pTemplate="output">
-                                    {{ invoiceFormGroup.controls['netCost']?.value }}
-                                </ng-template>
-                            </p-cellEditor>
-                            <lib-field-validations
-                                [appControl]="invoiceFormGroup.controls['netCost']"></lib-field-validations>
-                        </td>
+                       
                         <td>
                             {{ invoiceFormGroup.controls['subCost']?.value }}
     
@@ -333,42 +203,28 @@
                             {{ invoiceFormGroup.controls['vat']?.value }}
     
                         </td>
-                        <td >
-    
-                            {{ (invoiceFormGroup.controls['vat']?.value * invoiceFormGroup.controls['totalAfter']?.value)/100 }}
-    
-                     </td>
-                     <td [pEditableColumn]="invoiceFormGroup.controls['netCost']" pEditableColumnField="netCost">
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-             <lib-select></lib-select>
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                {{ invoiceFormGroup.controls['netCost']?.value }}
-                            </ng-template>
-                        </p-cellEditor>
-                        <lib-field-validations
-                            [appControl]="invoiceFormGroup.controls['netCost']"></lib-field-validations>
-                    </td>
-                    <td class="readOnly">
-                        <p>
-                          <span class="pi pi-calendar"></span>
-                        
-                        </p>
-                      </td>
-                    <td [pEditableColumn]="invoiceFormGroup.controls['netCost']" pEditableColumnField="netCost">
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                             <lib-select></lib-select>
+                        <td>{{invoiceFormGroup.controls['grandTotal'].value}}</td>
+                        <!-- <td *ngIf="invoiceFormGroup.controls['trackingType'].value == sharedEnums.Tracking.Batch ">{{invoiceFormGroup?.get('invoiceTracking')?.get('vendorBatchNo')?.value}}</td>
+                        <td *ngIf="invoiceFormGroup.controls['trackingType'].value != sharedEnums.Tracking.Batch "></td> -->
+                        @if (invoiceFormGroup.controls['trackingType'].value == sharedEnums.Tracking.Batch ) {
+                            <td>
+                                {{invoiceFormGroup?.get('invoiceTracking')?.get('vendorBatchNo')?.value}}
+                            </td>
 
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                {{ invoiceFormGroup.controls['netCost']?.value }}
-                            </ng-template>
-                        </p-cellEditor>
-                        <lib-field-validations
-                            [appControl]="invoiceFormGroup.controls['netCost']"></lib-field-validations>
-                    </td>
+                        }@else {
+                            <td></td>
+                        }
+                  
+                    <td > <span class="pi pi-calendar"></span> {{invoiceFormGroup?.get('invoiceTracking')?.get('expireDate')?.value  | date : 'dd/MM/yyyy'}} </td>
+                    <!-- <td *ngIf="invoiceFormGroup.controls['trackingType'].value == sharedEnums.Tracking.Serial">{{invoiceFormGroup?.get('invoiceTracking')?.get('serialId')?.value}}</td>
+                    <td *ngIf="invoiceFormGroup.controls['trackingType'].value != sharedEnums.Tracking.Serial"></td> -->
+                        @if (invoiceFormGroup.controls['trackingType'].value == sharedEnums.Tracking.Serial){
+                            <td>
+                                {{invoiceFormGroup?.get('invoiceTracking')?.get('serialId')?.value}}
+                            </td>
+                        }@else {
+                            <td></td>
+                        }   
                      <td>
                             <lib-button-micro 
                             nameClass="table_button_delete"
@@ -385,10 +241,10 @@
                     <th></th>
                     <th></th>
                     <th></th>
-                    <th></th>
                     <th class="total">{{totalQuantity}}</th>
-                    <th class="total">{{totalCost}}</th>
-                    <th class="total">{{totalSubTotal}}</th>
+                    <th class="total">{{totalReturnQuantity}}</th>
+                    <th class="total">{{totalOriginalQuantity}}</th>
+                    <th></th>
                     <th></th>
                     <th></th>
                     <th></th>
@@ -400,80 +256,8 @@
                     <th></th>
                 </ng-template>
             </p-table>
-            <div class="add_new  flex justify-content-start">
-                <lib-button (onClick)="addNewRow()" className="outline-primary">
-                    {{ 'PurchaseInvoiceEdit.AddNewLine' | translate }}
-                </lib-button>
-            </div>
         </div>
-        <div class="main_header card_micro" [formGroup]="addForm">
-            <div class="grid">
-                <div class="col-12">
-                    <div class="card_information">
-                        <div class="line line_two"></div>
-                        <div class="item">
-                            <div class="title heading_b18">
-                                {{ 'PurchaseInvoiceEdit.invoiceSummary' | translate }}
-                            </div>
-                            <div class="item_body">
-                                <div class="grid">
-                                    <div class="md:col-12">
-                                        <div class="grid">
-                                            <div class="md:col-2">
-                                                <p class="headsCont heading_b16">
-                                                    {{ 'PurchaseInvoiceEdit.numberOfItems' | translate }}
-                                                </p>
-                                                <p class="subHead paragraph_b16 pragraph_demd">
-                                                    {{ totalItemsCount }}
-                                                </p>
-                                            </div>
-                                            <div class="md:col-2">
-                                                <p class="headsCont heading_b16">
-                                                    {{ 'PurchaseInvoiceEdit.totalOfQuantity' | translate }}
-                                                </p>
-                                                <p class="subHead paragraph_b16 pragraph_demd">
-                                                    {{ totalQuantity }}
-                                                </p>
-                                            </div>
-                                            <div class="md:col-2">
-                                                <p class="headsCont heading_b16">
-                                                    {{ 'PurchaseInvoiceEdit.total' | translate }}
-                                                </p>
-                                                <p class="subHead paragraph_b16 pragraph_demd">
-                                                    {{ totalSubTotal }}
-                                                </p>
-                                            </div>
-                                            <div class="md:col-2">
-                                                <p class="headsCont heading_b16">
-                                                    {{ 'PurchaseInvoiceEdit.vatAmount' | translate }}
-                                                </p>
-                                                <p class="subHead paragraph_b16 pragraph_demd">
-                                                    {{ getTotalVatAmount() }}
-                                                </p>
-                                            </div>
-                                            <div class="md:col-2">
-                                                <p class="headsCont heading_b16">
-                                                    {{ 'PurchaseInvoiceEdit.afterVat' | translate }}
-                                                </p>
-                                                <p class="subHead paragraph_b16 pragraph_demd">
-                                                    {{ vatAfter }}
-                                                </p>
-                                            </div>
-                                        
-                                           
-                                            
-                                            
-                                          
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
+              
     
         <div class="grid">
             <div class="md:col-12 my-3 grid flex justify-content-end">

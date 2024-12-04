@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpService, PaginationVm,PageInfo } from 'shared-lib';
+import { HttpService, PaginationVm,PageInfo, RouterService } from 'shared-lib';
 import { AddCMS, CMSList } from './models/cms';
 
 @Injectable({
@@ -9,6 +9,7 @@ import { AddCMS, CMSList } from './models/cms';
 export class CMSProxyService {
 
   private _baseService= inject(HttpService)
+  private routerService = inject(RouterService);
 
 getAllCMS(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<CMSList[]>> {
   let query = `WebsiteHelpPage/pages-with-help?${pageInfo.toQuery}`;
@@ -36,4 +37,12 @@ updateCMS( id :number, obj:AddCMS) {
     return this._baseService.put(`WebsiteHelpPage/deleteWebsiteHelpPage/${id}`,null)
   }
 
+  
+  routeToEdit(ID: number) {
+    this.routerService.navigateTo(`/help-cms/edit-CMS/${ID}`);
+  }
+
+  addNew() {
+    this.routerService.navigateTo(`/help-cms/add-CMS`);
+  }
 }

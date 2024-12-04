@@ -84,6 +84,8 @@ export class LayoutHeaderComponent implements OnInit, AfterViewInit {
       companyId: dCompany?.id,
       branchId: dBranch?.id,
     });
+    this.localstoarage.setItem(StorageKeys.DEFAULT_COMPANY, dCompany);
+    this.localstoarage.setItem(StorageKeys.DEFAULT_BRANCHE, dBranch);
   }
 
   toggleLanguage(): void {
@@ -178,6 +180,7 @@ export class LayoutHeaderComponent implements OnInit, AfterViewInit {
         currencyId: dCompany?.currencyId,
         currencyName: dCompany?.currencyName,
       };
+
       this.localstoarage.setItem(StorageKeys.CURRENCEY_OBJ, currencies);
 
       if (res) {
