@@ -1,0 +1,92 @@
+::ng-deep {
+    .p-inputtext {
+        border: 1px solid #e3e3e3;
+        padding-block: 11px;
+        outline: none !important;
+        box-shadow: none !important;
+        width: 100%;
+    }
+  }
+  .readOnly{
+    background-color: #f9fafb !important;
+    color: #B6BAC3 !important;
+  }
+  .Available{
+    color: #2B817C;
+    border: 1px solid #2B817C;
+    background-color: #fff;
+    border-radius: 16px;
+    padding: 10px;
+    text-align: center;
+  
+  }
+  .unavailable{
+    color: #CC3F2D;
+    border: 1px solid #CC3F2D;
+    background-color: #fff;
+    border-radius: 16px;
+    padding: 10px;
+    text-align: center;
+  }
+  .error{
+    border: 2px solid red !important;
+    background-color: #ffe6e6 !important;
+  }
+  .main_header{
+     min-height: 500px;
+    width: 100%;
+    .card_information{
+        position: relative;
+        padding: 5px 0;
+        .line{      
+            position: absolute;
+            top: 25px;  
+            width: 108%;
+            height: 10px;
+            background: #F7F7FA;
+            z-index: 1;
+            margin-inline-start: -17px;
+        }
+        .line_two{
+          width: 103% !important;
+
+        }
+        .item{
+            position: relative;
+            z-index: 10;
+            .title{
+                border-radius: 8px;
+                margin-inline-start: 20px;
+                width: fit-content;
+                padding: 10px 20px ;
+                background:#F7F7FA ;
+                color: #2E2E2E;
+            }
+            .item_body{
+                padding-inline-start: 50px;
+            }
+        }
+    }
+   
+  }
+  .total{
+    background-color: #F2F4F8;
+    border: 1px solid #48A6C0 ;
+    color: #48A6C0;
+    padding: 20px 20px;
+  }
+  .title_Tracking{
+    margin-inline-end: 10px;
+  }
+  .page_edit_purchase{
+
+    ::ng-deep  .p-datatable.p-datatable-gridlines:has(.p-datatable-thead):has(.p-datatable-tbody) .p-datatable-tbody > tr > td {
+  min-width: 150px;
+  
+    }
+  }
+  .danger {
+    color: rgb(237, 42, 42);
+    text-align: center;
+    font-weight: bold;
+}
