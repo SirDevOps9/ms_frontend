@@ -33,7 +33,7 @@
                 ></lib-field-validations>
               </div>
         
-              <div class="md:col-2 my-2">
+              <!-- <div class="md:col-2 my-2">
                 <lib-label [appControl]="purchaseInvoiceForm.controls['receiptDate']">
                   {{ 'salesInvoice.invoiceDueDate' | translate }}
                 </lib-label>
@@ -41,7 +41,7 @@
                 <lib-field-validations
                   [appControl]="purchaseInvoiceForm.controls['receiptDate']"
                 ></lib-field-validations>
-              </div>
+              </div> -->
               <!-- this in not empty div -->
               <div class="md:col-6 my-2">
         
@@ -64,20 +64,20 @@
               </div>
         
               <div class="md:col-4 my-2">
-                <lib-label [appControl]="purchaseInvoiceForm.controls['sourceDocumentId']">
+                <lib-label [appControl]="purchaseInvoiceForm.controls['warehouseId']">
                   {{ 'salesInvoice.warehouse' | translate }}
                 </lib-label>
                 <lib-select
-                  formControlName="sourceDocumentId"
+                  formControlName="warehouseId"
                   [options]="oprationalLookup"
                   optionValue="id"
                   optionLabel="displayName"
                   placeholder="{{ 'salesInvoice.warehouse' | translate }}"
-                  [selectedValue]="purchaseInvoiceForm.controls['sourceDocumentId'].value"
+                  [selectedValue]="purchaseInvoiceForm.controls['warehouseId'].value"
                 >
                 </lib-select>
                 <lib-field-validations
-                  [appControl]="purchaseInvoiceForm.controls['sourceDocumentId']"
+                  [appControl]="purchaseInvoiceForm.controls['warehouseId']"
                 ></lib-field-validations>
               </div>
               <div class="md:col-4 my-2">
@@ -295,7 +295,8 @@
             <th>{{ 'salesInvoice.vat' | translate }}</th>
             <th>{{ 'salesInvoice.vatAmount' | translate }}</th>
             <th>{{ 'salesInvoice.grandTotal' | translate }}</th>
-            <th>{{ 'salesInvoice.tracking' | translate }}</th>
+            <th>{{ 'salesInvoice.expiry' | translate }}</th>
+            <th>{{ 'salesInvoice.serials' | translate }}</th>
             <th>{{ 'salesInvoice.actions' | translate }}</th>
           </tr>
         </ng-template>
@@ -548,7 +549,7 @@
             </td>
   
             <!-- tracking -->
-            <td
+          <!-- <td
               [ngClass]="{
                 'no-tracking':
                   purchaseInvoiceFormGroup.get('trackingType').value ==
@@ -583,7 +584,6 @@
                   {{ 'salesInvoice.Expiry' | translate }}
                 </small>
   
-                <!--  -->
                 <small
                   class="track"
                   *ngIf="
@@ -594,7 +594,6 @@
                     purchaseInvoiceFormGroup.get('invoiceTracking').get('serialId')?.value
                   }}</small
                 >
-                <!--  -->
   
                 <small
                   *ngIf="
@@ -656,24 +655,14 @@
                 >
               </div>
               <div class="flex justify-content-center mt-2">
-                <!-- <small
-                class="danger"
-                *ngIf="
-                  purchaseInvoiceFormGroup.get('invoiceEntryMode').get('expireDate').hasError('required') ||
-                  purchaseInvoiceFormGroup
-                    .get('invoiceEntryMode')
-                    .get('vendorBatchNo')
-                    .hasError('required') ||
-                  purchaseInvoiceFormGroup.get('invoiceEntryMode').get('serialId').hasError('required') 
-                "
-                >{{ 'salesInvoice.required' | translate }}</small
-              > -->
+                
                 <small *ngIf="error && lineError == i" class="danger">{{
                   'salesInvoice.required' | translate
                 }}</small>
               </div>
-            </td>
-  
+            </td>  -->
+              <td></td>
+              <td></td>
             <td>
               <div class="flex gap-3">
                 <img
@@ -684,7 +673,6 @@
                 />
               </div>
             </td>
-            <!--  -->
           </tr>
         </ng-template>
       </p-table>

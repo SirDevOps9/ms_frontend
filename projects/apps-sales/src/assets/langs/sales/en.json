@@ -123,6 +123,8 @@
     "addInvoice": "Purchase Invoice Added Successfully",
     "vatAmountTotal": "vat Amount Total",
     "discountPercentage": "Discount Percentage",
-    "disAmount": "Discount Amount"
+    "disAmount": "Discount Amount",
+    "expiry" : "Expiry Date",
+    "serials" : "Serials"
   }
 }

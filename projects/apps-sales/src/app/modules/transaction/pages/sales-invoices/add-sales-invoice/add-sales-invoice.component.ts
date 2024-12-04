@@ -2,17 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms';
 import { AuthService } from 'microtec-auth-lib';
 import { DialogService } from 'primeng/dynamicdialog';
-import { OperationalStockIn, GetWarehouseList, AddStockOutDto, StockInDetail } from 'projects/apps-inventory/src/app/modules/items/models';
+import { OperationalStockIn, GetWarehouseList, StockInDetail } from 'projects/apps-inventory/src/app/modules/items/models';
 import { SharedFinanceEnums } from 'projects/apps-inventory/src/app/modules/items/models/sharedEnumStockIn';
-// import { SearchItemPopUpComponent } from 'projects/apps-inventory/src/app/modules/transactions/components/stock-out/search-item-pop-up/search-item-pop-up.component';
 import { SharedStock } from 'projects/apps-inventory/src/app/modules/transactions/models/sharedStockOutEnums';
 import { TransactionsService } from 'projects/apps-inventory/src/app/modules/transactions/transactions.service';
-// import { PurchaseInvoiceTrackingComponent } from 'projects/apps-purchase/src/app/modules/purchase-transactions/components/purchase-invoice-tracking/purchase-invoice-tracking.component';
 import { LatestItem } from 'projects/apps-purchase/src/app/modules/purchase-transactions/models';
 import { AddPurchaseInvoiceDto } from 'projects/apps-purchase/src/app/modules/purchase-transactions/models/addPurchaseInvoice';
 import { PurchaseTransactionsService } from 'projects/apps-purchase/src/app/modules/purchase-transactions/purchase-transactions.service';
 import { skip, take } from 'rxjs';
 import { LookupEnum, lookupDto, PageInfoResult, MenuModule, customValidators, PageInfo, RouterService, LanguageService, LookupsService, FormsService, ToasterService, LoaderService, CurrentUserService } from 'shared-lib';
+import { ItemAdvancedSearchSalesInvoiceComponentComponent } from '../../../components/item-advanced-search-sales-invoice-component/item-advanced-search-sales-invoice-component.component';
+import { SalesInvoiceTrackingComponentComponent } from '../../../components/sales-invoice-tracking-component/sales-invoice-tracking-component.component';
 
 @Component({
   selector: 'app-add-sales-invoice',
@@ -21,7 +21,6 @@ import { LookupEnum, lookupDto, PageInfoResult, MenuModule, customValidators, Pa
 })
 export class AddSalesInvoiceComponent implements OnInit {
   purchaseInvoiceForm: FormGroup = new FormGroup({});
-  addForm: FormGroup = new FormGroup({});
   formSubmited: boolean = false;
   errorsArray: any = [];
   LookupEnum = LookupEnum;
@@ -40,16 +39,15 @@ export class AddSalesInvoiceComponent implements OnInit {
   warhouseLookupData: GetWarehouseList[] = [];
   paymentLookupData: { id: number; name: string }[] = [];
   vendorItems: any[];
-
   uomLookup: any = [];
   currentLang: string;
   showError: boolean = false;
+  showPost: boolean ;
   barcodeData: StockInDetail;
   selectedLanguage: string;
   lineError: number = -1;
   error: boolean;
   save: boolean = true;
-
   numberOfItems: number;
   total: number;
   totalAfterDiscount: number;
@@ -57,6 +55,7 @@ export class AddSalesInvoiceComponent implements OnInit {
   discount: number;
   vatAmount: number;
   totalAfterVat: number;
+  itemPostId: number;
 
   ngOnInit(): void {
     this.initializeForm();
@@ -137,11 +136,16 @@ export class AddSalesInvoiceComponent implements OnInit {
       this.barcodeData = res;
     });
 
+    this.purchasetransactionsService.sendPurchaseInvoice.subscribe((res:any) => {
+      this.itemPostId = res;
+    });
+
     this.purchaseInvoiceForm.get('vendorId')?.valueChanges.subscribe((res) => {
-      console.log(res)
       let data = this.vendorItems.find((elem) => elem.id == res);
       this.purchaseInvoiceForm.get('vendorName')?.setValue(data?.name);
       this.purchaseInvoiceForm.get('currency')?.setValue(data?.vendorFinancialCurrencyName);
+      this.purchaseInvoiceForm.get('currencyName')?.setValue(data?.vendorFinancialCurrencyName);
+      this.purchaseInvoiceForm.get('currencyId')?.setValue(data?.vendorFinancialCurrencyId);
       this.purchaseInvoiceForm.get('paymentTermId')?.setValue(data?.paymentTermId);
       this.purchaseInvoiceForm.get('paymentTermName')?.setValue(data?.paymentTermName);
       this.purchaseInvoiceForm.get('name')?.setValue(data?.name);
@@ -150,10 +154,21 @@ export class AddSalesInvoiceComponent implements OnInit {
         data.vendorFinancialCurrencyId ?? this.currentUserService.getCurrency(),
         this.currentUserService.getCurrency()
       );
-      this.purchasetransactionsService.sendcurrency.pipe(skip(1), take(1)).subscribe((res) => {
-        this.purchaseInvoiceForm.get('currencyRate')?.setValue(res.rate);
+      this.purchasetransactionsService.sendcurrency.pipe(skip(1), take(1)).subscribe((dataCurrency) => {
+        this.purchaseInvoiceForm.get('currencyRate')?.setValue(dataCurrency.rate);
+
+        if(!data.vendorFinancialCurrencyId) {
+
+          this.purchaseInvoiceForm.get('currencyId')?.setValue(this.currentUserService.getCurrency());
+          this.purchaseInvoiceForm.get('currencyName')?.setValue('Egyptian Pound');
+          this.purchaseInvoiceForm.get('currency')?.setValue('Egyptian Pound');
+        }
+      
+
       });
+
     });
+
   }
   isValidData() {
     this.lineError = -1;
@@ -307,7 +322,6 @@ export class AddSalesInvoiceComponent implements OnInit {
     this.purchasetransactionsService.warehouseLookup.subscribe({
       next: (res) => {
         this.warhouseLookupData = res;
-        console.log(res);
       },
     });
   
@@ -575,18 +589,64 @@ export class AddSalesInvoiceComponent implements OnInit {
 
 
   openDialog(indexline: number, stockInFormGroup: FormGroup) {
-    // const ref = this.dialog.open(ItemAdvancedSearchPurchaseInvoiceComponent, {
-    //   width: 'auto',
-    //   height: '600px',
-    // });
-    // ref.onClose.subscribe((selectedItems: any) => {
-    //   if (selectedItems) {
-    //     console.log(selectedItems)
-    //     stockInFormGroup.get('itemId')?.setValue(selectedItems.itemId);
-    //     stockInFormGroup.get('vatPercentage')?.setValue(selectedItems.taxRatio);
-    //     this.setRowDataFromBarCode(indexline, selectedItems, '');
-    //   }
-    // });
+    const ref = this.dialog.open(ItemAdvancedSearchSalesInvoiceComponentComponent, {
+      width: 'auto',
+      height: '600px',
+    });
+    ref.onClose.subscribe((selectedItems: any) => {
+      if (selectedItems) {
+        stockInFormGroup.get('itemId')?.setValue(selectedItems.itemId);
+        stockInFormGroup.get('vatPercentage')?.setValue(selectedItems.taxRatio);
+        this.setRowDataFromBarCode(indexline, selectedItems, '');
+        this.setRowDataFromPopup(indexline, selectedItems)
+
+      }
+
+      console.log(this.purchaseInvoiceFormArray.value)
+    });
+
+
+  }
+
+  setRowDataFromPopup(indexLine: number, selectedItem: any) {
+    const rowForm = this.purchaseInvoiceFormArray.at(indexLine) as FormGroup;
+
+    if (rowForm) {
+      rowForm.patchValue({
+        itemNumber: selectedItem.itemNumber,
+        id: selectedItem.id || 0,
+        barCode: '',
+        bardCodeId: null,
+        itemId: selectedItem.itemId,
+        itemName: selectedItem.itemName,
+        itemVariantId: selectedItem.itemVariantId,
+        uomId: selectedItem.uomId,
+        uomOptions: selectedItem.itemsUOM,
+        description: selectedItem.itemName + "-" + selectedItem.itemVariantNameEn,
+        cost: (1),
+        vat: selectedItem.taxRatio || 0,
+        trackingType: selectedItem.trackingType,
+        hasExpiryDate: selectedItem.hasExpiryDate,
+
+      });
+
+      // Handle the nested form group
+      const invoiceTrackingGroup = rowForm.get('invoiceTracking') as FormGroup;
+      if (invoiceTrackingGroup) {
+        invoiceTrackingGroup.patchValue({
+          invoiceDetailId: selectedItem?.invoiceTrackingGroup?.invoiceDetailId || 0,
+          vendorBatchNo: selectedItem.invoiceTrackingGroup?.vendorBatchNo || '',
+          quantity: selectedItem.quantity,
+          hasExpiryDate: selectedItem.hasExpiryDate,
+          expireDate: selectedItem.expireDate,
+          systemPatchNo: selectedItem.invoiceTrackingGroup?.systemPatchNo || '',
+          serialId: selectedItem.invoiceTrackingGroup?.serialId || null,
+          trackingType: selectedItem.trackingType,
+        });
+      }
+    }
+    rowForm.get('itemName')?.setValue(selectedItem.itemCode + "-" + selectedItem.itemName + "-" + selectedItem.itemVariantNameEn)
+    this.setUomName(indexLine, rowForm.get('uomOptions')?.value)
   }
 
 
@@ -655,26 +715,25 @@ export class AddSalesInvoiceComponent implements OnInit {
     }
   }
   setTracking(setTracking: FormGroup) {
-    console.log(setTracking.value);
 
-    // const dialogRef = this.dialog.open(PurchaseInvoiceTrackingComponent, {
-    //   width: '60%',
-    //   height: '450px',
-    //   data: {
-    //     trackingType: setTracking.get('trackingType')?.value,
-    //     expiry: setTracking.get('hasExpiryDate')?.value,
-    //     trackingValue: setTracking.get('invoiceTracking')?.get('selectedValue')?.value,
-    //   },
-    // });
-    // dialogRef.onClose.subscribe((res: any) => {
-    //   if (res) {
-    //     this.selectedTraking = res;
-    //     setTracking.get('invoiceTracking')?.patchValue({ ...res });
-    //     setTracking.get('invoiceTracking')?.get('selectedValue')?.setValue(res);
-    //     this.isValidData();
-    //   }
-    //   this.isValidData();
-    // });
+    const dialogRef = this.dialog.open(SalesInvoiceTrackingComponentComponent, {
+      width: '60%',
+      height: '450px',
+      data: { 
+        trackingType: setTracking.get('trackingType')?.value,
+        expiry: setTracking.get('hasExpiryDate')?.value,
+        trackingValue: setTracking.get('invoiceTracking')?.get('selectedValue')?.value,
+      },
+    });
+    dialogRef.onClose.subscribe((res: any) => {
+      if (res) {
+        this.selectedTraking = res;
+        setTracking.get('invoiceTracking')?.patchValue({ ...res });
+        setTracking.get('invoiceTracking')?.get('selectedValue')?.setValue(res);
+        this.isValidData();
+      }
+      this.isValidData();
+    });
   }
 
   onCancel() {
@@ -683,11 +742,6 @@ export class AddSalesInvoiceComponent implements OnInit {
 
   onSave() {
     this.isValidData();
-    console.log(this.formService.validForm(this.purchaseInvoiceForm, false));
-    console.log(this.formService.validForm(this.stockIn, false));
-    console.log('purchaseInvoiceForm', this.purchaseInvoiceForm);
-    console.log('stockIn', this.stockIn);
-
     if (!this.formService.validForm(this.purchaseInvoiceForm, false)) return;
     if (!this.formService.validForm(this.stockIn, false)) return;
 
@@ -697,6 +751,8 @@ export class AddSalesInvoiceComponent implements OnInit {
       warehouseId: this.purchaseInvoiceForm.value.warehouseId || 0,
       warehouseName: this.purchaseInvoiceForm.value.warehouseName || '',
       vendorId: this.purchaseInvoiceForm.value.vendorId || null,
+      currencyId : this.purchaseInvoiceForm.value.currencyId || null,
+      currencyName : this.purchaseInvoiceForm.value.currencyName ,
       vendorName: this.purchaseInvoiceForm.value.vendorName || '',
       currencyRate: +this.purchaseInvoiceForm.value.currencyRate || 0, // Ensure it's a number
       paymentTermId: this.purchaseInvoiceForm.value.paymentTermId ?? null,
@@ -733,15 +789,15 @@ export class AddSalesInvoiceComponent implements OnInit {
     };
 
     if (this.save) {
-      console.log(mappedInvoice);
-
       this.purchasetransactionsService.addPurchaseInvoice(mappedInvoice);
       this.purchasetransactionsService.sendPurchaseInvoice.subscribe((res: number | any) => {
         if (typeof res == 'number') {
           this.savedDataId = res;
           this.dataToReadOnly = true;
+          this.showPost = true;
         } else {
           this.dataToReadOnly = false;
+          this.showPost = false;
         }
       });
     }
@@ -750,8 +806,9 @@ export class AddSalesInvoiceComponent implements OnInit {
   OnDelete(i: number) {
     this.stockIn.removeAt(i);
   }
-  onPost() {
-    this.transactionsService.posteStockIn(this.savedDataId);
+  addToPost() {
+    this.purchasetransactionsService.postInvoice(this.savedDataId);
+
   }
   constructor(
     public authService: AuthService,

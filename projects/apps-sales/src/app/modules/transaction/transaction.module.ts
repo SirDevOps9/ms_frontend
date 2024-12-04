@@ -6,6 +6,8 @@ import { Modules, BreadcrumbLabel, Pages, SharedLibModule } from 'shared-lib';
 import { AddSalesInvoiceComponent } from './pages/sales-invoices/add-sales-invoice/add-sales-invoice.component';
 import { MainSalesInvoiceComponent } from './pages/sales-invoices/main-sales-invoice/main-sales-invoice.component';
 import { SalesInvoiceComponent } from './pages/sales-invoices/sales-invoice-list/sales-invoice.component';
+import { ItemAdvancedSearchSalesInvoiceComponentComponent } from './components/item-advanced-search-sales-invoice-component/item-advanced-search-sales-invoice-component.component';
+import { SalesInvoiceTrackingComponentComponent } from './components/sales-invoice-tracking-component/sales-invoice-tracking-component.component';
 
 
 const routes: Routes = [
@@ -64,6 +66,8 @@ const routes: Routes = [
     MainSalesInvoiceComponent,
     SalesInvoiceComponent,
     AddSalesInvoiceComponent,
+    ItemAdvancedSearchSalesInvoiceComponentComponent,
+    SalesInvoiceTrackingComponentComponent,
 
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule 
