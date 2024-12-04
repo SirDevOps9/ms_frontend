@@ -19,7 +19,8 @@
     "noBarcode": "This barcode does not exist.",
     "notEdit": "This stockout cannot be edited because it is posted.",
     "setTracking":"You must set tracking in the row ",
-    "purchaseinvoicePostedSuccessfully": "Purchase Invoice Posted successfully"
+    "purchaseinvoicePostedSuccessfully": "Purchase Invoice Posted successfully",
+    "errorReturnQuantity": "The return quantity cannot be greater than the remaining quantity"
   },
   "BreadCrumb":{
    "edit":"edit"
@@ -355,9 +356,26 @@
   "total": "Total",
   "totalAfterDiscount": "Total after discount",
   "totalOfQuantity": "Total of quantity",
-  "discount": "Discount",
   "vatAmount": "VAT Amount",
-  "afterVat": "After VAT"
+  "afterVat": "After VAT",
+  "remainQTY":"remain QTY",
+  "toreturnQTY":"To Return QTY",
+  "originalQTY":"original QTY",
+  "Batch":"Batch no .",
+  "ExpiryDate":"Expiry date",
+  "serials":"serials",
+  "invoicejournal":"invoice journal",
+  "stockOut":"stock Out",
+  "stockIn":"stock In",
+  "operation":"related operation",
+  "vendorOperation":"vendor information",
+  "returnCode":"Return code",
+  "returnDate":"Return Date",
+  "returnDescription":"Return Description",
+  "purchaseInvoice":"Purchase Invoice"
+
+
+
   },
   "ItemsAdvancedSearch": {
     "ItemSearch": "Item Search",

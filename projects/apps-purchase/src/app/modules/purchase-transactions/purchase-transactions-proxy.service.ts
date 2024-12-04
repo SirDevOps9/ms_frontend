@@ -152,6 +152,27 @@ export class PurchaseTransactionsProxyService {
     const url = `Invoice/GetInvoiceViewById/${id}`;
     return this.httpService.get<viewInvoiceObj>(url);
   }
+  InvoiceLookup(  searchTerm?: string ,vendorId?:number,SortColumn?:string): Observable<any[]> {
+    let query = `Invoice/InvoiceLookup?`;
+    const params: string[] = [];
+    if (searchTerm) params.push(`SearchTerm=${encodeURIComponent(searchTerm)}`);
+    if (vendorId) params.push(`VendorId=${vendorId}`);
+    if (SortColumn) params.push(`SortColumn=${SortColumn}`);
+    query += params.join('&');
+    return this.httpService.get<any[]>(query);
+  }
+  getReturnInvoiceById(id: number) {
+    return this.httpService.get(`Invoice/${id}/GetInvoiceToReturnById`);
+  }
+  addReturnInvoice(obj : AddPurchaseInvoiceDto) {
+    return this.httpService.post('ReturnInvoice' , obj)
+  }
+  deleteRowReturnInvoice(id: number) {
+    return this.httpService.delete(`ReturnInvoice/DeleteLine/${id}`);
+  }
+  getReturnInvoiceByIdToEdit(id: number) {
+    return this.httpService.get(`ReturnInvoice/${id}`);
+  }
   PostInvoice(id:number){
     return this.httpService.post(`Invoice/${id}/Post`, null);
 
