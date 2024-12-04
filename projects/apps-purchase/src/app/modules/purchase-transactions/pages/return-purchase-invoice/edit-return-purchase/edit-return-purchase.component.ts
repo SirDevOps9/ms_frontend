@@ -102,7 +102,7 @@ export class EditReturnPurchaseComponent {
   initializeForm() {
     this.addForm = this.fb.group({
       id: new FormControl(''),
-      invoiceStatus: new FormControl(''),
+      returnInvoiceStatus: new FormControl(''),
       code: new FormControl(''),
       invoiceCode: new FormControl(''),
       invoiceDate: new FormControl(new Date(), [customValidators.required]),
@@ -114,8 +114,8 @@ export class EditReturnPurchaseComponent {
       rate: new FormControl(''),
       paymentTerms: new FormControl(''),
       invoiceJournal: new FormControl(''),
-      stockInId: new FormControl(''),
-      stockInCode: new FormControl(''),
+      stockOutId: new FormControl(''),
+      stockOutCode: new FormControl(''),
       journalId: new FormControl(''),
       journalCode: new FormControl(''),
       vendorId: new FormControl(''),
@@ -125,6 +125,7 @@ export class EditReturnPurchaseComponent {
       paymentTermId: new FormControl(''),
       paymentTermName: new FormControl(''),
       reference: new FormControl(''),
+      invoiceHeaderCode: new FormControl(''),
       invoiceDetails: this.fb.array([]),
 
     });
@@ -138,12 +139,17 @@ export class EditReturnPurchaseComponent {
     this.addForm.patchValue({
       id: data.id,
       invoiceCode: data.code,
+      invoiceDate:data.returnInvoiceDate,
       warehouseName: data.warehouseName,
       vendorId: data.vendorId,
       vendorName: data.vendorName,
       currencyRate: data.currencyName,
       vendorRate: data.currencyRate,
       warehouseId: data.warehouseId,
+      returnInvoiceStatus: data.returnInvoiceStatus,
+      vendorCode: data.vendorCode,
+      invoiceHeaderCode: data.invoiceHeaderCode,
+      // warehouseId: data.warehouseId,
     });
     this.invoiceDetailsFormArray.clear();
     data?.returnInvoiceDetails?.forEach((detail: any, index: number) => {
@@ -164,8 +170,8 @@ export class EditReturnPurchaseComponent {
     })
 
   }
-  routeToStockIn() {
-    this.router.createUrlTree([`/inventory/transactions/stock-in/view/${this.addForm.get('stockInId')?.value}`])
+  routeToStockOut() {
+    this.router.createUrlTree([`/inventory/transactions/stock-out/view/${this.addForm.get('stockOutId')?.value}`])
 
   }
   routeTojournal() {
@@ -180,20 +186,20 @@ export class EditReturnPurchaseComponent {
 
         id: selectedItem.id,
         itemCode: selectedItem.itemCode,
-        description: selectedItem.description,
+        returnDescription: selectedItem.description,
         uomNameEn: selectedItem.uomNameEn,
         uomNameAr: selectedItem.uomNameAr,
         remainQuantity: selectedItem.availableQuantity,
         subCost: selectedItem.subCost,
         returnQuantity: selectedItem.returnQuantity,
-        originalQuantity: selectedItem.quantity,
+        originalQuantity: selectedItem.originalQuantity,
         netCost: selectedItem.cost,
         grandTotal: selectedItem.grandTotal,
         trackingType: selectedItem.trackingType,
         hasExpiryDate: selectedItem.hasExpiryDate,
         vat: selectedItem.vatAmount,
-        stockInId: selectedItem.stockInId,
-        stockInCode: selectedItem.stockInCode,
+        stockOutId: selectedItem.stockOutId,
+        stockOutCode: selectedItem.stockOutCode,
         journalId: selectedItem.journalId,
         journalCode: selectedItem.journalCode
 
@@ -228,7 +234,7 @@ export class EditReturnPurchaseComponent {
         itemCode: new FormControl(''),
         uomNameEn: new FormControl(''),
         uomNameAr: new FormControl(''),
-        description: new FormControl(''),
+        returnDescription: new FormControl(''),
         remainQuantity: new FormControl(''),
         returnQuantity: new FormControl(0),
         originalQuantity: new FormControl('',),
@@ -325,7 +331,7 @@ export class EditReturnPurchaseComponent {
     const refactoredData = {
       returnInvoiceDate: new Date(data.invoiceDate).toISOString(),
       invoiceHeaderId: data.id,
-      returnDescription: data.returnDescription,
+      returnDescription: data.description,
       returnInvoiceDetails: data.invoiceDetails
         .filter((detail: any) => detail.returnQuantity > 0) // Exclude items where quantity <= 0
         .map((detail: any) => ({

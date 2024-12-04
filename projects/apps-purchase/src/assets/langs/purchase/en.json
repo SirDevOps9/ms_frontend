@@ -373,7 +373,8 @@
   "vendorOperation":"vendor information",
   "returnCode":"Return code",
   "returnDate":"Return Date",
-  "returnDescription":"Return Description"
+  "returnDescription":"Return Description",
+  "purchaseInvoice":"Purchase Invoice"
 
 
 

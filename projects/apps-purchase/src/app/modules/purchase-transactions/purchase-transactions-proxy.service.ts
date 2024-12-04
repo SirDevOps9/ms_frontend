@@ -162,7 +162,7 @@ export class PurchaseTransactionsProxyService {
     return this.httpService.get<any[]>(query);
   }
   getReturnInvoiceById(id: number) {
-    return this.httpService.get(`ReturnInvoice/GetInvoiceToReturnById/${id}`);
+    return this.httpService.get(`Invoice/${id}/GetInvoiceToReturnById`);
   }
   addReturnInvoice(obj : AddPurchaseInvoiceDto) {
     return this.httpService.post('ReturnInvoice' , obj)
