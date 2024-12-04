@@ -8,6 +8,7 @@ import { MainSalesInvoiceComponent } from './pages/sales-invoices/main-sales-inv
 import { SalesInvoiceComponent } from './pages/sales-invoices/sales-invoice-list/sales-invoice.component';
 import { ItemAdvancedSearchSalesInvoiceComponentComponent } from './components/item-advanced-search-sales-invoice-component/item-advanced-search-sales-invoice-component.component';
 import { SalesInvoiceTrackingComponentComponent } from './components/sales-invoice-tracking-component/sales-invoice-tracking-component.component';
+import { ViewSalesComponent } from './pages/sales-invoices/view-sales/view-sales.component';
 
 
 const routes: Routes = [
@@ -18,7 +19,7 @@ const routes: Routes = [
       moduleId: Modules.Sales,
     },
     children: [
-   
+
       {
         path: 'sales-invoice',
         component: MainSalesInvoiceComponent,
@@ -32,8 +33,16 @@ const routes: Routes = [
             path: '',
             component: SalesInvoiceComponent,
             data: {
-              breadcrumb: '',
+              breadcrumb:  BreadcrumbLabel.SALES_INVOICE_LIST_VIEW,
               pageTitle: BreadcrumbLabel.SALES_INVOICE_LIST,
+            }
+          },
+          {
+            path: 'sales-invoice-view',
+            component: ViewSalesComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.SALES_INVOICE_VIEW,
+              pageTitle: BreadcrumbLabel.SALES_INVOICE_VIEW,
             }
           },
           {
@@ -44,7 +53,7 @@ const routes: Routes = [
               pageTitle:BreadcrumbLabel.SALES_INVOICE_ADD,
             }
           },
-         
+
           {
             path: 'sequence',
             component: SequenceComponent,
@@ -55,6 +64,7 @@ const routes: Routes = [
               pageTitle: BreadcrumbLabel.SEQUENCE
             },
           },
+
         ]
       },
     ],
@@ -68,9 +78,10 @@ const routes: Routes = [
     AddSalesInvoiceComponent,
     ItemAdvancedSearchSalesInvoiceComponentComponent,
     SalesInvoiceTrackingComponentComponent,
+    ViewSalesComponent,
 
   ],
-  imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule 
+  imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule
   ],
 })
 export class TransactionModule { }
