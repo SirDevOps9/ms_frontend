@@ -198,6 +198,7 @@ export class BreadcrumbLabel {
   static PRICE_POLICY_EDIT = 'BreadCrumb.edit';
   static PRICE_POLICY_VIEW = 'BreadCrumb.view';
   static SALES_INVOICE_LIST = 'BreadCrumb.salesInvoiceList';
+  static SALES_INVOICE_VIEW = 'BreadCrumb.salesInvoiceView';
   static SALES_INVOICE_ADD = 'BreadCrumb.salesInvoiceAdd';
   static TITLE_PRICE_POLICY_ADD = 'title.add';
   static TITLE_PRICE_POLICY_EDIT = 'title.edit';

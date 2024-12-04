@@ -12,7 +12,9 @@
     "ViewCustomerOpeningBalance":"View Customer Opening Balance",
     "PricePolicy":"Price Policy",
     "salesInvoiceList" : "Sales Invoice",
-    "salesInvoiceAdd" : "Add"
+    "salesInvoiceAdd" : "Add",
+     "salesInvoiceView":"Sales Invoice View"
+
 
   },
   "dir": "ltr",
