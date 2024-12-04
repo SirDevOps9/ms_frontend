@@ -1,21 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Route, RouterModule } from '@angular/router';
-import { BreadcrumbLabel, Modules, SharedLibModule } from 'shared-lib';
-import { AccountingDashboardComponent } from './pages/accounting-dashboard/accounting-dashboard.component';
 import { LayoutPageComponent } from 'apps-shared-lib';
+import { BreadcrumbLabel, Modules, SharedLibModule } from 'shared-lib';
+import { FinanceDashboardComponent } from './pages/finance-dashboard/finance-dashboard.component';
+import { ChartModule } from 'angular-highcharts';
 
 const routes: Route[] = [
   {
     path: '',
     component: LayoutPageComponent,
     data: {
-      moduleId: Modules.Accounting,
+      moduleId: Modules.Finance,
     },
     children: [
       {
         path: '',
-        component: AccountingDashboardComponent,
+        component: FinanceDashboardComponent,
         data: {
           breadcrumb: BreadcrumbLabel.DASHBOARD,
           pageTitle: BreadcrumbLabel.DASHBOARD,
@@ -26,7 +27,7 @@ const routes: Route[] = [
 ];
 
 @NgModule({
-  declarations: [AccountingDashboardComponent],
-  imports: [CommonModule, SharedLibModule, RouterModule.forChild(routes)],
+  declarations: [FinanceDashboardComponent],
+  imports: [CommonModule, SharedLibModule, RouterModule.forChild(routes), ChartModule],
 })
 export class DashboardModule {}

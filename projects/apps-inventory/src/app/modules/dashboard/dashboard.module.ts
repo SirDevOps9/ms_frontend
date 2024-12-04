@@ -1,21 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Route, RouterModule } from '@angular/router';
+import { InventoryDashboardComponent } from './inventory-dashboard.component';
 import { BreadcrumbLabel, Modules, SharedLibModule } from 'shared-lib';
-import { AccountingDashboardComponent } from './pages/accounting-dashboard/accounting-dashboard.component';
+import { RouterModule, Routes } from '@angular/router';
 import { LayoutPageComponent } from 'apps-shared-lib';
 
-const routes: Route[] = [
+const routes: Routes = [
   {
     path: '',
     component: LayoutPageComponent,
     data: {
-      moduleId: Modules.Accounting,
+      moduleId: Modules.inventory,
     },
     children: [
       {
         path: '',
-        component: AccountingDashboardComponent,
+        component: InventoryDashboardComponent,
         data: {
           breadcrumb: BreadcrumbLabel.DASHBOARD,
           pageTitle: BreadcrumbLabel.DASHBOARD,
@@ -26,7 +26,7 @@ const routes: Route[] = [
 ];
 
 @NgModule({
-  declarations: [AccountingDashboardComponent],
+  declarations: [InventoryDashboardComponent],
   imports: [CommonModule, SharedLibModule, RouterModule.forChild(routes)],
 })
 export class DashboardModule {}
