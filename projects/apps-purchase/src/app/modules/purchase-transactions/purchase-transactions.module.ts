@@ -12,7 +12,9 @@ import { TrackingEditComponent } from './components/tracking-edit/tracking-edit.
 import { PurchaseInvoiceTrackingComponent } from './components/purchase-invoice-tracking/purchase-invoice-tracking.component';
 import { ItemAdvancedSearchPurchaseInvoiceComponent } from './components/item-advanced-search-purchase-invoice/item-advanced-search-purchase-invoice.component';
 import { ViewInvoiceComponent } from './pages/purchase-invoice/view-invoice/view-invoice.component';
-
+import { AddReturnPurchaseComponent } from './pages/return-purchase-invoice/add-return-purchase/add-return-purchase.component';
+import { EditReturnPurchaseComponent } from './pages/return-purchase-invoice/edit-return-purchase/edit-return-purchase.component';
+import { MainReturnPurchaseComponent } from './pages/return-purchase-invoice/main-return-purchase/main-return-purchase.component';
 const routes: Routes = [
   {
     path: '',
@@ -72,6 +74,57 @@ const routes: Routes = [
           },
         ],
       },
+      {
+        path: 'return-purchase',
+        component: MainReturnPurchaseComponent,
+        data: {
+          breadcrumb: BreadcrumbLabel.purchaseInvoiceList,
+          pageTitle: BreadcrumbLabel.purchaseInvoiceList,
+        },
+        children: [
+          {
+            path: '',
+            component: PurchaseInvoiceListComponent,
+            data: {
+              breadcrumb: '',
+            },
+          },
+          {
+            path: 'add',
+            component: AddReturnPurchaseComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.purchaseInvoiceAdd,
+              pageTitle: BreadcrumbLabel.purchaseInvoiceAdd,
+            },
+          },
+          {
+            path: 'edit/:id',
+            component: EditReturnPurchaseComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.PURCHASE_EDIT,
+              pageTitle: BreadcrumbLabel.TITLE_PURCHASE_EDIT,
+            },
+          },
+          {
+            path: 'sequence',
+            component: SequenceComponent,
+            data: {
+              moduleId: Modules.Purchase,
+              pageId: Pages.PurchaseInvoice,
+              breadcrumb: BreadcrumbLabel.SEQUENCE,
+              pageTitle: BreadcrumbLabel.SEQUENCE,
+            },
+          },
+          {
+            path: 'view/:id',
+            component: ViewInvoiceComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.purchaseInvoiceView,
+              pageTitle: BreadcrumbLabel.purchaseInvoiceView,
+            },
+          },
+        ],
+      },
     ],
   },
 ];
@@ -87,6 +140,10 @@ const routes: Routes = [
     PurchaseInvoiceTrackingComponent,
     ItemAdvancedSearchPurchaseInvoiceComponent,
     ViewInvoiceComponent,
+    AddReturnPurchaseComponent,
+    EditReturnPurchaseComponent,
+    MainReturnPurchaseComponent
+
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule],
 })
