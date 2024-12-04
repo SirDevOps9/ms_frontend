@@ -216,9 +216,19 @@ export class AddSalesInvoiceComponent implements OnInit {
       id: new FormControl(''),
       code: new FormControl(''),
       warehouseId: new FormControl('', [customValidators.required]),
+      salesman : new FormControl(''),
       warehouseName: new FormControl(''),
-      notes: new FormControl(''),
+      customerCode: new FormControl('' , [customValidators.required]),
+      customerName: new FormControl('' ),
       description: new FormControl(''),
+      currencyId: new FormControl(''),
+      rate : new FormControl(''),
+      paymentTermId : new FormControl(''),
+      creditLimit : new FormControl(''),
+      pricePolicyId : new FormControl('', [customValidators.required]),
+      relatedJournal : new FormControl(''),
+
+
       sourceDocumentType: new FormControl(''),
       payementTerm: new FormControl(''),
       numberOfItems: 0,
@@ -236,7 +246,6 @@ export class AddSalesInvoiceComponent implements OnInit {
       vendorId: new FormControl('', [customValidators.required]),
       vendorName: new FormControl(''),
       currencyRate: new FormControl('', [customValidators.required]),
-      paymentTermId: new FormControl(''),
       reference: new FormControl(''),
 
       invoiceDetails: this.fb.array([]),
