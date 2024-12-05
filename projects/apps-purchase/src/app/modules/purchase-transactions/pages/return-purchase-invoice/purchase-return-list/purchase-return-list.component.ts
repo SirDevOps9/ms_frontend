@@ -58,15 +58,15 @@ export class PurchaseReturnListComponent implements OnInit {
     // this.routerService.navigateTo('/transaction/return-purchase/add');
     this.sequenceService.isHaveSequence(
       this.sharedEnums.Pages.PurchaseReturnInvoice,
-      '/transaction/return-purchase/add'
+      '/transaction/return-purchase-invoice/add'
     );
   }
 
   onEdit(id: any) {
-    this.routerService.navigateTo(`/transaction/return-purchase/edit/${id}`);
+    this.routerService.navigateTo(`/transaction/return-purchase-invoice/edit/${id}`);
   }
   onView(id: any) {
-    this.routerService.navigateTo(`/transaction/return-purchase/view/${id}`);
+    this.routerService.navigateTo(`/transaction/return-purchase-invoice/view/${id}`);
   }
 
   onSearchChange() {

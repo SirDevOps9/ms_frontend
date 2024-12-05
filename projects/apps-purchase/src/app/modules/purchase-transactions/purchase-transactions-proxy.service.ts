@@ -101,6 +101,7 @@ export class PurchaseTransactionsProxyService {
     return this.httpService.get<PaginationVm<LatestItem>>(query);
   }
 
+  
   addPurchaseInvoice(obj: AddPurchaseInvoiceDto) {
     return this.httpService.post('Invoice', obj);
   }
@@ -136,6 +137,7 @@ export class PurchaseTransactionsProxyService {
     return this.httpService.delete<boolean>(`Invoice/${id}`);
   }
 
+ 
   getCurrencyRate(fromCurrency: number, toCurrency: number): Observable<any> {
     return this.httpService.get(
       `CurrencyConversion/rate?FromCurrencyId=${fromCurrency}&ToCurrencyId=${toCurrency}`
@@ -210,5 +212,10 @@ export class PurchaseTransactionsProxyService {
   }
   PostInvoice(id: number) {
     return this.httpService.post(`Invoice/${id}/Post`, null);
+  }
+  //  barcode
+
+  GetItemByBarcodePurchase(barcode: string): Observable<any> {
+    return this.httpService.get(`Invoice/GetItemByBarcode?Barcode=${barcode}`);
   }
 }

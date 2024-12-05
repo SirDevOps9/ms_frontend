@@ -51,7 +51,6 @@ export class ViewStockInComponent {
     this.transactions_services.getViwStockInById(id);
     this.transactions_services.stockInDataViewSourceeObservable.subscribe((data: any) => {
       if (data) {
-        debugger;
         this.stockInForm.patchValue({
           receiptDate: data.receiptDate,
           code: data.code,
