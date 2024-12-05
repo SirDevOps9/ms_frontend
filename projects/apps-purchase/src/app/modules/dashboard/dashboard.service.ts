@@ -18,6 +18,7 @@ export class DashboardService {
   private returnStatusLoaderSubject = new BehaviorSubject<boolean>(false);
   private monthlyPurchaseLoaderSubject = new BehaviorSubject<boolean>(false);
   private topPurchaseProductsLoaderSubject = new BehaviorSubject<boolean>(false);
+  private topPurchaseCategoriesLoaderSubject = new BehaviorSubject<boolean>(false);
   private topVendorsLoaderSubject = new BehaviorSubject<boolean>(false);
 
   // Loader observables
@@ -25,6 +26,7 @@ export class DashboardService {
   returnStatusLoader$ = this.returnStatusLoaderSubject.asObservable();
   monthlyPurchaseLoader$ = this.monthlyPurchaseLoaderSubject.asObservable();
   topPurchaseProductsLoader$ = this.topPurchaseProductsLoaderSubject.asObservable();
+  topPurchaseCategoriesLoader$ = this.topPurchaseCategoriesLoaderSubject.asObservable();
   topVendorsLoader$ = this.topVendorsLoaderSubject.asObservable();
 
   // Data subject
@@ -32,6 +34,7 @@ export class DashboardService {
   private returnStatusSubject = new BehaviorSubject<ReturnInvoiceStatusReportDto[]>([]);
   private monthlyPurchaseSubject = new BehaviorSubject<MonthlyPurchaseReturnReportDto[]>([]);
   private topPurchaseProductsSubject = new BehaviorSubject<TopPurchasedProductsDto[]>([]);
+  private topPurchaseCategoriesSubject = new BehaviorSubject<TopPurchasedProductsDto[]>([]);
   private topVendorsSubject = new BehaviorSubject<TopVendorsReportDto[]>([]);
 
   // Data observables
@@ -39,6 +42,7 @@ export class DashboardService {
   returnStatus$ = this.returnStatusSubject.asObservable();
   monthlyPurchase$ = this.monthlyPurchaseSubject.asObservable();
   topPurchaseProducts$ = this.topPurchaseProductsSubject.asObservable();
+  topPurchaseCategories$ = this.topPurchaseCategoriesSubject.asObservable();
   topVendors$ = this.topVendorsSubject.asObservable();
 
   constructor(private proxy: ProxyService) {}
@@ -76,10 +80,10 @@ export class DashboardService {
   }
 
   fetchTopPurchaseCategories() {
-    this.topPurchaseProductsLoaderSubject.next(true);
-    this.proxy.topPurchaseProducts().subscribe({
-      next: (data) => this.topPurchaseProductsSubject.next(data),
-      complete: () => this.topPurchaseProductsLoaderSubject.next(false),
+    this.topPurchaseCategoriesLoaderSubject.next(true);
+    this.proxy.topPurchaseCategories().subscribe({
+      next: (data) => this.topPurchaseCategoriesSubject.next(data),
+      complete: () => this.topPurchaseCategoriesLoaderSubject.next(false),
     });
   }
 

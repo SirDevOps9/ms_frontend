@@ -37,6 +37,10 @@ export class ProxyService {
     return this.http.get<TopPurchasedProductsDto[]>(`${this.baseUrl}/GetTopPurchasedProducts`);
   }
 
+  topPurchaseCategories(): Observable<TopPurchasedProductsDto[]> {
+    return this.http.get<TopPurchasedProductsDto[]>(`${this.baseUrl}/GetTopPurchasedCategories`);
+  }
+
   topVendors(): Observable<TopVendorsReportDto[]> {
     return this.http.get<TopVendorsReportDto[]>(`${this.baseUrl}/GetTopVendorsReport`);
   }
