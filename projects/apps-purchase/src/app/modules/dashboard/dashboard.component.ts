@@ -114,11 +114,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.currentLang == 'en' ? month.en : month.ar
       );
       const dataSeries = {
-        name: 'Total Purchases',
+        name: this.currentLang == 'en' ? 'Total Purchases' : 'إجمالي الشراء',
         data: monthlyPurchase.map((data) => data.totalPurchases),
       };
       const returnSeries = {
-        name: 'Total Returns',
+        name: this.currentLang == 'en' ? 'Total Returns' : 'إجمالي الإرجاع',
         data: monthlyPurchase.map((data) => data.totalReturns),
       };
       const series = [dataSeries, returnSeries];
