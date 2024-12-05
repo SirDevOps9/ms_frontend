@@ -14,7 +14,7 @@
                 : accountBalance.accountTypeNameAr
             }}
           </p>
-          <p class="paragraph_b16 m-0">{{ accountBalance.totalBalance | decimalSeparator }}</p>
+          <p class="paragraph_b16 m-0">{{ accountBalance.totalBalance | numberFormat }}</p>
         </div>
         }
       </div>
@@ -74,7 +74,7 @@
                 </span>
 
                 <span class="line"></span>
-                <span class="detail-value heading_b16">{{ acc.balance | decimalSeparator }}</span>
+                <span class="detail-value heading_b16">{{ acc.balance | numberFormat }}</span>
               </div>
               }
               <!-- @if(cashBankAccountsBalance.accounts.length == 0) {
@@ -86,13 +86,13 @@
                 <div class="lg:col-6 md:col-6 col-12">
                   <p class="btn-class cash-label">
                     {{ 'dashboard.totalCash' | translate }}
-                    <span> {{ cashBankAccountsBalance.totalCashBalance | decimalSeparator }} </span>
+                    <span> {{ cashBankAccountsBalance.totalCashBalance | numberFormat }} </span>
                   </p>
                 </div>
                 <div class="lg:col-6 md:col-6 col-12">
                   <p class="btn-class bank-label">
                     {{ 'dashboard.totalBank' | translate }}
-                    <span> {{ cashBankAccountsBalance.totalBankBalance | decimalSeparator }} </span>
+                    <span> {{ cashBankAccountsBalance.totalBankBalance | numberFormat }} </span>
                   </p>
                 </div>
               </div>
@@ -113,7 +113,7 @@
                 <span class="label-color"> {{ 'dashboard.revenue' | translate }}</span>
                 <span class="line"></span>
                 <span class="detail-value heading_b16">{{
-                  revenueStream.totalRevenues | decimalSeparator
+                  revenueStream.totalRevenues | numberFormat
                 }}</span>
               </div>
               <div class="row">
@@ -121,7 +121,7 @@
                 <span class="label-color">{{ 'dashboard.expenses' | translate }}</span>
                 <span class="line"></span>
                 <span class="detail-value heading_b16">{{
-                  revenueStream.totalExpenses | decimalSeparator
+                  revenueStream.totalExpenses | numberFormat
                 }}</span>
               </div>
               <div class="row">
@@ -129,7 +129,7 @@
                 <span class="label-color">{{ 'dashboard.grossProfit' | translate }}</span>
                 <span class="line"></span>
                 <span class="detail-value heading_b16">{{
-                  revenueStream.grossProfit | decimalSeparator
+                  revenueStream.grossProfit | numberFormat
                 }}</span>
               </div>
             </div>
@@ -165,7 +165,7 @@
                 <span class="label-color body_b14">{{ acc.accountName }}</span>
 
                 <span class="line"></span>
-                <span class="detail-value heading_b16">{{ acc.balance | decimalSeparator }}</span>
+                <span class="detail-value heading_b16">{{ acc.balance | numberFormat }}</span>
               </div>
               } @if(accountsList.length == 0) {
               <div class="row">
@@ -205,7 +205,7 @@
                 <span class="label-color body_b14">{{ costCenter.costCenterName }}</span>
                 <span class="line"></span>
                 <span class="detail-value heading_b16">{{
-                  costCenter.totalBalance | decimalSeparator
+                  costCenter.totalBalance | numberFormat
                 }}</span>
               </div>
               } @if(costCenters.length === 0) {

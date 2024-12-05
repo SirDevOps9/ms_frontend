@@ -31,7 +31,7 @@
                 <span class="label-color"> {{ 'dashboard.paymentIn' | translate }}</span>
                 <span class="line"></span>
                 <span class="detail-value heading_b16">{{
-                  cashFlowSummary.totalPaymentIn | decimalSeparator
+                  cashFlowSummary.totalPaymentIn | numberFormat
                 }}</span>
               </div>
               <div class="row">
@@ -39,7 +39,7 @@
                 <span class="label-color">{{ 'dashboard.paymentOut' | translate }}</span>
                 <span class="line"></span>
                 <span class="detail-value heading_b16">{{
-                  cashFlowSummary.totalPaymentOut | decimalSeparator
+                  cashFlowSummary.totalPaymentOut | numberFormat
                 }}</span>
               </div>
               <div class="row">
@@ -47,7 +47,7 @@
                 <span class="label-color">{{ 'dashboard.cashFlow' | translate }}</span>
                 <span class="line"></span>
                 <span class="detail-value heading_b16">{{
-                  cashFlowSummary.netCashFlow | decimalSeparator
+                  cashFlowSummary.netCashFlow | numberFormat
                 }}</span>
               </div>
 
@@ -96,7 +96,7 @@
 
                 <span class="line"></span>
                 <span class="detail-value heading_b16">{{
-                  acc.currentBalance | decimalSeparator
+                  acc.currentBalance | numberFormat
                 }}</span>
               </div>
               }
@@ -105,7 +105,7 @@
                 <span class="btn-class col bank-label">{{
                   ('dashboard.totalInBank' | translate) +
                     ' ' +
-                    (bankAccounts.totalBalance | decimalSeparator)
+                    (bankAccounts.totalBalance | numberFormat)
                 }}</span>
               </div>
             </div>
@@ -133,7 +133,7 @@
 
                 <span class="line"></span>
                 <span class="detail-value heading_b16">{{
-                  treasure.currentBalance | decimalSeparator
+                  treasure.currentBalance | numberFormat
                 }}</span>
               </div>
               }
@@ -143,7 +143,7 @@
                   {{
                     ('dashboard.totalInTreasury' | translate) +
                       ' ' +
-                      (treasuries.totalBalance | decimalSeparator)
+                      (treasuries.totalBalance | numberFormat)
                   }}
                 </span>
               </div>
@@ -215,7 +215,7 @@
                 <span class="body-14 mx-1">{{ acc.paymentInDate | date : 'dd/MM/yyyy' }}</span>
                 <span class="line"></span>
 
-                <span class="mx-1 heading_b16">{{ acc.amount | decimalSeparator }}</span>
+                <span class="mx-1 heading_b16">{{ acc.amount | numberFormat }}</span>
               </div>
               }
 
@@ -252,7 +252,7 @@
                 <span class="body-14 mx-1">{{ acc.paymentOutDate | date : 'dd/MM/yyyy' }}</span>
                 <span class="line"></span>
 
-                <span class="mx-1 heading_b16">{{ acc.amount | decimalSeparator }}</span>
+                <span class="mx-1 heading_b16">{{ acc.amount | numberFormat }}</span>
               </div>
               }
 

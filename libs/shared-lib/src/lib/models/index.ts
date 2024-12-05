@@ -25,4 +25,4 @@ export * from './pages';
 export * from './component-type';
 export * from './sort-by';
 export * from './sharedEnums';
-
+export * from './chartValueDto';

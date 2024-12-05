@@ -1,0 +1,103 @@
+<lib-page-content>
+  <div class="user-page">
+    <div class="charts grid">
+      <div class="lg:col-4 col-12" [appLoader]="statusChartLoader">
+        <app-chart-card [chartDTO]="statusChart" [chartDetailsConfig]="statusChartData">
+          <div class="chart-header">
+            <div class="title heading_b18">{{ 'dashboard.purchaseStatus' | translate }}</div>
+            <div class="action body_b14">
+              <i class="pi pi-heart"></i>
+            </div>
+          </div>
+        </app-chart-card>
+      </div>
+      <div class="lg:col-4 col-12" [appLoader]="returnStatusChartLoader">
+        <app-chart-card [chartDTO]="returnStatusChart" [chartDetailsConfig]="returnStatusChartData">
+          <div class="chart-header">
+            <div class="title heading_b18">{{ 'dashboard.returnPurchaseStatus' | translate }}</div>
+            <div class="action body_b14">
+              <i class="pi pi-heart"></i>
+            </div>
+          </div>
+        </app-chart-card>
+      </div>
+      <div class="lg:col-4 col-12" [appLoader]="monthlyPurchasesChartLoader">
+        <app-chart-card [smallSize]="true" [chartDTO]="monthlyPurchasesChart" [hideFooter]="false">
+          <div class="chart-header">
+            <div class="title heading_b18">{{ 'dashboard.monthlyPurchases' | translate }}</div>
+            <div class="action body_b14">
+              <i class="pi pi-heart"></i>
+            </div>
+          </div>
+        </app-chart-card>
+      </div>
+
+      <div class="lg:col-6 col-12" [appLoader]="mostPurchasedProductsChartLoader">
+        <app-chart-card
+          [chartDTO]="mostPurchasedProductsChart"
+          [chartDetailsConfig]="mostPurchasedProductsChartData"
+          [smallSize]="true"
+        >
+          <div class="chart-header">
+            <div class="title heading_b18">{{ 'dashboard.mostPurchasedProducts' | translate }}</div>
+            <div class="action body_b14">
+              <span class="pointer" [routerLink]="['transaction/purchase-invoice']">
+                {{ 'dashboard.moreDetails' | translate }} <i class="pi pi-arrow-right fs-14"></i>
+              </span>
+              <span class="column-line"></span>
+              <i class="pi pi-heart"></i>
+            </div>
+          </div>
+        </app-chart-card>
+      </div>
+      <div class="lg:col-6 col-12" [appLoader]="mostPurchasedCategoriesChartLoader">
+        <app-chart-card
+          [smallSize]="true"
+          [chartDTO]="mostPurchasedCategoriesChart"
+          [chartDetailsConfig]="mostPurchasedCategoriesChartData"
+        >
+          <div class="chart-header">
+            <div class="title heading_b18">
+              {{ 'dashboard.mostPurchasedCategories' | translate }}
+            </div>
+            <div class="action body_b14">
+              <span class="pointer" [routerLink]="['transaction/purchase-invoice']">
+                {{ 'dashboard.moreDetails' | translate }} <i class="pi pi-arrow-right fs-14"></i>
+              </span>
+              <span class="column-line"></span>
+              <i class="pi pi-heart"></i>
+            </div>
+          </div>
+        </app-chart-card>
+      </div>
+
+      <div class="lg:col-6 col-12" [appLoader]="topVendorsLoader">
+        <app-chart-card>
+          <div class="chart-header">
+            <div class="title heading_b18">{{ 'dashboard.topVendors' | translate }}</div>
+            <div class="action body_b14">
+              <span class="pointer" [routerLink]="['transaction/purchase-invoice']">
+                {{ 'dashboard.moreDetails' | translate }} <i class="pi pi-arrow-right fs-14"></i>
+              </span>
+              <span class="column-line"></span>
+              <i class="pi pi-heart"></i>
+            </div>
+          </div>
+          <div class="chart-body accounts-bank w-full">
+            @for(vendor of topVendors; track vendor.vendorId) {
+            <div class="row">
+              <span class="body-14 mx-1">{{ vendor.vendorName }}</span>
+              <span class="line"></span>
+              <span class="body-14 mx-1">{{ vendor.invoiceCount }}</span>
+              <span class="line"></span>
+              <span class="detail-value heading_b16">{{
+                vendor.totalInvoiceAmount | numberFormat
+              }}</span>
+            </div>
+            }
+          </div>
+        </app-chart-card>
+      </div>
+    </div>
+  </div>
+</lib-page-content>
