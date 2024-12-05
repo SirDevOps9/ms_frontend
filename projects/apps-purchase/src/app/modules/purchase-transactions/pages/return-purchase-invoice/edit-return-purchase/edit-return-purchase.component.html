@@ -1,0 +1,325 @@
+<lib-page-content>
+
+    <div class="page_edit_purchase">
+
+        <div class="main_header card_micro" [formGroup]="addForm">
+            <div class="grid">
+                <div class="card_information">
+                    <div class="line line_two"></div>
+                    <div class="grid">
+
+                        <!-- Main Information Section -->
+                        <div class="col-12 md:col-4">
+                            <div class="card_information">
+                                <!-- <div class="line line_two"></div> -->
+                                <div class="item">
+                                    <div class="title heading_b18">
+                                        {{ 'PurchaseInvoiceEdit.mainInformation' | translate }}
+                                    </div>
+                                    <div class="item_body">
+                                        <div class="grid">
+                                            <div class="col-12 md:col-4">
+                                                <lib-form-group>
+                                                    <lib-label [appControl]="addForm.controls['invoiceCode']">
+                                                        {{ 'PurchaseInvoiceEdit.returnCode' | translate }}
+                                                    </lib-label>
+                                                    <lib-text-input [readOnly]="true"
+                                                        formControlName="invoiceCode"></lib-text-input>
+                                                </lib-form-group>
+                                            </div>
+                                            <div class="col-12 md:col-8">
+                                                <lib-form-group>
+                                                    <lib-label [appControl]="addForm.controls['invoiceDate']">
+                                                        {{ 'PurchaseInvoiceEdit.returnDate' | translate }}
+                                                    </lib-label>
+                                                    <lib-calendar formControlName="invoiceDate"></lib-calendar>
+                                                </lib-form-group>
+                                            </div>
+                                            <div class="col-12">
+                                                <lib-form-group>
+                                                    <lib-label [appControl]="addForm.controls['returnDescription']">
+                                                        {{ 'PurchaseInvoiceEdit.returnDescription' | translate }}
+                                                    </lib-label>
+                                                    <lib-text-input
+                                                        formControlName="returnDescription"></lib-text-input>
+                                                </lib-form-group>
+                                            </div>
+                                            <div class="col-12">
+                                                <lib-form-group>
+                                                    <lib-label [appControl]="addForm.controls['warehouseName']">
+                                                        {{ 'PurchaseInvoiceEdit.warehouse' | translate }}
+                                                    </lib-label>
+                                                    <lib-text-input [readOnly]="true" formControlName="warehouseName">
+
+                                                    </lib-text-input>
+                                                    <!-- <lib-select
+                                            [readOnly]="true"
+                                                formControlName="warehouseId"
+                                                [options]="warehouses"
+                                                optionLabel="name"
+                                                optionValue="id"
+                                                [selectedValue]="addForm.controls['warehouseId'].value">
+                                            </lib-select> -->
+                                                </lib-form-group>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Related Operation Section -->
+                        <div class="col-12 md:col-5">
+                            <div class="card_information">
+                                <!-- <div class="line line_two"></div> -->
+                                <div class="item">
+                                    <div class="title heading_b18">
+                                        {{ 'PurchaseInvoiceEdit.vendorOperation' | translate }}
+                                    </div>
+                                    <div class="item_body">
+                                        <div class="grid">
+                                            <div class="col-12 md:col-6">
+                                                <lib-form-group>
+                                                    <lib-label [appControl]="addForm.controls['vendorCode']">
+                                                        {{ 'PurchaseInvoiceEdit.vendorCode' | translate }}
+                                                    </lib-label>
+                                                    <lib-text-input formControlName="vendorCode" [readOnly]="true">
+
+                                                    </lib-text-input>
+
+                                                </lib-form-group>
+                                            </div>
+                                            <div class="col-12 md:col-6">
+                                                <lib-form-group>
+                                                    <lib-label [appControl]="addForm.controls['vendorName']">
+                                                        {{ 'PurchaseInvoiceEdit.vendorName' | translate }}
+                                                    </lib-label>
+                                                    <lib-text-input [readOnly]="true"
+                                                        formControlName="vendorName"></lib-text-input>
+                                                </lib-form-group>
+                                            </div>
+                                            <div class="col-12 md:col-6">
+                                                <lib-form-group>
+                                                    <lib-label [appControl]="addForm.controls['currencyRate']">
+                                                        {{ 'PurchaseInvoiceEdit.currency' | translate }}
+                                                    </lib-label>
+                                                    <lib-text-input [readOnly]="true"
+                                                        formControlName="currencyRate"></lib-text-input>
+                                                </lib-form-group>
+                                            </div>
+                                            <div class="col-12 md:col-6">
+                                                <lib-form-group>
+                                                    <lib-label [appControl]="addForm.controls['vendorRate']">
+                                                        {{ 'PurchaseInvoiceEdit.rate' | translate }}
+                                                    </lib-label>
+                                                    <lib-text-input [readOnly]="true"
+                                                        formControlName="vendorRate"></lib-text-input>
+                                                </lib-form-group>
+                                            </div>
+                                            <div class="col-12 md:col-6">
+                                                <lib-form-group>
+                                                    <lib-label [appControl]="addForm.controls['invoiceHeaderCode']">
+                                                        {{ 'PurchaseInvoiceEdit.purchaseInvoice' | translate }}
+                                                    </lib-label>
+                                                    <lib-text-input formControlName="invoiceHeaderCode"
+                                                        [readOnly]="true">
+
+                                                    </lib-text-input>
+
+                                                </lib-form-group>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <!-- main information Section -->
+            <!-- main information Section -->
+            @if(addForm.controls['returnInvoiceStatus'].value == sharedEnums.InvoiceStatus.Posted){
+            <div class="card_information">
+                <div class="line line_two"></div>
+                <div class="grid">
+                    <div class="col-12 md:col-4">
+                        <div class="card_information">
+                            <!-- <div class="line">
+                            </div> -->
+                            <div class="item">
+                                <div class="title heading_b18">
+                                    {{ 'PurchaseInvoiceEdit.operation' | translate }}
+                                </div>
+                                <div class="item_body">
+                                    <div class="grid">
+                                        <div class="col-12 md:col-8 ">
+                                            <p class="headsCont heading_b16">
+                                                {{ 'PurchaseInvoiceEdit.invoicejournal' | translate }}
+                                            </p>
+                                            <p class="subHead paragraph_b16 pragraph_click" (click)="routeTojournal()">
+                                                {{addForm.controls['journalCode'].value || 'N/A'}}
+                                            </p>
+
+                                        </div>
+                                        <div class="col-12 md:col-8 ">
+                                            <p class="headsCont heading_b16">
+                                                {{ 'PurchaseInvoiceEdit.stockOut' | translate }}
+                                            </p>
+                                            <p class="subHead paragraph_b16 pragraph_click" (click)="routeToStockOut()">
+                                                {{addForm.controls['stockOutCode'].value || 'N/A'}}
+                                            </p>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            }
+
+        </div>
+
+        <div class="my-2 card_micro">
+            <p-table [value]="invoiceDetailsFormArray.controls" dataKey="id"
+                styleClass="p-datatable-gridlines p-datatable-striped" [tableStyle]="{ 'min-width': '50rem' }">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <!-- <th>{{ 'PurchaseInvoiceEdit.barcode' | translate }}</th> -->
+                        <th>{{ 'PurchaseInvoiceEdit.itemCode' | translate }}</th>
+                        <th>{{ 'PurchaseInvoiceEdit.itemDescription' | translate }}</th>
+                        <th>{{ 'PurchaseInvoiceEdit.UOM' | translate }}</th>
+                        <th>{{ 'PurchaseInvoiceEdit.remainQTY' | translate }}</th>
+                        <th>{{ 'PurchaseInvoiceEdit.toreturnQTY' | translate }}</th>
+                        <th>{{ 'PurchaseInvoiceEdit.originalQTY' | translate }}</th>
+                        <th>{{ 'PurchaseInvoiceEdit.netCost' | translate }}</th>
+                        <th>{{ 'PurchaseInvoiceEdit.subTotal' | translate }}</th>
+                        <th>{{ 'PurchaseInvoiceEdit.vat' | translate }}</th>
+                        <th>{{ 'PurchaseInvoiceEdit.grandTotal' | translate }}</th>
+                        <th>{{ 'PurchaseInvoiceEdit.Batch' | translate }}</th>
+                        <th>{{ 'PurchaseInvoiceEdit.ExpiryDate' | translate }}</th>
+                        <th>{{ 'PurchaseInvoiceEdit.serials' | translate }}</th>
+                        <th>{{ 'PurchaseInvoiceEdit.actions' | translate }}</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-invoiceFormGroup let-editing="editing" let-rowIndex="rowIndex">
+                    <tr [formGroup]="invoiceFormGroup">
+                        <td>{{invoiceFormGroup.controls['itemCode'].value}}</td>
+                        <td>{{invoiceFormGroup.controls['returnDescription'].value}}</td>
+                        <td>{{invoiceFormGroup.controls['uomNameEn'].value}}</td>
+                        <td>{{invoiceFormGroup.controls['remainQuantity'].value}}</td>
+
+                        <td [pEditableColumn]="invoiceFormGroup.controls['returnQuantity']"
+                            pEditableColumnField="returnQuantity" [ngClass]="{
+                            error: rowIndex == rowDuplicate 
+                          }">
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <lib-text-input type="number"
+                                        placeholder="{{ 'PurchaseInvoiceEdit.QTY' | translate }}"
+                                        formControlName="returnQuantity" (keyUp)="setReturnQuantity(rowIndex) "
+                                        (valueChanged)="setReturnQuantity(rowIndex) 
+                                        "></lib-text-input>
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{ invoiceFormGroup.controls['returnQuantity']?.value }}
+                                </ng-template>
+                            </p-cellEditor>
+                            <lib-field-validations
+                                [appControl]="invoiceFormGroup.controls['returnQuantity']"></lib-field-validations>
+                        </td>
+                        <td>{{invoiceFormGroup.controls['originalQuantity'].value}}</td>
+                        <td>{{invoiceFormGroup.controls['netCost'].value}}</td>
+
+
+
+                        <td>
+                            {{ invoiceFormGroup.controls['subCost']?.value }}
+
+                        </td>
+
+                        <td>
+                            {{ invoiceFormGroup.controls['vat']?.value }}
+
+                        </td>
+                        <td>{{invoiceFormGroup.controls['grandTotal'].value}}</td>
+                        <td *ngIf="invoiceFormGroup.controls['trackingType'].value == sharedEnums.Tracking.Batch ">
+                            {{invoiceFormGroup?.get('invoiceTracking')?.get('vendorBatchNo')?.value}}</td>
+                        <td *ngIf="invoiceFormGroup.controls['trackingType'].value != sharedEnums.Tracking.Batch "></td>
+
+
+                        <td>
+                            <p> <span class="pi pi-calendar"></span></p>
+                            {{invoiceFormGroup?.get('invoiceTracking')?.get('expireDate')?.value}}
+                        </td>
+                        <td *ngIf="invoiceFormGroup.controls['trackingType'].value == sharedEnums.Tracking.Serial">
+                            {{invoiceFormGroup?.get('invoiceTracking')?.get('serialId')?.value}}</td>
+                        <td *ngIf="invoiceFormGroup.controls['trackingType'].value != sharedEnums.Tracking.Serial"></td>
+
+                        <td>
+                            <lib-button-micro nameClass="table_button_delete"
+                                (click)="deleteRow(rowIndex,invoiceFormGroup.controls['id']?.value)">
+
+                            </lib-button-micro>
+                        </td>
+
+
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="footer">
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th class="total">{{totalQuantity}}</th>
+                    <th class="total">{{totalReturnQuantity}}</th>
+                    <th class="total">{{totalOriginalQuantity}}</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <div class="grid">
+            <div class="md:col-12 my-3 grid flex justify-content-end">
+                <div class="md:col-6 grid flex justify-content-end">
+                    <div class="md:col-4">
+                        <lib-button-micro title="{{ 'Cancel' | translate }}" nameClass="cancel" widthNumber="100%"
+                            (click)="onCancel()">
+                        </lib-button-micro>
+                    </div>
+                    <div class="md:col-4">
+                        <lib-button-micro title="{{ 'Save' | translate }}" nameClass="disabled" widthNumber="100%"
+                            *ngIf="showPost">
+                        </lib-button-micro>
+                        <lib-button-micro title="{{ 'Save' | translate }}" nameClass="save" widthNumber="100%"
+                            (click)="onSave()" *ngIf="!showPost">
+                        </lib-button-micro>
+                    </div>
+                    <div class="md:col-4">
+                        <lib-button-micro title="{{ 'Post' | translate }}" nameClass="disabled" widthNumber="100%"
+                            *ngIf="!showPost">
+                        </lib-button-micro>
+                        <lib-button-micro title="{{ 'Post' | translate }}" nameClass="save" widthNumber="100%"
+                            (click)="addToPost()" *ngIf="showPost">
+                        </lib-button-micro>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</lib-page-content>

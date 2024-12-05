@@ -37,6 +37,7 @@ export class SelectComponent implements ControlValueAccessor, Validator, OnChang
   @Input() data_testid: string = '';
   @Input() labelTest: any;
   @Input() showFirst: boolean = true;
+  @Input() showClear: boolean = true;
 
   @Output() valueChanged = new EventEmitter<string>();
   @Output() valueSearchChanged = new EventEmitter<any>();

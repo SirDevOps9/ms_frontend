@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { PurchaseTransactionsProxyService } from './purchase-transactions-proxy.service';
-import { IinvoiceDto, viewInvoiceObj } from './model/purchase-invoice';
+import { IinvoiceDto, viewInvoiceObj } from './models/purchase-invoice';
 import { BehaviorSubject, map } from 'rxjs';
 import {
   LanguageService,
@@ -12,7 +12,7 @@ import {
 } from 'shared-lib';
 import { ItemDto } from './models/itemDto';
 import { CurrencyRateDto } from './models/currencyRateDto';
-import { LatestItem } from './models';
+import { LatestItem, PurchaseReturnInvoice, viewInvoiceReturnObj } from './models';
 import { AddPurchaseInvoiceDto } from './models/addPurchaseInvoice';
 
 @Injectable({
@@ -35,9 +35,19 @@ export class PurchaseTransactionsService {
   public sendcurrency = new BehaviorSubject<{ rate: number }>({} as { rate: number });
   // list of purchase inv and export
   invoicePurchaseList = new BehaviorSubject<IinvoiceDto[]>([]);
-  exportInvoiceData = new BehaviorSubject<IinvoiceDto[]>([]);
   viewInvoiceDataByID = new BehaviorSubject<viewInvoiceObj>({} as viewInvoiceObj);
+  exportInvoiceData = new BehaviorSubject<IinvoiceDto[]>([]);
+
+  invoiceData = new BehaviorSubject<any>([]);
+  returnInvoiceData = new BehaviorSubject<any>([]);
+  returnItemsInvoiceData = new BehaviorSubject<any>([]);
   // list of purchase inv
+  // ################ purchase return ###############
+
+  exportInvoiceReturnData = new BehaviorSubject<IinvoiceDto[]>([]);
+  invoicePurchaseReturnList = new BehaviorSubject<PurchaseReturnInvoice[]>([]);
+
+  viewInvoiceReturnDataByID = new BehaviorSubject<viewInvoiceReturnObj>({} as viewInvoiceReturnObj);
   constructor(
     private TransactionsProxy: PurchaseTransactionsProxyService,
     private toasterService: ToasterService,
@@ -54,6 +64,7 @@ export class PurchaseTransactionsService {
       },
     });
   }
+
   // list of purchase inv
   // export  purchase inv
 
@@ -194,6 +205,86 @@ export class PurchaseTransactionsService {
   GetInvoiceViewById(id: number) {
     this.TransactionsProxy.GetInvoiceViewById(id).subscribe((res) => {
       this.viewInvoiceDataByID.next(res);
+    });
+  }
+
+  // ##############################purchase return ################
+  // list
+  getReturnInvoiceList(searchTerm: string, pageInfo: PageInfo) {
+    this.TransactionsProxy.getReturnInvoiceList(searchTerm, pageInfo).subscribe({
+      next: (res) => {
+        this.invoicePurchaseReturnList.next(res.result);
+        this.currentPageInfo.next(res.pageInfoResult);
+      },
+    });
+  }
+
+  // export
+  exportInvoiceReturnListData(searchTerm?: string, SortBy?: number, SortColumn?: string) {
+    this.TransactionsProxy.exportInvoiceReturnListData(searchTerm, SortBy, SortColumn).subscribe({
+      next: (res: any) => {
+        this.exportInvoiceReturnData.next(res);
+      },
+    });
+  }
+  // view
+  GetInvoiceReturnViewById(id: number) {
+    this.TransactionsProxy.GetInvoiceReturnViewById(id).subscribe((res) => {
+      this.viewInvoiceReturnDataByID.next(res);
+    });
+  }
+  // delete
+  // delete invoice
+  async deleteInvoiceReturnLine(id: number) {
+    const confirmed = await this.toasterService.showConfirm('purchase.success');
+    if (confirmed) {
+      this.TransactionsProxy.deleteInvoiceReturnLine(id).subscribe({
+        next: (res) => {
+          this.toasterService.showSuccess(
+            this.languageService.transalte('purchase.success'),
+            this.languageService.transalte('purchase.delete')
+          );
+          let data = this.invoicePurchaseReturnList.getValue();
+          const updatedInvoice = data.filter((elem: any) => elem.id !== id);
+          this.invoicePurchaseReturnList.next(updatedInvoice);
+
+          return res;
+        },
+        error: (err) => {},
+      });
+    }
+  }
+  ///////////////
+  invoiceLookup(searchTerm?: string, vendorId?: number, SortColumn?: string) {
+    this.TransactionsProxy.InvoiceLookup(searchTerm, vendorId, SortColumn).subscribe({
+      next: (res) => {
+        this.invoiceData.next(res);
+      },
+    });
+  }
+  getReturnInvoiceById(id: number) {
+    this.TransactionsProxy.getReturnInvoiceById(id).subscribe((response: any) => {
+      this.returnInvoiceData.next(response);
+    });
+  }
+  addReturnInvoice(obj: any) {
+    this.TransactionsProxy.addReturnInvoice(obj).subscribe((res) => {
+      this.toasterService.showSuccess(
+        this.languageService.transalte('purchase.success'),
+        this.languageService.transalte('purchase.addInvoice')
+      );
+    });
+  }
+  deleteRowReturnInvoice(id: number) {
+    return this.TransactionsProxy.deleteRowReturnInvoice(id).pipe(
+      map((res) => {
+        return res;
+      })
+    );
+  }
+  getReturnInvoiceByIdToEdit(id: number) {
+    this.TransactionsProxy.getReturnInvoiceByIdToEdit(id).subscribe((response: any) => {
+      this.returnItemsInvoiceData.next(response);
     });
   }
   postInvoice(id: number) {

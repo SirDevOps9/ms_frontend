@@ -338,6 +338,18 @@ export class EditPurchaseInvoiceComponent implements OnInit {
         vat: selectedItem.taxRatio || 0,
         trackingType: selectedItem.trackingType,
         hasExpiryDate: selectedItem.hasExpiryDate,
+        taxId: selectedItem.taxId,
+        categoryId:selectedItem.categoryId,
+        itemCategoryNameAr: selectedItem.itemCategoryNameAr,
+        itemCategoryNameEn:selectedItem.itemCategoryNameEn,
+        categoryType: selectedItem.categoryType,
+        itemVariantCode: selectedItem.itemVariantCode,
+        itemVariantNameAr:selectedItem.itemVariantNameAr,
+        itemVariantNameEn: selectedItem.itemVariantNameEn,
+        uomCode: selectedItem.uomCode,
+        uomNameAr:selectedItem.uomNameAr,
+        uomNameEn: selectedItem.uomNameEn,
+
       });
 
       // Handle the nested form group
@@ -382,6 +394,18 @@ export class EditPurchaseInvoiceComponent implements OnInit {
         vat: selectedItem.taxRatio || 0,
         trackingType: selectedItem.trackingType,
         hasExpiryDate: selectedItem.hasExpiryDate,
+        taxId: selectedItem.taxId,
+        categoryId:selectedItem.categoryId,
+        itemCategoryNameAr: selectedItem.itemCategoryNameAr,
+        itemCategoryNameEn:selectedItem.itemCategoryNameEn,
+        categoryType: selectedItem.categoryType,
+        itemVariantCode: selectedItem.itemVariantCode,
+        itemVariantNameAr:selectedItem.itemVariantNameAr,
+        itemVariantNameEn: selectedItem.itemVariantNameEn,
+        uomCode: selectedItem.uomCode,
+        uomNameAr:selectedItem.uomNameAr,
+        uomNameEn: selectedItem.uomNameEn,
+
       });
 
       // Handle the nested form group
@@ -435,6 +459,17 @@ export class EditPurchaseInvoiceComponent implements OnInit {
         trackingType: selectedItem.trackingType,
         hasExpiryDate: selectedItem.hasExpiryDate,
         taxId: selectedItem.taxId,
+        categoryId:selectedItem.categoryId,
+        itemCategoryNameAr: selectedItem.itemCategoryNameAr,
+        itemCategoryNameEn:selectedItem.itemCategoryNameEn,
+        categoryType: selectedItem.categoryType,
+        itemVariantCode: selectedItem.itemVariantCode,
+        itemVariantNameAr:selectedItem.itemVariantNameAr,
+        itemVariantNameEn: selectedItem.itemVariantNameEn,
+        uomCode: selectedItem.uomCode,
+        uomNameAr:selectedItem.uomNameAr,
+        uomNameEn: selectedItem.uomNameEn,
+
       });
 
       // Handle the nested form group
@@ -493,6 +528,16 @@ export class EditPurchaseInvoiceComponent implements OnInit {
       trackingType: new FormControl(''),
       hasExpiryDate: new FormControl(''),
       taxId: new FormControl(''),
+      categoryId:new FormControl(''),
+      itemCategoryNameAr: new FormControl(''),
+      itemCategoryNameEn:new FormControl(''),
+      categoryType: new FormControl(''),
+      itemVariantCode: new FormControl(''),
+      itemVariantNameAr:new FormControl(''),
+      itemVariantNameEn: new FormControl(''),
+      uomCode: new FormControl(''),
+      uomNameAr:new FormControl(''),
+      uomNameEn: new FormControl(''),
       invoiceTracking: this.fb.group({
         invoiceDetailId: new FormControl(''),
         vendorBatchNo: new FormControl(''),
@@ -541,6 +586,16 @@ export class EditPurchaseInvoiceComponent implements OnInit {
       grandTotal: new FormControl(''),
       trackingType: new FormControl(''),
       hasExpiryDate: new FormControl(''),
+      categoryId:new FormControl(''),
+      itemCategoryNameAr: new FormControl(''),
+      itemCategoryNameEn:new FormControl(''),
+      categoryType: new FormControl(''),
+      itemVariantCode: new FormControl(''),
+      itemVariantNameAr:new FormControl(''),
+      itemVariantNameEn: new FormControl(''),
+      uomCode: new FormControl(''),
+      uomNameAr:new FormControl(''),
+      uomNameEn: new FormControl(''),
       invoiceTracking: this.fb.group({
         invoiceDetailId: new FormControl(''),
         vendorBatchNo: new FormControl(''),
@@ -847,6 +902,17 @@ export class EditPurchaseInvoiceComponent implements OnInit {
         invoiceEntryMode: 'Manual', // Assuming a default value
         trackingType: detail.trackingType || null,
         hasExpiryDate: detail.hasExpiryDate,
+        categoryId:detail.categoryId,
+        itemCategoryNameAr: detail.itemCategoryNameAr,
+        itemCategoryNameEn:detail.itemCategoryNameEn,
+        categoryType: detail.categoryType,
+        itemVariantCode: detail.itemVariantCode,
+        itemVariantNameAr:detail.itemVariantNameAr,
+        itemVariantNameEn: detail.itemVariantNameEn,
+        uomCode: detail.uomCode,
+        uomNameAr:detail.uomNameAr,
+        uomNameEn: detail.uomNameEn,
+        itemName: detail.itemName,
         invoiceTracking: {
           id: detail.invoiceTracking.invoiceDetailId || 0,
           vendorBatchNo: detail.invoiceTracking.vendorBatchNo || null,

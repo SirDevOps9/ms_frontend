@@ -66,10 +66,8 @@ export class LayoutHeaderComponent implements OnInit, AfterViewInit {
     else if (this.router.snapshot.data['moduleId'] === Modules.Purchase)
       this.moduleName = 'Purchase';
     else if (this.router.snapshot.data['moduleId'] === Modules.Sales) this.moduleName = 'Sales';
-    const userInf = this.localstoarage.getItem('currentUserInfo');
-    if (!userInf || !this.coBrForm.get('companyId')?.value) {
-      this.GetCurrentUserInfoApi();
-    }
+    const userInf = this.localstoarage.getItem(StorageKeys.USER_INFO);
+
     this.patchUserInfo();
   }
 
@@ -84,6 +82,8 @@ export class LayoutHeaderComponent implements OnInit, AfterViewInit {
       companyId: dCompany?.id,
       branchId: dBranch?.id,
     });
+    this.localstoarage.setItem(StorageKeys.DEFAULT_COMPANY, dCompany);
+    this.localstoarage.setItem(StorageKeys.DEFAULT_BRANCHE, dBranch);
   }
 
   toggleLanguage(): void {
@@ -166,25 +166,6 @@ export class LayoutHeaderComponent implements OnInit, AfterViewInit {
     this.coBrForm = this._fb.group({
       companyId: [],
       branchId: [],
-    });
-  }
-
-  GetCurrentUserInfoApi() {
-    this.layoutService.GetCurrentUserInfo();
-    this.layoutService.currentUserInfo.subscribe((res) => {
-      this.localstoarage.setItem(StorageKeys.USER_INFO, res);
-      let dCompany = res?.companies?.find((x: any) => x?.companyType == CompanyTypes.Holding);
-      let currencies = {
-        currencyId: dCompany?.currencyId,
-        currencyName: dCompany?.currencyName,
-      };
-      this.localstoarage.setItem(StorageKeys.CURRENCEY_OBJ, currencies);
-
-      if (res) {
-        this.companyList = res.companies;
-
-        this.patchUserInfo();
-      }
     });
   }
 }

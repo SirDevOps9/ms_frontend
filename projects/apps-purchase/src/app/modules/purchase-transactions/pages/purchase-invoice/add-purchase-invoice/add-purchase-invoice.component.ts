@@ -310,6 +310,12 @@ export class AddPurchaseInvoiceComponent implements OnInit {
           invoiceEntryMode: selectedItem?.invoiceEntryMode || 'Manual',
           trackingType: selectedItem?.trackingType,
           uomOptions: selectedItem.itemsUOM,
+          categoryId:selectedItem.categoryId,
+          itemCategoryNameAr: selectedItem.itemCategoryNameAr,
+          itemCategoryNameEn:selectedItem.itemCategoryNameEn,
+          categoryType: selectedItem.categoryType,
+          uomCode: selectedItem.uomCode,
+         
         });
 
         const invoiceEntryMode = rowForm.get('invoiceTracking') as FormGroup;
@@ -425,6 +431,17 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       discountPercentage: '',
       vatPercentage: '',
       taxId: null,
+      itemName:new FormControl(''),
+      categoryId:new FormControl(''),
+      itemCategoryNameAr: new FormControl(''),
+      itemCategoryNameEn:new FormControl(''),
+      categoryType: new FormControl(''),
+      itemVariantCode: new FormControl(''),
+      itemVariantNameAr:new FormControl(''),
+      itemVariantNameEn: new FormControl(''),
+      uomCode: new FormControl(''),
+      uomNameAr:new FormControl(''),
+      uomNameEn: new FormControl(''),
 
       invoiceTracking: this.fb.group({
         vendorBatchNo: '',
@@ -617,8 +634,9 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       if (selectedItems) {
         stockInFormGroup.get('itemId')?.setValue(selectedItems.itemId);
         stockInFormGroup.get('vatPercentage')?.setValue(selectedItems.taxRatio);
-        this.setRowDataFromBarCode(indexline, selectedItems, '');
-        this.setRowDataFromPopup(indexline, selectedItems);
+      //  this.setRowDataFromBarCode(indexline, selectedItems, '');
+        this.setRowDataFromPopup(indexline, selectedItems)
+
       }
 
       console.log(this.purchaseInvoiceFormArray.value);
@@ -630,20 +648,58 @@ export class AddPurchaseInvoiceComponent implements OnInit {
 
     if (rowForm) {
       rowForm.patchValue({
-        itemNumber: selectedItem.itemNumber,
-        id: selectedItem.id || 0,
-        barCode: '',
-        bardCodeId: null,
-        itemId: selectedItem.itemId,
-        itemName: selectedItem.itemName,
-        itemVariantId: selectedItem.itemVariantId,
-        uomId: selectedItem.uomId,
+        id: selectedItem?.id,
+        barCode: selectedItem?.barCode,
+        bardCodeId: selectedItem?.bardCodeId,
+        description: selectedItem.itemName + "-" + selectedItem.itemVariantNameEn,
+        itemId: selectedItem?.itemId,
+        itemCode: selectedItem?.itemCode,
+        itemName: selectedItem?.itemName,
+        itemCodeName: selectedItem?.itemCode,
+        itemVariantId: selectedItem?.itemVariantId,
+        itemVariantCode: selectedItem?.itemVariantCode,
+        itemVariantNameAr: selectedItem?.itemVariantNameAr,
+        itemVariantNameEn: selectedItem?.itemVariantNameEn,
+        vatPercentage: selectedItem?.taxRatio,
+        uomNameAr: selectedItem?.uomNameAr,
+        uomNameEn: selectedItem?.uomNameEn,
+        uomId: selectedItem?.uomId,
+        quantity: selectedItem?.quantity || 1,
+        taxId: selectedItem.taxId,
+        cost: selectedItem?.price,
+        subTotal: selectedItem?.subCost,
+        notes: selectedItem?.notes,
+        hasExpiryDate: selectedItem?.hasExpiryDate,
+        invoiceEntryMode: selectedItem?.invoiceEntryMode || 'Manual',
+        trackingType: selectedItem?.trackingType,
         uomOptions: selectedItem.itemsUOM,
-        description: selectedItem.itemName + '-' + selectedItem.itemVariantNameEn,
-        cost: 1,
-        vat: selectedItem.taxRatio || 0,
-        trackingType: selectedItem.trackingType,
-        hasExpiryDate: selectedItem.hasExpiryDate,
+        categoryId:selectedItem.categoryId,
+        itemCategoryNameAr: selectedItem.itemCategoryNameAr,
+        itemCategoryNameEn:selectedItem.itemCategoryNameEn,
+        categoryType: selectedItem.categoryType,
+        uomCode: selectedItem.uomCode,
+        // itemNumber: selectedItem.itemNumber,
+        // id: selectedItem.id || 0,
+        // barCode: '',
+        // bardCodeId: null,
+        // itemId: selectedItem.itemId,
+        // itemName: selectedItem.itemName,
+        // itemVariantId: selectedItem.itemVariantId,
+        // uomId: selectedItem.uomId,
+        // uomOptions: selectedItem.itemsUOM,
+        // description: selectedItem.itemName + "-" + selectedItem.itemVariantNameEn,
+        // cost: (1),
+        // vat: selectedItem.taxRatio || 0,
+        // trackingType: selectedItem.trackingType,
+        // hasExpiryDate: selectedItem.hasExpiryDate,
+        // categoryId:selectedItem.categoryId,
+        // itemCategoryNameAr: selectedItem.itemCategoryNameAr,
+        // itemCategoryNameEn:selectedItem.itemCategoryNameEn,
+        // categoryType: selectedItem.categoryType,
+        // uomCode: selectedItem.uomCode,
+        // itemCode: selectedItem?.itemCode,
+
+
       });
 
       // Handle the nested form group
@@ -709,6 +765,11 @@ export class AddPurchaseInvoiceComponent implements OnInit {
           stockInEntryMode: selectedItem?.stockInEntryMode || 'Manual',
           trackingType: selectedItem?.trackingType,
           uomOptions: selectedItem?.itemsUOM,
+          categoryId:selectedItem.categoryId,
+          itemCategoryNameAr: selectedItem.itemCategoryNameAr,
+          itemCategoryNameEn:selectedItem.itemCategoryNameEn,
+          categoryType: selectedItem.categoryType,
+          uomCode: selectedItem.uomCode,
         });
 
         const invoiceEntryMode = rowForm.get('invoiceEntryMode') as FormGroup;
@@ -778,6 +839,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
         barCode: detail.barCode || null,
         barCodeId: detail.barCodeId || null,
         itemId: detail.itemId || 0,
+        itemName: detail.itemName || 0,
         itemCode: detail.itemCode || '',
         itemVariantId: detail.itemVariantId || 0,
         description: detail.description || null,
@@ -793,6 +855,16 @@ export class AddPurchaseInvoiceComponent implements OnInit {
         invoiceEntryMode: detail.invoiceEntryMode,
         trackingType: detail.trackingType,
         hasExpiryDate: detail.hasExpiryDate || false,
+        categoryId:detail.categoryId,
+        itemCategoryNameAr: detail.itemCategoryNameAr,
+        itemCategoryNameEn:detail.itemCategoryNameEn,
+        categoryType: detail.categoryType,
+        itemVariantCode: detail.itemVariantCode,
+        itemVariantNameAr:detail.itemVariantNameAr,
+        itemVariantNameEn: detail.itemVariantNameEn,
+        uomCode: detail.uomCode,
+        uomNameAr:detail.uomNameAr,
+        uomNameEn: detail.uomNameEn,
         invoiceTracking: {
           vendorBatchNo: detail.invoiceTracking.vendorBatchNo || null,
           quantity: detail.invoiceTracking.quantity || 0,

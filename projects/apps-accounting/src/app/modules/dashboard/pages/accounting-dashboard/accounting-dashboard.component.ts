@@ -11,7 +11,7 @@ import {
   RevenueStream,
 } from '../../models';
 import { Subject, takeUntil } from 'rxjs';
-import { LanguageService } from 'shared-lib';
+import { ChartService, DASHBOARD_COLORS, LanguageService } from 'shared-lib';
 import { Router } from '@angular/router';
 
 @Component({
@@ -23,7 +23,8 @@ export class AccountingDashboardComponent {
   constructor(
     private service: DashboardService,
     private languageService: LanguageService,
-    private router: Router
+    private router: Router,
+    private chartService: ChartService
   ) {}
   private destroy$ = new Subject<void>();
 
@@ -52,18 +53,7 @@ export class AccountingDashboardComponent {
   journalStatusLoader: boolean = false;
   journalEntryTypeCountLoader: boolean = false;
 
-  colors = [
-    '#FF5733',
-    '#33C1FF',
-    '#28A745',
-    '#FFC107',
-    '#FF33A6',
-    '#6610F2',
-    '#FF6F61',
-    '#4B8C6A',
-    '#FFB6C1',
-    '#8A2BE2',
-  ];
+  colors = DASHBOARD_COLORS;
 
   ngOnInit() {
     this.languageService.language$.subscribe((lang) => (this.currentLanguage = lang));
@@ -162,7 +152,7 @@ export class AccountingDashboardComponent {
         color: this.colors[index],
         name: item.journalEntryStatus,
       }));
-      this.chart = this.columnChart(this.statusChartLabels, this.statusChartValues);
+      this.chart = this.chartService.columnChart(this.statusChartLabels, this.statusChartValues);
     });
 
     this.service.journalEntryTypeCount$
@@ -178,7 +168,7 @@ export class AccountingDashboardComponent {
           name: `${item.journalEntryType} (${parseFloat(((item.count / sum) * 100).toFixed(2))}%)`,
           color: this.colors[index],
         }));
-        this.journalSourcesChart = this.donutChart(this.JournalSourceChartData);
+        this.journalSourcesChart = this.chartService.donutChart(this.JournalSourceChartData);
       });
   }
 
@@ -206,90 +196,6 @@ export class AccountingDashboardComponent {
       .subscribe((value) => (this.journalEntryTypeCountLoader = value));
   }
   chart: Chart;
-
-  columnChart(labels: string[], values: any, tooltip: string = '') {
-    return new Chart({
-      chart: {
-        type: 'column',
-      },
-      title: {
-        text: '',
-        align: 'left',
-      },
-      subtitle: {
-        text: '',
-        align: 'left',
-      },
-      xAxis: {
-        categories: labels,
-        title: {
-          text: null,
-        },
-      },
-      yAxis: {
-        min: 0,
-        tickInterval: 20,
-        title: {
-          text: null,
-        },
-      },
-
-      tooltip: {
-        valueSuffix: tooltip,
-      },
-      plotOptions: {
-        column: {
-          pointPadding: 0.2,
-          borderWidth: 0,
-        },
-      },
-      exporting: {},
-      series: [
-        {
-          type: 'column',
-          name: '',
-          data: values,
-        },
-      ],
-      credits: {
-        enabled: false,
-      },
-    });
-  }
-
-  donutChart(values: any, tooltip: string = '') {
-    return new Chart({
-      chart: {
-        type: 'pie',
-      },
-      title: {
-        text: '',
-        align: 'left',
-      },
-      subtitle: {
-        text: '',
-        align: 'left',
-      },
-      tooltip: {
-        valueSuffix: ' (%)',
-      },
-      plotOptions: {
-        pie: {
-          innerSize: '70%',
-        },
-      },
-      series: [
-        {
-          type: 'pie',
-          name: '',
-          data: values,
-        },
-      ],
-      credits: {
-        enabled: false,
-      },
-    });
-  }
 
   journalSourcesChart: Chart;
 
