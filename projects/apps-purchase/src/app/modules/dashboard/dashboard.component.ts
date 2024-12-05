@@ -3,6 +3,7 @@ import { Chart } from 'angular-highcharts';
 import {
   InvoiceStatusReportDto,
   ReturnInvoiceStatusReportDto,
+  TopPurchasedCategoriesDto,
   TopPurchasedProductsDto,
   TopVendorsReportDto,
 } from './models';
@@ -74,18 +75,19 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.getReturnStatusReport();
     this.getMonthlyPurchasesReport();
     this.getTopPurchasedProducts();
+    this.getTopPurchasedCategories();
     this.getTopVendors();
   }
 
   subscriptions() {
     this.service.status$.pipe(takeUntil(this.destroy$)).subscribe((status) => {
       const statusLabels: string[] = [];
-      status.forEach((status) => statusLabels.push(status.InvoiceStatus));
+      status.forEach((status) => statusLabels.push(status.invoiceStatus));
       this.statusChartData = status.map((item: InvoiceStatusReportDto, index) => ({
-        y: item.Count,
-        value: item.Count,
+        y: item.count,
+        value: item.count,
         color: this.colors[index],
-        name: item.InvoiceStatus,
+        name: item.invoiceStatus,
       }));
 
       this.statusChart = this.chartService.columnChart(statusLabels, this.statusChartData);
@@ -93,12 +95,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     this.service.returnStatus$.pipe(takeUntil(this.destroy$)).subscribe((status) => {
       const statusLabels: string[] = [];
-      status.forEach((status) => statusLabels.push(status.ReturnInvoiceStatus));
+      status.forEach((status) => statusLabels.push(status.returnInvoiceStatus));
       this.returnStatusChartData = status.map((item: ReturnInvoiceStatusReportDto, index) => ({
-        y: item.Count,
-        value: item.Count,
+        y: item.count,
+        value: item.count,
         color: this.colors[index],
-        name: item.ReturnInvoiceStatus,
+        name: item.returnInvoiceStatus,
       }));
 
       this.returnStatusChart = this.chartService.columnChart(
@@ -128,18 +130,36 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe((topPurchaseProduct) => {
         const sum = topPurchaseProduct.reduce((acc: number, item: TopPurchasedProductsDto) => {
-          return acc + item.Quantity;
+          return acc + item.quantity;
         }, 0);
 
         this.mostPurchasedProductsChartData = topPurchaseProduct.map((item, index) => ({
-          y: parseFloat(((item.Quantity / sum) * 100).toFixed(2)),
-          value: item.Cost,
-          name: item.Description,
+          y: parseFloat(((item.quantity / sum) * 100).toFixed(2)),
+          value: item.cost,
+          name: item.description,
           color: this.colors[index],
-          quantity: `X ${item.Quantity}`,
+          quantity: `X ${item.quantity}`,
         }));
         this.mostPurchasedProductsChart = this.chartService.donutChart(
           this.mostPurchasedProductsChartData
+        );
+      });
+
+    this.service.topPurchaseCategories$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((topPurchaseCategory) => {
+        const sum = topPurchaseCategory.reduce((acc: number, item: TopPurchasedCategoriesDto) => {
+          return acc + item.quantity;
+        }, 0);
+
+        this.mostPurchasedCategoriesChartData = topPurchaseCategory.map((item, index) => ({
+          y: parseFloat(((item.quantity / sum) * 100).toFixed(2)),
+          value: item.quantity,
+          name: this.currentLang == 'en' ? item.categoryNameEn : item.categoryNameAr,
+          color: this.colors[index],
+        }));
+        this.mostPurchasedCategoriesChart = this.chartService.donutChart(
+          this.mostPurchasedCategoriesChartData
         );
       });
 
@@ -182,12 +202,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.service.fetchMonthlyPurchaseReport();
   }
 
-  getTopPurchasedProducts() {
-    this.service.fetchTopPurchaseProducts();
+  getTopPurchasedProducts(count: number = 4) {
+    this.service.fetchTopPurchaseProducts(count);
   }
 
-  getTopVendors() {
-    this.service.fetchTopVendors();
+  getTopPurchasedCategories(count: number = 4) {
+    this.service.fetchTopPurchaseCategories(count);
+  }
+
+  getTopVendors(count: number = 10) {
+    this.service.fetchTopVendors(count);
   }
 
   ngOnDestroy() {

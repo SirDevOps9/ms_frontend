@@ -5,6 +5,7 @@ import {
   InvoiceStatusReportDto,
   MonthlyPurchaseReturnReportDto,
   ReturnInvoiceStatusReportDto,
+  TopPurchasedCategoriesDto,
   TopPurchasedProductsDto,
   TopVendorsReportDto,
 } from './models';
@@ -34,7 +35,7 @@ export class DashboardService {
   private returnStatusSubject = new BehaviorSubject<ReturnInvoiceStatusReportDto[]>([]);
   private monthlyPurchaseSubject = new BehaviorSubject<MonthlyPurchaseReturnReportDto[]>([]);
   private topPurchaseProductsSubject = new BehaviorSubject<TopPurchasedProductsDto[]>([]);
-  private topPurchaseCategoriesSubject = new BehaviorSubject<TopPurchasedProductsDto[]>([]);
+  private topPurchaseCategoriesSubject = new BehaviorSubject<TopPurchasedCategoriesDto[]>([]);
   private topVendorsSubject = new BehaviorSubject<TopVendorsReportDto[]>([]);
 
   // Data observables
@@ -71,25 +72,25 @@ export class DashboardService {
     });
   }
 
-  fetchTopPurchaseProducts() {
+  fetchTopPurchaseProducts(count: number) {
     this.topPurchaseProductsLoaderSubject.next(true);
-    this.proxy.topPurchaseProducts().subscribe({
+    this.proxy.topPurchaseProducts(count).subscribe({
       next: (data) => this.topPurchaseProductsSubject.next(data),
       complete: () => this.topPurchaseProductsLoaderSubject.next(false),
     });
   }
 
-  fetchTopPurchaseCategories() {
+  fetchTopPurchaseCategories(count: number) {
     this.topPurchaseCategoriesLoaderSubject.next(true);
-    this.proxy.topPurchaseCategories().subscribe({
+    this.proxy.topPurchaseCategories(count).subscribe({
       next: (data) => this.topPurchaseCategoriesSubject.next(data),
       complete: () => this.topPurchaseCategoriesLoaderSubject.next(false),
     });
   }
 
-  fetchTopVendors() {
+  fetchTopVendors(count: number) {
     this.topVendorsLoaderSubject.next(true);
-    this.proxy.topVendors().subscribe({
+    this.proxy.topVendors(count).subscribe({
       next: (data) => this.topVendorsSubject.next(data),
       complete: () => this.topVendorsLoaderSubject.next(false),
     });

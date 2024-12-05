@@ -1,4 +1,4 @@
 export interface ReturnInvoiceStatusReportDto {
-  ReturnInvoiceStatus: string;
-  Count: number;
+  returnInvoiceStatus: string;
+  count: number;
 }

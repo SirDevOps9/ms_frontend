@@ -62,8 +62,12 @@
           </div>
         </app-chart-card>
       </div>
-      <!-- <div class="lg:col-6 col-12" [appLoader]="mostPurchasedCategoriesChartLoader">
-        <app-chart-card [smallSize]="true">
+      <div class="lg:col-6 col-12" [appLoader]="mostPurchasedCategoriesChartLoader">
+        <app-chart-card
+          [smallSize]="true"
+          [chartDTO]="mostPurchasedCategoriesChart"
+          [chartDetailsConfig]="mostPurchasedCategoriesChartData"
+        >
           <div class="chart-header">
             <div class="title heading_b18">
               {{ 'dashboard.mostPurchasedCategories' | translate }}
@@ -77,7 +81,7 @@
             </div>
           </div>
         </app-chart-card>
-      </div> -->
+      </div>
 
       <div class="lg:col-6 col-12" [appLoader]="topVendorsLoader">
         <app-chart-card>
@@ -92,14 +96,14 @@
             </div>
           </div>
           <div class="chart-body accounts-bank w-full">
-            @for(vendor of topVendors; track vendor) {
+            @for(vendor of topVendors; track vendor.vendorId) {
             <div class="row">
-              <span class="body-14 mx-1">{{ vendor.VendorName }}</span>
+              <span class="body-14 mx-1">{{ vendor.vendorName }}</span>
               <span class="line"></span>
-              <span class="body-14 mx-1">{{ vendor.InvoiceCount }}</span>
+              <span class="body-14 mx-1">{{ vendor.invoiceCount }}</span>
               <span class="line"></span>
               <span class="detail-value heading_b16">{{
-                vendor.TotalInvoiceAmount | numberFormat
+                vendor.totalInvoiceAmount | numberFormat
               }}</span>
             </div>
             }

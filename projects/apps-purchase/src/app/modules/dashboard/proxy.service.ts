@@ -5,6 +5,7 @@ import {
   InvoiceStatusReportDto,
   MonthlyPurchaseReturnReportDto,
   ReturnInvoiceStatusReportDto,
+  TopPurchasedCategoriesDto,
   TopPurchasedProductsDto,
   TopVendorsReportDto,
 } from './models';
@@ -33,15 +34,21 @@ export class ProxyService {
     );
   }
 
-  topPurchaseProducts(): Observable<TopPurchasedProductsDto[]> {
-    return this.http.get<TopPurchasedProductsDto[]>(`${this.baseUrl}/GetTopPurchasedProducts`);
+  topPurchaseProducts(count: number): Observable<TopPurchasedProductsDto[]> {
+    return this.http.get<TopPurchasedProductsDto[]>(
+      `${this.baseUrl}/GetTopPurchasedProducts?count=${count}`
+    );
   }
 
-  topPurchaseCategories(): Observable<TopPurchasedProductsDto[]> {
-    return this.http.get<TopPurchasedProductsDto[]>(`${this.baseUrl}/GetTopPurchasedCategories`);
+  topPurchaseCategories(count: number): Observable<TopPurchasedCategoriesDto[]> {
+    return this.http.get<TopPurchasedCategoriesDto[]>(
+      `${this.baseUrl}/GetTopPurchasedCategories?count=${count}`
+    );
   }
 
-  topVendors(): Observable<TopVendorsReportDto[]> {
-    return this.http.get<TopVendorsReportDto[]>(`${this.baseUrl}/GetTopVendorsReport`);
+  topVendors(count: number): Observable<TopVendorsReportDto[]> {
+    return this.http.get<TopVendorsReportDto[]>(
+      `${this.baseUrl}/GetTopVendorsReport?count=${count}`
+    );
   }
 }
