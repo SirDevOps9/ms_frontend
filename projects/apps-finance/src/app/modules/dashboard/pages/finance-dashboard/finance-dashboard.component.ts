@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
-import { ChartService, DASHBOARD_COLORS, LanguageService, MONTHS_AR, MONTHS_EN } from 'shared-lib';
+import { ChartService, DASHBOARD_COLORS, LanguageService, MONTHS_DTO } from 'shared-lib';
 import { FinanceDashboardService } from '../../finance-dashboard.service';
 import { Chart } from 'angular-highcharts';
 import {
@@ -109,16 +109,19 @@ export class FinanceDashboardComponent {
     });
 
     this.service.income$.pipe(takeUntil(this.destroy$)).subscribe((data) => {
-      const monthsEn: string[] = MONTHS_EN;
-      const monthsAr: string[] = MONTHS_AR;
-      const months = this.currentLanguage === 'en' ? monthsEn : monthsAr;
+      const MONTHS = MONTHS_DTO;
+      const months = MONTHS_DTO.map((month) =>
+        this.currentLanguage === 'en' ? month.en : month.ar
+      );
 
       const categories = Array.from(new Set(data.map((item) => item.paidBy)));
       const dataSeries = categories.map((category) => ({
         name: category,
-        data: months.map((month) => {
+        data: MONTHS.map((month) => {
           const found = data.find(
-            (item) => item.paidBy === category && item.month.startsWith(month)
+            (item) =>
+              item.paidBy === category &&
+              item.month.startsWith(this.currentLanguage === 'en' ? month.en : month.ar)
           );
           return found ? found.totalAmount : 0;
         }),

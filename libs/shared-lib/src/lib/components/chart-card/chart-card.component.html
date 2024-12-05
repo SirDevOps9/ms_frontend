@@ -16,6 +16,10 @@
         <span class="color-box" [style.background-color]="detail.color"></span>
         <span class="detail-name paragraph_b14">{{ detail.name }}</span>
         <span class="line"></span>
+        @if(detail.quantity) {
+        <span class="detail-name paragraph_b14">{{ detail.quantity }}</span>
+        <span class="line"></span>
+        }
         <span class="detail-value heading_b16">{{ detail.value }}</span>
       </div>
       }
