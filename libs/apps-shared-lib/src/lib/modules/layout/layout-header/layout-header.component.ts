@@ -71,7 +71,6 @@ export class LayoutHeaderComponent implements OnInit, AfterViewInit {
       this.GetCurrentUserInfoApi();
     }
     this.patchUserInfo();
-    this.layoutService.sendUserLoginData.subscribe((res) => console.log(res));
   }
 
   patchUserInfo() {

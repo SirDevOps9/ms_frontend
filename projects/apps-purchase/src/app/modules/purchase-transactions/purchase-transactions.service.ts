@@ -309,4 +309,11 @@ export class PurchaseTransactionsService {
       },
     });
   }
+  GetItemByBarcodePurchase(barcode: string) {
+    return this.TransactionsProxy.GetItemByBarcodePurchase(barcode).pipe(
+      map((res) => {
+        return res;
+      })
+    );
+  }
 }
