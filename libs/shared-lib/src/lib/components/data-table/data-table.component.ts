@@ -42,7 +42,7 @@ export class DataTableComponent implements OnInit, OnChanges {
   @Output() pageChange = new EventEmitter<PageInfo>();
   @Output() addNew = new EventEmitter<boolean>(false);
   @Input() showCheckBox: boolean;
-  @Input() noColumnFilter : boolean = true
+  @Input() noColumnFilter: boolean = true;
 
   selectedRows: any[] = [];
 
@@ -50,15 +50,12 @@ export class DataTableComponent implements OnInit, OnChanges {
 
   //  to fill the dropdown in the component
   @Output() fiteredDropdOwn = new EventEmitter<TableConfig>();
-  @Output() exportObj = new EventEmitter<{SortBy : number , SortColumn: string}>();
-
+  @Output() exportObj = new EventEmitter<{ SortBy: number; SortColumn: string }>();
   sortingFields: string[];
   selectedColumns: any = [];
-
   globalFilterFields: string[];
-
   pageInfo: PageInfo;
-
+  @Output() columnsFiltered = new EventEmitter<string[]>();
   currentSortColumn: string | undefined;
   currentSortOrder: SortBy = SortBy.Descending;
 
@@ -68,16 +65,17 @@ export class DataTableComponent implements OnInit, OnChanges {
   @ViewChild('customCellTemplate', { static: true })
   customCellTemplate?: TemplateRef<any>;
   customParentCellTemplate: TemplateRef<NgIfContext<boolean>> | null;
-  rows: [];  selected_filtered_columns: any[] = [];
+  rows: [];
+  selected_filtered_columns: any[] = [];
   searchColumnsControl = new FormControl([]);
   isRtl: boolean = false;
-  showColumnFilter: boolean
-  adminPortalTab : boolean = false
+  showColumnFilter: boolean;
+  adminPortalTab: boolean = false;
   ngOnInit(): void {
-this.adminPortalTab=this.routerService.getCurrentUrl().includes('/bussiness-owners/manage/')
+    this.adminPortalTab = this.routerService.getCurrentUrl().includes('/bussiness-owners/manage/');
     this.isRtl = this.languageService.ar;
 
-    this.filtered_columns = this.tableConfigs.columns
+    this.filtered_columns = this.tableConfigs.columns;
 
     this.selected_filtered_columns = this.filtered_columns.map((option) => option.name);
     this.searchColumnsControl.setValue(this.selected_filtered_columns as any);
@@ -121,7 +119,7 @@ this.adminPortalTab=this.routerService.getCurrentUrl().includes('/bussiness-owne
     this.addNew.emit(true);
   }
 
-  selectRow(row: any) { }
+  selectRow(row: any) {}
 
   onPageChange(pageInfo: PageInfo) {
     pageInfo.sortColumn = this.currentSortColumn;
@@ -135,8 +133,6 @@ this.adminPortalTab=this.routerService.getCurrentUrl().includes('/bussiness-owne
     return this.tableConfigs.columns.some((col) => col.children && col.children.length > 0);
   }
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.noColumnFilter ,"bool");
-
     this.clonedTableConfigs = { ...this.tableConfigs };
   }
   routeToSequence() {
@@ -180,7 +176,6 @@ this.adminPortalTab=this.routerService.getCurrentUrl().includes('/bussiness-owne
     this.selectedRowsChange.emit(this.selectedRows);
   }
 
-
   onSortClick(columnName: string): void {
     if (columnName) {
       if (this.currentSortColumn === columnName) {
@@ -192,7 +187,6 @@ this.adminPortalTab=this.routerService.getCurrentUrl().includes('/bussiness-owne
 
       this.currentSortColumn = columnName;
 
-
       setTimeout(() => {
         const pageInfo = new PageInfo(
           this.pageInfo?.pageNumber,
@@ -202,7 +196,10 @@ this.adminPortalTab=this.routerService.getCurrentUrl().includes('/bussiness-owne
           columnName
         );
         this.onPageChange(pageInfo);
-        this.exportObj.emit({SortBy:this.currentSortOrder , SortColumn : this.currentSortColumn as string})
+        this.exportObj.emit({
+          SortBy: this.currentSortOrder,
+          SortColumn: this.currentSortColumn as string,
+        });
       }, 100);
     }
   }
@@ -212,30 +209,31 @@ this.adminPortalTab=this.routerService.getCurrentUrl().includes('/bussiness-owne
     public lookupsService: LookupsService,
     private generalService: GeneralService,
     private routerService: RouterService
-  ) { }
+  ) {}
 
-
-  handleFilterColumns(selectedColumns: string[]) {
-
-    if (selectedColumns.length === 0) {
-      this.tableConfigs.columns = [...this.clonedTableConfigs.columns];
-    } else {
-      const columns = this.clonedTableConfigs.columns;
-
-      const lastColumn = columns[columns.length - 1];
-
-      const filteredColumns = columns.filter(col =>
+  handleFilterColumns(event: any): void {
+    const selectedColumns = Array.isArray(event) ? event : [];
+    if (this.clonedTableConfigs?.columns) {
+      const filteredColumns = this.clonedTableConfigs.columns.filter((col) =>
         selectedColumns.includes(col.name)
       );
 
-      if (!filteredColumns.includes(lastColumn)) {
-        filteredColumns.push(lastColumn);
+      const actionsColumn = this.clonedTableConfigs.columns.find(
+        (col) => col.headerText === 'Actions'
+      );
+      if (actionsColumn && !filteredColumns.includes(actionsColumn)) {
+        filteredColumns.push(actionsColumn);
       }
 
-
-
       this.tableConfigs.columns = [...filteredColumns];
+      this.columnsFiltered.emit(selectedColumns);
+
+      // console.log('Emitted selectedColumns:', selectedColumns);
     }
   }
 
+  onColumnsChange(selectedColumns: string[]): void {
+    this.columnsFiltered.emit(selectedColumns);
+    // console.log('Emitted selectedColumns:', selectedColumns);
+  }
 }

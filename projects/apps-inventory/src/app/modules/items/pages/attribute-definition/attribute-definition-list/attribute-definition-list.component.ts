@@ -41,6 +41,13 @@ export class AttributeDefinitionListComponent implements OnInit {
 action: any;
 isRtl: boolean = false;
 currentLang:string = ''
+filteredColumns: string[] = [];
+columns: { name: any; headerText: any }[] = [
+  { name: 'nameEn' , headerText: ('attributeDefinition.nameEn') },
+  { name: 'nameAr' , headerText: ('attributeDefinition.nameAr') },
+  { name: 'itemAttributes', headerText: ('attributeDefinition.values') },
+  { name: this.currentLang === 'en' ? 'isActive' : 'isActive', headerText: ('attributeDefinition.status') },
+]
   constructor(
     private routerService: RouterService,
     private itemService : ItemsService,
@@ -56,16 +63,12 @@ currentLang:string = ''
   ){
     this.title.setTitle(this.languageService.transalte('attributeDefinition.attributeDefinition'));
     this.currentLang = this.languageService.getLang();
-
-
   }
   ngOnInit(): void {
 
     this.initTreasurData()
 
-    this.itemService.currentPageInfo.subscribe((currentPageInfo) => {
-      this.currentPageInfo = currentPageInfo;
-    });
+
   }
 
 
@@ -90,8 +93,6 @@ currentLang:string = ''
 
   onSearchChange() {
     this.itemService.getListOfAttr(this.searchTerm, new PageInfo());
-
-
         this.itemService.listOfAttrDifinition$.subscribe({
       next: (res) => {
         this.tableData = res;
@@ -114,16 +115,9 @@ currentLang:string = ''
   }
   exportAttrData(searchTerm: string, sortBy?: number, sortColumn?: string) {
     this.itemService.exportAttrDifinitionList(searchTerm, sortBy, sortColumn);
-
-    let columns = [
-      { name: this.currentLang === 'en' ? 'nameEn' : 'nameAr', headerText: ('attributeDefinition.attribute') },
-      { name: 'itemAttributes', headerText: ('attributeDefinition.values') },
-      { name: this.currentLang === 'en' ? 'isActive' : 'isActive', headerText: ('attributeDefinition.status') },
-    ];
-
-
+    const filteredColumns = this.columns.filter(col => this.filteredColumns.includes(col.name));
     this.itemService.SendexportAttrDifinitionList$.subscribe((res) => {
-      this.exportData = this.exportService.formatItemAttributes(res, columns);
+      this.exportData = this.exportService.formatItemAttributes(res, filteredColumns);
       // console.log('Export data:', this.exportData);
     });
   }
@@ -135,20 +129,22 @@ currentLang:string = ''
     };
   }
 
+  onFilterColumn(e: string[]) {
+    this.filteredColumns = e;
+
+  }
   onEdit(data: any) {
     this.routerService.navigateTo(`/masterdata/attribute-definition/edit-attribute/${data.id}`);
 }
 onDelete(id: number) {
   this.itemService.deleteAttributeGroup(id);
   this.initTreasurData()
-
 }
 
 onToggleActive(newStatus: boolean, id: number): void {
   const index = this.tableData.findIndex(item => item.id === id);
   if (index !== -1) {
     this.tableData[index].isActive = newStatus;
-
     this.saveChanges(this.tableData[index]);
   }
 }
@@ -160,19 +156,14 @@ saveChanges(updatedRow: any): void {
 async confirmChange(newValue: boolean, user: any) {
   user.isActive =!user.isActive
   const confirmed = await this.toasterService.showConfirm('ConfirmButtonTexttochangestatus');
-
   if (confirmed) {
     const command = {
       id: user.id,
       status: user.isActive,
     };
-
-
     this.itemService.editStatusAttributeGroup(command)
-
   } else {
     user.isActive =!user.isActive
-
     console.log('Change was canceled', user.isActive);
   }
 }
@@ -181,7 +172,6 @@ async confirmChange(newValue: boolean, user: any) {
 
 onViewttributeValues(selectedId: number) {
   const selectedItem = this.tableData.find(item => item.id === selectedId);
-
   this.dialog.open(AttributeDefinitionValuesComponent, {
     width: '750px',
     height: 'auto',
@@ -192,8 +182,6 @@ onViewttributeValues(selectedId: number) {
 
 onViewttributeValuesList(data: any) {
   this.routerService.navigateTo(`/masterdata/attribute-definition/view/${data.id}`)
-
-
 }
 
 }

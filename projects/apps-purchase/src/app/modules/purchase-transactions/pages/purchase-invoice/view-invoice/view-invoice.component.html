@@ -369,6 +369,8 @@
                 tracking.trackingType == this.sharedFinanceEnums.trackingType.NoTracking
               "
             >
+              {{ ('purchase.systembatch' | translate) + '-' }}
+
               {{
                 tracking.invoiceTracking.systemPatchNo +
                   ' - ' +
@@ -382,7 +384,7 @@
                 tracking.trackingType == this.sharedFinanceEnums.trackingType.NoTracking
               "
             >
-              {{ 'No Tracking' }}
+              {{ 'purchase.NoTracking' | translate }}
             </p>
             <!-- serial and has  -->
             <p
@@ -391,6 +393,8 @@
                 tracking.trackingType == this.sharedFinanceEnums.trackingType.Serial
               "
             >
+              {{ ('purchase.Serial' | translate) + '-' }}
+
               {{
                 tracking.invoiceTracking.serialId +
                   ' - ' +
@@ -404,6 +408,8 @@
                 tracking.trackingType == this.sharedFinanceEnums.trackingType.Serial
               "
             >
+              {{ ('purchase.Serial' | translate) + '-' }}
+
               {{ tracking.invoiceTracking.serialId }}
             </p>
             <!-- batch and  has -->
@@ -413,6 +419,8 @@
                 tracking.trackingType == this.sharedFinanceEnums.trackingType.Batch
               "
             >
+              {{ ('purchase.Batch' | translate) + '-' }}
+
               {{
                 tracking.invoiceTracking.vendorBatchNo +
                   ' - ' +
@@ -426,6 +434,8 @@
                 tracking.trackingType == this.sharedFinanceEnums.trackingType.Batch
               "
             >
+              {{ ('purchase.Batch' | translate) + '-' }}
+
               {{ tracking.invoiceTracking.vendorBatchNo }}
             </p>
           </ng-template>
@@ -543,14 +553,6 @@
               >
               </lib-button-micro>
             </div>
-            <!-- <div class="md:col-3">
-              <lib-button-micro
-                title="{{ 'purchase.save' | translate }}"
-                nameClass="save"
-                widthNumber="100%"
-              >
-              </lib-button-micro>
-            </div> -->
           </div>
         </div>
       </div>

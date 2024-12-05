@@ -11,6 +11,7 @@ import { ItemDto } from '../../../models/itemDto';
 import { CurrencyRateDto } from '../../../models/currencyRateDto';
 import { SharedEnum } from '../../../models/sharedEnums';
 import { GetWarehouseList } from '../../../models/getWarehouseDto';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'app-edit-purchase-invoice',
@@ -58,7 +59,12 @@ export class EditPurchaseInvoiceComponent implements OnInit {
   stockOutId: number;
   originalFormData: any
   dataLoaded: boolean
-  showPost: boolean
+  showPost: boolean;
+  view: boolean;
+  isFormLoaded = false;
+  lineError: number = -1;
+  error: boolean;
+  save: boolean = true;
   ngOnInit(): void {
 
     this.itemId = this.route.snapshot.params['id'];
@@ -68,7 +74,7 @@ export class EditPurchaseInvoiceComponent implements OnInit {
     this.initItemsData()
     this.subscribe();
     this.calculate();
-    this.getStockOutyId(this.itemId)
+    this.getInvoiceById(this.itemId)
 
   }
   calculate() {
@@ -123,8 +129,9 @@ export class EditPurchaseInvoiceComponent implements OnInit {
     // }, 0);
   }
   getAccountCurrencyRate(accountCurrency: number) {
+  
     this.PurchaseService.getAccountCurrencyRate(
-      accountCurrency,
+      accountCurrency ?? this.currentUserService.getCurrency(),
       this.currentUserService.getCurrency()
     );
   }
@@ -142,7 +149,7 @@ export class EditPurchaseInvoiceComponent implements OnInit {
   }
   latestWarehouses() {
 
-    this.PurchaseService.LatestWarehouses(undefined).subscribe((res: any) => {
+    this.PurchaseService?.LatestWarehouses(undefined)?.subscribe((res: any) => {
       this.warehouses = res
     })
   }
@@ -168,6 +175,7 @@ export class EditPurchaseInvoiceComponent implements OnInit {
         if(!this.addForm.get('currencyId')?.value) {
           this.addForm.get('currencyId')?.setValue(this.currentUserService.getCurrency());
           this.addForm.get('currencyName')?.setValue('Egyptian Pound');
+          this.addForm.get('currencyRate')?.setValue('Egyptian Pound');
         }
       }
     });
@@ -178,12 +186,11 @@ export class EditPurchaseInvoiceComponent implements OnInit {
 
   }
 
-  getStockOutyId(id: number) {
+  getInvoiceById(id: number) {
     this.PurchaseService.getInvoiceById(id);
     this.PurchaseService.InvoiceByIdDataSource.subscribe((data: any) => {
 
       this.patchForm(data)
-      this.stockOutId = data.id
 
 
     })
@@ -204,11 +211,19 @@ export class EditPurchaseInvoiceComponent implements OnInit {
       paymentTermName: data.paymentTermName,
       reference: data.reference,
     });
-    // if(      data?.warehouseId
-    // ){
-    //   this.getLatestItemsList(data?.warehouseId)
 
-    // }
+    if(data.invoiceStatus == this.sharedEnums.InvoiceStatus.Saved){
+      this.showPost =true
+
+    }else if(data.invoiceStatus == this.sharedEnums.InvoiceStatus.Posted){
+      this.showPost =false
+      this.view =true
+    }
+    else{
+      this.showPost =false
+      this.view =false
+
+    }
 
     // Clear existing form array
     const invoiceDetailsFormArray = this.addForm.get('invoiceDetails') as FormArray;
@@ -222,6 +237,7 @@ export class EditPurchaseInvoiceComponent implements OnInit {
     this.dataLoaded = true
     this.originalFormData = this.addForm.value
     this.setVendorData(data.vendorId)
+    this.isFormLoaded=true
 
   }
 
@@ -288,7 +304,19 @@ export class EditPurchaseInvoiceComponent implements OnInit {
       this.addForm.get('vendorRate')?.setValue(res.rate)
 
     })
-
+    this.addForm.valueChanges.pipe(
+      debounceTime(400),  // تأخير قبل أن يتم تنفيذ الكود
+      distinctUntilChanged()  // التحقق من أن القيمة تغيرت
+    ).subscribe((res: any) => {
+     
+      const x = this.refactoredData( this.originalFormData)
+      const y = this.refactoredData( res)
+      if (JSON.stringify(x) == JSON.stringify(y)) {
+          this.showPost=true
+      } else {
+        this.showPost=false
+      }
+    });
   }
 
 
@@ -324,6 +352,17 @@ export class EditPurchaseInvoiceComponent implements OnInit {
         vat: selectedItem.taxRatio || 0,
         trackingType: selectedItem.trackingType,
         hasExpiryDate: selectedItem.hasExpiryDate,
+        taxId: selectedItem.taxId,
+        categoryId:selectedItem.categoryId,
+        itemCategoryNameAr: selectedItem.itemCategoryNameAr,
+        itemCategoryNameEn:selectedItem.itemCategoryNameEn,
+        categoryType: selectedItem.categoryType,
+        itemVariantCode: selectedItem.itemVariantCode,
+        itemVariantNameAr:selectedItem.itemVariantNameAr,
+        itemVariantNameEn: selectedItem.itemVariantNameEn,
+        uomCode: selectedItem.uomCode,
+        uomNameAr:selectedItem.uomNameAr,
+        uomNameEn: selectedItem.uomNameEn,
 
       });
 
@@ -366,6 +405,17 @@ export class EditPurchaseInvoiceComponent implements OnInit {
         vat: selectedItem.taxRatio || 0,
         trackingType: selectedItem.trackingType,
         hasExpiryDate: selectedItem.hasExpiryDate,
+        taxId: selectedItem.taxId,
+        categoryId:selectedItem.categoryId,
+        itemCategoryNameAr: selectedItem.itemCategoryNameAr,
+        itemCategoryNameEn:selectedItem.itemCategoryNameEn,
+        categoryType: selectedItem.categoryType,
+        itemVariantCode: selectedItem.itemVariantCode,
+        itemVariantNameAr:selectedItem.itemVariantNameAr,
+        itemVariantNameEn: selectedItem.itemVariantNameEn,
+        uomCode: selectedItem.uomCode,
+        uomNameAr:selectedItem.uomNameAr,
+        uomNameEn: selectedItem.uomNameEn,
 
       });
 
@@ -416,6 +466,16 @@ export class EditPurchaseInvoiceComponent implements OnInit {
         trackingType: selectedItem.trackingType,
         hasExpiryDate: selectedItem.hasExpiryDate,
         taxId: selectedItem.taxId,
+        categoryId:selectedItem.categoryId,
+        itemCategoryNameAr: selectedItem.itemCategoryNameAr,
+        itemCategoryNameEn:selectedItem.itemCategoryNameEn,
+        categoryType: selectedItem.categoryType,
+        itemVariantCode: selectedItem.itemVariantCode,
+        itemVariantNameAr:selectedItem.itemVariantNameAr,
+        itemVariantNameEn: selectedItem.itemVariantNameEn,
+        uomCode: selectedItem.uomCode,
+        uomNameAr:selectedItem.uomNameAr,
+        uomNameEn: selectedItem.uomNameEn,
 
       });
 
@@ -423,7 +483,7 @@ export class EditPurchaseInvoiceComponent implements OnInit {
       const invoiceTrackingGroup = rowForm.get('invoiceTracking') as FormGroup;
       if (invoiceTrackingGroup) {
         invoiceTrackingGroup.patchValue({
-          invoiceDetailId: selectedItem?.invoiceTracking?.invoiceDetailId || 0,
+          invoiceDetailId: selectedItem?.invoiceTracking?.id || 0,
           vendorBatchNo: selectedItem.invoiceTracking?.vendorBatchNo || '',
           quantity: selectedItem.quantity,
           hasExpiryDate: selectedItem.hasExpiryDate,
@@ -438,9 +498,12 @@ export class EditPurchaseInvoiceComponent implements OnInit {
     rowForm.get('itemName')?.setValue(selectedItem.itemCode)
     this.setUomName(indexLine, rowForm.get('uomOptions')?.value)
     this.calculate()
+    console.log(rowForm,"888888888888888");
+    
   }
 
   addNewRow() {
+    this.isValidData()
     if (!this.formsService.validForm(this.invoiceDetailsFormArray, false)) return;
 
 
@@ -462,7 +525,7 @@ export class EditPurchaseInvoiceComponent implements OnInit {
         cost: new FormControl('', [customValidators.required]),
         subCost: new FormControl(''),
         discount: new FormControl(''),
-        discountAmt: new FormControl(''),
+        discountAmt: new FormControl(0),
         netCost: new FormControl(''),
         totalAfter: new FormControl(''),
         vat: new FormControl(''),
@@ -470,7 +533,16 @@ export class EditPurchaseInvoiceComponent implements OnInit {
         grandTotal: new FormControl(''),
         trackingType: new FormControl(''),
         hasExpiryDate: new FormControl(''),
-        taxId: new FormControl(''),
+        categoryId:new FormControl(''),
+        itemCategoryNameAr: new FormControl(''),
+        itemCategoryNameEn:new FormControl(''),
+        categoryType: new FormControl(''),
+        itemVariantCode: new FormControl(''),
+        itemVariantNameAr:new FormControl(''),
+        itemVariantNameEn: new FormControl(''),
+        uomCode: new FormControl(''),
+        uomNameAr:new FormControl(''),
+        uomNameEn: new FormControl(''),
         invoiceTracking: this.fb.group({
           invoiceDetailId: new FormControl(''),
           vendorBatchNo: new FormControl(''),
@@ -484,7 +556,10 @@ export class EditPurchaseInvoiceComponent implements OnInit {
 
       }
     );
-    this.invoiceDetailsFormArray.push(newLine);
+    if(this.save){
+      this.invoiceDetailsFormArray.push(newLine);
+
+    }
     this.calculate();
 
     // }
@@ -509,7 +584,7 @@ export class EditPurchaseInvoiceComponent implements OnInit {
         cost: new FormControl('', [customValidators.required]),
         subCost: new FormControl(''),
         discount: new FormControl(''),
-        discountAmt: new FormControl(''),
+        discountAmt: new FormControl(0),
         netCost: new FormControl(''),
         totalAfter: new FormControl(''),
         vat: new FormControl(''),
@@ -517,6 +592,16 @@ export class EditPurchaseInvoiceComponent implements OnInit {
         grandTotal: new FormControl(''),
         trackingType: new FormControl(''),
         hasExpiryDate: new FormControl(''),
+        categoryId:new FormControl(''),
+        itemCategoryNameAr: new FormControl(''),
+        itemCategoryNameEn:new FormControl(''),
+        categoryType: new FormControl(''),
+        itemVariantCode: new FormControl(''),
+        itemVariantNameAr:new FormControl(''),
+        itemVariantNameEn: new FormControl(''),
+        uomCode: new FormControl(''),
+        uomNameAr:new FormControl(''),
+        uomNameEn: new FormControl(''),
         invoiceTracking: this.fb.group({
           invoiceDetailId: new FormControl(''),
           vendorBatchNo: new FormControl(''),
@@ -552,10 +637,14 @@ export class EditPurchaseInvoiceComponent implements OnInit {
   }
 
   onSave() {
-
+this.isValidData()
     if (!this.formsService.validForm(this.invoiceDetailsFormArray, false)) return;
+    if(this.save){
+          console.log(this.refactoredData(this.addForm.value) ,"refactoredData");
 
-    this.PurchaseService.editInvoice(this.refactoredData(this.addForm.value))
+      this.PurchaseService.editInvoice(this.refactoredData(this.addForm.value))
+
+    }
 
   }
 
@@ -703,10 +792,12 @@ export class EditPurchaseInvoiceComponent implements OnInit {
     this.setUomName(indexLine, rowForm.get('uomOptions')?.value)
   }
   addToPost() {
+    this.PurchaseService.postInvoice(this.itemId);
 
   }
   setTracking(setTracking: FormGroup) {
     let patchedValue = setTracking.value.invoiceTracking;
+    
     // if (this.showPost) {
     const dialogRef = this.dialog.open(TrackingEditComponent, {
       width: '60%',
@@ -744,12 +835,51 @@ export class EditPurchaseInvoiceComponent implements OnInit {
     //   return;
     // }
   }
+  isValidData() {
+    this.lineError = -1;
+    this.invoiceDetailsFormArray.value.forEach((element: any, index: number) => {
+      let lineNumber = index + 1;
+      if (element.invoiceTracking.trackingType == this.sharedEnums.Tracking.Batch) {
+        if (
+          element.invoiceTracking.vendorBatchNo == null ||
+          element.invoiceTracking.vendorBatchNo == ''
+        ) {
+          this.lineError = index;
+          this.error = true;
+          this.save = false;
+
+          this.toasterService.showError(
+            this.languageService.transalte('messages.error'),
+            this.languageService.transalte('messages.setTracking') + lineNumber
+          );
+        }
+      } else if (element.invoiceTracking.trackingType == this.sharedEnums.Tracking.Serial) {
+        if (element.invoiceTracking.serialId == null || element.invoiceTracking.serialId == '') {
+          this.lineError = index;
+          this.error = true;
+          this.save = false;
+
+          this.toasterService.showError(
+            this.languageService.transalte('messages.error'),
+            this.languageService.transalte('messages.setTracking') + lineNumber
+          );
+        }
+      } else {
+        this.error = false;
+        this.save = true;
+
+        this.lineError = -1;
+      }
+    }, (this.save = true));
+  }
   setinvoiceTracking(indexLine: number) {
     const rowForm = this.invoiceDetailsFormArray.at(indexLine) as FormGroup;
     this.setTracking(rowForm)
   }
 
   refactoredData(data: any) {
+    console.log(data,"dddddddddddddddddddddddd");
+    
     const refactoredData = {
       id: data.id,
       invoiceDate: new Date(data.invoiceDate).toISOString(),
@@ -763,6 +893,7 @@ export class EditPurchaseInvoiceComponent implements OnInit {
       reference: data.reference || null,
       currencyId : data.currencyId || null,
       currencyName : data.currencyName ,
+    
       invoiceDetails: data.invoiceDetails.map((detail: any) => ({
         id: detail.id,
         barCode: detail.barCode || null,
@@ -784,6 +915,17 @@ export class EditPurchaseInvoiceComponent implements OnInit {
         invoiceEntryMode: "Manual", // Assuming a default value
         trackingType: detail.trackingType || null,
         hasExpiryDate: detail.hasExpiryDate,
+        categoryId:detail.categoryId,
+        itemCategoryNameAr: detail.itemCategoryNameAr,
+        itemCategoryNameEn:detail.itemCategoryNameEn,
+        categoryType: detail.categoryType,
+        itemVariantCode: detail.itemVariantCode,
+        itemVariantNameAr:detail.itemVariantNameAr,
+        itemVariantNameEn: detail.itemVariantNameEn,
+        uomCode: detail.uomCode,
+        uomNameAr:detail.uomNameAr,
+        uomNameEn: detail.uomNameEn,
+        itemName: detail.itemName,
         invoiceTracking: {
           id: detail.invoiceTracking.invoiceDetailId || 0,
           vendorBatchNo: detail.invoiceTracking.vendorBatchNo || null,
@@ -798,6 +940,7 @@ export class EditPurchaseInvoiceComponent implements OnInit {
         },
       })),
     };
+
     return refactoredData
   }
   getTotalVatAmount(): number {
@@ -824,6 +967,7 @@ export class EditPurchaseInvoiceComponent implements OnInit {
     private route: ActivatedRoute,
     private PurchaseService: PurchaseTransactionsService,
     private currentUserService: CurrentUserService,
+
 
 
   ) {

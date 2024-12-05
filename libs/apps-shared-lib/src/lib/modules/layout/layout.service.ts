@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { SideMenuModel, StorageKeys, MenuModule, StorageService } from 'shared-lib';
 import { LayoutProxy } from './layout.proxy';
 import { BehaviorSubject } from 'rxjs';
+import { CurrentuserInfoDto } from '../sequence/models/company-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -9,8 +10,6 @@ import { BehaviorSubject } from 'rxjs';
 export class LayoutService {
   sideMenuItems = new BehaviorSubject<SideMenuModel[] | undefined>(undefined);
   modulItems = new BehaviorSubject<MenuModule[] | undefined>(undefined);
-
-
   saveSideMenu(menuItems: SideMenuModel[]) {
     const distinctModules = menuItems
       .filter(
@@ -45,48 +44,20 @@ export class LayoutService {
     }
   }
 
+  currentUserInfo = new BehaviorSubject<CurrentuserInfoDto>({} as CurrentuserInfoDto);
+  sendUserLoginData = new BehaviorSubject<any>({});
+  sendUserData$ = this.sendUserLoginData.asObservable();
+
+  GetCurrentUserInfo() {
+    this.layoutProxy.GetCurrentUserInfo().subscribe({
+      next: (res) => {
+        this.currentUserInfo.next(res);
+      },
+      error: (err: any) => {
+        return;
+      },
+    });
+  }
+
   constructor(private localStorageService: StorageService, private layoutProxy: LayoutProxy) {}
-
-  public branceDropDown = new BehaviorSubject<{id:string , name : string,isDefault : boolean}[]>([]);
-  public branceDropDown$ = this.branceDropDown.asObservable();
-  public companyListDropDown = new BehaviorSubject<{id:string , name : string,companyType : string}[]>([]);
-  public companyListDropDown$ = this.companyListDropDown.asObservable();
-  public GetFirstCompanyDropdown = new BehaviorSubject<{ id: string, name: string,code : string, companyType: string }[]>([]);
-  public GetFirstCompanyDropdown$ = this.GetFirstCompanyDropdown.asObservable();
-
-  companiesDropDown() {
-    this.layoutProxy.companiesDropDown().subscribe({
-      next: (res) => {
-        this.companyListDropDown.next(res);
-        
-      },
-      error:(err: any)=>{
-        return
-      }
-    });
-  }
-  GetFirstCompany() {
-    this.layoutProxy.GetFirstCompany().subscribe({
-      next: (res) => {
-        this.GetFirstCompanyDropdown.next(res);
-        
-      },
-      error:(err: any)=>{
-        return
-      }
-    });
-  }
-  branchesDropDown(id: string) {
-
-    this.layoutProxy.branchesDropDown(id).subscribe({
-      next: (res) => {
-        this.branceDropDown.next(res);
-        
-      },
-      error:(err: any)=>{
-        return
-      }
-    });
-  }
-
 }

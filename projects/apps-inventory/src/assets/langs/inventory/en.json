@@ -512,20 +512,6 @@
     "success": "Success"
   },
 
-  "global": {
-    "activeOn": "On",
-    "activeOff": "Off",
-    "showMoreValues": "...Show More",
-    "clickToUpload": "Click to upload",
-    "uploadFile": "Attached file",
-    "select": "Select",
-    "noResults": "No results found",
-    "Physical": "Physical",
-    "Virtual": "Virtual",
-    "VanSales": "VanSales",
-    "English": "( English )",
-    "Arabic": "( Arabic )"
-  },
   "stockOut": {
     "import": "Import",
     "edit": "Edit",
