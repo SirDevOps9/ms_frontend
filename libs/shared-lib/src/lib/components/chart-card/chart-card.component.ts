@@ -9,6 +9,8 @@ import { Chart } from 'angular-highcharts';
 export class ChartCardComponent {
   @Input() chartDTO!: Chart;
   @Input() chartDetailsConfig: any;
+  @Input() smallSize: boolean = false;
+  @Input() hideFooter: boolean = true;
 
   ngOnInit() {}
 }

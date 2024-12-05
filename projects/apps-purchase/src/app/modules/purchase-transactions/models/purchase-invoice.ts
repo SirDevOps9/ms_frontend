@@ -26,6 +26,7 @@ export interface viewInvoiceObj {
   vendorName: string;
   vendorCode: string;
   currencyRate: number;
+  currencyName: string;
   paymentTermName: string;
   reference: string;
   stockInCode: string;

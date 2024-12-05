@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DecimalPipe } from '@angular/common';
 import { RouterModule, RouterOutlet, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
@@ -60,6 +60,9 @@ import { ColumnsSelectionComponent } from './form-components/columns-selection/c
 import { ActtachmentViewComponent } from 'libs/apps-shared-lib/src/lib/pages/attachment-view/acttachment-view/acttachment-view.component';
 import { NewBreadCrumbComponent } from './components/new-bread-crumb/new-bread-crumb.component';
 import { LoaderDirective } from './directives/loader.directive';
+import { DecimalSeperatorPipe } from './pipes/decimal-seperator.pipe';
+import { ChartCardComponent } from './components/chart-card/chart-card.component';
+import { ChartModule } from 'angular-highcharts';
 
 @NgModule({
   declarations: [
@@ -105,6 +108,8 @@ import { LoaderDirective } from './directives/loader.directive';
     PopupPageComponent,
     ColumnsSelectionComponent,
     LoaderDirective,
+    DecimalSeperatorPipe,
+    ChartCardComponent,
   ],
   imports: [
     HttpClientModule,
@@ -122,6 +127,7 @@ import { LoaderDirective } from './directives/loader.directive';
     ProgressSpinnerModule,
     QRCodeModule,
     InputTextareaModule,
+    ChartModule,
   ],
   exports: [
     GetLookupPipe,
@@ -175,6 +181,8 @@ import { LoaderDirective } from './directives/loader.directive';
     ColumnsSelectionComponent,
     InputTextareaModule,
     LoaderDirective,
+    DecimalSeperatorPipe,
+    ChartCardComponent,
   ],
 })
 export class SharedLibModule {}
