@@ -21,7 +21,8 @@
     "setTracking": "يجب تعيين التتبع في الصف ",
     "stockOutPostedSuccessfully": "تم ترحيل الخروج بنجاح.",
     "errorReturnQuantity": "الكمية المرتجعة لا يمكن أن تكون أكبر من الكمية المتبقية",
-    "purchaseinvoicePostedSuccessfully": "تم نشر فاتورة الشراء بنجاح"
+    "purchaseinvoicePostedSuccessfully": "تم نشر فاتورة الشراء بنجاح",
+    "errorReturnLine": "تفاصيل فاتورة المرتجع يجب أن تحتوي على سطر واحد على الأقل مع كمية."
   },
   "JournalTitle": "انشاء قيد اليومية",
   "journal_entry_header": "الرجاء إدخال عنوان دفتر اليومية",
