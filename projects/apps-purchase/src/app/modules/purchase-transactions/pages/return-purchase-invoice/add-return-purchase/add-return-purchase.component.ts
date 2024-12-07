@@ -379,6 +379,10 @@ if (this.invoiceDetailsFormArray.value.length == 0) {
   addToPost() {
     this.PurchaseService.postReturnInvoice(this.savedDataId);
   }
+  
+  ngOnDestroy(): void {
+    this.PurchaseService.returnInvoiceData.next([])
+  }
   constructor(
     private routerService: RouterService,
     public  authService: AuthService,

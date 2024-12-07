@@ -86,9 +86,11 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     this.purchaseInvoiceForm.valueChanges.subscribe((res) => {});
 
     this.purchaseInvoiceForm.get('sourceDocumentId')?.valueChanges.subscribe((res) => {
+      
       let data = this.oprationalLookup.find((elem) => elem.id == res);
+      
       this.purchaseInvoiceForm.get('warehouseId')?.setValue(data?.warehouseId);
-      this.purchaseInvoiceForm.get('warehouseName')?.setValue(data?.warehouseName);
+      this.purchaseInvoiceForm.get('warehouseName')?.setValue(data?.name);
     });
 
     this.stockIn.valueChanges.subscribe((res: any[]) => {
@@ -158,7 +160,6 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       }
     });
 
-    // this.initWareHouseLookupData();
 
     this.addLineStockIn();
 
@@ -198,6 +199,13 @@ export class AddPurchaseInvoiceComponent implements OnInit {
           }
         });
     });
+  }
+ 
+  setWarhouseName(id:number){    
+    let data = this.warhouseLookupData.find((elem) => elem.id == id);
+      
+    this.purchaseInvoiceForm.get('warehouseName')?.setValue(data?.name);
+ 
   }
   isValidData() {
     this.lineError = -1;
@@ -596,7 +604,13 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       this.formSubmited = true;
     }
     if (!this.formService.validForm(this.stockIn, false)) return;
+    this.purchasetransactionsService.getLatestItemsList();
     this.stockIn.push(this.createStockIn());
+  }
+  onFilterVendorItems(SearchTerm: string) {
+    this.purchasetransactionsService.latestVendor(SearchTerm).subscribe((res: any) => {
+      this.vendorItems = res;
+    });
   }
   onFilter(SearchTerm: string) {
     this.purchasetransactionsService.getLatestItemsList(SearchTerm);
@@ -827,7 +841,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       invoiceDate: this.purchaseInvoiceForm.value.invoiceDate || null,
       description: this.purchaseInvoiceForm.value.description || null,
       warehouseId: this.purchaseInvoiceForm.value.warehouseId || 0,
-      warehouseName: this.purchaseInvoiceForm.value.warehouseName || '',
+      warehouseName: this.purchaseInvoiceForm.value.warehouseName ,
       vendorId: this.purchaseInvoiceForm.value.vendorId || null,
       currencyId: this.purchaseInvoiceForm.value.currencyId || null,
       currencyName: this.purchaseInvoiceForm.value.currencyName,

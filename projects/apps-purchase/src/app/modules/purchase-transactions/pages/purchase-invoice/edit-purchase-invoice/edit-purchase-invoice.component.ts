@@ -586,6 +586,7 @@ export class EditPurchaseInvoiceComponent implements OnInit {
       grandTotal: new FormControl(''),
       trackingType: new FormControl(''),
       hasExpiryDate: new FormControl(''),
+      taxId: new FormControl(null),
       categoryId:new FormControl(''),
       itemCategoryNameAr: new FormControl(''),
       itemCategoryNameEn:new FormControl(''),
