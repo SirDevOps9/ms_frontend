@@ -149,6 +149,7 @@ export class PurchaseTransactionsService {
           this.languageService.transalte('messages.success'),
           this.languageService.transalte('messages.successfully')
         );
+        this.getInvoiceById(obj.id)
       },
       error: (err: any) => {
         this.toasterService.showError(
