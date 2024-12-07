@@ -380,7 +380,8 @@
     "returnCode": "Return code",
     "returnDate": "Return Date",
     "returnDescription": "Return Description",
-    "purchaseInvoice": "Purchase Invoice"
+    "purchaseInvoice": "Purchase Invoice",
+    "transactionQuantity":"transaction Quantity"
   },
   "ItemsAdvancedSearch": {
     "ItemSearch": "Item Search",

@@ -26,7 +26,9 @@ export class AddReturnPurchaseComponent {
   searchTerm: string;
   addForm: FormGroup = new FormGroup({});
   showPost: boolean
-  invoiceList: any
+  invoiceList: any;
+  savedDataId: number;
+
   ngOnInit(): void {
 
     this.initializeForm();
@@ -153,6 +155,17 @@ export class AddReturnPurchaseComponent {
     ])
     this.PurchaseService.invoiceData.subscribe((invoiceList: any) => {
       this.invoiceList = invoiceList
+
+    })
+    this.PurchaseService.savedDataId.subscribe((id: any) => {
+     if(id !=0){
+      this.savedDataId = id
+      this.showPost=true
+
+     }else{
+      this.showPost=false
+
+     }
 
     })
     this.PurchaseService.returnInvoiceData.subscribe((data: any) => {
@@ -299,9 +312,6 @@ export class AddReturnPurchaseComponent {
 
   }
 
-  addToPost() {
-
-  }
 
   beforeSave(): boolean {
     let isValid = true;
@@ -349,6 +359,9 @@ export class AddReturnPurchaseComponent {
 
   patchData(id: any) {
     this.PurchaseService.getReturnInvoiceById(id)
+  }
+  addToPost() {
+    this.PurchaseService.postReturnInvoice(this.savedDataId);
   }
   constructor(
     private routerService: RouterService,

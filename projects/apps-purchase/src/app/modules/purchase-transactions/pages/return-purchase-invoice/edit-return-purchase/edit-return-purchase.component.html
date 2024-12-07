@@ -198,6 +198,10 @@
                         <th>{{ 'PurchaseInvoiceEdit.remainQTY' | translate }}</th>
                         <th>{{ 'PurchaseInvoiceEdit.toreturnQTY' | translate }}</th>
                         <th>{{ 'PurchaseInvoiceEdit.originalQTY' | translate }}</th>
+                        @if(addForm.controls['returnInvoiceStatus'].value == sharedEnums.InvoiceStatus.Posted){
+
+                        <th>{{ 'PurchaseInvoiceEdit.transactionQuantity' | translate }}</th>
+                        }
                         <th>{{ 'PurchaseInvoiceEdit.netCost' | translate }}</th>
                         <th>{{ 'PurchaseInvoiceEdit.subTotal' | translate }}</th>
                         <th>{{ 'PurchaseInvoiceEdit.vat' | translate }}</th>
@@ -235,6 +239,10 @@
                                 [appControl]="invoiceFormGroup.controls['returnQuantity']"></lib-field-validations>
                         </td>
                         <td>{{invoiceFormGroup.controls['originalQuantity'].value}}</td>
+                        @if(addForm.controls['returnInvoiceStatus'].value == sharedEnums.InvoiceStatus.Posted){
+                            <td>{{invoiceFormGroup.controls['transactionRemainQuantity'].value}}</td>
+
+                        }
                         <td>{{invoiceFormGroup.controls['netCost'].value}}</td>
 
 
@@ -250,16 +258,16 @@
                         </td>
                         <td>{{invoiceFormGroup.controls['grandTotal'].value}}</td>
                         <td *ngIf="invoiceFormGroup.controls['trackingType'].value == sharedEnums.Tracking.Batch ">
-                            {{invoiceFormGroup?.get('invoiceTracking')?.get('vendorBatchNo')?.value}}</td>
+                            {{invoiceFormGroup?.get('returnInvoiceTracking')?.get('vendorBatchNo')?.value}}</td>
                         <td *ngIf="invoiceFormGroup.controls['trackingType'].value != sharedEnums.Tracking.Batch "></td>
 
 
                         <td>
-                            <p> <span class="pi pi-calendar"></span></p>
-                            {{invoiceFormGroup?.get('invoiceTracking')?.get('expireDate')?.value}}
+                             <span class="pi pi-calendar"></span>
+                            {{invoiceFormGroup?.get('returnInvoiceTracking')?.get('expireDate')?.value | date : 'dd/MM/yyyy'}}
                         </td>
                         <td *ngIf="invoiceFormGroup.controls['trackingType'].value == sharedEnums.Tracking.Serial">
-                            {{invoiceFormGroup?.get('invoiceTracking')?.get('serialId')?.value}}</td>
+                            {{invoiceFormGroup?.get('returnInvoiceTracking')?.get('serialId')?.value}}</td>
                         <td *ngIf="invoiceFormGroup.controls['trackingType'].value != sharedEnums.Tracking.Serial"></td>
 
                         <td>
