@@ -33,6 +33,7 @@ export class AddReturnPurchaseComponent {
     this.latestVendor()
     this.latestWarehouses()
     this.initItemsData()
+    this.latestinvoiceLookup()
     this.subscribe();
     this.calculate();
   }
@@ -68,6 +69,10 @@ export class AddReturnPurchaseComponent {
       }
     })
   }
+  latestinvoiceLookup() {
+    this.PurchaseService.invoiceLookup(undefined, undefined, undefined)
+
+  }
   latestWarehouses() {
 
     this.PurchaseService.LatestWarehouses(undefined).subscribe((res: any) => {
@@ -100,7 +105,7 @@ export class AddReturnPurchaseComponent {
       code: new FormControl(''),
       invoiceCode: new FormControl(''),
       invoiceDate: new FormControl(new Date(), [customValidators.required]),
-      returnDescription: new FormControl('', [customValidators.required, customValidators.length(1, 100)]),
+      returnDescription: new FormControl('', [ customValidators.length(0, 100)]),
       warehouseId: new FormControl(''),
       warehouseName: new FormControl(''),
       vendorCode: new FormControl(''),
@@ -268,12 +273,23 @@ export class AddReturnPurchaseComponent {
     if (!this.beforeSave()) {
       return; // Stop if validation fails
     }
-    if (!this.formsService.validForm(this.invoiceDetailsFormArray, false)) return;
+    //                "Return Invoice Details Shoud Have One Line With Quantity At Least."
+if (this.invoiceDetailsFormArray.value.length == 0) {
+  this.toasterService.showError(
+    this.languageService.transalte('messages.error'),
+    this.languageService.transalte('messages.errorReturnLine')
+  );
+
+}else{
+  if (!this.formsService.validForm(this.addForm, false)) return;
     if( this.duplicateLine == true) return;
 
 
     this.PurchaseService.addReturnInvoice(this.refactoredData(this.addForm.value))
 
+}
+
+  
   }
 
   setReturnQuantity(indexLine: number) {
