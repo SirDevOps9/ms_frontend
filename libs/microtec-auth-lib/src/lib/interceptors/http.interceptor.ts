@@ -95,48 +95,68 @@ export class ERPInterceptor implements HttpInterceptor {
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
+    // إذا لم يكن هناك عملية تحديث جارية
     if (!this.isRefreshing) {
       this.isRefreshing = true;
-      this.refreshTokenSubject = new BehaviorSubject<TokenModel | null>(null);
+      this.refreshTokenSubject = new BehaviorSubject<TokenModel | null>(null); // تهيئة الـ BehaviorSubject
   
       return this.authService.refreshToken().pipe(
         switchMap((data: TokenModel) => {
+          // حفظ البيانات المحدثة
           this.authService.saveLoginData(data);
-          this.refreshTokenSubject!.next(data); // Notify waiting requests
   
-          request = request.clone({
+          // تحديث الـ BehaviorSubject بالقيمة الجديدة
+          this.refreshTokenSubject!.next(data);
+  
+          // تعديل الطلب الأصلي باستخدام التوكن المحدث
+          const updatedRequest = request.clone({
             setHeaders: { Authorization: `Bearer ${data.token}` },
           });
-          return next.handle(request);
+  
+          // إعادة إرسال الطلب بعد التحديث
+          return next.handle(updatedRequest);
         }),
         catchError((err: HttpErrorResponse) => {
-          console.error('Refresh Token Error', err);
+          // معالجة خطأ في عملية تحديث التوكن
+          console.error('Refresh Token Error:', err);
+  
+          // مسح بيانات التخزين وتوجيه المستخدم إلى صفحة تسجيل الدخول
           this.authService.clearAllStorage();
           this.routerService.navigateTo('login');
-          this.refreshTokenSubject!.error(err); // Notify that refresh failed
+  
+          // إشعار المشتركين بالفشل
+          this.refreshTokenSubject!.error(err);
           return throwError(() => err);
         }),
         finalize(() => {
+          // إيقاف وضع التحديث
           this.isRefreshing = false;
         })
       );
     }
   
-    // Wait for refresh to complete
+    // إذا كانت عملية تحديث التوكن جارية، انتظر انتهاءها
     return this.refreshTokenSubject!.pipe(
-      switchMap((token: TokenModel | null) => {
+      switchMap((token) => {
+        // إذا لم يتم تحديث التوكن، ارجع بخطأ
         if (!token) {
           return throwError(() => new Error('Token refresh failed'));
         }
   
-        request = request.clone({
+        // تعديل الطلب الأصلي باستخدام التوكن المحدث
+        const updatedRequest = request.clone({
           setHeaders: { Authorization: `Bearer ${token.token}` },
         });
-        return next.handle(request);
+  
+        // إعادة إرسال الطلب بعد الحصول على التوكن المحدث
+        return next.handle(updatedRequest);
       }),
       catchError((err: HttpErrorResponse) => {
-        console.error('Subject Token Error', err);
+        // معالجة خطأ في الطلب بعد التحديث
+        console.error('Token Subject Error:', err);
+  
         if (err.status === 401) {
+          // إذا كان التوكن غير صالح، قم بمسح التخزين وتوجيه المستخدم إلى تسجيل الدخول
           this.authService.clearAllStorage();
           this.routerService.navigateTo('login');
         }
@@ -144,5 +164,6 @@ export class ERPInterceptor implements HttpInterceptor {
       })
     );
   }
+  
   
 }
