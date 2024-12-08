@@ -49,25 +49,11 @@ export class ERPInterceptor implements HttpInterceptor {
         switchMap((data: TokenModel) => {
           this.authService.saveLoginData(data);
           this.refreshTokenSubject!.next(data); // Notify waiting requests
-          this.refreshTokenSubject!.complete(); // Complete the subject
 
-          // Clone the request with the new token
           request = request.clone({
             setHeaders: { Authorization: `Bearer ${data.token}` },
           });
-          return next.handle(request).pipe(
-            catchError((err) => {
-              console.log('UnAuth');
-
-              if (err instanceof HttpErrorResponse) {
-                if (err.status === 401) {
-                  this.authService.clearAllStorage();
-                  this.routerService.navigateTo('login');
-                }
-              }
-              return throwError(() => err);
-            })
-          );
+          return next.handle(request);
         }),
         catchError((err: HttpErrorResponse) => {
           // Handle refresh token failure
