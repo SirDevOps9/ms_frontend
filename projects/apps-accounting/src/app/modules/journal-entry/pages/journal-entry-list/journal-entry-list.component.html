@@ -128,13 +128,12 @@
       <ng-container action>
         <div class="flex gap-2">
           <lib-export
-          (exportClick)="exportClick()"
-          [exportData]="exportData"
-          [exportColumns]="exportColumns"
-          [ExportName]="('Journal.JournalEnteryPrint' |translate)"
-
-        >
-        </lib-export>
+            (exportClick)="exportClick()"
+            [exportData]="exportData"
+            [exportColumns]="exportColumns"
+            [ExportName]="'Journal.JournalEnteryPrint' | translate"
+          >
+          </lib-export>
 
           <lib-button-micro
             title="{{ 'create' | translate }}"
@@ -143,6 +142,20 @@
             nameClass="save"
           >
           </lib-button-micro>
+        </div>
+      </ng-container>
+
+      <ng-container caption>
+        <div class="filtration grid">
+          <div class="lg:col-3 md:col-4 col-12">
+            <lib-date-range></lib-date-range>
+          </div>
+          <div class="lg:col-3 md:col-4 col-12">
+            <lib-select></lib-select>
+          </div>
+          <div class="lg:col-3 md:col-4 col-12">
+            <lib-select></lib-select>
+          </div>
         </div>
       </ng-container>
 
