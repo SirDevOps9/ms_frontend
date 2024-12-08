@@ -25,6 +25,7 @@ import {
   SharedFormComponent,
   ToggelComponent,
   EditMultipeFilesComponent,
+  DateRangeComponent,
 } from './form-components';
 import { DropdownModule } from 'primeng/dropdown';
 import { GetLookupPipe } from './pipes/lookupList';
@@ -110,6 +111,7 @@ import { ChartModule } from 'angular-highcharts';
     LoaderDirective,
     DecimalSeperatorPipe,
     ChartCardComponent,
+    DateRangeComponent,
   ],
   imports: [
     HttpClientModule,
@@ -183,6 +185,7 @@ import { ChartModule } from 'angular-highcharts';
     LoaderDirective,
     DecimalSeperatorPipe,
     ChartCardComponent,
+    DateRangeComponent,
   ],
 })
 export class SharedLibModule {}
