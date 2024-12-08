@@ -19,6 +19,7 @@ import { TransactionsService } from '../../../transactions.service';
 import { SequenceService } from 'apps-shared-lib';
 import { SortTableEXport } from '../../../../items/models/SortTable';
 import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-stock-out-list',
@@ -32,26 +33,40 @@ export class StockOutListComponent implements OnInit {
   exportData: StockOutDto[];
   filteredColumns: string[] = [];
   columns: { name: any; headerText: any }[] = [
-    { name: 'code', headerText: ('stockOut.code') },
-    { name: 'receiptDate', headerText: ('stockOut.date') },
-    { name: 'notes', headerText: ('stockOut.description') },
-    { name: 'sourceDocumentId', headerText: ('stockOut.sourceDoc') },
-    { name: 'warehouseName', headerText: ('stockOut.warehouse') },
-    { name: 'stockInStatus', headerText: ('stockOut.status') },
-    { name: 'journalCode', headerText: ('stockOut.journalCode') },
-    { name: 'isReserved', headerText: ('stockOut.reserve') },
-
-  ]
+    { name: 'code', headerText: 'stockOut.code' },
+    { name: 'receiptDate', headerText: 'stockOut.date' },
+    { name: 'notes', headerText: 'stockOut.description' },
+    { name: 'sourceDocumentId', headerText: 'stockOut.sourceDoc' },
+    { name: 'warehouseName', headerText: 'stockOut.warehouse' },
+    { name: 'stockInStatus', headerText: 'stockOut.status' },
+    { name: 'journalCode', headerText: 'stockOut.journalCode' },
+    { name: 'isReserved', headerText: 'stockOut.reserve' },
+  ];
   exportColumns: lookupDto[];
   exportSelectedCols: string[] = [];
-  SortByAll:SortTableEXport
+  SortByAll: SortTableEXport;
   currentPageInfo: PageInfoResult = {};
   modulelist: MenuModule[];
   searchTerm: string;
+  filterForm: FormGroup;
+  filterWarehouse: any = [];
+  filterStatus: any = [];
+  filterSourceType: any = [];
   ngOnInit() {
     this.initStockOutData();
     this.subscribes();
+    this.initiateFilterForm();
   }
+
+  initiateFilterForm() {
+    this.filterForm = new FormGroup({
+      range: new FormControl(''),
+      warehouse: new FormControl(''),
+      status: new FormControl(''),
+      sourceDocumentType: new FormControl(''),
+    });
+  }
+
   subscribes() {
     this.itemsService.stockOutDataSourceeObservable.subscribe({
       next: (res: any) => {
@@ -97,8 +112,8 @@ export class StockOutListComponent implements OnInit {
   }
 
   exportBankData(searchTerm: string, sortBy?: number, sortColumn?: string) {
-    this.itemsService.exportStockOutList(searchTerm ,sortBy ,sortColumn);
-    const filteredColumns = this.columns.filter(col => this.filteredColumns.includes(col.name));
+    this.itemsService.exportStockOutList(searchTerm, sortBy, sortColumn);
+    const filteredColumns = this.columns.filter((col) => this.filteredColumns.includes(col.name));
     this.itemsService.exportStockOutListDataSource.subscribe((res: any) => {
       this.exportData = this.exportService.formatCiloma(res, filteredColumns);
     });
@@ -112,7 +127,6 @@ export class StockOutListComponent implements OnInit {
 
   onFilterColumn(e: string[]) {
     this.filteredColumns = e;
-
   }
   constructor(
     private routerService: RouterService,
@@ -124,8 +138,7 @@ export class StockOutListComponent implements OnInit {
     public sharedFinanceEnums: SharedStock,
     public sequenceService: SequenceService,
     public sharedEnums: SharedEnums,
-    private exportService:ExportService,
-
+    private exportService: ExportService
   ) {
     // this.title.setTitle(this.langService.transalte('itemCategory.itemDefinition'));
   }

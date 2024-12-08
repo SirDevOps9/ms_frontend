@@ -43,8 +43,6 @@ export class DateRangeComponent implements AfterViewInit, ControlValueAccessor, 
   // }
   ngOnInit(): void {
     this.formGroup = new FormControl();
-
-    this.formGroup.valueChanges.subscribe(console.log);
   }
   @Input() placeholder: string;
   @Input() dateFormat: string = 'dd/mm/yy';
@@ -54,7 +52,7 @@ export class DateRangeComponent implements AfterViewInit, ControlValueAccessor, 
   @Input() disabled: boolean = false;
   @Input() readOnly: boolean;
   @Input() labelTest: any = 'calendar';
-  @Output() valueChanged = new EventEmitter<Date>();
+  @Output() valueChanged = new EventEmitter<Date[]>();
   @Input() defaultDate: Date | null;
   value: any;
   protected readonly fb = inject(FormBuilder);
@@ -65,9 +63,10 @@ export class DateRangeComponent implements AfterViewInit, ControlValueAccessor, 
 
   public writeValue(val: unknown): void {
     if (val) {
-      // Format the date to "YYYY-MM-DD" and patch it to the form control
-      const formattedDate = this.formatDate(val as string);
-      this.formGroup.patchValue(new Date(formattedDate), { emitEvent: true });
+      const dates = Array.isArray(val) ? val.map((date) => new Date(date)) : [];
+      this.formGroup.patchValue(dates, { emitEvent: true });
+    } else {
+      this.formGroup.patchValue([], { emitEvent: true });
     }
   }
 
@@ -125,6 +124,7 @@ export class DateRangeComponent implements AfterViewInit, ControlValueAccessor, 
     const start = new Date(now.getFullYear(), now.getMonth(), 1);
     const end = new Date(now.getFullYear(), now.getMonth() + 1, 0);
     this.rangeDates = [start, end];
+    this.valueChanged.emit(this.rangeDates);
   }
 
   selectQuarter(quarter: number) {
@@ -136,6 +136,7 @@ export class DateRangeComponent implements AfterViewInit, ControlValueAccessor, 
       [new Date(year, 9, 1), new Date(year, 11, 31)], // Q4
     ];
     this.rangeDates = quarters[quarter - 1];
+    this.valueChanged.emit(this.rangeDates);
   }
 
   selectCurrentYear() {
@@ -143,6 +144,7 @@ export class DateRangeComponent implements AfterViewInit, ControlValueAccessor, 
     const start = new Date(year, 0, 1);
     const end = new Date(year, 11, 31);
     this.rangeDates = [start, end];
+    this.valueChanged.emit(this.rangeDates);
   }
 
   buttonsVisible: boolean = false;
@@ -155,5 +157,9 @@ export class DateRangeComponent implements AfterViewInit, ControlValueAccessor, 
     setTimeout(() => {
       this.buttonsVisible = false;
     }, 200);
+  }
+
+  selectDate() {
+    this.valueChanged.emit(this.rangeDates);
   }
 }

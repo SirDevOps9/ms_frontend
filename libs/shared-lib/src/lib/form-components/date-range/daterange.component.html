@@ -9,14 +9,11 @@
     [placeholder]="placeholder"
     [dateFormat]="dateFormat"
     appendTo="body"
-    [minDate]="minDate"
-    [maxDate]="maxDate"
-    [disabled]="disabled"
-    [defaultDate]="defaultDate!"
     [showIcon]="true"
     [attr.data-testid]="labelTest"
     (onShow)="showButtons()"
     (onClose)="hideButtons()"
+    (onSelect)="selectDate()"
   >
   </p-calendar>
 

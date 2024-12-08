@@ -148,37 +148,37 @@
       <ng-container caption>
         <form [formGroup]="filterForm" class="filtration grid mt-1">
           <div class="lg:col-3 md:col-4 col-12">
-            <lib-date-range formControlName="range"></lib-date-range>
+            <lib-date-range (valueChanged)="selectDate($event)"></lib-date-range>
           </div>
           <div class="col">
-            <lib-select
+            <lib-multi-select
               formControlName="type"
               placeholder="{{ 'type' | translate }}"
               [options]="filterTypes"
               [selectedValue]="filterForm.controls['type'].value"
               optionLabel="name"
               optionValue="id"
-            ></lib-select>
+            ></lib-multi-select>
           </div>
           <div class="col">
-            <lib-select
+            <lib-multi-select
               formControlName="status"
               placeholder="{{ 'status' | translate }}"
               [options]="filterStatus"
               [selectedValue]="filterForm.controls['status'].value"
               optionLabel="name"
               optionValue="id"
-            ></lib-select>
+            ></lib-multi-select>
           </div>
           <div class="col">
-            <lib-select
-              formControlName="sourceDocumentType"
-              placeholder="{{ 'sourceDocumentType' | translate }}"
+            <lib-multi-select
+              formControlName="sourceDocument"
+              placeholder="{{ 'sourceDocument' | translate }}"
               [options]="filterSourceType"
-              [selectedValue]="filterForm.controls['sourceDocumentType'].value"
+              [selectedValue]="filterForm.controls['sourceDocument'].value"
               optionLabel="name"
               optionValue="id"
-            ></lib-select>
+            ></lib-multi-select>
           </div>
 
           <div class="col">
@@ -186,6 +186,7 @@
               [title]="'View'"
               nameClass="save"
               widthNumber="100%"
+              (click)="filter()"
             ></lib-button-micro>
           </div>
         </form>

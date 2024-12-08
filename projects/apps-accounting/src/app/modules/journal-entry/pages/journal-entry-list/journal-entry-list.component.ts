@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
 import { SortTableEXport } from 'projects/apps-inventory/src/app/modules/items/models/SortTable';
+import { HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-journal-entry-list',
@@ -62,16 +63,58 @@ export class JournalEntryListComponent implements OnInit {
 
   ngOnInit() {
     this.initJournalEntryData();
+    this.getLookup();
+    this.lookupSubscriptions();
     this.initiateFilterForm();
   }
 
   initiateFilterForm() {
     this.filterForm = new FormGroup({
-      range: new FormControl(''),
-      type: new FormControl(''),
-      status: new FormControl(''),
-      sourceDocumentType: new FormControl(''),
+      fromDate: new FormControl(''),
+      toDate: new FormControl(''),
+      type: new FormControl([]),
+      status: new FormControl([]),
+      sourceDocument: new FormControl([]),
     });
+  }
+
+  filter() {
+    const filter = {
+      FromDate: new Date(this.filterForm.get('fromDate')!.value).toISOString().slice(0, 10),
+      ToDate: new Date(this.filterForm.get('toDate')!.value).toISOString().slice(0, 10),
+      Type: this.filterForm.get('type')!.value,
+      Status: this.filterForm.get('status')!.value,
+      SourceDocument: this.filterForm.get('sourceDocument')!.value,
+    };
+    this.journalEntryService.getAllJournalEntriesPaginated('', new PageInfo(), filter);
+
+    // console.log(params.toString());
+    console.log(this.filterForm.value);
+  }
+
+  selectDate(event: any) {
+    this.filterForm.get('fromDate')!.setValue(event[0]);
+    this.filterForm.get('toDate')!.setValue(event[1]);
+  }
+
+  lookupSubscriptions() {
+    this.journalEntryService.journalEntryStatus.subscribe((status) => {
+      this.filterStatus = status;
+    });
+
+    this.journalEntryService.journalEntryTypes.subscribe((types) => {
+      this.filterTypes = types;
+    });
+
+    this.journalEntryService.journalEntryDocumentsTypes.subscribe((types) => {
+      this.filterSourceType = types;
+    });
+  }
+
+  getLookup() {
+    this.journalEntryService.getJournalEntryStatus();
+    this.journalEntryService.getJournalEntryType();
+    this.journalEntryService.getJournalEntryDocumentType();
   }
 
   initJournalEntryData() {
