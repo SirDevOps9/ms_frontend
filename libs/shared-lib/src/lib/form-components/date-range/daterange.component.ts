@@ -4,24 +4,19 @@ import {
   forwardRef,
   Input,
   Output,
-  Optional,
-  Self,
-  AfterViewInit,
-  inject,
   OnInit,
+  AfterViewInit,
 } from '@angular/core';
 import {
   NG_VALUE_ACCESSOR,
   ControlValueAccessor,
-  NgControl,
-  FormControl,
-  FormBuilder,
   FormGroup,
+  FormBuilder,
   ValidationErrors,
   Validator,
 } from '@angular/forms';
+import * as moment from 'moment-timezone';
 
-import moment from 'moment-timezone';
 @Component({
   selector: 'lib-date-range',
   templateUrl: './daterange.component.html',
@@ -35,99 +30,78 @@ import moment from 'moment-timezone';
   ],
 })
 export class DateRangeComponent implements AfterViewInit, ControlValueAccessor, Validator, OnInit {
-  currentYear = new Date().getFullYear();
-  // constructor(@Optional() @Self() public controlDir: NgControl) {
-  //   if (this.controlDir) {
-  //     this.controlDir.valueAccessor = this;
-  //   }
-  // }
-  ngOnInit(): void {
-    this.formGroup = new FormControl();
-  }
-  @Input() placeholder: string;
-  @Input() dateFormat: string = 'dd/mm/yy';
-  @Input() minDate: Date | null;
-  @Input() maxDate: Date | null;
-  @Input() label: string;
+  @Input() placeholder: string = 'Select a date range';
+  @Input() dateFormat: string = 'yy-mm-dd';
+  @Input() minDate: Date | null = null;
+  @Input() maxDate: Date | null = null;
+  @Input() label: string = '';
   @Input() disabled: boolean = false;
-  @Input() readOnly: boolean;
-  @Input() labelTest: any = 'calendar';
+  @Input() readOnly: boolean = false;
+  @Input() defaultDate: Date | null = null;
   @Output() valueChanged = new EventEmitter<Date[]>();
-  @Input() defaultDate: Date | null;
-  value: any;
-  protected readonly fb = inject(FormBuilder);
 
-  public formGroup!: FormGroup<any> | FormControl<any>;
+  currentYear = new Date().getFullYear();
+  public formGroup!: FormGroup;
 
-  public onTouched: () => void = () => {};
+  private onTouched: () => void = () => {};
+  private onChange: (value: any) => void = () => {};
+  rangeDates: Date[] = [];
+  buttonsVisible: boolean = false;
 
-  public writeValue(val: unknown): void {
-    if (val) {
-      const dates = Array.isArray(val) ? val.map((date) => new Date(date)) : [];
-      this.formGroup.patchValue(dates, { emitEvent: true });
+  constructor(private fb: FormBuilder) {}
+
+  ngOnInit(): void {
+    this.formGroup = this.fb.group({
+      rangeDates: this.fb.control([]), // Initialize rangeDates as FormControl
+    });
+
+    // Listen for form control value changes and emit to parent
+    this.formGroup.get('rangeDates')?.valueChanges.subscribe((value) => {
+      this.onChange(value);
+      this.valueChanged.emit(value);
+    });
+  }
+
+  writeValue(value: any): void {
+    if (value) {
+      const dates = Array.isArray(value) ? value.map((date) => new Date(date)) : [];
+      this.formGroup.patchValue({ rangeDates: dates }, { emitEvent: false });
     } else {
-      this.formGroup.patchValue([], { emitEvent: true });
+      this.formGroup.patchValue({ rangeDates: [] }, { emitEvent: false });
     }
   }
 
-  private formatDate(date: string): string {
-    return moment(date).format('YYYY-MM-DD');
+  registerOnChange(fn: (value: any) => void): void {
+    this.onChange = fn;
   }
 
-  public registerOnChange(fn: (val: string) => void): void {
-    this.formGroup.valueChanges?.subscribe((val) => {
-      // Emit the formatted date as "YYYY-MM-DD" when value changes
-      fn(this.formatDate(val));
-    });
-  }
-  public get disableInputs(): boolean {
-    return !this.formGroup.get('enabled')?.value;
+  registerOnTouched(fn: () => void): void {
+    this.onTouched = fn;
   }
 
-  public registerOnTouched = (fn: Function): void => {
-    this.formGroup.valueChanges.subscribe((val) => fn(val));
-  };
-
-  private _resetForm = (): void => this.formGroup.reset();
-
-  public validate(): ValidationErrors | null {
-    return this.formGroup.valid
-      ? null
-      : {
-          invalidForm: {
-            valid: false,
-            message: 'Form fields are invalid',
-          },
-        };
+  validate(): ValidationErrors | null {
+    const range = this.formGroup.get('rangeDates')?.value;
+    if (this.minDate && range && range[0] < this.minDate) {
+      return { minDateError: 'Start date is before the allowed minimum date' };
+    }
+    if (this.maxDate && range && range[1] > this.maxDate) {
+      return { maxDateError: 'End date is after the allowed maximum date' };
+    }
+    return null;
   }
 
-  dateTimeZone(date: string, format?: string): Date | null | string {
-    const timeZone: string = Intl.DateTimeFormat().resolvedOptions().timeZone; // Get the time zone ID
-
-    const utcDate = moment.utc(date);
-
-    return date ? new Date(utcDate.tz(timeZone).format(format)) : null;
+  ngAfterViewInit(): void {
+    // Logic that requires DOM access after view initialization
   }
 
-  ngAfterViewInit() {
-    // if (this.controlDir) {
-    //   setTimeout(() => {
-    //     this.labelTest = this.controlDir.name;
-    //   }, 500);
-    // }
-  }
-
-  rangeDates: Date[] = [];
-
-  selectCurrentMonth() {
+  selectCurrentMonth(): void {
     const now = new Date();
     const start = new Date(now.getFullYear(), now.getMonth(), 1);
     const end = new Date(now.getFullYear(), now.getMonth() + 1, 0);
-    this.rangeDates = [start, end];
-    this.valueChanged.emit(this.rangeDates);
+    this.formGroup.patchValue({ rangeDates: [start, end] });
   }
 
-  selectQuarter(quarter: number) {
+  selectQuarter(quarter: number): void {
     const year = new Date().getFullYear();
     const quarters = [
       [new Date(year, 0, 1), new Date(year, 2, 31)], // Q1
@@ -135,31 +109,23 @@ export class DateRangeComponent implements AfterViewInit, ControlValueAccessor, 
       [new Date(year, 6, 1), new Date(year, 8, 30)], // Q3
       [new Date(year, 9, 1), new Date(year, 11, 31)], // Q4
     ];
-    this.rangeDates = quarters[quarter - 1];
-    this.valueChanged.emit(this.rangeDates);
+    this.formGroup.patchValue({ rangeDates: quarters[quarter - 1] });
   }
 
-  selectCurrentYear() {
+  selectCurrentYear(): void {
     const year = new Date().getFullYear();
     const start = new Date(year, 0, 1);
     const end = new Date(year, 11, 31);
-    this.rangeDates = [start, end];
-    this.valueChanged.emit(this.rangeDates);
+    this.formGroup.patchValue({ rangeDates: [start, end] });
   }
 
-  buttonsVisible: boolean = false;
-
-  showButtons() {
+  showButtons(): void {
     this.buttonsVisible = true;
   }
 
-  hideButtons() {
+  hideButtons(): void {
     setTimeout(() => {
       this.buttonsVisible = false;
     }, 200);
-  }
-
-  selectDate() {
-    this.valueChanged.emit(this.rangeDates);
   }
 }

@@ -52,8 +52,6 @@ export class JournalEntryProxy {
               query += `&${key}=${encodeURIComponent(item)}`;
             });
           } else {
-            console.log(value);
-
             query += `&${key}=${encodeURIComponent(value)}`;
           }
         }

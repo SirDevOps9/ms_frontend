@@ -70,8 +70,7 @@ export class JournalEntryListComponent implements OnInit {
 
   initiateFilterForm() {
     this.filterForm = new FormGroup({
-      fromDate: new FormControl(''),
-      toDate: new FormControl(''),
+      range: new FormControl([]),
       type: new FormControl([]),
       status: new FormControl([]),
       sourceDocument: new FormControl([]),
@@ -80,16 +79,17 @@ export class JournalEntryListComponent implements OnInit {
 
   filter() {
     const filter = {
-      FromDate: new Date(this.filterForm.get('fromDate')!.value).toISOString().slice(0, 10),
-      ToDate: new Date(this.filterForm.get('toDate')!.value).toISOString().slice(0, 10),
+      FromDate: this.filterForm.get('range')!.value[0]
+        ? new Date(this.filterForm.get('range')!.value[0]).toISOString().slice(0, 10)
+        : '',
+      ToDate: this.filterForm.get('range')!.value[1]
+        ? new Date(this.filterForm.get('range')!.value[1]).toISOString().slice(0, 10)
+        : '',
       Type: this.filterForm.get('type')!.value,
       Status: this.filterForm.get('status')!.value,
       SourceDocument: this.filterForm.get('sourceDocument')!.value,
     };
     this.journalEntryService.getAllJournalEntriesPaginated('', new PageInfo(), filter);
-
-    // console.log(params.toString());
-    console.log(this.filterForm.value);
   }
 
   selectDate(event: any) {

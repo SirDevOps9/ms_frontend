@@ -148,7 +148,7 @@
       <ng-container caption>
         <form [formGroup]="filterForm" class="filtration grid mt-1">
           <div class="lg:col-3 md:col-4 col-12">
-            <lib-date-range (valueChanged)="selectDate($event)"></lib-date-range>
+            <lib-date-range formControlName="range"></lib-date-range>
           </div>
           <div class="col">
             <lib-multi-select

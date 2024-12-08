@@ -1,21 +1,19 @@
 <div class="calendar-wrapper">
   <p-calendar
-    [(ngModel)]="rangeDates"
+    [formControl]="$any(formGroup).get('rangeDates')"
     selectionMode="range"
-    [readonlyInput]="true"
-    dateFormat="yy-mm-dd"
-    class="w-100 p-calendar"
-    [formControl]="$any(formGroup)"
+    [readonlyInput]="readOnly"
     [placeholder]="placeholder"
     [dateFormat]="dateFormat"
+    [minDate]="minDate"
+    [maxDate]="maxDate"
+    [disabled]="disabled"
     appendTo="body"
     [showIcon]="true"
-    [attr.data-testid]="labelTest"
+    [attr.data-testid]="label"
     (onShow)="showButtons()"
     (onClose)="hideButtons()"
-    (onSelect)="selectDate()"
-  >
-  </p-calendar>
+  ></p-calendar>
 
   <div *ngIf="buttonsVisible" class="custom-ranges">
     <span class="paragraph_b16" (click)="selectCurrentMonth()">Current Month</span>
