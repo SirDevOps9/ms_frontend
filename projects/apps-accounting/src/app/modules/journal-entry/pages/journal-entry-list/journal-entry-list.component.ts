@@ -11,7 +11,7 @@ import {
 import { JournalEntryService } from '../../journal-entry.service';
 import { JournalEntryDto, SharedJournalEnums } from '../../models';
 import { Router } from '@angular/router';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
 import { SortTableEXport } from 'projects/apps-inventory/src/app/modules/items/models/SortTable';
 
@@ -30,35 +30,48 @@ export class JournalEntryListComponent implements OnInit {
   exportColumns: lookupDto[];
   exportData: JournalEntryDto[];
   searchTerm: string;
-  SortByAll:SortTableEXport
+  SortByAll: SortTableEXport;
   filteredColumns: string[] = [];
+  filterForm: FormGroup;
+  filterTypes: any = [];
+  filterStatus: any = [];
+  filterSourceType: any = [];
   columns: { name: any; headerText: any }[] = [
     { name: 'journalCode', headerText: 'Journal.journalCode' },
-      { name: 'refrenceNumber', headerText: 'Journal.referenceNumber' },
-      { name: 'createdOn', headerText: 'Journal.CreatedOn' },
-      { name: 'type', headerText: 'Journal.type' },
-      { name: 'status', headerText: 'Journal.status' },
-      { name: 'isRepeated', headerText: 'Journal.isRepeated' },
-      { name: 'isReversed', headerText: 'Journal.isReversed' },
-      { name: 'totalDebitAmount', headerText: 'Journal.totalDebitAmount' },
-      { name: 'totalCreditAmount', headerText: 'Journal.totalCreditAmount' },
-      { name: 'sourceName', headerText: 'Journal.sourceName' },
-      { name: 'sourceCode', headerText: 'Journal.sourceCode' },
-  ]
+    { name: 'refrenceNumber', headerText: 'Journal.referenceNumber' },
+    { name: 'createdOn', headerText: 'Journal.CreatedOn' },
+    { name: 'type', headerText: 'Journal.type' },
+    { name: 'status', headerText: 'Journal.status' },
+    { name: 'isRepeated', headerText: 'Journal.isRepeated' },
+    { name: 'isReversed', headerText: 'Journal.isReversed' },
+    { name: 'totalDebitAmount', headerText: 'Journal.totalDebitAmount' },
+    { name: 'totalCreditAmount', headerText: 'Journal.totalCreditAmount' },
+    { name: 'sourceName', headerText: 'Journal.sourceName' },
+    { name: 'sourceCode', headerText: 'Journal.sourceCode' },
+  ];
   constructor(
     private routerService: RouterService,
     private journalEntryService: JournalEntryService,
     public sharedJouralEnum: SharedJournalEnums,
     private loaderService: LoaderService,
     private router: Router,
-    private exportService:ExportService
+    private exportService: ExportService
   ) {
     this.searchColumnsControl = new FormControl([]);
   }
 
   ngOnInit() {
     this.initJournalEntryData();
+    this.initiateFilterForm();
+  }
 
+  initiateFilterForm() {
+    this.filterForm = new FormGroup({
+      range: new FormControl(''),
+      type: new FormControl(''),
+      status: new FormControl(''),
+      sourceDocumentType: new FormControl(''),
+    });
   }
 
   initJournalEntryData() {
@@ -103,17 +116,20 @@ export class JournalEntryListComponent implements OnInit {
     });
   }
   exportClick() {
-    this.exportJournalEntriesData(this.searchTerm, this.SortByAll?.SortBy, this.SortByAll?.SortColumn);
+    this.exportJournalEntriesData(
+      this.searchTerm,
+      this.SortByAll?.SortBy,
+      this.SortByAll?.SortColumn
+    );
   }
 
   exportJournalEntriesData(searchTerm: string, sortBy?: number, sortColumn?: string) {
-    this.journalEntryService.exportJournalEntriesData(searchTerm , sortBy , sortColumn);
-    const filteredColumns = this.columns.filter(col => this.filteredColumns.includes(col.name));
+    this.journalEntryService.exportJournalEntriesData(searchTerm, sortBy, sortColumn);
+    const filteredColumns = this.columns.filter((col) => this.filteredColumns.includes(col.name));
 
     this.journalEntryService.exportsJournalEntriesDataSourceObservable.subscribe((res) => {
       this.exportData = this.exportService.formatCiloma(res, filteredColumns);
     });
-
   }
 
   exportClickBySort(e: { SortBy: number; SortColumn: string }) {
@@ -125,7 +141,6 @@ export class JournalEntryListComponent implements OnInit {
 
   onFilterColumn(e: string[]) {
     this.filteredColumns = e;
-
   }
   routeToPaymentInView(id: number) {
     const url = this.router.serializeUrl(
