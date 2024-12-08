@@ -331,6 +331,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
           invoiceEntryMode.patchValue({
             id: selectedItem.invoiceEntryMode?.id || 0,
             vendorBatchNo: selectedItem.invoiceEntryMode?.vendorBatchNo ?? '',
+            hasExpiryDate: selectedItem?.hasExpiryDate,
             expireDate: selectedItem.invoiceEntryMode?.expireDate ?? null,
             systemPatchNo: selectedItem.invoiceEntryMode?.systemPatchNo ?? '',
             serialId: selectedItem.invoiceEntryMode?.serialId ?? '',
@@ -796,6 +797,8 @@ export class AddPurchaseInvoiceComponent implements OnInit {
             serialId: selectedItem.invoiceEntryMode?.serialId,
             trackingType: selectedItem.trackingType,
             selectedValue: selectedItem.invoiceEntryMode?.quantity,
+            hasExpiryDate: selectedItem?.hasExpiryDate,
+
           });
         }
       }
@@ -882,7 +885,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
         invoiceTracking: {
           vendorBatchNo: detail.invoiceTracking.vendorBatchNo || null,
           quantity: detail.invoiceTracking.quantity || 0,
-          hasExpiryDate: detail.invoiceTracking.hasExpiryDate || false,
+          hasExpiryDate: detail.hasExpiryDate,
           expireDate: detail.invoiceTracking.expireDate || null,
           systemPatchNo: detail.invoiceTracking.systemPatchNo || null,
           serialId: detail.invoiceTracking.serialId || null,
