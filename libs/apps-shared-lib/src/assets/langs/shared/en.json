@@ -16,7 +16,7 @@
   "edit": "edit",
   "delete": "delete",
   "statement": "statement",
-  "sequence": "sequence",
+  "sequenceTitle": "sequence",
   "attachment": "Attachment",
   "attachmentDeletedSuccessfully": "attachment Deleted Successfully",
   "CannotDeleteattachment": "Cannot Delete attachment",
