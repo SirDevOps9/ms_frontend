@@ -97,41 +97,45 @@
         <ng-container caption>
           <form [formGroup]="filterForm" class="filtration grid mt-1">
             <div class="lg:col-3 md:col-4 col-12">
-              <lib-date-range formControlName="range"></lib-date-range>
+              <lib-date-range
+                placeholder="{{ 'filter.selectDateRange' | translate }}"
+                formControlName="range"
+              ></lib-date-range>
             </div>
             <div class="col">
-              <lib-select
+              <lib-multi-select
                 formControlName="status"
-                placeholder="{{ 'status' | translate }}"
+                placeholder="{{ 'filter.status' | translate }}"
                 [options]="filterStatus"
                 optionLabel="name"
                 optionValue="id"
-              ></lib-select>
+              ></lib-multi-select>
             </div>
             <div class="col">
-              <lib-select
-                formControlName="sourceDocumentType"
-                placeholder="{{ 'sourceDocumentType' | translate }}"
+              <lib-multi-select
+                formControlName="sourceDocument"
+                placeholder="{{ 'filter.sourceDocumentType' | translate }}"
                 [options]="filterSourceType"
                 optionLabel="name"
                 optionValue="id"
-              ></lib-select>
+              ></lib-multi-select>
             </div>
             <div class="col">
-              <lib-select
+              <lib-multi-select
                 formControlName="warehouse"
-                placeholder="{{ 'warehouse_label' | translate }}"
+                placeholder="{{ 'filter.warehouse' | translate }}"
                 [options]="filterWarehouse"
                 optionLabel="name"
                 optionValue="id"
-              ></lib-select>
+              ></lib-multi-select>
             </div>
 
             <div class="col">
               <lib-button-micro
-                [title]="'View'"
+                title="{{ 'filter.view' | translate }}"
                 nameClass="save"
                 widthNumber="100%"
+                (click)="filter()"
               ></lib-button-micro>
             </div>
           </form>

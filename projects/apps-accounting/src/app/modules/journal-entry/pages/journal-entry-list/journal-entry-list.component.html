@@ -148,12 +148,15 @@
       <ng-container caption>
         <form [formGroup]="filterForm" class="filtration grid mt-1">
           <div class="lg:col-3 md:col-4 col-12">
-            <lib-date-range formControlName="range"></lib-date-range>
+            <lib-date-range
+              placeholder="{{ 'filter.selectDateRange' | translate }}"
+              formControlName="range"
+            ></lib-date-range>
           </div>
           <div class="col">
             <lib-multi-select
               formControlName="type"
-              placeholder="{{ 'type' | translate }}"
+              placeholder="{{ 'filter.type' | translate }}"
               [options]="filterTypes"
               [selectedValue]="filterForm.controls['type'].value"
               optionLabel="name"
@@ -163,7 +166,7 @@
           <div class="col">
             <lib-multi-select
               formControlName="status"
-              placeholder="{{ 'status' | translate }}"
+              placeholder="{{ 'filter.status' | translate }}"
               [options]="filterStatus"
               [selectedValue]="filterForm.controls['status'].value"
               optionLabel="name"
@@ -173,7 +176,7 @@
           <div class="col">
             <lib-multi-select
               formControlName="sourceDocument"
-              placeholder="{{ 'sourceDocument' | translate }}"
+              placeholder="{{ 'filter.sourceDocumentType' | translate }}"
               [options]="filterSourceType"
               [selectedValue]="filterForm.controls['sourceDocument'].value"
               optionLabel="name"

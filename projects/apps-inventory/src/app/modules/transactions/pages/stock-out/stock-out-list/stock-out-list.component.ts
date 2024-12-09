@@ -56,15 +56,63 @@ export class StockOutListComponent implements OnInit {
     this.initStockOutData();
     this.subscribes();
     this.initiateFilterForm();
+    this.getLookup();
+    this.lookupSubscriptions();
   }
 
   initiateFilterForm() {
     this.filterForm = new FormGroup({
-      range: new FormControl(''),
-      warehouse: new FormControl(''),
-      status: new FormControl(''),
-      sourceDocumentType: new FormControl(''),
+      range: new FormControl([]),
+      warehouse: new FormControl([]),
+      status: new FormControl([]),
+      sourceDocument: new FormControl([]),
     });
+  }
+
+  lookupSubscriptions() {
+    this.itemsService.wareHousesDropDownLookup$.subscribe((res) => {
+      this.filterWarehouse = res;
+    });
+
+    this.itemsService.statusLookupList$.subscribe((res) => {
+      this.filterStatus = res;
+    });
+
+    this.itemsService.sourceDocumentList$.subscribe((res) => {
+      this.filterSourceType = res;
+    });
+  }
+
+  getLookup() {
+    this.getWarehouseDropDown();
+    this.getStatusDropDown();
+    this.getSourceDocumentsDropDown();
+  }
+
+  getWarehouseDropDown() {
+    this.itemsService.getWareHousesDropDown();
+  }
+  getStatusDropDown() {
+    this.itemsService.getStockOutStatus();
+  }
+
+  getSourceDocumentsDropDown() {
+    this.itemsService.getSourceDocumentType();
+  }
+
+  filter() {
+    const filter = {
+      FromDate: this.filterForm.get('range')!.value[0]
+        ? new Date(this.filterForm.get('range')!.value[0]).toISOString().slice(0, 10)
+        : '',
+      ToDate: this.filterForm.get('range')!.value[1]
+        ? new Date(this.filterForm.get('range')!.value[1]).toISOString().slice(0, 10)
+        : '',
+      Status: this.filterForm.get('status')!.value,
+      SourceDocumentType: this.filterForm.get('sourceDocument')!.value,
+      WarehouseId: this.filterForm.get('warehouse')!.value,
+    };
+    this.itemsService.getAllStockOut('', new PageInfo(), filter);
   }
 
   subscribes() {
@@ -77,6 +125,7 @@ export class StockOutListComponent implements OnInit {
       this.currentPageInfo = currentPageInfo;
     });
   }
+
   initStockOutData() {
     this.itemsService.getAllStockOut('', new PageInfo());
   }
