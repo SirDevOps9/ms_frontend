@@ -20,6 +20,7 @@ import { AddPurchaseInvoiceDto } from './models/addPurchaseInvoice';
 })
 export class PurchaseTransactionsService {
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
+  public savedDataId = new BehaviorSubject<number>(0);
   public vendorDataSource = new BehaviorSubject<any>([]);
   public latestItemsDataSource = new BehaviorSubject<ItemDto[]>([]);
   public itemsPageInfo = new BehaviorSubject<PageInfoResult>({});
@@ -274,6 +275,8 @@ export class PurchaseTransactionsService {
         this.languageService.transalte('purchase.success'),
         this.languageService.transalte('purchase.addInvoice')
       );
+      this.savedDataId.next(res);
+
     });
   }
   deleteRowReturnInvoice(id: number) {
@@ -316,5 +319,49 @@ export class PurchaseTransactionsService {
         return res;
       })
     );
+  }
+  editReturnInvoice(obj: any) {
+    this.loaderService.show();
+
+    this.TransactionsProxy.EditReturnInvoice(obj).subscribe({
+      next: (res: any) => {
+        this.loaderService.hide();
+
+        this.toasterService.showSuccess(
+          this.languageService.transalte('messages.success'),
+          this.languageService.transalte('messages.successfully')
+        );
+       this.getReturnInvoiceByIdToEdit(res)
+      },
+      error: (err: any) => {
+        this.toasterService.showError(
+          this.languageService.transalte('messages.error'),
+          err.message
+        );
+        this.loaderService.hide();
+      },
+    });
+  }
+  postReturnInvoice(id: number) {
+    this.loaderService.show();
+
+    this.TransactionsProxy.PostReturnInvoice(id).subscribe({
+      next: (res: any) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('messages.Success'),
+          this.languageService.transalte('messages.purchaseinvoicePostedSuccessfully')
+        );
+        this.loaderService.hide();
+
+        this.router.navigateTo('transaction/return-purchase-invoice');
+      },
+      error: (error: any) => {
+        this.loaderService.hide();
+        this.toasterService.showError(
+          this.languageService.transalte('messages.Error'),
+          this.languageService.transalte(error.message)
+        );
+      },
+    });
   }
 }
