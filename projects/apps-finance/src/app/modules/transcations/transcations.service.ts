@@ -56,6 +56,7 @@ export class TranscationsService {
   private paymenOutLineDeleted = new BehaviorSubject<boolean>(false);
   public paymentOutLineDeletedObser = this.paymenOutLineDeleted.asObservable();
   paymentInStatusLookup = new BehaviorSubject<LookupDto[]>([]);
+  paymentOutStatusLookup = new BehaviorSubject<LookupDto[]>([]);
   paymentHubLookup = new BehaviorSubject<LookupDto[]>([]);
   bankAccountsDropDown = new BehaviorSubject<BankAccount[]>([]);
   currencyListDropdown = new BehaviorSubject<CurrencyDto[]>([]);
@@ -74,6 +75,7 @@ export class TranscationsService {
   paymentInDataSourceObservable = this.paymentInDataSource.asObservable();
   exportedPaymentinDataSourceObservable = this.exportedpaymentinListDataSource.asObservable();
   paymentInStatus$ = this.paymentInStatusLookup.asObservable();
+  paymentOutStatus$ = this.paymentOutStatusLookup.asObservable();
   paymentHub$ = this.paymentHubLookup.asObservable();
   bankAccountsDropDown$ = this.bankAccountsDropDown.asObservable();
   currencyDropdown$ = this.currencyListDropdown.asObservable();
@@ -453,8 +455,8 @@ export class TranscationsService {
     });
   }
 
-  getAllPaymentOut(quieries: string, pageInfo: PageInfo) {
-    this.TranscationsProxy.getAllPymentOut(quieries, pageInfo).subscribe((response) => {
+  getAllPaymentOut(quieries: string, pageInfo: PageInfo, filter?: PaymentFilterDto) {
+    this.TranscationsProxy.getAllPymentOut(quieries, pageInfo, filter).subscribe((response) => {
       this.paymentOutDataSource.next(response.result);
       this.paymentOutCurrentPageInfo.next(response.pageInfoResult);
     });
@@ -511,6 +513,11 @@ export class TranscationsService {
   getPaymentInStatus() {
     this.TranscationsProxy.paymentInStatusLookup().subscribe((res) => {
       this.paymentInStatusLookup.next(res[0].items);
+    });
+  }
+  getPaymentOutStatus() {
+    this.TranscationsProxy.paymentOutStatusLookup().subscribe((res) => {
+      this.paymentOutStatusLookup.next(res[0].items);
     });
   }
 

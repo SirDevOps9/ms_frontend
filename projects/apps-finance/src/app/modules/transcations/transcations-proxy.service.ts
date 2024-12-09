@@ -167,12 +167,29 @@ export class TranscationsProxyService {
 
   getAllPymentOut(
     searchTerm: string,
-    pageInfo: PageInfo
+    pageInfo: PageInfo,
+    filter?: PaymentFilterDto
   ): Observable<PaginationVm<GetAllPaymentOutDto>> {
     let query = `PaymentOut?${pageInfo.toQuery}`;
     if (searchTerm) {
       query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
     }
+
+    if (filter) {
+      Object.keys(filter).forEach((key) => {
+        const value = filter[key];
+        if (value) {
+          if (Array.isArray(value)) {
+            value.forEach((val) => {
+              query += `&${key}=${encodeURIComponent(val)}`;
+            });
+          } else {
+            query += `&${key}=${encodeURIComponent(value)}`;
+          }
+        }
+      });
+    }
+
     return this.httpService.get<PaginationVm<GetAllPaymentOutDto>>(query);
   }
 
@@ -204,6 +221,9 @@ export class TranscationsProxyService {
 
   paymentInStatusLookup(): Observable<LookupReturn[]> {
     return this.httpService.get('Lookup?lookups=PaymentInStatus');
+  }
+  paymentOutStatusLookup(): Observable<LookupReturn[]> {
+    return this.httpService.get('Lookup?lookups=PaymentOutStatus');
   }
   paymentHub(): Observable<LookupReturn[]> {
     return this.httpService.get('Lookup?lookups=PaymentPlace');
