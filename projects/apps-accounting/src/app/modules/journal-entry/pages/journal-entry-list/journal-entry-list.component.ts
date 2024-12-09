@@ -9,7 +9,7 @@ import {
   RouterService,
 } from 'shared-lib';
 import { JournalEntryService } from '../../journal-entry.service';
-import { JournalEntryDto, SharedJournalEnums } from '../../models';
+import { JournalEntryDto, LookupDto, SharedJournalEnums } from '../../models';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
@@ -34,9 +34,9 @@ export class JournalEntryListComponent implements OnInit {
   SortByAll: SortTableEXport;
   filteredColumns: string[] = [];
   filterForm: FormGroup;
-  filterTypes: any = [];
-  filterStatus: any = [];
-  filterSourceType: any = [];
+  filterTypes: LookupDto[] = [];
+  filterStatus: LookupDto[] = [];
+  filterSourceType: LookupDto[] = [];
   columns: { name: any; headerText: any }[] = [
     { name: 'journalCode', headerText: 'Journal.journalCode' },
     { name: 'refrenceNumber', headerText: 'Journal.referenceNumber' },

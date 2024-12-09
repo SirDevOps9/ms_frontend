@@ -145,8 +145,8 @@ export class TransactionsService {
       }
     } catch (error) {}
   }
-  getAllStockIn(quieries: string, pageInfo: PageInfo) {
-    this.transactionsProxy.getAllStockIn(quieries, pageInfo).subscribe((response) => {
+  getAllStockIn(quieries: string, pageInfo: PageInfo, filter?: InventoryFilterDto ) {
+    this.transactionsProxy.getAllStockIn(quieries, pageInfo, filter).subscribe((response) => {
       this.stockInDataSource.next(response.result);
       this.currentPageInfo.next(response.pageInfoResult);
     });

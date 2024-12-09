@@ -52,10 +52,28 @@ export class TransactionsProxyService {
     return this.httpService.post(`StockIn/${id}/Post`, null);
   }
 
-  getAllStockIn(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<StockInDto>> {
+  getAllStockIn(
+    searchTerm: string,
+    pageInfo: PageInfo,
+    filter?: InventoryFilterDto
+  ): Observable<PaginationVm<StockInDto>> {
     let query = `StockIn?${pageInfo.toQuery}`;
     if (searchTerm) {
       query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+    if (filter) {
+      Object.keys(filter).forEach((key) => {
+        const value = filter[key];
+        if (value) {
+          if (Array.isArray(value)) {
+            value.forEach((item) => {
+              query += `&${key}=${encodeURIComponent(item)}`;
+            });
+          } else {
+            query += `&${key}=${encodeURIComponent(value)}`;
+          }
+        }
+      });
     }
     return this.httpService.get<PaginationVm<StockInDto>>(query);
   }

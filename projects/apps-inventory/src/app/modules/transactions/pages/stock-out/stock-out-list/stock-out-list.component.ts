@@ -12,7 +12,7 @@ import {
   Pages,
   SharedEnums,
 } from 'shared-lib';
-import { StockInDto, StockOutDto } from '../../../models';
+import { LookupDto, StockInDto, StockOutDto } from '../../../models';
 import { SharedStock } from '../../../models/sharedStockOutEnums';
 import { ItemsService } from '../../../../items/items.service';
 import { TransactionsService } from '../../../transactions.service';
@@ -49,9 +49,9 @@ export class StockOutListComponent implements OnInit {
   modulelist: MenuModule[];
   searchTerm: string;
   filterForm: FormGroup;
-  filterWarehouse: any = [];
-  filterStatus: any = [];
-  filterSourceType: any = [];
+  filterWarehouse: LookupDto[] = [];
+  filterStatus: LookupDto[] = [];
+  filterSourceType: LookupDto[] = [];
   ngOnInit() {
     this.initStockOutData();
     this.subscribes();
