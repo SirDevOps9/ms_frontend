@@ -85,7 +85,7 @@ export class SalesInvoiceComponent {
       this.routerService.navigateTo(`transaction/sales-invoice/add`);
   }
 
-  constructor( private routerService: RouterService, private router: Router){
+  constructor( private routerService: RouterService, private router: Router,){
 
   }
 }
