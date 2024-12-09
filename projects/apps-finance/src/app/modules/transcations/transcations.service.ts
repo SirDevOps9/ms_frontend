@@ -1,3 +1,4 @@
+import { paymentInStatus } from './models/enums';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
@@ -14,9 +15,13 @@ import {
   AccountDto,
   AddPaymentMethodDto,
   AddPaymentTermDto,
+  BankAccount,
+  CurrencyDto,
   CurrencyRateDto,
   GetAllPaymentInDto,
   GetAllPaymentOutDto,
+  LookupDto,
+  PaymentFilterDto,
 } from './models';
 import { GetPaymentMethodByIdDto } from './models/get-payment-method-by-id-dto';
 
@@ -50,6 +55,10 @@ export class TranscationsService {
 
   private paymenOutLineDeleted = new BehaviorSubject<boolean>(false);
   public paymentOutLineDeletedObser = this.paymenOutLineDeleted.asObservable();
+  paymentInStatusLookup = new BehaviorSubject<LookupDto[]>([]);
+  paymentHubLookup = new BehaviorSubject<LookupDto[]>([]);
+  bankAccountsDropDown = new BehaviorSubject<BankAccount[]>([]);
+  currencyListDropdown = new BehaviorSubject<CurrencyDto[]>([]);
 
   paymentDetailsnDataObservable = this.paymentDetails.asObservable();
   getVendorDropdownDataObservable = this.getVendorDropdownData.asObservable();
@@ -64,6 +73,10 @@ export class TranscationsService {
   accountCurrencyRate = this.accountCurrencyRateDataSource.asObservable();
   paymentInDataSourceObservable = this.paymentInDataSource.asObservable();
   exportedPaymentinDataSourceObservable = this.exportedpaymentinListDataSource.asObservable();
+  paymentInStatus$ = this.paymentInStatusLookup.asObservable();
+  paymentHub$ = this.paymentHubLookup.asObservable();
+  bankAccountsDropDown$ = this.bankAccountsDropDown.asObservable();
+  currencyDropdown$ = this.currencyListDropdown.asObservable();
 
   public paymentOutDataSource = new BehaviorSubject<GetAllPaymentOutDto[]>([]);
   public exportedpaymentOutListDataSource = new BehaviorSubject<GetAllPaymentOutDto[]>([]);
@@ -252,15 +265,15 @@ export class TranscationsService {
       }
     );
   }
-  getAllPaymentIn(quieries: string, pageInfo: PageInfo) {
-    this.TranscationsProxy.getAllPymentIn(quieries, pageInfo).subscribe((response) => {
+  getAllPaymentIn(quieries: string, pageInfo: PageInfo, filter?: PaymentFilterDto) {
+    this.TranscationsProxy.getAllPymentIn(quieries, pageInfo, filter).subscribe((response) => {
       this.paymentInDataSource.next(response.result);
       this.currentPageInfo.next(response.pageInfoResult);
     });
   }
 
-  exportsPaymentInList(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
-    this.TranscationsProxy.exportsPaymentInList(searchTerm ,SortBy,SortColumn).subscribe({
+  exportsPaymentInList(searchTerm?: string, SortBy?: number, SortColumn?: string) {
+    this.TranscationsProxy.exportsPaymentInList(searchTerm, SortBy, SortColumn).subscribe({
       next: (res: any) => {
         this.exportedpaymentinListDataSource.next(res);
       },
@@ -492,6 +505,30 @@ export class TranscationsService {
       if (res) {
         this.viewpaymentOut.next(res);
       }
+    });
+  }
+
+  getPaymentInStatus() {
+    this.TranscationsProxy.paymentInStatusLookup().subscribe((res) => {
+      this.paymentInStatusLookup.next(res[0].items);
+    });
+  }
+
+  getPaymentHub() {
+    this.TranscationsProxy.paymentHub().subscribe((res) => {
+      this.paymentHubLookup.next(res[0].items);
+    });
+  }
+
+  getCurrencyDropdown() {
+    this.TranscationsProxy.getCurrencyDropDown().subscribe((res) => {
+      this.currencyListDropdown.next(res);
+    });
+  }
+
+  getBanAccounts(banksId: number[]) {
+    this.TranscationsProxy.multiBankAccountDropDown(banksId).subscribe((res) => {
+      this.bankAccountsDropDown.next(res);
     });
   }
 }

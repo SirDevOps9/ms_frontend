@@ -4,12 +4,16 @@ import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
 import {
   AccountDto,
   AddPaymentMethodDto,
+  BankAccount,
   BankAccountWithCurrency,
+  CurrencyDto,
   CurrencyRateDto,
   CustomerDropDown,
   DropDownDto,
   GetAllPaymentInDto,
   GetAllPaymentOutDto,
+  LookupReturn,
+  PaymentFilterDto,
   TreasuryDropDown,
   VendorDropDown,
   ViewPaymentInDto,
@@ -96,22 +100,41 @@ export class TranscationsProxyService {
   }
   getAllPymentIn(
     searchTerm: string,
-    pageInfo: PageInfo
+    pageInfo: PageInfo,
+    filter?: PaymentFilterDto
   ): Observable<PaginationVm<GetAllPaymentInDto>> {
     let query = `PaymentIn?${pageInfo.toQuery}`;
     if (searchTerm) {
       query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
     }
+    if (filter) {
+      Object.keys(filter).forEach((key) => {
+        const value = filter[key];
+        if (value) {
+          if (Array.isArray(value)) {
+            value.forEach((val) => {
+              query += `&${key}=${encodeURIComponent(val)}`;
+            });
+          } else {
+            query += `&${key}=${encodeURIComponent(value)}`;
+          }
+        }
+      });
+    }
     return this.httpService.get<PaginationVm<GetAllPaymentInDto>>(query);
   }
 
-  exportsPaymentInList(searchTerm?: string ,SortBy?:number,SortColumn?:string): Observable<GetAllPaymentInDto[]> {
+  exportsPaymentInList(
+    searchTerm?: string,
+    SortBy?: number,
+    SortColumn?: string
+  ): Observable<GetAllPaymentInDto[]> {
     let query = `PaymentIn/Export?`;
     const params: string[] = [];
     if (searchTerm) params.push(`searchTerm=${encodeURIComponent(searchTerm)}`);
     if (SortBy) params.push(`SortBy=${SortBy}`);
     if (SortColumn) params.push(`SortColumn=${SortColumn}`);
-    query += params.join('&'); 
+    query += params.join('&');
     return this.httpService.get<GetAllPaymentInDto[]>(query);
   }
   deletePaymentIn(id: number) {
@@ -177,5 +200,23 @@ export class TranscationsProxyService {
 
   postPaymentOut(id: number) {
     return this.httpService.post(`PaymentOut/${id}/Post`, null);
+  }
+
+  paymentInStatusLookup(): Observable<LookupReturn[]> {
+    return this.httpService.get('Lookup?lookups=PaymentInStatus');
+  }
+  paymentHub(): Observable<LookupReturn[]> {
+    return this.httpService.get('Lookup?lookups=PaymentPlace');
+  }
+
+  getCurrencyDropDown(): Observable<CurrencyDto[]> {
+    return this.httpService.get('Currency/CurrencyDropDown');
+  }
+
+  multiBankAccountDropDown(banksId: number[]): Observable<BankAccount[]> {
+    let query = 'Bank/MultiBankAccountDropDown?';
+    query += banksId.map((bankId) => `BankIds=${bankId}`).join('&');
+
+    return this.httpService.get(query);
   }
 }
