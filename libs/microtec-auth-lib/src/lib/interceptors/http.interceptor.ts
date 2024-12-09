@@ -6,7 +6,7 @@ import {
   HttpEvent,
   HttpErrorResponse,
 } from '@angular/common/http';
-import { Observable, Subject, catchError, switchMap, throwError, finalize, BehaviorSubject } from 'rxjs';
+import { EMPTY, Observable, catchError, switchMap, tap, throwError } from 'rxjs';
 import { RouterService } from 'shared-lib';
 import { AuthService } from '../services';
 import { TokenModel } from '../types';
@@ -14,156 +14,56 @@ import { TokenModel } from '../types';
 @Injectable()
 export class ERPInterceptor implements HttpInterceptor {
   private isRefreshing = false;
-  private refreshTokenSubject: BehaviorSubject<TokenModel | null> = new BehaviorSubject<TokenModel | null>(null);
 
-  constructor(private authService: AuthService, private routerService: RouterService) {}
+  constructor(private authService: AuthService, private routerService: RouterService) { }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(request).pipe(
       catchError((error: any) => {
-        console.log('sss');
-
         if (error instanceof HttpErrorResponse) {
           if (error.status === 401) {
+            // console.log('401 Unauthorized Error - Attempting to refresh token');
             return this.handleUnAuthorizedError(request, next);
           } else if (error.status === 403) {
+            //console.log('403 Forbidden Error - Navigating to un-authorized page');
             this.routerService.navigateTo('un-authorized');
           }
         }
-        console.log('Int Error', error);
-
         return throwError(() => error);
       })
     );
   }
 
-  // private handleUnAuthorizedError(
-  //   request: HttpRequest<unknown>,
-  //   next: HttpHandler
-  // ): Observable<HttpEvent<unknown>> {
-  //   if (!this.isRefreshing) {
-  //     this.isRefreshing = true;
-  //     this.refreshTokenSubject = new Subject<TokenModel>();
-
-  //     return this.authService.refreshToken().pipe(
-  //       switchMap((data: TokenModel) => {
-  //         this.authService.saveLoginData(data);
-  //         this.refreshTokenSubject!.next(data); // Notify waiting requests
-
-  //         request = request.clone({
-  //           setHeaders: { Authorization: `Bearer ${data.token}` },
-  //         });
-  //         return next.handle(request);
-  //       }),
-  //       catchError((err: HttpErrorResponse) => {
-  //         // Handle refresh token failure
-  //         console.log('error',err);
-  //         this.authService.clearAllStorage();
-  //         this.routerService.navigateTo('login');
-  //         // Notify waiting requests that the refresh failed
-  //         this.refreshTokenSubject!.error(err);
-  //         return throwError(() => err);
-  //       }),
-  //       finalize(() => {
-  //         this.isRefreshing = false;
-  //       })
-  //     );
-  //   }
-
-  //   // If a refresh is already in progress, wait for it to complete
-  //   return this.refreshTokenSubject!.pipe(
-  //     switchMap((token: TokenModel) => {
-  //       request = request.clone({
-  //         setHeaders: { Authorization: `Bearer ${token.token}` },
-  //       });
-  //       return next.handle(request).pipe(
-  //         catchError((err) => {
-  //           console.log('subject error',err);
-  //           if (err instanceof HttpErrorResponse) {
-  //             if (err.status === 401) {
-  //               this.authService.clearAllStorage();
-  //               this.routerService.navigateTo('login');
-  //             }
-  //           }
-  //           return throwError(() => err);
-  //         })
-  //       );
-  //     })
-  //   );
-  // }
-  private handleUnAuthorizedError(
+  handleUnAuthorizedError(
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    // إذا لم يكن هناك عملية تحديث جارية
+    console.log('un-auth');
+
     if (!this.isRefreshing) {
       this.isRefreshing = true;
-      this.refreshTokenSubject = new BehaviorSubject<TokenModel | null>(null); // تهيئة الـ BehaviorSubject
-  
       return this.authService.refreshToken().pipe(
         switchMap((data: TokenModel) => {
-          // حفظ البيانات المحدثة
           this.authService.saveLoginData(data);
-  
-          // تحديث الـ BehaviorSubject بالقيمة الجديدة
-          this.refreshTokenSubject!.next(data);
-  
-          // تعديل الطلب الأصلي باستخدام التوكن المحدث
-          const updatedRequest = request.clone({
+
+          request = request.clone({
             setHeaders: { Authorization: `Bearer ${data.token}` },
           });
-  
-          // إعادة إرسال الطلب بعد التحديث
-          return next.handle(updatedRequest);
+          return next.handle(request)
         }),
-        catchError((err: HttpErrorResponse) => {
-          // معالجة خطأ في عملية تحديث التوكن
-          console.error('Refresh Token Error:', err);
-  
-          // مسح بيانات التخزين وتوجيه المستخدم إلى صفحة تسجيل الدخول
-          this.authService.clearAllStorage();
-          this.routerService.navigateTo('login');
-  
-          // إشعار المشتركين بالفشل
-          this.refreshTokenSubject!.error(err);
-          return throwError(() => err);
-        }),
-        finalize(() => {
-          // إيقاف وضع التحديث
-          this.isRefreshing = false;
-        })
-      );
+
+      )
     }
-  
-    // إذا كانت عملية تحديث التوكن جارية، انتظر انتهاءها
-    return this.refreshTokenSubject!.pipe(
-      switchMap((token) => {
-        // إذا لم يتم تحديث التوكن، ارجع بخطأ
-        if (!token) {
-          return throwError(() => new Error('Token refresh failed'));
+    return next.handle(request).pipe(
+      catchError((err: any) => {
+        if (err.status == 401) {
+          this.authService.logout()
+
+        }else if (err.status === 403) {
+          this.routerService.navigateTo('un-authorized');
         }
-  
-        // تعديل الطلب الأصلي باستخدام التوكن المحدث
-        const updatedRequest = request.clone({
-          setHeaders: { Authorization: `Bearer ${token.token}` },
-        });
-  
-        // إعادة إرسال الطلب بعد الحصول على التوكن المحدث
-        return next.handle(updatedRequest);
-      }),
-      catchError((err: HttpErrorResponse) => {
-        // معالجة خطأ في الطلب بعد التحديث
-        console.error('Token Subject Error:', err);
-  
-        if (err.status === 401) {
-          // إذا كان التوكن غير صالح، قم بمسح التخزين وتوجيه المستخدم إلى تسجيل الدخول
-          this.authService.clearAllStorage();
-          this.routerService.navigateTo('login');
-        }
-        return throwError(() => err);
-      })
-    );
+        return EMPTY
+      }
+      ))
   }
-  
-  
 }
