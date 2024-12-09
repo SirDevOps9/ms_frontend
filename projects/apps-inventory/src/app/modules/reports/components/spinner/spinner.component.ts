@@ -19,7 +19,7 @@ import { Component } from '@angular/core';
         display: flex;
         justify-content: center;
         align-items: center;
-        z-index: 1000;
+        z-index: 900;
       }
       .spinner {
         border: 4px solid #f3f3f3;

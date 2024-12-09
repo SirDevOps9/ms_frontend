@@ -80,7 +80,7 @@ const routes: Routes = [
         ],
       },
       {
-        path: 'return-purchase',
+        path: 'return-purchase-invoice',
         component: MainReturnPurchaseComponent,
         data: {
           breadcrumb: BreadcrumbLabel.purchaseInvoiceReturnList,

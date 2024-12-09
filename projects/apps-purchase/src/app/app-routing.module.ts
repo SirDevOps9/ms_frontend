@@ -15,10 +15,8 @@ export const ERPRoutes = [
     children: [
       {
         path: '',
-        component: LandingPageComponent,
-        data: {
-          moduleId: Modules.Purchase,
-        },
+        loadChildren: () =>
+          import('./modules/dashboard/dashboard.module').then((m) => m.DashboardModule),
       },
       {
         path: 'masterdata',
@@ -28,7 +26,9 @@ export const ERPRoutes = [
       {
         path: 'transaction',
         loadChildren: () =>
-          import('./modules/purchase-transactions/purchase-transactions.module').then((m) => m.PurchaseTransactionsModule),
+          import('./modules/purchase-transactions/purchase-transactions.module').then(
+            (m) => m.PurchaseTransactionsModule
+          ),
       },
     ],
   },
