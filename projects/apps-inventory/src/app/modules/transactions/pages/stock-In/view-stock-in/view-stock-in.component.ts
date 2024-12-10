@@ -77,6 +77,9 @@ export class ViewStockInComponent {
     }
   }
 
+
+  
+
   onSearchTermChange(search: any): void {
     const term = search.target.value?.toLowerCase() || '';
     this.filteredData = this.tableData.filter((item) => {
