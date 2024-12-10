@@ -69,6 +69,8 @@
     "invoiceDueDate": "Invoice Due Date",
     "description": "Description",
     "warehouse": "warehouse",
+    "salesInvoicePrint":"Sales Invoice Print",
+    "returnSalesInvoicePrint":"Return Sales Invoice Print",
     "salesMan": "Sales Man",
     "mainInformation": "Main Information",
     "customerInformation": "Customer Information",

@@ -6,6 +6,9 @@ import {
 } from 'shared-lib';
 import {  Router } from '@angular/router';
 import { SalesInvoiceListView } from '../../../models/sales-invoice-dto';
+import { TransactionService } from '../../../transaction.service';
+import { SortTableEXport } from 'projects/apps-inventory/src/app/modules/items/models/SortTable';
+import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
 
 @Component({
   selector: 'app-sales-invoice',
@@ -13,66 +16,42 @@ import { SalesInvoiceListView } from '../../../models/sales-invoice-dto';
   styleUrl: './sales-invoice.component.scss'
 })
 export class SalesInvoiceComponent {
-  tableData: SalesInvoiceListView[] = [
-    {
-      invoiceCode: "INV001",
-      invoiceDate: "2024-12-04",
-      dueDate: "2024-12-11",
-      salesman: "John Doe",
-      customerCode: "CUST123",
-      customerName: "Jane Smith",
-      warehouse: "Main Warehouse",
-      paymentTerms: "Net 30",
-      creditLimit: 5000,
-      relatedJournal: "Journal001",
-      createdStockOut: true,
-      totalQty: 100,
-      numberOfItems: 5,
-      totalAmount: 1500,
-      discountAmount: 100,
-      totalAfterDiscount: 1400,
-      vatAmount: 70,
-      totalAfterVat: 1470
-    },
-    {
-      invoiceCode: "INV002",
-      invoiceDate: "2024-12-01",
-      dueDate: "2024-12-08",
-      salesman: "Alice Brown",
-      customerCode: "CUST456",
-      customerName: "Bob Johnson",
-      warehouse: "Secondary Warehouse",
-      paymentTerms: "Net 15",
-      creditLimit: 7000,
-      relatedJournal: "Journal002",
-      createdStockOut: false,
-      totalQty: 50,
-      numberOfItems: 3,
-      totalAmount: 800,
-      discountAmount: 50,
-      totalAfterDiscount: 750,
-      vatAmount: 37.5,
-      totalAfterVat: 787.5
-    }
-  ];
-
+  tableData: SalesInvoiceListView[] = [];
   currentPageInfo: PageInfoResult = {};
   searchTerm: string;
   exportData: any[];
   exportColumns: any[];
   hasHelpPage: Boolean = false;
   servicePage: number;
-  onPageChange(pageInfo: PageInfo) {
-  }
-  onSearchChange() {
-  }
-  exportClick() {
-  }
-  exportClickBySort(e: { SortBy: number; SortColumn: string }) {
+  SortBy?: number;
+  SortColumn?: string;
+  SortByAll:SortTableEXport
+  filteredColumns: string[] = [];
+  columns: { name: any; headerText: any }[] = [
+    { name: 'code', headerText:('salesInvoice.code') },
+    { name: 'invoiceDate', headerText:('salesInvoice.invoiceDate') },
+    { name: 'warehouseName', headerText:('salesInvoice.warehouse') },
+    { name: 'customerCode', headerText:('salesInvoice.customerCode') },
+    { name: 'customerName', headerText:('salesInvoice.customerName') },
+    { name: 'paymentTermName', headerText:('salesInvoice.paymentTerms') },
+    { name: 'customerCreditLimit', headerText:('salesInvoice.creditLimit') },
+    { name: 'invoiceJournalCode', headerText:('salesInvoice.relatedJournal') },
+    { name: 'createdOn', headerText:('salesInvoice.createdStockout') },
+    { name: 'totalQuantity', headerText:('salesInvoice.totalQuantity') },
+    { name: 'noOfItems', headerText:('salesInvoice.numberOfItems') },
+    { name: 'totalNetAmount', headerText:('salesInvoice.total') },
+    { name: 'totalDiscount', headerText:('salesInvoice.disAmount') },
+    { name: 'totalAfterDiscount', headerText:('salesInvoice.totalAfterDiscount') },
+    { name: 'totalVatAmount', headerText:('salesInvoice.vatAmount') },
+    { name: 'grandTotal', headerText:('salesInvoice.totalAfterVat') },
 
+  ]
+
+  ngOnInit() {
+    this.initItemDefinitionData();
   }
-  onFilterColumn(e: string[]) {
-  }
+
+
   navigateHelpPageComponent() {
     window.open(
       this.router.serializeUrl(
@@ -81,11 +60,62 @@ export class SalesInvoiceComponent {
       '_blank'
     );
   }
+
+
+  initItemDefinitionData() {
+    this.transaction_service.getSalesInvoiceList('', new PageInfo());
+
+    this.transaction_service.salseInvoiceListObs$.subscribe({
+      next: (res) => {
+        this.tableData = res;
+      },
+    });
+
+    this.transaction_service.currentPageInfo.subscribe((currentPageInfo) => {
+      this.currentPageInfo = currentPageInfo;
+    });
+  }
+  onPageChange(pageInfo: PageInfo) {
+    this.transaction_service.getSalesInvoiceList('', pageInfo);
+  }
+  onSearchChange(event: any) {
+    this.transaction_service.getSalesInvoiceList(event, new PageInfo());
+    this.transaction_service.salseInvoiceListObs$.subscribe({
+      next: (res) => {
+        this.tableData = res;
+      },
+    });
+  }
+  exportClick() {
+    this.exportOperationalData(this.searchTerm, this.SortByAll?.SortBy, this.SortByAll?.SortColumn);
+  }
+  exportOperationalData(searchTerm: string, sortBy?: number, sortColumn?: string) {
+    this.transaction_service.exportSalesInvoiceList(searchTerm, sortBy, sortColumn);
+    const filteredColumns = this.columns.filter(col => this.filteredColumns.includes(col.name));
+    this.transaction_service.exportSalseInvoiceListObs$.subscribe((res) => {
+      this.exportData = this.exportService.formatCiloma(res, filteredColumns);
+    });
+  }
+  exportClickBySort(e: { SortBy: number; SortColumn: string }) {
+    this.SortByAll = {
+      SortBy: e.SortBy,
+      SortColumn: e.SortColumn,
+    };
+  }
+  onFilterColumn(e: string[]) {
+    this.filteredColumns = e;
+
+  }
+
   onAdd(){
       this.routerService.navigateTo(`transaction/sales-invoice/add`);
   }
 
-  constructor( private routerService: RouterService, private router: Router){
+  constructor( private routerService: RouterService, private router: Router,
+    private transaction_service:TransactionService,
+    private exportService:ExportService,
+
+  ){
 
   }
 }
