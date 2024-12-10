@@ -68,9 +68,13 @@ export class ViewStockInComponent {
     this.router.navigateTo('/transactions/stock-out');
   }
 
+
   populateInvoiceDetails(details: any[]) {
-    this.tableData = details;
-    this.filteredData = [...this.tableData];
+    if (Array.isArray(details)) {
+      this.tableData = details;
+      this.filteredData = [...this.tableData];
+    } else {
+    }
   }
 
   onSearchTermChange(search: any): void {
