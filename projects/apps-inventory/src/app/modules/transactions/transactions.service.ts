@@ -280,39 +280,15 @@ export class TransactionsService {
     });
   }
 
-  async deleteStockInLine(id: number) {
-    try {
-      const confirmed = await this.toasterService.showConfirm(
-        this.languageService.transalte('ConfirmButtonTexttodelete')
-      );
 
-      if (confirmed) {
-        await firstValueFrom(this.transactionsProxy.deleteStockInLine(id));
-
-        // Show success message
-        this.toasterService.showSuccess(
-          this.languageService.transalte('stockIn.success'),
-          this.languageService.transalte('stockIn.deleteStockInLine')
-        );
-
-        const currentData = this.stockInByIdData.getValue();
-
-        if (currentData && currentData.stockInDetails) {
-          const updatedStockInDetails = currentData.stockInDetails.filter(
-            (detail: any) => detail.id !== id
-          );
-
-          const updatedData = {
-            ...currentData,
-            stockInDetails: updatedStockInDetails,
-          };
-
-          this.stockInByIdData.next(updatedData);
-        }
-      }
-    } catch (error) {}
+  
+  deleteStockInLine(id: number) {
+    return this.transactionsProxy.deleteStockInLine(id).pipe(
+      map((res) => {
+        return res;
+      })
+    );
   }
-
   getStockInById(id: number) {
     this.transactionsProxy.getStockInById(id).subscribe((response: any) => {
       this.stockInByIdData.next(response);

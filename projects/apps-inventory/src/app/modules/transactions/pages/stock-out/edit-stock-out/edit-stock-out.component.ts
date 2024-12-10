@@ -675,7 +675,7 @@ export class EditStockOutComponent implements OnInit {
     if (selectedItem != undefined) {
       rowForm.get('expiryDate')?.setValue(selectedItem.expiryDate);
       rowForm.get('totalQuantity')?.setValue(selectedItem.totalQuantity);
-      rowForm.get('cost')?.setValue(selectedItem.cost);
+      // rowForm.get('cost')?.setValue(selectedItem.cost);
 
     } else {
       const serialOption = rowForm.get('stockOutTracking')?.get('serialOptions')?.value;
@@ -685,7 +685,7 @@ export class EditStockOutComponent implements OnInit {
       if (selectedItem != undefined) {
         rowForm.get('expiryDate')?.setValue(selectedItem.expiryDate);
         rowForm.get('totalQuantity')?.setValue(selectedItem.totalQuantity);
-        rowForm.get('cost')?.setValue(selectedItem.cost);
+        // rowForm.get('cost')?.setValue(selectedItem.cost);
 
       } else {
         rowForm.get('expiryDate')?.setValue('');

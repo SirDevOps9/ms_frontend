@@ -8,12 +8,9 @@ import {
   customValidators,
   FormsService,
   LanguageService,
-  LoaderService,
   lookupDto,
   LookupEnum,
-  LookupsService,
   MenuModule,
-  PageInfo,
   PageInfoResult,
   RouterService,
   ToasterService,
@@ -358,7 +355,7 @@ export class EditPurchaseInvoiceComponent implements OnInit {
         uomId: selectedItem.uomId,
         uomOptions: selectedItem.itemsUOM,
         description: selectedItem.itemName + '-' + selectedItem.itemVariantNameEn,
-        cost: 1,
+        cost: 0,
         vat: selectedItem.taxRatio || 0,
         trackingType: selectedItem.trackingType,
         hasExpiryDate: selectedItem.hasExpiryDate,
@@ -373,6 +370,8 @@ export class EditPurchaseInvoiceComponent implements OnInit {
         uomCode: selectedItem.uomCode,
         uomNameAr:selectedItem.uomNameAr,
         uomNameEn: selectedItem.uomNameEn,
+        discount: 0,
+
 
       });
 
@@ -518,6 +517,8 @@ export class EditPurchaseInvoiceComponent implements OnInit {
 
   addNewRow() {
     this.isValidData();
+    this.initItemsData();
+
     if (!this.formsService.validForm(this.invoiceDetailsFormArray, false)) return;
 
     let newLine = this.fb.group({
@@ -538,10 +539,10 @@ export class EditPurchaseInvoiceComponent implements OnInit {
         customValidators.nonZero,
         customValidators.nonNegativeNumbers,
       ]),
-      cost: new FormControl('', [customValidators.required]),
+      cost: new FormControl(0, [customValidators.required , customValidators.nonNegativeNumbers ,customValidators.nonZero]),
       subCost: new FormControl(''),
-      discount: new FormControl(''),
-      discountAmt: new FormControl(''),
+      discount: new FormControl(0),
+      discountAmt: new FormControl(0),
       netCost: new FormControl(''),
       totalAfter: new FormControl(''),
       vat: new FormControl(''),
@@ -549,7 +550,7 @@ export class EditPurchaseInvoiceComponent implements OnInit {
       grandTotal: new FormControl(''),
       trackingType: new FormControl(''),
       hasExpiryDate: new FormControl(''),
-      taxId: new FormControl(''),
+      taxId: new FormControl(null),
       categoryId:new FormControl(''),
       itemCategoryNameAr: new FormControl(''),
       itemCategoryNameEn:new FormControl(''),
@@ -597,10 +598,10 @@ export class EditPurchaseInvoiceComponent implements OnInit {
         customValidators.nonZero,
         customValidators.nonNegativeNumbers,
       ]),
-      cost: new FormControl('', [customValidators.required]),
+      cost: new FormControl(0, [customValidators.required , customValidators.nonNegativeNumbers]),
       subCost: new FormControl(''),
-      discount: new FormControl(''),
-      discountAmt: new FormControl(''),
+      discount: new FormControl(0),
+      discountAmt: new FormControl(0),
       netCost: new FormControl(''),
       totalAfter: new FormControl(''),
       vat: new FormControl(''),
@@ -608,6 +609,7 @@ export class EditPurchaseInvoiceComponent implements OnInit {
       grandTotal: new FormControl(''),
       trackingType: new FormControl(''),
       hasExpiryDate: new FormControl(''),
+      taxId: new FormControl(null),
       categoryId:new FormControl(''),
       itemCategoryNameAr: new FormControl(''),
       itemCategoryNameEn:new FormControl(''),
@@ -676,7 +678,7 @@ export class EditPurchaseInvoiceComponent implements OnInit {
 
   setDiscount(indexLine: number) {
     const rowForm = this.invoiceDetailsFormArray.at(indexLine) as FormGroup;
-    const discount = rowForm.get('discountAmt')?.value / (rowForm.get('cost')?.value / 100);
+    const discount = rowForm.get('discountAmt')?.value / (rowForm.get('cost')?.value / 100)||0;
     rowForm.get('discount')?.setValue(discount);
     rowForm
       .get('netCost')
@@ -692,7 +694,7 @@ export class EditPurchaseInvoiceComponent implements OnInit {
     // const  discount = (rowForm.get('discount')?.value * ( rowForm.get('subCost')?.value))/100
     const discountValue = Number(rowForm.get('discount')?.value) || 0;
     const subCostValue = rowForm.get('cost')?.value;
-    const discount: any = (discountValue * subCostValue) / 100;
+    const discount: any = (discountValue * subCostValue) / 100 ||0;
     rowForm.get('discountAmt')?.setValue(discount);
     rowForm
       .get('netCost')
@@ -838,6 +840,7 @@ export class EditPurchaseInvoiceComponent implements OnInit {
             vendorBatchNo: res.vendorBatchNo,
           });
         }
+        this.isValidData()
       }
       // }
     });
@@ -889,7 +892,6 @@ export class EditPurchaseInvoiceComponent implements OnInit {
   }
 
   refactoredData(data: any) {
-    console.log(data);
     const refactoredData = {
       id: data.id,
       invoiceDate: new Date(data.invoiceDate).toISOString(),

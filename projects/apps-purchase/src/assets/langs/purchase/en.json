@@ -22,7 +22,8 @@
 
     "setTracking": "You must set tracking in the row ",
     "purchaseinvoicePostedSuccessfully": "Purchase Invoice Posted successfully",
-    "errorReturnQuantity": "The return quantity cannot be greater than the remaining quantity"
+    "errorReturnQuantity": "The return quantity cannot be greater than the remaining quantity",
+    "errorReturnLine": "Return Invoice Details Shoud Have One Line With Quantity At Least."
   },
   "BreadCrumb": {
     "edit": "edit"
@@ -380,7 +381,8 @@
     "returnCode": "Return code",
     "returnDate": "Return Date",
     "returnDescription": "Return Description",
-    "purchaseInvoice": "Purchase Invoice"
+    "purchaseInvoice": "Purchase Invoice",
+    "transactionQuantity":"transaction Quantity"
   },
   "ItemsAdvancedSearch": {
     "ItemSearch": "Item Search",

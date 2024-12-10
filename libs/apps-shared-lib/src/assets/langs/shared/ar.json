@@ -16,7 +16,7 @@
   "edit": "تعديل",
   "delete": "حذف",
   "statement": "بيان",
-  "sequence": "تسلسل",
+  "sequenceTitle": "تسلسل",
   "attachment": "مرفق",
   "attachmentDeletedSuccessfully": "تم حذف المرفق بنجاح",
   "CannotDeleteattachment": "لا يمكن حذف المرفق",
