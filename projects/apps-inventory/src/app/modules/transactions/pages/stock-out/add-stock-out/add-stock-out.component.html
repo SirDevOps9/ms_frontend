@@ -266,7 +266,7 @@
             ></lib-field-validations>
           </td>
           <td>
-            {{ stockOutFormGroup.controls['subCost']?.value }}
+            {{ stockOutFormGroup.controls['cost']?.value *  stockOutFormGroup.controls['quantity'].value}}
           </td>
 
           <td

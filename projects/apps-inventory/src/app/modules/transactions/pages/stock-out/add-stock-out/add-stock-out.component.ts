@@ -612,13 +612,13 @@ export class AddStockOutComponent implements OnInit {
       .getItemByBarcodeStockOutQuery(e.target.value, this.addForm.get('warehouseId')?.value)
       .subscribe({
         next: (res: any) => {
-          this.loaderService.hide();
-
-          this.setRowDataFromBarCode(index, res);
+          if(res?.itemId) {
+            this.loaderService.hide();
+            this.setRowDataFromBarCode(index, res);
+          }
         },
         error: (err: any) => {
           this.loaderService.hide();
-
           const rowForm = this.stockOutDetailsFormArray.at(index) as FormGroup;
           rowForm.reset();
           this.toasterService.showError(

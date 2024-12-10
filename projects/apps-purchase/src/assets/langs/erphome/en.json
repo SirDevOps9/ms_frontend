@@ -576,6 +576,7 @@
   "purchase": {
     "barcode": "Barcode",
     "itemCode": "Item Code",
+    "ItemName": "Item Name",
     "itemDescription": "Item Description",
     "UOM": "Unit of Measurement",
     "QTY": "Quantity",
@@ -612,6 +613,7 @@
     "invoiceJournal": "Invoice Journal",
     "stockIn": "Stock In",
     "upload": "Import Item",
+    "localAmount" : "Local Amount",
     "scan": "Scan Barcode",
     "add": "Add Line",
     "search": "Search",

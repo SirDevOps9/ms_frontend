@@ -26,6 +26,8 @@ import { CurrencyRateDto } from '../../../models/currencyRateDto';
 import { SharedEnum } from '../../../models/sharedEnums';
 import { GetWarehouseList } from '../../../models/getWarehouseDto';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { LocalAmountPopupComponent } from '../../../components/local-amount-popup/local-amount-popup.component';
+import { LocalAmountEditPopupComponent } from '../../../components/local-amount-edit-popup/local-amount-edit-popup.component';
 
 @Component({
   selector: 'app-edit-purchase-invoice',
@@ -958,6 +960,25 @@ export class EditPurchaseInvoiceComponent implements OnInit {
     });
   }
 
+
+  onLocalAmount() {
+    console.log(this.refactoredData(this.addForm.value))
+
+    
+
+    if(this.addForm.controls['currencyRate'].value && this.invoiceDetailsFormArray.value) {
+    let invoiceDetailsFormArrayData =   this.addForm?.value?.invoiceDetails
+
+
+      const ref = this.dialog.open(LocalAmountEditPopupComponent, {
+        width: 'auto',
+        height: '450px',
+        data : {formData :  invoiceDetailsFormArrayData , rate : this.addForm.controls['vendorRate'].value}
+      });
+    }
+   
+    
+  }
   constructor(
     private routerService: RouterService,
     public authService: AuthService,

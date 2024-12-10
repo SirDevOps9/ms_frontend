@@ -33,6 +33,7 @@ import { LatestItem } from '../../../models';
 import { PurchaseInvoiceTrackingComponent } from '../../../components/purchase-invoice-tracking/purchase-invoice-tracking.component';
 import { AddPurchaseInvoiceDto } from '../../../models/addPurchaseInvoice';
 import { ItemAdvancedSearchPurchaseInvoiceComponent } from '../../../components/item-advanced-search-purchase-invoice/item-advanced-search-purchase-invoice.component';
+import { LocalAmountPopupComponent } from '../../../components/local-amount-popup/local-amount-popup.component';
 
 @Component({
   selector: 'app-add-purchase-invoice',
@@ -101,6 +102,14 @@ export class AddPurchaseInvoiceComponent implements OnInit {
           res
             .reduce((acc, item) => {
               const itemTotal = item.quantity * (item.cost - item.discountAmount);
+              return acc + itemTotal;
+            }, 0)
+            .toFixed(2)
+        );
+        this.purchaseInvoiceForm.get('total')?.setValue(
+          res
+            .reduce((acc, item) => {
+              const itemTotal = item.quantity * item.cost
               return acc + itemTotal;
             }, 0)
             .toFixed(2)
@@ -338,6 +347,18 @@ export class AddPurchaseInvoiceComponent implements OnInit {
         );
       this.setUomName(indexLine, rowForm.get('uomOptions')?.value);
     }
+  }
+
+  onLocalAmount() {
+    if(this.purchaseInvoiceForm.controls['currencyRate'].value && this.stockIn.value) {
+      const ref = this.dialog.open(LocalAmountPopupComponent, {
+        width: 'auto',
+        height: '450px',
+        data : {formData :  this.stockIn.value , rate : this.purchaseInvoiceForm.controls['currencyRate'].value}
+      });
+    }
+   
+    
   }
 
   setUomName(indexLine: number, list: any) {

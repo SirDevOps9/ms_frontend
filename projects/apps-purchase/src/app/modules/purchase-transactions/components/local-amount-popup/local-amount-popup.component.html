@@ -1,0 +1,226 @@
+
+<div class="main">
+  <lib-popup-page
+    title="{{ 'purchase.localAmount'| translate }}"
+    [closeFunction]="onCancel"
+    [showCancel]="false"
+    [showSave]="false"
+  >
+
+<ng-container [formGroup]="purchaseInvoiceForm">
+
+<p-table
+[value]="stockIn['controls']"
+dataKey="id"
+styleClass="p-datatable-gridlines p-datatable-striped"
+[tableStyle]="{ 'min-width': '50rem' }"
+styleClass="p-datatable-striped p-datatable-gridlines"
+>
+<ng-template pTemplate="header">
+  <tr>
+    <th>{{ 'purchase.itemCode' | translate }}</th>
+    <th>{{ 'purchase.ItemName' | translate }}</th>
+    <th>{{ 'purchase.QTY' | translate }}</th>
+    <th>{{ 'purchase.netCost' | translate }}</th>
+    <th>{{ 'purchase.totalAfterDis' | translate }}</th>
+    <th>{{ 'purchase.vat' | translate }}</th>
+    <th>{{ 'purchase.vatAmount' | translate }}</th>
+    <th>{{ 'purchase.grandTotal' | translate }}</th>
+  </tr>
+</ng-template>
+<ng-template
+  pTemplate="body"
+  let-purchaseInvoiceFormGroup
+  let-editing="editing"
+  let-i="rowIndex"
+>
+  <tr [formGroup]="purchaseInvoiceFormGroup">
+  
+    <td
+      [pEditableColumn]="purchaseInvoiceFormGroup.controls['itemId']"
+      pEditableColumnField="itemId"
+    >
+      <p-cellEditor>
+        <ng-template pTemplate="input">
+            <lib-select
+              formControlName="itemId"
+              [options]="latestItemsList"
+              optionValue="itemNumber"
+              optionLabel="displayName"
+              placeholder="{{ 'purchase.itemCode' | translate }}"
+              [readOnly]="true"
+            >
+            </lib-select>
+        </ng-template>
+        <ng-template pTemplate="output">
+          {{ purchaseInvoiceFormGroup.controls['itemCodeName']?.value }}
+        </ng-template>
+      </p-cellEditor>
+      <lib-field-validations
+        [appControl]="purchaseInvoiceFormGroup.controls['itemId']"
+      ></lib-field-validations>
+    </td>
+    <!--  -->
+    <td>
+      {{ purchaseInvoiceFormGroup.controls['description']?.value }}
+    </td>
+    <!--  -->
+
+   
+
+    <td
+      [pEditableColumn]="purchaseInvoiceFormGroup.controls['quantity']"
+      pEditableColumnField="quantity"
+    >
+      <p-cellEditor>
+        <ng-template pTemplate="input">
+          <lib-text-input
+            [readOnly]="true"
+            type="number"
+            placeholder="{{ 'purchase.QTY' | translate }}"
+            formControlName="quantity"
+            [readOnly]="true"
+          ></lib-text-input>
+        </ng-template>
+        <ng-template pTemplate="output">
+          {{ purchaseInvoiceFormGroup.controls['quantity']?.value }}
+        </ng-template>
+      </p-cellEditor>
+      <lib-field-validations
+        [appControl]="purchaseInvoiceFormGroup.controls['quantity']"
+      ></lib-field-validations>
+    </td>
+    <!--  -->
+
+    <!-- <td
+      [pEditableColumn]="purchaseInvoiceFormGroup.controls['cost']"
+      pEditableColumnField="cost"
+    >
+      <p-cellEditor>
+        <ng-template pTemplate="input">
+          <lib-text-input
+            [readOnly]="true"
+            type="number"
+            placeholder="{{ 'purchase.cost' | translate }}"
+            formControlName="cost"
+            (keyUp)="quantityCostChange(purchaseInvoiceFormGroup)"
+          ></lib-text-input>
+        </ng-template>
+        <ng-template pTemplate="output">
+          {{ purchaseInvoiceFormGroup.controls['cost']?.value | numberFormat }}
+        </ng-template>
+      </p-cellEditor>
+      <lib-field-validations
+        [appControl]="purchaseInvoiceFormGroup.controls['cost']"
+      ></lib-field-validations>
+    </td> -->
+    <!-- sub Total -->
+    <!-- <td>
+      <div
+        *ngIf="
+          purchaseInvoiceFormGroup.controls['quantity']?.value &&
+          purchaseInvoiceFormGroup.controls['cost']?.value
+        "
+      >
+        {{
+          purchaseInvoiceFormGroup.controls['quantity']?.value *
+            purchaseInvoiceFormGroup.controls['cost']?.value | numberFormat
+        }}
+      </div>
+    </td> -->
+    <!-- <td
+      [pEditableColumn]="purchaseInvoiceFormGroup.controls['discountPercentage']"
+      pEditableColumnField="discountPercentage"
+    >
+      <p-cellEditor>
+        <ng-template pTemplate="input">
+          <lib-text-input
+            [readOnly]="true"
+            placeholder="{{ 'purchase.discountPercentage' | translate }}"
+            formControlName="discountPercentage"
+            [readOnly]="true"
+            (keyUp)="disAmountChange(purchaseInvoiceFormGroup)"
+          ></lib-text-input>
+        </ng-template>
+        <ng-template pTemplate="output">
+          {{
+            purchaseInvoiceFormGroup.controls['discountPercentage']?.value | numberFormat
+          }}
+          %
+        </ng-template>
+      </p-cellEditor>
+      <lib-field-validations
+        [appControl]="purchaseInvoiceFormGroup.controls['discountPercentage']"
+      ></lib-field-validations>
+    </td> -->
+    <!-- Dis Amount -->
+
+    <!-- <td
+      [pEditableColumn]="purchaseInvoiceFormGroup.controls['discountAmount']"
+      pEditableColumnField="discountAmount"
+    >
+      <p-cellEditor>
+        <ng-template pTemplate="input">
+          <lib-text-input
+            placeholder="{{ 'purchase.disAmount' | translate }}"
+            formControlName="discountAmount"
+            [readOnly]="true"
+            (keyUp)="amountChange(purchaseInvoiceFormGroup)"
+          ></lib-text-input>
+        </ng-template>
+        <ng-template pTemplate="output">
+          {{ purchaseInvoiceFormGroup.controls['discountAmount']?.value | numberFormat }}
+        </ng-template>
+      </p-cellEditor>
+      <lib-field-validations
+        [appControl]="purchaseInvoiceFormGroup.controls['discountAmount']"
+      ></lib-field-validations>
+    </td> -->
+    <!-- Net Cost -->
+    <td>
+      {{
+        (purchaseInvoiceFormGroup.controls['cost']?.value -
+          (purchaseInvoiceFormGroup.controls['discountAmount']?.value  )) * rate | numberFormat
+      }}
+    </td>
+    <!-- Total After Discount -->
+    <td>
+      {{
+        (purchaseInvoiceFormGroup.controls['quantity']?.value *
+          (purchaseInvoiceFormGroup.controls['cost']?.value -
+            purchaseInvoiceFormGroup.controls['discountAmount']?.value) * rate) | numberFormat
+      }}
+    </td>
+    <!-- Vat -->
+    <td>{{ purchaseInvoiceFormGroup.controls['vatPercentage']?.value | numberFormat }}%</td>
+    <!-- Vat Amount -->
+    <td>
+      {{
+       ( (purchaseInvoiceFormGroup.controls['quantity']?.value *
+          (purchaseInvoiceFormGroup.controls['cost']?.value -
+            purchaseInvoiceFormGroup.controls['discountAmount']?.value) *
+          purchaseInvoiceFormGroup.controls['vatPercentage']?.value) /
+          100 * rate) | numberFormat
+      }}
+    </td>
+
+    <!-- Grand Total -->
+    <td>
+      {{
+       ( purchaseInvoiceFormGroup.controls['quantity']?.value *
+          (purchaseInvoiceFormGroup.controls['cost']?.value -
+            purchaseInvoiceFormGroup.controls['discountAmount']?.value) +
+          (purchaseInvoiceFormGroup.controls['quantity']?.value *
+            (purchaseInvoiceFormGroup.controls['cost']?.value -
+              purchaseInvoiceFormGroup.controls['discountAmount']?.value) *
+            purchaseInvoiceFormGroup.controls['vatPercentage']?.value) /
+            100 ) * rate | numberFormat
+      }}
+    </td>
+
+   
+  </tr>
+</ng-template>
+</p-table>
+
+</ng-container>
