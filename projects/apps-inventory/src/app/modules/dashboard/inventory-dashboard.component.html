@@ -90,7 +90,9 @@
                 </span>
 
                 <span class="line"></span>
-                <span class="body_b14">{{ stockOut.quantity }}</span>
+                <span class="body_b14"
+                  >{{ stockOut.quantity }} <span class="body_b14"> X</span></span
+                >
                 <div class="line"></div>
                 <span class="detail-value heading_b16">{{
                   stockOut.totalCost | numberFormat
@@ -123,7 +125,9 @@
                 </span>
 
                 <span class="line"></span>
-                <span class="body_b14">{{ stockIn.quantity }}</span>
+                <span class="body_b14"
+                  >{{ stockIn.quantity }} <span class="body_b14"> X</span>
+                </span>
                 <div class="line"></div>
                 <span class="detail-value heading_b16">{{ stockIn.totalCost | numberFormat }}</span>
               </div>

@@ -88,7 +88,9 @@
             <div class="row">
               <span class="body-14 mx-1">{{ vendor.vendorName }}</span>
               <span class="line"></span>
-              <span class="body-14 mx-1">{{ vendor.invoiceCount }}</span>
+              <span class="body-14 mx-1"
+                >{{ vendor.invoiceCount }} <span class="body_b14"> X</span></span
+              >
               <span class="line"></span>
               <span class="detail-value heading_b16">{{
                 vendor.totalInvoiceAmount | numberFormat
