@@ -74,6 +74,7 @@ const routes: Routes = [
         component: MainSalesReturnInvoiceComponent,
         data: {
           pageTitle: BreadcrumbLabel.SALES_RETURN_INVOICE,
+          breadcrumb: BreadcrumbLabel.SALES_RETURN_INVOICE,
         },
         children: [
           {

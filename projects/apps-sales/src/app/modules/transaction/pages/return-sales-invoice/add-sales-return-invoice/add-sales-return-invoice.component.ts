@@ -4,14 +4,12 @@ import { AuthService } from 'microtec-auth-lib';
 import { DialogService } from 'primeng/dynamicdialog';
 import {
   OperationalStockIn,
-  GetWarehouseList,
   StockInDetail,
 } from 'projects/apps-inventory/src/app/modules/items/models';
 import { SharedFinanceEnums } from 'projects/apps-inventory/src/app/modules/items/models/sharedEnumStockIn';
 import { SharedStock } from 'projects/apps-inventory/src/app/modules/transactions/models/sharedStockOutEnums';
 import { TransactionsService } from 'projects/apps-inventory/src/app/modules/transactions/transactions.service';
 import { LatestItem } from 'projects/apps-purchase/src/app/modules/purchase-transactions/models';
-import { AddPurchaseInvoiceDto } from 'projects/apps-purchase/src/app/modules/purchase-transactions/models/addPurchaseInvoice';
 import { PurchaseTransactionsService } from 'projects/apps-purchase/src/app/modules/purchase-transactions/purchase-transactions.service';
 import { skip, take } from 'rxjs';
 import {
@@ -52,7 +50,7 @@ export class AddSalesReturnInvoiceComponent implements OnInit {
   modulelist: MenuModule[];
   searchTerm: string;
   wearhouseSearch: string;
-  warhouseLookupData: GetWarehouseList[] = [];
+  warhouseLookupData: any[] = [];
   paymentLookupData: { id: number; name: string }[] = [];
   vendorItems: any[];
   uomLookup: any = [];
@@ -73,6 +71,11 @@ export class AddSalesReturnInvoiceComponent implements OnInit {
   totalAfterVat: number;
   itemPostId: number;
 
+
+  change(val : any){
+    console.log(val);
+    
+  }
   ngOnInit(): void {
     this.initializeForm();
     this.initLookups();
@@ -224,13 +227,13 @@ export class AddSalesReturnInvoiceComponent implements OnInit {
     this.salesReturnForm = this.fb.group({
       id: new FormControl(''),
       code: new FormControl(''),
-      warehouseId: new FormControl('', [customValidators.required]),
+      warehouseId: new FormControl(2, [customValidators.required]),
       warehouseName: new FormControl(''),
       salesmanId: new FormControl(''),
       relatedJournal: new FormControl(''),
       description: new FormControl(''),
       createdStockIn: new FormControl(''),
-      invoiceDate: new FormControl(new Date(), [customValidators.required]),
+      returnDate: new FormControl(new Date(), [customValidators.required]),
 
       customerCode: new FormControl('', [customValidators.required]),
       customerName: new FormControl(''),
@@ -238,17 +241,16 @@ export class AddSalesReturnInvoiceComponent implements OnInit {
       rate: new FormControl('', [customValidators.required]),
       paymentTermId: new FormControl(''),
       creditLimit: new FormControl(''),
-      pricePolicyId: new FormControl('', [customValidators.required]),
+      salesInvoiceId: new FormControl('', [customValidators.required]),
 
       numberOfItems: 0,
       total: 0,
       discount: 0,
       totalOfQuantity: 0,
-      totalAfterDiscount: 0,
       vatAmount: 0,
       totalAfterVat: 0,
 
-      invoiceDetails: this.fb.array([]),
+      salesReturnDetails: this.fb.array([]),
     });
   }
   initFromArray() {
@@ -256,7 +258,7 @@ export class AddSalesReturnInvoiceComponent implements OnInit {
       uomOptions: [],
       barCode: '',
       bardCodeId: null,
-      description: '',
+      itemName: '', // description
       itemId: [null, customValidators.required],
       itemCodeName: '',
       itemVariantId: '',
@@ -265,7 +267,15 @@ export class AddSalesReturnInvoiceComponent implements OnInit {
       uomName: '',
       uomId: ['', customValidators.required],
       taxRatio: '',
-      quantity: [
+      remainQTY: [
+        null,
+        [customValidators.required, customValidators.nonZero, customValidators.nonNegativeNumbers],
+      ],
+      toReturnQTY: [
+        null,
+        [customValidators.required, customValidators.nonZero, customValidators.nonNegativeNumbers],
+      ],
+      originalQTY: [
         null,
         [customValidators.required, customValidators.nonZero, customValidators.nonNegativeNumbers],
       ],
@@ -282,24 +292,16 @@ export class AddSalesReturnInvoiceComponent implements OnInit {
       discountPercentage: '',
       vatPercentage: '',
       taxId: null,
-
-      invoiceTracking: this.fb.group({
-        vendorBatchNo: '',
-        expireDate: null,
-        systemPatchNo: '',
-        serialId: '',
-        trackingType: '',
-        selectedValue: '',
-      }),
     });
   }
 
   get salesReturnFormArray() {
-    return this.salesReturnForm.get('invoiceDetails') as FormArray;
+    return this.salesReturnForm.get('salesReturnDetails') as FormArray;
   }
   // form section##########
 
   setRowdataByItemCode(indexLine: number, selectedItemId: any, list: any) {
+    debugger
     const selectedItem = list.find((item: any) => item.itemNumber === selectedItemId);
     const rowForm = this.salesReturnFormArray.at(indexLine) as FormGroup;
 
@@ -375,7 +377,9 @@ export class AddSalesReturnInvoiceComponent implements OnInit {
     this.purchasetransactionsService.getSharedWarehousesLookup(this.wearhouseSearch);
     this.purchasetransactionsService.warehouseLookup.subscribe({
       next: (res) => {
-        this.warhouseLookupData = res;
+        this.warhouseLookupData = res
+        console.log(this.warhouseLookupData)
+        
       },
     });
 
@@ -385,7 +389,9 @@ export class AddSalesReturnInvoiceComponent implements OnInit {
 
     this.purchasetransactionsService.getLatestItemsList();
     this.purchasetransactionsService.lastestItem.subscribe((res) => {
+      debugger
       this.latestItemsList = res;
+
       if (res.length) {
         this.latestItemsList = res.map((elem: any, index: number) => ({
           ...elem,
@@ -609,7 +615,7 @@ export class AddSalesReturnInvoiceComponent implements OnInit {
 
   setRowDataFromPopup(indexLine: number, selectedItem: any) {
     const rowForm = this.salesReturnFormArray.at(indexLine) as FormGroup;
-
+debugger
     if (rowForm) {
       rowForm.patchValue({
         itemNumber: selectedItem.itemNumber,
@@ -741,66 +747,101 @@ export class AddSalesReturnInvoiceComponent implements OnInit {
   }
 
   onSave() {
-    this.isValidData();
-    if (!this.formService.validForm(this.salesReturnForm, false)) return;
-    if (!this.formService.validForm(this.salesReturnFormArray, false)) return;
+    const salesReturnFormValues = this.salesReturnForm.value;
+    const salesReturnDetails = this.salesReturnFormArray.value.map((detail: any) => {
+      return detail;
+    });
 
-    const mappedInvoice: AddPurchaseInvoiceDto = {
-      invoiceDate: this.salesReturnForm.value.invoiceDate || null,
-      description: this.salesReturnForm.value.description || null,
-      warehouseId: this.salesReturnForm.value.warehouseId || 0,
-      warehouseName: this.salesReturnForm.value.warehouseName || '',
-      vendorId: this.salesReturnForm.value.vendorId || null,
-      currencyId: this.salesReturnForm.value.currencyId || null,
-      currencyName: this.salesReturnForm.value.currencyName,
-      vendorName: this.salesReturnForm.value.vendorName || '',
-      currencyRate: +this.salesReturnForm.value.currencyRate || 0, // Ensure it's a number
-      paymentTermId: this.salesReturnForm.value.paymentTermId ?? null,
-      reference: this.salesReturnForm.value.reference || null,
-      invoiceDetails: this.salesReturnForm.value.invoiceDetails.map((detail: any) => ({
-        barCode: detail.barCode || null,
-        barCodeId: detail.barCodeId || null,
-        itemId: detail.itemId || 0,
-        itemCode: detail.itemCode || '',
-        itemVariantId: detail.itemVariantId || 0,
-        description: detail.description || null,
-        uomId: detail.uomId || '',
-        uomName: detail.uomName || '',
-        quantity: +detail.quantity || 0, // Ensure it's a number
-        cost: +detail.cost || 0, // Ensure it's a number
-        discountPercentage: +detail.discountPercentage || 0, // Ensure it's a number
-        discountAmount: +detail.discountAmount || 0, // Ensure it's a number
-        vatPercentage: detail.vatPercentage || null,
-        taxId: detail.taxId || null,
-        notes: detail.notes || null,
-        invoiceEntryMode: detail.invoiceEntryMode,
-        trackingType: detail.trackingType,
-        hasExpiryDate: detail.hasExpiryDate || false,
-        invoiceTracking: {
-          vendorBatchNo: detail.invoiceTracking.vendorBatchNo || null,
-          quantity: detail.invoiceTracking.quantity || 0,
-          hasExpiryDate: detail.invoiceTracking.hasExpiryDate || false,
-          expireDate: detail.invoiceTracking.expireDate || null,
-          systemPatchNo: detail.invoiceTracking.systemPatchNo || null,
-          serialId: detail.invoiceTracking.serialId || null,
-          trackingType: detail.invoiceTracking.trackingType,
-        },
-      })),
+    const dto: any = {
+      id: salesReturnFormValues.id,
+      code: salesReturnFormValues.code,
+      warehouseId: salesReturnFormValues.warehouseId,
+      warehouseName: salesReturnFormValues.warehouseName,
+      salesmanId: salesReturnFormValues.salesmanId,
+      relatedJournal: salesReturnFormValues.relatedJournal,
+      description: salesReturnFormValues.description,
+      createdStockIn: salesReturnFormValues.createdStockIn,
+      returnDate: salesReturnFormValues.returnDate,
+      customerCode: salesReturnFormValues.customerCode,
+      customerName: salesReturnFormValues.customerName,
+      currencyId: salesReturnFormValues.currencyId,
+      rate: salesReturnFormValues.rate,
+      paymentTermId: salesReturnFormValues.paymentTermId,
+      creditLimit: salesReturnFormValues.creditLimit,
+      salesInvoiceId: salesReturnFormValues.salesInvoiceId,
+      numberOfItems: salesReturnFormValues.numberOfItems,
+      total: salesReturnFormValues.total,
+      discount: salesReturnFormValues.discount,
+      totalOfQuantity: salesReturnFormValues.totalOfQuantity,
+      vatAmount: salesReturnFormValues.vatAmount,
+      totalAfterVat: salesReturnFormValues.totalAfterVat,
+      salesReturnDetails: salesReturnDetails,
     };
 
-    if (this.save) {
-      this.purchasetransactionsService.addPurchaseInvoice(mappedInvoice);
-      this.purchasetransactionsService.sendPurchaseInvoice.subscribe((res: number | any) => {
-        if (typeof res == 'number') {
-          this.savedDataId = res;
-          this.dataToReadOnly = true;
-          this.showPost = true;
-        } else {
-          this.dataToReadOnly = false;
-          this.showPost = false;
-        }
-      });
-    }
+    console.log(dto);
+
+    // return dto;
+    // this.isValidData();
+    // if (!this.formService.validForm(this.salesReturnForm, false)) return;
+    // if (!this.formService.validForm(this.salesReturnFormArray, false)) return;
+
+    // const mappedInvoice: AddPurchaseInvoiceDto = {
+    //   invoiceDate: this.salesReturnForm.value.invoiceDate || null,
+    //   description: this.salesReturnForm.value.description || null,
+    //   warehouseId: this.salesReturnForm.value.warehouseId || 0,
+    //   warehouseName: this.salesReturnForm.value.warehouseName || '',
+    //   vendorId: this.salesReturnForm.value.vendorId || null,
+    //   currencyId: this.salesReturnForm.value.currencyId || null,
+    //   currencyName: this.salesReturnForm.value.currencyName,
+    //   vendorName: this.salesReturnForm.value.vendorName || '',
+    //   currencyRate: +this.salesReturnForm.value.currencyRate || 0, // Ensure it's a number
+    //   paymentTermId: this.salesReturnForm.value.paymentTermId ?? null,
+    //   reference: this.salesReturnForm.value.reference || null,
+    //   salesReturnDetails: this.salesReturnForm.value.salesReturnDetails.map((detail: any) => ({
+    //     barCode: detail.barCode || null,
+    //     barCodeId: detail.barCodeId || null,
+    //     itemId: detail.itemId || 0,
+    //     itemCode: detail.itemCode || '',
+    //     itemVariantId: detail.itemVariantId || 0,
+    //     description: detail.description || null,
+    //     uomId: detail.uomId || '',
+    //     uomName: detail.uomName || '',
+    //     quantity: +detail.quantity || 0, // Ensure it's a number
+    //     cost: +detail.cost || 0, // Ensure it's a number
+    //     discountPercentage: +detail.discountPercentage || 0, // Ensure it's a number
+    //     discountAmount: +detail.discountAmount || 0, // Ensure it's a number
+    //     vatPercentage: detail.vatPercentage || null,
+    //     taxId: detail.taxId || null,
+    //     notes: detail.notes || null,
+    //     invoiceEntryMode: detail.invoiceEntryMode,
+    //     trackingType: detail.trackingType,
+    //     hasExpiryDate: detail.hasExpiryDate || false,
+    //     invoiceTracking: {
+    //       vendorBatchNo: detail.invoiceTracking.vendorBatchNo || null,
+    //       quantity: detail.invoiceTracking.quantity || 0,
+    //       hasExpiryDate: detail.invoiceTracking.hasExpiryDate || false,
+    //       expireDate: detail.invoiceTracking.expireDate || null,
+    //       systemPatchNo: detail.invoiceTracking.systemPatchNo || null,
+    //       serialId: detail.invoiceTracking.serialId || null,
+    //       trackingType: detail.invoiceTracking.trackingType,
+    //     },
+    //   })),
+    // };
+    // console.log(this.form);
+
+    // if (this.save) {
+    //   this.purchasetransactionsService.addPurchaseInvoice(mappedInvoice);
+    //   this.purchasetransactionsService.sendPurchaseInvoice.subscribe((res: number | any) => {
+    //     if (typeof res == 'number') {
+    //       this.savedDataId = res;
+    //       this.dataToReadOnly = true;
+    //       this.showPost = true;
+    //     } else {
+    //       this.dataToReadOnly = false;
+    //       this.showPost = false;
+    //     }
+    //   });
+    // }
   }
 
   OnDelete(i: number) {
