@@ -370,6 +370,8 @@
     "attributeDefinition": "تعريف الصفة",
     "AttributeDefinitionView": "عرض تعريف السمة",
     "attribute": "الصفة",
+    "attributeEditStatus" : "تم تغيير الحاله بنجاح",
+
     "AddNewLine": "إضافة سطر جديد",
     "add_new": "إضافة جديد",
     "AddAttributeDefinition": "إضافة تعريف السمة",
