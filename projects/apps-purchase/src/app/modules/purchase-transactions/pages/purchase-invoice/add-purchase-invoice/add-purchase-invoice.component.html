@@ -193,6 +193,13 @@
 
         <div class="flex justify-content-end gap-4 my-4">
           <lib-button-micro
+            [title]="'purchase.localAmount' | translate"
+            nameClass="outline"
+            iconName="pi pi-file-edit"
+            (click)="onLocalAmount()"
+          >
+          </lib-button-micro>
+          <!-- <lib-button-micro
             [title]="'purchase.upload' | translate"
             nameClass="outline"
             iconName="pi pi-file-edit"
@@ -203,7 +210,7 @@
             nameClass="outline"
             iconName="pi pi-expand"
           >
-          </lib-button-micro>
+          </lib-button-micro> -->
         </div>
       </div>
       <p-table
@@ -661,6 +668,16 @@
             [appControl]="purchaseInvoiceForm.controls['numberOfItems']"
           ></lib-field-validations>
         </div>
+        <div class="md:col-2">
+          <lib-label [appControl]="purchaseInvoiceForm.controls['total']">
+            {{ 'purchase.total' | translate }}
+          </lib-label>
+          <lib-text-input
+            placeholder="{{ 'purchase.total' | translate }}"
+            formControlName="total"
+            [readOnly]="true"
+          ></lib-text-input>
+        </div>
 
         <div class="md:col-2">
           <lib-label [appControl]="purchaseInvoiceForm.controls['totalAfterDiscount']">
@@ -671,6 +688,9 @@
             formControlName="totalAfterDiscount"
             [readOnly]="true"
           ></lib-text-input>
+        </div>
+        <div class="md:col-6">
+
         </div>
         <div class="md:col-2">
           <lib-label [appControl]="purchaseInvoiceForm.controls['totalQuantity']">
@@ -685,6 +705,8 @@
             [appControl]="purchaseInvoiceForm.controls['totalQuantity']"
           ></lib-field-validations>
         </div>
+   
+
         <div class="md:col-2">
           <lib-label [appControl]="purchaseInvoiceForm.controls['discount']">
             {{ 'purchase.discount' | translate }}
@@ -719,32 +741,10 @@
             [readOnly]="true"
           ></lib-text-input>
         </div>
+        
       </div>
       <hr />
-      <!-- <div class="grid">
-        <div class="md:col-12 my-3 grid flex justify-content-end p-0 m-0">
-          <div class="md:col-6 grid flex justify-content-end p-0 m-0">
-            <div class="md:col-3">
-              <lib-button-micro
-                title="{{ 'purchase.cancel' | translate }}"
-                nameClass="cancel"
-                widthNumber="100%"
-                (click)="onCancel()"
-              >
-              </lib-button-micro>
-            </div>
-            <div class="md:col-3">
-              <lib-button-micro
-                title="{{ 'purchase.save' | translate }}"
-                nameClass="save"
-                widthNumber="100%"
-                (click)="onSave()"
-              >
-              </lib-button-micro>
-            </div>
-          </div>
-        </div>
-      </div> -->
+    
 
       <div class="grid">
         <div class="md:col-12 my-3 grid flex justify-content-end">
