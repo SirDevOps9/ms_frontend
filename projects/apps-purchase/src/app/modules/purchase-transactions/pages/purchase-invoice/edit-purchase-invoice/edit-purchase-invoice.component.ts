@@ -489,11 +489,9 @@ export class EditPurchaseInvoiceComponent implements OnInit {
         });
       }
     }
-    // rowForm.get('itemName')?.setValue(selectedItem.itemCode + "-" + selectedItem.itemName + "-" + selectedItem.itemVariantNameEn)
     rowForm.get('itemName')?.setValue(selectedItem.itemCode);
     this.setUomName(indexLine, rowForm.get('uomOptions')?.value);
     this.calculate();
-    console.log(rowForm, '888888888888888');
   }
 
   addNewRow() {
@@ -962,7 +960,6 @@ export class EditPurchaseInvoiceComponent implements OnInit {
 
 
   onLocalAmount() {
-    console.log(this.refactoredData(this.addForm.value))
 
     
 

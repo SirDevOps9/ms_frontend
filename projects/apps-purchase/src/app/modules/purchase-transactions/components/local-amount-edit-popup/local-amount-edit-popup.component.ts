@@ -5,21 +5,27 @@ import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dy
 import { SharedFinanceEnums } from 'projects/apps-finance/src/app/modules/finance/models';
 import { SharedStock } from 'projects/apps-inventory/src/app/modules/transactions/models/sharedStockOutEnums';
 import { TransactionsService } from 'projects/apps-inventory/src/app/modules/transactions/transactions.service';
-import { customValidators, LanguageService, RouterService, FormsService, ToasterService, CurrentUserService } from 'shared-lib';
+import {
+  customValidators,
+  LanguageService,
+  RouterService,
+  FormsService,
+  ToasterService,
+  CurrentUserService,
+} from 'shared-lib';
 import { LatestItem } from '../../models';
 import { PurchaseTransactionsService } from '../../purchase-transactions.service';
 
 @Component({
   selector: 'app-local-amount-edit-popup',
   templateUrl: './local-amount-edit-popup.component.html',
-  styleUrl: './local-amount-edit-popup.component.scss'
+  styleUrl: './local-amount-edit-popup.component.scss',
 })
-export class LocalAmountEditPopupComponent implements OnInit{
+export class LocalAmountEditPopupComponent implements OnInit {
   latestItemsList: LatestItem[] = [];
   currentLang: string;
-  rate : any;
+  rate: any;
   purchaseInvoiceForm: FormGroup = new FormGroup({});
-
 
   initLookups() {
     this.purchasetransactionsService.getLatestItemsList();
@@ -37,8 +43,6 @@ export class LocalAmountEditPopupComponent implements OnInit{
     });
   }
 
-
-
   get stockIn() {
     return this.purchaseInvoiceForm.get('invoiceDetails') as FormArray;
   }
@@ -51,14 +55,13 @@ export class LocalAmountEditPopupComponent implements OnInit{
 
   createStockIn() {
     return this.fb.group({
-  
       itemId: [null, customValidators.required],
       itemCode: '',
       itemCodeName: '',
       itemVariantId: '',
       discount: 0,
       discountAmount: '',
-      netCost : 0,
+      netCost: 0,
       taxRatio: '',
       quantity: [
         null,
@@ -70,12 +73,29 @@ export class LocalAmountEditPopupComponent implements OnInit{
       ],
       subTotal: '',
 
-     
       discountPercentage: '',
       vatPercentage: '',
-      itemName:new FormControl(''),
-     
+      itemName: new FormControl(''),
     });
+  }
+
+  ngOnInit(): void {
+    this.initLookups();
+    this.initializeForm();
+
+    if (this.config?.data?.formData?.length) {
+      let puchaseFormData = this.config?.data.formData;
+      this.rate = this.config?.data.rate;
+
+      puchaseFormData.forEach((element: any) => {
+        let fbLocalForm = this.fb.group({ ...element });
+        this.stockIn.push(fbLocalForm);
+      });
+    }
+  }
+
+  onCancel() {
+    this.ref.close();
   }
 
   constructor(
@@ -91,35 +111,9 @@ export class LocalAmountEditPopupComponent implements OnInit{
     public sharedStock: SharedStock,
     private toasterService: ToasterService,
     private currentUserService: CurrentUserService,
-    private config : DynamicDialogConfig,
-    private ref : DynamicDialogRef
+    private config: DynamicDialogConfig,
+    private ref: DynamicDialogRef
   ) {
     this.currentLang = this.languageService.getLang();
-  }
-  ngOnInit(): void {
-    this.initLookups()
-    this.initializeForm()
-
-    if(this.config?.data?.formData?.length){
-      let puchaseFormData = this.config?.data.formData;
-     this.rate = this.config?.data.rate;
-
-     console.log(puchaseFormData)
-
-
-      puchaseFormData.forEach((element : any) => {
-        let fbLocalForm = this.fb.group({...element})
-        this.stockIn.push(fbLocalForm)
-      });
-
-      console.log(this.stockIn.value)
-
-    }
-
-
-  }
-
-  onCancel() {
-    this.ref.close()
   }
 }

@@ -655,12 +655,10 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       if (selectedItems) {
         stockInFormGroup.get('itemId')?.setValue(selectedItems.itemId);
         stockInFormGroup.get('vatPercentage')?.setValue(selectedItems.taxRatio);
-      //  this.setRowDataFromBarCode(indexline, selectedItems, '');
         this.setRowDataFromPopup(indexline, selectedItems)
 
       }
 
-      console.log(this.purchaseInvoiceFormArray.value);
     });
   }
 
