@@ -64,6 +64,7 @@
                       [options]="warhouseLookupData"
                       optionValue="id"
                       optionLabel="name"
+                      (valueChanged)="setWarhouseName(purchaseInvoiceForm.controls['warehouseId'].value)"
                       [selectedValue]="purchaseInvoiceForm.controls['warehouseId'].value"
                     ></lib-select>
                     <lib-field-validations
@@ -98,7 +99,7 @@
                           optionLabel="name"
                           placeholder="{{ 'purchase.vendorCode' | translate }}"
                           [readOnly]="dataToReadOnly"
-                          (valueSearchChanged)="onFilter($event)"
+                          (valueSearchChanged)="onFilterVendorItems($event)"
                         >
                         </lib-select>
                         <lib-field-validations

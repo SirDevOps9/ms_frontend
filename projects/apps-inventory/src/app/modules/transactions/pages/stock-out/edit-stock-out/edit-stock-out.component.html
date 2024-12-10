@@ -257,6 +257,7 @@
                 <lib-text-input
                   placeholder="{{ 'stockOut.cost' | translate }}"
                   formControlName="cost"
+                  (keyUp)="setCostTotal(rowIndex, $event); isDuplicate(rowIndex)"
                   [readOnly]="true"
                 ></lib-text-input>
               </ng-template>
