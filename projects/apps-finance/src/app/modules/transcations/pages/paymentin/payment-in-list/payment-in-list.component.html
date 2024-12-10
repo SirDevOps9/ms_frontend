@@ -112,15 +112,6 @@
               ></lib-date-range>
             </div>
             <div class="lg:col-3 md:col-4 col-12">
-              <lib-multi-select
-                formControlName="status"
-                placeholder="{{ 'filter.status' | translate }}"
-                [options]="filterStatus"
-                optionLabel="name"
-                optionValue="id"
-              ></lib-multi-select>
-            </div>
-            <div class="lg:col-3 md:col-4 col-12">
               <lib-select
                 formControlName="paymentHub"
                 placeholder="{{ 'filter.paymentHub' | translate }}"
@@ -131,11 +122,12 @@
             </div>
             <div class="lg:col-3 md:col-4 col-12">
               <lib-multi-select
-                formControlName="currency"
-                placeholder="{{ 'filter.currency' | translate }}"
-                [options]="currencyListDto"
+                formControlName="paymentHubDetails"
+                placeholder="{{ 'filter.paymentHubDetails' | translate }}"
+                [options]="paymentHubDetailsList"
                 optionLabel="name"
                 optionValue="id"
+                [selectedValue]="filterForm.controls['paymentHubDetails'].value"
               ></lib-multi-select>
             </div>
             <div class="lg:col-3 md:col-4 col-12">
@@ -151,12 +143,20 @@
             </div>
             <div class="lg:col-3 md:col-4 col-12">
               <lib-multi-select
-                formControlName="paymentHubDetails"
-                placeholder="{{ 'filter.paymentHubDetails' | translate }}"
-                [options]="paymentHubDetailsList"
+                formControlName="status"
+                placeholder="{{ 'filter.status' | translate }}"
+                [options]="filterStatus"
                 optionLabel="name"
                 optionValue="id"
-                [selectedValue]="filterForm.controls['paymentHubDetails'].value"
+              ></lib-multi-select>
+            </div>
+            <div class="lg:col-3 md:col-4 col-12">
+              <lib-multi-select
+                formControlName="currency"
+                placeholder="{{ 'filter.currency' | translate }}"
+                [options]="currencyListDto"
+                optionLabel="name"
+                optionValue="id"
               ></lib-multi-select>
             </div>
 
