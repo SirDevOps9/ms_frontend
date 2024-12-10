@@ -60,6 +60,8 @@ export class EditPurchaseInvoiceComponent implements OnInit {
 
   warhouseLookupData: GetWarehouseList[] = [];
 
+  getInvoiceByIdData : any = {}
+
   filteredItems: any[];
   vendorItems: any[];
   warehouses: any[];
@@ -188,6 +190,24 @@ export class EditPurchaseInvoiceComponent implements OnInit {
       }
     });
   }
+
+  setVendorDataInPatch(vendorId: number) {
+    this.vendorItems?.find((item) => {
+      if (item.id === vendorId) {
+        this.addForm.get('vendorName')?.setValue(item?.name);
+        this.addForm.get('currencyRate')?.setValue(item?.vendorFinancialCurrencyName);
+        this.addForm.get('paymentTermName')?.setValue(item?.paymentTermName);
+        this.addForm.get('paymentTermId')?.setValue(item?.paymentTermId);
+        this.addForm.get('currencyName')?.setValue(item?.vendorFinancialCurrencyName);
+        this.addForm.get('currencyId')?.setValue(item?.vendorFinancialCurrencyId);
+        if (!this.addForm.get('currencyId')?.value) {
+          this.addForm.get('currencyId')?.setValue(this.currentUserService.getCurrency());
+          this.addForm.get('currencyName')?.setValue('Egyptian Pound');
+          this.addForm.get('currencyRate')?.setValue('Egyptian Pound');
+        }
+      }
+    });
+  }
   onFilterItems(SearchTerm: string) {
     this.PurchaseService.getLatestItems(SearchTerm);
   }
@@ -195,6 +215,7 @@ export class EditPurchaseInvoiceComponent implements OnInit {
   getInvoiceById(id: number) {
     this.PurchaseService.getInvoiceById(id);
     this.PurchaseService.InvoiceByIdDataSource.subscribe((data: any) => {
+      this.getInvoiceByIdData = data
       this.patchForm(data);
     });
   }
@@ -213,6 +234,7 @@ export class EditPurchaseInvoiceComponent implements OnInit {
       paymentTermId: data.paymentTermId,
       paymentTermName: data.paymentTermName,
       reference: data.reference,
+      vendorRate:data.currencyRate
     });
 
     if (data.invoiceStatus == this.sharedEnums.InvoiceStatus.Saved) {
@@ -235,7 +257,7 @@ export class EditPurchaseInvoiceComponent implements OnInit {
     });
     this.dataLoaded = true;
     this.originalFormData = this.addForm.value;
-    this.setVendorData(data.vendorId);
+    this.setVendorDataInPatch(data.vendorId);
     this.isFormLoaded = true;
   }
 
