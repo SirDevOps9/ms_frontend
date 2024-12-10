@@ -394,7 +394,7 @@
               [ngClass]="{
             'Available':  stockOutFormGroup.controls['quantity']?.value <= stockOutFormGroup.controls['totalQuantity']?.value,
             'unavailable':  stockOutFormGroup.controls['quantity']?.value > stockOutFormGroup.controls['totalQuantity']?.value,
-            
+
             }"
             >
               {{ stockOutFormGroup.controls['totalQuantity']?.value }}
