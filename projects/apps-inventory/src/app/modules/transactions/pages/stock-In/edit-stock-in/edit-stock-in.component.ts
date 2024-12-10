@@ -870,8 +870,8 @@ export class EditStockInComponent implements OnInit {
         this.transactionService.deleteStockInLine(id).subscribe({
           next: (res: any) => {
             this.toasterService.showSuccess(
-              this.languageService.transalte('transactions.success'),
-              this.languageService.transalte('transactions.deleteStockOut')
+              this.languageService.transalte('stockIn.success'),
+              this.languageService.transalte('stockIn.deleteStockInLine')
             );
             this.stockInDetailsFormArray.removeAt(index);
             this.isDuplicate(index - 1);

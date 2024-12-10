@@ -280,7 +280,63 @@ export class TransactionsService {
     });
   }
 
- 
+  // async deleteStockInLine(id: number) {
+  //   try {
+  //     // Confirm deletion
+  //     const confirmed = await this.toasterService.showConfirm(
+  //       this.languageService.transalte('ConfirmButtonTexttodelete')
+  //     );
+  
+  //     if (confirmed) {
+  //       // Check if the item is saved (already has an ID in the backend)
+  //       const currentData = this.stockInByIdData.getValue();
+  
+  //       if (currentData && currentData.stockInDetails) {
+  //         const itemToDelete = currentData.stockInDetails.find(
+  //           (detail: any) => detail.id === id
+  //         );
+  
+  //         // If the item exists and is saved in the backend
+  //         if (itemToDelete && !itemToDelete.isNew) {
+  //           // Perform deletion from the backend
+  //           await firstValueFrom(this.transactionsProxy.deleteStockInLine(id));
+  
+  //           // Show success message
+  //           this.toasterService.showSuccess(
+  //             this.languageService.transalte('stockIn.success'),
+  //             this.languageService.transalte('stockIn.deleteStockInLine')
+  //           );
+  
+  //           // Update the form array and observable
+  //           const updatedStockInDetails = currentData.stockInDetails.filter(
+  //             (detail: any) => detail.id !== id
+  //           );
+  
+  //           const updatedData = {
+  //             ...currentData,
+  //             stockInDetails: updatedStockInDetails,
+  //           };
+  
+  //           this.stockInByIdData.next(updatedData);
+  //         } else {
+  //           // If the item is new and not saved to the backend, just remove it locally
+  //           const updatedStockInDetails = currentData.stockInDetails.filter(
+  //             (detail: any) => detail.id !== id
+  //           );
+  
+  //           const updatedData = {
+  //             ...currentData,
+  //             stockInDetails: updatedStockInDetails,
+  //           };
+  
+  //           this.stockInByIdData.next(updatedData);
+  //         }
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.error('Error deleting stock-in line:', error);
+  //   }
+  // }
   
   deleteStockInLine(id: number) {
     return this.transactionsProxy.deleteStockInLine(id).pipe(
