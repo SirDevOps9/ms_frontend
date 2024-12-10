@@ -1,6 +1,5 @@
 <lib-page-content>
-  <div class="page_edit_purchase">
-    <div class="main_header card_micro" [formGroup]="addForm">
+  <div class="page_edit_purchase">    <div class="main_header card_micro" [formGroup]="addForm">
       <div class="grid">
         <!-- Main Information Section -->
         <div class="col-12 md:col-4">
@@ -119,6 +118,32 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+
+    <div class="flex justify-content-between align-items-center gap-4 my-4">
+      <lib-text-input type="text" [placeholder]="'purchase.search' | translate"></lib-text-input>
+
+      <div class="flex justify-content-end gap-4 my-4">
+        <lib-button-micro
+          [title]="'purchase.localAmount' | translate"
+          nameClass="outline"
+          iconName="pi pi-file-edit"
+          (click)="onLocalAmount()"
+        >
+        </lib-button-micro>
+        <!-- <lib-button-micro
+          [title]="'purchase.upload' | translate"
+          nameClass="outline"
+          iconName="pi pi-file-edit"
+        >
+        </lib-button-micro>
+        <lib-button-micro
+          [title]="'purchase.scan' | translate"
+          nameClass="outline"
+          iconName="pi pi-expand"
+        >
+        </lib-button-micro> -->
       </div>
     </div>
 
