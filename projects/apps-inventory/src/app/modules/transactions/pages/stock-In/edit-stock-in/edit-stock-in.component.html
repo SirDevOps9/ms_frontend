@@ -405,17 +405,29 @@
           </td>
           <td>
             <lib-button-micro
-              *ngIf="stockInFormGroup.controls['id'].value"
-              nameClass="table_button_delete"
-              (click)="OnDelete(stockInFormGroup.controls['id'].value)"
-            >
-            </lib-button-micro>
-            <lib-button-micro
-              *ngIf="!stockInFormGroup.controls['id'].value"
-              nameClass="table_button_delete"
-              (click)="deleteIndex(i)"
-            >
-            </lib-button-micro>
+            nameClass="table_button_delete"
+            (click)="deleteRow(i, stockInFormGroup.controls['id']?.value)"
+          >
+          </lib-button-micro>
+            <!-- @if (stockInFormGroup.controls['id'].value && stockInFormGroup.controls['id'].value !=0) {
+
+
+              <lib-button-micro
+              *ngIf="stockInFormGroup.controls['id'].value && stockInFormGroup.controls['id'].value !=0"
+                nameClass="table_button_delete"
+                (click)="OnDelete( stockInFormGroup.controls['id'].value)"
+              >
+              </lib-button-micro>
+            } @else if (!stockInFormGroup.controls['id'].value || stockInFormGroup.controls['id'].value == 0) {
+
+
+              <lib-button-micro
+  
+                nameClass="table_button_delete"
+                (click)="deleteIndex(i)"
+              >
+              </lib-button-micro>
+            } -->
           </td>
           <!--  -->
         </tr>
