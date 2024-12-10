@@ -208,8 +208,6 @@ export class EditStockInComponent implements OnInit {
       warehouseId: data.warehouseId,
       stockOutStatus: data.stockOutStatus,
     });
-
-
     if (data?.warehouseId) {
       this.getLatestItemsList(data?.warehouseId);
     }
@@ -224,7 +222,8 @@ export class EditStockInComponent implements OnInit {
 
     this.resetComparasion();
     this.cdr.detectChanges();
-
+    // new code disabled for case stockInStatus==posted
+    this.postedStock = data.stockInStatus !== 'Posted';
     // const { code, sourceDocumentType, warehouseName, ...formValue } =
     //   this.stockInForm.getRawValue();
     // this.formValurCash = structuredClone(formValue);
@@ -340,7 +339,7 @@ export class EditStockInComponent implements OnInit {
     } else {
       rowForm?.get('uomName')?.setValue(selectedItem?.uomNameEn);
     }
-    
+
   }
   changeUomName(indexLine: number, list: any) {
     const rowForm = this.stockInDetailsFormArray.at(indexLine) as FormGroup;
