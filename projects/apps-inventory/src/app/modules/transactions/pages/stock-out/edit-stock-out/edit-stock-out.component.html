@@ -30,7 +30,11 @@
         <lib-label [appControl]="addForm.controls['sourceDocumentType']">
           {{ 'stockOut.docType' | translate }}
         </lib-label>
-        <lib-select
+        <lib-text-input
+        formControlName="sourceDocumentType"
+        [readOnly]="true"
+        ></lib-text-input>
+        <!-- <lib-select
           formControlName="sourceDocumentType"
           [options]="lookups[LookupEnum.StockInOutSourceDocumentType]"
           optionValue="id"
@@ -38,7 +42,7 @@
           [readOnly]="true"
           [selectedValue]="addForm.controls['sourceDocumentType'].value"
         >
-        </lib-select>
+        </lib-select> -->
         <lib-field-validations
           [appControl]="addForm.controls['sourceDocumentType']"
         ></lib-field-validations>
@@ -64,11 +68,13 @@
         <lib-label [appControl]="addForm.controls['warehouseId']">
           {{ 'stockOut.warehouse' | translate }}
         </lib-label>
-        <!-- <lib-select formControlName="warehouseId" [options]="warhouseLookupData" optionValue="id" optionLabel="name"
+        <lib-select formControlName="warehouseId"
+        [readOnly]="true"
+        [options]="warhouseLookupData" optionValue="id" optionLabel="name"
           placeholder="{{ 'stockOut.warehouse' | translate }}" [selectedValue]="addForm.controls['warehouseId'].value"
           (valueChanged)="getLatestItemsList( addForm.controls['warehouseId'].value)">
-        </lib-select> -->
-        <lib-text-input formControlName="warehouseName" [readOnly]="true"> </lib-text-input>
+        </lib-select>
+        <!-- <lib-text-input formControlName="warehouseName" [readOnly]="true"> </lib-text-input> -->
         <lib-field-validations
           [appControl]="addForm.controls['warehouseId']"
         ></lib-field-validations>

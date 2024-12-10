@@ -16,10 +16,9 @@ import {
   RouterService,
   ToasterService,
 } from 'shared-lib';
-import { AddStockOutDto, GetWarehouseList, OperationalStockIn } from '../../../models';
+import { GetWarehouseList, OperationalStockIn } from '../../../models';
 import { SharedStock } from '../../../models/sharedStockOutEnums';
 import { ActivatedRoute } from '@angular/router';
-import { ItemsService } from '../../../../items/items.service';
 import { TransactionsService } from '../../../transactions.service';
 import { SearchItemPopUpComponent } from '../../../components/stock-out/search-item-pop-up/search-item-pop-up.component';
 import { format, isValid } from 'date-fns';
@@ -58,14 +57,14 @@ export class EditStockOutComponent implements OnInit {
   dataLoaded: boolean;
   showPost: boolean;
   ngOnInit(): void {
-    this.initializeForm();
-
-    this.subscribe();
-
     this.itemId = this.route.snapshot.params['id'];
+    this.itemsService.operationTagStockOutDropdown();
+
+    this.initWareHouseLookupData();
+    this.initializeForm();
     this.loadLookups();
     this.getStockOutyId(this.itemId);
-    this.initWareHouseLookupData();
+    this.subscribe();
   }
   getStockOutyId(id: number) {
     this.itemsService.getStockOutById(id);
@@ -81,7 +80,7 @@ export class EditStockOutComponent implements OnInit {
       id: data.id,
       code: data.code,
       receiptDate: data.receiptDate,
-      // sourceDocumentType: data.sourceDocumentType,
+       sourceDocumentType: data.sourceDocumentType,
       sourceDocumentId: data.sourceDocumentId,
       warehouseId: data.warehouseId,
       stockOutStatus: data.stockOutStatus,
@@ -155,26 +154,37 @@ export class EditStockOutComponent implements OnInit {
   }
   subscribe() {
     this.languageService.language$.subscribe((lang) => [(this.selectedLanguage = lang)]);
-    this.lookupservice.lookups.subscribe((l) => {
-      this.lookups = l;
+    // this.lookupservice.lookups.subscribe((l) => {
+    
+    //   this.lookups = l;
      
-       if(this.lookups[LookupEnum.StockInOutSourceDocumentType]?.length) {
-      this.addForm.get('sourceDocumentType')?.setValue(this.lookups[LookupEnum.StockInOutSourceDocumentType][0]?.id)
-    }
+    //    if(this.lookups[LookupEnum.StockInOutSourceDocumentType]?.length) {
+    //   this.addForm.get('sourceDocumentType')?.setValue(this.lookups[LookupEnum.StockInOutSourceDocumentType][0]?.id)
+    // }
      
-    });
-    this.addForm.get('sourceDocumentType')?.valueChanges.subscribe((res) => {
-      let data = this.lookups[LookupEnum.StockInOutSourceDocumentType];
-      let sourceDocumentTypeData = data?.find((elem) => elem.id == res);
-      if (sourceDocumentTypeData?.name == 'OperationalTag') {
-        this.itemsService.operationTagStockOutDropdown();
-        this.itemsService.perationalTagStockOutDropDown$.subscribe((res: any) => {
-          this.oprationalLookup = res.map((elem: any) => ({
-            ...elem,
-            displayName: `${elem.name} (${elem.code})`,
-          }));
-        });
-      }
+    // });
+    // this.addForm.get('sourceDocumentType')?.valueChanges.subscribe((res) => {
+    //   let data = this.lookups[LookupEnum.StockInOutSourceDocumentType];
+    //   let sourceDocumentTypeData = data?.find((elem) => elem.id == res);
+    //   console.log(sourceDocumentTypeData,"sourceDocumentTypeData");
+      
+    //   if (sourceDocumentTypeData?.name == 'OperationalTag') {
+    //     console.log(sourceDocumentTypeData,"888888");
+
+    //     // this.itemsService.operationTagStockOutDropdown();
+    //     this.itemsService.perationalTagStockOutDropDown$.subscribe((res: any) => {
+    //       this.oprationalLookup = res.map((elem: any) => ({
+    //         ...elem,
+    //         displayName: `${elem.name} (${elem.code})`,
+    //       }));
+    //     });
+    //   }
+    // });
+    this.itemsService.perationalTagStockOutDropDown$.subscribe((res: any) => {
+      this.oprationalLookup = res.map((elem: any) => ({
+        ...elem,
+        displayName: `${elem.name} (${elem.code})`,
+      }));
     });
     this.addForm.get('sourceDocumentId')?.valueChanges.subscribe((res) => {
       let data = this.oprationalLookup.find((elem) => elem.id == res);
