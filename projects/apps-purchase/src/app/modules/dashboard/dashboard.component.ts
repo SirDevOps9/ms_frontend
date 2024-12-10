@@ -12,6 +12,7 @@ import { takeUntil } from 'rxjs/operators';
 import {
   ChartService,
   ChartValueDto,
+  CurrentUserService,
   DASHBOARD_COLORS,
   LanguageService,
   MONTHS_DTO,
@@ -26,6 +27,7 @@ import { DashboardService } from './dashboard.service';
 export class DashboardComponent implements OnInit, OnDestroy {
   currentLang: string = '';
   private destroy$ = new Subject<void>();
+  defaultCurrency: string;
 
   // Charts & Data
   statusChart: Chart;
@@ -57,13 +59,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
   constructor(
     private languageService: LanguageService,
     private service: DashboardService,
-    private chartService: ChartService
+    private chartService: ChartService,
+    private currencyService: CurrentUserService
   ) {}
 
   ngOnInit() {
     this.languageService.language$
       .pipe(takeUntil(this.destroy$))
       .subscribe((lang) => (this.currentLang = lang));
+
+    this.defaultCurrency = this.currencyService.getCurrencyFlag();
 
     this.fetchData();
     this.subscriptions();

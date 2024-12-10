@@ -90,13 +90,11 @@
                 </span>
 
                 <span class="line"></span>
-                <span class="body_b14"
-                  >{{ stockOut.quantity }} <span class="body_b14"> X</span></span
-                >
+                <span class="heading_b14"> <span> X </span>{{ stockOut.quantity }} </span>
                 <div class="line"></div>
-                <span class="detail-value heading_b16">{{
-                  stockOut.totalCost | numberFormat
-                }}</span>
+                <span class="detail-value heading_b16"
+                  >{{ stockOut.totalCost | numberFormat }} {{ defaultCurrency }}
+                </span>
               </div>
               } @empty {
               <p class="body_b14">{{ 'dashboard.noElements' | translate }}</p>
@@ -125,11 +123,11 @@
                 </span>
 
                 <span class="line"></span>
-                <span class="body_b14"
-                  >{{ stockIn.quantity }} <span class="body_b14"> X</span>
-                </span>
+                <span class="heading_b14"> <span> X </span>{{ stockIn.quantity }} </span>
                 <div class="line"></div>
-                <span class="detail-value heading_b16">{{ stockIn.totalCost | numberFormat }}</span>
+                <span class="detail-value heading_b16"
+                  >{{ stockIn.totalCost | numberFormat }} {{ defaultCurrency }}</span
+                >
               </div>
               } @empty {
               <p class="body_b14">{{ 'dashboard.noElements' | translate }}</p>

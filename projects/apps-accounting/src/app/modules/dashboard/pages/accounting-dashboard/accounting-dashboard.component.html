@@ -64,7 +64,6 @@
             <div class="chart-body accounts-bank w-full">
               @for(acc of cashBankAccountsBalance.accounts; track acc) {
               <div class="row">
-                <span class="body-14 mx-1">{{ acc.accountName }}</span>
                 <span
                   class="detail-type body_b14 pointer"
                   [style.background-color]="acc.accountTypeId == 2 ? '#e7994f' : '#5eb5af'"
@@ -72,6 +71,7 @@
                 >
                   {{ acc.accountTypeName }}
                 </span>
+                <span class="body-14 mx-1">{{ acc.accountName }}</span>
 
                 <span class="line"></span>
                 <span class="detail-value heading_b16">{{ acc.balance | numberFormat }}</span>
