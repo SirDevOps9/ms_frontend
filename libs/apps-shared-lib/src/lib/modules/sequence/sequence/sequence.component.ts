@@ -374,7 +374,7 @@ applySegmentValidators(control: FormGroup) {
 
   getSeparatorNameOfDetailValue(separator:string){
     let segemntId =separator
-    const foundElement:any = this.lookups[LookupEnum.Separator].find(element => element.id == segemntId);
+    const foundElement:any = this.lookups[LookupEnum.Separator]?.find(element => element.id == segemntId);
     if (foundElement) {
       return foundElement.name
     }

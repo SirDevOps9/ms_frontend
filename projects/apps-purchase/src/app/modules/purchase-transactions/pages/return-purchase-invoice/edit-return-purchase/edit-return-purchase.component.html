@@ -231,7 +231,8 @@
                                         (valueChanged)="setReturnQuantity(rowIndex) 
                                         "></lib-text-input>
                                 </ng-template>
-                                <ng-template pTemplate="output">
+                                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                                     {{ invoiceFormGroup.controls['returnQuantity']?.value }}
                                 </ng-template>
                             </p-cellEditor>

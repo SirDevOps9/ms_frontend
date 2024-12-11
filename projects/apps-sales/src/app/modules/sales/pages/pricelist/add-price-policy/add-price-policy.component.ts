@@ -24,7 +24,7 @@ export class AddPricePolicyComponent implements OnInit ,OnDestroy  {
   filteredPricePolicies: any;
 
   addForm: FormGroup;
-  @ViewChild('dt') dt: any | undefined;
+  @ViewChild('dt') dt: any ;
 
   ngOnInit() {
     this.subscribes()
@@ -332,6 +332,12 @@ this.salesService.pricePolicyListObser.subscribe((res) => {
       }
 
     });
+    this.addForm?.get('policyItemsList')?.valueChanges.subscribe((res:any)=>{
+      this.filteredPricePolicies = res
+      console.log(res,"kkkkkkkkkkkkkkkkk");
+      
+      
+    })
 
   }
   openDialog(index: number) {
@@ -487,12 +493,46 @@ this.salesService.pricePolicyListObser.subscribe((res) => {
   }
 
   applyFilterGlobal(event: any, stringVal: string) {
-    const inputElement = event.target as HTMLInputElement;
-    if (inputElement) {
-      this.dt.filterGlobal(inputElement.value, stringVal);
+    debugger
+    console.log(event ,"event");
+console.log(this.pricePolicyFormArray.value);
+
+    const inputElement = event
+    if (inputElement !== undefined) {
+      console.log(inputElement ,"inputElementinputElement");
+      
+      this.dt.filterGlobal(inputElement, stringVal);
     }
   }
+  filteredData : any = []
+  globalFilterFields: string[] = [
+    'itemId',
+    'itemName',
+    'uomId',
+    'quantity',
+    
+  ];
 
+  onSearchTermChange(search: any): void {
+    const term = search?.trim().toLowerCase() || '';  // Trim spaces and convert to lowercase
+    
+    if (!term) {
+      // Reset to show all items when the search term is empty or spaces only
+      this.filteredPricePolicies = [...this.pricePolicyFormArray.value];
+      console.log('Reset to full array:', this.filteredPricePolicies);
+      return;
+    }
+  
+    // Filter based on the search term
+    this.filteredPricePolicies = this.pricePolicyFormArray.value.filter((policy: any) => {
+      return this.globalFilterFields.some((field) => {
+        const fieldValue = policy[field]?.toString().toLowerCase() || '';
+        return fieldValue.includes(term);
+      });
+    });
+  
+    console.log('Filtered Policies:', this.filteredPricePolicies);
+  }
   getExcel() {
     const ref = this.dialog.open(PopupExcelComponent, {
       width: '600px',

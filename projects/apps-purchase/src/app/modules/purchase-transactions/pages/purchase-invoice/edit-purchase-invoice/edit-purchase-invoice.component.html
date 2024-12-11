@@ -179,7 +179,8 @@
                     formControlName="barCode" (keydown.enter)="barcodeCanged($event, invoiceFormGroup, rowIndex)"
                     [readOnly]="view"></lib-text-input>
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   {{ invoiceFormGroup.controls['barCode']?.value }}
                 </ng-template>
               </p-cellEditor>
@@ -198,7 +199,8 @@
                     <i *ngIf="!view" class="pi pi-search search-circle" (click)="openDialog(rowIndex)"></i>
                   </div>
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   {{ invoiceFormGroup.get('itemName').value }}
                 </ng-template>
               </p-cellEditor>
@@ -211,7 +213,8 @@
                     placeholder="{{ 'PurchaseInvoiceEdit.itemDescription' | translate }}"
                     formControlName="description"></lib-text-input>
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   {{ invoiceFormGroup.controls['description']?.value }}
                 </ng-template>
               </p-cellEditor>
@@ -234,7 +237,8 @@
                   </lib-select>
                   <!-- <lib-text-input placeholder="{{ 'PurchaseInvoiceEdit.UOM' | translate }}" formControlName="uomId"></lib-text-input> -->
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   {{ invoiceFormGroup.controls['uomName']?.value }}
                 </ng-template>
               </p-cellEditor>
@@ -254,7 +258,8 @@
                     placeholder="{{ 'PurchaseInvoiceEdit.QTY' | translate }}" formControlName="quantity"
                     (keyUp)="setCostTotal(rowIndex)" (valueChanged)="setCostTotal(rowIndex)"></lib-text-input>
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   {{ invoiceFormGroup.controls['quantity']?.value }}
                 </ng-template>
               </p-cellEditor>
@@ -268,7 +273,8 @@
                     formControlName="cost" type="number" (keyUp)="setCostTotal(rowIndex)"
                     (valueChanged)="setCostTotal(rowIndex)"></lib-text-input>
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   {{ invoiceFormGroup.controls['cost']?.value }}
                 </ng-template>
               </p-cellEditor>
@@ -284,7 +290,8 @@
                     placeholder="{{ 'PurchaseInvoiceEdit.QTY' | translate }}" formControlName="discount"
                     (keyUp)="setDiscountAmt(rowIndex)" (valueChanged)="setDiscountAmt(rowIndex)"></lib-text-input>
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   {{ invoiceFormGroup.controls['discount']?.value | numberFormat }}%
                 </ng-template>
               </p-cellEditor>
@@ -297,7 +304,8 @@
                     placeholder="{{ 'PurchaseInvoiceEdit.QTY' | translate }}" formControlName="discountAmt"
                     (keyUp)="setDiscount(rowIndex)" (valueChanged)="setDiscount(rowIndex)"></lib-text-input>
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   {{ invoiceFormGroup.controls['discountAmt']?.value | numberFormat }}
                 </ng-template>
               </p-cellEditor>

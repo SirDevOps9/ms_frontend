@@ -33,9 +33,13 @@
     <div class="card">
       <div class="grid mb-3">
         <div class="flex justify-content-between w-full ">
+          <!-- (keyUp)="onSearchTermChange($event )" -->
+
           <div class="">
-            <lib-text-input (keyUp)="applyFilterGlobal($event , 'contains')"
-              [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'">
+            <lib-text-input
+          
+            
+            [iconUrl]="'assets/images/Vector.png'">
 
             </lib-text-input>
 
@@ -53,7 +57,8 @@
 
 
       </div>
-      <p-table #dt [globalFilterFields]="['itemVariantName']" [resizableColumns]="true"
+      <p-table #dt [resizableColumns]="true"
+
         [value]="pricePolicyFormArray.controls" dataKey="id" styleClass="p-datatable-gridlines p-datatable-striped"
         [tableStyle]="{ 'min-width': '50rem' }">
 
@@ -73,7 +78,9 @@
         <ng-template pTemplate="body" let-pricePolicy let-rowIndex="rowIndex">
           <tr [formGroup]="pricePolicy">
             <td [pEditableColumn]="pricePolicy.itemId" pEditableColumnField="itemId" field="code">
-              <p-cellEditor>
+              
+
+              <p-cellEditor field="item" matchMode="in" >
                 <ng-template pTemplate="input">
                   <div class="flex gap-2 align-items-center">
 
@@ -87,7 +94,8 @@
 
                   </div>
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   {{ pricePolicy.get('itemCode').value }}
                 </ng-template>
               </p-cellEditor>
@@ -109,7 +117,8 @@
                       (valueChanged)="setUomIdValue(rowIndex, $event)"></lib-select>
                   </div>
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   {{ pricePolicy.get('uomName').value ||'' }}
                 </ng-template>
               </p-cellEditor>
@@ -129,7 +138,8 @@
                     </lib-text-input>
                   </div>
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   {{ pricePolicy.get('price').value }}
                 </ng-template>
               </p-cellEditor>

@@ -72,7 +72,8 @@
                   formControlName="dueTermValue"
                 ></lib-text-input>
                   </ng-template>
-                  <ng-template pTemplate="output">
+                   <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                     {{ paymentTermGroup.get('dueTermValue').value  }}
                   </ng-template>
                 </p-cellEditor>
@@ -88,7 +89,8 @@
                     formControlName="afterValue"
                   ></lib-text-input>
                   </ng-template>
-                  <ng-template pTemplate="output">
+                   <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                     {{paymentTermGroup.controls['afterValue'].value}}
                   </ng-template>
                 </p-cellEditor>
@@ -108,7 +110,8 @@
                   >
                   </lib-select>
                   </ng-template>
-                  <ng-template pTemplate="output">
+                   <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                     {{paymentTermGroup.controls['afterPeriod'].value}}
                   </ng-template>
                 </p-cellEditor>
@@ -123,7 +126,8 @@
                     formControlName="note"
                   ></lib-text-input>
                   </ng-template>
-                  <ng-template pTemplate="output">
+                   <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                     {{paymentTermGroup.controls['note'].value}}
                   </ng-template>
                 </p-cellEditor>
