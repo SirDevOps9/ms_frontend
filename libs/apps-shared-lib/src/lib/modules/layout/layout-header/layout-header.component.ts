@@ -179,6 +179,7 @@ export class LayoutHeaderComponent implements OnInit, AfterViewInit {
       let currencies = {
         currencyId: dCompany?.currencyId,
         currencyName: dCompany?.currencyName,
+        currencyCode: dCompany?.currencyCode,
       };
 
       this.localstoarage.setItem(StorageKeys.CURRENCEY_OBJ, currencies);
