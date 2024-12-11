@@ -91,7 +91,7 @@ export class EditStockOutComponent implements OnInit {
       this.getLatestItemsList(data?.warehouseId);
     }
 
-  
+
     // Clear existing form array
     const stockOutDetailsFormArray = this.addForm.get('stockOutDetails') as FormArray;
     stockOutDetailsFormArray.clear();
@@ -104,7 +104,7 @@ export class EditStockOutComponent implements OnInit {
     this.dataLoaded = true;
     this.originalFormData = this.addForm.value;
 
-   
+
   }
 
   initializeForm() {
@@ -157,11 +157,11 @@ export class EditStockOutComponent implements OnInit {
     this.languageService.language$.subscribe((lang) => [(this.selectedLanguage = lang)]);
     this.lookupservice.lookups.subscribe((l) => {
       this.lookups = l;
-     
+
        if(this.lookups[LookupEnum.StockInOutSourceDocumentType]?.length) {
       this.addForm.get('sourceDocumentType')?.setValue(this.lookups[LookupEnum.StockInOutSourceDocumentType][0]?.id)
     }
-     
+
     });
     this.addForm.get('sourceDocumentType')?.valueChanges.subscribe((res) => {
       let data = this.lookups[LookupEnum.StockInOutSourceDocumentType];
@@ -541,7 +541,6 @@ export class EditStockOutComponent implements OnInit {
     if (!this.duplicateLine) {
       if (!this.formsService.validForm(this.addForm, false)) return;
       //  this.getLatestItemsList(this.addForm.get('warehouseId')?.value)
-
       let newLine = this.fb.group({
         itemNumber: new FormControl(''),
         id: new FormControl(0),
