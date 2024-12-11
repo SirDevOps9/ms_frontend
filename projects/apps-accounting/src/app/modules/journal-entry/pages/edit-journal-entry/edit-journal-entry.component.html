@@ -215,7 +215,8 @@
                         ></i>
                       </div>
                     </ng-template>
-                    <ng-template pTemplate="output">
+                     <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                       {{ journalLine.get('accountCode').value }}
                     </ng-template>
                   </p-cellEditor>
@@ -246,7 +247,8 @@
                         [readOnly]="viewMode"
                       ></lib-text-input>
                     </ng-template>
-                    <ng-template pTemplate="output">
+                     <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                       {{ journalLine.controls['debitAmount'].value | numberFormat }}
                     </ng-template>
                   </p-cellEditor>
@@ -268,7 +270,8 @@
                         [readOnly]="viewMode"
                       ></lib-text-input>
                     </ng-template>
-                    <ng-template pTemplate="output">
+                     <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                       {{ journalLine.controls['creditAmount'].value | numberFormat }}
                     </ng-template>
                   </p-cellEditor>

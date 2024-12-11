@@ -176,7 +176,8 @@
                     (valueChanged)="systemUnitListChanged($event, uomTableForm, list[i])"
                   ></lib-select>
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   {{ uomTableForm.controls['systemUnitOfMeasureName'].value }}
                 </ng-template>
               </p-cellEditor>
@@ -194,7 +195,8 @@
                     (keyUp)="nameChanged($event, i, uomTableForm)"
                   ></lib-text-input>
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   {{ uomTableForm.controls['nameEn'].value }}
                 </ng-template>
               </p-cellEditor>
@@ -212,7 +214,8 @@
                     (keyUp)="nameChanged($event, i, uomTableForm)"
                   ></lib-text-input>
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   {{ uomTableForm.controls['nameAr'].value }}
                 </ng-template>
               </p-cellEditor>
@@ -234,7 +237,8 @@
                     ></lib-text-input>
                   </lib-form-group>
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   {{ uomTableForm.controls['shortName'].value }}
                   <lib-field-validations
                     [appControl]="uomTableForm.controls['shortName']"
@@ -258,7 +262,8 @@
                     ></lib-text-input>
                   </lib-form-group>
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   {{ uomTableForm.controls['factor'].value }}
                   <lib-field-validations
                     [appControl]="uomTableForm.controls['factor']"
@@ -278,7 +283,8 @@
                     (valueChanged)="fromUnitOfMeasureChanged($event, list[i], uomTableForm, i)"
                   ></lib-select>
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
 
                   {{(uomTableForm.controls['fromUnitOfMeasureId']?.value | getElementByID : list[i])?.name }}
                   {{
@@ -310,7 +316,8 @@
 
                   <small *ngIf="uomTableForm.controls['fromUnitOfMeasureId'].value && uomTableForm.controls['factor'].value ">{{ uomTableForm.controls['calculationShow'].value }}</small>
                </ng-template>
-                  <ng-template pTemplate="output">
+                   <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   <small
                     *ngIf="
                       uomTableForm.controls['fromUnitOfMeasureId'].value &&
@@ -341,7 +348,8 @@
                     ></lib-text-input>
                   </lib-form-group>
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   <small
                     *ngIf="
                       uomTableForm.controls['fromUnitOfMeasureId'].value &&

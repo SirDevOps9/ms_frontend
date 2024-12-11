@@ -48,7 +48,8 @@
                   >
                   </lib-select>
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   {{ purchaseInvoiceFormGroup.controls['itemCodeName']?.value }}
                 </ng-template>
               </p-cellEditor>
@@ -76,7 +77,8 @@
                     [readOnly]="true"
                   ></lib-text-input>
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   {{ purchaseInvoiceFormGroup.controls['quantity']?.value }}
                 </ng-template>
               </p-cellEditor>
