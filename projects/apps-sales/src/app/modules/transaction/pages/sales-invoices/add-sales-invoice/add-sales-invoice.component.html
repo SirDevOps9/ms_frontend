@@ -140,7 +140,7 @@
                 <div class="grid align-items-center">
                   <div class="md:col-10">
                     <lib-select
-                      formControlName="vendorId"
+                      formControlName="customerId"
                       [options]="vendorItems"
                       optionValue="id"
                       optionLabel="name"
@@ -172,54 +172,61 @@
                 ></lib-field-validations>
               </div>
               <!-- currency -->
-              <div class="md:col-2 my-2">
-                <lib-label [appControl]="salesReturnForm.controls['currencyId']">
+
+
+              <div class="md:col-2">
+                <lib-label [appControl]="salesReturnForm.controls['currency']">
                   {{ 'salesInvoice.currency' | translate }}
                 </lib-label>
-                <lib-select
-                  formControlName="currencyId"
-                  [options]="oprationalLookup"
-                  optionValue="id"
-                  optionLabel="displayName"
+                <lib-text-input
                   placeholder="{{ 'salesInvoice.currency' | translate }}"
-                  [selectedValue]="salesReturnForm.controls['currencyId'].value"
-                >
-                </lib-select>
+                  formControlName="currency"
+                  [readOnly]="true"
+                ></lib-text-input>
                 <lib-field-validations
-                  [appControl]="salesReturnForm.controls['currencyId']"
+                  [appControl]="salesReturnForm.controls['currency']"
                 ></lib-field-validations>
               </div>
-              <!-- rate -->
-              <div class="md:col-2 my-2">
-                <lib-label [appControl]="salesReturnForm.controls['rate']">
+              <div class="md:col-2">
+                <lib-label [appControl]="salesReturnForm.controls['currencyRate']">
                   {{ 'salesInvoice.rate' | translate }}
                 </lib-label>
                 <lib-text-input
                   placeholder="{{ 'salesInvoice.rate' | translate }}"
-                  formControlName="rate"
+                  formControlName="currencyRate"
                 ></lib-text-input>
                 <lib-field-validations
-                  [appControl]="salesReturnForm.controls['rate']"
+                  [appControl]="salesReturnForm.controls['currencyRate']"
                 ></lib-field-validations>
               </div>
+
+
+
+
+
+
+
+
+
               <!-- paymentTerms -->
-              <div class="md:col-4 my-2">
-                <lib-label [appControl]="salesReturnForm.controls['paymentTermId']">
+
+
+
+              <div class="md:col-4">
+                <lib-label [appControl]="salesReturnForm.controls['paymentTermName']">
                   {{ 'salesInvoice.paymentTerms' | translate }}
                 </lib-label>
-                <lib-select
-                  formControlName="paymentTermId"
-                  [options]="oprationalLookup"
-                  optionValue="id"
-                  optionLabel="displayName"
+                <lib-text-input
                   placeholder="{{ 'salesInvoice.paymentTerms' | translate }}"
-                  [selectedValue]="salesReturnForm.controls['paymentTermId'].value"
-                >
-                </lib-select>
+                  formControlName="paymentTermName"
+                  [readOnly]="true"
+                ></lib-text-input>
                 <lib-field-validations
-                  [appControl]="salesReturnForm.controls['paymentTermId']"
+                  [appControl]="salesReturnForm.controls['paymentTermName']"
                 ></lib-field-validations>
               </div>
+          
+           
               <!-- credit  Limit -->
               <div class="md:col-4 my-2">
                 <lib-label [appControl]="salesReturnForm.controls['creditLimit']">

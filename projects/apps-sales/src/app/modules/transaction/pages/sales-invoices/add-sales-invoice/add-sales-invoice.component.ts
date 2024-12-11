@@ -11,7 +11,7 @@ import { skip, take } from 'rxjs';
 import { LookupEnum, lookupDto, PageInfoResult, MenuModule, customValidators, PageInfo, RouterService, LanguageService, LookupsService, FormsService, ToasterService, LoaderService, CurrentUserService } from 'shared-lib';
 import { ItemAdvancedSearchSalesInvoiceComponentComponent } from '../../../components/item-advanced-search-sales-invoice-component/item-advanced-search-sales-invoice-component.component';
 import { SalesInvoiceTrackingComponentComponent } from '../../../components/sales-invoice-tracking-component/sales-invoice-tracking-component.component';
-import { LatestItem } from '../../../models';
+import { AddSalesInvoice, LatestItem } from '../../../models';
 import { TransactionService } from '../../../transaction.service';
 
 @Component({
@@ -136,15 +136,16 @@ export class AddSalesInvoiceComponent implements OnInit {
     //   this.itemPostId = res;
     // });
 
-    this.salesReturnForm.get('vendorId')?.valueChanges.subscribe((res) => {
+    this.salesReturnForm.get('customerId')?.valueChanges.subscribe((res) => {
       let data = this.vendorItems.find((elem) => elem.id == res);
-      this.salesReturnForm.get('vendorName')?.setValue(data?.name);
+      this.salesReturnForm.get('customerName')?.setValue(data?.name);
       this.salesReturnForm.get('currency')?.setValue(data?.vendorFinancialCurrencyName);
       this.salesReturnForm.get('currencyName')?.setValue(data?.vendorFinancialCurrencyName);
       this.salesReturnForm.get('currencyId')?.setValue(data?.vendorFinancialCurrencyId); 
       this.salesReturnForm.get('paymentTermId')?.setValue(data?.paymentTermId);
       this.salesReturnForm.get('paymentTermName')?.setValue(data?.paymentTermName);
       this.salesReturnForm.get('name')?.setValue(data?.name);
+      this.salesReturnForm.get('creditLimit')?.setValue(data?.creditLimit);
 
       this.salesTransactionService.getCurrencyRate(
         data.vendorFinancialCurrencyId ?? this.currentUserService.getCurrency(),
@@ -212,6 +213,7 @@ export class AddSalesInvoiceComponent implements OnInit {
       code: new FormControl(''),
       warehouseId: new FormControl('', [customValidators.required]),
       warehouseName: new FormControl(''),
+      customerId: new FormControl('' , [customValidators.required]),
       salesmanId: new FormControl(''),
       relatedJournal: new FormControl(''),
       description: new FormControl(''),
@@ -225,7 +227,13 @@ export class AddSalesInvoiceComponent implements OnInit {
       paymentTermId: new FormControl(''),
       creditLimit: new FormControl(''),
       pricePolicyId: new FormControl('', [customValidators.required]),
-
+      currency: new FormControl(''),
+      vendorId: new FormControl('', [customValidators.required]),
+      vendorName: new FormControl(''),
+      currencyRate: new FormControl('', [customValidators.required]),
+      reference: new FormControl(''),
+      currencyName: new FormControl(''),
+      paymentTermName : new FormControl(''),
       numberOfItems: 0,
       total: 0,
       discount: 0,
@@ -740,51 +748,51 @@ export class AddSalesInvoiceComponent implements OnInit {
     if (!this.formService.validForm(this.salesReturnForm, false)) return;
     if (!this.formService.validForm(this.salesReturnFormArray, false)) return;
 
-    const mappedInvoice: AddPurchaseInvoiceDto = {
-      invoiceDate: this.salesReturnForm.value.invoiceDate || null,
-      description: this.salesReturnForm.value.description || null,
-      warehouseId: this.salesReturnForm.value.warehouseId || 0,
-      warehouseName: this.salesReturnForm.value.warehouseName || '',
-      vendorId: this.salesReturnForm.value.vendorId || null,
-      currencyId: this.salesReturnForm.value.currencyId || null,
-      currencyName: this.salesReturnForm.value.currencyName,
-      vendorName: this.salesReturnForm.value.vendorName || '',
-      currencyRate: +this.salesReturnForm.value.currencyRate || 0, // Ensure it's a number
-      paymentTermId: this.salesReturnForm.value.paymentTermId ?? null,
-      reference: this.salesReturnForm.value.reference || null,
-      invoiceDetails: this.salesReturnForm.value.invoiceDetails.map((detail: any) => ({
-        barCode: detail.barCode || null,
-        barCodeId: detail.barCodeId || null,
-        itemId: detail.itemId || 0,
-        itemCode: detail.itemCode || '',
-        itemVariantId: detail.itemVariantId || 0,
-        description: detail.description || null,
-        uomId: detail.uomId || '',
-        uomName: detail.uomName || '',
-        quantity: +detail.quantity || 0, // Ensure it's a number
-        cost: +detail.cost || 0, // Ensure it's a number
-        discountPercentage: +detail.discountPercentage || 0, // Ensure it's a number
-        discountAmount: +detail.discountAmount || 0, // Ensure it's a number
-        vatPercentage: detail.vatPercentage || null,
-        taxId: detail.taxId || null,
-        notes: detail.notes || null,
-        invoiceEntryMode: detail.invoiceEntryMode,
-        trackingType: detail.trackingType,
-        hasExpiryDate: detail.hasExpiryDate || false,
-        invoiceTracking: {
-          vendorBatchNo: detail.invoiceTracking.vendorBatchNo || null,
-          quantity: detail.invoiceTracking.quantity || 0,
-          hasExpiryDate: detail.invoiceTracking.hasExpiryDate || false,
-          expireDate: detail.invoiceTracking.expireDate || null,
-          systemPatchNo: detail.invoiceTracking.systemPatchNo || null,
-          serialId: detail.invoiceTracking.serialId || null,
-          trackingType: detail.invoiceTracking.trackingType,
-        },
-      })),
-    };
+    // let mappedInvoice : AddSalesInvoice = {
+    //   invoiceDate: this.salesReturnForm.value.invoiceDate || null,
+    //   description: this.salesReturnForm.value.description || null,
+    //   warehouseId: this.salesReturnForm.value.warehouseId || 0,
+    //   warehouseName: this.salesReturnForm.value.warehouseName || '',
+    //   customerId: this.salesReturnForm.value.customerId || null,
+    //   currencyId: this.salesReturnForm.value.currencyId || null,
+    //   currencyName: this.salesReturnForm.value.currencyName,
+    //   customerName: this.salesReturnForm.value.vendorName || '',
+    //   currencyRate: +this.salesReturnForm.value.currencyRate || 0, // Ensure it's a number
+    //   paymentTermId: this.salesReturnForm.value.paymentTermId ?? null,
+    //   reference: this.salesReturnForm.value.reference || null,
+    //   salesInvoiceDetails: this.salesReturnForm.value.invoiceDetails.map((detail: any) => ({
+    //     barCode: detail.barCode || null,
+    //     barCodeId: detail.barCodeId || null,
+    //     itemId: detail.itemId || 0,
+    //     itemCode: detail.itemCode || '',
+    //     itemVariantId: detail.itemVariantId || 0,
+    //     description: detail.description || null,
+    //     uomId: detail.uomId || '',
+    //     uomName: detail.uomName || '',
+    //     quantity: +detail.quantity || 0, // Ensure it's a number
+    //     cost: +detail.cost || 0, // Ensure it's a number
+    //     discountPercentage: +detail.discountPercentage || 0, // Ensure it's a number
+    //     discountAmount: +detail.discountAmount || 0, // Ensure it's a number
+    //     vatPercentage: detail.vatPercentage || null,
+    //     taxId: detail.taxId || null,
+    //     notes: detail.notes || null,
+    //     invoiceEntryMode: detail.invoiceEntryMode,
+    //     trackingType: detail.trackingType,
+    //     hasExpiryDate: detail.hasExpiryDate || false,
+    //     invoiceTracking: {
+    //       vendorBatchNo: detail.invoiceTracking.vendorBatchNo || null,
+    //       quantity: detail.invoiceTracking.quantity || 0,
+    //       hasExpiryDate: detail.invoiceTracking.hasExpiryDate || false,
+    //       expireDate: detail.invoiceTracking.expireDate || null,
+    //       systemPatchNo: detail.invoiceTracking.systemPatchNo || null,
+    //       serialId: detail.invoiceTracking.serialId || null,
+    //       trackingType: detail.invoiceTracking.trackingType,
+    //     },
+    //   })),
+    // };
 
     if (this.save) {
-      this.salesTransactionService.addPurchaseInvoice(mappedInvoice);
+      // this.salesTransactionService.addPurchaseInvoice(mappedInvoice);
       this.salesTransactionService.sendPurchaseInvoice.subscribe((res: number | any) => {
         if (typeof res == 'number') {
           this.savedDataId = res;
