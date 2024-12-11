@@ -33,12 +33,12 @@
     <div class="card">
       <div class="grid mb-3">
         <div class="flex justify-content-between w-full ">
-          <!-- (keyUp)="onSearchTermChange($event )" -->
 
           <div class="">
             <lib-text-input
           
-            
+            (keyUp)="onSearchTermChange($event )"
+
             [iconUrl]="'assets/images/Vector.png'">
 
             </lib-text-input>
@@ -59,7 +59,7 @@
       </div>
       <p-table #dt [resizableColumns]="true"
 
-        [value]="pricePolicyFormArray.controls" dataKey="id" styleClass="p-datatable-gridlines p-datatable-striped"
+        [value]="filteredPricePolicies" dataKey="id" styleClass="p-datatable-gridlines p-datatable-striped"
         [tableStyle]="{ 'min-width': '50rem' }">
 
         <ng-template pTemplate="header">
