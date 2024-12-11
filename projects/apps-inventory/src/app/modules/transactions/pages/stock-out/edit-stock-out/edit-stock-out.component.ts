@@ -90,7 +90,7 @@ export class EditStockOutComponent implements OnInit {
       this.getLatestItemsList(data?.warehouseId);
     }
 
-  
+
     // Clear existing form array
     const stockOutDetailsFormArray = this.addForm.get('stockOutDetails') as FormArray;
     stockOutDetailsFormArray.clear();
@@ -103,7 +103,7 @@ export class EditStockOutComponent implements OnInit {
     this.dataLoaded = true;
     this.originalFormData = this.addForm.value;
 
-   
+
   }
 
   initializeForm() {
@@ -551,7 +551,6 @@ export class EditStockOutComponent implements OnInit {
     if (!this.duplicateLine) {
       if (!this.formsService.validForm(this.addForm, false)) return;
       //  this.getLatestItemsList(this.addForm.get('warehouseId')?.value)
-
       let newLine = this.fb.group({
         itemNumber: new FormControl(''),
         id: new FormControl(0),
