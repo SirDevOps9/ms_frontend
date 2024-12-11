@@ -86,8 +86,8 @@
             {{ 'N/A'  }}
           </p>
             <!-- <lib-text-input formControlName="sourceCode" [readOnly]="true"
-            [ngClass]="{'code':editJournalForm.controls['sourceCode'].value!}" 
- 
+            [ngClass]="{'code':editJournalForm.controls['sourceCode'].value!}"
+
             (click)="routeToPaymentInView(editJournalForm.controls['sourceCode'].value!)"
 
             ></lib-text-input> -->
@@ -141,6 +141,8 @@
           </div>
           <div class="col-12 md:col-3">
             <lib-button-micro
+
+            [disabled]="viewMode"
             nameClass="save"
             title="{{'attachment' | translate}}"
             (click)="openAttachments()"
@@ -445,6 +447,19 @@
 
         <div class="grid">
           <div class="md:col-12 flex justify-content-end">
+            <div
+            [class.none]="journalEntry?.status !== enums.JournalEntryStatus.Posted"
+            class="md:col-2 m-1"
+
+          >
+            <lib-button-micro
+              title="{{ 'discard' | translate }}"
+              nameClass="cancel"
+              (click)="onDiscard()"
+              widthNumber="100%"
+            >
+            </lib-button-micro>
+          </div>
             <div class="flex justify-content-end">
               <div
                 class="md:col-6 m-1"
@@ -526,7 +541,7 @@
           <div class="grid">
             <div class="md:col-6 flex">
               <div class="grid">
-              
+
               </div>
             </div>
           </div>
