@@ -125,6 +125,12 @@
     "discountPercentage": "Discount Percentage",
     "disAmount": "Discount Amount",
     "expiry" : "Expiry Date",
-    "serials" : "Serials"
+    "serials" : "Serials",
+    "discountAmount" : "Discount Amount",
+    "price" : "Price",
+    "createdStockIn" : "Created StockIn",
+    "expiryDate" : "Expiry Date",
+    "totalOfQuantity" : "Total Of QTY"
+
   }
 }

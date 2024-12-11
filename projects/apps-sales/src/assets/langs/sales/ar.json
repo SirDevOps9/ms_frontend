@@ -77,7 +77,10 @@
   "discountPercentage": "نسبة الخصم",
   "disAmount": "مبلغ الخصم",
   "expiry": "تاريخ الانتهاء",
-  "serials": "الأرقام التسلسلية"
+  "serials": "الأرقام التسلسلية",
+  "discountAmount" : "قيمة الخصم",
+  "price" : "السعر"
+
 },
     "pricePolicy": {
         "code": "الكود",

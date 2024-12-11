@@ -1,49 +1,19 @@
-::ng-deep {
-  .p-inputtext {
-    border: 1px solid #e3e3e3;
-    padding-block: 11px;
-    outline: none !important;
-    box-shadow: none !important;
-    width: 100%;
-  }
-}
-.readOnly {
-  background-color: #f9fafb !important;
-  color: #b6bac3 !important;
-}
-.Available {
-  color: #2b817c;
-  border: 1px solid #2b817c;
-  background-color: #fff;
-  border-radius: 16px;
-  padding: 10px;
-  text-align: center;
-}
-.unavailable {
-  color: #cc3f2d;
-  border: 1px solid #cc3f2d;
-  background-color: #fff;
-  border-radius: 16px;
-  padding: 10px;
-  text-align: center;
-}
-.error {
-  border: 2px solid red !important;
-  background-color: #ffe6e6 !important;
-}
-
 :host {
   overflow-x: hidden;
 }
+
 .divCont {
   border-radius: 5px;
   border: 1px solid #ddd;
   padding: 15px;
   font-weight: bold;
   width: 180px;
-  background-color: #f7f7fa;
-  color: #2e2e2e;
+  background-color: #F7F7FA;
+  color: #2E2E2E;
+
+
 }
+
 .floated {
   position: relative;
   top: -20px;
@@ -52,56 +22,58 @@
 }
 
 ::ng-deep .tableCont {
-  .p-datatable.p-datatable-gridlines:has(.p-datatable-thead):has(.p-datatable-tbody)
-    .p-datatable-tbody
-    > tr
-    > td {
-    border-width: 0 0 1px 1px;
-    min-width: 225px;
+  .p-datatable.p-datatable-gridlines:has(.p-datatable-thead):has(.p-datatable-tbody) .p-datatable-tbody>tr>td {
+      border-width: 0 0 1px 1px;
+      min-width: 225px;
   }
 }
 
 .card_information {
   position: relative;
   padding: 5px 0;
+
   .line {
-    position: absolute;
-    top: 25px;
-    width: 120%;
-    height: 10px;
-    background: #f7f7fa;
-    z-index: 1;
-    margin-inline-start: -17px;
+      position: absolute;
+      top: 25px;
+      width: 120%;
+      height: 10px;
+      background: #F7F7FA;
+      z-index: 1;
+      margin-inline-start: -17px;
   }
+
   .item {
-    position: relative;
-    z-index: 10;
-    .title {
-      border-radius: 8px;
-      margin-inline-start: 20px;
-      width: fit-content;
-      padding: 10px 20px;
-      background: #f7f7fa;
-      color: #2e2e2e;
-    }
-    .item_body {
-      padding-inline-start: 34px;
-    }
+      position: relative;
+      z-index: 10;
+
+      .title {
+          border-radius: 8px;
+          margin-inline-start: 20px;
+          width: fit-content;
+          padding: 10px 20px;
+          background: #F7F7FA;
+          color: #2E2E2E;
+      }
+
+      .item_body {
+          padding-inline-start: 34px;
+      }
   }
 }
+
 .foot {
-  padding: 0px 32px !important    ;
+  padding: 0px 32px !important;
 }
 
 ::ng-deep {
   .page_content {
-    padding-block-start: 23px;
-    padding-block-end: 23px;
-    padding-inline-start: 32px;
-    padding-inline-end: 32px;
-    height: 100% !important;
-    background-color: #f7f7fa;
-    overflow-x: hidden;
+      padding-block-start: 23px;
+      padding-block-end: 23px;
+      padding-inline-start: 32px;
+      padding-inline-end: 32px;
+      height: 100% !important;
+      background-color: #f7f7fa;
+      overflow-x: hidden;
   }
 }
 
@@ -111,11 +83,11 @@
 
 ::ng-deep {
   .p-inputtext {
-    border: 1px solid #e3e3e3;
-    padding-block: 11px;
-    outline: none !important;
-    box-shadow: none !important;
-    width: 100%;
+      border: 1px solid #e3e3e3;
+      padding-block: 11px;
+      outline: none !important;
+      box-shadow: none !important;
+      width: 100%;
   }
 }
 
@@ -129,7 +101,7 @@
 }
 
 .hide {
-  display: none;
+  display: none
 }
 
 .danger {
@@ -139,7 +111,7 @@
 }
 
 .no-tracking {
-  background-color: #f2f4f8;
+  background-color: #F2F4F8;
 }
 
 .readonly-calendar {
@@ -147,4 +119,11 @@
   background-color: #f0f0f0;
   color: #aaa;
   cursor: not-allowed;
+}
+
+.total {
+  background-color: #F2F4F8;
+  border: 1px solid #48A6C0;
+  color: #48A6C0;
+  padding: 20px 20px;
 }

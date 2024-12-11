@@ -12,7 +12,6 @@ import { AddPurchaseInvoiceDto } from './models/addPurchaseInvoice';
   providedIn: 'root',
 })
 export class PurchaseTransactionsService {
-  public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
   public vendorDataSource = new BehaviorSubject<any>([]);
   public latestItemsDataSource = new BehaviorSubject<ItemDto[]>([]);
   public itemsPageInfo = new BehaviorSubject<PageInfoResult>({});
@@ -22,6 +21,8 @@ export class PurchaseTransactionsService {
   public warehouseLookup = new BehaviorSubject<any >([]);
   public lastestItem = new BehaviorSubject<LatestItem[]>([]);
   public itemsDataSourceForAdvanced = new BehaviorSubject<LatestItem[]>([]);
+  public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
+
   public sendPurchaseInvoice = new BehaviorSubject<AddPurchaseInvoiceDto>({} as AddPurchaseInvoiceDto);
   public sendcurrency = new BehaviorSubject<{rate : number}>({} as {rate : number});
     // list of purchase inv and export
@@ -176,8 +177,8 @@ export class PurchaseTransactionsService {
     this.TransactionsProxy.addPurchaseInvoice(obj).subscribe((res) => {
       this.toasterService.showSuccess(
         this.languageService.transalte('purchase.success'),
-        this.languageService.transalte('purchase.addInvoice')
-      );
+        this.languageService.transalte('purchase.addInvoice') 
+      ); 
      this.sendPurchaseInvoice.next(res);
     });
   }
