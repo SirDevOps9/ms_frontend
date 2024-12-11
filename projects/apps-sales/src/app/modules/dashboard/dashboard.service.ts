@@ -1,6 +1,14 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ProxyService } from './proxy.service';
+import {
+  GetMonthlySalesReportDto,
+  GetReturnSalesStatusReportDto,
+  GetSalesStatusReportDto,
+  GetTopSalesCategoriesDto,
+  GetTopSalesCustomersReportDto,
+  GetTopSalesProductsDto,
+} from './models';
 
 @Injectable({
   providedIn: 'root',
@@ -25,12 +33,12 @@ export class DashboardService {
   topSalesPersonsLoader$ = this.topSalesPersonsLoaderSubject.asObservable();
 
   // Data subject
-  private statusSubject = new BehaviorSubject<any[]>([]);
-  private returnStatusSubject = new BehaviorSubject<any[]>([]);
-  private monthlySalesSubject = new BehaviorSubject<any[]>([]);
-  private bestSellingProductSubject = new BehaviorSubject<any[]>([]);
-  private bestSellingCategorySubject = new BehaviorSubject<any[]>([]);
-  private topCustomerSubject = new BehaviorSubject<any[]>([]);
+  private statusSubject = new BehaviorSubject<GetSalesStatusReportDto[]>([]);
+  private returnStatusSubject = new BehaviorSubject<GetReturnSalesStatusReportDto[]>([]);
+  private monthlySalesSubject = new BehaviorSubject<GetMonthlySalesReportDto[]>([]);
+  private bestSellingProductSubject = new BehaviorSubject<GetTopSalesProductsDto[]>([]);
+  private bestSellingCategorySubject = new BehaviorSubject<GetTopSalesCategoriesDto[]>([]);
+  private topCustomerSubject = new BehaviorSubject<GetTopSalesCustomersReportDto[]>([]);
   private topSalesPersonsSubject = new BehaviorSubject<any[]>([]);
 
   // Data observables
@@ -68,25 +76,25 @@ export class DashboardService {
     });
   }
 
-  fetchBestSellingProduct() {
+  fetchBestSellingProduct(count: number) {
     this.bestSellingProductLoaderSubject.next(true);
-    this.proxy.getBestSellingProduct().subscribe({
+    this.proxy.getBestSellingProduct(count).subscribe({
       next: (data) => this.bestSellingProductSubject.next(data),
       complete: () => this.bestSellingProductLoaderSubject.next(false),
     });
   }
 
-  fetchBestSellingCategory() {
+  fetchBestSellingCategory(count: number) {
     this.bestSellingCategoryLoaderSubject.next(true);
-    this.proxy.getBestSellingCategory().subscribe({
+    this.proxy.getBestSellingCategory(count).subscribe({
       next: (data) => this.bestSellingCategorySubject.next(data),
       complete: () => this.bestSellingCategoryLoaderSubject.next(false),
     });
   }
 
-  fetchTopCustomer() {
+  fetchTopCustomer(count: number) {
     this.topCustomerLoaderSubject.next(true);
-    this.proxy.getTopCustomer().subscribe({
+    this.proxy.getTopCustomer(count).subscribe({
       next: (data) => this.topCustomerSubject.next(data),
       complete: () => this.topCustomerLoaderSubject.next(false),
     });

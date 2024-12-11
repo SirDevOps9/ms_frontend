@@ -1,6 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService } from 'shared-lib';
+import {
+  GetMonthlySalesReportDto,
+  GetReturnSalesStatusReportDto,
+  GetSalesStatusReportDto,
+  GetTopSalesCategoriesDto,
+  GetTopSalesCustomersReportDto,
+  GetTopSalesProductsDto,
+} from './models';
 
 @Injectable({
   providedIn: 'root',
@@ -10,28 +18,34 @@ export class ProxyService {
 
   constructor(private http: HttpService) {}
 
-  getStatus(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/GetStockInOutStatusCount`);
+  getStatus(): Observable<GetSalesStatusReportDto[]> {
+    return this.http.get<GetSalesStatusReportDto[]>(`${this.baseUrl}/GetSalesStatusReport`);
   }
 
-  getReturnStatus(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/GetReturnStockInOutStatusCount`);
+  getReturnStatus(): Observable<GetReturnSalesStatusReportDto[]> {
+    return this.http.get<GetReturnSalesStatusReportDto[]>(
+      `${this.baseUrl}/GetReturnSalesStatusReport`
+    );
   }
 
-  getMonthlySales(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/GetMonthlySales`);
+  getMonthlySales(): Observable<GetMonthlySalesReportDto[]> {
+    return this.http.get<GetMonthlySalesReportDto[]>(`${this.baseUrl}/GetMonthlySalesReport`);
   }
 
-  getBestSellingProduct(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/GetBestSalesProduct`);
+  getBestSellingProduct(count: number): Observable<GetTopSalesProductsDto[]> {
+    return this.http.get<GetTopSalesProductsDto[]>(
+      `${this.baseUrl}/GetTopSalesProducts?count=${count}`
+    );
   }
 
-  getBestSellingCategory(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/GetBestSellingCategory`);
+  getBestSellingCategory(count: number): Observable<GetTopSalesCategoriesDto[]> {
+    return this.http.get<GetTopSalesCategoriesDto[]>(`${this.baseUrl}/GetTopSalesCategories?count=${count}`);
   }
 
-  getTopCustomer(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/GetTopCustomer`);
+  getTopCustomer(count: number): Observable<GetTopSalesCustomersReportDto[]> {
+    return this.http.get<GetTopSalesCustomersReportDto[]>(
+      `${this.baseUrl}/GetTopSalesCustomersReport?count=${count}`
+    );
   }
 
   getTopSalesPersons(): Observable<any> {
