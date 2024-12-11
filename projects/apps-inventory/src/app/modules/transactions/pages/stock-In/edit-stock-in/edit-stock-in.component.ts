@@ -42,6 +42,8 @@ export class EditStockInComponent implements OnInit {
   LookupEnum = LookupEnum;
   itemId: number;
   errorsArray: any = [];
+  rowDuplicate: number = -1;
+  serialError: boolean;
 
   lookups: { [key: string]: lookupDto[] };
   oprationalLookup: OperationalStockIn[] = [];
@@ -91,8 +93,10 @@ export class EditStockInComponent implements OnInit {
 
     this.lookupservice.lookups.subscribe((l) => {
       this.lookups = l;
-      if(l[LookupEnum.StockInOutSourceDocumentType]?.length) {
-        this.stockInForm.get('sourceDocumentType')?.setValue(l[LookupEnum.StockInOutSourceDocumentType][0]?.id)
+      if (l[LookupEnum.StockInOutSourceDocumentType]?.length) {
+        this.stockInForm
+          .get('sourceDocumentType')
+          ?.setValue(l[LookupEnum.StockInOutSourceDocumentType][0]?.id);
       }
     });
 
@@ -187,9 +191,11 @@ export class EditStockInComponent implements OnInit {
   }
   getStockInById(id: number) {
     this.transactionService.getStockInById(id);
-    this.transactionService.stockInByIdData$.subscribe((data: any) => {
+    this.transactionService.stockInByIdData$.pipe(skip(1),take(1)).subscribe((data: any) => {
       this.patchForm(data);
+
     });
+
   }
   patchForm(data: any): void {
     this.stockInForm.patchValue({
@@ -202,7 +208,6 @@ export class EditStockInComponent implements OnInit {
       warehouseId: data.warehouseId,
       stockOutStatus: data.stockOutStatus,
     });
-
     if (data?.warehouseId) {
       this.getLatestItemsList(data?.warehouseId);
     }
@@ -216,6 +221,9 @@ export class EditStockInComponent implements OnInit {
     });
 
     this.resetComparasion();
+    this.cdr.detectChanges();
+    // new code disabled for case stockInStatus==posted
+    this.postedStock = data.stockInStatus !== 'Posted';
     // const { code, sourceDocumentType, warehouseName, ...formValue } =
     //   this.stockInForm.getRawValue();
     // this.formValurCash = structuredClone(formValue);
@@ -273,76 +281,76 @@ export class EditStockInComponent implements OnInit {
   }
   setRowDataById(indexLine: number, selectedItem: any) {
     const rowForm = this.stockInDetailsFormArray.at(indexLine) as FormGroup;
-
     // Ensure row form controls are present before updating
     if (rowForm) {
-      rowForm.patchValue({
-        id: selectedItem.id,
-        barCode: selectedItem.barCode,
-        bardCodeId: selectedItem.bardCodeId,
-        description: selectedItem.description,
-        itemId: selectedItem.itemId,
-        itemCode: selectedItem.itemCode,
-        itemName: selectedItem.itemName,
-        itemCodeName: selectedItem.itemCode,
-        itemVariantId: selectedItem.itemVariantId,
-        itemVariantCode: selectedItem.itemVariantCode,
-        itemVariantNameAr: selectedItem.itemVariantNameAr,
-        itemVariantNameEn: selectedItem.itemVariantNameEn,
-        uomNameAr: selectedItem.uomNameAr,
-        uomNameEn: selectedItem.uomNameEn,
-        uomId: selectedItem.uomId,
-        quantity: selectedItem.quantity,
-        cost: selectedItem.cost,
-        subTotal: selectedItem.subCost,
-        notes: selectedItem.notes,
-        hasExpiryDate: selectedItem.hasExpiryDate,
-        stockInEntryMode: selectedItem.stockInEntryMode || 'Manual',
-        trackingType: selectedItem.trackingType,
-        uomOptions: selectedItem.itemsUOM,
+      rowForm?.patchValue({
+        id: selectedItem?.id,
+        barCode: selectedItem?.barCode,
+        bardCodeId: selectedItem?.bardCodeId,
+        description: selectedItem?.description,
+        itemId: selectedItem?.itemId,
+        itemCode: selectedItem?.itemCode,
+        itemName: selectedItem?.itemName,
+        itemCodeName: selectedItem?.itemCode,
+        itemVariantId: selectedItem?.itemVariantId,
+        itemVariantCode: selectedItem?.itemVariantCode,
+        itemVariantNameAr: selectedItem?.itemVariantNameAr,
+        itemVariantNameEn: selectedItem?.itemVariantNameEn,
+        uomNameAr: selectedItem?.uomNameAr,
+        uomNameEn: selectedItem?.uomNameEn,
+        uomId: selectedItem?.uomId,
+        quantity: selectedItem?.quantity,
+        cost: selectedItem?.cost,
+        subTotal: selectedItem?.subCost,
+        notes: selectedItem?.notes,
+        hasExpiryDate: selectedItem?.hasExpiryDate,
+        stockInEntryMode: selectedItem?.stockInEntryMode || 'Manual',
+        trackingType: selectedItem?.trackingType,
+        uomOptions: selectedItem?.itemsUOM,
       });
 
       // Handle the nested form group
-      const stockInTracking = rowForm.get('stockInTracking') as FormGroup;
+      const stockInTracking = rowForm?.get('stockInTracking') as FormGroup;
       if (stockInTracking) {
         stockInTracking.patchValue({
-          id: selectedItem.stockInTracking.id,
-          vendorBatchNo: selectedItem.stockInTracking.vendorBatchNo,
-          expireDate: selectedItem.stockInTracking.expireDate,
-          systemPatchNo: selectedItem.stockInTracking.systemPatchNo,
-          serialId: selectedItem.stockInTracking.serialId,
-          trackingType: selectedItem.stockInTracking.trackingType,
-          selectedValue: selectedItem.stockInTracking.quantity,
+          id: selectedItem?.stockInTracking.id,
+          vendorBatchNo: selectedItem?.stockInTracking.vendorBatchNo,
+          expireDate: selectedItem?.stockInTracking.expireDate,
+          systemPatchNo: selectedItem?.stockInTracking.systemPatchNo,
+          serialId: selectedItem?.stockInTracking.serialId,
+          trackingType: selectedItem?.stockInTracking.trackingType,
+          selectedValue: selectedItem?.stockInTracking.quantity,
         });
       }
-    }
 
-    rowForm
-      .get('itemName')
-      ?.setValue(
-        selectedItem.itemCode + '-' + selectedItem.itemName + '-' + selectedItem.itemVariantNameAr
-      );
-    this.setUomName(indexLine, rowForm.get('uomOptions')?.value);
+    }
+    let itName =
+      selectedItem?.itemCode + '-' + selectedItem?.itemName + '-' + selectedItem?.itemVariantNameAr;
+    rowForm?.get('itemName')?.setValue(itName);
+    this.setUomName(indexLine, rowForm?.get('uomOptions')?.value);
+    this.cdr.detectChanges();
+
   }
   setUomName(indexLine: number, list: any) {
     const rowForm = this.stockInDetailsFormArray.at(indexLine) as FormGroup;
-    const selectedItem = list.find((item: any) => item.uomId === rowForm.get('uomId')?.value);
+    const selectedItem = list?.find((item: any) => item?.uomId === rowForm?.get('uomId')?.value);
     if (this.selectedLanguage === 'ar') {
-      rowForm.get('uomName')?.setValue(selectedItem.uomNameAr);
+      rowForm?.get('uomName')?.setValue(selectedItem?.uomNameAr);
     } else {
-      rowForm.get('uomName')?.setValue(selectedItem.uomNameEn);
+      rowForm?.get('uomName')?.setValue(selectedItem?.uomNameEn);
     }
+
   }
   changeUomName(indexLine: number, list: any) {
     const rowForm = this.stockInDetailsFormArray.at(indexLine) as FormGroup;
-    const selectedItem = list.find((item: any) => item.uomId === rowForm.get('uomId')?.value);
+    const selectedItem = list?.find((item: any) => item.uomId === rowForm?.get('uomId')?.value);
     if (this.selectedLanguage === 'ar') {
-      rowForm.get('uomName')?.setValue(selectedItem.uomNameAr);
+      rowForm?.get('uomName')?.setValue(selectedItem?.uomNameAr);
     } else {
-      rowForm.get('uomName')?.setValue(selectedItem.uomNameEn);
+      rowForm?.get('uomName')?.setValue(selectedItem?.uomNameEn);
     }
 
-    rowForm.get('barCode')?.setValue('');
+    rowForm?.get('barCode')?.setValue('');
   }
 
   initWareHouseLookupData() {
@@ -422,7 +430,7 @@ export class EditStockInComponent implements OnInit {
     }
     if (rowForm) {
       if (rowForm) {
-        rowForm.patchValue({
+        rowForm?.patchValue({
           id: selectedItem?.id,
           barCode: selectedItem?.barCode,
           bardCodeId: selectedItem?.bardCodeId,
@@ -449,20 +457,22 @@ export class EditStockInComponent implements OnInit {
         });
 
         // Handle the nested form group
-        const stockInTracking = rowForm.get('stockInTracking') as FormGroup;
+        const stockInTracking = rowForm?.get('stockInTracking') as FormGroup;
         if (stockInTracking) {
           stockInTracking.patchValue({
-            id: selectedItem.stockInTracking?.id || 0,
-            vendorBatchNo: selectedItem.stockInTracking?.vendorBatchNo,
-            expireDate: selectedItem.stockInTracking?.expireDate,
-            systemPatchNo: selectedItem.stockInTracking?.systemPatchNo,
-            serialId: selectedItem.stockInTracking?.serialId,
-            trackingType: selectedItem.trackingType,
-            selectedValue: selectedItem.stockInTracking?.quantity,
+            id: selectedItem?.stockInTracking?.id || 0,
+            vendorBatchNo: selectedItem?.stockInTracking?.vendorBatchNo,
+            expireDate: selectedItem?.stockInTracking?.expireDate,
+            systemPatchNo: selectedItem?.stockInTracking?.systemPatchNo,
+            serialId: selectedItem?.stockInTracking?.serialId,
+            trackingType: selectedItem?.trackingType,
+            selectedValue: selectedItem?.stockInTracking?.quantity,
           });
         }
+
       }
-      this.setUomName(indexLine, rowForm.get('uomOptions')?.value);
+
+      this.setUomName(indexLine, rowForm?.get('uomOptions')?.value);
     }
   }
   itemChanged(
@@ -553,6 +563,8 @@ export class EditStockInComponent implements OnInit {
       stockInFormGroup.get('stockInTracking')?.get('serialId')?.clearValidators();
       stockInFormGroup.get('stockInTracking')?.get('serialId')?.updateValueAndValidity();
     }
+    this.cdr.detectChanges();
+
   }
 
   uomChanged(e: any, stockInFormGroup: FormGroup, isBarcode: boolean) {
@@ -561,6 +573,8 @@ export class EditStockInComponent implements OnInit {
     stockInFormGroup
       .get('uomName')
       ?.setValue(this.currentLang == 'en' ? data.uomNameEn : data.uomNameAr);
+      this.cdr.detectChanges();
+
   }
   isValidData() {
     this.lineError = -1;
@@ -687,7 +701,7 @@ export class EditStockInComponent implements OnInit {
     }
     if (rowForm) {
       if (rowForm) {
-        rowForm.patchValue({
+        rowForm?.patchValue({
           id: selectedItem?.id || 0,
           barCode: barcode,
           bardCodeId: selectedItem?.bardCodeId,
@@ -719,25 +733,29 @@ export class EditStockInComponent implements OnInit {
         });
 
         // Handle the nested form group
-        const stockInTracking = rowForm.get('stockInTracking') as FormGroup;
+        const stockInTracking = rowForm?.get('stockInTracking') as FormGroup;
         if (stockInTracking) {
           stockInTracking.patchValue({
-            id: selectedItem.stockInTracking?.id || 0,
-            vendorBatchNo: selectedItem.stockInTracking?.vendorBatchNo,
-            expireDate: selectedItem.stockInTracking?.expireDate,
-            systemPatchNo: selectedItem.stockInTracking?.systemPatchNo,
-            serialId: selectedItem.stockInTracking?.serialId,
-            trackingType: selectedItem.trackingType,
-            selectedValue: selectedItem.stockInTracking?.quantity,
+            id: selectedItem?.stockInTracking?.id || 0,
+            vendorBatchNo: selectedItem?.stockInTracking?.vendorBatchNo,
+            expireDate: selectedItem?.stockInTracking?.expireDate,
+            systemPatchNo: selectedItem?.stockInTracking?.systemPatchNo,
+            serialId: selectedItem?.stockInTracking?.serialId,
+            trackingType: selectedItem?.trackingType,
+            selectedValue: selectedItem?.stockInTracking?.quantity,
           });
         }
       }
       rowForm
-        .get('itemName')
+        ?.get('itemName')
         ?.setValue(
-          selectedItem.itemCode + '-' + selectedItem.itemName + '-' + selectedItem.itemVariantNameAr
+          selectedItem?.itemCode +
+            '-' +
+            selectedItem?.itemName +
+            '-' +
+            selectedItem?.itemVariantNameAr
         );
-      this.setUomName(indexLine, rowForm.get('uomOptions')?.value);
+      this.setUomName(indexLine, rowForm?.get('uomOptions')?.value);
     }
   }
 
@@ -761,6 +779,7 @@ export class EditStockInComponent implements OnInit {
       this.transactionService.updatedStockInData$.subscribe((res: any) => {
         if (res === true) {
           this.savedDataId = res;
+          this.getStockInById(this.itemId);
           this.dataToReadOnly = true;
           this.postButton = true;
           this.saveButtonEnabled = false;
@@ -825,6 +844,47 @@ export class EditStockInComponent implements OnInit {
   }
   getLatestItemsList(id: number) {
     this.transactionService.getLatestItemsListByWarehouse('', id);
+  }
+
+  isDuplicate(rowIndex: number) {
+
+    this.stockInDetailsFormArray.controls.some((element: any, index: number) => {
+      if (index !== rowIndex) {
+        this.rowDuplicate = -1;
+
+        this.duplicateLine = false;
+
+        return false;
+      }
+    });
+  }
+
+  async deleteRow(index: number, id: number) {
+    const confirmed = await this.toasterService.showConfirm('Delete');
+    if (confirmed) {
+      if (id == 0) {
+        this.stockInDetailsFormArray.removeAt(index);
+        this.isDuplicate(index - 1);
+      } else {
+        this.transactionService.deleteStockInLine(id).subscribe({
+          next: (res: any) => {
+            this.toasterService.showSuccess(
+              this.languageService.transalte('stockIn.success'),
+              this.languageService.transalte('stockIn.deleteStockInLine')
+            );
+            this.stockInDetailsFormArray.removeAt(index);
+            this.isDuplicate(index - 1);
+          },
+          error: (err: any) => {
+            console.error('Error occurred while deleting:', err);
+            this.toasterService.showError(
+              this.languageService.transalte('transactions.error'),
+              this.languageService.transalte('transactions.deleteFailed')
+            );
+          },
+        });
+      }
+    }
   }
   constructor(
     public authService: AuthService,

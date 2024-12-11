@@ -19,6 +19,8 @@ import { PurchaseReturnListComponent } from './pages/return-purchase-invoice/pur
 import { PurchaseReturnViewComponent } from './pages/return-purchase-invoice/purchase-return-view/purchase-return-view.component';
 
 import { AuthGuard } from 'microtec-auth-lib';
+import { LocalAmountPopupComponent } from './components/local-amount-popup/local-amount-popup.component';
+import { LocalAmountEditPopupComponent } from './components/local-amount-edit-popup/local-amount-edit-popup.component';
 
 const routes: Routes = [
   {
@@ -150,6 +152,8 @@ const routes: Routes = [
     MainReturnPurchaseComponent,
     PurchaseReturnListComponent,
     PurchaseReturnViewComponent,
+    LocalAmountPopupComponent,
+    LocalAmountEditPopupComponent,
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule],
 })

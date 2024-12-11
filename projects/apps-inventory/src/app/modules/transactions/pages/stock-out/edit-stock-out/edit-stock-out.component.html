@@ -270,7 +270,7 @@
             ></lib-field-validations>
           </td>
           <td>
-            {{ stockOutFormGroup.controls['subCost']?.value }}
+            {{ stockOutFormGroup.controls['cost']?.value *  stockOutFormGroup.controls['quantity'].value}}
           </td>
 
           <td
@@ -394,7 +394,7 @@
               [ngClass]="{
             'Available':  stockOutFormGroup.controls['quantity']?.value <= stockOutFormGroup.controls['totalQuantity']?.value,
             'unavailable':  stockOutFormGroup.controls['quantity']?.value > stockOutFormGroup.controls['totalQuantity']?.value,
-            
+
             }"
             >
               {{ stockOutFormGroup.controls['totalQuantity']?.value }}
