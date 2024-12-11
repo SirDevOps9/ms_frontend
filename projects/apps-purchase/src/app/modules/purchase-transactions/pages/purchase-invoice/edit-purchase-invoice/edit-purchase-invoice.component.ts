@@ -181,8 +181,8 @@ export class EditPurchaseInvoiceComponent implements OnInit {
         this.getAccountCurrencyRate(item.vendorFinancialCurrencyId);
         if (!this.addForm.get('currencyId')?.value) {
           this.addForm.get('currencyId')?.setValue(this.currentUserService.getCurrency());
-          this.addForm.get('currencyName')?.setValue('Egyptian Pound');
-          this.addForm.get('currencyRate')?.setValue('Egyptian Pound');
+          this.addForm.get('currencyName')?.setValue(this.currentUserService.getCurrencyName());
+          this.addForm.get('currencyRate')?.setValue(1);
         }
       }
     });
