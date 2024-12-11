@@ -30,7 +30,11 @@
         <lib-label [appControl]="addForm.controls['sourceDocumentType']">
           {{ 'stockOut.docType' | translate }}
         </lib-label>
-        <lib-select
+        <lib-text-input
+        formControlName="sourceDocumentType"
+        [readOnly]="true"
+        ></lib-text-input>
+        <!-- <lib-select
           formControlName="sourceDocumentType"
           [options]="lookups[LookupEnum.StockInOutSourceDocumentType]"
           optionValue="id"
@@ -38,7 +42,7 @@
           [readOnly]="true"
           [selectedValue]="addForm.controls['sourceDocumentType'].value"
         >
-        </lib-select>
+        </lib-select> -->
         <lib-field-validations
           [appControl]="addForm.controls['sourceDocumentType']"
         ></lib-field-validations>
@@ -64,11 +68,13 @@
         <lib-label [appControl]="addForm.controls['warehouseId']">
           {{ 'stockOut.warehouse' | translate }}
         </lib-label>
-        <!-- <lib-select formControlName="warehouseId" [options]="warhouseLookupData" optionValue="id" optionLabel="name"
+        <lib-select formControlName="warehouseId"
+        [readOnly]="true"
+        [options]="warhouseLookupData" optionValue="id" optionLabel="name"
           placeholder="{{ 'stockOut.warehouse' | translate }}" [selectedValue]="addForm.controls['warehouseId'].value"
           (valueChanged)="getLatestItemsList( addForm.controls['warehouseId'].value)">
-        </lib-select> -->
-        <lib-text-input formControlName="warehouseName" [readOnly]="true"> </lib-text-input>
+        </lib-select>
+        <!-- <lib-text-input formControlName="warehouseName" [readOnly]="true"> </lib-text-input> -->
         <lib-field-validations
           [appControl]="addForm.controls['warehouseId']"
         ></lib-field-validations>
@@ -135,7 +141,8 @@
                 ></lib-text-input>
                 <!-- (keyUp)="barcodeCanged($event ,rowIndex)" -->
               </ng-template>
-              <ng-template pTemplate="output">
+               <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                 {{ stockOutFormGroup.controls['barCode']?.value }}
               </ng-template>
             </p-cellEditor>
@@ -165,7 +172,8 @@
                   <!-- (click)="openDialog(rowIndex)" -->
                 </div>
               </ng-template>
-              <ng-template pTemplate="output">
+               <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                 {{ stockOutFormGroup.get('itemName').value }}
               </ng-template>
             </p-cellEditor>
@@ -203,7 +211,8 @@
                 </lib-select>
                 <!-- <lib-text-input placeholder="{{ 'stockOut.UOM' | translate }}" formControlName="uomId"></lib-text-input> -->
               </ng-template>
-              <ng-template pTemplate="output">
+               <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                 {{ stockOutFormGroup.controls['uomName']?.value }}
               </ng-template>
             </p-cellEditor>
@@ -238,7 +247,8 @@
                   (keyUp)="setCostTotal(rowIndex, $event); isDuplicate(rowIndex)"
                 ></lib-text-input>
               </ng-template>
-              <ng-template pTemplate="output">
+               <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                 {{ stockOutFormGroup.controls['quantity']?.value }}
               </ng-template>
             </p-cellEditor>
@@ -261,7 +271,8 @@
                   [readOnly]="true"
                 ></lib-text-input>
               </ng-template>
-              <ng-template pTemplate="output">
+               <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                 {{ stockOutFormGroup.controls['cost']?.value }}
               </ng-template>
             </p-cellEditor>
@@ -304,7 +315,8 @@
                 </lib-select>
               </ng-template>
 
-              <ng-template pTemplate="output">
+               <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                 {{ stockOutFormGroup?.get('trackingNo')?.value }}
               </ng-template>
             </p-cellEditor>
@@ -350,7 +362,8 @@
                 >
                 </lib-select>
               </ng-template>
-              <ng-template pTemplate="output">
+               <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                 {{ stockOutFormGroup?.get('trackingNo')?.value }}
               </ng-template>
             </p-cellEditor>
@@ -380,7 +393,8 @@
                   formControlName="notes"
                 ></lib-text-input>
               </ng-template>
-              <ng-template pTemplate="output">
+               <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                 {{ stockOutFormGroup.controls['notes']?.value }}
               </ng-template>
             </p-cellEditor>

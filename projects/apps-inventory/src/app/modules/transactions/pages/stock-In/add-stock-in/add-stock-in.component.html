@@ -143,7 +143,8 @@
                   [readOnly]="dataToReadOnly"
                 ></lib-text-input>
               </ng-template>
-              <ng-template pTemplate="output">
+               <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                 {{ stockInFormGroup.controls['barCode']?.value }}
               </ng-template>
             </p-cellEditor>
@@ -171,7 +172,8 @@
                   <i class="pi pi-search search-circle" (click)="openDialog(i , stockInFormGroup)"></i>
                 </div>
               </ng-template>
-              <ng-template pTemplate="output">
+               <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                 {{ stockInFormGroup.controls['itemCodeName']?.value }}
               </ng-template>
             </p-cellEditor>
@@ -200,7 +202,8 @@
                   [selectedValue]="stockInFormGroup.controls['uomId']?.value"
                 ></lib-select>
               </ng-template>
-              <ng-template pTemplate="output">
+               <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                 {{ stockInFormGroup.controls['uomName']?.value }}
               </ng-template>
             </p-cellEditor>
@@ -227,7 +230,8 @@
                   "
                 ></lib-text-input>
               </ng-template>
-              <ng-template pTemplate="output">
+               <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                 {{ stockInFormGroup.controls['quantity']?.value }}
               </ng-template>
             </p-cellEditor>
@@ -247,7 +251,8 @@
                   formControlName="cost"
                 ></lib-text-input>
               </ng-template>
-              <ng-template pTemplate="output">
+               <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                 {{ stockInFormGroup.controls['cost']?.value }}
               </ng-template>
             </p-cellEditor>
@@ -399,7 +404,8 @@
                   [readOnly]="dataToReadOnly"
                 ></lib-text-input>
               </ng-template>
-              <ng-template pTemplate="output">
+               <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                 {{ stockInFormGroup.controls['notes']?.value }}
               </ng-template>
             </p-cellEditor>
