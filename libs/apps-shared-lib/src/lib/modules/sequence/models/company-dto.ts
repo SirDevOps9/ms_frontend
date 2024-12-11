@@ -9,6 +9,7 @@ export interface CompanyInUserInfo {
   currencyId: number;
   currencyName: string;
   companyType: string;
+  currencyCode: string;
   branches: BranchInUserInfo[];
 }
 
