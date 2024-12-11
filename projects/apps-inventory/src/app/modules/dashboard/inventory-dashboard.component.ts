@@ -64,7 +64,6 @@ export class InventoryDashboardComponent {
   ngOnInit() {
     this.languageService.language$.subscribe((lang) => (this.currentLanguage = lang));
     this.defaultCurrency = this.currencyService.getCurrencyCode();
-
     this.fetchData();
     this.subscriptions();
     this.loaderSubscriptions();
