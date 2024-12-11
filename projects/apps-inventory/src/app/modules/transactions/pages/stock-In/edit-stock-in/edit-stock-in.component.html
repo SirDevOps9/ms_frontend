@@ -116,7 +116,7 @@
     <lib-button-micro [title]="'stockIn.scan'|translate" nameClass="outline"
                 iconName="pi pi-expand" (click)="scan()">
               </lib-button-micro>
-   
+
   </div> -->
 
   <div class="my-2">
@@ -176,14 +176,14 @@
                     optionLabel="displayName"
                     placeholder="{{ 'stockIn.itemCode' | translate }}"
                     (valueChanged)="setRowdata(i, $event, latestItemsList)"
-                    [readOnly]="dataToReadOnly"
+                    [readOnly]="dataToReadOnly || !postedStock"
                     selectedValue="{{ stockInFormGroup.controls['itemNumber']?.value }}"
                     (valueSearchChanged)="onFilter($event)"
                   >
                   </lib-select>
                   <i
                     class="pi pi-search search-circle"
-                    (click)="openDialog(i, stockInFormGroup)"
+                    (click)="openDialog(i, stockInFormGroup)" *ngIf="postedStock"
                   ></i>
                 </div>
               </ng-template>
@@ -236,10 +236,10 @@
                   type="number"
                   placeholder="{{ 'stockIn.QTY' | translate }}"
                   formControlName="quantity"
-                  [readOnly]="!postedStock"
+
                   [readOnly]="
                     stockInFormGroup.get('stockInTracking')?.get('trackingType')?.value ==
-                    this.sharedStock.StockOutTracking.Serial
+                    this.sharedStock.StockOutTracking.Serial || !postedStock
                   "
                 ></lib-text-input>
               </ng-template>
@@ -403,12 +403,20 @@
               [appControl]="stockInFormGroup.controls['notes']"
             ></lib-field-validations>
           </td>
-          <td>
+          <td >
             <lib-button-micro
+            *ngIf="postedStock"
             nameClass="table_button_delete"
             (click)="deleteRow(i, stockInFormGroup.controls['id']?.value)"
           >
           </lib-button-micro>
+
+          <lib-button-micro
+          *ngIf="!postedStock"
+          nameClass="table_button_delete"
+          (click)="noDelete()"
+        >
+        </lib-button-micro>
             <!-- @if (stockInFormGroup.controls['id'].value && stockInFormGroup.controls['id'].value !=0) {
 
 
@@ -422,7 +430,7 @@
 
 
               <lib-button-micro
-  
+
                 nameClass="table_button_delete"
                 (click)="deleteIndex(i)"
               >

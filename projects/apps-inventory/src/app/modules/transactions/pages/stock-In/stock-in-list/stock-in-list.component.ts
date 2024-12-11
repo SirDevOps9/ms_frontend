@@ -12,6 +12,7 @@ import {
   PageInfo,
 
   SharedEnums,
+  ToasterService,
 
 } from 'shared-lib';
 import { StockInDto } from '../../../../items/models';
@@ -38,7 +39,7 @@ export class StockInListComponent implements OnInit {
   currentPageInfo: PageInfoResult = {};
   modulelist: MenuModule[];
   searchTerm: string;
-
+  checkDataPosted:string[]=[]
   filteredColumns: string[] = [];
   columns: { name: any; headerText: any }[] = [
     { name: 'code', headerText: ('stockOut.code') },
@@ -55,10 +56,15 @@ export class StockInListComponent implements OnInit {
     this.subscribes();
 
   }
+
   subscribes() {
     this.transactionsService.stockInDataSourceeObservable.subscribe({
       next: (res) => {
         this.tableData = res;
+        console.log(this.tableData);
+       this.checkDataPosted = this.tableData.map((item=>item.stockInStatus))
+
+
       },
     });
     this.transactionsService.currentPageInfo.subscribe((currentPageInfo) => {
@@ -112,23 +118,42 @@ export class StockInListComponent implements OnInit {
   }
 
   onDelete(id: number) {
-    from(this.transactionsService.deleteStockIn(id))
-      .pipe(
-        switchMap(() => this.transactionsService.sendStockInDataSourcesObs),
-        tap((data: any) => {
-          if (data) {
-            this.initStockOutData();
-          }
-        })
-      )
-      .subscribe({
-        error: (err: any) => {},
-      });
+    const selectedItem = this.tableData.find((item) => item.id === id);
+    if (selectedItem && selectedItem.stockInStatus === 'Posted') {
+      this.toasterService.showError(
+        this.languageService.transalte('transactions.error'),
+        this.languageService.transalte('transactions.cannotDeletePosted')
+      );
+    } else {
+      from(this.transactionsService.deleteStockIn(id))
+        .pipe(
+          switchMap(() => this.transactionsService.sendStockInDataSourcesObs),
+          tap((data: any) => {
+            if (data) {
+              this.initStockOutData();
+            }
+          })
+        )
+        .subscribe({
+          next: () => {
+          },
+          error: (err: any) => {
+            this.toasterService.showError(
+              this.languageService.transalte('transactions.error'),
+              this.languageService.transalte('transactions.cannotDelete')
+            );
+          },
+        });
+    }
   }
 
 
 
+
+
   constructor(
+    private languageService: LanguageService,
+    private toasterService: ToasterService,
     private routerService: RouterService,
     public authService: AuthService,
     private dialog: DialogService,
