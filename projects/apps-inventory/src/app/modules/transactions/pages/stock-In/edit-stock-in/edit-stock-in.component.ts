@@ -886,6 +886,16 @@ export class EditStockInComponent implements OnInit {
       }
     }
   }
+
+  noDelete() {
+    if (!this.postedStock) {
+      this.toasterService.showError(
+        this.languageService.transalte('transactions.error'),
+        this.languageService.transalte('transactions.cannotDeletePosted')
+      );
+    }
+  }
+
   constructor(
     public authService: AuthService,
     private dialog: DialogService,

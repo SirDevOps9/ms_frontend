@@ -772,6 +772,7 @@ export class EditStockOutComponent implements OnInit {
         },
       });
   }
+
   setRowDataFromBarCode(indexLine: number, selectedItem: any) {
     const rowForm = this.stockOutDetailsFormArray.at(indexLine) as FormGroup;
     if (rowForm) {
@@ -838,7 +839,11 @@ export class EditStockOutComponent implements OnInit {
     this.setUomName(indexLine, rowForm.get('uomOptions')?.value);
     this.setExpiryDate(indexLine, selectedItem.batches, selectedItem.serialOptions);
     this.isDuplicate(indexLine);
+
+
+
   }
+
   addToPost() {
     this.itemsService.postStockOut(this.stockOutId);
   }
