@@ -3,28 +3,15 @@
     <div class="charts">
       <div class="grid">
         <div class="lg:col-4 md:col-6 col-12" [appLoader]="statusLoader">
-          <app-chart-card [chartDTO]="statusChart" [chartDetailsConfig]="statusChartValues">
-            <div class="chart-header">
-              <div class="title heading_b18">{{ 'dashboard.status' | translate }}</div>
-              <div class="action body_b14">
-                <i class="pi pi-heart"></i>
-              </div>
-            </div>
+          <app-chart-card
+            [chartDTO]="statusChart"
+            [chartDetailsConfig]="statusChartValues"
+            title="{{ 'dashboard.status' | translate }}"
+          >
           </app-chart-card>
         </div>
         <div class="lg:col-4 md:col-6 col-12" [appLoader]="cashFlowSummaryLoader">
-          <app-chart-card>
-            <div class="chart-header">
-              <div class="title title-card-wrapper heading_b18">
-                <span>
-                  {{ 'dashboard.cashFlowSummary' | translate }}
-                </span>
-              </div>
-
-              <div class="action body_b14">
-                <i class="pi pi-heart"></i>
-              </div>
-            </div>
+          <app-chart-card title="{{ 'dashboard.cashFlowSummary' | translate }}">
             <div class="chart-body accounts-bank w-full">
               <div class="row">
                 <span class="color-box" [style.background-color]="'#1A90B0'"></span>
@@ -60,32 +47,13 @@
             [chartDTO]="totalBankTreasuriesChart"
             [chartDetailsConfig]="totalBankTreasuriesData"
             [smallSize]="true"
+            title="{{ 'dashboard.totalBankTreasuries' | translate }}"
           >
-            <div class="chart-header">
-              <div class="title title-card-wrapper heading_b18">
-                <span>
-                  {{ 'dashboard.totalBankTreasuries' | translate }}
-                </span>
-              </div>
-              <div class="action body_b14">
-                <i class="pi pi-heart"></i>
-              </div>
-            </div>
           </app-chart-card>
         </div>
 
         <div class="lg:col-6 col-12" [appLoader]="banksLoader">
-          <app-chart-card>
-            <div class="chart-header">
-              <div class="title heading_b18">{{ 'dashboard.banks' | translate }}</div>
-              <div class="action body_b14">
-                <span class="pointer" [routerLink]="['masterdata/bank-definition']">
-                  {{ 'dashboard.moreDetails' | translate }} <i class="pi pi-arrow-right fs-14"></i>
-                </span>
-                <span class="column-line"></span>
-                <i class="pi pi-heart"></i>
-              </div>
-            </div>
+          <app-chart-card title="{{ 'dashboard.moreDetails' | translate }}">
             <div class="chart-body accounts-bank w-full">
               @for(acc of bankAccounts.accounts; track acc) {
               <div class="row">
@@ -112,17 +80,10 @@
           </app-chart-card>
         </div>
         <div class="lg:col-6 col-12" [appLoader]="treasuriesLoader">
-          <app-chart-card>
-            <div class="chart-header">
-              <div class="title heading_b18">{{ 'dashboard.treasuries' | translate }}</div>
-              <div class="action body_b14">
-                <span class="pointer" [routerLink]="['masterdata/treasury-list']">
-                  {{ 'dashboard.moreDetails' | translate }} <i class="pi pi-arrow-right fs-14"></i>
-                </span>
-                <span class="column-line"></span>
-                <i class="pi pi-heart"></i>
-              </div>
-            </div>
+          <app-chart-card
+            title="{{ 'dashboard.treasuries' | translate }}"
+            [route]="'masterdata/treasury-list'"
+          >
             <div class="chart-body accounts-bank w-full">
               @for(treasure of treasuries.treasuries; track treasure) {
               <div class="row">
@@ -152,34 +113,24 @@
         </div>
 
         <div class="lg:col-6 col-12" [appLoader]="incomeLoader">
-          <app-chart-card [chartDTO]="incomeChart" [hideFooter]="false">
-            <div class="chart-header">
-              <div class="title heading_b18">{{ 'dashboard.income' | translate }}</div>
-              <div class="action body_b14">
-                <span class="pointer" [routerLink]="['transcations/paymentin']">
-                  {{ 'dashboard.moreDetails' | translate }} <i class="pi pi-arrow-right fs-14"></i>
-                </span>
-                <span class="column-line"></span>
-                <i class="pi pi-heart"></i>
-              </div>
-            </div>
+          <app-chart-card
+            [chartDTO]="incomeChart"
+            [hideFooter]="false"
+            title="{{ 'dashboard.income' | translate }}"
+            [route]="'transcations/paymentin'"
+          >
             <div class="chart-body accounts-bank w-full">
               <div class="grid"></div>
             </div>
           </app-chart-card>
         </div>
         <div class="lg:col-6 col-12" [appLoader]="outgoingLoader">
-          <app-chart-card [chartDTO]="outgoingChart" [chartDetailsConfig]="outGoingChartData">
-            <div class="chart-header">
-              <div class="title heading_b18">{{ 'dashboard.outgoing' | translate }}</div>
-              <div class="action body_b14">
-                <span class="pointer" [routerLink]="['transcations/paymentin']">
-                  {{ 'dashboard.moreDetails' | translate }} <i class="pi pi-arrow-right fs-14"></i>
-                </span>
-                <span class="column-line"></span>
-                <i class="pi pi-heart"></i>
-              </div>
-            </div>
+          <app-chart-card
+            [chartDTO]="outgoingChart"
+            [chartDetailsConfig]="outGoingChartData"
+            title="{{ 'dashboard.outgoing' | translate }}"
+            [route]="'transcations/paymentin'"
+          >
             <div class="chart-body accounts-bank w-full">
               <div class="grid"></div>
             </div>
@@ -187,19 +138,10 @@
         </div>
 
         <div class="lg:col-6 col-12" [appLoader]="recentIncomeTransactionsLoader">
-          <app-chart-card>
-            <div class="chart-header">
-              <div class="title heading_b18">
-                {{ 'dashboard.recentIncomeTransaction' | translate }}
-              </div>
-              <div class="action body_b14">
-                <span class="pointer" [routerLink]="['transcations/paymentin']">
-                  {{ 'dashboard.moreDetails' | translate }} <i class="pi pi-arrow-right fs-14"></i>
-                </span>
-                <span class="column-line"></span>
-                <i class="pi pi-heart"></i>
-              </div>
-            </div>
+          <app-chart-card
+            title="{{ 'dashboard.recentIncomeTransaction' | translate }}"
+            [route]="'transcations/paymentin'"
+          >
             <div class="chart-body accounts-bank w-full">
               @for(acc of recentIncomeTransactionData; track acc) {
               <div class="row">
@@ -224,19 +166,10 @@
           </app-chart-card>
         </div>
         <div class="lg:col-6 col-12" [appLoader]="recentOutgoingTransactionsLoader">
-          <app-chart-card>
-            <div class="chart-header">
-              <div class="title heading_b18">
-                {{ 'dashboard.recentOutgoingTransaction' | translate }}
-              </div>
-              <div class="action body_b14">
-                <span class="pointer" [routerLink]="['transcations/paymentout']">
-                  {{ 'dashboard.moreDetails' | translate }} <i class="pi pi-arrow-right fs-14"></i>
-                </span>
-                <span class="column-line"></span>
-                <i class="pi pi-heart"></i>
-              </div>
-            </div>
+          <app-chart-card
+            title="{{ 'dashboard.recentOutgoingTransaction' | translate }}"
+            [route]="'transcations/paymentout'"
+          >
             <div class="chart-body accounts-bank w-full">
               @for(acc of recentOutgoingTransactionData; track acc) {
               <div class="row">

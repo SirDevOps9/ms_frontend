@@ -1,40 +1,29 @@
 <lib-page-content>
   <div class="charts grid">
     <div class="lg:col-4 col-12" [appLoader]="isLoadingStatus">
-      <app-chart-card [chartDTO]="statusChart" [chartDetailsConfig]="statusChartData">
-        <div class="chart-header">
-          <div class="title heading_b18">
-            {{ 'dashboard.salesStatus' | translate }}
-            <i
-              class="pi pi-question hint"
-              [pTooltip]="'component descriptions'"
-              tooltipPosition="bottom"
-            ></i>
-          </div>
-          <div class="action body_b14">
-            <i class="pi pi-heart"></i>
-          </div>
-        </div>
+      <app-chart-card
+        [chartDTO]="statusChart"
+        [chartDetailsConfig]="statusChartData"
+        title="{{ 'dashboard.salesStatus' | translate }}"
+        tooltip="{{ 'status chart tooltip' | translate }}"
+      >
       </app-chart-card>
     </div>
     <div class="lg:col-4 col-12" [appLoader]="isLoadingReturnStatus">
-      <app-chart-card [chartDTO]="returnStatusChart" [chartDetailsConfig]="returnStatusChartData">
-        <div class="chart-header">
-          <div class="title heading_b18">{{ 'dashboard.returnSalesStatus' | translate }}</div>
-          <div class="action body_b14">
-            <i class="pi pi-heart"></i>
-          </div>
-        </div>
+      <app-chart-card
+        [chartDTO]="returnStatusChart"
+        [chartDetailsConfig]="returnStatusChartData"
+        title="{{ 'dashboard.returnSalesStatus' | translate }}"
+        tooltip="{{ 'return status chart tooltip' | translate }}"
+      >
       </app-chart-card>
     </div>
     <div class="lg:col-4 col-12" [appLoader]="isLoadingMonthlySales">
-      <app-chart-card [chartDTO]="monthlySalesChart">
-        <div class="chart-header">
-          <div class="title heading_b18">{{ 'dashboard.monthlySales' | translate }}</div>
-          <div class="action body_b14">
-            <i class="pi pi-heart"></i>
-          </div>
-        </div>
+      <app-chart-card
+        [chartDTO]="monthlySalesChart"
+        title="{{ 'dashboard.monthlySales' | translate }}"
+        tooltip="{{ 'monthly sales chart tooltip' | translate }}"
+      >
       </app-chart-card>
     </div>
 
@@ -42,41 +31,27 @@
       <app-chart-card
         [chartDTO]="topSalesProductChart"
         [chartDetailsConfig]="topSalesProductChartData"
+        title="{{ 'dashboard.bestSellingProducts' | translate }}"
+        tooltip="{{ 'top sales product chart tooltip' | translate }}"
       >
-        <div class="chart-header">
-          <div class="title heading_b18">{{ 'dashboard.bestSellingProducts' | translate }}</div>
-          <div class="action body_b14">
-            <i class="pi pi-heart"></i>
-          </div>
-        </div>
       </app-chart-card>
     </div>
     <div class="lg:col-6 col-12" [appLoader]="isLoadingBestSellingCategory">
       <app-chart-card
         [chartDTO]="topSalesCategoriesChart"
         [chartDetailsConfig]="topSalesCategoriesChartData"
+        title="{{ 'dashboard.bestSellingCategories' | translate }}"
+        tooltip="{{ 'top sales category chart tooltip' | translate }}"
       >
-        <div class="chart-header">
-          <div class="title heading_b18">{{ 'dashboard.bestSellingCategories' | translate }}</div>
-          <div class="action body_b14">
-            <i class="pi pi-heart"></i>
-          </div>
-        </div>
       </app-chart-card>
     </div>
 
     <div class="lg:col-6 col-12" [appLoader]="isLoadingTopCustomer">
-      <app-chart-card>
-        <div class="chart-header">
-          <div class="title heading_b18">{{ 'dashboard.topCustomers' | translate }}</div>
-          <div class="action body_b14">
-            <span class="pointer" [routerLink]="['']">
-              {{ 'dashboard.moreDetails' | translate }} <i class="pi pi-arrow-right fs-14"></i>
-            </span>
-            <span class="column-line"></span>
-            <i class="pi pi-heart"></i>
-          </div>
-        </div>
+      <app-chart-card
+        title="{{ 'dashboard.topCustomers' | translate }}"
+        tooltip="{{ 'top customers chart tooltip' | translate }}"
+        route="'goTo'"
+      >
         <div class="chart-body accounts-bank w-full">
           @for(customerData of topCustomerData; track customerData.customerId) {
           <div class="row">

@@ -68,7 +68,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe((lang) => (this.currentLang = lang));
 
-    this.defaultCurrency = this.currencyService.getCurrencyFlag();
+    this.defaultCurrency = this.currencyService.getCurrencyCode();
 
     this.fetchData();
     this.subscriptions();
@@ -193,6 +193,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.service.topVendorsLoader$
       .pipe(takeUntil(this.destroy$))
       .subscribe((loader) => (this.topVendorsLoader = loader));
+
+    this.service.topPurchaseCategoriesLoader$.subscribe(
+      (loader) => (this.mostPurchasedCategoriesChartLoader = loader)
+    );
   }
 
   getStatusReport() {

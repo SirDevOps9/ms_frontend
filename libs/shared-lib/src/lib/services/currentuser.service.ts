@@ -17,10 +17,10 @@ export class CurrentUserService {
   }
 
   //TODO: MohamedF add currency flag when sign in
-  getCurrencyFlag(): string {
+  getCurrencyCode(): string {
     let obj = this.localStorage.getItem(StorageKeys.CURRENCEY_OBJ);
     // Replace with your logic to get the currency value
-    return obj.flag;
+    return obj.code;
   }
   constructor(
     private httpService: HttpService,
