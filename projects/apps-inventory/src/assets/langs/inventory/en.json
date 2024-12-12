@@ -609,5 +609,12 @@
       "subTotal": "Subtotal"
     },
     "QTYbalance": "Quantity Balance"
+  },
+  "filter": {
+    "selectDateRange": "Select Date Range",
+    "status": "Status",
+    "sourceDocumentType": "Source Document Type",
+    "warehouse": "Warehouse",
+    "view": "View"
   }
 }
