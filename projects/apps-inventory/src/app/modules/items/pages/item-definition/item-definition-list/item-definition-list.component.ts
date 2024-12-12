@@ -18,7 +18,7 @@ import { EditItemDefinitionComponent } from '../../../components/edit-item-defin
 import { ViewItemDefinitionComponent } from '../../../components/view-item-definition/view-item-definition/view-item-definition.component';
 import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
 import { TranslateService } from '@ngx-translate/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { HelpPageService } from 'libs/apps-shared-lib/src/lib/pages/help-page/help-page.service';
 import { SortTableEXport } from '../../../models/SortTable';
 
@@ -33,6 +33,7 @@ export class ItemDefinitionListComponent implements OnInit {
     public authService: AuthService,
     private dialog: DialogService,
     private title: Title,
+
     private translate: TranslateService,
     private itemsService: ItemsService,
     private exportService: ExportService,
@@ -61,13 +62,19 @@ export class ItemDefinitionListComponent implements OnInit {
   searchTerm: string;
   hasHelpPage: Boolean = false;
   servicePage: number;
+  private dialogRef: any;
+
   ngOnInit() {
     this.initItemDefinitionData();
     const state = history.state;
-    this.hasHelpPage = JSON.parse(state?.hashelppage || 'false'); // Default to 'false' if no state found
+    this.hasHelpPage = JSON.parse(state?.hashelppage || 'false');
     this.servicePage = state.servicePage;
   }
-
+  ngOnDestroy() {
+    if (this.dialogRef) {
+      this.dialogRef.close();
+    }
+  }
   initItemDefinitionData() {
     this.itemsService.getItemDefinition('', new PageInfo());
 
@@ -117,13 +124,14 @@ export class ItemDefinitionListComponent implements OnInit {
 
   }
 
+
   onAdd() {
-    const dialogRef = this.dialog.open(AddItemDefinitionPopupComponent, {
+    this.dialogRef = this.dialog.open(AddItemDefinitionPopupComponent, {
       width: '800px',
       height: '500px',
     });
 
-    dialogRef.onClose.subscribe(() => {
+    this.dialogRef.onClose.subscribe(() => {
       this.initItemDefinitionData();
     });
   }
