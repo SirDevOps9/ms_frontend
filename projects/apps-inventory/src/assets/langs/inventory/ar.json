@@ -17,7 +17,7 @@
     "serialError": "لا يمكن إضافة أكثر من عنصر بنفس الرقم التسلسلي.",
     "setTracking": "يجب تعيين التتبع في السطر",
     "notEdit": "لا يمكن تعديل هذا المخزون لأنه تم تسجيله.",
-"updated": "Data was not updated ",
+    "updated": "Data was not updated ",
 
     "noBarcode": "لا يوجد هذا الباركود"
   },
@@ -653,5 +653,9 @@
     "sourceDocumentType": "نوع المستند المصدر",
     "warehouse": "المستودع",
     "view": "عرض"
+  },
+  "transactions": {
+    "error": "خطأ",
+    "cannotDeletePosted": "لا يمكن حذف هذا العنصر لأن الحالة تم تعيينها كـ Posted"
   }
 }

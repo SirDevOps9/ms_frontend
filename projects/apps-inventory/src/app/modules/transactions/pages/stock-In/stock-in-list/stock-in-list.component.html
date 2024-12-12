@@ -145,8 +145,13 @@
             </lib-button-micro>
             <lib-button-micro nameClass="table_button_edit" (click)="onEdit(action.id)" *ngIf=" action.stockInStatus != sharedFinanceEnums.stockOutStatus.Posted">
             </lib-button-micro>
-            <lib-button-micro nameClass="table_button_delete" (click)="onDelete(action.id)" *ngIf=" action.stockInStatus != sharedFinanceEnums.stockOutStatus.Posted">
-            </lib-button-micro>
+            <!-- <lib-button-micro nameClass="table_button_delete" (click)="onDelete(action.id)" [disabled]="(action.stockInStatus != sharedFinanceEnums.stockOutStatus.Posted)">
+            </lib-button-micro> -->
+            <lib-button-micro
+            nameClass="table_button_delete"
+            (click)="onDelete(action.id)"
+          >
+          </lib-button-micro>
           </div>
         </ng-template>
         <ng-template #Reserved let-reserved>
