@@ -442,9 +442,17 @@ export class AddSalesReturnInvoiceComponent implements OnInit {
     return isValid;
   }
 
-  OnDelete(i: number) {
-    this.salesReturnFormArray.removeAt(i);
-  }
+    async deleteRow(index: number, id: number) {
+
+
+
+      const confirmed = await this.toasterService.showConfirm('Delete');
+      if (confirmed) {
+        this.salesReturnFormArray.removeAt(index);
+      }
+  
+    }
+
   addToPost() {
     this._transactionService.postSalesReturnInvoice(this.savedDataId);
   }
