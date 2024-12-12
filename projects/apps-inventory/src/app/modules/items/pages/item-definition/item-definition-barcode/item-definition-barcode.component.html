@@ -39,7 +39,8 @@
                       formControlName="barcode"
                     ></lib-text-input>
                   </ng-template>
-                  <ng-template pTemplate="output">
+                   <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                     {{ itemDefBarcodeGroup.controls['barcode']?.value }}
                   </ng-template>
                 </p-cellEditor>
@@ -63,7 +64,8 @@
                       (valueChanged)="uomChange($event , itemDefBarcodeGroup)"
                     ></lib-select>
                   </ng-template>
-                  <ng-template pTemplate="output">
+                   <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                     {{
                       itemDefBarcodeGroup.controls['uomName']?.value ??
                         itemDefBarcodeGroup.controls['uomId']?.value
@@ -92,7 +94,8 @@
   
                     ></lib-select>
                   </ng-template>P
-                  <ng-template pTemplate="output">
+                   <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                     {{ itemDefBarcodeGroup.controls['itemVariantName']?.value }}
                   </ng-template>
                 </p-cellEditor>
@@ -113,7 +116,8 @@
                       formControlName="sku"
                     ></lib-text-input>
                   </ng-template>
-                  <ng-template pTemplate="output">
+                   <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                     {{ itemDefBarcodeGroup.controls['sku']?.value }}
                   </ng-template>
                 </p-cellEditor>

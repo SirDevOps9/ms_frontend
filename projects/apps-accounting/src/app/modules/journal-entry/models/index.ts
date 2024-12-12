@@ -23,3 +23,5 @@ export * from './JournalEntryGlBalanceLineDto';
 export * from './reportCostCenter';
 export * from './reportCostAllData';
 export * from './get-open-financial-period-date-dto';
+export * from './lookup';
+export * from './filterDto';

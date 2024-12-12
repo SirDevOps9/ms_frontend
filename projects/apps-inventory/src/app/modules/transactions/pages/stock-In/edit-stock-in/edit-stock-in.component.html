@@ -116,7 +116,7 @@
     <lib-button-micro [title]="'stockIn.scan'|translate" nameClass="outline"
                 iconName="pi pi-expand" (click)="scan()">
               </lib-button-micro>
-   
+
   </div> -->
 
   <div class="my-2">
@@ -155,7 +155,8 @@
                   (keydown.enter)="barcodeCanged($event, stockInFormGroup, i)"
                 ></lib-text-input>
               </ng-template>
-              <ng-template pTemplate="output">
+               <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                 {{ stockInFormGroup.controls['barCode']?.value }}
               </ng-template>
             </p-cellEditor>
@@ -176,18 +177,19 @@
                     optionLabel="displayName"
                     placeholder="{{ 'stockIn.itemCode' | translate }}"
                     (valueChanged)="setRowdata(i, $event, latestItemsList)"
-                    [readOnly]="dataToReadOnly"
+                    [readOnly]="dataToReadOnly || !postedStock"
                     selectedValue="{{ stockInFormGroup.controls['itemNumber']?.value }}"
                     (valueSearchChanged)="onFilter($event)"
                   >
                   </lib-select>
                   <i
                     class="pi pi-search search-circle"
-                    (click)="openDialog(i, stockInFormGroup)"
+                    (click)="openDialog(i, stockInFormGroup)" *ngIf="postedStock"
                   ></i>
                 </div>
               </ng-template>
-              <ng-template pTemplate="output">
+               <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                 {{ stockInFormGroup.controls['itemCodeName']?.value }}
               </ng-template>
             </p-cellEditor>
@@ -216,7 +218,8 @@
                   selectedValue="{{ stockInFormGroup.controls['uomId']?.value }}"
                 ></lib-select>
               </ng-template>
-              <ng-template pTemplate="output">
+               <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                 {{ stockInFormGroup.controls['uomName']?.value }}
               </ng-template>
             </p-cellEditor>
@@ -236,14 +239,15 @@
                   type="number"
                   placeholder="{{ 'stockIn.QTY' | translate }}"
                   formControlName="quantity"
-                  [readOnly]="!postedStock"
+
                   [readOnly]="
                     stockInFormGroup.get('stockInTracking')?.get('trackingType')?.value ==
-                    this.sharedStock.StockOutTracking.Serial
+                    this.sharedStock.StockOutTracking.Serial || !postedStock
                   "
                 ></lib-text-input>
               </ng-template>
-              <ng-template pTemplate="output">
+               <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                 {{ stockInFormGroup.controls['quantity']?.value }}
               </ng-template>
             </p-cellEditor>
@@ -263,7 +267,8 @@
                   [readOnly]="!postedStock"
                 ></lib-text-input>
               </ng-template>
-              <ng-template pTemplate="output">
+               <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                 {{ stockInFormGroup.controls['cost']?.value }}
               </ng-template>
             </p-cellEditor>
@@ -395,7 +400,8 @@
                   [readOnly]="!postedStock"
                 ></lib-text-input>
               </ng-template>
-              <ng-template pTemplate="output">
+               <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                 {{ stockInFormGroup.controls['notes']?.value }}
               </ng-template>
             </p-cellEditor>
@@ -403,19 +409,39 @@
               [appControl]="stockInFormGroup.controls['notes']"
             ></lib-field-validations>
           </td>
-          <td>
+          <td >
             <lib-button-micro
-              *ngIf="stockInFormGroup.controls['id'].value"
-              nameClass="table_button_delete"
-              (click)="OnDelete(stockInFormGroup.controls['id'].value)"
-            >
-            </lib-button-micro>
-            <lib-button-micro
-              *ngIf="!stockInFormGroup.controls['id'].value"
-              nameClass="table_button_delete"
-              (click)="deleteIndex(i)"
-            >
-            </lib-button-micro>
+            *ngIf="postedStock"
+            nameClass="table_button_delete"
+            (click)="deleteRow(i, stockInFormGroup.controls['id']?.value)"
+          >
+          </lib-button-micro>
+
+          <lib-button-micro
+          *ngIf="!postedStock"
+          nameClass="table_button_delete"
+          (click)="noDelete()"
+        >
+        </lib-button-micro>
+            <!-- @if (stockInFormGroup.controls['id'].value && stockInFormGroup.controls['id'].value !=0) {
+
+
+              <lib-button-micro
+              *ngIf="stockInFormGroup.controls['id'].value && stockInFormGroup.controls['id'].value !=0"
+                nameClass="table_button_delete"
+                (click)="OnDelete( stockInFormGroup.controls['id'].value)"
+              >
+              </lib-button-micro>
+            } @else if (!stockInFormGroup.controls['id'].value || stockInFormGroup.controls['id'].value == 0) {
+
+
+              <lib-button-micro
+
+                nameClass="table_button_delete"
+                (click)="deleteIndex(i)"
+              >
+              </lib-button-micro>
+            } -->
           </td>
           <!--  -->
         </tr>

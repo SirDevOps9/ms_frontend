@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { AttachmentFileTypeEnum, AttachmentsService } from 'shared-lib';
 
 @Component({
   selector: 'app-popup-excel',
@@ -12,7 +13,9 @@ export class PopupExcelComponent {
   cancel() {
     this.ref.close()
   }
-
+  downloadExcel(){
+    this.attachmentsService.downloadAttachment('AttachmentFile&697934BF-4E8F-4901-8DB8-DA46ECB5F2D1' , 'حقهؤث' , AttachmentFileTypeEnum.pdf )
+  }
   save() {
     this.ref.close(this.listOfExcel)
   }
@@ -29,6 +32,7 @@ export class PopupExcelComponent {
   constructor(
     public config: DynamicDialogConfig,
     private ref: DynamicDialogRef,
+    private attachmentsService:AttachmentsService
   ) {
 
   }

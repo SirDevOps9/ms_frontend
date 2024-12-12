@@ -134,7 +134,8 @@
                       <i class="pi pi-search search-circle" (click)="openDialog(i)"></i>
                     </div>
                   </ng-template>
-                  <ng-template pTemplate="output">
+                   <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                     {{ fg.controls['accountCode'].value }}
                   </ng-template>
                 </p-cellEditor>
@@ -155,7 +156,8 @@
                   <ng-template pTemplate="input">
                     <lib-text-input formControlName="lineDescription"></lib-text-input>
                   </ng-template>
-                  <ng-template pTemplate="output">
+                   <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                     {{ fg.controls['lineDescription'].value }}
                   </ng-template>
                 </p-cellEditor>
@@ -173,7 +175,8 @@
                       (keyUp)="debitChanged(i)"
                     ></lib-text-input>
                   </ng-template>
-                  <ng-template pTemplate="output">
+                   <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                     {{ fg.controls['debitAmount'].value | numberFormat }}
                   </ng-template>
                 </p-cellEditor>
@@ -192,7 +195,8 @@
                       (keyUp)="creditChanged(i)"
                     ></lib-text-input>
                   </ng-template>
-                  <ng-template pTemplate="output">
+                   <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                     {{ fg.controls['creditAmount'].value | numberFormat }}
                   </ng-template>
                 </p-cellEditor>
@@ -231,7 +235,8 @@
                       type="number"
                     ></lib-text-input>
                   </ng-template>
-                  <ng-template pTemplate="output">
+                   <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                     {{ fg.controls['currencyRate'].value }}
                   </ng-template>
 

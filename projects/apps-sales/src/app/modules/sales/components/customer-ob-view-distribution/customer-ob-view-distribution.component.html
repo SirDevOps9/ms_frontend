@@ -48,7 +48,8 @@
                       (keyUp)="getTotalBalanceSum()"
                     ></lib-text-input>
                   </ng-template>
-                  <ng-template pTemplate="output">
+                   <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                     {{ customerGroup.controls['debit'].value }}
                   </ng-template>
                 </p-cellEditor>
@@ -65,7 +66,8 @@
                       formControlName="credit"
                     ></lib-text-input>
                   </ng-template>
-                  <ng-template pTemplate="output">
+                   <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                     {{ customerGroup.controls['credit'].value }}
                   </ng-template>
                 </p-cellEditor>
@@ -78,7 +80,8 @@
                   <ng-template>
                     <lib-calendar [disabled]="true" formControlName="dueDate"></lib-calendar>
                   </ng-template>
-                  <ng-template pTemplate="output">
+                   <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                     {{ customerGroup.controls['dueDate'].value | date: 'dd/MM/yyyy' }}
                   </ng-template>
                 </p-cellEditor>

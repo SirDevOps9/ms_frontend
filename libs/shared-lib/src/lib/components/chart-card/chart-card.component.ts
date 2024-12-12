@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Chart } from 'angular-highcharts';
+import { ChartValueDto } from '../../models/chartValueDto';
 
 @Component({
   selector: 'app-chart-card',
@@ -8,7 +9,9 @@ import { Chart } from 'angular-highcharts';
 })
 export class ChartCardComponent {
   @Input() chartDTO!: Chart;
-  @Input() chartDetailsConfig: any;
+  @Input() chartDetailsConfig: ChartValueDto[];
+  @Input() smallSize: boolean = false;
+  @Input() hideFooter: boolean = true;
 
   ngOnInit() {}
 }

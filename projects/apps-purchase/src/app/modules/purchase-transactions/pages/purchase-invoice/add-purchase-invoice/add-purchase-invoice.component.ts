@@ -33,6 +33,7 @@ import { LatestItem } from '../../../models';
 import { PurchaseInvoiceTrackingComponent } from '../../../components/purchase-invoice-tracking/purchase-invoice-tracking.component';
 import { AddPurchaseInvoiceDto } from '../../../models/addPurchaseInvoice';
 import { ItemAdvancedSearchPurchaseInvoiceComponent } from '../../../components/item-advanced-search-purchase-invoice/item-advanced-search-purchase-invoice.component';
+import { LocalAmountPopupComponent } from '../../../components/local-amount-popup/local-amount-popup.component';
 
 @Component({
   selector: 'app-add-purchase-invoice',
@@ -63,7 +64,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
   uomLookup: any = [];
   currentLang: string;
   showError: boolean = false;
-  showPost: boolean ;
+  showPost: boolean;
   barcodeData: StockInDetail;
   selectedLanguage: string;
   lineError: number = -1;
@@ -86,9 +87,11 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     this.purchaseInvoiceForm.valueChanges.subscribe((res) => {});
 
     this.purchaseInvoiceForm.get('sourceDocumentId')?.valueChanges.subscribe((res) => {
+      
       let data = this.oprationalLookup.find((elem) => elem.id == res);
+      
       this.purchaseInvoiceForm.get('warehouseId')?.setValue(data?.warehouseId);
-      this.purchaseInvoiceForm.get('warehouseName')?.setValue(data?.warehouseName);
+      this.purchaseInvoiceForm.get('warehouseName')?.setValue(data?.name);
     });
 
     this.stockIn.valueChanges.subscribe((res: any[]) => {
@@ -98,10 +101,20 @@ export class AddPurchaseInvoiceComponent implements OnInit {
 
         // Calculate totalAfterDiscount for all items using reduce
         this.purchaseInvoiceForm.get('totalAfterDiscount')?.setValue(
-          res.reduce((acc, item) => {
-            const itemTotal = item.quantity * (item.cost - item.discountAmount);
-            return acc + itemTotal;
-          }, 0)
+          res
+            .reduce((acc, item) => {
+              const itemTotal = item.quantity * (item.cost - item.discountAmount);
+              return acc + itemTotal;
+            }, 0)
+            .toFixed(2)
+        );
+        this.purchaseInvoiceForm.get('total')?.setValue(
+          res
+            .reduce((acc, item) => {
+              const itemTotal = item.quantity * item.cost
+              return acc + itemTotal;
+            }, 0)
+            .toFixed(2)
         );
         this.purchaseInvoiceForm.get('totalQuantity')?.setValue(
           res?.reduce((accumulator, item) => {
@@ -111,46 +124,51 @@ export class AddPurchaseInvoiceComponent implements OnInit {
         );
 
         this.purchaseInvoiceForm.get('vatAmountTotal')?.setValue(
-          res.reduce((accumulator, item) => {
-            const quantity = +item.quantity || 0; // Fallback to 0 if undefined or null
-            const cost = +item.cost || 0;
-            const discountAmount = +item.discountAmount || 0;
-            const vatPercentage = +item.vatPercentage || 0;
+          res
+            .reduce((accumulator, item) => {
+              const quantity = +item.quantity || 0; // Fallback to 0 if undefined or null
+              const cost = +item.cost || 0;
+              const discountAmount = +item.discountAmount || 0;
+              const vatPercentage = +item.vatPercentage || 0;
 
-            // Calculate VAT amount for this item
-            const vatAmount = quantity * (cost - discountAmount) * (vatPercentage / 100);
+              // Calculate VAT amount for this item
+              const vatAmount = quantity * (cost - discountAmount) * (vatPercentage / 100);
 
-            // Accumulate the VAT amounts
-            return accumulator + vatAmount;
-          }, 0)
+              // Accumulate the VAT amounts
+              return accumulator + vatAmount;
+            }, 0)
+            .toFixed(2)
         );
 
         this.purchaseInvoiceForm.get('discount')?.setValue(
-          res?.reduce((accumulator, item) => {
-            let data = +accumulator + +item.discountPercentage;
-            return data;
-          }, 0)
+          res
+            ?.reduce((accumulator, item) => {
+              let data = +accumulator + +item.discountPercentage;
+              return data;
+            }, 0)
+            .toFixed(2)
         );
         this.purchaseInvoiceForm.get('totalAfterVat')?.setValue(
-          res.reduce((accumulator, item) => {
-            const quantity = +item.quantity || 0; // Fallback to 0 if undefined or null
-            const cost = +item.cost || 0;
-            const discountAmount = +item.discountAmount || 0;
-            const vatPercentage = +item.vatPercentage || 0;
+          res
+            .reduce((accumulator, item) => {
+              const quantity = +item.quantity || 0; // Fallback to 0 if undefined or null
+              const cost = +item.cost || 0;
+              const discountAmount = +item.discountAmount || 0;
+              const vatPercentage = +item.vatPercentage || 0;
 
-            // Calculate the total for this item
-            const baseAmount = quantity * (cost - discountAmount); // Base amount without VAT
-            const vatAmount = baseAmount * (vatPercentage / 100); // VAT amount
-            const totalAmount = baseAmount + vatAmount; // Total with VAT
+              // Calculate the total for this item
+              const baseAmount = quantity * (cost - discountAmount); // Base amount without VAT
+              const vatAmount = baseAmount * (vatPercentage / 100); // VAT amount
+              const totalAmount = baseAmount + vatAmount; // Total with VAT
 
-            // Accumulate the total amounts
-            return accumulator + totalAmount;
-          }, 0)
+              // Accumulate the total amounts
+              return accumulator + totalAmount;
+            }, 0)
+            .toFixed(2)
         );
       }
     });
 
-    // this.initWareHouseLookupData();
 
     this.addLineStockIn();
 
@@ -158,7 +176,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       this.barcodeData = res;
     });
 
-    this.purchasetransactionsService.sendPurchaseInvoice.subscribe((res:any) => {
+    this.purchasetransactionsService.sendPurchaseInvoice.subscribe((res: any) => {
       this.itemPostId = res;
     });
 
@@ -171,26 +189,32 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       this.purchaseInvoiceForm.get('paymentTermId')?.setValue(data?.paymentTermId);
       this.purchaseInvoiceForm.get('paymentTermName')?.setValue(data?.paymentTermName);
       this.purchaseInvoiceForm.get('name')?.setValue(data?.name);
-      
+
       this.purchasetransactionsService.getCurrencyRate(
         data.vendorFinancialCurrencyId ?? this.currentUserService.getCurrency(),
         this.currentUserService.getCurrency()
       );
-      this.purchasetransactionsService.sendcurrency.pipe(skip(1), take(1)).subscribe((dataCurrency) => {
-        this.purchaseInvoiceForm.get('currencyRate')?.setValue(dataCurrency.rate);
+      this.purchasetransactionsService.sendcurrency
+        .pipe(skip(1), take(1))
+        .subscribe((dataCurrency) => {
+          this.purchaseInvoiceForm.get('currencyRate')?.setValue(dataCurrency.rate);
 
-        if(!data.vendorFinancialCurrencyId) {
-
-          this.purchaseInvoiceForm.get('currencyId')?.setValue(this.currentUserService.getCurrency());
-          this.purchaseInvoiceForm.get('currencyName')?.setValue('Egyptian Pound');
-          this.purchaseInvoiceForm.get('currency')?.setValue('Egyptian Pound');
-        }
-      
-
-      });
-
+          if (!data.vendorFinancialCurrencyId) {
+            this.purchaseInvoiceForm
+              .get('currencyId')
+              ?.setValue(this.currentUserService.getCurrency());
+            this.purchaseInvoiceForm.get('currencyName')?.setValue(this.currentUserService.getCurrencyName());
+            this.purchaseInvoiceForm.get('currency')?.setValue(this.currentUserService.getCurrencyName());
+          }
+        });
     });
-
+  }
+ 
+  setWarhouseName(id:number){    
+    let data = this.warhouseLookupData.find((elem) => elem.id == id);
+      
+    this.purchaseInvoiceForm.get('warehouseName')?.setValue(data?.name);
+ 
   }
   isValidData() {
     this.lineError = -1;
@@ -259,7 +283,6 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       currencyId: new FormControl(''),
       currencyName: new FormControl(''),
       invoiceDetails: this.fb.array([]),
-
     });
   }
   get purchaseInvoiceFormArray() {
@@ -304,6 +327,12 @@ export class AddPurchaseInvoiceComponent implements OnInit {
           invoiceEntryMode: selectedItem?.invoiceEntryMode || 'Manual',
           trackingType: selectedItem?.trackingType,
           uomOptions: selectedItem.itemsUOM,
+          categoryId:selectedItem.categoryId,
+          itemCategoryNameAr: selectedItem.itemCategoryNameAr,
+          itemCategoryNameEn:selectedItem.itemCategoryNameEn,
+          categoryType: selectedItem.categoryType,
+          uomCode: selectedItem.uomCode,
+         
         });
 
         const invoiceEntryMode = rowForm.get('invoiceTracking') as FormGroup;
@@ -311,6 +340,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
           invoiceEntryMode.patchValue({
             id: selectedItem.invoiceEntryMode?.id || 0,
             vendorBatchNo: selectedItem.invoiceEntryMode?.vendorBatchNo ?? '',
+            hasExpiryDate: selectedItem?.hasExpiryDate,
             expireDate: selectedItem.invoiceEntryMode?.expireDate ?? null,
             systemPatchNo: selectedItem.invoiceEntryMode?.systemPatchNo ?? '',
             serialId: selectedItem.invoiceEntryMode?.serialId ?? '',
@@ -326,6 +356,18 @@ export class AddPurchaseInvoiceComponent implements OnInit {
         );
       this.setUomName(indexLine, rowForm.get('uomOptions')?.value);
     }
+  }
+
+  onLocalAmount() {
+    if(this.purchaseInvoiceForm.controls['currencyRate'].value && this.stockIn.value) {
+      const ref = this.dialog.open(LocalAmountPopupComponent, {
+        width: 'auto',
+        height: '450px',
+        data : {formData :  this.stockIn.value , rate : this.purchaseInvoiceForm.controls['currencyRate'].value}
+      });
+    }
+   
+    
   }
 
   setUomName(indexLine: number, list: any) {
@@ -344,7 +386,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
         this.warhouseLookupData = res;
       },
     });
-  
+
     this.purchasetransactionsService.latestVendor(undefined).subscribe((res: any) => {
       this.vendorItems = res;
     });
@@ -364,8 +406,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     });
   }
 
-
-  openAdvancedSearch() { }
+  openAdvancedSearch() {}
 
   changeUomName(indexLine: number, list: any) {
     const rowForm = this.purchaseInvoiceFormArray.at(indexLine) as FormGroup;
@@ -385,8 +426,6 @@ export class AddPurchaseInvoiceComponent implements OnInit {
   get stockIn() {
     return this.purchaseInvoiceForm.get('invoiceDetails') as FormArray;
   }
-
-
 
   onEdit(data: any) {}
 
@@ -422,6 +461,17 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       discountPercentage: '',
       vatPercentage: '',
       taxId: null,
+      itemName:new FormControl(''),
+      categoryId:new FormControl(''),
+      itemCategoryNameAr: new FormControl(''),
+      itemCategoryNameEn:new FormControl(''),
+      categoryType: new FormControl(''),
+      itemVariantCode: new FormControl(''),
+      itemVariantNameAr:new FormControl(''),
+      itemVariantNameEn: new FormControl(''),
+      uomCode: new FormControl(''),
+      uomNameAr:new FormControl(''),
+      uomNameEn: new FormControl(''),
 
       invoiceTracking: this.fb.group({
         vendorBatchNo: '',
@@ -576,7 +626,13 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       this.formSubmited = true;
     }
     if (!this.formService.validForm(this.stockIn, false)) return;
+    this.purchasetransactionsService.getLatestItemsList();
     this.stockIn.push(this.createStockIn());
+  }
+  onFilterVendorItems(SearchTerm: string) {
+    this.purchasetransactionsService.latestVendor(SearchTerm).subscribe((res: any) => {
+      this.vendorItems = res;
+    });
   }
   onFilter(SearchTerm: string) {
     this.purchasetransactionsService.getLatestItemsList(SearchTerm);
@@ -597,16 +653,13 @@ export class AddPurchaseInvoiceComponent implements OnInit {
             displayName: `(${elem.itemCode}) ${elem.itemName}-${elem.itemVariantNameEn}`,
           }));
         }
-
       }
     });
   }
 
-
   getLatestItemsList(id: number) {
     this.transactionsService.getLatestItemsListByWarehouse('', id);
   }
-
 
   openDialog(indexline: number, stockInFormGroup: FormGroup) {
     const ref = this.dialog.open(ItemAdvancedSearchPurchaseInvoiceComponent, {
@@ -617,15 +670,11 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       if (selectedItems) {
         stockInFormGroup.get('itemId')?.setValue(selectedItems.itemId);
         stockInFormGroup.get('vatPercentage')?.setValue(selectedItems.taxRatio);
-        this.setRowDataFromBarCode(indexline, selectedItems, '');
         this.setRowDataFromPopup(indexline, selectedItems)
 
       }
 
-      console.log(this.purchaseInvoiceFormArray.value)
     });
-
-
   }
 
   setRowDataFromPopup(indexLine: number, selectedItem: any) {
@@ -633,20 +682,57 @@ export class AddPurchaseInvoiceComponent implements OnInit {
 
     if (rowForm) {
       rowForm.patchValue({
-        itemNumber: selectedItem.itemNumber,
-        id: selectedItem.id || 0,
-        barCode: '',
-        bardCodeId: null,
-        itemId: selectedItem.itemId,
-        itemName: selectedItem.itemName,
-        itemVariantId: selectedItem.itemVariantId,
-        uomId: selectedItem.uomId,
-        uomOptions: selectedItem.itemsUOM,
+        id: selectedItem?.id,
+        barCode: selectedItem?.barCode,
+        bardCodeId: selectedItem?.bardCodeId,
         description: selectedItem.itemName + "-" + selectedItem.itemVariantNameEn,
-        cost: (1),
-        vat: selectedItem.taxRatio || 0,
-        trackingType: selectedItem.trackingType,
-        hasExpiryDate: selectedItem.hasExpiryDate,
+        itemId: selectedItem?.itemId,
+        itemCode: selectedItem?.itemCode,
+        itemName: selectedItem?.itemName,
+        itemCodeName: selectedItem?.itemCode,
+        itemVariantId: selectedItem?.itemVariantId,
+        itemVariantCode: selectedItem?.itemVariantCode,
+        itemVariantNameAr: selectedItem?.itemVariantNameAr,
+        itemVariantNameEn: selectedItem?.itemVariantNameEn,
+        vatPercentage: selectedItem?.taxRatio,
+        uomNameAr: selectedItem?.uomNameAr,
+        uomNameEn: selectedItem?.uomNameEn,
+        uomId: selectedItem?.uomId,
+        quantity: selectedItem?.quantity || 1,
+        taxId: selectedItem.taxId,
+        cost: selectedItem?.price,
+        subTotal: selectedItem?.subCost,
+        notes: selectedItem?.notes,
+        hasExpiryDate: selectedItem?.hasExpiryDate,
+        invoiceEntryMode: selectedItem?.invoiceEntryMode || 'Manual',
+        trackingType: selectedItem?.trackingType,
+        uomOptions: selectedItem.itemsUOM,
+        categoryId:selectedItem.categoryId,
+        itemCategoryNameAr: selectedItem.itemCategoryNameAr,
+        itemCategoryNameEn:selectedItem.itemCategoryNameEn,
+        categoryType: selectedItem.categoryType,
+        uomCode: selectedItem.uomCode,
+        // itemNumber: selectedItem.itemNumber,
+        // id: selectedItem.id || 0,
+        // barCode: '',
+        // bardCodeId: null,
+        // itemId: selectedItem.itemId,
+        // itemName: selectedItem.itemName,
+        // itemVariantId: selectedItem.itemVariantId,
+        // uomId: selectedItem.uomId,
+        // uomOptions: selectedItem.itemsUOM,
+        // description: selectedItem.itemName + "-" + selectedItem.itemVariantNameEn,
+        // cost: (1),
+        // vat: selectedItem.taxRatio || 0,
+        // trackingType: selectedItem.trackingType,
+        // hasExpiryDate: selectedItem.hasExpiryDate,
+        // categoryId:selectedItem.categoryId,
+        // itemCategoryNameAr: selectedItem.itemCategoryNameAr,
+        // itemCategoryNameEn:selectedItem.itemCategoryNameEn,
+        // categoryType: selectedItem.categoryType,
+        // uomCode: selectedItem.uomCode,
+        // itemCode: selectedItem?.itemCode,
+
 
       });
 
@@ -665,14 +751,16 @@ export class AddPurchaseInvoiceComponent implements OnInit {
         });
       }
     }
-    rowForm.get('itemName')?.setValue(selectedItem.itemCode + "-" + selectedItem.itemName + "-" + selectedItem.itemVariantNameEn)
-    this.setUomName(indexLine, rowForm.get('uomOptions')?.value)
+    rowForm
+      .get('itemName')
+      ?.setValue(
+        selectedItem.itemCode + '-' + selectedItem.itemName + '-' + selectedItem.itemVariantNameEn
+      );
+    this.setUomName(indexLine, rowForm.get('uomOptions')?.value);
   }
-
 
   setRowDataFromBarCode(indexLine: number, selectedItem: any, barcode: string) {
     const rowForm = this.purchaseInvoiceFormArray.at(indexLine) as FormGroup;
-
     if (!selectedItem) {
       return;
     }
@@ -704,13 +792,18 @@ export class AddPurchaseInvoiceComponent implements OnInit {
           uomNameEn: selectedItem?.uomNameEn,
           uomId: selectedItem?.uomId,
           quantity: selectedItem?.quantity || 1,
-          cost: selectedItem?.price,
-          subTotal: selectedItem?.subCost,
+          cost: selectedItem?.price ?? 0,
+          subTotal: selectedItem?.subCost ?? 0,
           notes: selectedItem?.notes,
           hasExpiryDate: selectedItem?.hasExpiryDate,
           stockInEntryMode: selectedItem?.stockInEntryMode || 'Manual',
           trackingType: selectedItem?.trackingType,
           uomOptions: selectedItem?.itemsUOM,
+          categoryId:selectedItem.categoryId,
+          itemCategoryNameAr: selectedItem.itemCategoryNameAr,
+          itemCategoryNameEn:selectedItem.itemCategoryNameEn,
+          categoryType: selectedItem.categoryType,
+          uomCode: selectedItem.uomCode,
         });
 
         const invoiceEntryMode = rowForm.get('invoiceEntryMode') as FormGroup;
@@ -723,6 +816,8 @@ export class AddPurchaseInvoiceComponent implements OnInit {
             serialId: selectedItem.invoiceEntryMode?.serialId,
             trackingType: selectedItem.trackingType,
             selectedValue: selectedItem.invoiceEntryMode?.quantity,
+            hasExpiryDate: selectedItem?.hasExpiryDate,
+
           });
         }
       }
@@ -735,7 +830,6 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     }
   }
   setTracking(setTracking: FormGroup) {
-
     const dialogRef = this.dialog.open(PurchaseInvoiceTrackingComponent, {
       width: '60%',
       height: '450px',
@@ -769,10 +863,10 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       invoiceDate: this.purchaseInvoiceForm.value.invoiceDate || null,
       description: this.purchaseInvoiceForm.value.description || null,
       warehouseId: this.purchaseInvoiceForm.value.warehouseId || 0,
-      warehouseName: this.purchaseInvoiceForm.value.warehouseName || '',
+      warehouseName: this.purchaseInvoiceForm.value.warehouseName ,
       vendorId: this.purchaseInvoiceForm.value.vendorId || null,
-      currencyId : this.purchaseInvoiceForm.value.currencyId || null,
-      currencyName : this.purchaseInvoiceForm.value.currencyName ,
+      currencyId: this.purchaseInvoiceForm.value.currencyId || null,
+      currencyName: this.purchaseInvoiceForm.value.currencyName,
       vendorName: this.purchaseInvoiceForm.value.vendorName || '',
       currencyRate: +this.purchaseInvoiceForm.value.currencyRate || 0, // Ensure it's a number
       paymentTermId: this.purchaseInvoiceForm.value.paymentTermId ?? null,
@@ -781,6 +875,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
         barCode: detail.barCode || null,
         barCodeId: detail.barCodeId || null,
         itemId: detail.itemId || 0,
+        itemName: detail.itemName || 0,
         itemCode: detail.itemCode || '',
         itemVariantId: detail.itemVariantId || 0,
         description: detail.description || null,
@@ -796,10 +891,20 @@ export class AddPurchaseInvoiceComponent implements OnInit {
         invoiceEntryMode: detail.invoiceEntryMode,
         trackingType: detail.trackingType,
         hasExpiryDate: detail.hasExpiryDate || false,
+        categoryId:detail.categoryId,
+        itemCategoryNameAr: detail.itemCategoryNameAr,
+        itemCategoryNameEn:detail.itemCategoryNameEn,
+        categoryType: detail.categoryType,
+        itemVariantCode: detail.itemVariantCode,
+        itemVariantNameAr:detail.itemVariantNameAr,
+        itemVariantNameEn: detail.itemVariantNameEn,
+        uomCode: detail.uomCode,
+        uomNameAr:detail.uomNameAr,
+        uomNameEn: detail.uomNameEn,
         invoiceTracking: {
           vendorBatchNo: detail.invoiceTracking.vendorBatchNo || null,
           quantity: detail.invoiceTracking.quantity || 0,
-          hasExpiryDate: detail.invoiceTracking.hasExpiryDate || false,
+          hasExpiryDate: detail.hasExpiryDate,
           expireDate: detail.invoiceTracking.expireDate || null,
           systemPatchNo: detail.invoiceTracking.systemPatchNo || null,
           serialId: detail.invoiceTracking.serialId || null,
@@ -828,8 +933,24 @@ export class AddPurchaseInvoiceComponent implements OnInit {
   }
   addToPost() {
     this.purchasetransactionsService.postInvoice(this.savedDataId);
-
   }
+
+  barcodeCanged(e: any, selectedItem: any, index: number) {
+    this.purchasetransactionsService.GetItemByBarcodePurchase(e.target.value).subscribe({
+      next: (res: any) => {
+        this.setRowDataFromBarCode(index, res, e.target.value);
+      },
+      error: (err: any) => {
+        const rowForm = this.purchaseInvoiceFormArray.at(index) as FormGroup;
+        rowForm.reset();
+        this.toasterService.showError(
+          this.languageService.transalte('messages.Error'),
+          this.languageService.transalte('messages.noBarcode')
+        );
+      },
+    });
+  }
+
   constructor(
     public authService: AuthService,
     private dialog: DialogService,

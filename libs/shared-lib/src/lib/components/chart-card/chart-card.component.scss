@@ -1,6 +1,8 @@
 ::ng-deep {
-  .highcharts-legend.highcharts-no-tooltip {
-    display: none;
+  .hide-footer {
+    .highcharts-legend.highcharts-no-tooltip {
+      display: none;
+    }
   }
 }
 
@@ -11,6 +13,7 @@
   background-color: #fff;
   padding: 10px;
   height: 100%;
+  border-radius: 8px;
 
   .chart-card-body {
     padding-top: 10px;
@@ -32,7 +35,6 @@
       }
 
       .detail-name {
-        font-weight: bold;
         margin-right: 10px;
       }
 

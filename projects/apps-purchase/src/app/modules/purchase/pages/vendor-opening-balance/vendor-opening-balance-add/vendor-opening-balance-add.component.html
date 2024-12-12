@@ -113,7 +113,8 @@
                     </lib-select>
                   </lib-form-group>
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   {{ vendorGroup.controls['vendorCode'].value }}
                 </ng-template>
               </p-cellEditor>
@@ -135,7 +136,8 @@
                     (keyUp)="calculateTotalBalance()"
                   ></lib-text-input>
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   {{ vendorGroup.controls['balance'].value }}
                 </ng-template>
               </p-cellEditor>
@@ -163,7 +165,8 @@
                   </lib-form-group>
                   <!-- <i class="pi pi-search search-circle" (click)="openDialog(i)"></i> -->
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   {{ vendorGroup.controls['balanceType'].value }}
                 </ng-template>
               </p-cellEditor>

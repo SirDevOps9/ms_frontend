@@ -1,20 +1,18 @@
 {
   "BreadCrumb": {
     "PaymentOut": "إيصال نقدي",
-    "PaymentOutList":"إيصالات الدفع" ,
+    "PaymentOutList": "إيصالات الدفع",
     "AddPaymentOut": "إضافة إيصال نقدي",
     "EditPaymentOut": "تعديل إيصال نقدي",
     "BankAccountStatement": "كشف الحساب البنكي",
     "TreasuryStatement": "بيان الخزانة",
     "ViewPaymentIn": "عرض قبض",
     "ViewPaymentout": "عرض صرف",
-    "ViewBankDefination":"عرض تعريف البنك",
+    "ViewBankDefination": "عرض تعريف البنك",
     "ViewPaymentTerm": "عرض شروط الدفع",
     "EditPaymentIn": "تعديل إيصال نقدي"
-
-
   },
-  "confirmation":"تأكيد ",
+  "confirmation": "تأكيد ",
   "Success": "نجاح",
   "Error": "خطأ",
   "Confirm": "تأكيد",
@@ -23,7 +21,7 @@
   "ErrorInDelete": "خطأ فى الحذف",
   "DateFromLessThanToValidation": "التاريخ من يجب أن يكون قبل التاريخ إلى.",
   "PaymentIn": {
-    "viewPaymentIn":"عرض إيصال الدفع",
+    "viewPaymentIn": "عرض إيصال الدفع",
     "viewPaymentOut": "عرض الدفعة الصادرة",
     "Form": {
       "Save": "حفظ",
@@ -161,7 +159,7 @@
     "addpaymentout": "إضافة إيصال نقدي",
     "editpaymentout": "تعديل إيصال نقدي"
   },
-    "TreasuryStatement": {
+  "TreasuryStatement": {
     "date": "التاريخ",
     "paymentCode": "رمز الدفع",
     "paymentName": "اسم الدفع",
@@ -179,7 +177,6 @@
     "DateFrom": "التاريخ من",
     "DateTo": "التاريخ إلى",
     "openingBalance": "الرصيد الافتتاحي"
-
   },
   "BankAccountStatement": {
     "BankAccountStatement": "كشف حساب البنك",
@@ -215,5 +212,14 @@
     "acountopeningBalance": "رصيد افتتاح الحساب",
     "treasuryOpeningBalance": "رصيد افتتاح الخزينة",
     "treasuryCurrentBalance": "الرصيد الحالي للخزينة"
+  },
+  "filter": {
+    "selectDateRange": "اختر نطاق التاريخ",
+    "status": "الحالة",
+    "paymentHub": "مركز الدفع",
+    "currency": "العملة",
+    "bankAccounts": "حسابات البنك",
+    "paymentHubDetails": "تفاصيل مركز الدفع",
+    "view": "عرض"
   }
 }

@@ -32,7 +32,8 @@
           <ng-template pTemplate="input">
             <lib-text-input type="text" (keyUp)="updateFileName(rowIndex , $event ,url.fileExtension)" ngModel=" {{url.fileName}}" ></lib-text-input>
           </ng-template>
-          <ng-template pTemplate="output">
+           <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
             
             <!-- {{ filesName[rowIndex] || url.name }} -->
             {{url.fileName}}
