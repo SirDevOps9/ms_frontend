@@ -184,6 +184,10 @@ export class LayoutHeaderComponent implements OnInit, AfterViewInit {
 
       this.localstoarage.setItem(StorageKeys.CURRENCEY_OBJ, currencies);
 
+      this.localstoarage.setItem(StorageKeys.DEFAULT_COMPANY, dCompany);
+
+      this.localstoarage.setItem(StorageKeys.DEFAULT_BRANCHE, dCompany?.branches.find(x=>x.isDefault));
+
       if (res) {
         this.companyList = res.companies;
       }
