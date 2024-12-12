@@ -68,9 +68,7 @@ export class AddSalesReturnInvoiceComponent implements OnInit {
   salesInvoiceList: SalesInvoiceLookup[] = [];
   rowDuplicate: number = -1;
   duplicateLine: boolean;
-  change(val: any) {
-    console.log(val);
-  }
+ 
   ngOnInit(): void {
     this.initializeForm();
     this.initLookups();

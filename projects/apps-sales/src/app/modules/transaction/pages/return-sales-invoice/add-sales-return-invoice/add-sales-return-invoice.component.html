@@ -161,24 +161,7 @@
     </div>
 
     <div class="my-2 card_micro tableCont p-6">
-      <!-- <div class="flex justify-content-between align-items-center gap-4 my-4">
-<lib-text-input type="text" [placeholder]="'salesReturnInvoice.search' | translate"></lib-text-input>
-  
-<div class="flex justify-content-end gap-4 my-4">
-  <lib-button-micro
-[title]="'salesReturnInvoice.upload' | translate"
-nameClass="outline"
-iconName="pi pi-file-edit"
-  >
-  </lib-button-micro>
-  <lib-button-micro
-[title]="'salesReturnInvoice.scan' | translate"
-nameClass="outline"
-iconName="pi pi-expand"
-  >
-  </lib-button-micro>
-</div>
-  </div> -->
+
       <p-table [value]="salesReturnFormArray['controls']" dataKey="id"
         styleClass="p-datatable-gridlines p-datatable-striped" [tableStyle]="{ 'min-width': '50rem' }"
         styleClass="p-datatable-striped p-datatable-gridlines">
@@ -315,28 +298,7 @@ iconName="pi pi-expand"
             <td>
               {{ salesReturnFormGroup.controls['expiryDate']?.value | date : 'dd/MM/yyyy' }}
             </td>
-            <!-- <td
-              [pEditableColumn]="salesReturnFormGroup.controls['expiryDate']"
-              pEditableColumnField="expiryDate"
-            >
-              <p-cellEditor>
-                <ng-template pTemplate="input">
-                  <lib-text-input
-                    [readOnly]="dataToReadOnly"
-                    type="date"
-                    placeholder="{{ 'salesReturnInvoice.QTY' | translate }}"
-                    formControlName="expiryDate"
-                  ></lib-text-input>
-                </ng-template>
-                <ng-template pTemplate="output">
-                  {{ salesReturnFormGroup.controls['expiryDate']?.value }}
-                </ng-template>
-              </p-cellEditor>
-              <lib-field-validations
-                [appControl]="salesReturnFormGroup.controls['expiryDate']"
-              ></lib-field-validations>
-            </td> -->
-            <!-- Action -->
+         
             <td>
               <div class="flex gap-3">
                 <img src="assets/images/table/delete.svg" class="pointer" alt="" (click)="OnDelete(i)" />
