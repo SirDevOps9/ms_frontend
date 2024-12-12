@@ -2,13 +2,31 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms';
 import { AuthService } from 'microtec-auth-lib';
 import { DialogService } from 'primeng/dynamicdialog';
-import { OperationalStockIn, GetWarehouseList, StockInDetail } from 'projects/apps-inventory/src/app/modules/items/models';
+import {
+  OperationalStockIn,
+  GetWarehouseList,
+  StockInDetail,
+} from 'projects/apps-inventory/src/app/modules/items/models';
 import { SharedFinanceEnums } from 'projects/apps-inventory/src/app/modules/items/models/sharedEnumStockIn';
 import { SharedStock } from 'projects/apps-inventory/src/app/modules/transactions/models/sharedStockOutEnums';
 import { TransactionsService } from 'projects/apps-inventory/src/app/modules/transactions/transactions.service';
 import { AddPurchaseInvoiceDto } from 'projects/apps-purchase/src/app/modules/purchase-transactions/models/addPurchaseInvoice';
 import { skip, take } from 'rxjs';
-import { LookupEnum, lookupDto, PageInfoResult, MenuModule, customValidators, PageInfo, RouterService, LanguageService, LookupsService, FormsService, ToasterService, LoaderService, CurrentUserService } from 'shared-lib';
+import {
+  LookupEnum,
+  lookupDto,
+  PageInfoResult,
+  MenuModule,
+  customValidators,
+  PageInfo,
+  RouterService,
+  LanguageService,
+  LookupsService,
+  FormsService,
+  ToasterService,
+  LoaderService,
+  CurrentUserService,
+} from 'shared-lib';
 import { ItemAdvancedSearchSalesInvoiceComponentComponent } from '../../../components/item-advanced-search-sales-invoice-component/item-advanced-search-sales-invoice-component.component';
 import { SalesInvoiceTrackingComponentComponent } from '../../../components/sales-invoice-tracking-component/sales-invoice-tracking-component.component';
 import { AddSalesInvoice, LatestItem } from '../../../models';
@@ -17,7 +35,7 @@ import { TransactionService } from '../../../transaction.service';
 @Component({
   selector: 'app-add-sales-invoice',
   templateUrl: './add-sales-invoice.component.html',
-  styleUrl: './add-sales-invoice.component.scss'
+  styleUrl: './add-sales-invoice.component.scss',
 })
 export class AddSalesInvoiceComponent implements OnInit {
   salesReturnForm: FormGroup = new FormGroup({});
@@ -129,8 +147,6 @@ export class AddSalesInvoiceComponent implements OnInit {
       }
     });
 
-
-
     this.transactionsService.sendItemBarcode$.pipe(skip(1)).subscribe((res) => {
       this.barcodeData = res;
     });
@@ -142,11 +158,11 @@ export class AddSalesInvoiceComponent implements OnInit {
     this.salesReturnForm.get('customerId')?.valueChanges.subscribe((res) => {
       let data = this.vendorItems.find((elem) => elem.id == res);
 
-      this.customerData = data
+      this.customerData = data;
       this.salesReturnForm.get('customerName')?.setValue(data?.name);
       this.salesReturnForm.get('currency')?.setValue(data?.vendorFinancialCurrencyName);
       this.salesReturnForm.get('currencyName')?.setValue(data?.vendorFinancialCurrencyName);
-      this.salesReturnForm.get('currencyId')?.setValue(data?.vendorFinancialCurrencyId); 
+      this.salesReturnForm.get('currencyId')?.setValue(data?.vendorFinancialCurrencyId);
       this.salesReturnForm.get('paymentTermId')?.setValue(data?.paymentTermId);
       this.salesReturnForm.get('paymentTermName')?.setValue(data?.paymentTermName);
       this.salesReturnForm.get('name')?.setValue(data?.name);
@@ -156,22 +172,20 @@ export class AddSalesInvoiceComponent implements OnInit {
         data.vendorFinancialCurrencyId ?? this.currentUserService.getCurrency(),
         this.currentUserService.getCurrency()
       );
-      this.salesTransactionService.sendcurrency
-        .pipe(skip(1), take(1))
-        .subscribe((dataCurrency) => {
-          this.salesReturnForm.get('currencyRate')?.setValue(dataCurrency.rate);
+      this.salesTransactionService.sendcurrency.pipe(skip(1), take(1)).subscribe((dataCurrency) => {
+        this.salesReturnForm.get('currencyRate')?.setValue(dataCurrency.rate);
 
-          if (!data.vendorFinancialCurrencyId) {
-            this.salesReturnForm.get('currencyId')?.setValue(this.currentUserService.getCurrency());
-            this.salesReturnForm.get('currencyName')?.setValue('Egyptian Pound');
-            this.salesReturnForm.get('currency')?.setValue('Egyptian Pound');
-          }
-        });
+        if (!data.vendorFinancialCurrencyId) {
+          this.salesReturnForm.get('currencyId')?.setValue(this.currentUserService.getCurrency());
+          this.salesReturnForm.get('currencyName')?.setValue('Egyptian Pound');
+          this.salesReturnForm.get('currency')?.setValue('Egyptian Pound');
+        }
+      });
     });
 
-    this.salesReturnForm.get('warehouseId')?.valueChanges.subscribe(res=>{
-      this.getLatestItemByWarehouseId(res)
-    })
+    this.salesReturnForm.get('warehouseId')?.valueChanges.subscribe((res) => {
+      this.getLatestItemByWarehouseId(res);
+    });
   }
   // isValidData() {
   //   this.lineError = -1;
@@ -218,7 +232,7 @@ export class AddSalesInvoiceComponent implements OnInit {
       code: new FormControl(''),
       warehouseId: new FormControl('', [customValidators.required]),
       warehouseName: new FormControl(''),
-      customerId: new FormControl('' , [customValidators.required]),
+      customerId: new FormControl('', [customValidators.required]),
       salesmanId: new FormControl(''),
       relatedJournal: new FormControl(''),
       description: new FormControl(''),
@@ -237,7 +251,7 @@ export class AddSalesInvoiceComponent implements OnInit {
       currencyRate: new FormControl('', [customValidators.required]),
       reference: new FormControl(''),
       currencyName: new FormControl(''),
-      paymentTermName : new FormControl(''),
+      paymentTermName: new FormControl(''),
       numberOfItems: 0,
       total: 0,
       discount: 0,
@@ -252,34 +266,34 @@ export class AddSalesInvoiceComponent implements OnInit {
   initFromArray() {
     return this.fb.group({
       uomOptions: [],
-      trackingOptions : [],
+      trackingOptions: [],
       barCode: '',
       bardCodeId: null,
       description: '',
       itemId: [null, customValidators.required],
       itemCodeName: '',
       itemVariantId: '',
-      barCodeId : null,
+      barCodeId: null,
       discount: 0,
       discountAmount: '',
       uomName: '',
-      itemName : '',
+      itemName: '',
       itemVariantCode: '',
-      itemVariantNameAr: "",
-      itemVariantNameEn: "",
+      itemVariantNameAr: '',
+      itemVariantNameEn: '',
       itemStockBatchHeaderId: 0,
       pricePolicyDetailId: 0,
       categoryType: '',
-      categoryId : '',
-      itemCategoryNameAr:'',
-      itemCategoryNameEn:'',
-      trackingTypeNo :  new FormControl(''),
+      categoryId: '',
+      itemCategoryNameAr: '',
+      itemCategoryNameEn: '',
+      trackingTypeNo: new FormControl(''),
 
       itemCode: '',
       uomId: ['', customValidators.required],
       taxRatio: '',
       uomCode: null,
-      uomNameAr:'',
+      uomNameAr: '',
       uomNameEn: '',
       quantity: [
         null,
@@ -305,8 +319,7 @@ export class AddSalesInvoiceComponent implements OnInit {
         quantity: 0,
         hasExpiryDate: '',
         serialId: '',
-        trackingType: ''
-      
+        trackingType: '',
       }),
     });
   }
@@ -316,46 +329,39 @@ export class AddSalesInvoiceComponent implements OnInit {
   }
   // form section##########
 
+  onTrackingChanged(e: any, formTracking: FormGroup, i: number) {
+    let salesInvoiceTracking = formTracking.get('salesInvoiceTracking');
+    let trackingOptions = formTracking.controls['trackingOptions'].value;
 
+    let trackingOptionsData = trackingOptions.find((elem: any) => elem.id == e);
+    formTracking.get('trackingType')?.setValue(trackingOptionsData?.trackingNo);
 
-  onTrackingChanged(e : any , formTracking  : FormGroup , i : number) {
+    salesInvoiceTracking?.patchValue({
+      batchNo:
+        trackingOptionsData.trackingType == this.sharedFinanceEnums.trackingType.Batch
+          ? trackingOptionsData?.trackingNo
+          : null,
+      quantity: trackingOptionsData?.totalQuantity,
+      hasExpiryDate: true,
+      expireDate: trackingOptionsData?.expiryDate ?? null,
+      serialId:
+        trackingOptionsData.trackingType == this.sharedFinanceEnums.trackingType.Serial
+          ? trackingOptionsData?.trackingNo
+          : null,
+      trackingType: trackingOptionsData.trackingType,
+    });
 
+    formTracking.get('quantity')?.setValue(trackingOptionsData?.totalQuantity);
+    formTracking.get('trackingTypeNo')?.setValue(trackingOptionsData?.trackingNo);
 
-
-
-  let salesInvoiceTracking =  formTracking.get('salesInvoiceTracking') 
-    let trackingOptions =  formTracking.controls['trackingOptions'].value;
-
-    
-   let trackingOptionsData = trackingOptions.find((elem : any)=>elem.id == e)
-   console.log(trackingOptionsData)
-   formTracking.get('trackingType')?.setValue(trackingOptionsData?.trackingNo)
-
-      salesInvoiceTracking?.patchValue({
-        batchNo: trackingOptionsData.trackingType ==
-        this.sharedFinanceEnums.trackingType.Batch ? trackingOptionsData?.trackingNo : null,
-        quantity: trackingOptionsData?.totalQuantity,
-        hasExpiryDate: true,
-        expireDate: trackingOptionsData?.expiryDate ??  null,
-        serialId: trackingOptionsData.trackingType ==
-        this.sharedFinanceEnums.trackingType.Serial ? trackingOptionsData?.trackingNo : null,
-        trackingType: trackingOptionsData.trackingType
-  })
-
-
-formTracking.get('quantity')?.setValue(trackingOptionsData?.totalQuantity)
-formTracking.get('trackingTypeNo')?.setValue(trackingOptionsData?.trackingNo )
-
-if(trackingOptionsData?.expiryDate) {
-  formTracking.get('expiryDate')?.setValue(trackingOptionsData?.expiryDate)
-
-}
-
+    if (trackingOptionsData?.expiryDate) {
+      formTracking.get('expiryDate')?.setValue(trackingOptionsData?.expiryDate);
+    }
   }
 
   setRowdataByItemCode(indexLine: number, selectedItemId: any, list: any) {
     const selectedItem = list.find((item: any) => item.itemNumber === selectedItemId);
-    this.itemSelectedData  = selectedItem
+    this.itemSelectedData = selectedItem;
     const rowForm = this.salesReturnFormArray.at(indexLine) as FormGroup;
 
     if (!selectedItem) {
@@ -375,8 +381,8 @@ if(trackingOptionsData?.expiryDate) {
           itemId: selectedItem?.itemId,
           itemStockBatchHeaderId: selectedItem?.batchHeaderId,
           barCodeId: selectedItem?.barCodeId,
-          categoryId : selectedItem.categoryId,
-          categoryType : selectedItem.categoryType,
+          categoryId: selectedItem.categoryId,
+          categoryType: selectedItem.categoryType,
           itemCode: selectedItem?.itemCode,
           itemName: selectedItem?.itemName,
           itemCodeName: selectedItem?.itemCode,
@@ -388,7 +394,7 @@ if(trackingOptionsData?.expiryDate) {
           uomNameAr: selectedItem?.uomNameAr,
           uomNameEn: selectedItem?.uomNameEn,
           uomId: selectedItem?.uomId,
-          quantity: selectedItem?.quantity ,
+          quantity: selectedItem?.quantity,
           taxId: selectedItem.taxId,
           cost: selectedItem?.price,
           subTotal: selectedItem?.subCost,
@@ -397,28 +403,14 @@ if(trackingOptionsData?.expiryDate) {
           invoiceEntryMode: selectedItem?.invoiceEntryMode || 'Manual',
           trackingType: selectedItem?.trackingType,
           uomOptions: selectedItem.itemsUOM,
-          trackingOptions: selectedItem.trackingList.map((elem :any , i : number)=>{
-            elem.id = i
-            return elem
+          trackingOptions: selectedItem.trackingList.map((elem: any, i: number) => {
+            elem.id = i;
+            return elem;
           }),
         });
-        if(selectedItem?.trackingType == this.sharedFinanceEnums.trackingType.Serial) {
-          rowForm.get('quantity')?.setValue(1)
+        if (selectedItem?.trackingType == this.sharedFinanceEnums.trackingType.Serial) {
+          rowForm.get('quantity')?.setValue(1);
         }
-
-        // const invoiceEntryMode = rowForm.get('salesInvoiceTracking') as FormGroup;
-        // console.log("hhszdfsdf" , selectedItem)
-        // if (invoiceEntryMode) {
-        //   invoiceEntryMode.patchValue({
-        //     id: selectedItem.invoiceEntryMode?.id || 0,
-        //     vendorBatchNo: selectedItem.invoiceEntryMode?.vendorBatchNo ?? '',
-        //     expireDate: selectedItem.invoiceEntryMode?.expireDate ?? null,
-        //     systemPatchNo: selectedItem.invoiceEntryMode?.systemPatchNo ?? '',
-        //     serialId: selectedItem.invoiceEntryMode?.serialId ?? '',
-        //     trackingType: selectedItem.trackingType ?? '',
-        //     selectedValue: selectedItem.invoiceEntryMode?.quantity ?? 0,
-        //   });
-        // }
       }
       rowForm
         .get('itemName')
@@ -428,18 +420,28 @@ if(trackingOptionsData?.expiryDate) {
       this.setUomName(indexLine, rowForm.get('uomOptions')?.value);
     }
 
-     this.getItemPricePolicy(this.salesReturnForm.get('pricePolicyId')?.value ,  selectedItem?.itemId , selectedItem?.uomId , selectedItem?.itemVariantId , rowForm )
-
-  
+    this.getItemPricePolicy(
+      this.salesReturnForm.get('pricePolicyId')?.value,
+      selectedItem?.itemId,
+      selectedItem?.uomId,
+      selectedItem?.itemVariantId,
+      rowForm
+    );
   }
 
-  getItemPricePolicy(pricePolicyId:number , itemId:number , uomId:string , itemVariantId : number , rowForm : FormGroup ) {
-    this.salesTransactionService.getItemPricePolicy(pricePolicyId ,  itemId , uomId , itemVariantId)
+  getItemPricePolicy(
+    pricePolicyId: number,
+    itemId: number,
+    uomId: string,
+    itemVariantId: number,
+    rowForm: FormGroup
+  ) {
+    this.salesTransactionService.getItemPricePolicy(pricePolicyId, itemId, uomId, itemVariantId);
 
-    this.salesTransactionService.sendPricePolicy.pipe(skip(1) , take(1)).subscribe(priceData=>{
-      rowForm.get('pricePolicyDetailId')?.setValue(priceData?.pricePolicyDetailId)
-      rowForm.get('cost')?.setValue( priceData?.price)
-    })
+    this.salesTransactionService.sendPricePolicy.pipe(skip(1), take(1)).subscribe((priceData) => {
+      rowForm.get('pricePolicyDetailId')?.setValue(priceData?.pricePolicyDetailId);
+      rowForm.get('cost')?.setValue(priceData?.price);
+    });
   }
   setUomName(indexLine: number, list: any) {
     const rowForm = this.salesReturnFormArray.at(indexLine) as FormGroup;
@@ -461,16 +463,14 @@ if(trackingOptionsData?.expiryDate) {
     this.salesTransactionService.latestVendor(undefined).subscribe((res: any) => {
       this.vendorItems = res;
     });
-    
-    this.salesTransactionService.getPricePolicyLookup()
-    this.salesTransactionService.sendPricePolicyLookup.subscribe(data=>{
-      this.pricePolicyLookup = data
-    })
-    
- 
+
+    this.salesTransactionService.getPricePolicyLookup();
+    this.salesTransactionService.sendPricePolicyLookup.subscribe((data) => {
+      this.pricePolicyLookup = data;
+    });
   }
 
-  getLatestItemByWarehouseId(id: number){
+  getLatestItemByWarehouseId(id: number) {
     this.salesTransactionService.getLatestItemsList(id);
     this.salesTransactionService.lastestItem.subscribe((res) => {
       this.latestItemsList = res;
@@ -488,9 +488,8 @@ if(trackingOptionsData?.expiryDate) {
 
   openAdvancedSearch() {}
 
-  changeUomName(indexLine : number , list: any  , uomId:number, FormGroup : FormGroup) {
+  changeUomName(indexLine: number, list: any, uomId: number, FormGroup: FormGroup) {
     const rowForm = this.salesReturnFormArray.at(indexLine) as FormGroup;
-    console.log(list)
     const selectedItem = list?.find((item: any) => item.uomId === FormGroup.get('uomId')?.value);
     if (this.selectedLanguage === 'ar') {
       rowForm.get('uomName')?.setValue(selectedItem.uomNameAr);
@@ -499,7 +498,13 @@ if(trackingOptionsData?.expiryDate) {
     }
     rowForm.get('barCode')?.setValue('');
 
-    this.getItemPricePolicy(this.salesReturnForm.get('pricePolicyId')?.value ,  this.itemSelectedData?.itemId , selectedItem?.uomId , this.itemSelectedData?.itemVariantId , FormGroup )
+    this.getItemPricePolicy(
+      this.salesReturnForm.get('pricePolicyId')?.value,
+      this.itemSelectedData?.itemId,
+      selectedItem?.uomId,
+      this.itemSelectedData?.itemVariantId,
+      FormGroup
+    );
   }
   hasError(formGroup: FormGroup, controlName: string, error: string) {
     const control = formGroup.get(controlName);
@@ -654,7 +659,7 @@ if(trackingOptionsData?.expiryDate) {
   }
 
   addLine() {
-    if (!this.formService.validForm(this.salesReturnForm, false)) return
+    if (!this.formService.validForm(this.salesReturnForm, false)) return;
     if (!this.formService.validForm(this.salesReturnFormArray, false)) return;
 
     if (this.salesReturnFormArray.valid) {
@@ -666,8 +671,16 @@ if(trackingOptionsData?.expiryDate) {
   }
 
   onFilter(SearchTerm: string) {
-    this.salesTransactionService.getLatestItemsList(this.salesReturnForm.get('warehouseId')?.value , SearchTerm);
-    this.salesTransactionService.getItemsForAdvancedSearch(this.salesReturnForm.get('warehouseId')?.value  , '', SearchTerm, new PageInfo());
+    this.salesTransactionService.getLatestItemsList(
+      this.salesReturnForm.get('warehouseId')?.value,
+      SearchTerm
+    );
+    this.salesTransactionService.getItemsForAdvancedSearch(
+      this.salesReturnForm.get('warehouseId')?.value,
+      '',
+      SearchTerm,
+      new PageInfo()
+    );
     this.salesTransactionService.lastestItem.subscribe((res: any) => {
       if (res.length > 0) {
         if (this.selectedLanguage === 'ar') {
@@ -696,7 +709,7 @@ if(trackingOptionsData?.expiryDate) {
     const ref = this.dialog.open(ItemAdvancedSearchSalesInvoiceComponentComponent, {
       width: '1200px',
       height: '600px',
-      data : {warehouseId : this.salesReturnForm.get('warehouseId')?.value}
+      data: { warehouseId: this.salesReturnForm.get('warehouseId')?.value },
     });
     ref.onClose.subscribe((selectedItems: any) => {
       if (selectedItems) {
@@ -705,8 +718,6 @@ if(trackingOptionsData?.expiryDate) {
         this.setRowDataFromBarCode(indexline, selectedItems, '');
         this.setRowDataFromPopup(indexline, selectedItems);
       }
-
-      console.log(this.salesReturnFormArray.value);
     });
   }
 
@@ -722,16 +733,16 @@ if(trackingOptionsData?.expiryDate) {
         itemId: selectedItem.itemId,
         itemStockBatchHeaderId: selectedItem?.batchHeaderId,
         barCodeId: selectedItem?.barCodeId,
-        categoryId : selectedItem.categoryId,
-        categoryType : selectedItem.categoryType,
+        categoryId: selectedItem.categoryId,
+        categoryType: selectedItem.categoryType,
 
         itemName: selectedItem.itemName,
         itemVariantId: selectedItem.itemVariantId,
         uomId: selectedItem.uomId,
         uomOptions: selectedItem.itemsUOM,
-        trackingOptions: selectedItem.trackingList.map((elem :any , i : number)=>{
-          elem.id = i
-          return elem
+        trackingOptions: selectedItem.trackingList.map((elem: any, i: number) => {
+          elem.id = i;
+          return elem;
         }),
         description: selectedItem.itemName + '-' + selectedItem.itemVariantNameEn,
         cost: 1,
@@ -753,7 +764,6 @@ if(trackingOptionsData?.expiryDate) {
       //     serialId: selectedItem.invoiceTrackingGroup?.serialId || null,
       //     trackingType: selectedItem.trackingType,
 
-          
       //   });
       // }
     }
@@ -767,7 +777,6 @@ if(trackingOptionsData?.expiryDate) {
 
   setRowDataFromBarCode(indexLine: number, selectedItem: any, barcode: string) {
     const rowForm = this.salesReturnFormArray.at(indexLine) as FormGroup;
-    console.log(rowForm)
     if (!selectedItem) {
       return;
     }
@@ -790,8 +799,8 @@ if(trackingOptionsData?.expiryDate) {
           itemId: selectedItem?.itemId,
           itemStockBatchHeaderId: selectedItem?.batchHeaderId,
           barCodeId: selectedItem?.barCodeId,
-          categoryId : selectedItem.categoryId,
-          categoryType : selectedItem.categoryType,
+          categoryId: selectedItem.categoryId,
+          categoryType: selectedItem.categoryType,
 
           itemCode: selectedItem?.itemCode,
           itemName: selectedItem?.itemName,
@@ -811,9 +820,9 @@ if(trackingOptionsData?.expiryDate) {
           stockInEntryMode: selectedItem?.stockInEntryMode || 'Manual',
           trackingType: selectedItem?.trackingType,
           uomOptions: selectedItem?.itemsUOM,
-          trackingOptions: selectedItem.trackingList.map((elem :any , i : number)=>{
-            elem.id = i
-            return elem
+          trackingOptions: selectedItem.trackingList.map((elem: any, i: number) => {
+            elem.id = i;
+            return elem;
           }),
         });
 
@@ -867,8 +876,6 @@ if(trackingOptionsData?.expiryDate) {
     if (!this.formService.validForm(this.salesReturnForm, false)) return;
     if (!this.formService.validForm(this.salesReturnFormArray, false)) return;
 
- 
-
     let mappedInvoice: AddSalesInvoice = {
       invoiceDate: this.salesReturnForm.value.invoiceDate || null,
       description: this.salesReturnForm.value.description || null,
@@ -897,7 +904,7 @@ if(trackingOptionsData?.expiryDate) {
 
         itemCategoryNameAr: detail.itemCategoryNameAr || '',
         itemCategoryNameEn: detail.itemCategoryNameEn || '',
-        categoryType: detail.categoryType, 
+        categoryType: detail.categoryType,
         description: detail.description || '',
         uomId: detail.uomId || '',
         uomCode: detail.uomCode || '',
@@ -913,7 +920,7 @@ if(trackingOptionsData?.expiryDate) {
         itemStockBatchHeaderId: detail.itemStockBatchHeaderId || null,
         pricePolicyDetailId: detail.pricePolicyDetailId || null,
         invoiceEntryMode: detail.invoiceEntryMode || 'Manual',
-        trackingType: detail.trackingType ,
+        trackingType: detail.trackingType,
         hasExpiryDate: detail.hasExpiryDate || false,
         salesInvoiceTracking: {
           batchNo: detail.salesInvoiceTracking?.batchNo || '',
@@ -921,14 +928,10 @@ if(trackingOptionsData?.expiryDate) {
           hasExpiryDate: detail.salesInvoiceTracking?.hasExpiryDate || false,
           expireDate: detail.salesInvoiceTracking?.expireDate || null,
           serialId: detail.salesInvoiceTracking?.serialId || null,
-          trackingType: detail.salesInvoiceTracking?.trackingType ,
+          trackingType: detail.salesInvoiceTracking?.trackingType,
         },
       })),
     };
-
-
-    console.log(mappedInvoice)
-    
 
     if (this.save) {
       this.salesTransactionService.addSalesInvoice(mappedInvoice);
