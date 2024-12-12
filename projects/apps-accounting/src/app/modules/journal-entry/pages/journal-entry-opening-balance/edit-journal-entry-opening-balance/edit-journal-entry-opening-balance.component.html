@@ -101,7 +101,7 @@
               ></lib-text-input>
             </div>
           </div>
-         
+
           <div class="col-12 md:col-3 total">
             <!-- <div>
               <p class="totals">{{ 'JournalTemplate.totalDebitAmountLocal' | translate }}</p>
@@ -205,7 +205,8 @@
                         ></i>
                       </div>
                     </ng-template>
-                    <ng-template pTemplate="output">
+                     <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                       {{ journalLine.get('accountCode').value }}
                     </ng-template>
                   </p-cellEditor>
@@ -242,7 +243,8 @@
                         [disabled]="viewMode"
                       ></lib-text-input>
                     </ng-template>
-                    <ng-template pTemplate="output">
+                     <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                       {{ journalLine.controls['debitAmount'].value | numberFormat }}
                     </ng-template>
                   </p-cellEditor>
@@ -263,7 +265,8 @@
                         [disabled]="viewMode"
                       ></lib-text-input>
                     </ng-template>
-                    <ng-template pTemplate="output">
+                     <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                       {{ journalLine.controls['creditAmount'].value | numberFormat }}
                     </ng-template>
                   </p-cellEditor>
@@ -311,7 +314,7 @@
                     *ngIf="
                       isCostCenterallowed(journalLine.controls['costCenterConfig'].value) &&
                       shouldShowCostCenterImage(journalLine.controls['costCenters'].value) <= 0 &&
-                      journalLine.controls['id'].value ==0 
+                      journalLine.controls['id'].value ==0
                     "
                     (click)="
                       openCostPopup(
@@ -426,11 +429,11 @@
                 <div class="md:col-6">
               <lib-button-micro
               nameClass="outline"
-              widthNumber="100%" 
+              widthNumber="100%"
               title="{{ 'add_new_line' | translate }}"
               (click)="addNewRow()"
               >
-    
+
               </lib-button-micro>
               </div>
               </div>
@@ -441,6 +444,19 @@
 
         <div class="grid">
           <div class="md:col-12 flex justify-content-end">
+            <div
+            [class.none]="journalEntry?.status !== enums.JournalEntryStatus.Posted"
+            class="md:col-2 m-1"
+
+          >
+            <lib-button-micro
+              title="{{ 'discard' | translate }}"
+              nameClass="cancel"
+              (click)="onDiscard()"
+              widthNumber="100%"
+            >
+            </lib-button-micro>
+          </div>
             <div class="flex justify-content-end">
               <div
                 class="md:col-6 m-1"
@@ -530,7 +546,7 @@
           >
             <button class="btn save" type="submit">{{ 'EditJournal.Save' | translate }}</button>
           </div>
-  
+
           <div
             *ngIf="
               journalEntry?.status == enums.JournalEntryStatus.Unbalanced ||
@@ -545,7 +561,7 @@
               {{ 'EditJournal.Submit' | translate }}
             </button>
           </div>
-  
+
           <div *ngIf="journalEntry?.status == enums.JournalEntryStatus.Submitted">
             <button
               class="btn btn save"

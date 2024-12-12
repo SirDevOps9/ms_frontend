@@ -260,7 +260,8 @@
                     [readOnly]="dataToReadOnly"
                   ></lib-text-input>
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   {{ purchaseInvoiceFormGroup.controls['barCode']?.value }}
                 </ng-template>
               </p-cellEditor>
@@ -294,7 +295,8 @@
                     ></i>
                   </div>
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   {{ purchaseInvoiceFormGroup.controls['itemCodeName']?.value }}
                 </ng-template>
               </p-cellEditor>
@@ -327,7 +329,8 @@
                     [selectedValue]="purchaseInvoiceFormGroup.controls['uomId']?.value"
                   ></lib-select>
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   {{ purchaseInvoiceFormGroup.controls['uomName']?.value }}
                 </ng-template>
               </p-cellEditor>
@@ -355,7 +358,8 @@
                     "
                   ></lib-text-input>
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   {{ purchaseInvoiceFormGroup.controls['quantity']?.value }}
                 </ng-template>
               </p-cellEditor>
@@ -379,7 +383,8 @@
                     (keyUp)="quantityCostChange(purchaseInvoiceFormGroup)"
                   ></lib-text-input>
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   {{ purchaseInvoiceFormGroup.controls['cost']?.value | numberFormat }}
                 </ng-template>
               </p-cellEditor>
@@ -415,7 +420,8 @@
                     (keyUp)="disAmountChange(purchaseInvoiceFormGroup)"
                   ></lib-text-input>
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   {{
                     purchaseInvoiceFormGroup.controls['discountPercentage']?.value | numberFormat
                   }}
@@ -441,7 +447,8 @@
                     (keyUp)="amountChange(purchaseInvoiceFormGroup)"
                   ></lib-text-input>
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   {{ purchaseInvoiceFormGroup.controls['discountAmount']?.value | numberFormat }}
                 </ng-template>
               </p-cellEditor>

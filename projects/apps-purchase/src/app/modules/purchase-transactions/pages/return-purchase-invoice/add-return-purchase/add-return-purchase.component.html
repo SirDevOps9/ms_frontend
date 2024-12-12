@@ -177,6 +177,7 @@
                             error: rowIndex == rowDuplicate 
                           }"
                         >
+                     
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
                                     <lib-text-input type="number" placeholder="{{ 'PurchaseInvoiceEdit.QTY' | translate }}"
@@ -187,8 +188,9 @@
                                         
                                         "></lib-text-input>
                                 </ng-template>
-                                <ng-template pTemplate="output">
-                                    {{ invoiceFormGroup.controls['returnQuantity']?.value }}
+                                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
+                                    {{ invoiceFormGroup.controls['returnQuantity']?.value }} 
                                 </ng-template>
                             </p-cellEditor>
                             <lib-field-validations

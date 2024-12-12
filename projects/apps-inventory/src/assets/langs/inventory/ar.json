@@ -653,6 +653,11 @@
     "Cancel": "إلغاء",
     "save": "حفظ",
     "success": "نجاح"
+  },
+
+  "transactions": {
+    "error": "خطأ",
+    "cannotDeletePosted": "لا يمكن حذف هذا العنصر لأن الحالة تم تعيينها كـ Posted"
   }
 
 }

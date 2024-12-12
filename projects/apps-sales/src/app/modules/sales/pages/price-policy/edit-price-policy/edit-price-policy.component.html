@@ -99,7 +99,8 @@
   
                     </div>
                   </ng-template>
-                  <ng-template pTemplate="output">
+                   <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                     {{ pricePolicy.get('itemCode').value }}
                   </ng-template>
                 </p-cellEditor>
@@ -121,7 +122,8 @@
                         (valueChanged)="setUomIdValue(rowIndex, $event)"></lib-select>
                     </div>
                   </ng-template>
-                  <ng-template pTemplate="output">
+                   <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                     {{ pricePolicy.get('uomName').value ||'' }}
                   </ng-template>
                 </p-cellEditor>
@@ -141,7 +143,8 @@
                       </lib-text-input>
                     </div>
                   </ng-template>
-                  <ng-template pTemplate="output">
+                   <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                     {{ pricePolicy.get('price').value }}
                   </ng-template>
                 </p-cellEditor>

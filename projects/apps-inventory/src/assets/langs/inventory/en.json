@@ -510,7 +510,9 @@
   "transactions": {
     "deleteStockIn": "Stock In deleted successfully",
     "deleteStockOut": "Stock Out deleted successfully",
-    "success": "Success"
+    "success": "Success",
+    "error": "Error",
+    "cannotDeletePosted": "This item cannot be deleted because its status is set to Posted"
   },
 
   "stockOut": {
