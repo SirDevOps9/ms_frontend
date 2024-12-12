@@ -8,14 +8,13 @@
     "ViewPaymentIn": "View Payment In",
     "ViewPaymentout": "View Payment Out",
     "TreasuryStatement": "Treasury Statement",
-    "ViewBankDefination":"View Bank Defination",
-    "ViewPaymentTerm":"View Payment Term",
+    "ViewBankDefination": "View Bank Defination",
+    "ViewPaymentTerm": "View Payment Term",
     "EditPaymentIn": "Edit Payment in"
-
   },
   "confirmation": "confirmation",
   "Success": "Success",
-  "Confirm":"confirm",
+  "Confirm": "confirm",
   "Error": "Error",
   "ErrorInDelete": "Error In Delete",
   "ChooseAnAccount": "Choose An Account",
@@ -82,7 +81,7 @@
     "paymentMethodTypeRequired": "payment Method details Required In line",
     "addpaymentin": "Add Payment In",
     "editpaymentin": " Edit Payment In",
-    "PaymentInEditedSuccessfully":"Payment in updated successfully"
+    "PaymentInEditedSuccessfully": "Payment in updated successfully"
   },
 
   "payment-in": {
@@ -238,5 +237,14 @@
     "acountopeningBalance": "Account Opening Balance",
     "treasuryOpeningBalance": "Treasury Opening Balance",
     "treasuryCurrentBalance": "Treasury Current Balance"
+  },
+  "filter": {
+    "selectDateRange": "Select Date Range",
+    "status": "Status",
+    "paymentHub": "Payment Hub",
+    "currency": "Currency",
+    "bankAccounts": "Bank Accounts",
+    "paymentHubDetails": "Payment Hub Details",
+    "view": "View"
   }
 }

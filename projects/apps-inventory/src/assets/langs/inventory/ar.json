@@ -17,7 +17,7 @@
     "serialError": "لا يمكن إضافة أكثر من عنصر بنفس الرقم التسلسلي.",
     "setTracking": "يجب تعيين التتبع في السطر",
     "notEdit": "لا يمكن تعديل هذا المخزون لأنه تم تسجيله.",
-"updated": "Data was not updated ",
+    "updated": "Data was not updated ",
 
     "noBarcode": "لا يوجد هذا الباركود"
   },
@@ -45,18 +45,18 @@
     "AttributeDefinitionView": "عرض تعريف السمة",
     "AddAttributeDefinition": "إضافة",
     "OperationalTag": "علامة تشغيلية",
-     "EditOperationalTag":"تعديل",
-     "Itemcatalog": "كتالوج الأصناف",
-     "generalItemDefintion": "تعريف العنصر العام",
-      "TaxTilte":"فهرس العناصر الضريبية",
-       "attributes_ITEMdEFINITION": "كتالوج خصائص العناصر",
-       "variants_ITEMdEFINITION": "كتالوج أنواع العناصر",
-         "fixedCost":"التكلفة الثابتة",
-         "inventory":"المخزون",
+    "EditOperationalTag": "تعديل",
+    "Itemcatalog": "كتالوج الأصناف",
+    "generalItemDefintion": "تعريف العنصر العام",
+    "TaxTilte": "فهرس العناصر الضريبية",
+    "attributes_ITEMdEFINITION": "كتالوج خصائص العناصر",
+    "variants_ITEMdEFINITION": "كتالوج أنواع العناصر",
+    "fixedCost": "التكلفة الثابتة",
+    "inventory": "المخزون",
     "warehouse": "اسم المخزن",
-    "editWarehouseTilte":"تعديل المخزن",
+    "editWarehouseTilte": "تعديل المخزن",
     "ViewWarehouse": "عرض مخزن العناصر"
-},
+  },
   "success": "نجاح",
   "error": "خطأ",
   "noItemSelected": "لم يتم تحديد عنصر للتعديل.",
@@ -106,7 +106,7 @@
     "specialCareHead": "عناية خاصة",
     "color": "اللون",
     "uom": "وحدة القياس",
-   "fixedCost": "التكلفة الثابتة",
+    "fixedCost": "التكلفة الثابتة",
     "uomCategory": "فئة وحدة القياس",
     "selectOneValue": "اختر قيمة واحدة لشاشة وحدة القياس",
     "uomCode": "رمز وحدة القياس",
@@ -164,10 +164,9 @@
     "duplicateUomIdError": "لا يمكن تكرار اسم المنتج",
     "tax": "ضريبة",
     "taxesValue": "اختر قيمة واحدة",
- "TaxTilte":"فهرس العناصر الضريبية",
- "variants": "الأنواع",
- "tracking": "تتبع"
-
+    "TaxTilte": "فهرس العناصر الضريبية",
+    "variants": "الأنواع",
+    "tracking": "تتبع"
   },
   "itemCategory": {
     "itemDefinition": "تعريف العنصر",
@@ -188,43 +187,42 @@
     "ChangeColumn": "تغيير العمود"
   },
 
-    "itemDefinition": {
-      "name": "الاسم",
-      "type": "النوع",
-      "code": "الرمز",
-      "category": "الفئة",
-      "uom": "وحدة القياس",
-      "barcode": "الرمز الشريطي",
-      "actions": "الإجراءات",
-      "addItemDef": "إضافة تعريف العنصر",
-      "Add": "إضافة",
-      "search": "بحث",
-      "ChangeColumn": "تغيير العمود",
-      "success": "نجاح",
-      "add": "تم إضافة تعريف العنصر بنجاح",
-      "attributeName": "اسم الخاصية",
-      "attributeValues": "اختر قيم الخصائص",
-      "viewVariant": "عرض",
-      "itemTracking": "تتبع العنصر",
-      "SelectItemTracking": "اختر تتبع العنصر",
-      "hasExpiry": "له تاريخ انتهاء",
-      "delete": "تم حذف تعريف العنصر بنجاح",
-      "codeAuto": "توليد الكود تلقائيًا",
-      "ItemDefinitionPrint": "طباعة كتالوج الأصناف",
-      "isActive": "نشط",
-      "baseUnit":"الوحدة الأساسية",
-      "change": "تغيير",
-      "shortname":"الاسم المختصر",
-      "conversionfactor":"عامل التحويل",
-      "unitusage":"استخدام الوحدة",
-      "uOMdefinitioncategory":"فئة تعريف الوحدة"
+  "itemDefinition": {
+    "name": "الاسم",
+    "type": "النوع",
+    "code": "الرمز",
+    "category": "الفئة",
+    "uom": "وحدة القياس",
+    "barcode": "الرمز الشريطي",
+    "actions": "الإجراءات",
+    "addItemDef": "إضافة تعريف العنصر",
+    "Add": "إضافة",
+    "search": "بحث",
+    "ChangeColumn": "تغيير العمود",
+    "success": "نجاح",
+    "add": "تم إضافة تعريف العنصر بنجاح",
+    "attributeName": "اسم الخاصية",
+    "attributeValues": "اختر قيم الخصائص",
+    "viewVariant": "عرض",
+    "itemTracking": "تتبع العنصر",
+    "SelectItemTracking": "اختر تتبع العنصر",
+    "hasExpiry": "له تاريخ انتهاء",
+    "delete": "تم حذف تعريف العنصر بنجاح",
+    "codeAuto": "توليد الكود تلقائيًا",
+    "ItemDefinitionPrint": "طباعة كتالوج الأصناف",
+    "isActive": "نشط",
+    "baseUnit": "الوحدة الأساسية",
+    "change": "تغيير",
+    "shortname": "الاسم المختصر",
+    "conversionfactor": "عامل التحويل",
+    "unitusage": "استخدام الوحدة",
+    "uOMdefinitioncategory": "فئة تعريف الوحدة"
+  },
 
-    },
-
-"variants":{
-  "variantID": "معرف النوع",
- "variantName": "اسم النوع"
-},
+  "variants": {
+    "variantID": "معرف النوع",
+    "variantName": "اسم النوع"
+  },
   "warehouse": {
     "Add": "إضافة",
     "search": "بحث",
@@ -234,10 +232,10 @@
     "code": "الرمز",
     "name": "الاسم",
     "warehouseName": "اسم المخزن",
-    "print":"طباعة",
+    "print": "طباعة",
     "relatedBranch": "الفرع المرتبط",
     "warehouseType": "نوع المستودع",
-    "availableQuantity":"الكميه المتاحة",
+    "availableQuantity": "الكميه المتاحة",
     "actions": "الإجراءات",
     "warehouse": "المستودع",
     "variant": "النوع",
@@ -247,7 +245,7 @@
     "costOfGoodsSold": "حساب تكلفة البضاعة المباعة",
     "address": "العنوان",
     "city": "المدينة",
-    "create":"اضافة",
+    "create": "اضافة",
     "companyPhoneNumber": "رقم هاتف الشركة",
     "email": "البريد الإلكتروني",
     "fax": "الفاكس",
@@ -280,8 +278,6 @@
     "salesCostAccount": "حساب تكلفة المبيعات",
     "warehousePrint": "طباعة المستودع",
     "createdOn": "تم الإنشاء في"
-
-
   },
   "itemsCategory": {
     "title": "فئة العناصر",
@@ -403,12 +399,10 @@
     "valueAr": "القيمة بالعربية",
     "add_new_value": "اضف قيمة",
     "delete": "تم الحذف",
-  "attributeValuesList": "قائمة قيم السمات",
-  "attributeValues": "قيم السمات",
-  "values": "قيم تعريف السمة",
-  "status": "حالة تعريف السمة"
-
-
+    "attributeValuesList": "قائمة قيم السمات",
+    "attributeValues": "قيم السمات",
+    "values": "قيم تعريف السمة",
+    "status": "حالة تعريف السمة"
   },
   "OperationalTag": {
     "Add": "إضافة",
@@ -419,7 +413,7 @@
     "nameEn": "الاسم بالإنجليزية",
     "glAccount": "حساب الأستاذ العام",
     "AddNew": "إضافة جديد",
-   "codeAuto": "توليد الكود تلقائيًا",
+    "codeAuto": "توليد الكود تلقائيًا",
     "Active": "نشط",
     "inActive": "غير نشط",
     "Search": "بحث",
@@ -428,11 +422,11 @@
     "name": "الاسم",
     "OperationalTag": "علامة تشغيلية",
     "OperationalTagAdd": "اضافة علامة تشغيلية ",
-    "OperationalTagEdit":"تعديل علامة تشغيلية",
+    "OperationalTagEdit": "تعديل علامة تشغيلية",
     "create": "اضافة",
     "save": "حفظ",
     "discard": "تجاهل",
-    "cancel":"إلغاء",
+    "cancel": "إلغاء",
     "warehouseName": "اسم المستودع",
     "status": "الحالة",
     "delete": "تم الحذف",
@@ -441,7 +435,6 @@
     "glAccountId": "حساب دفتر الأستاذ العام",
     "oneSelect": "اختر أحد الخيارات",
     "OperationalTagPrint": "طباعة العلامة التشغيلية"
-
   },
   "stockIn": {
     "import": "استيراد",
@@ -471,7 +464,7 @@
     "itemDescription": "وصف العنصر",
     "UOM": "وحدة القياس",
     "QTY": "الكمية",
-    "stockInPrint":"طباعة المخزون الوارد",
+    "stockInPrint": "طباعة المخزون الوارد",
     "cost": "التكلفة",
     "subTotal": "المجموع الفرعي",
     "tracking": "التتبع",
@@ -501,13 +494,13 @@
     "required": "مطلوب",
     "deleteStockInLine": "تم حذف العنصر بنجاح",
     "stockEdit": "تم تحديث البيانات بنجاح"
-},
+  },
   "stockOut": {
     "import": "استيراد",
     "edit": "تعديل",
     "save": "حفظ",
     "cancel": "إلغاء",
-    "stockOutPrint":"طباعة المخزون المنفذ",
+    "stockOutPrint": "طباعة المخزون المنفذ",
     "delete": "تم حذف الإدخال بنجاح",
     "success": "نجاح",
     "add": "تمت إضافة الإدخال بنجاح",
@@ -654,10 +647,15 @@
     "save": "حفظ",
     "success": "نجاح"
   },
-
+  "filter": {
+    "selectDateRange": "اختر نطاق التاريخ",
+    "status": "الحالة",
+    "sourceDocumentType": "نوع المستند المصدر",
+    "warehouse": "المستودع",
+    "view": "عرض"
+  },
   "transactions": {
     "error": "خطأ",
     "cannotDeletePosted": "لا يمكن حذف هذا العنصر لأن الحالة تم تعيينها كـ Posted"
   }
-
 }

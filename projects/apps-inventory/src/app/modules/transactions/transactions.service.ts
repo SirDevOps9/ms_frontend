@@ -22,6 +22,8 @@ import {
   AdvancedSearchDto,
   AddStockOutDto,
   itemDefinitionDto,
+  LookupDto,
+  InventoryFilterDto,
 } from './models';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -49,6 +51,8 @@ export class TransactionsService {
   public stockInByIdData = new BehaviorSubject<StockInDto>({} as StockInDto);
   sendItemBarcode = new BehaviorSubject<StockInDetail>({} as StockInDetail);
   wareHousesDropDownLookup = new BehaviorSubject<GetWarehouseList[]>([]);
+  statusLookup = new BehaviorSubject<LookupDto[]>([]);
+  SourceDocument = new BehaviorSubject<LookupDto[]>([]);
 
   public stockInDataViewSource = new BehaviorSubject<StockInDto[]>([]);
 
@@ -61,6 +65,8 @@ export class TransactionsService {
   public sendlatestItemsList$ = this.sendlatestItemsList.asObservable();
   public sendItemBarcode$ = this.sendItemBarcode.asObservable();
   public wareHousesDropDownLookup$ = this.wareHousesDropDownLookup.asObservable();
+  statusLookupList$ = this.statusLookup.asObservable();
+  sourceDocumentList$ = this.SourceDocument.asObservable();
 
   stockInByIdData$ = this.stockInByIdData.asObservable();
   private itemsDataSource = new BehaviorSubject<AdvancedSearchDto[]>([]);
@@ -86,7 +92,6 @@ export class TransactionsService {
   public stockOutSaved = new BehaviorSubject<number | undefined>(0);
 
   exportStockOutListDataSourceObservable = this.exportStockOutListDataSource.asObservable();
-
 
   constructor(
     private toasterService: ToasterService,
@@ -140,14 +145,14 @@ export class TransactionsService {
       }
     } catch (error) {}
   }
-  getAllStockIn(quieries: string, pageInfo: PageInfo) {
-    this.transactionsProxy.getAllStockIn(quieries, pageInfo).subscribe((response) => {
+  getAllStockIn(quieries: string, pageInfo: PageInfo, filter?: InventoryFilterDto ) {
+    this.transactionsProxy.getAllStockIn(quieries, pageInfo, filter).subscribe((response) => {
       this.stockInDataSource.next(response.result);
       this.currentPageInfo.next(response.pageInfoResult);
     });
   }
 
-  exportStockInList(SearchTerm: string ,SortBy?: number, SortColumn?: string) {
+  exportStockInList(SearchTerm: string, SortBy?: number, SortColumn?: string) {
     this.transactionsProxy.exportStockInList(SearchTerm, SortBy, SortColumn).subscribe({
       next: (res: any) => {
         this.exportStockInListDataSource.next(res);
@@ -405,8 +410,8 @@ export class TransactionsService {
       })
     );
   }
-  getAllStockOut(quieries: string, pageInfo: PageInfo) {
-    this.transactionsProxy.getAllStockOut(quieries, pageInfo).subscribe((response) => {
+  getAllStockOut(quieries: string, pageInfo: PageInfo, filter?: InventoryFilterDto) {
+    this.transactionsProxy.getAllStockOut(quieries, pageInfo, filter).subscribe((response) => {
       this.stockOutDataSource.next(response.result);
       this.currentPageInfo.next(response.pageInfoResult);
     });
@@ -429,7 +434,7 @@ export class TransactionsService {
       });
     }
   }
-  exportStockOutList(SearchTerm: string ,SortBy?: number, SortColumn?: string) {
+  exportStockOutList(SearchTerm: string, SortBy?: number, SortColumn?: string) {
     this.transactionsProxy.exportStockOutList(SearchTerm, SortBy, SortColumn).subscribe({
       next: (res: any) => {
         this.exportStockOutListDataSource.next(res);
@@ -459,4 +464,15 @@ export class TransactionsService {
     });
   }
 
+  getStockOutStatus() {
+    this.transactionsProxy.statusLookup().subscribe((res) => {
+      this.statusLookup.next(res[0].items);
+    });
+  }
+
+  getSourceDocumentType() {
+    this.transactionsProxy.sourceDocumentLookup().subscribe((res) => {
+      this.SourceDocument.next(res[0].items);
+    });
+  }
 }
