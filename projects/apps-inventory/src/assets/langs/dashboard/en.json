@@ -11,6 +11,14 @@
     "status": "Status",
     "totalQuantity": "Total Quantity",
     "totalValue": "Total Value",
-    "noElements": "No Elements"
+    "noElements": "No Elements",
+    "tooltip": {
+      "categories": "Most Item Categories have Quantities",
+      "warehouses": "Most Warehouses have Quantities",
+      "status": "Status of Transactions between draft, saved, posted",
+      "lastStockOut": "Represent last stock out transactions Quantity and its values",
+      "lastStockIn": "Represent last stock in transactions Quantity and its values",
+      "expiration": "items nearby expiry with tracking number"
+    }
   }
 }

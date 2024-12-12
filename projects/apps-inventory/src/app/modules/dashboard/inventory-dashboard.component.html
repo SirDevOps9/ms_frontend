@@ -29,6 +29,7 @@
             [smallSize]="true"
             title="{{ 'dashboard.categories' | translate }}"
             [route]="'reports/item-card-report'"
+            tooltip="{{ 'dashboard.tooltip.categories' | translate }}"
           >
           </app-chart-card>
         </div>
@@ -39,6 +40,7 @@
             [smallSize]="true"
             title="{{ 'dashboard.warehouses' | translate }}"
             [route]="'reports/item-card-report'"
+            tooltip="{{ 'dashboard.tooltip.warehouses' | translate }}"
           >
           </app-chart-card>
         </div>
@@ -47,6 +49,7 @@
             [chartDTO]="statusChart"
             [chartDetailsConfig]="statusChartValues"
             title="{{ 'dashboard.status' | translate }}"
+            tooltip="{{ 'dashboard.tooltip.status' | translate }}"
           >
           </app-chart-card>
         </div>
@@ -55,6 +58,7 @@
           <app-chart-card
             title="{{ 'dashboard.lastStockOut' | translate }}"
             [route]="'transactions/stock-out'"
+            tooltip="{{ 'dashboard.tooltip.lastStockOut' | translate }}"
           >
             <div class="chart-body w-full">
               @for(stockOut of lastStockOut; track stockOut) {
@@ -81,6 +85,7 @@
           <app-chart-card
             title="{{ 'dashboard.lastStockIn' | translate }}"
             [route]="'transactions/stock-in'"
+            tooltip="{{ 'dashboard.tooltip.lastStockIn' | translate }}"
           >
             <div class="chart-body w-full">
               @for(stockIn of lastStockIn; track stockIn) {
@@ -107,6 +112,7 @@
           <app-chart-card
             title="{{ 'dashboard.stockExpiryAlert' | translate }}"
             [route]="'reports/item-card-report'"
+            tooltip="{{ 'dashboard.tooltip.expiration' | translate }}"
           >
             <div class="chart-body w-full">
               @for(stockExpiry of stockExpiryDate; track stockExpiry) {

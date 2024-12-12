@@ -5,7 +5,6 @@
         [chartDTO]="statusChart"
         [chartDetailsConfig]="statusChartData"
         title="{{ 'dashboard.salesStatus' | translate }}"
-        tooltip="{{ 'status chart tooltip' | translate }}"
       >
       </app-chart-card>
     </div>
@@ -14,7 +13,6 @@
         [chartDTO]="returnStatusChart"
         [chartDetailsConfig]="returnStatusChartData"
         title="{{ 'dashboard.returnSalesStatus' | translate }}"
-        tooltip="{{ 'return status chart tooltip' | translate }}"
       >
       </app-chart-card>
     </div>
@@ -22,7 +20,6 @@
       <app-chart-card
         [chartDTO]="monthlySalesChart"
         title="{{ 'dashboard.monthlySales' | translate }}"
-        tooltip="{{ 'monthly sales chart tooltip' | translate }}"
       >
       </app-chart-card>
     </div>
@@ -32,7 +29,6 @@
         [chartDTO]="topSalesProductChart"
         [chartDetailsConfig]="topSalesProductChartData"
         title="{{ 'dashboard.bestSellingProducts' | translate }}"
-        tooltip="{{ 'top sales product chart tooltip' | translate }}"
       >
       </app-chart-card>
     </div>
@@ -41,17 +37,12 @@
         [chartDTO]="topSalesCategoriesChart"
         [chartDetailsConfig]="topSalesCategoriesChartData"
         title="{{ 'dashboard.bestSellingCategories' | translate }}"
-        tooltip="{{ 'top sales category chart tooltip' | translate }}"
       >
       </app-chart-card>
     </div>
 
     <div class="lg:col-6 col-12" [appLoader]="isLoadingTopCustomer">
-      <app-chart-card
-        title="{{ 'dashboard.topCustomers' | translate }}"
-        tooltip="{{ 'top customers chart tooltip' | translate }}"
-        route="'goTo'"
-      >
+      <app-chart-card title="{{ 'dashboard.topCustomers' | translate }}" route="'goTo'">
         <div class="chart-body accounts-bank w-full">
           @for(customerData of topCustomerData; track customerData.customerId) {
           <div class="row">
