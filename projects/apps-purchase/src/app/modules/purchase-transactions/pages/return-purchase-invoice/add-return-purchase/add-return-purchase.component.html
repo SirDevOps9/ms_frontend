@@ -31,7 +31,7 @@
                                             <lib-label [appControl]="addForm.controls['invoiceDate']">
                                                 {{ 'PurchaseInvoiceEdit.returnDate' | translate }}
                                             </lib-label>
-                                            <lib-calendar formControlName="invoiceDate"></lib-calendar>
+                                            <lib-calendar [disabled]="showPost" formControlName="invoiceDate"></lib-calendar>
                                         </lib-form-group>
                                     </div>
                                     <div class="col-12">
@@ -39,7 +39,7 @@
                                             <lib-label [appControl]="addForm.controls['returnDescription']">
                                                 {{ 'PurchaseInvoiceEdit.returnDescription' | translate }}
                                             </lib-label>
-                                            <lib-text-input  formControlName="returnDescription"></lib-text-input>
+                                            <lib-text-input [readOnly]="showPost"  formControlName="returnDescription"></lib-text-input>
                                         </lib-form-group>
                                     </div>
                                     <div class="col-12">
@@ -79,6 +79,7 @@
                                                 {{ 'PurchaseInvoiceEdit.vendorCode' | translate }}
                                             </lib-label>
                                             <lib-select
+                                            [readOnly]="showPost"
                                                 formControlName="vendorId"
                                                 [options]="vendorItems"
                                                 optionValue="id"
@@ -116,9 +117,11 @@
                                     <div class="col-12 md:col-6">
                                         <lib-form-group>
                                             <lib-label [appControl]="addForm.controls['paymentTermName']">
-                                                purchase invoice
+                                                {{ 'PurchaseInvoiceEdit.purchaseInvoice' | translate }}
+                                                
                                             </lib-label>
                                                 <lib-select
+                                                [readOnly]="showPost"
                                                 formControlName="paymentTermName"
                                                 [options]="invoiceList"
                                                 optionLabel="code"
@@ -174,16 +177,20 @@
                             error: rowIndex == rowDuplicate 
                           }"
                         >
+                     
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
                                     <lib-text-input type="number" placeholder="{{ 'PurchaseInvoiceEdit.QTY' | translate }}"
                                         formControlName="returnQuantity" 
+                                        [readOnly]="showPost"
                                         (keyUp)="setReturnQuantity(rowIndex) "
                                         (valueChanged)="setReturnQuantity(rowIndex) 
+                                        
                                         "></lib-text-input>
                                 </ng-template>
-                                <ng-template pTemplate="output">
-                                    {{ invoiceFormGroup.controls['returnQuantity']?.value }}
+                                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
+                                    {{ invoiceFormGroup.controls['returnQuantity']?.value }} 
                                 </ng-template>
                             </p-cellEditor>
                             <lib-field-validations

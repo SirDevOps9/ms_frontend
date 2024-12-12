@@ -26,13 +26,16 @@ export class AddReturnPurchaseComponent {
   searchTerm: string;
   addForm: FormGroup = new FormGroup({});
   showPost: boolean
-  invoiceList: any
+  invoiceList: any;
+  savedDataId: number;
+
   ngOnInit(): void {
 
     this.initializeForm();
     this.latestVendor()
     this.latestWarehouses()
     this.initItemsData()
+    this.latestinvoiceLookup()
     this.subscribe();
     this.calculate();
   }
@@ -68,6 +71,10 @@ export class AddReturnPurchaseComponent {
       }
     })
   }
+  latestinvoiceLookup() {
+    this.PurchaseService.invoiceLookup(undefined, undefined, undefined)
+
+  }
   latestWarehouses() {
 
     this.PurchaseService.LatestWarehouses(undefined).subscribe((res: any) => {
@@ -100,7 +107,7 @@ export class AddReturnPurchaseComponent {
       code: new FormControl(''),
       invoiceCode: new FormControl(''),
       invoiceDate: new FormControl(new Date(), [customValidators.required]),
-      returnDescription: new FormControl('', [customValidators.required, customValidators.length(1, 100)]),
+      returnDescription: new FormControl('', [ customValidators.length(0, 100)]),
       warehouseId: new FormControl(''),
       warehouseName: new FormControl(''),
       vendorCode: new FormControl(''),
@@ -153,6 +160,17 @@ export class AddReturnPurchaseComponent {
     ])
     this.PurchaseService.invoiceData.subscribe((invoiceList: any) => {
       this.invoiceList = invoiceList
+
+    })
+    this.PurchaseService.savedDataId.subscribe((id: any) => {
+     if(id !=0){
+      this.savedDataId = id
+      this.showPost=true
+
+     }else{
+      this.showPost=false
+
+     }
 
     })
     this.PurchaseService.returnInvoiceData.subscribe((data: any) => {
@@ -268,12 +286,23 @@ export class AddReturnPurchaseComponent {
     if (!this.beforeSave()) {
       return; // Stop if validation fails
     }
-    if (!this.formsService.validForm(this.invoiceDetailsFormArray, false)) return;
+    //                "Return Invoice Details Shoud Have One Line With Quantity At Least."
+if (this.invoiceDetailsFormArray.value.length == 0) {
+  this.toasterService.showError(
+    this.languageService.transalte('messages.error'),
+    this.languageService.transalte('messages.errorReturnLine')
+  );
+
+}else{
+  if (!this.formsService.validForm(this.addForm, false)) return;
     if( this.duplicateLine == true) return;
 
 
     this.PurchaseService.addReturnInvoice(this.refactoredData(this.addForm.value))
 
+}
+
+  
   }
 
   setReturnQuantity(indexLine: number) {
@@ -299,9 +328,6 @@ export class AddReturnPurchaseComponent {
 
   }
 
-  addToPost() {
-
-  }
 
   beforeSave(): boolean {
     let isValid = true;
@@ -349,6 +375,13 @@ export class AddReturnPurchaseComponent {
 
   patchData(id: any) {
     this.PurchaseService.getReturnInvoiceById(id)
+  }
+  addToPost() {
+    this.PurchaseService.postReturnInvoice(this.savedDataId);
+  }
+  
+  ngOnDestroy(): void {
+    this.PurchaseService.returnInvoiceData.next([])
   }
   constructor(
     private routerService: RouterService,

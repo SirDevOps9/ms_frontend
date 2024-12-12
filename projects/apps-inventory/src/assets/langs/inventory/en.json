@@ -10,7 +10,8 @@
     "noBarcode": "This barcode does not exist.",
     "notEdit": "This stockout cannot be edited because it is posted.",
     "setTracking": "You must set tracking in the row ",
-    "stockOutPostedSuccessfully": "Stock Out Posted successfully"
+    "stockOutPostedSuccessfully": "Stock Out Posted successfully",
+    "notUpdated": "Data was not updated"
   },
   "BreadCrumb": {
     "ItemsCategory": "Items Category",
@@ -509,7 +510,9 @@
   "transactions": {
     "deleteStockIn": "Stock In deleted successfully",
     "deleteStockOut": "Stock Out deleted successfully",
-    "success": "Success"
+    "success": "Success",
+    "error": "Error",
+    "cannotDeletePosted": "This item cannot be deleted because its status is set to Posted"
   },
 
   "stockOut": {
@@ -606,5 +609,12 @@
       "subTotal": "Subtotal"
     },
     "QTYbalance": "Quantity Balance"
+  },
+  "filter": {
+    "selectDateRange": "Select Date Range",
+    "status": "Status",
+    "sourceDocumentType": "Source Document Type",
+    "warehouse": "Warehouse",
+    "view": "View"
   }
 }

@@ -1358,6 +1358,12 @@ public exportedWarehouseDataItemSourceObs = this.exportedWarehouseDataItemSource
           this.languageService.transalte('generalSetting.updated')
         );
       },
+      error: (err:any)=>{
+        this.toasterService.showError(
+          this.languageService.transalte('messages.error'),
+          this.languageService.transalte('messages.notUpdated')
+        );
+      }
     });
   }
   getInventoryGeneralSetting() {

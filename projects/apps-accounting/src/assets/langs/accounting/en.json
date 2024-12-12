@@ -23,7 +23,6 @@
     "EditVendorOpeningBalance": "Edit Vendor Opening Balance",
     "AddVendorOpeningBalance": "Add Vendor Opening Balance",
     "sequence": "sequence"
-
   },
   "COAConfigration": {
     "Success": "Success",
@@ -68,8 +67,8 @@
     "Id": "Id",
     "levelNumber": "Account Level",
     "Status": "Status",
-    "chartofaccountsPrint":"Chart Of Accounts Print",
-    "costCenterPrint":"Cost Center  Print"
+    "chartofaccountsPrint": "Chart Of Accounts Print",
+    "costCenterPrint": "Cost Center  Print"
   },
   "Journal": {
     "Title": "Journal Entry List",
@@ -108,8 +107,8 @@
     "no": "No",
     "CostCenterNotAllowed": "This Account doesn't allow cost centers",
     "InvalidAmount": "please enter valid debit or credit amounts",
-    "JournalEnteryPrint":"Journal Entery Print",
-    "JournalEnteryOpeningPrint":"Journal Entery Opening Print"
+    "JournalEnteryPrint": "Journal Entery Print",
+    "JournalEnteryOpeningPrint": "Journal Entery Opening Print"
   },
   "JournalTitle": "Add Journal",
   "journal_entry_header": "Please Enter journal entry Header",
@@ -371,5 +370,12 @@
     "title": "Cost Center Report",
     "ViewData": "View Data",
     "Select": "Select"
+  },
+  "filter": {
+    "selectDateRange": "Select Date Range",
+    "type": "Type",
+    "status": "Status",
+    "sourceDocumentType": "Source Document Type",
+    "view": "View"
   }
 }

@@ -137,7 +137,8 @@
                       formControlName="accountNumber"
                     ></lib-text-input>
                   </ng-template>
-                  <ng-template pTemplate="output">
+                   <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                     {{ bankGroup.controls['accountNumber'].value }}
                   </ng-template>
                 </p-cellEditor>
@@ -168,7 +169,8 @@
                       <i class="pi pi-search search-circle" (click)="openDialog(i)"></i>
                     </div>
                   </ng-template>
-                  <ng-template pTemplate="output">
+                   <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                     {{ bankGroup.controls['displayName']?.value }}
                   </ng-template>
                 </p-cellEditor>
@@ -199,7 +201,8 @@
                       ></lib-field-validations>
                     </lib-form-group>
                   </ng-template>
-                  <ng-template pTemplate="output">
+                   <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                     {{ bankGroup.controls['branchName']?.value }}
                   </ng-template>
                 </p-cellEditor>
@@ -214,7 +217,8 @@
                       formControlName="iban"
                     ></lib-text-input>
                   </ng-template>
-                  <ng-template pTemplate="output">
+                   <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                     {{ bankGroup.controls['iban'].value }}
                   </ng-template>
                 </p-cellEditor>
@@ -244,7 +248,8 @@
                       ></lib-select>
                     </lib-form-group>
                   </ng-template>
-                  <ng-template pTemplate="output">
+                   <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                     {{ bankGroup.controls['currencyName']?.value }}
                   </ng-template>
                 </p-cellEditor>
@@ -276,7 +281,8 @@
                       ></lib-multi-select>
                     </lib-form-group>
                   </ng-template>
-                  <ng-template pTemplate="output">
+                   <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                     {{ bankGroup.controls['userPermissionName']?.value }}
                   </ng-template>
                 </p-cellEditor>
@@ -301,7 +307,8 @@
                       "
                     ></lib-text-input>
                   </ng-template>
-                  <ng-template pTemplate="output">
+                   <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                     {{ bankGroup.controls['openingBalance'].value | numberFormat  }}
                   </ng-template>
                 </p-cellEditor>

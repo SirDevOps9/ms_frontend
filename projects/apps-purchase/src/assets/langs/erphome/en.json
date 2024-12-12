@@ -12,7 +12,7 @@
     "EditVendorOpeningBalance": "Edit Vendor Opening Balance",
     "ViewVendorOpeningBalance": "View Vendor Opening Balance",
     "purchaseInvoice": "Purchase Invoice",
-    "purchaseReturnInvoice": "Purchase Return Invoice",
+    "purchaseReturnInvoice": "Return Purchase Invoice",
     "purchaseInvoiceAdd": "Add",
     "purchaseInvoiceEdit": "Edit Purchase Invoice",
     "purchaseInvoiceView": "View"
@@ -576,6 +576,7 @@
   "purchase": {
     "barcode": "Barcode",
     "itemCode": "Item Code",
+    "ItemName": "Item Name",
     "itemDescription": "Item Description",
     "UOM": "Unit of Measurement",
     "QTY": "Quantity",
@@ -612,6 +613,7 @@
     "invoiceJournal": "Invoice Journal",
     "stockIn": "Stock In",
     "upload": "Import Item",
+    "localAmount" : "Local Amount",
     "scan": "Scan Barcode",
     "add": "Add Line",
     "search": "Search",

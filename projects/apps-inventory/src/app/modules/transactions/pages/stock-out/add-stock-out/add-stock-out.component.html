@@ -138,7 +138,8 @@
                 ></lib-text-input>
                 <!-- (keyUp)="barcodeCanged($event ,rowIndex)" -->
               </ng-template>
-              <ng-template pTemplate="output">
+               <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                 {{ stockOutFormGroup.controls['barCode']?.value }}
               </ng-template>
             </p-cellEditor>
@@ -170,7 +171,8 @@
                   <!-- (click)="openDialog(rowIndex)" -->
                 </div>
               </ng-template>
-              <ng-template pTemplate="output">
+               <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                 {{ stockOutFormGroup.get('itemName').value }}
               </ng-template>
             </p-cellEditor>
@@ -209,7 +211,8 @@
                 </lib-select>
                 <!-- <lib-text-input placeholder="{{ 'stockOut.UOM' | translate }}" formControlName="uomId"></lib-text-input> -->
               </ng-template>
-              <ng-template pTemplate="output">
+               <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                 {{ stockOutFormGroup.controls['uomName']?.value }}
               </ng-template>
             </p-cellEditor>
@@ -239,7 +242,8 @@
                   [readOnly]="post"
                 ></lib-text-input>
               </ng-template>
-              <ng-template pTemplate="output">
+               <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                 {{ stockOutFormGroup.controls['quantity']?.value }}
               </ng-template>
             </p-cellEditor>
@@ -254,10 +258,13 @@
                 <lib-text-input
                   placeholder="{{ 'stockOut.cost' | translate }}"
                   formControlName="cost"
+                  (keyUp)="setCostTotal(rowIndex, $event); isDuplicate(rowIndex)"
+
                   [readOnly]="post"
                 ></lib-text-input>
               </ng-template>
-              <ng-template pTemplate="output">
+               <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                 {{ stockOutFormGroup.controls['cost']?.value }}
               </ng-template>
             </p-cellEditor>
@@ -266,7 +273,7 @@
             ></lib-field-validations>
           </td>
           <td>
-            {{ stockOutFormGroup.controls['subCost']?.value }}
+            {{ stockOutFormGroup.controls['cost']?.value *  stockOutFormGroup.controls['quantity'].value}}
           </td>
 
           <td
@@ -301,7 +308,8 @@
                 </lib-select>
               </ng-template>
 
-              <ng-template pTemplate="output">
+               <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                 {{ stockOutFormGroup?.get('trackingNo')?.value }}
               </ng-template>
             </p-cellEditor>
@@ -348,7 +356,8 @@
                 >
                 </lib-select>
               </ng-template>
-              <ng-template pTemplate="output">
+               <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                 {{ stockOutFormGroup?.get('trackingNo')?.value }}
               </ng-template>
             </p-cellEditor>
@@ -379,7 +388,8 @@
                   [readOnly]="post"
                 ></lib-text-input>
               </ng-template>
-              <ng-template pTemplate="output">
+               <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                 {{ stockOutFormGroup.controls['notes']?.value }}
               </ng-template>
             </p-cellEditor>
