@@ -30,7 +30,6 @@ export class PurchaseTransactionsService {
   public warehouseLookup = new BehaviorSubject<any>([]);
   public lastestItem = new BehaviorSubject<LatestItem[]>([]);
   public itemsDataSourceForAdvanced = new BehaviorSubject<LatestItem[]>([]);
-  public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
 
   public sendPurchaseInvoice = new BehaviorSubject<AddPurchaseInvoiceDto>(
     {} as AddPurchaseInvoiceDto
