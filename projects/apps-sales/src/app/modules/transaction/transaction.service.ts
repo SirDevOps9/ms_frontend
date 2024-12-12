@@ -62,8 +62,8 @@ export class TransactionService {
   addSalesInvoice(obj : AddSalesInvoice) {
     this.TransactionsProxy.addSalesInvoice(obj).subscribe((res) => {
       this.toasterService.showSuccess(
-        this.languageService.transalte('purchase.success'),
-        this.languageService.transalte('purchase.addInvoice') 
+        this.languageService.transalte('salesInvoice.success'),
+        this.languageService.transalte('salesInvoice.salesInvoiceSuccess') 
       ); 
      this.sendSalesInvoice.next(res);
     });
@@ -75,8 +75,8 @@ export class TransactionService {
     this.TransactionsProxy.PostInvoice(id).subscribe({
       next: (res: any) => {
         this.toasterService.showSuccess(
-          this.languageService.transalte('messages.Success'),
-          this.languageService.transalte('messages.purchaseinvoicePostedSuccessfully')
+          this.languageService.transalte('salesInvoice.Success'),
+          this.languageService.transalte('salesInvoice.salesInvoiceSuccessPosted')
         );
         this.loaderService.hide();
 

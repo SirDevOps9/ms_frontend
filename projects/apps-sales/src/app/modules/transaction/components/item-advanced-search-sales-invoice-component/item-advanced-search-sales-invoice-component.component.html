@@ -13,9 +13,10 @@
           className="p-datatable-gridlines"
           [currentPageResult]="currentPageInfo"
           (pageChange)="onPageChange($event)"
+          
           [tableConfigs]="{
-            allowPagination: false,
-            allowServerPagination: true,
+           allowPagination: false,
+           allowServerPagination: true,
             dataKey: 'id',
             pageSize: 10,
             columns: [
@@ -76,7 +77,7 @@
           <ng-template #action let-item>
             <lib-button-micro
             nameClass="save"
-            title="{{ 'popupSearch.select' | translate } }"
+            title="{{ 'popupSearch.select' | translate }}"
             (click)="selectedRow(item)"
             >
   

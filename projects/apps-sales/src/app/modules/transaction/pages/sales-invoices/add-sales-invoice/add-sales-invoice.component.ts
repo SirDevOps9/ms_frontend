@@ -41,7 +41,7 @@ export class AddSalesInvoiceComponent implements OnInit {
   wearhouseSearch: string;
   warhouseLookupData: any[] = [];
   paymentLookupData: { id: number; name: string }[] = [];
-  vendorItems: any[];
+  vendorItems: any[] = [];
   uomLookup: any = [];
   currentLang: string;
   showError: boolean = false;
@@ -224,16 +224,15 @@ export class AddSalesInvoiceComponent implements OnInit {
       description: new FormControl(''),
       createdStockIn: new FormControl(''),
       invoiceDate: new FormControl(new Date(), [customValidators.required]),
-
-      customerCode: new FormControl('', [customValidators.required]),
+      customerCode: new FormControl(''),
       customerName: new FormControl(''),
       currencyId: new FormControl(''),
-      rate: new FormControl('', [customValidators.required]),
+      rate: new FormControl(''),
       paymentTermId: new FormControl(''),
       customerCreditLimit: new FormControl(''),
       pricePolicyId: new FormControl('', [customValidators.required]),
       currency: new FormControl(''),
-      vendorId: new FormControl('', [customValidators.required]),
+      vendorId: new FormControl(''),
       vendorName: new FormControl(''),
       currencyRate: new FormControl('', [customValidators.required]),
       reference: new FormControl(''),
@@ -274,6 +273,8 @@ export class AddSalesInvoiceComponent implements OnInit {
       categoryId : '',
       itemCategoryNameAr:'',
       itemCategoryNameEn:'',
+      trackingTypeNo :  new FormControl(''),
+
       itemCode: '',
       uomId: ['', customValidators.required],
       taxRatio: '',
@@ -289,7 +290,7 @@ export class AddSalesInvoiceComponent implements OnInit {
         [customValidators.required, customValidators.nonZero, customValidators.nonNegativeNumbers],
       ],
 
-      expiryDate: [, customValidators.required],
+      expiryDate: [''],
       notes: '',
       hasExpiryDate: '',
       stockInEntryMode: 'Manual',
@@ -320,7 +321,6 @@ export class AddSalesInvoiceComponent implements OnInit {
     let trackingOptions =  formTracking.controls['trackingOptions'].value;
 
    let trackingOptionsData = trackingOptions.find((elem : any)=>elem.id == i)
-   console.log(trackingOptionsData)
       salesInvoiceTracking?.patchValue({
         batchNo: formTracking.get('trackingType')?.value ==
         this.sharedFinanceEnums.trackingType.Batch ? trackingOptionsData?.trackingNo : null,
@@ -333,7 +333,12 @@ export class AddSalesInvoiceComponent implements OnInit {
   })
 
 formTracking.get('quantity')?.setValue(trackingOptionsData?.totalQuantity)
-  console.log(formTracking.value)
+formTracking.get('trackingTypeNo')?.setValue(trackingOptionsData?.trackingNo )
+
+if(trackingOptionsData?.expiryDate) {
+  formTracking.get('expiryDate')?.setValue(trackingOptionsData?.expiryDate)
+
+}
 
   }
 
@@ -386,6 +391,9 @@ formTracking.get('quantity')?.setValue(trackingOptionsData?.totalQuantity)
             return elem
           }),
         });
+        if(selectedItem?.trackingType == this.sharedFinanceEnums.trackingType.Serial) {
+          rowForm.get('quantity')?.setValue(1)
+        }
 
         // const invoiceEntryMode = rowForm.get('salesInvoiceTracking') as FormGroup;
         // console.log("hhszdfsdf" , selectedItem)
@@ -635,7 +643,7 @@ formTracking.get('quantity')?.setValue(trackingOptionsData?.totalQuantity)
   }
 
   addLine() {
-    // this.isValidData();
+    if (!this.formService.validForm(this.salesReturnForm, false)) return
     if (!this.formService.validForm(this.salesReturnFormArray, false)) return;
 
     if (this.salesReturnFormArray.valid) {
@@ -643,7 +651,6 @@ formTracking.get('quantity')?.setValue(trackingOptionsData?.totalQuantity)
     } else {
       this.formSubmited = true;
     }
-    if (!this.formService.validForm(this.salesReturnFormArray, false)) return;
     this.salesReturnFormArray.push(this.initFromArray());
   }
 
@@ -676,8 +683,9 @@ formTracking.get('quantity')?.setValue(trackingOptionsData?.totalQuantity)
 
   openDialogFromItemCode(indexline: number, stockInFormGroup: FormGroup) {
     const ref = this.dialog.open(ItemAdvancedSearchSalesInvoiceComponentComponent, {
-      width: 'auto',
+      width: '1200px',
       height: '600px',
+      data : {warehouseId : this.salesReturnForm.get('warehouseId')?.value}
     });
     ref.onClose.subscribe((selectedItems: any) => {
       if (selectedItems) {
@@ -748,7 +756,7 @@ formTracking.get('quantity')?.setValue(trackingOptionsData?.totalQuantity)
 
   setRowDataFromBarCode(indexLine: number, selectedItem: any, barcode: string) {
     const rowForm = this.salesReturnFormArray.at(indexLine) as FormGroup;
-
+    console.log(rowForm)
     if (!selectedItem) {
       return;
     }
@@ -845,9 +853,8 @@ formTracking.get('quantity')?.setValue(trackingOptionsData?.totalQuantity)
   }
 
   onSave() {
-    // this.isValidData();
-    // if (!this.formService.validForm(this.salesReturnForm, false)) return;
-    // if (!this.formService.validForm(this.salesReturnFormArray, false)) return;
+    if (!this.formService.validForm(this.salesReturnForm, false)) return;
+    if (!this.formService.validForm(this.salesReturnFormArray, false)) return;
 
  
 

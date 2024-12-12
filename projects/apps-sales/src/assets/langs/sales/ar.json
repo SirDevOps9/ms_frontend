@@ -23,6 +23,8 @@
   "customerName": "اسم العميل",
   "currency": "العملة",
   "rate": "السعر",
+  "selectTracking" : "اختيار التتبع",
+
   "paymentTerms": "شروط الدفع",
   "creditLimit": "حد الائتمان",
   "pricePolicy": "سياسة الأسعار",

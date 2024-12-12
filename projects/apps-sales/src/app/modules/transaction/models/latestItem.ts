@@ -1,5 +1,6 @@
 
 export interface LatestItem {
+  batchHeaderId: number
   itemId: number
   itemCode: string
   itemName: string
@@ -15,15 +16,9 @@ export interface LatestItem {
   itemCategoryNameEn: string
   categoryId: number
   categoryType: string
-  hasExpiryDate: boolean
-  cost: number
-  trackingType: string
-  trackingNo: string
-  totalQuantity: number
-  createdOn: string
-  expiryDate: string
   taxId: number
   taxRatio: number
+  trackingType: string
   trackingList: TrackingList[]
   itemsUOM: ItemsUom[]
 }

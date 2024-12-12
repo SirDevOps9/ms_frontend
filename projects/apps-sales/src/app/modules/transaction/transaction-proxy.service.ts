@@ -65,7 +65,7 @@ export class TransactionProxyService {
 
 
   PostInvoice(id:number){
-    return this.httpService.post(`Invoice/${id}/Post`, null);
+    return this.httpService.post(`SalesInvoice/${id}/Post`, null);
 
   }
 
