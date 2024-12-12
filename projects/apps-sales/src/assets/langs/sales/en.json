@@ -27,7 +27,7 @@
         "UOM": "UOM",
         "varient": "Varient",
         "price": "Price",
-        "priceVAT": "Price With VAT",
+        "priceVAT": "Price WithOut VAT",
         "action": "Action",
         "uploadExcel": "upload Excel",
         "updatePrice": "update price policy",

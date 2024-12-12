@@ -7,7 +7,6 @@ import { ItemDto } from '../../../models';
 import { SalesService } from '../../../sales.service';
 import { UpdetePricePolicyComponent } from '../../../components/updete-price-policy/updete-price-policy.component';
 import { PopupExcelComponent } from '../../../components/popup-excel/popup-excel.component';
-import { filter, take } from 'rxjs';
 
 @Component({
   selector: 'app-add-price-policy',
@@ -25,6 +24,14 @@ export class AddPricePolicyComponent implements OnInit, OnDestroy {
   filteredPricePolicies: any[];
 
   addForm: FormGroup;
+  globalFilterFields: string[] = [
+    'itemId',
+    'itemName',
+    'itemCode',
+    'uomName',
+    'itemVariantName',
+
+  ];
   @ViewChild('dt') dt: any;
 
   ngOnInit() {
@@ -497,14 +504,7 @@ export class AddPricePolicyComponent implements OnInit, OnDestroy {
       this.dt.filterGlobal(inputElement, stringVal);
     }
   }
-  filteredData: any = []
-  globalFilterFields: string[] = [
-    'itemId',
-    'itemName',
-    'uomId',
-    'quantity',
-
-  ];
+ 
 
   onSearchTermChange(search: any): void {
     const term = search?.trim().toLowerCase() || '';  // Trim spaces and convert to lowercase
