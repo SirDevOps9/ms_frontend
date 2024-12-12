@@ -316,21 +316,32 @@ export class AddSalesInvoiceComponent implements OnInit {
   }
   // form section##########
 
+
+
   onTrackingChanged(e : any , formTracking  : FormGroup , i : number) {
+
+
+
+
   let salesInvoiceTracking =  formTracking.get('salesInvoiceTracking') 
     let trackingOptions =  formTracking.controls['trackingOptions'].value;
 
-   let trackingOptionsData = trackingOptions.find((elem : any)=>elem.id == i)
+    
+   let trackingOptionsData = trackingOptions.find((elem : any)=>elem.id == e)
+   console.log(trackingOptionsData)
+   formTracking.get('trackingType')?.setValue(trackingOptionsData?.trackingNo)
+
       salesInvoiceTracking?.patchValue({
-        batchNo: formTracking.get('trackingType')?.value ==
+        batchNo: trackingOptionsData.trackingType ==
         this.sharedFinanceEnums.trackingType.Batch ? trackingOptionsData?.trackingNo : null,
         quantity: trackingOptionsData?.totalQuantity,
         hasExpiryDate: true,
         expireDate: trackingOptionsData?.expiryDate ??  null,
-        serialId: formTracking.get('trackingType')?.value ==
+        serialId: trackingOptionsData.trackingType ==
         this.sharedFinanceEnums.trackingType.Serial ? trackingOptionsData?.trackingNo : null,
-        trackingType: formTracking.get('trackingType')?.value
+        trackingType: trackingOptionsData.trackingType
   })
+
 
 formTracking.get('quantity')?.setValue(trackingOptionsData?.totalQuantity)
 formTracking.get('trackingTypeNo')?.setValue(trackingOptionsData?.trackingNo )

@@ -549,7 +549,7 @@
                     <lib-select
                       formControlName="trackingType"
                       [options]="salesReturnFormGroup.controls['trackingOptions'].value || []"
-                      optionValue="trackingType"
+                      optionValue="id"
                       optionLabel="trackingNo"
                       placeholder="{{ 'salesInvoice.selectTracking' | translate }}"
                       (selectedValue)="(salesReturnFormGroup.controls['trackingType']?.value)"
