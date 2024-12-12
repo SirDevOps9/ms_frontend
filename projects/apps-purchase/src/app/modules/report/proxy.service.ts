@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService } from 'shared-lib';
-import { GetVendorStatementReportDto } from './models';
+import { GetVendorStatementReportDto, SearchParams } from './models';
 
 @Injectable({
   providedIn: 'root',
@@ -9,11 +9,19 @@ import { GetVendorStatementReportDto } from './models';
 export class ProxyService {
   constructor(private http: HttpService) {}
 
-  getVendorsReports(searchData: any): Observable<GetVendorStatementReportDto> {
+  getVendorsReports(searchData: SearchParams): Observable<GetVendorStatementReportDto> {
+    let query = 'VendorReports/VendorStatmentReport';
 
-    const query = 'VendorReports/VendorStatmentReport'
+    if (searchData) {
+      Object.keys(searchData).forEach((key) => {
+        const value = searchData[key];
+        if (value) {
+          query += `&${key}=${encodeURIComponent(value)}`;
+        }
+      });
+    }
 
-    return this.http.get<GetVendorStatementReportDto>('VendorReports/VendorStatmentReport');
+    return this.http.get<GetVendorStatementReportDto>(query);
   }
 
   getVendorsDropdown(): Observable<[]> {
