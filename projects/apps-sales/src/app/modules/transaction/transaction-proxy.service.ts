@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { LatestItem } from './models';
+import { AddSalesInvoice, LatestItem } from './models';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
 import { AddPurchaseInvoiceDto } from 'projects/apps-purchase/src/app/modules/purchase-transactions/models/addPurchaseInvoice';
 
@@ -58,8 +58,8 @@ export class TransactionProxyService {
     return this.httpService.get<PaginationVm<LatestItem>>(query);
   }
 
-  addPurchaseInvoice(obj : AddPurchaseInvoiceDto) {
-    return this.httpService.post('Invoice' , obj)
+  addSalesInvoice(obj : AddSalesInvoice) {
+    return this.httpService.post('SalesInvoice' , obj)
   }
 
 
@@ -67,6 +67,15 @@ export class TransactionProxyService {
   PostInvoice(id:number){
     return this.httpService.post(`Invoice/${id}/Post`, null);
 
+  }
+
+  getItemPricePolicy(PricePolicyId?:number ,ItemId?:number , UOMId?:string , ItemVariantId? : number ) {
+    return this.httpService.get(`PricePolicy/GetItemPricePolicy?PricePolicyId=${PricePolicyId}&ItemId=${ItemId}&UOMId=${UOMId}&ItemVariantId=${ItemVariantId}` , true);
+
+  }
+
+  getPricePolicyLookup() {
+    return this.httpService.get(`PricePolicy/DropDown`);
   }
 
   

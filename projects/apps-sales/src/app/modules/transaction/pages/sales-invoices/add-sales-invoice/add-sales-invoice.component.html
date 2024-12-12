@@ -105,7 +105,7 @@
                 </lib-label>
                 <lib-select
                   formControlName="salesmanId"
-                  [options]="oprationalLookup"
+                  [options]="[]"
                   optionValue="id"
                   optionLabel="displayName"
                   placeholder="{{ 'salesInvoice.salesMan' | translate }}"
@@ -133,15 +133,15 @@
             <div class="grid">
               <!-- customer code -->
           
-              <div class="md:col-6">
+              <div class="md:col-4">
                 <lib-label [appControl]="salesReturnForm.controls['customerCode']">
                   {{ 'salesInvoice.customerCode' | translate }}
                 </lib-label>
                 <div class="grid align-items-center">
-                  <div class="md:col-10">
+                  <div class="md:col-12">
                     <lib-select
                       formControlName="customerId"
-                      [options]="vendorItems"
+                      [options]="vendorItems || []"
                       optionValue="id"
                       optionLabel="name"
                       placeholder="{{ 'salesInvoice.customerCode' | translate }}"
@@ -229,15 +229,15 @@
            
               <!-- credit  Limit -->
               <div class="md:col-4 my-2">
-                <lib-label [appControl]="salesReturnForm.controls['creditLimit']">
+                <lib-label [appControl]="salesReturnForm.controls['customerCreditLimit']">
                   {{ 'salesInvoice.creditLimit' | translate }}
                 </lib-label>
                 <lib-text-input
                   placeholder="{{ 'salesInvoice.creditLimit' | translate }}"
-                  formControlName="creditLimit"
+                  formControlName="customerCreditLimit"
                 ></lib-text-input>
                 <lib-field-validations
-                  [appControl]="salesReturnForm.controls['creditLimit']"
+                  [appControl]="salesReturnForm.controls['customerCreditLimit']"
                 ></lib-field-validations>
               </div>
               <!-- pricePolicy -->
@@ -247,9 +247,9 @@
                 </lib-label>
                 <lib-select
                   formControlName="pricePolicyId"
-                  [options]="oprationalLookup"
+                  [options]="pricePolicyLookup || []"
                   optionValue="id"
-                  optionLabel="displayName"
+                  optionLabel="name"
                   placeholder="{{ 'salesInvoice.pricePolicy' | translate }}"
                   [selectedValue]="salesReturnForm.controls['pricePolicyId'].value"
                 >
@@ -393,7 +393,7 @@
                     [optionLabel]="currentLang == 'en' ? 'uomNameEn' : 'uomNameAr'"
                     placeholder="{{ 'salesInvoice.UOM' | translate }}"
                     (valueChanged)="
-                      changeUomName(i, salesReturnFormGroup.controls['uomOptions'].value)
+                      changeUomName(i, salesReturnFormGroup.controls['uomOptions'].value , salesReturnFormGroup.controls['uomId']?.value , salesReturnFormGroup)
                     "
                     [selectedValue]="salesReturnFormGroup.controls['uomId']?.value"
                   ></lib-select>
@@ -437,26 +437,9 @@
             <!-- cost - price -->
 
             <td
-              [pEditableColumn]="salesReturnFormGroup.controls['cost']"
-              pEditableColumnField="cost"
+            
             >
-              <p-cellEditor>
-                <ng-template pTemplate="input">
-                  <lib-text-input
-                    [readOnly]="dataToReadOnly"
-                    type="number"
-                    placeholder="{{ 'salesInvoice.cost' | translate }}"
-                    formControlName="cost"
-                    (keyUp)="quantityCostChange(salesReturnFormGroup)"
-                  ></lib-text-input>
-                </ng-template>
-                <ng-template pTemplate="output">
-                  {{ salesReturnFormGroup.controls['cost']?.value }}
-                </ng-template>
-              </p-cellEditor>
-              <lib-field-validations
-                [appControl]="salesReturnFormGroup.controls['cost']"
-              ></lib-field-validations>
+           {{ salesReturnFormGroup.controls['cost']?.value}}
             </td>
             <!-- sub Total -->
             <td>
@@ -475,24 +458,25 @@
 
             <!-- discount  -->
             <td
-              [pEditableColumn]="salesReturnFormGroup.controls['discount']"
+              [pEditableColumn]="salesReturnFormGroup.controls['discountPercentage']"
               pEditableColumnField="discount"
             >
               <p-cellEditor>
                 <ng-template pTemplate="input">
                   <lib-text-input
                     placeholder="{{ 'salesInvoice.disAmount' | translate }}"
-                    formControlName="discount"
+                    formControlName="discountPercentage"
                     [readOnly]="dataToReadOnly"
-                    (keyUp)="discountChange(salesReturnFormGroup)"
-                  ></lib-text-input>
+                    (keyUp)="disAmountChange(salesReturnFormGroup)"     
+                    
+                    ></lib-text-input>
                 </ng-template>
                 <ng-template pTemplate="output">
-                  {{ salesReturnFormGroup.controls['discount']?.value }}
+                  {{ salesReturnFormGroup.controls['discountPercentage']?.value }}
                 </ng-template>
               </p-cellEditor>
               <lib-field-validations
-                [appControl]="salesReturnFormGroup.controls['discount']"
+                [appControl]="salesReturnFormGroup.controls['discountPercentage']"
               ></lib-field-validations>
             </td>
             <!-- discount Amount -->
@@ -506,7 +490,7 @@
                     placeholder="{{ 'salesInvoice.disAmount' | translate }}"
                     formControlName="discountAmount"
                     [readOnly]="dataToReadOnly"
-                    (keyUp)="discountAmountChange(salesReturnFormGroup)"
+                    (keyUp)="amountChange(salesReturnFormGroup)"
                   ></lib-text-input>
                 </ng-template>
                 <ng-template pTemplate="output">
@@ -562,21 +546,40 @@
              <td
              [pEditableColumn]="salesReturnFormGroup.controls['trackingType']"
              pEditableColumnField="trackingType"
+             [ngClass]="{
+              'no-tracking':
+                salesReturnFormGroup.get('trackingType').value ==
+                  sharedFinanceEnums.trackingType.NoTracking 
+                
+            }"
            >
+      
              <p-cellEditor>
-               <ng-template pTemplate="input">
-                 <lib-select
-                   formControlName="trackingType"
-                   [options]="salesReturnFormGroup.controls['trackingOptions'].value || []"
-                   optionValue="trackingType"
-                   [optionLabel]="''"
-                   placeholder="{{ 'salesInvoice.UOM' | translate }}"
-                 
-                   [selectedValue]="salesReturnFormGroup.controls['trackingType']?.value"
-                 ></lib-select>
-               </ng-template>
+             
+              <ng-template pTemplate="input">
+                <div *ngIf=" salesReturnFormGroup.get('trackingType').value !==
+              sharedFinanceEnums.trackingType.NoTracking ">
+                <lib-select
+                  formControlName="trackingType"
+                  [options]="salesReturnFormGroup.controls['trackingOptions'].value || []"
+                  optionValue="trackingType"
+                  optionLabel="trackingNo"
+                  placeholder="{{ 'salesInvoice.UOM' | translate }}"
+                
+                  (selectedValue)="salesReturnFormGroup.controls['trackingType']?.value"
+                  (valueChanged)="onTrackingChanged($event , salesReturnFormGroup  , i)"
+                ></lib-select>
+              </div>
+                <div *ngIf=" salesReturnFormGroup.get('trackingType').value ==
+              sharedFinanceEnums.trackingType.NoTracking ">
+                               {{ salesReturnFormGroup.controls['trackingType']?.value }}
+
+              </div>
+
+              </ng-template>
+             
                <ng-template pTemplate="output">
-                 {{ salesReturnFormGroup.controls['uomName']?.value }}
+                 {{ salesReturnFormGroup.controls['trackingType']?.value }}
                </ng-template>
              </p-cellEditor>
              <lib-field-validations

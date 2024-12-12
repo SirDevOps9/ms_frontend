@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TransactionProxyService } from './transaction-proxy.service';
-import { BehaviorSubject, map } from 'rxjs';
-import { LatestItem } from './models';
+import { BehaviorSubject, map, Observable } from 'rxjs';
+import { AddSalesInvoice, LatestItem } from './models';
 import { AddPurchaseInvoiceDto } from 'projects/apps-purchase/src/app/modules/purchase-transactions/models/addPurchaseInvoice';
 import { LanguageService, LoaderService, PageInfo, PageInfoResult, RouterService, ToasterService } from 'shared-lib';
 
@@ -14,7 +14,9 @@ export class TransactionService {
   public warehouseLookup = new BehaviorSubject<any >([]);
   public itemsDataSourceForAdvanced = new BehaviorSubject<LatestItem[]>([]);
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
-  public sendPurchaseInvoice = new BehaviorSubject<AddPurchaseInvoiceDto>({} as AddPurchaseInvoiceDto);
+  public sendSalesInvoice = new BehaviorSubject<AddPurchaseInvoiceDto>({} as AddPurchaseInvoiceDto);
+  public sendPricePolicy = new BehaviorSubject({} as any);
+  public sendPricePolicyLookup = new BehaviorSubject({} as any);
 
   constructor(private TransactionsProxy : TransactionProxyService ,    private toasterService: ToasterService,
     private languageService: LanguageService,
@@ -57,13 +59,13 @@ export class TransactionService {
   }
  
 
-  addPurchaseInvoice(obj : AddPurchaseInvoiceDto) {
-    this.TransactionsProxy.addPurchaseInvoice(obj).subscribe((res) => {
+  addSalesInvoice(obj : AddSalesInvoice) {
+    this.TransactionsProxy.addSalesInvoice(obj).subscribe((res) => {
       this.toasterService.showSuccess(
         this.languageService.transalte('purchase.success'),
         this.languageService.transalte('purchase.addInvoice') 
       ); 
-     this.sendPurchaseInvoice.next(res);
+     this.sendSalesInvoice.next(res);
     });
   }
 
@@ -87,6 +89,18 @@ export class TransactionService {
           this.languageService.transalte(error.message)
         );
       },
+    });
+  }
+
+  getItemPricePolicy(PricePolicyId?:number ,ItemId?:number , UOMId?:string , ItemVariantId? : number ) {
+    this.TransactionsProxy.getItemPricePolicy(PricePolicyId , ItemId, UOMId, ItemVariantId).subscribe((res) => {
+      this.sendPricePolicy.next(res);
+    });
+  }
+
+  getPricePolicyLookup()  {
+    this.TransactionsProxy.getPricePolicyLookup().subscribe((res) => {
+      this.sendPricePolicyLookup.next(res);
     });
   }
 
