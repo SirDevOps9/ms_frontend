@@ -81,6 +81,7 @@ export class AddPricePolicyComponent implements OnInit, OnDestroy {
           itemName: new FormControl(''),
           itemCode: new FormControl(''),
           isVatApplied: new FormControl(false),
+          isSellingPriceIncludeVat: new FormControl(false),
           uomId: new FormControl(''),
           uomName: new FormControl(''),
           itemVariantId: new FormControl(''),
@@ -141,6 +142,8 @@ export class AddPricePolicyComponent implements OnInit, OnDestroy {
       rowForm.get('categoryType')?.setValue(selectedItem.categoryType);
       rowForm.get('id')?.setValue(rowIndex + 1);
       rowForm.get('price')?.setValue(price);
+      rowForm.get('isSellingPriceIncludeVat')?.setValue(selectedItem.isSellingPriceIncludeVat);
+      rowForm.get('isVatApplied')?.setValue(selectedItem.isVatApplied);
 
       const isDuplicate = this.pricePolicyFormArray.controls.some((element: any, index: number) => {
         if (index !== rowIndex) {
@@ -294,8 +297,9 @@ export class AddPricePolicyComponent implements OnInit, OnDestroy {
     const rowForm = this.pricePolicyFormArray.at(index) as FormGroup;
     rowForm.get('priceWithVat')?.setValue(0);
     const taxRatio: any = rowForm.get('taxRatio')?.value
-    let priceWithVat = Number(price) + ((Number(price) * taxRatio) / 100)
-    if (rowForm.get('isVatApplied')?.value == true) {
+     let priceWithVat = Number(price) + ((Number(price) /taxRatio+1 ))
+    // let priceWithVat = Number(price) + ((Number(price) * taxRatio) / 100)
+    if (rowForm.get('isSellingPriceIncludeVat')?.value == true) {
       rowForm.get('priceWithVat')?.setValue(priceWithVat);
     } else {
       rowForm.get('priceWithVat')?.setValue(price);
@@ -472,6 +476,7 @@ export class AddPricePolicyComponent implements OnInit, OnDestroy {
             uomId: detail.uomId,
             itemVariantId: detail.itemVariantId,
             isVatApplied: detail.isVatApplied, // Ensure it's a boolean
+            isSellingPriceIncludeVat: detail.isSellingPriceIncludeVat, // Ensure it's a boolean
             taxId: detail.taxId || null,
           }
           )),

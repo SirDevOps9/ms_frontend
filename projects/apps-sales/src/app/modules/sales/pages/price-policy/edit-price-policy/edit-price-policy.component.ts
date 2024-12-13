@@ -316,8 +316,9 @@ export class EditPricePolicyComponent {
     const rowForm = this.pricePolicyFormArray.at(index) as FormGroup;
     rowForm.get('priceWithVat')?.setValue(0);
     const taxRatio: any = rowForm.get('taxRatio')?.value
-    let priceWithVat = Number(price) + ((Number(price) * taxRatio) / 100)
-    if (rowForm.get('isVatApplied')?.value == true) {
+    let priceWithVat = Number(price) + ((Number(price) /taxRatio+1 ))
+    // let priceWithVat = Number(price) + ((Number(price) * taxRatio) / 100)
+    if (rowForm.get('isSellingPriceIncludeVat')?.value == true) {
       rowForm.get('priceWithVat')?.setValue(priceWithVat);
     } else {
       rowForm.get('priceWithVat')?.setValue(price);
@@ -494,6 +495,7 @@ export class EditPricePolicyComponent {
             uomId: detail.uomId,
             itemVariantId: detail.itemVariantId,
             isVatApplied: detail.isVatApplied, // Ensure it's a boolean
+            isSellingPriceIncludeVat: detail.isSellingPriceIncludeVat, // Ensure it's a boolean
             taxId: detail.taxId || null,
           }
           )),

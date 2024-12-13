@@ -147,9 +147,9 @@
               </lib-field-validations>
             </td>
             <td>
-              <lib-input-switch  formControlName="isVatApplied"
-              [(ngModel)]=" pricePolicy.get('isVatApplied').value"
-
+              <lib-input-switch [disabled]="!pricePolicy.get('isVatApplied').value" 
+               formControlName="isSellingPriceIncludeVat"
+                [(ngModel)]=" pricePolicy.get('isSellingPriceIncludeVat').value"
                 (ngModelChange)="setPriceWithVat(rowIndex ,pricePolicy.get('price').value )">
 
               </lib-input-switch>
