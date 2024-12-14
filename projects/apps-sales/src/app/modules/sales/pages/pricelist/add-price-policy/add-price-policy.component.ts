@@ -297,7 +297,8 @@ export class AddPricePolicyComponent implements OnInit, OnDestroy {
     const rowForm = this.pricePolicyFormArray.at(index) as FormGroup;
     rowForm.get('priceWithVat')?.setValue(0);
     const taxRatio: any = rowForm.get('taxRatio')?.value
-     let priceWithVat = Number(price) + ((Number(price) /taxRatio+1 ))
+     let priceWithVat = ((Number(price)) / ((taxRatio/100)+1 ))
+     
     // let priceWithVat = Number(price) + ((Number(price) * taxRatio) / 100)
     if (rowForm.get('isSellingPriceIncludeVat')?.value == true) {
       rowForm.get('priceWithVat')?.setValue(priceWithVat);
