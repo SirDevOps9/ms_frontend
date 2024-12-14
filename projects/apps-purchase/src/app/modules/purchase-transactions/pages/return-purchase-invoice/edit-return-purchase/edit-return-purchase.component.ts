@@ -183,7 +183,7 @@ export class EditReturnPurchaseComponent {
 
   }
   routeToStockOut() {
-    this.router.createUrlTree([`/inventory/transactions/stock-out/view/${this.addForm.get('stockOutId')?.value}`])
+    this.router.createUrlTree([`/inventory/transactions/stockout/view/${this.addForm.get('stockOutId')?.value}`])
 
   }
   routeTojournal() {

@@ -677,7 +677,7 @@ export class EditStockInComponent implements OnInit {
     this.setTracking(rowForm);
   }
   onCancel() {
-    this.router.navigateTo('/transactions/stock-in');
+    this.router.navigateTo('/transactions/stockin');
   }
   // manual Barcode Event
   barcodeCanged(e: any, stockInFormGroup: FormGroup, index: number) {
