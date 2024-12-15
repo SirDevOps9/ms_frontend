@@ -32,6 +32,7 @@ export class BreadcrumbLabel {
   static readonly PAYMENT_TERM_LIST = 'BreadCrumb.PaymentTermList';
   static readonly PAYMENT_TERM_Add = 'BreadCrumb.AddPaymentTerm';
   static readonly PAYMENT_TERM_Edit = 'BreadCrumb.EditPaymentTerm';
+  static readonly CUSTOMER_STATEMENT_REPORT = 'BreadCrumb.CustomerStatementReport';
   static VIEW_STOCKOUT = 'BreadCrumb.stockOutView';
   static VIEW_STOCKIN = 'BreadCrumb.stockInView';
 
@@ -90,14 +91,14 @@ export class BreadcrumbLabel {
   static DOMAIN = 'Domain Details';
   static Manage_Apps = 'Manage Apps';
   static BUSSINESS_OWNER = 'Bussiness Owners';
-    static HELP_PAGES='Help Pages';
-    static CMS='CMS';
+  static HELP_PAGES = 'Help Pages';
+  static CMS = 'CMS';
   static MANAGE_BUSSINESS_OWNER = 'Manage Bussiness Owners';
   static SUBDOMAIN_INFO = 'Subdomain Info';
-    static Edit_Help_Page='Edit Help Page';
-    static Edit_CMSe='Edit CMS';
-    static Add_Help_Page='Add Help Page';
-    static Add_CMS='Add CMS';
+  static Edit_Help_Page = 'Edit Help Page';
+  static Edit_CMSe = 'Edit CMS';
+  static Add_Help_Page = 'Add Help Page';
+  static Add_CMS = 'Add CMS';
   static COMPANIES_INFO = 'Company Info';
   static LICENCE_INFO = 'licence Info';
   static USER_INFO = 'USER Info';
