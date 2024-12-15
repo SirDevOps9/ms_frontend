@@ -1,7 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService } from 'shared-lib';
-import { AddSalesReturnDto, customerDto, ReturnSalesInvoiceObj, SalesInvoiceLookup } from './models/return-sales-dto';
+import {
+  AddSalesReturnDto,
+  customerDto,
+  ReturnSalesInvoiceObj,
+  SalesInvoiceLookup,
+} from './models/return-sales-dto';
+import { updateReturnSalesInvice } from './models';
 
 @Injectable({
   providedIn: 'root',
@@ -57,17 +63,30 @@ export class TransactionProxyService {
   }
   // shared warehouse dropdown
   // Get Sales Invoice To Return By Id
-  GetSalesInvoiceToReturnById(
-    id: number
-  ): Observable<ReturnSalesInvoiceObj> {
-    let query = `SalesInvoice/${id}/GetSalesInvoiceToReturnById`
+  GetSalesInvoiceToReturnById(id: number): Observable<ReturnSalesInvoiceObj> {
+    let query = `SalesInvoice/${id}/GetSalesInvoiceToReturnById`;
     return this.httpService.get<ReturnSalesInvoiceObj>(query);
   }
   // Get Sales Invoice To Return By Id
 
+  // add
   addSalesReturnInvoice(obj: AddSalesReturnDto) {
     return this.httpService.post('ReturnSalesInvoice', obj);
   }
+// edit
+  editSalesReturnInvoice(obj: updateReturnSalesInvice) {
+    return this.httpService.put('ReturnSalesInvoice', obj);
+  }
+  // post
   postSalesReturnInvoice(id: number) {
     return this.httpService.post(`ReturnSalesInvoice/${id}/Post`, null);
-  }}
+  }
+  // get by id 
+  getReturnSalesInvoiceId(id: number) {
+    return this.httpService.get(`ReturnSalesInvoice/${id}`);
+  }
+  deleteSalesReturnLine(id: number): Observable<boolean> {
+    return this.httpService.delete<boolean>(`ReturnSalesInvoice/DeleteSalesInvoiceLine${id}
+`);
+  }
+}

@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { TransactionProxyService } from './transaction-proxy.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, map } from 'rxjs';
 import { AddSalesReturnDto, customerDto, ReturnSalesInvoiceObj, SalesInvoiceLookup } from './models/return-sales-dto';
 import { LanguageService, LoaderService, PageInfo, RouterService, ToasterService } from 'shared-lib';
+import { updateReturnSalesInvice, IreturnInvoiceById } from './models';
 
 @Injectable({
   providedIn: 'root',
@@ -23,6 +24,13 @@ export class TransactionService {
   salesInvoiceToReturnById = new BehaviorSubject<ReturnSalesInvoiceObj>({} as ReturnSalesInvoiceObj);
    sendSalesReturnInvoice = new BehaviorSubject<AddSalesReturnDto>(
     {} as AddSalesReturnDto
+  );
+  updateSalesReturnInvoice = new BehaviorSubject<updateReturnSalesInvice>(
+    {} as updateReturnSalesInvice
+  );
+  
+  ReturnSalesInvoiceIdData = new BehaviorSubject<IreturnInvoiceById>(
+    {} as IreturnInvoiceById
   );
 
   // customer dropdown
@@ -81,6 +89,27 @@ export class TransactionService {
   }
  
   // add sales return invoice 
+  // edit sales return invoice 
+
+  editSalesReturnInvoice(obj: updateReturnSalesInvice) {
+    this._transactionProxyService.editSalesReturnInvoice(obj).subscribe({
+      next: (res: any) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('salesReturnInvoice.success'),
+          this.languageService.transalte('salesReturnInvoice.salesReturninvoiceUpdatedSuccessfully')
+        );
+        this.updateSalesReturnInvoice.next(res);
+      },
+      error: (error: any) => {
+        this.toasterService.showError(
+          this.languageService.transalte('salesReturnInvoice.error'),
+          this.languageService.transalte(error.message || 'An unexpected error occurred')
+        );
+      },
+    });
+  }
+ 
+  // add sales return invoice 
 
   // post sales return invoice 
   postSalesReturnInvoice(id: number) {
@@ -104,5 +133,38 @@ export class TransactionService {
   }
     // post sales return invoice 
 
+    // update 
+
+    getReturnSalesInvoiceId(id: number) {
+      this._transactionProxyService.getReturnSalesInvoiceId(id).subscribe((response: any) => {
+        this.ReturnSalesInvoiceIdData.next(response);
+      });
+    }
+
+//   async deleteSalesReturnLine(id: number) {
+//     const confirmed = await this.toasterService.showConfirm('Delete');
+//     if (confirmed) {
+//       this._transactionProxyService.deleteSalesReturnLine(id).subscribe({
+//         next: (res) => {
+//           this.toasterService.showSuccess(
+//             this.languageService.transalte('deleteCustomerCategory.success'),
+//             this.languageService.transalte('deleteCustomerCategory.delete')
+//           );
+   
+// console.log(res);
+
+//           return res;
+//         },
+//         error: (err) => {},
+//       });
+//     }
+//   }  
+deleteSalesReturnLine(id: number) {
+  return this._transactionProxyService.deleteSalesReturnLine(id).pipe(
+    map((res) => {
+      return res;
+    })
+  );
+}
 
 }

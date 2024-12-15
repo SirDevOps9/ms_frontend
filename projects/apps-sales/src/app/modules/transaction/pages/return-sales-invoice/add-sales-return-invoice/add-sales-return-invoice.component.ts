@@ -1,35 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms';
 import { AuthService } from 'microtec-auth-lib';
-import { DialogService } from 'primeng/dynamicdialog';
-import {
-  OperationalStockIn,
-  StockInDetail,
-} from 'projects/apps-inventory/src/app/modules/items/models';
+
 import { SharedFinanceEnums } from 'projects/apps-inventory/src/app/modules/items/models/sharedEnumStockIn';
-import { SharedStock } from 'projects/apps-inventory/src/app/modules/transactions/models/sharedStockOutEnums';
-import { TransactionsService } from 'projects/apps-inventory/src/app/modules/transactions/transactions.service';
-import { LatestItem } from 'projects/apps-purchase/src/app/modules/purchase-transactions/models';
-import { PurchaseTransactionsService } from 'projects/apps-purchase/src/app/modules/purchase-transactions/purchase-transactions.service';
 import { EMPTY, skip, take } from 'rxjs';
 import {
-  LookupEnum,
-  lookupDto,
-  PageInfoResult,
   MenuModule,
   customValidators,
-  PageInfo,
   RouterService,
   LanguageService,
   FormsService,
   ToasterService,
-  CurrentUserService,
 } from 'shared-lib';
-import { ItemAdvancedSearchSalesInvoiceComponentComponent } from '../../../components/item-advanced-search-sales-invoice-component/item-advanced-search-sales-invoice-component.component';
-import { SalesInvoiceTrackingComponentComponent } from '../../../components/sales-invoice-tracking-component/sales-invoice-tracking-component.component';
 import { TransactionService } from '../../../transaction.service';
-import { AddSalesReturnDto, customerDto, SalesInvoiceLookup } from '../../../models/return-sales-dto';
-import { DatePipe } from '@angular/common';
+import {
+  AddSalesReturnDto,
+  customerDto,
+  SalesInvoiceLookup,
+} from '../../../models/return-sales-dto';
 
 @Component({
   selector: 'app-add-sales-return-invoice',
@@ -38,11 +26,11 @@ import { DatePipe } from '@angular/common';
 })
 export class AddSalesReturnInvoiceComponent implements OnInit {
   salesReturnForm: FormGroup = new FormGroup({});
-  totalQuantity: number = 0
-  totalOriginalQuantity: number= 0
-  totalDiscountAmount: number
+  totalQuantity: number = 0;
+  totalOriginalQuantity: number = 0;
+  totalDiscountAmount: number;
   totalPrice: number;
-  totalReturnQuantity: number = 0
+  totalReturnQuantity: number = 0;
   savedDataId: number = 0;
   dataToReadOnly: boolean = false;
   modulelist: MenuModule[];
@@ -68,7 +56,7 @@ export class AddSalesReturnInvoiceComponent implements OnInit {
   salesInvoiceList: SalesInvoiceLookup[] = [];
   rowDuplicate: number = -1;
   duplicateLine: boolean;
- 
+
   ngOnInit(): void {
     this.initializeForm();
     this.initLookups();
@@ -76,7 +64,6 @@ export class AddSalesReturnInvoiceComponent implements OnInit {
     this.salesReturnFormArray.valueChanges.subscribe(() => {
       this.calculate();
     });
-
   }
 
   // form section##########
@@ -95,8 +82,6 @@ export class AddSalesReturnInvoiceComponent implements OnInit {
       customerName: new FormControl(''),
       currencyName: new FormControl(''),
       rate: new FormControl('', [customValidators.required]),
-      paymentTermId: new FormControl(''),
-      creditLimit: new FormControl(''),
       salesInvoiceId: new FormControl('', [customValidators.required]),
 
       numberOfItems: 0,
@@ -126,15 +111,12 @@ export class AddSalesReturnInvoiceComponent implements OnInit {
       uomName: '',
       uomId: ['', customValidators.required],
       taxRatio: '',
-      remainQTY: [
-        null,
-      ],
-      toReturnQTY: [,
+      remainQTY: [null],
+      toReturnQTY: [
+        ,
         [customValidators.required, customValidators.nonZero, customValidators.nonNegativeNumbers],
       ],
-      originalQTY: [
-        null,
-      ],
+      originalQTY: [null],
       cost: [
         null,
         [customValidators.required, customValidators.nonZero, customValidators.nonNegativeNumbers],
@@ -155,7 +137,7 @@ export class AddSalesReturnInvoiceComponent implements OnInit {
   get salesReturnFormArray() {
     return this.salesReturnForm.get('salesReturnDetails') as FormArray;
   }
-
+// custumer id on change 
   customerIdChange() {
     this.salesReturnForm.get('customerId')?.valueChanges.subscribe((res) => {
       if (!res) return;
@@ -176,6 +158,7 @@ export class AddSalesReturnInvoiceComponent implements OnInit {
       }
     });
   }
+// sales invoice id on change 
 
   salesInvoiceControleChange() {
     this.salesReturnForm.get('salesInvoiceId')?.valueChanges.subscribe((res) => {
@@ -188,6 +171,7 @@ export class AddSalesReturnInvoiceComponent implements OnInit {
     });
   }
   // form section##########
+
   // Patch the response to the form
   patchFormValues(response: any) {
     this.salesReturnForm.patchValue({
@@ -198,7 +182,10 @@ export class AddSalesReturnInvoiceComponent implements OnInit {
       description: response.description,
       customerId: +response.customerId,
       customerName: response.customerName,
+      createdStockIn: response.stockInCode,
       currencyName: response.currencyName,
+      relatedJournal: response.journalCode,
+
       rate: response.currencyRate,
     });
 
@@ -206,7 +193,6 @@ export class AddSalesReturnInvoiceComponent implements OnInit {
     const salesReturnDetailsArray = this.salesReturnForm.get('salesReturnDetails') as FormArray;
     salesReturnDetailsArray.clear();
     if (Array.isArray(response.salesInvoiceDetails)) {
-
       response.salesInvoiceDetails.forEach((detail: any) => {
         salesReturnDetailsArray.push(
           this.fb.group({
@@ -290,13 +276,11 @@ export class AddSalesReturnInvoiceComponent implements OnInit {
     }
   }
 
-
   initLookups() {
     this._transactionService.getCustomerList('');
     this._transactionService.getSharedWarehousesLookup(this.wearhouseSearch);
     this._transactionService.getSalesInvoiceLookup();
   }
-
 
   resetAfterChangeCustomerId() {
     this.salesReturnForm.get('id')?.reset();
@@ -339,16 +323,15 @@ export class AddSalesReturnInvoiceComponent implements OnInit {
       const allvat = parseFloat(control.get('cost')?.value) || 0;
       return acc + allvat;
     }, 0);
-    let totalAfterDiscount = (this.totalQuantity * this.totalPrice) - this.totalDiscountAmount
+    let totalAfterDiscount = this.totalQuantity * this.totalPrice - this.totalDiscountAmount;
 
-    this.salesReturnForm.get('totalOfQuantity')?.setValue(this.totalQuantity)
-    this.salesReturnForm.get('discount')?.setValue(this.totalDiscountAmount)
-    this.salesReturnForm.get('total')?.setValue(this.totalQuantity * this.totalPrice)
-    this.salesReturnForm.get('totalAfterVat')?.setValue(totalAfterDiscount)
-    this.salesReturnForm.get('vatAmount')?.setValue(this.vatAmount)
-    this.salesReturnForm.get('numberOfItems')?.setValue(this.salesReturnFormArray.length)
+    this.salesReturnForm.get('totalOfQuantity')?.setValue(this.totalQuantity);
+    this.salesReturnForm.get('discount')?.setValue(this.totalDiscountAmount);
+    this.salesReturnForm.get('total')?.setValue(this.totalQuantity * this.totalPrice);
+    this.salesReturnForm.get('totalAfterVat')?.setValue(totalAfterDiscount);
+    this.salesReturnForm.get('vatAmount')?.setValue(this.vatAmount);
+    this.salesReturnForm.get('numberOfItems')?.setValue(this.salesReturnFormArray.length);
   }
-
 
   onCancel() {
     this.router.navigateTo('/transaction/sales-return-invoice');
@@ -361,25 +344,24 @@ export class AddSalesReturnInvoiceComponent implements OnInit {
     if (!this.formsService.validForm(this.salesReturnForm, false)) return;
     if (!this.formsService.validForm(this.salesReturnFormArray, false)) return;
     if (this.duplicateLine == true) return;
-    let formVal = this.salesReturnForm.value
+    let formVal = this.salesReturnForm.value;
 
-    const returnSalesInvoiceDetails: any[] = this.salesReturnFormArray.controls.map(control => {
+    const returnSalesInvoiceDetails: any[] = this.salesReturnFormArray.controls.map((control) => {
       return {
-        toReturnQuantity: control.value.toReturnQTY,
-        salesInvoiceDetailId: control.value.id
+        toReturnQuantity: Number(control.value.toReturnQTY),
+        salesInvoiceDetailId: control.value.id,
       };
     });
     const obj: AddSalesReturnDto = {
       returnInvoiceDate: formVal.returnDate,
       description: formVal.description,
       warehouseId: formVal.warehouseId,
-      warehouseName: formVal.warehouseName,
+      warehouseName: this.warhouseLookupData.find((x) => x.id == formVal.warehouseId).name,
       salesInvoiceHeaderId: formVal.salesInvoiceId,
-      returnSalesInvoiceDetails: returnSalesInvoiceDetails
+      returnSalesInvoiceDetails: returnSalesInvoiceDetails,
+    };
 
-    }
-
-    this._transactionService.addSalesReturnInvoice(obj)
+    this._transactionService.addSalesReturnInvoice(obj);
     this._transactionService.sendSalesReturnInvoice.subscribe((res: number | any) => {
       if (typeof res == 'number') {
         this.savedDataId = res;
@@ -389,9 +371,8 @@ export class AddSalesReturnInvoiceComponent implements OnInit {
         this.dataToReadOnly = false;
         this.showPost = false;
       }
-    })
+    });
   }
-
 
   setReturnQuantity(indexLine: number) {
     const rowForm = this.salesReturnFormArray.at(indexLine) as FormGroup;
@@ -442,16 +423,12 @@ export class AddSalesReturnInvoiceComponent implements OnInit {
     return isValid;
   }
 
-    async deleteRow(index: number, id: number) {
-
-
-
-      const confirmed = await this.toasterService.showConfirm('Delete');
-      if (confirmed) {
-        this.salesReturnFormArray.removeAt(index);
-      }
-  
+  async deleteRow(index: number, id: number) {
+    const confirmed = await this.toasterService.showConfirm('Delete');
+    if (confirmed) {
+      this.salesReturnFormArray.removeAt(index);
     }
+  }
 
   addToPost() {
     this._transactionService.postSalesReturnInvoice(this.savedDataId);

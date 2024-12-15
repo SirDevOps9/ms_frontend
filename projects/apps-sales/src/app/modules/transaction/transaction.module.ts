@@ -103,7 +103,7 @@ const routes: Routes = [
           },
           {
             path: 'edit/:id',
-            component: AddSalesReturnInvoiceComponent,
+            component: EditSalesReturnInvoiceComponent,
             data: {
               breadcrumb: BreadcrumbLabel.SALES_RETURN_INVOICE_EDIT,
               pageTitle: BreadcrumbLabel.SALES_RETURN_INVOICE,
