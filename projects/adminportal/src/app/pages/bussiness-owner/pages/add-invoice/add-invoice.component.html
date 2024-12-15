@@ -10,51 +10,38 @@
         </h3>
         <div class="card_micro">
             <form [formGroup]="addForm">
-                <div class="row">
+                <div class="row group">
                     <div class="col-3">
                         <lib-form-group>
                             <lib-label [appControl]="addForm.controls['name']">
                                 {{ 'name' | translate }}
                               </lib-label>
-                              <lib-text-input
+                              <lib-select
                               formControlName="name"
+                              [options]="BusinessOwner"
+                              optionValue="id"
+                              optionLabel="name"
+                              (valueChanged)="setData(addForm.controls['name'].value)"
+                            
                               >
-                
-                              </lib-text-input>
+             
+                              </lib-select>
                               <lib-field-validations [appControl]="addForm.controls['name']"></lib-field-validations>
                 
                             
                         </lib-form-group>
                     </div>
                     <div class="col-3">
-                        <lib-form-group>
-                            <lib-label [appControl]="addForm.controls['email']">
-                                {{ 'email' | translate }}
-                              </lib-label>
-                              <lib-text-input
-                              formControlName="email"
-                              >
-                
-                              </lib-text-input>
-                              <lib-field-validations [appControl]="addForm.controls['email']"></lib-field-validations>
-                
-                            
-                        </lib-form-group>
+                        <div class="form-floating ">
+                            <input  type="text" readonly class="form-control" id="floatingInput" placeholder="name@example.com" formControlName="email">
+                            <label for="floatingInput">Email</label>
+                          </div>
                     </div>
                     <div class="col-3">
-                        <lib-form-group>
-                            <lib-label [appControl]="addForm.controls['phone']">
-                                {{ 'phone' | translate }}
-                              </lib-label>
-                              <lib-text-input
-                              formControlName="phone"
-                              >
-                
-                              </lib-text-input>
-                              <lib-field-validations [appControl]="addForm.controls['phone']"></lib-field-validations>
-                
-                            
-                        </lib-form-group>
+                        <div class="form-floating ">
+                            <input  type="text" readonly  class="form-control" id="floatingInput"  formControlName="phone">
+                            <label for="floatingInput">phone number</label>
+                          </div>
                     </div>
                 </div>
                 <div class="row mt-3">
@@ -63,11 +50,7 @@
                             <lib-label [appControl]="addForm.controls['phoneCode']">
                                 {{ 'phoneCode' | translate }}
                               </lib-label>
-                              <lib-select
-                            
-                              >
-             
-                              </lib-select>
+                            <lib-calendar></lib-calendar>
                               <lib-field-validations [appControl]="addForm.controls['phoneCode']"></lib-field-validations>
                 
                             

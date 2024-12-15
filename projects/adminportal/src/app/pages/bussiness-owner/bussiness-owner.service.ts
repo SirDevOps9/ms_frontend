@@ -55,6 +55,10 @@ export class BussinessOwnerService {
     return this.bussinessOwnerProxy.Apps()
 
   }
+  getBusinessOwnerLookup() : Observable<any>{
+    return this.bussinessOwnerProxy.BusinessOwnerLookup()
+
+  }
   addBussinesOwner(obj: AddBussinesOwner) {
     this.loaderService.show();
 

@@ -11,12 +11,21 @@ import { customValidators } from 'shared-lib';
 export class AddInvoiceComponent {
   addForm: FormGroup;
   apps:any;
+  BusinessOwner:any;
   ngOnInit(): void {
-    this.initializeForm()
+    this.initializeForm();
+    this.getBusinessOwnerLookup();
+    this.getApps();
   }
   getApps(){
     this.bussinessOwnerService.getApps().subscribe((res:any)=>{
       this.apps = res      
+      
+    })
+  }
+  getBusinessOwnerLookup(){
+    this.bussinessOwnerService.getBusinessOwnerLookup().subscribe((res:any)=>{
+      this.BusinessOwner = res      
       
     })
   }
@@ -29,6 +38,12 @@ export class AddInvoiceComponent {
       phoneCode:  new FormControl('',[customValidators.required]),
     })
 
+  }
+  setData(id:number){
+    const x:any = this.BusinessOwner.find((element:any)=> element.id == id)
+    this.addForm.get('email')?.setValue(x.email)
+    this.addForm.get('phone')?.setValue(x.phone)
+    
   }
   constructor(
     private formBuilder: FormBuilder,
