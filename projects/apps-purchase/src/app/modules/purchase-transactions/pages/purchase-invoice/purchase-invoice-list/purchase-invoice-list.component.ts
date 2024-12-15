@@ -59,15 +59,15 @@ export class PurchaseInvoiceListComponent implements OnInit {
   onAdd() {
     this.sequenceService.isHaveSequence(
       this.sharedEnums.Pages.PurchaseInvoice,
-      '/transaction/purchase-invoice/add'
+      '/transactions/purchase-invoice/add'
     );
   }
 
   onEdit(id: any) {
-    this.routerService.navigateTo(`/transaction/purchase-invoice/edit/${id}`);
+    this.routerService.navigateTo(`/transactions/purchase-invoice/edit/${id}`);
   }
   onView(id: any) {
-    this.routerService.navigateTo(`/transaction/purchase-invoice/view/${id}`);
+    this.routerService.navigateTo(`/transactions/purchase-invoice/view/${id}`);
   }
 
   onSearchChange() {

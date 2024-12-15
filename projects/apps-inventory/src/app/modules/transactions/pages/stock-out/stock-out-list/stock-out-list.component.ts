@@ -137,16 +137,16 @@ export class StockOutListComponent implements OnInit {
   onAdd() {
     this.sequenceService.isHaveSequence(
       this.sharedEnums.Pages.StockOut,
-      '/transactions/stock-out/add'
+      '/transactions/stockout/add'
     );
   }
 
   onEdit(data: any) {
-    this.routerService.navigateTo(`transactions/stock-out/edit/${data.id}`);
+    this.routerService.navigateTo(`transactions/stockout/edit/${data.id}`);
   }
 
   onVeiw(data: any) {
-    this.routerService.navigateTo(`transactions/stock-out/view/${data}`);
+    this.routerService.navigateTo(`transactions/stockout/view/${data}`);
   }
 
   onSearchChange() {

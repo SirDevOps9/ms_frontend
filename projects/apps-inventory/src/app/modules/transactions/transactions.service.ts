@@ -225,7 +225,7 @@ export class TransactionsService {
             this.languageService.transalte('stockIn.stockEdit')
           );
           this.updatedStockInData.next(res);
-          // this.router.navigateTo('/transactions/stock-in');
+          // this.router.navigateTo('/transactions/stockin');
         },
         error: (error) => {
           this.loaderService.hide();
@@ -250,7 +250,7 @@ export class TransactionsService {
         );
         this.loaderService.hide();
 
-        this.router.navigateTo('/transactions/stock-in');
+        this.router.navigateTo('/transactions/stockin');
       },
       error: (error) => {
         this.loaderService.hide();
@@ -365,7 +365,7 @@ export class TransactionsService {
         this.loaderService.hide();
         this.stockOutSaved.next(res);
 
-        // this.router.navigateTo('transactions/stock-out');
+        // this.router.navigateTo('transactions/stockout');
       },
       error: (err: any) => {
         this.loaderService.hide();
@@ -392,7 +392,7 @@ export class TransactionsService {
           this.languageService.transalte('messages.success'),
           this.languageService.transalte('messages.successfully')
         );
-        this.router.navigateTo('transactions/stock-out');
+        this.router.navigateTo('transactions/stockout');
       },
       error: (err: any) => {
         this.toasterService.showError(
@@ -452,7 +452,7 @@ export class TransactionsService {
         );
         this.loaderService.hide();
 
-        this.router.navigateTo('transactions/stock-out');
+        this.router.navigateTo('transactions/stockout');
       },
       error: (error: any) => {
         this.loaderService.hide();

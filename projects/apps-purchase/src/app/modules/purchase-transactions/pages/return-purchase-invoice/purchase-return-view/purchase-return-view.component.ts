@@ -98,7 +98,7 @@ export class PurchaseReturnViewComponent {
     this.filteredData = [...this.tableData];
   }
   onCancel() {
-    this.routerService.navigateTo('/transaction/return-purchase');
+    this.routerService.navigateTo('/transactions/return-purchase');
   }
 
   onSearchTermChange(search: any): void {
