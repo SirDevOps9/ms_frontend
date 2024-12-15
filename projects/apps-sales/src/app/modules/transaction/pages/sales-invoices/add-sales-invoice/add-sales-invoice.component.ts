@@ -78,6 +78,9 @@ export class AddSalesInvoiceComponent implements OnInit {
   vatAmount: number;
   totalAfterVat: number;
   itemPostId: number;
+  allQty : number = 0
+  allPrice : number = 0
+  allSubTotal : number = 0
 
   ngOnInit(): void {
     this.initializeForm();
@@ -111,6 +114,29 @@ export class AddSalesInvoiceComponent implements OnInit {
             return data;
           }, 0)
         );
+
+        this.allQty =  res?.reduce((accumulator, item) => {
+          if(item.quantity) {
+            let data = +accumulator + +item.quantity;
+            return data;
+          }
+        
+        }, 0)
+
+        this.allPrice = res?.reduce((accumulator, item) => {
+          if(item.cost) {
+            let data = +accumulator + +item.cost;
+            return data;
+          }
+       
+        }, 0)
+        this.allSubTotal = res?.reduce((accumulator, item) => {
+          if(item.cost && item.quantity) {
+            let data = +accumulator + (+item.cost * +item.quantity);
+            return data;
+          }
+      
+        }, 0)
 
         this.salesReturnForm.get('vatAmountTotal')?.setValue(
           res.reduce((accumulator, item) => {
@@ -287,7 +313,7 @@ export class AddSalesInvoiceComponent implements OnInit {
         quantity: 0,
         hasExpiryDate: '',
         serialId: '',
-        trackingType: '',
+        trackingType: null,
       }),
     });
   }
@@ -332,7 +358,7 @@ export class AddSalesInvoiceComponent implements OnInit {
         trackingOptionsData.trackingType == this.sharedFinanceEnums.trackingType.Serial
           ? trackingOptionsData?.trackingNo
           : null,
-      trackingType: trackingOptionsData.trackingType,
+      trackingType: trackingOptionsData.trackingType ,
     });
 
     formTracking.get('quantity')?.setValue(trackingOptionsData?.totalQuantity);
@@ -347,6 +373,8 @@ export class AddSalesInvoiceComponent implements OnInit {
     const selectedItem = list.find((item: any) => item.itemNumber === selectedItemId);
     this.itemSelectedData = selectedItem;
     const rowForm = this.salesReturnFormArray.at(indexLine) as FormGroup;
+
+    console.log(rowForm)
 
     if (!selectedItem) {
       return;
@@ -729,7 +757,7 @@ export class AddSalesInvoiceComponent implements OnInit {
         barCodeId: selectedItem?.barCodeId,
         categoryId: selectedItem.categoryId,
         categoryType: selectedItem.categoryType,
-
+        taxId: selectedItem.taxId,
         itemName: selectedItem.itemName,
         itemVariantId: selectedItem.itemVariantId,
         uomId: selectedItem.uomId,
@@ -794,8 +822,8 @@ export class AddSalesInvoiceComponent implements OnInit {
           itemStockBatchHeaderId: selectedItem?.batchHeaderId,
           barCodeId: selectedItem?.barCodeId,
           categoryId: selectedItem.categoryId,
+          taxId: selectedItem.taxId,
           categoryType: selectedItem.categoryType,
-
           itemCode: selectedItem?.itemCode,
           itemName: selectedItem?.itemName,
           itemCodeName: selectedItem?.itemCode,
@@ -867,8 +895,8 @@ export class AddSalesInvoiceComponent implements OnInit {
   }
 
   onSave() {
-    // if (!this.formService.validForm(this.salesReturnForm, false)) return;
-    // if (!this.formService.validForm(this.salesReturnFormArray, false)) return;
+    if (!this.formService.validForm(this.salesReturnForm, false)) return;
+    if (!this.formService.validForm(this.salesReturnFormArray, false)) return;
 
     let mappedInvoice: AddSalesInvoice = {
       invoiceDate: this.salesReturnForm.getRawValue().invoiceDate || null,
@@ -923,28 +951,30 @@ export class AddSalesInvoiceComponent implements OnInit {
           hasExpiryDate: detail.salesInvoiceTracking?.hasExpiryDate || false,
           expireDate: detail.salesInvoiceTracking?.expireDate || null,
           serialId: detail.salesInvoiceTracking?.serialId || null,
-          trackingType: detail.salesInvoiceTracking?.trackingType,
+          trackingType: detail.salesInvoiceTracking?.trackingType ?? this.sharedFinanceEnums.trackingType.NoTracking,
         },
       })),
     };
 
-    if (this.salesReturnFormArray.value?.length) {
-      if (this.save) {
-        if (this.salesReturnFormArray) {
-        }
-        this.salesTransactionService.addSalesInvoice(mappedInvoice);
-        this.salesTransactionService.sendSalesInvoice.subscribe((res: number | any) => {
-          if (typeof res == 'number') {
-            this.savedDataId = res;
-            this.dataToReadOnly = true;
-            this.showPost = true;
-          } else {
-            this.dataToReadOnly = false;
-            this.showPost = false;
-          }
-        });
-      }
-    }
+    console.log(mappedInvoice)
+
+    // if (this.salesReturnFormArray.value?.length) {
+    //   if (this.save) {
+    //     if (this.salesReturnFormArray) {
+    //     }
+    //     this.salesTransactionService.addSalesInvoice(mappedInvoice);
+    //     this.salesTransactionService.sendSalesInvoice.subscribe((res: number | any) => {
+    //       if (typeof res == 'number') {
+    //         this.savedDataId = res;
+    //         this.dataToReadOnly = true;
+    //         this.showPost = true;
+    //       } else {
+    //         this.dataToReadOnly = false;
+    //         this.showPost = false;
+    //       }
+    //     });
+    //   }
+    // }
   }
 
   OnDelete(i: number) {

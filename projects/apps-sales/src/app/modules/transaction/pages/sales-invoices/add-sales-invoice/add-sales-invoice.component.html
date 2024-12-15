@@ -37,32 +37,7 @@
                   [appControl]="salesReturnForm.controls['invoiceDate']"
                 ></lib-field-validations>
               </div>
-              <!-- created stock in -->
-              <div class="md:col-4 my-2">
-                <lib-label [appControl]="salesReturnForm.controls['createdStockIn']">
-                  {{ 'salesInvoice.createdStockIn' | translate }}
-                </lib-label>
-                <lib-text-input
-                  placeholder="{{ 'salesInvoice.createdStockIn' | translate }}"
-                  formControlName="createdStockIn"
-                ></lib-text-input>
-                <lib-field-validations
-                  [appControl]="salesReturnForm.controls['createdStockIn']"
-                ></lib-field-validations>
-              </div>
-              <!-- related Journal -->
-              <div class="md:col-4 my-2">
-                <lib-label [appControl]="salesReturnForm.controls['relatedJournal']">
-                  {{ 'salesInvoice.relatedJournal' | translate }}
-                </lib-label>
-                <lib-text-input
-                  placeholder="{{ 'salesInvoice.relatedJournal' | translate }}"
-                  formControlName="relatedJournal"
-                ></lib-text-input>
-                <lib-field-validations
-                  [appControl]="salesReturnForm.controls['relatedJournal']"
-                ></lib-field-validations>
-              </div>
+          
 
               <!-- description -->
               <div class="md:col-4 my-2">
@@ -598,10 +573,10 @@
           <th></th>
           <th></th>
           <th></th>
-          <th class="total">000000000000</th>
-          <th class="total">000000000000</th>
-          <th class="total">000000000000</th>
           <th></th>
+          <th class="total">{{allQty || 0}}</th>
+          <th class="total">{{allPrice || 0}}</th>
+          <th class="total">{{allSubTotal || 0}}</th>
           <th></th>
           <th></th>
           <th></th>
