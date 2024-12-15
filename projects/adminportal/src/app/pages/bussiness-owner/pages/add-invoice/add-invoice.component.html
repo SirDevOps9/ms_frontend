@@ -2,46 +2,43 @@
     <div class="card_micro">
 
         <h2>
-            Add Bussiness Owner 
-        
+            Add Bussiness Owner
+
         </h2>
         <h3>
             main information
         </h3>
-        <div class="card_micro">
-            <form [formGroup]="addForm">
+        <form [formGroup]="addForm">
+            <div class="card_micro">
+
                 <div class="row group">
                     <div class="col-3">
                         <lib-form-group>
-                            <lib-label [appControl]="addForm.controls['name']">
+                            <lib-label [appControl]="addForm.controls['businessOwnerId']">
                                 {{ 'name' | translate }}
-                              </lib-label>
-                              <lib-select
-                              formControlName="name"
-                              [options]="BusinessOwner"
-                              optionValue="id"
-                              optionLabel="name"
-                              (valueChanged)="setData(addForm.controls['name'].value)"
-                            
-                              >
-             
-                              </lib-select>
-                              <lib-field-validations [appControl]="addForm.controls['name']"></lib-field-validations>
-                
-                            
+                            </lib-label>
+                            <lib-select formControlName="businessOwnerId" [options]="BusinessOwner" optionValue="id"
+                                optionLabel="name" (valueChanged)="setData(addForm.controls['businessOwnerId'].value)">
+
+                            </lib-select>
+                            <lib-field-validations
+                                [appControl]="addForm.controls['businessOwnerId']"></lib-field-validations>
+
+
                         </lib-form-group>
                     </div>
                     <div class="col-3">
                         <div class="form-floating ">
-                            <input  type="text" readonly class="form-control" id="floatingInput" placeholder="name@example.com" formControlName="email">
+                            <input type="text" readonly class="form-control" id="floatingInput"
+                                placeholder="name@example.com" formControlName="email">
                             <label for="floatingInput">Email</label>
-                          </div>
+                        </div>
                     </div>
                     <div class="col-3">
                         <div class="form-floating ">
-                            <input  type="text" readonly  class="form-control" id="floatingInput"  formControlName="phone">
+                            <input type="text" readonly class="form-control" id="floatingInput" formControlName="phone">
                             <label for="floatingInput">phone number</label>
-                          </div>
+                        </div>
                     </div>
                 </div>
                 <div class="row mt-3">
@@ -49,176 +46,177 @@
                         <lib-form-group>
                             <lib-label [appControl]="addForm.controls['phoneCode']">
                                 {{ 'phoneCode' | translate }}
-                              </lib-label>
+                            </lib-label>
                             <lib-calendar></lib-calendar>
-                              <lib-field-validations [appControl]="addForm.controls['phoneCode']"></lib-field-validations>
-                
-                            
+                            <lib-field-validations [appControl]="addForm.controls['phoneCode']"></lib-field-validations>
+
+
                         </lib-form-group>
                     </div>
                     <div class="col-3">
                         <lib-form-group>
-                            <lib-label [appControl]="addForm.controls['countryCode']">
-                                {{ 'countryCode' | translate }}
-                              </lib-label>
-                         <lib-select
-                       
-                         >
-        
-                         </lib-select>
-                              <lib-field-validations [appControl]="addForm.controls['countryCode']"></lib-field-validations>
-                
-                            
+                            <lib-label [appControl]="addForm.controls['salesPerson']">
+                                {{ 'salesPerson' | translate }}
+                            </lib-label>
+                            <lib-text-input formControlName="salesPerson">
+
+                            </lib-text-input>
+                            <lib-field-validations
+                                [appControl]="addForm.controls['salesPerson']"></lib-field-validations>
+
+
                         </lib-form-group>
                     </div>
-                   
+
                 </div>
-               
-                </form>
-        </div>
+
+            </div>
+        </form>
+
         <div class="line"></div>
         <div class="card_micro">
             <h3>
                 Domain
             </h3>
-            <form [formGroup]="addForm">
-                <div class="row">
-                    <div class="col-3">
-                        <lib-form-group>
-                            <lib-label [appControl]="addForm.controls['name']">
-                                {{ 'name' | translate }}
-                              </lib-label>
-                              <lib-text-input
-                              formControlName="name"
-                              >
-                
-                              </lib-text-input>
-                              <lib-field-validations [appControl]="addForm.controls['name']"></lib-field-validations>
-                
-                            
-                        </lib-form-group>
-                    </div>
-                    <div class="col-3">
-                        <lib-form-group>
-                            <lib-label [appControl]="addForm.controls['email']">
-                                {{ 'email' | translate }}
-                              </lib-label>
-                              <lib-text-input
-                              formControlName="email"
-                              >
-                
-                              </lib-text-input>
-                              <lib-field-validations [appControl]="addForm.controls['email']"></lib-field-validations>
-                
-                            
-                        </lib-form-group>
-                    </div>
-                    <div class="col-3">
-                        <lib-form-group>
-                            <lib-label [appControl]="addForm.controls['phone']">
-                                {{ 'phone' | translate }}
-                              </lib-label>
-                              <lib-text-input
-                              formControlName="phone"
-                              >
-                
-                              </lib-text-input>
-                              <lib-field-validations [appControl]="addForm.controls['phone']"></lib-field-validations>
-                
-                            
-                        </lib-form-group>
+            <div class="row">
+                <div class="col-3">
+                    <div class="form-check ">
+                        <div>
+
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        </div>
+                        <div>
+                            <lib-select></lib-select>
+                        </div>
+
+                        <div class="mt-5">
+                            <div class="form-floating mb-3">
+                                <input min="0" type="number" class="form-control" id="floatingInput"
+                                    placeholder="name@example.com">
+                                <label for="floatingInput">Set Price</label>
+                            </div>
+                        </div>
+                        <div class="mt-5">
+                            <lib-calendar></lib-calendar>
+                        </div>
                     </div>
                 </div>
-                <div class="row mt-3">
-                    <div class="col-3">
-                        <lib-form-group>
-                            <lib-label [appControl]="addForm.controls['phoneCode']">
-                                {{ 'phoneCode' | translate }}
-                              </lib-label>
-                              <lib-select
-                            
-                              >
-             
-                              </lib-select>
-                              <lib-field-validations [appControl]="addForm.controls['phoneCode']"></lib-field-validations>
-                
-                            
-                        </lib-form-group>
-                    </div>
-                    <div class="col-3">
-                        <lib-form-group>
-                            <lib-label [appControl]="addForm.controls['countryCode']">
-                                {{ 'countryCode' | translate }}
-                              </lib-label>
-                         <lib-select
-                       
-                         >
-        
-                         </lib-select>
-                              <lib-field-validations [appControl]="addForm.controls['countryCode']"></lib-field-validations>
-                
-                            
-                        </lib-form-group>
-                    </div>
-                   
-                </div>
-               
-                </form>
+            </div>
+
         </div>
         <div class="line"></div>
         <div class="card_micro">
             <h3>
                 Apps
             </h3>
-            <div class="row" >
-                <div class="col-4" *ngFor="let item of apps " >
+            <div class="row">
+                <div class="col-4 add_line" *ngFor="let item of apps; let i = index">
                     <div class="form-check test">
                         <div class="check">
-                          <input 
-                            class="form-check-input" 
-                            type="checkbox" 
-                            [id]="'checkbox-' + item.id"
-                            [value]="item.id"
-                          />
-                          <label class="form-check-label" [for]="'checkbox-' + item.id">
-                            {{ item.appName }} - {{ item.moduleName }}
-                          </label>
-                        </div>
-                        <div>
-                          <div class="form-floating mb-3">
-                            <input 
-                              min="0" 
-                              type="number" 
-                              class="form-control" 
-                              [id]="'price-' + item.id" 
-                              [(ngModel)]="item.price" 
-                              placeholder="Set Price"
-                            />
-                            <label [for]="'price-' + item.id">Set Price</label>
-                          </div>
-                        </div>
-                      </div>
-                      
-                    <!-- <div class="form-check test">
-                        <div class="check">
-        
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
-                              Default checkbox
+                            <input class="form-check-input" type="checkbox" [id]="'checkbox-' + item.id"
+                                [value]="item.id" (change)="toggleAppSelection($event, item, i)" />
+                            <label class="form-check-label" [for]="'checkbox-' + item.id">
+                                {{ item.appName }} - {{ item.moduleName }}
                             </label>
                         </div>
-                        <div >
+                        <div>
                             <div class="form-floating mb-3">
-                                <input min="0" type="number" class="form-control" id="floatingInput" placeholder="name@example.com">
-                                <label for="floatingInput">Set Price</label>
-                              </div>
+                                <input min="0" type="number" class="form-control" [id]="'price-' + item.id"
+                                    [(ngModel)]="item.price" (ngModelChange)="updateAppPrice(i, item.price)"
+                                    placeholder="Set Price" />
+                                <label [for]="'price-' + item.id">Set Price</label>
+                            </div>
                         </div>
-        
-                      </div> -->
+                    </div>
                 </div>
             </div>
-            
-          
+
+
+
+
+        </div>
+        <div class="line"></div>
+        <!-- <div class="card_micro">
+            <h3>
+               User lisences
+            </h3>
+            <div class="row mt-5">
+                <div class="col-8">
+                    <div class="lisences" *ngFor="let item of lisences" >
+                        <div class="row">
+                            <div class="col-3 lisences_item">
+                                <p >{{item.nameEn}}</p>
+
+                            </div>
+                            <div class="col-4">
+                                <div class="form-floating mb-3 item_marge">
+                                    <input min="0" type="number" class="form-control" id="floatingInput" >
+                                    <label for="floatingInput">Number Of User </label>
+                                  </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-floating mb-3">
+                                    <input min="0" type="number" class="form-control" id="floatingInput" placeholder="name@example.com">
+                                    <label for="floatingInput">Set Price</label>
+                                  </div>
+                            </div>
+                        </div>
+                          
+                          
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <div class="card_micro">
+            <h3>User licenses</h3>
+            <div class="row mt-5">
+                <div class="col-8">
+                    <div class="lisences" *ngFor="let item of lisences">
+                        <div class="row">
+                            <div class="col-3 lisences_item">
+                                <p>{{ item.nameEn }}</p>
+                            </div>
+
+                            <!-- Number of Users -->
+                            <div class="col-4">
+                                <div class="form-floating mb-3 item_marge">
+                                    <input min="0" type="number" class="form-control" [(ngModel)]="item.numberOfUsers"
+                                        (ngModelChange)="updateLicenseDetails($event, item, 'users')"
+                                        placeholder="Number of Users" />
+                                    <label for="floatingInput">Number Of Users</label>
+                                </div>
+                            </div>
+
+                            <!-- Set Price -->
+                            <div class="col-4">
+                                <div class="form-floating mb-3">
+                                    <input min="0" type="number" class="form-control" [(ngModel)]="item.licensePrice"
+                                        (ngModelChange)="updateLicenseDetails($event, item, 'price')"
+                                        placeholder="Set Price" />
+                                    <label for="floatingInput">Set Price</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="action">
+            <div class="row ">
+                <div class="col-6">
+                    <lib-button-micro title="{{ 'Cancel' | translate }}" nameClass="cancel" widthNumber="100%">
+
+                    </lib-button-micro>
+                </div>
+                <div class="col-6">
+                    <lib-button-micro title="{{ 'Save' | translate }}" nameClass="save" widthNumber="100%"
+                        (click)="onSave()">
+
+                    </lib-button-micro>
+                </div>
+
+
+            </div>
         </div>
     </div>
 </lib-page-content>

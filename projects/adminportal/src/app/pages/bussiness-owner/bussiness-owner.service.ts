@@ -55,6 +55,10 @@ export class BussinessOwnerService {
     return this.bussinessOwnerProxy.Apps()
 
   }
+  getLisences() : Observable<any>{
+    return this.bussinessOwnerProxy.lisences()
+
+  }
   getBusinessOwnerLookup() : Observable<any>{
     return this.bussinessOwnerProxy.BusinessOwnerLookup()
 
@@ -71,6 +75,23 @@ export class BussinessOwnerService {
         this.loaderService.hide();
 
          this.router.navigateTo('bussiness-owners');
+      },
+      error: (err: any) => {
+        this.loaderService.hide();
+      },
+    });
+  }
+  addInvoice(obj: any) {
+    this.loaderService.show();
+
+    this.bussinessOwnerProxy.AddInvoice(obj).subscribe({
+      next: (res: any) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('success'),
+          this.languageService.transalte('Operation completed successfully.')
+        );
+        this.loaderService.hide();
+
       },
       error: (err: any) => {
         this.loaderService.hide();

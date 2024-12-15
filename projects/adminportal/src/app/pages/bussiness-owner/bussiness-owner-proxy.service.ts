@@ -61,11 +61,17 @@ export class BussinessOwnerProxyService {
   Apps(): Observable<any> {
     return this.baseService.get(`App/Lookup`);
   }
+  lisences(): Observable<any> {
+    return this.baseService.get(`License/Lookup`);
+  }
   BusinessOwnerLookup(): Observable<any> {
     return this.baseService.get(`BusinessOwner/Lookup`);
   }
   AddBussinesOwner(obj: AddBussinesOwner): Observable<AddBussinesOwner> {
     return this.baseService.post('BusinessOwner', obj);
+  }
+  AddInvoice(obj: any): Observable<any> {
+    return this.baseService.post('Invoice', obj);
   }
 
 }
