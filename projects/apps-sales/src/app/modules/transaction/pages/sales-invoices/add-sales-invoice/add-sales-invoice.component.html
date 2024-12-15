@@ -99,21 +99,21 @@
               </div>
               <!-- sales man -->
               <div class="md:col-4 my-2">
-                <lib-label [appControl]="salesReturnForm.controls['salesmanId']">
+                <lib-label [appControl]="salesReturnForm.controls['salesManId']">
                   {{ 'salesInvoice.salesMan' | translate }}
                 </lib-label>
                 <lib-select
-                  formControlName="salesmanId"
-                  [options]="[]"
+                  formControlName="salesManId"
+                  [options]="salesManLookup"
                   optionValue="id"
-                  optionLabel="displayName"
+                  optionLabel="name"
                   placeholder="{{ 'salesInvoice.salesMan' | translate }}"
-                  [selectedValue]="salesReturnForm.controls['salesmanId'].value"
+                  [selectedValue]="salesReturnForm.controls['salesManId'].value"
                 >
                 </lib-select>
-                <!-- <lib-field-validations
-                  [appControl]="salesReturnForm.controls['salesmanId']"
-                ></lib-field-validations> -->
+                <lib-field-validations
+                  [appControl]="salesReturnForm.controls['salesManId']"
+                ></lib-field-validations>
               </div>
             </div>
           </div>
@@ -162,6 +162,7 @@
                 <lib-text-input
                   placeholder="{{ 'salesInvoice.customerName' | translate }}"
                   formControlName="customerName"
+                  [readOnly]="true"
                 ></lib-text-input>
                 <lib-field-validations
                   [appControl]="salesReturnForm.controls['customerName']"
@@ -219,6 +220,7 @@
                 <lib-text-input
                   placeholder="{{ 'salesInvoice.creditLimit' | translate }}"
                   formControlName="customerCreditLimit"
+                  [readOnly]="true"
                 ></lib-text-input>
                 <lib-field-validations
                   [appControl]="salesReturnForm.controls['customerCreditLimit']"

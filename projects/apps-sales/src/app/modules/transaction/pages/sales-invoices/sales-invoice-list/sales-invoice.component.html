@@ -9,6 +9,7 @@
       (pageChange)="onPageChange($event)"
       (exportObj)="exportClickBySort($event)"
       (addNew)="onAdd()"
+      [sequence]="true"
       [tableConfigs]="{
         allowPagination: false,
         allowServerPagination: true,

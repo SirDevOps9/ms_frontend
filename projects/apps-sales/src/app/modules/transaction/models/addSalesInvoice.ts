@@ -11,7 +11,8 @@ export interface AddSalesInvoice {
     currencyName: string
     currencyRate: number
     paymentTermId: number
-    reference: string
+    reference: string;
+    salesManId : number;
     salesInvoiceDetails: SalesInvoiceDetail[]
   }
   
@@ -21,7 +22,7 @@ export interface AddSalesInvoice {
     itemId: number
     itemCode: string
     itemName: string
-    itemVariantId: number
+    itemVariantId: number 
     itemVariantCode: string
     itemVariantNameEn: string
     itemVariantNameAr: string

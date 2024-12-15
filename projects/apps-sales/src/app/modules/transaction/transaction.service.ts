@@ -19,6 +19,9 @@ export class TransactionService {
   public sendPricePolicyLookup = new BehaviorSubject<{ id: number;
     name: string;
     code: string}[]>([]);
+  public sendSalesManLookup = new BehaviorSubject<{ id: number;
+    name: string;
+    }[]>([]);
 
   constructor(private TransactionsProxy : TransactionProxyService ,    private toasterService: ToasterService,
     private languageService: LanguageService,
@@ -105,7 +108,20 @@ export class TransactionService {
       this.sendPricePolicyLookup.next(res);
     });
   }
+  getSalesManLookup()  {
+    this.TransactionsProxy.getSalesManLookup().subscribe((res) => {
+      this.sendSalesManLookup.next(res);
+    });
+  }
 
+
+  GetItemByBarcodePurchase(barcode: string) {
+    return this.TransactionsProxy.GetItemByBarcodePurchase(barcode).pipe(
+      map((res) => {
+        return res;
+      })
+    );
+  }
 
 
 

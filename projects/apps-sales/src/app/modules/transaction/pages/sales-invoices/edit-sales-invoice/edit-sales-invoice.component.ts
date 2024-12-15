@@ -864,6 +864,7 @@ export class EditSalesInvoiceComponent implements OnInit {
       warehouseId: this.salesReturnForm.value.warehouseId || 0,
       warehouseName: this.salesReturnForm.value.warehouseName || '',
       customerId: this.salesReturnForm.value.customerId || 0,
+      salesManId: this.salesReturnForm.value.salesManId || 0,
       customerName: this.salesReturnForm.value.customerName || '',
       customerCreditLimit: this.salesReturnForm.value.customerCreditLimit || 0,
       pricePolicyId: this.salesReturnForm.value.pricePolicyId || 0,
