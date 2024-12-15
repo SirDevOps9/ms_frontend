@@ -339,7 +339,7 @@ export class AddSalesReturnInvoiceComponent implements OnInit {
 
   onSave() {
     if (!this.beforeSave()) {
-      return; // Stop if validation fails
+      return;
     }
     if (!this.formsService.validForm(this.salesReturnForm, false)) return;
     if (!this.formsService.validForm(this.salesReturnFormArray, false)) return;
@@ -404,7 +404,7 @@ export class AddSalesReturnInvoiceComponent implements OnInit {
           this.languageService.transalte('salesReturnInvoice.errorReturnQuantity')
         );
 
-        break; // Exit the loop immediately
+        break; 
       }
       if (returnQuantity == null) {
         this.duplicateLine = true;
@@ -416,7 +416,7 @@ export class AddSalesReturnInvoiceComponent implements OnInit {
           this.languageService.transalte('salesReturnInvoice.errorReturnQuantityRequired')
         );
 
-        break; // Exit the loop immediately
+        break; 
       }
     }
 

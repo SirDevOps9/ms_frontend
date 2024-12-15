@@ -103,8 +103,7 @@ export class EditSalesReturnInvoiceComponent implements OnInit {
       salesReturnDetails: this.fb.array([]),
     });
 
-    // this.customerIdChange();
-    // this.salesInvoiceControleChange();
+
   }
   // from array
   initFromArray() {
