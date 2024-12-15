@@ -8,6 +8,7 @@ import {
   GetTopSalesCategoriesDto,
   GetTopSalesCustomersReportDto,
   GetTopSalesProductsDto,
+  GetTopSalesManReportDto
 } from './models';
 
 @Injectable({
@@ -48,7 +49,7 @@ export class ProxyService {
     );
   }
 
-  getTopSalesPersons(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/GetTopSalesPersons`);
+  getTopSalesPersons(count: number): Observable<GetTopSalesManReportDto[]> {
+    return this.http.get<GetTopSalesManReportDto[]>(`${this.baseUrl}/GetTopSalesManReport?count=${count}`);
   }
 }

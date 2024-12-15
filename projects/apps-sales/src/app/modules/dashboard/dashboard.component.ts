@@ -77,7 +77,7 @@ export class DashboardComponent {
     this.getBestSellingProduct();
     this.getBestSellingCategory();
     this.getTopCustomer();
-    // this.getTopSalesPersons();
+    this.getTopSalesPersons();
   }
 
   dataSubscriptions() {
@@ -220,7 +220,7 @@ export class DashboardComponent {
   }
 
   getTopSalesPersons() {
-    this.service.fetchTopSalesPersons();
+    this.service.fetchTopSalesPersons(10);
   }
 
   ngOnDestroy() {

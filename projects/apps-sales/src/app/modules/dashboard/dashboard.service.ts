@@ -8,6 +8,7 @@ import {
   GetTopSalesCategoriesDto,
   GetTopSalesCustomersReportDto,
   GetTopSalesProductsDto,
+  GetTopSalesManReportDto,
 } from './models';
 
 @Injectable({
@@ -39,7 +40,7 @@ export class DashboardService {
   private bestSellingProductSubject = new BehaviorSubject<GetTopSalesProductsDto[]>([]);
   private bestSellingCategorySubject = new BehaviorSubject<GetTopSalesCategoriesDto[]>([]);
   private topCustomerSubject = new BehaviorSubject<GetTopSalesCustomersReportDto[]>([]);
-  private topSalesPersonsSubject = new BehaviorSubject<any[]>([]);
+  private topSalesPersonsSubject = new BehaviorSubject<GetTopSalesManReportDto[]>([]);
 
   // Data observables
   status$ = this.statusSubject.asObservable();
@@ -100,9 +101,9 @@ export class DashboardService {
     });
   }
 
-  fetchTopSalesPersons() {
+  fetchTopSalesPersons(count: number) {
     this.topSalesPersonsLoaderSubject.next(true);
-    this.proxy.getTopSalesPersons().subscribe({
+    this.proxy.getTopSalesPersons(count).subscribe({
       next: (data) => this.topSalesPersonsSubject.next(data),
       complete: () => this.topSalesPersonsLoaderSubject.next(false),
     });
