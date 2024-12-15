@@ -1,20 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { GetVendorStatementReportDto } from '../../models';
+import { GetVendorStatementReportDto, VendorDropDown } from '../../models';
 import { ReportServiceService } from '../../report-service.service';
 import { PrintService } from 'shared-lib';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-vendor-report',
   templateUrl: './vendor-report.component.html',
-  styleUrl: './vendor-report.component.scss',
+  styleUrls: ['./vendor-report.component.scss'],
 })
-export class VendorReportComponent {
+export class VendorReportComponent implements OnDestroy {
   searchForm: FormGroup;
-  vendors: any = [];
+  vendors: VendorDropDown[] = [];
   vendorsReport: GetVendorStatementReportDto = {} as GetVendorStatementReportDto;
-  searchTerm: string;
   reportsLoading: boolean = false;
+  destroy$ = new Subject<void>();
 
   constructor(private service: ReportServiceService, private PrintService: PrintService) {}
 
@@ -26,22 +27,22 @@ export class VendorReportComponent {
 
   initiateFilterForm() {
     this.searchForm = new FormGroup({
-      vendorId: new FormControl('', [Validators.required]),
+      vendorId: new FormControl(null, [Validators.required]),
       fromDate: new FormControl(''),
       toDate: new FormControl(''),
     });
   }
 
   subscriptions() {
-    this.service.vendorDropdown$.subscribe((res) => {
+    this.service.vendorDropdown$.pipe(takeUntil(this.destroy$)).subscribe((res) => {
       this.vendors = res;
     });
 
-    this.service.vendorReport$.subscribe((res) => {
+    this.service.vendorReport$.pipe(takeUntil(this.destroy$)).subscribe((res) => {
       this.vendorsReport = res;
     });
 
-    this.service.vendorLoading$.subscribe((load) => {
+    this.service.vendorLoading$.pipe(takeUntil(this.destroy$)).subscribe((load) => {
       this.reportsLoading = load;
     });
   }
@@ -54,10 +55,14 @@ export class VendorReportComponent {
     this.PrintService.print(id);
   }
 
-  onSearchChange() {}
   viewData() {
     if (this.searchForm.valid) {
       this.service.fetchVendorReport(this.searchForm.value);
     }
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

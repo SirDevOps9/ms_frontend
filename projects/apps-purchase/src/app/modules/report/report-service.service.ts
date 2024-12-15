@@ -23,9 +23,14 @@ export class ReportServiceService {
 
   fetchVendorReport(vendorSearch: any) {
     this.vendorReportLoading.next(true);
-    this.proxy.getVendorsReports(vendorSearch).subscribe((res) => {
-      this.vendorsReportData.next(res);
-      this.vendorReportLoading.next(true);
+    this.proxy.getVendorsReports(vendorSearch).subscribe({
+      next: (res) => {
+        this.vendorsReportData.next(res);
+        this.vendorReportLoading.next(false);
+      },
+      error: () => {
+        this.vendorReportLoading.next(false);
+      },
     });
   }
 

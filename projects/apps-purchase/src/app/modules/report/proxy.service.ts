@@ -13,12 +13,14 @@ export class ProxyService {
     let query = 'VendorReports/VendorStatmentReport';
 
     if (searchData) {
+      const params = new URLSearchParams();
       Object.keys(searchData).forEach((key) => {
         const value = searchData[key];
         if (value) {
-          query += `&${key}=${encodeURIComponent(value)}`;
+          params.append(key, value);
         }
       });
+      query += '?' + params.toString();
     }
 
     return this.http.get<GetVendorStatementReportDto>(query);

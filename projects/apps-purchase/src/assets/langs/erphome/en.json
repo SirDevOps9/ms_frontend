@@ -15,7 +15,8 @@
     "purchaseReturnInvoice": "Return Purchase Invoice",
     "purchaseInvoiceAdd": "Add",
     "purchaseInvoiceEdit": "Edit Purchase Invoice",
-    "purchaseInvoiceView": "View"
+    "purchaseInvoiceView": "View",
+    "VendorReport": "Vendor Statement Report"
   },
   "dir": "ltr",
   "Welcome": "Welcome",
@@ -613,7 +614,7 @@
     "invoiceJournal": "Invoice Journal",
     "stockIn": "Stock In",
     "upload": "Import Item",
-    "localAmount" : "Local Amount",
+    "localAmount": "Local Amount",
     "scan": "Scan Barcode",
     "add": "Add Line",
     "search": "Search",

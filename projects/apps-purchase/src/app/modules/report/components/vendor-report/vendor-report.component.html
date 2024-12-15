@@ -7,7 +7,7 @@
             <div class="col-12 md:col-3">
               <lib-form-group>
                 <lib-label [appControl]="searchForm.controls['vendorId']">
-                  {{ 'popupSearch.ItemCode' | translate }}
+                  {{ 'vendorReport.selectVendor' | translate }}
                 </lib-label>
                 <lib-select
                   formControlName="vendorId"
@@ -24,7 +24,7 @@
             <div class="col-12 md:col-3">
               <lib-form-group>
                 <lib-label [appControl]="searchForm.controls['fromDate']">
-                  {{ 'popupSearch.ItemName' | translate }}
+                  {{ 'vendorReport.fromDate' | translate }}
                 </lib-label>
 
                 <lib-calendar formControlName="fromDate"></lib-calendar>
@@ -35,7 +35,7 @@
             <div class="col-12 md:col-3">
               <lib-form-group>
                 <lib-label [appControl]="searchForm.controls['toDate']">
-                  {{ 'popupSearch.ItemUOM' | translate }}
+                  {{ 'vendorReport.toDate' | translate }}
                 </lib-label>
 
                 <lib-calendar formControlName="toDate"></lib-calendar>
@@ -74,67 +74,67 @@
           columns: [
             {
               name: 'transactionDate',
-              headerText: ('vendor.Date' | translate),
+              headerText: ('vendorReport.date' | translate),
               isGlobalFilter: true,
               isSortable: true
             },
             {
               name: 'transactionName',
-              headerText: ('vendor.transactionName' | translate),
+              headerText: ('vendorReport.transactionName' | translate),
               isGlobalFilter: true,
               isSortable: true
             },
             {
               name: 'transactionCode',
-              headerText: ('vendor.transactionCode' | translate),
+              headerText: ('vendorReport.transactionCode' | translate),
               isGlobalFilter: true,
               isSortable: true
             },
             {
               name: 'journalCode',
-              headerText: ('vendor.journalCode' | translate),
+              headerText: ('vendorReport.journalCode' | translate),
               isGlobalFilter: true,
               isSortable: true
             },
             {
               name: 'debit',
-              headerText: ('vendor.debit' | translate),
+              headerText: ('vendorReport.debit' | translate),
               isGlobalFilter: true,
               isSortable: true
             },
             {
               name: 'credit',
-              headerText: ('vendor.credit' | translate),
+              headerText: ('vendorReport.credit' | translate),
               isGlobalFilter: true,
               isSortable: true
             },
             {
               name: 'balance',
-              headerText: ('vendor.balance' | translate),
+              headerText: ('vendorReport.balance' | translate),
               isGlobalFilter: true,
               isSortable: true
             },
             {
               name: 'rate',
-              headerText: ('vendor.rate' | translate),
+              headerText: ('vendorReport.rate' | translate),
               isGlobalFilter: true,
               isSortable: true
             },
             {
               name: 'debitLocal',
-              headerText: ('vendor.balance' | translate),
+              headerText: ('vendorReport.debitLocal' | translate),
               isGlobalFilter: true,
               isSortable: true
             },
             {
               name: 'creditLocal',
-              headerText: ('vendor.balance' | translate),
+              headerText: ('vendorReport.creditLocal' | translate),
               isGlobalFilter: true,
               isSortable: true
             },
             {
               name: 'balanceLocal',
-              headerText: ('vendor.balance' | translate),
+              headerText: ('vendorReport.balanceLocal' | translate),
               isGlobalFilter: true,
               isSortable: true
             }
@@ -172,16 +172,14 @@
             <td></td>
             <td></td>
             <td></td>
-            <td></td>
 
-            <td class="total center">{{ vendorsReport.totalDebit | numberFormat }}</td>
-            <td class="total center">{{ vendorsReport.totalCredit | numberFormat }}</td>
-            <td class="total center">{{ vendorsReport.totalBalance | numberFormat }}</td>
+            <td class="total center total">{{ vendorsReport.totalDebit | numberFormat }}</td>
+            <td class="total center total">{{ vendorsReport.totalCredit | numberFormat }}</td>
+            <td class="total center total">{{ vendorsReport.totalBalance | numberFormat }}</td>
             <td></td>
-            <td class="total center">{{ vendorsReport.totalDebitLocal | numberFormat }}</td>
-            <td class="total center">{{ vendorsReport.totalCreditLocal | numberFormat }}</td>
-            <td class="total center">{{ vendorsReport.totalBalanceLocal | numberFormat }}</td>
-            <td class="total"></td>
+            <td class="total center total">{{ vendorsReport.totalDebitLocal | numberFormat }}</td>
+            <td class="total center total">{{ vendorsReport.totalCreditLocal | numberFormat }}</td>
+            <td class="total center total">{{ vendorsReport.totalBalanceLocal | numberFormat }}</td>
           </tr>
         </ng-container>
       </lib-data-table>
@@ -269,31 +267,6 @@
         ]
       }"
     >
-      <ng-container search>
-        <!-- <lib-text-input
-        type="text"
-        [placeholder]="'stockOut.search' | translate"
-        [(ngModel)]="searchTerm"
-        (keyUp)="onSearchChange()"
-      ></lib-text-input> -->
-      </ng-container>
-      <ng-container action>
-        <!-- <lib-export
-        (exportClick)="exportClick()"
-        [exportData]="exportData"
-        [exportColumns]="exportColumns"
-        [ExportName]="'stockIn.stockInPrint' | translate"
-      >
-      </lib-export> -->
-        <!-- <lib-button-micro
-        [title]="'vendor.View' | translate"
-        nameClass="save"
-        iconName="pi pi-plus"
-        (click)="viewData()"
-      >
-      </lib-button-micro> -->
-      </ng-container>
-
       <ng-container footer>
         <tr>
           <td></td>

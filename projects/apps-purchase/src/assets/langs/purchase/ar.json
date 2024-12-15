@@ -368,5 +368,22 @@
     "returnDate": "تاريخ الإرجاع",
     "returnDescription": "وصف الإرجاع",
     "purchaseInvoice": "فاتورة الشراء"
+  },
+  "vendorReport": {
+    "selectVendor": "اختر المورد",
+    "fromDate": "من تاريخ",
+    "toDate": "إلى تاريخ",
+    "view": "عرض",
+    "date": "التاريخ",
+    "transactionName": "اسم المعاملة",
+    "transactionCode": "رمز المعاملة",
+    "journalCode": "رمز اليومية",
+    "debit": "مدين",
+    "credit": "دائن",
+    "balance": "الرصيد",
+    "rate": "الأسعار",
+    "debitLocal": "مدين (محلي)",
+    "creditLocal": "دائن (محلي)",
+    "balanceLocal": "الرصيد (محلي)"
   }
 }

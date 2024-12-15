@@ -15,7 +15,8 @@
     "purchaseInvoiceAdd": "اضافه فاتوره الشراء",
     "purchaseInvoiceEdit": "تعديل فاتوره الشراء",
     "purchaseInvoiceView": "عرض فاتوره الشراء",
-    "purchaseReturnInvoice": "فاتورة مرتجع مشتريات"
+    "purchaseReturnInvoice": "فاتورة مرتجع مشتريات",
+    "vendorReport": "تقرير المورد"
   },
   "dir": "rtl",
   "Welcome": "مرحبا",
@@ -513,7 +514,7 @@
     "invoiceJournal": "دفتر الفواتير",
     "stockIn": "الإدخال المخزني",
     "upload": "استيراد الصنف",
-   "localAmount": "العملة المحلية",
+    "localAmount": "العملة المحلية",
 
     "scan": "مسح الباركود",
     "add": "إضافة صف",
