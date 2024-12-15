@@ -160,15 +160,15 @@ export class StockInListComponent implements OnInit {
   onAdd() {
     this.sequenceService.isHaveSequence(
       this.sharedEnums.Pages.StockIn,
-      '/transactions/stock-in/add-stock-in'
+      '/transactions/stockin/add'
     );
   }
   onVeiw(data: any) {
-    this.routerService.navigateTo(`transactions/stock-in/view/${data}`);
+    this.routerService.navigateTo(`transactions/stockin/view/${data}`);
   }
 
   onEdit(id: any) {
-    this.routerService.navigateTo(`/transactions/stock-in/edit-stock-in/${id}`);
+    this.routerService.navigateTo(`/transactions/stockin/edit/${id}`);
   }
 
   onSearchChange() {
@@ -217,6 +217,5 @@ export class StockInListComponent implements OnInit {
     public sequenceService: SequenceService,
     public sharedEnums: SharedEnums
   ) {
-    console.log(this.routerService.getCurrentUrl());
   }
 }

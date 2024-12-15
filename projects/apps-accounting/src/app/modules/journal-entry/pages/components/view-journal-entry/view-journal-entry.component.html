@@ -37,30 +37,18 @@
         <div class="col-12 md:col-3">
           <p class="headsCont heading_b16">{{ 'EditJournal.SourceDocumentName' | translate }}</p>
           <p class="subHead paragraph_b16 pragraph_demd">
-            {{ journalView?.sourceCode || 'N/A' }}
+            {{ journalView?.sourceName || 'N/A' }}
           </p>
         </div>
         <div class="col-12 md:col-3">
           <p class="headsCont heading_b16">{{ 'EditJournal.SourceDocumentCode' | translate }}</p>
           <p
-            class="subHead paragraph_b16 pragraph_demd"
-            *ngIf="journalView?.sourceCode == 'PaymentIn'"
-            [ngClass]="{ code: journalView?.paymentInId }"
-            (click)="routeToPaymentInView(journalView?.paymentInId!)"
+            class="subHead paragraph_b16 pragraph_demd hyperlink"
+            (click)="routeToSourceView(journalView?.sourceId!)"
           >
-            {{ journalView?.sourceName || 'N/A' }}
+            {{ journalView?.sourceCode || 'N/A' }}
           </p>
-          <p
-            class="subHead paragraph_b16 pragraph_demd"
-            *ngIf="journalView?.sourceCode == 'PaymentOut'"
-            [ngClass]="{ code: journalView?.paymentOutId }"
-            (click)="routeToPaymentOutView(journalView?.paymentOutId!)"
-          >
-            {{ journalView?.sourceName || 'N/A' }}
-          </p>
-          <p class="subHead paragraph_b16 pragraph_demd code" *ngIf="!journalView?.sourceCode">
-            {{ 'N/A' }}
-          </p>
+          
         </div>
         <div class="col-12 md:col-3">
           <p class="headsCont heading_b16">{{ 'viewJournal.description' | translate }}</p>
