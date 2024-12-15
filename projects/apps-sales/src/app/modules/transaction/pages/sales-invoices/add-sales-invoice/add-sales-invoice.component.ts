@@ -41,7 +41,9 @@ export class AddSalesInvoiceComponent implements OnInit {
   salesReturnForm: FormGroup = new FormGroup({});
   formSubmited: boolean = false;
   errorsArray: any = [];
-  pricePolicyLookup: any = [];
+  pricePolicyLookup: { id: number;
+    name: string;
+    code: string}[]= [];
   LookupEnum = LookupEnum;
   lookups: { [key: string]: lookupDto[] };
   oprationalLookup: OperationalStockIn[] = [];

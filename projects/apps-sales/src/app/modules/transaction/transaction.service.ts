@@ -16,7 +16,9 @@ export class TransactionService {
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
   public sendSalesInvoice = new BehaviorSubject<AddPurchaseInvoiceDto>({} as AddPurchaseInvoiceDto);
   public sendPricePolicy = new BehaviorSubject({} as any);
-  public sendPricePolicyLookup = new BehaviorSubject({} as any);
+  public sendPricePolicyLookup = new BehaviorSubject<{ id: number;
+    name: string;
+    code: string}[]>([]);
 
   constructor(private TransactionsProxy : TransactionProxyService ,    private toasterService: ToasterService,
     private languageService: LanguageService,

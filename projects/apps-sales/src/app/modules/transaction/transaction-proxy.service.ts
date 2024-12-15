@@ -74,7 +74,9 @@ export class TransactionProxyService {
 
   }
 
-  getPricePolicyLookup() {
+  getPricePolicyLookup(): Observable<{ id: number;
+    name: string;
+    code: string}[]> {
     return this.httpService.get(`PricePolicy/DropDown`);
   }
 
