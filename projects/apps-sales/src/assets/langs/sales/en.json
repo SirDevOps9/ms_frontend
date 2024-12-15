@@ -58,7 +58,7 @@
     "DownloadFile": "Download File"
   },
   "customerStatementReport": {
-    "selectVendor": "Select Vendor",
+    "selectCustomer": "Select Customer",
     "fromDate": "From Date",
     "toDate": "To Date",
     "view": "View",

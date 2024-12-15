@@ -58,7 +58,7 @@
     "DownloadFile": "تحميل الملف"
   },
   "customerStatementReport": {
-    "selectVendor": "اختر المورد",
+    "selectCustomer": "حدد العميل",
     "fromDate": "من تاريخ",
     "toDate": "إلى تاريخ",
     "view": "عرض",
