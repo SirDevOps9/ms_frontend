@@ -24,7 +24,7 @@ export const ERPRoutes = [
           import('./modules/purchase/purchase.module').then((m) => m.PurchaseModule),
       },
       {
-        path: 'transaction',
+        path: 'transactions',
         loadChildren: () =>
           import('./modules/purchase-transactions/purchase-transactions.module').then(
             (m) => m.PurchaseTransactionsModule

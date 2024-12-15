@@ -583,7 +583,7 @@ export class AddStockInComponent implements OnInit {
   }
 
   onCancel() {
-    this.router.navigateTo('/transactions/stock-in');
+    this.router.navigateTo('/transactions/stockin');
   }
 
   onSave() {

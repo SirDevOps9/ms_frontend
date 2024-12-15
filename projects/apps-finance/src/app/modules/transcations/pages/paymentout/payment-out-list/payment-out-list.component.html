@@ -17,7 +17,7 @@
               dataKey: 'id',
               pageSize: 10,
               columns: [
-                 
+
                  {
                    name: 'code',
                    headerText: ('PaymentOut.List.code' | translate),
@@ -31,7 +31,7 @@
                      isSortable: true,
                      template: Date
                  },
-               
+
                  {
                    name: 'paymentHub',
                    headerText: ('PaymentOut.List.paymentHub' | translate),
@@ -53,7 +53,7 @@
                   headerText: ('PaymentOut.List.bankAccount' | translate) ,
                   isSortable: true,
                  },
-                 
+
                  {
                   name: 'status',
                   headerText: ('payment-in.status' | translate) ,
@@ -126,6 +126,75 @@
             </lib-button-micro>
           </div>
         </ng-container>
+
+        <ng-container caption>
+          <form [formGroup]="filterForm" class="filtration grid mt-1">
+            <div class="lg:col-3 md:col-4 col-12">
+              <lib-date-range
+                placeholder="{{ 'filter.selectDateRange' | translate }}"
+                formControlName="range"
+              ></lib-date-range>
+            </div>
+            <div class="lg:col-3 md:col-4 col-12">
+              <lib-select
+                formControlName="paymentHub"
+                placeholder="{{ 'filter.paymentHub' | translate }}"
+                [options]="filterPaymentHub"
+                optionLabel="name"
+                optionValue="id"
+              ></lib-select>
+            </div>
+            <div class="lg:col-3 md:col-4 col-12">
+              <lib-multi-select
+                formControlName="paymentHubDetails"
+                placeholder="{{ 'filter.paymentHubDetails' | translate }}"
+                [options]="paymentHubDetailsList"
+                optionLabel="name"
+                optionValue="id"
+                [selectedValue]="filterForm.controls['paymentHubDetails'].value"
+              ></lib-multi-select>
+            </div>
+            <div class="lg:col-3 md:col-4 col-12">
+              <lib-multi-select
+                formControlName="bankAccounts"
+                placeholder="{{ 'filter.bankAccounts' | translate }}"
+                [options]="bankAccounts"
+                optionLabel="accountNumber"
+                optionValue="id"
+                [disabled]="bankAccountDisabled"
+                [selectedValue]="filterForm.controls['bankAccounts'].value"
+              ></lib-multi-select>
+            </div>
+            <div class="lg:col-3 md:col-4 col-12">
+              <lib-multi-select
+                formControlName="status"
+                placeholder="{{ 'filter.status' | translate }}"
+                [options]="filterStatus"
+                optionLabel="name"
+                optionValue="id"
+              ></lib-multi-select>
+            </div>
+            <div class="lg:col-3 md:col-4 col-12">
+              <lib-multi-select
+                formControlName="currency"
+                placeholder="{{ 'filter.currency' | translate }}"
+                [options]="currencyListDto"
+                optionLabel="name"
+                optionValue="id"
+              ></lib-multi-select>
+            </div>
+
+            <div class="lg:col-2 col-offset-4 md:col-4 col-12">
+              <lib-button-micro
+                title="{{ 'filter.view' | translate }}"
+                nameClass="save"
+                widthNumber="100%"
+                (click)="filter()"
+              ></lib-button-micro>
+            </div>
+          </form>
+        </ng-container>
+
         <ng-template #Date let-paymentIn>
           <div>
             <p>{{ paymentIn.date | date : 'dd/MM/yyyy' }}</p>

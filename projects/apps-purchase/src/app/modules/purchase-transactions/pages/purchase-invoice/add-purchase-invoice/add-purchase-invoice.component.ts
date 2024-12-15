@@ -203,8 +203,8 @@ export class AddPurchaseInvoiceComponent implements OnInit {
             this.purchaseInvoiceForm
               .get('currencyId')
               ?.setValue(this.currentUserService.getCurrency());
-            this.purchaseInvoiceForm.get('currencyName')?.setValue('Egyptian Pound');
-            this.purchaseInvoiceForm.get('currency')?.setValue('Egyptian Pound');
+            this.purchaseInvoiceForm.get('currencyName')?.setValue(this.currentUserService.getCurrencyName());
+            this.purchaseInvoiceForm.get('currency')?.setValue(this.currentUserService.getCurrencyName());
           }
         });
     });
@@ -851,7 +851,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
   }
 
   onCancel() {
-    this.router.navigateTo('/transactions/stock-in');
+    this.router.navigateTo('/transactions/stockin');
   }
 
   onSave() {

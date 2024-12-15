@@ -65,7 +65,7 @@ export class ViewStockInComponent {
   }
 
   onCancel() {
-    this.router.navigateTo('/transactions/stock-out');
+    this.router.navigateTo('/transactions/stockout');
   }
 
 

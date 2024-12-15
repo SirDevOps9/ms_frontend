@@ -497,7 +497,7 @@ export class AddStockOutComponent implements OnInit {
   }
 
   onCancel() {
-    this.routerService.navigateTo('transactions/stock-out');
+    this.routerService.navigateTo('transactions/stockout');
   }
 
   onSave() {

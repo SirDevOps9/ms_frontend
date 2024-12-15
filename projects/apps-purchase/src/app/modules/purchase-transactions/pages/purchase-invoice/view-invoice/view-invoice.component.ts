@@ -113,7 +113,7 @@ export class ViewInvoiceComponent implements OnInit {
   }
 
   onCancel() {
-    this.router.navigateTo('/transaction/purchase-invoice');
+    this.router.navigateTo('/transactions/purchase-invoice');
   }
 
   constructor(
