@@ -9,6 +9,7 @@ import { AddWarehousePopupComponent } from '../../../components/warehouse/add-wa
 import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
 import { TranslateService } from '@ngx-translate/core';
 import { SortTableEXport } from '../../../models/SortTable';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-warehouse-list',
@@ -44,8 +45,11 @@ export class WarehouseListComponent implements OnInit {
     { name: 'createdOn', headerText:('warehouse.createdOn') }
 
   ]
+  private routerSubscription: Subscription;
+
   ngOnInit() {
     this.initItemDefinitionData();
+
   }
 
   initItemDefinitionData() {
@@ -129,6 +133,13 @@ export class WarehouseListComponent implements OnInit {
   }
   onDelete(id: number) {
      this.itemsService.deleteWareHouse(id)
+  }
+
+  ngOnDestroy(): void {
+if(this.routerSubscription){
+  this.routerSubscription.unsubscribe();
+}
+
   }
 }
 

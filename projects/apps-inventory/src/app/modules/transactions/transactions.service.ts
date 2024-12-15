@@ -86,7 +86,8 @@ export class TransactionsService {
   public stockOutSaved = new BehaviorSubject<number | undefined>(0);
 
   exportStockOutListDataSourceObservable = this.exportStockOutListDataSource.asObservable();
-
+  public editStockOutDataSource = new BehaviorSubject<StockOutDto[]>([]);
+  public editStockOutDataSourceObs = this.editStockOutDataSource.asObservable()
 
   constructor(
     private toasterService: ToasterService,
@@ -281,7 +282,7 @@ export class TransactionsService {
   }
 
 
-  
+
   deleteStockInLine(id: number) {
     return this.transactionsProxy.deleteStockInLine(id).pipe(
       map((res) => {
@@ -446,6 +447,7 @@ export class TransactionsService {
           this.languageService.transalte('messages.stockOutPostedSuccessfully')
         );
         this.loaderService.hide();
+        this.editStockOutDataSource.next(res);
 
         this.router.navigateTo('transactions/stock-out');
       },
@@ -455,6 +457,7 @@ export class TransactionsService {
           this.languageService.transalte('messages.Error'),
           this.languageService.transalte(error.message)
         );
+   
       },
     });
   }

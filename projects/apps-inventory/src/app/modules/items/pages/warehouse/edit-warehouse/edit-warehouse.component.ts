@@ -90,7 +90,6 @@ export class EditWarehouseComponent implements OnInit {
   this.getAccount()
   this.getBranchesLookup()
   this.getCcountriesDropdown()
-  this.showWarehouseType()
 }
 
 getWarehouseById() {
@@ -128,7 +127,7 @@ getWarehouseById() {
         adjustmentAccountId: res?.warehouseAccount?.adjustmentAccountId
       }
     });
-    console.log(res)
+
   })
 }
 
@@ -202,5 +201,5 @@ getWarehouseById() {
     }
   }
 
- 
+
 }

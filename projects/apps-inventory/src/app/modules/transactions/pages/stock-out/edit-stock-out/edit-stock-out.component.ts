@@ -22,6 +22,7 @@ import { ActivatedRoute } from '@angular/router';
 import { TransactionsService } from '../../../transactions.service';
 import { SearchItemPopUpComponent } from '../../../components/stock-out/search-item-pop-up/search-item-pop-up.component';
 import { format, isValid } from 'date-fns';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-edit-stock-out',
@@ -56,6 +57,7 @@ export class EditStockOutComponent implements OnInit {
   originalFormData: any;
   dataLoaded: boolean;
   showPost: boolean;
+  buttonsHidden: boolean = false;
   ngOnInit(): void {
     this.itemId = this.route.snapshot.params['id'];
     this.itemsService.operationTagStockOutDropdown();
@@ -154,32 +156,7 @@ export class EditStockOutComponent implements OnInit {
   }
   subscribe() {
     this.languageService.language$.subscribe((lang) => [(this.selectedLanguage = lang)]);
-    // this.lookupservice.lookups.subscribe((l) => {
-    
-    //   this.lookups = l;
-     
-    //    if(this.lookups[LookupEnum.StockInOutSourceDocumentType]?.length) {
-    //   this.addForm.get('sourceDocumentType')?.setValue(this.lookups[LookupEnum.StockInOutSourceDocumentType][0]?.id)
-    // }
-     
-    // });
-    // this.addForm.get('sourceDocumentType')?.valueChanges.subscribe((res) => {
-    //   let data = this.lookups[LookupEnum.StockInOutSourceDocumentType];
-    //   let sourceDocumentTypeData = data?.find((elem) => elem.id == res);
-    //   console.log(sourceDocumentTypeData,"sourceDocumentTypeData");
-      
-    //   if (sourceDocumentTypeData?.name == 'OperationalTag') {
-    //     console.log(sourceDocumentTypeData,"888888");
 
-    //     // this.itemsService.operationTagStockOutDropdown();
-    //     this.itemsService.perationalTagStockOutDropDown$.subscribe((res: any) => {
-    //       this.oprationalLookup = res.map((elem: any) => ({
-    //         ...elem,
-    //         displayName: `${elem.name} (${elem.code})`,
-    //       }));
-    //     });
-    //   }
-    // });
     this.itemsService.perationalTagStockOutDropDown$.subscribe((res: any) => {
       this.oprationalLookup = res.map((elem: any) => ({
         ...elem,
@@ -217,10 +194,14 @@ export class EditStockOutComponent implements OnInit {
       const y = this.mapStockOutData(res);
       if (JSON.stringify(x) == JSON.stringify(y)) {
         this.showPost = true;
+              console.log("test" , this.showPost);
+
       } else {
         this.showPost = false;
+        console.log("test" , this.showPost);
+
+
       }
-      // return JSON.stringify(this.originalFormData) !== JSON.stringify(res);
     });
   }
   loadLookups() {
@@ -624,6 +605,8 @@ export class EditStockOutComponent implements OnInit {
     } else {
       const data: any = this.mapStockOutData(this.addForm.value);
       this.itemsService.editStockOut(data);
+      this.showPost = true;
+      this.buttonsHidden = true; // Hide buttons after Save
     }
   }
 
@@ -846,7 +829,22 @@ export class EditStockOutComponent implements OnInit {
 
   addToPost() {
     this.itemsService.postStockOut(this.stockOutId);
+
+    this.itemsService.editStockOutDataSourceObs.pipe(take(1)).subscribe({
+      next: (res: any) => {
+        if (res.length > 0) { // Check if the response has data
+          this.buttonsHidden = true;
+        } else {
+          this.buttonsHidden = false;
+        }
+      },
+      error: () => {
+        this.buttonsHidden = false; // Show buttons if there's an error
+      }
+    });
   }
+
+
   constructor(
     private routerService: RouterService,
     public authService: AuthService,
