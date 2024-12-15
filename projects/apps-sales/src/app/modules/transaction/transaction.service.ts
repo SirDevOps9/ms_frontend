@@ -1,19 +1,30 @@
 import { Injectable } from '@angular/core';
 import { TransactionProxyService } from './transaction-proxy.service';
 import { BehaviorSubject, map } from 'rxjs';
-import { AddSalesReturnDto, customerDto, ReturnSalesInvoiceObj, SalesInvoiceLookup } from './models/return-sales-dto';
-import { LanguageService, LoaderService, PageInfo, RouterService, ToasterService } from 'shared-lib';
+import {
+  AddSalesReturnDto,
+  customerDto,
+  ReturnSalesInvoiceObj,
+  SalesInvoiceLookup,
+} from './models/return-sales-dto';
+import {
+  LanguageService,
+  LoaderService,
+  PageInfo,
+  RouterService,
+  ToasterService,
+} from 'shared-lib';
 import { updateReturnSalesInvice, IreturnInvoiceById } from './models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TransactionService {
-  constructor(private _transactionProxyService: TransactionProxyService,
+  constructor(
+    private _transactionProxyService: TransactionProxyService,
     private toasterService: ToasterService,
-    private languageService: LanguageService,    private router: RouterService
-
-
+    private languageService: LanguageService,
+    private router: RouterService
   ) {}
 
   // customer dropdown
@@ -21,17 +32,15 @@ export class TransactionService {
 
   warehouseLookup = new BehaviorSubject<any>([]);
   salesInvoiceLookup = new BehaviorSubject<SalesInvoiceLookup[]>([]);
-  salesInvoiceToReturnById = new BehaviorSubject<ReturnSalesInvoiceObj>({} as ReturnSalesInvoiceObj);
-   sendSalesReturnInvoice = new BehaviorSubject<AddSalesReturnDto>(
-    {} as AddSalesReturnDto
+  salesInvoiceToReturnById = new BehaviorSubject<ReturnSalesInvoiceObj>(
+    {} as ReturnSalesInvoiceObj
   );
+  sendSalesReturnInvoice = new BehaviorSubject<AddSalesReturnDto>({} as AddSalesReturnDto);
   updateSalesReturnInvoice = new BehaviorSubject<updateReturnSalesInvice>(
     {} as updateReturnSalesInvice
   );
-  
-  ReturnSalesInvoiceIdData = new BehaviorSubject<IreturnInvoiceById>(
-    {} as IreturnInvoiceById
-  );
+
+  ReturnSalesInvoiceIdData = new BehaviorSubject<IreturnInvoiceById>({} as IreturnInvoiceById);
 
   // customer dropdown
   getCustomerList(searchTerm: string) {
@@ -62,13 +71,13 @@ export class TransactionService {
   }
   // shared warehouse dropdown
   // Get Sales Invoice To Return By Id
-  GetSalesInvoiceToReturnById(id:number) {
+  GetSalesInvoiceToReturnById(id: number) {
     this._transactionProxyService.GetSalesInvoiceToReturnById(id).subscribe((response) => {
       this.salesInvoiceToReturnById.next(response);
     });
   }
   // Get Sales Invoice To Return By Id
-  // add sales return invoice 
+  // add sales return invoice
 
   addSalesReturnInvoice(obj: AddSalesReturnDto) {
     this._transactionProxyService.addSalesReturnInvoice(obj).subscribe({
@@ -87,9 +96,9 @@ export class TransactionService {
       },
     });
   }
- 
-  // add sales return invoice 
-  // edit sales return invoice 
+
+  // add sales return invoice
+  // edit sales return invoice
 
   editSalesReturnInvoice(obj: updateReturnSalesInvice) {
     this._transactionProxyService.editSalesReturnInvoice(obj).subscribe({
@@ -108,12 +117,11 @@ export class TransactionService {
       },
     });
   }
- 
-  // add sales return invoice 
 
-  // post sales return invoice 
+  // add sales return invoice
+
+  // post sales return invoice
   postSalesReturnInvoice(id: number) {
-
     this._transactionProxyService.postSalesReturnInvoice(id).subscribe({
       next: (res: any) => {
         this.toasterService.showSuccess(
@@ -131,40 +139,22 @@ export class TransactionService {
       },
     });
   }
-    // post sales return invoice 
+  // post sales return invoice
 
-    // update 
+  // update
 
-    getReturnSalesInvoiceId(id: number) {
-      this._transactionProxyService.getReturnSalesInvoiceId(id).subscribe((response: any) => {
-        this.ReturnSalesInvoiceIdData.next(response);
-      });
-    }
+  getReturnSalesInvoiceId(id: number) {
+    this._transactionProxyService.getReturnSalesInvoiceId(id).subscribe((response: any) => {
+      this.ReturnSalesInvoiceIdData.next(response);
+    });
+  }
 
-//   async deleteSalesReturnLine(id: number) {
-//     const confirmed = await this.toasterService.showConfirm('Delete');
-//     if (confirmed) {
-//       this._transactionProxyService.deleteSalesReturnLine(id).subscribe({
-//         next: (res) => {
-//           this.toasterService.showSuccess(
-//             this.languageService.transalte('deleteCustomerCategory.success'),
-//             this.languageService.transalte('deleteCustomerCategory.delete')
-//           );
-   
-// console.log(res);
-
-//           return res;
-//         },
-//         error: (err) => {},
-//       });
-//     }
-//   }  
-deleteSalesReturnLine(id: number) {
-  return this._transactionProxyService.deleteSalesReturnLine(id).pipe(
-    map((res) => {
-      return res;
-    })
-  );
-}
-
+  // delete
+  deleteSalesReturnLine(id: number) {
+    return this._transactionProxyService.deleteSalesReturnLine(id).pipe(
+      map((res) => {
+        return res;
+      })
+    );
+  }
 }

@@ -137,7 +137,7 @@ export class AddSalesReturnInvoiceComponent implements OnInit {
   get salesReturnFormArray() {
     return this.salesReturnForm.get('salesReturnDetails') as FormArray;
   }
-// custumer id on change 
+  // custumer id on change
   customerIdChange() {
     this.salesReturnForm.get('customerId')?.valueChanges.subscribe((res) => {
       if (!res) return;
@@ -158,7 +158,7 @@ export class AddSalesReturnInvoiceComponent implements OnInit {
       }
     });
   }
-// sales invoice id on change 
+  // sales invoice id on change
 
   salesInvoiceControleChange() {
     this.salesReturnForm.get('salesInvoiceId')?.valueChanges.subscribe((res) => {
@@ -404,7 +404,7 @@ export class AddSalesReturnInvoiceComponent implements OnInit {
           this.languageService.transalte('salesReturnInvoice.errorReturnQuantity')
         );
 
-        break; 
+        break;
       }
       if (returnQuantity == null) {
         this.duplicateLine = true;
@@ -416,7 +416,7 @@ export class AddSalesReturnInvoiceComponent implements OnInit {
           this.languageService.transalte('salesReturnInvoice.errorReturnQuantityRequired')
         );
 
-        break; 
+        break;
       }
     }
 

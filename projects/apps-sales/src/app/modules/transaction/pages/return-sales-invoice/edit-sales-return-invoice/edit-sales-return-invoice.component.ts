@@ -102,8 +102,6 @@ export class EditSalesReturnInvoiceComponent implements OnInit {
 
       salesReturnDetails: this.fb.array([]),
     });
-
-
   }
   // from array
   initFromArray() {
@@ -256,7 +254,6 @@ export class EditSalesReturnInvoiceComponent implements OnInit {
     this._transactionService.getSalesInvoiceLookup();
   }
 
-
   // calculations
   calculate() {
     this.totalQuantity = this.salesReturnFormArray.controls.reduce((acc, control) => {
@@ -303,7 +300,7 @@ export class EditSalesReturnInvoiceComponent implements OnInit {
 
   onSave() {
     if (!this.beforeSave()) {
-      return; 
+      return;
     }
     if (!this.formsService.validForm(this.salesReturnForm, false)) return;
     if (!this.formsService.validForm(this.salesReturnFormArray, false)) return;
@@ -316,13 +313,13 @@ export class EditSalesReturnInvoiceComponent implements OnInit {
         toReturnQuantity: control.value.toReturnQTY,
       };
     });
-    
+
     const obj: updateReturnSalesInvice = {
       id: Number(formVal.id),
       returnInvoiceDate: formVal.returnDate,
       description: formVal.description,
       warehouseId: formVal.warehouseId,
-      warehouseName: this.warhouseLookupData.find(x=>x.id == formVal.warehouseId).name,
+      warehouseName: this.warhouseLookupData.find((x) => x.id == formVal.warehouseId).name,
       returnSalesInvoiceDetails: returnSalesInvoiceDetails,
     };
 
@@ -330,11 +327,10 @@ export class EditSalesReturnInvoiceComponent implements OnInit {
     this._transactionService.updateSalesReturnInvoice.subscribe((res: number | any) => {
       if (typeof res == 'number') {
         this.savedDataId = res;
-    
       } else {
-      return
+        return;
       }
-     
+
       this.resetComparasion();
     });
   }
@@ -393,9 +389,8 @@ export class EditSalesReturnInvoiceComponent implements OnInit {
     const confirmed = await this.toasterService.showConfirm('Delete');
     if (confirmed) {
       if (id == 0) {
-      this.salesReturnFormArray.removeAt(index);
-      }
-      else {
+        this.salesReturnFormArray.removeAt(index);
+      } else {
         this._transactionService.deleteSalesReturnLine(id).subscribe({
           next: (res: any) => {
             this.toasterService.showSuccess(
@@ -407,20 +402,18 @@ export class EditSalesReturnInvoiceComponent implements OnInit {
           error: (err: any) => {
             this.toasterService.showError(
               this.languageService.transalte('messages.error'),
-            err.message
+              err.message
             );
           },
         });
       }
-
     }
-
   }
 
   addToPost() {
     this._transactionService.postSalesReturnInvoice(this.savedDataId);
   }
-  
+
   getReturnInnvoiceById(id: number) {
     this._transactionService.getReturnSalesInvoiceId(id);
     this._transactionService.ReturnSalesInvoiceIdData.subscribe({
