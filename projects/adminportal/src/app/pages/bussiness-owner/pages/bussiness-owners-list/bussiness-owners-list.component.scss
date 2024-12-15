@@ -9,3 +9,9 @@
     border-bottom: 1px solid #ececec;
   }
 }
+::ng-deep .btn {
+
+	&:not(.btn-outline):not(.btn-dashed):not(.border-hover):not(.border-active):not(.btn-flush):not(.btn-icon) {
+border: 1px !important;
+}
+}

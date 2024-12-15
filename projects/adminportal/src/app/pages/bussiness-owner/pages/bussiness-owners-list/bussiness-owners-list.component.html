@@ -53,21 +53,36 @@
         }"
     >
       <!-- actions of the header of Table -->
-      <ng-container action>
-        <div class="group">
-          <div>
-            <app-shared-form
+      <ng-container search>
+        <app-shared-form
               [fields]="fields"
               [showSaveBtn]="false"
               #form
             ></app-shared-form>
-          </div>
-        </div>
-
-        <div
-          class="my-3 d-flex align-items-center gap-3 justify-content-end"
-        ></div>
+        <!-- <lib-text-input
+          type="text"
+          [placeholder]="'stockOut.search' | translate"
+          [(ngModel)]="searchTerm"
+          (keyUp)="onSearchChange()"
+        ></lib-text-input> -->
       </ng-container>
+      <ng-container action>
+        <!-- <lib-export
+          (exportClick)="exportClick()"
+          [exportData]="exportData"
+          [exportColumns]="cols"
+          [ExportName]="'stockOut.stockOutPrint' | translate"
+        >
+        </lib-export> -->
+        <lib-button-micro
+        (click)="add()"
+          [title]="'Add' | translate"
+          nameClass="save"
+          iconName="pi pi-plus"
+        >
+        </lib-button-micro>
+      </ng-container>
+      
 
       <!-- actions of the Table -->
       <ng-template #userCol let-user>

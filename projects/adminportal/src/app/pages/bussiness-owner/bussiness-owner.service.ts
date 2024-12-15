@@ -1,15 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { BussinessOwnerProxyService } from './bussiness-owner-proxy.service';
-import { AppsInfo, BussinessOwner, CompanyInfo, LicenceInfo, SubDomainInfo, bussinesOwnerDetails, userData } from './models';
-import { PageInfo, PaginationVm } from 'shared-lib';
+import { AddBussinesOwner, AppsInfo, BussinessOwner, CompanyInfo, LicenceInfo, SubDomainInfo, bussinesOwnerDetails, userData } from './models';
+import { LanguageService, LoaderService, PageInfo, PaginationVm, RouterService, ToasterService } from 'shared-lib';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BussinessOwnerService {
 
-  constructor(private bussinessOwnerProxy : BussinessOwnerProxyService) { }
+  constructor(
+    private bussinessOwnerProxy : BussinessOwnerProxyService,
+    private loaderService: LoaderService,
+    private toasterService: ToasterService,
+    private languageService: LanguageService,
+    private router: RouterService,
+  ) { }
 
   getBussinessOwnerList(pageInfo: PageInfo , quieries?:string) : Observable<PaginationVm<BussinessOwner>> {
    return this.bussinessOwnerProxy.getAllPaginated(pageInfo , quieries)
@@ -37,5 +43,36 @@ export class BussinessOwnerService {
     return this.bussinessOwnerProxy.getAppsInfo(pageInfo ,id )
 
   }
+  getCountriesLookup() : Observable<any>{
+    return this.bussinessOwnerProxy.CountriesLookup()
+
+  }
+  getCurrenciesLookup() : Observable<any>{
+    return this.bussinessOwnerProxy.CurrenciesLookup()
+
+  }
+  getApps() : Observable<any>{
+    return this.bussinessOwnerProxy.Apps()
+
+  }
+  addBussinesOwner(obj: AddBussinesOwner) {
+    this.loaderService.show();
+
+    this.bussinessOwnerProxy.AddBussinesOwner(obj).subscribe({
+      next: (res: any) => {
+        this.toasterService.showSuccess(
+          this.languageService.transalte('success'),
+          this.languageService.transalte('Operation completed successfully.')
+        );
+        this.loaderService.hide();
+
+         this.router.navigateTo('bussiness-owners');
+      },
+      error: (err: any) => {
+        this.loaderService.hide();
+      },
+    });
+  }
+
  
 }

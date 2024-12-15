@@ -30,7 +30,8 @@ import { SearchFunc } from 'libs/shared-lib/src/lib/models/sendQueries';
 export class BussinessOwnersListComponent implements OnInit , AfterViewInit {
   @ViewChild('myTab') myTab: any | undefined;
   @ViewChild('form') form: SharedFormComponent;
-  
+  exportData: any[];
+
   cols: any[] = [
     {
       field: 'Id',
@@ -94,7 +95,7 @@ export class BussinessOwnersListComponent implements OnInit , AfterViewInit {
       key: 'SearchTerm',
       placeholder: 'Search...',
       type: FormTypes.text,
-      class: 'col-md-4',
+      class: 'col-md-12',
     },
   ];
   active: boolean = false;
@@ -116,7 +117,10 @@ export class BussinessOwnersListComponent implements OnInit , AfterViewInit {
     })
   }
 
- 
+  exportClick(){
+    console.log("kkkkkk");
+    
+  }
   ngOnInit() {
     this.titleService.setTitle(
       this.languageService.transalte('JournalEntry.JournalEntryList')
@@ -143,6 +147,9 @@ export class BussinessOwnersListComponent implements OnInit , AfterViewInit {
   }
   onEditOwner(id: string) {
     this.routerService.navigateTo(`/bussiness-owners/manage/${id}`);
+  }
+  add() {
+    this.routerService.navigateTo(`/bussiness-owners/add`);
   }
 
 

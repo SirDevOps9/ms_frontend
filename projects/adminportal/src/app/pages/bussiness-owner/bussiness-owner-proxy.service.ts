@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, auditTime } from 'rxjs';
 import { FilterDto, HttpService, PageInfo, PaginationVm } from 'shared-lib';
-import { AppsInfo, BussinessOwner, CompanyInfo, LicenceInfo, SubDomainInfo, bussinesOwnerDetails, userData } from './models';
+import { AddBussinesOwner, AppsInfo, BussinessOwner, CompanyInfo, LicenceInfo, SubDomainInfo, bussinesOwnerDetails, userData } from './models';
 
 @Injectable({
   providedIn: 'root'
@@ -51,6 +51,18 @@ export class BussinessOwnerProxyService {
     return this.baseService.get<PaginationVm<AppsInfo>>(
       `App/${id}?${filterDto.toQuery}`
     )
+  }
+  CountriesLookup(): Observable<any> {
+    return this.baseService.get(`Lookup/CountriesLookup`);
+  }
+  CurrenciesLookup(): Observable<any> {
+    return this.baseService.get(`Lookup/CurrenciesLookup`);
+  }
+  Apps(): Observable<any> {
+    return this.baseService.get(`App/Lookup`);
+  }
+  AddBussinesOwner(obj: AddBussinesOwner): Observable<AddBussinesOwner> {
+    return this.baseService.post('BusinessOwner', obj);
   }
 
 }

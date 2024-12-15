@@ -1,0 +1,241 @@
+<lib-page-content>
+    <div class="card_micro">
+
+        <h2>
+            Add Bussiness Owner 
+        
+        </h2>
+        <h3>
+            main information
+        </h3>
+        <div class="card_micro">
+            <form [formGroup]="addForm">
+                <div class="row">
+                    <div class="col-3">
+                        <lib-form-group>
+                            <lib-label [appControl]="addForm.controls['name']">
+                                {{ 'name' | translate }}
+                              </lib-label>
+                              <lib-text-input
+                              formControlName="name"
+                              >
+                
+                              </lib-text-input>
+                              <lib-field-validations [appControl]="addForm.controls['name']"></lib-field-validations>
+                
+                            
+                        </lib-form-group>
+                    </div>
+                    <div class="col-3">
+                        <lib-form-group>
+                            <lib-label [appControl]="addForm.controls['email']">
+                                {{ 'email' | translate }}
+                              </lib-label>
+                              <lib-text-input
+                              formControlName="email"
+                              >
+                
+                              </lib-text-input>
+                              <lib-field-validations [appControl]="addForm.controls['email']"></lib-field-validations>
+                
+                            
+                        </lib-form-group>
+                    </div>
+                    <div class="col-3">
+                        <lib-form-group>
+                            <lib-label [appControl]="addForm.controls['phone']">
+                                {{ 'phone' | translate }}
+                              </lib-label>
+                              <lib-text-input
+                              formControlName="phone"
+                              >
+                
+                              </lib-text-input>
+                              <lib-field-validations [appControl]="addForm.controls['phone']"></lib-field-validations>
+                
+                            
+                        </lib-form-group>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-3">
+                        <lib-form-group>
+                            <lib-label [appControl]="addForm.controls['phoneCode']">
+                                {{ 'phoneCode' | translate }}
+                              </lib-label>
+                              <lib-select
+                            
+                              >
+             
+                              </lib-select>
+                              <lib-field-validations [appControl]="addForm.controls['phoneCode']"></lib-field-validations>
+                
+                            
+                        </lib-form-group>
+                    </div>
+                    <div class="col-3">
+                        <lib-form-group>
+                            <lib-label [appControl]="addForm.controls['countryCode']">
+                                {{ 'countryCode' | translate }}
+                              </lib-label>
+                         <lib-select
+                       
+                         >
+        
+                         </lib-select>
+                              <lib-field-validations [appControl]="addForm.controls['countryCode']"></lib-field-validations>
+                
+                            
+                        </lib-form-group>
+                    </div>
+                   
+                </div>
+               
+                </form>
+        </div>
+        <div class="line"></div>
+        <div class="card_micro">
+            <h3>
+                Domain
+            </h3>
+            <form [formGroup]="addForm">
+                <div class="row">
+                    <div class="col-3">
+                        <lib-form-group>
+                            <lib-label [appControl]="addForm.controls['name']">
+                                {{ 'name' | translate }}
+                              </lib-label>
+                              <lib-text-input
+                              formControlName="name"
+                              >
+                
+                              </lib-text-input>
+                              <lib-field-validations [appControl]="addForm.controls['name']"></lib-field-validations>
+                
+                            
+                        </lib-form-group>
+                    </div>
+                    <div class="col-3">
+                        <lib-form-group>
+                            <lib-label [appControl]="addForm.controls['email']">
+                                {{ 'email' | translate }}
+                              </lib-label>
+                              <lib-text-input
+                              formControlName="email"
+                              >
+                
+                              </lib-text-input>
+                              <lib-field-validations [appControl]="addForm.controls['email']"></lib-field-validations>
+                
+                            
+                        </lib-form-group>
+                    </div>
+                    <div class="col-3">
+                        <lib-form-group>
+                            <lib-label [appControl]="addForm.controls['phone']">
+                                {{ 'phone' | translate }}
+                              </lib-label>
+                              <lib-text-input
+                              formControlName="phone"
+                              >
+                
+                              </lib-text-input>
+                              <lib-field-validations [appControl]="addForm.controls['phone']"></lib-field-validations>
+                
+                            
+                        </lib-form-group>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-3">
+                        <lib-form-group>
+                            <lib-label [appControl]="addForm.controls['phoneCode']">
+                                {{ 'phoneCode' | translate }}
+                              </lib-label>
+                              <lib-select
+                            
+                              >
+             
+                              </lib-select>
+                              <lib-field-validations [appControl]="addForm.controls['phoneCode']"></lib-field-validations>
+                
+                            
+                        </lib-form-group>
+                    </div>
+                    <div class="col-3">
+                        <lib-form-group>
+                            <lib-label [appControl]="addForm.controls['countryCode']">
+                                {{ 'countryCode' | translate }}
+                              </lib-label>
+                         <lib-select
+                       
+                         >
+        
+                         </lib-select>
+                              <lib-field-validations [appControl]="addForm.controls['countryCode']"></lib-field-validations>
+                
+                            
+                        </lib-form-group>
+                    </div>
+                   
+                </div>
+               
+                </form>
+        </div>
+        <div class="line"></div>
+        <div class="card_micro">
+            <h3>
+                Apps
+            </h3>
+            <div class="row" >
+                <div class="col-4" *ngFor="let item of apps " >
+                    <div class="form-check test">
+                        <div class="check">
+                          <input 
+                            class="form-check-input" 
+                            type="checkbox" 
+                            [id]="'checkbox-' + item.id"
+                            [value]="item.id"
+                          />
+                          <label class="form-check-label" [for]="'checkbox-' + item.id">
+                            {{ item.appName }} - {{ item.moduleName }}
+                          </label>
+                        </div>
+                        <div>
+                          <div class="form-floating mb-3">
+                            <input 
+                              min="0" 
+                              type="number" 
+                              class="form-control" 
+                              [id]="'price-' + item.id" 
+                              [(ngModel)]="item.price" 
+                              placeholder="Set Price"
+                            />
+                            <label [for]="'price-' + item.id">Set Price</label>
+                          </div>
+                        </div>
+                      </div>
+                      
+                    <!-- <div class="form-check test">
+                        <div class="check">
+        
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                              Default checkbox
+                            </label>
+                        </div>
+                        <div >
+                            <div class="form-floating mb-3">
+                                <input min="0" type="number" class="form-control" id="floatingInput" placeholder="name@example.com">
+                                <label for="floatingInput">Set Price</label>
+                              </div>
+                        </div>
+        
+                      </div> -->
+                </div>
+            </div>
+            
+          
+        </div>
+    </div>
+</lib-page-content>

@@ -9,6 +9,8 @@ import { UserInfoListComponent } from './pages/user-info-list/user-info-list.com
 import { LicenceInfoListComponent } from './pages/licence-info-list/licence-info-list.component';
 import { AppInfoListComponent } from './pages/app-info-list/app-info-list.component';
 import { BreadcrumbLabel } from 'shared-lib';
+import { AddBussinessOwnerComponent } from './pages/add-bussiness-owner/add-bussiness-owner.component';
+import { AddInvoiceComponent } from './pages/add-invoice/add-invoice.component';
 
 const routes: Routes = [
   {
@@ -45,6 +47,18 @@ const routes: Routes = [
   }},
   { path: 'apps-info/:id', component: AppInfoListComponent ,  data : {
     breadcrumb: BreadcrumbLabel.APP_INFO,
+
+  }},
+  { path: 'add', 
+    component: AddBussinessOwnerComponent ,
+      data : {
+    breadcrumb: BreadcrumbLabel.BUSSINESS_OWNER_Add,
+
+  }},
+  { path: 'add-invoice', 
+    component: AddInvoiceComponent ,
+      data : {
+    breadcrumb: BreadcrumbLabel.BUSSINESS_OWNER_Add,
 
   }},
 ];
