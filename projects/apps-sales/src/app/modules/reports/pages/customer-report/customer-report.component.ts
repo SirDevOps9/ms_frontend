@@ -31,10 +31,17 @@ export class CustomerReportComponent {
     const currentDate = new Date();
     const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
 
+    const fromDate = `${firstDayOfMonth.getFullYear()}-${(firstDayOfMonth.getMonth() + 1)
+      .toString()
+      .padStart(2, '0')}-${firstDayOfMonth.getDate().toString().padStart(2, '0')}`;
+    const toDate = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1)
+      .toString()
+      .padStart(2, '0')}-${currentDate.getDate().toString().padStart(2, '0')}`;
+
     this.searchForm = new FormGroup({
       CustomerId: new FormControl(null, [Validators.required]),
-      fromDate: new FormControl(firstDayOfMonth, [Validators.required]),
-      toDate: new FormControl(currentDate, [Validators.required]),
+      fromDate: new FormControl(fromDate, [Validators.required]),
+      toDate: new FormControl(toDate, [Validators.required]),
     });
   }
   getCustomersDropdown() {
