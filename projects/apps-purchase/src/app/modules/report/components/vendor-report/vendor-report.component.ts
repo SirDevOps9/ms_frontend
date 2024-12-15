@@ -26,10 +26,14 @@ export class VendorReportComponent implements OnDestroy {
   }
 
   initiateFilterForm() {
+    const currentDate = new Date();
+    const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+    const lastDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+
     this.searchForm = new FormGroup({
       vendorId: new FormControl(null, [Validators.required]),
-      fromDate: new FormControl(''),
-      toDate: new FormControl(''),
+      fromDate: new FormControl(firstDayOfMonth, [Validators.required]),
+      toDate: new FormControl(lastDayOfMonth, [Validators.required]),
     });
   }
 
