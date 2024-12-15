@@ -89,8 +89,9 @@ export class AddAttributeDefinitionComponent implements OnInit {
   onSave() {
 
     if (!this.formsService.validForm(this.attrFormGroup, false)) return;
-    if (!this.formsService.validForm(this.attrTableForm, false)) return;
-    if(this.attrTableForm.length == 0)return
+    if(this.attrTableForm.length) {
+      if (!this.formsService.validForm(this.attrTableForm, false)) return;
+    }
     let formGroupVal = this.attrFormGroup.value;
     delete formGroupVal.attributeId;
     let data: any = {

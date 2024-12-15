@@ -8,6 +8,7 @@ import { MainSalesInvoiceComponent } from './pages/sales-invoices/main-sales-inv
 import { SalesInvoiceComponent } from './pages/sales-invoices/sales-invoice-list/sales-invoice.component';
 import { ItemAdvancedSearchSalesInvoiceComponentComponent } from './components/item-advanced-search-sales-invoice-component/item-advanced-search-sales-invoice-component.component';
 import { SalesInvoiceTrackingComponentComponent } from './components/sales-invoice-tracking-component/sales-invoice-tracking-component.component';
+import { EditSalesInvoiceComponent } from './pages/sales-invoices/edit-sales-invoice/edit-sales-invoice.component';
 import { ViewSalesComponent } from './pages/sales-invoices/view-sales/view-sales.component';
 
 
@@ -78,6 +79,7 @@ const routes: Routes = [
     AddSalesInvoiceComponent,
     ItemAdvancedSearchSalesInvoiceComponentComponent,
     SalesInvoiceTrackingComponentComponent,
+    EditSalesInvoiceComponent,
     ViewSalesComponent,
 
   ],

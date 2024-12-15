@@ -100,13 +100,10 @@
           <li>
             <a class="link_name body_b18" 
             [href]="menuItem.link" 
-
-            
-            [attr.hasHelpPage]="menuItem.subItem.hasHelpPage"
+            [attr.hasHelpPage]="menuItem.subItem?.hasHelpPage"
             [attr.link]="menuItem.link"
-            [attr.servicePage]="menuItem.subItem.serviceId"
-            
-            attr.hasHelpPage]="subItem.hasHelpPage">{{ menuItem.name }}</a>
+            [attr.servicePage]="menuItem.subItem?.serviceId"
+            >{{ menuItem.name }}</a>
           </li>
         </ul>
       </li>

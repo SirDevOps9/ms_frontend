@@ -490,7 +490,8 @@ export class AddStockInComponent implements OnInit {
         if (data) {
           stockInFormGroup.get('itemId')?.setValue(data.itemId);
           this.setRowDataFromBarCode(index, data ,e.target.value)
-
+        }else{
+          stockInFormGroup.reset()
         }
       });
     }

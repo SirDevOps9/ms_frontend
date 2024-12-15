@@ -64,6 +64,7 @@
     "invoiceDueDate": "Invoice Due Date",
     "description": "Description",
     "warehouse": "warehouse",
+    "selectTracking" : "Select Tracking",
     "salesMan": "Sales Man",
     "mainInformation": "Main Information",
     "customerInformation": "Customer Information",
@@ -125,6 +126,28 @@
     "discountPercentage": "Discount Percentage",
     "disAmount": "Discount Amount",
     "expiry" : "Expiry Date",
-    "serials" : "Serials"
+    "serials" : "Serials",
+    "discountAmount" : "Discount Amount",
+    "price" : "Price",
+    "createdStockIn" : "Created StockIn",
+    "expiryDate" : "Expiry Date",
+    "totalOfQuantity" : "Total Of QTY",
+    "salesInvoiceSuccess" : "Sales Invoice Added Successfully" ,
+    "salesInvoiceSuccessPosted" : "Sales Invoice Posted Successfully" 
+
+  },
+  "popupSearch": {
+    "ItemCode": "Item Code",
+    "ItemName": "Item Name",
+    "ItemUOM": "Item Unit of Measure",
+    "ItemVariant": "Item Variant",
+    "ItemCategory": "Item Category",
+    "IsStorable": "Is Storable",
+    "IsService": "Is Service",
+    "HasExpiryDate": "Has Expiry Date",
+    "Actions": "Actions",
+    "select": "select",
+    "search": "Search",
+    "ItemSearch": "Item Search"
   }
 }

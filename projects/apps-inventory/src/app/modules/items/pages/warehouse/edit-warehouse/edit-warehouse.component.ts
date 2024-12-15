@@ -185,7 +185,7 @@ getWarehouseById() {
   account:boolean=true
   showaddress:boolean=false
   showWarehouseType(){
-  
+
   }
   findRouteAddress() {
     if(this.warehouseForm.get('warehouseType')?.value == 1){
@@ -206,5 +206,7 @@ getWarehouseById() {
       this.showaddress = view === 'address';
     }
   }
+
+
 
 }

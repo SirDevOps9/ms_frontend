@@ -1,0 +1,35 @@
+<div class="chart-card w-full">
+  <div class="chart-card-header">
+    <ng-content select=".chart-header"></ng-content>
+  </div>
+
+  <div class="chart-card-body grid" [ngClass]="hideFooter ? 'hide-footer' : ''">
+    @if(chartDTO && chartDetailsConfig) {
+    <div
+      class="cart"
+      [ngClass]="smallSize ? 'lg:col-5 col-12' : 'lg:col-7 col-12'"
+      [chart]="chartDTO"
+    ></div>
+    <div class="details" [ngClass]="smallSize ? 'lg:col-7 col-12' : 'lg:col-5 col-12'">
+      @for(detail of chartDetailsConfig; track detail) {
+      <div class="detail-row w-full">
+        <span class="color-box" [style.background-color]="detail.color"></span>
+        <span class="detail-name paragraph_b14">{{ detail.name }}</span>
+        <span class="line"></span>
+        @if(detail.quantity) {
+        <span class="detail-name paragraph_b14">{{ detail.quantity }}</span>
+        <span class="line"></span>
+        }
+        <span class="detail-value heading_b16">{{ detail.value }}</span>
+      </div>
+      }
+    </div>
+    }@else if(chartDTO) {
+    <div class="cart lg:col-12 col-12" [chart]="chartDTO"></div>
+    } @else {
+    <ng-content select=".chart-body"></ng-content>
+    }
+  </div>
+
+  <div class="chart-card-footer"></div>
+</div>

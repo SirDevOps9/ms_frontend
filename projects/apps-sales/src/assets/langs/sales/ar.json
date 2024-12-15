@@ -23,6 +23,8 @@
   "customerName": "اسم العميل",
   "currency": "العملة",
   "rate": "السعر",
+  "selectTracking" : "اختيار التتبع",
+
   "paymentTerms": "شروط الدفع",
   "creditLimit": "حد الائتمان",
   "pricePolicy": "سياسة الأسعار",
@@ -77,7 +79,10 @@
   "discountPercentage": "نسبة الخصم",
   "disAmount": "مبلغ الخصم",
   "expiry": "تاريخ الانتهاء",
-  "serials": "الأرقام التسلسلية"
+  "serials": "الأرقام التسلسلية",
+  "discountAmount" : "قيمة الخصم",
+  "price" : "السعر"
+
 },
     "pricePolicy": {
         "code": "الكود",

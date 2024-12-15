@@ -10,13 +10,16 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { AppsSharedLibModule } from 'apps-shared-lib';
 import { MicrotecAuthLibModule, ERPInterceptor } from 'microtec-auth-lib';
 import { CookieModule } from 'ngx-cookie';
-import { MultiTranslateHttpLoader, SharedLibModule, EnvironmentService, LowerCaseUrlSerializer } from 'shared-lib';
+import {
+  MultiTranslateHttpLoader,
+  SharedLibModule,
+  EnvironmentService,
+  LowerCaseUrlSerializer,
+} from 'shared-lib';
 import { environment } from '../environments/environment';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -31,6 +34,7 @@ import { environment } from '../environments/environment';
               { prefix: './assets/langs/auth/', suffix: '.json' },
               { prefix: './assets/langs/inventory/', suffix: '.json' },
               { prefix: './assets/langs/shared/', suffix: '.json' },
+              { prefix: './assets/langs/dashboard/', suffix: '.json' },
             ],
           }),
         deps: [HttpClient],
@@ -53,6 +57,6 @@ import { environment } from '../environments/environment';
       useClass: LowerCaseUrlSerializer,
     },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -10,7 +10,6 @@ import { CurrentuserInfoDto } from '../sequence/models/company-dto';
 export class LayoutService {
   sideMenuItems = new BehaviorSubject<SideMenuModel[] | undefined>(undefined);
   modulItems = new BehaviorSubject<MenuModule[] | undefined>(undefined);
-
   saveSideMenu(menuItems: SideMenuModel[]) {
     const distinctModules = menuItems
       .filter(
@@ -46,6 +45,8 @@ export class LayoutService {
   }
 
   currentUserInfo = new BehaviorSubject<CurrentuserInfoDto>({} as CurrentuserInfoDto);
+  sendUserLoginData = new BehaviorSubject<any>({});
+  sendUserData$ = this.sendUserLoginData.asObservable();
 
   GetCurrentUserInfo() {
     this.layoutProxy.GetCurrentUserInfo().subscribe({

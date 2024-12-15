@@ -1,29 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { AuthService } from 'microtec-auth-lib';
-import { DialogService } from 'primeng/dynamicdialog';
-import {
-  OperationalStockIn,
-  GetWarehouseList,
-  StockInDetail,
-} from 'projects/apps-inventory/src/app/modules/items/models';
 import { SharedStock } from 'projects/apps-inventory/src/app/modules/transactions/models/sharedStockOutEnums';
-import { TransactionsService } from 'projects/apps-inventory/src/app/modules/transactions/transactions.service';
-import { skip } from 'rxjs';
-import {
-  LookupEnum,
-  lookupDto,
-  PageInfoResult,
-  MenuModule,
-  customValidators,
-  PageInfo,
-  LanguageService,
-  LookupsService,
-  RouterService,
-  FormsService,
-  ToasterService,
-} from 'shared-lib';
-import { PurchaseService } from '../../../../purchase/purchase.service';
+import { PageInfoResult, RouterService, FormsService } from 'shared-lib';
 import { PurchaseTransactionsService } from '../../../purchase-transactions.service';
 import { ActivatedRoute } from '@angular/router';
 import { SharedFinanceEnums } from 'projects/apps-inventory/src/app/modules/items/models/sharedEnumStockIn';
@@ -38,8 +17,6 @@ export class ViewInvoiceComponent implements OnInit {
   currentPageInfo: PageInfoResult = {};
   searchTerm: string;
 
-  currentLang: string;
-  selectedLanguage: string;
   tableData: any[];
   filteredData: any[];
 
@@ -96,7 +73,7 @@ export class ViewInvoiceComponent implements OnInit {
             stockInStatus: res.stockInCode,
             paymentTermName: res.paymentTermName,
             invoiceDate: res.invoiceDate,
-            currency: res?.currencyRate,
+            currency: res?.currencyName,
             vendorName: res.vendorName,
             vendorId: res.vendorCode,
             currencyRate: res.currencyRate,
@@ -115,18 +92,16 @@ export class ViewInvoiceComponent implements OnInit {
           this.populateInvoiceDetails(res.invoiceDetails);
         }
       },
-      error: (err) => {
-        console.error('Error fetching invoice details:', err);
-      },
+      error: (err) => {},
     });
   }
+
   populateInvoiceDetails(details: any[]) {
     this.tableData = details;
     this.filteredData = [...this.tableData];
   }
 
   onSearchTermChange(search: any): void {
-    debugger;
     const term = search.target.value?.toLowerCase() || '';
 
     this.filteredData = this.tableData.filter((item) => {
@@ -136,26 +111,19 @@ export class ViewInvoiceComponent implements OnInit {
       });
     });
   }
+
   onCancel() {
     this.router.navigateTo('/transaction/purchase-invoice');
   }
 
   constructor(
     public authService: AuthService,
-    private dialog: DialogService,
-    private languageService: LanguageService,
-    private transactionsService: TransactionsService,
     private fb: FormBuilder,
     private _route: ActivatedRoute,
-    private purchaseService: PurchaseService,
     private purchasetransactionsService: PurchaseTransactionsService,
     private router: RouterService,
     public formService: FormsService,
     public sharedFinanceEnums: SharedFinanceEnums,
-    public sharedStock: SharedStock,
-    private toasterService: ToasterService
-  ) {
-    this.currentLang = this.languageService.getLang();
-    this.selectedLanguage = this.languageService.getLang();
-  }
+    public sharedStock: SharedStock
+  ) {}
 }

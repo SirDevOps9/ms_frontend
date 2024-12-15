@@ -10,10 +10,16 @@ export class CurrentUserService {
     // Replace with your logic to get the currency value
     return obj.currencyId;
   }
-  getCurrencyName(): number {
+  getCurrencyName(): string {
     let obj = this.localStorage.getItem(StorageKeys.CURRENCEY_OBJ);
     // Replace with your logic to get the currency value
     return obj.currencyName;
+  }
+
+  getCurrencyCode(): string {
+    let obj = this.localStorage.getItem(StorageKeys.CURRENCEY_OBJ);
+    // Replace with your logic to get the currency value
+    return obj.currenyCode;
   }
   constructor(
     private httpService: HttpService,

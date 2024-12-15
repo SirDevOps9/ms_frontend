@@ -12,6 +12,15 @@ import { TrackingEditComponent } from './components/tracking-edit/tracking-edit.
 import { PurchaseInvoiceTrackingComponent } from './components/purchase-invoice-tracking/purchase-invoice-tracking.component';
 import { ItemAdvancedSearchPurchaseInvoiceComponent } from './components/item-advanced-search-purchase-invoice/item-advanced-search-purchase-invoice.component';
 import { ViewInvoiceComponent } from './pages/purchase-invoice/view-invoice/view-invoice.component';
+import { AddReturnPurchaseComponent } from './pages/return-purchase-invoice/add-return-purchase/add-return-purchase.component';
+import { EditReturnPurchaseComponent } from './pages/return-purchase-invoice/edit-return-purchase/edit-return-purchase.component';
+import { MainReturnPurchaseComponent } from './pages/return-purchase-invoice/main-return-purchase/main-return-purchase.component';
+import { PurchaseReturnListComponent } from './pages/return-purchase-invoice/purchase-return-list/purchase-return-list.component';
+import { PurchaseReturnViewComponent } from './pages/return-purchase-invoice/purchase-return-view/purchase-return-view.component';
+
+import { AuthGuard } from 'microtec-auth-lib';
+import { LocalAmountPopupComponent } from './components/local-amount-popup/local-amount-popup.component';
+import { LocalAmountEditPopupComponent } from './components/local-amount-edit-popup/local-amount-edit-popup.component';
 
 const routes: Routes = [
   {
@@ -72,6 +81,57 @@ const routes: Routes = [
           },
         ],
       },
+      {
+        path: 'return-purchase-invoice',
+        component: MainReturnPurchaseComponent,
+        data: {
+          breadcrumb: BreadcrumbLabel.purchaseInvoiceReturnList,
+          pageTitle: BreadcrumbLabel.purchaseInvoiceReturnList,
+        },
+        children: [
+          {
+            path: '',
+            component: PurchaseReturnListComponent,
+            data: {
+              breadcrumb: '',
+            },
+          },
+          {
+            path: 'add',
+            component: AddReturnPurchaseComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.purchaseInvoiceAdd,
+              pageTitle: BreadcrumbLabel.purchaseInvoiceAdd,
+            },
+          },
+          {
+            path: 'edit/:id',
+            component: EditReturnPurchaseComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.PURCHASE_EDIT,
+              pageTitle: BreadcrumbLabel.TITLE_PURCHASE_EDIT,
+            },
+          },
+          {
+            path: 'view/:id',
+            component: PurchaseReturnViewComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.purchaseInvoiceView,
+              pageTitle: BreadcrumbLabel.purchaseInvoiceView,
+            },
+          },
+          {
+            path: 'sequence',
+            component: SequenceComponent,
+            data: {
+              moduleId: Modules.Purchase,
+              pageId: Pages.PurchaseReturnInvoice,
+              breadcrumb: BreadcrumbLabel.SEQUENCE,
+              pageTitle: BreadcrumbLabel.SEQUENCE,
+            },
+          },
+        ],
+      },
     ],
   },
 ];
@@ -87,6 +147,13 @@ const routes: Routes = [
     PurchaseInvoiceTrackingComponent,
     ItemAdvancedSearchPurchaseInvoiceComponent,
     ViewInvoiceComponent,
+    AddReturnPurchaseComponent,
+    EditReturnPurchaseComponent,
+    MainReturnPurchaseComponent,
+    PurchaseReturnListComponent,
+    PurchaseReturnViewComponent,
+    LocalAmountPopupComponent,
+    LocalAmountEditPopupComponent,
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule],
 })

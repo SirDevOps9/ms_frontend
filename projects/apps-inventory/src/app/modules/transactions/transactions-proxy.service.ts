@@ -9,7 +9,13 @@ import {
   StockInDto,
   itemDefinitionDto,
 } from '../items/models';
-import { AddStockOutDto, AdvancedSearchDto, StockOutDto } from './models';
+import {
+  AddStockOutDto,
+  AdvancedSearchDto,
+  InventoryFilterDto,
+  LookupReturn,
+  StockOutDto,
+} from './models';
 import { SharedFinanceEnums } from './models/sharedEnumStockIn';
 
 @Injectable({
@@ -46,10 +52,28 @@ export class TransactionsProxyService {
     return this.httpService.post(`StockIn/${id}/Post`, null);
   }
 
-  getAllStockIn(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<StockInDto>> {
+  getAllStockIn(
+    searchTerm: string,
+    pageInfo: PageInfo,
+    filter?: InventoryFilterDto
+  ): Observable<PaginationVm<StockInDto>> {
     let query = `StockIn?${pageInfo.toQuery}`;
     if (searchTerm) {
       query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+    if (filter) {
+      Object.keys(filter).forEach((key) => {
+        const value = filter[key];
+        if (value) {
+          if (Array.isArray(value)) {
+            value.forEach((item) => {
+              query += `&${key}=${encodeURIComponent(item)}`;
+            });
+          } else {
+            query += `&${key}=${encodeURIComponent(value)}`;
+          }
+        }
+      });
     }
     return this.httpService.get<PaginationVm<StockInDto>>(query);
   }
@@ -85,7 +109,6 @@ export class TransactionsProxyService {
   getLatestItemsList(): Observable<LatestItems[]> {
     return this.httpService.get(`Item/GetLatestItemsList`);
   }
-
 
   getWareHousesDropDown() {
     return this.httpService.get<any>(`WareHouse/WareHousesDropDown`);
@@ -162,10 +185,28 @@ export class TransactionsProxyService {
   getByIdViewStockOut(id: number) {
     return this.httpService.get(`StockOut/GetStockOutViewById/${id}`);
   }
-  getAllStockOut(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<StockOutDto>> {
+  getAllStockOut(
+    searchTerm: string,
+    pageInfo: PageInfo,
+    filter?: InventoryFilterDto
+  ): Observable<PaginationVm<StockOutDto>> {
     let query = `StockOut?${pageInfo.toQuery}`;
     if (searchTerm) {
       query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+    if (filter) {
+      Object.keys(filter).forEach((key) => {
+        const value = filter[key];
+        if (value) {
+          if (Array.isArray(value)) {
+            value.forEach((item) => {
+              query += `&${key}=${encodeURIComponent(item)}`;
+            });
+          } else {
+            query += `&${key}=${encodeURIComponent(value)}`;
+          }
+        }
+      });
     }
     return this.httpService.get<PaginationVm<StockOutDto>>(query);
   }
@@ -188,5 +229,13 @@ export class TransactionsProxyService {
   }
   postStockOut(id: number) {
     return this.httpService.post(`StockOut/${id}/Post`, null);
+  }
+
+  statusLookup(): Observable<LookupReturn[]> {
+    return this.httpService.get('Lookup?lookups=StockInOutStatus');
+  }
+
+  sourceDocumentLookup(): Observable<LookupReturn[]> {
+    return this.httpService.get('Lookup?lookups=StockInOutSourceDocumentType');
   }
 }
