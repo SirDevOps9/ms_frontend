@@ -335,6 +335,7 @@
     "attributeValues": "Attribute Values",
     "AttributeDefinitionView": "Attribute Definition View",
     "AddAttributeDefinition": "Add Attribute Definition",
+    "attributeEditStatus" : "status Changed Successfully",
     "attribute": "Attribute",
     "EditAttributeDefinition": "Edit Attribute Definition",
     "AddNewLine": "Add New Line",
