@@ -30,12 +30,11 @@ export class CustomerReportComponent {
   initiateSearchForm() {
     const currentDate = new Date();
     const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-    const lastDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
 
     this.searchForm = new FormGroup({
       CustomerId: new FormControl(null, [Validators.required]),
       fromDate: new FormControl(firstDayOfMonth, [Validators.required]),
-      toDate: new FormControl(lastDayOfMonth, [Validators.required]),
+      toDate: new FormControl(currentDate, [Validators.required]),
     });
   }
   getCustomersDropdown() {
