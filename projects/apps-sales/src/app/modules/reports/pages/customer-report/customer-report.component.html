@@ -7,7 +7,7 @@
             <div class="col-12 md:col-3">
               <lib-form-group>
                 <lib-label [appControl]="searchForm.controls['CustomerId']">
-                  {{ 'vendorReport.selectVendor' | translate }}
+                  {{ 'customerStatementReport.selectVendor' | translate }}
                 </lib-label>
                 <lib-select
                   formControlName="CustomerId"
@@ -24,7 +24,7 @@
             <div class="col-12 md:col-3">
               <lib-form-group>
                 <lib-label [appControl]="searchForm.controls['fromDate']">
-                  {{ 'vendorReport.fromDate' | translate }}
+                  {{ 'customerStatementReport.fromDate' | translate }}
                 </lib-label>
 
                 <lib-calendar formControlName="fromDate"></lib-calendar>
@@ -35,7 +35,7 @@
             <div class="col-12 md:col-3">
               <lib-form-group>
                 <lib-label [appControl]="searchForm.controls['toDate']">
-                  {{ 'vendorReport.toDate' | translate }}
+                  {{ 'customerStatementReport.toDate' | translate }}
                 </lib-label>
 
                 <lib-calendar formControlName="toDate"></lib-calendar>
@@ -49,7 +49,7 @@
     <div class="card_micro" [appLoader]="reportsLoading">
       <div class="flex gap-2 justify-content-end my-3">
         <lib-button-micro
-          [title]="'vendorReport.view' | translate"
+          [title]="'customerStatementReport.view' | translate"
           [nameClass]="'save'"
           iconName="pi pi-circle"
           (click)="viewData()"
@@ -74,67 +74,67 @@
           columns: [
             {
               name: 'transactionDate',
-              headerText: ('vendorReport.date' | translate),
+              headerText: ('customerStatementReport.date' | translate),
               isGlobalFilter: true,
               isSortable: true
             },
             {
               name: 'transactionName',
-              headerText: ('vendorReport.transactionName' | translate),
+              headerText: ('customerStatementReport.transactionName' | translate),
               isGlobalFilter: true,
               isSortable: true
             },
             {
               name: 'transactionCode',
-              headerText: ('vendorReport.transactionCode' | translate),
+              headerText: ('customerStatementReport.transactionCode' | translate),
               isGlobalFilter: true,
               isSortable: true
             },
             {
               name: 'journalCode',
-              headerText: ('vendorReport.journalCode' | translate),
+              headerText: ('customerStatementReport.journalCode' | translate),
               isGlobalFilter: true,
               isSortable: true
             },
             {
               name: 'debit',
-              headerText: ('vendorReport.debit' | translate),
+              headerText: ('customerStatementReport.debit' | translate),
               isGlobalFilter: true,
               isSortable: true
             },
             {
               name: 'credit',
-              headerText: ('vendorReport.credit' | translate),
+              headerText: ('customerStatementReport.credit' | translate),
               isGlobalFilter: true,
               isSortable: true
             },
             {
               name: 'balance',
-              headerText: ('vendorReport.balance' | translate),
+              headerText: ('customerStatementReport.balance' | translate),
               isGlobalFilter: true,
               isSortable: true
             },
             {
               name: 'rate',
-              headerText: ('vendorReport.rate' | translate),
+              headerText: ('customerStatementReport.rate' | translate),
               isGlobalFilter: true,
               isSortable: true
             },
             {
               name: 'debitLocal',
-              headerText: ('vendorReport.debitLocal' | translate),
+              headerText: ('customerStatementReport.debitLocal' | translate),
               isGlobalFilter: true,
               isSortable: true
             },
             {
               name: 'creditLocal',
-              headerText: ('vendorReport.creditLocal' | translate),
+              headerText: ('customerStatementReport.creditLocal' | translate),
               isGlobalFilter: true,
               isSortable: true
             },
             {
               name: 'balanceLocal',
-              headerText: ('vendorReport.balanceLocal' | translate),
+              headerText: ('customerStatementReport.balanceLocal' | translate),
               isGlobalFilter: true,
               isSortable: true
             }
@@ -212,67 +212,67 @@
         columns: [
           {
             name: 'transactionDate',
-            headerText: ('vendor.Date' | translate),
+            headerText: ('customerStatementReport.Date' | translate),
             isGlobalFilter: true,
             isSortable: true
           },
           {
             name: 'transactionName',
-            headerText: ('vendor.transactionName' | translate),
+            headerText: ('customerStatementReport.transactionName' | translate),
             isGlobalFilter: true,
             isSortable: true
           },
           {
             name: 'transactionCode',
-            headerText: ('vendor.transactionCode' | translate),
+            headerText: ('customerStatementReport.transactionCode' | translate),
             isGlobalFilter: true,
             isSortable: true
           },
           {
             name: 'journalCode',
-            headerText: ('vendor.journalCode' | translate),
+            headerText: ('customerStatementReport.journalCode' | translate),
             isGlobalFilter: true,
             isSortable: true
           },
           {
             name: 'debit',
-            headerText: ('vendor.debit' | translate),
+            headerText: ('customerStatementReport.debit' | translate),
             isGlobalFilter: true,
             isSortable: true
           },
           {
             name: 'credit',
-            headerText: ('vendor.credit' | translate),
+            headerText: ('customerStatementReport.credit' | translate),
             isGlobalFilter: true,
             isSortable: true
           },
           {
             name: 'balance',
-            headerText: ('vendor.balance' | translate),
+            headerText: ('customerStatementReport.balance' | translate),
             isGlobalFilter: true,
             isSortable: true
           },
           {
             name: 'rate',
-            headerText: ('vendor.rate' | translate),
+            headerText: ('customerStatementReport.rate' | translate),
             isGlobalFilter: true,
             isSortable: true
           },
           {
             name: 'debitLocal',
-            headerText: ('vendor.balance' | translate),
+            headerText: ('customerStatementReport.balance' | translate),
             isGlobalFilter: true,
             isSortable: true
           },
           {
             name: 'creditLocal',
-            headerText: ('vendor.balance' | translate),
+            headerText: ('customerStatementReport.balance' | translate),
             isGlobalFilter: true,
             isSortable: true
           },
           {
             name: 'balanceLocal',
-            headerText: ('vendor.balance' | translate),
+            headerText: ('customerStatementReport.balance' | translate),
             isGlobalFilter: true,
             isSortable: true
           }
