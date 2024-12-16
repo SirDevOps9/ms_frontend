@@ -159,7 +159,7 @@ export class TransactionService {
     })
   }
 
-  async deleteCustomerCategory(id: number) {
+  async deleteSalesInvoiceListItem(id: number) {
     const confirmed = await this.toasterService.showConfirm('Delete');
     if (confirmed) {
       this.TransactionsProxy.deleteSalseInvoice(id).subscribe({
