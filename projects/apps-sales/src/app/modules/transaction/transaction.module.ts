@@ -54,6 +54,14 @@ const routes: Routes = [
               pageTitle:BreadcrumbLabel.SALES_INVOICE_ADD,
             }
           },
+          {
+            path: 'edit',
+            component: EditSalesInvoiceComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.SALES_INVOICE_EDIT,
+              pageTitle:BreadcrumbLabel.SALES_INVOICE_EDIT,
+            }
+          },
 
           {
             path: 'sequence',

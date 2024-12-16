@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TransactionProxyService } from './transaction-proxy.service';
 import { BehaviorSubject, map, Observable } from 'rxjs';
-import { AddSalesInvoice, LatestItem } from './models';
+import { AddSalesInvoice, EditSalesInvoice, LatestItem } from './models';
 import { AddPurchaseInvoiceDto } from 'projects/apps-purchase/src/app/modules/purchase-transactions/models/addPurchaseInvoice';
 import { LanguageService, LoaderService, PageInfo, PageInfoResult, RouterService, ToasterService } from 'shared-lib';
 
@@ -15,6 +15,7 @@ export class TransactionService {
   public itemsDataSourceForAdvanced = new BehaviorSubject<LatestItem[]>([]);
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
   public sendSalesInvoice = new BehaviorSubject<AddPurchaseInvoiceDto>({} as AddPurchaseInvoiceDto);
+  public getSalesInvoice = new BehaviorSubject< EditSalesInvoice>({} as EditSalesInvoice);
   public sendPricePolicy = new BehaviorSubject({} as any);
   public sendPricePolicyLookup = new BehaviorSubject<{ id: number;
     name: string;
@@ -71,6 +72,12 @@ export class TransactionService {
         this.languageService.transalte('salesInvoice.salesInvoiceSuccess') 
       ); 
      this.sendSalesInvoice.next(res);
+    });
+  }
+
+  getSalesInvoiceByID(id : number) {
+    this.TransactionsProxy.getSalesInvoiceByID(id).subscribe((res) => {
+     this.getSalesInvoice.next(res);
     });
   }
 

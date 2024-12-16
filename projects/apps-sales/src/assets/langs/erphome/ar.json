@@ -12,6 +12,8 @@
     "ViewCustomerOpeningBalance": "عرض الرصيد الافتتاحي للعميل",
      "salesInvoiceList" : "فاتورة المبيعات",
     "salesInvoiceAdd" : "اضافة",
+    "salesInvoiceEdit" : "تعديل",
+
     "salesInvoiceView": "عرض فاتورة المبيعات",
     "salesInvoiceListView": "عرض قائمة فواتير المبيعات"
   },

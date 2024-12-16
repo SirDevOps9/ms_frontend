@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AddSalesInvoice, LatestItem } from './models';
+import { AddSalesInvoice, EditSalesInvoice, LatestItem } from './models';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
 import { AddPurchaseInvoiceDto } from 'projects/apps-purchase/src/app/modules/purchase-transactions/models/addPurchaseInvoice';
 
@@ -63,6 +63,9 @@ export class TransactionProxyService {
   }
 
 
+  getSalesInvoiceByID(id : number) : Observable< EditSalesInvoice> {
+    return this.httpService.get(`SalesInvoice/GetInvoiceViewById/${id}`)
+  }
 
   PostInvoice(id:number){
     return this.httpService.post(`SalesInvoice/${id}/Post`, null);
