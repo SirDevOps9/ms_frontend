@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TransactionProxyService } from './transaction-proxy.service';
 import { BehaviorSubject, map, Observable } from 'rxjs';
-import { AddSalesInvoice, LatestItem } from './models';
+import { AddSalesInvoice, AddSalesReturnDto, customerDto, IreturnInvoiceById, LatestItem, ReturnSalesInvoiceObj, SalesInvoiceLookup, updateReturnSalesInvice } from './models';
 import { AddPurchaseInvoiceDto } from 'projects/apps-purchase/src/app/modules/purchase-transactions/models/addPurchaseInvoice';
 import { LanguageService, LoaderService, PageInfo, PageInfoResult, RouterService, ToasterService } from 'shared-lib';
 
@@ -9,27 +9,32 @@ import { LanguageService, LoaderService, PageInfo, PageInfoResult, RouterService
   providedIn: 'root',
 })
 export class TransactionService {
-  constructor(
-    private _transactionProxyService: TransactionProxyService,
-    private toasterService: ToasterService,
-    private languageService: LanguageService,
-    private router: RouterService
-  ) {}
+
 
   // customer dropdown
   CustomerList = new BehaviorSubject<customerDto[]>([]);
-
   warehouseLookup = new BehaviorSubject<any>([]);
   salesInvoiceLookup = new BehaviorSubject<SalesInvoiceLookup[]>([]);
-  salesInvoiceToReturnById = new BehaviorSubject<ReturnSalesInvoiceObj>(
-    {} as ReturnSalesInvoiceObj
-  );
+  salesInvoiceToReturnById = new BehaviorSubject<ReturnSalesInvoiceObj>({} as ReturnSalesInvoiceObj);
   sendSalesReturnInvoice = new BehaviorSubject<AddSalesReturnDto>({} as AddSalesReturnDto);
-  updateSalesReturnInvoice = new BehaviorSubject<updateReturnSalesInvice>(
-    {} as updateReturnSalesInvice
-  );
+  updateSalesReturnInvoice = new BehaviorSubject<updateReturnSalesInvice>({} as updateReturnSalesInvice);
 
   ReturnSalesInvoiceIdData = new BehaviorSubject<IreturnInvoiceById>({} as IreturnInvoiceById);
+
+  public lastestItem = new BehaviorSubject<LatestItem[]>([]);
+  public sendcurrency = new BehaviorSubject<{rate : number}>({} as {rate : number});
+  public itemsDataSourceForAdvanced = new BehaviorSubject<LatestItem[]>([]);
+  public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
+  public sendSalesInvoice = new BehaviorSubject<AddPurchaseInvoiceDto>({} as AddPurchaseInvoiceDto);
+  public sendPricePolicy = new BehaviorSubject({} as any);
+  public sendPricePolicyLookup = new BehaviorSubject<{ id: number;
+    name: string;
+    code: string}[]>([]);
+  public sendSalesManLookup = new BehaviorSubject<{ id: number;
+    name: string;
+    }[]>([]);
+
+
 
   // customer dropdown
   getCustomerList(searchTerm: string) {
@@ -146,47 +151,24 @@ export class TransactionService {
       })
     );
   }
-  public lastestItem = new BehaviorSubject<LatestItem[]>([]);
-  public sendcurrency = new BehaviorSubject<{rate : number}>({} as {rate : number});
-  public warehouseLookup = new BehaviorSubject<any >([]);
-  public itemsDataSourceForAdvanced = new BehaviorSubject<LatestItem[]>([]);
-  public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
-  public sendSalesInvoice = new BehaviorSubject<AddPurchaseInvoiceDto>({} as AddPurchaseInvoiceDto);
-  public sendPricePolicy = new BehaviorSubject({} as any);
-  public sendPricePolicyLookup = new BehaviorSubject<{ id: number;
-    name: string;
-    code: string}[]>([]);
-  public sendSalesManLookup = new BehaviorSubject<{ id: number;
-    name: string;
-    }[]>([]);
-
-  constructor(private TransactionsProxy : TransactionProxyService ,    private toasterService: ToasterService,
-    private languageService: LanguageService,
-    private loaderService: LoaderService,
-    private router: RouterService,) { }
-
+ 
   getLatestItemsList(warehouseId : number ,searchTerm?: string ) {
-    this.TransactionsProxy.getLatestItemsList( warehouseId , searchTerm ).subscribe((response) => {
+    this._transactionProxyService.getLatestItemsList( warehouseId , searchTerm ).subscribe((response) => {
       this.lastestItem.next(response);
     });
   }
 
 
   getCurrencyRate(fromCurrency : number ,toCurrency : number ){
-    this.TransactionsProxy.getCurrencyRate(fromCurrency , toCurrency).subscribe(res=>{
+    this._transactionProxyService.getCurrencyRate(fromCurrency , toCurrency).subscribe(res=>{
       this.sendcurrency.next(res)
     })
   }
 
-  getSharedWarehousesLookup(quieries: string) {
-    this.TransactionsProxy.getSharedWarehousesLookup(quieries).subscribe((response) => {
-      this.warehouseLookup.next(response);
-    });
-  }
 
   
   latestVendor(searchTerm: string | undefined){
-    return  this.TransactionsProxy.LatestVendor(searchTerm).pipe(
+    return  this._transactionProxyService.LatestVendor(searchTerm).pipe(
       map((res) => {
         return res;
       })
@@ -194,7 +176,7 @@ export class TransactionService {
   }
 
   getItemsForAdvancedSearch(warehouseId : number , quieries: string, searchTerm: string, pageInfo: PageInfo) {
-    this.TransactionsProxy.getItemsForAdvancedSearch(warehouseId , quieries, searchTerm, pageInfo).subscribe((res) => {
+    this._transactionProxyService.getItemsForAdvancedSearch(warehouseId , quieries, searchTerm, pageInfo).subscribe((res) => {
       this.itemsDataSourceForAdvanced.next(res.result);
       this.currentPageInfo.next(res.pageInfoResult);
     });
@@ -202,7 +184,7 @@ export class TransactionService {
  
 
   addSalesInvoice(obj : AddSalesInvoice) {
-    this.TransactionsProxy.addSalesInvoice(obj).subscribe((res) => {
+    this._transactionProxyService.addSalesInvoice(obj).subscribe((res) => {
       this.toasterService.showSuccess(
         this.languageService.transalte('salesInvoice.success'),
         this.languageService.transalte('salesInvoice.salesInvoiceSuccess') 
@@ -214,7 +196,7 @@ export class TransactionService {
   postInvoice(id: number) {
     this.loaderService.show();
 
-    this.TransactionsProxy.PostInvoice(id).subscribe({
+    this._transactionProxyService.PostInvoice(id).subscribe({
       next: (res: any) => {
         this.toasterService.showSuccess(
           this.languageService.transalte('salesInvoice.Success'),
@@ -235,31 +217,40 @@ export class TransactionService {
   }
 
   getItemPricePolicy(PricePolicyId?:number ,ItemId?:number , UOMId?:string , ItemVariantId? : number ) {
-    this.TransactionsProxy.getItemPricePolicy(PricePolicyId , ItemId, UOMId, ItemVariantId).subscribe((res) => {
+    this._transactionProxyService.getItemPricePolicy(PricePolicyId , ItemId, UOMId, ItemVariantId).subscribe((res) => {
       this.sendPricePolicy.next(res);
     });
   }
 
   getPricePolicyLookup()  {
-    this.TransactionsProxy.getPricePolicyLookup().subscribe((res) => {
+    this._transactionProxyService.getPricePolicyLookup().subscribe((res) => {
       this.sendPricePolicyLookup.next(res);
     });
   }
   getSalesManLookup()  {
-    this.TransactionsProxy.getSalesManLookup().subscribe((res) => {
+    this._transactionProxyService.getSalesManLookup().subscribe((res) => {
       this.sendSalesManLookup.next(res);
     });
   }
 
 
   GetItemByBarcodePurchase(barcode: string) {
-    return this.TransactionsProxy.GetItemByBarcodePurchase(barcode).pipe(
+    return this._transactionProxyService.GetItemByBarcodePurchase(barcode).pipe(
       map((res) => {
         return res;
       })
     );
   }
 
+
+
+  constructor(
+    private _transactionProxyService: TransactionProxyService,
+    private toasterService: ToasterService,
+    private languageService: LanguageService,
+    private router: RouterService,
+    private loaderService: LoaderService,
+  ) {}
 
 
 }

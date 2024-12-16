@@ -139,6 +139,7 @@
     "code": "Invoice Code",
     "returnCode": "Return Code",
     "salesReturninvoiceUpdatedSuccessfully": "Sales Return Invoice Updated Successfully",
+    "salesReturninvoiceAddedSuccessfully": "Sales Return Invoice Added Successfully",
     "returnDate": "Return Date",
     "invoiceDate": "Invoice Date",
     "createdStockIn": "Created Stock In",
