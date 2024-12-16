@@ -52,3 +52,39 @@
     }
   }
 }
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #e3e3e3;
+
+  .hint {
+    font-size: 14px;
+    border-radius: 50%;
+    border: 1px solid;
+    padding: 3px;
+    margin: 0 10px;
+  }
+
+  .action {
+    display: flex;
+    align-items: center;
+
+    i {
+      margin: 0 5px;
+    }
+  }
+}
+
+.column-line {
+  display: inline-flex !important;
+  width: 2px;
+  height: 25px;
+  margin: 0 10px;
+  flex-grow: 1;
+  background-color: #ededed;
+}
+.sort,
+.pointer {
+  cursor: pointer;
+}
