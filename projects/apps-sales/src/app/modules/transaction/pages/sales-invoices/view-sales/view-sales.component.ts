@@ -27,7 +27,6 @@ ngOnInit(): void {
 getDataSalesById(){
   this.transaction_services.getSalseInvoiceById(this._routeid)
   this.transaction_services.salesInvoiceViewObs.subscribe((res)=>{
-    console.log(res);
     this.data=res
     this.salesInvoiceDetails = res.salesInvoiceDetails || [];
   })
