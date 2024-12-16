@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AddSalesInvoice, LatestItem } from './models';
+import { AddSalesInvoice, LatestItem, SalesInvoiceListView } from './models';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
 
 import {
@@ -10,6 +10,7 @@ import {
   SalesInvoiceLookup,
 } from './models/return-sales-dto';
 import { updateReturnSalesInvice } from './models';
+import { SalesInvoiceView } from './models/salesInvoice-view';
 
 @Injectable({
   providedIn: 'root',
@@ -87,6 +88,42 @@ export class TransactionProxyService {
 
   GetItemByBarcodePurchase(barcode: string): Observable<any> {
     return this.httpService.get(`SalesInvoice/GetSalesItemByBarcode?Barcode=${barcode}`);
+  }
+
+
+  getSalseInvoiceList(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<SalesInvoiceListView[]>> {
+      let query = `SalesInvoice?${pageInfo.toQuery}`;
+      if (searchTerm) {
+        query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
+      }
+      return this.httpService.get<PaginationVm<SalesInvoiceListView[]>>(query);
+    }
+
+
+
+
+
+
+  deleteSalseInvoice(id:number): Observable<boolean> {
+    return this.httpService.delete<boolean>(`SalesInvoice/${id}`);
+  }
+
+
+
+
+
+  exportSalseInvoiceList(SearchTerm?: string, SortBy?: number, SortColumn?: string): Observable<SalesInvoiceListView[]> {
+      let query = `SalesInvoice/Export?`;
+      const params: string[] = [];
+      if (SearchTerm) params.push(`SearchTerm=${encodeURIComponent(SearchTerm)}`);
+      if (SortBy !== undefined) params.push(`SortBy=${SortBy}`);
+      if (SortColumn) params.push(`SortColumn=${SortColumn}`);
+      query += params.join('&');
+      return this.httpService.get<SalesInvoiceListView[]>(query);
+    }
+
+  getSalseInvoiceById(id:number) : Observable<SalesInvoiceView>{
+    return this.httpService.get<SalesInvoiceView>(`SalesInvoice/GetInvoiceViewById/${id}`);
   }
 
 

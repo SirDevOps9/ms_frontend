@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { TransactionProxyService } from './transaction-proxy.service';
 import { BehaviorSubject, map, Observable } from 'rxjs';
-import { AddSalesInvoice, AddSalesReturnDto, customerDto, IreturnInvoiceById, LatestItem, ReturnSalesInvoiceObj, SalesInvoiceLookup, updateReturnSalesInvice } from './models';
+import { AddSalesInvoice, AddSalesReturnDto, customerDto, IreturnInvoiceById, LatestItem, ReturnSalesInvoiceObj, SalesInvoiceListView, SalesInvoiceLookup, updateReturnSalesInvice } from './models';
 import { AddPurchaseInvoiceDto } from 'projects/apps-purchase/src/app/modules/purchase-transactions/models/addPurchaseInvoice';
 import { LanguageService, LoaderService, PageInfo, PageInfoResult, RouterService, ToasterService } from 'shared-lib';
+import { SalesInvoiceView } from './models/salesInvoice-view';
 
 @Injectable({
   providedIn: 'root',
@@ -21,6 +22,7 @@ export class TransactionService {
 
   ReturnSalesInvoiceIdData = new BehaviorSubject<IreturnInvoiceById>({} as IreturnInvoiceById);
 
+
   public lastestItem = new BehaviorSubject<LatestItem[]>([]);
   public sendcurrency = new BehaviorSubject<{rate : number}>({} as {rate : number});
   public itemsDataSourceForAdvanced = new BehaviorSubject<LatestItem[]>([]);
@@ -33,6 +35,15 @@ export class TransactionService {
   public sendSalesManLookup = new BehaviorSubject<{ id: number;
     name: string;
     }[]>([]);
+    private salesInvoice = new BehaviorSubject<SalesInvoiceListView[]>([]);
+    public salesInvoiceObs =this.salesInvoice.asObservable()
+    private exportSalesInvoice = new BehaviorSubject<SalesInvoiceListView[]>([]);
+    public exportSalesInvoiceObs =this.exportSalesInvoice.asObservable()
+
+
+    public salesInvoiceView = new BehaviorSubject<SalesInvoiceView>({} as SalesInvoiceView);
+    public salesInvoiceViewObs =this.salesInvoiceView.asObservable()
+ 
 
 
 
@@ -166,7 +177,7 @@ export class TransactionService {
   }
 
 
-  
+
   latestVendor(searchTerm: string | undefined){
     return  this._transactionProxyService.LatestVendor(searchTerm).pipe(
       map((res) => {
@@ -181,14 +192,14 @@ export class TransactionService {
       this.currentPageInfo.next(res.pageInfoResult);
     });
   }
- 
+
 
   addSalesInvoice(obj : AddSalesInvoice) {
     this._transactionProxyService.addSalesInvoice(obj).subscribe((res) => {
       this.toasterService.showSuccess(
         this.languageService.transalte('salesInvoice.success'),
-        this.languageService.transalte('salesInvoice.salesInvoiceSuccess') 
-      ); 
+        this.languageService.transalte('salesInvoice.salesInvoiceSuccess')
+      );
      this.sendSalesInvoice.next(res);
     });
   }
@@ -241,6 +252,57 @@ export class TransactionService {
       })
     );
   }
+
+
+
+  getSalseInvoiceById(id:number){
+    this._transactionProxyService.getSalseInvoiceById(id).subscribe((res)=>{
+       this.salesInvoiceView.next(res)
+    })
+  }
+
+ 
+
+
+    exportSalseInvoiceList(SearchTerm: string ,SortBy?: number, SortColumn?: string) {
+      this._transactionProxyService.exportSalseInvoiceList(SearchTerm,SortBy,SortColumn).subscribe({
+        next: (res: any) => {
+          this.exportSalesInvoice.next(res);
+        },
+      });
+    }
+
+  getSalseInvoice(SearchTerm: string, pageInfo: PageInfo){
+    this._transactionProxyService.getSalseInvoiceList(SearchTerm, pageInfo).subscribe((res:any)=>{
+       this.salesInvoice.next(res)
+       this.currentPageInfo.next(res.pageInfoResult);
+    })
+  }
+
+
+
+  async deleteCustomerCategory(id: number) {
+    const confirmed = await this.toasterService.showConfirm('Delete');
+    if (confirmed) {
+      this._transactionProxyService.deleteSalseInvoice(id).subscribe({
+        next: (res) => {
+          this.toasterService.showSuccess(
+            this.languageService.transalte('deleteCustomerCategory.success'),
+            this.languageService.transalte('deleteCustomerCategory.delete')
+          );
+          let data = this.salesInvoice.getValue();
+          const updatedDate = data.filter((elem) => elem.id!== id);
+          this.salesInvoice.next(updatedDate);
+          return res;
+        },
+        error: (err) => {},
+      });
+    }
+  }
+
+
+
+
 
 
 

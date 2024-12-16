@@ -10,6 +10,7 @@ import { AddItemCategory } from '../../../models';
   styleUrl: './items-category-tree.component.scss',
 })
 export class ItemsCategoryTreeComponent implements OnInit {
+  
   @Input() edit: boolean;
   @Input() view: boolean;
   @Input() add: boolean;

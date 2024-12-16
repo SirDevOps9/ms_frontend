@@ -41,7 +41,7 @@ const routes: Routes = [
             },
           },
           {
-            path: 'sales-invoice-view',
+            path: 'view/:id',
             component: ViewSalesComponent,
             data: {
               breadcrumb: BreadcrumbLabel.SALES_INVOICE_VIEW,

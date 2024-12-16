@@ -76,6 +76,7 @@
     "customerCode": "Customer Code",
     "customerName": "Customer Name",
     "currency": "Currency",
+    "salesInvoicePrint":"Sales Invoice Print",
     "rate": "Rate",
     "paymentTerms": "payment Terms",
     "creditLimit": "credit Limit",
@@ -200,7 +201,7 @@
     "expiryDate" : "Expiry Date",
     "totalOfQuantity" : "Total Of QTY",
     "salesInvoiceSuccess" : "Sales Invoice Added Successfully" ,
-    "salesInvoiceSuccessPosted" : "Sales Invoice Posted Successfully" 
+    "salesInvoiceSuccessPosted" : "Sales Invoice Posted Successfully"
 
   },
   "popupSearch": {
