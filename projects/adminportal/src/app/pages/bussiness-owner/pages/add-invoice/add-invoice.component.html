@@ -94,10 +94,19 @@
                             <div class="form-check ">
                                 <div>
         
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" 
+                                        formControlName="showSubdomain"
+                                    >
                                 </div>
-                                <div>
-                                    <lib-select></lib-select>
+                                <div *ngIf="addForm.get('showSubdomain')?.value">
+                                    <lib-select
+                                        formControlName="subdomainId"
+                                        [options]="subdomains"
+                                        optionValue="id"
+                                        optionLabel="name"
+                                        placeholder="select subdomain"
+
+                                    ></lib-select>
                                 </div>
         
                                 <div class="mt-5">

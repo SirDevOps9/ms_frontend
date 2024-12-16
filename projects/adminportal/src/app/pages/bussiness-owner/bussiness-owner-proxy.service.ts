@@ -76,4 +76,7 @@ export class BussinessOwnerProxyService {
   BusinessOwnerById(id:string): Observable<any> {
     return this.baseService.get(`BusinessOwner/${id}/LookupById`);
   }
+  Getsubdomains(id:string): Observable<any> {
+    return this.baseService.get(`BusinessOwner/${id}/GetSubdomains`);
+  }
 }

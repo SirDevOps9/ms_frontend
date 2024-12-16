@@ -63,6 +63,10 @@ export class BussinessOwnerService {
     return this.bussinessOwnerProxy.BusinessOwnerLookup()
 
   }
+  getsubdomains(id:string) : Observable<any>{
+    return this.bussinessOwnerProxy.Getsubdomains(id)
+
+  }
   addBussinesOwner(obj: AddBussinesOwner) {
     this.loaderService.show();
 

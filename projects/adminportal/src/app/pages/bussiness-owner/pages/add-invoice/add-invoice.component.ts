@@ -16,6 +16,7 @@ export class AddInvoiceComponent {
   BusinessOwner: any;
   invoiceApps: any[] = [];
   invoiceLicenses: any[] = [];
+  subdomains: any[] = [];
   totalPrice: number = 0;
   totalSummaryPrice: number = 0;
   itemId: string;
@@ -54,15 +55,22 @@ export class AddInvoiceComponent {
       this.BusinessOwner = res;
     });
   }
+  getSubdomains(id:string) {
+    this.bussinessOwnerService.getsubdomains(id).subscribe((res: any) => {
+      this.subdomains = res;
+    });
+  }
 
   initializeForm() {
     this.addForm = this.formBuilder.group({
       businessOwnerId: new FormControl('', [customValidators.required]),
       email: new FormControl(''),
+      showSubdomain: (false), // Control for checkbox
       phoneCode: new FormControl(''),
       phone: new FormControl(''),
       salesPerson: new FormControl(''),
       subDomainPrice: new FormControl(0),
+      subdomainId: new FormControl(null),
       invoiceType: new FormControl('MainInvoice'),
       totalPrice: new FormControl(0),
       invoiceLicenses: this.formBuilder.array([]),
@@ -87,10 +95,11 @@ export class AddInvoiceComponent {
     });
   }
 
-  setData(id: number) {
+  setData(id: string) {
     const x: any = this.BusinessOwner.find((element: any) => element.id == id);
     this.addForm.get('email')?.setValue(x.email);
     this.addForm.get('phone')?.setValue(x.phone);
+    this.getSubdomains(id)
   }
 
   toggleAppSelection(event: any, item: any, index: number) {
