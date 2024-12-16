@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { BussinessOwnerService } from '../../bussiness-owner.service';
 import { customValidators, FormsService } from 'shared-lib';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-add-invoice',
@@ -17,14 +18,25 @@ export class AddInvoiceComponent {
   invoiceLicenses: any[] = [];
   totalPrice: number = 0;
   totalSummaryPrice: number = 0;
+  itemId: string;
 
   ngOnInit(): void {
+    this.itemId = this.route.snapshot.params['id'];
+    if (this.itemId != undefined) {
+      this.getBusinessOwnerById(this.itemId)
+
+    }
     this.initializeForm();
     this.getBusinessOwnerLookup();
     this.getApps();
     this.getLisences();
   }
-
+  getBusinessOwnerById(id: string) {
+    this.bussinessOwnerService.getBusinessOwnerById(id).subscribe((res: any) => {
+      this.addForm.get('businessOwnerId')?.setValue(res.id)
+      this.setData(res.id)
+    });
+  }
   getApps() {
     this.bussinessOwnerService.getApps().subscribe((res: any) => {
       this.apps = res;
@@ -84,7 +96,7 @@ export class AddInvoiceComponent {
   toggleAppSelection(event: any, item: any, index: number) {
     if (event.target.checked) {
       this.invoiceApps.push({
-        appName:item.appName,
+        appName: item.appName,
         appId: item.id,
         appPrice: item.price,
         appCount: 1
@@ -98,18 +110,18 @@ export class AddInvoiceComponent {
   }
 
   updateAppPrice(item: any, newPrice: number) {
-    
+
     this.invoiceApps.forEach((element: any) => {
       if (element.appId == item.id) {
-        element.appPrice = newPrice; 
+        element.appPrice = newPrice;
       }
     });
     this.calculateTotalPrice();
     this.calculateTotalSummaryPrice();
 
   }
-   
-  
+
+
 
   updateLicenseDetails(event: any, item: any, field: string) {
     if (!item) {
@@ -122,7 +134,7 @@ export class AddInvoiceComponent {
     let license = this.invoiceLicenses.find(l => l.licenseId === item.id);
     if (!license) {
       license = {
-        name:item.nameEn,
+        name: item.nameEn,
         licenseId: item.id,
         numberOfUsers: 0,
         licensePrice: 0,
@@ -168,7 +180,7 @@ export class AddInvoiceComponent {
     this.calculateTotalSummaryPrice();
 
   }
-  calculateTotalPrice() {    
+  calculateTotalPrice() {
     this.totalPrice = 0;
     const apps = this.addForm.get('invoiceApps')?.value;
     apps.forEach((app: any) => {
@@ -181,20 +193,20 @@ export class AddInvoiceComponent {
     });
 
     const subDomainPrice = this.addForm.get('subDomainPrice')?.value;
-      this.totalPrice += subDomainPrice
+    this.totalPrice += subDomainPrice
 
     this.addForm.get('totalPrice')?.setValue(this.totalPrice);
   }
   calculateTotalSummaryPrice() {
     const subDomainPrice = this.addForm.get('subDomainPrice')?.value || 0;
-  
+
     const appsTotal = this.invoiceApps.reduce((sum, app) => sum + (app.appPrice || 0), 0);
-  
+
     const licensesTotal = this.invoiceLicenses.reduce((sum, license) => sum + (license.totalPrice || 0), 0);
-  
-    this.totalSummaryPrice= subDomainPrice + appsTotal + licensesTotal;
+
+    this.totalSummaryPrice = subDomainPrice + appsTotal + licensesTotal;
   }
-  
+
   onSave() {
     this.invoiceLicenses.forEach(license => {
       this.addInvoiceLicenseToForm(license);
@@ -212,6 +224,7 @@ export class AddInvoiceComponent {
   constructor(
     private formBuilder: FormBuilder,
     private formsService: FormsService,
+    private route: ActivatedRoute,
     private bussinessOwnerService: BussinessOwnerService
   ) { }
 

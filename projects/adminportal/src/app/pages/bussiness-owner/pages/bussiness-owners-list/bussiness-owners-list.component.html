@@ -74,13 +74,23 @@
           [ExportName]="'stockOut.stockOutPrint' | translate"
         >
         </lib-export> -->
-        <lib-button-micro
-        (click)="add()"
-          [title]="'Add' | translate"
-          nameClass="save"
-          iconName="pi pi-plus"
-        >
-        </lib-button-micro>
+        <div class="action_group">
+
+          <lib-button-micro
+          (click)="addBusinessOwner()"
+            [title]="'Add Invoice' | translate"
+            nameClass="outline"
+            iconName="pi pi-plus"
+          >
+          </lib-button-micro>
+          <lib-button-micro
+          (click)="add()"
+            [title]="'Add' | translate"
+            nameClass="save"
+            iconName="pi pi-plus"
+          >
+          </lib-button-micro>
+        </div>
       </ng-container>
       
 
@@ -99,6 +109,15 @@
             >
               Manage
             </lib-button>
+          </div>
+          <div>
+            <lib-button-micro
+            nameClass="table_button_statement"
+            (click)="addBusinessOwnerById(user.id)"
+            >
+
+            </lib-button-micro>
+            <!-- <div class="pi pi-cog"  (click)="addBusinessOwnerById(user.id)"></div> -->
           </div>
         </div>
       </ng-template>

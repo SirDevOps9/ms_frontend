@@ -91,6 +91,7 @@ export class BreadcrumbLabel {
   static Manage_Apps = 'Manage Apps';
   static BUSSINESS_OWNER = 'Bussiness Owners';
   static BUSSINESS_OWNER_Add = 'Add';
+  static BUSSINESS_OWNER_ADD_INVOICE = 'Add Invoice';
     static HELP_PAGES='Help Pages';
     static CMS='CMS';
   static MANAGE_BUSSINESS_OWNER = 'Manage Bussiness Owners';

@@ -1,4 +1,6 @@
 <lib-page-content>
+    <lib-bread-crumb></lib-bread-crumb>
+
     <div class="card_micro">
 
         <h2>
@@ -19,8 +21,14 @@
                                     <lib-label [appControl]="addForm.controls['businessOwnerId']">
                                         {{ 'name' | translate }}
                                     </lib-label>
-                                    <lib-select formControlName="businessOwnerId" [options]="BusinessOwner" optionValue="id"
-                                        optionLabel="name" (valueChanged)="setData(addForm.controls['businessOwnerId'].value)">
+                                    <lib-select 
+                                     formControlName="businessOwnerId"
+                                     [options]="BusinessOwner" 
+                                     optionValue="id"
+                                     optionLabel="name"
+                                     (valueChanged)="setData(addForm.controls['businessOwnerId'].value)"
+                                     [selectedValue]="addForm.controls['businessOwnerId'].value"
+                                     >
         
                                     </lib-select>
                                     <lib-field-validations

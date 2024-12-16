@@ -73,5 +73,7 @@ export class BussinessOwnerProxyService {
   AddInvoice(obj: any): Observable<any> {
     return this.baseService.post('Invoice', obj);
   }
-
+  BusinessOwnerById(id:string): Observable<any> {
+    return this.baseService.get(`BusinessOwner/${id}/LookupById`);
+  }
 }

@@ -109,12 +109,12 @@
 }
 .outline {
   background: #fff;
-  border: 1px solid #1a90b0;
+  border: 1px solid #1a90b0 !important;
   color: #1a90b0;
   &:hover {
     background: #1a90b0;
     color: #fff;
-    border: 1px solid #1a90b0;
+    border: 1px solid #1a90b0 !important;
   }
 }
 // .cancel{

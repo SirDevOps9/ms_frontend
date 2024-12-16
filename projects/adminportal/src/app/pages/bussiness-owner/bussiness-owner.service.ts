@@ -98,6 +98,9 @@ export class BussinessOwnerService {
       },
     });
   }
+  getBusinessOwnerById(id:string) : Observable<any>{
+    return this.bussinessOwnerProxy.BusinessOwnerById(id)
 
+  }
  
 }

@@ -58,7 +58,13 @@ const routes: Routes = [
   { path: 'add-invoice', 
     component: AddInvoiceComponent ,
       data : {
-    breadcrumb: BreadcrumbLabel.BUSSINESS_OWNER_Add,
+    breadcrumb: BreadcrumbLabel.BUSSINESS_OWNER_ADD_INVOICE,
+
+  }},
+  { path: 'add-invoice/:id', 
+    component: AddInvoiceComponent ,
+      data : {
+    breadcrumb: BreadcrumbLabel.BUSSINESS_OWNER_ADD_INVOICE,
 
   }},
 ];

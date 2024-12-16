@@ -151,6 +151,12 @@ export class BussinessOwnersListComponent implements OnInit , AfterViewInit {
   add() {
     this.routerService.navigateTo(`/bussiness-owners/add`);
   }
+  addBusinessOwner() {
+    this.routerService.navigateTo(`/bussiness-owners/add-invoice`);
+  }
+  addBusinessOwnerById(id:string) {
+    this.routerService.navigateTo(`/bussiness-owners/add-invoice/${id}`);
+  }
 
 
 }
