@@ -958,23 +958,23 @@ export class AddSalesInvoiceComponent implements OnInit {
 
     console.log(mappedInvoice)
 
-    // if (this.salesReturnFormArray.value?.length) {
-    //   if (this.save) {
-    //     if (this.salesReturnFormArray) {
-    //     }
-    //     this.salesTransactionService.addSalesInvoice(mappedInvoice);
-    //     this.salesTransactionService.sendSalesInvoice.subscribe((res: number | any) => {
-    //       if (typeof res == 'number') {
-    //         this.savedDataId = res;
-    //         this.dataToReadOnly = true;
-    //         this.showPost = true;
-    //       } else {
-    //         this.dataToReadOnly = false;
-    //         this.showPost = false;
-    //       }
-    //     });
-    //   }
-    // }
+    if (this.salesReturnFormArray.value?.length) {
+      if (this.save) {
+        if (this.salesReturnFormArray) {
+        }
+        this.salesTransactionService.addSalesInvoice(mappedInvoice);
+        this.salesTransactionService.sendSalesInvoice.subscribe((res: number | any) => {
+          if (typeof res == 'number') {
+            this.savedDataId = res;
+            this.dataToReadOnly = true;
+            this.showPost = true;
+          } else {
+            this.dataToReadOnly = false;
+            this.showPost = false;
+          }
+        });
+      }
+    }
   }
 
   OnDelete(i: number) {
