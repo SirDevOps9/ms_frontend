@@ -82,7 +82,7 @@ export class EditSalesReturnInvoiceComponent implements OnInit {
       code: new FormControl(''),
       warehouseId: new FormControl('', [customValidators.required]),
       warehouseName: new FormControl(''),
-      salesmanId: new FormControl(''),
+      salesManName: new FormControl(''),
       relatedJournal: new FormControl(''),
       description: new FormControl(''),
       createdStockIn: new FormControl(''),
@@ -153,10 +153,12 @@ export class EditSalesReturnInvoiceComponent implements OnInit {
       warehouseId: response.warehouseId,
       warehouseName: response.warehouseName,
       description: response.description,
-      relatedJournal: response.relatedJournal,
+      relatedJournal: response.journalCode,
       customerId: +response.customerId,
       customerName: response.customerName,
       currencyName: response.currencyName,
+      salesManName: response.salesManName ,
+
       salesInvoiceId: response.salesInvoiceHeaderId,
       rate: response.currencyRate,
     });

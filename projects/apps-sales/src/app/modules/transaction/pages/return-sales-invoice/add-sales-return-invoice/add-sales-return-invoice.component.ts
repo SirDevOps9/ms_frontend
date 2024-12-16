@@ -73,7 +73,7 @@ export class AddSalesReturnInvoiceComponent implements OnInit {
       code: new FormControl(''),
       warehouseId: new FormControl('', [customValidators.required]),
       warehouseName: new FormControl(''),
-      salesmanId: new FormControl(''),
+      salesManName: new FormControl(''),
       relatedJournal: new FormControl(''),
       description: new FormControl(''),
       createdStockIn: new FormControl(''),
@@ -184,6 +184,7 @@ export class AddSalesReturnInvoiceComponent implements OnInit {
       customerName: response.customerName,
       createdStockIn: response.stockInCode,
       currencyName: response.currencyName,
+      salesManName: response.salesManName ,
       relatedJournal: response.journalCode,
 
       rate: response.currencyRate,
