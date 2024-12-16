@@ -368,7 +368,7 @@
               </label>
             </div>
             <lib-text-input
-              placeholder="{{ 'salesInvoice.discount' | translate }}"
+              placeholder="{{ data?.totalDiscount}}"
               [readOnly]="true"
             ></lib-text-input>
           </div>
@@ -420,7 +420,7 @@
               </label>
             </div>
             <lib-text-input
-              placeholder="{{ 'salesInvoice.totalAfterVat' | translate }}"
+              [placeholder]="placeholder"
               [readOnly]="true"
             ></lib-text-input>
           </div>

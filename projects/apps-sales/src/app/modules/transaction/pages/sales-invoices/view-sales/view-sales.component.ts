@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { TransactionService } from '../../../transaction.service';
 import { ActivatedRoute } from '@angular/router';
 import { SalesInvoiceDetail, SalesInvoiceView } from '../../../models/salesInvoice-view';
-import { LanguageService } from 'shared-lib';
+import { LanguageService, RouterService } from 'shared-lib';
 
 @Component({
   selector: 'app-view-sales',
@@ -22,15 +22,7 @@ ngOnInit(): void {
 }
 
 
-constructor(
-  private transaction_services:TransactionService,
-  private _route: ActivatedRoute,
-  public languageService: LanguageService,
-){
-  this.currentLang = this.languageService.getLang();
 
-}
-//                 const nameAttribute= this.currentLang === 'en' ? element.nameEn : element.nameAr;
 
 getDataSalesById(){
   this.transaction_services.getSalseInvoiceById(this._routeid)
@@ -39,5 +31,22 @@ getDataSalesById(){
     this.data=res
     this.salesInvoiceDetails = res.salesInvoiceDetails || [];
   })
+}
+onCancel(){
+  this.routerService.navigateTo(`transaction/sales-invoice`);
+}
+get placeholder(): string {
+  const vatAmount = this.data?.totalVatAmount || 0;
+  const netAmount = this.data?.totalNetAmount || 0;
+  return (vatAmount + netAmount).toFixed(2);
+}
+constructor(
+  private transaction_services:TransactionService,
+  private _route: ActivatedRoute,
+  public languageService: LanguageService,
+  private routerService: RouterService,
+){
+  this.currentLang = this.languageService.getLang();
+
 }
 }

@@ -19,6 +19,8 @@ export interface SalesInvoiceView {
   totalVatAmount:number
   numberOfItems:number,
   grandTotal:number,
+  totalDiscount:number,
+  totalNetAmount:number,
   salesInvoiceDetails: SalesInvoiceDetail[];
 }
 

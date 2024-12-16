@@ -32,15 +32,15 @@ export class SalesInvoiceComponent {
     { name: 'customerCode', headerText :('salesInvoice.customerCode') },
     { name: 'customerName', headerText :('salesInvoice.customerName') },
     { name: 'paymentTermName', headerText :('salesInvoice.paymentTerms') },
-    // { name: 'customerCreditLimit', headerText :('salesInvoice.creditLimit') },
-    // { name: 'invoiceJournalCode', headerText :('salesInvoice.relatedJournal') },
-    // { name: 'createdOn', headerText :('salesInvoice.createdStockout') },
-    // { name: 'totalQuantity', headerText :('salesInvoice.totalQuantity') },
-    // { name: 'noOfItems', headerText :('salesInvoice.numberOfItems') },
-    // { name: 'totalNetAmount', headerText :('salesInvoice.total') },
-    // { name: 'totalDiscount', headerText :('salesInvoice.disAmount') },
-    // { name: 'totalAfterDiscount', headerText :('salesInvoice.totalAfterDiscount') },
-    // { name: 'grandTotal', headerText :('salesInvoice.totalAfterVat') },
+    { name: 'customerCreditLimit', headerText :('salesInvoice.creditLimit') },
+    { name: 'invoiceJournalCode', headerText :('salesInvoice.relatedJournal') },
+    { name: 'createdOn', headerText :('salesInvoice.createdStockout') },
+    { name: 'totalQuantity', headerText :('salesInvoice.totalQuantity') },
+    { name: 'noOfItems', headerText :('salesInvoice.numberOfItems') },
+    { name: 'totalNetAmount', headerText :('salesInvoice.total') },
+    { name: 'totalDiscount', headerText :('salesInvoice.disAmount') },
+    { name: 'totalAfterDiscount', headerText :('salesInvoice.totalAfterDiscount') },
+    { name: 'grandTotal', headerText :('salesInvoice.totalAfterVat') },
 
   ]
   ngOnInit(): void {
@@ -53,8 +53,9 @@ export class SalesInvoiceComponent {
     this.exportBankData(this.searchTerm, this.SortByAll?.SortBy, this.SortByAll?.SortColumn);
   }
   exportBankData(searchTerm: string, sortBy?: number, sortColumn?: string){
-    this.transaction_services.exportSalseInvoiceList(searchTerm, sortBy, sortColumn);
     const filteredColumns = this.columns.filter(col => this.filteredColumns.includes(col.name));
+
+    this.transaction_services.exportSalseInvoiceList(searchTerm, sortBy, sortColumn);
     this.transaction_services.exportSalesInvoiceObs.subscribe((res) => {
       this.exportData = this.exportService.formatCiloma(res, filteredColumns);
     });
