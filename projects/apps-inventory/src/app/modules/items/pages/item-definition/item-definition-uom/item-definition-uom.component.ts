@@ -17,6 +17,7 @@ export class ItemDefinitionUomComponent implements OnInit, OnDestroy {
   itemUomForm: FormGroup;
   id: number;
   unitUsagesName: [];
+  baseUnit: any = {};
   uerSubDomainModulesLookupData: { id: number; name: string }[] = [];
   userSubDomainModulesLookupData: { id: number; name: string }[] = [];
   private subscription: Subscription;
@@ -97,13 +98,21 @@ export class ItemDefinitionUomComponent implements OnInit, OnDestroy {
             this.uoms.push(this.createUomFormGroup(uom));
           });
           if (this.uoms.length > 0) {
-            const firstUom = this.uoms.at(0);
-            if (firstUom) {
-              this.nameBaseUnit =
-                this.currentLang === 'en'
-                  ? firstUom.get('nameEn')?.value
-                  : firstUom.get('nameAr')?.value;
+            this.baseUnit = data?.uoms?.find((elem: any) => elem.isBaseUnit == true);
+            if (this.currentLang === 'en') {
+              this.nameBaseUnit = this.baseUnit?.nameEn;
+            } else {
+              this.nameBaseUnit = this.baseUnit?.nameAr;
             }
+    
+
+            // const firstUom = this.uoms.at(0);
+            // if (firstUom) {
+            //   this.nameBaseUnit =
+            //     this.currentLang === 'en'
+            //       ? firstUom.get('nameEn')?.value
+            //       : firstUom.get('nameAr')?.value;
+            // }
           }
         }
       },
@@ -133,40 +142,28 @@ export class ItemDefinitionUomComponent implements OnInit, OnDestroy {
     dialogRef.onClose.subscribe((data) => {
       if (data) {
         this.uoms.clear();
-         if (this.currentLang === 'en') {
-          this.nameCategory = data.uomCategoryNameEn;  
-         } else {
+        console.log(data);
+        this.itemUomForm.get('uomCategoryId')?.setValue(data.uomCategoryId);
+        if (this.currentLang === 'en') {
+          this.nameCategory = data.uomCategoryNameEn;
+          this.nameBaseUnit = data.nameEn;
+        } else {
           this.nameCategory = data.uomCategoryNameAr;
-          this.nameBaseUnit = data.nameEn
-         } 
+          this.nameBaseUnit = data.nameAr;
+        }
 
-        console.log("heeey" , data)
-        let baseUnit = data?.uoMs.find((elem : any)=>elem.isBaseUnit == true)
-        let nonBaseUnit = data?.uoMs.filter((elem : any)=> !elem.isBaseUnit)
+        this.baseUnit = data?.uoMs.find((elem: any) => elem.isBaseUnit == true);
+        if (this.currentLang === 'en') {
+          this.nameBaseUnit = this.baseUnit?.nameEn;
+        } else {
+          this.nameBaseUnit = this.baseUnit?.nameAr;
+        }
 
-         this.itemUomForm.patchValue({...baseUnit});
-         nonBaseUnit.forEach((item : any) => {
-          let itemFormGroup = this.fb.group({...item})
-            this.uoms.push(itemFormGroup)
-         });
-        
-
-        // this.uoms.controls.forEach(item=>{
-        // })
-
-        // this.uoms.patchValue(data.uoMs);
-        // this.nameBaseUnit = this.uoms.at(0).get('nameEn')?.value;
-
-        // if (this.currentLang === 'en') {
-        //   this.nameCategory = data.uomCategoryNameEn;
-        // } else {
-        //   this.nameCategory = data.uomCategoryNameAr;
-        // }
-        // this.itemUomForm.patchValue({
-        //   uomCategoryId: data.uomCategoryId,
-        //   name: data.name,
-        // });
-        // this.itemUomForm.updateValueAndValidity();
+        let nonBaseUnit = data?.uoMs.filter((elem: any) => !elem.isBaseUnit);
+        nonBaseUnit.forEach((item: any) => {
+          let itemFormGroup = this.fb.group({ ...item });
+          this.uoms.push(itemFormGroup);
+        });
       } else {
         this.getDataUomById();
       }
@@ -188,7 +185,9 @@ export class ItemDefinitionUomComponent implements OnInit, OnDestroy {
   }
 
   submit() {
+    this.uoms.push(this.fb.group({ ...this.baseUnit }));
     const payload = this.itemUomForm.value;
+
     this.itemService.updatetemGetItemUomById(payload);
   }
 }
