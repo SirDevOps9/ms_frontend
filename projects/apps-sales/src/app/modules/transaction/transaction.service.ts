@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { HttpService, PageInfo, PageInfoResult, PaginationVm } from 'shared-lib';
+import { ReturnInvoiceListView } from './models/return-Invoice-dto';
 import { TransactionProxyService } from './transaction-proxy.service';
-import { SalesInvoiceListView } from './models/sales-invoice-dto';
-import { ReturnInvoiceListView } from './models/return-Invoice-dto';import { TransactionProxyService } from './transaction-proxy.service';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { AddSalesInvoice, LatestItem, SalesInvoiceListView } from './models';
 import { AddPurchaseInvoiceDto } from 'projects/apps-purchase/src/app/modules/purchase-transactions/models/addPurchaseInvoice';
@@ -33,9 +30,20 @@ export class TransactionService {
     private exportSalesInvoice = new BehaviorSubject<SalesInvoiceListView[]>([]);
     public exportSalesInvoiceObs =this.exportSalesInvoice.asObservable()
 
-
     public salesInvoiceView = new BehaviorSubject<SalesInvoiceView>({} as SalesInvoiceView);
     public salesInvoiceViewObs =this.salesInvoiceView.asObservable()
+    public salseInvoiceList = new BehaviorSubject<SalesInvoiceListView[]>([]);
+    salseInvoiceListObs$ = this.salseInvoiceList.asObservable();
+
+
+    public exportSalseInvoiceList = new BehaviorSubject<SalesInvoiceListView[]>([]);
+    exportSalseInvoiceListObs$ = this.exportSalseInvoiceList.asObservable();
+
+
+    public returnSalesInvoiceList =  new BehaviorSubject<ReturnInvoiceListView[]>([]);
+    returnsalseInvoiceListObs$ = this.returnSalesInvoiceList.asObservable();
+    public exportReturnSalseInvoiceList = new BehaviorSubject<ReturnInvoiceListView[]>([]);
+    exportReturnSalseInvoiceListObs$ = this.exportReturnSalseInvoiceList.asObservable();
 
 
   constructor(private TransactionsProxy : TransactionProxyService ,    private toasterService: ToasterService,
@@ -171,7 +179,7 @@ export class TransactionService {
   }
 
 
-    exportSalseInvoiceList(SearchTerm: string ,SortBy?: number, SortColumn?: string) {
+    exportSalseInvoiceListData(SearchTerm: string ,SortBy?: number, SortColumn?: string) {
       this.TransactionsProxy.exportSalseInvoiceList(SearchTerm,SortBy,SortColumn).subscribe({
         next: (res: any) => {
           this.exportSalesInvoice.next(res);
@@ -179,26 +187,8 @@ export class TransactionService {
       });
     }
 
-
-
-  public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
-
-  public salseInvoiceList = new BehaviorSubject<SalesInvoiceListView[]>([]);
-  salseInvoiceListObs$ = this.salseInvoiceList.asObservable();
-
-  public exportSalseInvoiceList = new BehaviorSubject<SalesInvoiceListView[]>([]);
-  exportSalseInvoiceListObs$ = this.exportSalseInvoiceList.asObservable();
-
-
-  public returnSalesInvoiceList =  new BehaviorSubject<ReturnInvoiceListView[]>([]);
-  returnsalseInvoiceListObs$ = this.returnSalesInvoiceList.asObservable();
-  public exportReturnSalseInvoiceList = new BehaviorSubject<ReturnInvoiceListView[]>([]);
-  exportReturnSalseInvoiceListObs$ = this.exportReturnSalseInvoiceList.asObservable();
-
-  constructor(private transactionsProxy :TransactionProxyService) { }
-
   getSalesInvoiceList(quieries: string, pageInfo: PageInfo) {
-    this.transactionsProxy.getSalesInvoiceList(quieries, pageInfo).subscribe(
+    this.TransactionsProxy.getSalesInvoiceList(quieries, pageInfo).subscribe(
       (response) => {
         this.salseInvoiceList.next(response.result);
         this.currentPageInfo.next(response.pageInfoResult);
@@ -208,7 +198,7 @@ export class TransactionService {
   }
 
   exportSalesInvoiceList(searchTerm?: string, SortBy?: number, SortColumn?: string) {
-    this.transactionsProxy.exportSalesInvoiceList(searchTerm, SortBy, SortColumn).subscribe({
+    this.TransactionsProxy.exportSalesInvoiceList(searchTerm, SortBy, SortColumn).subscribe({
       next: (res: any) => {
         this.exportSalseInvoiceList.next(res);
       },
@@ -216,7 +206,7 @@ export class TransactionService {
   }
 
   getReturnSalesInvoiceList(quieries: string, pageInfo: PageInfo) {
-    this.transactionsProxy.getReturnSalesInvoiceList(quieries, pageInfo).subscribe(
+    this.TransactionsProxy.getReturnSalesInvoiceList(quieries, pageInfo).subscribe(
       (response) => {
         this.returnSalesInvoiceList.next(response.result);
         this.currentPageInfo.next(response.pageInfoResult);
@@ -226,11 +216,32 @@ export class TransactionService {
   }
 
   exportRetuenSalesInvoiceList(searchTerm?: string, SortBy?: number, SortColumn?: string) {
-    this.transactionsProxy.exportReturnSalesInvoiceList(searchTerm, SortBy, SortColumn).subscribe({
+    this.TransactionsProxy.exportReturnSalesInvoiceList(searchTerm, SortBy, SortColumn).subscribe({
       next: (res: any) => {
         this.exportReturnSalseInvoiceList.next(res);
       },
     });
   }
+
+
+  async deleteRetuenSalesInvoiceList(id: number) {
+    const confirmed = await this.toasterService.showConfirm('Delete');
+    if (confirmed) {
+      this.TransactionsProxy.deleteSalseInvoice(id).subscribe({
+        next: (res) => {
+          this.toasterService.showSuccess(
+            this.languageService.transalte('deleteCustomerCategory.success'),
+            this.languageService.transalte('deleteCustomerCategory.delete')
+          );
+          let data = this.salesInvoice.getValue();
+          const updatedDate = data.filter((elem) => elem.id!== id);
+          this.salesInvoice.next(updatedDate);
+          return res;
+        },
+        error: (err) => {},
+      });
+    }
+  }
+
 
 }

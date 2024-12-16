@@ -141,7 +141,6 @@ const routes: Routes = [
     ViewSalesReturnInvoiceComponent,
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule],
-  imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule,
-  ],
+
 })
 export class TransactionModule {}

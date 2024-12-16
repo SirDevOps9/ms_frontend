@@ -51,26 +51,8 @@ export class SalesInvoiceComponent {
     this.hasHelpPage = JSON.parse(state?.hashelppage || 'false');
     this.servicePage = state.servicePage;
    }
-   exportClick() {
-    this.exportBankData(this.searchTerm, this.SortByAll?.SortBy, this.SortByAll?.SortColumn);
-  }
-  exportBankData(searchTerm: string, sortBy?: number, sortColumn?: string){
-    const filteredColumns = this.columns.filter(col => this.filteredColumns.includes(col.name));
 
-    this.transaction_services.exportSalseInvoiceList(searchTerm, sortBy, sortColumn);
-    this.transaction_services.exportSalesInvoiceObs.subscribe((res) => {
-      this.exportData = this.exportService.formatCiloma(res, filteredColumns);
-    });
-  }
-  exportClickBySort(e: { SortBy: number; SortColumn: string }) {
-    this.SortByAll = {
-      SortBy: e.SortBy,
-      SortColumn: e.SortColumn,
-    };
-  }
-  onFilterColumn(e: string[]) {
-    this.filteredColumns = e;
-  }
+
 
   inGetData() {
     this.transaction_services.getSalseInvoice('', new PageInfo());
@@ -80,13 +62,6 @@ export class SalesInvoiceComponent {
     this.transaction_services.currentPageInfo.subscribe((currentPageInfo) => {
       this.currentPageInfo = currentPageInfo;
     });
-  }
-  onPageChange(pageInfo: PageInfo) {
-    this.transaction_services.getSalseInvoice('', pageInfo);
-  }
-
-  onSearchChange() {
-    this.transaction_services.getSalseInvoice(this.searchTerm, new PageInfo());
   }
 
 
@@ -109,24 +84,24 @@ export class SalesInvoiceComponent {
 
 
   initItemDefinitionData() {
-    this.transaction_service.getSalesInvoiceList('', new PageInfo());
+    this.transaction_services.getSalesInvoiceList('', new PageInfo());
 
-    this.transaction_service.salseInvoiceListObs$.subscribe({
+    this.transaction_services.salseInvoiceListObs$.subscribe({
       next: (res) => {
         this.tableData = res;
       },
     });
 
-    this.transaction_service.currentPageInfo.subscribe((currentPageInfo) => {
+    this.transaction_services.currentPageInfo.subscribe((currentPageInfo) => {
       this.currentPageInfo = currentPageInfo;
     });
   }
   onPageChange(pageInfo: PageInfo) {
-    this.transaction_service.getSalesInvoiceList('', pageInfo);
+    this.transaction_services.getSalesInvoiceList('', pageInfo);
   }
   onSearchChange(event: any) {
-    this.transaction_service.getSalesInvoiceList(event, new PageInfo());
-    this.transaction_service.salseInvoiceListObs$.subscribe({
+    this.transaction_services.getSalesInvoiceList(event, new PageInfo());
+    this.transaction_services.salseInvoiceListObs$.subscribe({
       next: (res) => {
         this.tableData = res;
       },
@@ -136,9 +111,9 @@ export class SalesInvoiceComponent {
     this.exportOperationalData(this.searchTerm, this.SortByAll?.SortBy, this.SortByAll?.SortColumn);
   }
   exportOperationalData(searchTerm: string, sortBy?: number, sortColumn?: string) {
-    this.transaction_service.exportSalesInvoiceList(searchTerm, sortBy, sortColumn);
+    this.transaction_services.exportSalesInvoiceList(searchTerm, sortBy, sortColumn);
     const filteredColumns = this.columns.filter(col => this.filteredColumns.includes(col.name));
-    this.transaction_service.exportSalseInvoiceListObs$.subscribe((res) => {
+    this.transaction_services.exportSalseInvoiceListObs$.subscribe((res) => {
       this.exportData = this.exportService.formatCiloma(res, filteredColumns);
     });
   }

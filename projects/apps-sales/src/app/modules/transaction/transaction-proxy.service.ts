@@ -1,9 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
-import { SalesInvoiceListView } from './models/sales-invoice-dto';
 import { ReturnInvoiceListView } from './models/return-Invoice-dto';
-
 import { Observable } from 'rxjs';
 import { AddSalesInvoice, LatestItem, SalesInvoiceListView } from './models';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
@@ -15,7 +11,7 @@ import { SalesInvoiceView } from './models/salesInvoice-view';
 })
 export class TransactionProxyService {
 
-  constructor(private httpService: HttpServiceprivate httpService : HttpService) { }
+  constructor(private  httpService : HttpService) { }
 
   getSalesInvoiceList(
     searchTerm: string,
