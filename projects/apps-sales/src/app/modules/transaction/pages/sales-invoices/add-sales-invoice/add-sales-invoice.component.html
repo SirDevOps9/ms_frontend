@@ -84,6 +84,7 @@
                   optionLabel="name"
                   placeholder="{{ 'salesInvoice.salesMan' | translate }}"
                   [selectedValue]="salesReturnForm.controls['salesManId'].value"
+                  (valueChanged)="salesManSelected($event)"
                 >
                 </lib-select>
                 <lib-field-validations

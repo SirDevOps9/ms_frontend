@@ -233,6 +233,7 @@ export class AddSalesInvoiceComponent implements OnInit {
       invoiceDate: new FormControl(new Date(), [customValidators.required]),
       customerCode: new FormControl(''),
       salesManId: new FormControl(''),
+      salesManName: new FormControl(''),
       customerName: new FormControl(''),
       currencyId: new FormControl(''),
       rate: new FormControl(''),
@@ -322,6 +323,12 @@ export class AddSalesInvoiceComponent implements OnInit {
     return this.salesReturnForm.get('invoiceDetails') as FormArray;
   }
   // form section##########
+
+  salesManSelected(e:any) {
+    console.log(e)
+    let salesManData = this.salesManLookup.find(elem=>elem.id == e)
+    this.salesReturnForm.get('salesManName')?.setValue(salesManData?.name)
+  }
 
   barcodeCanged(e: any, selectedItem: any, index: number) {
     this.salesTransactionService.GetItemByBarcodePurchase(e.target.value).subscribe({
@@ -905,6 +912,7 @@ export class AddSalesInvoiceComponent implements OnInit {
       warehouseName: this.salesReturnForm.getRawValue().warehouseName || '',
       customerId: this.salesReturnForm.getRawValue().customerId || 0,
       salesManId: this.salesReturnForm.getRawValue().salesManId || 0,
+      salesManName: this.salesReturnForm.getRawValue().salesManName || '',
       customerName: this.salesReturnForm.getRawValue().customerName || '',
       customerCreditLimit: this.salesReturnForm.getRawValue().customerCreditLimit || 0,
       pricePolicyId: this.salesReturnForm.getRawValue().pricePolicyId || 0,

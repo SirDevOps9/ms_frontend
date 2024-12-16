@@ -13,6 +13,7 @@ export interface AddSalesInvoice {
     paymentTermId: number
     reference: string;
     salesManId : number;
+    salesManName : string;
     salesInvoiceDetails: SalesInvoiceDetail[]
   }
   
