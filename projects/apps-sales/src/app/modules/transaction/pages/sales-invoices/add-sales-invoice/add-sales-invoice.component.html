@@ -1,0 +1,749 @@
+<lib-page-content
+  [title]="'salesInvoice.salesReturnInvoice' | translate"
+  [subTitle]="'salesInvoice.salesReturnInvoice' | translate"
+>
+  <div [formGroup]="salesReturnForm" class="stockInForm_header card_micro">
+    <div class="md:col-12 mt-2">
+      <!-- main Information first form -->
+      <div class="card_information">
+        <div class="line"></div>
+        <div class="item">
+          <div class="title heading_b18">
+            <p class="p-0 m-0">{{ 'salesInvoice.mainInformation' | translate }}</p>
+          </div>
+          <div class="item_body">
+            <div class="grid">
+              <!-- invoice code  -->
+              <div class="md:col-2 my-2">
+                <lib-label [appControl]="salesReturnForm.controls['code']">
+                  {{ 'salesInvoice.code' | translate }}
+                </lib-label>
+                <lib-text-input
+                  [readOnly]="true"
+                  placeholder="{{ 'salesInvoice.code' | translate }}"
+                  formControlName="code"
+                ></lib-text-input>
+                <lib-field-validations
+                  [appControl]="salesReturnForm.controls['code']"
+                ></lib-field-validations>
+              </div>
+              <!-- invoice date -->
+              <div class="md:col-2 my-2">
+                <lib-label [appControl]="salesReturnForm.controls['invoiceDate']">
+                  {{ 'salesInvoice.invoiceDate' | translate }}
+                </lib-label>
+                <lib-calendar formControlName="invoiceDate"></lib-calendar>
+                <lib-field-validations
+                  [appControl]="salesReturnForm.controls['invoiceDate']"
+                ></lib-field-validations>
+              </div>
+          
+
+              <!-- description -->
+              <div class="md:col-4 my-2">
+                <div>
+                  <lib-label [appControl]="salesReturnForm.controls['description']">
+                    {{ 'salesInvoice.description' | translate }}
+                  </lib-label>
+                </div>
+
+                <textarea
+                  pInputTextarea
+                  style="width: 100%; max-width: 100%; height: auto; max-height: 150px"
+                  rows="1"
+                  formControlName="description"
+                  placeholder="{{ 'salesInvoice.description' | translate }}"
+                ></textarea>
+              </div>
+              <!-- warehouse  -->
+              <div class="md:col-4 my-2">
+                <lib-label [appControl]="salesReturnForm.controls['warehouseId']">
+                  {{ 'salesInvoice.warehouse' | translate }}
+                </lib-label>
+                <lib-select
+                  formControlName="warehouseId"
+                  [options]="warhouseLookupData || []"
+                  optionValue="id"
+                  optionLabel="name"
+                  [placeholder]="'salesInvoice.warehouse' | translate"
+                  [selectedValue]="salesReturnForm.controls['warehouseId'].value"
+                ></lib-select>
+                <lib-field-validations
+                  [appControl]="salesReturnForm.controls['warehouseId']"
+                ></lib-field-validations>
+              </div>
+              <!-- sales man -->
+              <div class="md:col-4 my-2">
+                <lib-label [appControl]="salesReturnForm.controls['salesManId']">
+                  {{ 'salesInvoice.salesMan' | translate }}
+                </lib-label>
+                <lib-select
+                  formControlName="salesManId"
+                  [options]="salesManLookup"
+                  optionValue="id"
+                  optionLabel="name"
+                  placeholder="{{ 'salesInvoice.salesMan' | translate }}"
+                  [selectedValue]="salesReturnForm.controls['salesManId'].value"
+                >
+                </lib-select>
+                <lib-field-validations
+                  [appControl]="salesReturnForm.controls['salesManId']"
+                ></lib-field-validations>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Customer Info -->
+    <div class="md:col-12 mt-2">
+      <div class="card_information">
+        <div class="line"></div>
+        <div class="item">
+          <div class="title heading_b18">
+            <p class="p-0 m-0">{{ 'salesInvoice.customerInformation' | translate }}</p>
+          </div>
+          <div class="item_body">
+            <div class="grid">
+              <!-- customer code -->
+
+              <div class="md:col-4">
+                <lib-label [appControl]="salesReturnForm.controls['customerId']">
+                  {{ 'salesInvoice.customerCode' | translate }}
+                </lib-label>
+                <div class="grid align-items-center">
+                  <div class="md:col-12">
+                    <lib-select
+                      formControlName="customerId"
+                      [options]="vendorItems || []"
+                      optionValue="id"
+                      optionLabel="name"
+                      placeholder="{{ 'salesInvoice.customerCode' | translate }}"
+                      (valueSearchChanged)="onFilter($event)"
+                    >
+                    </lib-select>
+                    <lib-field-validations
+                      [appControl]="salesReturnForm.controls['customerId']"
+                    ></lib-field-validations>
+                  </div>
+                </div>
+              </div>
+
+              <!--customerName  -->
+              <div class="md:col-4 my-2">
+                <lib-label [appControl]="salesReturnForm.controls['customerName']">
+                  {{ 'salesInvoice.customerName' | translate }}
+                </lib-label>
+                <lib-text-input
+                  placeholder="{{ 'salesInvoice.customerName' | translate }}"
+                  formControlName="customerName"
+                  [readOnly]="true"
+                ></lib-text-input>
+                <lib-field-validations
+                  [appControl]="salesReturnForm.controls['customerName']"
+                ></lib-field-validations>
+              </div>
+              <!-- currency -->
+
+              <div class="md:col-2">
+                <lib-label [appControl]="salesReturnForm.controls['currency']">
+                  {{ 'salesInvoice.currency' | translate }}
+                </lib-label>
+                <lib-text-input
+                  placeholder="{{ 'salesInvoice.currency' | translate }}"
+                  formControlName="currency"
+                  [readOnly]="true"
+                ></lib-text-input>
+                <lib-field-validations
+                  [appControl]="salesReturnForm.controls['currency']"
+                ></lib-field-validations>
+              </div>
+              <div class="md:col-2">
+                <lib-label [appControl]="salesReturnForm.controls['currencyRate']">
+                  {{ 'salesInvoice.rate' | translate }}
+                </lib-label>
+                <lib-text-input
+                  placeholder="{{ 'salesInvoice.rate' | translate }}"
+                  formControlName="currencyRate"
+                ></lib-text-input>
+                <lib-field-validations
+                  [appControl]="salesReturnForm.controls['currencyRate']"
+                ></lib-field-validations>
+              </div>
+
+              <!-- paymentTerms -->
+
+              <div class="md:col-4">
+                <lib-label [appControl]="salesReturnForm.controls['paymentTermName']">
+                  {{ 'salesInvoice.paymentTerms' | translate }}
+                </lib-label>
+                <lib-text-input
+                  placeholder="{{ 'salesInvoice.paymentTerms' | translate }}"
+                  formControlName="paymentTermName"
+                  [readOnly]="true"
+                ></lib-text-input>
+                <lib-field-validations
+                  [appControl]="salesReturnForm.controls['paymentTermName']"
+                ></lib-field-validations>
+              </div>
+
+              <!-- credit  Limit -->
+              <div class="md:col-4 my-2">
+                <lib-label [appControl]="salesReturnForm.controls['customerCreditLimit']">
+                  {{ 'salesInvoice.creditLimit' | translate }}
+                </lib-label>
+                <lib-text-input
+                  placeholder="{{ 'salesInvoice.creditLimit' | translate }}"
+                  formControlName="customerCreditLimit"
+                  [readOnly]="true"
+                ></lib-text-input>
+                <lib-field-validations
+                  [appControl]="salesReturnForm.controls['customerCreditLimit']"
+                ></lib-field-validations>
+              </div>
+              <!-- pricePolicy -->
+              <div class="md:col-4 my-2">
+                <lib-label [appControl]="salesReturnForm.controls['pricePolicyId']">
+                  {{ 'salesInvoice.pricePolicy' | translate }}
+                </lib-label>
+                <lib-select
+                  formControlName="pricePolicyId"
+                  [options]="pricePolicyLookup || []"
+                  optionValue="id"
+                  optionLabel="name"
+                  placeholder="{{ 'salesInvoice.pricePolicy' | translate }}"
+                  [selectedValue]="salesReturnForm.controls['pricePolicyId'].value"
+                >
+                </lib-select>
+                <lib-field-validations
+                  [appControl]="salesReturnForm.controls['pricePolicyId']"
+                ></lib-field-validations>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="my-2 card_micro tableCont p-6">
+      <!-- <div class="flex justify-content-between align-items-center gap-4 my-4">
+        <lib-text-input type="text" [placeholder]="'salesInvoice.search' | translate"></lib-text-input>
+  
+        <div class="flex justify-content-end gap-4 my-4">
+          <lib-button-micro
+            [title]="'salesInvoice.upload' | translate"
+            nameClass="outline"
+            iconName="pi pi-file-edit"
+          >
+          </lib-button-micro>
+          <lib-button-micro
+            [title]="'salesInvoice.scan' | translate"
+            nameClass="outline"
+            iconName="pi pi-expand"
+          >
+          </lib-button-micro>
+        </div>
+      </div> -->
+      <p-table
+        [value]="salesReturnFormArray['controls']"
+        dataKey="id"
+        styleClass="p-datatable-gridlines p-datatable-striped"
+        [tableStyle]="{ 'min-width': '50rem' }"
+        styleClass="p-datatable-striped p-datatable-gridlines"
+      >
+        <!-- template header -->
+        <ng-template pTemplate="header">
+          <tr>
+            <th>{{ 'salesInvoice.barcode' | translate }}</th>
+            <th>{{ 'salesInvoice.itemCode' | translate }}</th>
+            <th>{{ 'salesInvoice.itemDescription' | translate }}</th>
+            <th>{{ 'salesInvoice.UOM' | translate }}</th>
+            <th>{{ 'salesInvoice.QTY' | translate }}</th>
+            <th>{{ 'salesInvoice.price' | translate }}</th>
+            <th>{{ 'salesInvoice.subTotal' | translate }}</th>
+            <th>{{ 'salesInvoice.discount' | translate }}<span>%</span></th>
+            <th>{{ 'salesInvoice.discountAmount' | translate }}</th>
+            <th>{{ 'salesInvoice.totalAfterDiscount' | translate }}</th>
+            <th>{{ 'salesInvoice.vat' | translate }}</th>
+            <th>{{ 'salesInvoice.vatAmount' | translate }}</th>
+            <th>{{ 'salesInvoice.grandTotal' | translate }}</th>
+            <th>{{ 'salesInvoice.tracking' | translate }}</th>
+            <th>{{ 'salesInvoice.expiryDate' | translate }}</th>
+            <th>{{ 'salesInvoice.actions' | translate }}</th>
+          </tr>
+        </ng-template>
+        <ng-template
+          pTemplate="body"
+          let-salesReturnFormGroup
+          let-editing="editing"
+          let-i="rowIndex"
+        >
+          <tr [formGroup]="salesReturnFormGroup">
+            <!-- barcode -->
+            <td
+              [pEditableColumn]="salesReturnFormGroup.controls['barCode']"
+              pEditableColumnField="barCode"
+            >
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <lib-text-input
+                    placeholder="{{ 'salesInvoice.barcode' | translate }}"
+                    formControlName="barCode"
+                    [readOnly]="dataToReadOnly"
+                  ></lib-text-input>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ salesReturnFormGroup.controls['barCode']?.value }}
+                </ng-template>
+              </p-cellEditor>
+              <lib-field-validations
+                [appControl]="salesReturnFormGroup.controls['barCode']"
+              ></lib-field-validations>
+            </td>
+            <!-- item code -->
+
+            <td
+              [pEditableColumn]="salesReturnFormGroup.controls['itemId']"
+              pEditableColumnField="itemId"
+            >
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <div class="flex justify-content-center gap-2 align-items-center">
+                    <lib-select
+                      formControlName="itemId"
+                      [options]="latestItemsList"
+                      optionValue="itemNumber"
+                      optionLabel="displayName"
+                      placeholder="{{ 'salesInvoice.itemCode' | translate }}"
+                      (valueChanged)="setRowdataByItemCode(i, $event, latestItemsList)"
+                      [readOnly]="dataToReadOnly"
+                      (valueSearchChanged)="onFilter($event)"
+                    >
+                    </lib-select>
+                    <i
+                      class="pi pi-search search-circle pointer"
+                      (click)="openDialogFromItemCode(i, salesReturnFormGroup)"
+                    ></i>
+                  </div>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ salesReturnFormGroup.controls['itemCodeName']?.value }}
+                </ng-template>
+              </p-cellEditor>
+              <lib-field-validations
+                [appControl]="salesReturnFormGroup.controls['itemId']"
+              ></lib-field-validations>
+            </td>
+            <!-- description -->
+            <td>
+              {{ salesReturnFormGroup.controls['description']?.value }}
+            </td>
+
+            <!-- uom -->
+            <td
+              [pEditableColumn]="salesReturnFormGroup.controls['uomId']"
+              pEditableColumnField="uomId"
+            >
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <lib-select
+                    formControlName="uomId"
+                    [options]="salesReturnFormGroup.controls['uomOptions'].value || []"
+                    optionValue="uomId"
+                    [readOnly]="dataToReadOnly"
+                    [optionLabel]="currentLang == 'en' ? 'uomNameEn' : 'uomNameAr'"
+                    placeholder="{{ 'salesInvoice.UOM' | translate }}"
+                    (valueChanged)="
+                      changeUomName(
+                        i,
+                        salesReturnFormGroup.controls['uomOptions'].value,
+                        salesReturnFormGroup.controls['uomId']?.value,
+                        salesReturnFormGroup
+                      )
+                    "
+                    [selectedValue]="salesReturnFormGroup.controls['uomId']?.value"
+                  ></lib-select>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ salesReturnFormGroup.controls['uomName']?.value }}
+                </ng-template>
+              </p-cellEditor>
+              <lib-field-validations
+                [appControl]="salesReturnFormGroup.controls['uomId']"
+              ></lib-field-validations>
+            </td>
+
+            <!--  quantity-->
+            <td
+              [pEditableColumn]="salesReturnFormGroup.controls['quantity']"
+              pEditableColumnField="quantity"
+            >
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <lib-text-input
+                    [readOnly]="dataToReadOnly"
+                    type="number"
+                    placeholder="{{ 'salesInvoice.QTY' | translate }}"
+                    formControlName="quantity"
+                    (keyUp)="quantityCostChange(salesReturnFormGroup)"
+                    [readOnly]="
+                      salesReturnFormGroup.get('trackingType')?.value ==
+                      this.sharedFinanceEnums.trackingType.Serial
+                    "
+                  ></lib-text-input>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ salesReturnFormGroup.controls['quantity']?.value }}
+                </ng-template>
+              </p-cellEditor>
+              <lib-field-validations
+                [appControl]="salesReturnFormGroup.controls['quantity']"
+              ></lib-field-validations>
+            </td>
+            <!-- cost - price -->
+
+            <td>
+              {{ salesReturnFormGroup.controls['cost']?.value }}
+            </td>
+            <!-- sub Total -->
+            <td>
+              <div
+                *ngIf="
+                  salesReturnFormGroup.controls['quantity']?.value &&
+                  salesReturnFormGroup.controls['cost']?.value
+                "
+              >
+                {{
+                  salesReturnFormGroup.controls['quantity']?.value *
+                    salesReturnFormGroup.controls['cost']?.value | numberFormat
+                }}
+              </div>
+            </td>
+
+            <!-- discount  -->
+            <td
+              [pEditableColumn]="salesReturnFormGroup.controls['discountPercentage']"
+              pEditableColumnField="discount"
+            >
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <lib-text-input
+                    placeholder="{{ 'salesInvoice.disAmount' | translate }}"
+                    formControlName="discountPercentage"
+                    [readOnly]="dataToReadOnly"
+                    (keyUp)="disAmountChange(salesReturnFormGroup)"
+                  ></lib-text-input>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ salesReturnFormGroup.controls['discountPercentage']?.value }}
+                </ng-template>
+              </p-cellEditor>
+              <lib-field-validations
+                [appControl]="salesReturnFormGroup.controls['discountPercentage']"
+              ></lib-field-validations>
+            </td>
+            <!-- discount Amount -->
+            <td
+              [pEditableColumn]="salesReturnFormGroup.controls['discountAmount']"
+              pEditableColumnField="discountAmount"
+            >
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <lib-text-input
+                    placeholder="{{ 'salesInvoice.disAmount' | translate }}"
+                    formControlName="discountAmount"
+                    [readOnly]="dataToReadOnly"
+                    (keyUp)="amountChange(salesReturnFormGroup)"
+                  ></lib-text-input>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ salesReturnFormGroup.controls['discountAmount']?.value }}
+                </ng-template>
+              </p-cellEditor>
+              <lib-field-validations
+                [appControl]="salesReturnFormGroup.controls['discountAmount']"
+              ></lib-field-validations>
+            </td>
+
+            <!-- Total After Discount -->
+            <td>
+              {{
+                salesReturnFormGroup.controls['quantity']?.value *
+                  (salesReturnFormGroup.controls['cost']?.value -
+                    salesReturnFormGroup.controls['discountAmount']?.value)
+              }}
+            </td>
+            <!-- Vat -->
+            <td>
+              {{ salesReturnFormGroup.controls['vatPercentage']?.value }}
+            </td>
+            <!-- Vat Amount -->
+            <td>
+              {{
+                (salesReturnFormGroup.controls['quantity']?.value *
+                  (salesReturnFormGroup.controls['cost']?.value -
+                    salesReturnFormGroup.controls['discountAmount']?.value) *
+                  salesReturnFormGroup.controls['vatPercentage']?.value) /
+                  100 | numberFormat
+              }}
+            </td>
+
+            <!-- Grand Total -->
+            <td>
+              {{
+                salesReturnFormGroup.controls['quantity']?.value *
+                  (salesReturnFormGroup.controls['cost']?.value -
+                    salesReturnFormGroup.controls['discountAmount']?.value) +
+                  (salesReturnFormGroup.controls['quantity']?.value *
+                    (salesReturnFormGroup.controls['cost']?.value -
+                      salesReturnFormGroup.controls['discountAmount']?.value) *
+                    salesReturnFormGroup.controls['vatPercentage']?.value) /
+                    100 | numberFormat
+              }}
+            </td>
+
+            <!-- tracking -->
+            <!-- 
+              
+             -->
+            <td
+              [pEditableColumn]="salesReturnFormGroup.controls['trackingType']"
+              pEditableColumnField="trackingType"
+              [ngClass]="{
+                'no-tracking':
+                  salesReturnFormGroup.get('trackingType').value ==
+                  sharedFinanceEnums.trackingType.NoTracking
+              }"
+            >
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <div
+                    *ngIf="
+                      salesReturnFormGroup.get('trackingType').value !==
+                      sharedFinanceEnums.trackingType.NoTracking
+                    "
+                  >
+                    <lib-select
+                      formControlName="trackingType"
+                      [options]="salesReturnFormGroup.controls['trackingOptions'].value || []"
+                      optionValue="id"
+                      optionLabel="trackingNo"
+                      placeholder="{{ 'salesInvoice.selectTracking' | translate }}"
+                      (selectedValue)="(salesReturnFormGroup.controls['trackingType']?.value)"
+                      (valueChanged)="onTrackingChanged($event, salesReturnFormGroup, i)"
+                    ></lib-select>
+                  </div>
+                  <div
+                    *ngIf="
+                      salesReturnFormGroup.get('trackingType').value ==
+                      sharedFinanceEnums.trackingType.NoTracking
+                    "
+                  >
+                    {{ salesReturnFormGroup.controls['trackingTypeNo']?.value }}
+                  </div>
+                </ng-template>
+
+                <ng-template pTemplate="output">
+                  {{ salesReturnFormGroup.controls['trackingTypeNo']?.value }}
+                </ng-template>
+              </p-cellEditor>
+              <lib-field-validations
+                [appControl]="salesReturnFormGroup.controls['trackingType']"
+              ></lib-field-validations>
+            </td>
+
+            <!--  expiryDate-->
+            <td>
+              {{ salesReturnFormGroup.controls['expiryDate']?.value }}
+            </td>
+            <!-- Action -->
+            <td>
+              <div class="flex gap-3">
+                <img
+                  src="assets/images/table/delete.svg"
+                  class="pointer"
+                  alt=""
+                  (click)="OnDelete(i)"
+                />
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="footer">
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th class="total">{{allQty || 0}}</th>
+          <th class="total">{{allPrice || 0}}</th>
+          <th class="total">{{allSubTotal || 0}}</th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </ng-template>
+      </p-table>
+      <div class="add_new flex justify-content-start">
+        <lib-button (onClick)="addLine()" className="outline-primary" [disabled]="dataToReadOnly">
+          {{ 'salesInvoice.add' | translate }}
+        </lib-button>
+      </div>
+    </div>
+    <div class="floated">
+      <div class="divCont">
+        <p class="p-0 m-0">{{ 'salesInvoice.invoiceSummary' | translate }}</p>
+      </div>
+    </div>
+    <div class="card_micro">
+      <div class="grid my-3 foot">
+        <div class="col-6 grid">
+          <!-- number Of Item  -->
+          <div class="md:col-4">
+            <lib-label [appControl]="salesReturnForm.controls['numberOfItems']">
+              {{ 'salesInvoice.numberOfItems' | translate }}
+            </lib-label>
+            <lib-text-input
+              placeholder="{{ 'salesInvoice.totalQuantity' | translate }}"
+              formControlName="numberOfItems"
+              [readOnly]="true"
+            ></lib-text-input>
+            <lib-field-validations
+              [appControl]="salesReturnForm.controls['numberOfItems']"
+            ></lib-field-validations>
+          </div>
+          <!-- total -->
+          <div class="md:col-4">
+            <lib-label [appControl]="salesReturnForm.controls['total']">
+              {{ 'salesInvoice.total' | translate }}
+            </lib-label>
+            <lib-text-input
+              placeholder="{{ 'salesInvoice.total' | translate }}"
+              formControlName="total"
+              [readOnly]="true"
+            ></lib-text-input>
+            <lib-field-validations
+              [appControl]="salesReturnForm.controls['total']"
+            ></lib-field-validations>
+          </div>
+          <!-- discount -->
+          <div class="md:col-4">
+            <lib-label [appControl]="salesReturnForm.controls['discount']">
+              {{ 'salesInvoice.discount' | translate }}
+            </lib-label>
+            <lib-text-input
+              placeholder="{{ 'salesInvoice.discount' | translate }}"
+              formControlName="discount"
+              [readOnly]="true"
+            ></lib-text-input>
+            <lib-field-validations
+              [appControl]="salesReturnForm.controls['discount']"
+            ></lib-field-validations>
+          </div>
+        </div>
+        <div class="grid col-12">
+          <!-- total of quantity -->
+          <div class="md:col-2">
+            <lib-label [appControl]="salesReturnForm.controls['totalOfQuantity']">
+              {{ 'salesInvoice.totalOfQuantity' | translate }}
+            </lib-label>
+            <lib-text-input
+              placeholder="{{ 'salesInvoice.totalOfQuantity' | translate }}"
+              formControlName="totalOfQuantity"
+              [readOnly]="true"
+            ></lib-text-input>
+            <lib-field-validations
+              [appControl]="salesReturnForm.controls['totalOfQuantity']"
+            ></lib-field-validations>
+          </div>
+          <!-- total After Discount -->
+          <div class="md:col-2">
+            <lib-label [appControl]="salesReturnForm.controls['totalAfterDiscount']">
+              {{ 'salesInvoice.totalAfterDiscount' | translate }}
+            </lib-label>
+            <lib-text-input
+              placeholder="{{ 'salesInvoice.totalAfterDiscount' | translate }}"
+              formControlName="totalAfterDiscount"
+              [readOnly]="true"
+            ></lib-text-input>
+          </div>
+          <!-- vat Amount -->
+          <div class="md:col-2">
+            <lib-label [appControl]="salesReturnForm.controls['vatAmount']">
+              {{ 'salesInvoice.vatAmount' | translate }}
+            </lib-label>
+            <lib-text-input
+              placeholder="{{ 'salesInvoice.vatAmount' | translate }}"
+              formControlName="vatAmount"
+              [readOnly]="true"
+            ></lib-text-input>
+          </div>
+          <!-- total After Vat -->
+          <div class="md:col-2">
+            <lib-label [appControl]="salesReturnForm.controls['totalAfterVat']">
+              {{ 'salesInvoice.totalAfterVat' | translate }}
+            </lib-label>
+            <lib-text-input
+              placeholder="{{ 'salesInvoice.totalAfterVat' | translate }}"
+              formControlName="totalAfterVat"
+              [readOnly]="true"
+            ></lib-text-input>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <div class="grid">
+        <div class="md:col-12 my-3 grid flex justify-content-end">
+          <div class="md:col-6 grid flex justify-content-end">
+            <div class="md:col-4">
+              <lib-button-micro
+                title="{{ 'Cancel' | translate }}"
+                nameClass="cancel"
+                widthNumber="100%"
+                (click)="onCancel()"
+              >
+              </lib-button-micro>
+            </div>
+            <div class="md:col-4">
+              <lib-button-micro
+                title="{{ 'Save' | translate }}"
+                nameClass="disabled"
+                widthNumber="100%"
+                *ngIf="showPost"
+              >
+              </lib-button-micro>
+              <lib-button-micro
+                title="{{ 'Save' | translate }}"
+                nameClass="save"
+                widthNumber="100%"
+                (click)="onSave()"
+                *ngIf="!showPost"
+              >
+              </lib-button-micro>
+            </div>
+            <div class="md:col-4">
+              <lib-button-micro
+                title="{{ 'Post' | translate }}"
+                nameClass="disabled"
+                widthNumber="100%"
+                *ngIf="!showPost"
+              >
+              </lib-button-micro>
+              <lib-button-micro
+                title="{{ 'Post' | translate }}"
+                nameClass="save"
+                widthNumber="100%"
+                (click)="addToPost()"
+                *ngIf="showPost"
+              >
+              </lib-button-micro>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</lib-page-content>
