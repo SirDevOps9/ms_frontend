@@ -106,7 +106,7 @@ export class ListSalesReturnInvoiceComponent {
   }
 
   onDelete(id: number) {
-    this.transaction_service.deleteRetuenSalesInvoiceList(id);
+    this.transaction_service.deleteRetuenSalesInvoiceListItem(id);
     this.inGetData()
   }
   constructor( private routerService: RouterService, private router: Router,

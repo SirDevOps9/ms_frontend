@@ -224,7 +224,7 @@ export class TransactionService {
   }
 
 
-  async deleteRetuenSalesInvoiceList(id: number) {
+  async deleteRetuenSalesInvoiceListItem(id: number) {
     const confirmed = await this.toasterService.showConfirm('Delete');
     if (confirmed) {
       this.TransactionsProxy.deleteReturnSalesInvoice(id).subscribe({
