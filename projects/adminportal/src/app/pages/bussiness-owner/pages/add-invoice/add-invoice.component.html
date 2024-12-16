@@ -1,7 +1,8 @@
 <lib-page-content>
-    <lib-bread-crumb></lib-bread-crumb>
-
-    <div class="card_micro">
+    <div class="card_micro  bread">
+        <lib-new-bread-crumb></lib-new-bread-crumb>
+    </div>
+        <div class="card_micro">
 
         <h2>
             Add Bussiness Owner
@@ -55,7 +56,7 @@
                             <div class="col-4">
                                 <lib-form-group>
                                     <lib-label [appControl]="addForm.controls['phoneCode']">
-                                        {{ 'phoneCode' | translate }}
+                                        {{ 'Invoice Date' | translate }}
                                     </lib-label>
                                     <lib-calendar></lib-calendar>
                                     <lib-field-validations [appControl]="addForm.controls['phoneCode']"></lib-field-validations>
@@ -66,7 +67,7 @@
                             <div class="col-4">
                                 <lib-form-group>
                                     <lib-label [appControl]="addForm.controls['salesPerson']">
-                                        {{ 'salesPerson' | translate }}
+                                        {{ 'sales Person' | translate }}
                                     </lib-label>
                                     <lib-text-input formControlName="salesPerson">
         

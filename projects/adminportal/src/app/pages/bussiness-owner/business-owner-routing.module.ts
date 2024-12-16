@@ -11,12 +11,13 @@ import { AppInfoListComponent } from './pages/app-info-list/app-info-list.compon
 import { BreadcrumbLabel } from 'shared-lib';
 import { AddBussinessOwnerComponent } from './pages/add-bussiness-owner/add-bussiness-owner.component';
 import { AddInvoiceComponent } from './pages/add-invoice/add-invoice.component';
+import { BreadCrumbRoute } from './models';
 
 const routes: Routes = [
   {
     path: '', component: BussinessOwnersListComponent,
     data : {
-      breadcrumb: BreadcrumbLabel.BUSSINESS_OWNER,
+      breadcrumb: BreadCrumbRoute.bussinesOwner
 
     }
     
@@ -52,19 +53,19 @@ const routes: Routes = [
   { path: 'add', 
     component: AddBussinessOwnerComponent ,
       data : {
-    breadcrumb: BreadcrumbLabel.BUSSINESS_OWNER_Add,
+        breadcrumb: BreadCrumbRoute.addBussinesOwner
 
   }},
   { path: 'add-invoice', 
     component: AddInvoiceComponent ,
       data : {
-    breadcrumb: BreadcrumbLabel.BUSSINESS_OWNER_ADD_INVOICE,
+        breadcrumb: BreadCrumbRoute.addInvoice
 
   }},
   { path: 'add-invoice/:id', 
     component: AddInvoiceComponent ,
       data : {
-    breadcrumb: BreadcrumbLabel.BUSSINESS_OWNER_ADD_INVOICE,
+        breadcrumb: BreadCrumbRoute.addInvoice
 
   }},
 ];

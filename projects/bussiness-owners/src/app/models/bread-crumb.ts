@@ -1,3 +1,4 @@
+import { bussinesOwnerDetails } from './../../../../adminportal/src/app/pages/bussiness-owner/models/bussiness-owner-details';
 import { BreadcrumbLabel } from "shared-lib";
 export const BreadCrumbRoute = {
   
@@ -41,5 +42,7 @@ export const BreadCrumbRoute = {
     { label: BreadcrumbLabel.APP_STORE , route: '/app-store'  },
     { label: BreadcrumbLabel.APP_DETAILS },
   ],
+ 
+
 
 };

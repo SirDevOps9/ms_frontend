@@ -49,3 +49,18 @@
   .summary_card{
     border: 1px solid rgb(227 227 240 / 98%)
   }
+  .bread{
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    ::ng-deep ol{
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+    ::ng-deep .title_of_page {
+      margin: 0 !important;
+  
+    }
+  }
