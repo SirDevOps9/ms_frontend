@@ -2,8 +2,7 @@ import { Component, inject, Input, OnInit, output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { FormsService, customValidators } from 'shared-lib';
 import { SubscriptionService } from '../../../subscription.service';
-import { DynamicDialogConfig, DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { usersDto } from '../../../models';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-add-user-for-action',

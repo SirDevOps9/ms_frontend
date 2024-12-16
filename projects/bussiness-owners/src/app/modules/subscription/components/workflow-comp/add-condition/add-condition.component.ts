@@ -1,7 +1,7 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { AndOr, FormsService, PageInfo, customValidators } from 'shared-lib';
+import {  FormsService, PageInfo, customValidators } from 'shared-lib';
 import { SubscriptionService } from '../../../subscription.service';
 
 @Component({

@@ -3,7 +3,6 @@ import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { LayoutService } from 'apps-shared-lib';
 import { DynamicDialogConfig, DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { map } from 'rxjs';
 import { FormsService, customValidators } from 'shared-lib';
 import { SubscriptionService } from '../../../subscription.service';
 
