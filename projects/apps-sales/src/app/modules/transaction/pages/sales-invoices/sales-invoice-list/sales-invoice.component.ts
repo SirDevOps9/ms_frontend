@@ -11,7 +11,6 @@ import { TransactionService } from '../../../transaction.service';
 import { SortTableEXport } from 'projects/apps-inventory/src/app/modules/items/models/SortTable';
 import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
 import { SequenceService } from 'apps-shared-lib';
-import { SequenceService } from 'apps-shared-lib';
 
 @Component({
   selector: 'app-sales-invoice',
@@ -116,12 +115,8 @@ export class SalesInvoiceComponent {
   }
 
   constructor( private routerService: RouterService, private router: Router ,   private sequenceService: SequenceService,
-    private sharedEnums: SharedEnums
-
-  ,
+    private sharedEnums: SharedEnums,
    private transaction_services:TransactionService,    private exportService: ExportService,
-     private sequenceService: SequenceService,
-    private sharedEnums: SharedEnums
 
   ){
 
