@@ -31,7 +31,10 @@ export class TransactionService {
 
 
     public salesInvoiceView = new BehaviorSubject<SalesInvoiceView>({} as SalesInvoiceView);
-    public salesInvoiceViewObs =this.salesInvoiceView.asObservable()
+    public salesInvoiceViewObs =this.salesInvoiceView.asObservable()  public sendSalesManLookup = new BehaviorSubject<{ id: number;
+    name: string;
+    }[]>([]);
+
   constructor(private TransactionsProxy : TransactionProxyService ,    private toasterService: ToasterService,
     private languageService: LanguageService,
     private loaderService: LoaderService,
