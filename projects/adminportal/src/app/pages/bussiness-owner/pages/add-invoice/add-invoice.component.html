@@ -71,7 +71,7 @@
                 </div>
 
             </div>
-        </form>
+       
 
         <div class="line"></div>
         <div class="card_micro">
@@ -92,7 +92,8 @@
                         <div class="mt-5">
                             <div class="form-floating mb-3">
                                 <input min="0" type="number" class="form-control" id="floatingInput"
-                                    placeholder="name@example.com">
+                                formControlName="subDomainPrice"    
+                                >
                                 <label for="floatingInput">Set Price</label>
                             </div>
                         </div>
@@ -104,6 +105,7 @@
             </div>
 
         </div>
+    </form>
         <div class="line"></div>
         <div class="card_micro">
             <h3>
@@ -122,7 +124,7 @@
                         <div>
                             <div class="form-floating mb-3">
                                 <input min="0" type="number" class="form-control" [id]="'price-' + item.id"
-                                    [(ngModel)]="item.price" (ngModelChange)="updateAppPrice(i, item.price)"
+                                    [(ngModel)]="item.price" (keyup)="updateAppPrice( item, item.price)"
                                     placeholder="Set Price" />
                                 <label [for]="'price-' + item.id">Set Price</label>
                             </div>

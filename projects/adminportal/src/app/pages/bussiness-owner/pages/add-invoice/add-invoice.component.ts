@@ -87,20 +87,23 @@ export class AddInvoiceComponent {
         appPrice: item.price,
         appCount: 1
       });
-      console.log(this.invoiceApps, "this.invoiceApps");
 
     } else {
       this.invoiceApps = this.invoiceApps.filter(app => app.appId !== item.id);
-      console.log(this.invoiceApps, "this.invoiceApps");
 
     }
   }
 
-  updateAppPrice(index: number, newPrice: number) {
-    if (this.invoiceApps[index]) {
-      this.invoiceApps[index].appPrice = newPrice;
-    }
+  updateAppPrice(item: any, newPrice: number) {
+    
+    this.invoiceApps.forEach((element: any) => {
+      if (element.appId == item.id) {
+        element.appPrice = newPrice; 
+      }
+    });
   }
+   
+  
 
   updateLicenseDetails(event: any, item: any, field: string) {
     if (!item) {
@@ -169,6 +172,9 @@ export class AddInvoiceComponent {
       this.totalPrice += license.licensePrice * license.numberOfUsers;
     });
 
+    const subDomainPrice = this.addForm.get('subDomainPrice')?.value;
+      this.totalPrice += subDomainPrice
+
     this.addForm.get('totalPrice')?.setValue(this.totalPrice);
   }
   onSave() {
@@ -180,7 +186,6 @@ export class AddInvoiceComponent {
       this.addInvoiceAppToForm(app);
     });
 
-    console.log(this.addForm.value);
     if (!this.formsService.validForm(this.addForm, false)) return;
     this.bussinessOwnerService.addInvoice(this.addForm.value)
 
