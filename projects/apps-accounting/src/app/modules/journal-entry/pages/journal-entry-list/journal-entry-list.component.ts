@@ -79,15 +79,15 @@ export class JournalEntryListComponent implements OnInit {
 
   filter() {
     const filter = {
-      FromDate: this.filterForm.get('range')!.value[0]
+      FromDate: this.filterForm.get('range')!.value?.[0]
         ? new Date(this.filterForm.get('range')!.value[0]).toISOString().slice(0, 10)
         : '',
-      ToDate: this.filterForm.get('range')!.value[1]
+      ToDate: this.filterForm.get('range')!.value?.[1]
         ? new Date(this.filterForm.get('range')!.value[1]).toISOString().slice(0, 10)
         : '',
-      Type: this.filterForm.get('type')!.value,
-      Status: this.filterForm.get('status')!.value,
-      SourceDocument: this.filterForm.get('sourceDocument')!.value,
+      Type: this.filterForm.get('type')!.value ?? '',
+      Status: this.filterForm.get('status')!.value ?? '',
+      SourceDocument: this.filterForm.get('sourceDocument')!.value ?? '',
     };
     this.journalEntryService.getAllJournalEntriesPaginated('', new PageInfo(), filter);
   }
