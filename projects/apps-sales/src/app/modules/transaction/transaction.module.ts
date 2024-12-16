@@ -62,7 +62,7 @@ const routes: Routes = [
             component: SequenceComponent,
             data: {
               moduleId: Modules.Sales,
-              pageId: Pages.PricePolicy,
+              pageId: Pages.SalesInvoice,
               breadcrumb: BreadcrumbLabel.SEQUENCE,
               pageTitle: BreadcrumbLabel.SEQUENCE,
             },

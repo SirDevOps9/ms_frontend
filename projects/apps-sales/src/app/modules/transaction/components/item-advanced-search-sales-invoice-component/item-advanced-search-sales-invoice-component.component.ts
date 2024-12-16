@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
-import { DynamicDialogRef } from 'primeng/dynamicdialog';
-import { PurchaseTransactionsService } from 'projects/apps-purchase/src/app/modules/purchase-transactions/purchase-transactions.service';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { PageInfo, PageInfoResult, LanguageService } from 'shared-lib';
 import { ItemDto, SharedSalesEnums } from '../../../sales/models';
+import { TransactionService } from '../../transaction.service';
 
 @Component({
   selector: 'app-item-advanced-search-sales-invoice-component',
@@ -29,8 +29,9 @@ export class ItemAdvancedSearchSalesInvoiceComponentComponent  implements OnInit
     public sharedEnums: SharedSalesEnums,
     private ref: DynamicDialogRef,
     private fb: FormBuilder,
-    private purchaseTransaction: PurchaseTransactionsService,
-    private langService: LanguageService
+    private salesTransactionService: TransactionService,
+    private langService: LanguageService,
+    private config : DynamicDialogConfig
   ) {
     this.currentLang = this.langService.getLang();
     this.selectedLanguage = this.langService.getLang();
@@ -45,23 +46,23 @@ export class ItemAdvancedSearchSalesInvoiceComponentComponent  implements OnInit
   }
 
   subscribes() {
-    this.purchaseTransaction.itemsDataSourceForAdvanced.subscribe({
+    this.salesTransactionService.itemsDataSourceForAdvanced.subscribe({
       next: (res: any) => {
         this.items = res;
       },
     });
 
-    this.purchaseTransaction.currentPageInfo.subscribe((currentPageInfo) => {
+    this.salesTransactionService.currentPageInfo.subscribe((currentPageInfo) => {
       this.currentPageInfo = currentPageInfo;
     });
   }
 
   initItemsData() {
-    this.purchaseTransaction.getItemsForAdvancedSearch('', '', new PageInfo());
+    this.salesTransactionService.getItemsForAdvancedSearch(this.config.data.warehouseId , '', '', new PageInfo());
   }
 
   onPageChange(pageInfo: PageInfo) {
-    this.purchaseTransaction.getItemsForAdvancedSearch('', '', pageInfo);
+    this.salesTransactionService.getItemsForAdvancedSearch(this.config.data.warehouseId , '', '', pageInfo);
   }
 
   onSubmit() {
@@ -78,10 +79,10 @@ export class ItemAdvancedSearchSalesInvoiceComponentComponent  implements OnInit
 
   onFilterChange() {
     const query = this.buildQuery();
-    this.purchaseTransaction.getItemsForAdvancedSearch(query, '', new PageInfo());
+    this.salesTransactionService.getItemsForAdvancedSearch(this.config.data.warehouseId , query, '', new PageInfo());
   }
   onSearchChange(event: any) {
-    this.purchaseTransaction.getItemsForAdvancedSearch('', event, new PageInfo());
+    this.salesTransactionService.getItemsForAdvancedSearch(this.config.data.warehouseId , '', event, new PageInfo());
   }
 
   buildQuery(): string {

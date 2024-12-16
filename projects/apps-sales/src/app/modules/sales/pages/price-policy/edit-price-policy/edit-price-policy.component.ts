@@ -25,13 +25,20 @@ export class EditPricePolicyComponent {
   filteredPricePolicies: any;
 
   addForm: FormGroup;
-  @ViewChild('dt') dt: any | undefined;
+  @ViewChild('dt') dt: any;
+  globalFilterFields: string[] = [
+    'itemId',
+    'itemName',
+    'itemCode',
+    'uomName',
+    'itemVariantName',
 
+  ];
   ngOnInit() {
-  this.gitData()
-    this.subscribes()
     this.initItemsData()
     this.initializeForm()
+  this.gitData()
+    this.subscribes()
   }
 
   get currentLang(): string {
@@ -86,6 +93,7 @@ export class EditPricePolicyComponent {
           itemName: new FormControl(''),
           itemCode: new FormControl(''),
           isVatApplied: new FormControl(false),
+          isSellingPriceIncludeVat: new FormControl(false),
           uomId: new FormControl(''),
           uomName: new FormControl(''),
           itemVariantId: new FormControl(''),
@@ -209,11 +217,12 @@ export class EditPricePolicyComponent {
 
   }
   setExcelData(rowIndex: number, selectedItemId: number, selectedItem: ItemDto) {
-    const selectedItems = this.items.find(item => item.id === selectedItemId);
+    const selectedItems = selectedItem;
+    
     const rowForm = this.pricePolicyFormArray.at(rowIndex) as FormGroup;
 
     if (selectedItems) {
-      const uomOptions: any = selectedItem.itemsUOM;
+      const uomOptions: any = selectedItem?.itemsUOM;
       rowForm.get('uomOptions')?.setValue(uomOptions);
       rowForm.get('uomId')?.reset(); // Reset the UOM value to avoid conflicts
       rowForm.get('uomId')?.setValue(selectedItem.uomId);
@@ -240,6 +249,7 @@ export class EditPricePolicyComponent {
       rowForm.get('id')?.setValue(rowIndex + 1);
       rowForm.get('price')?.setValue(selectedItem.price);
       rowForm.get('isVatApplied')?.setValue(selectedItem.isVatApplied);
+      rowForm.get('isSellingPriceIncludeVat')?.setValue(selectedItem.isSellingPriceIncludeVat);
 
       const isDuplicate = this.pricePolicyFormArray.controls.some((element: any, index: number) => {
         if (index !== rowIndex) {
@@ -306,8 +316,9 @@ export class EditPricePolicyComponent {
     const rowForm = this.pricePolicyFormArray.at(index) as FormGroup;
     rowForm.get('priceWithVat')?.setValue(0);
     const taxRatio: any = rowForm.get('taxRatio')?.value
-    let priceWithVat = Number(price) + ((Number(price) * taxRatio) / 100)
-    if (rowForm.get('isVatApplied')?.value == true) {
+    let priceWithVat = ((Number(price)) / ((taxRatio/100)+1 ))
+    // let priceWithVat = Number(price) + ((Number(price) * taxRatio) / 100)
+    if (rowForm.get('isSellingPriceIncludeVat')?.value == true) {
       rowForm.get('priceWithVat')?.setValue(priceWithVat);
     } else {
       rowForm.get('priceWithVat')?.setValue(price);
@@ -336,6 +347,10 @@ export class EditPricePolicyComponent {
         }));
       },
     });
+    this.addForm.get('policyItemsList')?.valueChanges.subscribe((res: any) => {
+      this.filteredPricePolicies = [...this.pricePolicyFormArray.controls];
+      this.addForm.updateValueAndValidity();
+    })
  
   }
   initializeFormWithData(data: any) {
@@ -480,6 +495,7 @@ export class EditPricePolicyComponent {
             uomId: detail.uomId,
             itemVariantId: detail.itemVariantId,
             isVatApplied: detail.isVatApplied, // Ensure it's a boolean
+            isSellingPriceIncludeVat: detail.isSellingPriceIncludeVat, // Ensure it's a boolean
             taxId: detail.taxId || null,
           }
           )),
@@ -572,6 +588,31 @@ export class EditPricePolicyComponent {
   // ngOnDestroy(): void {
   //   this.salesService.pricePolicyList.next([])
   // }
+ 
+
+  onSearchTermChange(search: any): void {
+    const term = search?.trim().toLowerCase() || '';  // Trim spaces and convert to lowercase
+
+    if (!term) {
+      // Reset to show all items when the search term is empty or spaces only
+      this.filteredPricePolicies = [...this.pricePolicyFormArray.controls];
+      return;
+    }
+
+    // Filter based on the search term
+    this.filteredPricePolicies = this.pricePolicyFormArray.controls.filter((policy: any) => {
+
+      return this.globalFilterFields.some((field) => {
+        const fieldValue = policy.value?.[field];
+
+        if (fieldValue != null) {
+          const fieldStringValue = fieldValue.toString().toLowerCase();
+          return fieldStringValue.includes(term);
+        }
+        return false;  // Return false if fieldValue is undefined or null
+      });
+    });
+  }
   constructor(
     private formBuilder: FormBuilder,
     private formsService: FormsService,

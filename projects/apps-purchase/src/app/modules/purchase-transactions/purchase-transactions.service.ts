@@ -30,6 +30,7 @@ export class PurchaseTransactionsService {
   public warehouseLookup = new BehaviorSubject<any>([]);
   public lastestItem = new BehaviorSubject<LatestItem[]>([]);
   public itemsDataSourceForAdvanced = new BehaviorSubject<LatestItem[]>([]);
+
   public sendPurchaseInvoice = new BehaviorSubject<AddPurchaseInvoiceDto>(
     {} as AddPurchaseInvoiceDto
   );
@@ -191,9 +192,9 @@ export class PurchaseTransactionsService {
     this.TransactionsProxy.addPurchaseInvoice(obj).subscribe((res) => {
       this.toasterService.showSuccess(
         this.languageService.transalte('purchase.success'),
-        this.languageService.transalte('purchase.addInvoice')
-      );
-      this.sendPurchaseInvoice.next(res);
+        this.languageService.transalte('purchase.addInvoice') 
+      ); 
+     this.sendPurchaseInvoice.next(res);
     });
   }
 

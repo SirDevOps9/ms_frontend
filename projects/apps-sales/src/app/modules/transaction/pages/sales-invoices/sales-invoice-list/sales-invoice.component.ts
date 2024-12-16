@@ -3,9 +3,11 @@ import {
   PageInfoResult,
   PageInfo,
   RouterService,
+  SharedEnums,
 } from 'shared-lib';
 import {  Router } from '@angular/router';
 import { SalesInvoiceListView } from '../../../models/sales-invoice-dto';
+import { SequenceService } from 'apps-shared-lib';
 
 @Component({
   selector: 'app-sales-invoice',
@@ -82,10 +84,17 @@ export class SalesInvoiceComponent {
     );
   }
   onAdd(){
-      this.routerService.navigateTo(`transaction/sales-invoice/add`);
+        this.sequenceService.isHaveSequence(
+          this.sharedEnums.Pages.SalesInvoice,
+          '/transaction/sales-invoice/add'
+        );
+      
   }
 
-  constructor( private routerService: RouterService, private router: Router){
+  constructor( private routerService: RouterService, private router: Router ,   private sequenceService: SequenceService,
+    private sharedEnums: SharedEnums
+
+  ){
 
   }
 }
