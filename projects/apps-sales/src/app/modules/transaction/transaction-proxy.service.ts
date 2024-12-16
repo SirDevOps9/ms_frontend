@@ -172,5 +172,10 @@ export class TransactionProxyService {
   deleteSalseInvoice(id:number): Observable<boolean> {
     return this.httpService.delete<boolean>(`SalesInvoice/${id}`);
   }
+  deleteReturnSalesInvoice(id:number): Observable<boolean> {
+    return this.httpService.delete<boolean>(`ReturnSalesInvoice/${id}`);
+  }
+
+
 
 }

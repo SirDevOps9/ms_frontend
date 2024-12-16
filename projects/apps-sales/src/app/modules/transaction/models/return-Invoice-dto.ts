@@ -1,4 +1,5 @@
 export interface ReturnInvoiceListView {
+  id:number;
   invoiceCode: string;
   invoiceDate: string;
   customerCode: string;

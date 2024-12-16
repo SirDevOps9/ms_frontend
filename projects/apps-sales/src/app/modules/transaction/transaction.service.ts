@@ -165,8 +165,8 @@ export class TransactionService {
       this.TransactionsProxy.deleteSalseInvoice(id).subscribe({
         next: (res) => {
           this.toasterService.showSuccess(
-            this.languageService.transalte('deleteCustomerCategory.success'),
-            this.languageService.transalte('deleteCustomerCategory.delete')
+            this.languageService.transalte('salesInvoice.success'),
+            this.languageService.transalte('salesInvoice.delete')
           );
           let data = this.salesInvoice.getValue();
           const updatedDate = data.filter((elem) => elem.id!== id);
@@ -227,15 +227,15 @@ export class TransactionService {
   async deleteRetuenSalesInvoiceList(id: number) {
     const confirmed = await this.toasterService.showConfirm('Delete');
     if (confirmed) {
-      this.TransactionsProxy.deleteSalseInvoice(id).subscribe({
+      this.TransactionsProxy.deleteReturnSalesInvoice(id).subscribe({
         next: (res) => {
           this.toasterService.showSuccess(
-            this.languageService.transalte('deleteCustomerCategory.success'),
-            this.languageService.transalte('deleteCustomerCategory.delete')
+            this.languageService.transalte('salesInvoice.success'),
+            this.languageService.transalte('salesInvoice.delete')
           );
-          let data = this.salesInvoice.getValue();
+          let data = this.returnSalesInvoiceList.getValue();
           const updatedDate = data.filter((elem) => elem.id!== id);
-          this.salesInvoice.next(updatedDate);
+          this.returnSalesInvoiceList.next(updatedDate);
           return res;
         },
         error: (err) => {},

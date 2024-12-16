@@ -71,6 +71,7 @@ export class SalesInvoiceComponent {
 
   onDelete(id: number) {
     this.transaction_services.deleteCustomerCategory(id);
+    this.inGetData()
   }
 
   navigateHelpPageComponent() {

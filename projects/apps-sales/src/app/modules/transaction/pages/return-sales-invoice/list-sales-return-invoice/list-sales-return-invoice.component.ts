@@ -28,15 +28,23 @@ export class ListSalesReturnInvoiceComponent {
   filteredColumns: string[] = [];
   columns: { name: any; headerText: any }[] = [
     { name: 'code', headerText:('salesInvoice.code') },
+    { name: 'returnInvoiceDate', headerText:('salesInvoice.invoiceDate') },
     { name: 'customerCode', headerText:('salesInvoice.customerCode') },
     { name: 'customerName', headerText:('salesInvoice.customerName') },
     { name: 'warehouseName', headerText:('salesInvoice.warehouse') },
     { name: 'invoiceJournalCode', headerText:('salesInvoice.relatedJournal') },
+    { name: 'createdOn', headerText:('salesInvoice.createdStockout') },
+    { name: 'totaOfQuantity', headerText:('salesInvoice.totalQuantity') },
+    { name: 'noOfItems', headerText:('salesInvoice.numberOfItems') },
+    { name: 'totalNetAmount', headerText:('salesInvoice.total') },
+    { name: 'totalVatAmount', headerText:('salesInvoice.vatAmount') },
+    { name: 'grandTotal', headerText:('salesInvoice.totalAfterVat') },
+
 
   ]
 
   ngOnInit() {
-    this.initItemDefinitionData();
+    this.inGetData();
   }
 
 
@@ -50,7 +58,7 @@ export class ListSalesReturnInvoiceComponent {
   }
 
 
-  initItemDefinitionData() {
+  inGetData() {
     this.transaction_service.getReturnSalesInvoiceList('', new PageInfo());
     this.transaction_service.returnsalseInvoiceListObs$.subscribe({
       next: (res) => {
@@ -97,6 +105,10 @@ export class ListSalesReturnInvoiceComponent {
       this.routerService.navigateTo(`transaction/sales-invoice/add`);
   }
 
+  onDelete(id: number) {
+    this.transaction_service.deleteCustomerCategory(id);
+    this.inGetData()
+  }
   constructor( private routerService: RouterService, private router: Router,
     private transaction_service:TransactionService,
     private exportService:ExportService,
