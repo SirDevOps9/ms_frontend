@@ -24,6 +24,7 @@ export class MultiSelectItemStockInComponent implements OnInit {
   filterForm: FormGroup = this.fb.group({
     categoryType: new FormControl(),
     hasExpiryDate: new FormControl(false),
+    noTracking: new FormControl(false),
   });
 
   constructor(
@@ -90,7 +91,7 @@ export class MultiSelectItemStockInComponent implements OnInit {
   buildQuery(): string {
     const isStorable = this.filterForm.get('categoryType')?.value!;
     const hasExpiryDate = this.filterForm.get('hasExpiryDate')?.value;
-
+    const noTracking = this.filterForm.get('noTracking')?.value;
     const query: string[] = [];
 
     isStorable.forEach((checkbox: any) => {
@@ -98,6 +99,7 @@ export class MultiSelectItemStockInComponent implements OnInit {
     });
 
     if (hasExpiryDate.length > 0) query.push(`HasExpiryDate=${hasExpiryDate}`);
+    if (noTracking.length > 0) query.push(`noTracking=${noTracking}`);
 
     const result = query.join('&');
 

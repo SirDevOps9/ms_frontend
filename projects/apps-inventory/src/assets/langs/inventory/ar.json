@@ -367,7 +367,7 @@
     "attributeDefinition": "تعريف الصفة",
     "AttributeDefinitionView": "عرض تعريف السمة",
     "attribute": "الصفة",
-    "attributeEditStatus" : "تم تغيير الحاله بنجاح",
+    "attributeEditStatus": "تم تغيير الحاله بنجاح",
 
     "AddNewLine": "إضافة سطر جديد",
     "add_new": "إضافة جديد",
@@ -495,7 +495,9 @@
     "noTracking": "بدون تتبع",
     "required": "مطلوب",
     "deleteStockInLine": "تم حذف العنصر بنجاح",
-    "stockEdit": "تم تحديث البيانات بنجاح"
+    "stockEdit": "تم تحديث البيانات بنجاح",
+    "hasSerial": "الرقم التسلسلي",
+    "hasBatch": "الدفعة"
   },
   "stockOut": {
     "import": "استيراد",

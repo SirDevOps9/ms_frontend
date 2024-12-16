@@ -335,7 +335,7 @@
     "attributeValues": "Attribute Values",
     "AttributeDefinitionView": "Attribute Definition View",
     "AddAttributeDefinition": "Add Attribute Definition",
-    "attributeEditStatus" : "status Changed Successfully",
+    "attributeEditStatus": "status Changed Successfully",
     "attribute": "Attribute",
     "EditAttributeDefinition": "Edit Attribute Definition",
     "AddNewLine": "Add New Line",
@@ -506,7 +506,9 @@
     "generatedBatch": "Generated Batch",
     "vendorBatchNo": "Batch No",
 
-    "stockEdit": "Data Updated Successfully"
+    "stockEdit": "Data Updated Successfully",
+    "hasSerial": "Has Serial",
+    "hasBatch": "Has Batch"
   },
   "transactions": {
     "deleteStockIn": "Stock In deleted successfully",

@@ -1,38 +1,51 @@
 ::ng-deep {
-    .p-inputtext {
-        border: 1px solid #e3e3e3;
-        padding-block: 11px;
-        outline: none !important;
-        box-shadow: none !important;
-        width: 100%;
-    }
+  .p-inputtext {
+    border: 1px solid #e3e3e3;
+    padding-block: 11px;
+    outline: none !important;
+    box-shadow: none !important;
+    width: 100%;
+  }
 }
 
 .search-circle,
 .pointer {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .track {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .hide {
-    display: none
+  display: none;
 }
 
 .danger {
-    color: rgb(237, 42, 42);
-    text-align: center;
+  color: rgb(237, 42, 42);
+  text-align: center;
 }
 
 .no-tracking {
-    background-color: #F2F4F8;
+  background-color: #f2f4f8;
 }
 
 .readonly-calendar {
-    pointer-events: none;
-    background-color: #f0f0f0;
-    color: #aaa;
-    cursor: not-allowed;
+  pointer-events: none;
+  background-color: #f0f0f0;
+  color: #aaa;
+  cursor: not-allowed;
+}
+::ng-deep {
+  .pop_up_page .pop_up_content {
+    padding: 0px !important;
+    width: 100%;
+    max-height: 507px !important;
+    overflow: auto;
+
+    .card,
+    .viewInWeb {
+      margin: 0 !important;
+    }
+  }
 }

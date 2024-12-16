@@ -38,6 +38,7 @@ export class DataTableComponent implements OnInit, OnChanges {
   @Input() className: string = '';
   @Input() reportTable: boolean = false;
   @Input() rowTemplate: TemplateRef<any>;
+  @Input() headerPaginator: boolean = true;
 
   @Output() pageChange = new EventEmitter<PageInfo>();
   @Output() addNew = new EventEmitter<boolean>(false);

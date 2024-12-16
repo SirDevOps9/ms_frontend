@@ -14,6 +14,7 @@
         [showCheckBox]="false"
         className="p-datatable-gridlines  no-row-click"
         [currentPageResult]="currentPageInfo"
+        [headerPaginator]="false"
         (pageChange)="onPageChange($event)"
         [tableConfigs]="{
           allowPagination: false,
@@ -71,8 +72,8 @@
               </lib-text-input>
             </div>
             <div class="md:col-12">
-              <div class="items_filter">
-                <div class="md:col-4">
+              <div class="items_filter grid">
+                <div class="col">
                   <lib-form-group>
                     <div class="checkbox_filter">
                       <p-checkbox
@@ -90,7 +91,7 @@
                     </div>
                   </lib-form-group>
                 </div>
-                <div class="md:col-4">
+                <div class="col">
                   <lib-form-group>
                     <div class="checkbox_filter">
                       <p-checkbox
@@ -109,7 +110,7 @@
                   </lib-form-group>
                 </div>
 
-                <div class="md:col-4">
+                <div class="col">
                   <lib-form-group>
                     <div class="checkbox_filter">
                       <p-checkbox
@@ -123,6 +124,60 @@
                         [appControl]="filterForm.controls['hasExpiryDate']"
                       >
                         {{ 'stockIn.HasExpiryDate' | translate }}
+                      </lib-label>
+                    </div>
+                  </lib-form-group>
+                </div>
+                <div class="col">
+                  <lib-form-group>
+                    <div class="checkbox_filter">
+                      <p-checkbox
+                        formControlName="categoryType"
+                        inputId="hasBatch"
+                        value="{{ sharedEnums.GetItemsQueryEnum.hasBatch }}"
+                      ></p-checkbox>
+                      <lib-label
+                        class="margin_start"
+                        for="hasBatch"
+                        [appControl]="filterForm.controls['categoryType']"
+                      >
+                        {{ 'stockIn.hasBatch' | translate }}
+                      </lib-label>
+                    </div>
+                  </lib-form-group>
+                </div>
+                <div class="col">
+                  <lib-form-group>
+                    <div class="checkbox_filter">
+                      <p-checkbox
+                        formControlName="categoryType"
+                        inputId="hasSerial"
+                        value="{{ sharedEnums.GetItemsQueryEnum.hasSerial }}"
+                      ></p-checkbox>
+                      <lib-label
+                        class="margin_start"
+                        for="hasSerial"
+                        [appControl]="filterForm.controls['categoryType']"
+                      >
+                        {{ 'stockIn.hasSerial' | translate }}
+                      </lib-label>
+                    </div>
+                  </lib-form-group>
+                </div>
+                <div class="col">
+                  <lib-form-group>
+                    <div class="checkbox_filter">
+                      <p-checkbox
+                        formControlName="noTracking"
+                        inputId="noTracking"
+                        [value]="true"
+                      ></p-checkbox>
+                      <lib-label
+                        class="margin_start"
+                        for="noTracking"
+                        [appControl]="filterForm.controls['noTracking']"
+                      >
+                        {{ 'stockIn.noTracking' | translate }}
                       </lib-label>
                     </div>
                   </lib-form-group>

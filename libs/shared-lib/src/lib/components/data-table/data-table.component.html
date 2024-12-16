@@ -30,7 +30,11 @@
             <div class="flex align-items-center">
               <div
                 class="paginationHead"
-                *ngIf="tableConfigs.allowServerPagination && currentPageResult.totalItems"
+                *ngIf="
+                  tableConfigs.allowServerPagination &&
+                  currentPageResult.totalItems &&
+                  headerPaginator
+                "
                 [class.none]="currentPageResult.totalItems! <= 25"
               >
                 <p-paginator
