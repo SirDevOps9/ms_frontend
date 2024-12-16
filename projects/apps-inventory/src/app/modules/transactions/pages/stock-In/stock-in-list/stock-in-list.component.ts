@@ -104,16 +104,17 @@ export class StockInListComponent implements OnInit {
 
   filter() {
     const filter = {
-      FromDate: this.filterForm.get('range')!.value[0]
-        ? new Date(this.filterForm.get('range')!.value[0]).toISOString().slice(0, 10)
+      FromDate: this.filterForm.get('range')?.value?.[0]
+        ? new Date(this.filterForm.get('range')?.value?.[0]).toISOString().slice(0, 10)
         : '',
-      ToDate: this.filterForm.get('range')!.value[1]
-        ? new Date(this.filterForm.get('range')!.value[1]).toISOString().slice(0, 10)
+      ToDate: this.filterForm.get('range')?.value?.[1]
+        ? new Date(this.filterForm.get('range')?.value?.[1]).toISOString().slice(0, 10)
         : '',
-      Status: this.filterForm.get('status')!.value,
-      SourceDocumentType: this.filterForm.get('sourceDocument')!.value,
-      WarehouseId: this.filterForm.get('warehouse')!.value,
+      Status: this.filterForm.get('status')?.value ?? '',
+      SourceDocumentType: this.filterForm.get('sourceDocument')?.value ?? '',
+      WarehouseId: this.filterForm.get('warehouse')?.value ?? '',
     };
+
     this.transactionsService.getAllStockIn('', new PageInfo(), filter);
   }
 
@@ -121,7 +122,7 @@ export class StockInListComponent implements OnInit {
     this.transactionsService.stockInDataSourceeObservable.subscribe({
       next: (res) => {
         this.tableData = res;
-        console.log(this.tableData);
+
         this.checkDataPosted = this.tableData.map((item) => item.stockInStatus);
       },
     });
@@ -216,6 +217,5 @@ export class StockInListComponent implements OnInit {
     public sharedFinanceEnums: SharedStock,
     public sequenceService: SequenceService,
     public sharedEnums: SharedEnums
-  ) {
-  }
+  ) {}
 }
