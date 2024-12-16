@@ -16,9 +16,8 @@
         pageSize: 10,
         columns: [
           {
-            name:'invoiceCode',
+            name:'code',
             headerText: ('salesInvoice.code' | translate),
-
             isGlobalFilter: true,
             isSortable: true
           },
@@ -26,26 +25,16 @@
             name:'invoiceDate',
             headerText: ('salesInvoice.invoiceDate' | translate),
             isGlobalFilter: true,
-            isSortable: true
+            isSortable: true,
+            template:isCreatedInvoice
           },
+
           {
-            name: 'salesman',
-            headerText: ('salesInvoice.salesMan' | translate),
-            isGlobalFilter: true,
-            isSortable: true
-          },
-          {
-            name: 'warehouse',
+            name: 'warehouseName',
             headerText: ('salesInvoice.warehouse' | translate),
             isGlobalFilter: true,
             isSortable: true
           },
-
-
-
-
-
-
 
           {
             name: 'customerCode',
@@ -62,42 +51,43 @@
           },
 
           {
-            name: 'paymentTerms',
+            name: 'paymentTermName',
             headerText: ('salesInvoice.paymentTerms' | translate),
             isGlobalFilter: true,
             isSortable: true
           },
 
           {
-            name: 'creditLimit',
+            name: 'customerCreditLimit',
             headerText: ('salesInvoice.creditLimit' | translate),
             isGlobalFilter: true,
             isSortable: true
           },
 
           {
-            name: 'relatedJournal',
+            name: 'invoiceJournalCode',
             headerText: ('salesInvoice.relatedJournal' | translate),
             isGlobalFilter: true,
             isSortable: true
           },
 
           {
-            name: 'createdStockOut',
+            name: 'createdOn',
             headerText: ('salesInvoice.createdStockout' | translate),
             isGlobalFilter: true,
-            isSortable: true
+            isSortable: true,
+            template:isCreatedOn
           },
 
 
           {
-            name: 'totalQty',
+            name: 'totalQuantity',
             headerText: ('salesInvoice.totalQuantity' | translate),
             isGlobalFilter: true,
             isSortable: true
           },
           {
-            name: 'numberOfItems',
+            name: 'noOfItems',
             headerText: ('salesInvoice.numberOfItems' | translate),
             isGlobalFilter: true,
             isSortable: true
@@ -105,7 +95,7 @@
 
 
           {
-            name: 'totalAmount',
+            name: 'totalNetAmount',
             headerText: ('salesInvoice.total' | translate),
             isGlobalFilter: true,
             isSortable: true
@@ -113,7 +103,7 @@
 
 
           {
-            name: 'discountAmount',
+            name: 'totalDiscount',
             headerText: ('salesInvoice.disAmount' | translate),
             isGlobalFilter: true,
             isSortable: true
@@ -129,7 +119,7 @@
 
 
           {
-            name: 'vatAmount',
+            name: 'totalVatAmount',
             headerText: ('salesInvoice.vatAmount' | translate),
             isGlobalFilter: true,
             isSortable: true
@@ -137,7 +127,7 @@
 
 
           {
-            name: 'totalAfterVat',
+            name: 'grandTotal',
             headerText: ('salesInvoice.totalAfterVat' | translate),
             isGlobalFilter: true,
             isSortable: true
@@ -193,24 +183,25 @@
         </div>
         </ng-container>
 
-
-
-
-
-
-
-
-
-
-
-
-
+        <ng-template #isCreatedInvoice let-row>
+          <p >
+          {{row.invoiceDate |date:"dd/MM/YYYY"}}
+          </p>
+            </ng-template>
+            <ng-template #isCreatedOn let-row>
+              <p >
+              {{row.createdOn |date:"dd/MM/YYYY"}}
+              </p>
+                </ng-template>
 
 
       <ng-template #actions let-action>
         <div class="actions flex align-items-center">
+          <lib-button-micro nameClass="table_button_view" (click)="onVeiw(action.id)">
+          </lib-button-micro>
           <img src="assets/images/table/edit.svg" alt=""  />
-          <img src="assets/images/table/delete.svg" alt="" />
+          <img src="assets/images/table/delete.svg" (click)="onDelete(action.id)"/>
+
         </div>
       </ng-template>
 

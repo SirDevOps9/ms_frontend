@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
 import { TransactionProxyService } from './transaction-proxy.service';
 import { BehaviorSubject, map, Observable } from 'rxjs';
-import { AddSalesInvoice, LatestItem } from './models';
+import { AddSalesInvoice, LatestItem, SalesInvoiceListView } from './models';
 import { AddPurchaseInvoiceDto } from 'projects/apps-purchase/src/app/modules/purchase-transactions/models/addPurchaseInvoice';
 import { LanguageService, LoaderService, PageInfo, PageInfoResult, RouterService, ToasterService } from 'shared-lib';
+import { SalesInvoiceView } from './models/salesInvoice-view';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TransactionService {
+
   public lastestItem = new BehaviorSubject<LatestItem[]>([]);
   public sendcurrency = new BehaviorSubject<{rate : number}>({} as {rate : number});
   public warehouseLookup = new BehaviorSubject<any >([]);
@@ -19,7 +21,14 @@ export class TransactionService {
   public sendPricePolicyLookup = new BehaviorSubject<{ id: number;
     name: string;
     code: string}[]>([]);
+    private salesInvoice = new BehaviorSubject<SalesInvoiceListView[]>([]);
+    public salesInvoiceObs =this.salesInvoice.asObservable()
+    private exportSalesInvoice = new BehaviorSubject<SalesInvoiceListView[]>([]);
+    public exportSalesInvoiceObs =this.exportSalesInvoice.asObservable()
 
+
+    public salesInvoiceView = new BehaviorSubject<SalesInvoiceView>({} as SalesInvoiceView);
+    public salesInvoiceViewObs =this.salesInvoiceView.asObservable()
   constructor(private TransactionsProxy : TransactionProxyService ,    private toasterService: ToasterService,
     private languageService: LanguageService,
     private loaderService: LoaderService,
@@ -44,7 +53,7 @@ export class TransactionService {
     });
   }
 
-  
+
   latestVendor(searchTerm: string | undefined){
     return  this.TransactionsProxy.LatestVendor(searchTerm).pipe(
       map((res) => {
@@ -59,14 +68,14 @@ export class TransactionService {
       this.currentPageInfo.next(res.pageInfoResult);
     });
   }
- 
+
 
   addSalesInvoice(obj : AddSalesInvoice) {
     this.TransactionsProxy.addSalesInvoice(obj).subscribe((res) => {
       this.toasterService.showSuccess(
         this.languageService.transalte('salesInvoice.success'),
-        this.languageService.transalte('salesInvoice.salesInvoiceSuccess') 
-      ); 
+        this.languageService.transalte('salesInvoice.salesInvoiceSuccess')
+      );
      this.sendSalesInvoice.next(res);
     });
   }
@@ -106,6 +115,46 @@ export class TransactionService {
     });
   }
 
+  getSalseInvoice(SearchTerm: string, pageInfo: PageInfo){
+    this.TransactionsProxy.getSalseInvoiceList(SearchTerm, pageInfo).subscribe((res:any)=>{
+       this.salesInvoice.next(res)
+       this.currentPageInfo.next(res.pageInfoResult);
+    })
+  }
+
+  getSalseInvoiceById(id:number){
+    this.TransactionsProxy.getSalseInvoiceById(id).subscribe((res)=>{
+       this.salesInvoiceView.next(res)
+    })
+  }
+
+  async deleteCustomerCategory(id: number) {
+    const confirmed = await this.toasterService.showConfirm('Delete');
+    if (confirmed) {
+      this.TransactionsProxy.deleteSalseInvoice(id).subscribe({
+        next: (res) => {
+          this.toasterService.showSuccess(
+            this.languageService.transalte('deleteCustomerCategory.success'),
+            this.languageService.transalte('deleteCustomerCategory.delete')
+          );
+          let data = this.salesInvoice.getValue();
+          const updatedDate = data.filter((elem) => elem.id!== id);
+          this.salesInvoice.next(updatedDate);
+          return res;
+        },
+        error: (err) => {},
+      });
+    }
+  }
+
+
+    exportSalseInvoiceList(SearchTerm: string ,SortBy?: number, SortColumn?: string) {
+      this.TransactionsProxy.exportSalseInvoiceList(SearchTerm,SortBy,SortColumn).subscribe({
+        next: (res: any) => {
+          this.exportSalesInvoice.next(res);
+        },
+      });
+    }
 
 
 

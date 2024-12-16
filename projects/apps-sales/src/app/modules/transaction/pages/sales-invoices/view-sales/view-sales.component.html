@@ -1,1 +1,450 @@
-<p>view-sales works!</p>
+<lib-page-content
+[title]="'salesInvoice.salesReturnInvoice' | translate"
+[subTitle]="'salesInvoice.salesReturnInvoice' | translate"
+>
+  <div class="stockInForm_header card_micro">
+    <div class="md:col-12 mt-2">
+      <!-- main Information first form -->
+      <div class="card_information">
+        <div class="line"></div>
+        <div class="item">
+          <div class="title heading_b18">
+            <p class="p-0 m-0">{{ 'salesInvoice.mainInformation' | translate }}</p>
+          </div>
+          <div class="item_body">
+            <div class="grid">
+              <!-- invoice code  -->
+              <div class="md:col-2 my-2">
+                  <div class="my-2">
+                    <label >
+                      {{ 'salesInvoice.code' | translate }}
+                    </label>
+                  </div>
+                <lib-text-input
+                class="my-2"
+                  [readOnly]="true"
+                  placeholder="{{data.code}}"
+
+                ></lib-text-input>
+
+              </div>
+              <!-- invoice date -->
+              <div [ariaReadOnly]="true" class="md:col-2 my-2">
+                  <div class="my-2">
+                    <label >
+                      {{ 'salesInvoice.invoiceDate' | translate }}
+                    </label>
+
+                </div>
+                <lib-calendar
+                  [ngClass]="{ 'readonly-calendar': true }"
+                  placeholder="{{data.invoiceDate | date:'dd/MM/YYYY'}}"
+                ></lib-calendar>
+              </div>
+              <!-- created stock out -->
+              <div class="md:col-4 my-2">
+                <div class="my-2">
+                  <label >
+                    {{ 'salesInvoice.createdStockIn' | translate }}
+                  </label>
+
+              </div>
+                <lib-text-input
+                  placeholder="{{ data?.stockOutCode }}"
+                     [readOnly]="true"
+                ></lib-text-input>
+
+              </div>
+              <!-- related Journal -->
+              <div class="md:col-4 my-2">
+                <div class="my-2">
+                  <label >
+                    {{ 'salesInvoice.relatedJournal' | translate }}
+                  </label>
+              </div>
+                <lib-text-input
+                  placeholder="{{data?.invoiceJournalCode}}"
+                  [readOnly]="true"
+                ></lib-text-input>
+
+              </div>
+
+              <!-- description -->
+              <div class="md:col-4 my-2">
+                <div class="my-2">
+                  <label >
+                    {{ 'salesInvoice.description' | translate }}
+                  </label>
+              </div>
+
+                <textarea
+                  pInputTextarea
+                  style="width: 100%; max-width: 100%; height: auto; max-height: 150px"
+                  rows="1"
+                  [readOnly]="true"
+                  placeholder="{{ data?.description }}"
+                ></textarea>
+              </div>
+              <!-- warehouse  -->
+              <div class="md:col-4 my-2">
+                <div class="my-2">
+                  <label >
+                    {{ 'salesInvoice.warehouse' | translate }}
+                  </label>
+              </div>
+              <lib-text-input
+              placeholder="{{data?.warehouseName}}"
+              [readOnly]="true"
+            ></lib-text-input>
+
+              </div>
+              <!-- sales man -->
+              <div class="md:col-4 my-2">
+                <div class="my-2">
+                  <label >
+                    {{ 'salesInvoice.salesMan' | translate }}
+                  </label>
+              </div>
+              <lib-text-input
+              placeholder="{{data?.warehouseName}}"
+              [readOnly]="true"
+            ></lib-text-input>
+                <!-- <lib-field-validations
+                  [appControl]="salesReturnForm.controls['salesmanId']"
+                ></lib-field-validations> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="md:col-12 mt-2">
+      <div class="card_information">
+        <div class="line"></div>
+        <div class="item">
+          <div class="title heading_b18">
+            <p class="p-0 m-0">{{ 'salesInvoice.customerInformation' | translate }}</p>
+          </div>
+          <div class="item_body">
+            <div class="grid">
+              <!-- customer code -->
+
+              <div class="md:col-4">
+                <div class="my-2">
+                  <label >
+                    {{ 'salesInvoice.customerCode' | translate }}
+                  </label>
+                </div>
+                <div class="grid align-items-center">
+                  <div class="md:col-12">
+                    <lib-text-input
+                    [readOnly]="true"
+                    placeholder="{{ data?.customerCode}}"
+                  ></lib-text-input>
+
+                  </div>
+                </div>
+              </div>
+
+              <!--customerName  -->
+              <div class="md:col-4 my-2">
+                <div class="my-1">
+                  <label >
+                    {{ 'salesInvoice.customerName' | translate }}
+                  </label>
+                </div>
+                <lib-text-input
+                [readOnly]="true"
+                  placeholder="{{ data?.customerName }}"
+                ></lib-text-input>
+
+              </div>
+              <!-- currency -->
+
+              <div class="md:col-2">
+
+                <div class="my-2">
+                  <label >
+                    {{ 'salesInvoice.currency' | translate }}
+                  </label>
+                </div>
+                <lib-text-input
+                  placeholder="{{ data?.currencyName }}"
+                  [readOnly]="true"
+                ></lib-text-input>
+
+              </div>
+              <div class="md:col-2">
+                <div class="my-2">
+                  <label >
+                    {{ 'salesInvoice.rate' | translate }}
+                  </label>
+                </div>
+                <lib-text-input
+                [readOnly]="true"
+                  placeholder="{{data?.currencyRate }}"
+                ></lib-text-input>
+              </div>
+
+              <!-- paymentTerms -->
+
+              <div class="md:col-4">
+                <div class="my-2">
+                  <label >
+                    {{ 'salesInvoice.paymentTerms' | translate }}
+                  </label>
+                </div>
+                <lib-text-input
+                  placeholder="{{ data?.paymentTermName }}"
+                  [readOnly]="true"
+                ></lib-text-input>
+              </div>
+
+              <!-- credit  Limit -->
+              <div class="md:col-4 my-2">
+
+                <div class="my-2">
+                  <label >
+                    {{ 'salesInvoice.creditLimit' | translate }}
+                  </label>
+                </div>
+                <lib-text-input
+                [readOnly]="true"
+                  placeholder="{{ data?.customerCreditLimit }}"
+                ></lib-text-input>
+              </div>
+              <!-- pricePolicy -->
+              <div class="md:col-4 my-2">
+                <div class="my-2">
+                  <label >
+                    {{ 'salesInvoice.pricePolicy' | translate }}
+                  </label>
+                </div>
+                <lib-text-input
+                [readOnly]="true"
+                  placeholder="{{ data?.customerCreditLimit }}"
+                ></lib-text-input>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div  class="my-2 card_micro tableCont p-6">
+      <p-table
+      [value]="salesInvoiceDetails"
+      dataKey="id"
+      styleClass="p-datatable-gridlines p-datatable-striped"
+      [tableStyle]="{ 'min-width': '50rem' }"
+      styleClass="p-datatable-striped p-datatable-gridlines"
+    >
+
+    <ng-template pTemplate="header">
+      <tr>
+        <th>{{ 'salesInvoice.barcode' | translate }}</th>
+        <th>{{ 'salesInvoice.itemCode' | translate }}</th>
+        <th>{{ 'salesInvoice.itemDescription' | translate }}</th>
+        <th>{{ 'salesInvoice.UOM' | translate }}</th>
+        <th>{{ 'salesInvoice.QTY' | translate }}</th>
+        <th>{{ 'salesInvoice.price' | translate }}</th>
+        <th>{{ 'salesInvoice.subTotal' | translate }}</th>
+        <th>{{ 'salesInvoice.discount' | translate }}<span>%</span></th>
+        <th>{{ 'salesInvoice.discountAmount' | translate }}</th>
+        <th>{{ 'salesInvoice.totalAfterDiscount' | translate }}</th>
+        <th>{{ 'salesInvoice.vat' | translate }}</th>
+        <th>{{ 'salesInvoice.vatAmount' | translate }}</th>
+        <th>{{ 'salesInvoice.grandTotal' | translate }}</th>
+        <th>{{ 'salesInvoice.tracking' | translate }}</th>
+        <th>{{ 'salesInvoice.expiryDate' | translate }}</th>
+      </tr>
+    </ng-template>
+
+
+    <ng-template
+    pTemplate="body"
+    let-salesReturnFormGroup
+    let-editing="editing"
+    let-i="rowIndex"
+  >
+
+    <tr *ngFor="let item of salesInvoiceDetails">
+     <td>
+        {{item.barCode}}
+     </td>
+     <td>
+      {{item?.itemCode}}
+     </td>
+     <td>
+      {{item?.description}}
+     </td>
+     <td>
+      {{ currentLang === 'ar' ? item?.uomNameAr : item?.uomNameEn}}
+     </td>
+     <td>
+      {{ item?.quantity}}
+     </td>
+     <td>
+      {{ item?.cost}}
+     </td>
+     <td>
+      {{ item?.subCost}}
+     </td>
+     <td>
+      {{ item?.discountPercentage}}
+     </td>
+     <td>
+      {{ item?.discountAmount}}
+     </td>
+     <td>
+      {{item?.totalAfterDiscount}}
+     </td>
+     <td>
+      {{item?.vatAmount}}
+     </td>
+     <td>
+      {{item?.vatAmount}}
+     </td>
+
+     <td>
+      {{item?.grandTotal}}
+     </td>
+     <td>
+      {{item?.invoiceTracking}}
+     </td>
+     <td>
+      <lib-input-switch [disabled]="true" [(ngModel)]="item.hasExpiryDate">
+      </lib-input-switch>
+
+     </td>
+    </tr>
+
+  </ng-template>
+    </p-table>
+
+    </div>
+    <div class="floated">
+      <div class="divCont">
+        <p class="p-0 m-0">{{ 'salesInvoice.invoiceSummary' | translate }}</p>
+      </div>
+    </div>
+
+
+    <div class="card_micro">
+      <div class="grid my-3 foot">
+        <div class="col-6 grid">
+          <!-- number Of Item  -->
+          <div class="md:col-4">
+            <div class="my-2">
+              <label >
+                {{ 'salesInvoice.numberOfItems' | translate }}
+              </label>
+            </div>
+            <lib-text-input
+              placeholder="{{ data?.numberOfItems}}"
+              [readOnly]="true"
+            ></lib-text-input>
+          </div>
+          <!-- total -->
+          <div class="md:col-4">
+            <div class="my-2">
+              <label >
+                {{ 'salesInvoice.total' | translate }}
+              </label>
+            </div>
+            <lib-text-input
+              placeholder="{{ data?.grandTotal}}"
+              [readOnly]="true"
+            ></lib-text-input>
+          </div>
+          <!-- discount -->
+          <div class="md:col-4">
+            <div class="my-2">
+              <label >
+                {{ 'salesInvoice.discount' | translate }}
+              </label>
+            </div>
+            <lib-text-input
+              placeholder="{{ 'salesInvoice.discount' | translate }}"
+              [readOnly]="true"
+            ></lib-text-input>
+          </div>
+        </div>
+        <div class="grid col-12">
+          <!-- total of quantity -->
+          <div class="md:col-2">
+            <div class="my-2">
+              <label >
+                {{ 'salesInvoice.totalOfQuantity' | translate }}
+              </label>
+            </div>
+            <lib-text-input
+              placeholder="{{ data?.totalOfQuantity}}"
+              [readOnly]="true"
+            ></lib-text-input>
+
+          </div>
+          <!-- total After Discount -->
+          <div class="md:col-2">
+            <div class="my-2">
+              <label >
+                {{ 'salesInvoice.totalAfterDiscount' | translate }}
+              </label>
+            </div>
+            <lib-text-input
+              placeholder="{{ data?.totalAfterDiscount }}"
+              [readOnly]="true"
+            ></lib-text-input>
+          </div>
+          <!-- vat Amount -->
+          <div class="md:col-2">
+            <div class="my-2">
+              <label >
+                {{ 'salesInvoice.vatAmount' | translate }}
+              </label>
+            </div>
+            <lib-text-input
+              placeholder="{{ data?.totalVatAmount}}"
+              [readOnly]="true"
+            ></lib-text-input>
+          </div>
+          <!-- total After Vat -->
+          <div class="md:col-2">
+
+            <div class="my-2">
+              <label >
+                {{ 'salesInvoice.totalAfterVat' | translate }}
+              </label>
+            </div>
+            <lib-text-input
+              placeholder="{{ 'salesInvoice.totalAfterVat' | translate }}"
+              [readOnly]="true"
+            ></lib-text-input>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <div class="grid">
+        <div class="md:col-12 my-3 grid flex justify-content-end">
+          <div class="md:col-6 grid flex justify-content-end">
+            <div class="md:col-4">
+              <lib-button-micro
+                title="{{ 'Cancel' | translate }}"
+                nameClass="cancel"
+                widthNumber="100%"
+
+              >
+              </lib-button-micro>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    </div>
+    </lib-page-content>

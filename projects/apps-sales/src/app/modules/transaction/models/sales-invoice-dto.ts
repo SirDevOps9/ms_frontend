@@ -1,20 +1,22 @@
 export interface SalesInvoiceListView {
-  invoiceCode: string; 
+  id?:number
+  code: string;
   invoiceDate: string;
   dueDate: string;
   salesman: string;
   customerCode: string;
   customerName: string;
-  warehouse: string;
-  paymentTerms: string;
-  creditLimit: number;
-  relatedJournal: string;
-  createdStockOut: boolean;
-  totalQty: number;
-  numberOfItems: number;
-  totalAmount: number;
-  discountAmount: number;
+  warehouseName: string;
+  paymentTermName: string;
+  customerCreditLimit: number;
+  invoiceJournalCode: string;
+  createdOn: boolean;
+  totalQuantity: number;
+  noOfItems: number;
+  totalNetAmount: number;
+  totalDiscount: number;
   totalAfterDiscount: number;
-  vatAmount: number;
-  totalAfterVat: number;
+  totalVatAmount: number;
+  grandTotal: number;
+
 }
