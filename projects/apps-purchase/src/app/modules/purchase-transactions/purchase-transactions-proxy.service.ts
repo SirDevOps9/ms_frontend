@@ -218,4 +218,10 @@ export class PurchaseTransactionsProxyService {
   GetItemByBarcodePurchase(barcode: string): Observable<any> {
     return this.httpService.get(`Invoice/GetItemByBarcode?Barcode=${barcode}`);
   }
+  EditReturnInvoice(obj: AddPurchaseInvoiceDto) {
+    return this.httpService.put('ReturnInvoice', obj);
+  }
+  PostReturnInvoice(id: number) {
+    return this.httpService.post(`ReturnInvoice/${id}/Post`, null);
+  }
 }

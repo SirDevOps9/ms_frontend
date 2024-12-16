@@ -25,6 +25,8 @@
   "customerName": "اسم العميل",
   "currency": "العملة",
   "rate": "السعر",
+  "selectTracking" : "اختيار التتبع",
+  "salesInvoicePrint": "طباعة فاتورة المبيعات",
   "paymentTerms": "شروط الدفع",
   "creditLimit": "حد الائتمان",
   "pricePolicy": "سياسة الأسعار",
@@ -79,7 +81,10 @@
   "discountPercentage": "نسبة الخصم",
   "disAmount": "مبلغ الخصم",
   "expiry": "تاريخ الانتهاء",
-  "serials": "الأرقام التسلسلية"
+  "serials": "الأرقام التسلسلية",
+  "discountAmount" : "قيمة الخصم",
+  "price" : "السعر"
+
 },
     "pricePolicy": {
         "code": "الكود",
@@ -94,11 +99,11 @@
         "valueType": "نوع القيمة",
         "toDate": "حتى تاريخ",
         "applyDate": "تاريخ التطبيق",
-        "VAT": "يشمل ضريبة القيمة المضافة",
+        "VAT": "تشمل الضريبة",
         "UOM": "وحدة القياس",
         "varient": "المتغير",
         "price": "السعر",
-        "priceVAT": "السعر مع ضريبة القيمة المضافة",
+        "priceVAT": "السعر بدون ضريبة القيمة المضافة",
         "action": "إجراء",
         "uploadExcel": "رفع ملف Excel",
         "updatePrice": "تحديث سياسة الأسعار",

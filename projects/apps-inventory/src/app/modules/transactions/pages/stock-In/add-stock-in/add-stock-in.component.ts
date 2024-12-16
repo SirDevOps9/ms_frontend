@@ -490,7 +490,8 @@ export class AddStockInComponent implements OnInit {
         if (data) {
           stockInFormGroup.get('itemId')?.setValue(data.itemId);
           this.setRowDataFromBarCode(index, data ,e.target.value)
-
+        }else{
+          stockInFormGroup.reset()
         }
       });
     }
@@ -582,7 +583,7 @@ export class AddStockInComponent implements OnInit {
   }
 
   onCancel() {
-    this.router.navigateTo('/transactions/stock-in');
+    this.router.navigateTo('/transactions/stockin');
   }
 
   onSave() {

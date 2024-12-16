@@ -67,9 +67,15 @@ export class ExportService {
             .join(', ');
         } else if (Array.isArray(value)) {
           formattedItem[this.LanguageService.instant(column.headerText)] = value.join(', ');
-        } else if (!isNaN(Date.parse(value))) {
-          // Check if the value is a valid date
-          formattedItem[this.LanguageService.instant(column.headerText)] = this.formatDate(value);
+        } else if (
+          column.name === 'createdOn' ||
+          column.name === 'receiptDate' ||
+          column.name === 'invoiceDate' ||
+          (column.name === 'returnInvoiceDate' && item[column.name])
+        ) {
+          formattedItem[this.LanguageService.instant(column.headerText)] = this.formatDate(
+            item[column.name]
+          );
         } else {
           formattedItem[this.LanguageService.instant(column.headerText)] = value;
         }

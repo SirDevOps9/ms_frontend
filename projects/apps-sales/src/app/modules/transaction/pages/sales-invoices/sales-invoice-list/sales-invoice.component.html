@@ -9,6 +9,7 @@
       (pageChange)="onPageChange($event)"
       (exportObj)="exportClickBySort($event)"
       (addNew)="onAdd()"
+      [sequence]="true"
       [tableConfigs]="{
         allowPagination: false,
         allowServerPagination: true,
@@ -26,7 +27,7 @@
             headerText: ('salesInvoice.invoiceDate' | translate),
             isGlobalFilter: true,
             isSortable: true,
-            template:isCreatedOn
+            template:isCreatedInvoice
           },
 
           {
@@ -76,7 +77,7 @@
             headerText: ('salesInvoice.createdStockout' | translate),
             isGlobalFilter: true,
             isSortable: true,
-            template:isInvoice
+            template:isCreatedOn
           },
 
 
@@ -198,10 +199,25 @@
         </div>
         </ng-container>
 
+        <ng-template #isCreatedInvoice let-row>
+          <p >
+          {{row.invoiceDate |date:"dd/MM/YYYY"}}
+          </p>
+            </ng-template>
+            <ng-template #isCreatedOn let-row>
+              <p >
+              {{row.createdOn |date:"dd/MM/YYYY"}}
+              </p>
+                </ng-template>
+
+
       <ng-template #actions let-action>
         <div class="actions flex align-items-center">
+          <lib-button-micro nameClass="table_button_view" (click)="onVeiw(action.id)">
+          </lib-button-micro>
           <img src="assets/images/table/edit.svg" alt=""  />
-          <img src="assets/images/table/delete.svg" alt="" />
+          <img src="assets/images/table/delete.svg" (click)="onDelete(action.id)"/>
+
         </div>
       </ng-template>
 

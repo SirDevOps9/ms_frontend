@@ -26,7 +26,9 @@ export class AddReturnPurchaseComponent {
   searchTerm: string;
   addForm: FormGroup = new FormGroup({});
   showPost: boolean
-  invoiceList: any
+  invoiceList: any;
+  savedDataId: number;
+
   ngOnInit(): void {
 
     this.initializeForm();
@@ -160,6 +162,17 @@ export class AddReturnPurchaseComponent {
       this.invoiceList = invoiceList
 
     })
+    this.PurchaseService.savedDataId.subscribe((id: any) => {
+     if(id !=0){
+      this.savedDataId = id
+      this.showPost=true
+
+     }else{
+      this.showPost=false
+
+     }
+
+    })
     this.PurchaseService.returnInvoiceData.subscribe((data: any) => {
       this.setData(data)
     })
@@ -169,7 +182,7 @@ export class AddReturnPurchaseComponent {
     if(this.addForm.get('stockInId')?.value){
 
     const url = this.router.serializeUrl(
-      this.router.createUrlTree([`/inventory/transactions/stock-in/view/${this.addForm.get('stockInId')?.value}`])
+      this.router.createUrlTree([`/inventory/transactions/stockin/view/${this.addForm.get('stockInId')?.value}`])
     );
     window.open(url, '_blank');
 
@@ -315,9 +328,6 @@ if (this.invoiceDetailsFormArray.value.length == 0) {
 
   }
 
-  addToPost() {
-
-  }
 
   beforeSave(): boolean {
     let isValid = true;
@@ -365,6 +375,13 @@ if (this.invoiceDetailsFormArray.value.length == 0) {
 
   patchData(id: any) {
     this.PurchaseService.getReturnInvoiceById(id)
+  }
+  addToPost() {
+    this.PurchaseService.postReturnInvoice(this.savedDataId);
+  }
+  
+  ngOnDestroy(): void {
+    this.PurchaseService.returnInvoiceData.next([])
   }
   constructor(
     private routerService: RouterService,

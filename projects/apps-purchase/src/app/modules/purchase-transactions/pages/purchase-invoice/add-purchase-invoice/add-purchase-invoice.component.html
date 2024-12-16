@@ -64,6 +64,7 @@
                       [options]="warhouseLookupData"
                       optionValue="id"
                       optionLabel="name"
+                      (valueChanged)="setWarhouseName(purchaseInvoiceForm.controls['warehouseId'].value)"
                       [selectedValue]="purchaseInvoiceForm.controls['warehouseId'].value"
                     ></lib-select>
                     <lib-field-validations
@@ -98,7 +99,7 @@
                           optionLabel="name"
                           placeholder="{{ 'purchase.vendorCode' | translate }}"
                           [readOnly]="dataToReadOnly"
-                          (valueSearchChanged)="onFilter($event)"
+                          (valueSearchChanged)="onFilterVendorItems($event)"
                         >
                         </lib-select>
                         <lib-field-validations
@@ -146,7 +147,7 @@
                     ></lib-text-input>
                     <lib-field-validations
                       [appControl]="purchaseInvoiceForm.controls['currencyRate']"
-                    ></lib-field-validations>
+                    ></lib-field-validations> 
                   </div>
                   <div class="md:col-6">
                     <lib-label [appControl]="purchaseInvoiceForm.controls['paymentTermName']">
@@ -192,6 +193,13 @@
 
         <div class="flex justify-content-end gap-4 my-4">
           <lib-button-micro
+            [title]="'purchase.localAmount' | translate"
+            nameClass="outline"
+            iconName="pi pi-file-edit"
+            (click)="onLocalAmount()"
+          >
+          </lib-button-micro>
+          <!-- <lib-button-micro
             [title]="'purchase.upload' | translate"
             nameClass="outline"
             iconName="pi pi-file-edit"
@@ -202,7 +210,7 @@
             nameClass="outline"
             iconName="pi pi-expand"
           >
-          </lib-button-micro>
+          </lib-button-micro> -->
         </div>
       </div>
       <p-table
@@ -252,7 +260,8 @@
                     [readOnly]="dataToReadOnly"
                   ></lib-text-input>
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   {{ purchaseInvoiceFormGroup.controls['barCode']?.value }}
                 </ng-template>
               </p-cellEditor>
@@ -286,7 +295,8 @@
                     ></i>
                   </div>
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   {{ purchaseInvoiceFormGroup.controls['itemCodeName']?.value }}
                 </ng-template>
               </p-cellEditor>
@@ -319,7 +329,8 @@
                     [selectedValue]="purchaseInvoiceFormGroup.controls['uomId']?.value"
                   ></lib-select>
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   {{ purchaseInvoiceFormGroup.controls['uomName']?.value }}
                 </ng-template>
               </p-cellEditor>
@@ -347,7 +358,8 @@
                     "
                   ></lib-text-input>
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   {{ purchaseInvoiceFormGroup.controls['quantity']?.value }}
                 </ng-template>
               </p-cellEditor>
@@ -371,7 +383,8 @@
                     (keyUp)="quantityCostChange(purchaseInvoiceFormGroup)"
                   ></lib-text-input>
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   {{ purchaseInvoiceFormGroup.controls['cost']?.value | numberFormat }}
                 </ng-template>
               </p-cellEditor>
@@ -402,12 +415,13 @@
                   <lib-text-input
                     [readOnly]="dataToReadOnly"
                     placeholder="{{ 'purchase.discountPercentage' | translate }}"
-                    formControlName="discountPercentage"
+                    formControlName="discountPercentage" 
                     [readOnly]="dataToReadOnly"
                     (keyUp)="disAmountChange(purchaseInvoiceFormGroup)"
                   ></lib-text-input>
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   {{
                     purchaseInvoiceFormGroup.controls['discountPercentage']?.value | numberFormat
                   }}
@@ -433,7 +447,8 @@
                     (keyUp)="amountChange(purchaseInvoiceFormGroup)"
                   ></lib-text-input>
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   {{ purchaseInvoiceFormGroup.controls['discountAmount']?.value | numberFormat }}
                 </ng-template>
               </p-cellEditor>
@@ -660,6 +675,16 @@
             [appControl]="purchaseInvoiceForm.controls['numberOfItems']"
           ></lib-field-validations>
         </div>
+        <div class="md:col-2">
+          <lib-label [appControl]="purchaseInvoiceForm.controls['total']">
+            {{ 'purchase.total' | translate }}
+          </lib-label>
+          <lib-text-input
+            placeholder="{{ 'purchase.total' | translate }}"
+            formControlName="total"
+            [readOnly]="true"
+          ></lib-text-input>
+        </div>
 
         <div class="md:col-2">
           <lib-label [appControl]="purchaseInvoiceForm.controls['totalAfterDiscount']">
@@ -670,6 +695,9 @@
             formControlName="totalAfterDiscount"
             [readOnly]="true"
           ></lib-text-input>
+        </div>
+        <div class="md:col-6">
+
         </div>
         <div class="md:col-2">
           <lib-label [appControl]="purchaseInvoiceForm.controls['totalQuantity']">
@@ -684,6 +712,8 @@
             [appControl]="purchaseInvoiceForm.controls['totalQuantity']"
           ></lib-field-validations>
         </div>
+   
+
         <div class="md:col-2">
           <lib-label [appControl]="purchaseInvoiceForm.controls['discount']">
             {{ 'purchase.discount' | translate }}
@@ -718,32 +748,10 @@
             [readOnly]="true"
           ></lib-text-input>
         </div>
+        
       </div>
       <hr />
-      <!-- <div class="grid">
-        <div class="md:col-12 my-3 grid flex justify-content-end p-0 m-0">
-          <div class="md:col-6 grid flex justify-content-end p-0 m-0">
-            <div class="md:col-3">
-              <lib-button-micro
-                title="{{ 'purchase.cancel' | translate }}"
-                nameClass="cancel"
-                widthNumber="100%"
-                (click)="onCancel()"
-              >
-              </lib-button-micro>
-            </div>
-            <div class="md:col-3">
-              <lib-button-micro
-                title="{{ 'purchase.save' | translate }}"
-                nameClass="save"
-                widthNumber="100%"
-                (click)="onSave()"
-              >
-              </lib-button-micro>
-            </div>
-          </div>
-        </div>
-      </div> -->
+    
 
       <div class="grid">
         <div class="md:col-12 my-3 grid flex justify-content-end">

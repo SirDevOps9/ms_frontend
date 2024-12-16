@@ -33,6 +33,7 @@ import { LatestItem } from '../../../models';
 import { PurchaseInvoiceTrackingComponent } from '../../../components/purchase-invoice-tracking/purchase-invoice-tracking.component';
 import { AddPurchaseInvoiceDto } from '../../../models/addPurchaseInvoice';
 import { ItemAdvancedSearchPurchaseInvoiceComponent } from '../../../components/item-advanced-search-purchase-invoice/item-advanced-search-purchase-invoice.component';
+import { LocalAmountPopupComponent } from '../../../components/local-amount-popup/local-amount-popup.component';
 
 @Component({
   selector: 'app-add-purchase-invoice',
@@ -86,9 +87,11 @@ export class AddPurchaseInvoiceComponent implements OnInit {
     this.purchaseInvoiceForm.valueChanges.subscribe((res) => {});
 
     this.purchaseInvoiceForm.get('sourceDocumentId')?.valueChanges.subscribe((res) => {
+      
       let data = this.oprationalLookup.find((elem) => elem.id == res);
+      
       this.purchaseInvoiceForm.get('warehouseId')?.setValue(data?.warehouseId);
-      this.purchaseInvoiceForm.get('warehouseName')?.setValue(data?.warehouseName);
+      this.purchaseInvoiceForm.get('warehouseName')?.setValue(data?.name);
     });
 
     this.stockIn.valueChanges.subscribe((res: any[]) => {
@@ -101,6 +104,14 @@ export class AddPurchaseInvoiceComponent implements OnInit {
           res
             .reduce((acc, item) => {
               const itemTotal = item.quantity * (item.cost - item.discountAmount);
+              return acc + itemTotal;
+            }, 0)
+            .toFixed(2)
+        );
+        this.purchaseInvoiceForm.get('total')?.setValue(
+          res
+            .reduce((acc, item) => {
+              const itemTotal = item.quantity * item.cost
               return acc + itemTotal;
             }, 0)
             .toFixed(2)
@@ -158,7 +169,6 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       }
     });
 
-    // this.initWareHouseLookupData();
 
     this.addLineStockIn();
 
@@ -193,11 +203,18 @@ export class AddPurchaseInvoiceComponent implements OnInit {
             this.purchaseInvoiceForm
               .get('currencyId')
               ?.setValue(this.currentUserService.getCurrency());
-            this.purchaseInvoiceForm.get('currencyName')?.setValue('Egyptian Pound');
-            this.purchaseInvoiceForm.get('currency')?.setValue('Egyptian Pound');
+            this.purchaseInvoiceForm.get('currencyName')?.setValue(this.currentUserService.getCurrencyName());
+            this.purchaseInvoiceForm.get('currency')?.setValue(this.currentUserService.getCurrencyName());
           }
         });
     });
+  }
+ 
+  setWarhouseName(id:number){    
+    let data = this.warhouseLookupData.find((elem) => elem.id == id);
+      
+    this.purchaseInvoiceForm.get('warehouseName')?.setValue(data?.name);
+ 
   }
   isValidData() {
     this.lineError = -1;
@@ -323,6 +340,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
           invoiceEntryMode.patchValue({
             id: selectedItem.invoiceEntryMode?.id || 0,
             vendorBatchNo: selectedItem.invoiceEntryMode?.vendorBatchNo ?? '',
+            hasExpiryDate: selectedItem?.hasExpiryDate,
             expireDate: selectedItem.invoiceEntryMode?.expireDate ?? null,
             systemPatchNo: selectedItem.invoiceEntryMode?.systemPatchNo ?? '',
             serialId: selectedItem.invoiceEntryMode?.serialId ?? '',
@@ -338,6 +356,18 @@ export class AddPurchaseInvoiceComponent implements OnInit {
         );
       this.setUomName(indexLine, rowForm.get('uomOptions')?.value);
     }
+  }
+
+  onLocalAmount() {
+    if(this.purchaseInvoiceForm.controls['currencyRate'].value && this.stockIn.value) {
+      const ref = this.dialog.open(LocalAmountPopupComponent, {
+        width: 'auto',
+        height: '450px',
+        data : {formData :  this.stockIn.value , rate : this.purchaseInvoiceForm.controls['currencyRate'].value}
+      });
+    }
+   
+    
   }
 
   setUomName(indexLine: number, list: any) {
@@ -596,7 +626,13 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       this.formSubmited = true;
     }
     if (!this.formService.validForm(this.stockIn, false)) return;
+    this.purchasetransactionsService.getLatestItemsList();
     this.stockIn.push(this.createStockIn());
+  }
+  onFilterVendorItems(SearchTerm: string) {
+    this.purchasetransactionsService.latestVendor(SearchTerm).subscribe((res: any) => {
+      this.vendorItems = res;
+    });
   }
   onFilter(SearchTerm: string) {
     this.purchasetransactionsService.getLatestItemsList(SearchTerm);
@@ -634,12 +670,10 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       if (selectedItems) {
         stockInFormGroup.get('itemId')?.setValue(selectedItems.itemId);
         stockInFormGroup.get('vatPercentage')?.setValue(selectedItems.taxRatio);
-      //  this.setRowDataFromBarCode(indexline, selectedItems, '');
         this.setRowDataFromPopup(indexline, selectedItems)
 
       }
 
-      console.log(this.purchaseInvoiceFormArray.value);
     });
   }
 
@@ -782,6 +816,8 @@ export class AddPurchaseInvoiceComponent implements OnInit {
             serialId: selectedItem.invoiceEntryMode?.serialId,
             trackingType: selectedItem.trackingType,
             selectedValue: selectedItem.invoiceEntryMode?.quantity,
+            hasExpiryDate: selectedItem?.hasExpiryDate,
+
           });
         }
       }
@@ -815,7 +851,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
   }
 
   onCancel() {
-    this.router.navigateTo('/transactions/stock-in');
+    this.router.navigateTo('/transactions/stockin');
   }
 
   onSave() {
@@ -827,7 +863,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       invoiceDate: this.purchaseInvoiceForm.value.invoiceDate || null,
       description: this.purchaseInvoiceForm.value.description || null,
       warehouseId: this.purchaseInvoiceForm.value.warehouseId || 0,
-      warehouseName: this.purchaseInvoiceForm.value.warehouseName || '',
+      warehouseName: this.purchaseInvoiceForm.value.warehouseName ,
       vendorId: this.purchaseInvoiceForm.value.vendorId || null,
       currencyId: this.purchaseInvoiceForm.value.currencyId || null,
       currencyName: this.purchaseInvoiceForm.value.currencyName,
@@ -868,7 +904,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
         invoiceTracking: {
           vendorBatchNo: detail.invoiceTracking.vendorBatchNo || null,
           quantity: detail.invoiceTracking.quantity || 0,
-          hasExpiryDate: detail.invoiceTracking.hasExpiryDate || false,
+          hasExpiryDate: detail.hasExpiryDate,
           expireDate: detail.invoiceTracking.expireDate || null,
           systemPatchNo: detail.invoiceTracking.systemPatchNo || null,
           serialId: detail.invoiceTracking.serialId || null,

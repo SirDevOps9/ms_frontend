@@ -23,6 +23,8 @@ import { CurrencyRateDto } from '../../../models/currencyRateDto';
 import { SharedEnum } from '../../../models/sharedEnums';
 import { GetWarehouseList } from '../../../models/getWarehouseDto';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { LocalAmountPopupComponent } from '../../../components/local-amount-popup/local-amount-popup.component';
+import { LocalAmountEditPopupComponent } from '../../../components/local-amount-edit-popup/local-amount-edit-popup.component';
 
 @Component({
   selector: 'app-edit-purchase-invoice',
@@ -54,6 +56,8 @@ export class EditPurchaseInvoiceComponent implements OnInit {
   lookups: { [key: string]: lookupDto[] };
 
   warhouseLookupData: GetWarehouseList[] = [];
+
+  getInvoiceByIdData : any = {}
 
   filteredItems: any[];
   vendorItems: any[];
@@ -177,8 +181,26 @@ export class EditPurchaseInvoiceComponent implements OnInit {
         this.getAccountCurrencyRate(item.vendorFinancialCurrencyId);
         if (!this.addForm.get('currencyId')?.value) {
           this.addForm.get('currencyId')?.setValue(this.currentUserService.getCurrency());
-          this.addForm.get('currencyName')?.setValue('Egyptian Pound');
-          this.addForm.get('currencyRate')?.setValue('Egyptian Pound');
+          this.addForm.get('currencyName')?.setValue(this.currentUserService.getCurrencyName());
+          this.addForm.get('currencyRate')?.setValue(1);
+        }
+      }
+    });
+  }
+
+  setVendorDataInPatch(vendorId: number) {
+    this.vendorItems?.find((item) => {
+      if (item.id === vendorId) {
+        this.addForm.get('vendorName')?.setValue(item?.name);
+        this.addForm.get('currencyRate')?.setValue(item?.vendorFinancialCurrencyName);
+        this.addForm.get('paymentTermName')?.setValue(item?.paymentTermName);
+        this.addForm.get('paymentTermId')?.setValue(item?.paymentTermId);
+        this.addForm.get('currencyName')?.setValue(item?.vendorFinancialCurrencyName);
+        this.addForm.get('currencyId')?.setValue(item?.vendorFinancialCurrencyId);
+        if (!this.addForm.get('currencyId')?.value) {
+          this.addForm.get('currencyId')?.setValue(this.currentUserService.getCurrency());
+          this.addForm.get('currencyName')?.setValue(this.currentUserService.getCurrencyName());
+          this.addForm.get('currencyRate')?.setValue(1);
         }
       }
     });
@@ -190,6 +212,7 @@ export class EditPurchaseInvoiceComponent implements OnInit {
   getInvoiceById(id: number) {
     this.PurchaseService.getInvoiceById(id);
     this.PurchaseService.InvoiceByIdDataSource.subscribe((data: any) => {
+      this.getInvoiceByIdData = data
       this.patchForm(data);
     });
   }
@@ -208,6 +231,7 @@ export class EditPurchaseInvoiceComponent implements OnInit {
       paymentTermId: data.paymentTermId,
       paymentTermName: data.paymentTermName,
       reference: data.reference,
+      vendorRate:data.currencyRate
     });
 
     if (data.invoiceStatus == this.sharedEnums.InvoiceStatus.Saved) {
@@ -230,7 +254,7 @@ export class EditPurchaseInvoiceComponent implements OnInit {
     });
     this.dataLoaded = true;
     this.originalFormData = this.addForm.value;
-    this.setVendorData(data.vendorId);
+    this.setVendorDataInPatch(data.vendorId);
     this.isFormLoaded = true;
   }
 
@@ -486,7 +510,6 @@ export class EditPurchaseInvoiceComponent implements OnInit {
         });
       }
     }
-    // rowForm.get('itemName')?.setValue(selectedItem.itemCode + "-" + selectedItem.itemName + "-" + selectedItem.itemVariantNameEn)
     rowForm.get('itemName')?.setValue(selectedItem.itemCode);
     this.setUomName(indexLine, rowForm.get('uomOptions')?.value);
     this.calculate();
@@ -586,6 +609,7 @@ export class EditPurchaseInvoiceComponent implements OnInit {
       grandTotal: new FormControl(''),
       trackingType: new FormControl(''),
       hasExpiryDate: new FormControl(''),
+      taxId: new FormControl(null),
       categoryId:new FormControl(''),
       itemCategoryNameAr: new FormControl(''),
       itemCategoryNameEn:new FormControl(''),
@@ -958,6 +982,24 @@ export class EditPurchaseInvoiceComponent implements OnInit {
     });
   }
 
+
+  onLocalAmount() {
+
+    
+
+    if(this.addForm.controls['currencyRate'].value && this.invoiceDetailsFormArray.value) {
+    let invoiceDetailsFormArrayData =   this.addForm?.value?.invoiceDetails
+
+
+      const ref = this.dialog.open(LocalAmountEditPopupComponent, {
+        width: 'auto',
+        height: '450px',
+        data : {formData :  invoiceDetailsFormArrayData , rate : this.addForm.controls['vendorRate'].value}
+      });
+    }
+   
+    
+  }
   constructor(
     private routerService: RouterService,
     public authService: AuthService,

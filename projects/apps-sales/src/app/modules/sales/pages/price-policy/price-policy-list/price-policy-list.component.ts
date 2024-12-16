@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SalesService } from '../../../sales.service';
-import { lookupDto, PageInfo, PageInfoResult, RouterService } from 'shared-lib';
+import { lookupDto, PageInfo, PageInfoResult, RouterService, SharedEnums } from 'shared-lib';
 import { PricelistDto } from '../../../models';
+import { SequenceService } from 'apps-shared-lib';
 
 @Component({
   selector: 'app-price-policy-list',
@@ -17,11 +18,7 @@ export class PricePolicyListComponent implements OnInit {
   exportColumns: lookupDto[];
   exportData: PricelistDto[];
 
-  constructor(
-    private salesService: SalesService,
-    private routerService: RouterService
-  ) {
-  }
+  
 
   ngOnInit() {
 
@@ -54,10 +51,9 @@ export class PricePolicyListComponent implements OnInit {
     this.salesService.getAllPricePolicy(event, new PageInfo());
   }
 
-  routeToAdd() {
-    this.routerService.navigateTo(
-      'masterdata/price-policy/add'
-    );
+  routeToAdd() {    
+    this.sequenceService.isHaveSequence( this.sharedEnums.Pages.PricePolicy , '/masterdata/price-policy/add')
+
   }
 
   routeToEdit(id: number) {
@@ -89,10 +85,17 @@ export class PricePolicyListComponent implements OnInit {
 // this.routerService.navigateTo(`masterdata/price-policy/add`);
 //     }
 addWithData(id: number) {
-  // Store the ID in localStorage
   localStorage.setItem('selectedPricePolicyId', id.toString());
 
-  // Navigate to the 'add' page
-  this.routerService.navigateTo(`masterdata/price-policy/add`);
+  this.sequenceService.isHaveSequence( this.sharedEnums.Pages.PricePolicy , '/masterdata/price-policy/add')
+}
+constructor(
+  private salesService: SalesService,
+  private routerService: RouterService,
+  public sequenceService: SequenceService,
+  public sharedEnums: SharedEnums,
+
+
+) {
 }
 }

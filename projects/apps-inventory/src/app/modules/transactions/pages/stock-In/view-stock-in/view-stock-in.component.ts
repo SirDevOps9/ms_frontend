@@ -65,13 +65,20 @@ export class ViewStockInComponent {
   }
 
   onCancel() {
-    this.router.navigateTo('/transactions/stock-out');
+    this.router.navigateTo('/transactions/stockout');
   }
 
+
   populateInvoiceDetails(details: any[]) {
-    this.tableData = details;
-    this.filteredData = [...this.tableData];
+    if (Array.isArray(details)) {
+      this.tableData = details;
+      this.filteredData = [...this.tableData];
+    } else {
+    }
   }
+
+
+  
 
   onSearchTermChange(search: any): void {
     const term = search.target.value?.toLowerCase() || '';

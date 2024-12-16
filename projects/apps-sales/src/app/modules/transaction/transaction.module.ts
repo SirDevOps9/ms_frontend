@@ -41,7 +41,7 @@ const routes: Routes = [
             },
           },
           {
-            path: 'sales-invoice-view',
+            path: 'view/:id',
             component: ViewSalesComponent,
             data: {
               breadcrumb: BreadcrumbLabel.SALES_INVOICE_VIEW,
@@ -62,7 +62,7 @@ const routes: Routes = [
             component: SequenceComponent,
             data: {
               moduleId: Modules.Sales,
-              pageId: Pages.PricePolicy,
+              pageId: Pages.SalesInvoice,
               breadcrumb: BreadcrumbLabel.SEQUENCE,
               pageTitle: BreadcrumbLabel.SEQUENCE,
             },
@@ -141,5 +141,7 @@ const routes: Routes = [
     ViewSalesReturnInvoiceComponent,
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule],
+  imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule,
+  ],
 })
 export class TransactionModule {}

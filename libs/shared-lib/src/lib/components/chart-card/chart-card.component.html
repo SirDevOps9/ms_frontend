@@ -1,6 +1,29 @@
 <div class="chart-card w-full">
   <div class="chart-card-header">
+    @if(title) {
+    <div class="chart-header">
+      <div class="title heading_b18">
+        {{ title }}
+
+        @if(tooltip) {
+        <i class="pi pi-question hint" [pTooltip]="tooltip" tooltipPosition="bottom"></i>
+        }
+      </div>
+      <div class="action body_b14">
+        @if(route) {
+        <span class="pointer" [routerLink]="route">
+          {{ 'dashboard.moreDetails' | translate }} <i class="pi pi-arrow-right fs-14"></i>
+        </span>
+        <span class="column-line"></span>
+        <i class="pi pi-heart"></i>
+        } @else {
+        <i class="pi pi-heart"></i>
+        }
+      </div>
+    </div>
+    }@else {
     <ng-content select=".chart-header"></ng-content>
+    }
   </div>
 
   <div class="chart-card-body grid" [ngClass]="hideFooter ? 'hide-footer' : ''">

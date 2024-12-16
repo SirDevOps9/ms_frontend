@@ -1,6 +1,5 @@
 <lib-page-content>
-  <div class="page_edit_purchase">
-    <div class="main_header card_micro" [formGroup]="addForm">
+  <div class="page_edit_purchase">    <div class="main_header card_micro" [formGroup]="addForm">
       <div class="grid">
         <!-- Main Information Section -->
         <div class="col-12 md:col-4">
@@ -122,6 +121,32 @@
       </div>
     </div>
 
+    <div class="flex justify-content-between align-items-center gap-4 my-4">
+      <lib-text-input type="text" [placeholder]="'purchase.search' | translate"></lib-text-input>
+
+      <div class="flex justify-content-end gap-4 my-4">
+        <lib-button-micro
+          [title]="'purchase.localAmount' | translate"
+          nameClass="outline"
+          iconName="pi pi-file-edit"
+          (click)="onLocalAmount()"
+        >
+        </lib-button-micro>
+        <!-- <lib-button-micro
+          [title]="'purchase.upload' | translate"
+          nameClass="outline"
+          iconName="pi pi-file-edit"
+        >
+        </lib-button-micro>
+        <lib-button-micro
+          [title]="'purchase.scan' | translate"
+          nameClass="outline"
+          iconName="pi pi-expand"
+        >
+        </lib-button-micro> -->
+      </div>
+    </div>
+
     <div class="my-2 card_micro">
       <p-table [value]="invoiceDetailsFormArray.controls" dataKey="id"
         styleClass="p-datatable-gridlines p-datatable-striped" [tableStyle]="{ 'min-width': '50rem' }">
@@ -154,7 +179,8 @@
                     formControlName="barCode" (keydown.enter)="barcodeCanged($event, invoiceFormGroup, rowIndex)"
                     [readOnly]="view"></lib-text-input>
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   {{ invoiceFormGroup.controls['barCode']?.value }}
                 </ng-template>
               </p-cellEditor>
@@ -173,7 +199,8 @@
                     <i *ngIf="!view" class="pi pi-search search-circle" (click)="openDialog(rowIndex)"></i>
                   </div>
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   {{ invoiceFormGroup.get('itemName').value }}
                 </ng-template>
               </p-cellEditor>
@@ -186,7 +213,8 @@
                     placeholder="{{ 'PurchaseInvoiceEdit.itemDescription' | translate }}"
                     formControlName="description"></lib-text-input>
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   {{ invoiceFormGroup.controls['description']?.value }}
                 </ng-template>
               </p-cellEditor>
@@ -209,7 +237,8 @@
                   </lib-select>
                   <!-- <lib-text-input placeholder="{{ 'PurchaseInvoiceEdit.UOM' | translate }}" formControlName="uomId"></lib-text-input> -->
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   {{ invoiceFormGroup.controls['uomName']?.value }}
                 </ng-template>
               </p-cellEditor>
@@ -229,7 +258,8 @@
                     placeholder="{{ 'PurchaseInvoiceEdit.QTY' | translate }}" formControlName="quantity"
                     (keyUp)="setCostTotal(rowIndex)" (valueChanged)="setCostTotal(rowIndex)"></lib-text-input>
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   {{ invoiceFormGroup.controls['quantity']?.value }}
                 </ng-template>
               </p-cellEditor>
@@ -243,7 +273,8 @@
                     formControlName="cost" type="number" (keyUp)="setCostTotal(rowIndex)"
                     (valueChanged)="setCostTotal(rowIndex)"></lib-text-input>
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   {{ invoiceFormGroup.controls['cost']?.value }}
                 </ng-template>
               </p-cellEditor>
@@ -259,7 +290,8 @@
                     placeholder="{{ 'PurchaseInvoiceEdit.QTY' | translate }}" formControlName="discount"
                     (keyUp)="setDiscountAmt(rowIndex)" (valueChanged)="setDiscountAmt(rowIndex)"></lib-text-input>
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   {{ invoiceFormGroup.controls['discount']?.value | numberFormat }}%
                 </ng-template>
               </p-cellEditor>
@@ -272,7 +304,8 @@
                     placeholder="{{ 'PurchaseInvoiceEdit.QTY' | translate }}" formControlName="discountAmt"
                     (keyUp)="setDiscount(rowIndex)" (valueChanged)="setDiscount(rowIndex)"></lib-text-input>
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   {{ invoiceFormGroup.controls['discountAmt']?.value | numberFormat }}
                 </ng-template>
               </p-cellEditor>

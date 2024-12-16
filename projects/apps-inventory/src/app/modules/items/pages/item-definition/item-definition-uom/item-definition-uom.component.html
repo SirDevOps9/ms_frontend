@@ -73,7 +73,8 @@
                   <ng-template pTemplate="input">
                     <lib-text-input formControlName="conversionRatio" type="number" [readOnly]="true"></lib-text-input>
                   </ng-template>
-                  <ng-template pTemplate="output">
+                   <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                     {{ fg.controls['conversionRatio'].value }}
                   </ng-template>
                 </p-cellEditor>
@@ -96,7 +97,8 @@
                       <i class="pi pi-search search-circle"></i>
                     </div>
                   </ng-template>
-                  <ng-template pTemplate="output">
+                   <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                     <div class="nameUage" *ngFor="let item of fg.controls['unitUsagesName']?.value">
                       <p class="nameUage">{{ item?.name }}</p>
                     </div>
@@ -116,7 +118,8 @@
 
                     </lib-input-switch>
                   </ng-template>
-                  <ng-template pTemplate="output">
+                   <ng-template pTemplate="output">
+                                  
                     <lib-input-switch formControlName="isActive">
 
 

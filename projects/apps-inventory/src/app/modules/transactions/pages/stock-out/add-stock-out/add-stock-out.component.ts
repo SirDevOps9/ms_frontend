@@ -218,7 +218,7 @@ export class AddStockOutComponent implements OnInit {
       if (selectedItem.hasExpiryDate) {
         if (selectedItem.trackingType == this.sharedFinanceEnums.StockOutTracking.NoTracking) {
           rowForm.get('showSerial')?.setValue(false);
-          rowForm.get('showBatch')?.setValue(true);
+          rowForm.get('showBatch')?.setValue(false);
         } else if (selectedItem.trackingType == this.sharedFinanceEnums.StockOutTracking.Serial) {
           rowForm.get('showSerial')?.setValue(true);
           rowForm.get('showBatch')?.setValue(false);
@@ -229,6 +229,10 @@ export class AddStockOutComponent implements OnInit {
       } else {
         if (selectedItem.trackingType == this.sharedFinanceEnums.StockOutTracking.NoTracking) {
           rowForm.get('showSerial')?.setValue(false);
+          rowForm.get('showBatch')?.setValue(false);
+        } 
+        else if (selectedItem.trackingType == this.sharedFinanceEnums.StockOutTracking.Serial) {
+          rowForm.get('showSerial')?.setValue(true);
           rowForm.get('showBatch')?.setValue(false);
         }
       }
@@ -493,7 +497,7 @@ export class AddStockOutComponent implements OnInit {
   }
 
   onCancel() {
-    this.routerService.navigateTo('transactions/stock-out');
+    this.routerService.navigateTo('transactions/stockout');
   }
 
   onSave() {
@@ -563,7 +567,7 @@ export class AddStockOutComponent implements OnInit {
     if (selectedItem != undefined) {
       rowForm.get('expiryDate')?.setValue(selectedItem.expiryDate);
       rowForm.get('totalQuantity')?.setValue(selectedItem.totalQuantity);
-      rowForm.get('cost')?.setValue(selectedItem.cost);
+       rowForm.get('cost')?.setValue(selectedItem.cost);
     } else {
       const serialOption = rowForm.get('stockOutTracking')?.get('serialOptions')?.value;
       const selectedItem = serialOption?.find(
@@ -572,7 +576,7 @@ export class AddStockOutComponent implements OnInit {
       if (selectedItem != undefined) {
         rowForm.get('expiryDate')?.setValue(selectedItem.expiryDate);
         rowForm.get('totalQuantity')?.setValue(selectedItem.totalQuantity);
-        rowForm.get('cost')?.setValue(selectedItem.cost);
+         rowForm.get('cost')?.setValue(selectedItem.cost);
       } else {
         rowForm.get('expiryDate')?.setValue('');
         rowForm.get('totalQuantity')?.setValue(rowForm.get('AllTotalQuantity')?.value);
@@ -606,19 +610,25 @@ export class AddStockOutComponent implements OnInit {
     });
   }
   barcodeCanged(e: any, index: number) {
-    this.loaderService.show();
+    // this.loaderService.show();
 
     this.itemsService
       .getItemByBarcodeStockOutQuery(e.target.value, this.addForm.get('warehouseId')?.value)
       .subscribe({
         next: (res: any) => {
-          this.loaderService.hide();
-
-          this.setRowDataFromBarCode(index, res);
+          if(res &&res?.itemId) {
+            this.setRowDataFromBarCode(index, res);
+          }else{
+            const rowForm = this.stockOutDetailsFormArray.at(index) as FormGroup;
+            rowForm.reset();
+            this.toasterService.showError(
+              this.languageService.transalte('messages.Error'),
+              this.languageService.transalte('messages.barcodeStockedOrNotFounded')
+            );
+          }
         },
         error: (err: any) => {
           this.loaderService.hide();
-
           const rowForm = this.stockOutDetailsFormArray.at(index) as FormGroup;
           rowForm.reset();
           this.toasterService.showError(
@@ -627,6 +637,8 @@ export class AddStockOutComponent implements OnInit {
           );
         },
       });
+      this.loaderService.hide();
+
   }
   addToPost() {
     this.itemsService.postStockOut(this.stockOutId);

@@ -41,6 +41,7 @@ export class ItemDefintionTaxComponent {
       }
       else {
         this.itemDefinitionForm.get('taxId')?.setValue(null)
+        this.itemDefinitionForm.get('isSellingPriceIncludeVat')?.setValue(false)
         this.showTax = false
       }
     })
@@ -50,7 +51,8 @@ export class ItemDefintionTaxComponent {
     this.itemDefinitionForm = this.fb.group({
       id: [this.id],
       taxId: [null ],
-      isVatApplied: [false, Validators.required]
+      isVatApplied: [false, Validators.required],
+      isSellingPriceIncludeVat: [false]
     });
   }
 
@@ -67,6 +69,7 @@ export class ItemDefintionTaxComponent {
       this.itemDefinitionForm.patchValue({
         id: res.id,
         isVatApplied:res.isVatApplied,
+        isSellingPriceIncludeVat:res.isSellingPriceIncludeVat,
 
         taxId:res.taxId,
       })

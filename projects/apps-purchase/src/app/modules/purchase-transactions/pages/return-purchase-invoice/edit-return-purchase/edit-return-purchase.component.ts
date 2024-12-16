@@ -5,6 +5,7 @@ import { customValidators, FormsService, LanguageService, RouterService, Toaster
 import { SharedEnum } from '../../../models/sharedEnums';
 import { PurchaseTransactionsService } from '../../../purchase-transactions.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'app-edit-return-purchase',
@@ -26,20 +27,16 @@ export class EditReturnPurchaseComponent {
   addForm: FormGroup = new FormGroup({});
   showPost: boolean
   invoiceList: any
-  itemId: number
+  itemId: number;
+  originalFormData: any;
+
 
   ngOnInit(): void {
     this.itemId = this.route.snapshot.params['id'];
-
     this.initializeForm();
-    // this.latestVendor()
-    // this.latestWarehouses()
      this.initItemsData()
-    // this.getStockOutyId(this.itemId)
-
     this.subscribe();
     this.calculate();
-
   }
  
   calculate() {
@@ -106,7 +103,7 @@ export class EditReturnPurchaseComponent {
       code: new FormControl(''),
       invoiceCode: new FormControl(''),
       invoiceDate: new FormControl(new Date(), [customValidators.required]),
-      returnDescription: new FormControl('', [customValidators.required, customValidators.length(1, 100)]),
+      returnDescription: new FormControl('', [ customValidators.length(1, 100)]),
       warehouseId: new FormControl(''),
       warehouseName: new FormControl(''),
       vendorCode: new FormControl(''),
@@ -139,6 +136,7 @@ export class EditReturnPurchaseComponent {
     this.addForm.patchValue({
       id: data.id,
       invoiceCode: data.code,
+      returnDescription: data.description,
       invoiceDate:data.returnInvoiceDate,
       warehouseName: data.warehouseName,
       vendorId: data.vendorId,
@@ -168,10 +166,24 @@ export class EditReturnPurchaseComponent {
     this.PurchaseService.returnItemsInvoiceData.subscribe((data: any) => {
       this.setData(data)
     })
+    this.addForm.valueChanges
+    .pipe(
+      debounceTime(400), // تأخير قبل أن يتم تنفيذ الكود
+      distinctUntilChanged() // التحقق من أن القيمة تغيرت
+    )
+    .subscribe((res: any) => {
+      const x = this.refactoredData(this.originalFormData);
+      const y = this.refactoredData(res);
+      if (JSON.stringify(x) == JSON.stringify(y)) {
+        this.showPost = true;
+      } else {
+        this.showPost = false;
+      }
+    });
 
   }
   routeToStockOut() {
-    this.router.createUrlTree([`/inventory/transactions/stock-out/view/${this.addForm.get('stockOutId')?.value}`])
+    this.router.createUrlTree([`/inventory/transactions/stockout/view/${this.addForm.get('stockOutId')?.value}`])
 
   }
   routeTojournal() {
@@ -191,7 +203,8 @@ export class EditReturnPurchaseComponent {
         uomNameAr: selectedItem.uomNameAr,
         remainQuantity: selectedItem.availableQuantity,
         subCost: selectedItem.subCost,
-        returnQuantity: selectedItem.returnQuantity,
+        transactionRemainQuantity: selectedItem.transactionRemainQuantity,
+        returnQuantity: selectedItem.toReturnQuantity,
         originalQuantity: selectedItem.originalQuantity,
         netCost: selectedItem.cost,
         grandTotal: selectedItem.grandTotal,
@@ -208,20 +221,22 @@ export class EditReturnPurchaseComponent {
       });
 
       // Handle the nested form group
-      const invoiceTrackingGroup = rowForm.get('invoiceTracking') as FormGroup;
-      if (invoiceTrackingGroup) {
-        invoiceTrackingGroup.patchValue({
-          invoiceDetailId: selectedItem?.invoiceTracking?.invoiceDetailId || 0,
-          vendorBatchNo: selectedItem.invoiceTracking?.vendorBatchNo || '',
+      const returnInvoiceTrackingGroup = rowForm.get('returnInvoiceTracking') as FormGroup;
+      if (returnInvoiceTrackingGroup) {
+        returnInvoiceTrackingGroup.patchValue({
+          invoiceDetailId: selectedItem?.returnInvoiceTracking?.invoiceDetailId || 0,
+          vendorBatchNo: selectedItem.returnInvoiceTracking?.vendorBatchNo || '',
           quantity: selectedItem.quantity,
           hasExpiryDate: selectedItem.hasExpiryDate,
-          expireDate: selectedItem.invoiceTracking?.expireDate,
-          systemPatchNo: selectedItem.invoiceTracking?.systemPatchNo || '',
-          serialId: selectedItem.invoiceTracking?.serialId || null,
+          expireDate: selectedItem.returnInvoiceTracking?.expireDate,
+          systemPatchNo: selectedItem.returnInvoiceTracking?.systemPatchNo || '',
+          serialId: selectedItem.returnInvoiceTracking?.serialId || null,
           trackingType: selectedItem.trackingType,
         });
       }
     }
+    this.originalFormData = this.addForm.value;
+
     this.calculate();
   }
 
@@ -237,6 +252,7 @@ export class EditReturnPurchaseComponent {
         returnDescription: new FormControl(''),
         remainQuantity: new FormControl(''),
         returnQuantity: new FormControl(0),
+        transactionRemainQuantity: new FormControl(0),
         originalQuantity: new FormControl('',),
         netCost: new FormControl(''),
         subCost: new FormControl(''),
@@ -245,7 +261,7 @@ export class EditReturnPurchaseComponent {
         trackingType: new FormControl(''),
         hasExpiryDate: new FormControl(''),
         taxId: new FormControl(''),
-        invoiceTracking: this.fb.group({
+        returnInvoiceTracking: this.fb.group({
           invoiceDetailId: new FormControl(''),
           vendorBatchNo: new FormControl(''),
           quantity: new FormControl(''),
@@ -272,7 +288,7 @@ export class EditReturnPurchaseComponent {
 
     if (!this.formsService.validForm(this.invoiceDetailsFormArray, false)) return;
 
-    this.PurchaseService.addReturnInvoice(this.refactoredData(this.addForm.value))
+    this.PurchaseService.editReturnInvoice(this.refactoredData(this.addForm.value))
 
   }
 
@@ -294,49 +310,42 @@ export class EditReturnPurchaseComponent {
 
     const confirmed = await this.toasterService.showConfirm('Delete');
     if (confirmed) {
-      // if (id == 0) {
+      if (id == 0) {
       this.invoiceDetailsFormArray.removeAt(index);
-      // }
-      // else {
-      //   this.PurchaseService.deleteRowReturnInvoice(id).subscribe({
-      //     next: (res: any) => {
-      //       this.toasterService.showSuccess(
-      //         this.languageService.transalte('transactions.success'),
-      //         this.languageService.transalte('transactions.deleteStockOut')
-      //       );
-      //       this.invoiceDetailsFormArray.removeAt(index);
-      //     },
-      //     error: (err: any) => {
-      //       console.error('Error occurred while deleting:', err);
-      //       this.toasterService.showError(
-      //         this.languageService.transalte('transactions.error'),
-      //         this.languageService.transalte('transactions.deleteFailed')
-      //       );
-      //     },
-      //   });
-      // }
+      }
+      else {
+        this.PurchaseService.deleteRowReturnInvoice(id).subscribe({
+          next: (res: any) => {
+            this.toasterService.showSuccess(
+              this.languageService.transalte('messages.success'),
+              this.languageService.transalte('messages.successfully')
+            );
+            this.invoiceDetailsFormArray.removeAt(index);
+          },
+          error: (err: any) => {
+            this.toasterService.showError(
+              this.languageService.transalte('messages.error'),
+            err.message
+            );
+          },
+        });
+      }
 
     }
 
   }
 
-  addToPost() {
-
-  }
-
-
-
   refactoredData(data: any) {
 
     const refactoredData = {
       returnInvoiceDate: new Date(data.invoiceDate).toISOString(),
-      invoiceHeaderId: data.id,
-      returnDescription: data.description,
+      id: data.id,
+      description: data.returnDescription,
       returnInvoiceDetails: data.invoiceDetails
         .filter((detail: any) => detail.returnQuantity > 0) // Exclude items where quantity <= 0
         .map((detail: any) => ({
-          quantity: detail.returnQuantity,
-          invoiceDetailId: detail.id,
+          toReturnQuantity: detail.returnQuantity,
+          id: detail.id,
         })),
     };
     
@@ -346,6 +355,9 @@ export class EditReturnPurchaseComponent {
 
   patchData(id: any) {
     this.PurchaseService.getReturnInvoiceById(id)
+  }
+  addToPost() {
+    this.PurchaseService.postReturnInvoice(this.itemId);
   }
   constructor(
     private routerService: RouterService,
