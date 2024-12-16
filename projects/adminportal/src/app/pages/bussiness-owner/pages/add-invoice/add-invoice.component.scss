@@ -41,3 +41,11 @@
     display: flex;
     justify-content: end;
   }
+  .summary_item{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .summary_card{
+    border: 1px solid rgb(227 227 240 / 98%)
+  }

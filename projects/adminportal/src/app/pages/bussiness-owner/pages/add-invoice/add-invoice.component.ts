@@ -16,6 +16,7 @@ export class AddInvoiceComponent {
   invoiceApps: any[] = [];
   invoiceLicenses: any[] = [];
   totalPrice: number = 0;
+  totalSummaryPrice: number = 0;
 
   ngOnInit(): void {
     this.initializeForm();
@@ -83,6 +84,7 @@ export class AddInvoiceComponent {
   toggleAppSelection(event: any, item: any, index: number) {
     if (event.target.checked) {
       this.invoiceApps.push({
+        appName:item.appName,
         appId: item.id,
         appPrice: item.price,
         appCount: 1
@@ -92,6 +94,7 @@ export class AddInvoiceComponent {
       this.invoiceApps = this.invoiceApps.filter(app => app.appId !== item.id);
 
     }
+    this.calculateTotalSummaryPrice()
   }
 
   updateAppPrice(item: any, newPrice: number) {
@@ -101,6 +104,9 @@ export class AddInvoiceComponent {
         element.appPrice = newPrice; 
       }
     });
+    this.calculateTotalPrice();
+    this.calculateTotalSummaryPrice();
+
   }
    
   
@@ -116,13 +122,13 @@ export class AddInvoiceComponent {
     let license = this.invoiceLicenses.find(l => l.licenseId === item.id);
     if (!license) {
       license = {
+        name:item.nameEn,
         licenseId: item.id,
         numberOfUsers: 0,
         licensePrice: 0,
         totalPrice: 0
       };
       this.invoiceLicenses.push(license);
-
     }
 
     if (field === 'users') {
@@ -133,6 +139,7 @@ export class AddInvoiceComponent {
 
 
     license.totalPrice = license.numberOfUsers * license.licensePrice;
+    this.calculateTotalSummaryPrice()
 
   }
   addInvoiceLicenseToForm(license: any) {
@@ -145,6 +152,7 @@ export class AddInvoiceComponent {
 
     (this.addForm.get('invoiceLicenses') as FormArray).push(invoiceLicenseFormGroup);
     this.calculateTotalPrice();
+    this.calculateTotalSummaryPrice();
 
   }
 
@@ -157,11 +165,11 @@ export class AddInvoiceComponent {
 
     (this.addForm.get('invoiceApps') as FormArray).push(invoiceAppFormGroup);
     this.calculateTotalPrice();
+    this.calculateTotalSummaryPrice();
 
   }
-  calculateTotalPrice() {
+  calculateTotalPrice() {    
     this.totalPrice = 0;
-
     const apps = this.addForm.get('invoiceApps')?.value;
     apps.forEach((app: any) => {
       this.totalPrice += app.appPrice * app.appCount;
@@ -177,6 +185,16 @@ export class AddInvoiceComponent {
 
     this.addForm.get('totalPrice')?.setValue(this.totalPrice);
   }
+  calculateTotalSummaryPrice() {
+    const subDomainPrice = this.addForm.get('subDomainPrice')?.value || 0;
+  
+    const appsTotal = this.invoiceApps.reduce((sum, app) => sum + (app.appPrice || 0), 0);
+  
+    const licensesTotal = this.invoiceLicenses.reduce((sum, license) => sum + (license.totalPrice || 0), 0);
+  
+    this.totalSummaryPrice= subDomainPrice + appsTotal + licensesTotal;
+  }
+  
   onSave() {
     this.invoiceLicenses.forEach(license => {
       this.addInvoiceLicenseToForm(license);
