@@ -610,15 +610,21 @@ export class AddStockOutComponent implements OnInit {
     });
   }
   barcodeCanged(e: any, index: number) {
-    this.loaderService.show();
+    // this.loaderService.show();
 
     this.itemsService
       .getItemByBarcodeStockOutQuery(e.target.value, this.addForm.get('warehouseId')?.value)
       .subscribe({
         next: (res: any) => {
-          if(res?.itemId) {
-            this.loaderService.hide();
+          if(res &&res?.itemId) {
             this.setRowDataFromBarCode(index, res);
+          }else{
+            const rowForm = this.stockOutDetailsFormArray.at(index) as FormGroup;
+            rowForm.reset();
+            this.toasterService.showError(
+              this.languageService.transalte('messages.Error'),
+              this.languageService.transalte('messages.barcodeStockedOrNotFounded')
+            );
           }
         },
         error: (err: any) => {
@@ -631,6 +637,8 @@ export class AddStockOutComponent implements OnInit {
           );
         },
       });
+      this.loaderService.hide();
+
   }
   addToPost() {
     this.itemsService.postStockOut(this.stockOutId);

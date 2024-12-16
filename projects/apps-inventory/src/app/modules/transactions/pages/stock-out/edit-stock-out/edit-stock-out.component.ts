@@ -750,15 +750,27 @@ export class EditStockOutComponent implements OnInit {
     });
   }
   barcodeCanged(e: any, index: number) {
-    this.loaderService.show();
+    // this.loaderService.show();
 
     this.itemsService
       .getItemByBarcodeStockOutQuery(e.target.value, this.addForm.get('warehouseId')?.value)
       .subscribe({
         next: (res: any) => {
-          this.loaderService.hide();
+          // this.loaderService.hide();
+          if(res ){
 
-          this.setRowDataFromBarCode(index, res);
+            this.setRowDataFromBarCode(index, res);
+          }else{
+            const rowForm = this.stockOutDetailsFormArray.at(index) as FormGroup;
+            rowForm.reset();
+            this.toasterService.showError(
+              this.languageService.transalte('messages.Error'),
+              this.languageService.transalte('messages.barcodeStockedOrNotFounded')
+            );
+          }
+
+          
+
         },
         error: (err: any) => {
           this.loaderService.hide();
