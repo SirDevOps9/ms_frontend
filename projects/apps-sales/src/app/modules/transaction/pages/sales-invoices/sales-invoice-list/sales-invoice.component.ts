@@ -10,6 +10,7 @@ import { SalesInvoiceListView } from '../../../models/sales-invoice-dto';
 import { TransactionService } from '../../../transaction.service';
 import { SortTableEXport } from 'projects/apps-inventory/src/app/modules/items/models/SortTable';
 import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
+import { SequenceService } from 'apps-shared-lib';
 
 @Component({
   selector: 'app-sales-invoice',
@@ -87,9 +88,7 @@ export class SalesInvoiceComponent {
   onSearchChange() {
     this.transaction_services.getSalseInvoice(this.searchTerm, new PageInfo());
   }
-  onAdd(){
-    this.routerService.navigateTo(`transaction/sales-invoice/add`);
-}
+
 
   onVeiw(data: any) {
     this.routerService.navigateTo(`transaction/sales-invoice/view/${data}`);
@@ -117,8 +116,7 @@ export class SalesInvoiceComponent {
 
   constructor( private routerService: RouterService, private router: Router,
    private transaction_services:TransactionService,    private exportService: ExportService,
-
-   ,   private sequenceService: SequenceService,
+     private sequenceService: SequenceService,
     private sharedEnums: SharedEnums
 
   ){
