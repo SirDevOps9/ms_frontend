@@ -9,8 +9,11 @@
     "CustomerOpeningBalanceList": "قائمة أرصدة افتتاحية العملاء",
     "AddCustomerOpeningBalance": "إضافة رصيد افتتاحي للعميل",
     "EditCustomerOpeningBalance": "تعديل الرصيد الافتتاحي للعميل",
-    "ViewCustomerOpeningBalance": "عرض الرصيد الافتتاحي للعميل"
-
+    "ViewCustomerOpeningBalance": "عرض الرصيد الافتتاحي للعميل",
+     "salesInvoiceList" : "فاتورة المبيعات",
+    "salesInvoiceAdd" : "اضافة",
+    "salesInvoiceView": "عرض فاتورة المبيعات",
+    "salesInvoiceListView": "عرض قائمة فواتير المبيعات"
   },
   "dir": "rtl",
   "Welcome": "مرحبا",
