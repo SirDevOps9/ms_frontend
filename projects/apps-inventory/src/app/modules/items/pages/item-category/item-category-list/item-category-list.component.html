@@ -5,6 +5,8 @@
           [items]="tableData"
           className="p-datatable-gridlines"
           [currentPageResult]="currentPageInfo"
+          (columnsFiltered)="onFilterColumn($event)"
+          (exportObj)="exportClickBySort($event)"
           (pageChange)="onPageChange($event)"
           [tableConfigs]="{
             allowPagination: false,
@@ -75,7 +77,7 @@
           <ng-container action>
             <div>
               <lib-export
-                (exportClick)="exportItemClick($event)"
+                (exportClick)="exportItemClick()"
                 [exportData]="exportData"
                 [exportColumns]="exportColumns"
                 [ExportName]="'Item Category'"

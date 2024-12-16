@@ -96,7 +96,7 @@
       width: 100% !important;
     }
   }
- 
+
 }
 
 ::ng-deep .add-journal {
@@ -107,4 +107,22 @@
     border-radius: 6px;
     width: 130px !important;
   }
+
+}
+
+.p-dropdown .p-dropdown-clear-icon {
+  color: #6b7280;
+  right: 0 !important;
+  left: auto !important;
+}
+::ng-deep .p-dropdown .p-dropdown-clear-icon {
+  color: #6b7280;
+  right: auto !important;
+  left: auto !important;
+}
+
+::ng-deep .add-journal .p-dropdown .p-dropdown-clear-icon {
+  color: #6b7280;
+  right: auto !important;
+  left: auto !important;
 }

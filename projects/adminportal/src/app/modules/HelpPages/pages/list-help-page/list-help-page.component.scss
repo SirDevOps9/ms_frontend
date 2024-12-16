@@ -1,0 +1,56 @@
+::ng-deep user_page {
+  .p-datatable.p-datatable-gridlines .p-datatable-header {
+    display: none;
+  }
+}
+
+.btn {
+  background-color: #1a90b0;
+  border: 2px solid #1a90b0;
+  color: #fff;
+  padding: 10px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+
+  .icon {
+    margin-inline-end: 5px;
+  }
+}
+
+::ng-deep .p-datatable .p-datatable-header {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+
+
+::ng-deep .viewInWeb[_ngcontent-ng-c1807313547] {
+  margin-top: 0px !important; 
+  background: #fff;
+  padding:  0px !important; 
+  border-radius: 16px;
+}
+
+::ng-deep .p-paginator-rpp-options span{
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+} 
+::ng-deep .p-datatable .p-datatable-wrapper table thead th {
+width: 100px;
+}
+*:disabled,
+[disabled] {
+    pointer-events: none; /* Disable interactions */
+    opacity: 0.5; /* Visual cue for disabled state */
+    cursor: not-allowed; /* Change cursor to indicate unavailability */
+}
+[ng-reflect-disabled="true"],
+[ng-reflect-is-disabled="true"],
+.p-disabled {
+    pointer-events: none; /* Disable all user interactions */
+    opacity: 0.5; /* Dim the component for visual feedback */
+    cursor: not-allowed; /* Show a disabled cursor */
+}

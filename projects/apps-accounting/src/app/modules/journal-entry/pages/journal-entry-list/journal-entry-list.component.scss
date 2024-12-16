@@ -70,3 +70,18 @@
 .code:hover {
   color: darkblue;
 }
+::ng-deep {
+  .p-multiselect {
+    width: 100% !important;
+  }
+  .p-multiselect-label-container,
+  .p-multiselect-label {
+    width: 100%;
+  }
+  .p-multiselect-label-container {
+    padding: 0;
+  }
+  p-multiselect.ng-dirty.ng-invalid > .p-multiselect {
+    border-color: #d4d6da !important;
+  }
+}

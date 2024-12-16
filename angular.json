@@ -182,14 +182,17 @@
             "assets": [
               "projects/adminportal/src/favicon.ico",
               "projects/adminportal/src/assets",
-              "projects/adminportal/src/web.config"
+              "projects/adminportal/src/web.config",
+              { "glob": "**/*", "input": "projects/adminportal/src/assets", "output": "assets" }
             ],
             "styles": [
               "projects/adminportal/src/styles.css",
               "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeicons/primeicons.css",
-              "node_modules/ngx-toastr/toastr.css"
+              "node_modules/ngx-toastr/toastr.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+              "node_modules/font-awesome/css/font-awesome.css"
             ],
             "scripts": []
           },
@@ -1420,7 +1423,7 @@
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true,
+              "sourceMap": false,
               "fileReplacements": [
                 {
                   "replace": "projects/apps-inventory/src/environments/environment.ts",
@@ -1431,7 +1434,7 @@
             "stage": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true,
+              "sourceMap": false,
               "fileReplacements": [
                 {
                   "replace": "projects/apps-inventory/src/environments/environment.ts",

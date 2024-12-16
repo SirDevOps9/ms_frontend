@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { FormsService, RouterService, customValidators } from 'shared-lib';
+import { FormsService, RouterService, customValidators ,LanguageService} from 'shared-lib';
 import { ItemsService } from '../../../items.service';
 import { ActivatedRoute } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-edit-warehouse',
@@ -26,18 +27,31 @@ export class EditWarehouseComponent implements OnInit {
   branchesDropDown : any = []
   citiesDropDown : any = []
   countriesDropDown : any = []
+  currentLang:string = ''
   warehouseType = [
-    { label: 'Physical', value: 1 },
-    { label: 'Virtual', value: 2 },
-    { label: 'VanSales', value: 3 }
+    { label: this.LanguageService.instant('global.Physical') , value: 1 },
+    { label: this.LanguageService.instant('global.Virtual') , value: 2 },
+    { label: this.LanguageService.instant('global.VanSales') , value: 3 }
+
 
   ]
   CityDropDownLookup : any = []
   CityLookup = []
   CompanyPhoneLookup = []
   id : number
-  constructor(private fb : FormBuilder , private formService : FormsService , private itemsService : ItemsService , private routerService : RouterService , private route : ActivatedRoute){
+  constructor(private fb : FormBuilder ,
+    private formService : FormsService ,
+    private itemsService : ItemsService ,
+    public languageService: LanguageService,
+     private routerService : RouterService ,
+     private route : ActivatedRoute ,
+         private LanguageService:TranslateService,
+
+
+    ){
     this.id = this.route.snapshot.params['id']
+    this.currentLang = this.languageService.getLang();
+
   }
   ngOnInit(): void {
    this.warehouseForm = this.fb.group({
@@ -187,4 +201,6 @@ getWarehouseById() {
       this.showaddress=false
     }
   }
+
+ 
 }

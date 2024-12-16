@@ -49,12 +49,6 @@ export class UOMAddComponent implements OnInit {
   get UOMType(): UOMType {
     return this.UOMType;
   }
-
-  uomTypeList = [
-    { id: UOMType.LowerType, name: 'LowerType' },
-    { id: UOMType.DefaultType, name: 'DefaultType' },
-    { id: UOMType.UpperType, name: 'UpperType' },
-  ];
   constructor(
     private fb: FormBuilder,
     private _itemService: ItemsService,
@@ -84,7 +78,6 @@ export class UOMAddComponent implements OnInit {
       }
     });
 
-
     this.getUOMS.valueChanges.subscribe((res: any) => {
       res.forEach((item: any, i: number) => {
         if (i === 0) {
@@ -93,7 +86,7 @@ export class UOMAddComponent implements OnInit {
         }
 
         // Initialize an array to hold the names
-        const currentData = [];
+        const currentData = [];  
 
         // Add nameUom from UOMFormGroup
         currentData.push({
@@ -122,30 +115,43 @@ export class UOMAddComponent implements OnInit {
 
         // Update the list with the filtered data
         this.list[i] = filteredData;
-
       });
     });
 
+    this.getUOMS.valueChanges.subscribe((res) => {
+      res.forEach((item: any) => {
+        this.filteredSytemUnitLookup = this.filteredSytemUnitLookup?.filter(
+          (elem) =>
+            elem?.systemUnitOfMeasureCategoryId ==
+              this.systemUnitData?.systemUnitOfMeasureCategoryId &&
+            elem?.id !== this.UOMFormGroup.get('systemUnitOfMeasureId')?.value
+        );
 
+        this.filteredSytemUnitLookup = this.filteredSytemUnitLookup?.filter(
+          (elem) => elem?.nameEn !== item?.nameEn
+        );
+        this.filteredSytemUnitLookup = this.filteredSytemUnitLookup?.filter(
+          (elem) => elem?.id !== item?.systemUnitOfMeasureId
+        );
+      });
+    });
   }
-
-
 
   systemUnitChanged(event: any) {
     let data = this.sytemUnitLookup.find((elem) => elem.id === event);
     this.systemUnitData = data;
+    this.UOMFormGroup.get('systemUnitOfMeasureId')?.setValue(event);
     this.UOMFormGroup.get('baseUomAr')?.setValue(data?.nameAr);
     this.UOMFormGroup.get('baseUomEn')?.setValue(data?.nameEn);
     this.getUOMS.clear();
   }
   systemUnitListChanged(event: any, uomTableForm: FormGroup, list: any) {
     let data: any = this.sytemUnitLookup.find((elem) => elem.id === event);
+    uomTableForm.get('systemUnitOfMeasureId')?.setValue(event);
     uomTableForm.get('baseUomEn')?.setValue(data?.nameEn);
     uomTableForm.get('nameEn')?.setValue(data?.nameEn);
     uomTableForm.get('nameAr')?.setValue(data?.nameAr);
     uomTableForm.get('systemUnitOfMeasureName')?.setValue(data?.nameEn);
-
-  
   }
 
   get categoryId(): number {
@@ -170,7 +176,7 @@ export class UOMAddComponent implements OnInit {
       uoMs: this.fb.array([]),
       nameEn: ['', customValidators.required],
       nameAr: ['', customValidators.required],
-      systemUnitOfMeasureId: ['', customValidators.required],
+      systemUnitOfMeasureId: [null, customValidators.required],
     });
 
     this.UOMFormGroup.get('uomCodeCategory')?.valueChanges.subscribe((res: any) => {
@@ -256,22 +262,17 @@ export class UOMAddComponent implements OnInit {
       systemUnitOfMeasureName: '',
       systemUnitOfMeasureId: new FormControl(uomData?.systemUnitOfMeasureId || null),
       fromUnitOfMeasureId: new FormControl(uomData?.fromUnitOfMeasureId || null),
+      systemUnitOfMeasureCategoryId: '',
     });
 
-    let uom = this.getUOMS.value;
-
-    const excludedIds = uom.map((item: any) => item.systemUnitOfMeasureId); // Collect all IDs to exclude
-    this.filteredSytemUnitLookup = this.sytemUnitLookup.filter(
-      (elem) =>
-        !excludedIds.includes(elem.id) &&
-        elem?.systemUnitOfMeasureCategoryId ===
-          this.UOMFormGroup.get('systemUnitOfMeasureId')?.value
-    );
+    this.filteredSytemUnitLookup = this.sytemUnitLookup;
 
     return formData;
   }
 
   addLine() {
+    if (!this.formService.validForm(this.getUOMS, false)) return;
+
     this.getUOMS.push(this.create_UOM_FormGroup());
   }
 
@@ -302,6 +303,11 @@ export class UOMAddComponent implements OnInit {
   }
 
   onDelete(i: number, uomTableForm: FormGroup) {
+    let systemUnit: any = this.sytemUnitLookup.find(
+      (elem) => elem.id == uomTableForm.get('systemUnitOfMeasureId')?.value
+    );
+
+    this.filteredSytemUnitLookup.push(systemUnit);
     const formArray = this.getUOMS;
 
     // Remove elements starting from the given index up to the last element
@@ -310,9 +316,8 @@ export class UOMAddComponent implements OnInit {
     }
   }
 
-  nameChanged(e: any, i: number) {
-    // Clear all entries below the specified index
-    const itemsArray = this.getUOMS;
+  nameChanged(e: any, i: number, uomTableForm: FormGroup) {
+    const itemsArray: any = this.getUOMS;
 
     while (itemsArray.length > i + 1) {
       itemsArray.removeAt(i + 1);
@@ -446,9 +451,9 @@ export class UOMAddComponent implements OnInit {
         fromUnitOfMeasureId: '',
       };
 
-      this.getUOMS.controls[0]
-        .get('fromUnitOfMeasureId')
-        ?.setValue(this.UOMFormGroup.get('shortName')?.value);
+      // this.getUOMS.controls[0]
+      //   .get('fromUnitOfMeasureId')
+      //   ?.setValue( this.currentLang == 'en' ?    this.UOMFormGroup.get('baseUomEn')?.value : this.UOMFormGroup.get('baseUomAr')?.value);
 
       const formArray = this.getUOMS;
 
@@ -482,7 +487,7 @@ export class UOMAddComponent implements OnInit {
         calculation: '1',
         reversal: '1',
         uomCategoryId: 0,
-        systemUnitOfMeasureId: this.UOMFormGroup.get('systemUnitOfMeasureId')?.value || null,
+        systemUnitOfMeasureId: this.UOMFormGroup.get('systemUnitOfMeasureId')?.value,
       };
 
       // Add the base unit to the beginning of the getUOMS array
@@ -490,7 +495,9 @@ export class UOMAddComponent implements OnInit {
 
       // Set the 'fromUnitOfMeasureId' in the newly added base unit
       if (this.getUOMS.controls[0]) {
-        this.getUOMS.controls[0].get('fromUnitOfMeasureId')?.setValue(base.shortName);
+        this.getUOMS.controls[0]
+          .get('fromUnitOfMeasureId')
+          ?.setValue(this.currentLang == 'en' ? base.nameEn : base.nameAr);
       }
 
       // Define UOM category object with form values and unit measures array

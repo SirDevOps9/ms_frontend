@@ -46,7 +46,7 @@ import {
 import { EditItemDefinitionDto } from './models/editItemDefinitionDto';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { variantGroupById } from './models/variantGroupById';
-import { itemAttributeValues } from './models/itemAttributeValues';
+import { ItemAttribute, itemAttributeValues } from './models/itemAttributeValues';
 import { getBarcodeById } from './models/getBarcodeById';
 import { addUOM, AddUom } from './models/addUom';
 import { addAttributeDifintion, IAttrributeDifinitionResult } from './models/AttrbuteDiffintion';
@@ -54,11 +54,13 @@ import { OperationType } from './models/enums';
 import { VieItemDefinitionDto } from './models/VieItemDefinitionDto';
 import { GetItemUom } from './models/GetItemUom';
 import { FormGroup } from '@angular/forms';
+import { GetWarehouseItems } from './models/GetWarehouseItem';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ItemsService {
+  allowServerPagination: any;
   constructor(
     private itemProxy: ItemsProxyService,
     private toasterService: ToasterService,
@@ -140,7 +142,7 @@ export class ItemsService {
   public sendBarcode = new BehaviorSubject<addBarcode>({} as addBarcode);
   public sendUOM = new BehaviorSubject<AddUom>({} as AddUom);
   public sendUOMCategory = new BehaviorSubject<addUOM>({} as addUOM);
-  public getUOMCategoryByIdData = new BehaviorSubject<addUOM>({} as addUOM);
+  public getUOMCategoryByIdData = new BehaviorSubject<addUOM | any>({} as addUOM);
   public sendAttrDefinition = new BehaviorSubject<addAttributeDifintion>(
     {} as addAttributeDifintion
   );
@@ -164,7 +166,7 @@ export class ItemsService {
   public sendlatestItemsList = new BehaviorSubject<LatestItems[]>([]);
   public latestItemsListByWarehouse = new BehaviorSubject<LatestItems[]>([]);
   public updateAddStockIn = new BehaviorSubject<AddStockIn>({} as AddStockIn);
-  public attributeValuesDropDownLookup = new BehaviorSubject<itemAttributeValues[]>([]);
+  public attributeValuesDropDownLookup = new BehaviorSubject<ItemAttribute[]>([]);
   public attributeValuesData = new BehaviorSubject<itemAttributeValues[]>([]);
   private itemsDataSource = new BehaviorSubject<AdvancedSearchDto[]>([]);
   public itemsList = this.itemsDataSource.asObservable();
@@ -177,12 +179,16 @@ export class ItemsService {
   AddWarehouseDataSource = new BehaviorSubject<AddWarehouse>({} as AddWarehouse);
   sendWarehouseById = new BehaviorSubject<AddWarehouse>({} as AddWarehouse);
 
+  WarehouseViewDataSource = new BehaviorSubject<GetWarehouseItems[]>([]);
+
   getWarehouseDataSourceById = new BehaviorSubject<WarehouseAccountData>(
     {} as WarehouseAccountData
   );
   exportedWarehouseDataSource = new BehaviorSubject<GetWarehouseList[]>([]);
   exportedItemCategoryDataSource = new BehaviorSubject<GetItemCategoryDto[]>([]);
 
+
+  exportedWarehouseDataItemSource = new BehaviorSubject<GetWarehouseItems[]>([]);
   // transactions
 
   // lookups
@@ -193,18 +199,6 @@ export class ItemsService {
   sendCountriesLookup = new BehaviorSubject<any>([]);
   public sendOperationalTagDropDown = new BehaviorSubject<OperationalStockIn[]>([]);
   public sendItemBarcodeStockOut = new BehaviorSubject<any>({} as any);
-
-  // sendCashSalesLookup = new BehaviorSubject<any>([]);
-  // sendLookup = new BehaviorSubject<any>([]);
-  // sendCreditSalesLookup = new BehaviorSubject<any>([]);
-  // sendSalesReturnLookup = new BehaviorSubject<any>([]);
-  // sendPurchaseAccountLookup = new BehaviorSubject<any>([]);
-  // sendSalesCostCenterLookup = new BehaviorSubject<any>([]);
-  // sendDiscountAccountLookup = new BehaviorSubject<any>([]);
-  // sendEvaluationAccountLookup = new BehaviorSubject<any>([]);
-  // sendAdjustmentAccountLookup = new BehaviorSubject<any>([]);
-  // sendGoodsInTransitLookup = new BehaviorSubject<any>([]);
-  // sendCompanyPhoneLookup = new BehaviorSubject<any>([]);
 
   public SendexportUOMList = new BehaviorSubject<UOMCategoryDto[]>([]);
   public SendexportAttrDifinitionList = new BehaviorSubject<any[]>([]);
@@ -230,10 +224,11 @@ export class ItemsService {
   public EditItemCategoryDataObs = this.EditItemCategoryData.asObservable();
   public variantGeneratedObs = this.variantGenerated.asObservable();
   public getItemCategoryByIdDataObs = this.getItemCategoryByIdData.asObservable();
+  public exportedItemDefinitionListDataSourceObs = this.exportedItemDefinitionListDataSource.asObservable()
   public sendItemCategoryDataSourceObs = this.sendItemCategoryDataSource.asObservable();
   public tagLookupObs = this.tagLookup.asObservable();
   public defaultUnitObs = this.defaultUnit.asObservable();
-
+public exportedWarehouseDataItemSourceObs = this.exportedWarehouseDataItemSource.asObservable()
   public stockInDataViewSource = new BehaviorSubject<StockInDto[]>([]);
   public inventoryGeneralSetting = new BehaviorSubject<GeneralSettingDto>({} as GeneralSettingDto);
 
@@ -284,21 +279,11 @@ export class ItemsService {
   public AddWarehouseDataSourceObs = this.AddWarehouseDataSource.asObservable();
   public sendWarehouseByIdObs = this.sendWarehouseById.asObservable();
   public exportedWarehouseDataSourceObs = this.exportedWarehouseDataSource.asObservable();
+  public WarehouseViewDataSourceObs = this.WarehouseViewDataSource.asObservable()
   // lookups
   public sendBranchesLookupObs = this.sendBranchesLookup.asObservable();
   public sendCitiesLookupObs = this.sendCitiesLookup.asObservable();
   public sendCountriesLookupObs = this.sendCountriesLookup.asObservable();
-  // public sendGlAccountLookupObs = this.sendGlAccountLookup.asObservable()
-  // public sendCashSalesLookupObs = this.sendCashSalesLookup.asObservable()
-  // public sendCreditSalesLookupObs = this.sendCreditSalesLookup.asObservable()
-  // public sendSalesReturnLookupObs = this.sendSalesReturnLookup.asObservable()
-  // public sendPurchaseAccountLookupObs = this.sendPurchaseAccountLookup.asObservable()
-  // public sendSalesCostCenterLookupObs = this.sendSalesCostCenterLookup.asObservable()
-  // public sendDiscountAccountLookupObs = this.sendDiscountAccountLookup.asObservable()
-  // public sendEvaluationAccountLookupObs = this.sendEvaluationAccountLookup.asObservable()
-  // public sendAdjustmentAccountLookupObs = this.sendAdjustmentAccountLookup.asObservable()
-  // public sendGoodsInTransitLookupObs = this.sendGoodsInTransitLookup.asObservable()
-  // public sendCompanyPhoneLookupObs = this.sendCompanyPhoneLookup.asObservable()
 
   public updateUOMobj$ = this.updateUOMobj.asObservable();
   public listOfUOMs = this.listOfUOM.asObservable();
@@ -348,7 +333,6 @@ export class ItemsService {
   getItemBarcodeById(id: number) {
     this.itemProxy.getItemBarcodeById(id).subscribe({
       next: (res: any) => {
-        console.log(res);
         this.dataBarCodeById.next(res);
       },
     });
@@ -357,7 +341,6 @@ export class ItemsService {
   getItemFixedCost(id: number) {
     this.itemProxy.getItemFixedCost(id).subscribe({
       next: (res: any) => {
-        console.log(res);
         this.dataFixedCostById.next(res);
       },
     });
@@ -374,7 +357,6 @@ export class ItemsService {
   getUOmCategories(quieries: string, pageInfo: PageInfo) {
     this.itemProxy.GetUOMCategories(quieries, pageInfo).subscribe(
       (response) => {
-        console.log(response);
         this.GetUOMCategoriesDataSource.next(response.result);
         this.currentPageInfo.next(response.pageInfoResult);
       },
@@ -422,7 +404,6 @@ export class ItemsService {
   addItemDefinition(obj: AddItemDefinitionDto, dialogRef: DynamicDialogRef, text: string) {
     this.itemProxy.addItemDefinition(obj).subscribe((res) => {
       if (res) {
-        console.log('success', res);
 
         this.toasterService.showSuccess(
           this.languageService.transalte('itemDefinition.success'),
@@ -457,32 +438,31 @@ export class ItemsService {
     });
   }
 
-  exportsItemsDefinitionList(searchTerm: string | undefined) {
-    this.itemProxy.exportsItemsDefinitionList(searchTerm).subscribe({
+  exportsItemsDefinitionList(SearchTerm: string ,SortBy?: number, SortColumn?: string) {
+    this.itemProxy.exportsItemsDefinitionList(SearchTerm,SortBy,SortColumn).subscribe({
       next: (res: any) => {
-        console.log(res);
         this.exportedItemDefinitionListDataSource.next(res);
       },
     });
   }
 
-  exportUOMList(SearchTerm: string | undefined) {
+  exportUOMList(SearchTerm?: string, SortBy?: number, SortColumn?: string) {
     this.itemProxy.ExportUOMList(SearchTerm).subscribe({
       next: (res: UOMCategoryDto[]) => {
         this.SendexportUOMList.next(res);
       },
     });
   }
-  ExportOperationalTagList(SearchTerm: string | undefined) {
-    this.itemProxy.ExportOperationalTagList(SearchTerm).subscribe({
+  ExportOperationalTagList(SearchTerm: string ,SortBy?: number, SortColumn?: string) {
+    this.itemProxy.ExportOperationalTagList(SearchTerm , SortBy ,SortColumn ).subscribe({
       next: (res: any) => {
         this.SendExportOperationalTagList.next(res);
       },
     });
   }
 
-  exportAttrDifinitionList(SearchTerm: string | undefined) {
-    this.itemProxy.ExporAttrList(SearchTerm).subscribe({
+  exportAttrDifinitionList(SearchTerm: string ,SortBy?: number, SortColumn?: string) {
+    this.itemProxy.ExporAttrList(SearchTerm , SortBy ,SortColumn).subscribe({
       next: (res: any) => {
         this.SendexportAttrDifinitionList.next(res);
       },
@@ -600,7 +580,6 @@ export class ItemsService {
         this.taxesDataLookup.next(res);
       },
       error: (err) => {
-        console.error('Failed to load tax data:', err);
         this.taxesDataLookup.next([]);
       },
     });
@@ -814,7 +793,7 @@ export class ItemsService {
     });
   }
   attributeGroupsValuesData(id: number) {
-    this.itemProxy.attributeGroupsValuesData(id).subscribe({
+    this.itemProxy.attributeGroupsGetAttributes(id).subscribe({
       next: (res: any) => {
         this.attributeValuesData.next(res);
       },
@@ -853,27 +832,6 @@ export class ItemsService {
       );
     });
   }
-
-  async DeleteUomLine(id: number) {
-    const confirmed = await this.toasterService.showConfirm(
-      this.languageService.transalte('ConfirmButtonTexttodelete')
-    );
-    if (confirmed) {
-      this.itemProxy.DeleteUomLine(id).subscribe({
-        next: (res) => {
-          this.toasterService.showSuccess(
-            this.languageService.transalte('UOM.success'),
-            this.languageService.transalte('UOM.delete')
-          );
-
-          const currentUom: any = this.getUOMCategoryByIdData.getValue();
-          const updatedUOM: addUOM = currentUom.uoMs.filter((c: any) => c.id !== id);
-          this.getUOMCategoryByIdData.next(updatedUOM);
-        },
-      });
-    }
-  }
-
   systemUnitLookup() {
     this.itemProxy.systemUnitLookup().subscribe((res) => {
       if (res) {
@@ -940,14 +898,6 @@ export class ItemsService {
         this.deleteAttrDifinitionData.next(data);
       });
     }
-
-    /*
-       this.itemProxy.attributeGroupsValue(id).subscribe({
-      next: (res: any) => {
-        this.attributeValuesDropDownLookup.next(res);
-      },
-    });
-    */
   }
 
   EditUOMCategory(obj: addUOM) {
@@ -960,26 +910,6 @@ export class ItemsService {
       );
       this.sendUOMCategory.next(res);
     });
-  }
-  // attr difinition delete
-  async deleteUOM(id: number) {
-    const confirmed = await this.toasterService.showConfirm(
-      this.languageService.transalte('ConfirmButtonTexttodelete')
-    );
-    if (confirmed) {
-      this.itemProxy.deleteUOM(id).subscribe({
-        next: (res) => {
-          this.toasterService.showSuccess(
-            this.languageService.transalte('UOM.success'),
-            this.languageService.transalte('UOM.delete')
-          );
-
-          const currentUom = this.GetUOMCategoriesDataSource.getValue();
-          const updatedUOM = currentUom.filter((c: any) => c.id !== id);
-          this.GetUOMCategoriesDataSource.next(updatedUOM);
-        },
-      });
-    }
   }
   async deleteCategory(id: number) {
     const confirmed = await this.toasterService.showConfirm(
@@ -994,16 +924,14 @@ export class ItemsService {
           );
 
           const currentUom = this.GetUOMCategoriesDataSource.getValue();
-          console.log(currentUom);
-          console.log(id);
           const updatedUOM = currentUom.filter((c: any) => c.uomCategoryId !== id);
           this.GetUOMCategoriesDataSource.next(updatedUOM);
         },
       });
     }
   }
-  // attr difinition delete
-  async deleteUomCat(id: number) {
+
+  async deleteUom(id: string) {
     const confirmed = await this.toasterService.showConfirm(
       this.languageService.transalte('ConfirmButtonTexttodelete')
     );
@@ -1014,10 +942,9 @@ export class ItemsService {
             this.languageService.transalte('UOM.success'),
             this.languageService.transalte('UOM.delete')
           );
-
-          const currentUom = this.uomCodeLookup.getValue();
-          const updatedUOM = currentUom.filter((c: any) => c.id !== id);
-          this.uomCodeLookup.next(updatedUOM);
+          const currentList = this.GetUOMCategoriesDataSource.getValue();;
+          const updatedList = currentList.filter((c: any) => c.id !== id);
+          this.GetUOMCategoriesDataSource.next(updatedList);
         },
       });
     }
@@ -1080,8 +1007,6 @@ export class ItemsService {
             this.languageService.transalte('itemType.deleteBarcode')
           );
           const currentVariant: any = this.ItemVariantsById.getValue();
-          console.log(currentVariant);
-          console.log(id);
           const updatedVariants = currentVariant.filter((c: any) => c.variantId !== id);
           this.ItemVariantsById.next(updatedVariants);
         },
@@ -1129,7 +1054,8 @@ export class ItemsService {
     this.itemProxy.addAttrDifinition(obj).subscribe((res) => {
       this.toasterService.showSuccess(
         this.languageService.transalte('attributeDefinition.success'),
-        this.languageService.transalte('attributeDefinition.Success')
+        this.languageService.transalte('attributeDefinition.successAdd')
+
       );
       this.sendAttrDefinition.next(res);
       this.router.navigateTo('/masterdata/attribute-definition');
@@ -1212,7 +1138,12 @@ export class ItemsService {
       this.currentPageInfo.next(response.pageInfoResult);
     });
   }
-
+  getWarehouseListView(queries: string, warehouseId:number, pageInfo: PageInfo) {
+    this.itemProxy.getWarehouseView(queries  , warehouseId, pageInfo).subscribe((response) => {
+      this.WarehouseViewDataSource.next(response.result);
+      this.currentPageInfo.next(response.pageInfoResult);
+    });
+  }
   // addWarehouse(obj : AddWarehouse) {
   //   this.itemProxy.addWarehouse(obj).subscribe((response) => {
   //     this.toasterService.showSuccess(
@@ -1227,15 +1158,12 @@ export class ItemsService {
   addWarehouse(obj: AddWarehouse, dialogRef: DynamicDialogRef, text: string) {
     this.itemProxy.addWarehouse(obj).subscribe((res) => {
       if (res) {
-        console.log(res);
         this.toasterService.showSuccess(
           this.languageService.transalte('warehouse.success'),
           this.languageService.transalte('warehouse.add')
         );
 
         let dataRes: number = Number(res);
-        console.log(dataRes);
-        console.log(text);
         if (text == 'save') {
           dialogRef.close(res);
         } else {
@@ -1271,8 +1199,16 @@ export class ItemsService {
       },
     });
   }
-  exportsItemCategoryList(searchTerm: string | undefined) {
-    this.itemProxy.exportsItemCategoryList(searchTerm).subscribe({
+
+  exportsWayehouseItemView(warehouseId?: number, SortBy?: any, SortColumn?: any) {
+    this.itemProxy.exportsWayehouseItemView(warehouseId, SortBy, SortColumn).subscribe({
+      next: (res: any) => {
+        this.exportedWarehouseDataItemSource.next(res);
+      },
+    });
+  }
+  exportsItemCategoryList(searchTerm?: string, SortBy?: number, SortColumn?: string) {
+    this.itemProxy.exportsItemCategoryList(searchTerm , SortBy, SortColumn).subscribe({
       next: (res: any) => {
         this.exportedItemCategoryDataSource.next(res);
       },
@@ -1336,7 +1272,7 @@ export class ItemsService {
         this.updateAttrobj.next(res);
         this.toasterService.showSuccess(
           this.languageService.transalte('attributeDefinition.success'),
-          this.languageService.transalte('attributeDefinition.success')
+          this.languageService.transalte('attributeDefinition.successUpdate')
         );
 
         // this.router.navigateTo(`/masterdata/item-definition` )
@@ -1422,6 +1358,12 @@ export class ItemsService {
           this.languageService.transalte('generalSetting.updated')
         );
       },
+      error: (err:any)=>{
+        this.toasterService.showError(
+          this.languageService.transalte('messages.error'),
+          this.languageService.transalte('messages.notUpdated')
+        );
+      }
     });
   }
   getInventoryGeneralSetting() {

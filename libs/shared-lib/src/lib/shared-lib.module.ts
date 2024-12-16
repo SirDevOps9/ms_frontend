@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DecimalPipe } from '@angular/common';
 import { RouterModule, RouterOutlet, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
@@ -25,6 +25,7 @@ import {
   SharedFormComponent,
   ToggelComponent,
   EditMultipeFilesComponent,
+  DateRangeComponent,
 } from './form-components';
 import { DropdownModule } from 'primeng/dropdown';
 import { GetLookupPipe } from './pipes/lookupList';
@@ -59,6 +60,10 @@ import { QRCodeModule } from 'angularx-qrcode';
 import { ColumnsSelectionComponent } from './form-components/columns-selection/columns-selection.component';
 import { ActtachmentViewComponent } from 'libs/apps-shared-lib/src/lib/pages/attachment-view/acttachment-view/acttachment-view.component';
 import { NewBreadCrumbComponent } from './components/new-bread-crumb/new-bread-crumb.component';
+import { LoaderDirective } from './directives/loader.directive';
+import { DecimalSeperatorPipe } from './pipes/decimal-seperator.pipe';
+import { ChartCardComponent } from './components/chart-card/chart-card.component';
+import { ChartModule } from 'angular-highcharts';
 
 @NgModule({
   declarations: [
@@ -103,6 +108,10 @@ import { NewBreadCrumbComponent } from './components/new-bread-crumb/new-bread-c
     NumberFormatPipe,
     PopupPageComponent,
     ColumnsSelectionComponent,
+    LoaderDirective,
+    DecimalSeperatorPipe,
+    ChartCardComponent,
+    DateRangeComponent,
   ],
   imports: [
     HttpClientModule,
@@ -120,6 +129,7 @@ import { NewBreadCrumbComponent } from './components/new-bread-crumb/new-bread-c
     ProgressSpinnerModule,
     QRCodeModule,
     InputTextareaModule,
+    ChartModule,
   ],
   exports: [
     GetLookupPipe,
@@ -172,6 +182,10 @@ import { NewBreadCrumbComponent } from './components/new-bread-crumb/new-bread-c
     QRCodeModule,
     ColumnsSelectionComponent,
     InputTextareaModule,
+    LoaderDirective,
+    DecimalSeperatorPipe,
+    ChartCardComponent,
+    DateRangeComponent,
   ],
 })
 export class SharedLibModule {}

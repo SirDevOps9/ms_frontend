@@ -1,0 +1,12 @@
+{
+  "Title": "Title",
+  "Toaster": {
+    "Confirm": {
+      "Title": "Are you sure?",
+      "Text": "You won't be able to revert this!",
+      "ConfirmButtonTexttodelete": "Yes, delete it!",
+      "CancelButtonText": "Cancel",
+      "ConfirmButtonTexttochangstatus": "Yes"
+    }
+  }
+}

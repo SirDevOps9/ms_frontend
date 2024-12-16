@@ -1,0 +1,16 @@
+{
+  "dashboard": {
+    "stockOverview": "نظرة عامة عن المخزون",
+    "categories": "التصنيفات",
+    "warehouses": "المستودعات",
+    "Status": "الحالة",
+    "lastStockOut": "آخر إصدار من المخزون",
+    "lastStockIn": "آخر إدراج في المخزون",
+    "stockExpiryAlert": "تنبيه عن انتهاء صلاحية المخزون",
+    "moreDetails": "المزيد من التفاصيل",
+    "status": "الحالة",
+    "totalQuantity": "الكمية الكلية",
+    "totalValue": "القيمة الكلية",
+    "noELements": "لا يوجد عناصر"
+  }
+}

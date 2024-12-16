@@ -2,10 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { PageInfoResult, lookupDto, RouterService, LanguageService, PageInfo } from 'shared-lib';
 import { FinanceService } from '../../../../finance/finance.service';
-import { GetAllPaymentInDto, GetAllPaymentOutDto } from '../../../models';
+import {
+  BankAccount,
+  CurrencyDto,
+  GetAllPaymentInDto,
+  GetAllPaymentOutDto,
+  PaymentFilterDto,
+} from '../../../models';
 import { TranscationsService } from '../../../transcations.service';
 import { SharedFinanceEnums } from '../../../../finance/models';
 import { Router } from '@angular/router';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-payment-out-list',
@@ -58,6 +65,14 @@ export class PaymentOutListComponent implements OnInit {
   ];
   exportData: GetAllPaymentInDto[];
 
+  filterForm: FormGroup;
+  filterStatus: lookupDto[] = [];
+  filterPaymentHub: lookupDto[] = [];
+  currencyListDto: CurrencyDto[] = [];
+  bankAccounts: BankAccount[] = [];
+  paymentHubDetailsList: lookupDto[] = [];
+  bankAccountDisabled: boolean = true;
+
   constructor(
     private financeService: TranscationsService,
     private routerService: RouterService,
@@ -68,6 +83,97 @@ export class PaymentOutListComponent implements OnInit {
   ngOnInit() {
     this.subscribes();
     this.initPaymentInData();
+    this.initiateFilterForm();
+    this.getLookup();
+    this.lookupSubscriptions();
+  }
+
+  initiateFilterForm() {
+    this.filterForm = new FormGroup({
+      range: new FormControl([]),
+      status: new FormControl([]),
+      paymentHub: new FormControl(null),
+      paymentHubDetails: new FormControl([]),
+      bankAccounts: new FormControl([]),
+      currency: new FormControl(null),
+    });
+    this.filterForm.get('paymentHub')?.valueChanges.subscribe((res) => {
+      this.filterForm.get('paymentHubDetails')?.reset();
+      this.filterForm.get('bankAccounts')?.reset();
+
+      if (res == 2) {
+        this.bankAccountDisabled = false;
+        this.financeService.bankDropDown();
+      } else {
+        this.bankAccountDisabled = true;
+        this.financeService.treasuryDropDown();
+      }
+    });
+    this.filterForm.get('paymentHubDetails')?.valueChanges.subscribe((res) => {
+      if (this.filterForm.get('paymentHub')?.value == 2 && res) {
+        this.getBankACcounts(res);
+      }
+    });
+  }
+
+  lookupSubscriptions() {
+    this.financeService.paymentOutStatus$.subscribe((res) => {
+      this.filterStatus = res;
+    });
+    this.financeService.paymentHub$.subscribe((res) => {
+      this.filterPaymentHub = res;
+    });
+    this.financeService.getTreasuryDropDownDataObservable.subscribe((res) => {
+      this.paymentHubDetailsList = res;
+    });
+    this.financeService.getBankDropDownDataObservable.subscribe((res) => {
+      this.paymentHubDetailsList = res;
+    });
+    this.financeService.bankAccountsDropDown$.subscribe((res) => {
+      this.bankAccounts = res;
+    });
+    this.financeService.currencyDropdown$.subscribe((res) => {
+      this.currencyListDto = res;
+    });
+  }
+
+  getLookup() {
+    this.getPaymentOutStatus();
+    this.getPaymentHub();
+    this.getCurrencyDropdown();
+  }
+
+  getPaymentOutStatus() {
+    this.financeService.getPaymentOutStatus();
+  }
+
+  getCurrencyDropdown() {
+    this.financeService.getCurrencyDropdown();
+  }
+
+  getPaymentHub() {
+    this.financeService.getPaymentHub();
+  }
+
+  getBankACcounts(ids: number[]) {
+    this.financeService.getBanAccounts(ids);
+  }
+
+  filter() {
+    const filter: PaymentFilterDto = {
+      FromDate: this.filterForm.get('range')!.value?.[0]
+        ? new Date(this.filterForm.get('range')!.value[0]).toISOString().slice(0, 10)
+        : '',
+      ToDate: this.filterForm.get('range')!.value?.[1]
+        ? new Date(this.filterForm.get('range')!.value[1]).toISOString().slice(0, 10)
+        : '',
+      Status: this.filterForm.get('status')!.value ?? '',
+      PaymentHub: this.filterForm.get('paymentHub')!.value ?? '',
+      PaymentHubDetailId: this.filterForm.get('paymentHubDetails')!.value ?? '',
+      BankAccountId: this.filterForm.get('bankAccounts')!.value ?? '',
+      CurrencyId: this.filterForm.get('currency')!.value ?? '',
+    };
+    this.financeService.getAllPaymentOut('', new PageInfo(), filter);
   }
 
   routeToAdd() {
@@ -102,7 +208,7 @@ export class PaymentOutListComponent implements OnInit {
   }
 
   onSearchChange(event: any) {
-    this.searchTerm=event
+    this.searchTerm = event;
     this.financeService.getAllPaymentOut(event, new PageInfo());
   }
 

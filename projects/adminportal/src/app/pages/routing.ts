@@ -12,6 +12,16 @@ const Routing: Routes = [
       import('./bussiness-owner/business-owner.module').then((m) => m.BusinessOwnerModule),
   },
   {
+    path: 'help-pages',
+    loadChildren: () =>
+      import('../modules/HelpPages/help-pages.module').then((m) => m.HelpPagesModule),
+  },
+  {
+    path: 'help-cms',
+    loadChildren: () =>
+      import('../modules/CMS/cms.module').then((m) => m.CmsModule),
+  },
+  {
     path: 'builder',
     loadChildren: () =>
       import('./builder/builder.module').then((m) => m.BuilderModule),

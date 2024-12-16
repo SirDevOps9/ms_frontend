@@ -13,6 +13,7 @@ export interface JournalEntryViewDto {
   type: JournalEntryType;
   sourceName: string;
   sourceCode: string;
+  sourceId : string;
   reversedJournalCode?: string;
   status: JournalEntryStatus;
   totalDebitAmount: number;

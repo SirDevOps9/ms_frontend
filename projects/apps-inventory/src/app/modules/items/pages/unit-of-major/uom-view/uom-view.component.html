@@ -1,51 +1,38 @@
 <lib-page-content [title]="'bank.TaxList' | translate" [subTitle]="'bank.TaxList' | translate">
-  <div class="grid" [formGroup]="UOMFormGroup">
+  <div class="grid">
     <div class="md:col-12 p-0 my-1">
       <div class="card">
         <div class="grid m-0 p-0">
-          <div class="md:col-12">
-          </div>
+          <div class="md:col-12"></div>
           <div class="md:col-4">
             <lib-form-group>
-              <lib-label [appControl]="UOMFormGroup.controls['code']" class="body_b14 mb-2 ms-4">
+              <label>
                 {{ 'UOM.code' | translate }}
-              </lib-label>
-              <lib-text-input [readOnly]="true" formControlName="code" placeholder="{{ 'UOM.code' | translate }}">
-              </lib-text-input>
+              </label>
+              <lib-text-input
+                [readOnly]="true"
+                placeholder="{{ uomsDataObject.id }}"
+              ></lib-text-input>
             </lib-form-group>
           </div>
           <!--  -->
           <div class="md:col-4">
             <lib-form-group>
-              <lib-label [appControl]="UOMFormGroup.controls['nameEn']" class="body_b14 mb-2 ms-4">
+              <label>
                 {{ 'UOM.categorynameEn' | translate }}
-              </lib-label>
-              <lib-text-input
-              [readOnly]="true"
-                formControlName="nameEn"
-                placeholder="{{ 'UOM.categorynameEn' | translate }}"
-              >
+              </label>
+              <lib-text-input [readOnly]="true" placeholder="{{ uomsDataObject.nameEn }}">
               </lib-text-input>
-              <lib-field-validations
-              [appControl]="UOMFormGroup.controls['nameEn']"
-            ></lib-field-validations>
             </lib-form-group>
           </div>
           <!--  -->
           <div class="md:col-4">
             <lib-form-group>
-              <lib-label [appControl]="UOMFormGroup.controls['nameAr']" class="body_b14 mb-2 ms-4">
+              <label>
                 {{ 'UOM.categorynameAr' | translate }}
-              </lib-label>
-              <lib-text-input
-              [readOnly]="true"
-                formControlName="nameAr"
-                placeholder="{{ 'UOM.categorynameAr' | translate }}"
-              >
+              </label>
+              <lib-text-input [readOnly]="true" placeholder="{{ uomsDataObject.nameAr }}">
               </lib-text-input>
-              <lib-field-validations
-              [appControl]="UOMFormGroup.controls['nameAr']"
-            ></lib-field-validations>
             </lib-form-group>
           </div>
           <!--  -->
@@ -60,89 +47,49 @@
             <p class="fw-bold heads">{{ 'UOM.baseUom' | translate }}</p>
           </div>
           <!--  -->
-          <div class="md:col-3">
+          <div class="md:col-3" *ngIf="uomsData && uomsData.length">
             <lib-form-group>
-              <lib-label [appControl]="UOMFormGroup.controls['systemUnitOfMeasureId']">
+              <label>
                 {{ 'UOM.systemUnit' | translate }}
-              </lib-label>
-              <lib-select
-              [readOnly]="true"
-                placeholder="{{ 'UOM.systemUnit' | translate }}"
-                [options]="sytemUnitLookup"
-                optionLabel="nameEn"
-                optionValue="id"
-                formControlName="systemUnitOfMeasureId"
-                (valueChanged)="systemUnitChanged($event)"
-                [selectedValue]="UOMFormGroup.controls['systemUnitOfMeasureId'].value"
-              ></lib-select>
-              <lib-field-validations
-              [appControl]="UOMFormGroup.controls['systemUnitOfMeasureId']"
-            ></lib-field-validations>
+              </label>
+              <lib-text-input
+                [readOnly]="true"
+                placeholder="{{ uomsData[0].systemUnitOfMeasureCategoryId }}"
+              >
+              </lib-text-input>
             </lib-form-group>
           </div>
+
+
+
           <!--  -->
           <div class="md:col-3">
             <lib-form-group>
-              <lib-label
-                [appControl]="UOMFormGroup.controls['baseUomEn']"
-                class="body_b14 mb-2 ms-4"
-              >
+              <label>
                 {{ 'UOM.nameUomEn' | translate }}
-              </lib-label>
-              <lib-text-input
-              [readOnly]="true"
-                formControlName="baseUomEn"
-                placeholder="{{ 'UOM.nameUomEn' | translate }}"
-                (keyUp)="nameUomEnChanged($event)"
-              >
+              </label>
+              <lib-text-input [readOnly]="true" placeholder="{{ uomsData[0].nameEn }}">
               </lib-text-input>
-              <lib-field-validations
-              [appControl]="UOMFormGroup.controls['baseUomEn']"
-            ></lib-field-validations>
             </lib-form-group>
           </div>
           <!--  -->
           <div class="md:col-3">
             <lib-form-group>
-              <lib-label
-                [appControl]="UOMFormGroup.controls['baseUomAr']"
-                class="body_b14 mb-2 ms-4"
-              >
+              <label>
                 {{ 'UOM.nameUomAr' | translate }}
-              </lib-label>
-              <lib-text-input
-              [readOnly]="true"
-                formControlName="baseUomAr"
-                placeholder="{{ 'UOM.nameUomAr' | translate }}"
-                (keyUp)="nameUomArChanged($event)"
-
-              >
+              </label>
+              <lib-text-input [readOnly]="true" placeholder="{{ uomsData[0].nameAr }}">
               </lib-text-input>
-              <lib-field-validations
-              [appControl]="UOMFormGroup.controls['baseUomAr']"
-            ></lib-field-validations>
             </lib-form-group>
           </div>
           <!--  -->
           <div class="md:col-3">
             <lib-form-group>
-              <lib-label
-                [appControl]="UOMFormGroup.controls['shortName']"
-                class="body_b14 mb-2 ms-4"
-              >
+              <label>
                 {{ 'UOM.shortName' | translate }}
-              </lib-label>
-              <lib-text-input
-              [readOnly]="true"
-                formControlName="shortName"
-                placeholder="{{ 'UOM.shortName' | translate }}"
-                (keyUp)="shortNameChangedForGroup($event)"
-
-              >
+              </label>
+              <lib-text-input [readOnly]="true" placeholder="{{ uomsData[0].shortName }}">
               </lib-text-input>
-              <lib-field-validations
-              [appControl]="UOMFormGroup.controls['shortName']"
-            ></lib-field-validations>
             </lib-form-group>
           </div>
           <!--  -->
@@ -152,219 +99,84 @@
   </div>
   <div class="entry_table my-2">
     <div class="card">
-      <p-table
-      
-        [value]="getUOMS.controls"
-        dataKey="id"
-        styleClass="p-datatable-gridlines p-datatable-striped"
-        [tableStyle]="{ 'min-width': '50rem' }"
+      <lib-data-table
+        [items]="uomsData"
+        [noColumnFilter]="false"
+        className="p-datatable-gridlines"
+        [currentPageResult]="currentPageInfo"
+        [tableConfigs]="{
+          allowPagination: false,
+          allowServerPagination: true,
+          dataKey: 'id',
+          pageSize: 10,
+          columns: [
+            {
+              name: 'systemUnitOfMeasureCategoryId',
+              headerText: ('UOM.systemUnit' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'nameEn',
+              headerText: ('UOM.nameEn' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'nameAr',
+              headerText: ('UOM.nameAr' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'shortName',
+              headerText: ('UOM.shortName' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'factor',
+              headerText: ('UOM.factorUOM' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'fromUnitOfMeasureNameEn',
+              headerText: ('UOM.from' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'calculation',
+              headerText: ('UOM.calculation' | translate),
+              isGlobalFilter: false,
+              isSortable: true
+            },
+            {
+              name: 'reversal',
+              headerText: ('UOM.reversal' | translate),
+              isGlobalFilter: false,
+              isSortable: true
+            }
+          ]
+        }"
       >
-        <ng-template pTemplate="header">
-          <tr>
-            <th>{{ 'UOM.systemUnit' | translate }}</th>
-            <th>{{ 'UOM.nameEn' | translate }}</th>
-            <th>{{ 'UOM.nameAr' | translate }}</th>
-            <th>{{ 'UOM.shortName' | translate }}</th>
-            <th>{{ 'UOM.factorUOM' | translate }}</th>
-            <th>{{ 'UOM.from' | translate }}</th>
-            <th>{{ 'UOM.calculation' | translate }}</th>
-            <th>{{ 'UOM.reversal' | translate }}</th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-uomTableForm let-editing="editing" let-i="rowIndex">
-          <tr [formGroup]="uomTableForm">
-
-            <td
-              [pEditableColumn]="uomTableForm.controls['systemUnitOfMeasureId']"
-              pEditableColumnField="systemUnitOfMeasureId"
-            >
-              <p-cellEditor>
-                <ng-template pTemplate="input">
-                  <lib-select
-                  [readOnly]="true"
-                    placeholder="{{ 'UOM.systemUnit' | translate }}"
-                    [options]="filteredSytemUnitLookup"
-                    optionLabel="nameEn"
-                    optionValue="id"
-                    formControlName="systemUnitOfMeasureId"
-                    (valueChanged)="systemUnitListChanged($event, uomTableForm , list[i])"
-                  ></lib-select>
-                </ng-template>
-                <ng-template pTemplate="output">
-                  {{ uomTableForm.controls['systemUnitOfMeasureName'].value }}
-                </ng-template>
-              </p-cellEditor>
-              <lib-field-validations
-                [appControl]="uomTableForm.controls['systemUnitOfMeasureId']"
-              ></lib-field-validations>
-            </td>
-
-            <td [pEditableColumn]="uomTableForm.controls['nameEn']" pEditableColumnField="nameEn">
-              <p-cellEditor>
-                <ng-template pTemplate="input">
-                  <lib-text-input
-                  [readOnly]="true"
-                    placeholder="{{ 'UOM.nameEn' | translate }}"
-                    formControlName="nameEn"
-                  ></lib-text-input>
-                </ng-template>
-                <ng-template pTemplate="output">
-                  {{ uomTableForm.controls['nameEn'].value }}
-                </ng-template>
-              </p-cellEditor>
-              <lib-field-validations
-                [appControl]="uomTableForm.controls['nameEn']"
-              ></lib-field-validations>
-            </td>
-            <!--  -->
-            <td [pEditableColumn]="uomTableForm.controls['nameAr']" pEditableColumnField="nameAr">
-              <p-cellEditor>
-                <ng-template pTemplate="input">
-                  <lib-text-input
-                  [readOnly]="true"
-                    placeholder="{{ 'UOM.nameAr' | translate }}"
-                    formControlName="nameAr"
-                  ></lib-text-input>
-                </ng-template>
-                <ng-template pTemplate="output">
-                  {{ uomTableForm.controls['nameAr'].value }}
-                </ng-template>
-              </p-cellEditor>
-              <lib-field-validations
-                [appControl]="uomTableForm.controls['nameAr']"
-              ></lib-field-validations>
-            </td>
-            <!--  -->
-            <td
-              [pEditableColumn]="uomTableForm.controls['shortName']"
-              pEditableColumnField="uomTableForm.controls['shortName']"
-            >
-              <p-cellEditor>
-                <ng-template pTemplate="input">
-                  <lib-form-group>
-                    <lib-text-input
-                    [readOnly]="true"
-                      placeholder="{{ 'UOM.shortName' | translate }}"
-                      formControlName="shortName"
-                      (keyUp)="shortNameChanged($event , i)"
-                    ></lib-text-input>
-                  </lib-form-group>
-                </ng-template>
-                <ng-template pTemplate="output">
-                  {{ uomTableForm.controls['shortName'].value }}
-                  <lib-field-validations
-                    [appControl]="uomTableForm.controls['shortName']"
-                  ></lib-field-validations>
-                </ng-template>
-              </p-cellEditor>
-            </td>
-
-            <td
-              [pEditableColumn]="uomTableForm.controls['factor']"
-              pEditableColumnField="uomTableForm.controls['factor']"
-            >
-              <p-cellEditor>
-                <ng-template pTemplate="input">
-                  <lib-form-group>
-                    <lib-text-input
-                    [readOnly]="true"
-                      placeholder="{{ 'UOM.factor' | translate }}"
-                      formControlName="factor"
-                      (keyUp)="factorChanged($event , uomTableForm , i , list[i]  )"
-                    ></lib-text-input>
-                  </lib-form-group>
-                </ng-template>
-                <ng-template pTemplate="output">
-                  {{ uomTableForm.controls['factor'].value }}
-                  <lib-field-validations
-                    [appControl]="uomTableForm.controls['factor']"
-                  ></lib-field-validations>
-                </ng-template>
-              </p-cellEditor>
-            </td>
-
-<td [pEditableColumn]="uomTableForm.controls['code']" pEditableColumnField="code">
-  <p-cellEditor>
-    <ng-template pTemplate="input">
-      <lib-select
-      [readOnly]="true"
-        placeholder="{{ 'UOM.uomType' | translate }}"
-        [options]="list[i]"
-        optionLabel="name"
-        optionValue="id"
-        formControlName="fromUnitOfMeasureId"
-        (valueChanged)="fromUnitOfMeasureChanged($event ,list[i] , uomTableForm , i)"
-      ></lib-select>
-    </ng-template>
-    <ng-template pTemplate="output">
-
-
-{{ uomTableForm.controls['fromUnitOfMeasureName']?.value ??  (uomTableForm.controls['fromUnitOfMeasureId']?.value | getElementByID : list[i])?.name }}
-    </ng-template>
-  </p-cellEditor>
-  <lib-field-validations
-    [appControl]="uomTableForm.controls['fromUnitOfMeasureId']"
-  ></lib-field-validations>
-</td>
-
-            <td
-              [pEditableColumn]="uomTableForm.controls['BaseCalculation']"
-              pEditableColumnField="uomTableForm.controls['BaseCalculation']"
-            >
-              <p-cellEditor>
-                <ng-template pTemplate="input">
-                  <lib-form-group>
-                    <lib-text-input
-                    [readOnly]="true"
-                      placeholder="{{ 'UOM.calculation' | translate }}"
-                      formControlName="BaseCalculation"
-                      [readOnly]="true"
-
-                    ></lib-text-input>
-                  </lib-form-group>
-                </ng-template>
-                <ng-template pTemplate="output" >
-
-                  <small *ngIf="uomTableForm.controls['fromUnitOfMeasureId']?.value && uomTableForm.controls['factor']?.value ">{{ uomTableForm.controls['calculationShow']?.value }}</small>
-                  <lib-field-validations
-                    [appControl]="uomTableForm.controls['BaseCalculation']"
-                  ></lib-field-validations>
-                </ng-template>
-              </p-cellEditor>
-            </td>
-            <td
-              [pEditableColumn]="uomTableForm.controls['BaseReversal']"
-              pEditableColumnField="uomTableForm.controls['BaseReversal']"
-            >
-              <p-cellEditor>
-                <ng-template pTemplate="input">
-                  <lib-form-group>
-                    <lib-text-input
-                    [readOnly]="true"
-                      placeholder="{{ 'UOM.reversal' | translate }}"
-                      formControlName="BaseReversal"
-                      [readOnly]="true"
-                    ></lib-text-input>
-                  </lib-form-group>
-                </ng-template>
-                <ng-template pTemplate="output">
-                 <small *ngIf="uomTableForm.controls['fromUnitOfMeasureId']?.value && uomTableForm.controls['factor']?.value "> {{ uomTableForm.controls['BaseReversalShow']?.value }}</small>
-                  <lib-field-validations
-                    [appControl]="uomTableForm.controls['BaseReversal']"
-                  ></lib-field-validations>
-                </ng-template>
-              </p-cellEditor>
-            </td>
-          </tr>
-        </ng-template>
-      </p-table>
+        <ng-container caption>
+          <div class="grid grid-cols-4 gap-2">
+            <div class="col-span-1">
+              <lib-form-group>
+                <lib-text-input
+                  type="text"
+                  [placeholder]="'UOM.Search' | translate"
+                  [iconUrl]="'pi pi-search'"
+                  (input)="onSearch($event.target)"
+                >
+                </lib-text-input>
+              </lib-form-group>
+            </div>
+          </div>
+        </ng-container>
+      </lib-data-table>
     </div>
   </div>
-
 </lib-page-content>
-
-
-
-
-
-

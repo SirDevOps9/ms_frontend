@@ -21,17 +21,6 @@
           <!--  -->
           <div class="col-12 md:col-4">
             <lib-form-group>
-              <lib-label [appControl]="attrFormGroup.controls['nameAr']" class="body_b14 mb-2 ms-4">
-                {{ 'attributeDefinition.attributeNameAr' | translate }}
-              </lib-label>
-              <lib-text-input
-                placeholder="{{ 'attributeDefinition.attributeNameAr' | translate }}"
-                formControlName="nameAr"
-              ></lib-text-input>
-            </lib-form-group>
-          </div>
-          <div class="col-12 md:col-4">
-            <lib-form-group>
               <lib-label [appControl]="attrFormGroup.controls['nameEn']" class="body_b14 mb-2 ms-4">
                 {{ 'attributeDefinition.attributeNameEn' | translate }}
               </lib-label>
@@ -41,6 +30,18 @@
               ></lib-text-input>
             </lib-form-group>
           </div>
+          <div class="col-12 md:col-4">
+            <lib-form-group>
+              <lib-label [appControl]="attrFormGroup.controls['nameAr']" class="body_b14 mb-2 ms-4">
+                {{ 'attributeDefinition.attributeNameAr' | translate }}
+              </lib-label>
+              <lib-text-input
+                placeholder="{{ 'attributeDefinition.attributeNameAr' | translate }}"
+                formControlName="nameAr"
+              ></lib-text-input>
+            </lib-form-group>
+          </div>
+
         </div>
       </div>
     </div>
@@ -86,23 +87,7 @@
     [ngClass]="{'duplicate-row': attrTableForm?.controls['isDuplicate']?.value}"
   >
 
-    <!-- Name in Arabic -->
-    <td [pEditableColumn]="attrTableForm?.controls['nameAr']" pEditableColumnField="nameAr">
-      <p-cellEditor>
-        <ng-template pTemplate="input">
-          <lib-text-input
-            placeholder="{{ 'attributeDefinition.valueAr' | translate }}"
-            formControlName="nameAr"
-          ></lib-text-input>
-        </ng-template>
-        <ng-template pTemplate="output">
-          {{ attrTableForm?.controls['nameAr']?.value }}
-        </ng-template>
-      </p-cellEditor>
-      <lib-field-validations
-        [appControl]="attrTableForm?.controls['nameAr']"
-      ></lib-field-validations>
-    </td>
+  
     <!-- Name in English -->
     <td [pEditableColumn]="attrTableForm?.controls['nameEn']" pEditableColumnField="nameEn">
       <p-cellEditor>
@@ -112,12 +97,32 @@
             formControlName="nameEn"
           ></lib-text-input>
         </ng-template>
-        <ng-template pTemplate="output">
+         <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
           {{ attrTableForm?.controls['nameEn']?.value}}
         </ng-template>
       </p-cellEditor>
       <lib-field-validations
         [appControl]="attrTableForm?.controls['nameEn']"
+      ></lib-field-validations>
+    </td>
+
+    <!-- Name in Arabic -->
+    <td [pEditableColumn]="attrTableForm?.controls['nameAr']" pEditableColumnField="nameAr">
+      <p-cellEditor>
+        <ng-template pTemplate="input">
+          <lib-text-input
+            placeholder="{{ 'attributeDefinition.valueAr' | translate }}"
+            formControlName="nameAr"
+          ></lib-text-input>
+        </ng-template>
+         <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
+          {{ attrTableForm?.controls['nameAr']?.value }}
+        </ng-template>
+      </p-cellEditor>
+      <lib-field-validations
+        [appControl]="attrTableForm?.controls['nameAr']"
       ></lib-field-validations>
     </td>
     <td>

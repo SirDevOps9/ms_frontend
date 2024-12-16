@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { AuthService } from 'microtec-auth-lib';
-import { PageInfoResult, RouterService, LanguageService, PageInfo, ToasterService } from 'shared-lib';
+import { PageInfoResult, RouterService, LanguageService, PageInfo, ToasterService, SortBy } from 'shared-lib';
 import { ItemsService } from '../../../items.service';
 import { IOperationalTagResult } from '../../../models';
 import { TranslateService } from '@ngx-translate/core';
 import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
+import { SortTableEXport } from '../../../models/SortTable';
 
 @Component({
   selector: 'app-operation-tag-list',
@@ -18,7 +19,15 @@ export class OperationTagListComponent implements OnInit {
   searchTerm: string;
   exportData: IOperationalTagResult[];
   exportColumns: any[];
-
+  SortByAll?:SortTableEXport
+  filteredColumns: string[] = [];
+  columns: { name: any; headerText: any }[] = [
+    { name: 'name', headerText: 'OperationalTag.name' },
+    { name: 'operationType', headerText: 'OperationalTag.operationType' },
+    { name: 'warehouseName', headerText: 'OperationalTag.warehouseName' },
+    { name: 'glAccountId', headerText: 'OperationalTag.glAccountId' },
+    { name: 'isActive', headerText: 'OperationalTag.status' }
+  ]
   constructor(
     private routerService: RouterService,
     private itemService: ItemsService,
@@ -27,16 +36,10 @@ export class OperationTagListComponent implements OnInit {
     public authService: AuthService,
     private title: Title,
     private langService: LanguageService,
-    private exportService:ExportService
-  ) {
-    this.title.setTitle(this.langService.transalte('OperationalTag.OperationalTag'));
-  }
+    private exportService:ExportService) {
+    this.title.setTitle(this.langService.transalte('OperationalTag.OperationalTag'))}
   ngOnInit(): void {
     this.initOperationalTagData();
-
-    this.itemService.currentPageInfo.subscribe((currentPageInfo) => {
-      this.currentPageInfo = currentPageInfo;
-    });
   }
 
   initOperationalTagData() {
@@ -81,28 +84,30 @@ export class OperationTagListComponent implements OnInit {
     });
   }
 
-  exportClick(e?: Event) {
-    this.exportOperationalData(this.searchTerm);
+
+  exportClick() {
+    this.exportOperationalData(this.searchTerm, this.SortByAll?.SortBy, this.SortByAll?.SortColumn);
   }
 
-  exportOperationalData(searchTerm: string) {
-    this.itemService.ExportOperationalTagList(searchTerm);
+  exportOperationalData(searchTerm: string, sortBy?: number, sortColumn?: string) {
+    this.itemService.ExportOperationalTagList(searchTerm, sortBy, sortColumn);
 
-    const columns = [
-      { name: 'name', headerText: this.translate.instant('OperationalTag.name') },
-      { name: 'operationType', headerText: this.translate.instant('OperationalTag.operationType') },
-      { name: 'warehouseName', headerText: this.translate.instant('OperationalTag.warehouseName') },
-      { name: 'glAccountId', headerText: this.translate.instant('OperationalTag.glAccountId') },
-      { name: 'code', headerText: this.translate.instant('OperationalTag.code') },
-    ];
+    const filteredColumns = this.columns.filter(col => this.filteredColumns.includes(col.name));
 
     this.itemService.SendExportOperationalTagList$.subscribe((res) => {
-      this.exportData = this.exportService.formatCiloma(res, columns);
-
+      this.exportData = this.exportService.formatCiloma(res, filteredColumns);
     });
   }
+  exportClickBySort(e: { SortBy: number; SortColumn: string }) {
+    this.SortByAll = {
+      SortBy: e.SortBy,
+      SortColumn: e.SortColumn,
+    };
+  }
+  onFilterColumn(e: string[]) {
+    this.filteredColumns = e;
 
-
+  }
 
 
 

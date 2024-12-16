@@ -3,10 +3,12 @@
       <div class="user_page">
         <lib-data-table
           [items]="tableData"
-     
+
           className="p-datatable-gridlines"
           [currentPageResult]="currentPageInfo"
+          (columnsFiltered)="onFilterColumn($event)"
           (pageChange)="onPageChange($event)"
+          (exportObj)="exportClickBySort($event)"
           (addNew)="onAdd()"
           [tableConfigs]="{
             allowPagination: false,
@@ -15,14 +17,16 @@
             pageSize: 10,
             columns: [
               {
-                name: 'code',
+                name:'code',
                 headerText: ('itemDefinition.code' | translate),
+
                 isGlobalFilter: true,
                 isSortable: true
               },
               {
-                name: 'name',
-                headerText: ('itemDefinition.name' | translate),
+                name:'name',
+
+                headerText: ('OperationalTag.name' | translate),
                 isGlobalFilter: true,
                 isSortable: true
               },
@@ -64,6 +68,7 @@
               type="text"
               [placeholder]="'itemDefinition.search' | translate"
               [(ngModel)]="searchTerm"
+              [iconUrl]="'pi pi-search'"
               (keyUp)="onSearchChange()"
             ></lib-text-input>
             </lib-form-group>
@@ -72,10 +77,10 @@
 
             <div>
               <lib-export
-              (exportClick)="exportClick($event)"
+              (exportClick)="exportClick()"
               [exportData]="exportData"
               [exportColumns]="exportColumns"
-              [ExportName]="'Item Definition'"
+              [ExportName]="('itemDefinition.ItemDefinitionPrint' |translate)"
             >
             </lib-export>
             </div>
@@ -86,6 +91,15 @@
               nameClass="save"
               iconName="pi pi-plus"
               (click)="onAdd()"
+            >
+            </lib-button-micro>
+            </div>
+
+            <div *ngIf="hasHelpPage">
+              <lib-button-micro
+              [title]="'help' | translate"
+              nameClass="save"
+              (click)="navigateHelpPageComponent()"
             >
             </lib-button-micro>
             </div>
@@ -109,7 +123,6 @@
             <div class="actions flex align-items-center">
               <img src="assets/images/table/edit.svg" alt="" (click)="onEdit(action)" />
               <img src="assets/images/table/delete.svg" alt="" (click)="onDelete(action.id)" />
-              <img src="assets//images/table/view.svg" alt="" (click)="onView(action)" />
             </div>
           </ng-template>
         </lib-data-table>

@@ -78,16 +78,7 @@
             ></lib-text-input>
           </lib-form-group>
         </div>
-        <div class="md:col-6">
-          <lib-form-group>
-            <label> {{ 'ChartOfAccounts.AccountType' | translate }}</label>
-            <lib-text-input
-              [readOnly]="true"
-              type="text"
-              [placeholder]="parent?.accountType!"
-            ></lib-text-input>
-          </lib-form-group>
-        </div>
+
         <div class="md:col-6" *ngIf="accountTags !== ''">
           <lib-form-group>
             <label> {{ 'ChartOfAccounts.Tags' | translate }}</label>
@@ -123,7 +114,16 @@
               </div>
             </div>
           </div>
-
+          <div class="md:col-6" *ngIf="yes">
+            <lib-form-group>
+              <label> {{ 'ChartOfAccounts.AccountType' | translate }}</label>
+              <lib-text-input
+                [readOnly]="true"
+                type="text"
+                [placeholder]="parent?.accountType!"
+              ></lib-text-input>
+            </lib-form-group>
+          </div>
           <div class="md:col-6" *ngIf="yes">
             <lib-form-group>
               <label> {{ 'ChartOfAccounts.Currency' | translate }}</label>

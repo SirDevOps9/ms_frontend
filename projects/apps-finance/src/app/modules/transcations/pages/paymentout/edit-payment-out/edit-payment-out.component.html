@@ -173,7 +173,8 @@
                     </lib-text-input>
                   </div>
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   {{ journalLine.get('amount').value || 0 }}
                 </ng-template>
               </p-cellEditor>
@@ -205,7 +206,8 @@
                     optionLabel="name">
                   </lib-select>
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   {{ journalLine.controls['paymentMethodName'].value }}
                 </ng-template>
               </p-cellEditor>
@@ -238,7 +240,8 @@
                     ">
                   </lib-select>
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   {{ journalLine.controls['paidBy'].value }}
                 </ng-template>
               </p-cellEditor>
@@ -287,7 +290,8 @@
                     ">
                   </lib-select>
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   {{ journalLine.controls['paidByDetailsName'].value }}
                   <!-- {{ getLabel(journalLine, toNumber(journalLine.controls['paidByDetailsId'].value)) }} -->
                 </ng-template>
@@ -321,7 +325,8 @@
                       " class="pi pi-search search-circle" (click)="openDialogSearch(rowIndex)"></i>
                   </div>
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   {{ journalLine.controls['accountName'].value }}
                 </ng-template>
               </p-cellEditor>
@@ -387,7 +392,8 @@
                     <lib-text-input formControlName="notes"> </lib-text-input>
                   </div>
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   {{ journalLine.controls['notes'].value }}
                 </ng-template>
               </p-cellEditor>

@@ -5,12 +5,14 @@ import { ItemsService } from '../../../items.service';
 import {
   customValidators,
   FormsService,
+  LanguageService,
   PageInfo,
   PageInfoResult,
   RouterService,
 } from 'shared-lib';
 import { OperationType } from '../../../models/enums';
 import { GetWarehouseList } from '../../../models';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-operation-tag-add',
@@ -36,8 +38,13 @@ export class OperationTagAddComponent implements OnInit {
     public layoutService: LayoutService,
     private itemsService: ItemsService,
     private routerService: RouterService,
-    private formService: FormsService
-  ) {}
+    private formService: FormsService,
+    private title: Title,
+    private langService: LanguageService,
+  ) {
+    this.title.setTitle(this.langService.transalte('OperationalTag.OperationalTagAdd'));
+
+  }
 
   ngOnInit() {
     this.initForm();
@@ -61,13 +68,13 @@ export class OperationTagAddComponent implements OnInit {
   }
 
   initForm() {
-    this.formGroup = this.fb.group({
-      code: new FormControl(''),
-      name: new FormControl('', customValidators.required),
-      operationType: new FormControl('', customValidators.required),
-      warehouseId: new FormControl('', customValidators.required),
-      glAccountId: new FormControl(''),
-    });
+      this.formGroup = this.fb.group({
+        code: new FormControl(''),
+        name: new FormControl('', customValidators.required),
+        operationType: new FormControl('', customValidators.required),
+        warehouseId: new FormControl('', customValidators.required),
+        glAccountId: new FormControl(null),
+      });
   }
 
   discard() {

@@ -33,9 +33,13 @@
     <div class="card">
       <div class="grid mb-3">
         <div class="flex justify-content-between w-full ">
+
           <div class="">
-            <lib-text-input (keyUp)="applyFilterGlobal($event , 'contains')"
-              [iconUrl]="'https://static.thenounproject.com/png/101791-200.png'">
+            <lib-text-input
+          
+            (keyUp)="onSearchTermChange($event )"
+
+            [iconUrl]="'assets/images/Vector.png'">
 
             </lib-text-input>
 
@@ -53,8 +57,9 @@
 
 
       </div>
-      <p-table #dt [globalFilterFields]="['itemVariantName']" [resizableColumns]="true"
-        [value]="pricePolicyFormArray.controls" dataKey="id" styleClass="p-datatable-gridlines p-datatable-striped"
+      <p-table #dt [resizableColumns]="true"
+
+        [value]="filteredPricePolicies" dataKey="id" styleClass="p-datatable-gridlines p-datatable-striped"
         [tableStyle]="{ 'min-width': '50rem' }">
 
         <ng-template pTemplate="header">
@@ -73,11 +78,13 @@
         <ng-template pTemplate="body" let-pricePolicy let-rowIndex="rowIndex">
           <tr [formGroup]="pricePolicy">
             <td [pEditableColumn]="pricePolicy.itemId" pEditableColumnField="itemId" field="code">
-              <p-cellEditor>
+              
+
+              <p-cellEditor field="item" matchMode="in" >
                 <ng-template pTemplate="input">
                   <div class="flex gap-2 align-items-center">
 
-                    <lib-select [options]="items" optionValue="id" [customClass]="'add-journal'" optionLabel="itemCode"
+                    <lib-select [options]="items" optionValue="id" [customClass]="'add-journal'" optionLabel="displayName"
                       formControlName="itemId"
                       (valueChanged)="setRowData(rowIndex ,pricePolicy.controls['itemId'].value  , 0 )"
                       [selectedValue]="pricePolicy.controls['itemId'].value">
@@ -87,7 +94,8 @@
 
                   </div>
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   {{ pricePolicy.get('itemCode').value }}
                 </ng-template>
               </p-cellEditor>
@@ -109,7 +117,8 @@
                       (valueChanged)="setUomIdValue(rowIndex, $event)"></lib-select>
                   </div>
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   {{ pricePolicy.get('uomName').value ||'' }}
                 </ng-template>
               </p-cellEditor>
@@ -129,7 +138,8 @@
                     </lib-text-input>
                   </div>
                 </ng-template>
-                <ng-template pTemplate="output">
+                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                   {{ pricePolicy.get('price').value }}
                 </ng-template>
               </p-cellEditor>
@@ -137,9 +147,9 @@
               </lib-field-validations>
             </td>
             <td>
-              <lib-input-switch formControlName="isVatApplied"
-              [(ngModel)]=" pricePolicy.get('isVatApplied').value"
-
+              <lib-input-switch [disabled]="!pricePolicy.get('isVatApplied').value" 
+               formControlName="isSellingPriceIncludeVat"
+                [(ngModel)]=" pricePolicy.get('isSellingPriceIncludeVat').value"
                 (ngModelChange)="setPriceWithVat(rowIndex ,pricePolicy.get('price').value )">
 
               </lib-input-switch>

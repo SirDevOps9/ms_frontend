@@ -3,7 +3,9 @@ import {
   AddJournalEntryCommandOpeningBalance,
   EditJournalEntry,
   JournalEntryDto,
+  JournalEntryFilterDto,
   JournalEntryStatus,
+  LookupDto,
   TrialBalance,
   reportAccount,
   reportCostAllData,
@@ -27,13 +29,17 @@ import { JournalStatusUpdate } from './models/update-status';
   providedIn: 'root',
 })
 export class JournalEntryService {
-  attachmentDeleted:boolean=false
+  attachmentDeleted: boolean = false;
   private journalEntriesDataSource = new BehaviorSubject<JournalEntryDto[]>([]);
   private journalEntriesOpeningBalanceDataSource = new BehaviorSubject<JournalEntryDto[]>([]);
   private trialDataSource = new BehaviorSubject<TrialBalance[]>([]);
   private accountReportsDataSource = new BehaviorSubject<reportAccount[]>([]);
   private CostCenterReportsDataSource = new BehaviorSubject<reportCostAllData[]>([]);
   public editJournalLineStatusDataSource = new BehaviorSubject<boolean | undefined>(undefined);
+  private journalEntryStatusDataSource = new BehaviorSubject<LookupDto[]>([]);
+  private journalEntryTypesDataSource = new BehaviorSubject<LookupDto[]>([]);
+  private journalEntryDocumentsTypesDataSource = new BehaviorSubject<LookupDto[]>([]);
+
   // public attachmentDeleted = new BehaviorSubject<boolean>(false);
   // public attachmentDeletedObser = this.attachmentDeleted.asObservable();
 
@@ -42,6 +48,9 @@ export class JournalEntryService {
   public report = this.trialDataSource.asObservable();
   public accountReport = this.accountReportsDataSource.asObservable();
   public CostCenterReport = this.CostCenterReportsDataSource.asObservable();
+  journalEntryStatus = this.journalEntryStatusDataSource.asObservable();
+  journalEntryTypes = this.journalEntryTypesDataSource.asObservable();
+  journalEntryDocumentsTypes = this.journalEntryDocumentsTypesDataSource.asObservable();
 
   public currentPageInfo = new BehaviorSubject<PageInfoResult>({});
 
@@ -56,12 +65,15 @@ export class JournalEntryService {
     private languageService: LanguageService,
     private loaderService: LoaderService,
     private routerService: RouterService,
-    private attachmentService: AttachmentsService,
-
+    private attachmentService: AttachmentsService
   ) {}
 
-  getAllJournalEntriesPaginated(searchTerm: string, pageInfo: PageInfo) {
-    this.journalEntryProxy.getAllPaginated(searchTerm, pageInfo).subscribe({
+  getAllJournalEntriesPaginated(
+    searchTerm: string,
+    pageInfo: PageInfo,
+    filter?: JournalEntryFilterDto
+  ) {
+    this.journalEntryProxy.getAllPaginated(searchTerm, pageInfo, filter).subscribe({
       next: (res) => {
         this.journalEntriesDataSource.next(res.result);
         this.currentPageInfo.next(res.pageInfoResult);
@@ -79,8 +91,8 @@ export class JournalEntryService {
       });
   }
 
-  exportsEmployeesList(searchTerm: string | undefined) {
-    this.journalEntryProxy.exportGLOpeningBalance(searchTerm).subscribe({
+  exportsEmployeesList(SearchTerm: string, SortBy?: number, SortColumn?: string) {
+    this.journalEntryProxy.exportGLOpeningBalance(SearchTerm, SortBy, SortColumn).subscribe({
       next: (res) => {
         this.journalEntriesOpeningBalanceDataSource.next(res);
       },
@@ -163,7 +175,7 @@ export class JournalEntryService {
           this.languageService.transalte('Journal.UpdatedSuccessfully')
         );
         this.loaderService.hide();
-        this.attachmentService.attachemntIdsList=[]
+        this.attachmentService.attachemntIdsList = [];
         this.editJournalLineStatusDataSource.next(true);
         // setTimeout(() => {
         //   location.reload();
@@ -254,7 +266,7 @@ export class JournalEntryService {
   }
   getTrialBalance(trial: TrialBalance) {
     this.journalEntryProxy.getTrialBalance(trial).subscribe((response) => {
-      console.log(trial)
+      console.log(trial);
 
       this.trialDataSource.next(response);
     });
@@ -273,8 +285,8 @@ export class JournalEntryService {
     });
   }
 
-  exportJournalEntriesData(searchTerm: string | undefined) {
-    this.journalEntryProxy.exportJournalEntriesData(searchTerm).subscribe({
+  exportJournalEntriesData(SearchTerm: string, SortBy?: number, SortColumn?: string) {
+    this.journalEntryProxy.exportJournalEntriesData(SearchTerm, SortBy, SortColumn).subscribe({
       next: (res) => {
         this.exportsJournalEntriesDataSource.next(res);
       },
@@ -311,7 +323,7 @@ export class JournalEntryService {
       this.loaderService.show();
       this.journalEntryProxy.DeleteAttachment(attachmentId).subscribe({
         next: (res) => {
-          this.attachmentDeleted=true;
+          this.attachmentDeleted = true;
 
           this.toasterService.showSuccess(
             this.languageService.transalte('success'),
@@ -321,18 +333,32 @@ export class JournalEntryService {
         },
         error: () => {
           this.loaderService.hide();
-          this.attachmentDeleted=false;
+          this.attachmentDeleted = false;
 
           this.toasterService.showError(
             this.languageService.transalte('error'),
-            this.languageService.transalte('CannotDeleteattachment')   
-
+            this.languageService.transalte('CannotDeleteattachment')
           );
         },
       });
-    }else{
-      this.attachmentDeleted=false;
-
+    } else {
+      this.attachmentDeleted = false;
     }
+  }
+
+  getJournalEntryStatus() {
+    this.journalEntryProxy.getJournalEntryStatusLookup().subscribe((res) => {
+      this.journalEntryStatusDataSource.next(res[0].items);
+    });
+  }
+  getJournalEntryType() {
+    this.journalEntryProxy.getJournalEntryTypesLookup().subscribe((res) => {
+      this.journalEntryTypesDataSource.next(res[0].items);
+    });
+  }
+  getJournalEntryDocumentType() {
+    this.journalEntryProxy.getJournalEntrySourceDocumentLookup().subscribe((res) => {
+      this.journalEntryDocumentsTypesDataSource.next(res[0].items);
+    });
   }
 }

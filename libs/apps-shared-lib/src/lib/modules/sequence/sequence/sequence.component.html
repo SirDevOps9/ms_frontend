@@ -237,7 +237,8 @@
                                     ></lib-text-input>
                                  
                                 </ng-template>
-                                <ng-template pTemplate="output">
+                                 <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                                     <p *ngIf="SharedEnums.Segments.Separator == sequence.controls['segment'].value">                                
                                             ('{{ sequence.controls['separatorName'].value }}')
                                     </p>
@@ -278,7 +279,8 @@
 
                                         ></lib-text-input>
                                     </ng-template>
-                                    <ng-template pTemplate="output">
+                                     <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                                         <p *ngIf="SharedEnums.Segments.SerialNumber == sequence.controls['segment'].value "> {{sequence.controls['valueOption'].value}}</p>
                                     </ng-template>
                                 </p-cellEditor>

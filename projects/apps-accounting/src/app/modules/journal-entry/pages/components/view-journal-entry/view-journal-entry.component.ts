@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AttachmentsService, ComponentType, LanguageService, PageInfo, RouterService } from 'shared-lib';
+import { AttachmentsService, ComponentType, LanguageService, Modules, PageInfo, RouterService } from 'shared-lib';
 import { JournalEntryService } from '../../../journal-entry.service';
 import { JournalEntryViewDto } from '../../../models';
 import { Title } from '@angular/platform-browser';
@@ -23,6 +23,7 @@ export class ViewJournalEntryComponent implements OnInit {
   totalCreditAmount: number;
   ngOnInit() {
     this.loadJournalView();
+    
   }
 
   loadJournalView() {
@@ -77,19 +78,23 @@ export class ViewJournalEntryComponent implements OnInit {
       });
     }
   }
-  routeToPaymentInView(id: number) {
-    const url = this.router.serializeUrl(
-      this.router.createUrlTree([`/finance/transcations/paymentin/view/${id}`])
-    );
-    window.open(url, '_blank');
-  }
 
-  routeToPaymentOutView(id: number) {
+  routeToSourceView(id: string) {
+
+    const module = this.journalView?.type?.toString().toLowerCase();
+
+    const sourceName =this.CheckSourceName(this.journalView?.sourceName?.toLowerCase()) ;
+
+
+
     const url = this.router.serializeUrl(
-      this.router.createUrlTree([`/finance/transcations/paymentout/view/${id}`])
+      this.router
+      .createUrlTree([`/${module}/transactions/${sourceName}/view/${id}`])
     );
+    console.log('url',url)
     window.open(url, '_blank');
   }
+ 
   openAttachments() {
     const viewdata:Boolean = true ;
 
@@ -109,6 +114,22 @@ export class ViewJournalEntryComponent implements OnInit {
       });
     });
   }
+
+  CheckSourceName(sourceName: string | any): string {
+    switch (sourceName) {
+      case 'purchaseinvoice':
+        return 'purchase-invoice';
+      case 'returnpurchaseinvoice':
+        return 'return-purchase-invoice';
+      case 'salesinvoice':
+        return 'sales-invoice';
+      case 'returnsalesinvoice':
+        return 'return-sales-invoice';
+      default:
+        return sourceName; // Return the original name if no match is found
+    }
+  }
+  
   constructor(
     private journalEntryService: JournalEntryService,
     private routerService: RouterService,

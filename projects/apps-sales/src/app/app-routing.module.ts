@@ -23,6 +23,10 @@ export const ERPRoutes = [
         path: 'masterdata',
         loadChildren: () => import('./modules/sales/sales.module').then((m) => m.SalesModule),
       },
+      {
+        path: 'transaction',
+        loadChildren: () => import('./modules/transaction/transaction.module').then((m) => m.TransactionModule),
+      },
     ],
   },
 ];

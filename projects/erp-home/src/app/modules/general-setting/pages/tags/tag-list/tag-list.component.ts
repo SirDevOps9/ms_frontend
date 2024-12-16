@@ -11,6 +11,8 @@ import { GeneralSettingService } from '../../../general-setting.service';
 import { ExportTagDto, TagDto } from '../../../models';
 import { TagEditComponent } from '../../../components/tag-edit/tag-edit.component';
 import { TagAddComponent } from '../../../components/tag-add/tag-add.component';
+import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
+import { SortTableEXport } from 'projects/apps-inventory/src/app/modules/items/models/SortTable';
 @Component({
   selector: 'app-tag-list',
   templateUrl: './tag-list.component.html',
@@ -25,36 +27,25 @@ export class TagListComponent implements OnInit {
   SortColumn?:string
   mappedExportData: TagDto[];
   exportData: ExportTagDto[];
-
+  exportColumns: any[];
+  SortByAll:SortTableEXport
+  filteredColumns: string[] = [];
+  columns: { name: any; headerText: any }[] = [
+    { name: 'code', headerText:('tag.code') },
+    { name: 'name', headerText:('tag.Name') },
+    { name: 'modules', headerText:('tag.Modules') },
+    { name: 'isActive', headerText:('tag.status') },
+  ]
   constructor(
     private generalSettingService: GeneralSettingService,
     public layoutService: LayoutService,
-    private dialog: DialogService
+    private dialog: DialogService,
+    private exportService:ExportService
   ) {
   }
 
-  exportColumns: lookupDto[] = [
-    {
-      id: 'id',
-      name: 'Id',
-    },
-    {
-      id: 'code',
-      name: 'Code',
-    },
-    {
-      id: 'name',
-      name: 'Name',
-    },
-    {
-      id: 'isActive',
-      name: 'Status',
-    },
-    {
-      id: 'modules',
-      name: 'Modules',
-    },
-  ];
+
+
 
   addNew(e: boolean) {
     if (e) {
@@ -141,16 +132,29 @@ export class TagListComponent implements OnInit {
       },
     });
   }
-
-  exportedColumns(obj: { SortBy: number; SortColumn: string }) {
-    this.SortBy = obj.SortBy;
-    this.SortColumn = obj.SortColumn;
+  exportClick() {
+    this.exportTagData(this.searchTerm, this.SortByAll?.SortBy, this.SortByAll?.SortColumn);
   }
-  exportTagData() {
-    this.generalSettingService.exportTagData(this.searchTerm ,this.SortBy, this.SortColumn);
+
+  exportTagData(searchTerm: string, sortBy?: number, sortColumn?: string) {
+    this.generalSettingService.exportTagData(searchTerm , sortBy , sortColumn);
+    const filteredColumns = this.columns.filter(col => this.filteredColumns.includes(col.name));
+
     this.generalSettingService.exportsTagDataSourceObservable.subscribe((res) => {
-      this.exportData = res;
+      this.exportData = this.exportService.formatCiloma(res, filteredColumns);
     });
+  }
+
+  exportClickBySort(e: { SortBy: number; SortColumn: string }) {
+    this.SortByAll = {
+      SortBy: e.SortBy,
+      SortColumn: e.SortColumn,
+    };
+  }
+
+  onFilterColumn(e: string[]) {
+    this.filteredColumns = e;
+
   }
 
   Delete(id: number) {

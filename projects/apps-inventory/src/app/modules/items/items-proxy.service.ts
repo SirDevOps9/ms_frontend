@@ -40,6 +40,7 @@ import { addUOM, AddUom } from './models/addUom';
 import { addAttributeDifintion, IAttrributeDifinition } from './models/AttrbuteDiffintion';
 import { VieItemDefinitionDto } from './models/VieItemDefinitionDto';
 import { GetItemUom } from './models/GetItemUom';
+import { GetWarehouseItems } from './models/GetWarehouseItem';
 
 @Injectable({
   providedIn: 'root',
@@ -110,8 +111,8 @@ export class ItemsProxyService {
   deleteItemDefinition(id: number) {
     return this.httpService.delete(`Item/${id}`);
   }
-  deleteUOM(id: number) {
-    return this.httpService.delete(`UOM/DeleteUOM/${id}`);
+  deleteUOM(id: string) {
+    return this.httpService.delete(`UOM/${id}`);
   }
 
   deleteCategory(id: number) {
@@ -203,10 +204,6 @@ export class ItemsProxyService {
     return this.httpService.get(`Item/GetItemExpiryAndTracking/${id}`);
   }
 
-  DeleteUomLine(id: number) {
-    return this.httpService.delete(`UOM/${id}`); //
-  }
-
   getItemBarcodeById(id: number) {
     return this.httpService.get(`Item/GetItemBarcode/${id}`);
   }
@@ -284,7 +281,7 @@ export class ItemsProxyService {
   }
 
   attributeGroups() {
-    return this.httpService.get(`AttributesVariants/GetAllAttributesGroups`);
+    return this.httpService.get(`AttributeGroup/AttributeGroupDropDown`);
   }
 
   getDefaultUnit(catID: number, itemId: number): Observable<{ id: number; name: string }> {
@@ -297,6 +294,9 @@ export class ItemsProxyService {
   }
   attributeGroupsValue(id: number): Observable<itemAttributeValuesByID> {
     return this.httpService.get(`AttributeGroup/${id}`);
+  }
+  attributeGroupsGetAttributes(id: number): Observable<itemAttributeValuesByID> {
+    return this.httpService.get(`AttributeGroup/${id}/GetAttributes`);
   }
   attributeGroupsValuesData(id: number): Observable<itemAttributeValues[]> {
     return this.httpService.get(`api/ItemAttributesGroup/GetAttributesByLineId?Id=${id}`);
@@ -328,31 +328,53 @@ export class ItemsProxyService {
   EditUOMCategory(obj: addUOM) {
     return this.httpService.put('UOMCategories/Edit', obj);
   }
-  exportsItemsDefinitionList(searchTerm: string | undefined): Observable<itemDefinitionDto[]> {
+  exportsItemsDefinitionList(SearchTerm?: string, SortBy?: number, SortColumn?: string): Observable<itemDefinitionDto[]> {
     let query = `Item/Export?`;
-    if (searchTerm) {
-      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
-    }
+    const params: string[] = [];
+    if (SearchTerm) params.push(`SearchTerm=${encodeURIComponent(SearchTerm)}`);
+    if (SortBy !== undefined) params.push(`SortBy=${SortBy}`);
+    if (SortColumn) params.push(`SortColumn=${SortColumn}`);
+    query += params.join('&');
     return this.httpService.get<itemDefinitionDto[]>(query);
   }
 
+
   //   to export uom list
-  ExportUOMList(SearchTerm: string | undefined) {
-    let url = `UOM/ExportUOM`;
-    if (SearchTerm) url += `SearchTerm=${encodeURIComponent(SearchTerm)}`;
-    return this.httpService.get<any>(url);
+
+
+  ExportUOMList(SearchTerm?: string, SortBy?: number, SortColumn?: string) {
+    let query = `UOM/ExportUOM?`;
+    const params: string[] = [];
+    if (SearchTerm) params.push(`SearchTerm=${encodeURIComponent(SearchTerm)}`);
+    if (SortBy !== undefined) params.push(`SortBy=${SortBy}`);
+    if (SortColumn) params.push(`SortColumn=${SortColumn}`);
+    query += params.join('&');
+    return this.httpService.get<any>(query);
   }
   //   to export operationalTag list
-  ExportOperationalTagList(SearchTerm: string | undefined) {
-    let url = `OperationalTag/ExportOperationalTag`;
-    if (SearchTerm) url += `SearchTerm=${encodeURIComponent(SearchTerm)}`;
-    return this.httpService.get<any>(url);
+  ExportOperationalTagList(searchTerm?: string, SortBy?: number, SortColumn?: string): Observable<any> {
+    let url = `OperationalTag/ExportOperationalTag?`;
+    const params: string[] = [];
+
+    if (searchTerm) params.push(`SearchTerm=${encodeURIComponent(searchTerm)}`);
+    if (SortBy !== undefined) params.push(`SortBy=${SortBy}`);
+    if (SortColumn) params.push(`SortColumn=${SortColumn}`);
+
+    url += params.join('&');
+    return this.httpService.get<any>(url); // HTTP GET request to the backend with parameters
   }
 
+
   //   to export attr list as excel
-  ExporAttrList(SearchTerm: string | undefined) {
-    let url = `AttributeGroup/Export`;
-    if (SearchTerm) url += `SearchTerm=${encodeURIComponent(SearchTerm)}`;
+  ExporAttrList(searchTerm?: string, SortBy?: number, SortColumn?: string) {
+    let url = `AttributeGroup/Export?`;
+    const params: string[] = [];
+
+    if (searchTerm) params.push(`SearchTerm=${encodeURIComponent(searchTerm)}`);
+    if (SortBy !== undefined) params.push(`SortBy=${SortBy}`);
+    if (SortColumn) params.push(`SortColumn=${SortColumn}`);
+
+    url += params.join('&');
     return this.httpService.get<any>(url);
   }
 
@@ -461,6 +483,24 @@ export class ItemsProxyService {
     }
     return this.httpService.get<PaginationVm<GetWarehouseList>>(query);
   }
+  getWarehouseView(
+    searchTerm: string,
+    warehouseId: number,
+    pageInfo: PageInfo
+  ): Observable<PaginationVm<GetWarehouseItems>> {
+    // Construct the base query with warehouseId and pagination info
+    let query = `WareHouse/GetItems?warehouseId=${warehouseId}&${pageInfo.toQuery}`;
+
+    // Add SearchTerm if available
+    if (searchTerm) {
+      query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+
+    // Return the Observable from the HTTP GET request
+    return this.httpService.get<PaginationVm<GetWarehouseItems>>(query);
+  }
+
+
 
   //  operational tag list
   getOperationalTagList(searchTerm: string, pageInfo: PageInfo): Observable<IOperationalTag> {
@@ -485,11 +525,44 @@ export class ItemsProxyService {
     return this.httpService.get<GetWarehouseList[]>(query);
   }
 
-  exportsItemCategoryList(searchTerm: string | undefined): Observable<GetItemCategoryDto[]> {
-    let query = `ItemCategory/Export?`;
-    if (searchTerm) {
-      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
+
+  exportsWayehouseItemView(
+    warehouseId?: number,
+    SortBy?: number,
+    SortColumn?: string
+  ): Observable<GetWarehouseItems[]> {
+    let query = `WareHouse/ExportItems?`;
+
+    if (warehouseId !== undefined && warehouseId !== null) {
+      query += `warehouseId=${warehouseId}`;
     }
+
+    const params: string[] = [];
+
+    if (SortBy !== undefined) {
+      params.push(`SortBy=${SortBy}`);
+    }
+
+    if (SortColumn) {
+      params.push(`SortColumn=${SortColumn}`);
+    }
+
+    if (params.length > 0) {
+      query += '&' + params.join('&');
+    }
+
+    return this.httpService.get<GetWarehouseItems[]>(query);
+  }
+
+
+  exportsItemCategoryList(searchTerm?: string, SortBy?: number, SortColumn?: string): Observable<GetItemCategoryDto[]> {
+    let query = `ItemCategory/Export?`;
+    const params: string[] = [];
+
+    if (searchTerm) params.push(`SearchTerm=${encodeURIComponent(searchTerm)}`);
+    if (SortBy !== undefined) params.push(`SortBy=${SortBy}`);
+    if (SortColumn) params.push(`SortColumn=${SortColumn}`);
+    query += params.join('&');
     return this.httpService.get<GetItemCategoryDto[]>(query);
   }
   deleteWareHouse(id: number) {
@@ -546,7 +619,6 @@ export class ItemsProxyService {
     return this.httpService.get<PaginationVm<AdvancedSearchDto>>(query);
   }
 
-  // inventory general setting
   getInventoryGeneralSetting(): Observable<GeneralSettingDto> {
     return this.httpService.get<GeneralSettingDto>(`InventoryGeneralSetting`);
   }

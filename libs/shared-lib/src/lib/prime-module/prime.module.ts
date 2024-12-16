@@ -28,6 +28,7 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { DividerModule } from 'primeng/divider';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { SpeedDialModule } from 'primeng/speeddial';
 
@@ -47,6 +48,7 @@ import { SpeedDialModule } from 'primeng/speeddial';
     MultiSelectModule,
     ToggleButtonModule,
     AccordionModule,
+    DividerModule,
     DynamicDialogModule,
     PasswordModule,
     CheckboxModule,
@@ -77,6 +79,7 @@ import { SpeedDialModule } from 'primeng/speeddial';
     MultiSelectModule,
     ToggleButtonModule,
     AccordionModule,
+    DividerModule,
     DynamicDialogModule,
     PasswordModule,
     CheckboxModule,

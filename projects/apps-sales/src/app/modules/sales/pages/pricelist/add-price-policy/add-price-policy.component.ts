@@ -1,36 +1,50 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { customValidators, FormsService, LanguageService, RouterService, ToasterService } from 'shared-lib';
+import { Cultures, customValidators, FormsService, LanguageService, RouterService, ToasterService } from 'shared-lib';
 import { MultiSelectItemsComponent } from '../../../components/multi-select-items/multi-select-items.component';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ItemDto } from '../../../models';
 import { SalesService } from '../../../sales.service';
 import { UpdetePricePolicyComponent } from '../../../components/updete-price-policy/updete-price-policy.component';
 import { PopupExcelComponent } from '../../../components/popup-excel/popup-excel.component';
-import { filter, take } from 'rxjs';
 
 @Component({
   selector: 'app-add-price-policy',
   templateUrl: './add-price-policy.component.html',
   styleUrl: './add-price-policy.component.scss'
 })
-export class AddPricePolicyComponent implements OnInit ,OnDestroy  {
+export class AddPricePolicyComponent implements OnInit, OnDestroy {
   rowDataMap: { [key: number]: { uomOptions: any[] } } = {};
   duplicateLine: boolean;
   data: any;
   rowDuplicate: number;
   listOfExcel: any[] = [];
+
   items: ItemDto[] = [];
-  filteredPricePolicies: any;
+  filteredPricePolicies: any[];
 
   addForm: FormGroup;
-  @ViewChild('dt') dt: any | undefined;
+  globalFilterFields: string[] = [
+    'itemId',
+    'itemName',
+    'itemCode',
+    'uomName',
+    'itemVariantName',
+
+  ];
+  @ViewChild('dt') dt: any;
 
   ngOnInit() {
-    this.subscribes()
     this.initItemsData()
     this.initializeForm()
+    this.subscribes()
+
   }
+
+  get currentLang(): string {
+    return this.languageService.getLang();
+  }
+
   initializeForm() {
     this.addForm = this.formBuilder.group({
 
@@ -67,6 +81,7 @@ export class AddPricePolicyComponent implements OnInit ,OnDestroy  {
           itemName: new FormControl(''),
           itemCode: new FormControl(''),
           isVatApplied: new FormControl(false),
+          isSellingPriceIncludeVat: new FormControl(false),
           uomId: new FormControl(''),
           uomName: new FormControl(''),
           itemVariantId: new FormControl(''),
@@ -90,7 +105,6 @@ export class AddPricePolicyComponent implements OnInit ,OnDestroy  {
       newLine.updateValueAndValidity();
       this.pricePolicyFormArray.push(newLine);
 
-      this.filteredPricePolicies = this.pricePolicyFormArray
     } else {
       this.toasterService.showError(
         this.languageService.transalte('messages.error'),
@@ -108,10 +122,12 @@ export class AddPricePolicyComponent implements OnInit ,OnDestroy  {
       rowForm.get('uomOptions')?.setValue(uomOptions);
       rowForm.get('uomId')?.reset(); // Reset the UOM value to avoid conflicts
       rowForm.get('uomId')?.setValue(selectedItem.uomId);
-      rowForm.get('uomName')?.setValue(selectedItem.uomNameEn);
+      const uomName = this.currentLang == Cultures.English ? selectedItem.uomNameEn : selectedItem.uomNameAr
+      rowForm.get('uomName')?.setValue(uomName);
       rowForm.get('itemName')?.setValue(selectedItem.itemName);
       rowForm.get('itemVariantId')?.setValue(selectedItem.itemVariantId);
-      rowForm.get('itemVariantName')?.setValue(selectedItem.itemVariantName);
+      const itemVariantName = this.currentLang == Cultures.English ? selectedItem.itemVariantNameEn : selectedItem.itemVariantNameAr
+      rowForm.get('itemVariantName')?.setValue(itemVariantName);
       rowForm.get('itemId')?.setValue(selectedItem.itemId);
       rowForm.get('itemCode')?.setValue(selectedItem.itemCode);
       rowForm.get('taxId')?.setValue(selectedItem.taxId || null);
@@ -126,6 +142,8 @@ export class AddPricePolicyComponent implements OnInit ,OnDestroy  {
       rowForm.get('categoryType')?.setValue(selectedItem.categoryType);
       rowForm.get('id')?.setValue(rowIndex + 1);
       rowForm.get('price')?.setValue(price);
+      rowForm.get('isSellingPriceIncludeVat')?.setValue(selectedItem.isSellingPriceIncludeVat);
+      rowForm.get('isVatApplied')?.setValue(selectedItem.isVatApplied);
 
       const isDuplicate = this.pricePolicyFormArray.controls.some((element: any, index: number) => {
         if (index !== rowIndex) {
@@ -193,10 +211,14 @@ export class AddPricePolicyComponent implements OnInit ,OnDestroy  {
       rowForm.get('uomOptions')?.setValue(uomOptions);
       rowForm.get('uomId')?.reset(); // Reset the UOM value to avoid conflicts
       rowForm.get('uomId')?.setValue(selectedItem.uomId);
-      rowForm.get('uomName')?.setValue(selectedItem.uomNameEn);
+      const uomName = this.currentLang == Cultures.English ?
+        selectedItem.uomNameEn : selectedItem.uomNameAr
+      rowForm.get('uomName')?.setValue(uomName);
       rowForm.get('itemName')?.setValue(selectedItem.itemName);
       rowForm.get('itemVariantId')?.setValue(selectedItem.itemVariantId);
-      rowForm.get('itemVariantName')?.setValue(selectedItem.itemVariantName);
+      const itemVariantName = this.currentLang == Cultures.English ?
+        selectedItem.itemVariantNameEn : selectedItem.itemVariantNameAr
+      rowForm.get('itemVariantName')?.setValue(itemVariantName);
       rowForm.get('itemId')?.setValue(selectedItem.itemId);
       rowForm.get('itemCode')?.setValue(selectedItem.itemCode);
       rowForm.get('taxId')?.setValue(selectedItem.taxId || null);
@@ -275,8 +297,10 @@ export class AddPricePolicyComponent implements OnInit ,OnDestroy  {
     const rowForm = this.pricePolicyFormArray.at(index) as FormGroup;
     rowForm.get('priceWithVat')?.setValue(0);
     const taxRatio: any = rowForm.get('taxRatio')?.value
-    let priceWithVat = Number(price) + ((Number(price) * taxRatio) / 100)
-    if (rowForm.get('isVatApplied')?.value == true) {
+     let priceWithVat = ((Number(price)) / ((taxRatio/100)+1 ))
+     
+    // let priceWithVat = Number(price) + ((Number(price) * taxRatio) / 100)
+    if (rowForm.get('isSellingPriceIncludeVat')?.value == true) {
       rowForm.get('priceWithVat')?.setValue(priceWithVat);
     } else {
       rowForm.get('priceWithVat')?.setValue(price);
@@ -294,22 +318,25 @@ export class AddPricePolicyComponent implements OnInit ,OnDestroy  {
   }
   subscribes() {
     const selectedPricePolicyId = localStorage.getItem('selectedPricePolicyId');
-    if(selectedPricePolicyId){
+    if (selectedPricePolicyId) {
       this.salesService.getPricePolicyById(Number(selectedPricePolicyId))
-    
+
     }
     this.salesService.latestItemsList.subscribe({
       next: (res) => {
         // this.items = res;
         this.items = res.map((item, index) => ({
           ...item,    // Spread existing properties from the original item
-          id: index + 1 // Add an `id` field starting from 1
+          id: index + 1, // Add an `id` field starting from 1
+          displayName: `(${item.itemCode}) ${item.itemName}-${this.currentLang == 'en' ? item.itemVariantNameEn : item.itemVariantNameAr
+            }`
         }));
       },
+
     });
-this.salesService.pricePolicyListObser.subscribe((res) => {
-  if(res.id){
-    res?.policyItemsList?.forEach((element: ItemDto, index: number) => {
+    this.salesService.pricePolicyListObser.subscribe((res) => {
+      if (res.id) {
+        res?.policyItemsList?.forEach((element: ItemDto, index: number) => {
           this.addNewRow();
           this.setExcelData(index, element.itemId, element);
         });
@@ -317,6 +344,10 @@ this.salesService.pricePolicyListObser.subscribe((res) => {
       }
 
     });
+    this.addForm.get('policyItemsList')?.valueChanges.subscribe((res: any) => {
+      this.filteredPricePolicies = [...this.pricePolicyFormArray.controls];
+      this.addForm.updateValueAndValidity();
+    })
 
   }
   openDialog(index: number) {
@@ -331,10 +362,15 @@ this.salesService.pricePolicyListObser.subscribe((res) => {
         rowForm.get('uomOptions')?.setValue(uomOptions); // Store options for template access
         rowForm.get('uomId')?.reset(); // Reset the UOM value to avoid conflicts
         rowForm.get('uomId')?.setValue(selectedItems.uomId); // Optionally set the first UOM
+        const uomName = this.currentLang == Cultures.English ?
+          selectedItems.uomNameEn : selectedItems.uomNameAr
+        rowForm.get('uomName')?.setValue(uomName);
         rowForm.get('uomName')?.setValue(selectedItems.uomNameAr); // Optionally set the first UOM
         rowForm.get('itemName')?.setValue(selectedItems.itemName); // Optionally set the first UOM
         rowForm.get('itemVariantId')?.setValue(selectedItems.itemVariantId); // Optionally set the first UOM
-        rowForm.get('itemVariantName')?.setValue(selectedItems.itemVariantName); // Optionally set the first UOM
+        const itemVariantName = this.currentLang == Cultures.English ?
+          selectedItems.itemVariantNameEn : selectedItems.itemVariantNameAr
+        rowForm.get('itemVariantName')?.setValue(itemVariantName); // Optionally set the first UOM
         rowForm.get('itemId')?.setValue(selectedItems.itemId)
         rowForm.get('itemCode')?.setValue(selectedItems.itemCode)
         rowForm.get('taxId')?.setValue(selectedItems.taxId)
@@ -441,6 +477,7 @@ this.salesService.pricePolicyListObser.subscribe((res) => {
             uomId: detail.uomId,
             itemVariantId: detail.itemVariantId,
             isVatApplied: detail.isVatApplied, // Ensure it's a boolean
+            isSellingPriceIncludeVat: detail.isSellingPriceIncludeVat, // Ensure it's a boolean
             taxId: detail.taxId || null,
           }
           )),
@@ -467,10 +504,36 @@ this.salesService.pricePolicyListObser.subscribe((res) => {
   }
 
   applyFilterGlobal(event: any, stringVal: string) {
-    const inputElement = event.target as HTMLInputElement;
-    if (inputElement) {
-      this.dt.filterGlobal(inputElement.value, stringVal);
+
+    const inputElement = event
+    if (inputElement !== undefined) {
+      this.dt.filterGlobal(inputElement, stringVal);
     }
+  }
+ 
+
+  onSearchTermChange(search: any): void {
+    const term = search?.trim().toLowerCase() || '';  // Trim spaces and convert to lowercase
+
+    if (!term) {
+      // Reset to show all items when the search term is empty or spaces only
+      this.filteredPricePolicies = [...this.pricePolicyFormArray.controls];
+      return;
+    }
+
+    // Filter based on the search term
+    this.filteredPricePolicies = this.pricePolicyFormArray.controls.filter((policy: any) => {
+
+      return this.globalFilterFields.some((field) => {
+        const fieldValue = policy.value?.[field];
+
+        if (fieldValue != null) {
+          const fieldStringValue = fieldValue.toString().toLowerCase();
+          return fieldStringValue.includes(term);
+        }
+        return false;  // Return false if fieldValue is undefined or null
+      });
+    });
   }
 
   getExcel() {

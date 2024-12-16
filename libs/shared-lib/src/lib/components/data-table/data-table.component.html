@@ -53,18 +53,6 @@
           </div>
 
           <ng-content select="[caption]"> </ng-content>
-          <lib-columns-selection
-            *ngIf="noColumnFilter"
-            [ngClass]="{ 'rtl-position': isRtl, 'ltr-position': !isRtl }"
-            class="col-selection"
-            [formControl]="searchColumnsControl"
-            [options]="filtered_columns.slice(0, -1)"
-            [(ngModel)]="selected_filtered_columns"
-            optionLabel="name"
-            optionValue="name"
-            [className]="'pi pi-list'"
-            (filterColumns)="handleFilterColumns($event)"
-          />
         </ng-template>
 
         <ng-template pTemplate="header">
@@ -106,11 +94,30 @@
                   [attr.colspan]="col.colspan"
                   *ngIf="!col.isSortable"
                   class="center"
+                  style="overflow: visible"
                 >
                   @if (col.name === 'id') {
-                  <div class="flex gap-3 justify-content-between align-content-center">
+                  <div class="flex justify-content-between align-items-center">
                     {{ col.headerText }}
-                    <i></i>
+
+                    <i>
+                      <lib-columns-selection
+                        *ngIf="noColumnFilter"
+                        [ngClass]="{
+                          'rtl-position': isRtl,
+                          'ltr-position': !isRtl,
+                          none: adminPortalTab
+                        }"
+                        [formControl]="searchColumnsControl"
+                        [options]="filtered_columns.slice(0, -1)"
+                        [(ngModel)]="selected_filtered_columns"
+                        optionLabel="name"
+                        (columnsFiltered)="handleFilterColumns($event)"
+                        optionValue="name"
+                        [className]="'pi pi-list'"
+                        (filterColumns)="handleFilterColumns($event)"
+                      />
+                    </i>
                   </div>
                   }@else {
                   {{ col.headerText }}
@@ -270,9 +277,9 @@
       </p-table>
       <ng-container *ngIf="items! && !items?.length && !firstRow">
         <div class="flex justify-content-center mt-4" (click)="addNewItem()">
-          <div class="flex gap-2 align-content-center pointer">
+          <div class="d-flex flex gap-2 justify-content-center align-content-center pointer">
             <i *ngIf="!reportTable" class="pi pi-plus"></i>
-            <small *ngIf="!reportTable">{{"general.noData" | translate}} </small>
+            <small *ngIf="!reportTable">{{ 'general.noData' | translate }} </small>
           </div>
         </div>
       </ng-container>

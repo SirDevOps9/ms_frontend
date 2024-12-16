@@ -1,0 +1,77 @@
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #e3e3e3;
+
+  .action {
+    display: flex;
+    align-items: center;
+
+    i {
+      margin: 0 5px;
+    }
+  }
+}
+
+.column-line {
+  display: inline-flex !important;
+  width: 2px;
+  height: 25px;
+  margin: 0 10px;
+  flex-grow: 1;
+  background-color: #ededed;
+}
+
+.chart-body {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+
+  .row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+
+    &.expiry-row {
+      gap: 5px;
+    }
+
+    .label-color {
+      color: #5e6278;
+    }
+
+    .detail-type {
+      border-radius: 8px;
+      color: white;
+      padding: 3px 5px;
+    }
+
+    .color-box {
+      width: 15px;
+      height: 15px;
+      margin-right: 10px;
+      border-radius: 50%;
+    }
+
+    .detail-name {
+      font-weight: bold;
+      margin-right: 10px;
+    }
+
+    .detail-value {
+      flex-wrap: nowrap;
+    }
+    .line {
+      height: 2px;
+      width: 50px;
+      margin: 0 10px;
+      flex-grow: 1;
+      background-color: #ededed;
+    }
+  }
+}
+.sort,
+.pointer {
+  cursor: pointer;
+}

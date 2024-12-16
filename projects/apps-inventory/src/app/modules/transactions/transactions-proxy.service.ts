@@ -1,19 +1,28 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService, PageInfo, PaginationVm } from 'shared-lib';
-import { AddStockIn, LatestItems, OperationalStockIn, StockInDetail, StockInDto, itemDefinitionDto } from '../items/models';
-import { AddStockOutDto, AdvancedSearchDto, StockOutDto } from './models';
+import {
+  AddStockIn,
+  LatestItems,
+  OperationalStockIn,
+  StockInDetail,
+  StockInDto,
+  itemDefinitionDto,
+} from '../items/models';
+import {
+  AddStockOutDto,
+  AdvancedSearchDto,
+  InventoryFilterDto,
+  LookupReturn,
+  StockOutDto,
+} from './models';
 import { SharedFinanceEnums } from './models/sharedEnumStockIn';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TransactionsProxyService {
-
-  constructor(
-    private httpService: HttpService,
-    private sharedFinanceEnums: SharedFinanceEnums,
-  ) {}
+  constructor(private httpService: HttpService, private sharedFinanceEnums: SharedFinanceEnums) {}
   getStockIn(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<StockInDto>> {
     let query = `Transaction/GetStockInTransactionList?${pageInfo.toQuery}`;
     if (searchTerm) {
@@ -39,11 +48,32 @@ export class TransactionsProxyService {
   editStockIn(obj: AddStockIn): Observable<AddStockIn> {
     return this.httpService.put('StockIn', obj);
   }
+  posteStockIn(id: number): Observable<any> {
+    return this.httpService.post(`StockIn/${id}/Post`, null);
+  }
 
-  getAllStockIn(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<StockInDto>> {
+  getAllStockIn(
+    searchTerm: string,
+    pageInfo: PageInfo,
+    filter?: InventoryFilterDto
+  ): Observable<PaginationVm<StockInDto>> {
     let query = `StockIn?${pageInfo.toQuery}`;
     if (searchTerm) {
       query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+    if (filter) {
+      Object.keys(filter).forEach((key) => {
+        const value = filter[key];
+        if (value) {
+          if (Array.isArray(value)) {
+            value.forEach((item) => {
+              query += `&${key}=${encodeURIComponent(item)}`;
+            });
+          } else {
+            query += `&${key}=${encodeURIComponent(value)}`;
+          }
+        }
+      });
     }
     return this.httpService.get<PaginationVm<StockInDto>>(query);
   }
@@ -83,8 +113,8 @@ export class TransactionsProxyService {
   getWareHousesDropDown() {
     return this.httpService.get<any>(`WareHouse/WareHousesDropDown`);
   }
-  getByIdViewStockIn(id:number){
-    return this.httpService.get(`StockIn/GetStockInViewById/${id}`)
+  getByIdViewStockIn(id: number) {
+    return this.httpService.get(`StockIn/GetStockInViewById/${id}`);
   }
   getItems(
     quieries: string,
@@ -100,63 +130,89 @@ export class TransactionsProxyService {
     }
     return this.httpService.get<PaginationVm<AdvancedSearchDto>>(query);
   }
-////////////// stock out//////
-operationTagStockOutDropdown(): Observable<OperationalStockIn[]> {
-  return this.httpService.get(`OperationalTag/OperationalTagStockDropDown?OperationType=${this.sharedFinanceEnums.OperationType.StockOut}`);
-}
-getLatestItemsListByWarehouse( SearchTerm :string , WarehouseId:number) : Observable<LatestItems[]> {
-  return this.httpService.get(`Item/GetLatestItemsStockDropDownByWarehouse?WarehouseId=${WarehouseId}`)
-}
-getItemsStockOut(
-  quieries: string,
-  searchTerm: string,
-  warehouseId: number,
-  pageInfo: PageInfo
-): Observable<PaginationVm<AdvancedSearchDto>> {
-  // Construct the base query with pagination info
-  let query = `Item/GetItemStockAdvancedSearchByWarehouse?${pageInfo.toQuery}`;
+  ////////////// stock out//////
+  operationTagStockOutDropdown(): Observable<OperationalStockIn[]> {
+    return this.httpService.get(
+      `OperationalTag/OperationalTagStockDropDown?OperationType=${this.sharedFinanceEnums.OperationType.StockOut}`
+    );
+  }
+  getLatestItemsListByWarehouse(
+    SearchTerm: string,
+    WarehouseId: number
+  ): Observable<LatestItems[]> {
+    return this.httpService.get(
+      `Item/GetLatestItemsStockDropDownByWarehouse?WarehouseId=${WarehouseId}`
+    );
+  }
+  getItemsStockOut(
+    quieries: string,
+    searchTerm: string,
+    warehouseId: number,
+    pageInfo: PageInfo
+  ): Observable<PaginationVm<AdvancedSearchDto>> {
+    // Construct the base query with pagination info
+    let query = `Item/GetItemStockAdvancedSearchByWarehouse?${pageInfo.toQuery}`;
     if (searchTerm) {
-    query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
+      query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+    if (warehouseId) {
+      query += `&WarehouseId=${warehouseId}`;
+    }
+    if (quieries) {
+      query += `&${quieries}`;
+    }
+    return this.httpService.get<PaginationVm<AdvancedSearchDto>>(query);
   }
-  if (warehouseId) {
-    query += `&WarehouseId=${warehouseId}`;
-  }
-  if (quieries) {
-    query += `&${quieries}`;
-  }
-  return this.httpService.get<PaginationVm<AdvancedSearchDto>>(query);
-}
 
-addStockOut(obj : AddStockOutDto) : Observable<AddStockOutDto> {
-  return this.httpService.post('StockOut' , obj)
-
-}
-getByIdStockOut(id: number) {
-  return this.httpService.get(`StockOut/${id}`);
-}
-editStockOut(obj: any) {
-  return this.httpService.put(`StockOut`, obj);
-}
-deleteRowStockOut(id : number ){
-  return this.httpService.delete(`StockOut/DeleteLine/${id}`)
-}
-GetItemByBarcodeStockOutQuery(barcode: string , warehouseId:number): Observable<any> {
-  return this.httpService.get(`Item/GetItemByBarcodeStockOutQuery?Barcode=${barcode}&WarehouseId=${warehouseId}`);
-} 
-
-  getByIdViewStockOut(id:number){
-    return this.httpService.get(`StockOut/GetStockOutViewById/${id}`)
+  addStockOut(obj: AddStockOutDto): Observable<AddStockOutDto> {
+    return this.httpService.post('StockOut', obj);
   }
-  getAllStockOut(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<StockOutDto>> {
+  getByIdStockOut(id: number) {
+    return this.httpService.get(`StockOut/${id}`);
+  }
+  editStockOut(obj: any) {
+    return this.httpService.put(`StockOut`, obj);
+  }
+  deleteRowStockOut(id: number) {
+    return this.httpService.delete(`StockOut/DeleteLine/${id}`);
+  }
+  GetItemByBarcodeStockOutQuery(barcode: string, warehouseId: number): Observable<any> {
+    return this.httpService.get(
+      `Item/GetItemByBarcodeStockOutQuery?Barcode=${barcode}&WarehouseId=${warehouseId}`
+    );
+  }
+
+  getByIdViewStockOut(id: number) {
+    return this.httpService.get(`StockOut/GetStockOutViewById/${id}`);
+  }
+  getAllStockOut(
+    searchTerm: string,
+    pageInfo: PageInfo,
+    filter?: InventoryFilterDto
+  ): Observable<PaginationVm<StockOutDto>> {
     let query = `StockOut?${pageInfo.toQuery}`;
     if (searchTerm) {
       query += `&searchTerm=${encodeURIComponent(searchTerm)}`;
     }
+    if (filter) {
+      Object.keys(filter).forEach((key) => {
+        const value = filter[key];
+        if (value) {
+          if (Array.isArray(value)) {
+            value.forEach((item) => {
+              query += `&${key}=${encodeURIComponent(item)}`;
+            });
+          } else {
+            query += `&${key}=${encodeURIComponent(value)}`;
+          }
+        }
+      });
+    }
     return this.httpService.get<PaginationVm<StockOutDto>>(query);
   }
- 
-  deleteStockOut(id : number ){
-    return this.httpService.delete(`StockOut/${id}`)
+
+  deleteStockOut(id: number) {
+    return this.httpService.delete(`StockOut/${id}`);
   }
   exportStockOutList(
     searchTerm?: string,
@@ -173,5 +229,13 @@ GetItemByBarcodeStockOutQuery(barcode: string , warehouseId:number): Observable<
   }
   postStockOut(id: number) {
     return this.httpService.post(`StockOut/${id}/Post`, null);
+  }
+
+  statusLookup(): Observable<LookupReturn[]> {
+    return this.httpService.get('Lookup?lookups=StockInOutStatus');
+  }
+
+  sourceDocumentLookup(): Observable<LookupReturn[]> {
+    return this.httpService.get('Lookup?lookups=StockInOutSourceDocumentType');
   }
 }

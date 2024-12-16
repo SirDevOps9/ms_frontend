@@ -31,7 +31,7 @@ const routes: Routes = [
     },
     children: [
       {
-        path: 'stock-in',
+        path: 'stockin',
         component: MainStockInListComponentComponent,
         data: {
           breadcrumb: BreadcrumbLabel.STOCKIN,
@@ -42,22 +42,26 @@ const routes: Routes = [
             path: '',
             component: StockInListComponent,
             data: {
-              breadcrumb: BreadcrumbLabel.STOCKIN,
+              breadcrumb: '',
               pageTitle: BreadcrumbLabel.STOCKIN,
             },
           },
           {
-            path: 'add-stock-in',
+            path: 'add',
             component: AddStockInComponent,
             data: {
               breadcrumb: BreadcrumbLabel.ADD_STOCKIN,
+              pageTitle: BreadcrumbLabel.ADD_STOCKIN,
+
             },
           },
           {
-            path: 'edit-stock-in/:id',
+            path: 'edit/:id',
             component: EditStockInComponent,
             data: {
               breadcrumb: BreadcrumbLabel.EDIT_STOCKIN,
+              pageTitle: BreadcrumbLabel.EDIT_STOCKIN,
+
             },
           },
           {
@@ -82,7 +86,7 @@ const routes: Routes = [
         ],
       },
       {
-        path: 'stock-out',
+        path: 'stockout',
         component: MainStockOutComponent,
         data: {
           breadcrumb: BreadcrumbLabel.STOCKOUT,

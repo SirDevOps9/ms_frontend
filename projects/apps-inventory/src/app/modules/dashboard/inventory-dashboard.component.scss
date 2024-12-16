@@ -1,0 +1,151 @@
+.custom_card {
+  position: relative;
+  width: 100%;
+  min-height: 120px;
+  background-color: #14728c;
+  padding: 5px 24px;
+  margin-bottom: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 16px;
+
+  .custom_card_label {
+    color: #fff;
+  }
+}
+
+.account_types_details {
+  display: flex;
+  justify-content: f;
+  overflow-x: auto;
+  overflow-y: hidden;
+  position: relative;
+  bottom: -35px;
+  gap: 10px;
+
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.box {
+  flex: 0 0 auto;
+  min-width: 150px;
+  width: fit-content;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 20px;
+  border: 1px solid #2ba9cc;
+  text-wrap: nowrap;
+}
+
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #e3e3e3;
+
+  .action {
+    display: flex;
+    align-items: center;
+
+    i {
+      margin: 0 5px;
+    }
+  }
+}
+
+.column-line {
+  display: inline-flex !important;
+  width: 2px;
+  height: 25px;
+  margin: 0 10px;
+  flex-grow: 1;
+  background-color: #ededed;
+}
+
+.chart-body {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+
+  .row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+
+    &.expiry-row {
+      gap: 5px;
+    }
+
+    .label-color {
+      color: #5e6278;
+    }
+
+    .detail-type {
+      border-radius: 8px;
+      color: white;
+      padding: 3px 5px;
+    }
+
+    .color-box {
+      width: 15px;
+      height: 15px;
+      margin-right: 10px;
+      border-radius: 50%;
+    }
+
+    .detail-name {
+      font-weight: bold;
+      margin-right: 10px;
+    }
+
+    .detail-value {
+      flex-wrap: nowrap;
+    }
+    .line {
+      height: 2px;
+      width: 50px;
+      margin: 0 10px;
+      flex-grow: 1;
+      background-color: #ededed;
+    }
+  }
+
+  .btn-class {
+    color: white;
+    &.bank-label {
+      background-color: #e79950;
+      border: 1px solid #874c16;
+    }
+    &.cash-label {
+      background-color: #5eb4af;
+      border: 1px solid #20615d;
+    }
+    span {
+      font-weight: bold;
+    }
+  }
+}
+.sort,
+.pointer {
+  cursor: pointer;
+}
+.code-details {
+  display: flex;
+  flex-direction: column;
+  .code {
+    color: #5e6278;
+  }
+}
+
+i.pi-ban,
+i.pi-thumbs-up {
+  font-size: 21px;
+}
+i.pi-ban {
+  color: #cc3f2d;
+}
+i.pi-thumbs-up {
+  color: #36a19b;
+}

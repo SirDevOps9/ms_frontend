@@ -13,6 +13,6 @@
   [attr.data-testid]="this.labelTest"
   (onClear)="onOptionRemoved($event)"
   display="chip"
-
+  [emptyMessage]="'global.noResults' | translate"
 
 ></p-multiSelect>

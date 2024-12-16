@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { AuthService } from 'microtec-auth-lib';
-import { DialogService } from 'primeng/dynamicdialog';
-import { FinanceService } from 'projects/apps-finance/src/app/modules/finance/finance.service';
-import { LanguageService, PageInfo, PageInfoResult, RouterService } from 'shared-lib';
+import { PageInfo, PageInfoResult, RouterService } from 'shared-lib';
 import { ItemsService } from '../../../items.service';
 import { UOMCategoryDto } from '../../../models';
+import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
+import { SortTableEXport } from '../../../models/SortTable';
 
 @Component({
   selector: 'app-uom-list',
@@ -19,55 +19,27 @@ export class UOMListComponent implements OnInit {
   exportData: UOMCategoryDto[];
   clonedExportData: UOMCategoryDto[];
   exportColumns:any[]
+  SortByAll:SortTableEXport
+  filteredColumns: string[] = [];
+  columns: { name: any; headerText: any }[] = [
+    { name: 'code', headerText:('UOM.uomCode') },
+    { name: 'name', headerText:('UOM.uomName') },
+    { name: 'shortName', headerText:('UOM.shortName') },
+    { name: 'categoryName', headerText:('UOM.uomCategory') },
+    { name: 'factor', headerText:('UOM.uomFactor') },
 
-  cols = [
-
-    {
-      field: 'Code',
-      header: 'code',
-    },
-
-    {
-      field: 'Name',
-      header: 'name',
-    },
-    {
-      field: 'Short Name',
-      header: 'shortName',
-    },
-    {
-      field: 'UOM Type',
-      header: 'uomType',
-    },
-    {
-      field: 'UOM Name',
-      header: 'uomName',
-    },
-    {
-      field: 'Conversion Ratio',
-      header: 'conversionRatio',
-    },
-
-  ];
+  ]
   constructor(
     private routerService: RouterService,
     private itemService : ItemsService,
-
     public authService: AuthService,
     private title: Title,
-    private langService: LanguageService,
-
+      private exportService:ExportService
   ){
 
   }
   ngOnInit(): void {
-    this.exportColumns = this.cols.map((col) => ({
-      id: col.header,
-      name: col.field,
-    }));
     this.initTreasurData()
-
-
   }
 
   initTreasurData() {
@@ -88,8 +60,8 @@ export class UOMListComponent implements OnInit {
     this.routerService.navigateTo('/masterdata/uom/add-uom')
     }
     onView(data: any) {
-      const encryptedId = btoa(data.uomCategoryId);
-      this.routerService.navigateTo(`/masterdata/uom/view-uom/${encryptedId}`);  // الانتقال إلى الرابط مع الـ ID المشفر
+
+      this.routerService.navigateTo(`/masterdata/uom/view-uom/${data.uomCategoryId}`);
     }
 
 
@@ -97,49 +69,58 @@ export class UOMListComponent implements OnInit {
     this.itemService.getUOmCategories(this.searchTerm, new PageInfo());
 
 
-    //     this.itemService.listOfUOMs.subscribe({
-    //   next: (res) => {
-    //     this.tableData = res;
-    //     console.log(res);
-    //   },
-    // });
   }
   onPageChange(pageInfo: PageInfo) {
     this.itemService.getUOmCategories('', pageInfo);
+  }
+
+
+  exportClick() {
+    this.exportOperationalData(this.searchTerm, this.SortByAll?.SortBy, this.SortByAll?.SortColumn);
+  }
+
+  exportOperationalData(searchTerm: string, sortBy?: number, sortColumn?: string) {
+    this.itemService.exportUOMList(searchTerm, sortBy, sortColumn);
+    const filteredColumns = this.columns.filter(col => this.filteredColumns.includes(col.name));
+
+    this.itemService.SendexportUOMList$.subscribe((res) => {
+      this.exportData = this.exportService.formatCiloma(res, filteredColumns);
+
+    });
+  }
+  exportClickBySort(e: { SortBy: number; SortColumn: string }) {
+    this.SortByAll = {
+      SortBy: e.SortBy,
+      SortColumn: e.SortColumn,
+    };
+  }
+
+  onFilterColumn(e: string[]) {
+    this.filteredColumns = e;
 
   }
 
-  exportClick(e?: Event) {
 
-      this.exportBankData(this.searchTerm);
+  // exportBankData(searchTerm: string) {
+  //   this.itemService.exportUOMList(searchTerm)
 
+  //   this.itemService.SendexportUOMList$.subscribe((res)=>{
+  //     this.exportData = res
+  //   })
+  // }
+  // exportUom(searchTerm: string) {
+  //   this.itemService.exportUOMList(searchTerm)
 
-  }
-  exportBankData(searchTerm: string) {
-    this.itemService.exportUOMList(searchTerm)
-
-    this.itemService.SendexportUOMList$.subscribe((res)=>{
-      this.exportData = res
-    })
-
-
-  }
-  exportUom(searchTerm: string) {
-    this.itemService.exportUOMList(searchTerm)
-
-    this.itemService.SendexportUOMList$.subscribe((res)=>{
-      this.exportData = res
-    })
+  //   this.itemService.SendexportUOMList$.subscribe((res)=>{
+  //     this.exportData = res
+  //   })
 
 
-  }
+  // }
   onEdit(data: any) {
     this.routerService.navigateTo(`/masterdata/uom/edit-uom/${data.uomCategoryId}`);
-
-
 }
-onDelete(id: number) {
-  this.itemService.deleteCategory(id)
+onDelete(id: string) {
+  this.itemService.deleteUom(id);
 }
-
 }

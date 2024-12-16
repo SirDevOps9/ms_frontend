@@ -14,7 +14,7 @@
               {{ 'itemType.uom' | translate }}
             </li>
 
-            <li [class.active]="findRoute('attributes')" (click)="onRoute('attributes-variants')">
+            <li [class.active]="findRoute('attributes')" (click)="onRoute('attributes')">
               {{ 'itemType.attributes' | translate }}
             </li>
             <li [class.active]="findRoute('variants')" (click)="onRoute('variants')">
@@ -23,9 +23,9 @@
             <li [class.active]="findRoute('barcode')"  (click)="onRoute('barcode')">
               {{ 'itemType.barcode' | translate }}
             </li>
-            <li [class.active]="findRoute('fixed-cost')"  (click)="onRoute('fixed-cost')">
+            <!-- <li [class.active]="findRoute('fixed-cost')"  (click)="onRoute('fixed-cost')">
               {{ 'itemType.fixedCost' | translate }}
-            </li>
+            </li> -->
             <li [class.active]="findRoute('inventory')" (click)="onRoute('inventory')">
               {{ 'itemType.inventory' | translate }}
             </li>

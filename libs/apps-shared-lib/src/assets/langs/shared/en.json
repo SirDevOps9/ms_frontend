@@ -1,6 +1,9 @@
 {
   "BreadCrumb": {
-    "Dashboard": "Dashboard"
+    "Dashboard": "Dashboard",
+    "sequence":"Sequence",
+    "homeHelpPage":"Home Help Page",
+    "helpPage":"help Page"
   },
   "Save": "Save",
   "Cancel": "Cancel",
@@ -13,7 +16,7 @@
   "edit": "edit",
   "delete": "delete",
   "statement": "statement",
-  "sequence": "sequence",
+  "sequenceTitle": "sequence",
   "attachment": "Attachment",
   "attachmentDeletedSuccessfully": "attachment Deleted Successfully",
   "CannotDeleteattachment": "Cannot Delete attachment",
@@ -104,7 +107,35 @@
     "To": "to",
     "Entries": "entries"
   },
+  "AdminPortal": {
+    "TaxList": "Tax List",
+    "OperationalTagTaxList": "Operational Tag Tax List",
+    "title": "Title",
+    "sefName": "SEO-Friendly Name",
+    "isDraft": "Is Draft",
+    "description": "Description",
+    "content": "Content",
+    "discard": "Discard",
+    "save": "Save"
+  },
   "general" : {
     "noData" : "There Is No Data"
+  },
+  "back":"back",
+  "help":"Help",
+
+  "global": {
+    "activeOn": "On",
+    "activeOff": "Off",
+    "showMoreValues": "...Show More",
+    "clickToUpload": "Click to upload",
+    "uploadFile": "Attached file",
+    "select": "Select",
+    "noResults": "No results found",
+    "Physical": "Physical",
+    "Virtual": "Virtual",
+    "VanSales": "VanSales",
+    "English": "( English )",
+    "Arabic": "( Arabic )"
   }
 }

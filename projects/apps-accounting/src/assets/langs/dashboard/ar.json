@@ -1,0 +1,21 @@
+{
+  "dashboard": {
+    "accountTypes": "نوع الحسابات",
+    "bankCashEquivalents": "بنك وخزينة المعادن",
+    "status": "الحالة",
+    "journalSources": "مصادر الدفعات",
+    "totalCash": "المجموع الكلي للنقد",
+    "totalBank": "المجموع الكلي للبنك",
+    "costCenter": "مركز التكلفة",
+    "moreDetails": "المزيد من التفاصيل",
+    "sortBy": "ترتيب حسب",
+    "theMostUsed": "الاكثر استخداما",
+    "theLeastUsed": "الاقل استخداما",
+    "revenueStream": "مصادر الايرادات",
+    "revenue": "ايرادات",
+    "expenses": "مصاريف",
+    "grossProfit": "الربح النهائي",
+    "accounts": "الحسابات",
+    "noAccounts": "لا يوجد حسابات"
+  }
+}

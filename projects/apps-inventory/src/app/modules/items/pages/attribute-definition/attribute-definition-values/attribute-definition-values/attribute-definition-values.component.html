@@ -8,7 +8,8 @@
 <div class="itemAttributes">
   <div *ngFor="let item of tableData" class="col-md-3">
     <p class="itemAttributes-valuse">
-      {{ item?.nameEn }}
+
+      {{ currentLang === 'en' ? item.nameEn : item.nameAr }}
     </p>
   </div>
 </div>

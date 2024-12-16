@@ -19,7 +19,7 @@ import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'lib-data-table',
-  templateUrl: './data-table.component.html', 
+  templateUrl: './data-table.component.html',
   styleUrls: ['./data-table.component.scss'],
 })
 export class DataTableComponent implements OnInit, OnChanges {
@@ -51,14 +51,11 @@ export class DataTableComponent implements OnInit, OnChanges {
   //  to fill the dropdown in the component
   @Output() fiteredDropdOwn = new EventEmitter<TableConfig>();
   @Output() exportObj = new EventEmitter<{ SortBy: number; SortColumn: string }>();
-
   sortingFields: string[];
   selectedColumns: any = [];
-
   globalFilterFields: string[];
-
   pageInfo: PageInfo;
-
+  @Output() columnsFiltered = new EventEmitter<string[]>();
   currentSortColumn: string | undefined;
   currentSortOrder: SortBy = SortBy.Descending;
 
@@ -73,8 +70,9 @@ export class DataTableComponent implements OnInit, OnChanges {
   searchColumnsControl = new FormControl([]);
   isRtl: boolean = false;
   showColumnFilter: boolean;
-
+  adminPortalTab: boolean = false;
   ngOnInit(): void {
+    this.adminPortalTab = this.routerService.getCurrentUrl().includes('/bussiness-owners/manage/');
     this.isRtl = this.languageService.ar;
 
     this.filtered_columns = this.tableConfigs.columns;
@@ -135,8 +133,6 @@ export class DataTableComponent implements OnInit, OnChanges {
     return this.tableConfigs.columns.some((col) => col.children && col.children.length > 0);
   }
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.noColumnFilter, 'bool');
-
     this.clonedTableConfigs = { ...this.tableConfigs };
   }
   routeToSequence() {
@@ -215,21 +211,29 @@ export class DataTableComponent implements OnInit, OnChanges {
     private routerService: RouterService
   ) {}
 
-  handleFilterColumns(selectedColumns: string[]) {
-    if (selectedColumns.length === 0) {
-      this.tableConfigs.columns = [...this.clonedTableConfigs.columns];
-    } else {
-      const columns = this.clonedTableConfigs.columns;
+  handleFilterColumns(event: any): void {
+    const selectedColumns = Array.isArray(event) ? event : [];
+    if (this.clonedTableConfigs?.columns) {
+      const filteredColumns = this.clonedTableConfigs.columns.filter((col) =>
+        selectedColumns.includes(col.name)
+      );
 
-      const lastColumn = columns[columns.length - 1];
-
-      const filteredColumns = columns.filter((col) => selectedColumns.includes(col.name));
-
-      if (!filteredColumns.includes(lastColumn)) {
-        filteredColumns.push(lastColumn);
+      const actionsColumn = this.clonedTableConfigs.columns.find(
+        (col) => col.headerText === 'Actions'
+      );
+      if (actionsColumn && !filteredColumns.includes(actionsColumn)) {
+        filteredColumns.push(actionsColumn);
       }
 
       this.tableConfigs.columns = [...filteredColumns];
+      this.columnsFiltered.emit(selectedColumns);
+
+      // console.log('Emitted selectedColumns:', selectedColumns);
     }
+  }
+
+  onColumnsChange(selectedColumns: string[]): void {
+    this.columnsFiltered.emit(selectedColumns);
+    // console.log('Emitted selectedColumns:', selectedColumns);
   }
 }

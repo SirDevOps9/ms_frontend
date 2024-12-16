@@ -2,8 +2,11 @@
   <div>
     <div class="user_page">
       <lib-data-table  [items]="tableData"
-        className="p-datatable-gridlines" [currentPageResult]="currentPageInfo" (pageChange)="onPageChange($event)"
-        (exportObj)="exportedColumns($event)" [tableConfigs]="{
+        className="p-datatable-gridlines"
+        (exportObj)="exportClickBySort($event)"
+        (columnsFiltered)="onFilterColumn($event)"
+        [currentPageResult]="currentPageInfo" (pageChange)="onPageChange($event)"
+              [tableConfigs]="{
             allowPagination: false,
             allowServerPagination: true,
             dataKey: 'id',
@@ -22,13 +25,21 @@
                 isSortable: true
               },
 
-
               {
                 name: 'warehouseType',
                 headerText: ('warehouse.warehouseType' | translate),
                 isGlobalFilter: true,
                 isSortable: true
               },
+
+              {
+                name: 'createdOn',
+                headerText: ('warehouse.createdOn' | translate),
+                isGlobalFilter: true,
+                template: isCreatedOn,
+                isSortable: true
+              },
+
               {
                 name: 'id',
                 headerText: ('warehouse.actions' | translate),
@@ -42,7 +53,11 @@
 
 
 
-
+<ng-template #isCreatedOn let-row>
+  <p >
+  {{row.createdOn |date:"YYYY/MM/dd"}}
+  </p>
+    </ng-template>
 
 
         <ng-container search>
@@ -55,9 +70,19 @@
         <ng-container action>
 
           <div>
-            <lib-export (exportClick)="exportClick()" [exportData]="exportData" [exportColumns]="exportColumns"
+            <!-- <lib-export (exportClick)="exportClick()" [exportData]="exportData" [exportColumns]="exportColumns"
               [ExportName]="'Warehouse'">
-            </lib-export>
+            </lib-export> -->
+
+
+            <lib-export
+            (exportClick)="exportClick()"
+            [exportData]="exportData"
+            [exportColumns]="exportColumns"
+            [ExportName]="('warehouse.warehousePrint' |translate)"
+
+          >
+          </lib-export>
           </div>
           <!--  -->
           <div>

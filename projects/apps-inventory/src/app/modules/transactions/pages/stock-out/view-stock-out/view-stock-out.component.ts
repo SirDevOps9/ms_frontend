@@ -1,9 +1,10 @@
+
 import { Component, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'microtec-auth-lib';
 import { DialogService } from 'primeng/dynamicdialog';
-import {  LanguageService, customValidators } from 'shared-lib';
+import {  LanguageService, PageInfoResult, customValidators } from 'shared-lib';
 import { Table } from 'primeng/table';
 import { TransactionsService } from '../../../transactions.service';
 
@@ -23,10 +24,11 @@ export class ViewStockOutComponent {
   first: number = 0;
   rows: number = 10;
   currentPageData: any[] = [];
+  currentPageInfo: PageInfoResult = {};
   constructor(
     public authService: AuthService,
     private dialog: DialogService,
-    private item_services:TransactionsService,
+    private transactions_services: TransactionsService,
     private langService: LanguageService,
     private fb: FormBuilder,
     private _route: ActivatedRoute,
@@ -75,8 +77,8 @@ export class ViewStockOutComponent {
     });
   }
   getStockOutViewById() {
-    this.item_services.getByIdViewStockOut(this._routeid);
-    this.item_services.stockOutDataViewSourceeObservable.subscribe((data: any) => {
+    this.transactions_services.getByIdViewStockOut(this._routeid);
+    this.transactions_services.stockOutDataViewSourceeObservable.subscribe((data: any) => {
       if (data && data.stockOutDetails && Array.isArray(data.stockOutDetails)) {
         this.stockOutForm.patchValue({
           receiptDate: data.receiptDate,
@@ -99,9 +101,9 @@ export class ViewStockOutComponent {
             cost: [item.cost],
             trackingType: [item.trackingType],
             hasExpiryDate: [item.hasExpiryDate],
-            batchNo: [item.stockOutTracking.batchNo],
-            serialId: [item.stockOutTracking.serialId],
-            expireDate: [item.stockOutTracking.expireDate],
+            batchNo: [item.stockOutTracking?.batchNo],
+            serialId: [item.stockOutTracking?.serialId],
+            expireDate: [item.stockOutTracking?.expireDate],
             notes: [item.notes],
           });
           this.stockOut.push(formGroup);
@@ -113,8 +115,18 @@ export class ViewStockOutComponent {
   }
 
   filterTable(value: any) {
-    if (this.dt) {
-      this.dt.filterGlobal(value.target.value, 'contains');
+    // if (this.dt) {
+    //   this.dt.filterGlobal(value.target.value, 'contains');
+    // }
+    const filterValue = value.target.value?.trim().toLowerCase();
+    if (filterValue) {
+      this.currentPageData = this.stockOut.value.filter((row: any) =>
+        this.globalFilterFields.some((field) =>
+          row[field]?.toString().toLowerCase().includes(filterValue)
+        )
+      );
+    } else {
+      this.updateCurrentPageData();
     }
   }
   onPageChange(event: any) {
@@ -122,11 +134,11 @@ export class ViewStockOutComponent {
     this.rows = event.rows;
     this.updateCurrentPageData();
   }
-  updateCurrentPageData() {
+
+
+  updateCurrentPageData(): void {
     const startIndex = this.first;
     const endIndex = this.first + this.rows;
-    this.currentPageData = [...this.stockOut.value];
-    // this.currentPageData = this.stockOut.controls.slice(startIndex, endIndex);
-
+    this.currentPageData = this.stockOut.value.slice(startIndex, endIndex);
   }
 }

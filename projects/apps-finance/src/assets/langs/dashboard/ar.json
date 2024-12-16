@@ -1,0 +1,21 @@
+{
+  "dashboard": {
+    "status": "الحالة",
+    "banks": "البنوك",
+    "treasuries": "الخصومات",
+    "totalBankTreasuries": "مجموع البنوك والخصومات",
+    "income": "دخل",
+    "outgoing": "صادر",
+    "cashFlowSummary": "ملخص النقود المالية",
+    "resentTransactions": "المعاملات الحديثة",
+    "glAccounts": "حسابات السيولة",
+    "moreDetails": "المزيد من التفاصيل",
+    "recentIncomeTransaction": "أحدث المعاملات الدخل",
+    "recentOutgoingTransaction": "أحدث المعاملات الصادر",
+    "paymentIn": "دخول",
+    "paymentOut": "صادر",
+    "cashFlow": "نقود المالية",
+    "totalInBank": "المجموع في البنك",
+    "totalInTreasury": "المجموع في الخصومات"
+  }
+}

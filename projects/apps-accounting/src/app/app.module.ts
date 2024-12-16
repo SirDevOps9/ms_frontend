@@ -33,6 +33,7 @@ import { UrlSerializer } from '@angular/router';
             resources: [
               { prefix: './assets/langs/accounting/', suffix: '.json' },
               { prefix: './assets/langs/erphome/', suffix: '.json' },
+              { prefix: './assets/langs/dashboard/', suffix: '.json' },
             ],
           }),
         deps: [HttpClient],

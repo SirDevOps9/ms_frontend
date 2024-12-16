@@ -7,6 +7,8 @@ import { TaxDefinitionEditComponent } from '../../../components/tax-definition-e
 import { GeneralSettingService } from '../../../general-setting.service';
 import { TaxDto } from '../../../models/tax-dto';
 import { ExportTaxDto } from '../../../models/export-tax-dto';
+import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
+import { SortTableEXport } from 'projects/apps-inventory/src/app/modules/items/models/SortTable';
 
 @Component({
   selector: 'app-tax-definition',
@@ -17,7 +19,8 @@ export class TaxDefinitionComponent implements OnInit {
   constructor(
     public authService: AuthService,
     private dialog: DialogService,
-    private generalSettingService: GeneralSettingService
+    private generalSettingService: GeneralSettingService,
+    private exportService:ExportService
   ) {}
 
   tableData: TaxDto[];
@@ -25,31 +28,18 @@ export class TaxDefinitionComponent implements OnInit {
   modulelist: MenuModule[];
   searchTerm: string;
   SortBy?: number
+  SortByAll:SortTableEXport
   SortColumn?:string
   exportData: ExportTaxDto[];
-  exportColumns: lookupDto[] = [
-    {
-      id: 'code',
-      name: 'Id',
-    },
-
-    {
-      id: 'name',
-      name: 'Name',
-    },
-    {
-      id: 'ratio',
-      name: 'Ratio',
-    },
-    {
-      id: 'accountName',
-      name: 'Account',
-    },
-    {
-      id: 'taxGroupName',
-      name: 'Tax Group',
-    },
-  ];
+  exportColumns: lookupDto[] = [];
+  filteredColumns: string[] = [];
+  columns: { name: any; headerText: any }[] = [
+    { name: 'code', headerText:('Tax.Id') },
+    { name: 'name', headerText:('Tax.Name') },
+    { name: 'ratio', headerText:('Tax.Ratio') },
+    { name: 'accountName', headerText:('Tax.Account') },
+    { name: 'taxGroupName', headerText:('Tax.TaxGroup') },
+  ]
 
   ngOnInit() {
     this.initTaxData();
@@ -109,14 +99,27 @@ export class TaxDefinitionComponent implements OnInit {
   onDelete(id: number) {
     this.generalSettingService.deleteTax(id);
   }
-  exportedColumns(obj: { SortBy: number; SortColumn: string }) {
-    this.SortBy = obj.SortBy;
-    this.SortColumn = obj.SortColumn;
+  exportClick() {
+    this.exportTaxesData(this.searchTerm, this.SortByAll?.SortBy, this.SortByAll?.SortColumn);
   }
-  exportTaxesData() {
-    this.generalSettingService.exportTaxesData(this.searchTerm,this.SortBy,this.SortColumn);
+  exportTaxesData(searchTerm: string, sortBy?: number, sortColumn?: string) {
+    this.generalSettingService.exportTaxesData(searchTerm , sortBy , sortColumn);
+    const filteredColumns = this.columns.filter(col => this.filteredColumns.includes(col.name));
     this.generalSettingService.exportsTaxesDataSourceObservable.subscribe((res) => {
-      this.exportData = res;
+      this.exportData = this.exportService.formatCiloma(res, filteredColumns);
+
     });
   }
+  exportClickBySort(e:{SortBy: number; SortColumn: string}){
+     this.SortByAll={
+      SortBy: e.SortBy,
+      SortColumn:e.SortColumn
+     }
+  }
+
+  onFilterColumn(e: string[]) {
+    this.filteredColumns = e;
+
+  }
+
 }
