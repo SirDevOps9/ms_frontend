@@ -32,9 +32,12 @@
                 <lib-label [appControl]="salesReturnForm.controls['returnDate']">
                   {{ 'salesReturnInvoice.returnDate' | translate }}
                 </lib-label>
-                <lib-calendar formControlName="returnDate"></lib-calendar>
+                  
+                  <lib-calendar formControlName="returnDate"  [ngClass]="{ 'readonly-calendar': disableAllThePage }" ></lib-calendar>
                 <lib-field-validations
                   [appControl]="salesReturnForm.controls['returnDate']"
+
+
                 ></lib-field-validations>
               </div>
               <!-- created stock in -->
@@ -80,6 +83,8 @@
                   rows="1"
                   formControlName="description"
                   placeholder="{{ 'salesReturnInvoice.description' | translate }}"
+
+                  [readOnly]="disableAllThePage"
                 ></textarea>
               </div>
               <!-- warehouse  -->
@@ -94,7 +99,9 @@
                   optionLabel="name"
                   placeholder="{{ 'salesReturnInvoice.warehouse' | translate }}"
                   [selectedValue]="salesReturnForm.controls['warehouseId'].value"
-                >
+                  [readOnly]="disableAllThePage"
+
+                  >
                 </lib-select>
                 <lib-field-validations
                   [appControl]="salesReturnForm.controls['warehouseId']"
@@ -287,6 +294,8 @@
                     formControlName="toReturnQTY"
                     (keyUp)="setReturnQuantity(i)"
                     (valueChanged)="setReturnQuantity(i)"
+                    [readOnly]="disableAllThePage"
+
                   ></lib-text-input>
                 </ng-template>
                 <ng-template pTemplate="output">
@@ -372,7 +381,7 @@
             </td>
 
             <td>
-              <div class="flex gap-3">
+              <div class="flex gap-3" *ngIf="!disableAllThePage">
                 <img
                   src="assets/images/table/delete.svg"
                   class="pointer"
@@ -493,7 +502,7 @@
               >
               </lib-button-micro>
             </div>
-            <div class="md:col-3">
+            <div class="md:col-3" *ngIf="!disableAllThePage" >
               <!-- Save Button -->
               <lib-button-micro
                 title="{{ 'Save' | translate }}"
@@ -505,7 +514,7 @@
               </lib-button-micro>
             </div>
 
-            <div class="md:col-3">
+            <div class="md:col-3" *ngIf="!disableAllThePage">
               <!-- Post Button -->
               <lib-button-micro
                 [disabled]="!formChanges"

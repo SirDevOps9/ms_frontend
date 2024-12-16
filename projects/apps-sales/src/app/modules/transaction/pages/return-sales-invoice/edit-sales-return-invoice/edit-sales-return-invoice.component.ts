@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms';
 import { AuthService } from 'microtec-auth-lib';
 import { SharedFinanceEnums } from 'projects/apps-inventory/src/app/modules/items/models/sharedEnumStockIn';
@@ -15,6 +15,7 @@ import {
 import { customerDto, SalesInvoiceLookup, updateReturnSalesInvice } from '../../../models';
 import { TransactionService } from '../../../transaction.service';
 import { ActivatedRoute } from '@angular/router';
+import { StockInStatus } from 'projects/apps-inventory/src/app/modules/items/models/stockInStatus';
 
 @Component({
   selector: 'app-edit-sales-return-invoice',
@@ -47,7 +48,7 @@ export class EditSalesReturnInvoiceComponent implements OnInit {
   discount: number;
   vatAmount: number;
   totalAfterVat: number;
-
+  disableAllThePage :  boolean = false
   changeCode: boolean = false;
   customerList: customerDto[] = [];
   salesInvoiceList: SalesInvoiceLookup[] = [];
@@ -73,6 +74,7 @@ export class EditSalesReturnInvoiceComponent implements OnInit {
     if (id) {
       this.getReturnInnvoiceById(id);
     }
+  
   }
 
   // form section##########
@@ -194,8 +196,10 @@ export class EditSalesReturnInvoiceComponent implements OnInit {
           })
         );
       });
-      this.resetComparasion();
     }
+    this.resetComparasion();
+    this.cdr.detectChanges();
+
   }
 
   subscribe() {
@@ -420,6 +424,9 @@ export class EditSalesReturnInvoiceComponent implements OnInit {
     this._transactionService.getReturnSalesInvoiceId(id);
     this._transactionService.ReturnSalesInvoiceIdData.subscribe({
       next: (res: any) => {
+        if(res.returnSalesInvoiceStatus === StockInStatus.Posted){
+          this.disableAllThePage = true
+        }
         this.patchFormValues(res);
       },
     });
@@ -439,6 +446,7 @@ export class EditSalesReturnInvoiceComponent implements OnInit {
     public sharedFinanceEnums: SharedFinanceEnums,
     private formsService: FormsService,
     private toasterService: ToasterService,
+    private cdr: ChangeDetectorRef,
     private _transactionService: TransactionService
   ) {
     this.currentLang = this.languageService.getLang();

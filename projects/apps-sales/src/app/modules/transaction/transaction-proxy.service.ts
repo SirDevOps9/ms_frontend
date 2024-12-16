@@ -86,7 +86,7 @@ export class TransactionProxyService {
     return this.httpService.get(`ReturnSalesInvoice/${id}`);
   }
   deleteSalesReturnLine(id: number): Observable<boolean> {
-    return this.httpService.delete<boolean>(`ReturnSalesInvoice/DeleteSalesInvoiceLine${id}
+    return this.httpService.delete<boolean>(`ReturnSalesInvoice/${id}DeleteSalesInvoiceLine
 `);
   }
 }

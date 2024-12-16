@@ -132,3 +132,10 @@
     border: 2px solid red !important;
     background-color: #ffe6e6 !important;
   }
+
+  .readonly-calendar {
+    pointer-events: none;
+    background-color: #f0f0f0;
+    color: #aaa;
+    cursor: not-allowed;
+}

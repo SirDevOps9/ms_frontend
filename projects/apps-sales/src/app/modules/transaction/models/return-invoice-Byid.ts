@@ -14,15 +14,17 @@ export interface IreturnInvoiceById {
   currencyId: number
   currencyName: string
   currencyRate: number
-  invoiceStatus: string
+  returnSalesInvoiceStatus: string
   paymentTermId: any
   paymentTermName: any
   reference: any
   stockInId: any
   stockInCode: any
-  journalId: any
-  journalCode: any
+  journalId: number
+  journalCode: string
   salesInvoiceHeaderId: number
+  salesManId: number
+  salesManName: string
   returnSalesInvoiceDetails: ReturnInvoiceDetail[]
 }
 
@@ -70,7 +72,7 @@ export interface ReturnInvoiceDetail {
   localVatAmount: number
   localGrandTotal: number
   salesInvoiceDetailId: number
-  returnSalesInvoiceTracking: ReturnSalesInvoiceTracking
+  returnSalesInvoiceTracking?: ReturnSalesInvoiceTracking
 }
 
 export interface ReturnSalesInvoiceTracking {
