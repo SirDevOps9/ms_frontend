@@ -39,7 +39,7 @@ const routes: Routes = [
             }
           },
           {
-            path: 'sales-invoice-view',
+            path: 'view/:id',
             component: ViewSalesComponent,
             data: {
               breadcrumb: BreadcrumbLabel.SALES_INVOICE_VIEW,
@@ -83,7 +83,7 @@ const routes: Routes = [
     ViewSalesComponent,
 
   ],
-  imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule
+  imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule,
   ],
 })
 export class TransactionModule { }
