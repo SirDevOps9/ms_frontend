@@ -151,17 +151,17 @@ export class PaymentInListComponent {
 
   filter() {
     const filter: PaymentFilterDto = {
-      FromDate: this.filterForm.get('range')!.value[0]
+      FromDate: this.filterForm.get('range')!.value?.[0]
         ? new Date(this.filterForm.get('range')!.value[0]).toISOString().slice(0, 10)
         : '',
-      ToDate: this.filterForm.get('range')!.value[1]
+      ToDate: this.filterForm.get('range')!.value?.[1]
         ? new Date(this.filterForm.get('range')!.value[1]).toISOString().slice(0, 10)
         : '',
-      Status: this.filterForm.get('status')!.value,
-      PaymentHub: this.filterForm.get('paymentHub')!.value,
-      PaymentHubDetailId: this.filterForm.get('paymentHubDetails')!.value,
-      BankAccountId: this.filterForm.get('bankAccounts')!.value,
-      CurrencyId: this.filterForm.get('currency')!.value,
+      Status: this.filterForm.get('status')!.value ?? '',
+      PaymentHub: this.filterForm.get('paymentHub')!.value ?? '',
+      PaymentHubDetailId: this.filterForm.get('paymentHubDetails')!.value ?? '',
+      BankAccountId: this.filterForm.get('bankAccounts')!.value ?? '',
+      CurrencyId: this.filterForm.get('currency')!.value ?? '',
     };
     this.financeService.getAllPaymentIn('', new PageInfo(), filter);
   }
