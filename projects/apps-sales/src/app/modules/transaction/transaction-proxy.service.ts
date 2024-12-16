@@ -42,7 +42,6 @@ export class TransactionProxyService {
     if (SortColumn !== undefined) {
       queryParams.push(`SortColumn=${SortColumn}`);
     }
-
     const query = `SalesInvoice/SalesInvoiceLookup${
       queryParams.length ? '?' + queryParams.join('&') : ''
     }`;
@@ -73,7 +72,7 @@ export class TransactionProxyService {
   addSalesReturnInvoice(obj: AddSalesReturnDto) {
     return this.httpService.post('ReturnSalesInvoice', obj);
   }
-// edit
+  // edit
   editSalesReturnInvoice(obj: updateReturnSalesInvice) {
     return this.httpService.put('ReturnSalesInvoice', obj);
   }
@@ -81,12 +80,15 @@ export class TransactionProxyService {
   postSalesReturnInvoice(id: number) {
     return this.httpService.post(`ReturnSalesInvoice/${id}/Post`, null);
   }
-  // get by id 
+  // get by id
   getReturnSalesInvoiceId(id: number) {
     return this.httpService.get(`ReturnSalesInvoice/${id}`);
   }
+  // get by id
+
+  // delete
   deleteSalesReturnLine(id: number): Observable<boolean> {
-    return this.httpService.delete<boolean>(`ReturnSalesInvoice/${id}DeleteSalesInvoiceLine
-`);
+    return this.httpService.delete<boolean>(`ReturnSalesInvoice/${id}DeleteSalesInvoiceLine`);
   }
+  // delete
 }

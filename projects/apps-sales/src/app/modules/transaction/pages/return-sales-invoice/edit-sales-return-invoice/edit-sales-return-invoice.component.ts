@@ -426,6 +426,8 @@ export class EditSalesReturnInvoiceComponent implements OnInit {
       next: (res: any) => {
         if(res.returnSalesInvoiceStatus === StockInStatus.Posted){
           this.disableAllThePage = true
+        }else{
+          return
         }
         this.patchFormValues(res);
       },
