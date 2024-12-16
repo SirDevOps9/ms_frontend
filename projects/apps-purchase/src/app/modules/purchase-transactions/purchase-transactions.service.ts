@@ -303,7 +303,7 @@ export class PurchaseTransactionsService {
         );
         this.loaderService.hide();
 
-        this.router.navigateTo('transaction/purchase-invoice');
+        this.router.navigateTo('transactions/purchase-invoice');
       },
       error: (error: any) => {
         this.loaderService.hide();
@@ -354,7 +354,7 @@ export class PurchaseTransactionsService {
         );
         this.loaderService.hide();
 
-        this.router.navigateTo('transaction/return-purchase-invoice');
+        this.router.navigateTo('transactions/return-purchase-invoice');
       },
       error: (error: any) => {
         this.loaderService.hide();

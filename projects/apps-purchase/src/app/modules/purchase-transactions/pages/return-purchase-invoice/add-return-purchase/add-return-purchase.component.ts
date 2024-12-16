@@ -182,7 +182,7 @@ export class AddReturnPurchaseComponent {
     if(this.addForm.get('stockInId')?.value){
 
     const url = this.router.serializeUrl(
-      this.router.createUrlTree([`/inventory/transactions/stock-in/view/${this.addForm.get('stockInId')?.value}`])
+      this.router.createUrlTree([`/inventory/transactions/stockin/view/${this.addForm.get('stockInId')?.value}`])
     );
     window.open(url, '_blank');
 

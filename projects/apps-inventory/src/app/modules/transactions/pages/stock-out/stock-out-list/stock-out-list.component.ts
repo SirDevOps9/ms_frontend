@@ -102,15 +102,15 @@ export class StockOutListComponent implements OnInit {
 
   filter() {
     const filter = {
-      FromDate: this.filterForm.get('range')!.value[0]
+      FromDate: this.filterForm.get('range')!.value?.[0]
         ? new Date(this.filterForm.get('range')!.value[0]).toISOString().slice(0, 10)
         : '',
-      ToDate: this.filterForm.get('range')!.value[1]
+      ToDate: this.filterForm.get('range')!.value?.[1]
         ? new Date(this.filterForm.get('range')!.value[1]).toISOString().slice(0, 10)
         : '',
-      Status: this.filterForm.get('status')!.value,
-      SourceDocumentType: this.filterForm.get('sourceDocument')!.value,
-      WarehouseId: this.filterForm.get('warehouse')!.value,
+      Status: this.filterForm.get('status')!.value ?? '',
+      SourceDocumentType: this.filterForm.get('sourceDocument')!.value ?? '',
+      WarehouseId: this.filterForm.get('warehouse')!.value ?? '',
     };
     this.itemsService.getAllStockOut('', new PageInfo(), filter);
   }
@@ -137,16 +137,16 @@ export class StockOutListComponent implements OnInit {
   onAdd() {
     this.sequenceService.isHaveSequence(
       this.sharedEnums.Pages.StockOut,
-      '/transactions/stock-out/add'
+      '/transactions/stockout/add'
     );
   }
 
   onEdit(data: any) {
-    this.routerService.navigateTo(`transactions/stock-out/edit/${data.id}`);
+    this.routerService.navigateTo(`transactions/stockout/edit/${data.id}`);
   }
 
   onVeiw(data: any) {
-    this.routerService.navigateTo(`transactions/stock-out/view/${data}`);
+    this.routerService.navigateTo(`transactions/stockout/view/${data}`);
   }
 
   onSearchChange() {

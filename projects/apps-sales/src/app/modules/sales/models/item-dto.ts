@@ -20,5 +20,6 @@ export interface ItemDto {
   taxRatio: number;
   price: number;
   isVatApplied:boolean;
+  isSellingPriceIncludeVat:boolean;
   itemsUOM:any[]
   }

@@ -858,12 +858,13 @@ export class EditSalesInvoiceComponent implements OnInit {
     if (!this.formService.validForm(this.salesReturnForm, false)) return;
     if (!this.formService.validForm(this.salesReturnFormArray, false)) return;
 
-    let mappedInvoice: AddSalesInvoice = {
+    let mappedInvoice: any = {
       invoiceDate: this.salesReturnForm.value.invoiceDate || null,
       description: this.salesReturnForm.value.description || null,
       warehouseId: this.salesReturnForm.value.warehouseId || 0,
       warehouseName: this.salesReturnForm.value.warehouseName || '',
       customerId: this.salesReturnForm.value.customerId || 0,
+      salesManId: this.salesReturnForm.value.salesManId || 0,
       customerName: this.salesReturnForm.value.customerName || '',
       customerCreditLimit: this.salesReturnForm.value.customerCreditLimit || 0,
       pricePolicyId: this.salesReturnForm.value.pricePolicyId || 0,

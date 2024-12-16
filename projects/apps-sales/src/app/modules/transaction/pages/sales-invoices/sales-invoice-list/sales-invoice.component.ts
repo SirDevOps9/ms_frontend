@@ -3,6 +3,7 @@ import {
   PageInfoResult,
   PageInfo,
   RouterService,
+  SharedEnums,
 } from 'shared-lib';
 import {  Router } from '@angular/router';
 import { SalesInvoiceListView } from '../../../models/sales-invoice-dto';
@@ -106,10 +107,19 @@ export class SalesInvoiceComponent {
       '_blank'
     );
   }
+  onAdd(){
+        this.sequenceService.isHaveSequence(
+          this.sharedEnums.Pages.SalesInvoice,
+          '/transaction/sales-invoice/add'
+        );
 
+  }
 
   constructor( private routerService: RouterService, private router: Router,
    private transaction_services:TransactionService,    private exportService: ExportService,
+
+   ,   private sequenceService: SequenceService,
+    private sharedEnums: SharedEnums
 
   ){
 

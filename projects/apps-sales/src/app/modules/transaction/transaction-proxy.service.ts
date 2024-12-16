@@ -80,6 +80,20 @@ export class TransactionProxyService {
     code: string}[]> {
     return this.httpService.get(`PricePolicy/DropDown`);
   }
+
+  getSalesManLookup() : Observable<{ id: number;
+    name: string;
+   }[]> {
+      return this.httpService.get(`SalesMan/GetAllSalesManList`);
+
+  }
+
+
+  GetItemByBarcodePurchase(barcode: string): Observable<any> {
+    return this.httpService.get(`SalesInvoice/GetSalesItemByBarcode?Barcode=${barcode}`);
+  }
+
+
   getSalseInvoiceList(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<SalesInvoiceListView[]>> {
       let query = `SalesInvoice?${pageInfo.toQuery}`;
       if (searchTerm) {
