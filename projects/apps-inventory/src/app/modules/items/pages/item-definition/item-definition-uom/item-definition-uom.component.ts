@@ -26,7 +26,6 @@ export class ItemDefinitionUomComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private itemService: ItemsService,
-    private toaster: ToasterService,
     private dialog: DialogService,
     public languageService: LanguageService
   ) {
@@ -82,44 +81,30 @@ export class ItemDefinitionUomComponent implements OnInit, OnDestroy {
   }
   nameCategory: string = '';
   getDataUomById() {
-    this.subscription = this.itemService.ItemGetItemUomByIdObs.subscribe(
-      (data: any) => {
-        if (data && data.uoms && Array.isArray(data.uoms)) {
-          if (this.currentLang === 'en') this.nameCategory = data.uomCategoryNameEn;
-          else this.nameCategory = data.uomCategoryNameAr;
-          this.itemUomForm.patchValue({
-            itemId: data.itemId,
-            uomCategoryId: data.uomCategoryId,
-            name: data.name,
-          });
-          this.itemUomForm.updateValueAndValidity();
-          this.uoms.clear();
-          data.uoms.forEach((uom: any) => {
-            this.uoms.push(this.createUomFormGroup(uom));
-          });
-          if (this.uoms.length > 0) {
-            this.baseUnit = data?.uoms?.find((elem: any) => elem.isBaseUnit == true);
-            if (this.currentLang === 'en') {
-              this.nameBaseUnit = this.baseUnit?.nameEn;
-            } else {
-              this.nameBaseUnit = this.baseUnit?.nameAr;
-            }
-    
-
-            // const firstUom = this.uoms.at(0);
-            // if (firstUom) {
-            //   this.nameBaseUnit =
-            //     this.currentLang === 'en'
-            //       ? firstUom.get('nameEn')?.value
-            //       : firstUom.get('nameAr')?.value;
-            // }
+    this.subscription = this.itemService.ItemGetItemUomByIdObs.subscribe((data: any) => {
+      if (data && data.uoms && Array.isArray(data.uoms)) {
+        if (this.currentLang === 'en') this.nameCategory = data.uomCategoryNameEn;
+        else this.nameCategory = data.uomCategoryNameAr;
+        this.itemUomForm.patchValue({
+          itemId: data.itemId,
+          uomCategoryId: data.uomCategoryId,
+          name: data.name,
+        });
+        this.itemUomForm.updateValueAndValidity();
+        this.uoms.clear();
+        data.uoms.forEach((uom: any) => {
+          this.uoms.push(this.createUomFormGroup(uom));
+        });
+        if (this.uoms.length > 0) {
+          this.baseUnit = data?.uoms?.find((elem: any) => elem.isBaseUnit == true);
+          if (this.currentLang === 'en') {
+            this.nameBaseUnit = this.baseUnit?.nameEn;
+          } else {
+            this.nameBaseUnit = this.baseUnit?.nameAr;
           }
         }
-      },
-      (error) => {
-        console.error('Error fetching UOM data:', error);
       }
-    );
+    });
 
     this.itemService.getItemGetItemUomById(this.id);
   }
@@ -142,14 +127,11 @@ export class ItemDefinitionUomComponent implements OnInit, OnDestroy {
     dialogRef.onClose.subscribe((data) => {
       if (data) {
         this.uoms.clear();
-        console.log(data);
         this.itemUomForm.get('uomCategoryId')?.setValue(data.uomCategoryId);
         if (this.currentLang === 'en') {
           this.nameCategory = data.uomCategoryNameEn;
-          this.nameBaseUnit = data.nameEn;
         } else {
           this.nameCategory = data.uomCategoryNameAr;
-          this.nameBaseUnit = data.nameAr;
         }
 
         this.baseUnit = data?.uoMs.find((elem: any) => elem.isBaseUnit == true);
@@ -160,6 +142,7 @@ export class ItemDefinitionUomComponent implements OnInit, OnDestroy {
         }
 
         let nonBaseUnit = data?.uoMs.filter((elem: any) => !elem.isBaseUnit);
+
         nonBaseUnit.forEach((item: any) => {
           let itemFormGroup = this.fb.group({ ...item });
           this.uoms.push(itemFormGroup);
@@ -176,10 +159,8 @@ export class ItemDefinitionUomComponent implements OnInit, OnDestroy {
     this.uomss = data.uoMs;
     if (data) return data.uoMs;
   }
-
   usercHN(e: any, fb: FormGroup) {
     let data = this.userSubDomainModulesLookupData.filter((element: any) => e.includes(element.id));
-
     fb.get('unitUsages')?.setValue(e);
     fb.get('unitUsagesName')?.setValue(data);
   }
