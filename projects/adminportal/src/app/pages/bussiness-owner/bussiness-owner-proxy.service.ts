@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, auditTime } from 'rxjs';
 import { FilterDto, HttpService, PageInfo, PaginationVm } from 'shared-lib';
-import { AppsInfo, BussinessOwner, CompanyInfo, LicenceInfo, SubDomainInfo, bussinesOwnerDetails, userData } from './models';
+import { AddBussinesOwner, AppsInfo, BussinessOwner, CompanyInfo, LicenceInfo, SubDomainInfo, bussinesOwnerDetails, userData } from './models';
 
 @Injectable({
   providedIn: 'root'
@@ -52,5 +52,31 @@ export class BussinessOwnerProxyService {
       `App/${id}?${filterDto.toQuery}`
     )
   }
-
+  CountriesLookup(): Observable<any> {
+    return this.baseService.get(`Lookup/CountriesLookup`);
+  }
+  CurrenciesLookup(): Observable<any> {
+    return this.baseService.get(`Lookup/CurrenciesLookup`);
+  }
+  Apps(): Observable<any> {
+    return this.baseService.get(`App/Lookup`);
+  }
+  lisences(): Observable<any> {
+    return this.baseService.get(`License/Lookup`);
+  }
+  BusinessOwnerLookup(): Observable<any> {
+    return this.baseService.get(`BusinessOwner/Lookup`);
+  }
+  AddBussinesOwner(obj: AddBussinesOwner): Observable<AddBussinesOwner> {
+    return this.baseService.post('BusinessOwner', obj);
+  }
+  AddInvoice(obj: any): Observable<any> {
+    return this.baseService.post('Invoice', obj);
+  }
+  BusinessOwnerById(id:string): Observable<any> {
+    return this.baseService.get(`BusinessOwner/${id}/LookupById`);
+  }
+  Getsubdomains(id:string): Observable<any> {
+    return this.baseService.get(`BusinessOwner/${id}/GetSubdomains`);
+  }
 }

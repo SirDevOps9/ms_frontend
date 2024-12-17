@@ -1,0 +1,66 @@
+.line{
+    margin: 10px 0;
+    height: 2px;
+    background-color:#f7f7faed;
+}
+.card_micro {
+    margin-top: 16px;
+    background: #fff;
+    padding: 16px;
+    border-radius: 1rem;
+  }
+  .test{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .check{
+    width: 80%;
+  }
+  .group{
+    display: flex;
+    align-items: end;
+  }
+  .lisences_item{
+    display: flex;
+    align-items: center;
+  }
+  // .item_marge{
+  //   margin: 0 20px;
+  // }
+  .add_line{
+    border-right:1px solid #1a90b0 ;
+  }
+  ::ng-deep .form-check-input:checked {
+    background-color: #1a90b0 !important;
+    border-color: #1a90b0 !important;
+
+
+  }
+  .action{
+    display: flex;
+    justify-content: end;
+  }
+  .summary_item{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .summary_card{
+    border: 1px solid rgb(227 227 240 / 98%)
+  }
+  .bread{
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    ::ng-deep ol{
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+    ::ng-deep .title_of_page {
+      margin: 0 !important;
+  
+    }
+  }

@@ -60,7 +60,7 @@
   &:hover {
     background: #fff;
     color: #1a90b0;
-    border: 1px solid #1a90b0;
+    border: 1px solid #1a90b0 !important;
   }
 }
 
@@ -109,12 +109,12 @@
 }
 .outline {
   background: #fff;
-  border: 1px solid #1a90b0;
+  border: 1px solid #1a90b0 !important;
   color: #1a90b0;
   &:hover {
     background: #1a90b0;
     color: #fff;
-    border: 1px solid #1a90b0;
+    border: 1px solid #1a90b0 !important;
   }
 }
 // .cancel{
@@ -127,13 +127,13 @@
   min-width: 150px;
 
   background: #fff;
-  border: 1px solid #cb3f2d;
+  border: 1px solid #cb3f2d !important;
   color: #cb3f2d;
   width: 100% !important;
   &:hover {
     background: #cb3f2d;
     color: #fff;
-    border: 1px solid #cb3f2d;
+    border: 1px solid #cb3f2d !important;
     width: 100% !important;
   }
 }

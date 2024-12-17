@@ -9,3 +9,28 @@
     border-bottom: 1px solid #ececec;
   }
 }
+// ::ng-deep .btn {
+
+// 	&:not(.btn-outline):not(.btn-dashed):not(.border-hover):not(.border-active):not(.btn-flush):not(.btn-icon) {
+// border: 1px  !important;
+// }
+// }
+.action_group{
+  gap: 6px;
+  display: flex;
+}
+.bread{
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  ::ng-deep ol{
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  ::ng-deep .title_of_page {
+    margin: 0 !important;
+
+  }
+}

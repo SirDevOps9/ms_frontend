@@ -1,6 +1,7 @@
 <div>
-  <lib-bread-crumb></lib-bread-crumb>
-  <div class="owner_page">
+  <div class="card_micro  bread">
+    <lib-new-bread-crumb></lib-new-bread-crumb>
+</div>  <div class="owner_page">
     <lib-data-table
       [items]="dataList"
       className="p-datatable-gridlines"
@@ -53,21 +54,46 @@
         }"
     >
       <!-- actions of the header of Table -->
-      <ng-container action>
-        <div class="group">
-          <div>
-            <app-shared-form
+      <ng-container search>
+        <app-shared-form
               [fields]="fields"
               [showSaveBtn]="false"
               #form
             ></app-shared-form>
-          </div>
-        </div>
-
-        <div
-          class="my-3 d-flex align-items-center gap-3 justify-content-end"
-        ></div>
+        <!-- <lib-text-input
+          type="text"
+          [placeholder]="'stockOut.search' | translate"
+          [(ngModel)]="searchTerm"
+          (keyUp)="onSearchChange()"
+        ></lib-text-input> -->
       </ng-container>
+      <ng-container action>
+        <!-- <lib-export
+          (exportClick)="exportClick()"
+          [exportData]="exportData"
+          [exportColumns]="cols"
+          [ExportName]="'stockOut.stockOutPrint' | translate"
+        >
+        </lib-export> -->
+        <div class="action_group">
+
+          <lib-button-micro
+          (click)="addBusinessOwner()"
+            [title]="'Add Invoice' | translate"
+            nameClass="outline"
+            iconName="pi pi-plus"
+          >
+          </lib-button-micro>
+          <lib-button-micro
+          (click)="add()"
+            [title]="'Add' | translate"
+            nameClass="save"
+            iconName="pi pi-plus"
+          >
+          </lib-button-micro>
+        </div>
+      </ng-container>
+      
 
       <!-- actions of the Table -->
       <ng-template #userCol let-user>
@@ -84,6 +110,15 @@
             >
               Manage
             </lib-button>
+          </div>
+          <div>
+            <lib-button-micro
+            nameClass="table_button_statement"
+            (click)="addBusinessOwnerById(user.id)"
+            >
+
+            </lib-button-micro>
+            <!-- <div class="pi pi-cog"  (click)="addBusinessOwnerById(user.id)"></div> -->
           </div>
         </div>
       </ng-template>

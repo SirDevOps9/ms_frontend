@@ -1,0 +1,25 @@
+.card_micro {
+    margin-top: 16px;
+    background: #fff;
+    padding: 16px;
+    border-radius: 1rem;
+  }
+  .action{
+    display: flex;
+    justify-content: end;
+  }
+  .bread{
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    ::ng-deep ol{
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+    ::ng-deep .title_of_page {
+      margin: 0 !important;
+  
+    }
+  }
