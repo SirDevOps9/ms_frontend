@@ -10,4 +10,6 @@ export enum Pages {
   PurchaseInvoice = 13,
   PurchaseReturnInvoice = 14,
   Item = 27,
+  SalesInvoice = 15
+
 }

@@ -19,7 +19,7 @@ export class CurrentUserService {
   getCurrencyCode(): string {
     let obj = this.localStorage.getItem(StorageKeys.CURRENCEY_OBJ);
     // Replace with your logic to get the currency value
-    return obj.currenyCode;
+    return obj.currencyCode;
   }
   constructor(
     private httpService: HttpService,

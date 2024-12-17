@@ -265,7 +265,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
       payementTerm: new FormControl(''),
       numberOfItems: 0,
       total: 0,
-      totalAfterDiscount: 0,
+      totalAfterDiscount: 0, 
       totalQuantity: 0,
       discount: 0,
       vatAmount: 0,
@@ -851,7 +851,7 @@ export class AddPurchaseInvoiceComponent implements OnInit {
   }
 
   onCancel() {
-    this.router.navigateTo('/transactions/stock-in');
+    this.router.navigateTo('/transactions/stockin');
   }
 
   onSave() {

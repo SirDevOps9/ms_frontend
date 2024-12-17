@@ -23,48 +23,28 @@
     <div class="charts">
       <div class="grid">
         <div class="lg:col-6 col-12" [appLoader]="journalStatusLoader">
-          <app-chart-card [chartDTO]="chart" [chartDetailsConfig]="this.statusChartValues">
-            <div class="chart-header">
-              <div class="title heading_b18">{{ 'dashboard.status' | translate }}</div>
-              <div class="action body_b14">
-                <span (click)="navigateToJournalList()" class="pointer">
-                  {{ 'dashboard.moreDetails' | translate }} <i class="pi pi-arrow-right fs-14"></i>
-                </span>
-                <span class="column-line"></span>
-                <i class="pi pi-heart"></i>
-              </div>
-            </div>
+          <app-chart-card
+            [chartDTO]="chart"
+            [chartDetailsConfig]="this.statusChartValues"
+            title="{{ 'dashboard.status' | translate }}"
+            [route]="'transcations/journalentry'"
+          >
           </app-chart-card>
         </div>
         <div class="lg:col-6 col-12" [appLoader]="journalEntryTypeCountLoader">
           <app-chart-card
             [chartDTO]="journalSourcesChart"
             [chartDetailsConfig]="this.JournalSourceChartData"
+            title="{{ 'dashboard.journalSources' | translate }}"
+            [route]="'transcations/journalentry'"
           >
-            <div class="chart-header">
-              <div class="title heading_b18">{{ 'dashboard.journalSources' | translate }}</div>
-              <div class="action body_b14">
-                <span (click)="navigateToJournalList()" class="pointer">
-                  {{ 'dashboard.moreDetails' | translate }} <i class="pi pi-arrow-right fs-14"></i>
-                </span>
-                <span class="column-line"></span>
-                <i class="pi pi-heart"></i>
-              </div>
-            </div>
           </app-chart-card>
         </div>
         <div class="lg:col-6 col-12" [appLoader]="cashBankAccountBalancesLoader">
-          <app-chart-card>
-            <div class="chart-header">
-              <div class="title heading_b18">{{ 'dashboard.bankCashEquivalents' | translate }}</div>
-              <div class="action">
-                <i class="pi pi-heart"></i>
-              </div>
-            </div>
+          <app-chart-card title="{{ 'dashboard.bankCashEquivalents' | translate }}">
             <div class="chart-body accounts-bank w-full">
               @for(acc of cashBankAccountsBalance.accounts; track acc) {
               <div class="row">
-                <span class="body-14 mx-1">{{ acc.accountName }}</span>
                 <span
                   class="detail-type body_b14 pointer"
                   [style.background-color]="acc.accountTypeId == 2 ? '#e7994f' : '#5eb5af'"
@@ -72,6 +52,7 @@
                 >
                   {{ acc.accountTypeName }}
                 </span>
+                <span class="body-14 mx-1">{{ acc.accountName }}</span>
 
                 <span class="line"></span>
                 <span class="detail-value heading_b16">{{ acc.balance | numberFormat }}</span>
@@ -100,13 +81,7 @@
           </app-chart-card>
         </div>
         <div class="lg:col-6 col-12" [appLoader]="revenueStreamLoader">
-          <app-chart-card>
-            <div class="chart-header">
-              <div class="title heading_b18">{{ 'dashboard.revenueStream' | translate }}</div>
-              <div class="action body_b14">
-                <i class="pi pi-heart"></i>
-              </div>
-            </div>
+          <app-chart-card title="{{ 'dashboard.revenueStream' | translate }}">
             <div class="chart-body accounts-bank w-full">
               <div class="row">
                 <span class="color-box" [style.background-color]="'#1A90B0'"></span>

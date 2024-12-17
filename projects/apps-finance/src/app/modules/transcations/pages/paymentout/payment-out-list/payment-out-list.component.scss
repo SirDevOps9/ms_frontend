@@ -55,4 +55,7 @@
   .p-multiselect-label-container {
     padding: 0;
   }
+  p-multiselect.ng-dirty.ng-invalid > .p-multiselect {
+    border-color: #d4d6da !important;
+  }
 }

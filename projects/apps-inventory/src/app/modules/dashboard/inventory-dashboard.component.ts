@@ -1,7 +1,13 @@
 import { Component } from '@angular/core';
 import { Chart } from 'angular-highcharts';
 import { Subject } from 'rxjs';
-import { ChartService, ChartValueDto, DASHBOARD_COLORS, LanguageService } from 'shared-lib';
+import {
+  ChartService,
+  ChartValueDto,
+  CurrentUserService,
+  DASHBOARD_COLORS,
+  LanguageService,
+} from 'shared-lib';
 import { InventoryDashboardService } from './inventory-dashboard.service';
 import {
   ExpiryItemsReportDto,
@@ -19,6 +25,7 @@ import {
 })
 export class InventoryDashboardComponent {
   currentLanguage: string;
+  defaultCurrency: any;
 
   // charts and data
   statusChart: Chart;
@@ -50,12 +57,13 @@ export class InventoryDashboardComponent {
   constructor(
     private chartService: ChartService,
     private languageService: LanguageService,
-    private service: InventoryDashboardService
+    private service: InventoryDashboardService,
+    private currencyService: CurrentUserService
   ) {}
 
   ngOnInit() {
     this.languageService.language$.subscribe((lang) => (this.currentLanguage = lang));
-
+    this.defaultCurrency = this.currencyService.getCurrencyCode();
     this.fetchData();
     this.subscriptions();
     this.loaderSubscriptions();
