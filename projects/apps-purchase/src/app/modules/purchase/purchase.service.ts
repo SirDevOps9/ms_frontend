@@ -137,6 +137,8 @@ export class PurchaseService {
   addVendorCategory(addvendorCategory: AddVendorCategory) {
     this.purchaseProxy.addvendorCategory(addvendorCategory).subscribe({
       next: (res) => {
+        console.log("Service Res",res);
+        
         this.toasterService.showSuccess(
           this.languageService.transalte('VendorCategory.success'),
           this.languageService.transalte('VendorCategory.successAdd')
@@ -220,15 +222,18 @@ export class PurchaseService {
     this.loaderService.show();
     this.purchaseProxy.addNewVendorDefinition(vendor).subscribe({
       next: (res) => {
+        console.log("Service res",res);
         this.toasterService.showSuccess(
           this.languageService.transalte('VendorDefinition.success'),
           this.languageService.transalte('VendorDefinition.successAdd')
         );
-        this.routerService.navigateTo(`/masterdata/vendor-definitions`);
+       // this.routerService.navigateTo(`/masterdata/vendor-definitions`);
         // this.addVendorCategoryRes.next(res)
         this.loaderService.hide();
       },
       error: (err) => {
+        console.log("Service Error",err);
+        
         this.formsService.setFormValidationErrors(vendorForm, err);
         this.loaderService.hide();
       },
