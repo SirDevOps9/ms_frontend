@@ -3,6 +3,7 @@ import { UserconfirmationComponent } from './modules/user/pages/inviteduserconfi
 import { AuthGuard } from 'microtec-auth-lib';
 import { MySubscriptionsComponent } from './modules/subscription/pages/my-subscriptions/my-subscriptions.component';
 import { BreadcrumbLabel } from 'shared-lib';
+import { PaymentLinkComponent } from './pages/payment-link/payment-link.component';
 
 export const BORoutes = [
   {
@@ -20,6 +21,7 @@ export const BORoutes = [
     ],
   },
   { path: 'users/userconfirmation/:id', component: UserconfirmationComponent },
+  { path: 'payment-link', component: PaymentLinkComponent },
   // {
   //   path: '**',
   //   component: NotFoundComponent,

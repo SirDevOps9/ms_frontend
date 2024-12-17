@@ -24,8 +24,9 @@ import { ERPUserModule } from './modules/erp-user/erp-user.module';
 import { AppStoreModule } from './modules/app-store/app-store.module';
 import { SubscriptionModule } from './modules/subscription/subscription.module';
 import { UrlSerializer } from '@angular/router';
+import { PaymentLinkComponent } from './pages/payment-link/payment-link.component';
 @NgModule({
-  declarations: [AppComponent, NotFoundComponent],
+  declarations: [AppComponent, NotFoundComponent, PaymentLinkComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,

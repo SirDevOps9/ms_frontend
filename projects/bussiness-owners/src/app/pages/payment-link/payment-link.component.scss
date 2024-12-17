@@ -1,0 +1,21 @@
+.payment_link{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    .page_content{
+        width: 50%;
+        height: 100%;
+        .logo{
+            width: 170px;
+            height: 50px;
+            background-image: url("../../../assets/images/navbar/logo (1).png");
+            background-position: center;
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+        .form_failed{
+            margin: 10px 0;
+        }
+    }
+}
