@@ -88,7 +88,8 @@ export class SalesInvoiceComponent {
   }
 
   onDelete(id: number) {
-    this.transaction_services.deleteCustomerCategory(id);
+    this.transaction_services.deleteSalesInvoiceListItem(id);
+    this.inGetData()
   }
 
   navigateHelpPageComponent() {

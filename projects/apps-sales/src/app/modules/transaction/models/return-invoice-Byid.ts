@@ -95,9 +95,8 @@ export interface ReturnSalesInvoiceTracking {
     warehouseName: string;
     returnSalesInvoiceDetails: IReturnSalesInvoiceDetail[]
   }
-  
+
   export interface IReturnSalesInvoiceDetail {
     id: number
     toReturnQuantity: number
   }
-  

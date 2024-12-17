@@ -69,6 +69,7 @@
     "invoiceDueDate": "Invoice Due Date",
     "description": "Description",
     "warehouse": "warehouse",
+    "returnSalesInvoicePrint":"Return Sales Invoice Print",
     "selectTracking": "Select Tracking",
     "salesMan": "Sales Man",
     "mainInformation": "Main Information",
@@ -127,6 +128,7 @@
     "save": "Save",
     "totalAfterDiscount": "Total After Discount",
     "success": "Success",
+    "delete":"Delete",
     "addInvoice": "Purchase Invoice Added Successfully",
     "vatAmountTotal": "vat Amount Total",
     "discountPercentage": "Discount Percentage",
@@ -188,7 +190,6 @@
     "invoiceSummary": "Invoice Summary",
     "numberOfItems": "Number of Items",
     "total": "Total",
-    "totalOfQuantity": "Total Quantity",
     "totalAfterVat": "Total After VAT",
     "Cancel": "Cancel",
     "Save": "Save",
@@ -202,6 +203,12 @@
     "totalOfQuantity": "Total Of QTY",
     "salesInvoiceSuccess": "Sales Invoice Added Successfully",
     "salesInvoiceSuccessPosted": "Sales Invoice Posted Successfully"
+    "expiry" : "Expiry Date",
+    "serials" : "Serials",
+    "totalOfQuantity" : "Total Of QTY",
+    "salesInvoiceSuccess" : "Sales Invoice Added Successfully" ,
+    "salesInvoiceSuccessPosted" : "Sales Invoice Posted Successfully"
+
   },
   "popupSearch": {
     "ItemCode": "Item Code",

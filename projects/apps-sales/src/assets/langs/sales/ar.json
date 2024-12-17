@@ -8,13 +8,18 @@
     "add": "إضافة",
     "edit": "تعديل",
     "sequence": "تسلسل",
-    "view": "عرض"
+    "view": "عرض",
+    "salesReturnInvoiceView":"عرض فاتورة إرجاع المبيعات",
+    "salesReturnInvoice": "فاتورة إرجاع المبيعات"
+
   },
   "salesInvoice": {
     "code": "رمز الفاتورة",
     "invoiceDate": "تاريخ الفاتورة",
     "invoiceDueDate": "تاريخ استحقاق الفاتورة",
     "description": "الوصف",
+  "salesInvoicePrint":"طباعة فاتورة المبيعات",
+  "returnSalesInvoicePrint":"طباعة فاتورة مبيعات الإرجاع",
     "warehouse": "المخزن",
     "salesMan": "مندوب المبيعات",
     "mainInformation": "المعلومات الرئيسية",
@@ -24,8 +29,7 @@
     "currency": "العملة",
     "rate": "السعر",
     "selectTracking": "اختيار التتبع",
-    "salesInvoicePrint": "طباعة فاتورة المبيعات",
-    "paymentTerms": "شروط الدفع",
+      "paymentTerms": "شروط الدفع",
     "creditLimit": "حد الائتمان",
     "pricePolicy": "سياسة الأسعار",
     "relatedJournal": "السجل المرتبط",
@@ -74,6 +78,7 @@
     "save": "حفظ",
     "totalAfterDiscount": "الإجمالي بعد الخصم",
     "success": "نجاح",
+  "delete": "تم حذف بنجاح",
     "addInvoice": "تمت إضافة فاتورة الشراء بنجاح",
     "vatAmountTotal": "إجمالي مبلغ الضريبة",
     "discountPercentage": "نسبة الخصم",
