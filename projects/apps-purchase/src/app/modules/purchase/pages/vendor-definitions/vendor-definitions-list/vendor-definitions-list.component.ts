@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'microtec-auth-lib';
-import { RouterService, PageInfoResult, MenuModule, PageInfo, lookupDto } from 'shared-lib';
+import { RouterService, PageInfoResult, MenuModule, PageInfo, lookupDto, SharedEnums } from 'shared-lib';
 import {  vendorDefinitionDto } from '../../../models';
 import { PurchaseService } from '../../../purchase.service';
+import { SequenceService } from 'apps-shared-lib';
 
 @Component({
   selector: 'app-vendor-definitions-list',
@@ -13,7 +14,9 @@ export class VendorDefinitionsListComponent implements OnInit {
   constructor(
     public authService: AuthService,
     private purchaseService: PurchaseService,
-    private routerService : RouterService
+    private routerService : RouterService,
+    private sequenceService: SequenceService,
+      private sharedEnums: SharedEnums
   ) {}
 
   tableData : vendorDefinitionDto[];
@@ -29,11 +32,14 @@ export class VendorDefinitionsListComponent implements OnInit {
      this.initFinancialCalendarData();
 
   }
-
-  routeToAdd() {
-    this.routerService.navigateTo('/masterdata/vendor-definitions/add-vendor-definitions')
+  onAdd() {
+    this.sequenceService.isHaveSequence(
+      this.sharedEnums.Pages.Vendor,
+      '/masterdata/vendor-definitions/add-vendor-definitions'
+    );
   }
-  routeToEdit(id : number) {
+ 
+  onEdit(id : number) {
     this.routerService.navigateTo(`/masterdata/vendor-definitions/edit-vendor-definitions/${id}`)
   }
 

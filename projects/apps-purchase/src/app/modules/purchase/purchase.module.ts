@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { LayoutPageComponent } from 'apps-shared-lib';
-import { BreadcrumbLabel, Modules, SharedLibModule } from 'shared-lib';
+import { LayoutPageComponent, SequenceComponent } from 'apps-shared-lib';
+import { BreadcrumbLabel, Modules, Pages, SharedLibModule } from 'shared-lib';
 import { EditVendorCategoryComponent } from './pages/vendor-category/edit-vendor-category/edit-vendor-category.component';
 import { AuthGuard } from 'microtec-auth-lib';
 import { CreateVendorCategoryComponent } from './pages/vendor-category/create-vendor-category/create-vendor-category.component';
@@ -105,6 +105,16 @@ const routes: Routes = [
               pageTitle: BreadcrumbLabel.EDIT_VENDOR_DEFINITIONS,
 
             },
+          },
+          {
+            path: 'sequence',
+            component: SequenceComponent,
+            data: {
+                    moduleId: Modules.Purchase,
+                    pageId: Pages.Vendor,
+                     breadcrumb: BreadcrumbLabel.SEQUENCE,
+                     pageTitle: BreadcrumbLabel.SEQUENCE,
+                 },
           },
         ]
       },

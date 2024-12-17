@@ -10,6 +10,9 @@ export enum Pages {
   PurchaseInvoice = 13,
   PurchaseReturnInvoice = 14,
   Item = 27,
-  SalesInvoice = 15
+  SalesInvoice = 15,
+  Vendor = 7,
+  Customer = 8,
+  ItemDefinition = 17
 
 }

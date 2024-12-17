@@ -5,8 +5,9 @@
         [items]="tableData"
         className="p-datatable-gridlines"
         [currentPageResult]="currentPageInfo"
-        (addNew)="routeToAdd()"
+        (addNew)="onAdd()"
         (pageChange)="onPageChange($event)"
+        [sequence]="true"
         [tableConfigs]="{
             allowPagination: false,
             allowServerPagination: true,
@@ -84,14 +85,14 @@
             nameClass="save"
             [title]="'vendorCategory.Add' | translate"
             [iconName]="'pi pi-plus'"
-            (click)="routeToAdd()"
+            (click)="onAdd()"
           >
           </lib-button-micro>
         </ng-container>
 
         <ng-template #actions let-actions>
           <div class="actions flex align-items-center">
-            <lib-button-micro nameClass="table_button_edit" (click)="routeToEdit(actions.id)">
+            <lib-button-micro nameClass="table_button_edit" (click)="onEdit(actions.id)">
             </lib-button-micro>
             <lib-button-micro nameClass="table_button_delete" (click)="onDelete(actions.id)">
             </lib-button-micro>

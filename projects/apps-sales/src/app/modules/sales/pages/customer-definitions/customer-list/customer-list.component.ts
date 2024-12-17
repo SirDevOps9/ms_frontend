@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'microtec-auth-lib';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AccountService } from 'projects/apps-accounting/src/app/modules/account/account.service';
-import { RouterService, PageInfoResult, MenuModule, PageInfo, lookupDto } from 'shared-lib';
+import { RouterService, PageInfoResult, MenuModule, PageInfo, lookupDto, SharedEnums } from 'shared-lib';
 import { SalesService } from '../../../sales.service';
 import { CustomerDefinitionDto } from '../../../models/customerDefinitionDto';
+import { SequenceService } from 'apps-shared-lib';
 
 
 @Component({
@@ -18,7 +19,9 @@ export class CustomerListComponent implements OnInit {
     private dialog: DialogService,
     private accountService: AccountService,
     private salesService: SalesService,
-    private routerService : RouterService
+    private routerService : RouterService,
+    private sequenceService : SequenceService,
+    private sharedEnums : SharedEnums
   ) {}
 
   tableData : any[];
@@ -34,11 +37,14 @@ export class CustomerListComponent implements OnInit {
 
   }
 
-  routeToAdd() {
-    this.routerService.navigateTo('masterdata/customer-definitions/add-customer-definitions')
+  onAdd() {
+    this.sequenceService.isHaveSequence(
+      this.sharedEnums.Pages.Customer,
+      '/masterdata/customer-definitions/add-customer-definitions'
+    );
   }
-  routeToEdit(id : number) {
-    this.routerService.navigateTo(`masterdata/customer-definitions/edit-customer-definitions/${id}`)
+  onEdit(id : number) {
+    this.routerService.navigateTo(`/masterdata/customer-definitions/edit-customer-definitions/${id}`)
   }
 
 

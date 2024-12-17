@@ -115,6 +115,16 @@ const routes: Routes = [
             },
             
           },
+          {
+            path: 'sequence',
+            component: SequenceComponent,
+            data: {
+                    moduleId: Modules.Sales,
+                    pageId: Pages.Customer,
+                     breadcrumb: BreadcrumbLabel.SEQUENCE,
+                     pageTitle: BreadcrumbLabel.SEQUENCE,
+                 },
+          },
         ]
       },
 
