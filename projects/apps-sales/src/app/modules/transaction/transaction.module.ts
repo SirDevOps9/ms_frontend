@@ -74,6 +74,7 @@ const routes: Routes = [
         component: MainSalesReturnInvoiceComponent,
         data: {
           pageTitle: BreadcrumbLabel.SALES_RETURN_INVOICE,
+          breadcrumb: BreadcrumbLabel.SALES_RETURN_INVOICE,
         },
         children: [
           {
@@ -102,7 +103,7 @@ const routes: Routes = [
           },
           {
             path: 'edit/:id',
-            component: AddSalesReturnInvoiceComponent,
+            component: EditSalesReturnInvoiceComponent,
             data: {
               breadcrumb: BreadcrumbLabel.SALES_RETURN_INVOICE_EDIT,
               pageTitle: BreadcrumbLabel.SALES_RETURN_INVOICE,

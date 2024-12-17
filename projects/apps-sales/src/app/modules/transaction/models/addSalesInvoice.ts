@@ -14,10 +14,10 @@ export interface AddSalesInvoice {
     reference: string;
     salesManId : number;
     salesManName : string;
-    salesInvoiceDetails: SalesInvoiceDetail[]
+    salesInvoiceDetails: addSalesInvoiceDetail[]
   }
   
-  export interface SalesInvoiceDetail {
+  export interface addSalesInvoiceDetail {
     barCode: string
     barCodeId: number
     itemId: number
@@ -46,10 +46,10 @@ export interface AddSalesInvoice {
     invoiceEntryMode: string
     trackingType: string
     hasExpiryDate: boolean
-    salesInvoiceTracking: SalesInvoiceTracking
+    salesInvoiceTracking: addSalesInvoiceTracking
   }
   
-  export interface SalesInvoiceTracking {
+  export interface addSalesInvoiceTracking {
     batchNo: string
     quantity: number
     hasExpiryDate: boolean
