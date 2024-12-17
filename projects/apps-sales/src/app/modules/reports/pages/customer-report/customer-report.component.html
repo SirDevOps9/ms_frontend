@@ -1,0 +1,284 @@
+<lib-page-content>
+  <div class="user_page">
+    <div class="card_micro">
+      <form [formGroup]="searchForm">
+        <div class="group">
+          <div class="grid">
+            <div class="col-12 md:col-3">
+              <lib-form-group>
+                <lib-label [appControl]="searchForm.controls['CustomerId']">
+                  {{ 'customerStatementReport.selectCustomer' | translate }}
+                </lib-label>
+                <lib-select
+                  formControlName="CustomerId"
+                  [options]="customersDropdown"
+                  optionValue="id"
+                  optionLabel="name"
+                  [selectedValue]="searchForm.controls['CustomerId'].value"
+                >
+                </lib-select>
+              </lib-form-group>
+              <lib-field-validations [appControl]="searchForm.controls['CustomerId']">
+              </lib-field-validations>
+            </div>
+            <div class="col-12 md:col-3">
+              <lib-form-group>
+                <lib-label [appControl]="searchForm.controls['fromDate']">
+                  {{ 'customerStatementReport.fromDate' | translate }}
+                </lib-label>
+
+                <lib-calendar formControlName="fromDate"></lib-calendar>
+              </lib-form-group>
+              <lib-field-validations [appControl]="searchForm.controls['toDate']">
+              </lib-field-validations>
+            </div>
+            <div class="col-12 md:col-3">
+              <lib-form-group>
+                <lib-label [appControl]="searchForm.controls['toDate']">
+                  {{ 'customerStatementReport.toDate' | translate }}
+                </lib-label>
+
+                <lib-calendar formControlName="toDate"></lib-calendar>
+              </lib-form-group>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="card_micro" [appLoader]="reportsLoading">
+      <div class="flex gap-2 justify-content-end my-3">
+        <lib-button-micro
+          [title]="'customerStatementReport.view' | translate"
+          [nameClass]="'save'"
+          iconName="pi pi-circle"
+          (click)="viewData()"
+        >
+        </lib-button-micro>
+        <button class="btn_ex" (click)="printTable('printableTable')">
+          <span class="pi pi-print"></span>
+        </button>
+      </div>
+
+      <lib-data-table
+        [resizableColumns]="false"
+        [items]="customerStatementReport.customerStatements"
+        className="p-datatable-gridlines"
+        [reportTable]="true"
+        [noColumnFilter]="false"
+        [tableConfigs]="{
+          allowPagination: false,
+          allowServerPagination: false,
+          dataKey: 'id',
+          pageSize: 10,
+          columns: [
+            {
+              name: 'transactionDate',
+              headerText: ('customerStatementReport.date' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'transactionName',
+              headerText: ('customerStatementReport.transactionName' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'transactionCode',
+              headerText: ('customerStatementReport.transactionCode' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'journalCode',
+              headerText: ('customerStatementReport.journalCode' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'debit',
+              headerText: ('customerStatementReport.debit' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'credit',
+              headerText: ('customerStatementReport.credit' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'balance',
+              headerText: ('customerStatementReport.balance' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'rate',
+              headerText: ('customerStatementReport.rate' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'debitLocal',
+              headerText: ('customerStatementReport.debitLocal' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'creditLocal',
+              headerText: ('customerStatementReport.creditLocal' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'balanceLocal',
+              headerText: ('customerStatementReport.balanceLocal' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            }
+          ]
+        }"
+      >
+        <ng-container search> </ng-container>
+        <ng-container action> </ng-container>
+
+        <ng-container footer>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+
+            <td class="total center total">
+              {{ customerStatementReport.totalDebit | numberFormat }}
+            </td>
+            <td class="total center total">
+              {{ customerStatementReport.totalCredit | numberFormat }}
+            </td>
+            <td class="total center total">
+              {{ customerStatementReport.totalBalance | numberFormat }}
+            </td>
+            <td></td>
+            <td class="total center total">
+              {{ customerStatementReport.totalDebitLocal | numberFormat }}
+            </td>
+            <td class="total center total">
+              {{ customerStatementReport.totalCreditLocal | numberFormat }}
+            </td>
+            <td class="total center total">
+              {{ customerStatementReport.totalBalanceLocal | numberFormat }}
+            </td>
+          </tr>
+        </ng-container>
+      </lib-data-table>
+    </div>
+
+    <lib-data-table
+      [resizableColumns]="false"
+      id="printableTable"
+      [items]="customerStatementReport.customerStatements"
+      className="p-datatable-gridlines"
+      [reportTable]="true"
+      [noColumnFilter]="false"
+      [tableConfigs]="{
+        allowPagination: false,
+        allowServerPagination: false,
+        dataKey: 'id',
+        pageSize: 10,
+        columns: [
+          {
+            name: 'transactionDate',
+            headerText: ('customerStatementReport.Date' | translate),
+            isGlobalFilter: true,
+            isSortable: true
+          },
+          {
+            name: 'transactionName',
+            headerText: ('customerStatementReport.transactionName' | translate),
+            isGlobalFilter: true,
+            isSortable: true
+          },
+          {
+            name: 'transactionCode',
+            headerText: ('customerStatementReport.transactionCode' | translate),
+            isGlobalFilter: true,
+            isSortable: true
+          },
+          {
+            name: 'journalCode',
+            headerText: ('customerStatementReport.journalCode' | translate),
+            isGlobalFilter: true,
+            isSortable: true
+          },
+          {
+            name: 'debit',
+            headerText: ('customerStatementReport.debit' | translate),
+            isGlobalFilter: true,
+            isSortable: true
+          },
+          {
+            name: 'credit',
+            headerText: ('customerStatementReport.credit' | translate),
+            isGlobalFilter: true,
+            isSortable: true
+          },
+          {
+            name: 'balance',
+            headerText: ('customerStatementReport.balance' | translate),
+            isGlobalFilter: true,
+            isSortable: true
+          },
+          {
+            name: 'rate',
+            headerText: ('customerStatementReport.rate' | translate),
+            isGlobalFilter: true,
+            isSortable: true
+          },
+          {
+            name: 'debitLocal',
+            headerText: ('customerStatementReport.balance' | translate),
+            isGlobalFilter: true,
+            isSortable: true
+          },
+          {
+            name: 'creditLocal',
+            headerText: ('customerStatementReport.balance' | translate),
+            isGlobalFilter: true,
+            isSortable: true
+          },
+          {
+            name: 'balanceLocal',
+            headerText: ('customerStatementReport.balance' | translate),
+            isGlobalFilter: true,
+            isSortable: true
+          }
+        ]
+      }"
+    >
+      <ng-container footer>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+
+          <td class="total center">{{ customerStatementReport.totalDebit | numberFormat }}</td>
+          <td class="total center">{{ customerStatementReport.totalCredit | numberFormat }}</td>
+          <td class="total center">{{ customerStatementReport.totalBalance | numberFormat }}</td>
+          <td></td>
+          <td class="total center">{{ customerStatementReport.totalDebitLocal | numberFormat }}</td>
+          <td class="total center">
+            {{ customerStatementReport.totalCreditLocal | numberFormat }}
+          </td>
+          <td class="total center">
+            {{ customerStatementReport.totalBalanceLocal | numberFormat }}
+          </td>
+          <td class="total"></td>
+        </tr>
+      </ng-container>
+    </lib-data-table>
+  </div>
+</lib-page-content>
