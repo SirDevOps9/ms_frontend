@@ -91,6 +91,7 @@ export class SalesInvoiceComponent {
     this.transaction_services.deleteSalesInvoiceListItem(id);
     this.inGetData()
   }
+ 
 
   navigateHelpPageComponent() {
     window.open(

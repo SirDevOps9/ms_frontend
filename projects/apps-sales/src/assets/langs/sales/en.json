@@ -196,19 +196,9 @@
     "Post": "Post",
     "expiry": "Expiry Date",
     "serials": "Serials",
-    "discountAmount": "Discount Amount",
-    "price": "Price",
-    "createdStockIn": "Created StockIn",
-    "expiryDate": "Expiry Date",
     "totalOfQuantity": "Total Of QTY",
     "salesInvoiceSuccess": "Sales Invoice Added Successfully",
     "salesInvoiceSuccessPosted": "Sales Invoice Posted Successfully"
-    "expiry" : "Expiry Date",
-    "serials" : "Serials",
-    "totalOfQuantity" : "Total Of QTY",
-    "salesInvoiceSuccess" : "Sales Invoice Added Successfully" ,
-    "salesInvoiceSuccessPosted" : "Sales Invoice Posted Successfully"
-
   },
   "popupSearch": {
     "ItemCode": "Item Code",

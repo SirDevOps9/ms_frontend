@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { PageInfo, PageInfoResult, RouterService } from 'shared-lib';
+import { PageInfo, PageInfoResult, RouterService, SharedEnums } from 'shared-lib';
 import { ReturnInvoiceListView } from '../../../models/return-Invoice-dto';
 import { SortTableEXport } from 'projects/apps-inventory/src/app/modules/items/models/SortTable';
 import { TransactionService } from '../../../transaction.service';
 import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
+import { SequenceService } from 'apps-shared-lib';
 
 @Component({
   selector: 'app-list-sales-return-invoice',
@@ -101,21 +102,25 @@ export class ListSalesReturnInvoiceComponent {
 
   }
 
-  onAdd(){
-      this.routerService.navigateTo(`transaction/sales-return-invoice/add`);
-  }
 
+  onAdd() {
+    this.sequenceService.isHaveSequence(
+      this.sharedEnums.Pages.SalesInvoice,
+      '/transactions/sales-return-invoice/add'
+    );
+  }
   onDelete(id: number) {
     this.transaction_service.deleteRetuenSalesInvoiceListItem(id);
     this.inGetData()
   }
   onVeiw(data: number) {
-    this.routerService.navigateTo(`transaction/sales-return-invoice/view/${data}`);
+    this.routerService.navigateTo(`transactions/sales-return-invoice/view/${data}`);
   }
 
   constructor( private routerService: RouterService, private router: Router,
     private transaction_service:TransactionService,
-    private exportService:ExportService,
+    private exportService:ExportService, private sequenceService: SequenceService,
+        private sharedEnums: SharedEnums,
 
   ){
 
