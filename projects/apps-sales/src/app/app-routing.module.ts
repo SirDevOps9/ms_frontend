@@ -18,12 +18,17 @@ export const ERPRoutes = [
           import('./modules/dashboard/dashboard.module').then((m) => m.DashboardModule),
       },
       {
+        path: 'reports',
+        loadChildren: () => import('./modules/reports/reports.module').then((m) => m.ReportsModule),
+      },
+      {
         path: 'masterdata',
         loadChildren: () => import('./modules/sales/sales.module').then((m) => m.SalesModule),
       },
       {
-        path: 'transaction',
-        loadChildren: () => import('./modules/transaction/transaction.module').then((m) => m.TransactionModule),
+        path: 'transactions',
+        loadChildren: () =>
+          import('./modules/transaction/transaction.module').then((m) => m.TransactionModule),
       },
     ],
   },

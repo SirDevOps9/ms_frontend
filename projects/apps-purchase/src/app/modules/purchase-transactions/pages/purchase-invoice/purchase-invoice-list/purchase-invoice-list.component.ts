@@ -59,7 +59,7 @@ export class PurchaseInvoiceListComponent implements OnInit {
   onAdd() {
     this.sequenceService.isHaveSequence(
       this.sharedEnums.Pages.PurchaseInvoice,
-      '/transaction/purchase-invoice/add' 
+      '/transactions/purchase-invoice/add'
     );
   }
 
