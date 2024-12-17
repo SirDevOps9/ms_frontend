@@ -12,6 +12,9 @@ export class ChartCardComponent {
   @Input() chartDetailsConfig: ChartValueDto[];
   @Input() smallSize: boolean = false;
   @Input() hideFooter: boolean = true;
-
+  @Input() title: string;
+  @Input() route: any;
+  @Input() tooltip: any;
+  
   ngOnInit() {}
 }

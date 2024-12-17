@@ -2,6 +2,7 @@
   "messages": {
     "success": "Success",
     "error": "Error",
+    "barcodeStockedOrNotFounded": "barcode not Founded Or donot have stock ",
     "noItemSelected": "No item selected for editing.",
     "noItemsToAdd": "No items to add",
     "successfully": "Operation completed successfully.",

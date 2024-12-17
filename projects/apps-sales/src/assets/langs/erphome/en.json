@@ -8,10 +8,15 @@
     "EditCustomerDefinition": "Edit Customer Definition",
     "CustomerOpeningBalanceList": "Customer Opening Balance list",
     "AddCustomerOpeningBalance": "Add Customer Opening Balance",
-    "EditCustomerOpeningBalance": "Edit Customer Opening Balance",
-    "ViewCustomerOpeningBalance": "View Customer Opening Balance",
-    "PricePolicy": "Price Policy",
-    "CustomerStatementReport": "Customer Statement Report"
+    "EditCustomerOpeningBalance":"Edit Customer Opening Balance",
+    "ViewCustomerOpeningBalance":"View Customer Opening Balance",
+    "PricePolicy":"Price Policy",
+    "salesInvoiceList" : "Sales Invoice",
+    "salesInvoiceAdd" : "Add",
+     "salesInvoiceView":"View",
+     "salesInvoiceListView":"Sales Invoice List View"
+
+
   },
   "dir": "ltr",
   "Welcome": "Welcome",
