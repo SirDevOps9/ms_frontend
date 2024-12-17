@@ -216,5 +216,22 @@
     "select": "select",
     "search": "Search",
     "ItemSearch": "Item Search"
+  },
+  "customerStatementReport": {
+    "selectCustomer": "Select Customer",
+    "fromDate": "From Date",
+    "toDate": "To Date",
+    "view": "View",
+    "date": "Date",
+    "transactionName": "Transaction Name",
+    "transactionCode": "Transaction Code",
+    "journalCode": "Journal Code",
+    "debit": "Debit",
+    "credit": "Credit",
+    "balance": "Balance",
+    "rate": "Rate",
+    "debitLocal": "Debit (Local)",
+    "creditLocal": "Credit (Local)",
+    "balanceLocal": "Balance (Local)"
   }
 }
