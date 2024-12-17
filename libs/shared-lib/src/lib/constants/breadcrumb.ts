@@ -32,6 +32,7 @@ export class BreadcrumbLabel {
   static readonly PAYMENT_TERM_LIST = 'BreadCrumb.PaymentTermList';
   static readonly PAYMENT_TERM_Add = 'BreadCrumb.AddPaymentTerm';
   static readonly PAYMENT_TERM_Edit = 'BreadCrumb.EditPaymentTerm';
+  static readonly CUSTOMER_STATEMENT_REPORT = 'BreadCrumb.CustomerStatementReport';
   static VIEW_STOCKOUT = 'BreadCrumb.stockOutView';
   static VIEW_STOCKIN = 'BreadCrumb.stockInView';
 
@@ -191,6 +192,7 @@ export class BreadcrumbLabel {
   static VENDOR_OPENING_BALANCE_EDIT = 'BreadCrumb.EditVendorOpeningBalance';
   static VENDOR_OPENING_BALANCE_ADD = 'BreadCrumb.AddVendorOpeningBalance';
   static VENDOR_OPENING_BALANCE_VIEW = 'BreadCrumb.ViewVendorOpeningBalance';
+  static VENDOR_REPORT = 'BreadCrumb.VendorReport';
 
   static BANK_ACCOUNT_STATEMENT = 'BreadCrumb.BankAccountStatement';
   static TREASURY_STATEMENT = 'BreadCrumb.TreasuryStatement';

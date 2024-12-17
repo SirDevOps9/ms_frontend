@@ -86,7 +86,7 @@ const routes: Routes = [
             },
           },
           {
-            path: 'view',
+            path: 'view/:id',
             component: ViewSalesReturnInvoiceComponent,
             data: {
               breadcrumb: BreadcrumbLabel.SALES_RETURN_INVOICE_VIEW,
@@ -142,5 +142,6 @@ const routes: Routes = [
     ViewSalesReturnInvoiceComponent,
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule],
+
 })
 export class TransactionModule {}

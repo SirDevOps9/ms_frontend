@@ -1,1 +1,187 @@
-<p>list-sales-return-invoice works!</p>
+<lib-page-content >
+  <div>
+    <div class="user_page">
+      <lib-data-table
+      [items]="tableData"
+      className="p-datatable-gridlines"
+      [currentPageResult]="currentPageInfo"
+      (columnsFiltered)="onFilterColumn($event)"
+      (pageChange)="onPageChange($event)"
+      (exportObj)="exportClickBySort($event)"
+      (addNew)="onAdd()"
+      [tableConfigs]="{
+        allowPagination: false,
+        allowServerPagination: true,
+        dataKey: 'id',
+        pageSize: 10,
+        columns: [
+        {
+    name: 'code',
+    headerText: ('salesInvoice.code' | translate),
+    isGlobalFilter: true,
+    isSortable: true
+  },
+  {
+    name: 'returnInvoiceDate',
+    headerText: ('salesInvoice.invoiceDate' | translate),
+    isGlobalFilter: true,
+    isSortable: true,
+    template: returnInvoiceDate
+
+  },
+  {
+    name: 'customerCode',
+    headerText: ('salesInvoice.customerCode' | translate),
+    isGlobalFilter: true,
+    isSortable: true
+  },
+  {
+    name: 'customerName',
+    headerText: ('salesInvoice.customerName' | translate),
+    isGlobalFilter: true,
+    isSortable: true
+  },
+  {
+    name: 'warehouseName',
+    headerText: ('salesInvoice.warehouse' | translate),
+    isGlobalFilter: true,
+    isSortable: true
+  },
+  {
+    name: 'invoiceJournalCode',
+    headerText: ('salesInvoice.relatedJournal' | translate),
+    isGlobalFilter: true,
+    isSortable: true
+  },
+  {
+    name: 'createdOn',
+    headerText: ('salesInvoice.createdStockout' | translate),
+    isGlobalFilter: true,
+    isSortable: true,
+    template:isCreatedOn
+  },
+  {
+    name: 'totaOfQuantity',
+    headerText: ('salesInvoice.totalQuantity' | translate),
+    isGlobalFilter: true,
+    isSortable: true
+  },
+  {
+    name: 'noOfItems',
+    headerText: ('salesInvoice.numberOfItems' | translate),
+    isGlobalFilter: true,
+    isSortable: true
+  },
+  {
+    name: 'totalNetAmount',
+    headerText: ('salesInvoice.total' | translate),
+    isGlobalFilter: true,
+    isSortable: true
+  },
+  {
+    name: 'totalVatAmount',
+    headerText: ('salesInvoice.vatAmount' | translate),
+    isGlobalFilter: true,
+    isSortable: true
+  },
+  {
+    name: 'grandTotal',
+    headerText: ('salesInvoice.totalAfterVat' | translate),
+    isGlobalFilter: true,
+    isSortable: true
+  },
+  {
+    name: 'id',
+    headerText: ('salesInvoice.actions' | translate),
+    template: actions
+  }
+        ]
+      }"
+      >
+
+
+      <ng-template #returnInvoiceDate let-row>
+        <ng-container *ngIf="row.returnInvoiceDate">
+          <p>
+            {{ row.returnInvoiceDate | date: 'yyyy/MM/dd' }}
+          </p>
+        </ng-container>
+
+      </ng-template>
+      <ng-template #isCreatedOn let-row>
+        <ng-container *ngIf="row.createdOn">
+          <p>
+            {{ row.createdOn | date: 'yyyy/MM/dd' }}
+          </p>
+        </ng-container>
+
+      </ng-template>
+      <ng-container search>
+        <lib-form-group>
+
+          <lib-text-input type="text" [placeholder]="'salesInvoice.search' | translate" [(ngModel)]="searchTerm"
+            (keyUp)="onSearchChange($event)" [iconUrl]="'pi pi-search'"></lib-text-input>
+        </lib-form-group>
+      </ng-container>
+      <ng-container action>
+
+        <div>
+          <lib-export
+          (exportClick)="exportClick()"
+          [exportData]="exportData"
+          [exportColumns]="exportColumns"
+          [ExportName]="('salesInvoice.returnSalesInvoicePrint' |translate)"
+        >
+        </lib-export>
+        </div>
+        <!--  -->
+        <div>
+          <lib-button-micro
+          [title]="'create' | translate"
+          nameClass="save"
+          iconName="pi pi-plus"
+          (click)="onAdd()"
+        >
+        </lib-button-micro>
+        </div>
+
+        <div *ngIf="hasHelpPage">
+          <lib-button-micro
+          [title]="'help' | translate"
+          nameClass="save"
+          (click)="navigateHelpPageComponent()"
+        >
+        </lib-button-micro>
+        </div>
+        </ng-container>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <ng-template #actions let-action>
+        <div class="actions flex align-items-center">
+          <lib-button-micro nameClass="table_button_view" (click)="onVeiw(action.id)">
+          </lib-button-micro>
+          <img src="assets/images/table/edit.svg" alt="" />
+          <img src="assets/images/table/delete.svg" (click)="onDelete(action.id)" alt="" />
+
+        </div>
+      </ng-template>
+
+
+      </lib-data-table>
+      </div>
+      </div>
+
+  </lib-page-content>

@@ -133,6 +133,7 @@ export class AuthService {
 
     return hasPermission;
   }
+  
   refreshToken(): Observable<TokenModel> {
     let userData = this.getUserData();
     let refreshTokenDto: RefreshTokenDto = {

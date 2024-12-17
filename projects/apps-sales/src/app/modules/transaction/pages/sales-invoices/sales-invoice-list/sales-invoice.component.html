@@ -143,15 +143,30 @@
       >
       <ng-container search>
         <lib-form-group>
-          <lib-text-input
-          type="text"
-          [placeholder]="'salesInvoice.search' | translate"
-          [(ngModel)]="searchTerm"
-          [iconUrl]="'pi pi-search'"
-          (keyUp)="onSearchChange()"
-        ></lib-text-input>
+
+          <lib-text-input type="text" [placeholder]="'salesInvoice.search' | translate" [(ngModel)]="searchTerm"
+          (keyUp)="onSearchChange()" [iconUrl]="'pi pi-search'"></lib-text-input>
         </lib-form-group>
-        </ng-container>
+      </ng-container>
+
+        <ng-template #isInvoice let-row>
+          <ng-container *ngIf="row.invoiceDate">
+            <p>
+              {{ row.invoiceDate | date: 'yyyy/MM/dd' }}
+            </p>
+          </ng-container>
+
+        </ng-template>
+        <ng-template #isCreatedOn let-row>
+          <ng-container *ngIf="row.invoiceDate">
+            <p>
+              {{ row.createdOn | date: 'yyyy/MM/dd' }}
+            </p>
+          </ng-container>
+
+        </ng-template>
+
+
       <ng-container action>
 
         <div>

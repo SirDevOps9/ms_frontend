@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ReturnInvoiceListView } from './models/return-Invoice-dto';
 import { TransactionProxyService } from './transaction-proxy.service';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { AddSalesInvoice, AddSalesReturnDto, customerDto, IreturnInvoiceById, LatestItem, ReturnSalesInvoiceObj, SalesInvoiceListView, SalesInvoiceLookup, updateReturnSalesInvice } from './models';
@@ -21,8 +22,10 @@ export class TransactionService {
   updateSalesReturnInvoice = new BehaviorSubject<updateReturnSalesInvice>({} as updateReturnSalesInvice);
 
   ReturnSalesInvoiceIdData = new BehaviorSubject<IreturnInvoiceById>({} as IreturnInvoiceById);
+  ReturnSalesInvoiceIdDataObs = this.ReturnSalesInvoiceIdData.asObservable()
 
-
+  ReturnSalesInvoiceIdDataList = new BehaviorSubject<IreturnInvoiceById>({} as IreturnInvoiceById);
+  ReturnSalesInvoiceIdDataListObs = this.ReturnSalesInvoiceIdDataList.asObservable()
   public lastestItem = new BehaviorSubject<LatestItem[]>([]);
   public sendcurrency = new BehaviorSubject<{rate : number}>({} as {rate : number});
   public itemsDataSourceForAdvanced = new BehaviorSubject<LatestItem[]>([]);
@@ -40,12 +43,20 @@ export class TransactionService {
     private exportSalesInvoice = new BehaviorSubject<SalesInvoiceListView[]>([]);
     public exportSalesInvoiceObs =this.exportSalesInvoice.asObservable()
 
-
     public salesInvoiceView = new BehaviorSubject<SalesInvoiceView>({} as SalesInvoiceView);
     public salesInvoiceViewObs =this.salesInvoiceView.asObservable()
- 
+
+    public salseInvoiceListData=new BehaviorSubject<SalesInvoiceListView[]>([]);
+    public salseInvoiceListObs$=this.salseInvoiceListData.asObservable()
+    public expoerSalseInvoiceListData=new BehaviorSubject<SalesInvoiceListView[]>([]);
+    public   exportSalseInvoiceListObs$=this.expoerSalseInvoiceListData.asObservable()
 
 
+    public returnSalesInvoiceListData=new BehaviorSubject<ReturnInvoiceListView[]>([]);
+    public returnSalesInvoiceListDataObs=this.returnSalesInvoiceListData.asObservable()
+
+    public expoerReturnSalesInvoiceListData=new BehaviorSubject<ReturnInvoiceListView[]>([]);
+    public expoerReturnSalesInvoiceListDataObs$=this.expoerReturnSalesInvoiceListData.asObservable()
 
   // customer dropdown
   getCustomerList(searchTerm: string) {
@@ -153,7 +164,11 @@ export class TransactionService {
       this.ReturnSalesInvoiceIdData.next(response);
     });
   }
-
+  getReturnSalesInvoiceIdData(id: number) {
+    this._transactionProxyService.getReturnSalesInvoiceIdData(id).subscribe((response: any) => {
+      this.ReturnSalesInvoiceIdDataList.next(response);
+    });
+  }
   // delete
   deleteSalesReturnLine(id: number) {
     return this._transactionProxyService.deleteSalesReturnLine(id).pipe(
@@ -162,7 +177,7 @@ export class TransactionService {
       })
     );
   }
- 
+
   getLatestItemsList(warehouseId : number ,searchTerm?: string ) {
     this._transactionProxyService.getLatestItemsList( warehouseId , searchTerm ).subscribe((response) => {
       this.lastestItem.next(response);
@@ -261,7 +276,7 @@ export class TransactionService {
     })
   }
 
- 
+
 
 
     exportSalseInvoiceList(SearchTerm: string ,SortBy?: number, SortColumn?: string) {
@@ -281,14 +296,14 @@ export class TransactionService {
 
 
 
-  async deleteCustomerCategory(id: number) {
+  async deleteSalesInvoiceListItem(id: number) {
     const confirmed = await this.toasterService.showConfirm('Delete');
     if (confirmed) {
       this._transactionProxyService.deleteSalseInvoice(id).subscribe({
         next: (res) => {
           this.toasterService.showSuccess(
-            this.languageService.transalte('deleteCustomerCategory.success'),
-            this.languageService.transalte('deleteCustomerCategory.delete')
+            this.languageService.transalte('salesInvoice.success'),
+            this.languageService.transalte('salesInvoice.delete')
           );
           let data = this.salesInvoice.getValue();
           const updatedDate = data.filter((elem) => elem.id!== id);
@@ -301,6 +316,69 @@ export class TransactionService {
   }
 
 
+    exportSalseInvoiceListData(SearchTerm: string ,SortBy?: number, SortColumn?: string) {
+      this._transactionProxyService.exportSalseInvoiceList(SearchTerm,SortBy,SortColumn).subscribe({
+        next: (res: any) => {
+          this.exportSalesInvoice.next(res);
+        },
+      });
+    }
+
+  getSalesInvoiceList(quieries: string, pageInfo: PageInfo) {
+    this._transactionProxyService.getSalesInvoiceList(quieries, pageInfo).subscribe(
+      (response) => {
+        this.salseInvoiceListData.next(response.result);
+        this.currentPageInfo.next(response.pageInfoResult);
+      },
+      (erorr) => {}
+    );
+  }
+
+  exportSalesInvoiceList(searchTerm?: string, SortBy?: number, SortColumn?: string) {
+    this._transactionProxyService.exportSalesInvoiceList(searchTerm, SortBy, SortColumn).subscribe({
+      next: (res: any) => {
+        this.expoerSalseInvoiceListData.next(res);
+      },
+    });
+  }
+
+  getReturnSalesInvoiceList(quieries: string, pageInfo: PageInfo) {
+    this._transactionProxyService.getReturnSalesInvoiceList(quieries, pageInfo).subscribe(
+      (response) => {
+        this.returnSalesInvoiceListData.next(response.result);
+        this.currentPageInfo.next(response.pageInfoResult);
+      },
+      (erorr) => {}
+    );
+  }
+
+  exportRetuenSalesInvoiceList(searchTerm?: string, SortBy?: number, SortColumn?: string) {
+    this._transactionProxyService.exportReturnSalesInvoiceList(searchTerm, SortBy, SortColumn).subscribe({
+      next: (res: any) => {
+        this.expoerReturnSalesInvoiceListData.next(res);
+      },
+    });
+  }
+
+
+  async deleteRetuenSalesInvoiceListItem(id: number) {
+    const confirmed = await this.toasterService.showConfirm('Delete');
+    if (confirmed) {
+      this._transactionProxyService.deleteReturnSalesInvoice(id).subscribe({
+        next: (res) => {
+          this.toasterService.showSuccess(
+            this.languageService.transalte('salesInvoice.success'),
+            this.languageService.transalte('salesInvoice.delete')
+          );
+          let data = this.returnSalesInvoiceListData.getValue();
+          const updatedDate = data.filter((elem) => elem.id!== id);
+          this.returnSalesInvoiceListData.next(updatedDate);
+          return res;
+        },
+        error: (err) => {},
+      });
+    }
+  }
 
 
 

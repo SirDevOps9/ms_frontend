@@ -382,7 +382,7 @@
     "returnDate": "Return Date",
     "returnDescription": "Return Description",
     "purchaseInvoice": "Purchase Invoice",
-    "transactionQuantity":"transaction Quantity"
+    "transactionQuantity": "transaction Quantity"
   },
   "ItemsAdvancedSearch": {
     "ItemSearch": "Item Search",
@@ -402,5 +402,22 @@
     "generatedBatch": "Generated Batch",
     "Expiry": "Expiry",
     "vendorBatchNo": "Batch No"
+  },
+  "vendorReport": {
+    "selectVendor": "Select Vendor",
+    "fromDate": "From Date",
+    "toDate": "To Date",
+    "view": "View",
+    "date": "Date",
+    "transactionName": "Transaction Name",
+    "transactionCode": "Transaction Code",
+    "journalCode": "Journal Code",
+    "debit": "Debit",
+    "credit": "Credit",
+    "balance": "Balance",
+    "rate": "Rate",
+    "debitLocal": "Debit (Local)",
+    "creditLocal": "Credit (Local)",
+    "balanceLocal": "Balance (Local)"
   }
 }
