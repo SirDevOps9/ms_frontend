@@ -10,7 +10,11 @@ import { ItemAdvancedSearchSalesInvoiceComponentComponent } from './components/i
 import { SalesInvoiceTrackingComponentComponent } from './components/sales-invoice-tracking-component/sales-invoice-tracking-component.component';
 import { EditSalesInvoiceComponent } from './pages/sales-invoices/edit-sales-invoice/edit-sales-invoice.component';
 import { ViewSalesComponent } from './pages/sales-invoices/view-sales/view-sales.component';
-
+import { MainSalesReturnInvoiceComponent } from './pages/return-sales-invoice/main-sales-return-invoice/main-sales-return-invoice.component';
+import { ListSalesReturnInvoiceComponent } from './pages/return-sales-invoice/list-sales-return-invoice/list-sales-return-invoice.component';
+import { AddSalesReturnInvoiceComponent } from './pages/return-sales-invoice/add-sales-return-invoice/add-sales-return-invoice.component';
+import { EditSalesReturnInvoiceComponent } from './pages/return-sales-invoice/edit-sales-return-invoice/edit-sales-return-invoice.component';
+import { ViewSalesReturnInvoiceComponent } from './pages/return-sales-invoice/view-sales-return-invoice/view-sales-return-invoice.component';
 
 const routes: Routes = [
   {
@@ -20,23 +24,21 @@ const routes: Routes = [
       moduleId: Modules.Sales,
     },
     children: [
-
       {
         path: 'sales-invoice',
         component: MainSalesInvoiceComponent,
         data: {
           breadcrumb: BreadcrumbLabel.SALES_INVOICE_LIST,
           pageTitle: BreadcrumbLabel.SALES_INVOICE_LIST,
-
         },
-        children:[
+        children: [
           {
             path: '',
             component: SalesInvoiceComponent,
             data: {
-              breadcrumb:  BreadcrumbLabel.SALES_INVOICE_LIST_VIEW,
+              breadcrumb: BreadcrumbLabel.SALES_INVOICE_LIST_VIEW,
               pageTitle: BreadcrumbLabel.SALES_INVOICE_LIST,
-            }
+            },
           },
           {
             path: 'view/:id',
@@ -44,15 +46,15 @@ const routes: Routes = [
             data: {
               breadcrumb: BreadcrumbLabel.SALES_INVOICE_VIEW,
               pageTitle: BreadcrumbLabel.SALES_INVOICE_VIEW,
-            }
+            },
           },
           {
             path: 'add',
             component: AddSalesInvoiceComponent,
             data: {
               breadcrumb: BreadcrumbLabel.SALES_INVOICE_ADD,
-              pageTitle:BreadcrumbLabel.SALES_INVOICE_ADD,
-            }
+              pageTitle: BreadcrumbLabel.SALES_INVOICE_ADD,
+            },
           },
 
           {
@@ -62,11 +64,63 @@ const routes: Routes = [
               moduleId: Modules.Sales,
               pageId: Pages.SalesInvoice,
               breadcrumb: BreadcrumbLabel.SEQUENCE,
-              pageTitle: BreadcrumbLabel.SEQUENCE
+              pageTitle: BreadcrumbLabel.SEQUENCE,
+            },
+          },
+        ],
+      },
+      {
+        path: 'sales-return-invoice',
+        component: MainSalesReturnInvoiceComponent,
+        data: {
+          pageTitle: BreadcrumbLabel.SALES_RETURN_INVOICE,
+          breadcrumb: BreadcrumbLabel.SALES_RETURN_INVOICE,
+        },
+        children: [
+          {
+            path: '',
+            component: ListSalesReturnInvoiceComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.SALES_RETURN_INVOICE_LIST,
+              pageTitle: BreadcrumbLabel.SALES_RETURN_INVOICE,
+            },
+          },
+          {
+            path: 'view',
+            component: ViewSalesReturnInvoiceComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.SALES_RETURN_INVOICE_VIEW,
+              pageTitle: BreadcrumbLabel.SALES_RETURN_INVOICE,
+            },
+          },
+          {
+            path: 'add',
+            component: AddSalesReturnInvoiceComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.SALES_RETURN_INVOICE_ADD,
+              pageTitle: BreadcrumbLabel.SALES_RETURN_INVOICE,
+            },
+          },
+          {
+            path: 'edit/:id',
+            component: EditSalesReturnInvoiceComponent,
+            data: {
+              breadcrumb: BreadcrumbLabel.SALES_RETURN_INVOICE_EDIT,
+              pageTitle: BreadcrumbLabel.SALES_RETURN_INVOICE,
             },
           },
 
-        ]
+          {
+            path: 'sequence',
+            component: SequenceComponent,
+            data: {
+              moduleId: Modules.Sales,
+              pageId: Pages.PricePolicy,
+              breadcrumb: BreadcrumbLabel.SEQUENCE,
+              pageTitle: BreadcrumbLabel.SEQUENCE,
+            },
+          },
+        ],
       },
     ],
   },
@@ -81,9 +135,12 @@ const routes: Routes = [
     SalesInvoiceTrackingComponentComponent,
     EditSalesInvoiceComponent,
     ViewSalesComponent,
-
+    MainSalesReturnInvoiceComponent,
+    ListSalesReturnInvoiceComponent,
+    AddSalesReturnInvoiceComponent,
+    EditSalesReturnInvoiceComponent,
+    ViewSalesReturnInvoiceComponent,
   ],
-  imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule,
-  ],
+  imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule],
 })
-export class TransactionModule { }
+export class TransactionModule {}
