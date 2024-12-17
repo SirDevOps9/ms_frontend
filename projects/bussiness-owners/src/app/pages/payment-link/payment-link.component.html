@@ -69,13 +69,68 @@
 
                 </div>
                 <div class="col-12 md:col-6">
-                    <div class="title">
-                        invoice
-                    </div>
-                    <div class="">
-
-                    </div>
-                    <div class="card_micro">
+                    
+                    <!-- <div class="card_micro">
+                        <div class=" summary_card">
+                            <h2>
+                                Invoice
+                            </h2>
+                            <div class="card_micro">
+                              
+                                    <p>
+                                        Domain
+                                    </p>
+                                    @if (addForm.get('subDomainPrice')?.value !=0) {
+                                    <div class="summary_item">
+                                        <p>
+                                            Domain
+                                        </p>
+                                        <p>
+                                            {{addForm.get('subDomainPrice')?.value}}
+                                        </p>
+                                    </div>
+                                }
+                                <div class="line"></div>
+        
+                                    <p>
+                                        Apps
+                                    </p>
+                                    @if (invoiceApps.length !=0) {
+                                    <div class="summary_item" *ngFor="let app of invoiceApps ">
+                                        <p>
+                                            {{app.appName}}
+                                        </p>
+                                        <p>
+                                            {{app.appPrice
+                                            }}                                </p>
+                                    </div>
+                                }
+                                <div class="line"></div>
+        
+                                    <p>
+                                        User licenses
+                                    </p>
+                                    @if (invoiceLicenses.length !=0) {
+                                    <div class="summary_item" *ngFor="let app of invoiceLicenses ">
+                                        <p>
+                                            {{app.name}}
+                                        </p>
+                                        <p>
+                                            {{app.totalPrice}}   
+                                        </p>
+                                    </div>
+                                }
+                                <div class="line"></div>
+                                <div class="summary_item" >
+                                    <p>
+                                        Total
+                                    </p>
+                                    <p>
+                                        {{totalSummaryPrice}}   
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                         <lib-button-micro
                         nameClass="save"
                         [title]="'Proceed to Payment'"
@@ -83,7 +138,7 @@
                         >
 
                         </lib-button-micro>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
