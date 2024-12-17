@@ -21,6 +21,7 @@ import { ReportsService } from '../../reports.service';
 import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service';
 import { SourceDocument } from '../../models/source-document-dto';
 import { DatePipe } from '@angular/common';
+import { DateOftheYear } from '../../models/Report-YearDate';
 
 @Component({
   selector: 'app-treasury-statement',
@@ -56,6 +57,7 @@ export class TreasuryStatementComponent implements OnInit {
   ngOnInit() {
     this.getTreasuryDropDown();
     this.initializeForm();
+    this.initReportYearDate();
     this.initializeDates();
     this.getTreasuryFromRoute();
     this.reportForm.valueChanges.subscribe(() => {
@@ -71,8 +73,10 @@ export class TreasuryStatementComponent implements OnInit {
     });
 
     this.reportForm.get('dateFrom')?.valueChanges.subscribe((res: any) => {
+      console.log(res);
       this.fromDate = this.formatDate(res, 'yyyy-MM-dd');
     });
+
     this.reportForm.get('dateTo')?.valueChanges.subscribe((res: any) => {
       this.toDate = this.formatDate(res, 'yyyy-MM-dd');
     });
@@ -88,13 +92,25 @@ export class TreasuryStatementComponent implements OnInit {
 
   initializeForm() {
     this.reportForm = this.fb.group({
-      dateFrom: new FormControl('', [customValidators.required]),
-      dateTo: new FormControl('', [customValidators.required]),
+      dateFrom: new FormControl(new Date(), [customValidators.required]),
+      dateTo: new FormControl(new Date(), [customValidators.required]),
       treasuryId: new FormControl('', [customValidators.required]),
       currency: new FormControl(''),
     });
-    this.reportForm.controls['dateFrom'].patchValue(new Date());
-    this.reportForm.controls['dateTo'].patchValue(new Date());
+  }
+
+  initReportYearDate() {
+    this.ReportService.GetReportYearByDate();
+    this.ReportService.ReportYearByDate$.subscribe({
+      next: (res: DateOftheYear) => {
+        if (res) {
+          this.reportForm.patchValue({
+            dateFrom: new Date(res.fromDate),
+            dateTo: new Date(res.toDate),
+          });
+        }
+      },
+    });
   }
 
   initializeDates() {
@@ -118,7 +134,10 @@ export class TreasuryStatementComponent implements OnInit {
   }
   getReportData() {
     if (!this.formsService.validForm(this.reportForm, false)) return;
-    if (this.reportForm.get('dateFrom')?.value < this.reportForm.get('dateTo')?.value) {
+    if (
+      new Date(this.reportForm.get('dateFrom')?.value) <
+      new Date(this.reportForm.get('dateTo')?.value)
+    ) {
       const formValue = this.reportForm.value;
       const filterDto: TreasuryStatementfilterDto = {
         DateFrom: formValue.dateFrom,

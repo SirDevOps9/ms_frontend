@@ -5,9 +5,10 @@
         [items]="tableData"
         className="p-datatable-gridlines"
         [currentPageResult]="currentPageInfo"
+        (exportObj)="exportClickBySort($event)"
+        (columnsFiltered)="onFilterColumn($event)"
         (pageChange)="onPageChange($event)"
         (addNew)="onAdd()"
-        (exportObj)="exportedColumns($event)"
         [tableConfigs]="{
           allowPagination: false,
           allowServerPagination: true,
@@ -68,12 +69,13 @@
         <ng-container action>
           <div class="flex gap-2">
             <lib-export
-              (exportClick)="exportTaxesData()"
-              [exportData]="exportData"
-              [exportColumns]="exportColumns"
-              [ExportName]="'Taxes'"
-            >
-            </lib-export>
+            (exportClick)="exportClick()"
+            [exportData]="exportData"
+            [exportColumns]="exportColumns"
+            [ExportName]="('Tax.TaxDefinitionPrint' |translate)"
+
+          >
+          </lib-export>
             <!-- <lib-button pRipple className="addToList" label="{{ 'Tax.AddNew' | translate }}" (onClick)="onAdd()"
               [icon]="'pi pi-plus'">
             </lib-button> -->

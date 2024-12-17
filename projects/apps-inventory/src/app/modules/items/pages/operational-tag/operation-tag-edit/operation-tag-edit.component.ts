@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { LayoutService } from 'apps-shared-lib';
-import { FormsService, RouterService, customValidators } from 'shared-lib';
+import { FormsService, LanguageService, RouterService, customValidators } from 'shared-lib';
 import { ItemsService } from '../../../items.service';
 import { AddOperatioalTag, GetWarehouseList } from '../../../models';
 import { OperationType } from '../../../models/enums';
 import { ActivatedRoute } from '@angular/router';
 import { ItemsProxyService } from '../../../items-proxy.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-operation-tag-edit',
@@ -36,9 +37,12 @@ export class OperationTagEditComponent implements OnInit {
     private routerService: RouterService,
     private _route : ActivatedRoute,
   private itemProxy : ItemsProxyService,
-    private formService: FormsService
+    private formService: FormsService,
+    private title: Title,
+    private langService: LanguageService,
 
   ) {
+    this.title.setTitle(this.langService.transalte('OperationalTag.OperationalTagEdit'));
 
   }
 
@@ -92,7 +96,7 @@ export class OperationTagEditComponent implements OnInit {
             name: res.name,
             operationType: operationTypeValue,
             warehouseId: res.warehouseId,
-            glAccountId: String(res.glAccountId)
+            glAccountId: res.glAccountId
           });
         }
       },
@@ -113,7 +117,7 @@ export class OperationTagEditComponent implements OnInit {
         name: ['', Validators.required],
         operationType: ['', Validators.required],
         warehouseId: ['', Validators.required],
-        glAccountId: ['', Validators.required],
+        glAccountId: [null],
       });
   }
 

@@ -1,0 +1,147 @@
+<lib-bread-crumb></lib-bread-crumb>
+
+<lib-page-content
+  [title]="'AdminPortal.TaxList' | translate"
+  [subTitle]="'OperationalTagTaxList' | translate"
+>
+  <div class="bank">
+    <div class="card_micro">
+      <form [formGroup]="formGroup">
+        <div class="form_header">
+          <div class="d-flex row">
+            <!-- Title -->
+            <div class="col-6">
+              <lib-form-group>
+                <lib-label [appControl]="formGroup.controls['nameEn']">
+                  {{ 'English Name' | translate }}
+                </lib-label>
+                <lib-text-input type="text"  [readOnly]="true"  formControlName="nameEn" />
+              </lib-form-group>
+            </div>
+
+            <!-- titleAr -->
+            <div class="col-6">
+              <lib-form-group>
+                <lib-label [appControl]="formGroup.controls['nameAr']">
+                  {{ 'Arabic Name' | translate }}
+                </lib-label>
+                <lib-text-input type="text" [readOnly]="true" formControlName="nameAr" />
+              </lib-form-group>
+            </div>
+      
+
+
+
+            <!-- Title -->
+            <div class="col-6">
+              <lib-form-group>
+                <lib-label [appControl]="formGroup.controls['title']">
+                  {{ 'English Title' | translate }}
+                </lib-label>
+                <lib-text-input type="text" formControlName="title" />
+                <!-- <lib-field-validations [appControl]="formGroup.controls['title']"></lib-field-validations> -->
+
+                <span
+                  *ngIf="
+                    (formGroup.get('title')?.touched || formGroup.get('title')?.dirty) &&
+                    formGroup.get('title')?.hasError('required')
+                  "
+                  class="error-message mt-2"
+                >
+                English Title is required.
+                </span>
+              </lib-form-group>
+            </div>
+
+            <!-- titleAr -->
+            <div class="col-6">
+              <lib-form-group>
+                <lib-label [appControl]="formGroup.controls['titleAr']">
+                  {{ 'Arabic Title' | translate }}
+                </lib-label>
+                <lib-text-input type="text" formControlName="titleAr" />
+                <!-- <lib-field-validations [appControl]="formGroup.controls['sefName']"></lib-field-validations> -->
+                <span
+                  *ngIf="
+                    (formGroup.get('titleAr')?.touched || formGroup.get('titleAr')?.dirty) &&
+                    formGroup.get('titleAr')?.hasError('required')
+                  "
+                  class="error-message mt-2"
+                >
+                  Arabic Title is required.
+                </span>
+              </lib-form-group>
+            </div>
+      
+
+
+              <!-- Editor Content -->
+              <div class="col-12">
+                <lib-form-group>
+                  <lib-label [appControl]="formGroup.get('content')">
+                    {{ 'English Content' | translate }}
+                  </lib-label>
+
+                  <angular-editor formControlName="content" [config]="config"></angular-editor>
+
+                  <!-- <lib-field-validations [appControl]="formGroup.get('helpPageDetails.content')"></lib-field-validations> -->
+                  <span
+                    *ngIf="
+                      (formGroup.get('content')?.touched ||
+                        formGroup.get('content')?.dirty) &&
+                      formGroup.get('content')?.hasError('required')
+                    "
+                    class="error-message mt-2"
+                  >
+                  English Content is required.
+                  </span>
+                </lib-form-group>
+              </div>
+
+
+              
+              <!-- Editor Content -->
+              <div class="col-12">
+                <lib-form-group>
+                  <lib-label [appControl]="formGroup.get('contentAr')">
+                    {{ 'Arabic Content' | translate }}
+                  </lib-label>
+
+                  <angular-editor formControlName="contentAr" [config]="config"></angular-editor>
+
+                  <!-- <lib-field-validations [appControl]="formGroup.get('helpPageDetails.content')"></lib-field-validations> -->
+                  <span
+                    *ngIf="
+                      (formGroup.get('contentAr')?.touched ||
+                        formGroup.get('contentAr')?.dirty) &&
+                      formGroup.get('contentAr')?.hasError('required')
+                    "
+                    class="error-message mt-2"
+                  >
+                    Arabic Content is required.
+                  </span>
+                </lib-form-group>
+              </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="btn_group py-5">
+    <div class="d-flex justify-content-end gap-3 mt-4">
+      <lib-button-micro
+        nameClass="cancel"
+        title="{{ 'Cancel' | translate }}"
+        (click)="discard()"
+      ></lib-button-micro>
+      <lib-button-micro
+        nameClass="save w-100"
+        title="{{ 'Save' | translate }}"
+        iconName="pi pi-save"
+        type="button"
+        (click)="onSave()"
+      ></lib-button-micro>
+    </div>
+  </div>
+</lib-page-content>

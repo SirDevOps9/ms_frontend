@@ -1,0 +1,12 @@
+{
+  "Title": "Title",
+  "Toaster": {
+    "Confirm": {
+      "Title": "هل انت متاكد?",
+      "Text": "لا يمكنك الرجوع فى هذا القرار!",
+      "ConfirmButtonTexttodelete": "نعم, قم بالمسح!",
+      "CancelButtonText": "الغاء",
+      "ConfirmButtonTexttochangstatus": "نعم" 
+    }
+  }
+}

@@ -1,0 +1,199 @@
+<lib-page-content>
+  <div class="user-page">
+    <div class="charts">
+      <div class="grid">
+        <div class="lg:col-4 md:col-6 col-12" [appLoader]="statusLoader">
+          <app-chart-card
+            [chartDTO]="statusChart"
+            [chartDetailsConfig]="statusChartValues"
+            title="{{ 'dashboard.status' | translate }}"
+          >
+          </app-chart-card>
+        </div>
+        <div class="lg:col-4 md:col-6 col-12" [appLoader]="cashFlowSummaryLoader">
+          <app-chart-card title="{{ 'dashboard.cashFlowSummary' | translate }}">
+            <div class="chart-body accounts-bank w-full">
+              <div class="row">
+                <span class="color-box" [style.background-color]="'#1A90B0'"></span>
+                <span class="label-color"> {{ 'dashboard.paymentIn' | translate }}</span>
+                <span class="line"></span>
+                <span class="detail-value heading_b16">{{
+                  cashFlowSummary.totalPaymentIn | numberFormat
+                }}</span>
+              </div>
+              <div class="row">
+                <span class="color-box" [style.background-color]="'#CC3F2D'"></span>
+                <span class="label-color">{{ 'dashboard.paymentOut' | translate }}</span>
+                <span class="line"></span>
+                <span class="detail-value heading_b16">{{
+                  cashFlowSummary.totalPaymentOut | numberFormat
+                }}</span>
+              </div>
+              <div class="row">
+                <span class="color-box" [style.background-color]="'#36A19B'"></span>
+                <span class="label-color">{{ 'dashboard.cashFlow' | translate }}</span>
+                <span class="line"></span>
+                <span class="detail-value heading_b16">{{
+                  cashFlowSummary.netCashFlow | numberFormat
+                }}</span>
+              </div>
+
+              <div class="grid"></div>
+            </div>
+          </app-chart-card>
+        </div>
+        <div class="lg:col-4 md:col-6 col-12" [appLoader]="totalBankTreasuriesLoader">
+          <app-chart-card
+            [chartDTO]="totalBankTreasuriesChart"
+            [chartDetailsConfig]="totalBankTreasuriesData"
+            [smallSize]="true"
+            title="{{ 'dashboard.totalBankTreasuries' | translate }}"
+          >
+          </app-chart-card>
+        </div>
+
+        <div class="lg:col-6 col-12" [appLoader]="banksLoader">
+          <app-chart-card title="{{ 'dashboard.moreDetails' | translate }}">
+            <div class="chart-body accounts-bank w-full">
+              @for(acc of bankAccounts.accounts; track acc) {
+              <div class="row">
+                <span class="body-14 mx-1">{{ acc.bankName }}</span>
+                <span class="detail-type body_b14 pointer">
+                  {{ acc.accountNumber }}
+                </span>
+
+                <span class="line"></span>
+                <span class="detail-value heading_b16">{{
+                  acc.currentBalance | numberFormat
+                }}</span>
+              </div>
+              }
+
+              <div class="grid">
+                <span class="btn-class col bank-label">{{
+                  ('dashboard.totalInBank' | translate) +
+                    ' ' +
+                    (bankAccounts.totalBalance | numberFormat)
+                }}</span>
+              </div>
+            </div>
+          </app-chart-card>
+        </div>
+        <div class="lg:col-6 col-12" [appLoader]="treasuriesLoader">
+          <app-chart-card
+            title="{{ 'dashboard.treasuries' | translate }}"
+            [route]="'masterdata/treasury-list'"
+          >
+            <div class="chart-body accounts-bank w-full">
+              @for(treasure of treasuries.treasuries; track treasure) {
+              <div class="row">
+                <span class="body-14 mx-1">{{ treasure.treasuryName }}</span>
+                <span class="body_b14 pointer">
+                  {{ treasure.treasuryCode }}
+                </span>
+
+                <span class="line"></span>
+                <span class="detail-value heading_b16">{{
+                  treasure.currentBalance | numberFormat
+                }}</span>
+              </div>
+              }
+
+              <div class="grid">
+                <span class="btn-class col treasury_label">
+                  {{
+                    ('dashboard.totalInTreasury' | translate) +
+                      ' ' +
+                      (treasuries.totalBalance | numberFormat)
+                  }}
+                </span>
+              </div>
+            </div>
+          </app-chart-card>
+        </div>
+
+        <div class="lg:col-6 col-12" [appLoader]="incomeLoader">
+          <app-chart-card
+            [chartDTO]="incomeChart"
+            [hideFooter]="false"
+            title="{{ 'dashboard.income' | translate }}"
+            [route]="'transcations/paymentin'"
+          >
+            <div class="chart-body accounts-bank w-full">
+              <div class="grid"></div>
+            </div>
+          </app-chart-card>
+        </div>
+        <div class="lg:col-6 col-12" [appLoader]="outgoingLoader">
+          <app-chart-card
+            [chartDTO]="outgoingChart"
+            [chartDetailsConfig]="outGoingChartData"
+            title="{{ 'dashboard.outgoing' | translate }}"
+            [route]="'transcations/paymentin'"
+          >
+            <div class="chart-body accounts-bank w-full">
+              <div class="grid"></div>
+            </div>
+          </app-chart-card>
+        </div>
+
+        <div class="lg:col-6 col-12" [appLoader]="recentIncomeTransactionsLoader">
+          <app-chart-card
+            title="{{ 'dashboard.recentIncomeTransaction' | translate }}"
+            [route]="'transcations/paymentin'"
+          >
+            <div class="chart-body accounts-bank w-full">
+              @for(acc of recentIncomeTransactionData; track acc) {
+              <div class="row">
+                <div class="code-details">
+                  <span class="code body_b11">{{ acc.code }}</span>
+                  <span class="body-14 mx-1">{{ acc.paymentHubDetails }}</span>
+                </div>
+                <span class="line"></span>
+
+                <span class="body-14 mx-1">{{ acc.name }}</span>
+                <span class="line"></span>
+
+                <span class="body-14 mx-1">{{ acc.paymentInDate | date : 'dd/MM/yyyy' }}</span>
+                <span class="line"></span>
+
+                <span class="mx-1 heading_b16">{{ acc.amount | numberFormat }}</span>
+              </div>
+              }
+
+              <div class="grid"></div>
+            </div>
+          </app-chart-card>
+        </div>
+        <div class="lg:col-6 col-12" [appLoader]="recentOutgoingTransactionsLoader">
+          <app-chart-card
+            title="{{ 'dashboard.recentOutgoingTransaction' | translate }}"
+            [route]="'transcations/paymentout'"
+          >
+            <div class="chart-body accounts-bank w-full">
+              @for(acc of recentOutgoingTransactionData; track acc) {
+              <div class="row">
+                <div class="code-details">
+                  <div class="code body_b11">{{ acc.code }}</div>
+                  <span class="body-14 mx-1">{{ acc.paymentHubDetails }}</span>
+                </div>
+                <span class="line"></span>
+
+                <span class="body-14 mx-1">{{ acc.name }}</span>
+                <span class="line"></span>
+
+                <span class="body-14 mx-1">{{ acc.paymentOutDate | date : 'dd/MM/yyyy' }}</span>
+                <span class="line"></span>
+
+                <span class="mx-1 heading_b16">{{ acc.amount | numberFormat }}</span>
+              </div>
+              }
+
+              <div class="grid"></div>
+            </div>
+          </app-chart-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</lib-page-content>

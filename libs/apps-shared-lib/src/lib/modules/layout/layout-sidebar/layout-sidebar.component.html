@@ -70,12 +70,23 @@
               </div>
               <ul class="sub-menu">
                 <li *ngFor="let subSubItem of subItem.subMenu">
-                  <a [href]="subSubItem.link" class="body_b18">{{ subSubItem.name }}</a>
+                  <a 
+                  href="javascript:void(0)" 
+                  [attr.hasHelpPage]="subItem.hasHelpPage"
+                  [attr.link]="subItem.link"
+                  [attr.servicePage]="subItem.serviceId"
+                  (click)="navigateWithFragment($event)"
+                   class="body_b18">{{ subSubItem.name }}</a>
                 </li>
               </ul>
             </ng-container>
             <ng-container *ngIf="!subItem.subMenu?.length">
-              <a [href]="subItem.link">{{ subItem.name }}</a>
+              <!-- <a [href]="subItem.link">{{ subItem.name }}</a> -->
+              <a  href="javascript:void(0)" 
+              [attr.hasHelpPage]="subItem.hasHelpPage"
+              [attr.link]="subItem.link"
+              [attr.servicePage]="subItem.serviceId"
+              (click)="navigateWithFragment($event)" >{{ subItem.name }}</a>
             </ng-container>
           </li>
         </ul>
@@ -87,7 +98,12 @@
         </a>
         <ul class="sub-menu blank">
           <li>
-            <a class="link_name body_b18" [href]="menuItem.link">{{ menuItem.name }}</a>
+            <a class="link_name body_b18" 
+            [href]="menuItem.link" 
+            [attr.hasHelpPage]="menuItem.subItem?.hasHelpPage"
+            [attr.link]="menuItem.link"
+            [attr.servicePage]="menuItem.subItem?.serviceId"
+            >{{ menuItem.name }}</a>
           </li>
         </ul>
       </li>

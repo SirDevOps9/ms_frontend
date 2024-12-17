@@ -20,12 +20,7 @@ import { AsideMenuComponent } from './components/aside/aside-menu/aside-menu.com
 import { TopbarComponent } from './components/topbar/topbar.component';
 import { PageTitleComponent } from './components/header/page-title/page-title.component';
 import { HeaderMenuComponent } from './components/header/header-menu/header-menu.component';
-import {
-  DrawersModule,
-  DropdownMenusModule,
-  ModalsModule,
-  EngagesModule,
-} from '../partials';
+import { DrawersModule, DropdownMenusModule, ModalsModule, EngagesModule } from '../partials';
 import { EngagesComponent } from '../partials/layout/engages/engages.component';
 import { ThemeModeModule } from '../partials/layout/theme-mode-switcher/theme-mode.module';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
@@ -43,6 +38,7 @@ import { Routing } from '../../pages/routing';
 import { HttpClient } from '@angular/common/http';
 import { MultiTranslateHttpLoader } from 'shared-lib';
 import { MicrotecAuthLibModule } from 'microtec-auth-lib';
+import { NgxTranslateModule } from '../../ngx-translate.module';
 
 const routes: Routes = [
   {
@@ -80,19 +76,19 @@ const routes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: (http: HttpClient) =>
-          new MultiTranslateHttpLoader(http, {
-            resources: [
-              { prefix: './assets/langs/auth/', suffix: '.json' },
-              { prefix: './assets/langs/bussiness-owners/', suffix: '.json' },
-            ],
-          }),
-        deps: [HttpClient],
-      },
-    }),
+    // TranslateModule.forRoot({
+    //   loader: {
+    //     provide: TranslateLoader,
+    //     useFactory: (http: HttpClient) =>
+    //       new MultiTranslateHttpLoader(http, {
+    //         resources: [
+    //           { prefix: './assets/langs/auth/', suffix: '.json' },
+    //           { prefix: './assets/langs/bussiness-owners/', suffix: '.json' },
+    //         ],
+    //       }),
+    //     deps: [HttpClient],
+    //   },
+    // }),
     InlineSVGModule,
     NgbDropdownModule,
     NgbProgressbarModule,
@@ -102,10 +98,11 @@ const routes: Routes = [
     EngagesModule,
     DropdownMenusModule,
     NgbTooltipModule,
-    TranslateModule,
-    ThemeModeModule
+    // TranslateModule,
+    ThemeModeModule,
+    NgxTranslateModule,
   ],
   providers: [DialogService],
-  exports: [RouterModule],
+  exports: [RouterModule, NgxTranslateModule],
 })
 export class LayoutModule {}

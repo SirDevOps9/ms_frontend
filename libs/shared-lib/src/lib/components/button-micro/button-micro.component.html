@@ -11,7 +11,8 @@
     nameClass === 'table_button_delete' ? ('delete' | translate) : 
     nameClass === 'table_button_statement' ? ('statement' | translate) : 
     nameClass === 'table_button_download' ? ('download' | translate) : 
-    nameClass === 'sequence' ? ('sequence' | translate) :title
+    nameClass === 'table_button_copy' ? ('clone' | translate) : 
+    nameClass === 'sequence' ? ('sequenceTitle' | translate) :title
   "
 >
   <span class="icon {{ iconName }}" *ngIf="iconName"></span>

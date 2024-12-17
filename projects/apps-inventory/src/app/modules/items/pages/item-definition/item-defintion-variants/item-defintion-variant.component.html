@@ -1,0 +1,66 @@
+  <div class="cardVariant">
+    <div class="user_page">
+      <lib-data-table
+        [items]="tableData"
+        className="p-datatable-gridlines"
+        [currentPageResult]="currentPageInfo"
+        (pageChange)="onPageChange($event)"
+        [tableConfigs]="{
+          allowPagination: false,
+          allowServerPagination: true,
+          dataKey: 'id',
+          pageSize: 10,
+          columns: [
+            {
+              name: 'variantCode',
+              headerText: ('variants.variantID' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: currentLang ==='en'? 'variantEnName' : 'variantArName' ,
+              headerText: ('variants.variantName' | translate),
+              isGlobalFilter: true,
+              isSortable: true,
+           
+            },
+
+
+          ]
+        }"
+      >
+
+        <ng-container search>
+          <lib-form-group>
+
+          </lib-form-group>
+          </ng-container>
+        <ng-container action>
+
+          <div>
+            <!-- <lib-export
+            (exportClick)="exportClick($event)"
+            [exportData]="exportData"
+            [exportColumns]="exportColumns"
+            [ExportName]="'Item Definition'"
+          >
+          </lib-export> -->
+          </div>
+
+          <div>
+
+          </div>
+          </ng-container>
+
+          <ng-template #variantName let-variantName>
+            <div class="actions flex align-items-end justify-content-start gap-6">
+
+              <p>{{variantName.variantEnName}}</p>
+              <p>{{variantName.variantArName}}</p>
+
+            </div>
+          </ng-template>
+
+      </lib-data-table>
+    </div>
+  </div>

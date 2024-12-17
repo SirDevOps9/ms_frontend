@@ -1,0 +1,84 @@
+<lib-page-content>
+    <div class="card_micro">
+        <div class="grid">
+            <div class="md:col-3 ">
+                <p class="headsCont heading_b16">{{ 'pricePolicy.code' | translate }}</p>
+                <p class="subHead paragraph_b16 pragraph_demd">
+                    {{ item.code }}
+                </p>
+            </div>
+            <div class="md:col-3 ">
+                <p class="headsCont heading_b16">{{ 'pricePolicy.name' | translate }}</p>
+                <p class="subHead paragraph_b16 pragraph_demd">
+                    {{ item.name }}
+                </p>
+            </div>
+            <div class="md:col-3 " *ngIf="item.isDefault">
+                <p class="headsCont heading_b16">{{ 'pricePolicy.default' | translate }}</p>
+                <lib-input-switch
+                [disabled]="true" 
+                [ngModel]="item.isDefault"               >
+               </lib-input-switch>
+            </div>
+        </div>
+    </div>
+
+    <lib-data-table [items]="item.policyItemsList" className="p-datatable-gridlines" [tableConfigs]="{
+           allowPagination: true,
+          allowServerPagination: false,
+          dataKey: 'id',
+          pageSize: 10,
+              columns: [
+                 
+                 {
+                   name: 'itemCode',
+                   headerText: ('pricePolicy.code' | translate ),
+                   isGlobalFilter: true,
+                   isSortable: true
+                 },
+                 {
+                   name: 'itemName',
+                   headerText: ('pricePolicy.name' | translate),
+                   isGlobalFilter: true,
+                   isSortable: true
+                 },
+                 {
+                    name: selectedLanguage === sharedLib.CulturesEnum.English  ? 'uomNameEn' : 'uomNameAr',
+                    headerText: ('pricePolicy.UOM' | translate),
+                 },
+                 {
+                  name: selectedLanguage === sharedLib.CulturesEnum.English  ? 'itemVariantNameEn' : 'itemVariantNameAr',
+                  headerText: ('pricePolicy.varient' | translate),
+                 },
+                 {
+                   name: 'price',
+                   headerText: ('pricePolicy.price' | translate),
+                 },
+                 {
+                   name: 'isVatApplied',
+                   headerText: ('pricePolicy.VAT' | translate),
+                   template : VatApplied
+
+                },
+                 {
+                   name: 'priceWithVat',
+                   headerText: ('pricePolicy.priceVAT' | translate),
+                 },
+                
+               ]
+            }">
+
+
+        <ng-template #VatApplied let-VatApplied>
+          
+            <lib-input-switch [disabled]="true" 
+            [(ngModel)]="VatApplied.isVatApplied"
+            
+            >
+            </lib-input-switch>
+        </ng-template>
+
+    </lib-data-table>
+
+
+</lib-page-content>

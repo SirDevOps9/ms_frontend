@@ -182,14 +182,17 @@
             "assets": [
               "projects/adminportal/src/favicon.ico",
               "projects/adminportal/src/assets",
-              "projects/adminportal/src/web.config"
+              "projects/adminportal/src/web.config",
+              { "glob": "**/*", "input": "projects/adminportal/src/assets", "output": "assets" }
             ],
             "styles": [
               "projects/adminportal/src/styles.css",
               "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeicons/primeicons.css",
-              "node_modules/ngx-toastr/toastr.css"
+              "node_modules/ngx-toastr/toastr.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+              "node_modules/font-awesome/css/font-awesome.css"
             ],
             "scripts": []
           },
@@ -1377,14 +1380,13 @@
             "outputPath": { "base": "dist/apps-inventory", "browser": "" },
             "index": "projects/apps-inventory/src/index.html",
             "browser": "projects/apps-inventory/src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": ["zone.js"],
             "tsConfig": "projects/apps-inventory/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
               "projects/apps-inventory/src/favicon.ico",
               "projects/apps-inventory/src/assets",
+              "projects/apps-inventory/src/web.config",
               {
                 "glob": "**/*",
                 "input": "libs/apps-shared-lib/src/assets",
@@ -1421,7 +1423,7 @@
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true,
+              "sourceMap": false,
               "fileReplacements": [
                 {
                   "replace": "projects/apps-inventory/src/environments/environment.ts",
@@ -1432,11 +1434,32 @@
             "stage": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true,
+              "sourceMap": false,
               "fileReplacements": [
                 {
                   "replace": "projects/apps-inventory/src/environments/environment.ts",
                   "with": "projects/apps-inventory/src/environments/environment.stage.ts"
+                }
+              ]
+            },
+            "cloud": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "50mb",
+                  "maximumError": "50mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "50mb",
+                  "maximumError": "50mb"
+                }
+              ],
+              "outputHashing": "all",
+              "fileReplacements": [
+                {
+                  "replace": "projects/apps-inventory/src/environments/environment.ts",
+                  "with": "projects/apps-inventory/src/environments/environment.cloud.ts"
                 }
               ]
             }
@@ -1471,10 +1494,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "projects/apps-inventory/tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": [

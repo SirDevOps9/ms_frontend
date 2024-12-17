@@ -2,7 +2,7 @@ import { IEnvironment } from 'shared-lib';
 
 export const environment: IEnvironment = {
   production: false,
-  baseUrl: 'http://localhost:2005',
+  baseUrl: 'http://localhost:5001/erp-apis',
   Version: 'V1',
   ClientId: 'Apps-Sales',
   Platform: 'Web',
@@ -16,11 +16,11 @@ export const environment: IEnvironment = {
     state: window.location.origin + '/sales/',
   },
   AttachmentServiceConfig: {
-    AttachmentServiceUrl: 'http://localhost:2030',
+    AttachmentServiceUrl: 'http://localhost:5001/attachments-apis',
     ClientId: 'Apps-Sales',
     SecretKey: 'secretkey',
   },
   ApiKey: '3bb564df-0f24-4ea6-82c1-d99f368cac8a',
-  BusinessOwnerUrl: 'http://localhost:2003',
+  BusinessOwnerUrl: 'http://localhost:5001/business-owners-apis',
   state: window.location.origin + '/sales/',
 };

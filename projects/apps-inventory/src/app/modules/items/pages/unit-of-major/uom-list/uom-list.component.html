@@ -5,7 +5,9 @@
         [items]="tableData"
         className="p-datatable-gridlines"
         [currentPageResult]="currentPageInfo"
+        (exportObj)="exportClickBySort($event)"
         (pageChange)="onPageChange($event)"
+        (columnsFiltered)="onFilterColumn($event)"
         [tableConfigs]="{
           allowPagination: false,
           allowServerPagination: true,
@@ -42,7 +44,7 @@
               isGlobalFilter: true,
               isSortable: true
             },
-           
+
 
             {
               name: 'id',
@@ -65,21 +67,21 @@
                   ></lib-text-input>
                 </lib-form-group>
               </div>
-             
-            
+
+
 
               <div class=" flex flex-auto justify-content-end align-items-center gap-2">
-              
+
                 <!--  -->
                 <div>
                   <lib-export
-                    (exportClick)="exportClick($event)"
-                    [exportData]="exportData"
-                    [exportColumns]="exportColumns"
-                    [ExportName]="'Unit Of Measure'"
-                
-                  >
-                  </lib-export>
+                  (exportClick)="exportClick()"
+                  [exportData]="exportData"
+                  [exportColumns]="exportColumns"
+                  [ExportName]="('UOM.uomListPrint' |translate)"
+
+                >
+                </lib-export>
                 </div>
                 <!--  -->
                 <div>
@@ -98,10 +100,13 @@
 
         <ng-template #actions let-action>
           <div class="actions flex align-items-center">
+            <lib-button-micro nameClass="table_button_view" (click)="onView(action)">
+            </lib-button-micro>
             <lib-button-micro nameClass="table_button_edit" (click)="onEdit(action)">
             </lib-button-micro>
-            <lib-button-micro nameClass="table_button_delete" (click)="onDelete(action.uomCategoryId)">
+            <lib-button-micro nameClass="table_button_delete" (click)="onDelete(action.id)">
             </lib-button-micro>
+
           </div>
         </ng-template>
       </lib-data-table>

@@ -30,7 +30,7 @@ export class EditAttributeDefinitionComponent implements OnInit {
     private title: Title
   ) {
     this.title.setTitle(
-      this.languageService.transalte('attributeDefinition.addattributeDefinition')
+      this.languageService.transalte('attributeDefinition.EditAttributeDefinition')
     );
   }
   ngOnInit(): void {

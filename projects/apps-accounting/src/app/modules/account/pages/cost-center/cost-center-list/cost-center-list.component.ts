@@ -17,6 +17,8 @@ import {
   costCenterList,
 } from '../../../models';
 import { Title } from '@angular/platform-browser';
+import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
+import { SortTableEXport } from 'projects/apps-inventory/src/app/modules/items/models/SortTable';
 
 @Component({
   selector: 'app-cost-center-list',
@@ -30,6 +32,15 @@ export class CostCenterListComponent implements OnInit {
   searchTerm: string;
   exportColumns: lookupDto[];
   exportData: costCenterList[];
+  SortByAll:SortTableEXport
+  filteredColumns: string[] = [];
+  columns: { name: any; headerText: any }[] = [
+    { name: 'code', headerText: 'TaxGroup.Code' },
+      { name: 'name', headerText: 'TaxGroup.Name' },
+      { name: 'parentCostCenter', headerText: 'TaxGroup.parent' },
+      { name: 'type', headerText: 'TaxGroup.type' },
+      { name: 'status', headerText: 'TaxGroup.status' },
+  ]
   constructor(
     private routerService: RouterService,
     private accountService: AccountService,
@@ -38,6 +49,7 @@ export class CostCenterListComponent implements OnInit {
     public sharedCostEnums: SharedCostEnums,
     private dialog: DialogService,
     private title: Title,
+    private exportService:ExportService,
     private langService: LanguageService
   ) {
     this.title.setTitle(this.langService.transalte('costCenter.CostCenterList'));
@@ -72,7 +84,7 @@ export class CostCenterListComponent implements OnInit {
   onSearchChange(e: any) {
     this.accountService.getAllCostCenter(e.target.value, new PageInfo());
   }
-  
+
   async confirmChange(event: any, user: any) {
     const confirmed = await this.toaserService.showConfirm('ConfirmButtonTexttochangestatus');
     if (confirmed) {
@@ -85,11 +97,27 @@ export class CostCenterListComponent implements OnInit {
       user.isActive = !user.isActive;
     }
   }
+  exportClick() {
+    this.exportCostCentersData(this.searchTerm, this.SortByAll?.SortBy, this.SortByAll?.SortColumn);
+  }
 
-  exportCostCentersData(searchTerm: string) {
-    this.accountService.exportCostCentersData(searchTerm);
+  exportCostCentersData(searchTerm: string, sortBy?: number, sortColumn?: string) {
+    this.accountService.exportCostCentersData(searchTerm , sortBy , sortColumn);
+    const filteredColumns = this.columns.filter(col => this.filteredColumns.includes(col.name));
     this.accountService.exportsCostCentersDataSourceObservable.subscribe((res) => {
-      this.exportData = res;
+      this.exportData = this.exportService.formatCiloma(res, filteredColumns);
     });
   }
+  exportClickBySort(e: { SortBy: number; SortColumn: string }) {
+    this.SortByAll = {
+      SortBy: e.SortBy,
+      SortColumn: e.SortColumn,
+    };
+  }
+
+  onFilterColumn(e: string[]) {
+    this.filteredColumns = e;
+
+  }
+
 }

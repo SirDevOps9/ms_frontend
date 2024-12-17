@@ -13,15 +13,17 @@
 <div class="upload-container" (click)="fileInput.click()"  *ngIf="!value && !file" >
   <div  class="upload-icon">
     <i class="pi pi-cloud-upload"></i>
-    <p>Click to upload</p>
+    <p>{{'global.clickToUpload' | translate}}</p>
     +
-  </div> 
- 
+  </div>
+
 </div>
 <div class="upload_file" (change)="onFileSelected($event)" *ngIf="file" (click)="fileInput.click()">
+
+  <div>{{fileName}}</div>
   <div  class="upload-icon">
   </div>
- 
+
 </div>
 
 
@@ -47,7 +49,7 @@
   *ngIf="value && !config.viewThumbnail"
 >
   <div class="steps-form__attachments__item__updated">
-    <p class="attach-name">الملف المرفق</p>
+    <p class="attach-name"> {{'global.uploadFile' | translate}}</p>
     <a
       class="attach-delete"
       href="javascript:void(0)"
@@ -93,13 +95,13 @@
 >
   <!-- <div id="photo" style="background-image: url('{{ photoSrc }}');"></div> -->
   <div class="card photo" >
-   
+
     <div class="card-image">
       <div class="flex justify-content-center">
-        <img class="image-rounded"   
+        <img class="image-rounded"
         *ngIf="base64" [src]="base64" alt="" />
       </div>
-  
+
       <div class="bottom-center">
     </div>
     <div class="card-content" *ngIf="showImgName">
@@ -112,7 +114,7 @@
       (click)="deleteAttachment()"
     >
     <i class="pi pi-times-circle    "></i>
-  
+
   </a>
     </div>
 </div>

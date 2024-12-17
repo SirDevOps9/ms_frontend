@@ -17,6 +17,9 @@ import { DeferLoadModule } from '@trademe/ng-defer-load';
 import { ToastrModule } from 'ngx-toastr';
 import { MessageService } from 'primeng/api';
 import { DynamicDialogRef, DialogService } from 'primeng/dynamicdialog';
+import { PrimeSharedModule } from 'libs/shared-lib/src/lib/prime-module/prime.module';
+import { LayoutModule } from './_metronic/layout';
+import { HelpPagesModule } from './modules/HelpPages/help-pages.module';
 
 // @NgModule({
 //   declarations: [AppComponent, LayoutComponent],
@@ -60,35 +63,26 @@ import { DynamicDialogRef, DialogService } from 'primeng/dynamicdialog';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    TranslateModule.forRoot(),
     HttpClientModule,
     ClipboardModule,
     // #fake-start#
     // #fake-end#
     AppRoutingModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: (http: HttpClient) =>
-          new MultiTranslateHttpLoader(http, {
-            resources: [
-              { prefix: './assets/langs/auth/', suffix: '.json' },
-              { prefix: './assets/langs/bussiness-owners/', suffix: '.json' },
-            ],
-          }),
-        deps: [HttpClient],
-      },
-    }),
+    TranslateModule.forRoot(),
     InlineSVGModule.forRoot(),
     NgbModule,
     DeferLoadModule,
+    HelpPagesModule,
+
     ToastrModule.forRoot({
       timeOut: 3000,
     }),
     MicrotecAuthLibModule,
     SharedLibModule,
+    PrimeSharedModule,
     BrowserAnimationsModule,
     CookieModule.withOptions(),
+    LayoutModule
   ],
   providers: [
     DynamicDialogRef,

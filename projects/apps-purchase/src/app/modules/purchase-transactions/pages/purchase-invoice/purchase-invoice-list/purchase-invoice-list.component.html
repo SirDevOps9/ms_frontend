@@ -1,0 +1,167 @@
+<lib-page-content
+  [title]="'purchase.purchase' | translate"
+  [subTitle]="'purchase.purchase' | translate"
+>
+  <div>
+    <div class="user_page">
+      <lib-data-table
+        (addNew)="onAdd()"
+        [items]="tableData"
+        className="p-datatable-gridlines"
+        [currentPageResult]="currentPageInfo"
+        (exportObj)="exportClickBySort($event)"
+        [sequence]="true"
+        (pageChange)="onPageChange($event)"
+        [tableConfigs]="{
+          allowPagination: false,
+          allowServerPagination: true,
+          dataKey: 'id',
+          pageSize: 10,
+          columns: [
+            {
+              name: 'code',
+              headerText: ('purchase.invoiceCode' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'invoiceDate',
+              headerText: ('purchase.invoiceDate' | translate),
+              template: date
+            },
+            {
+              name: 'vendorCode',
+              headerText: ('purchase.vendorCode' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'vendorName',
+              headerText: ('purchase.vendorName' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'currencyName',
+              headerText: ('purchase.currencyName' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'currencyRate',
+              headerText: ('purchase.currencyRate' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'reference',
+              headerText: ('purchase.reference' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'paymentTermName',
+              headerText: ('purchase.paymentTerms' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'warehouseName',
+              headerText: ('purchase.warehouse' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'invoiceJournalCode',
+              headerText: ('purchase.invoiceJournal' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'stockInCode',
+              headerText: ('purchase.stockIn' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'totalNetAmount',
+              headerText: ('purchase.totalAmount' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'totalDiscount',
+              headerText: ('purchase.discountAmount' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'totalAfterDiscount',
+              headerText: ('purchase.totalAfterDiscount' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'vatAmount',
+              headerText: ('purchase.vatAmount' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'totalAfterVatAmount',
+              headerText: ('purchase.totalAfterVat' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'id',
+              headerText: ('purchase.actions' | translate),
+              template: actions
+            }
+          ]
+        }"
+      >
+        <ng-container search>
+          <lib-text-input
+            type="text"
+            [placeholder]="'purchase.search' | translate"
+            [(ngModel)]="searchTerm"
+            (keyUp)="onSearchChange()"
+          ></lib-text-input>
+        </ng-container>
+        <ng-container action>
+          <lib-export
+            (exportClick)="exportClick()"
+            [exportData]="exportData"
+            [exportColumns]="exportColumns"
+            [ExportName]="'purchase invoice'"
+          >
+          </lib-export>
+          <lib-button-micro
+            [title]="'purchase.Add' | translate"
+            nameClass="save"
+            iconName="pi pi-plus"
+            (click)="onAdd()"
+          >
+          </lib-button-micro>
+        </ng-container>
+        <ng-template #date let-date>
+          <p>
+            <span class="pi pi-calendar"></span>
+            {{ date.invoiceDate | date : 'dd/MM/yyyy' }}
+          </p>
+        </ng-template>
+        <ng-template #actions let-action>
+          <div class="actions flex align-items-center">
+            <lib-button-micro nameClass="table_button_view" (click)="onView(action.id)">
+            </lib-button-micro>
+            <lib-button-micro nameClass="table_button_edit" (click)="onEdit(action.id)">
+            </lib-button-micro>
+            <lib-button-micro nameClass="table_button_delete" (click)="onDelete(action.id)">
+            </lib-button-micro>
+          </div>
+        </ng-template>
+      </lib-data-table>
+    </div>
+  </div>
+</lib-page-content>

@@ -18,6 +18,9 @@ import { EditItemDefinitionComponent } from '../../../components/edit-item-defin
 import { ViewItemDefinitionComponent } from '../../../components/view-item-definition/view-item-definition/view-item-definition.component';
 import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
 import { TranslateService } from '@ngx-translate/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { HelpPageService } from 'libs/apps-shared-lib/src/lib/pages/help-page/help-page.service';
+import { SortTableEXport } from '../../../models/SortTable';
 
 @Component({
   selector: 'app-item-definition-list',
@@ -32,40 +35,37 @@ export class ItemDefinitionListComponent implements OnInit {
     private title: Title,
     private translate: TranslateService,
     private itemsService: ItemsService,
-    private exportService:ExportService
+    private exportService: ExportService,
+    private helpPageService: HelpPageService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   tableData: itemDefinitionDto[];
+  SortByAll:SortTableEXport
+  exportData: any[];
+  filteredColumns: string[] = [];
+  columns: { name: any; headerText: any }[] = [
+    { name: 'code', headerText :('itemDefinition.code') },
+    { name: 'name', headerText :('itemDefinition.name') },
+    { name: 'typeName', headerText :('itemDefinition.type') },
+    { name: 'itemCategoryName', headerText :('itemDefinition.category') },
+    { name: 'uomName', headerText :('itemDefinition.uom') },
 
-  exportData: itemDefinitionDto[];
-  cols = [
-    {
-      field: 'Code',
-      header: 'code',
-    },
-
-    {
-      field: 'Name',
-      header: 'name',
-    },
-    {
-      field: 'Short Name',
-      header: 'shortName',
-    },
-  ];
-  exportColumns: lookupDto[];
+  ]
+  exportColumns: any[];
   exportSelectedCols: string[] = [];
 
   currentPageInfo: PageInfoResult = {};
   modulelist: MenuModule[];
   searchTerm: string;
-
+  hasHelpPage: Boolean = false;
+  servicePage: number;
   ngOnInit() {
     this.initItemDefinitionData();
-    this.exportColumns = this.cols.map((col) => ({
-      id: col.header,
-      name: col.field,
-    }));
+    const state = history.state;
+    this.hasHelpPage = JSON.parse(state?.hashelppage || 'false');
+    this.servicePage = state.servicePage;
   }
 
   initItemDefinitionData() {
@@ -81,33 +81,41 @@ export class ItemDefinitionListComponent implements OnInit {
       this.currentPageInfo = currentPageInfo;
     });
   }
+  navigateHelpPageComponent() {
+    window.open(
+      this.router.serializeUrl(
+        this.router.createUrlTree(['/erp/home-help-page/help-page', this.servicePage])
+      ),
+      '_blank'
+    );
+  }
 
   onPageChange(pageInfo: PageInfo) {
     this.itemsService.getItemDefinition('', pageInfo);
   }
 
-  exportClick(e?: Event) {
-    this.exportBankData(this.searchTerm);
+  exportClick() {
+    this.exportBankData(this.searchTerm, this.SortByAll?.SortBy, this.SortByAll?.SortColumn);
   }
-
-  exportBankData(searchTerm: string) {
-    this.itemsService.exportsItemsDefinitionList(searchTerm);
-    const columns = [
-      { name: 'code', headerText: this.translate.instant('itemDefinition.code') },
-      { name: 'name', headerText: this.translate.instant('itemDefinition.name') },
-      { name: 'typeName', headerText: this.translate.instant('itemDefinition.type') },
-      { name: 'itemCategoryName', headerText: this.translate.instant('itemDefinition.category') },
-      { name: 'uomName', headerText: this.translate.instant('itemDefinition.uom') },
-      { name: 'isActive', headerText: this.translate.instant('itemDefinition.isActive') },
-
-    ];
-    this.itemsService.exportedItemDefinitionListDataSource.subscribe((res) => {
-      this.exportData = this.exportService.formatCiloma(res, columns);
-
+  exportBankData(searchTerm: string, sortBy?: number, sortColumn?: string) {
+    this.itemsService.exportsItemsDefinitionList(searchTerm, sortBy, sortColumn);
+    const filteredColumns = this.columns.filter(col => this.filteredColumns.includes(col.name));
+    this.itemsService.exportedItemDefinitionListDataSourceObs.subscribe((res) => {
+      this.exportData = this.exportService.formatCiloma(res, filteredColumns);
     });
   }
 
+  exportClickBySort(e: { SortBy: number; SortColumn: string }) {
+    this.SortByAll = {
+      SortBy: e.SortBy,
+      SortColumn: e.SortColumn,
+    };
+  }
 
+  onFilterColumn(e: string[]) {
+    this.filteredColumns = e;
+
+  }
 
   onAdd() {
     const dialogRef = this.dialog.open(AddItemDefinitionPopupComponent, {
@@ -118,8 +126,6 @@ export class ItemDefinitionListComponent implements OnInit {
     dialogRef.onClose.subscribe(() => {
       this.initItemDefinitionData();
     });
-
-
   }
 
   onEdit(data: any) {

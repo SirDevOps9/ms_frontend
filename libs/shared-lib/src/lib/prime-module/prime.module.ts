@@ -28,11 +28,10 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
-
+import { DividerModule } from 'primeng/divider';
 @NgModule({
-  providers: [DialogService , MessageService],
-  declarations: [
-  ],
+  providers: [DialogService, MessageService],
+  declarations: [],
   imports: [
     TableModule,
     ButtonModule,
@@ -46,6 +45,7 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
     MultiSelectModule,
     ToggleButtonModule,
     AccordionModule,
+    DividerModule,
     DynamicDialogModule,
     PasswordModule,
     CheckboxModule,
@@ -59,7 +59,7 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
     InputGroupAddonModule,
     InputGroupModule,
     SplitButtonModule,
-    OverlayPanelModule
+    OverlayPanelModule,
   ],
   exports: [
     TableModule,
@@ -74,10 +74,11 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
     MultiSelectModule,
     ToggleButtonModule,
     AccordionModule,
+    DividerModule,
     DynamicDialogModule,
     PasswordModule,
     CheckboxModule,
-    PaginatorModule, 
+    PaginatorModule,
     RatingModule,
     CalendarModule,
     FieldsetModule,
@@ -89,8 +90,8 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
     MenuModule,
     InputGroupModule,
     OverlayPanelModule,
-    
-    SplitButtonModule
+
+    SplitButtonModule,
   ],
 })
 export class PrimeSharedModule {}

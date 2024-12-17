@@ -14,14 +14,21 @@ export const ERPRoutes = [
     children: [
       {
         path: '',
-        component: LandingPageComponent,
-        data: {
-          moduleId: Modules.Sales,
-        },
+        loadChildren: () =>
+          import('./modules/dashboard/dashboard.module').then((m) => m.DashboardModule),
+      },
+      {
+        path: 'reports',
+        loadChildren: () => import('./modules/reports/reports.module').then((m) => m.ReportsModule),
       },
       {
         path: 'masterdata',
         loadChildren: () => import('./modules/sales/sales.module').then((m) => m.SalesModule),
+      },
+      {
+        path: 'transactions',
+        loadChildren: () =>
+          import('./modules/transaction/transaction.module').then((m) => m.TransactionModule),
       },
     ],
   },

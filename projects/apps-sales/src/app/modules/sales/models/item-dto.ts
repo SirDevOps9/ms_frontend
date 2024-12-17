@@ -9,7 +9,8 @@ export interface ItemDto {
   uomNameEn: string;
   itemVariantId: number;
   itemVariantCode: string;
-  itemVariantName: string;
+  itemVariantNameAr: string;
+  itemVariantNameEn: string;
   itemCategoryNameAr: string;
   itemCategoryNameEn: string;
   categoryType: string;
@@ -17,5 +18,8 @@ export interface ItemDto {
   categoryId: number;
   taxId: number;
   taxRatio: number;
+  price: number;
+  isVatApplied:boolean;
+  isSellingPriceIncludeVat:boolean;
   itemsUOM:any[]
   }

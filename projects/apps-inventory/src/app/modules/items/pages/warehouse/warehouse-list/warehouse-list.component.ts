@@ -2,73 +2,50 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { AuthService } from 'microtec-auth-lib';
 import { DialogService } from 'primeng/dynamicdialog';
-import { RouterService, LanguageService, lookupDto, PageInfoResult, MenuModule, PageInfo } from 'shared-lib';
-import { AddItemDefinitionPopupComponent } from '../../../components/add-item-definition/add-item-definition-popup.component';
+import { RouterService, LanguageService, PageInfoResult, MenuModule, PageInfo } from 'shared-lib';
 import { ItemsService } from '../../../items.service';
 import { GetWarehouseList, itemDefinitionDto } from '../../../models';
 import { AddWarehousePopupComponent } from '../../../components/warehouse/add-warehouse-popup/add-warehouse-popup.component';
+import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
+import { TranslateService } from '@ngx-translate/core';
+import { SortTableEXport } from '../../../models/SortTable';
 
 @Component({
   selector: 'app-warehouse-list',
   templateUrl: './warehouse-list.component.html',
-  styleUrl: './warehouse-list.component.scss'
+  styleUrl: './warehouse-list.component.scss',
+
 })
 export class WarehouseListComponent implements OnInit {
-pi: string;
-
   constructor(
     private routerService: RouterService,
     public authService: AuthService,
     private dialog: DialogService,
-    private title: Title,
-    private langService: LanguageService,
-    private itemsService : ItemsService
+    private itemsService : ItemsService,
+    private exportService:ExportService,
+    private translate: TranslateService,
   ) {
-
   }
-
+  exportColumns: any[];
   tableData: GetWarehouseList[];
-
   exportData: GetWarehouseList[];
-  cols = [
-
-    {
-      field: 'Code',
-      header: 'code',
-    },
-
-    {
-      field: 'Name',
-      header: 'name',
-    },
-    {
-      field: 'Short Name',
-      header: 'shortName',
-    },
-    {
-      field: 'Item Category Name',
-      header: 'itemCategoryName',
-    },
-    {
-      field: 'UOM Name',
-      header: 'uomName',
-    },
-
-  ];
-  exportColumns: lookupDto[];
   exportSelectedCols: string[] = [];
-
   currentPageInfo: PageInfoResult = {};
   modulelist: MenuModule[];
   searchTerm: string;
   SortBy?: number;
   SortColumn?: string;
+  SortByAll:SortTableEXport
+  filteredColumns: string[] = [];
+  columns: { name: any; headerText: any }[] = [
+    { name: 'code', headerText:('warehouse.code') },
+    { name: 'name', headerText:('warehouse.name') },
+    { name: 'warehouseType', headerText:('warehouse.warehouseType') },
+    { name: 'createdOn', headerText:('warehouse.createdOn') }
+
+  ]
   ngOnInit() {
     this.initItemDefinitionData();
-    this.exportColumns = this.cols.map((col) => ({
-      id: col.header,
-      name: col.field,
-    }));
   }
 
   initItemDefinitionData() {
@@ -87,42 +64,32 @@ pi: string;
 
   onPageChange(pageInfo: PageInfo) {
     this.itemsService.getWarehouseList('', pageInfo);
-
-
   }
 
-  // exportClick(e?: Event) {
-  //   console.log(e)
-  //   this.exportWarehouseData(this.searchTerm);
-  // }
-
-
-  // exportClick(){
-  //   this.itemsService.exportsWayehouseList(this.searchTerm ,this.SortBy,this.SortColumn);
-  //   this.itemsService.exportedWarehouseDataSourceObs.subscribe((res) => {
-  //     this.exportData = res;
-  //   });
-  // }
-
-  // exportWarehouseData(searchTerm: string) {
-  //   this.itemsService.exportsWayehouseList(this.searchTerm ,this.SortBy,this.SortColumn);
-  //   this.itemsService.exportedWarehouseDataSourceObs.subscribe((res) => {
-  //     this.exportData = res;
-  //   });
-  // }
-  exportedColumns(obj: { SortBy: number; SortColumn: string }) {
-    this.SortBy = obj.SortBy;
-    this.SortColumn = obj.SortColumn;
+  exportClick() {
+    this.exportOperationalData(this.searchTerm, this.SortByAll?.SortBy, this.SortByAll?.SortColumn);
   }
 
-  exportClick(){
-    this.itemsService.exportsWayehouseList(this.searchTerm ,this.SortBy,this.SortColumn);
+  exportOperationalData(searchTerm: string, sortBy?: number, sortColumn?: string) {
+    this.itemsService.exportsWayehouseList(searchTerm, sortBy, sortColumn);
 
+    const filteredColumns = this.columns.filter(col => this.filteredColumns.includes(col.name));
 
     this.itemsService.exportedWarehouseDataSourceObs.subscribe((res) => {
-      this.exportData = res;
+      this.exportData = this.exportService.formatCiloma(res, filteredColumns);
     });
   }
+  exportClickBySort(e: { SortBy: number; SortColumn: string }) {
+    this.SortByAll = {
+      SortBy: e.SortBy,
+      SortColumn: e.SortColumn,
+    };
+  }
+  onFilterColumn(e: string[]) {
+    this.filteredColumns = e;
+
+  }
+
   onAdd() {
       const dialogRef = this.dialog.open(AddWarehousePopupComponent, {
       width: '650px',
@@ -136,9 +103,14 @@ pi: string;
 
   onEdit(data: any) {
     this.routerService.navigateTo(`/masterdata/warehouse/edit-warehouse/${data.id}`)
+  }
 
+  onView(data: any) {
+
+    this.routerService.navigateTo(`/masterdata/warehouse/view-warehouse/${data.id}`)
 
   }
+
 
 
   // onSearchChange() {

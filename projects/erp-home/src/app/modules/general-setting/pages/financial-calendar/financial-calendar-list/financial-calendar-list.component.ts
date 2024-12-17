@@ -7,6 +7,8 @@ import { financialCalendar } from '../../../models';
 import { AuthService } from 'microtec-auth-lib';
 import { AccountService } from 'projects/apps-accounting/src/app/modules/account/account.service';
 import { Title } from '@angular/platform-browser';
+import { ExportService } from 'libs/shared-lib/src/lib/services/export.service';
+import { SortTableEXport } from 'projects/apps-inventory/src/app/modules/items/models/SortTable';
 
 @Component({
   selector: 'app-financial-calendar-list',
@@ -18,16 +20,24 @@ export class FinancialCalendarListComponent implements OnInit {
     public authService: AuthService,
     private generalSettingService: GeneralSettingService,
     private routerService: RouterService,
+    private exportService:ExportService
   ) {}
-
   tableData: financialCalendar[];
-
   currentPageInfo: PageInfoResult = {};
   modulelist: MenuModule[];
   searchTerm: string;
-
+  SortByAll:SortTableEXport
   exportColumns: lookupDto[];
   exportData: financialCalendar[];
+  mappedExportData: financialCalendar[];
+  filteredColumns: string[] = [];
+  columns: { name: any; headerText: any }[] = [
+    { name: 'code', headerText:('financialCalendar.code') },
+    { name: 'name', headerText:('financialCalendar.name') },
+    { name: 'fromDate', headerText:('financialCalendar.fromDate') },
+    { name: 'toDate', headerText:('financialCalendar.toDate') },
+    { name: 'status', headerText:('financialCalendar.status') },
+  ]
 
   ngOnInit() {
     this.initFinancialCalendarData();
@@ -76,17 +86,35 @@ export class FinancialCalendarListComponent implements OnInit {
     });
   }
 
-  exportClick(e?: Event){
-    this.exportcurrencyData(this.searchTerm);
-    
+  exportClick() {
+    this.exportcurrencyData(this.searchTerm, this.SortByAll?.SortBy, this.SortByAll?.SortColumn);
   }
-  exportcurrencyData(searchTerm: string) {
-    this.generalSettingService.exportFinancialCalendarData(searchTerm);
+
+  exportcurrencyData(searchTerm: string, sortBy?: number, sortColumn?: string) {
+    this.generalSettingService.exportFinancialCalendarData(searchTerm , sortBy , sortColumn);
+    const filteredColumns = this.columns.filter(col => this.filteredColumns.includes(col.name));
+
     this.generalSettingService.exportsFinancialCalendarDataSourceObservable.subscribe((res) => {
-      this.exportData = res;
+      this.exportData = this.exportService.formatCiloma(res, filteredColumns);
+      this.mappedExportData = res.map((elem: any) => {
+        const { createdOn, ...args } = elem;
+        return { ...args, codeNumber : elem.code };
+      });
     });
   }
+
+  exportClickBySort(e:{SortBy: number; SortColumn: string}){
+    this.SortByAll={
+     SortBy: e.SortBy,
+     SortColumn:e.SortColumn
+    }
+ }
+ onFilterColumn(e: string[]) {
+  this.filteredColumns = e;
+
+}
+
   onDelete(id: number) {
-    // this.accountService.deleteTax(id);
+    this.generalSettingService.deleteFinancialYear(id);
   }
 }

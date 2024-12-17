@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { DynamicDialogConfig, DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { LanguageService } from 'shared-lib';
 
 
 @Component({
@@ -9,12 +10,16 @@ import { DynamicDialogConfig, DialogService, DynamicDialogRef } from 'primeng/dy
 })
 export class AttributeDefinitionValuesComponent {
   shouldShowNameEn: boolean = false;
+  currentLang:any = ''
   constructor(
     public config: DynamicDialogConfig,
     public dialogService: DialogService,
     private ref: DynamicDialogRef,
-    private cdr: ChangeDetectorRef
-  ) {}
+    private cdr: ChangeDetectorRef,
+    public languageService: LanguageService,
+  ) {
+    this.currentLang = this.languageService.getLang();
+  }
 
   tableData: any[] = [];
 

@@ -1,0 +1,267 @@
+<lib-page-content
+  [title]="'stockIn.TaxList' | translate"
+  [subTitle]="'stockIn.TaxList' | translate"
+>
+  <div [formGroup]="stockInForm" class="stockInForm_header card_micro">
+    <div class="grid">
+      <div class="md:col-2 my-2">
+        <lib-label [appControl]="stockInForm.controls['code']">
+          {{ 'stockIn.code' | translate }}
+        </lib-label>
+        <lib-text-input
+          placeholder="{{ 'stockIn.code' | translate }}"
+          formControlName="code"
+          [readOnly]="true"
+        ></lib-text-input>
+        <lib-field-validations [appControl]="stockInForm.controls['code']"></lib-field-validations>
+      </div>
+      <div [ariaReadOnly]="true" class="md:col-2 my-2">
+        <lib-label [appControl]="stockInForm.controls['receiptDate']">
+          {{ 'stockIn.date' | translate }}
+        </lib-label>
+        <lib-calendar
+          [ngClass]="{ 'readonly-calendar': true }"
+          formControlName="receiptDate"
+        ></lib-calendar>
+        <lib-field-validations
+          [appControl]="stockInForm.controls['receiptDate']"
+        ></lib-field-validations>
+      </div>
+
+      <div class="md:col-2 my-2">
+        <lib-label [appControl]="stockInForm.controls['sourceDocumentType']">
+          {{ 'stockIn.docType' | translate }}
+        </lib-label>
+        <lib-text-input
+          placeholder="{{ 'stockIn.sourceDocumentType' | translate }}"
+          formControlName="sourceDocumentType"
+          [readOnly]="true"
+        ></lib-text-input>
+        <lib-field-validations
+          [appControl]="stockInForm.controls['sourceDocumentType']"
+        ></lib-field-validations>
+      </div>
+
+      <div class="md:col-3 my-2">
+        <lib-label [appControl]="stockInForm.controls['sourceDocumentId']">
+          {{ 'stockIn.sourceDoc' | translate }}
+        </lib-label>
+        <lib-text-input
+          placeholder="{{ 'stockIn.sourceDocumentId' | translate }}"
+          formControlName="sourceDocumentId"
+          [readOnly]="true"
+        ></lib-text-input>
+        <lib-field-validations
+          [appControl]="stockInForm.controls['sourceDocumentId']"
+        ></lib-field-validations>
+      </div>
+
+      <div class="md:col-3 my-2">
+        <lib-label [appControl]="stockInForm.controls['warehouseName']">
+          {{ 'stockIn.warehouse' | translate }}
+        </lib-label>
+
+        <lib-text-input
+          placeholder="{{ 'stockIn.warehouse' | translate }}"
+          formControlName="warehouseName"
+          [readOnly]="true"
+        ></lib-text-input>
+        <lib-field-validations
+          [appControl]="stockInForm.controls['warehouseName']"
+        ></lib-field-validations>
+      </div>
+      <div class="md:col-6 my-2">
+        <div>
+          <lib-label [appControl]="stockInForm.controls['notes']">
+            {{ 'stockIn.notes' | translate }}
+          </lib-label>
+        </div>
+
+        <textarea
+          pInputTextarea
+          style="width: 100%"
+          rows="1"
+          formControlName="notes"
+          placeholder="{{ 'stockIn.notes' | translate }}"
+          [readOnly]="true"
+        ></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="my-2 ">
+
+      <lib-data-table
+        [items]="filteredData"
+        class="mt-2"
+        className="p-datatable-gridlines "
+        [currentPageResult]="currentPageInfo"
+        [sequence]="false"
+        [tableConfigs]="{
+          allowPagination: true,
+          allowServerPagination: false,
+          dataKey: 'id',
+          pageSize: 10,
+          columns: [
+            {
+              name: 'barCode',
+              headerText: ('stockIn.barCode' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+
+            {
+              name: 'description',
+              headerText: ('stockIn.description' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'uomNameEn',
+              headerText: ('stockIn.uomNameEn' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'uomNameAr',
+              headerText: ('stockIn.uomNameAr' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'quantity',
+              headerText: ('stockIn.quantity' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'cost',
+              headerText: ('stockIn.cost' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'subCost',
+              headerText: ('stockIn.subCost' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'notes',
+              headerText: ('stockIn.notes' | translate),
+              isGlobalFilter: true,
+              isSortable: true
+            },
+            {
+              name: 'trackingType',
+              headerText: ('stockIn.trackingType' | translate),
+              isGlobalFilter: true,
+              isSortable: true,
+              template: tracking
+            }
+          ]
+        }"
+      >
+        <ng-container search>
+          <lib-text-input
+            class="mt-1"
+            type="text"
+            [placeholder]="'stockIn.search' | translate"
+            (input)="onSearchTermChange($event)"
+          ></lib-text-input>
+        </ng-container>
+        <ng-container action> </ng-container>
+        <ng-template #date let-date>
+          <p>
+            <span class="pi pi-calendar"></span>
+            {{ date.invoiceDate | date : 'dd/MM/yyyy' }}
+          </p>
+        </ng-template>
+        <ng-template #tracking let-tracking>
+          <!-- notracking  and has  -->
+          <p
+            *ngIf="
+              tracking.hasExpiryDate &&
+              tracking.trackingType == this.sharedFinanceEnums.trackingType.NoTracking
+            "
+          >
+            {{
+              tracking.stockInTracking.systemPatchNo +
+                ' - ' +
+                (tracking.stockInTracking.expireDate | date : 'dd/MM/yyyy')
+            }}
+          </p>
+          <!-- notracking  and no has  -->
+          <p
+            *ngIf="
+              !tracking.hasExpiryDate &&
+              tracking.trackingType == this.sharedFinanceEnums.trackingType.NoTracking
+            "
+          >
+            {{ 'No Tracking' }}
+          </p>
+          <!-- serial and has  -->
+          <p
+            *ngIf="
+              tracking.hasExpiryDate &&
+              tracking.trackingType == this.sharedFinanceEnums.trackingType.Serial
+            "
+          >
+            {{
+              tracking.stockInTracking.serialId +
+                ' - ' +
+                (tracking.stockInTracking.expireDate | date : 'dd/MM/yyyy')
+            }}
+          </p>
+          <!-- serial and no has -->
+          <p
+            *ngIf="
+              !tracking.hasExpiryDate &&
+              tracking.trackingType == this.sharedFinanceEnums.trackingType.Serial
+            "
+          >
+            {{ tracking.stockInTracking.serialId }}
+          </p>
+          <!-- batch and  has -->
+          <p
+            *ngIf="
+              tracking.hasExpiryDate &&
+              tracking.trackingType == this.sharedFinanceEnums.trackingType.Batch
+            "
+          >
+            {{
+              tracking.stockInTracking.vendorBatchNo +
+                ' - ' +
+                (tracking.stockInTracking.expireDate | date : 'dd/MM/yyyy')
+            }}
+          </p>
+          <!-- batch and no  has -->
+          <p
+            *ngIf="
+              !tracking.hasExpiryDate &&
+              tracking.trackingType == this.sharedFinanceEnums.trackingType.Batch
+            "
+          >
+            {{ tracking.stockInTracking.vendorBatchNo }}
+          </p>
+        </ng-template>
+      </lib-data-table>
+
+  </div>
+
+  <div class="grid">
+    <div class="md:col-12 my-3 grid flex justify-content-end">
+      <div class="md:col-6 grid flex justify-content-end">
+        <div class="md:col-3">
+          <lib-button-micro
+            title="{{ 'cancel' | translate }}"
+            nameClass="cancel"
+            widthNumber="100%"
+            (click)="onCancel()"
+          >
+          </lib-button-micro>
+        </div>
+      </div>
+    </div>
+  </div>
+</lib-page-content>

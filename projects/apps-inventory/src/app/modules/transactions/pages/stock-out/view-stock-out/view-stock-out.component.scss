@@ -1,0 +1,122 @@
+:host {
+  overflow-x: hidden;
+}
+
+.divCont {
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  padding: 15px;
+  font-weight: bold;
+  width: 180px;
+  background-color: #F7F7FA;
+  color: #2E2E2E;
+
+
+}
+
+.floated {
+  position: relative;
+  top: -20px;
+  height: 1px;
+  left: 37px;
+}
+
+::ng-deep .tableCont {
+  .p-datatable.p-datatable-gridlines:has(.p-datatable-thead):has(.p-datatable-tbody) .p-datatable-tbody>tr>td {
+    border-width: 0 0 1px 1px;
+    min-width: 225px;
+  }
+}
+
+.card_information {
+  position: relative;
+  padding: 5px 0;
+
+  .line {
+    position: absolute;
+    top: 25px;
+    width: 120%;
+    height: 10px;
+    background: #F7F7FA;
+    z-index: 1;
+    margin-inline-start: -17px;
+  }
+
+  .item {
+    position: relative;
+    z-index: 10;
+
+    .title {
+      border-radius: 8px;
+      margin-inline-start: 20px;
+      width: fit-content;
+      padding: 10px 20px;
+      background: #F7F7FA;
+      color: #2E2E2E;
+    }
+
+    .item_body {
+      padding-inline-start: 34px;
+    }
+  }
+}
+
+.foot {
+  padding: 0px 32px !important;
+}
+
+::ng-deep {
+  .page_content {
+    padding-block-start: 23px;
+    padding-block-end: 23px;
+    padding-inline-start: 32px;
+    padding-inline-end: 32px;
+    height: 100% !important;
+    background-color: #f7f7fa;
+    overflow-x: hidden;
+  }
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+::ng-deep {
+  .p-inputtext {
+    border: 1px solid #e3e3e3;
+    padding-block: 11px;
+    outline: none !important;
+    box-shadow: none !important;
+    width: 100%;
+  }
+}
+
+.search-circle,
+.pointer {
+  cursor: pointer;
+}
+
+.track {
+  font-weight: bold;
+}
+
+.hide {
+  display: none
+}
+
+.danger {
+  color: rgb(237, 42, 42);
+  text-align: center;
+  font-weight: bold;
+}
+
+.no-tracking {
+  background-color: #F2F4F8;
+}
+
+.readonly-calendar {
+  pointer-events: none;
+  background-color: #f0f0f0;
+  color: #aaa;
+  cursor: not-allowed;
+}

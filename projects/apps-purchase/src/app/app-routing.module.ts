@@ -15,15 +15,24 @@ export const ERPRoutes = [
     children: [
       {
         path: '',
-        component: LandingPageComponent,
-        data: {
-          moduleId: Modules.Purchase,
-        },
+        loadChildren: () =>
+          import('./modules/dashboard/dashboard.module').then((m) => m.DashboardModule),
       },
       {
         path: 'masterdata',
         loadChildren: () =>
           import('./modules/purchase/purchase.module').then((m) => m.PurchaseModule),
+      },
+      {
+        path: 'transactions',
+        loadChildren: () =>
+          import('./modules/purchase-transactions/purchase-transactions.module').then(
+            (m) => m.PurchaseTransactionsModule
+          ),
+      },
+      {
+        path: 'reports',
+        loadChildren: () => import('./modules/report/report.module').then((m) => m.ReportModule),
       },
     ],
   },

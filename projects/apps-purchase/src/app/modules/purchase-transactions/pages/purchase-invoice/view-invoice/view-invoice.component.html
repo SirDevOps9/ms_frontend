@@ -1,0 +1,561 @@
+<lib-page-content
+  [title]="'purchase.TaxList' | translate"
+  [subTitle]="'purchase.TaxList' | translate"
+>
+  <ng-container [formGroup]="purchaseInvoiceForm">
+    <div class="card_micro">
+      <div class="grid p-0">
+        <div class="md:col-4 mt-2">
+          <div class="card_information">
+            <div class="line"></div>
+            <div class="item">
+              <div class="title heading_b18">
+                <p class="p-0 m-0">{{ 'purchase.mainInformation' | translate }}</p>
+              </div>
+              <div class="item_body">
+                <div class="grid my-3">
+                  <!-- invoice code -->
+                  <div class="md:col-6">
+                    <lib-label [appControl]="purchaseInvoiceForm.controls['code']">
+                      {{ 'purchase.code' | translate }}
+                    </lib-label>
+                    <lib-text-input
+                      placeholder="{{ 'purchase.code' | translate }}"
+                      formControlName="code"
+                      [readOnly]="true"
+                    ></lib-text-input>
+                    <lib-field-validations
+                      [appControl]="purchaseInvoiceForm.controls['code']"
+                    ></lib-field-validations>
+                  </div>
+
+                  <!-- invoice date -->
+                  <div class="md:col-6">
+                    <lib-label [appControl]="purchaseInvoiceForm.controls['invoiceDate']">
+                      {{ 'purchase.date' | translate }}
+                    </lib-label>
+                    <lib-calendar
+                      [ngClass]="{ 'readonly-calendar': true }"
+                      placeholder="{{ 'purchase.date' | translate }}"
+                      formControlName="invoiceDate"
+                    ></lib-calendar>
+                    <lib-field-validations
+                      [appControl]="purchaseInvoiceForm.controls['invoiceDate']"
+                    >
+                    </lib-field-validations>
+                  </div>
+                  <!-- description -->
+                  <div class="md:col-12">
+                    <div>
+                      <lib-label [appControl]="purchaseInvoiceForm.controls['description']">
+                        {{ 'purchase.description' | translate }}
+                      </lib-label>
+                    </div>
+                    <textarea
+                      pInputTextarea
+                      style="width: 100%"
+                      rows="1"
+                      formControlName="description"
+                      placeholder="{{ 'purchase.description' | translate }}"
+                      [readOnly]="true"
+                    ></textarea>
+                  </div>
+                  <!-- warehouseName -->
+                  <div class="md:col-12">
+                    <lib-label [appControl]="purchaseInvoiceForm.controls['warehouseName']">
+                      {{ 'purchase.warehouse' | translate }}
+                    </lib-label>
+                    <lib-text-input
+                      placeholder="{{ 'purchase.warehouseName' | translate }}"
+                      formControlName="warehouseName"
+                      [readOnly]="true"
+                    ></lib-text-input>
+                    <lib-field-validations
+                      [appControl]="purchaseInvoiceForm.controls['warehouseName']"
+                    ></lib-field-validations>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="md:col-8 mt-2">
+          <div class="card_information">
+            <div class="line"></div>
+            <div class="item">
+              <div class="title heading_b18">
+                <p class="p-0 m-0">{{ 'purchase.vendorInformation' | translate }}</p>
+              </div>
+              <div class="item_body">
+                <div class="grid my-3">
+                  <!-- vendor code -->
+                  <div class="md:col-6">
+                    <lib-label [appControl]="purchaseInvoiceForm.controls['vendorId']">
+                      {{ 'purchase.vendorCode' | translate }}
+                    </lib-label>
+                    <div class="grid align-items-center">
+                      <div class="md:col-10">
+                        <lib-text-input
+                          placeholder="{{ 'purchase.vendorCode' | translate }}"
+                          formControlName="vendorId"
+                          [readOnly]="true"
+                        ></lib-text-input>
+                        <lib-field-validations
+                          [appControl]="purchaseInvoiceForm.controls['vendorId']"
+                        ></lib-field-validations>
+                      </div>
+                      <div class="md:col-1"></div>
+                    </div>
+                  </div>
+                  <!-- vendorName -->
+                  <div class="md:col-6">
+                    <lib-label [appControl]="purchaseInvoiceForm.controls['vendorName']">
+                      {{ 'purchase.vendorName' | translate }}
+                    </lib-label>
+                    <lib-text-input
+                      placeholder="{{ 'purchase.name' | translate }}"
+                      formControlName="vendorName"
+                      [readOnly]="true"
+                    ></lib-text-input>
+                    <lib-field-validations
+                      [appControl]="purchaseInvoiceForm.controls['vendorName']"
+                    ></lib-field-validations>
+                  </div>
+                  <!-- currency -->
+                  <div class="md:col-6">
+                    <lib-label [appControl]="purchaseInvoiceForm.controls['currency']">
+                      {{ 'purchase.currency' | translate }}
+                    </lib-label>
+                    <lib-text-input
+                      placeholder="{{ 'purchase.currency' | translate }}"
+                      formControlName="currency"
+                      [readOnly]="true"
+                    ></lib-text-input>
+                    <lib-field-validations
+                      [appControl]="purchaseInvoiceForm.controls['currency']"
+                    ></lib-field-validations>
+                  </div>
+                  <!-- currency rate -->
+                  <div class="md:col-6">
+                    <lib-label [appControl]="purchaseInvoiceForm.controls['currencyRate']">
+                      {{ 'purchase.currencyRate' | translate }}
+                    </lib-label>
+                    <lib-text-input
+                      placeholder="{{ 'purchase.currencyRate' | translate }}"
+                      formControlName="currencyRate"
+                      [readOnly]="true"
+                    ></lib-text-input>
+                    <lib-field-validations
+                      [appControl]="purchaseInvoiceForm.controls['currencyRate']"
+                    ></lib-field-validations>
+                  </div>
+                  <!-- paymentTermName -->
+                  <div class="md:col-6">
+                    <lib-label [appControl]="purchaseInvoiceForm.controls['paymentTermName']">
+                      {{ 'purchase.paymentTerms' | translate }}
+                    </lib-label>
+                    <lib-text-input
+                      placeholder="{{ 'purchase.paymentTerms' | translate }}"
+                      formControlName="paymentTermName"
+                      [readOnly]="true"
+                    ></lib-text-input>
+                    <lib-field-validations
+                      [appControl]="purchaseInvoiceForm.controls['paymentTermName']"
+                    ></lib-field-validations>
+                  </div>
+                  <!-- reference -->
+                  <div class="md:col-6">
+                    <lib-label [appControl]="purchaseInvoiceForm.controls['reference']">
+                      {{ 'purchase.reference' | translate }}
+                    </lib-label>
+                    <lib-text-input
+                      placeholder="{{ 'purchase.reference' | translate }}"
+                      formControlName="reference"
+                      [readOnly]="true"
+                    ></lib-text-input>
+                    <lib-field-validations
+                      [appControl]="purchaseInvoiceForm.controls['reference']"
+                    ></lib-field-validations>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="md:col-12 mt-2">
+          <div class="card_information">
+            <div class="line"></div>
+            <div class="item">
+              <div class="title heading_b18">
+                <p class="p-0 m-0">{{ 'purchase.relatedOperation' | translate }}</p>
+              </div>
+              <div class="item_body">
+                <div class="grid my-3">
+                  <!-- invoice code -->
+                  <div class="col-6">
+                    <div class="grid">
+                      <div class="md:col-12">
+                        <lib-label [appControl]="purchaseInvoiceForm.controls['invoiceJournal']">
+                          {{ 'purchase.invoiceJournal' | translate }}
+                        </lib-label>
+                        <lib-text-input
+                          placeholder="{{ 'purchase.invoiceJournal' | translate }}"
+                          formControlName="invoiceJournal"
+                          [readOnly]="true"
+                        ></lib-text-input>
+                        <lib-field-validations
+                          [appControl]="purchaseInvoiceForm.controls['invoiceJournal']"
+                        ></lib-field-validations>
+                      </div>
+
+                      <!-- stockIn -->
+                      <div class="md:col-12">
+                        <lib-label [appControl]="purchaseInvoiceForm.controls['stockIn']">
+                          {{ 'purchase.stockIn' | translate }}
+                        </lib-label>
+                        <lib-text-input
+                          placeholder="{{ 'purchase.stockIn' | translate }}"
+                          formControlName="stockIn"
+                          [readOnly]="true"
+                        ></lib-text-input>
+                        <lib-field-validations
+                          [appControl]="purchaseInvoiceForm.controls['stockIn']"
+                        ></lib-field-validations>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="floated">
+      <div class="divCont">
+        <p class="p-0 m-0">{{ 'purchase.invoiceLines' | translate }}</p>
+      </div>
+    </div>
+
+    <div class="my-2 card_micro tableCont p-6">
+      <div class="user_page">
+        <lib-data-table
+          [items]="filteredData"
+          class="mt-2"
+          className="p-datatable-gridlines "
+          [currentPageResult]="currentPageInfo"
+          [sequence]="false"
+          [tableConfigs]="{
+            allowPagination: true,
+            allowServerPagination: false,
+            dataKey: 'id',
+            pageSize: 10,
+            columns: [
+              {
+                name: 'barCode',
+                headerText: ('purchase.barCode' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'itemCode',
+                headerText: ('purchase.itemCode' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'description',
+                headerText: ('purchase.description' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'uomName',
+                headerText: ('purchase.uomName' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'quantity',
+                headerText: ('purchase.quantity' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'cost',
+                headerText: ('purchase.cost' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'subCost',
+                headerText: ('purchase.subCost' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'discountPercentage',
+                headerText: ('purchase.discountPercentage' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'discountAmount',
+                headerText: ('purchase.discountAmount' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'netAmount',
+                headerText: ('purchase.netAmount' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'totalAfterDiscount',
+                headerText: ('purchase.totalAfterDiscount' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'vatPercentage',
+                headerText: ('purchase.vatPercentage' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'vatAmount',
+                headerText: ('purchase.vatAmount' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'grandTotal',
+                headerText: ('purchase.grandTotal' | translate),
+                isGlobalFilter: true,
+                isSortable: true
+              },
+              {
+                name: 'trackingType',
+                headerText: ('purchase.trackingType' | translate),
+                isGlobalFilter: true,
+                isSortable: true,
+                template: tracking
+              }
+            ]
+          }"
+        >
+          <ng-container search>
+            <lib-text-input
+              class="mt-1"
+              type="text"
+              [placeholder]="'purchase.search' | translate"
+              (input)="onSearchTermChange($event)"
+            ></lib-text-input>
+          </ng-container>
+          <ng-container action> </ng-container>
+          <ng-template #date let-date>
+            <p>
+              <span class="pi pi-calendar"></span>
+              {{ date.invoiceDate | date : 'dd/MM/yyyy' }}
+            </p>
+          </ng-template>
+          <ng-template #tracking let-tracking>
+            <!-- notracking  and has  -->
+            <p
+              *ngIf="
+                tracking.hasExpiryDate &&
+                tracking.trackingType == this.sharedFinanceEnums.trackingType.NoTracking
+              "
+            >
+              {{ ('purchase.systembatch' | translate) + '-' }}
+
+              {{
+                tracking.invoiceTracking.systemPatchNo +
+                  ' - ' +
+                  (tracking.invoiceTracking.expireDate | date : 'dd/MM/yyyy')
+              }}
+            </p>
+            <!-- notracking  and no has  -->
+            <p
+              *ngIf="
+                !tracking.hasExpiryDate &&
+                tracking.trackingType == this.sharedFinanceEnums.trackingType.NoTracking
+              "
+            >
+              {{ 'purchase.NoTracking' | translate }}
+            </p>
+            <!-- serial and has  -->
+            <p
+              *ngIf="
+                tracking.hasExpiryDate &&
+                tracking.trackingType == this.sharedFinanceEnums.trackingType.Serial
+              "
+            >
+              {{ ('purchase.Serial' | translate) + '-' }}
+
+              {{
+                tracking.invoiceTracking.serialId +
+                  ' - ' +
+                  (tracking.invoiceTracking.expireDate | date : 'dd/MM/yyyy')
+              }}
+            </p>
+            <!-- serial and no has -->
+            <p
+              *ngIf="
+                !tracking.hasExpiryDate &&
+                tracking.trackingType == this.sharedFinanceEnums.trackingType.Serial
+              "
+            >
+              {{ ('purchase.Serial' | translate) + '-' }}
+
+              {{ tracking.invoiceTracking.serialId }}
+            </p>
+            <!-- batch and  has -->
+            <p
+              *ngIf="
+                tracking.hasExpiryDate &&
+                tracking.trackingType == this.sharedFinanceEnums.trackingType.Batch
+              "
+            >
+              {{ ('purchase.Batch' | translate) + '-' }}
+
+              {{
+                tracking.invoiceTracking.vendorBatchNo +
+                  ' - ' +
+                  (tracking.invoiceTracking.expireDate | date : 'dd/MM/yyyy')
+              }}
+            </p>
+            <!-- batch and no  has -->
+            <p
+              *ngIf="
+                !tracking.hasExpiryDate &&
+                tracking.trackingType == this.sharedFinanceEnums.trackingType.Batch
+              "
+            >
+              {{ ('purchase.Batch' | translate) + '-' }}
+
+              {{ tracking.invoiceTracking.vendorBatchNo }}
+            </p>
+          </ng-template>
+        </lib-data-table>
+      </div>
+    </div>
+    <div class="floated">
+      <div class="divCont">
+        <p class="p-0 m-0">{{ 'purchase.invoiceSummary' | translate }}</p>
+      </div>
+    </div>
+    <div class="card_micro">
+      <div class="grid my-3 foot">
+        <div class="col-6">
+          <div class="grid">
+            <!-- numberOfItems -->
+            <div class="md:col-4">
+              <lib-label [appControl]="purchaseInvoiceForm.controls['numberOfItems']">
+                {{ 'purchase.numberOfItems' | translate }}
+              </lib-label>
+              <lib-text-input
+                placeholder="{{ 'purchase.totalQuantity' | translate }}"
+                formControlName="numberOfItems"
+                [readOnly]="true"
+              ></lib-text-input>
+              <lib-field-validations
+                [appControl]="purchaseInvoiceForm.controls['numberOfItems']"
+              ></lib-field-validations>
+            </div>
+            <!-- total -->
+            <div class="md:col-4">
+              <lib-label [appControl]="purchaseInvoiceForm.controls['totalNetAmount']">
+                {{ 'purchase.totalNetAmount' | translate }}
+              </lib-label>
+              <lib-text-input
+                placeholder="{{ 'purchase.totalNetAmount' | translate }}"
+                formControlName="totalNetAmount"
+                [readOnly]="true"
+              ></lib-text-input>
+            </div>
+            <!-- totalAfterDiscount -->
+            <div class="md:col-4">
+              <lib-label [appControl]="purchaseInvoiceForm.controls['totalAfterDiscount']">
+                {{ 'purchase.totalAfterDiscount' | translate }}
+              </lib-label>
+              <lib-text-input
+                placeholder="{{ 'purchase.totalAfterDiscount' | translate }}"
+                formControlName="totalAfterDiscount"
+                [readOnly]="true"
+              ></lib-text-input>
+            </div>
+            <!-- totalOfQuantity -->
+            <div class="md:col-4">
+              <lib-label [appControl]="purchaseInvoiceForm.controls['totalQuantity']">
+                {{ 'purchase.totalQuantity' | translate }}
+              </lib-label>
+              <lib-text-input
+                placeholder="{{ 'purchase.totalQuantity' | translate }}"
+                formControlName="totalQuantity"
+                [readOnly]="true"
+              ></lib-text-input>
+              <lib-field-validations
+                [appControl]="purchaseInvoiceForm.controls['totalQuantity']"
+              ></lib-field-validations>
+            </div>
+            <!-- discount -->
+            <div class="md:col-4">
+              <lib-label [appControl]="purchaseInvoiceForm.controls['discount']">
+                {{ 'purchase.discount' | translate }}
+              </lib-label>
+              <lib-text-input
+                placeholder="{{ 'purchase.discount' | translate }}"
+                formControlName="discount"
+                [readOnly]="true"
+              ></lib-text-input>
+              <lib-field-validations
+                [appControl]="purchaseInvoiceForm.controls['discount']"
+              ></lib-field-validations>
+            </div>
+            <!-- vatAmountTotal -->
+            <div class="md:col-2">
+              <lib-label [appControl]="purchaseInvoiceForm.controls['vatAmountTotal']">
+                {{ 'purchase.vatAmountTotal' | translate }}
+              </lib-label>
+              <lib-text-input
+                placeholder="{{ 'purchase.vatAmountTotal' | translate }}"
+                formControlName="vatAmountTotal"
+                [readOnly]="true"
+              ></lib-text-input>
+            </div>
+            <!-- totalAfterVat -->
+            <div class="md:col-2">
+              <lib-label [appControl]="purchaseInvoiceForm.controls['totalAfterVat']">
+                {{ 'purchase.totalAfterVat' | translate }}
+              </lib-label>
+              <lib-text-input
+                placeholder="{{ 'purchase.totalAfterVat' | translate }}"
+                formControlName="totalAfterVat"
+                [readOnly]="true"
+              ></lib-text-input>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <div class="grid">
+        <div class="md:col-12 my-3 grid flex justify-content-end p-0 m-0">
+          <div class="md:col-6 grid flex justify-content-end p-0 m-0">
+            <div class="md:col-3">
+              <lib-button-micro
+                title="{{ 'purchase.cancel' | translate }}"
+                nameClass="cancel"
+                widthNumber="100%"
+                (click)="onCancel()"
+              >
+              </lib-button-micro>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</lib-page-content>

@@ -1,27 +1,35 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LandingPageComponent, LayoutPageComponent } from 'apps-shared-lib';
-import { Modules, SharedLibModule } from 'shared-lib';
+import { AuthGuard } from 'microtec-auth-lib';
+import { Modules } from 'shared-lib';
 
 const routes: Routes = [
   {
     path: '',
     component: LayoutPageComponent,
+    canActivate: [AuthGuard],
     data: {
       moduleId: Modules.inventory,
     },
     children: [
       {
         path: '',
-        component: LandingPageComponent,
-        data: {
-          moduleId: Modules.inventory,
-        },
+        loadChildren: () =>
+          import('./modules/dashboard/dashboard.module').then((m) => m.DashboardModule),
       },
       {
         path: 'masterdata',
+        loadChildren: () => import('./modules/items/items.module').then((m) => m.ItemsModule),
+      },
+      {
+        path: 'transactions',
         loadChildren: () =>
-          import('./modules/items/items.module').then((m) => m.ItemsModule),
+          import('./modules/transactions/transactions.module').then((m) => m.TransactionsModule),
+      },
+      {
+        path: 'reports',
+        loadChildren: () => import('./modules/reports/reports.module').then((m) => m.ReportsModule),
       },
     ],
   },
@@ -29,6 +37,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

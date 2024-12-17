@@ -1,5 +1,20 @@
 import { FilterDto, HttpService, PageInfo, PaginationVm } from 'shared-lib';
-import { AddJournalEntryCommandOpeningBalance, GetGlOpeningBalanceById, GetOpenFinancialPeriodDate, JournalEntryDto, JournalEntryStatus, JournalEntryViewDto, TrialBalance, costLookup, reportAccount, reportCostAllData, reportCostCenter } from './models';
+import {
+  AddJournalEntryCommandOpeningBalance,
+  GetGlOpeningBalanceById,
+  GetOpenFinancialPeriodDate,
+  JournalEntryDto,
+  JournalEntryFilterDto,
+  JournalEntryStatus,
+  JournalEntryViewDto,
+  LookupDto,
+  LookupReturn,
+  TrialBalance,
+  costLookup,
+  reportAccount,
+  reportCostAllData,
+  reportCostCenter,
+} from './models';
 import { Observable } from 'rxjs';
 import { AddJournalEntryCommand } from './models/addJournalEntryCommand';
 import { EditJournalEntry, GetJournalEntryByIdDto } from './models';
@@ -18,21 +33,43 @@ export class JournalEntryProxy {
       `JournalEntry`
     );
   }
-  getAllPaginated(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<JournalEntryDto>> {
+  getAllPaginated(
+    searchTerm: string,
+    pageInfo: PageInfo,
+    filter?: JournalEntryFilterDto
+  ): Observable<PaginationVm<JournalEntryDto>> {
     let query = `JournalEntry?${pageInfo.toQuery}`;
     if (searchTerm) {
       query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
     }
-  
+
+    if (filter) {
+      Object.keys(filter).forEach((key) => {
+        const value = filter[key];
+        if (value) {
+          if (Array.isArray(value)) {
+            value.forEach((item) => {
+              query += `&${key}=${encodeURIComponent(item)}`;
+            });
+          } else {
+            query += `&${key}=${encodeURIComponent(value)}`;
+          }
+        }
+      });
+    }
+
     return this.httpService.get<PaginationVm<JournalEntryDto>>(query);
   }
-  getAllJournalEntriesPaginatedOpeningBalance(searchTerm: string, pageInfo: PageInfo): Observable<PaginationVm<JournalEntryDto>> {
+
+  getAllJournalEntriesPaginatedOpeningBalance(
+    searchTerm: string,
+    pageInfo: PageInfo
+  ): Observable<PaginationVm<JournalEntryDto>> {
     let query = `OpeningBalanceJournalEntry?${pageInfo.toQuery}`;
     if (searchTerm) {
       query += `&SearchTerm=${encodeURIComponent(searchTerm)}`;
     }
-  
-   
+
     return this.httpService.get<PaginationVm<JournalEntryDto>>(query);
   }
 
@@ -43,23 +80,27 @@ export class JournalEntryProxy {
     return this.httpService.post('OpeningBalanceJournalEntry', command);
   }
 
-
   exportGLOpeningBalance(
-    searchTerm: string | undefined
+    searchTerm?: string,
+    SortBy?: number,
+    SortColumn?: string
   ): Observable<JournalEntryDto[]> {
     let query = `OpeningBalanceJournalEntry/Export?`;
-    if (searchTerm) {
-      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
-    }
-     return this.httpService.get<JournalEntryDto[]>(query);
+    const params: string[] = [];
+    if (searchTerm) params.push(`searchTerm=${encodeURIComponent(searchTerm)}`);
+    if (SortBy) params.push(`SortBy=${SortBy}`);
+    if (SortColumn) params.push(`SortColumn=${SortColumn}`);
+    query += params.join('&');
+    return this.httpService.get<JournalEntryDto[]>(query);
   }
-  
 
   getById(id: number): Observable<GetJournalEntryByIdDto> {
     return this.httpService.get<GetJournalEntryByIdDto>(`JournalEntry/GetById?Id=${id}`);
   }
   getJournalEntryOpeningBalanceById(id: number): Observable<GetGlOpeningBalanceById> {
-    return this.httpService.get<GetGlOpeningBalanceById>(`OpeningBalanceJournalEntry/GetById?Id=${id}`);
+    return this.httpService.get<GetGlOpeningBalanceById>(
+      `OpeningBalanceJournalEntry/GetById?Id=${id}`
+    );
   }
   edit(request: EditJournalEntry): Observable<boolean> {
     return this.httpService.put<boolean>(`JournalEntry/Edit`, request);
@@ -97,34 +138,55 @@ export class JournalEntryProxy {
   getJournalView(id: number): Observable<JournalEntryViewDto> {
     return this.httpService.get<JournalEntryViewDto>(`JournalEntry/View?Id=${id}`);
   }
-  getTrialBalance(trial:TrialBalance){
-    return this.httpService.post<TrialBalance>(`TrialBalance`,trial);
+  getTrialBalance(trial: TrialBalance) {
+    return this.httpService.post<TrialBalance>(`TrialBalance`, trial);
   }
-  getAccountingReports(accounts:reportAccount){
-    return this.httpService.post<reportAccount>(`AccountingReports/AccountStatmentReport`,accounts);
+  getAccountingReports(accounts: reportAccount) {
+    return this.httpService.post<reportAccount>(
+      `AccountingReports/AccountStatmentReport`,
+      accounts
+    );
   }
   getAccountLookup(): Observable<costLookup[]> {
     return this.httpService.get('CostCenter/CostCenterDropDown');
   }
-  
+
   exportJournalEntriesData(
-    searchTerm: string | undefined
+    searchTerm?: string,
+    SortBy?: number,
+    SortColumn?: string
   ): Observable<JournalEntryDto[]> {
     let query = `JournalEntry/Export?`;
-    if (searchTerm) {
-      query += `searchTerm=${encodeURIComponent(searchTerm)}`;
-    }
-     return this.httpService.get<JournalEntryDto[]>(query);
+    const params: string[] = [];
+    if (searchTerm) params.push(`searchTerm=${encodeURIComponent(searchTerm)}`);
+    if (SortBy) params.push(`SortBy=${SortBy}`);
+    if (SortColumn) params.push(`SortColumn=${SortColumn}`);
+    query += params.join('&');
+    return this.httpService.get<JournalEntryDto[]>(query);
   }
-  getCostCenterReports(cost:reportCostAllData){
-    return this.httpService.post<reportAccount>(`CostCenterReports`,cost);
+  getCostCenterReports(cost: reportCostAllData) {
+    return this.httpService.post<reportAccount>(`CostCenterReports`, cost);
   }
 
-  getOpenFinancialPeriodDate(): Observable<GetOpenFinancialPeriodDate>{
-    return this.httpService.get<GetOpenFinancialPeriodDate>(`FinancialYear/GetOpenFinancialPeriodDate`);
+  getOpenFinancialPeriodDate(): Observable<GetOpenFinancialPeriodDate> {
+    return this.httpService.get<GetOpenFinancialPeriodDate>(
+      `FinancialYear/GetOpenFinancialPeriodDate`
+    );
   }
-  getOpenFinancialYearDate(): Observable<GetOpenFinancialPeriodDate>{
-    return this.httpService.get<GetOpenFinancialPeriodDate>(`FinancialYear/GetOpenFinancialYearDate`);
+  getOpenFinancialYearDate(): Observable<GetOpenFinancialPeriodDate> {
+    return this.httpService.get<GetOpenFinancialPeriodDate>(
+      `FinancialYear/GetOpenFinancialYearDate`
+    );
+  }
+
+  getJournalEntryStatusLookup(): Observable<LookupReturn[]> {
+    return this.httpService.get('Lookup?lookups=JournalEntryStatus');
+  }
+  getJournalEntryTypesLookup(): Observable<LookupReturn[]> {
+    return this.httpService.get('Lookup?lookups=JournalEntryType');
+  }
+  getJournalEntrySourceDocumentLookup(): Observable<LookupReturn[]> {
+    return this.httpService.get('Lookup?lookups=SourceDocument');
   }
 
   constructor(private httpService: HttpService) {}

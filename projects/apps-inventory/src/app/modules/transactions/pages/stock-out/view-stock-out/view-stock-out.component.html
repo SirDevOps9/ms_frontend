@@ -1,0 +1,220 @@
+
+
+<lib-page-content [title]="'stockIn.TaxList' | translate" [subTitle]="'stockIn.TaxList' | translate">
+
+  <div [formGroup]="stockOutForm" class="grid my w-100 card_micro stockInForm_header">
+    <div class="grid md:col-12 p-1 m-0">
+      <div class="md:col-2 my-2">
+        <lib-label [appControl]="stockOutForm.controls['code']">
+          {{ 'stockIn.code' | translate }}
+        </lib-label>
+        <lib-text-input
+          placeholder="{{ 'stockIn.code' | translate }}"
+          formControlName="code"
+          [readOnly]="true"
+        ></lib-text-input>
+        <lib-field-validations [appControl]="stockOutForm.controls['code']"></lib-field-validations>
+      </div>
+      <div [ariaReadOnly]="true" class="md:col-2 my-2">
+        <lib-label [appControl]="stockOutForm.controls['receiptDate']">
+          {{ 'stockIn.date' | translate }}
+        </lib-label>
+        <lib-calendar
+          [ngClass]="{ 'readonly-calendar': true }"
+          formControlName="receiptDate"
+        ></lib-calendar>
+        <lib-field-validations
+        [appControl]="stockOutForm.controls['receiptDate']"
+        ></lib-field-validations>
+      </div>
+      <!-- <div class="md:col-2 my-2">
+        <lib-label [appControl]="stockOutForm.controls['receiptDate']">
+          {{ 'stockIn.date' | translate }}
+        </lib-label>
+
+        <div class="input-icon-container">
+          <lib-text-input
+            placeholder="{{ stockOutDataById.receiptDate | date:'d/MM/yyyy' }}"
+
+            [readOnly]="true"
+          />
+          <span class="icon pi pi-calendar"></span>
+        </div>
+
+          <lib-field-validations  [appControl]="stockOutForm.controls['receiptDate']"></lib-field-validations>
+
+      </div> -->
+
+      <div class="md:col-3 my-2">
+        <lib-label [appControl]="stockOutForm.controls['sourceDocumentId']">
+          {{ 'stockIn.sourceDoc' | translate }}
+        </lib-label>
+
+        <lib-text-input
+        placeholder="{{ 'stockIn.sourceDoc' | translate }}"
+        formControlName="sourceDocumentId"
+        [readOnly]="true"
+      ></lib-text-input>
+        <lib-field-validations [appControl]="stockOutForm.controls['sourceDocumentId']"></lib-field-validations>
+      </div>
+
+      <div class="md:col-2 my-2">
+        <lib-label [appControl]="stockOutForm.controls['sourceDocumentType']">
+          {{ 'stockIn.docType' | translate }}
+        </lib-label>
+        <lib-text-input
+        placeholder="{{ 'stockIn.sourceDocumentType' | translate }}"
+        formControlName="sourceDocumentType"
+        [readOnly]="true"
+      ></lib-text-input>
+        <lib-field-validations [appControl]="stockOutForm.controls['sourceDocumentType']"></lib-field-validations>
+      </div>
+      <div class="md:col-3 my-2">
+        <lib-label [appControl]="stockOutForm.controls['warehouseId']">
+          {{ 'stockIn.warehouse' | translate }}
+        </lib-label>
+        <lib-text-input
+        placeholder="{{ 'stockIn.warehouseId' | translate }}"
+        formControlName="warehouseId"
+        [readOnly]="true"
+      ></lib-text-input>
+        <lib-field-validations [appControl]="stockOutForm.controls['warehouseId']"></lib-field-validations>
+      </div>
+      <div class="md:col-6 my-2">
+        <div>
+          <lib-label [appControl]="stockOutForm.controls['notes']">
+            {{ 'stockIn.notes' | translate }}
+          </lib-label>
+        </div>
+
+        <textarea
+          pInputTextarea
+          style="width: 100%"
+          rows="3"
+          cols="5"
+          [readOnly]="true"
+          formControlName="notes"
+          placeholder="{{ 'stockIn.notes' | translate }}"
+        ></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="my-2">
+    <lib-data-table
+    [items]="currentPageData"
+    className="p-datatable-gridlines"
+    [currentPageResult]="currentPageInfo"
+    [tableConfigs]="{
+      allowPagination: true,
+      allowServerPagination: false,
+      dataKey: 'barCode',
+      pageSize: rows,
+      columns: [
+        {
+          name: 'barCode',
+          headerText: ('stockIn.barcode' | translate),
+          isGlobalFilter: true,
+          isSortable: true
+        },
+        {
+          name: 'description',
+          headerText: ('stockIn.itemDescription' | translate),
+          isGlobalFilter: true,
+          isSortable: true
+        },
+        {
+          name: 'uomId',
+          headerText: ('stockIn.UOM' | translate),
+          isSortable: true
+        },
+        {
+          name: 'quantity',
+          headerText: ('stockIn.QTY' | translate),
+          isSortable: true
+        },
+        {
+          name: 'cost',
+          headerText: ('stockIn.cost' | translate),
+          isSortable: true
+        },
+        {
+          name: 'subTotal',
+          headerText: ('stockIn.subTotal' | translate),
+          template: subTotalTemplate
+        },
+        {
+          name: 'trackingType',
+          headerText: ('stockIn.tracking' | translate),
+          template: trackingTemplate
+        },
+        {
+          name: 'notes',
+          headerText: ('stockIn.note' | translate),
+          isSortable: true
+        }
+      ]
+    }"
+  >
+    <!-- Search Field -->
+    <ng-container search>
+      <lib-text-input
+        type="text"
+        [iconUrl]="'pi pi-search'"
+        [placeholder]="'stockIn.search' | translate"
+        (input)="filterTable($event)"
+      ></lib-text-input>
+    </ng-container>
+
+    <!-- SubTotal Template -->
+    <ng-template #subTotalTemplate let-row>
+      {{ row.quantity * row.cost || 0 }}
+    </ng-template>
+
+    <ng-template #trackingTemplate let-row>
+      <ng-container *ngIf="row.trackingType === 'NoTracking'">
+        <ng-container *ngIf="row.hasExpiryDate">
+          <span class="pi pi-calendar"></span> {{ row.expireDate | date: 'yyyy-MM-dd' }}
+        </ng-container>
+        <ng-container *ngIf="!row.hasExpiryDate">
+          {{ row.trackingType }}
+        </ng-container>
+      </ng-container>
+
+      <ng-container *ngIf="row.trackingType === 'Batch'">
+        <ng-container *ngIf="row.hasExpiryDate">
+          {{ row.batchNo }} - <span class="pi pi-calendar"></span> {{ row.expireDate | date: 'yyyy-MM-dd' }}
+        </ng-container>
+        <ng-container *ngIf="!row.hasExpiryDate">
+          {{ row.batchNo }}
+        </ng-container>
+      </ng-container>
+
+
+      <ng-container *ngIf="row.trackingType === 'Serial'">
+        <ng-container *ngIf="row.hasExpiryDate">
+          {{ row.serialId }} - <span class="pi pi-calendar"></span> {{ row.expireDate | date: 'yyyy-MM-dd' }}
+        </ng-container>
+        <ng-container *ngIf="!row.hasExpiryDate">
+          {{ row.serialId }}
+        </ng-container>
+      </ng-container>
+    </ng-template>
+  </lib-data-table>
+
+
+
+  </div>
+
+
+
+
+  <ng-template #actions let-action>
+    <ng-container trackingType >
+
+    </ng-container>
+  </ng-template>
+
+  </lib-page-content>
+
+

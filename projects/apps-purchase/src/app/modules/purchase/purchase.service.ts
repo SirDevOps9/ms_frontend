@@ -100,15 +100,19 @@ export class PurchaseService {
 
   public JournalLinesDropDownData = new BehaviorSubject<JournalLineDropdownDto[]>([]);
   public JournalLinesDropDownDataObservable =this.JournalLinesDropDownData.asObservable();
-  
+
   public VendorDropDownByAccountId = new BehaviorSubject<DropDownDto[]>([]);
   public VendorDropDownByAccountIdObservable =this.VendorDropDownByAccountId.asObservable();
-  
+
   private vendorDeleted = new BehaviorSubject<boolean>(false);
   public vendorDeletedObser = this.vendorDeleted.asObservable();
 
   private VendorOpeningBalanceView = new BehaviorSubject<GetVendorOpeningBalanceViewDto | undefined>(undefined);
   public VendorOpeningBalanceViewObservable = this.VendorOpeningBalanceView.asObservable();
+
+
+
+
 
 
 
@@ -133,6 +137,8 @@ export class PurchaseService {
   addVendorCategory(addvendorCategory: AddVendorCategory) {
     this.purchaseProxy.addvendorCategory(addvendorCategory).subscribe({
       next: (res) => {
+        console.log("Service Res",res);
+        
         this.toasterService.showSuccess(
           this.languageService.transalte('VendorCategory.success'),
           this.languageService.transalte('VendorCategory.successAdd')
@@ -216,15 +222,18 @@ export class PurchaseService {
     this.loaderService.show();
     this.purchaseProxy.addNewVendorDefinition(vendor).subscribe({
       next: (res) => {
+        console.log("Service res",res);
         this.toasterService.showSuccess(
           this.languageService.transalte('VendorDefinition.success'),
           this.languageService.transalte('VendorDefinition.successAdd')
         );
-        this.routerService.navigateTo(`/masterdata/vendor-definitions`);
+       // this.routerService.navigateTo(`/masterdata/vendor-definitions`);
         // this.addVendorCategoryRes.next(res)
         this.loaderService.hide();
       },
       error: (err) => {
+        console.log("Service Error",err);
+        
         this.formsService.setFormValidationErrors(vendorForm, err);
         this.loaderService.hide();
       },
@@ -301,8 +310,8 @@ export class PurchaseService {
       this.tagsDataSource.next(response);
     });
   }
-  exportVendorCategoriesData(searchTerm:string | undefined) {
-    this.purchaseProxy.exportVendorCategoriesData(searchTerm).subscribe({
+  exportVendorCategoriesData(searchTerm?: string ,SortBy?:number,SortColumn?:string) {
+    this.purchaseProxy.exportVendorCategoriesData(searchTerm , SortBy ,SortColumn).subscribe({
       next: (res) => {
          this.exportsVendorCateogiesDataSource.next(res);
       },

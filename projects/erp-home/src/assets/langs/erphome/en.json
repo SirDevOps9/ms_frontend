@@ -1,7 +1,8 @@
 {
   "BreadCrumb": {
     "FinancialCalendar": "Financial Calendar",
-    "AddFinancialCalendar": "Add Financial Calendar",
+    "AddFinancialCalendar": "Add",
+    "AddFinancialCalendarTitle": "Add Financial Calendar",
     "EditFinancialCalendar": "Edit Financial Calendar",
     "CurrencyDefinition": "Currency Definitions",
     "CurrencyConversion": "Currency Conversion",
@@ -323,6 +324,7 @@
     "Deactivate": "Deactivate",
     "code": "Code",
     "success": "Success",
+    "tagPrint":"tag Print",
     "addtag": {
       "title": "Add Tag",
       "name": "Name",
@@ -366,7 +368,8 @@
     "periodStart": "Period Start",
     "periodend": "Period end",
     "periodStatus": "Period Status",
-    "actions": "Actions"
+    "actions": "Actions",
+    "financialCalendarPrint":"Financial Calendar Print"
   },
   "addFinancialCalendar": {
     "success": "Success",
@@ -473,7 +476,8 @@
     "type": "Type",
     "category": "Category",
     "UOM": "UOM",
-    "actions": "Actions"
+    "actions": "Actions",
+    "currencyDefinitionPrint":"Currency Definition Print"
   },
   "addcurrency": {
     "title": "Add Currency",
@@ -490,9 +494,10 @@
     "Title": "Currencies Conversions",
     "AddTitle": "Add Currency Converion",
     "EditTitle": "Edit",
-    "AddNewcurrency": "Create",
+    "AddNewcurrency": "Add",
     "Editcurrency": "Edit ",
     "search": "Search",
+    "currencyConversionPrint":"Currency Conversion Print",
     "addNew": "Create",
     "save": "Save",
     "cancel": "Cancel",
@@ -566,6 +571,7 @@
     "TaxGrouplist": "Tax Group list",
     "AddNew": "Create",
     "Search": "Search",
+    "TaxGroupPrint":"Tax Group Print",
     "Actions": "Actions",
     "CannotDeleteTaxGroupUsedInTransactions": "Cannot Delete TaxGroup Used in Transactions",
     "Add": {
@@ -592,14 +598,15 @@
     "EditTax": "Edit",
     "Success": "Success",
     "TaxName": "Tax Name",
-    "AddTaxDefinition": "Create",
-    "EditTaxDefinition": "Update",
+    "AddTaxDefinition": "Add",
+    "EditTaxDefinition": "Edit",
     "TaxCode": "Tax Code",
     "Ratio": "Ratio",
     "GlAccount": "GL Account",
     "TaxGroup": "Tax Group",
     "TaxGroupId": "Tax Group ID",
     "Save": "Save",
+    "TaxDefinitionPrint":"Tax Definition Print",
     "Discard": "Cancel",
     "TaxList": "Tax List",
     "Id": "ID",

@@ -74,9 +74,8 @@
                   formControlName="glAccountId"
                   [options]="AccountsDropDownLookup"
                   optionLabel="name"
-                  optionValue="accountCode"
+                  optionValue="id"
                   [selectedValue]="formGroup.controls['glAccountId'].value"
-
                 >
                 </lib-select>
               </lib-form-group>
@@ -94,7 +93,7 @@
           <div class="md:col-6">
             <lib-button-micro
               nameClass="cancel"
-              title="{{ 'OperationalTag.Cancel' | translate }}"
+              title="{{ 'OperationalTag.cancel' | translate }}"
               (click)="discard()"
             >
             </lib-button-micro>

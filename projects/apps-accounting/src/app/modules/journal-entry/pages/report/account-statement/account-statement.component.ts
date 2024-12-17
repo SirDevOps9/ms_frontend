@@ -17,6 +17,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { GeneralService } from 'libs/shared-lib/src/lib/services/general.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { MultiSelectDetailedAccountsComponent } from '../../../components/multi-select-detailed-accounts/multi-select-detailed-accounts.component';
+import { ReportsService } from 'projects/apps-finance/src/app/modules/reports/reports.service';
+import { DateOftheYear } from 'projects/apps-finance/src/app/modules/reports/models/Report-YearDate';
 
 @Component({
   selector: 'app-account-statement',
@@ -36,18 +38,20 @@ export class AccountStatementComponent {
     private accountService: AccountService,
     private router: ActivatedRoute,
     private languageService: LanguageService,
+    private reportsService: ReportsService,
+
     private journalEntryService: JournalEntryService,
     private ToasterService: ToasterService,
     private PrintService: PrintService,
     public generalService: GeneralService,
-    private route:Router,
+    private route: Router,
     private dialog: DialogService
-
   ) {}
 
   ngOnInit() {
-
     this.initializeForm();
+    this.initReportYearDate();
+
     this.getAccounts();
     this.initializeDates();
 
@@ -74,6 +78,20 @@ export class AccountStatementComponent {
       }
     });
   }
+  initReportYearDate() {
+    this.reportsService.GetReportYearByDate();
+    this.reportsService.ReportYearByDate$.subscribe({
+      next: (res: DateOftheYear) => {
+        if (res) {
+          this.reportAccountForm.patchValue({
+            dateFrom: new Date(res.fromDate),
+            dateTo: new Date(res.toDate),
+          });
+        }
+      },
+    });
+  }
+
   initializeForm() {
     this.reportAccountForm = this.fb.group({
       dateFrom: new FormControl('', [customValidators.required]),
@@ -86,7 +104,8 @@ export class AccountStatementComponent {
   getAccountingReports() {
     if (this.reportAccountForm.valid) {
       if (
-        this.reportAccountForm.get('dateFrom')?.value < this.reportAccountForm.get('dateTo')?.value
+        new Date(this.reportAccountForm.get('dateFrom')?.value) <
+        new Date(this.reportAccountForm.get('dateTo')?.value)
       ) {
         if (
           this.reportAccountForm.get('posted')?.value != true &&
@@ -163,25 +182,25 @@ export class AccountStatementComponent {
     this.PrintService.print(id);
   }
 
-  routeTo(id:number){
-    const test =location.href.split("/")
-        console.log(test[3]);
+  routeTo(id: number) {
+    const test = location.href.split('/');
+    console.log(test[3]);
     const url = this.route.serializeUrl(
       this.route.createUrlTree([`${test[3]}/transcations/journalentry/view/${id}`])
     );
     window.open(url, '_blank');
-      }
+  }
 
-      openDialog() {
-        const ref = this.dialog.open(MultiSelectDetailedAccountsComponent, {
-          width: '900px',
-          height: '600px',
-        });
-        ref.onClose.subscribe((selectedAccounts: AccountsChildrenDropDown[]) => {    
-          if (selectedAccounts) {
-            const selectedIds = selectedAccounts.map((acc) => acc.id);
-            this.reportAccountForm.get('Accounts')?.setValue(selectedIds);
-          }
-        });
+  openDialog() {
+    const ref = this.dialog.open(MultiSelectDetailedAccountsComponent, {
+      width: '900px',
+      height: '600px',
+    });
+    ref.onClose.subscribe((selectedAccounts: AccountsChildrenDropDown[]) => {
+      if (selectedAccounts) {
+        const selectedIds = selectedAccounts.map((acc) => acc.id);
+        this.reportAccountForm.get('Accounts')?.setValue(selectedIds);
       }
+    });
+  }
 }

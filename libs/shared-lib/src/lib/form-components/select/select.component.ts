@@ -20,11 +20,11 @@ import {
   selector: 'lib-select',
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
+  
 })
-export class 
-SelectComponent implements ControlValueAccessor, Validator ,OnChanges {
+export class SelectComponent implements ControlValueAccessor, Validator, OnChanges {
   @Input() label: string;
-  @Input() options: any[] = []
+  @Input() options: any[] = [];
   @Input() optionValue = 'code';
   @Input() optionLabel = 'name';
   @Input() readOnly: boolean;
@@ -37,6 +37,8 @@ SelectComponent implements ControlValueAccessor, Validator ,OnChanges {
   @Input() disabledMode: boolean = false;
   @Input() data_testid: string = '';
   @Input() labelTest: any;
+  @Input() showFirst: boolean = true;
+  @Input() showClear: boolean = true;
 
   @Output() valueChanged = new EventEmitter<string>();
   @Output() valueSearchChanged = new EventEmitter<any>();
@@ -73,10 +75,6 @@ SelectComponent implements ControlValueAccessor, Validator ,OnChanges {
     return null;
   }
 
-  // change(m: any) {
-  //   this.onChange(m.target.value);
-  //   this.valueChanged.emit(m.target.value);
-  // }
   change(m: any) {
     this.onChange(m.value);
     this.valueChanged.emit(m.value);
@@ -86,29 +84,30 @@ SelectComponent implements ControlValueAccessor, Validator ,OnChanges {
       this.controlDir.valueAccessor = this;
     }
   }
-  onFilter(e: any){
+  onFilter(e: any) {
     this.valueSearchChanged.emit(e.filter);
   }
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     if (this.controlDir) {
       setTimeout(() => {
-        this.labelTest=this.controlDir.name
-        this.checkSingleOption();
+        this.labelTest = this.controlDir.name;
+        if (this.showFirst) {
+          this.checkSingleOption();
+        }
       }, 500);
-      
-      
     }
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['options']) {
+    if (changes['options'] && this.showFirst) {
       this.checkSingleOption();
     }
   }
 
   private checkSingleOption() {
-    if (this.options && this.options.length === 1) {
+    if (this.showFirst && this.options && this.options.length === 1) {
       this.selectedValue = this.options[0][this.optionValue];
+      this.value = this.options[0][this.optionLabel];
       this.onChange(this.selectedValue);
       this.valueChanged.emit(this.selectedValue);
     }

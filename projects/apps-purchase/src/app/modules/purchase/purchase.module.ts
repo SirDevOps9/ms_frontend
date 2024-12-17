@@ -42,7 +42,7 @@ const routes: Routes = [
             path: '',
             component: VendorCategoryListComponent,
           //  canActivate: [AuthGuard],
-            data: {
+            data: { 
               breadcrumb: '',
             },
           },

@@ -1,0 +1,22 @@
+<lib-popup-page
+title="{{'popuoExcel.suptitle'|translate}} "
+[closeFunction]="cancel"
+(Submit)="save()"
+>
+<div class="conent">
+    <div class="group_excel_button">
+        <h2 class="body_b16"> {{'popuoExcel.title'|translate}} </h2>
+                <lib-file-uploader class="file_uplode" [file]="true"
+                (valueChanged)="uploadChanged($event)"
+                (data)="uploadChanged($event)"
+                >
+                </lib-file-uploader>
+                <lib-button-micro
+                nameClass="outline"
+                widthNumber="100%"
+                title="{{'popuoExcel.DownloadFile'|translate}}"
+                >
+                </lib-button-micro>
+    </div>
+</div>
+</lib-popup-page>

@@ -67,6 +67,7 @@
     >
       <ng-template pTemplate="header">
         <tr>
+          
           <th>{{ 'attributeDefinition.valueEn' | translate }}</th>
           <th>{{ 'attributeDefinition.valueAr' | translate }}</th>
           <th>{{ 'attributeDefinition.status' | translate }}</th>
@@ -75,22 +76,6 @@
       </ng-template>
       <ng-template pTemplate="body" let-attrTableForm let-i="rowIndex">
         <tr [formGroup]="attrTableForm">
-          <!-- Name in Arabic -->
-          <td [pEditableColumn]="attrTableForm?.controls['nameAr']" pEditableColumnField="nameAr">
-            <p-cellEditor>
-              <ng-template pTemplate="input">
-                <lib-text-input
-                  placeholder="{{ 'attributeDefinition.attributeNameAr' | translate }}"
-                  formControlName="nameAr">
-                </lib-text-input>
-              </ng-template>
-              <ng-template pTemplate="output">
-                {{ attrTableForm?.controls['nameAr']?.value }}
-              </ng-template>
-            </p-cellEditor>
-            <lib-field-validations [appControl]="attrTableForm?.controls['nameAr']"></lib-field-validations>
-          </td>
-
           <!-- Name in English -->
           <td [pEditableColumn]="attrTableForm?.controls['nameEn']" pEditableColumnField="nameEn">
             <p-cellEditor>
@@ -100,11 +85,31 @@
                   formControlName="nameEn">
                 </lib-text-input>
               </ng-template>
-              <ng-template pTemplate="output">
+               <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
                 {{ attrTableForm?.controls['nameEn']?.value }}
               </ng-template>
             </p-cellEditor>
             <lib-field-validations [appControl]="attrTableForm?.controls['nameEn']"></lib-field-validations>
+          </td>
+
+          
+          <!-- Name in Arabic -->
+
+          <td [pEditableColumn]="attrTableForm?.controls['nameAr']" pEditableColumnField="nameAr">
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <lib-text-input
+                  placeholder="{{ 'attributeDefinition.attributeNameAr' | translate }}"
+                  formControlName="nameAr">
+                </lib-text-input>
+              </ng-template>
+               <ng-template pTemplate="output">
+                                    <span class="fa-solid fa-pencil icon_test"></span>
+                {{ attrTableForm?.controls['nameAr']?.value }}
+              </ng-template>
+            </p-cellEditor>
+            <lib-field-validations [appControl]="attrTableForm?.controls['nameAr']"></lib-field-validations>
           </td>
 
           <!-- Active Toggle -->
@@ -117,12 +122,9 @@
           <!-- Delete button -->
           <td>
             <div class="actions flex align-items-center">
-              <lib-button-micro
-                nameClass="cancel"
-                iconName="pi pi-trash"
-                type="button"
-                (click)="deleteLine(i)">
-              </lib-button-micro>
+
+              <img src="assets/images/table/delete.svg" alt=""  (click)="deleteLine(i)"  type="button"
+               />
             </div>
           </td>
         </tr>
@@ -157,7 +159,7 @@
         <div class="grid">
           <div class="md:col-6">
             <lib-button-micro
-              title="{{ 'OperationalTag.Cancel' | translate }}"
+              title="{{ 'attributeDefinition.cancel' | translate }}"
               nameClass="cancel"
               widthNumber="100%"
               (click)="discard()"

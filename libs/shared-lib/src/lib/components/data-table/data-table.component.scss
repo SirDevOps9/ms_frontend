@@ -120,6 +120,7 @@ span {
     }
 
     .p-datatable-wrapper {
+      overflow: visible;
       table {
         border-bottom: 1px solid #dde1e6;
         thead {
@@ -150,7 +151,7 @@ span {
             text-align: center;
           }
           td:has(img) {
-           text-align: center;
+            text-align: center;
           }
         }
       }
@@ -255,9 +256,6 @@ span {
     height: fit-content;
     cursor: pointer;
   }
- 
-
-
 }
 
 // .p-datatable-wrapper{
@@ -373,66 +371,24 @@ span {
 ::ng-deep.p-paginator .p-highlight {
   background-color: #1a90b0;
   color: #fff !important;
-} 
+}
 
 .rtl-position {
-  left:1px; 
+  left: 1px;
 }
 
 .ltr-position {
   right: 1px;
 }
 
-::ng-deep .p-datatable .p-datatable-wrapper table thead th{
+::ng-deep .p-datatable .p-datatable-wrapper table thead th {
   left: 0 !important;
 }
 
-
-::ng-deep  .p-datatable .p-datatable-wrapper table tbody td {
+::ng-deep .p-datatable .p-datatable-wrapper table tbody td {
   left: 0 !important;
 }
 
-
-
-@media (min-width: 576px) {
-  .col-selection {
-    position: absolute;
-    z-index: 33; 
-
-    top: 193px !important; 
-  }
+.d-nonee {
+  display: none;
 }
-
-@media (min-width: 768px) {
-  .col-selection {
-    position: absolute;
-    top: 190px !important;     z-index: 33; 
-
-  }
-}
-@media (min-width: 1024px) {
-  .col-selection {
-    position: absolute;
-    top: 122px !important;  
-       z-index: 33; 
-
-  }
-}
-@media (min-width: 1440px) {
-  .col-selection {
-    position: absolute;
-    top: 70px !important;
-    z-index: 33; 
-
-  }
-}
-@media (min-width: 1204px) {
-  .col-selection {
-    position: absolute;
-    top: 67px  !important;  
-z-index: 33; 
-
-  }
-}
-
-

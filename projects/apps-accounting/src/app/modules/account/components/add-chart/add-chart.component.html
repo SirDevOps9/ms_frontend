@@ -110,23 +110,7 @@
             </lib-form-group>
           </div>
 
-          <div class="md:col-6">
-            <lib-form-group>
-              <lib-label [appControl]="formGroup.controls['accountTypeId']">
-                {{ 'ChartOfAccounts.AccountType' | translate }}
-              </lib-label>
-              <lib-select
-                formControlName="accountTypeId"
-                [options]="accountTypes"
-                optionValue="id"
-                [selectedValue]="formGroup.controls['accountTypeId'].value"
-                optionLabel="nameAr"
-              >
-              </lib-select>
-              <lib-field-validations [appControl]="formGroup.controls['accountTypeId']">
-              </lib-field-validations>
-            </lib-form-group>
-          </div>
+
           <div class="md:col-6">
             <lib-form-group>
               <lib-label [appControl]="formGroup.controls['tags']">
@@ -177,6 +161,23 @@
             </div>
             <div class="md:col-6" *ngIf="currencyIsVisible">
               <lib-form-group>
+                <lib-label [appControl]="formGroup.controls['accountTypeId']">
+                  {{ 'ChartOfAccounts.AccountType' | translate }}
+                </lib-label>
+                <lib-select
+                  formControlName="accountTypeId"
+                  [options]="accountTypes"
+                  optionValue="id"
+                  [selectedValue]="formGroup.controls['accountTypeId'].value"
+                  optionLabel="nameAr"
+                >
+                </lib-select>
+                <lib-field-validations [appControl]="formGroup.controls['accountTypeId']">
+                </lib-field-validations>
+              </lib-form-group>
+            </div>
+            <div class="md:col-6" *ngIf="currencyIsVisible">
+              <lib-form-group>
                 <lib-label [appControl]="formGroup.controls['currencyId']">
                   {{ 'ChartOfAccounts.Currency' | translate }}
                 </lib-label>
@@ -190,6 +191,7 @@
                 </lib-select>
               </lib-form-group>
             </div>
+
           </div>
           <lib-fildest
             header="{{ 'ChartOfAccounts.costCenterConfig' | translate }}"

@@ -4,7 +4,7 @@ const fse = require('fs-extra');
 
 // Get the output directory and the target directory from environment variables
 const currentDate = new Date().toLocaleString();
-const debugMessage = `console.debug('Build Date: ${currentDate}');`;
+const debugMessage = `console.log('Build Date: ${currentDate}');`;
 
 function addConsoleDebugToJsFiles(dir) {
     fs.readdir(dir, (err, files) => {
@@ -38,7 +38,7 @@ function addConsoleDebugToJsFiles(dir) {
     });
 }
 
-const publishPath = 'C:/inetpub/wwwroot'; // for stage
+const publishPath = 'C:/Users/tuy_2/Desktop/Publish/front'; // for stage
 //const publishPath = 'C:/inetpub/wwwroot'; // for cloud
 
 const projectName = process.env.PROJECT_NAME;
