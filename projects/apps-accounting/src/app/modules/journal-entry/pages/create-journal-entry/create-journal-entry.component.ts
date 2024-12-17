@@ -174,7 +174,7 @@ export class CreateJournalEntryComponent implements OnInit , OnDestroy  {
     dialog.onClose.subscribe((res) => {
       this.journalEntryAttachments = res
       console.log(res ,"close");
-      
+
     });
   }
 
@@ -386,7 +386,7 @@ export class CreateJournalEntryComponent implements OnInit , OnDestroy  {
     .subscribe({
       next: (r) => {
         this.routerService.navigateTo('transcations/journalentry');
-        this.attachmentService.attachemntIdsList=[] 
+        this.attachmentService.attachemntIdsList=[]
       },
       error:  (error)  => {
       }
@@ -519,18 +519,18 @@ export class CreateJournalEntryComponent implements OnInit , OnDestroy  {
 
   getAccountCurrencyRate(accountCurrency: number, currentJournalId: number) {
     const journalLine = this.items.at(currentJournalId);
-    
+
     const subscription = this.currencyService.accountCurrencyRate.subscribe((res) => {
       const currencyRateControl = journalLine?.get('currencyRate');
       currencyRateControl?.setValue(res.rate);
-      subscription.unsubscribe(); 
+      subscription.unsubscribe();
     });
-  
+
     this.currencyService.getAccountCurrencyRate(
       accountCurrency,
       this.currentUserService.getCurrency()
     );
-    
+
   }
   onFilter(event: any) {
     this.accountService.getAccountsHasNoChildrenNew(event, new PageInfo());
@@ -629,7 +629,7 @@ export class CreateJournalEntryComponent implements OnInit , OnDestroy  {
   }
 
   shouldShowCostCenterImage(costCenters: any[]): number {
- 
+
     if (!costCenters) return -1;
     const totalPercentage = costCenters.reduce(
       (sum: number, item: any) => sum + parseFloat(item.percentage),
@@ -637,9 +637,9 @@ export class CreateJournalEntryComponent implements OnInit , OnDestroy  {
     );
     return totalPercentage;
   }
-  
+
   ngOnDestroy(): void {
-    this.attachmentService.attachemntIdsList=[] 
+    this.attachmentService.attachemntIdsList=[]
 
   }
 }

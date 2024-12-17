@@ -18,6 +18,7 @@
     "setTracking": "يجب تعيين التتبع في السطر",
     "notEdit": "لا يمكن تعديل هذا المخزون لأنه تم تسجيله.",
     "updated": "Data was not updated ",
+    "barcodeStockedOrNotFounded": "الباركود غير موجود أو لا يحتوي على مخزون",
 
     "noBarcode": "لا يوجد هذا الباركود"
   },

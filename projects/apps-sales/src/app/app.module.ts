@@ -29,6 +29,7 @@ import { AppsSharedLibModule } from 'apps-shared-lib';
               { prefix: './assets/langs/erphome/', suffix: '.json' },
               { prefix: './assets/langs/shared/', suffix: '.json' },
               { prefix: './assets/langs/sales/', suffix: '.json' },
+              { prefix: './assets/langs/dashboard/', suffix: '.json' },
             ],
           }),
         deps: [HttpClient],
@@ -41,7 +42,7 @@ import { AppsSharedLibModule } from 'apps-shared-lib';
     FormsModule,
     AppRoutingModule,
     CookieModule.withOptions(),
-    AppsSharedLibModule
+    AppsSharedLibModule,
   ],
   providers: [
     { provide: EnvironmentService, useValue: environment },

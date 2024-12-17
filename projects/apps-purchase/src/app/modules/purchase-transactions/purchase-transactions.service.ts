@@ -30,6 +30,7 @@ export class PurchaseTransactionsService {
   public warehouseLookup = new BehaviorSubject<any>([]);
   public lastestItem = new BehaviorSubject<LatestItem[]>([]);
   public itemsDataSourceForAdvanced = new BehaviorSubject<LatestItem[]>([]);
+
   public sendPurchaseInvoice = new BehaviorSubject<AddPurchaseInvoiceDto>(
     {} as AddPurchaseInvoiceDto
   );
@@ -191,9 +192,9 @@ export class PurchaseTransactionsService {
     this.TransactionsProxy.addPurchaseInvoice(obj).subscribe((res) => {
       this.toasterService.showSuccess(
         this.languageService.transalte('purchase.success'),
-        this.languageService.transalte('purchase.addInvoice')
-      );
-      this.sendPurchaseInvoice.next(res);
+        this.languageService.transalte('purchase.addInvoice') 
+      ); 
+     this.sendPurchaseInvoice.next(res);
     });
   }
 
@@ -302,7 +303,7 @@ export class PurchaseTransactionsService {
         );
         this.loaderService.hide();
 
-        this.router.navigateTo('transaction/purchase-invoice');
+        this.router.navigateTo('transactions/purchase-invoice');
       },
       error: (error: any) => {
         this.loaderService.hide();
@@ -353,7 +354,7 @@ export class PurchaseTransactionsService {
         );
         this.loaderService.hide();
 
-        this.router.navigateTo('transaction/return-purchase-invoice');
+        this.router.navigateTo('transactions/return-purchase-invoice');
       },
       error: (error: any) => {
         this.loaderService.hide();

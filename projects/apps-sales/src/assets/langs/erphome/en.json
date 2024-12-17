@@ -10,7 +10,12 @@
     "AddCustomerOpeningBalance": "Add Customer Opening Balance",
     "EditCustomerOpeningBalance":"Edit Customer Opening Balance",
     "ViewCustomerOpeningBalance":"View Customer Opening Balance",
-    "PricePolicy":"Price Policy"
+    "PricePolicy":"Price Policy",
+    "salesInvoiceList" : "Sales Invoice",
+    "salesInvoiceAdd" : "Add",
+     "salesInvoiceView":"View",
+     "salesInvoiceListView":"Sales Invoice List View"
+
 
   },
   "dir": "ltr",

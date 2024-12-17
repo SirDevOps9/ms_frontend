@@ -64,7 +64,7 @@ export class ItemDefinitionListComponent implements OnInit {
   ngOnInit() {
     this.initItemDefinitionData();
     const state = history.state;
-    this.hasHelpPage = JSON.parse(state?.hashelppage || 'false'); // Default to 'false' if no state found
+    this.hasHelpPage = JSON.parse(state?.hashelppage || 'false');
     this.servicePage = state.servicePage;
   }
 

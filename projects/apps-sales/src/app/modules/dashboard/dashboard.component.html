@@ -1,0 +1,85 @@
+<lib-page-content>
+  <div class="charts grid">
+    <div class="lg:col-4 col-12" [appLoader]="isLoadingStatus">
+      <app-chart-card
+        [chartDTO]="statusChart"
+        [chartDetailsConfig]="statusChartData"
+        title="{{ 'dashboard.salesStatus' | translate }}"
+      >
+      </app-chart-card>
+    </div>
+    <div class="lg:col-4 col-12" [appLoader]="isLoadingReturnStatus">
+      <app-chart-card
+        [chartDTO]="returnStatusChart"
+        [chartDetailsConfig]="returnStatusChartData"
+        title="{{ 'dashboard.returnSalesStatus' | translate }}"
+      >
+      </app-chart-card>
+    </div>
+    <div class="lg:col-4 col-12" [appLoader]="isLoadingMonthlySales">
+      <app-chart-card
+        [chartDTO]="monthlySalesChart"
+        title="{{ 'dashboard.monthlySales' | translate }}"
+      >
+      </app-chart-card>
+    </div>
+
+    <div class="lg:col-6 col-12" [appLoader]="isLoadingBestSellingProduct">
+      <app-chart-card
+        [chartDTO]="topSalesProductChart"
+        [chartDetailsConfig]="topSalesProductChartData"
+        title="{{ 'dashboard.bestSellingProducts' | translate }}"
+        [smallSize]="true"
+      >
+      </app-chart-card>
+    </div>
+    <div class="lg:col-6 col-12" [appLoader]="isLoadingBestSellingCategory">
+      <app-chart-card
+        [chartDTO]="topSalesCategoriesChart"
+        [chartDetailsConfig]="topSalesCategoriesChartData"
+        title="{{ 'dashboard.bestSellingCategories' | translate }}"
+        [smallSize]="true"
+      >
+      </app-chart-card>
+    </div>
+
+    <div class="lg:col-6 col-12" [appLoader]="isLoadingTopCustomer">
+      <app-chart-card title="{{ 'dashboard.topCustomers' | translate }}" route="'goTo'">
+        <div class="chart-body accounts-bank w-full">
+          @for(customerData of topCustomerData; track customerData.customerId) {
+          <div class="row">
+            <span class="body-14 mx-1">{{ customerData.customerName }}</span>
+            <span class="line"></span>
+            <span class="body-14 mx-1"
+              >{{ customerData.invoiceCount }} <span class="body_b14"> Invoices </span></span
+            >
+            <span class="line"></span>
+            <span class="detail-value heading_b16">{{
+              customerData.totalInvoiceAmount | numberFormat
+            }}</span>
+          </div>
+          }
+        </div>
+      </app-chart-card>
+    </div>
+    <div class="lg:col-6 col-12" [appLoader]="isLoadingTopSalesPersons">
+      <app-chart-card title="{{ 'dashboard.topSalesPersons' | translate }}" route="'goTo'">
+        <div class="chart-body accounts-bank w-full">
+          @for(salesPerson of topSalesPersonsData; track salesPerson.salesManId) {
+          <div class="row">
+            <span class="body-14 mx-1">{{ salesPerson.salesManName }}</span>
+            <span class="line"></span>
+            <span class="body-14 mx-1"
+              >{{ salesPerson.invoiceCount }} <span class="body_b14"> Invoices </span></span
+            >
+            <span class="line"></span>
+            <span class="detail-value heading_b16">{{
+              salesPerson.totalInvoiceAmount | numberFormat
+            }}</span>
+          </div>
+          }
+        </div>
+      </app-chart-card>
+    </div>
+  </div>
+</lib-page-content>

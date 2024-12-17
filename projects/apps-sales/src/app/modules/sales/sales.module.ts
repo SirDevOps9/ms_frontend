@@ -28,6 +28,7 @@ import { UpdetePricePolicyComponent } from './components/updete-price-policy/upd
 import { PopupExcelComponent } from './components/popup-excel/popup-excel.component';
 import { EditPricePolicyComponent } from './pages/price-policy/edit-price-policy/edit-price-policy.component';
 import { ViewPricePolicyComponent } from './pages/price-policy/view-price-policy/view-price-policy.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -225,6 +226,7 @@ const routes: Routes = [
           },
         ]
       },
+    
     ],
   },
 ];
@@ -255,6 +257,7 @@ const routes: Routes = [
     PopupExcelComponent,
     EditPricePolicyComponent,
     ViewPricePolicyComponent
+ 
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedLibModule 
   ],
