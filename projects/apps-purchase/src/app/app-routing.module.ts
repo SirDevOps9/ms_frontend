@@ -30,6 +30,10 @@ export const ERPRoutes = [
             (m) => m.PurchaseTransactionsModule
           ),
       },
+      {
+        path: 'reports',
+        loadChildren: () => import('./modules/report/report.module').then((m) => m.ReportModule),
+      },
     ],
   },
 ];
