@@ -20,6 +20,7 @@ import {
   selector: 'lib-select',
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
+  
 })
 export class SelectComponent implements ControlValueAccessor, Validator, OnChanges {
   @Input() label: string;
