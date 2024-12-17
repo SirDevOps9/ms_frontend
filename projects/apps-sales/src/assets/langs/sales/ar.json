@@ -8,7 +8,10 @@
     "add": "إضافة",
     "edit": "تعديل",
     "sequence": "تسلسل",
-    "view": "عرض"
+    "view": "عرض",
+    "salesReturnInvoiceView":"عرض فاتورة إرجاع المبيعات",
+    "salesReturnInvoice": "فاتورة إرجاع المبيعات"
+
   },
   "salesInvoice": {
     "code": "رمز الفاتورة",

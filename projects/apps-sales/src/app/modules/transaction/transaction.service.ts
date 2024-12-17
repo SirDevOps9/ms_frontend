@@ -22,8 +22,10 @@ export class TransactionService {
   updateSalesReturnInvoice = new BehaviorSubject<updateReturnSalesInvice>({} as updateReturnSalesInvice);
 
   ReturnSalesInvoiceIdData = new BehaviorSubject<IreturnInvoiceById>({} as IreturnInvoiceById);
+  ReturnSalesInvoiceIdDataObs = this.ReturnSalesInvoiceIdData.asObservable()
 
-
+  ReturnSalesInvoiceIdDataList = new BehaviorSubject<IreturnInvoiceById>({} as IreturnInvoiceById);
+  ReturnSalesInvoiceIdDataListObs = this.ReturnSalesInvoiceIdDataList.asObservable()
   public lastestItem = new BehaviorSubject<LatestItem[]>([]);
   public sendcurrency = new BehaviorSubject<{rate : number}>({} as {rate : number});
   public itemsDataSourceForAdvanced = new BehaviorSubject<LatestItem[]>([]);
@@ -44,8 +46,17 @@ export class TransactionService {
     public salesInvoiceView = new BehaviorSubject<SalesInvoiceView>({} as SalesInvoiceView);
     public salesInvoiceViewObs =this.salesInvoiceView.asObservable()
 
+    public salseInvoiceListData=new BehaviorSubject<SalesInvoiceListView[]>([]);
+    public salseInvoiceListObs$=this.salseInvoiceListData.asObservable()
+    public expoerSalseInvoiceListData=new BehaviorSubject<SalesInvoiceListView[]>([]);
+    public   exportSalseInvoiceListObs$=this.expoerSalseInvoiceListData.asObservable()
 
 
+    public returnSalesInvoiceListData=new BehaviorSubject<ReturnInvoiceListView[]>([]);
+    public returnSalesInvoiceListDataObs=this.returnSalesInvoiceListData.asObservable()
+
+    public expoerReturnSalesInvoiceListData=new BehaviorSubject<ReturnInvoiceListView[]>([]);
+    public expoerReturnSalesInvoiceListDataObs$=this.expoerReturnSalesInvoiceListData.asObservable()
 
   // customer dropdown
   getCustomerList(searchTerm: string) {
@@ -153,7 +164,11 @@ export class TransactionService {
       this.ReturnSalesInvoiceIdData.next(response);
     });
   }
-
+  getReturnSalesInvoiceIdData(id: number) {
+    this._transactionProxyService.getReturnSalesInvoiceIdData(id).subscribe((response: any) => {
+      this.ReturnSalesInvoiceIdDataList.next(response);
+    });
+  }
   // delete
   deleteSalesReturnLine(id: number) {
     return this._transactionProxyService.deleteSalesReturnLine(id).pipe(
@@ -302,7 +317,7 @@ export class TransactionService {
 
 
     exportSalseInvoiceListData(SearchTerm: string ,SortBy?: number, SortColumn?: string) {
-      this.TransactionsProxy.exportSalseInvoiceList(SearchTerm,SortBy,SortColumn).subscribe({
+      this._transactionProxyService.exportSalseInvoiceList(SearchTerm,SortBy,SortColumn).subscribe({
         next: (res: any) => {
           this.exportSalesInvoice.next(res);
         },
@@ -310,9 +325,9 @@ export class TransactionService {
     }
 
   getSalesInvoiceList(quieries: string, pageInfo: PageInfo) {
-    this.TransactionsProxy.getSalesInvoiceList(quieries, pageInfo).subscribe(
+    this._transactionProxyService.getSalesInvoiceList(quieries, pageInfo).subscribe(
       (response) => {
-        this.salseInvoiceList.next(response.result);
+        this.salseInvoiceListData.next(response.result);
         this.currentPageInfo.next(response.pageInfoResult);
       },
       (erorr) => {}
@@ -320,17 +335,17 @@ export class TransactionService {
   }
 
   exportSalesInvoiceList(searchTerm?: string, SortBy?: number, SortColumn?: string) {
-    this.TransactionsProxy.exportSalesInvoiceList(searchTerm, SortBy, SortColumn).subscribe({
+    this._transactionProxyService.exportSalesInvoiceList(searchTerm, SortBy, SortColumn).subscribe({
       next: (res: any) => {
-        this.exportSalseInvoiceList.next(res);
+        this.expoerSalseInvoiceListData.next(res);
       },
     });
   }
 
   getReturnSalesInvoiceList(quieries: string, pageInfo: PageInfo) {
-    this.TransactionsProxy.getReturnSalesInvoiceList(quieries, pageInfo).subscribe(
+    this._transactionProxyService.getReturnSalesInvoiceList(quieries, pageInfo).subscribe(
       (response) => {
-        this.returnSalesInvoiceList.next(response.result);
+        this.returnSalesInvoiceListData.next(response.result);
         this.currentPageInfo.next(response.pageInfoResult);
       },
       (erorr) => {}
@@ -338,9 +353,9 @@ export class TransactionService {
   }
 
   exportRetuenSalesInvoiceList(searchTerm?: string, SortBy?: number, SortColumn?: string) {
-    this.TransactionsProxy.exportReturnSalesInvoiceList(searchTerm, SortBy, SortColumn).subscribe({
+    this._transactionProxyService.exportReturnSalesInvoiceList(searchTerm, SortBy, SortColumn).subscribe({
       next: (res: any) => {
-        this.exportReturnSalseInvoiceList.next(res);
+        this.expoerReturnSalesInvoiceListData.next(res);
       },
     });
   }
@@ -349,15 +364,15 @@ export class TransactionService {
   async deleteRetuenSalesInvoiceListItem(id: number) {
     const confirmed = await this.toasterService.showConfirm('Delete');
     if (confirmed) {
-      this.TransactionsProxy.deleteReturnSalesInvoice(id).subscribe({
+      this._transactionProxyService.deleteReturnSalesInvoice(id).subscribe({
         next: (res) => {
           this.toasterService.showSuccess(
             this.languageService.transalte('salesInvoice.success'),
             this.languageService.transalte('salesInvoice.delete')
           );
-          let data = this.returnSalesInvoiceList.getValue();
+          let data = this.returnSalesInvoiceListData.getValue();
           const updatedDate = data.filter((elem) => elem.id!== id);
-          this.returnSalesInvoiceList.next(updatedDate);
+          this.returnSalesInvoiceListData.next(updatedDate);
           return res;
         },
         error: (err) => {},

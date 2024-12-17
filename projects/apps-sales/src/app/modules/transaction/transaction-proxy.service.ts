@@ -179,7 +179,7 @@ export class TransactionProxyService {
   }
 
 
-  constructor(private httpService: HttpService) {}
+
 
   // get customer list dropdown
   getCustomerList(searchTerm: string): Observable<customerDto[]> {
@@ -250,6 +250,10 @@ export class TransactionProxyService {
   getReturnSalesInvoiceId(id: number) {
     return this.httpService.get(`ReturnSalesInvoice/${id}`);
   }
+  getReturnSalesInvoiceIdData(id: number) {
+    return this.httpService.get(`ReturnInvoice/${id}/GetViewById`);
+  }
+
   // get by id
 
   // delete

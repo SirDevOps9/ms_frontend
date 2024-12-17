@@ -60,7 +60,7 @@ export class ListSalesReturnInvoiceComponent {
 
   inGetData() {
     this.transaction_service.getReturnSalesInvoiceList('', new PageInfo());
-    this.transaction_service.returnsalseInvoiceListObs$.subscribe({
+    this.transaction_service.returnSalesInvoiceListDataObs.subscribe({
       next: (res) => {
         this.tableData = res;
       },
@@ -74,7 +74,7 @@ export class ListSalesReturnInvoiceComponent {
   }
   onSearchChange(event: any) {
     this.transaction_service.getReturnSalesInvoiceList(event, new PageInfo());
-    this.transaction_service.returnsalseInvoiceListObs$.subscribe({
+    this.transaction_service.returnSalesInvoiceListDataObs.subscribe({
       next: (res) => {
         this.tableData = res;
       },
@@ -86,7 +86,7 @@ export class ListSalesReturnInvoiceComponent {
   exportRetuenSalesInvoiceList(searchTerm: string, sortBy?: number, sortColumn?: string) {
     this.transaction_service.exportRetuenSalesInvoiceList(searchTerm, sortBy, sortColumn);
     const filteredColumns = this.columns.filter(col => this.filteredColumns.includes(col.name));
-    this.transaction_service.exportReturnSalseInvoiceListObs$.subscribe((res) => {
+    this.transaction_service.expoerReturnSalesInvoiceListDataObs$.subscribe((res) => {
       this.exportData = this.exportService.formatCiloma(res, filteredColumns);
     });
   }
@@ -102,13 +102,17 @@ export class ListSalesReturnInvoiceComponent {
   }
 
   onAdd(){
-      this.routerService.navigateTo(`transaction/sales-invoice/add`);
+      this.routerService.navigateTo(`transaction/sales-return-invoice/add`);
   }
 
   onDelete(id: number) {
     this.transaction_service.deleteRetuenSalesInvoiceListItem(id);
     this.inGetData()
   }
+  onVeiw(data: number) {
+    this.routerService.navigateTo(`transaction/sales-return-invoice/view/${data}`);
+  }
+
   constructor( private routerService: RouterService, private router: Router,
     private transaction_service:TransactionService,
     private exportService:ExportService,

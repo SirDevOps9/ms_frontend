@@ -171,8 +171,11 @@
 
       <ng-template #actions let-action>
         <div class="actions flex align-items-center">
-          <img src="assets/images/table/edit.svg" alt=""  />
-          <img src="assets/images/table/delete.svg" alt="" />
+          <lib-button-micro nameClass="table_button_view" (click)="onVeiw(action.id)">
+          </lib-button-micro>
+          <img src="assets/images/table/edit.svg" alt="" />
+          <img src="assets/images/table/delete.svg" (click)="onDelete(action.id)" alt="" />
+
         </div>
       </ng-template>
 
