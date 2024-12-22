@@ -25,35 +25,36 @@ jobs:
           npm install --force --legacy-peer-deps
 
       - name: Ensure @zxing/browser compatibility
-        shell: bash
+        shell: cmd
         run: |
-          echo "Checking @zxing/browser dependency..."
-          if [ ! -d "node_modules/@zxing/browser" ]; then
-            echo "@zxing/browser is missing. Installing it explicitly..."
+          echo Checking @zxing/browser dependency...
+          if not exist node_modules/@zxing/browser (
+            echo @zxing/browser is missing. Installing it explicitly...
             npm install @zxing/browser@latest
-          else
-            echo "@zxing/browser is already installed."
-          fi
+          ) else (
+            echo @zxing/browser is already installed.
+          )
 
       - name: Configure angular.json for apps-inventory
-        shell: bash
+        shell: cmd
         run: |
-          echo "Configuring angular.json to allow CommonJS dependencies..."
-          if grep -q '@zxing/browser' angular.json; then
-            echo "@zxing/browser is already configured in angular.json."
-          else
-            sed -i '/allowedCommonJsDependencies/a \            "@zxing/browser",' angular.json
-            echo "@zxing/browser added to allowedCommonJsDependencies in angular.json."
-          fi
+          echo Configuring angular.json to allow CommonJS dependencies...
+          findstr /m "@zxing/browser" angular.json > nul
+          if %errorlevel% == 0 (
+            echo @zxing/browser is already configured in angular.json.
+          ) else (
+            echo            "@zxing/browser" >> angular.json
+            echo @zxing/browser added to allowedCommonJsDependencies in angular.json.
+          )
 
       - name: Build apps-inventory
         run: |
-          echo "Building apps-inventory..."
+          echo Building apps-inventory...
           ng build apps-inventory
 
       - name: Build remaining projects
         run: |
-          echo "Building remaining projects..."
+          echo Building remaining projects...
           ng build bussiness-owners
           ng build adminportal
           ng build apps-accounting
@@ -68,13 +69,13 @@ jobs:
           PROJECT_NAME: apps-inventory
           OUTPUT_PATH: frontapps
         run: |
-          echo "Running post-build script..."
+          echo Running post-build script...
           node post-build.js
-          echo "Post-build script completed."
+          echo Post-build script completed.
 
       - name: Copy output to D:\front
         run: |
-          echo "Copying output to D:\front..."
-          mkdir -p D:\front\dist
+          echo Copying output to D:\front...
+          mkdir D:\front\dist
           xcopy /s /y dist\* D:\front\dist\
-          echo "Deployment successful!"
+          echo Deployment successful!
