@@ -8,11 +8,13 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Checkout code
-        run: |
-          git config --local --unset credential.helper
         uses: actions/checkout@v3
         with:
           ref: '18'
+
+      - name: Disable Git Credential Helper
+        run: |
+          git config --local --unset credential.helper
 
       - name: Install dependencies
         run: |
