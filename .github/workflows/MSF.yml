@@ -17,12 +17,11 @@ jobs:
       - name: Install dependencies
         run: |
           npm install
-          npm install @angular/core@17.3.12
-          npm install @angular/common@17.3.12
+          npm install @angular/core@14.2.12
+          npm install @angular/common@14.2.12
           npm install zone.js@0.14.0
           npm install @zxing/browser@latest
           npm install @zxing/ngx-scanner@latest
-          npm install --force --legacy-peer-deps
 
       - name: Ensure @zxing/browser compatibility
         shell: cmd
