@@ -36,21 +36,20 @@ jobs:
           fi
 
       - name: Configure angular.json for apps-inventory
+        shell: bash
         run: |
           echo "Configuring angular.json to allow CommonJS dependencies..."
-          $angularJson = Get-Content -Path "angular.json" -Raw | ConvertFrom-Json
-          if ($angularJson.projects."apps-inventory".architect.build.options.allowedCommonJsDependencies -notcontains "@zxing/browser") {
-            $angularJson.projects."apps-inventory".architect.build.options.allowedCommonJsDependencies += "@zxing/browser"
-            $angularJson | ConvertTo-Json -Depth 10 | Set-Content -Path "angular.json"
-            echo "Added @zxing/browser to allowedCommonJsDependencies."
-          } else {
-            echo "@zxing/browser already configured in angular.json."
-          }
+          if grep -q '@zxing/browser' angular.json; then
+            echo "@zxing/browser is already configured in angular.json."
+          else
+            sed -i '/allowedCommonJsDependencies/a \            "@zxing/browser",' angular.json
+            echo "@zxing/browser added to allowedCommonJsDependencies in angular.json."
+          fi
 
       - name: Build apps-inventory
         run: |
           echo "Building apps-inventory..."
-          ng build apps-inventory || echo "Skipping apps-inventory build due to unresolved dependency."
+          ng build apps-inventory
 
       - name: Build remaining projects
         run: |
