@@ -46,6 +46,8 @@ jobs:
             echo Adding @zxing/browser to allowedCommonJsDependencies...
             echo            "@zxing/browser" >> angular.json
             echo @zxing/browser added to allowedCommonJsDependencies in angular.json.
+            echo Validating angular.json formatting...
+            ng config --validate
           )
 
       - name: Build apps-inventory
