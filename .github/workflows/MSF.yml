@@ -22,7 +22,6 @@ jobs:
           npm install zone.js@0.14.0
           npm install @zxing/browser@latest
           npm install @zxing/ngx-scanner@latest
-          npm install cross-env
           npm install --force --legacy-peer-deps
 
       - name: Build all projects
@@ -38,8 +37,11 @@ jobs:
           ng build erp-home
 
       - name: Run post-build script
+        env:
+          PROJECT_NAME: apps-inventory
+          OUTPUT_PATH: frontapps
         run: |
-          npx cross-env PROJECT_NAME=apps-inventory OUTPUT_PATH=frontapps node post-build.js
+          node post-build.js
 
       - name: Copy output to D:\front
         run: |
