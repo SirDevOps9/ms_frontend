@@ -26,15 +26,15 @@ jobs:
 
       - name: Build all projects
         run: |
-          ng build --project apps-inventory --build-optimizer=false
-          ng build --project bussiness-owners --build-optimizer=false
-          ng build --project adminportal --build-optimizer=false
-          ng build --project apps-accounting --build-optimizer=false
-          ng build --project apps-finance --build-optimizer=false
-          ng build --project apps-hr --build-optimizer=false
-          ng build --project apps-purchase --build-optimizer=false
-          ng build --project apps-sales --build-optimizer=false
-          ng build --project erp-home --build-optimizer=false
+          ng build apps-inventory
+          ng build bussiness-owners
+          ng build adminportal
+          ng build apps-accounting
+          ng build apps-finance
+          ng build apps-hr
+          ng build apps-purchase
+          ng build apps-sales
+          ng build erp-home
 
       - name: Run post-build script
         run: |
