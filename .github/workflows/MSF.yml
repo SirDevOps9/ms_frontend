@@ -11,7 +11,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          ref: 'Sprint18' # Updated branch name
+          ref: 'Sprint18' # Ensure the branch name exists
           fetch-depth: 0
 
       - name: Install dependencies
@@ -19,6 +19,7 @@ jobs:
           npm install @angular/core@17.3.12
           npm install @angular/common@17.3.12
           npm install zone.js@0.14.0
+          npm install @zxing/browser
           npm install --force --legacy-peer-deps
 
       - name: Build all projects
