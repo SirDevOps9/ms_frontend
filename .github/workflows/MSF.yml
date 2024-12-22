@@ -44,7 +44,7 @@ jobs:
             echo @zxing/browser is already configured in angular.json.
           ) else (
             echo Adding @zxing/browser to allowedCommonJsDependencies...
-            sed -i "/allowedCommonJsDependencies/a \            \"@zxing/browser\"" angular.json
+            echo            "@zxing/browser" >> angular.json
             echo @zxing/browser added to allowedCommonJsDependencies in angular.json.
           )
 
