@@ -16,7 +16,6 @@ jobs:
 
       - name: Install dependencies
         run: |
-          echo "Installing dependencies..."
           npm install
           npm install @angular/core@17.3.12
           npm install @angular/common@17.3.12
@@ -24,9 +23,9 @@ jobs:
           npm install @zxing/browser@latest
           npm install @zxing/ngx-scanner@latest
           npm install --force --legacy-peer-deps
-          echo "Dependencies installed successfully!"
 
       - name: Ensure @zxing/browser compatibility
+        shell: bash
         run: |
           echo "Checking @zxing/browser dependency..."
           if [ ! -d "node_modules/@zxing/browser" ]; then
@@ -39,8 +38,14 @@ jobs:
       - name: Configure angular.json for apps-inventory
         run: |
           echo "Configuring angular.json to allow CommonJS dependencies..."
-          jq '.projects["apps-inventory"].architect.build.options.allowedCommonJsDependencies += ["@zxing/browser"]' angular.json > angular_temp.json
-          mv angular_temp.json angular.json
+          $angularJson = Get-Content -Path "angular.json" -Raw | ConvertFrom-Json
+          if ($angularJson.projects."apps-inventory".architect.build.options.allowedCommonJsDependencies -notcontains "@zxing/browser") {
+            $angularJson.projects."apps-inventory".architect.build.options.allowedCommonJsDependencies += "@zxing/browser"
+            $angularJson | ConvertTo-Json -Depth 10 | Set-Content -Path "angular.json"
+            echo "Added @zxing/browser to allowedCommonJsDependencies."
+          } else {
+            echo "@zxing/browser already configured in angular.json."
+          }
 
       - name: Build apps-inventory
         run: |
