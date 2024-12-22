@@ -17,19 +17,16 @@ jobs:
       - name: Install dependencies
         run: |
           npm install
+          cd apps-inventory
+          npm install @zxing/browser@latest @zxing/ngx-scanner@latest
+          cd ..
           npm install @angular/core@17.3.12
           npm install @angular/common@17.3.12
           npm install zone.js@0.14.0
-          npm install @zxing/browser@latest
-          npm install @zxing/ngx-scanner@latest
-          npm install --force --legacy-peer-deps
 
-      - name: Build apps-inventory
+      - name: Build all projects
         run: |
-          ng build apps-inventory --verbose
-
-      - name: Build remaining projects
-        run: |
+          ng build apps-inventory
           ng build bussiness-owners
           ng build adminportal
           ng build apps-accounting
