@@ -24,9 +24,12 @@ jobs:
           npm install @zxing/ngx-scanner@latest
           npm install --force --legacy-peer-deps
 
-      - name: Build all projects
+      - name: Build apps-inventory
         run: |
-          ng build apps-inventory
+          ng build apps-inventory --verbose
+
+      - name: Build remaining projects
+        run: |
           ng build bussiness-owners
           ng build adminportal
           ng build apps-accounting
