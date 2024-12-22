@@ -43,7 +43,8 @@ jobs:
           if %errorlevel% == 0 (
             echo @zxing/browser is already configured in angular.json.
           ) else (
-            echo            "@zxing/browser" >> angular.json
+            echo Adding @zxing/browser to allowedCommonJsDependencies...
+            sed -i "/allowedCommonJsDependencies/a \            \"@zxing/browser\"" angular.json
             echo @zxing/browser added to allowedCommonJsDependencies in angular.json.
           )
 
