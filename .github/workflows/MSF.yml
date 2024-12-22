@@ -11,7 +11,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          ref: '18' # Ensure this branch exists
+          ref: 'Sprint18' # Updated branch name
           fetch-depth: 0
 
       - name: Disable Git Credential Helper
