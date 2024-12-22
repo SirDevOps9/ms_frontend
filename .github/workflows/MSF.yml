@@ -11,21 +11,28 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          ref: 'Sprint18'
-          fetch-depth: 0
+          ref: 'Sprint18' # Replace with your branch name if needed
 
       - name: Install dependencies
         run: |
           npm install
-          cd apps-inventory
-          npm install @zxing/browser@latest @zxing/ngx-scanner@latest
-          cd ..
+          if [ -d "apps-inventory" ]; then
+            echo "Changing directory to apps-inventory and installing dependencies..."
+            cd apps-inventory
+            npm install @zxing/browser@latest @zxing/ngx-scanner@latest
+            cd ..
+          else
+            echo "Error: apps-inventory directory not found!"
+            exit 1 # Stop the workflow if the directory doesn't exist
+          fi
+          echo "Installing root dependencies..."
           npm install @angular/core@17.3.12
           npm install @angular/common@17.3.12
           npm install zone.js@0.14.0
 
       - name: Build all projects
         run: |
+          echo "Building projects..."
           ng build apps-inventory
           ng build bussiness-owners
           ng build adminportal
@@ -41,10 +48,12 @@ jobs:
           PROJECT_NAME: apps-inventory
           OUTPUT_PATH: frontapps
         run: |
+          echo "Running post-build script..."
           node post-build.js
 
       - name: Copy output to D:\front
         run: |
-          mkdir D:\front\dist
+          echo "Copying output to D:\front..."
+          mkdir -p D:\front\dist # Use mkdir -p to create parent directories if they don't exist
           xcopy /s /y dist\* D:\front\dist\
           echo "Deployment successful!"
