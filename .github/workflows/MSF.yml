@@ -11,28 +11,30 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          ref: 'Sprint18' # Replace with your branch name if needed
+          ref: 'Sprint18'
 
       - name: Install dependencies
+        shell: pwsh # Explicitly set the shell to PowerShell
         run: |
           npm install
-          if [ -d "apps-inventory" ]; then
-            echo "Changing directory to apps-inventory and installing dependencies..."
+          if (Test-Path -Path "apps-inventory") {
+            Write-Host "Changing directory to apps-inventory and installing dependencies..."
             cd apps-inventory
             npm install @zxing/browser@latest @zxing/ngx-scanner@latest
             cd ..
-          else
-            echo "Error: apps-inventory directory not found!"
-            exit 1 # Stop the workflow if the directory doesn't exist
-          fi
-          echo "Installing root dependencies..."
+          } else {
+            Write-Error "apps-inventory directory not found!"
+            exit 1
+          }
+          Write-Host "Installing root dependencies..."
           npm install @angular/core@17.3.12
           npm install @angular/common@17.3.12
           npm install zone.js@0.14.0
 
       - name: Build all projects
+        shell: pwsh # Explicitly set the shell to PowerShell
         run: |
-          echo "Building projects..."
+          Write-Host "Building projects..."
           ng build apps-inventory
           ng build bussiness-owners
           ng build adminportal
@@ -44,16 +46,18 @@ jobs:
           ng build erp-home
 
       - name: Run post-build script
+        shell: pwsh # Explicitly set the shell to PowerShell
         env:
           PROJECT_NAME: apps-inventory
           OUTPUT_PATH: frontapps
         run: |
-          echo "Running post-build script..."
+          Write-Host "Running post-build script..."
           node post-build.js
 
       - name: Copy output to D:\front
+        shell: pwsh # Explicitly set the shell to PowerShell
         run: |
-          echo "Copying output to D:\front..."
-          mkdir -p D:\front\dist # Use mkdir -p to create parent directories if they don't exist
+          Write-Host "Copying output to D:\front..."
+          New-Item -ItemType Directory -Path "D:\front\dist" -Force # PowerShell way to create directory
           xcopy /s /y dist\* D:\front\dist\
-          echo "Deployment successful!"
+          Write-Host "Deployment successful!"
