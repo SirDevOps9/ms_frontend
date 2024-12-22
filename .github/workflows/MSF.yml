@@ -6,11 +6,14 @@ on:
 jobs:
   build-and-deploy:
     runs-on: self-hosted
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          ref: '18'
+          ref: '18' # Ensure this branch exists
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
 
       - name: Disable Git Credential Helper
         run: |
