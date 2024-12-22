@@ -1,0 +1,31 @@
+name: Build and Deploy Frontend
+
+on:
+  workflow_dispatch
+
+jobs:
+  build-and-deploy:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          ref: '18'
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install dependencies
+        run: |
+          npm install @angular/core@17.3.12
+          npm install @angular/common@17.3.12
+          npm install zone.js@0.14.0
+          npm install --force --legacy-peer-deps
+
+      - name: Build all projects
+        run: |
+          npm run build:all
+
+      - name: Copy output to D:\front
+        run: |
+          mkdir D:\front\dist
+          xcopy /s /y dist\* D:\front\dist\
+          echo "Deployment successful!"
