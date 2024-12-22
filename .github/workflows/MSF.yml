@@ -14,10 +14,6 @@ jobs:
           ref: 'Sprint18' # Updated branch name
           fetch-depth: 0
 
-      - name: Disable Git Credential Helper
-        run: |
-          git config --local --unset credential.helper
-
       - name: Install dependencies
         run: |
           npm install @angular/core@17.3.12
