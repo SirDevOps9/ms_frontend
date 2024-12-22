@@ -11,11 +11,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          ref: 'Sprint18' # Ensure the branch name exists
+          ref: 'Sprint18'
           fetch-depth: 0
 
       - name: Install dependencies
         run: |
+          npm install
           npm install @angular/core@17.3.12
           npm install @angular/common@17.3.12
           npm install zone.js@0.14.0
@@ -25,7 +26,19 @@ jobs:
 
       - name: Build all projects
         run: |
-          npm run build:all -- --external:@zxing/browser
+          ng build --project apps-inventory --build-optimizer=false
+          ng build --project bussiness-owners --build-optimizer=false
+          ng build --project adminportal --build-optimizer=false
+          ng build --project apps-accounting --build-optimizer=false
+          ng build --project apps-finance --build-optimizer=false
+          ng build --project apps-hr --build-optimizer=false
+          ng build --project apps-purchase --build-optimizer=false
+          ng build --project apps-sales --build-optimizer=false
+          ng build --project erp-home --build-optimizer=false
+
+      - name: Run post-build script
+        run: |
+          cross-env PROJECT_NAME=apps-inventory OUTPUT_PATH=frontapps node post-build.js
 
       - name: Copy output to D:\front
         run: |
