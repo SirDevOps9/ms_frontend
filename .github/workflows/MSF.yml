@@ -12,30 +12,24 @@ jobs:
         uses: actions/checkout@v3
         with:
           ref: 'Sprint18'
+          fetch-depth: 0
 
       - name: Install dependencies
-        shell: pwsh # Explicitly set the shell to PowerShell
         run: |
           npm install
-          if (Test-Path -Path "apps-inventory") {
-            Write-Host "Changing directory to apps-inventory and installing dependencies..."
-            cd apps-inventory
-            npm install @zxing/browser@latest @zxing/ngx-scanner@latest
-            cd ..
-          } else {
-            Write-Error "apps-inventory directory not found!"
-            exit 1
-          }
-          Write-Host "Installing root dependencies..."
           npm install @angular/core@17.3.12
           npm install @angular/common@17.3.12
           npm install zone.js@0.14.0
+          npm install @zxing/browser@latest
+          npm install @zxing/ngx-scanner@latest
+          npm install --force --legacy-peer-deps
 
-      - name: Build all projects
-        shell: pwsh # Explicitly set the shell to PowerShell
+      - name: Build apps-inventory
         run: |
-          Write-Host "Building projects..."
-          ng build apps-inventory
+          ng build apps-inventory --verbose
+
+      - name: Build remaining projects
+        run: |
           ng build bussiness-owners
           ng build adminportal
           ng build apps-accounting
@@ -46,18 +40,14 @@ jobs:
           ng build erp-home
 
       - name: Run post-build script
-        shell: pwsh # Explicitly set the shell to PowerShell
         env:
           PROJECT_NAME: apps-inventory
           OUTPUT_PATH: frontapps
         run: |
-          Write-Host "Running post-build script..."
           node post-build.js
 
       - name: Copy output to D:\front
-        shell: pwsh # Explicitly set the shell to PowerShell
         run: |
-          Write-Host "Copying output to D:\front..."
-          New-Item -ItemType Directory -Path "D:\front\dist" -Force # PowerShell way to create directory
+          mkdir D:\front\dist
           xcopy /s /y dist\* D:\front\dist\
-          Write-Host "Deployment successful!"
+          echo "Deployment successful!"
