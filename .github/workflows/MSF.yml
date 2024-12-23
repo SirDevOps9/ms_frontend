@@ -22,7 +22,7 @@ jobs:
       - name: Install dependencies
         run: |
           npm install --force --legacy-peer-deps
-        run: |
+
           if (Test-Path -Path "apps-inventory") {
             Write-Host "Installing apps-inventory dependencies..."
             cd apps-inventory
