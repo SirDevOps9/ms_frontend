@@ -18,6 +18,7 @@ jobs:
         run: |
           npm install
           npm install @zxing/ngx-scanner@latest
+          npm install @zxing/browser@latest
           npm install --force --legacy-peer-deps
 
       - name: Build all projects
