@@ -22,6 +22,17 @@ jobs:
       - name: Install dependencies
         run: |
           npm install --force --legacy-peer-deps
+          shell: pwsh
+          run: |
+            if (Test-Path -Path "apps-inventory") {
+            Write-Host "Installing apps-inventory dependencies..."
+            cd apps-inventory
+            npm install @zxing/browser@latest @zxing/ngx-scanner@latest
+            cd ..
+          } else {
+            Write-Error "apps-inventory directory not found!"
+            exit 1
+          }
 
       - name: Build all projects
         run: |
