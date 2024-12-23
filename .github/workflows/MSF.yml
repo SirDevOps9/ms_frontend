@@ -20,7 +20,6 @@ jobs:
           npm install @angular/core@17.3.12
           npm install @angular/common@17.3.12
           npm install zone.js@0.14.0
-          npm install @zxing/browser@latest
           npm install @zxing/ngx-scanner@latest
           npm install --force --legacy-peer-deps
 
