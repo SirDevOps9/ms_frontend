@@ -11,18 +11,35 @@
           "standalone": false
         },
         "@schematics/angular:directive": {
-          "standalone": false
+        "projects": {
+  "apps-inventory": {
+    ...
+    "architect": {
+      "build": {
+        "builder": "@angular-devkit/build-angular:browser",
+        "options": {
+          "outputPath": "dist/apps-inventory",
+          "allowedCommonJsDependencies": ["@zxing/browser"],
+          "index": "src/apps-inventory/index.html",
+          "main": "src/apps-inventory/main.ts",
+          "polyfills": "src/apps-inventory/polyfills.ts",
+          "tsConfig": "src/apps-inventory/tsconfig.app.json",
+          "assets": [
+            "src/apps-inventory/assets",
+            "src/environments/environment.ts"
+          ],
+          "styles": [
+            "src/apps-inventory/styles.css",
+            "node_modules/bootstrap/dist/css/bootstrap.min.css",
+            "node_modules/font-awesome/css/font-awesome.css"
+          ],
+          "scripts": []
         },
-        "@schematics/angular:pipe": {
-          "standalone": false
-        }
-      },
-      "root": "projects/bussiness-owners",
-      "sourceRoot": "projects/bussiness-owners/src",
-      "prefix": "app",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:application",
+        ...
+      }
+    }
+  }
+}
           "options": {
             "baseHref": "/bussiness-owners/",
             "outputPath": { "base": "dist/bussiness-owners", "browser": "" },
