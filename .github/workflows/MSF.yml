@@ -19,9 +19,13 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install dependencies
+      - name: Install root dependencies
+        run: npm install --force --legacy-peer-deps # Run in default shell (PowerShell on your self-hosted runner)
+
+      - name: Install apps-inventory dependencies (PowerShell)
+        if: steps.checkout.outcome == 'success' # Only run if checkout succeeded
+        shell: pwsh
         run: |
-          npm install --force --legacy-peer-deps
           if (Test-Path -Path "apps-inventory") {
             Write-Host "Installing apps-inventory dependencies..."
             cd apps-inventory
@@ -32,9 +36,9 @@ jobs:
             Write-Error "apps-inventory directory not found!"
             exit 1
           }
-        shell: pwsh
+
       - name: Build all projects
-        run: |
+        run: | # Run in default shell
           ng build apps-inventory
           ng build bussiness-owners
           ng build adminportal
@@ -45,17 +49,18 @@ jobs:
           ng build apps-sales
           ng build erp-home
 
-      - name: Run post-build script (if applicable)
+      - name: Run post-build script
         env:
-          PROJECT_NAME: adminportal  # Update as needed
+          PROJECT_NAME: adminportal
           OUTPUT_PATH: frontadmin
-        run: npm run post-build  # Assuming the script name is "post-build"
+        run: npm run post-build # Run in default shell
 
-      - name: Deploy output using npm (if applicable)
-        run: npm run deploy  # Assuming you have a "deploy" script
+      - name: Deploy output using npm
+        run: npm run deploy # Run in default shell
 
-      - name: Copy output to D:\front (if applicable)
+      - name: Copy output to D:\front
+        shell: pwsh
         run: |
-          mkdir D:\front\dist
+          New-Item -ItemType Directory -Path "D:\front\dist" -Force
           xcopy /s /y dist\* D:\front\dist\
-          echo Deployment successful!
+          Write-Host "Deployment successful!"
