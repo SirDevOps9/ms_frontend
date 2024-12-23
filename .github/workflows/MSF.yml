@@ -22,22 +22,6 @@ jobs:
       - name: Install root dependencies
         run: npm install --force --legacy-peer-deps # Run in default shell (PowerShell on your self-hosted runner)
 
-        - name: Install apps-inventory dependencies
-        shell: pwsh
-        run: |
-           if (Test-Path -Path "apps-inventory") {
-            Write-Host "Installing apps-inventory dependencies..."
-            cd apps-inventory
-            Remove-Item -Path "node_modules", "package-lock.json" -Force -Recurse
-            npm install @zxing/browser@latest @zxing/ngx-scanner@latest
-            Get-Content package.json # Print package.json to verify
-            npm list # List installed packages
-            cd ..
-          } else {
-            Write-Error "apps-inventory directory not found!"
-            exit 1
-          }
-
       - name: Build all projects
         run: | # Run in default shell
           ng build apps-inventory
