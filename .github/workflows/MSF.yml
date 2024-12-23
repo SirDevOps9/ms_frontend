@@ -43,8 +43,9 @@ jobs:
 
       - name: Deploy output using npm
         run: npm run deploy
+
       - name: Copy output to D:\front
-       run: |
-         mkdir D:\front\dist
-         xcopy /s /y dist\* D:\front\dist\
-         echo Deployment successful!
+        run: |
+          mkdir D:\front\dist
+          xcopy /s /y dist\* D:\front\dist\
+          echo Deployment successful!
