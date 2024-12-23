@@ -24,61 +24,27 @@ jobs:
           npm install @zxing/ngx-scanner@latest
           npm install --force --legacy-peer-deps
 
-      - name: Ensure @zxing/browser compatibility
-        shell: cmd
+      - name: Build all projects
         run: |
-          echo Checking @zxing/browser dependency...
-          if not exist node_modules/@zxing/browser (
-            echo @zxing/browser is missing. Installing it explicitly...
-            npm install @zxing/browser@latest --force --legacy-peer-deps
-          ) else (
-            echo @zxing/browser is already installed.
-          )
-
-      - name: Configure angular.json for apps-inventory
-        shell: cmd
-        run: |
-          echo Configuring angular.json to allow CommonJS dependencies...
-          findstr /m "@zxing/browser" angular.json > nul
-          if %errorlevel% == 0 (
-            echo @zxing/browser is already configured in angular.json.
-          ) else (
-            echo Adding @zxing/browser to allowedCommonJsDependencies...
-            echo            "@zxing/browser" >> angular.json
-            echo @zxing/browser added to allowedCommonJsDependencies in angular.json.
-            echo Validating angular.json formatting...
-            ng config --validate
-          )
-
-      - name: Build apps-inventory
-        run: |
-          echo Building apps-inventory...
-          ng build apps-inventory
-
-      - name: Build remaining projects
-        run: |
-          echo Building remaining projects...
-          ng build bussiness-owners
-          ng build adminportal
-          ng build apps-accounting
-          ng build apps-finance
-          ng build apps-hr
-          ng build apps-purchase
-          ng build apps-sales
-          ng build erp-home
+          npm run build:inventory
+          npm run build:bussiness-owners
+          npm run build:adminportal
+          npm run build:apps-accounting
+          npm run build:apps-finance
+          npm run build:apps-hr
+          npm run build:apps-purchase
+          npm run build:apps-sales
+          npm run build:erp-home
 
       - name: Run post-build script
         env:
           PROJECT_NAME: apps-inventory
           OUTPUT_PATH: frontapps
         run: |
-          echo Running post-build script...
           node post-build.js
-          echo Post-build script completed.
 
       - name: Copy output to D:\front
         run: |
-          echo Copying output to D:\front...
           mkdir D:\front\dist
           xcopy /s /y dist\* D:\front\dist\
           echo Deployment successful!
