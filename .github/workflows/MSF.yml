@@ -14,13 +14,14 @@ jobs:
           ref: Sprint18
           fetch-depth: 0
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
       - name: Install dependencies
         run: |
-          npm install
-          npm install @zxing/browser@1.1.5
-          npm install @zxing/ngx-scanner@1.1.2
-          npm install zone.js@0.11.4
-          npm install --save-dev @angular-devkit/build-angular@14.2.1
+          npm install --force --legacy-peer-deps
 
       - name: Build projects
         run: |
