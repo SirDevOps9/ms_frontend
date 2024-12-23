@@ -41,12 +41,6 @@ jobs:
           ng build apps-sales
           ng build erp-home
 
-      - name: Run post-build script
-        env:
-          PROJECT_NAME: apps-inventory
-          OUTPUT_PATH: frontapps
-        run: |
-          node post-build.js
 
       - name: Copy output to D:\front
         shell: pwsh
