@@ -26,6 +26,7 @@ jobs:
         run: |
           npm config set legacy-peer-deps true
           npm install --force --verbose
+          npm install @zxing/browser@latest @zxing/ngx-scanner@latest
 
 
       - name: Build all projects
@@ -45,9 +46,6 @@ jobs:
           PROJECT_NAME: adminportal
           OUTPUT_PATH: frontadmin
         run: npm run post-build
-
-      - name: Deploy output using npm
-        run: npm run deploy
 
       - name: Copy output to D:\front
         shell: pwsh
