@@ -43,9 +43,10 @@ jobs:
 
       - name: Run post-build script
         env:
-          PROJECT_NAME: adminportal
-          OUTPUT_PATH: frontadmin
-        run: npm run post-build
+          PROJECT_NAME: apps-inventory
+          OUTPUT_PATH: frontapps
+        run: |
+          node post-build.js
 
       - name: Copy output to D:\front
         shell: pwsh
