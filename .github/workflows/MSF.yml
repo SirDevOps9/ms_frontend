@@ -23,17 +23,17 @@ jobs:
         run: |
           npm install --force --legacy-peer-deps
 
-      - name: Build projects using npm scripts
+      - name: Build all projects
         run: |
-          npm run build:adminportal
-          npm run build:business-owners
-          npm run build:apps-accounting
-          npm run build:apps-finance
-          npm run build:apps-hr
-          npm run build:apps-inventory
-          npm run build:apps-purchase
-          npm run build:apps-sales
-          npm run build:erp-home
+          ng build apps-inventory
+          ng build bussiness-owners
+          ng build adminportal
+          ng build apps-accounting
+          ng build apps-finance
+          ng build apps-hr
+          ng build apps-purchase
+          ng build apps-sales
+          ng build erp-home
 
       - name: Run post-build script (if applicable)
         env:
