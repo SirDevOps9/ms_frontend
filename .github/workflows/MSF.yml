@@ -23,26 +23,28 @@ jobs:
         run: |
           npm install --force --legacy-peer-deps
 
-      - name: Build projects
+      - name: Build projects using npm
         run: |
-          ng build adminportal
-          ng build bussiness-owners
-          ng build apps-accounting
-          ng build apps-finance
-          ng build apps-hr
-          ng build apps-inventory
-          ng build apps-purchase
-          ng build apps-sales
-          ng build erp-home
+          npm run build:adminportal
+          npm run build:business-owners
+          npm run build:apps-accounting
+          npm run build:apps-finance
+          npm run build:apps-hr
+          npm run build:apps-inventory
+          npm run build:apps-purchase
+          npm run build:apps-sales
+          npm run build:erp-home
 
       - name: Run post-build script
         env:
           PROJECT_NAME: apps-inventory
           OUTPUT_PATH: frontapps
-        run: node post-build.js
+        run: npm run post-build
 
+      - name: Deploy output using npm
+        run: npm run deploy
       - name: Copy output to D:\front
-        run: |
-          mkdir D:\front\dist
-          xcopy /s /y dist\* D:\front\dist\
-          echo Deployment successful!
+       run: |
+         mkdir D:\front\dist
+         xcopy /s /y dist\* D:\front\dist\
+         echo Deployment successful!
