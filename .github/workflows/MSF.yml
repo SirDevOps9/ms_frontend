@@ -23,7 +23,7 @@ jobs:
         run: |
           npm install --force --legacy-peer-deps
 
-      - name: Build projects using npm
+      - name: Build projects using npm scripts
         run: |
           npm run build:adminportal
           npm run build:business-owners
@@ -35,16 +35,16 @@ jobs:
           npm run build:apps-sales
           npm run build:erp-home
 
-      - name: Run post-build script
+      - name: Run post-build script (if applicable)
         env:
-          PROJECT_NAME: apps-inventory
-          OUTPUT_PATH: frontapps
-        run: npm run post-build
+          PROJECT_NAME: adminportal  # Update as needed
+          OUTPUT_PATH: frontadmin
+        run: npm run post-build  # Assuming the script name is "post-build"
 
-      - name: Deploy output using npm
-        run: npm run deploy
+      - name: Deploy output using npm (if applicable)
+        run: npm run deploy  # Assuming you have a "deploy" script
 
-      - name: Copy output to D:\front
+      - name: Copy output to D:\front (if applicable)
         run: |
           mkdir D:\front\dist
           xcopy /s /y dist\* D:\front\dist\
