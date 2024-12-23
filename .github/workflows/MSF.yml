@@ -11,18 +11,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          ref: 'Sprint18'
+          ref: Sprint18
           fetch-depth: 0
 
-     - name: Install dependencies
-       run: |
-         npm install
-         npm install @zxing/browser@1.1.5
-         npm install @zxing/ngx-scanner@1.1.2
-         npm install zone.js@0.11.4
-         npm install --save-dev @angular-devkit/build-angular@14.2.1
+      - name: Install dependencies
+        run: |
+          npm install
+          npm install @zxing/browser@1.1.5
+          npm install @zxing/ngx-scanner@1.1.2
+          npm install zone.js@0.11.4
+          npm install --save-dev @angular-devkit/build-angular@14.2.1
 
-      - name: Build all projects
+      - name: Build projects
         run: |
           ng build adminportal
           ng build bussiness-owners
@@ -38,11 +38,10 @@ jobs:
         env:
           PROJECT_NAME: apps-inventory
           OUTPUT_PATH: frontapps
-        run: |
-          node post-build.js
+        run: node post-build.js
 
       - name: Copy output to D:\front
         run: |
           mkdir D:\front\dist
           xcopy /s /y dist\* D:\front\dist\
-          echo "Deployment successful!"
+          echo Deployment successful!
