@@ -1,4 +1,4 @@
-name: Build Finance Apps 
+name: Build Finance App
 
 on:
   workflow_dispatch
@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: ./.github/workflows/common-steps.yml
 
-      - name: Build Apps Finance App
+      - name: Build Finance App
         run: ng build apps-finance --configuration production
 
       - name: Create Destination Directory
