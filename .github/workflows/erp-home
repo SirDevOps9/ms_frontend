@@ -1,0 +1,41 @@
+name: Deploy ERP-Home
+
+on:
+  workflow_dispatch
+
+jobs:
+  build-and-deploy:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          ref: Sprint18
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Clean npm cache
+        run: npm cache clean --force
+
+      - name: Install dependencies
+        run: |
+          npm config set legacy-peer-deps true
+          npm install --force --verbose
+          npm install @zxing/browser@latest @zxing/ngx-scanner@latest
+
+      - name: Build ERP Home App
+        run: ng build erp-home --configuration production
+
+        - name: Create Destination Directory
+        shell: pwsh
+        run: New-Item -ItemType Directory -Path "D:\front\dist\erp-home" -Force
+
+      - name: Copy output to D:\front
+        shell: pwsh
+        run: |
+          xcopy /s /y dist\erp-home\* D:\front\dist\erp-home\
+          Write-Host "ERP Home Deployment successful!"
