@@ -1,0 +1,41 @@
+name: Build Inventory Frontend
+
+on:
+  workflow_dispatch
+
+jobs:
+  build-and-deploy:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          ref: Sprint18
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Clean npm cache
+        run: npm cache clean --force
+
+      - name: Install dependencies
+        run: |
+          npm config set legacy-peer-deps true
+          npm install --force --verbose
+          npm install @zxing/browser@latest @zxing/ngx-scanner@latest
+
+      - name: Build Inventory App
+        run: ng build apps-inventory
+
+      - name: Create Destination Directory
+        shell: pwsh
+        run: New-Item -ItemType Directory -Path "D:\front\dist\apps-inventory" -Force #Specific Folder
+
+      - name: Copy output to D:\front
+        shell: pwsh
+        run: |
+          xcopy /s /y dist\apps-inventory\* D:\front\dist\apps-inventory\ #Specific Folder
+          Write-Host "Inventory Deployment successful!"
