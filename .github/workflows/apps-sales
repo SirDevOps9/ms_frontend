@@ -1,0 +1,23 @@
+name: Build Sales App
+
+on:
+  workflow_dispatch
+
+jobs:
+  build-and-deploy:
+    runs-on: self-hosted
+    steps:
+      - uses: ./.github/workflows/common-steps.yml
+
+      - name: Build Sales App # Correct indentation
+        run: ng build apps-sales --configuration production
+
+      - name: Create Destination Directory # Correct indentation
+        shell: pwsh
+        run: New-Item -ItemType Directory -Path "D:\front\dist\apps-sales" -Force
+
+      - name: Copy output to D:\front # Correct indentation
+        shell: pwsh
+        run: |
+          xcopy /s /y dist\apps-sales\* D:\front\dist\apps-sales\
+          Write-Host "Apps Sales Deployment successful!"
