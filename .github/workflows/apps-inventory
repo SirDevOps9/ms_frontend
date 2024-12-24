@@ -1,4 +1,4 @@
-name: Build Inventory Frontend
+name: Build Inventory App FR
 
 on:
   workflow_dispatch
