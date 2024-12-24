@@ -19,5 +19,5 @@ jobs:
       - name: Copy output to D:\front
         shell: pwsh
         run: |
-          xcopy /s /y dist\apps-inventory\* D:\front\dist\apps-inventory\ #Specific Folder
+          xcopy /s /y dist\apps-inventory\* D:\front\dist\apps-inventory\ 
           Write-Host "Inventory Deployment successful!"
