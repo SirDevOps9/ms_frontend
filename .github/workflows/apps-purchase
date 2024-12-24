@@ -1,4 +1,4 @@
-name: Build Purchase Apps 
+name: Build Purchase App
 
 on:
   workflow_dispatch
@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: ./.github/workflows/common-steps.yml
 
-      - name: Build Apps Purchase App
+      - name: Build Purchase App
         run: ng build apps-purchase --configuration production
 
       - name: Create Destination Directory
