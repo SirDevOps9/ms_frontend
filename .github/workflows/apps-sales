@@ -9,14 +9,14 @@ jobs:
     steps:
       - uses: ./.github/workflows/common-steps.yml
 
-      - name: Build Sales App # Correct indentation
+      - name: Build Sales App 
         run: ng build apps-sales --configuration production
 
-      - name: Create Destination Directory # Correct indentation
+      - name: Create Destination Directory 
         shell: pwsh
         run: New-Item -ItemType Directory -Path "D:\front\dist\apps-sales" -Force
 
-      - name: Copy output to D:\front # Correct indentation
+      - name: Copy output to D:\front 
         shell: pwsh
         run: |
           xcopy /s /y dist\apps-sales\* D:\front\dist\apps-sales\
