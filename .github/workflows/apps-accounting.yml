@@ -47,7 +47,7 @@ jobs:
           Import-Module WebAdministration
           $appName = $env:APP_NAME
           Write-Host "Stopping $appName website..."
-          Stop-WebSite -Name $appName -ErrorAction Stop
+          Stop-WebSite -Name $env:APP_NAME -ErrorAction Stop
           Write-Host "$appName website stopped"
 
       - name: Copy files to IIS Directory
