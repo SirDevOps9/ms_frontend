@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       app-name:
-        description: 'The full name of the app to build and deploy (e.g., "apps-accounting")'
+        description: 'The full name of the app to build and deploy (e.g., apps-accounting)'
         required: true
         default: 'apps-accounting'
 
@@ -53,7 +53,8 @@ jobs:
       - name: Copy files to IIS Directory
         shell: powershell
         run: |
-          xcopy /s /y D:\front\dist\$env:APP_NAME\* C:\inetpub\wwwroot\$env:APP_NAME\
+          $appName = $env:APP_NAME.Trim('"')
+          xcopy /s /y D:\front\dist\$appName\* C:\inetpub\wwwroot\$appName\
           Write-Host "Files copied to IIS directory"
 
       - name: Start IIS Website
