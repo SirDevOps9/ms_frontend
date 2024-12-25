@@ -1,23 +1,27 @@
 name: Build Inventory App FR
 
 on:
-  workflow_dispatch
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
     runs-on: self-hosted
     steps:
-       - uses: ./.github/workflows/common-steps.yml
-     
+      # Ensure the reusable common-steps.yml workflow is referenced correctly
+      - uses: ./.github/workflows/common-steps.yml
+
+      # Build Inventory App
       - name: Build Inventory App
         run: ng build apps-inventory
 
+      # Create Destination Directory (specific to your setup)
       - name: Create Destination Directory
         shell: pwsh
-        run: New-Item -ItemType Directory -Path "D:\front\dist\apps-inventory" -Force #Specific Folder
+        run: New-Item -ItemType Directory -Path "D:\front\dist\apps-inventory" -Force
 
+      # Copy output to the destination directory
       - name: Copy output to D:\front
         shell: pwsh
         run: |
-          xcopy /s /y dist\apps-inventory\* D:\front\dist\apps-inventory\ 
+          xcopy /s /y dist\apps-inventory\* D:\front\dist\apps-inventory\
           Write-Host "Inventory Deployment successful!"
