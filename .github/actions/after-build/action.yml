@@ -1,0 +1,18 @@
+- name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set App Name
+        run: echo "APP_NAME=${{ github.event.inputs.app-name }}" >> $GITHUB_ENV
+
+      - name: Build Finance App
+        run: ng build apps-$APP_NAME --configuration production
+
+      - name: Create Destination Directory
+        shell: pwsh
+        run: New-Item -ItemType Directory -Path "D:\front\dist\apps-$APP_NAME" -Force
+
+      - name: Copy output to D:\front
+        shell: pwsh
+        run: |
+          xcopy /s /y dist\apps-$APP_NAME\* D:\front\dist\apps-$APP_NAME\
+          Write-Host "Apps $APP_NAME Deployment successful!"
