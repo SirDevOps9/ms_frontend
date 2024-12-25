@@ -7,12 +7,12 @@ jobs:
   build-and-deploy:
     runs-on: self-hosted
     steps:
-       - uses: ./.github/workflows/common-steps.yml
+      - uses: ./.github/workflows/common-steps.yml
 
       - name: Build ERP Home App
-        run: ng build erp-home --configuration production
+      - run: ng build erp-home --configuration production
 
-        - name: Create Destination Directory
+      - name: Create Destination Directory
         shell: pwsh
         run: New-Item -ItemType Directory -Path "D:\front\dist\erp-home" -Force
 
