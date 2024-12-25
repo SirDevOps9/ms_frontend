@@ -17,12 +17,11 @@ jobs:
         run: echo "APP_NAME=${{ github.event.inputs.app-name }}" >> $GITHUB_ENV
 
       - name: Stop IIS Website
-        shell: pwsh
+        shell: powershell
         run: |
          Write-Host $GITHUB_ENV
-  
-#          Import-Module WebAdministration
- #         Stop-WebSite -Name $env:APP_NAME -ErrorAction Stop
+         Import-Module WebAdministration
+         Stop-WebSite -Name $GITHUB_ENV -ErrorAction Stop
            
       - name: Checkout code
         uses: actions/checkout@v3
