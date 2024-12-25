@@ -7,7 +7,7 @@ jobs:
   build-and-deploy:
     runs-on: self-hosted
     steps:
-      - uses: ./.github/workflows/Common_Build_Steps.yml
+      - uses: "./.github/workflows/Common Build Steps.yml" 
         with:
           node-version: '8'
           ref: Sprint18
