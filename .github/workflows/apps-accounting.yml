@@ -2,10 +2,6 @@ name: Build Accounting App
 
 on:
   workflow_dispatch:  # Allow manual trigger
-  workflow_run:
-    workflows: ["common-setup"]  # Name of the workflow to trigger
-    types:
-      - completed  # Trigger when "Common Setup" completes
 
 jobs:
   build-and-deploy:
@@ -18,17 +14,20 @@ jobs:
           ref: Sprint18
           fetch-depth: 0
 
-      # Build Accounting App
+      # Use the reusable common-setup action
+      - name: Run Common Setup
+        uses: ./.github/actions/common-setup  # This refers to the action we created
+        with:
+          node-version: '18'
+
       - name: Build Accounting App
         run: ng build apps-accounting --configuration production
 
       - name: Create Destination Directory
-        # This step might be already handled in the Common Build Steps workflow
         shell: pwsh
         run: New-Item -ItemType Directory -Path "D:\front\dist\apps-accounting" -Force
 
       - name: Copy output to D:\front
-        # This step might be already handled in the Common Build Steps workflow
         shell: pwsh
         run: |
           xcopy /s /y dist\apps-accounting\* D:\front\dist\apps-accounting\
