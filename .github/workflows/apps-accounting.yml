@@ -6,24 +6,29 @@ on:
 jobs:
   build-and-deploy:
     runs-on: self-hosted
+
     steps:
-      - uses: "./.github/workflows/Common Build Steps.yml" 
+      - uses: "./.github/workflows/Common Build Steps.yml"  # Assuming it's in the same directory
         with:
-          node-version: '8'
-          ref: Sprint18
+          node-version: '8'  # Passing node version as input
+          ref: Sprint18  # Passing ref as input (assuming it's used in the Common workflow)
 
       - name: Build Accounting App
         run: ng build apps-accounting --configuration production
 
-      - name: Create Destination Directory
+      - name: Create Destination Directory (Optional - Check Common workflow)
+        # This step might be already handled in the Common Build Steps workflow
         shell: pwsh
         run: New-Item -ItemType Directory -Path "D:\front\dist\apps-accounting" -Force
 
-      - name: Copy output to D:\front
+      - name: Copy output to D:\front (Optional - Check Common workflow)
+        # This step might be already handled in the Common Build Steps workflow
         shell: pwsh
         run: |
           xcopy /s /y dist\apps-accounting\* D:\front\dist\apps-accounting\
           Write-Host "Apps Accounting Deployment successful!"
+
+      # Assuming these steps are not handled in the Common Build Steps workflow
 
       - name: Stop IIS Website
         shell: pwsh
