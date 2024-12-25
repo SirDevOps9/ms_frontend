@@ -16,7 +16,7 @@ jobs:
 
       # Use the reusable common-setup action
       - name: Run Common Setup
-        uses: ./.github/actions/common-setup  # This refers to the action we created
+        uses: actions/common-setup/action.yml # This refers to the action we created
         with:
           node-version: '18'
 
