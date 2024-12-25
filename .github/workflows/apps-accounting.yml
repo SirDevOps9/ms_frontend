@@ -45,7 +45,7 @@ jobs:
         shell: powershell
         run: |
           Import-Module WebAdministration
-          $appName = $env:APP_NAME
+          $appName = $env:APP_NAME  # Reference environment variable in PowerShell
           Write-Host "Stopping $appName website..."
           Stop-WebSite -Name $appName -ErrorAction Stop
           Write-Host "$appName website stopped"
@@ -53,14 +53,15 @@ jobs:
       - name: Copy files to IIS Directory
         shell: powershell
         run: |
-          xcopy /s /y D:\front\dist\$env:APP_NAME\* C:\inetpub\wwwroot\$env:APP_NAME\
+          $appName = $env:APP_NAME  # Reuse $appName in this step as well
+          xcopy /s /y D:\front\dist\$appName\* C:\inetpub\wwwroot\$appName\
           Write-Host "Files copied to IIS directory"
 
       - name: Start IIS Website
         shell: powershell
         run: |
           Import-Module WebAdministration
-          $appName = $env:APP_NAME
+          $appName = $env:APP_NAME  # Consistently use $appName
           Write-Host "Starting $appName website..."
           Start-WebSite -Name $appName -ErrorAction Stop
           Write-Host "$appName website started"
