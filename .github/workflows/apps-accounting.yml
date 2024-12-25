@@ -42,7 +42,7 @@ jobs:
           Write-Host "Apps $env:APP_NAME Deployment successful!"
 
       - name: Stop IIS Website
-        shell: pwsh
+        shell: powershell
         run: |
           Import-Module WebAdministration -SkipEditionCheck
           $appName = $env:APP_NAME
@@ -50,13 +50,13 @@ jobs:
           Write-Host "$appName website stopped"
 
       - name: Copy files to IIS Directory
-        shell: pwsh
+        shell: powershell
         run: |
           xcopy /s /y D:\front\dist\$env:APP_NAME\* C:\inetpub\wwwroot\$env:APP_NAME\
           Write-Host "Files copied to IIS directory"
 
       - name: Start IIS Website
-        shell: pwsh
+        shell: powershell
         run: |
           Import-Module WebAdministration -SkipEditionCheck
           $appName = $env:APP_NAME
