@@ -1,22 +1,38 @@
 name: Common Build Steps
 
-steps:
-  - name: Checkout code
-    uses: actions/checkout@v3
-    with:
-      ref: Sprint18
-      fetch-depth: 0
+on:
+  workflow_call:
+    inputs:
+      node-version:
+        description: Node.js version
+        default: '18'
+      ref:
+        description: Git reference
+        default: Sprint18
 
-  - name: Setup Node.js
-    uses: actions/setup-node@v3
-    with:
-      node-version: '18'
+jobs:
+  build:
+    runs-on: self-hosted
+    outputs:
+      checkout-path: ${{ steps.checkout.outputs.path }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        id: checkout
+        with:
+          ref: Sprint18
+          fetch-depth: 0
 
-  - name: Clean npm cache
-    run: npm cache clean --force
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '8'
 
-  - name: Install dependencies
-    run: |
-      npm config set legacy-peer-deps true
-      npm install --force --verbose
-      npm install @zxing/browser@latest @zxing/ngx-scanner@latest
+      - name: Clean npm cache
+        run: npm cache clean --force
+
+      - name: Install dependencies
+        run: |
+          npm config set legacy-peer-deps true
+          npm install --force --verbose
+          npm install @zxing/browser@latest @zxing/ngx-scanner@latest
