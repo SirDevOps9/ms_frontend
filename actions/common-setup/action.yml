@@ -1,17 +1,13 @@
 name: 'Common Setup'
-description: 'Set up Node.js, clean npm cache, and install dependencies'
+description: 'Reusable setup for Node.js and dependencies.'
 inputs:
   node-version:
-    description: 'Node.js version'
+    description: 'Node.js version to use'
     required: true
     default: '18'
-
 runs:
-  using: 'composite'
+  using: 'node12'
   steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v3
-
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
