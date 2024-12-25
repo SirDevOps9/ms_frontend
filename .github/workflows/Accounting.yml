@@ -1,0 +1,43 @@
+name: Build Accounting App
+
+on:
+  workflow_dispatch
+
+jobs:
+  build-and-deploy:
+    runs-on: self-hosted
+    steps:
+      - uses: ./.github/workflows/common-steps.yml
+
+      - name: Build Accounting App
+        run: ng build apps-accounting --configuration production
+
+      - name: Create Destination Directory
+        shell: pwsh
+        run: New-Item -ItemType Directory -Path "D:\front\dist\apps-accounting" -Force
+
+      - name: Copy output to D:\front
+        shell: pwsh
+        run: |
+          xcopy /s /y dist\apps-accounting\* D:\front\dist\apps-accounting\
+          Write-Host "Apps Accounting Deployment successful!"
+
+      - name: Stop IIS Website
+        shell: pwsh
+        run: |
+          Import-Module WebAdministration
+          Stop-WebSite -Name "apps-accounting"
+          Write-Host "apps-accounting website stopped"
+
+      - name: Copy files to IIS Directory
+        shell: pwsh
+        run: |
+          xcopy /s /y D:\front\dist\apps-accounting\* C:\inetpub\wwwroot\apps-accounting\
+          Write-Host "Files copied to IIS directory"
+
+      - name: Start IIS Website
+        shell: pwsh
+        run: |
+          Import-Module WebAdministration
+          Start-WebSite -Name "apps-accounting"
+          Write-Host "apps-accounting website started"
