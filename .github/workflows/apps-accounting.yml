@@ -45,11 +45,9 @@ jobs:
         shell: powershell
         run: |
           Import-Module WebAdministration
-          $appName = $env:APP_NAME
-          Write-Host "Stopping $appName website..."
           Stop-WebSite -Name $env:APP_NAME -ErrorAction Stop
-          Write-Host "$appName website stopped"
-
+          Write-Host "$env:APP_NAME website stopped"
+          
       - name: Copy files to IIS Directory
         shell: powershell
         run: |
