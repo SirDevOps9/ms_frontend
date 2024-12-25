@@ -30,7 +30,7 @@ jobs:
       - name: Build App
         run: |
           echo "Building app: ${{ env.APP_NAME }}"
-          ng build ${{ env.APP_NAME }} --configuration production --project=$env.APP_NAME
+          ng build --project=${env.APP_NAME} --configuration production
 
       - name: Create Destination Directory
         shell: pwsh
