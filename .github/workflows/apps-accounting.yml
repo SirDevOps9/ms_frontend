@@ -1,7 +1,12 @@
-name: Build Accounting App
+name: Build and Deploy App
 
 on:
-  workflow_dispatch:  
+  workflow_dispatch:  # Allow manual trigger
+    inputs:
+      app-name:
+        description: 'The name of the app to build and deploy (e.g., "accounting")'
+        required: true
+        default: 'accounting'  # Optional default value
 
 jobs:
   build-and-deploy:
@@ -14,41 +19,43 @@ jobs:
           ref: Sprint18
           fetch-depth: 0
 
-      
       - name: Run Common Setup
         uses: ./.github/actions/common-setup 
         with:
           node-version: '18'
 
-      - name: Build Accounting App
-        run: ng build apps-accounting --configuration production
+      - name: Set App Name
+        run: echo "APP_NAME=${{ github.event.inputs.app-name }}" >> $GITHUB_ENV
+
+      - name: Build App
+        run: ng build apps-${{ env.APP_NAME }} --configuration production
 
       - name: Create Destination Directory
         shell: pwsh
-        run: New-Item -ItemType Directory -Path "D:\front\apps-accounting" -Force
+        run: New-Item -ItemType Directory -Path "D:\front\apps-${{ env.APP_NAME }}" -Force
 
       - name: Copy output to D:\front
         shell: pwsh
         run: |
-          xcopy /s /y dist\apps-accounting\* D:\front\dist\apps-accounting\
-          Write-Host "Apps Accounting Deployment successful!"
+          xcopy /s /y dist\apps-${{ env.APP_NAME }}\* D:\front\dist\apps-${{ env.APP_NAME }}\
+          Write-Host "Apps ${{ env.APP_NAME }} Deployment successful!"
 
       - name: Stop IIS Website
         shell: pwsh
         run: |
           Import-Module WebAdministration
-          Stop-WebSite -Name "apps-accounting"
-          Write-Host "apps-accounting website stopped"
+          Stop-WebSite -Name "apps-${{ env.APP_NAME }}"
+          Write-Host "apps-${{ env.APP_NAME }} website stopped"
 
       - name: Copy files to IIS Directory
         shell: pwsh
         run: |
-          xcopy /s /y D:\front\dist\apps-accounting\* C:\inetpub\wwwroot\apps-accounting\
+          xcopy /s /y D:\front\dist\apps-${{ env.APP_NAME }}\* C:\inetpub\wwwroot\apps-${{ env.APP_NAME }}\
           Write-Host "Files copied to IIS directory"
 
       - name: Start IIS Website
         shell: pwsh
         run: |
           Import-Module WebAdministration
-          Start-WebSite -Name "apps-accounting"
-          Write-Host "apps-accounting website started"
+          Start-WebSite -Name "apps-${{ env.APP_NAME }}"
+          Write-Host "apps-${{ env.APP_NAME }} website started"
