@@ -1,18 +1,27 @@
 name: Build Accounting App
 
 on:
-  workflow_dispatch
+  workflow_dispatch:  # Allow manual trigger
+  workflow_run:
+    workflows: ["Common Setup"]  # Name of the workflow to trigger
+    types:
+      - completed  # Trigger when "Common Setup" completes
 
 jobs:
   build-and-deploy:
     runs-on: self-hosted
 
     steps:
-      - uses: "./.github/workflows/Common Build Steps.yml"  # Assuming it's in the same directory
+      - name: Checkout code
+        uses: actions/checkout@v3
         with:
-          node-version: '8'  # Passing node version as input
-          ref: Sprint18  # Passing ref as input (assuming it's used in the Common workflow)
+          ref: Sprint18
+          fetch-depth: 0
 
+      # Trigger the Common Setup workflow if not using `workflow_run`
+      - name: Trigger Common Setup (Optional if using workflow_run)
+        uses: ./.github/workflows/common-setup.yml
+        if: ${{ github.event_name != 'workflow_run' }}
       - name: Build Accounting App
         run: ng build apps-accounting --configuration production
 
