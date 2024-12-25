@@ -5,8 +5,9 @@ inputs:
     description: 'Node.js version to use'
     required: true
     default: '18'
+
 runs:
-  using: 'node12'
+  using: 'composite'  # Use 'composite' for a reusable composite action
   steps:
     - name: Setup Node.js
       uses: actions/setup-node@v3
@@ -14,9 +15,11 @@ runs:
         node-version: ${{ inputs.node-version }}
 
     - name: Clean npm cache
+      shell: pwsh  # Specify PowerShell shell
       run: npm cache clean --force
 
     - name: Install dependencies
+      shell: pwsh  # Specify PowerShell shell
       run: |
         npm config set legacy-peer-deps true
         npm install --force --verbose
