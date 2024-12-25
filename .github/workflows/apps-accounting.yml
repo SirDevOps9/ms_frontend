@@ -11,7 +11,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          ref: Sprint18
+          ref: DevOps
           fetch-depth: 0
 
       # Use the reusable common-setup action
