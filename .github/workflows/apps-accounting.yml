@@ -24,7 +24,7 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Set App Name
+      - name: Set App Name (Improved)
         run: echo "APP_NAME=${{ github.event.inputs.app-name }}" >> $GITHUB_ENV
 
       - name: Build App
@@ -41,11 +41,15 @@ jobs:
           xcopy /s /y dist\$env:APP_NAME\* D:\front\dist\$env:APP_NAME\
           Write-Host "Apps $env:APP_NAME Deployment successful!"
 
-      - name: Stop IIS Website
+      - name: Stop IIS Website (Improved)
         shell: powershell
         run: |
           Import-Module WebAdministration
           $appName = $env:APP_NAME.Trim('"')
+          if ([string]::IsNullOrEmpty($appName)) {
+            Write-Error "APP_NAME environment variable is not set!"
+            exit 1
+          }
           Write-Host "Stopping $appName website..."
           Stop-WebSite -Name $appName -ErrorAction Stop
           Write-Host "$appName website stopped"
