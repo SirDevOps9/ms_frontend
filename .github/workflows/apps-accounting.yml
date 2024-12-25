@@ -1,7 +1,7 @@
 name: Build and Deploy App
 
 on:
-  workflow_dispatch:  # Allow manual trigger
+  workflow_dispatch:
     inputs:
       app-name:
         description: 'The name of the app to build and deploy (e.g., "accounting")'
@@ -20,7 +20,7 @@ jobs:
           fetch-depth: 0
 
       - name: Run Common Setup
-        uses: ./.github/actions/common-setup 
+        uses: ./.github/actions/common-setup
         with:
           node-version: '18'
 
