@@ -3,7 +3,7 @@ name: Build Accounting App
 on:
   workflow_dispatch:  # Allow manual trigger
   workflow_run:
-    workflows: ["Common Setup"]  # Name of the workflow to trigger
+    workflows: ["common-setup"]  # Name of the workflow to trigger
     types:
       - completed  # Trigger when "Common Setup" completes
 
