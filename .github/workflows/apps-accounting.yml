@@ -43,9 +43,10 @@ jobs:
       - name: Stop IIS Website
         shell: pwsh
         run: |
-          Import-Module WebAdministration
-          Stop-WebSite -Name $env:APP_NAME
-          Write-Host "$env:APP_NAME website stopped"
+          Import-Module WebAdministration -SkipEditionCheck
+          $appName = $env:APP_NAME
+          Stop-WebSite -Name $appName
+          Write-Host "$appName website stopped"
 
       - name: Copy files to IIS Directory
         shell: pwsh
@@ -53,9 +54,10 @@ jobs:
           xcopy /s /y D:\front\dist\$env:APP_NAME\* C:\inetpub\wwwroot\$env:APP_NAME\
           Write-Host "Files copied to IIS directory"
 
-      - name: Start IIS Website
-        shell: pwsh
-        run: |
-          Import-Module WebAdministration
-          Start-WebSite -Name $env:APP_NAME
-          Write-Host "$env:APP_NAME website started"
+     - name: Start IIS Website
+       shell: pwsh
+       run: |
+         Import-Module WebAdministration -SkipEditionCheck
+         $appName = $env:APP_NAME
+         Start-WebSite -Name $appName
+         Write-Host "$appName website started"
