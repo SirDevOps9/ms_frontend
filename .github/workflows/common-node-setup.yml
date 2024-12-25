@@ -1,0 +1,32 @@
+# common-node-setup.yml (Reusable Workflow)
+name: Common Node.js Setup
+
+on:
+  workflow_call:
+    inputs:
+      node_version:
+        required: true
+        type: string
+    outputs:
+      node_version_resolved:
+        description: The actual Node.js version used
+        value: ${{ steps.setup-node.outputs.node-version }}
+
+jobs:
+  node-setup-job:
+    runs-on: self-hosted # Changed to self-hosted
+    steps:
+      - id: setup-node
+        name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Clean npm cache
+        run: npm cache clean --force
+
+      - name: Install dependencies
+        run: |
+          npm config set legacy-peer-deps true
+          npm install --force --verbose
+          npm install @zxing/browser@latest @zxing/ngx-scanner@latest
