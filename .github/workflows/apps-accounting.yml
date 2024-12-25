@@ -28,7 +28,8 @@ jobs:
         run: echo "APP_NAME=${{ github.event.inputs.app-name }}" >> $GITHUB_ENV
 
       - name: Build App
-        run: ng build ${{ github.event.inputs.app-name }} --configuration production --project=${{ github.event.inputs.app-name }}
+        run: |
+          ng build ${{ github.event.inputs.app-name }} --configuration production --project=${{ github.event.inputs.app-name }}
 
       - name: Create Destination Directory
         shell: pwsh
@@ -54,10 +55,10 @@ jobs:
           xcopy /s /y D:\front\dist\$env:APP_NAME\* C:\inetpub\wwwroot\$env:APP_NAME\
           Write-Host "Files copied to IIS directory"
 
-     - name: Start IIS Website
-       shell: pwsh
-       run: |
-         Import-Module WebAdministration -SkipEditionCheck
-         $appName = $env:APP_NAME
-         Start-WebSite -Name $appName
-         Write-Host "$appName website started"
+      - name: Start IIS Website
+        shell: pwsh
+        run: |
+          Import-Module WebAdministration -SkipEditionCheck
+          $appName = $env:APP_NAME
+          Start-WebSite -Name $appName
+          Write-Host "$appName website started"
