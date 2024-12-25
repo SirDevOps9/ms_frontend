@@ -13,6 +13,9 @@ jobs:
     runs-on: self-hosted
 
     steps:
+      - name: Set App Name
+        run: echo "APP_NAME=${{ github.event.inputs.app-name }}" >> $GITHUB_ENV
+
       - name: Stop IIS Website
         shell: powershell
         run: |
