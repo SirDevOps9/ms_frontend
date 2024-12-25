@@ -44,7 +44,7 @@ jobs:
       - name: Stop IIS Website
         shell: powershell
         run: |
-          Import-Module WebAdministration -SkipEditionCheck
+          Import-Module WebAdministration
           $appName = $env:APP_NAME
           Stop-WebSite -Name $appName
           Write-Host "$appName website stopped"
@@ -55,10 +55,10 @@ jobs:
           xcopy /s /y D:\front\dist\$env:APP_NAME\* C:\inetpub\wwwroot\$env:APP_NAME\
           Write-Host "Files copied to IIS directory"
 
-      - name: Start IIS Website
-        shell: powershell
-        run: |
-          Import-Module WebAdministration -SkipEditionCheck
-          $appName = $env:APP_NAME
-          Start-WebSite -Name $appName
-          Write-Host "$appName website started"
+     - name: Start IIS Website
+       shell: powershell
+       run: |
+         Import-Module WebAdministration
+         $appName = $env:APP_NAME
+         Start-WebSite -Name $appName
+         Write-Host "$appName website started"
