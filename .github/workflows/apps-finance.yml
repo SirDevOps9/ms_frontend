@@ -1,13 +1,24 @@
 name: Build Finance App
 
 on:
-  workflow_dispatch
+  workflow_dispatch:  
 
 jobs:
   build-and-deploy:
     runs-on: self-hosted
+
     steps:
-      - uses: ./.github/workflows/common-steps.yml
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          ref: Sprint18
+          fetch-depth: 0
+
+      
+      - name: Run Common Setup
+        uses: ./.github/actions/common-setup 
+        with:
+          node-version: '18'
 
       - name: Build Finance App
         run: ng build apps-finance --configuration production
