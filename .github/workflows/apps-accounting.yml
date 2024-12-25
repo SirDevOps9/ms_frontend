@@ -18,26 +18,21 @@ jobs:
           ref: Sprint18
           fetch-depth: 0
 
-      # Trigger the Common Setup workflow if not using `workflow_run`
-      - name: Trigger Common Setup (Optional if using workflow_run)
-        uses: ./.github/workflows/common-setup.yml
-        if: ${{ github.event_name != 'workflow_run' }}
+      # Build Accounting App
       - name: Build Accounting App
         run: ng build apps-accounting --configuration production
 
-      - name: Create Destination Directory (Optional - Check Common workflow)
+      - name: Create Destination Directory
         # This step might be already handled in the Common Build Steps workflow
         shell: pwsh
         run: New-Item -ItemType Directory -Path "D:\front\dist\apps-accounting" -Force
 
-      - name: Copy output to D:\front (Optional - Check Common workflow)
+      - name: Copy output to D:\front
         # This step might be already handled in the Common Build Steps workflow
         shell: pwsh
         run: |
           xcopy /s /y dist\apps-accounting\* D:\front\dist\apps-accounting\
           Write-Host "Apps Accounting Deployment successful!"
-
-      # Assuming these steps are not handled in the Common Build Steps workflow
 
       - name: Stop IIS Website
         shell: pwsh
