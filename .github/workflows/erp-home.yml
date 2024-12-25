@@ -1,21 +1,35 @@
 name: Deploy ERP-Home
 
 on:
-  workflow_dispatch
+  workflow_dispatch:  # Allow manual trigger
 
 jobs:
   build-and-deploy:
-    runs-on: self-hosted
+    runs-on: self-hosted  # Runs on your self-hosted runner
+
     steps:
-      - uses: ./.github/workflows/common-steps.yml
+      # Ensure the full repository is checked out, including the workflows
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Fetch the entire repository, including all files
 
+      # Run the reusable common steps workflow
+      - name: Run Common Setup
+        uses: ./.github/workflows/common-steps.yml  # This refers to the workflow you're reusing
+        with:
+          node-version: '18'  # If necessary, pass input parameters here for node version, etc.
+
+      # Build ERP Home App
       - name: Build ERP Home App
-      - run: ng build erp-home --configuration production
+        run: ng build erp-home --configuration production
 
+      # Create Destination Directory (for output)
       - name: Create Destination Directory
         shell: pwsh
         run: New-Item -ItemType Directory -Path "D:\front\dist\erp-home" -Force
 
+      # Copy output to destination directory
       - name: Copy output to D:\front
         shell: pwsh
         run: |
