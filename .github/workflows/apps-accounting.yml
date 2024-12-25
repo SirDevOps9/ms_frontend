@@ -29,7 +29,9 @@ jobs:
         # The full app name is stored in the environment variable (e.g., "apps-accounting")
 
       - name: Build App
-        run: ng build ${{ env.APP_NAME }} --configuration production
+        run: |
+          echo "Building app: ${{ env.APP_NAME }}"
+          ng build ${{ env.APP_NAME }} --configuration production
         # The ng build command now uses the full app name (e.g., "apps-accounting")
 
       - name: Create Destination Directory
