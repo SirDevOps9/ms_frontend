@@ -6,7 +6,7 @@ on:
       app-name:
         description: 'The full name of the app to build and deploy (e.g., "apps-accounting")'
         required: true
-        default: 'apps-accounting'  # Optional default value
+        default: 'apps-accounting'
 
 jobs:
   build-and-deploy:
@@ -26,39 +26,38 @@ jobs:
 
       - name: Set App Name
         run: echo "APP_NAME=${{ github.event.inputs.app-name }}" >> $GITHUB_ENV
-        # The full app name is stored in the environment variable (e.g., "apps-accounting")
 
-     - name: Build App
-       run: |
-         echo "Building app: ${{ env.APP_NAME }}"
-         ng build ${env.APP_NAME} --configuration production --project=${env.APP_NAME}
+      - name: Build App
+        run: |
+          echo "Building app: ${{ env.APP_NAME }}"
+          ng build ${{ env.APP_NAME }} --configuration production --project=$env.APP_NAME
 
       - name: Create Destination Directory
         shell: pwsh
-        run: New-Item -ItemType Directory -Path "D:\front\${{ env.APP_NAME }}" -Force
+        run: New-Item -ItemType Directory -Path "D:\front\$env:APP_NAME" -Force
 
       - name: Copy output to D:\front
         shell: pwsh
         run: |
-          xcopy /s /y dist\${{ env.APP_NAME }}\* D:\front\dist\${{ env.APP_NAME }}\
-          Write-Host "Apps ${{ env.APP_NAME }} Deployment successful!"
+          xcopy /s /y dist\$env:APP_NAME\* D:\front\dist\$env:APP_NAME\
+          Write-Host "Apps $env:APP_NAME Deployment successful!"
 
       - name: Stop IIS Website
         shell: pwsh
         run: |
           Import-Module WebAdministration
-          Stop-WebSite -Name "${{ env.APP_NAME }}"
-          Write-Host "${{ env.APP_NAME }} website stopped"
+          Stop-WebSite -Name $env:APP_NAME
+          Write-Host "$env:APP_NAME website stopped"
 
       - name: Copy files to IIS Directory
         shell: pwsh
         run: |
-          xcopy /s /y D:\front\dist\${{ env.APP_NAME }}\* C:\inetpub\wwwroot\${{ env.APP_NAME }}\
+          xcopy /s /y D:\front\dist\$env:APP_NAME\* C:\inetpub\wwwroot\$env:APP_NAME\
           Write-Host "Files copied to IIS directory"
 
       - name: Start IIS Website
         shell: pwsh
         run: |
           Import-Module WebAdministration
-          Start-WebSite -Name "${{ env.APP_NAME }}"
-          Write-Host "${{ env.APP_NAME }} website started"
+          Start-WebSite -Name $env:APP_NAME
+          Write-Host "$env:APP_NAME website started"
