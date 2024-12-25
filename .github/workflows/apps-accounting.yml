@@ -28,9 +28,7 @@ jobs:
         run: echo "APP_NAME=${{ github.event.inputs.app-name }}" >> $GITHUB_ENV
 
       - name: Build App
-        run: |
-          echo "Building app: ${{ env.APP_NAME }}"
-          ng build --project=${env.APP_NAME} --configuration production
+        run: ng build ${{ github.event.inputs.app-name }} --configuration production --project=${{ github.event.inputs.app-name }}
 
       - name: Create Destination Directory
         shell: pwsh
