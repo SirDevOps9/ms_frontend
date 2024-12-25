@@ -19,11 +19,11 @@ jobs:
       - name: Stop IIS Website
         shell: pwsh
         run: |
-          echo $env:APP_NAME
+         Write-Host $GITHUB_ENV
+  
 #          Import-Module WebAdministration
  #         Stop-WebSite -Name $env:APP_NAME -ErrorAction Stop
-  #        Write-Host "$env:APP_NAME website stopped"
-          
+           
       - name: Checkout code
         uses: actions/checkout@v3
         with:
