@@ -1,7 +1,7 @@
 name: Build Accounting App
 
 on:
-  workflow_dispatch:  # Allow manual trigger
+  workflow_dispatch:  
 
 jobs:
   build-and-deploy:
@@ -14,9 +14,9 @@ jobs:
           ref: Sprint18
           fetch-depth: 0
 
-      # Use the reusable common-setup action
+      
       - name: Run Common Setup
-        uses: ./.github/actions/common-setup # This refers to the action's directory
+        uses: ./.github/actions/common-setup 
         with:
           node-version: '18'
 
