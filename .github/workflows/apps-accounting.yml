@@ -16,6 +16,7 @@ jobs:
       - name: Stop IIS Website
         shell: powershell
         run: |
+          write-host $env:APP_NAME
           Import-Module WebAdministration
           Stop-WebSite -Name $env:APP_NAME -ErrorAction Stop
           Write-Host "$env:APP_NAME website stopped"
