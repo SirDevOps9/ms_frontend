@@ -1,1 +1,27 @@
+name: 'Common Setup'
+description: 'Set up Node.js, clean npm cache, and install dependencies'
+inputs:
+  node-version:
+    description: 'Node.js version'
+    required: true
+    default: '18'
 
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ inputs.node-version }}
+
+    - name: Clean npm cache
+      run: npm cache clean --force
+
+    - name: Install dependencies
+      run: |
+        npm config set legacy-peer-deps true
+        npm install --force --verbose
+        npm install @zxing/browser@latest @zxing/ngx-scanner@latest
