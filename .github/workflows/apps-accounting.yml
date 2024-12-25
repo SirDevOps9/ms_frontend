@@ -7,6 +7,7 @@ jobs:
   build-and-deploy:
     runs-on: self-hosted
     steps:
+      - uses: actions/checkout@v3
       - uses: ./.github/workflows/common-steps.yml
 
       - name: Build Accounting App
