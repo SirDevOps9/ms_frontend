@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       app-name:
-        description: 'The full name of the app to build and deploy (e.g., apps-accounting)'
+        description: 'The full name of the app to build and deploy (e.g., "apps-accounting")'
         required: true
         default: 'apps-accounting'
 
@@ -24,7 +24,7 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Set App Name (Improved)
+      - name: Set App Name
         run: echo "APP_NAME=${{ github.event.inputs.app-name }}" >> $GITHUB_ENV
 
       - name: Build App
@@ -41,15 +41,11 @@ jobs:
           xcopy /s /y dist\$env:APP_NAME\* D:\front\dist\$env:APP_NAME\
           Write-Host "Apps $env:APP_NAME Deployment successful!"
 
-      - name: Stop IIS Website (Improved)
+      - name: Stop IIS Website
         shell: powershell
         run: |
           Import-Module WebAdministration
-          $appName = $env:APP_NAME.Trim('"')
-          if ([string]::IsNullOrEmpty($appName)) {
-            Write-Error "APP_NAME environment variable is not set!"
-            exit 1
-          }
+          $appName = $env:APP_NAME  # Reference environment variable in PowerShell
           Write-Host "Stopping $appName website..."
           Stop-WebSite -Name $appName -ErrorAction Stop
           Write-Host "$appName website stopped"
@@ -57,7 +53,7 @@ jobs:
       - name: Copy files to IIS Directory
         shell: powershell
         run: |
-          $appName = $env:APP_NAME.Trim('"')
+          $appName = $env:APP_NAME  # Reuse $appName in this step as well
           xcopy /s /y D:\front\dist\$appName\* C:\inetpub\wwwroot\$appName\
           Write-Host "Files copied to IIS directory"
 
@@ -65,7 +61,7 @@ jobs:
         shell: powershell
         run: |
           Import-Module WebAdministration
-          $appName = $env:APP_NAME.Trim('"')
+          $appName = $env:APP_NAME  # Consistently use $appName
           Write-Host "Starting $appName website..."
           Start-WebSite -Name $appName -ErrorAction Stop
           Write-Host "$appName website started"
