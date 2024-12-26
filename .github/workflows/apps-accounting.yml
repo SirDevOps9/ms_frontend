@@ -27,11 +27,12 @@ jobs:
         shell: PowerShell
         run: |
           $env:APP_NAME = "${{ github.event.inputs.app-name }}"
-          Write-Host "App Name: $env:APP_NAME"
+          Write-Host "App Name: $env:APP_NAME"  # Debugging the app name value
 
       - name: Build App
         shell: PowerShell
         run: |
+          Write-Host "Building app: $env:APP_NAME"  # Debugging before build
           ng build $env:APP_NAME --configuration production --project=$env:APP_NAME
           Write-Host "Build completed for $env:APP_NAME"
 
