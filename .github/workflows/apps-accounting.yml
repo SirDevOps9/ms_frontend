@@ -11,12 +11,12 @@ jobs:
   build-and-deploy:
     runs-on: self-hosted
     steps:
-     - name: Checkout code
-       uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
         with:
           ref: Sprint18
           fetch-depth: 0
-          
+
       - name: Common Build Steps
         uses: ./.github/actions/common-setup/action.yml
         with:
@@ -30,6 +30,6 @@ jobs:
       - name: Copy output to D:\front
         shell: pwsh
         run: |
-          New-Item -ItemType Directory -Path "D:\front\dist" -Force
-          xcopy /s /y dist\* D:\front\dist\
+          New-Item -ItemType Directory -Path "D:\front\dist\$({{ github.event.inputs.app-name }})" -Force
+          xcopy /s /y dist\$({{ github.event.inputs.app-name }})\* D:\front\dist\$({{ github.event.inputs.app-name }})
           Write-Host "Deployment successful!"
