@@ -44,6 +44,11 @@ jobs:
           } else {
             New-Item -ItemType Directory -Path $destinationPath -Force
             Write-Host "Source directory not found. Creating $appName directory."
-            Copy-Item -Path .\dist\* -Destination $destinationPath -Recurse -Force
-            Write-Host "Files copied to $appName directory."
+            $distPath = ".\dist\*"
+            if (Test-Path $distPath) {
+              Copy-Item -Path $distPath -Destination $destinationPath -Recurse -Force
+              Write-Host "Files copied to $appName directory."
+            } else {
+              Write-Host "Dist directory not found."
+            }
           }
