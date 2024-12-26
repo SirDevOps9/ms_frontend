@@ -4,13 +4,13 @@ on:
   workflow_dispatch:
     inputs:
       app-name:
-        description: 'The full name of the app to build and deploy (e.g., "apps-accounting")'
+        description: 'App/website name (e.g., apps-accounting)'
         required: true
         default: 'apps-accounting'
 
 jobs:
   build-and-deploy:
-    runs-on: self-hosted
+    runs-on: windows-latest
 
     steps:
       - name: Checkout code
@@ -23,6 +23,7 @@ jobs:
         uses: ./.github/actions/common-setup
         with:
           node-version: '18'
+          run-as-administrator: true
 
       - name: Set App Name
         run: echo "APP_NAME=${{ github.event.inputs.app-name }}" >> $GITHUB_ENV
