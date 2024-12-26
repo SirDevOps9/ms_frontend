@@ -1,0 +1,118 @@
+name: Build and Deploy Any Frontend
+
+on:
+  workflow_dispatch:
+    inputs:
+      app-name:
+        description: 'Build and Deploy Any Frontend Apps'
+        required: true
+
+jobs:
+  build-and-deploy:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          ref: Sprint18
+          fetch-depth: 0
+
+      - name: Checkout submodules
+        run: git submodule update --init --recursive
+
+      - name: Common Build Steps
+        uses: ./.github/actions/common-setup/
+        with:
+          node-version: '18'
+          ref: Sprint18
+
+      - name: Build App
+        run: |
+          ng build ${{ github.event.inputs.app-name }}
+
+      - name: Copy output to D:\front
+        shell: pwsh
+        run: |
+          $appName = '${{ github.event.inputs.app-name }}'.Trim('"')
+          $sourcePath = ".\dist\$appName"
+          $destinationPath = "D:\front\dist\$appName"
+
+          if (Test-Path $sourcePath) {
+            New-Item -ItemType Directory -Path $destinationPath -Force
+            Copy-Item -Path $sourcePath\* -Destination $destinationPath -Recurse -Force
+            Write-Host "Deployment successful!"
+          } else {
+            New-Item -ItemType Directory -Path $destinationPath -Force
+            Write-Host "Source directory not found. Creating $appName directory."
+            $distPath = ".\dist\*"
+            if (Test-Path $distPath) {
+              Copy-Item -Path $distPath -Destination ($destinationPath.Replace('"', '')) -Recurse -Force
+              Write-Host "Files copied to $appName directory."
+            } else {
+              Write-Host "Dist directory not found."
+            }
+          }
+
+      - name: Stop Website in IIS
+        shell: pwsh
+        run: |
+          Import-Module WebAdministration
+          $appName = '${{ github.event.inputs.app-name }}'.Trim('"')
+          $website = Get-Website | Where-Object {$_.Name -eq $appName}
+          if ($website) {
+            Stop-Website -Name $appName
+            Write-Host "Website '$appName' stopped."
+          } else {
+            Write-Host "Website '$appName' not found."
+          }
+
+      - name: Backup Website
+        shell: pwsh
+        run: |
+          $appName = '${{ github.event.inputs.app-name }}'.Trim('"')
+          $sourcePath = "C:\inetpub\wwwroot\$appName"
+          $destinationPath = "D:\Backup\$appName-$(Get-Date -Format yyyyMMddHHmmss)"
+          if (Test-Path $sourcePath) {
+            Copy-Item -Path $sourcePath -Destination $destinationPath -Recurse -Force
+            Write-Host "Website '$appName' backed up to $destinationPath."
+          } else {
+            Write-Host "Website '$appName' not found in C:\inetpub\wwwroot."
+          }
+
+      - name: Remove Files from Website Directory
+        shell: pwsh
+        run: |
+          $appName = '${{ github.event.inputs.app-name }}'.Trim('"')
+          $path = "C:\inetpub\wwwroot\$appName"
+          if (Test-Path $path) {
+            Remove-Item -Path $path\* -Recurse -Force
+            Write-Host "Files removed from $path."
+          } else {
+            Write-Host "Website '$appName' directory not found."
+          }
+
+      - name: Copy Files to Website Directory
+        shell: pwsh
+        run: |
+          $appName = '${{ github.event.inputs.app-name }}'.Trim('"')
+          $sourcePath = "D:\front\dist\$appName"
+          $destinationPath = "C:\inetpub\wwwroot\$appName"
+          if (Test-Path $sourcePath) {
+            Copy-Item -Path $sourcePath\* -Destination $destinationPath -Recurse -Force
+            Write-Host "Files deployed to $destinationPath."
+          } else {
+            Write-Host "Source directory $sourcePath not found."
+          }
+
+      - name: Start Website
+        shell: pwsh
+        run: |
+          $appName = '${{ github.event.inputs.app-name }}'.Trim('"')
+          Import-Module WebAdministration
+          $website = Get-Website | Where-Object {$_.Name -eq $appName}
+          if ($website) {
+            Start-Website -Name $appName
+            Write-Host "Website '$appName' started."
+          } else {
+            Write-Host "Website '$appName' not found."
+          }
