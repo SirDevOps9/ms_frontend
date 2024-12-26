@@ -1,70 +1,29 @@
-name: Build and Deploy App
+name: Build and Deploy Frontend
 
 on:
   workflow_dispatch:
     inputs:
       app-name:
-        description: 'The full name of the app to build and deploy (e.g., "apps-accounting")'
+        description: 'App name to build (e.g., apps-inventory)'
         required: true
-        default: 'apps-accounting'
 
 jobs:
   build-and-deploy:
     runs-on: self-hosted
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-          ref: Sprint18
-          fetch-depth: 0
-
-      - name: Run Common Setup
-        uses: ./.github/actions/common-setup
+      - name: Common Build Steps
+        uses: ./.github/actions/Common-Build-Steps.yml
         with:
           node-version: '18'
-          run-as-administrator: true
-
-      - name: Set App Name
-        shell: pwsh
-        run: |
-          $env:APP_NAME = ${{ github.event.inputs.app-name }}
+          ref: Sprint18
 
       - name: Build App
-        shell: pwsh
         run: |
-          ng build $env:APP_NAME --configuration production --project=$env:APP_NAME
-
-      - name: Create Destination Directory
-        shell: pwsh
-        run: |
-          New-Item -ItemType Directory -Path "D:\front\$env:APP_NAME" -Force
+          ng build ${{ github.event.inputs.app-name }}
 
       - name: Copy output to D:\front
         shell: pwsh
         run: |
-          xcopy /s /y dist\$env:APP_NAME\* D:\front\dist\$env:APP_NAME\
-          Write-Host "Apps $env:APP_NAME Deployment successful!"
-
-      - name: Stop IIS Website
-        shell: pwsh
-        run: |
-          Import-Module WebAdministration
-          if (Get-Website -Name $env:APP_NAME) {
-            Stop-WebSite -Name $env:APP_NAME -ErrorAction Stop
-            Write-Host "$env:APP_NAME website stopped"
-          } else {
-            Write-Host "Website $env:APP_NAME not found"
-          }
-
-      - name: Copy files to IIS Directory
-        shell: pwsh
-        run: |
-          xcopy /s /y D:\front\dist\$env:APP_NAME\* C:\inetpub\wwwroot\$env:APP_NAME\
-          Write-Host "Files copied to IIS directory"
-
-      - name: Start IIS Website
-        shell: pwsh
-        run: |
-          Import-Module WebAdministration
-          Start-WebSite -Name $env:APP_NAME -ErrorAction Stop
-          Write-Host "$env:APP_NAME website started"
+          New-Item -ItemType Directory -Path "D:\front\dist" -Force
+          xcopy /s /y dist\* D:\front\dist\
+          Write-Host "Deployment successful!"
