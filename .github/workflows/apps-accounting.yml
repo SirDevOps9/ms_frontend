@@ -25,15 +25,18 @@ jobs:
           run-as-administrator: true
 
       - name: Set App Name
-        run: echo "APP_NAME=${{ github.event.inputs.app-name }}" >> $GITHUB_ENV
+        shell: pwsh
+        run: |
+          $env:APP_NAME = "${{ github.event.inputs.app-name }}"
 
       - name: Build App
         run: |
-          ng build ${{ github.event.inputs.app-name }} --configuration production --project=${{ github.event.inputs.app-name }}
+          ng build $env:APP_NAME --configuration production --project=$env:APP_NAME
 
       - name: Create Destination Directory
         shell: pwsh
-        run: New-Item -ItemType Directory -Path "D:\front\$env:APP_NAME" -Force
+        run: |
+          New-Item -ItemType Directory -Path "D:\front\$env:APP_NAME" -Force
 
       - name: Copy output to D:\front
         shell: pwsh
@@ -45,8 +48,12 @@ jobs:
         shell: pwsh
         run: |
           Import-Module WebAdministration
-          Stop-WebSite -Name $env:APP_NAME -ErrorAction Stop
-          Write-Host "$env:APP_NAME website stopped"
+          if (Get-Website -Name $env:APP_NAME) {
+            Stop-WebSite -Name $env:APP_NAME -ErrorAction Stop
+            Write-Host "$env:APP_NAME website stopped"
+          } else {
+            Write-Host "Website $env:APP_NAME not found"
+          }
 
       - name: Copy files to IIS Directory
         shell: pwsh
