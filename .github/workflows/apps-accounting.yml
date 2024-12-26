@@ -21,11 +21,11 @@ jobs:
 
       - name: Run Common Setup (Elevated)
         run: |
-          # This entire script will run with elevated privileges
-          Elevated {
-            # Call the ./.github/actions/common-setup action here (assuming it's a local action)
-            ./.github/actions/common-setup.ps1 -NodeVersion '18'
-          }
+          # Use the 'run-as' keyword for elevated privileges in the entire workflow
+          run-as: administrator
+
+          # Call the ./.github/actions/common-setup action here (assuming it's a local action)
+          ./.github/actions/common-setup.ps1 -NodeVersion '18'
 
       - name: Set App Name
         shell: pwsh
