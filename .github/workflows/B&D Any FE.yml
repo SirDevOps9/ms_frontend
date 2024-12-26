@@ -30,7 +30,7 @@ jobs:
         run: |
           ng build ${{ github.event.inputs.app-name }}
 
-     - name: After Build Common Steps
-       uses: ./.github/actions/after-build/
-       with:
+      - name: After Build Common Steps
+        uses: ./.github/actions/after-build/
+        with:
          ref: Sprint18
