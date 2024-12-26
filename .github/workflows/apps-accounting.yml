@@ -44,27 +44,3 @@ jobs:
         run: |
           xcopy /s /y dist\$env:APP_NAME\* D:\front\dist\$env:APP_NAME\
           Write-Host "Apps $env:APP_NAME Deployment successful!"
-
-      - name: Stop IIS Website
-        shell: pwsh
-        run: |
-          Import-Module WebAdministration
-          if (Get-Website -Name $env:APP_NAME) {
-            Stop-WebSite -Name $env:APP_NAME -ErrorAction Stop
-            Write-Host "$env:APP_NAME website stopped"
-          } else {
-            Write-Host "Website $env:APP_NAME not found"
-          }
-
-      - name: Copy files to IIS Directory
-        shell: pwsh
-        run: |
-          xcopy /s /y D:\front\dist\$env:APP_NAME\* C:\inetpub\wwwroot\$env:APP_NAME\
-          Write-Host "Files copied to IIS directory"
-
-      - name: Start IIS Website
-        shell: pwsh
-        run: |
-          Import-Module WebAdministration
-          Start-WebSite -Name $env:APP_NAME -ErrorAction Stop
-          Write-Host "$env:APP_NAME website started"
