@@ -12,6 +12,7 @@ jobs:
   build-and-deploy:
     runs-on: self-hosted
     steps:
+      run-as-administrator: true
       - name: Checkout code
         uses: actions/checkout@v3
         with:
@@ -22,7 +23,6 @@ jobs:
         uses: ./.github/actions/common-setup
         with:
           node-version: '18'
-          run-as-administrator: true
 
       - name: Set App Name
         run: echo "APP_NAME=${{ github.event.inputs.app-name }}" >> $GITHUB_ENV
@@ -43,7 +43,6 @@ jobs:
 
       - name: Stop IIS Website
         shell: pwsh
-        run-as-administrator: true
         run: |
           Import-Module WebAdministration
           Stop-WebSite -Name $env:APP_NAME -ErrorAction Stop
