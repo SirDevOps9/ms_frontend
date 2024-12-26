@@ -12,7 +12,7 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Common Build Steps
-        uses: ./.github/actions/common-setup/action.yml
+        uses: ./.github/workflows/Common-Build-Steps.yml
         with:
           node-version: '18'
           ref: Sprint18
