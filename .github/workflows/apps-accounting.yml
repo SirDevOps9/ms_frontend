@@ -33,7 +33,7 @@ jobs:
       - name: Copy output to D:\front
         shell: pwsh
         run: |
-          $appName = "${{ github.event.inputs.app-name }}"
+          $appName = '${{ github.event.inputs.app-name }}'
           $sourcePath = ".\dist\$appName"
           $destinationPath = "D:\front\dist\$appName"
 
@@ -42,5 +42,8 @@ jobs:
             Copy-Item -Path $sourcePath\* -Destination $destinationPath -Recurse -Force
             Write-Host "Deployment successful!"
           } else {
-            Write-Host "Source directory not found: $sourcePath"
+            New-Item -ItemType Directory -Path $destinationPath -Force
+            Write-Host "Source directory not found. Creating $appName directory."
+            Copy-Item -Path .\dist\* -Destination $destinationPath -Recurse -Force
+            Write-Host "Files copied to $appName directory."
           }
