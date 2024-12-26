@@ -11,6 +11,12 @@ jobs:
   build-and-deploy:
     runs-on: self-hosted
     steps:
+     - name: Checkout code
+       uses: actions/checkout@v3
+        with:
+          ref: Sprint18
+          fetch-depth: 0
+          
       - name: Common Build Steps
         uses: ./.github/actions/common-setup/action.yml
         with:
