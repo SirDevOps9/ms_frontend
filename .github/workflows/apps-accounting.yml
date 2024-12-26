@@ -27,7 +27,7 @@ jobs:
       - name: Set App Name
         shell: pwsh
         run: |
-          $env:APP_NAME = "${{ github.event.inputs.app-name }}"
+          $env:APP_NAME = ${{ github.event.inputs.app-name }}
 
       - name: Build App
         shell: pwsh
