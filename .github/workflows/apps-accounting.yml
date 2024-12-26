@@ -52,3 +52,16 @@ jobs:
               Write-Host "Dist directory not found."
             }
           }
+
+      - name: Stop Website in IIS
+        shell: pwsh
+        run: |
+          Import-Module WebAdministration
+          $appName = '${{ github.event.inputs.app-name }}'.Trim('"')
+          $website = Get-Website | Where-Object {$_.Name -eq $appName}
+          if ($website) {
+            Stop-Website -Name $appName
+            Write-Host "Website '$appName' stopped."
+          } else {
+            Write-Host "Website '$appName' not found."
+          }
