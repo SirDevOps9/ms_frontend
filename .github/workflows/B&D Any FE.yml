@@ -1,10 +1,10 @@
-name: Build and Deploy Frontend
+name: Build and Deploy Any Frontend
 
 on:
   workflow_dispatch:
     inputs:
       app-name:
-        description: 'App name to build (e.g., apps-inventory)'
+        description: 'Build and Deploy Any Frontend Apps
         required: true
 
 jobs:
