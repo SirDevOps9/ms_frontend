@@ -20,36 +20,37 @@ jobs:
           fetch-depth: 0
 
       - name: Run Common Setup (Elevated)
+        # Use the 'run' keyword with a script block for elevated privileges
         run: |
-          # Use the 'run-as' keyword for elevated privileges in the entire workflow
-          run-as: administrator
-
-          # Call the ./.github/actions/common-setup action here (assuming it's a local action)
-          ./.github/actions/common-setup.ps1 -NodeVersion '18'
+          # This entire script block will run with elevated privileges
+          Elevated {
+            # Call the ./.github/actions/common-setup action here (assuming it's a local action)
+            & ./.github/actions/common-setup.ps1 -NodeVersion '18'
+          }
 
       - name: Set App Name
-        shell: pwsh
+        shell: PowerShell
         run: |
           $env:APP_NAME = ${{ github.event.inputs.app-name }}
 
       - name: Build App
-        shell: pwsh
+        shell: PowerShell
         run: |
           ng build $APP_NAME --configuration production --project=$APP_NAME
 
       - name: Create Destination Directory
-        shell: pwsh
+        shell: PowerShell
         run: |
           New-Item -ItemType Directory -Path "D:\front\$APP_NAME" -Force
 
       - name: Copy output to D:\front
-        shell: pwsh
+        shell: PowerShell
         run: |
           xcopy /s /y dist\$APP_NAME\* D:\front\dist\$APP_NAME\
           Write-Host "Apps $APP_NAME Deployment successful!"
 
       - name: Stop IIS Website
-        shell: pwsh
+        shell: PowerShell
         run: |
           Import-Module WebAdministration
           if (Get-Website -Name $APP_NAME) {
@@ -60,13 +61,13 @@ jobs:
           }
 
       - name: Copy files to IIS Directory
-        shell: pwsh
+        shell: PowerShell
         run: |
           xcopy /s /y D:\front\dist\$APP_NAME\* C:\inetpub\wwwroot\$APP_NAME\
           Write-Host "Files copied to IIS directory"
 
       - name: Start IIS Website
-        shell: pwsh
+        shell: PowerShell
         run: |
           Import-Module WebAdministration
           Start-WebSite -Name $APP_NAME -ErrorAction Stop
