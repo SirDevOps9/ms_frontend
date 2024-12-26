@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       app-name:
-        description: 'Build and Deploy Any Frontend Apps
+        description: 'Build and Deploy Any Frontend Apps'
         required: true
 
 jobs:
