@@ -26,44 +26,46 @@ jobs:
       - name: Set App Name
         shell: PowerShell
         run: |
-          $env:APP_NAME = ${{ github.event.inputs.app-name }}
+          $env:APP_NAME = "${{ github.event.inputs.app-name }}"
+          Write-Host "App Name: $env:APP_NAME"
 
       - name: Build App
         shell: PowerShell
         run: |
-          ng build $APP_NAME --configuration production --project=$APP_NAME
+          ng build $env:APP_NAME --configuration production --project=$env:APP_NAME
+          Write-Host "Build completed for $env:APP_NAME"
 
       - name: Create Destination Directory
         shell: PowerShell
         run: |
-          New-Item -ItemType Directory -Path "D:\front\$APP_NAME" -Force
+          New-Item -ItemType Directory -Path "D:\front\$env:APP_NAME" -Force
 
       - name: Copy output to D:\front
         shell: PowerShell
         run: |
-          xcopy /s /y dist\$APP_NAME\* D:\front\dist\$APP_NAME\
-          Write-Host "Apps $APP_NAME Deployment successful!"
+          xcopy /s /y dist\$env:APP_NAME\* D:\front\dist\$env:APP_NAME\
+          Write-Host "Apps $env:APP_NAME Deployment successful!"
 
       - name: Stop IIS Website
         shell: PowerShell
         run: |
           Import-Module WebAdministration
-          if (Get-Website -Name $APP_NAME) {
-            Stop-WebSite -Name $APP_NAME -ErrorAction Stop
-            Write-Host "$APP_NAME website stopped"
+          if (Get-Website -Name $env:APP_NAME) {
+            Stop-WebSite -Name $env:APP_NAME -ErrorAction Stop
+            Write-Host "$env:APP_NAME website stopped"
           } else {
-            Write-Host "Website $APP_NAME not found"
+            Write-Host "Website $env:APP_NAME not found"
           }
 
       - name: Copy files to IIS Directory
         shell: PowerShell
         run: |
-          xcopy /s /y D:\front\dist\$APP_NAME\* C:\inetpub\wwwroot\$APP_NAME\
+          xcopy /s /y D:\front\dist\$env:APP_NAME\* C:\inetpub\wwwroot\$env:APP_NAME\
           Write-Host "Files copied to IIS directory"
 
       - name: Start IIS Website
         shell: PowerShell
         run: |
           Import-Module WebAdministration
-          Start-WebSite -Name $APP_NAME -ErrorAction Stop
-          Write-Host "$APP_NAME website started"
+          Start-WebSite -Name $env:APP_NAME -ErrorAction Stop
+          Write-Host "$env:APP_NAME website started"
