@@ -1,63 +1,63 @@
-name: Build and Deploy App
+This is the script : name: Build and Deploy App
 
 on:
-  workflow_dispatch:
-    inputs:
-      app-name:
-        description: 'App/website name (e.g., apps-accounting)'
-        required: true
-        default: 'apps-accounting'
+workflow_dispatch:
+inputs:
+app-name:
+description: 'The full name of the app to build and deploy (e.g., "apps-accounting")'
+required: true
+default: 'apps-accounting'
 
 jobs:
-  build-and-deploy:
-    runs-on: windows-latest
+build-and-deploy:
+runs-on: self-hosted
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-          ref: Sprint18
-          fetch-depth: 0
+steps:
+- name: Checkout code
+uses: actions/checkout@v3
+with:
+ref: Sprint18
+fetch-depth: 0
 
-      - name: Run Common Setup
-        uses: ./.github/actions/common-setup
-        with:
-          node-version: '18'
-          run-as-administrator: true
+- name: Run Common Setup
+uses: ./.github/actions/common-setup
+with:
+node-version: '18'
+run-as-administrator: true
 
-      - name: Set App Name
-        run: echo "APP_NAME=${{ github.event.inputs.app-name }}" >> $GITHUB_ENV
+- name: Set App Name
+run: echo "APP_NAME=${{ github.event.inputs.app-name }}" >> $GITHUB_ENV
 
-      - name: Build App
-        run: |
-          ng build ${{ github.event.inputs.app-name }} --configuration production --project=${{ github.event.inputs.app-name }}
+- name: Build App
+run: |
+ng build ${{ github.event.inputs.app-name }} --configuration production --project=${{ github.event.inputs.app-name }}
 
-      - name: Create Destination Directory
-        shell: pwsh
-        run: New-Item -ItemType Directory -Path "D:\front\$env:APP_NAME" -Force
+- name: Create Destination Directory
+shell: pwsh
+run: New-Item -ItemType Directory -Path "D:\front\$env:APP_NAME" -Force
 
-      - name: Copy output to D:\front
-        shell: pwsh
-        run: |
-          xcopy /s /y dist\$env:APP_NAME\* D:\front\dist\$env:APP_NAME\
-          Write-Host "Apps $env:APP_NAME Deployment successful!"
+- name: Copy output to D:\front
+shell: pwsh
+run: |
+xcopy /s /y dist\$env:APP_NAME\* D:\front\dist\$env:APP_NAME\
+Write-Host "Apps $env:APP_NAME Deployment successful!"
 
-      - name: Stop IIS Website
-        shell: powershell
-        run: |
-          Import-Module WebAdministration
-          Stop-WebSite -Name $env:APP_NAME -ErrorAction Stop
-          Write-Host "$env:APP_NAME website stopped"
+- name: Stop IIS Website
+shell: powershell
+run: |
+Import-Module WebAdministration
+Stop-WebSite -Name $env:APP_NAME -ErrorAction Stop
+Write-Host "$env:APP_NAME website stopped"
 
-      - name: Copy files to IIS Directory
-        shell: powershell
-        run: |
-          xcopy /s /y D:\front\dist\$env:APP_NAME\* C:\inetpub\wwwroot\$env:APP_NAME\
-          Write-Host "Files copied to IIS directory"
+- name: Copy files to IIS Directory
+shell: powershell
+run: |
+xcopy /s /y D:\front\dist\$env:APP_NAME\* C:\inetpub\wwwroot\$env:APP_NAME\
+Write-Host "Files copied to IIS directory"
 
-      - name: Start IIS Website
-        shell: powershell
-        run: |
-          Import-Module WebAdministration
-          Start-WebSite -Name $env:APP_NAME -ErrorAction Stop
-          Write-Host "$env:APP_NAME website started"
+- name: Start IIS Website
+shell: powershell
+run: |
+Import-Module WebAdministration
+Start-WebSite -Name $env:APP_NAME -ErrorAction Stop
+Write-Host "$env:APP_NAME website started"
