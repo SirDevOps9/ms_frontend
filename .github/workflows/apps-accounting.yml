@@ -11,7 +11,6 @@ on:
 jobs:
   build-and-deploy:
     runs-on: self-hosted
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -19,15 +18,16 @@ jobs:
           ref: Sprint18
           fetch-depth: 0
 
-      - name: Run Common Setup (Elevated)
-        run: |
-          Start-Process powershell -ArgumentList '-NoProfile -ExecutionPolicy Bypass -File ./.github/actions/common-setup.ps1 -NodeVersion "18"' -Verb RunAs
-          
+      - name: Run Common Setup
+        uses: ./.github/actions/common-setup
+        with:
+          node-version: '18'
+          run-as-administrator: true
+
       - name: Set App Name
-        shell: PowerShell
+        shell: pwsh
         run: |
           $env:APP_NAME = "${{ github.event.inputs.app-name }}"
-          Write-Host "App Name: $env:APP_NAME"  # Debugging the app name value
 
       - name: Build App
         shell: pwsh
@@ -35,18 +35,18 @@ jobs:
           ng build $env:APP_NAME --configuration production --project=$env:APP_NAME
 
       - name: Create Destination Directory
-        shell: PowerShell
+        shell: pwsh
         run: |
           New-Item -ItemType Directory -Path "D:\front\$env:APP_NAME" -Force
 
       - name: Copy output to D:\front
-        shell: PowerShell
+        shell: pwsh
         run: |
           xcopy /s /y dist\$env:APP_NAME\* D:\front\dist\$env:APP_NAME\
           Write-Host "Apps $env:APP_NAME Deployment successful!"
 
       - name: Stop IIS Website
-        shell: PowerShell
+        shell: pwsh
         run: |
           Import-Module WebAdministration
           if (Get-Website -Name $env:APP_NAME) {
@@ -57,13 +57,13 @@ jobs:
           }
 
       - name: Copy files to IIS Directory
-        shell: PowerShell
+        shell: pwsh
         run: |
           xcopy /s /y D:\front\dist\$env:APP_NAME\* C:\inetpub\wwwroot\$env:APP_NAME\
           Write-Host "Files copied to IIS directory"
 
       - name: Start IIS Website
-        shell: PowerShell
+        shell: pwsh
         run: |
           Import-Module WebAdministration
           Start-WebSite -Name $env:APP_NAME -ErrorAction Stop
