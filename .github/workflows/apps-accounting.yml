@@ -20,14 +20,9 @@ jobs:
           fetch-depth: 0
 
       - name: Run Common Setup (Elevated)
-        # Use the 'run' keyword with a script block for elevated privileges
         run: |
-          # This entire script block will run with elevated privileges
-          Elevated {
-            # Call the ./.github/actions/common-setup action here (assuming it's a local action)
-            & ./.github/actions/common-setup.ps1 -NodeVersion '18'
-          }
-
+          Start-Process powershell -ArgumentList '-NoProfile -ExecutionPolicy Bypass -File ./.github/actions/common-setup.ps1 -NodeVersion "18"' -Verb RunAs
+          
       - name: Set App Name
         shell: PowerShell
         run: |
