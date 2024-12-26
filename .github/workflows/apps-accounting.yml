@@ -17,8 +17,11 @@ jobs:
           ref: Sprint18
           fetch-depth: 0
 
+      - name: Checkout submodules
+        run: git submodule update --init --recursive
+
       - name: Common Build Steps
-        uses: ./.github/actions/common-setup/action.yml
+        uses: ./.github/actions/common-setup/
         with:
           node-version: '18'
           ref: Sprint18
