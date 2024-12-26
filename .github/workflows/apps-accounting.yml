@@ -25,28 +25,28 @@ jobs:
           run-as-administrator: true
 
       - name: Set App Name
-        shell: pwsh
+        shell: powershell
         run: |
-          $env:APP_NAME="${{ github.event.inputs.app-name }}"  # Correct syntax
+          $env:APP_NAME = "${{ github.event.inputs.app-name }}"
 
       - name: Build App
-        shell: pwsh
+        shell: powershell
         run: |
           ng build $env:APP_NAME --configuration production --project=$env:APP_NAME
 
       - name: Create Destination Directory
-        shell: pwsh
+        shell: powershell
         run: |
           New-Item -ItemType Directory -Path "D:\front\$env:APP_NAME" -Force
 
       - name: Copy output to D:\front
-        shell: pwsh
+        shell: powershell
         run: |
           xcopy /s /y dist\$env:APP_NAME\* D:\front\dist\$env:APP_NAME\
           Write-Host "Apps $env:APP_NAME Deployment successful!"
 
       - name: Stop IIS Website
-        shell: pwsh
+        shell: powershell
         run: |
           Import-Module WebAdministration
           if (Get-Website -Name $env:APP_NAME) {
@@ -57,13 +57,13 @@ jobs:
           }
 
       - name: Copy files to IIS Directory
-        shell: pwsh
+        shell: powershell
         run: |
           xcopy /s /y D:\front\dist\$env:APP_NAME\* C:\inetpub\wwwroot\$env:APP_NAME\
           Write-Host "Files copied to IIS directory"
 
       - name: Start IIS Website
-        shell: pwsh
+        shell: powershell
         run: |
           Import-Module WebAdministration
           Start-WebSite -Name $env:APP_NAME -ErrorAction Stop
