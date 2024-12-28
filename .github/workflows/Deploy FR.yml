@@ -13,12 +13,7 @@ jobs:
 
     strategy:
       matrix:
-        app-name: |
-          ${{ 
-            github.event.inputs.app-name == 'ALL' 
-              && '["apps-inventory", "bussiness-owners", "adminportal", "apps-accounting", "apps-finance", "apps-hr", "apps-purchase", "apps-sales", "erp-home"]' 
-              || format('["{0}"]', github.event.inputs.app-name)
-          }}
+        app-name: ${{ fromJSON(github.event.inputs.app-name == 'ALL' && '["apps-inventory", "bussiness-owners", "adminportal", "apps-accounting", "apps-finance", "apps-hr", "apps-purchase", "apps-sales", "erp-home"]' || format('["{0}"]', github.event.inputs.app-name)) }}
 
     steps:
       - name: Checkout code
@@ -48,7 +43,6 @@ jobs:
           $appName = '${{ matrix.app-name }}'
           $sourcePath = ".\dist\$appName"
           $destinationPath = "D:\FE Versions\$appName"
-
           if (Test-Path $sourcePath) {
             New-Item -ItemType Directory -Path $destinationPath -Force
             Copy-Item -Path $sourcePath\* -Destination $destinationPath -Recurse -Force
