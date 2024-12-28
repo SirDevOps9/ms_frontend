@@ -1,4 +1,4 @@
-name: Build and Deploy Any Frontend
+name: Deploy FR
 
 on:
   workflow_dispatch:
