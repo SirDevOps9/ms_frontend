@@ -1,11 +1,24 @@
-name: Build and Deploy Frontend
+name: Build and Deploy Any Frontend
 
 on:
-  workflow_dispatch
+  workflow_dispatch:
+    inputs:
+      app-name:
+        description: 'Enter an app name or "ALL" to build and deploy all apps.'
+        required: true
 
 jobs:
   build-and-deploy:
     runs-on: self-hosted
+
+    strategy:
+      matrix:
+        app-name: |
+          ${{ 
+            github.event.inputs.app-name == 'ALL' 
+              && '["apps-inventory", "bussiness-owners", "adminportal", "apps-accounting", "apps-finance", "apps-hr", "apps-purchase", "apps-sales", "erp-home"]' 
+              || format('["{0}"]', github.event.inputs.app-name)
+          }}
 
     steps:
       - name: Checkout code
@@ -14,37 +27,96 @@ jobs:
           ref: Sprint18
           fetch-depth: 0
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+      - name: Checkout submodules
+        run: git submodule update --init --recursive
+
+      - name: Common Build Steps
+        uses: ./.github/actions/common-setup/
         with:
           node-version: '18'
+          ref: Sprint18
 
-      - name: Clean npm cache
-        run: npm cache clean --force
-
-      - name: Install dependencies
-        run: |
-          npm config set legacy-peer-deps true
-          npm install --force --verbose
-          npm install @zxing/browser@latest @zxing/ngx-scanner@latest
-
-
-      - name: Build all projects
-        run: |
-          ng build apps-inventory
-          ng build bussiness-owners
-          ng build adminportal
-          ng build apps-accounting
-          ng build apps-finance
-          ng build apps-hr
-          ng build apps-purchase
-          ng build apps-sales
-          ng build erp-home
-
-
-      - name: Copy output to D:\front
+      - name: Build App
         shell: pwsh
         run: |
-          New-Item -ItemType Directory -Path "D:\front\dist" -Force
-          xcopy /s /y dist\* D:\front\dist\
-          Write-Host "Deployment successful!"
+          Write-Host "Building app: ${{ matrix.app-name }}"
+          ng build ${{ matrix.app-name }}
+
+      - name: Copy output to D:\FE Versions
+        shell: pwsh
+        run: |
+          $appName = '${{ matrix.app-name }}'
+          $sourcePath = ".\dist\$appName"
+          $destinationPath = "D:\FE Versions\$appName"
+
+          if (Test-Path $sourcePath) {
+            New-Item -ItemType Directory -Path $destinationPath -Force
+            Copy-Item -Path $sourcePath\* -Destination $destinationPath -Recurse -Force
+            Write-Host "Copied output for $appName to $destinationPath"
+          } else {
+            Write-Host "Source directory not found for $appName."
+          }
+
+      - name: Stop Website in IIS
+        shell: pwsh
+        run: |
+          Import-Module WebAdministration
+          $appName = '${{ matrix.app-name }}'
+          $website = Get-Website | Where-Object {$_.Name -eq $appName}
+          if ($website) {
+            Stop-Website -Name $appName
+            Write-Host "Website '$appName' stopped."
+          } else {
+            Write-Host "Website '$appName' not found."
+          }
+
+      - name: Backup Website
+        shell: pwsh
+        run: |
+          $appName = '${{ matrix.app-name }}'
+          $sourcePath = "C:\inetpub\wwwroot\$appName"
+          $destinationPath = "D:\Backup\$appName-$(Get-Date -Format yyyy-MM-dd)"
+          if (Test-Path $sourcePath) {
+            Copy-Item -Path $sourcePath -Destination $destinationPath -Recurse -Force
+            Write-Host "Website '$appName' backed up to $destinationPath."
+          } else {
+            Write-Host "Website '$appName' not found in C:\inetpub\wwwroot."
+          }
+
+      - name: Remove Files from Website Directory
+        shell: pwsh
+        run: |
+          $appName = '${{ matrix.app-name }}'
+          $path = "C:\inetpub\wwwroot\$appName"
+          if (Test-Path $path) {
+            Remove-Item -Path $path\* -Recurse -Force
+            Write-Host "Files removed from $path."
+          } else {
+            Write-Host "Website '$appName' directory not found."
+          }
+
+      - name: Copy Files to Website Directory
+        shell: pwsh
+        run: |
+          $appName = '${{ matrix.app-name }}'
+          $sourcePath = "D:\FE Versions\$appName"
+          $destinationPath = "C:\inetpub\wwwroot\$appName"
+          if (Test-Path $sourcePath) {
+            Copy-Item -Path $sourcePath\* -Destination $destinationPath -Recurse -Force
+            Write-Host "Files deployed to $destinationPath."
+          } else {
+            Write-Host "Source directory $sourcePath not found."
+          }
+
+      - name: Start Website in IIS
+        shell: pwsh
+        run: |
+          Import-Module WebAdministration
+          $appName = '${{ matrix.app-name }}'
+          $website = Get-Website | Where-Object {$_.Name -eq $appName}
+          if ($website) {
+            Start-Website -Name $appName
+            Write-Host "Website '$appName' started."
+          } else {
+            Write-Host "Website '$appName' not found."
+          }
