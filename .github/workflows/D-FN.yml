@@ -1,4 +1,4 @@
-name: Deploy FR
+name: D-FN
 
 on:
   workflow_dispatch:
