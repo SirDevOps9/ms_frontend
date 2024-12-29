@@ -8,12 +8,9 @@ on:
         required: true
 
 jobs:
-  build-and-deploy:
+  setup:
     runs-on: self-hosted
-
-    strategy:
-      matrix:
-        app-name: ${{ fromJSON(github.event.inputs.app-name == 'All' && '["apps-inventory", "bussiness-owners", "adminportal", "apps-accounting", "apps-finance", "apps-hr", "apps-purchase", "apps-sales", "erp-home"]' || format('["{0}"]', github.event.inputs.app-name)) }}
+    if: ${{ github.event.inputs.app-name == 'All' }} # Run only when "All" is selected
 
     steps:
       - name: Checkout code
@@ -25,21 +22,26 @@ jobs:
       - name: Checkout submodules
         run: git submodule update --init --recursive
 
-      # Run Common Setup only once if 'All' is selected
-      - name: Run Common Setup (once for "All")
-        if: ${{ github.event.inputs.app-name == 'All' }}
+      - name: Common Setup Steps
         uses: ./.github/actions/common-setup/
         with:
           node-version: '18'
           ref: Sprint18
 
-      # Skip Common Setup for individual apps
-      - name: Run Common Setup (per app)
-        if: ${{ github.event.inputs.app-name != 'All' }}
-        uses: ./.github/actions/common-setup/
+  build-and-deploy:
+    runs-on: self-hosted
+    needs: setup # Wait for setup to complete if "All" is selected
+
+    strategy:
+      matrix:
+        app-name: ${{ fromJSON(github.event.inputs.app-name == 'All' && '["apps-inventory", "bussiness-owners", "adminportal", "apps-accounting", "apps-finance", "apps-hr", "apps-purchase", "apps-sales", "erp-home"]' || format('["{0}"]', github.event.inputs.app-name)) }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
         with:
-          node-version: '18'
           ref: Sprint18
+          fetch-depth: 0
 
       - name: Build App
         shell: pwsh
@@ -59,7 +61,6 @@ jobs:
             Write-Host "Copied output for $appName to $destinationPath"
           } else {
             Write-Host "Source directory not found for $appName."
-          }
 
       - name: Stop Website in IIS
         shell: pwsh
@@ -72,7 +73,6 @@ jobs:
             Write-Host "Website '$appName' stopped."
           } else {
             Write-Host "Website '$appName' not found."
-          }
 
       - name: Backup Website
         shell: pwsh
@@ -85,7 +85,6 @@ jobs:
             Write-Host "Website '$appName' backed up to $destinationPath."
           } else {
             Write-Host "Website '$appName' not found in C:\inetpub\wwwroot."
-          }
 
       - name: Remove Files from Website Directory
         shell: pwsh
@@ -97,7 +96,6 @@ jobs:
             Write-Host "Files removed from $path."
           } else {
             Write-Host "Website '$appName' directory not found."
-          }
 
       - name: Copy Files to Website Directory
         shell: pwsh
@@ -110,7 +108,6 @@ jobs:
             Write-Host "Files deployed to $destinationPath."
           } else {
             Write-Host "Source directory $sourcePath not found."
-          }
 
       - name: Start Website in IIS
         shell: pwsh
@@ -119,8 +116,7 @@ jobs:
           $appName = '${{ matrix.app-name }}'
           $website = Get-Website | Where-Object {$_.Name -eq $appName}
           if ($website) {
-          Start-Website -Name $appName
-          Write-Host "Website '$appName' started."
+            Start-Website -Name $appName
+            Write-Host "Website '$appName' started."
           } else {
-          Write-Host "Website '$appName' not found."
-          }
+            Write-Host "Website '$appName' not found."
