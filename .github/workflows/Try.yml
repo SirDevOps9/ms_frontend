@@ -28,6 +28,9 @@ jobs:
           node-version: '18'
           ref: Sprint18
 
+      - name: Install Node.js Dependencies (once for all)
+        run: npm install
+
   build-and-deploy:
     runs-on: self-hosted
     needs: setup # Wait for setup to complete if "All" is selected
@@ -42,6 +45,10 @@ jobs:
         with:
           ref: Sprint18
           fetch-depth: 0
+
+      - name: Install Node.js Dependencies (individual apps only)
+        if: ${{ github.event.inputs.app-name != 'All' }} # Skip if "All" is selected
+        run: npm install
 
       - name: Build App
         shell: pwsh
