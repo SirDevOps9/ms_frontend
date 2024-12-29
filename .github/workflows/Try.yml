@@ -1,4 +1,4 @@
-name: Try
+name: D-FN
 
 on:
   workflow_dispatch:
@@ -8,66 +8,52 @@ on:
         required: true
 
 jobs:
-  setup:
-    runs-on: self-hosted
-    if: ${{ github.event.inputs.app-name == 'All' }} # Run only when "All" is selected
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-          ref: Sprint18
-          fetch-depth: 0
-
-      - name: Checkout submodules
-        run: git submodule update --init --recursive
-
-      - name: Common Setup Steps
-        uses: ./.github/actions/common-setup/
-        with:
-          node-version: '18'
-          ref: Sprint18
-
-      - name: Install Node.js Dependencies (once for all)
-        run: npm install
-
-      - name: Cache Node Modules
-        uses: actions/cache@v3
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-modules-Sprint18
-          restore-keys: |
-            ${{ runner.os }}-node-modules-
-
   build-and-deploy:
     runs-on: self-hosted
-    needs: setup # Wait for setup to complete if "All" is selected
 
     strategy:
       matrix:
         app-name: ${{ fromJSON(github.event.inputs.app-name == 'All' && '["apps-inventory", "bussiness-owners", "adminportal", "apps-accounting", "apps-finance", "apps-hr", "apps-purchase", "apps-sales", "erp-home"]' || format('["{0}"]', github.event.inputs.app-name)) }}
 
     steps:
+      # Step 1: Checkout repository
       - name: Checkout code
         uses: actions/checkout@v3
         with:
           ref: Sprint18
           fetch-depth: 0
 
-      - name: Restore Node Modules Cache
+      # Step 2: Cache Node.js dependencies
+      - name: Cache Node Modules
         uses: actions/cache@v3
+        id: npm-cache
         with:
-          path: node_modules
-          key: ${{ runner.os }}-node-modules-Sprint18
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-modules-
+            ${{ runner.os }}-node-
 
+      # Step 3: Install dependencies (if not cached)
+      - name: Install Dependencies (only if not cached)
+        if: steps.npm-cache.outputs.cache-hit != 'true'
+        run: |
+          npm config set legacy-peer-deps true
+          npm install --force --verbose
+
+      # Step 4: Common Build Setup
+      - name: Common Build Steps
+        run: |
+          echo "Setting up common configurations."
+          # Add common configuration setup here.
+
+      # Step 5: Build the application
       - name: Build App
         shell: pwsh
         run: |
           Write-Host "Building app: ${{ matrix.app-name }}"
           ng build ${{ matrix.app-name }}
 
+      # Step 6: Copy build output to a predefined directory
       - name: Copy output to D:\FE Versions
         shell: pwsh
         run: |
@@ -80,7 +66,9 @@ jobs:
             Write-Host "Copied output for $appName to $destinationPath"
           } else {
             Write-Host "Source directory not found for $appName."
+          }
 
+      # Step 7: Stop IIS website
       - name: Stop Website in IIS
         shell: pwsh
         run: |
@@ -92,7 +80,9 @@ jobs:
             Write-Host "Website '$appName' stopped."
           } else {
             Write-Host "Website '$appName' not found."
+          }
 
+      # Step 8: Backup existing website files
       - name: Backup Website
         shell: pwsh
         run: |
@@ -104,7 +94,9 @@ jobs:
             Write-Host "Website '$appName' backed up to $destinationPath."
           } else {
             Write-Host "Website '$appName' not found in C:\inetpub\wwwroot."
+          }
 
+      # Step 9: Remove old website files
       - name: Remove Files from Website Directory
         shell: pwsh
         run: |
@@ -115,7 +107,9 @@ jobs:
             Write-Host "Files removed from $path."
           } else {
             Write-Host "Website '$appName' directory not found."
+          }
 
+      # Step 10: Deploy new files to the website directory
       - name: Copy Files to Website Directory
         shell: pwsh
         run: |
@@ -127,7 +121,9 @@ jobs:
             Write-Host "Files deployed to $destinationPath."
           } else {
             Write-Host "Source directory $sourcePath not found."
+          }
 
+      # Step 11: Start IIS website
       - name: Start Website in IIS
         shell: pwsh
         run: |
@@ -139,3 +135,4 @@ jobs:
             Write-Host "Website '$appName' started."
           } else {
             Write-Host "Website '$appName' not found."
+          }
