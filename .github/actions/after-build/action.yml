@@ -1,5 +1,5 @@
-name: 'Deploy to IIS'
-description: 'Deploys applications to IIS.'
+name: 'After Build Steps'
+description: 'Deploys applications to IIS'
 
 inputs:
   app-name:
