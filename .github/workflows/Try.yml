@@ -119,7 +119,8 @@ jobs:
           $appName = '${{ matrix.app-name }}'
           $website = Get-Website | Where-Object {$_.Name -eq $appName}
           if ($website) {
-            Start-Website -Name $appName
-            Write-Host "Website '$appName' started."
+          Start-Website -Name $appName
+          Write-Host "Website '$appName' started."
           } else {
-            Write-Host "Website '$appName' not found."
+          Write-Host "Website '$appName' not found."
+          }
