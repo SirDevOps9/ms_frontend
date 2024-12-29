@@ -1,4 +1,4 @@
-name: D-FN
+name: D-FNx
 
 on:
   workflow_dispatch:
