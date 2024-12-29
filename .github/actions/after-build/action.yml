@@ -1,17 +1,31 @@
-name: 'IIS Deployment'
-description: 'Reusable action for IIS website deployment.'
+name: 'Deploy to IIS'
+description: 'Deploys applications to IIS.'
 
 inputs:
   app-name:
-    description: 'Name of the app to deploy.'
+    description: 'Name of the application to deploy.'
     required: true
   source-path:
-    description: 'Source directory for deployment files.'
+    description: 'Path to the source files to deploy.'
     required: true
 
 runs:
   using: 'composite'
   steps:
+    - name: Copy output to D:\FE Versions
+      shell: pwsh
+      run: |
+        $appName = '${{ inputs.app-name }}'
+        $sourcePath = "${{ inputs.source-path }}"
+        $destinationPath = "D:\FE Versions\$appName"
+        if (Test-Path $sourcePath) {
+          New-Item -ItemType Directory -Path $destinationPath -Force
+          Copy-Item -Path $sourcePath\* -Destination $destinationPath -Recurse -Force
+          Write-Host "Copied output for $appName to $destinationPath"
+        } else {
+          Write-Host "Source directory not found for $appName."
+        }
+
     - name: Stop Website in IIS
       shell: pwsh
       run: |
@@ -54,7 +68,7 @@ runs:
       shell: pwsh
       run: |
         $appName = '${{ inputs.app-name }}'
-        $sourcePath = '${{ inputs.source-path }}'
+        $sourcePath = "D:\FE Versions\$appName"
         $destinationPath = "C:\inetpub\wwwroot\$appName"
         if (Test-Path $sourcePath) {
           Copy-Item -Path $sourcePath\* -Destination $destinationPath -Recurse -Force
