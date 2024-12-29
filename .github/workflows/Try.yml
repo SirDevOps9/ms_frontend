@@ -1,4 +1,4 @@
-name: D-FN
+name: D-FN Try
 
 on:
   workflow_dispatch:
