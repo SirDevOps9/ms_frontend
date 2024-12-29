@@ -1,41 +1,22 @@
-name: 'Website Deployment and Backup'
-description: 'Reusable action for deploying a website and backing it up.'
+name: 'IIS Deployment'
+description: 'Reusable action for IIS website deployment.'
 
 inputs:
   app-name:
-    description: 'Name of the application (website)'
+    description: 'Name of the app to deploy.'
+    required: true
+  source-path:
+    description: 'Source directory for deployment files.'
     required: true
 
 runs:
   using: 'composite'
   steps:
-    - name: Copy output to D:\front
-      shell: pwsh
-      run: |
-        $appName = '${{ inputs.app-name }}'.Trim('"')
-        $sourcePath = ".\dist\$appName"
-        $destinationPath = "D:\front\dist\$appName"
-
-        if (Test-Path $sourcePath) {
-          New-Item -ItemType Directory -Path $destinationPath -Force
-          Copy-Item -Path $sourcePath\* -Destination $destinationPath -Recurse -Force
-          Write-Host "Deployment successful!"
-        } else {
-          New-Item -ItemType Directory -Path $destinationPath -Force
-          Write-Host "Source directory not found. Creating $appName directory."
-          $distPath = ".\dist\*"
-          if (Test-Path $distPath) {
-            Copy-Item -Path $distPath -Destination ($destinationPath.Replace('"', '')) -Recurse -Force
-            Write-Host "Files copied to $appName directory."
-          } else {
-            Write-Host "Dist directory not found."
-          }
-
     - name: Stop Website in IIS
       shell: pwsh
       run: |
         Import-Module WebAdministration
-        $appName = '${{ inputs.app-name }}'.Trim('"')
+        $appName = '${{ inputs.app-name }}'
         $website = Get-Website | Where-Object {$_.Name -eq $appName}
         if ($website) {
           Stop-Website -Name $appName
@@ -47,9 +28,9 @@ runs:
     - name: Backup Website
       shell: pwsh
       run: |
-        $appName = '${{ inputs.app-name }}'.Trim('"')
+        $appName = '${{ inputs.app-name }}'
         $sourcePath = "C:\inetpub\wwwroot\$appName"
-        $destinationPath = "D:\Backup\$appName-$(Get-Date -Format yyyyMMddHHmmss)"
+        $destinationPath = "D:\Backup\$appName-$(Get-Date -Format yyyy-MM-dd)"
         if (Test-Path $sourcePath) {
           Copy-Item -Path $sourcePath -Destination $destinationPath -Recurse -Force
           Write-Host "Website '$appName' backed up to $destinationPath."
@@ -60,7 +41,7 @@ runs:
     - name: Remove Files from Website Directory
       shell: pwsh
       run: |
-        $appName = '${{ inputs.app-name }}'.Trim('"')
+        $appName = '${{ inputs.app-name }}'
         $path = "C:\inetpub\wwwroot\$appName"
         if (Test-Path $path) {
           Remove-Item -Path $path\* -Recurse -Force
@@ -72,8 +53,8 @@ runs:
     - name: Copy Files to Website Directory
       shell: pwsh
       run: |
-        $appName = '${{ inputs.app-name }}'.Trim('"')
-        $sourcePath = "D:\front\dist\$appName"
+        $appName = '${{ inputs.app-name }}'
+        $sourcePath = '${{ inputs.source-path }}'
         $destinationPath = "C:\inetpub\wwwroot\$appName"
         if (Test-Path $sourcePath) {
           Copy-Item -Path $sourcePath\* -Destination $destinationPath -Recurse -Force
@@ -82,11 +63,11 @@ runs:
           Write-Host "Source directory $sourcePath not found."
         }
 
-    - name: Start Website
+    - name: Start Website in IIS
       shell: pwsh
       run: |
-        $appName = '${{ inputs.app-name }}'.Trim('"')
         Import-Module WebAdministration
+        $appName = '${{ inputs.app-name }}'
         $website = Get-Website | Where-Object {$_.Name -eq $appName}
         if ($website) {
           Start-Website -Name $appName
