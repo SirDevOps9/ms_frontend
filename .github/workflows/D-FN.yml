@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       app-name:
-        description: 'Enter an app name or "ALL" to build and deploy all apps.'
+        description: 'Enter an app name or "All" to build and deploy all apps.'
         required: true
 
 jobs:
