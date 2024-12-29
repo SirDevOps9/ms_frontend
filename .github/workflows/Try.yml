@@ -31,6 +31,14 @@ jobs:
       - name: Install Node.js Dependencies (once for all)
         run: npm install
 
+      - name: Cache Node Modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-modules-Sprint18
+          restore-keys: |
+            ${{ runner.os }}-node-modules-
+
   build-and-deploy:
     runs-on: self-hosted
     needs: setup # Wait for setup to complete if "All" is selected
@@ -46,9 +54,13 @@ jobs:
           ref: Sprint18
           fetch-depth: 0
 
-      - name: Install Node.js Dependencies (individual apps only)
-        if: ${{ github.event.inputs.app-name != 'All' }} # Skip if "All" is selected
-        run: npm install
+      - name: Restore Node Modules Cache
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-modules-Sprint18
+          restore-keys: |
+            ${{ runner.os }}-node-modules-
 
       - name: Build App
         shell: pwsh
