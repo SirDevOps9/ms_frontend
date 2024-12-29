@@ -1,0 +1,44 @@
+name: D-FN
+
+on:
+  workflow_dispatch:
+    inputs:
+      app-name:
+        description: 'Enter an app name or "All" to build and deploy all apps.'
+        required: true
+
+jobs:
+  build-and-deploy:
+    runs-on: self-hosted
+
+    strategy:
+      matrix:
+        app-name: ${{ fromJSON(github.event.inputs.app-name == 'All' && '["apps-inventory", "bussiness-owners", "adminportal", "apps-accounting", "apps-finance", "apps-hr", "apps-purchase", "apps-sales", "erp-home"]' || format('["{0}"]', github.event.inputs.app-name)) }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          ref: Sprint18
+          fetch-depth: 0
+
+      - name: Checkout submodules
+        run: git submodule update --init --recursive
+
+      - name: Common Build Steps
+        uses: ./.github/actions/common-setup/
+        with:
+          node-version: '18'
+          ref: Sprint18
+
+      - name: Build App
+        shell: pwsh
+        run: |
+          Write-Host "Building app: ${{ matrix.app-name }}"
+          ng build ${{ matrix.app-name }}
+
+      - name: Deploy to IIS
+        uses: ./.github/actions/after-build/
+        with:
+          app-name: ${{ matrix.app-name }}
+          source-path: .\dist\${{ matrix.app-name }}
