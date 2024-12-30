@@ -8,9 +8,16 @@ on:
         type: choice
         required: true
         options:
-          - A
-          - B
-          - C
+          - All
+          - apps-inventory
+          - bussiness-owners
+          - adminportal
+          - apps-accounting
+          - apps-finance
+          - apps-hr
+          - apps-purchase
+          - apps-sales
+          - erp-home
 
 jobs:
   build-and-deploy:
