@@ -12,49 +12,80 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: Copy output to D:\FE Versions
-      shell: pwsh
-      run: |
-        $appName = '${{ inputs.app-name }}'
-        $sourcePath = '${{ inputs.source-path }}'
-        $destinationPath = "D:\FE Versions\$appName"
-        if (Test-Path $sourcePath) {
-          New-Item -ItemType Directory -Path $destinationPath -Force
-          Copy-Item -Path $sourcePath\* -Destination $destinationPath -Recurse -Force
-          Write-Host "Copied output for $appName to $destinationPath"
-        } else {
-          Write-Host "Source directory not found for $appName."
-        }
+     - name: Copy output to D:\FE Versions
+        shell: pwsh
+        run: |
+          $appName = '${{ matrix.app-name }}'
+          $sourcePath = ".\dist\$appName"
+          $destinationPath = "D:\FE Versions\$appName"
+          if (Test-Path $sourcePath) {
+            New-Item -ItemType Directory -Path $destinationPath -Force
+            Copy-Item -Path $sourcePath\* -Destination $destinationPath -Recurse -Force
+            Write-Host "Copied output for $appName to $destinationPath"
+          } else {
+            Write-Host "Source directory not found for $appName."
+          }
 
-    - name: Stop Website in IIS (Optional)
-      shell: pwsh
-      run: |
-        Start-Process pwsh -ArgumentList "-Command Import-Module WebAdministration; $appName = '${{ inputs.app-name }}'; $website = Get-Website | Where-Object {$_.Name -eq $appName}; if ($website) { Stop-Website -Name $appName; Write-Host 'Website $appName stopped.' } else { Write-Host 'Website $appName not found.' }" -Verb RunAs
+      - name: Stop Website in IIS
+        shell: pwsh
+        run: |
+          Import-Module WebAdministration
+          $appName = '${{ matrix.app-name }}'
+          $website = Get-Website | Where-Object {$_.Name -eq $appName}
+          if ($website) {
+            Stop-Website -Name $appName
+            Write-Host "Website '$appName' stopped."
+          } else {
+            Write-Host "Website '$appName' not found."
+          }
 
-    - name: Backup Website (Optional)
-      shell: pwsh
-      run: |
-        Start-Process pwsh -ArgumentList "-Command $appName = '${{ inputs.app-name }}'; $sourcePath = 'C:\inetpub\wwwroot\$appName'; $destinationPath = 'D:\Backup\$appName-$(Get-Date -Format yyyy-MM-dd)'; if (Test-Path $sourcePath) { Copy-Item -Path $sourcePath -Destination $destinationPath -Recurse -Force; Write-Host 'Website $appName backed up to $destinationPath.' } else { Write-Host 'Website $appName not found in C:\inetpub\wwwroot.' }" -Verb RunAs
+      - name: Backup Website
+        shell: pwsh
+        run: |
+          $appName = '${{ matrix.app-name }}'
+          $sourcePath = "C:\inetpub\wwwroot\$appName"
+          $destinationPath = "D:\Backup\$appName-$(Get-Date -Format yyyy-MM-dd)"
+          if (Test-Path $sourcePath) {
+            Copy-Item -Path $sourcePath -Destination $destinationPath -Recurse -Force
+            Write-Host "Website '$appName' backed up to $destinationPath."
+          } else {
+            Write-Host "Website '$appName' not found in C:\inetpub\wwwroot."
+          }
 
-    - name: Remove Files from Website Directory (Optional)
-      shell: pwsh
-      run: |
-        Start-Process pwsh -ArgumentList "-Command $appName = '${{ inputs.app-name }}'; $path = 'C:\inetpub\wwwroot\$appName'; if (Test-Path $path) { Remove-Item -Path $path\* -Recurse -Force; Write-Host 'Files removed from $path.' } else { Write-Host 'Website $appName directory not found.' }" -Verb RunAs
+      - name: Remove Files from Website Directory
+        shell: pwsh
+        run: |
+          $appName = '${{ matrix.app-name }}'
+          $path = "C:\inetpub\wwwroot\$appName"
+          if (Test-Path $path) {
+            Remove-Item -Path $path\* -Recurse -Force
+            Write-Host "Files removed from $path."
+          } else {
+            Write-Host "Website '$appName' directory not found."
+          }
 
-    - name: Copy Files to Website Directory
-      shell: pwsh
-      run: |
-        $appName = '${{ inputs.app-name }}'
-        $sourcePath = "D:\FE Versions\$appName"
-        $destinationPath = "C:\inetpub\wwwroot\$appName"
-        if (Test-Path $sourcePath) {
-          Copy-Item -Path $sourcePath\* -Destination $destinationPath -Recurse -Force
-          Write-Host "Files deployed to $destinationPath."
-        } else {
-          Write-Host "Source directory $sourcePath not found."
-        }
+      - name: Copy Files to Website Directory
+        shell: pwsh
+        run: |
+          $appName = '${{ matrix.app-name }}'
+          $sourcePath = "D:\FE Versions\$appName"
+          $destinationPath = "C:\inetpub\wwwroot\$appName"
+          if (Test-Path $sourcePath) {
+            Copy-Item -Path $sourcePath\* -Destination $destinationPath -Recurse -Force
+            Write-Host "Files deployed to $destinationPath."
+          } else {
+            Write-Host "Source directory $sourcePath not found."
+          }
 
-    - name: Start Website in IIS (Optional)
-      shell: pwsh
-      run: |
-        Start-Process pwsh -ArgumentList "-Command Import-Module WebAdministration; $appName = '${{ inputs.app-name }}'; $website = Get-Website | Where-Object {$_.Name -eq $appName}; if ($website) { Start-Website -Name $appName; Write-Host 'Website $appName started.' } else { Write-Host 'Website $appName not found.' }" -Verb RunAs
+      - name: Start Website in IIS
+        shell: pwsh
+        run: |
+          Import-Module WebAdministration
+          $appName = '${{ matrix.app-name }}'
+          $website = Get-Website | Where-Object {$_.Name -eq $appName}
+          if ($website) {
+            Start-Website -Name $appName
+            Write-Host "Website '$appName' started."
+          } else {
+            Write-Host "Website '$appName' not found."
+          }
