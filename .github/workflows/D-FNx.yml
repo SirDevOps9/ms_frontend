@@ -34,6 +34,10 @@ jobs:
           ref: Sprint18
           fetch-depth: 0
 
+      - name: Configure Git Safe Directory
+        run: |
+          git config --global --add safe.directory "${{ github.workspace }}"
+
       - name: Checkout submodules
         run: git submodule update --init --recursive
 
