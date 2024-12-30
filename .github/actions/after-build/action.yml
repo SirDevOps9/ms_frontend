@@ -12,12 +12,11 @@ inputs:
 runs:
   using: 'composite'
   steps:
-  - name: Copy output to D:\FE Versions
-    uses: pwsh/action@v3
-    with:
-      args: |-
+    - name: Copy output to D:\FE Versions
+      shell: pwsh
+      run: |
         $appName = '${{ inputs.app-name }}'
-        $sourcePath = '${{ inputs.source-path }}' 
+        $sourcePath = '${{ inputs.source-path }}'
         $destinationPath = "D:\FE Versions\$appName"
         if (Test-Path $sourcePath) {
           New-Item -ItemType Directory -Path $destinationPath -Force
@@ -27,10 +26,9 @@ runs:
           Write-Host "Source directory not found for $appName."
         }
 
-  - name: Stop Website in IIS (Optional)
-    uses: pwsh/action@v3
-    with:
-      args: |-
+    - name: Stop Website in IIS (Optional)
+      shell: pwsh
+      run: |
         Import-Module WebAdministration
         $appName = '${{ inputs.app-name }}'
         $website = Get-Website | Where-Object {$_.Name -eq $appName}
@@ -41,10 +39,9 @@ runs:
           Write-Host "Website '$appName' not found."
         }
 
-  - name: Backup Website (Optional)
-    uses: pwsh/action@v3
-    with:
-      args: |-
+    - name: Backup Website (Optional)
+      shell: pwsh
+      run: |
         $appName = '${{ inputs.app-name }}'
         $sourcePath = "C:\inetpub\wwwroot\$appName"
         $destinationPath = "D:\Backup\$appName-$(Get-Date -Format yyyy-MM-dd)"
@@ -55,10 +52,9 @@ runs:
           Write-Host "Website '$appName' not found in C:\inetpub\wwwroot."
         }
 
-  - name: Remove Files from Website Directory (Optional)
-    uses: pwsh/action@v3
-    with:
-      args: |-
+    - name: Remove Files from Website Directory (Optional)
+      shell: pwsh
+      run: |
         $appName = '${{ inputs.app-name }}'
         $path = "C:\inetpub\wwwroot\$appName"
         if (Test-Path $path) {
@@ -68,10 +64,9 @@ runs:
           Write-Host "Website '$appName' directory not found."
         }
 
-  - name: Copy Files to Website Directory
-    uses: pwsh/action@v3
-    with:
-      args: |-
+    - name: Copy Files to Website Directory
+      shell: pwsh
+      run: |
         $appName = '${{ inputs.app-name }}'
         $sourcePath = "D:\FE Versions\$appName"
         $destinationPath = "C:\inetpub\wwwroot\$appName"
@@ -82,10 +77,9 @@ runs:
           Write-Host "Source directory $sourcePath not found."
         }
 
-  - name: Start Website in IIS (Optional)
-    uses: pwsh/action@v3
-    with:
-      args: |-
+    - name: Start Website in IIS (Optional)
+      shell: pwsh
+      run: |
         Import-Module WebAdministration
         $appName = '${{ inputs.app-name }}'
         $website = Get-Website | Where-Object {$_.Name -eq $appName}
