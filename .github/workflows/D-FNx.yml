@@ -5,7 +5,12 @@ on:
     inputs:
       app-name:
         description: 'Enter an app name or "All" to build and deploy all apps.'
+        type: choice
         required: true
+        options:
+          - A
+          - B
+          - C
 
 jobs:
   build-and-deploy:
