@@ -12,7 +12,7 @@ inputs:
 runs:
   using: 'composite'
   steps:
-     - name: Copy output to D:\FE Versions
+    - name: Copy output to D:\FE Versions
         shell: pwsh
         run: |
           $appName = '${{ matrix.app-name }}'
