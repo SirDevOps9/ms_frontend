@@ -53,8 +53,10 @@ jobs:
           Write-Host "Building app: ${{ matrix.app-name }}"
           ng build ${{ matrix.app-name }}
 
-      - name: Deploy to IIS
-        uses: ./.github/actions/after-build/
+      - name: IIS Deploy
+        uses: ./.github/actions/iis-deploy
         with:
-          app-name: ${{ matrix.app-name }}
-          source-path: .\dist\${{ matrix.app-name }}
+          app-name: '${{ matrix.app-name }}'
+          fe-versions-path: 'D:\FE Versions'
+          website-root-path: 'C:\inetpub\wwwroot'
+          backup-path: 'D:\Backup'
