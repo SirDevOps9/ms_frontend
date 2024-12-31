@@ -32,11 +32,11 @@ jobs:
         run: git submodule update --init --recursive
 
 
-      - name: Common Build Steps
-        uses: ./.github/actions/common-setup/
-        with:
-          node-version: '18'
-          ref: Sprint18
+   #   - name: Common Build Steps
+    #    uses: ./.github/actions/common-setup/
+     #   with:
+      #    node-version: '18'
+       #   ref: Sprint18
 
       #- name: Build App
        # shell: pwsh
