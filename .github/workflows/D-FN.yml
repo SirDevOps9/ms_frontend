@@ -61,15 +61,22 @@ jobs:
       - name: Stop Website in IIS
         shell: pwsh
         run: |
+          if (-not (Test-Path 'HKCU:\Software\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell')) {
+          Write-Host "PowerShell is not running as Administrator. Elevating..."
+          Start-Process powershell -ArgumentList '-NoExit', '-Command', 'Import-Module WebAdministration; Stop-Website -Name $iisWebsiteName' -Verb RunAs
+          } else {
+          Write-Host "PowerShell is running as Administrator."
           Import-Module WebAdministration
           $iisWebsiteName = '${{ github.event.inputs.iis-app-name }}'
           $website = Get-Website | Where-Object {$_.Name -eq $iisWebsiteName}
           if ($website) {
-            Stop-Website -Name $iisWebsiteName
-            Write-Host "Website '$iisWebsiteName' stopped."
+          Stop-Website -Name $iisWebsiteName
+          Write-Host "Website '$iisWebsiteName' stopped."
           } else {
-            Write-Host "Website '$iisWebsiteName' not found."
+          Write-Host "Website '$iisWebsiteName' not found."
           }
+          }
+
 
       - name: Backup Website
         shell: pwsh
