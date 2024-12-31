@@ -33,20 +33,15 @@ jobs:
 
       
      
-      - name: Stop Website in IIS
+      - name: Stop IIS website
         shell: pwsh
         run: |
-          Start-Process pwsh -Verb RunAs -ArgumentList '-NoExit', '-Command', '
-            Import-Module WebAdministration;
-            $iisWebsiteName = "${{ github.event.inputs.iis-app-name }};
-            $website = Get-Website | Where-Object {$_.Name -eq $iisWebsiteName};
-            if ($website) {
-              Stop-Website -Name $iisWebsiteName;
-              Write-Host "Website stopped.";
-           } else {
-             Write-Host "Website not found.";
-          }
-
+          $iisWebsiteName = "${{ github.event.inputs.iis-app-name }}"
+          Write-Host "Stopping IIS website: $iisWebsiteName"
+          # Stop the IIS website using appcmd
+          Stop-Process -Name iisreset -Force
+          & "C:\Windows\System32\inetsrv\appcmd.exe" stop site /site.name:$iisWebsiteName
+      
 
       
       - name: Common Build Steps
