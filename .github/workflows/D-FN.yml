@@ -39,12 +39,12 @@ jobs:
           $iisWebsiteName = '${{ github.event.inputs.iis-app-name }}'
           $website = Get-Website | Where-Object {$_.Name -eq $iisWebsiteName}
           if ($website) {
-             Stop-Website -Name $iisWebsiteName
-             Write-Host "Website '$iisWebsiteName' stopped."
+              Stop-Website -Name $iisWebsiteName
+              Write-Host "Website '$iisWebsiteName' stopped."
           } else {
-             Write-Host "Website '$iisWebsiteName' not found."
-             }
-          }  
+              Write-Host "Website '$iisWebsiteName' not found."
+          }
+
       
       - name: Common Build Steps
         uses: ./.github/actions/common-setup/
