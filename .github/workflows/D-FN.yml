@@ -25,6 +25,19 @@ jobs:
       - name: Checkout submodules
         run: git submodule update --init --recursive
 
+      - name: Stop Website in IIS
+        shell: pwsh
+        run: |
+          Import-Module WebAdministration
+          $appName = '${{ matrix.app-name }}'
+          $website = Get-Website | Where-Object {$_.Name -eq $appName}
+          if ($website) {
+            Stop-Website -Name $appName
+            Write-Host "Website '$appName' stopped."
+          } else {
+            Write-Host "Website '$appName' not found."
+          }  
+
       - name: Common Build Steps
         uses: ./.github/actions/common-setup/
         with:
@@ -49,18 +62,7 @@ jobs:
           } else {
             Write-Host "Source directory not found for $appName."
           }
-      - name: Stop Website in IIS
-        shell: pwsh
-        run: |
-          Import-Module WebAdministration
-          $appName = '${{ matrix.app-name }}'
-          $website = Get-Website | Where-Object {$_.Name -eq $appName}
-          if ($website) {
-            Stop-Website -Name $appName
-            Write-Host "Website '$appName' stopped."
-          } else {
-            Write-Host "Website '$appName' not found."
-          }
+      
       - name: Backup Website
         shell: pwsh
         run: |
