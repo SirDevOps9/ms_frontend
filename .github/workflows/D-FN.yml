@@ -34,9 +34,10 @@ jobs:
       
       - name: Stop Website in IIS
         shell: pwsh
+        run-as: administrator
         run: |
           Import-Module WebAdministration
-          $iisWebsiteName = "${{ github.event.inputs.iis-app-name }}"
+          $iisWebsiteName = ${{ github.event.inputs.iis-app-name }}
           $website = Get-Website | Where-Object {$_.Name -eq $iisWebsiteName}
           if ($website) {
               Stop-Website -Name $iisWebsiteName
