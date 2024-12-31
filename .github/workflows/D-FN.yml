@@ -38,8 +38,8 @@ jobs:
         run: |
           $iisWebsiteName = "${{ github.event.inputs.iis-app-name }}"
           Write-Host "Stopping IIS website: $iisWebsiteName"
-          # Stop the IIS website using appcmd
-          & "C:\Windows\System32\inetsrv\appcmd.exe" stop site /site.name:$iisWebsiteName
+          
+          Start-Process "C:\Windows\System32\inetsrv\appcmd.exe" -ArgumentList "stop site /site.name:$iisWebsiteName" -Verb RunAs
 
       
 
