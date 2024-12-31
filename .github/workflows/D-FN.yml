@@ -3,11 +3,14 @@ name: D-FN
 on:
   workflow_dispatch:
     inputs:
-      prpject-name:
+      project-name:
         description: 'Enter an app name or "All" to build and deploy all apps.'
         required: true
       iis-app-name:
         description: 'Enter the IIS website name to stop.'
+        required: true
+      backup-destination-path:
+        description: 'Enter the backup destination path.'
         required: true
 
 jobs:
@@ -16,7 +19,7 @@ jobs:
 
     strategy:
       matrix:
-        app-name: ${{ fromJSON(github.event.inputs.app-name == 'All' && '["apps-inventory", "bussiness-owners", "adminportal", "apps-accounting", "apps-finance", "apps-hr", "apps-purchase", "apps-sales", "erp-home"]' || format('["{0}"]', github.event.inputs.app-name)) }}
+        app-name: ${{ fromJSON(github.event.inputs.project-name == 'All' && '["apps-inventory", "business-owners", "adminportal", "apps-accounting", "apps-finance", "apps-hr", "apps-purchase", "apps-sales", "erp-home"]' || format('["{0}"]', github.event.inputs.project-name)) }}
 
     steps:
       - name: Checkout code
@@ -74,21 +77,20 @@ jobs:
           Import-Module WebAdministration
           $iisWebsiteName = '${{ github.event.inputs.iis-app-name }}'
           $projectName = '${{ matrix.app-name }}'
+          $backupDestinationPath = '${{ github.event.inputs.backup-destination-path }}'
           
           $website = Get-Website | Where-Object {$_.Name -eq $iisWebsiteName}
           if ($website) {
             $sourcePath = $website.PhysicalPath
-            $destinationPath = "D:\Backup\$projectName-$(Get-Date -Format yyyy-MM-dd)"
             if (Test-Path $sourcePath) {
-              Copy-Item -Path $sourcePath -Destination $destinationPath -Recurse -Force
-              Write-Host "Website '$projectName' backed up from physical path '$sourcePath' to $destinationPath."
+              Copy-Item -Path $sourcePath -Destination $backupDestinationPath -Recurse -Force
+              Write-Host "Website '$projectName' backed up from physical path '$sourcePath' to $backupDestinationPath."
             } else {
               Write-Host "Physical path '$sourcePath' for website '$iisWebsiteName' does not exist."
             }
           } else {
             Write-Host "Website '$iisWebsiteName' not found in IIS."
           }
-
 
       - name: Remove Files from Website Directory
         shell: pwsh
@@ -126,4 +128,3 @@ jobs:
             Write-Host "Website '$projectName' started."
           } else {
             Write-Host "Website '$projectName' not found."
-          }
