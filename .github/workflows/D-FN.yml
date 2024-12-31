@@ -32,30 +32,30 @@ jobs:
         run: git submodule update --init --recursive
 
 
-   #   - name: Common Build Steps
-    #    uses: ./.github/actions/common-setup/
-     #   with:
-      #    node-version: '18'
-       #   ref: Sprint18
+      - name: Common Build Steps
+        uses: ./.github/actions/common-setup/
+        with:
+          node-version: '18'
+          ref: Sprint18
 
-      #- name: Build App
-       # shell: pwsh
-        #run: |
-         # Write-Host "Building app: ${{ matrix.app-name }}"
+      - name: Build App
+        shell: pwsh
+        run: |
+          Write-Host "Building app: ${{ matrix.app-name }}"
           #ng build ${{ matrix.app-name }}
-      #- name: Copy output to D:\FE Versions
-       # shell: pwsh
-        #run: |
-         # $appName = '${{ matrix.app-name }}'
-          #$sourcePath = ".\dist\$appName"
-          #$destinationPath = "D:\FE Versions\$appName"
-          #if (Test-Path $sourcePath) {
-           # New-Item -ItemType Directory -Path $destinationPath -Force
-            #Copy-Item -Path $sourcePath\* -Destination $destinationPath -Recurse -Force
-            #Write-Host "Copied output for $appName to $destinationPath"
-          #} else {
-           # Write-Host "Source directory not found for $appName."
-          #}
+      - name: Copy output to D:\FE Versions
+        shell: pwsh
+        run: |
+          $appName = '${{ matrix.app-name }}'
+          $sourcePath = ".\dist\$appName"
+          $destinationPath = "D:\FE Versions\$appName"
+          if (Test-Path $sourcePath) {
+            New-Item -ItemType Directory -Path $destinationPath -Force
+            Copy-Item -Path $sourcePath\* -Destination $destinationPath -Recurse -Force
+            Write-Host "Copied output for $appName to $destinationPath"
+          } else {
+            Write-Host "Source directory not found for $appName."
+          }
           
       - name: Stop Website in IIS
         shell: pwsh
@@ -84,38 +84,46 @@ jobs:
           } else {
             Write-Host "Website '$iisWebsiteName' not found."
           }
+          
       - name: Remove Files from Website Directory
         shell: pwsh
         run: |
-          $appName = '${{ matrix.app-name }}'
-          $path = "C:\inetpub\wwwroot\$appName"
-          if (Test-Path $path) {
+          Import-Module WebAdministration
+          $iisWebsiteName = '${{ github.event.inputs.iis-app-name }}'
+          $website = Get-Website | Where-Object {$_.Name -eq $iisWebsiteName}
+          if ($website) {
+            $path = $website.physicalPath
             Remove-Item -Path $path\* -Recurse -Force
             Write-Host "Files removed from $path."
-          } else {
-            Write-Host "Website '$appName' directory not found."
-          }
+           }else {
+            Write-Host "Website '$iisWebsiteName' not found."
+           }
+
       - name: Copy Files to Website Directory
         shell: pwsh
         run: |
           $appName = '${{ matrix.app-name }}'
           $sourcePath = "D:\FE Versions\$appName"
-          $destinationPath = "C:\inetpub\wwwroot\$appName"
-          if (Test-Path $sourcePath) {
+          Import-Module WebAdministration
+          $iisWebsiteName = '${{ github.event.inputs.iis-app-name }}'
+          $website = Get-Website | Where-Object {$_.Name -eq $iisWebsiteName}
+          if ($website) {
+            $destinationPath = $website.physicalPath
             Copy-Item -Path $sourcePath\* -Destination $destinationPath -Recurse -Force
             Write-Host "Files deployed to $destinationPath."
           } else {
-            Write-Host "Source directory $sourcePath not found."
+            Write-Host "Website '$iisWebsiteName' not found."
           }
+
       - name: Start Website in IIS
         shell: pwsh
         run: |
           Import-Module WebAdministration
-          $appName = '${{ matrix.app-name }}'
-          $website = Get-Website | Where-Object {$_.Name -eq $appName}
+          $iisWebsiteName = '${{ github.event.inputs.iis-app-name }}'
+          $website = Get-Website | Where-Object {$_.Name -eq $iisWebsiteName}
           if ($website) {
-            Start-Website -Name $appName
-            Write-Host "Website '$appName' started."
+            Start-Website -Name $iisWebsiteName
+            Write-Host "Website '$iisWebsiteName' started."
           } else {
-            Write-Host "Website '$appName' not found."
+            Write-Host "Website '$iisWebsiteName' not found."
           }
