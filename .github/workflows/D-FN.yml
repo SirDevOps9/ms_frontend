@@ -41,27 +41,26 @@ jobs:
           
           Start-Process "C:\Windows\System32\inetsrv\appcmd.exe" -ArgumentList "stop site /site.name:$iisWebsiteName" -Verb RunAs
 
-      
       - name: Backup Website
         shell: pwsh
         run: |
-          Start-Process pwsh -ArgumentList "-Command Import-Module WebAdministration;
-          $iisWebsiteName = "${{ github.event.inputs.iis-app-name }}"
-          $backupDestinationPath = '${{ github.event.inputs.backup-destination-path }}'
-          
-          $website = Get-Website | Where-Object {$_.Name -eq $iisWebsiteName}
-          if ($website) {
-            $sourcePath = $website.PhysicalPath
-            if (Test-Path $sourcePath) {
-              Copy-Item -Path $sourcePath -Destination $backupDestinationPath -Recurse -Force
-              Write-Host "Website '$iisWebsiteName' backed up from physical path '$sourcePath' to $backupDestinationPath."
-            } else {
-              Write-Host "Physical path '$sourcePath' for website '$iisWebsiteName' does not exist."
-            }
-          } else {
-            Write-Host "Website '$iisWebsiteName' not found in IIS."
-          }
+          Start-Process pwsh -ArgumentList "-Command Import-Module WebAdministration; 
+            \$iisWebsiteName = '${{ github.event.inputs.iis-app-name }}'; 
+            \$backupDestinationPath = '${{ github.event.inputs.backup-destination-path }}'; 
+            \$website = Get-Website | Where-Object {\$_.Name -eq \$iisWebsiteName}; 
+            if (\$website) { 
+              \$sourcePath = \$website.PhysicalPath; 
+              if (Test-Path \$sourcePath) { 
+                Copy-Item -Path \$sourcePath -Destination \$backupDestinationPath -Recurse -Force; 
+                Write-Host 'Website \$iisWebsiteName backed up from physical path \$sourcePath to \$backupDestinationPath.'; 
+              } else { 
+                Write-Host 'Physical path \$sourcePath for website \$iisWebsiteName does not exist.'; 
+              } 
+            } else { 
+              Write-Host 'Website \$iisWebsiteName not found in IIS.'; 
+            }" -Verb RunAs
 
+      
       
       - name: Common Build Steps
         uses: ./.github/actions/common-setup/
