@@ -71,15 +71,24 @@ jobs:
       - name: Backup Website
         shell: pwsh
         run: |
+          Import-Module WebAdministration
+          $iisWebsiteName = '${{ github.event.inputs.iis-app-name }}'
           $projectName = '${{ matrix.app-name }}'
-          $sourcePath = "C:\inetpub\wwwroot\$projectName"
-          $destinationPath = "D:\Backup\$projectName-$(Get-Date -Format yyyy-MM-dd)"
-          if (Test-Path $sourcePath) {
-            Copy-Item -Path $sourcePath -Destination $destinationPath -Recurse -Force
-            Write-Host "Website '$projectName' backed up to $destinationPath."
+          
+          $website = Get-Website | Where-Object {$_.Name -eq $iisWebsiteName}
+          if ($website) {
+            $sourcePath = $website.PhysicalPath
+            $destinationPath = "D:\Backup\$projectName-$(Get-Date -Format yyyy-MM-dd)"
+            if (Test-Path $sourcePath) {
+              Copy-Item -Path $sourcePath -Destination $destinationPath -Recurse -Force
+              Write-Host "Website '$projectName' backed up from physical path '$sourcePath' to $destinationPath."
+            } else {
+              Write-Host "Physical path '$sourcePath' for website '$iisWebsiteName' does not exist."
+            }
           } else {
-            Write-Host "Website '$projectName' not found in C:\inetpub\wwwroot."
+            Write-Host "Website '$iisWebsiteName' not found in IIS."
           }
+
 
       - name: Remove Files from Website Directory
         shell: pwsh
