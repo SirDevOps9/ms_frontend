@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       project-name:
-        description: 'Enter an app name or "All" to build and deploy all apps.'
+        description: 'Enter a project name or "All" to build and deploy all projects.'
         required: true
       iis-app-name:
         description: 'Enter the IIS website name to stop, backup, deploy, and then start.'
