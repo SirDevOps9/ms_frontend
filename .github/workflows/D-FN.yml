@@ -34,17 +34,19 @@ jobs:
       
       - name: Stop Website in IIS
         shell: pwsh
-        run-as: administrator
         run: |
-          Import-Module WebAdministration
-          $iisWebsiteName = ${{ github.event.inputs.iis-app-name }}
-          $website = Get-Website | Where-Object {$_.Name -eq $iisWebsiteName}
+          Start-Process pwsh -Verb RunAs -ArgumentList "-Command
+          Import-Module WebAdministration;
+          $iisWebsiteName = '${{ github.event.inputs.iis-app-name }}';
+          $website = Get-Website | Where-Object {$_.Name -eq $iisWebsiteName};
           if ($website) {
-              Stop-Website -Name $iisWebsiteName
-              Write-Host "Website '$iisWebsiteName' stopped."
+              Stop-Website -Name $iisWebsiteName;
+              Write-Host 'Website stopped.'
           } else {
-              Write-Host "Website '$iisWebsiteName' not found."
+              Write-Host 'Website not found.'
           }
+        
+
 
       
       - name: Common Build Steps
