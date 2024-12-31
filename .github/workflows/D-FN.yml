@@ -31,6 +31,32 @@ jobs:
       - name: Checkout submodules
         run: git submodule update --init --recursive
 
+
+      - name: Common Build Steps
+        uses: ./.github/actions/common-setup/
+        with:
+          node-version: '18'
+          ref: Sprint18
+
+      #- name: Build App
+       # shell: pwsh
+        #run: |
+         # Write-Host "Building app: ${{ matrix.app-name }}"
+          #ng build ${{ matrix.app-name }}
+      #- name: Copy output to D:\FE Versions
+       # shell: pwsh
+        #run: |
+         # $appName = '${{ matrix.app-name }}'
+          #$sourcePath = ".\dist\$appName"
+          #$destinationPath = "D:\FE Versions\$appName"
+          #if (Test-Path $sourcePath) {
+           # New-Item -ItemType Directory -Path $destinationPath -Force
+            #Copy-Item -Path $sourcePath\* -Destination $destinationPath -Recurse -Force
+            #Write-Host "Copied output for $appName to $destinationPath"
+          #} else {
+           # Write-Host "Source directory not found for $appName."
+          #}
+          
       - name: Stop Website in IIS
         shell: pwsh
         run: |
@@ -42,45 +68,23 @@ jobs:
             Write-Host "Website '$iisWebsiteName' stopped."
           } else {
             Write-Host "Website '$iisWebsiteName' not found."
-          }  
-
-      - name: Common Build Steps
-        uses: ./.github/actions/common-setup/
-        with:
-          node-version: '18'
-          ref: Sprint18
-
-      - name: Build App
-        shell: pwsh
-        run: |
-          Write-Host "Building app: ${{ matrix.app-name }}"
-          ng build ${{ matrix.app-name }}
-      - name: Copy output to D:\FE Versions
-        shell: pwsh
-        run: |
-          $appName = '${{ matrix.app-name }}'
-          $sourcePath = ".\dist\$appName"
-          $destinationPath = "D:\FE Versions\$appName"
-          if (Test-Path $sourcePath) {
-            New-Item -ItemType Directory -Path $destinationPath -Force
-            Copy-Item -Path $sourcePath\* -Destination $destinationPath -Recurse -Force
-            Write-Host "Copied output for $appName to $destinationPath"
-          } else {
-            Write-Host "Source directory not found for $appName."
           }
-      
+          
       - name: Backup Website
         shell: pwsh
         run: |
-          $appName = '${{ matrix.app-name }}'
-          $sourcePath = "C:\inetpub\wwwroot\$appName"
-          $destinationPath = "D:\Backup\$appName-$(Get-Date -Format yyyy-MM-dd)"
-          if (Test-Path $sourcePath) {
+          $iisWebsiteName = '${{ github.event.inputs.iis-app-name }}'
+          $backupDestinationPath = '${{ github.event.inputs.backup-destination-path }}'
+
+          $website = Get-Website | Where-Object {$_.Name -eq $iisWebsiteName}
+          if (Test-Path $website) {
+            $sourcePath = $website.PhysicalPath
             Copy-Item -Path $sourcePath -Destination $destinationPath -Recurse -Force
-            Write-Host "Website '$appName' backed up to $destinationPath."
+            Write-Host "Website '$iisWebsiteName' backed up to $destinationPath."
           } else {
-            Write-Host "Website '$appName' not found in C:\inetpub\wwwroot."
+            Write-Host "Physical path '$sourcePath' for website '$iisWebsiteName' does not exist."
           }
+          
       - name: Remove Files from Website Directory
         shell: pwsh
         run: |
