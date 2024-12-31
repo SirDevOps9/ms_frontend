@@ -1,10 +1,10 @@
-name: D-FN
+name: Deploy FR
 
 on:
   workflow_dispatch:
     inputs:
       app-name:
-        description: 'Enter an app name or "All" to build and deploy all apps.'
+        description: 'Enter an app name or "ALL" to build and deploy all apps.'
         required: true
 
 jobs:
@@ -36,7 +36,6 @@ jobs:
         run: |
           Write-Host "Building app: ${{ matrix.app-name }}"
           ng build ${{ matrix.app-name }}
-
       - name: Copy output to D:\FE Versions
         shell: pwsh
         run: |
@@ -50,7 +49,6 @@ jobs:
           } else {
             Write-Host "Source directory not found for $appName."
           }
-
       - name: Stop Website in IIS
         shell: pwsh
         run: |
@@ -63,7 +61,6 @@ jobs:
           } else {
             Write-Host "Website '$appName' not found."
           }
-
       - name: Backup Website
         shell: pwsh
         run: |
@@ -76,7 +73,6 @@ jobs:
           } else {
             Write-Host "Website '$appName' not found in C:\inetpub\wwwroot."
           }
-
       - name: Remove Files from Website Directory
         shell: pwsh
         run: |
@@ -88,7 +84,6 @@ jobs:
           } else {
             Write-Host "Website '$appName' directory not found."
           }
-
       - name: Copy Files to Website Directory
         shell: pwsh
         run: |
@@ -101,7 +96,6 @@ jobs:
           } else {
             Write-Host "Source directory $sourcePath not found."
           }
-
       - name: Start Website in IIS
         shell: pwsh
         run: |
@@ -113,4 +107,4 @@ jobs:
             Write-Host "Website '$appName' started."
           } else {
             Write-Host "Website '$appName' not found."
-          } 
+          }
