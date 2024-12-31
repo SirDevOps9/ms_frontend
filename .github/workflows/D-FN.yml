@@ -78,7 +78,7 @@ jobs:
       - name: Backup Website
         shell: pwsh
         run: |
-          Import-Module WebAdministration
+          Start-Process pwsh -ArgumentList "-Command Import-Module WebAdministration;
           $iisWebsiteName = '${{ github.event.inputs.iis-app-name }}'
           $backupDestinationPath = '${{ github.event.inputs.backup-destination-path }}'
           
@@ -98,6 +98,7 @@ jobs:
       - name: Remove Files from Website Directory
         shell: pwsh
         run: |
+          Start-Process pwsh -ArgumentList "-Command Import-Module WebAdministration; 
           $iisWebsiteName = '${{ github.event.inputs.iis-app-name }}'
           $website = Get-Website | Where-Object {$_.Name -eq $iisWebsiteName}
           if ($website) {
@@ -115,6 +116,7 @@ jobs:
       - name: Copy Files to Website Directory
         shell: pwsh
         run: |
+          Start-Process pwsh -ArgumentList "-Command Import-Module WebAdministration;
           $projectName = '${{ matrix.app-name }}'
           $sourcePath = "D:\FE Versions\$projectName"
           $iisWebsiteName = '${{ github.event.inputs.iis-app-name }}'
@@ -134,6 +136,7 @@ jobs:
       - name: Start Website in IIS
         shell: pwsh
         run: |
+          Start-Process pwsh -ArgumentList "-Command Import-Module WebAdministration;
           Import-Module WebAdministration
           $iisWebsiteName = '${{ github.event.inputs.iis-app-name }}'
           $website = Get-Website | Where-Object {$_.Name -eq $iisWebsiteName}
