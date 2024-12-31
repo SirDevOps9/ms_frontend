@@ -7,7 +7,7 @@ on:
         description: 'Enter an app name or "All" to build and deploy all apps.'
         required: true
       iis-app-name:
-        description: 'Enter the IIS website name to stop, backup, and deploy.'
+        description: 'Enter the IIS website name to stop.'
         required: true
 
 jobs:
