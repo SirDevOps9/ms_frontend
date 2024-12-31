@@ -6,6 +6,9 @@ on:
       app-name:
         description: 'Enter an app name or "All" to build and deploy all apps.'
         required: true
+      iis-app-name:
+        description: 'Enter the IIS website name to stop, backup, and deploy.'
+        required: true
 
 jobs:
   build-and-deploy:
@@ -55,14 +58,15 @@ jobs:
         shell: pwsh
         run: |
           Import-Module WebAdministration
-          $appName = '${{ matrix.app-name }}'
-          $website = Get-Website | Where-Object {$_.Name -eq $appName}
+          $iisWebsiteName = '${{ github.event.inputs.iis-app-name }}'
+          $website = Get-Website | Where-Object {$_.Name -eq $iisWebsiteName}
           if ($website) {
-            Stop-Website -Name $appName
-            Write-Host "Website '$appName' stopped."
+            Stop-Website -Name $iisWebsiteName
+            Write-Host "Website '$iisWebsiteName' stopped."
           } else {
-            Write-Host "Website '$appName' not found."
+            Write-Host "Website '$iisWebsiteName' not found."
           }
+
 
       - name: Backup Website
         shell: pwsh
