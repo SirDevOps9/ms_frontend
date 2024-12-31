@@ -35,23 +35,17 @@ jobs:
       - name: Stop Website in IIS
         shell: pwsh
         run: |
-          $isAdmin = [System.Security.Principal.WindowsPrincipal] [System.Security.Principal.WindowsIdentity]::GetCurrent()
-          $isAdmin = $isAdmin.IsInRole([System.Security.Principal.WindowsBuiltInRole]::Administrator)
-          if ($isAdmin) {
-              Import-Module WebAdministration
-              $iisWebsiteName = '${{ github.event.inputs.iis-app-name }}'
-              $website = Get-Website | Where-Object {$_.Name -eq $iisWebsiteName}
-              if ($website) {
-                  Stop-Website -Name $iisWebsiteName
-                  Write-Host "Website '$iisWebsiteName' stopped."
-             } else {
-                 Write-Host "Website '$iisWebsiteName' not found."
-             }
-          } else {
-             Write-Host "Not running as Administrator. Attempting to elevate privileges."
-             Start-Process pwsh -Verb RunAs -ArgumentList '-Command', 'Import-Module WebAdministration; $iisWebsiteName = "${{ github.event.inputs.iis-app-name }}"; $website = Get-Website | Where-Object {$_.Name -eq $iisWebsiteName}; if ($website) { Stop-Website -Name $iisWebsiteName; Write-Host "Website stopped." } else { Write-Host "Website not found." }'
-          }
-
+            Start-Process pwsh -Verb RunAs -ArgumentList '-NoExit', '-Command', "
+            Import-Module WebAdministration;
+            \$iisWebsiteName = '${{ github.event.inputs.iis-app-name }}';
+            \$website = Get-Website | Where-Object {\$_.Name -eq \$iisWebsiteName};
+            if (\$website) {
+                Stop-Website -Name \$iisWebsiteName;
+                Write-Host 'Website stopped.';
+            } else {
+                Write-Host 'Website not found.';
+              }
+            }  
 
 
       
