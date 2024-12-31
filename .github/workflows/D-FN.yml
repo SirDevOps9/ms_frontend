@@ -3,7 +3,7 @@ name: D-FN
 on:
   workflow_dispatch:
     inputs:
-      app-name:
+      prpject-name:
         description: 'Enter an app name or "All" to build and deploy all apps.'
         required: true
       iis-app-name:
@@ -37,21 +37,22 @@ jobs:
       - name: Build App
         shell: pwsh
         run: |
-          Write-Host "Building app: ${{ matrix.app-name }}"
-          ng build ${{ matrix.app-name }}
+          $projectName = '${{ matrix.app-name }}'
+          Write-Host "Building app: $projectName"
+          ng build $projectName
 
       - name: Copy output to D:\FE Versions
         shell: pwsh
         run: |
-          $appName = '${{ matrix.app-name }}'
-          $sourcePath = ".\dist\$appName"
-          $destinationPath = "D:\FE Versions\$appName"
+          $projectName = '${{ matrix.app-name }}'
+          $sourcePath = ".\dist\$projectName"
+          $destinationPath = "D:\FE Versions\$projectName"
           if (Test-Path $sourcePath) {
             New-Item -ItemType Directory -Path $destinationPath -Force
             Copy-Item -Path $sourcePath\* -Destination $destinationPath -Recurse -Force
-            Write-Host "Copied output for $appName to $destinationPath"
+            Write-Host "Copied output for $projectName to $destinationPath"
           } else {
-            Write-Host "Source directory not found for $appName."
+            Write-Host "Source directory not found for $projectName."
           }
 
       - name: Stop Website in IIS
@@ -67,38 +68,37 @@ jobs:
             Write-Host "Website '$iisWebsiteName' not found."
           }
 
-
       - name: Backup Website
         shell: pwsh
         run: |
-          $appName = '${{ matrix.app-name }}'
-          $sourcePath = "C:\inetpub\wwwroot\$appName"
-          $destinationPath = "D:\Backup\$appName-$(Get-Date -Format yyyy-MM-dd)"
+          $projectName = '${{ matrix.app-name }}'
+          $sourcePath = "C:\inetpub\wwwroot\$projectName"
+          $destinationPath = "D:\Backup\$projectName-$(Get-Date -Format yyyy-MM-dd)"
           if (Test-Path $sourcePath) {
             Copy-Item -Path $sourcePath -Destination $destinationPath -Recurse -Force
-            Write-Host "Website '$appName' backed up to $destinationPath."
+            Write-Host "Website '$projectName' backed up to $destinationPath."
           } else {
-            Write-Host "Website '$appName' not found in C:\inetpub\wwwroot."
+            Write-Host "Website '$projectName' not found in C:\inetpub\wwwroot."
           }
 
       - name: Remove Files from Website Directory
         shell: pwsh
         run: |
-          $appName = '${{ matrix.app-name }}'
-          $path = "C:\inetpub\wwwroot\$appName"
+          $projectName = '${{ matrix.app-name }}'
+          $path = "C:\inetpub\wwwroot\$projectName"
           if (Test-Path $path) {
             Remove-Item -Path $path\* -Recurse -Force
             Write-Host "Files removed from $path."
           } else {
-            Write-Host "Website '$appName' directory not found."
+            Write-Host "Website '$projectName' directory not found."
           }
 
       - name: Copy Files to Website Directory
         shell: pwsh
         run: |
-          $appName = '${{ matrix.app-name }}'
-          $sourcePath = "D:\FE Versions\$appName"
-          $destinationPath = "C:\inetpub\wwwroot\$appName"
+          $projectName = '${{ matrix.app-name }}'
+          $sourcePath = "D:\FE Versions\$projectName"
+          $destinationPath = "C:\inetpub\wwwroot\$projectName"
           if (Test-Path $sourcePath) {
             Copy-Item -Path $sourcePath\* -Destination $destinationPath -Recurse -Force
             Write-Host "Files deployed to $destinationPath."
@@ -110,11 +110,11 @@ jobs:
         shell: pwsh
         run: |
           Import-Module WebAdministration
-          $appName = '${{ matrix.app-name }}'
-          $website = Get-Website | Where-Object {$_.Name -eq $appName}
+          $projectName = '${{ matrix.app-name }}'
+          $website = Get-Website | Where-Object {$_.Name -eq $projectName}
           if ($website) {
-            Start-Website -Name $appName
-            Write-Host "Website '$appName' started."
+            Start-Website -Name $projectName
+            Write-Host "Website '$projectName' started."
           } else {
-            Write-Host "Website '$appName' not found."
+            Write-Host "Website '$projectName' not found."
           }
