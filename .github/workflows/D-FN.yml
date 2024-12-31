@@ -7,10 +7,10 @@ on:
         description: 'Enter an app name or "All" to build and deploy all apps.'
         required: true
       iis-app-name:
-        description: 'Enter the IIS website name to stop then start.'
+        description: 'Enter the IIS website name to stop, backup, deploy, and then start.'
         required: true
       backup-destination-path:
-        description: 'Enter the backup destination path.'
+        description: 'Enter the destination path for the website backup.'
         required: true
 
 jobs:
@@ -76,7 +76,6 @@ jobs:
         run: |
           Import-Module WebAdministration
           $iisWebsiteName = '${{ github.event.inputs.iis-app-name }}'
-          $projectName = '${{ matrix.app-name }}'
           $backupDestinationPath = '${{ github.event.inputs.backup-destination-path }}'
           
           $website = Get-Website | Where-Object {$_.Name -eq $iisWebsiteName}
@@ -84,7 +83,7 @@ jobs:
             $sourcePath = $website.PhysicalPath
             if (Test-Path $sourcePath) {
               Copy-Item -Path $sourcePath -Destination $backupDestinationPath -Recurse -Force
-              Write-Host "Website '$projectName' backed up from physical path '$sourcePath' to $backupDestinationPath."
+              Write-Host "Website '$iisWebsiteName' backed up from physical path '$sourcePath' to $backupDestinationPath."
             } else {
               Write-Host "Physical path '$sourcePath' for website '$iisWebsiteName' does not exist."
             }
@@ -95,13 +94,18 @@ jobs:
       - name: Remove Files from Website Directory
         shell: pwsh
         run: |
-          $projectName = '${{ matrix.app-name }}'
-          $path = "C:\inetpub\wwwroot\$projectName"
-          if (Test-Path $path) {
-            Remove-Item -Path $path\* -Recurse -Force
-            Write-Host "Files removed from $path."
+          $iisWebsiteName = '${{ github.event.inputs.iis-app-name }}'
+          $website = Get-Website | Where-Object {$_.Name -eq $iisWebsiteName}
+          if ($website) {
+            $path = $website.PhysicalPath
+            if (Test-Path $path) {
+              Remove-Item -Path $path\* -Recurse -Force
+              Write-Host "Files removed from $path."
+            } else {
+              Write-Host "Physical path '$path' for website '$iisWebsiteName' does not exist."
+            }
           } else {
-            Write-Host "Website '$projectName' directory not found."
+            Write-Host "Website '$iisWebsiteName' not found."
           }
 
       - name: Copy Files to Website Directory
@@ -109,22 +113,28 @@ jobs:
         run: |
           $projectName = '${{ matrix.app-name }}'
           $sourcePath = "D:\FE Versions\$projectName"
-          $destinationPath = "C:\inetpub\wwwroot\$projectName"
-          if (Test-Path $sourcePath) {
-            Copy-Item -Path $sourcePath\* -Destination $destinationPath -Recurse -Force
-            Write-Host "Files deployed to $destinationPath."
+          $iisWebsiteName = '${{ github.event.inputs.iis-app-name }}'
+          $website = Get-Website | Where-Object {$_.Name -eq $iisWebsiteName}
+          if ($website) {
+            $destinationPath = $website.PhysicalPath
+            if (Test-Path $sourcePath) {
+              Copy-Item -Path $sourcePath\* -Destination $destinationPath -Recurse -Force
+              Write-Host "Files deployed to $destinationPath."
+            } else {
+              Write-Host "Source directory $sourcePath not found."
+            }
           } else {
-            Write-Host "Source directory $sourcePath not found."
+            Write-Host "Website '$iisWebsiteName' not found in IIS."
           }
 
       - name: Start Website in IIS
         shell: pwsh
         run: |
           Import-Module WebAdministration
-          $projectName = '${{ matrix.app-name }}'
-          $website = Get-Website | Where-Object {$_.Name -eq $projectName}
+          $iisWebsiteName = '${{ github.event.inputs.iis-app-name }}'
+          $website = Get-Website | Where-Object {$_.Name -eq $iisWebsiteName}
           if ($website) {
-            Start-Website -Name $projectName
-            Write-Host "Website '$projectName' started."
+            Start-Website -Name $iisWebsiteName
+            Write-Host "Website '$iisWebsiteName' started."
           } else {
-            Write-Host "Website '$projectName' not found."
+            Write-Host "Website '$iisWebsiteName' not found."
