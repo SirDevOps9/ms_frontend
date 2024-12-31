@@ -39,8 +39,8 @@ jobs:
           $iisWebsiteName = "${{ github.event.inputs.iis-app-name }}"
           Write-Host "Stopping IIS website: $iisWebsiteName"
           # Stop the IIS website using appcmd
-          Stop-Process -Name iisreset -Force
           & "C:\Windows\System32\inetsrv\appcmd.exe" stop site /site.name:$iisWebsiteName
+
       
 
       
