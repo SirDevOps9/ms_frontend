@@ -25,8 +25,8 @@ on:
         description: 'Enter the destination path for the website backup.'
         required: true
      
-      backup-destination-path:
-        description: 'Enter the destination path for the website backup.'
+      FE-Versions-path:
+        description: 'Enter the FE Versions path .'
         required: true
         
 
