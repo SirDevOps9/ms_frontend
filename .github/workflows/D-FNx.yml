@@ -7,6 +7,13 @@ on:
         description: 'Enter an app name or "All" to build and deploy all apps.'
         type: choice
         required: true
+
+      iis-app-name:
+          description: 'Enter the IIS website name to stop, backup, deploy, and then start.'
+          required: true
+      backup-destination-path:
+        description: 'Enter the destination path for the website backup.'
+        required: true
         options:
           - All
           - apps-inventory
@@ -34,12 +41,9 @@ jobs:
           ref: Sprint18
           fetch-depth: 0
 
-      - name: Configure Git Safe Directory
-        run: |
-          git config --global --add safe.directory "${{ github.workspace }}"
-
       - name: Checkout submodules
         run: git submodule update --init --recursive
+
 
       - name: Common Build Steps
         uses: ./.github/actions/common-setup/
@@ -51,12 +55,88 @@ jobs:
         shell: pwsh
         run: |
           Write-Host "Building app: ${{ matrix.app-name }}"
-          ng build ${{ matrix.app-name }}
+          #ng build ${{ matrix.app-name }}
+      - name: Copy output to D:\FE Versions
+        shell: pwsh
+        run: |
+          $appName = '${{ matrix.app-name }}'
+          $sourcePath = ".\dist\$appName"
+          $destinationPath = "D:\FE Versions\$appName"
+          if (Test-Path $sourcePath) {
+            New-Item -ItemType Directory -Path $destinationPath -Force
+            Copy-Item -Path $sourcePath\* -Destination $destinationPath -Recurse -Force
+            Write-Host "Copied output for $appName to $destinationPath"
+          } else {
+            Write-Host "Source directory not found for $appName."
+          }
+          
+      - name: Stop Website in IIS
+        shell: pwsh
+        run: |
+          Import-Module WebAdministration
+          $iisWebsiteName = '${{ github.event.inputs.iis-app-name }}'
+          $website = Get-Website | Where-Object {$_.Name -eq $iisWebsiteName}
+          if ($website) {
+            Stop-Website -Name $iisWebsiteName
+            Write-Host "Website '$iisWebsiteName' stopped."
+          } else {
+            Write-Host "Website '$iisWebsiteName' not found."
+          }
+          
+      - name: Backup Website
+        shell: pwsh
+        run: |
+          Import-Module WebAdministration
+          $iisWebsiteName = '${{ github.event.inputs.iis-app-name }}'
+          $backupDestinationPath = '${{ github.event.inputs.backup-destination-path }}'
+          $website = Get-Website | Where-Object {$_.Name -eq $iisWebsiteName}
+          if ($website) {
+            $sourcePath = $website.physicalPath
+            Copy-Item -Path $sourcePath\* -Destination $backupDestinationPath -Recurse -Force
+            Write-Host "Website '$iisWebsiteName' backed up to $backupDestinationPath."
+          } else {
+            Write-Host "Website '$iisWebsiteName' not found."
+          }
+          
+      - name: Remove Files from Website Directory
+        shell: pwsh
+        run: |
+          Import-Module WebAdministration
+          $iisWebsiteName = '${{ github.event.inputs.iis-app-name }}'
+          $website = Get-Website | Where-Object {$_.Name -eq $iisWebsiteName}
+          if ($website) {
+            $path = $website.physicalPath
+            Remove-Item -Path $path\* -Recurse -Force
+            Write-Host "Files removed from $path."
+           }else {
+            Write-Host "Website '$iisWebsiteName' not found."
+           }
 
-      - name: IIS Deploy
-        uses: ./.github/actions/iis-deploy
-        with:
-          app-name: '${{ matrix.app-name }}'
-          fe-versions-path: 'D:\FE Versions'
-          website-root-path: 'C:\inetpub\wwwroot'
-          backup-path: 'D:\Backup'
+      - name: Copy Files to Website Directory
+        shell: pwsh
+        run: |
+          $appName = '${{ matrix.app-name }}'
+          $sourcePath = "D:\FE Versions\$appName"
+          Import-Module WebAdministration
+          $iisWebsiteName = '${{ github.event.inputs.iis-app-name }}'
+          $website = Get-Website | Where-Object {$_.Name -eq $iisWebsiteName}
+          if ($website) {
+            $destinationPath = $website.physicalPath
+            Copy-Item -Path $sourcePath\* -Destination $destinationPath -Recurse -Force
+            Write-Host "Files deployed to $destinationPath."
+          } else {
+            Write-Host "Website '$iisWebsiteName' not found."
+          }
+
+      - name: Start Website in IIS
+        shell: pwsh
+        run: |
+          Import-Module WebAdministration
+          $iisWebsiteName = '${{ github.event.inputs.iis-app-name }}'
+          $website = Get-Website | Where-Object {$_.Name -eq $iisWebsiteName}
+          if ($website) {
+            Start-Website -Name $iisWebsiteName
+            Write-Host "Website '$iisWebsiteName' started."
+          } else {
+            Write-Host "Website '$iisWebsiteName' not found."
+          }
