@@ -23,15 +23,15 @@ jobs:
       - name: Build App
         shell: pwsh
         run: |
-          Write-Host "Building app: ${{ matrix.app-name }}"
-          #ng build ${{ matrix.app-name }}
+          Write-Host "Building app: ${{ inputs.app-name }}"
+          #ng build ${{ inputs.app-name }}
       
       - name: Copy output to FE Versions
         shell: pwsh
         run: |
-          $appName = '${{ matrix.app-name }}'
+          $appName = '${{ inputs.app-name }}'
           $sourcePath = ".\dist\$appName"
-          $destinationPath = '${{ github.event.inputs.FE-Versions-path }}\$appName'
+          $destinationPath = '${{ inputs.FE-Versions-path }}\$appName'
           if (Test-Path $sourcePath) {
             New-Item -ItemType Directory -Path $destinationPath -Force
             Copy-Item -Path $sourcePath\* -Destination $destinationPath -Recurse -Force
@@ -44,7 +44,7 @@ jobs:
         shell: pwsh
         run: |
           Import-Module WebAdministration
-          $iisWebsiteName = '${{ github.event.inputs.iis-app-name }}'
+          $iisWebsiteName = '${{ inputs.iis-app-name }}'
           $website = Get-Website | Where-Object {$_.Name -eq $iisWebsiteName}
           if ($website) {
             Stop-Website -Name $iisWebsiteName
@@ -57,8 +57,8 @@ jobs:
         shell: pwsh
         run: |
           Import-Module WebAdministration
-          $iisWebsiteName = '${{ github.event.inputs.iis-app-name }}'
-          $backupDestinationPath = '${{ github.event.inputs.backup-destination-path }}'
+          $iisWebsiteName = '${{ inputs.iis-app-name }}'
+          $backupDestinationPath = '${{ inputs.backup-destination-path }}'
           $website = Get-Website | Where-Object {$_.Name -eq $iisWebsiteName}
           if ($website) {
             $sourcePath = $website.physicalPath
@@ -72,7 +72,7 @@ jobs:
         shell: pwsh
         run: |
           Import-Module WebAdministration
-          $iisWebsiteName = '${{ github.event.inputs.iis-app-name }}'
+          $iisWebsiteName = '${{ inputs.iis-app-name }}'
           $website = Get-Website | Where-Object {$_.Name -eq $iisWebsiteName}
           if ($website) {
             $path = $website.physicalPath
@@ -85,10 +85,10 @@ jobs:
       - name: Copy Files to Website Directory
         shell: pwsh
         run: |
-          $appName = '${{ matrix.app-name }}'
+          $appName = '${{ inputs.app-name }}'
           $sourcePath = "D:\FE Versions\$appName"
           Import-Module WebAdministration
-          $iisWebsiteName = '${{ github.event.inputs.iis-app-name }}'
+          $iisWebsiteName = '${{ inputs.iis-app-name }}'
           $website = Get-Website | Where-Object {$_.Name -eq $iisWebsiteName}
           if ($website) {
             $destinationPath = $website.physicalPath
@@ -102,11 +102,3 @@ jobs:
         shell: pwsh
         run: |
           Import-Module WebAdministration
-          $iisWebsiteName = '${{ github.event.inputs.iis-app-name }}'
-          $website = Get-Website | Where-Object {$_.Name -eq $iisWebsiteName}
-          if ($website) {
-            Start-Website -Name $iisWebsiteName
-            Write-Host "Website '$iisWebsiteName' started."
-          } else {
-            Write-Host "Website '$iisWebsiteName' not found."
-          }
