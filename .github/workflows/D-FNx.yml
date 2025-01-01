@@ -61,12 +61,12 @@ jobs:
           Write-Host "Building app: ${{ matrix.app-name }}"
           #ng build ${{ matrix.app-name }}
       
-      - name: Copy output to D:\FE Versions
+      - name: Copy output to FE Versions
         shell: pwsh
         run: |
           $appName = '${{ matrix.app-name }}'
           $sourcePath = ".\dist\$appName"
-          $destinationPath = "D:\FE Versions\$appName"
+          $destinationPath = '${{ github.event.inputs.FE-Versions-path }}\$appName'
           if (Test-Path $sourcePath) {
             New-Item -ItemType Directory -Path $destinationPath -Force
             Copy-Item -Path $sourcePath\* -Destination $destinationPath -Recurse -Force
