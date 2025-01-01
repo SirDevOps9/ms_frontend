@@ -6,14 +6,6 @@ on:
       app-name:
         description: 'Enter an app name or "All" to build and deploy all apps.'
         type: choice
-        #required:
-
-      iis-app-name:
-          description: 'Enter the IIS website name to stop, backup, deploy, and then start.'
-          required: true
-      backup-destination-path:
-        description: 'Enter the destination path for the website backup.'
-        required: true
         options:
           - All
           - apps-inventory
@@ -25,6 +17,14 @@ on:
           - apps-purchase
           - apps-sales
           - erp-home
+
+      iis-app-name:
+          description: 'Enter the IIS website name to stop, backup, deploy, and then start.'
+          required: true
+      backup-destination-path:
+        description: 'Enter the destination path for the website backup.'
+        required: true
+        
 
 jobs:
   build-and-deploy:
