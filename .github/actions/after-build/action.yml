@@ -1,7 +1,5 @@
 name: Deploy to IIS
 
-on:
-  workflow_call:
     inputs:
       app-name:
         description: App name
@@ -16,9 +14,8 @@ on:
         description: FE Versions path
         required: true
 
-jobs:
-  deploy:
-    runs-on: self-hosted
+runs:
+  using: 'composite'
     steps:
       - name: Build App
         shell: pwsh
