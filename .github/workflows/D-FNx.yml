@@ -6,7 +6,7 @@ on:
       app-name:
         description: 'Enter an app name or "All" to build and deploy all apps.'
         type: choice
-        required: true
+        #required:
 
       iis-app-name:
           description: 'Enter the IIS website name to stop, backup, deploy, and then start.'
