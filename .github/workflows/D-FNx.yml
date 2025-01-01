@@ -24,6 +24,10 @@ on:
       backup-destination-path:
         description: 'Enter the destination path for the website backup.'
         required: true
+     
+      backup-destination-path:
+        description: 'Enter the destination path for the website backup.'
+        required: true
         
 
 jobs:
@@ -56,6 +60,7 @@ jobs:
         run: |
           Write-Host "Building app: ${{ matrix.app-name }}"
           #ng build ${{ matrix.app-name }}
+      
       - name: Copy output to D:\FE Versions
         shell: pwsh
         run: |
