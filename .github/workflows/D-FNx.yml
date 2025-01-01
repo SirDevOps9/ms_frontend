@@ -57,5 +57,8 @@ jobs:
       
       - name: After Build
         uses: ./.github/actions/after-build/
-        with: 
-           ref: Sprint18 
+        with:
+          app-name: ${{ matrix.app-name }}
+          iis-app-name: ${{ github.event.inputs.iis-app-name }}
+          backup-destination-path: ${{ github.event.inputs.backup-destination-path }}
+          FE-Versions-path: ${{ github.event.inputs.FE-Versions-path }}
