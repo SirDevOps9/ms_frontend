@@ -56,4 +56,6 @@ jobs:
           ref: Sprint18
       
       - name: After Build
-        uses: ./.github/actions/after-build/action.yml@Sprint18
+        uses: ./.github/actions/after-build/
+        with: 
+           ref: Sprint18 
