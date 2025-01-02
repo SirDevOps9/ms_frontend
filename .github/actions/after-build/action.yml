@@ -1,37 +1,53 @@
-name: Deploy to IIS
+name: Deploy FR
 
 on:
   workflow_call:
     inputs:
       app-name:
-        description: App name
         required: true
+        type: string
       iis-app-name:
-        description: IIS website name
         required: true
+        type: string
       backup-destination-path:
-        description: Backup destination path
         required: true
-      FE-Versions-path:
-        description: FE Versions path
-        required: true
+        type: string
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: self-hosted
+
+    strategy:
+      matrix:
+        app-name: ${{ fromJSON(inputs.app-name == 'All' && '["apps-inventory", "bussiness-owners", "adminportal", "apps-accounting", "apps-finance", "apps-hr", "apps-purchase", "apps-sales", "erp-home"]' || format('["{0}"]', inputs.app-name)) }}
+
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          ref: Sprint18
+          fetch-depth: 0
+
+      - name: Checkout submodules
+        run: git submodule update --init --recursive
+
+      - name: Common Build Steps
+        uses: ./.github/actions/common-setup/
+        with:
+          node-version: '18'
+          ref: Sprint18
+
       - name: Build App
         shell: pwsh
         run: |
-          Write-Host "Building app: ${{ inputs.app-name }}"
-          #ng build ${{ inputs.app-name }}
-
-      - name: Copy output to FE Versions
+          Write-Host "Building app: ${{ matrix.app-name }}"
+          #ng build ${{ matrix.app-name }}
+      - name: Copy output to D:\FE Versions
         shell: pwsh
         run: |
-          $appName = '${{ inputs.app-name }}'
+          $appName = '${{ matrix.app-name }}'
           $sourcePath = ".\dist\$appName"
-          $destinationPath = '${{ inputs.FE-Versions-path }}\$appName'
+          $destinationPath = "D:\FE Versions\$appName"
           if (Test-Path $sourcePath) {
             New-Item -ItemType Directory -Path $destinationPath -Force
             Copy-Item -Path $sourcePath\* -Destination $destinationPath -Recurse -Force
@@ -39,7 +55,7 @@ jobs:
           } else {
             Write-Host "Source directory not found for $appName."
           }
-          
+
       - name: Stop Website in IIS
         shell: pwsh
         run: |
@@ -52,7 +68,7 @@ jobs:
           } else {
             Write-Host "Website '$iisWebsiteName' not found."
           }
-          
+
       - name: Backup Website
         shell: pwsh
         run: |
@@ -67,7 +83,7 @@ jobs:
           } else {
             Write-Host "Website '$iisWebsiteName' not found."
           }
-          
+
       - name: Remove Files from Website Directory
         shell: pwsh
         run: |
@@ -78,14 +94,14 @@ jobs:
             $path = $website.physicalPath
             Remove-Item -Path $path\* -Recurse -Force
             Write-Host "Files removed from $path."
-           }else {
+          } else {
             Write-Host "Website '$iisWebsiteName' not found."
-           }
+          }
 
       - name: Copy Files to Website Directory
         shell: pwsh
         run: |
-          $appName = '${{ inputs.app-name }}'
+          $appName = '${{ matrix.app-name }}'
           $sourcePath = "D:\FE Versions\$appName"
           Import-Module WebAdministration
           $iisWebsiteName = '${{ inputs.iis-app-name }}'
@@ -102,3 +118,10 @@ jobs:
         shell: pwsh
         run: |
           Import-Module WebAdministration
+          $iisWebsiteName = '${{ inputs.iis-app-name }}'
+          $website = Get-Website | Where-Object {$_.Name -eq $iisWebsiteName}
+          if ($website) {
+            Start-Website -Name $iisWebsiteName
+            Write-Host "Website '$iisWebsiteName' started."
+          } else {
+            Write-Host "Website '$iisWebsiteName' not found."
