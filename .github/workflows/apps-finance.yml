@@ -1,0 +1,46 @@
+name: Deploy apps-finance app
+
+on:
+  workflow_dispatch:
+    inputs:
+      app-name:
+        description: "apps-finance Deploy"
+        required: true
+        type: string
+        default: 'apps-finance'
+          
+      iis-app-name:
+        description: "Enter the IIS website name."
+        required: true
+        
+      backup-destination-path:
+        description: "Enter the backup destination path."
+        required: true
+        type: string
+        default: 'D:\Backup'
+
+jobs:
+  trigger-deploy:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          ref: Sprint18
+          fetch-depth: 0
+
+      - name: Checkout submodules
+        run: git submodule update --init --recursive
+
+      - name: Common Build Steps
+        uses: ./.github/actions/common-setup/
+        with:
+          node-version: '18'
+          ref: Sprint18
+
+      - name: Run After Build Action
+        uses: ./.github/actions/after-build
+        with:
+          app-name: ${{ github.event.inputs.app-name }}
+          iis-app-name: ${{ github.event.inputs.iis-app-name }}
+          backup-destination-path: ${{ github.event.inputs.backup-destination-path }}
