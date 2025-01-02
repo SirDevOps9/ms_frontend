@@ -17,6 +17,12 @@ jobs:
   trigger-deploy:
     runs-on: self-hosted
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          ref: Sprint18
+          fetch-depth: 0
+          
       - name: Run after-build custom action
         uses: ./github/actions/after-build
         with:
