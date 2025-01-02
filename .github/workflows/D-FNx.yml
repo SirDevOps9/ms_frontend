@@ -4,26 +4,26 @@ on:
   workflow_dispatch:
     inputs:
       app-name:
-        description: 'Enter an app name or "ALL" to build and deploy all apps.'
+        description: "Enter an app name or 'ALL' to build and deploy all apps."
         required: true
       iis-app-name:
-        description: 'Enter the IIS website name to stop, backup, deploy, and then start.'
+        description: "Enter the IIS website name."
         required: true
       backup-destination-path:
-        description: 'Enter the destination path for the website backup.'
+        description: "Enter the backup destination path."
         required: true
 
 jobs:
   trigger-deploy:
     runs-on: self-hosted
     steps:
-      - name: Checkout code
+      - name: Checkout Code
         uses: actions/checkout@v3
         with:
           ref: Sprint18
           fetch-depth: 0
-          
-      - name: Run after-build custom action
+
+      - name: Run After Build Action
         uses: ./.github/actions/after-build
         with:
           app-name: ${{ github.event.inputs.app-name }}
