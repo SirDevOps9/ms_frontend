@@ -15,7 +15,7 @@ on:
 
 jobs:
   trigger-deploy:
-    uses: ./.github/workflows/deploy-fr.yml
+    uses: ./.github/actions/after-build/
     with:
       app-name: ${{ github.event.inputs.app-name }}
       iis-app-name: ${{ github.event.inputs.iis-app-name }}
