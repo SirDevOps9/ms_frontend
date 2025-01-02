@@ -7,9 +7,9 @@ on:
         description: "Enter an app name or 'ALL' to build and deploy all apps."
         required: true
         type: string
-        default: 'ALL'
         options:
           - apps-hr
+          
       iis-app-name:
         description: "Enter the IIS website name."
         required: true
