@@ -6,6 +6,10 @@ on:
       app-name:
         description: "Enter an app name or 'ALL' to build and deploy all apps."
         required: true
+        type: string
+        default: 'ALL'
+        options:
+          - apps-hr
       iis-app-name:
         description: "Enter the IIS website name."
         required: true
@@ -22,6 +26,7 @@ jobs:
         with:
           ref: Sprint18
           fetch-depth: 0
+
       - name: Checkout submodules
         run: git submodule update --init --recursive
 
@@ -30,6 +35,7 @@ jobs:
         with:
           node-version: '18'
           ref: Sprint18
+
       - name: Run After Build Action
         uses: ./.github/actions/after-build
         with:
