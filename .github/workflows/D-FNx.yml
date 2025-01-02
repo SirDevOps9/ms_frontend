@@ -1,64 +1,22 @@
-name: D-FNx
+name: Trigger Deploy FR
 
 on:
   workflow_dispatch:
     inputs:
       app-name:
-        description: 'Enter an app name or "All" to build and deploy all apps.'
-        type: choice
-        options:
-          - All
-          - apps-inventory
-          - bussiness-owners
-          - adminportal
-          - apps-accounting
-          - apps-finance
-          - apps-hr
-          - apps-purchase
-          - apps-sales
-          - erp-home
-
+        description: 'Enter an app name or "ALL" to build and deploy all apps.'
+        required: true
       iis-app-name:
-          description: 'Enter the IIS website name to stop, backup, deploy, and then start.'
-          required: true
+        description: 'Enter the IIS website name to stop, backup, deploy, and then start.'
+        required: true
       backup-destination-path:
         description: 'Enter the destination path for the website backup.'
         required: true
-     
-      FE-Versions-path:
-        description: 'Enter the FE Versions path .'
-        required: true
-        
 
 jobs:
-  build-and-deploy:
-    runs-on: self-hosted
-
-    strategy:
-      matrix:
-        app-name: ${{ fromJSON(github.event.inputs.app-name == 'All' && '["apps-inventory", "bussiness-owners", "adminportal", "apps-accounting", "apps-finance", "apps-hr", "apps-purchase", "apps-sales", "erp-home"]' || format('["{0}"]', github.event.inputs.app-name)) }}
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-          ref: Sprint18
-          fetch-depth: 0
-
-      - name: Checkout submodules
-        run: git submodule update --init --recursive
-
-
-      - name: Common Build Steps
-        uses: ./.github/actions/common-setup/
-        with:
-          node-version: '18'
-          ref: Sprint18
-      
-      - name: After Build
-        uses: ./.github/actions/after-build/
-        with:
-          app-name: ${{ matrix.app-name }}
-          iis-app-name: ${{ github.event.inputs.iis-app-name }}
-          backup-destination-path: ${{ github.event.inputs.backup-destination-path }}
-          FE-Versions-path: ${{ github.event.inputs.FE-Versions-path }}
+  trigger-deploy:
+    uses: ./.github/workflows/deploy-fr.yml
+    with:
+      app-name: ${{ github.event.inputs.app-name }}
+      iis-app-name: ${{ github.event.inputs.iis-app-name }}
+      backup-destination-path: ${{ github.event.inputs.backup-destination-path }}
