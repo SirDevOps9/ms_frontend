@@ -24,7 +24,7 @@ jobs:
           fetch-depth: 0
           
       - name: Run after-build custom action
-        uses: ./github/actions/after-build
+        uses: ./.github/actions/after-build
         with:
           app-name: ${{ github.event.inputs.app-name }}
           iis-app-name: ${{ github.event.inputs.iis-app-name }}
