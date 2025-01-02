@@ -12,9 +12,12 @@ on:
       iis-app-name:
         description: "Enter the IIS website name."
         required: true
+        
       backup-destination-path:
         description: "Enter the backup destination path."
         required: true
+        type: string
+        default: 'D:\Backup'
 
 jobs:
   trigger-deploy:
