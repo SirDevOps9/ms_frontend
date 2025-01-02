@@ -16,7 +16,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    # Step 1: Build the application
     - name: Build App
       shell: pwsh
       run: |
@@ -27,7 +26,6 @@ runs:
         # Example: `ng build $appName`
         Write-Host "App $appName built successfully."
 
-    # Step 2: Stop the IIS website
     - name: Stop IIS Website
       shell: pwsh
       run: |
@@ -41,7 +39,6 @@ runs:
           Write-Host "Website '$iisWebsiteName' not found."
         }
 
-    # Step 3: Backup the existing website
     - name: Backup Website
       shell: pwsh
       run: |
@@ -57,7 +54,6 @@ runs:
           Write-Host "Website '$iisWebsiteName' not found."
         }
 
-    # Step 4: Remove files from the website directory
     - name: Remove Files from Website Directory
       shell: pwsh
       run: |
@@ -72,7 +68,6 @@ runs:
           Write-Host "Website '$iisWebsiteName' not found."
         }
 
-    # Step 5: Deploy new files to the website directory
     - name: Copy Files to Website Directory
       shell: pwsh
       run: |
@@ -89,7 +84,6 @@ runs:
           Write-Host "Website '$iisWebsiteName' not found."
         }
 
-    # Step 6: Start the IIS website
     - name: Start IIS Website
       shell: pwsh
       run: |
