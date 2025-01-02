@@ -15,8 +15,11 @@ on:
 
 jobs:
   trigger-deploy:
-    uses: ./.github/actions/after-build 
-    with:
-      app-name: ${{ github.event.inputs.app-name }}
-      iis-app-name: ${{ github.event.inputs.iis-app-name }}
-      backup-destination-path: ${{ github.event.inputs.backup-destination-path }}
+    runs-on: self-hosted
+    steps:
+      - name: Run after-build custom action
+        uses: ./github/actions/after-build
+        with:
+          app-name: ${{ github.event.inputs.app-name }}
+          iis-app-name: ${{ github.event.inputs.iis-app-name }}
+          backup-destination-path: ${{ github.event.inputs.backup-destination-path }}
