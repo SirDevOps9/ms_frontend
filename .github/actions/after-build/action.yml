@@ -13,6 +13,10 @@ inputs:
     description: "The path to back up the website before deploying."
     required: true
 
+  fe-versions-path:
+    description: "Enter The destination path to store FE versions."
+    required: true
+
 runs:
   using: "composite"
   steps:
@@ -25,6 +29,21 @@ runs:
         # Replace the below command with actual build steps if needed
         # Example: `ng build $appName`
         Write-Host "App $appName built successfully."
+
+    - name: FE Versions
+      shell: pwsh
+      run: |
+        $appName = '${{ inputs.app-name }}'
+        $sourcePath = "path_to_built_files"  # Replace with the actual build output directory
+        $feVersionsPath = '${{ inputs.fe-versions-path }}\$appName'
+
+        if (-not (Test-Path -Path $feVersionsPath)) {
+          New-Item -ItemType Directory -Path $feVersionsPath | Out-Null
+          Write-Host "Destination path '$feVersionsPath' created."
+        }
+
+        Move-Item -Path "$sourcePath\*" -Destination $feVersionsPath -Force
+        Write-Host "Built files for app '$appName' moved to '$feVersionsPath'."
 
     - name: Stop IIS Website
       shell: pwsh
@@ -45,14 +64,20 @@ runs:
         Import-Module WebAdministration
         $iisWebsiteName = '${{ inputs.iis-app-name }}'
         $backupDestinationPath = '${{ inputs.backup-destination-path }}'
+        if (-not (Test-Path -Path $backupDestinationPath)) {
+          New-Item -ItemType Directory -Path $backupDestinationPath | Out-Null
+          Write-Host "Backup destination path '$backupDestinationPath' created."
+        }
+
         $website = Get-Website | Where-Object {$_.Name -eq $iisWebsiteName}
         if ($website) {
           $sourcePath = $website.physicalPath
-          Copy-Item -Path $sourcePath\* -Destination $backupDestinationPath -Recurse -Force
+          Copy-Item -Path "$sourcePath\*" -Destination $backupDestinationPath -Recurse -Force
           Write-Host "Website '$iisWebsiteName' backed up to $backupDestinationPath."
         } else {
           Write-Host "Website '$iisWebsiteName' not found."
         }
+
 
     - name: Remove Files from Website Directory
       shell: pwsh
