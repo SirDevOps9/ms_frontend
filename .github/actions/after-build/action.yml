@@ -33,7 +33,7 @@ runs:
       shell: pwsh
       run: |
         $appName = '${{ inputs.app-name }}'
-        $sourcePath = "path_to_built_files"  # Replace with the actual build output directory
+        $sourcePath = ".\dist\$appName"
         $feVersionsPath = '${{ inputs.fe-versions-path }}\$appName'
 
         if (-not (Test-Path -Path $feVersionsPath)) {
