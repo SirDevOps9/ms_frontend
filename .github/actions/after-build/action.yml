@@ -12,7 +12,6 @@ inputs:
   backup-destination-path:
     description: "The path to back up the website before deploying."
     required: true
-
   fe-versions-path:
     description: "Enter The destination path to store FE versions."
     required: true
