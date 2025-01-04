@@ -18,6 +18,12 @@ on:
         required: true
         type: string
         default: 'D:\Backup'
+     
+      fe-versions-path:
+        description: "Enter The destination path to store FE versions."
+        required: true
+        type: string
+        default: 'D:\FE Versions'
 
 jobs:
   trigger-deploy:
@@ -44,3 +50,4 @@ jobs:
           app-name: ${{ github.event.inputs.app-name }}
           iis-app-name: ${{ github.event.inputs.iis-app-name }}
           backup-destination-path: ${{ github.event.inputs.backup-destination-path }}
+          fe-versions-path: ${{ github.event.inputs.fe-versions-path }}
