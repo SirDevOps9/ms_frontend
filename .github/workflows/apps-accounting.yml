@@ -27,6 +27,11 @@ on:
         type: string
         default: 'D:\FE Versions'
 
+      branch-name:
+        required: false
+        description: 'Git branch to checkout (default is main)'
+        default: 'main'
+
 
 jobs:
   trigger-deploy:
@@ -35,7 +40,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
         with:
-          ref: Sprint18
+          ref: '${{ inputs.branch-name }}'
           fetch-depth: 0
 
       - name: Checkout submodules
@@ -45,7 +50,7 @@ jobs:
         uses: ./.github/actions/common-setup/
         with:
           node-version: '18'
-          ref: Sprint18
+          ref: '${{ inputs.branch-name }}'
 
       - name: Run After Build Action
         uses: ./.github/actions/after-build
