@@ -12,6 +12,8 @@ on:
       iis-app-name:
         description: "Enter the IIS website name."
         required: true
+        type: string
+        default: 'business-owners'
         
       backup-destination-path:
         description: "Enter the backup destination path."
