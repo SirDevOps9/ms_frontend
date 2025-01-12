@@ -1,0 +1,28 @@
+name: Deploy app-hr app
+
+on:
+  workflow_dispatch:
+    inputs:
+      app-name:
+        description: "app-hr Deploy"
+        required: true
+        type: string
+        default: 'app-hr'
+
+      iis-app-name:
+        description: "Enter the IIS website name."
+        required: true
+        type: string
+        default: 'app-hr'
+
+jobs:
+  trigger-deploy:
+    runs-on: self-hosted
+    steps:
+      - name: Call Reusable C Steps
+        uses: ./.github/actions/fff/f.yml
+        with:
+          app-name: ${{ github.event.inputs.app-name }}
+          iis-app-name: ${{ github.event.inputs.iis-app-name }}
+          iis-app-root-folder: 'C:\inetpub\wwwroot\app-hr'
+          node-version: '18'
