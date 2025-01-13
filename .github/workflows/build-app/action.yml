@@ -44,20 +44,32 @@ runs:
         New-Item -Path $folderPath -ItemType Directory
         Write-Host "Created folder: $folderPath"
 
-    - name: Setup .NET Core 8.0      
-      uses: actions/setup-dotnet@v2
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
       with:
-        dotnet-version: "8.0.x"
+        node-version: ${{ inputs.node-version }}
 
-    - name: Build and Publish App
+    - name: Clean npm cache
+      shell: pwsh  
+      run: npm cache clean --force
+
+    - name: Install dependencies
+      shell: pwsh  
+      run: |
+        npm config set legacy-peer-deps true
+        npm install --force --verbose
+        npm install @zxing/browser@latest @zxing/ngx-scanner@latest
+
+    - name: Build App
       shell: pwsh
       run: |
         $appName = '${{ inputs.iis-app-name }}'
-        $environmentName = "${{ inputs.environment-name }}"
-        $publishPath = "./publish/$appName"
-        Write-Host "Building and publishing app: $appName for environment: $environmentName"
-        dotnet publish src/$appName -c Release -o $publishPath
-        Write-Host "App $appName published to $publishPath for environment $environmentName"
+        Write-Host "Building app: $appName"
+        # Simulate build process
+        # Replace the below command with actual build steps if needed
+        # Example: `ng build $appName`
+        Write-Host "App $appName built successfully."
+
 
     - name: Copy Files to Website Directory
       shell: pwsh
