@@ -19,27 +19,21 @@ on:
           - stage
           - production
 
-      app-name:
-        description: "app-hr Deploy"
-        required: true
-        type: string
-        default: 'app-hr'
-
 jobs:
-  trigger-deploy:
+  build:
     runs-on: self-hosted
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
           ref: ${{ github.event.inputs.branch-name }}
           fetch-depth: 0
-          
-      - name: Call Reusable C Steps
-        uses: ./.github/actions/fff/
+
+      - name: Reusable Deploy Script
+        uses: ./.github/workflows/build-app
         with:
           branch-name: ${{ github.event.inputs.branch-name }}
-          app-name: ${{ github.event.inputs.app-name }}
-          iis-app-name: 'app-hr' 
-          iis-app-root-folder: 'C:\inetpub\wwwroot\app-hr' 
-          node-version: '18'
+          environment-name: ${{ github.event.inputs.environment-name }}
+          iis-app-name: "app-hr"
+          iis-app-root-folder: 'C:\inetpub\wwwroot\app-hr'
