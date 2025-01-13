@@ -48,8 +48,8 @@ runs:
       id: set_appName
       run: echo "appName=${{ inputs.iis-app-name }}" >> $GITHUB_ENV  
           
-    - name: Checkout submodules
-      run: git submodule update --init --recursive
+    #- name: Checkout submodules
+      #run: git submodule update --init --recursive
 
     - name: Setup Node.js (Version 18)
       uses: actions/setup-node@v3
