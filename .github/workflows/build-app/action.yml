@@ -56,9 +56,17 @@ runs:
         with:
           dotnet-version: "8.0.x"
   
-      - name: Restore dependencies
-        shell: pwsh      
-        run: dotnet restore ${{ inputs.solution-path }}
+      - name: Clean npm cache
+        shell: pwsh  
+        run: npm cache clean --force
+
+
+      - name: Install dependencies
+        shell: pwsh  
+        run: |
+          npm config set legacy-peer-deps true
+          npm install --force --verbose
+          npm install @zxing/browser@latest @zxing/ngx-scanner@latest
   
   
   
