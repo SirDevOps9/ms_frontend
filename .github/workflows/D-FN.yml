@@ -42,7 +42,7 @@ jobs:
         shell: pwsh
         run: |
           Write-Host "Building app: ${{ matrix.app-name }}"
-          #ng build ${{ matrix.app-name }}
+          ng build ${{ matrix.app-name }}
       - name: Copy output to D:\FE Versions
         shell: pwsh
         run: |
