@@ -1,41 +1,27 @@
-name: "C Steps"
+name: Deploy App
 
-description: "Reusable action for building and deploying applications to IIS."
+description: 'Reusable script for building and deploying an app'
 
 inputs:
+
   branch-name:
     required: false
     type: string
     default: "main"
-
   environment-name:
     description: Environment name
     required: true
     type: string
     default: development    
-    
-  app-name:
-    description: "The name of the app to build and deploy."
-    required: true
-
   iis-app-name:
-    description: "The IIS website name to stop, deploy, and restart."
     required: true
-
+    type: string
   iis-app-root-folder:
-    description: "The root folder for IIS app deployment."
     required: true
-
-  node-version:
-    description: "The version of Node.js to use."
-    required: true
-
-data:
-  current-date:
-    description: "Timestamp for versioning."
+    type: string
 
 runs:
-  using: "composite"
+  using: 'composite'
   steps:
     - name: Checkout code
       uses: actions/checkout@v3
@@ -43,10 +29,32 @@ runs:
         ref: ${{ inputs.branch-name }}
         fetch-depth: 0
 
-    - name: Setup Node.js
+    - name: Set IIS Folder Variable
+      shell: pwsh
+      id: set_iis_folder
+      run: |
+        $currentDate = (Get-Date).ToString('yyyy-MM-dd_HH-mm')
+        echo "IIS_FOLDER=${{ inputs.iis-app-root-folder }}\\${{ inputs.iis-app-name }}_$currentDate" >> $env:GITHUB_ENV
+
+    - name: Create IIS Folder
+      shell: pwsh
+      run: |
+        $folderPath = "$env:IIS_FOLDER"
+        New-Item -Path $folderPath -ItemType Directory
+        Write-Host "Created folder: $folderPath"
+
+    - name: Set Release Variable
+      shell: pwsh
+      id: set_appName
+      run: echo "appName=${{ inputs.iis-app-name }}" >> $GITHUB_ENV  
+          
+    #- name: Checkout submodules
+      #run: git submodule update --init --recursive
+
+    - name: Setup Node.js (Version 18)
       uses: actions/setup-node@v3
       with:
-        node-version: ${{ inputs.node-version }}
+        node-version: '18'
 
     - name: Clean npm cache
       shell: pwsh
@@ -62,49 +70,28 @@ runs:
     - name: Build App
       shell: pwsh
       run: |
-        $appName = '${{ inputs.app-name }}'
-        Write-Host "Building app: $appName"
-        # Simulate build process
-        # Replace the below command with actual build steps if needed
-        # Example: `ng build $appName`
-        Write-Host "App $appName built successfully."
-
-    - name: Set IIS Folder Variable
-      shell: pwsh
-      id: set_iis_folder
-      run: |
-          $currentDate = (Get-Date).ToString('yyyy-MM-dd_HH-mm')
-          echo "IIS_FOLDER=${{ inputs.iis-app-root-folder }}\${{ inputs.iis-app-name }}_$currentDate" >> $env:GITHUB_ENV
-
-    - name: Create IIS Folder
-      shell: pwsh
-      run: |
-        $folderPath = "$env:IIS_FOLDER"
-        New-Item -Path $folderPath -ItemType Directory
-        Write-Host "Created folder: $folderPath"
-
-    - name: Set Release Variable
-      shell: pwsh
-      id: set_appName
-      run: echo "appName=${{ inputs.iis-app-name }}" >> $GITHUB_ENV
+        Write-Host "Building app: ${{ inputs.iis-app-name }}"
+        ng build ${{ inputs.iis-app-name }}
+        Write-Host "App ${{ inputs.iis-app-name }} built successfully."
 
     - name: Copy Files to Website Directory
       shell: pwsh
       run: |
-        $appName = "${{ inputs.app-name }}"
-        $sourcePath = "./publish/$appName"
+        $appName = "${{ inputs.iis-app-name }}"
+        $sourcePath = "./dist/$appName"
         $destinationPath = "$env:IIS_FOLDER"
-
+  
         if (Test-Path $destinationPath) {
           Remove-Item -Path $destinationPath -Recurse -Force
           Write-Host "Removed existing destination path: $destinationPath"
-        } else {
+          } else {
           Write-Host "Destination path '$destinationPath' does not exist."
-        }
-
-        New-Item -Path $destinationPath -ItemType Directory -Force
-        Copy-Item -Path $sourcePath\* -Destination $destinationPath -Recurse -Force
-        Write-Host "Copied output to $destinationPath"
+          }
+  
+          New-Item -Path $destinationPath -ItemType Directory -Force
+          Copy-Item -Path $sourcePath\* -Destination $destinationPath -Recurse -Force
+          Write-Host "Copied output to $destinationPath"
+  
 
     - name: Stop IIS Website
       shell: powershell
@@ -118,6 +105,7 @@ runs:
           Write-Error "IIS Website '$iisWebsiteName' not found."
         }
 
+    
     - name: Set IIS Website Physical Path to New Version
       shell: powershell
       run: |
@@ -130,15 +118,15 @@ runs:
         } else {
           Write-Error "IIS Website '$iisWebsiteName' not found."
         }
-
+        
     - name: Start IIS Website
       shell: powershell
       run: |
-        Import-Module WebAdministration
-        $iisWebsiteName = '${{ inputs.iis-app-name }}'
-        if (Get-Website | Where-Object { $_.Name -eq $iisWebsiteName }) {
-          Start-Website -Name $iisWebsiteName
-          Write-Host "Started IIS Website: $iisWebsiteName"
-        } else {
-          Write-Error "IIS Website '$iisWebsiteName' not found."
-        }
+          Import-Module WebAdministration
+          $iisWebsiteName = '${{ inputs.iis-app-name }}'
+          if (Get-Website | Where-Object { $_.Name -eq $iisWebsiteName }) {
+            Start-Website -Name $iisWebsiteName
+            Write-Host "Started IIS Website: $iisWebsiteName"
+          } else {
+            Write-Error "IIS Website '$iisWebsiteName' not found."
+          }
