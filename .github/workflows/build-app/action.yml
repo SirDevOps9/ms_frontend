@@ -67,3 +67,5 @@ runs:
         Write-Host "Building app: $appName"
         ng build $appName
         Write-Host "App $appName built successfully."
+      env:
+        IIS_FOLDER: C:\inetpub\wwwroot\apps-hr\apps-hr_2025-01-13_14-51
