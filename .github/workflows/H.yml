@@ -36,7 +36,7 @@ jobs:
           fetch-depth: 0
           
       - name: Call Reusable C Steps
-        uses: ./.github/actions/fff/f.yml
+        uses: ./.github/actions/fff/
         with:
           app-name: ${{ github.event.inputs.app-name }}
           iis-app-name: 'app-hr' 
