@@ -1,60 +1,41 @@
-name: Setup Common
+name: Deploy App
+
+description: 'Reusable script for building and deploying an app'
 
 inputs:
-  branch-name:
-    required: false
-    type: string
-    default: "DevOps"
-
-  environment-name:
-    description: Environment name
+  app-name:
     required: true
     type: string
-    default: development    
-
   iis-app-name:
     required: true
     type: string
-
-  iis-app-root-folder:
+  backup-destination-path:
     required: true
     type: string
 
 runs:
   using: 'composite'
-
   steps:
     - name: Checkout code
       uses: actions/checkout@v3
       with:
-        ref: ${{ inputs.branch-name }}
+        ref: Sprint18
         fetch-depth: 0
 
-    - name: Set IIS Folder Variable
-      shell: pwsh
-      id: set_iis_folder
-      run: |
-          $currentDate = (Get-Date).ToString('yyyy-MM-dd_HH-mm')
-          echo "IIS_FOLDER=${{ inputs.iis-app-root-folder }}\\${{ inputs.iis-app-name }}_$currentDate" >> $env:GITHUB_ENV
+    - name: Checkout submodules
+      run: git submodule update --init --recursive
 
-    - name: Create IIS Folder
-      shell: pwsh
-      run: |
-        $folderPath = "$env:IIS_FOLDER"
-        New-Item -Path $folderPath -ItemType Directory
-        Write-Host "Created folder: $folderPath"
-
-    - name: Setup Node.js
+    - name: Setup Node.js (Version 18)
       uses: actions/setup-node@v3
       with:
-        node-version: 18
+        node-version: '18'
 
     - name: Clean npm cache
-      shell: pwsh  
+      shell: pwsh
       run: npm cache clean --force
 
     - name: Install dependencies
-      shell: pwsh  
+      shell: pwsh
       run: |
         npm config set legacy-peer-deps true
         npm install --force --verbose
@@ -63,5 +44,85 @@ runs:
     - name: Build App
       shell: pwsh
       run: |
-        Write-Host "Building app: ${{ inputs.iis-app-name }}"
-        ng build ${{ inputs.iis-app-name }}
+        Write-Host "Building app: ${{ inputs.app-name }}"
+        ng build ${{ inputs.app-name }}
+        Write-Host "App ${{ inputs.app-name }} built successfully."
+
+    - name: Copy output to D:\FE Versions
+      shell: pwsh
+      run: |
+        $appName = '${{ inputs.app-name }}'
+        $sourcePath = ".\dist\$appName"
+        $destinationPath = "D:\FE Versions\$appName"
+        if (Test-Path $sourcePath) {
+          New-Item -ItemType Directory -Path $destinationPath -Force
+          Copy-Item -Path $sourcePath\* -Destination $destinationPath -Recurse -Force
+          Write-Host "Copied output for $appName to $destinationPath"
+        } else {
+          Write-Host "Source directory not found for $appName."
+        }
+
+    - name: Stop Website in IIS
+      shell: pwsh
+      run: |
+        Import-Module WebAdministration
+        $website = Get-Website | Where-Object {$_.Name -eq '${{ inputs.iis-app-name }}'}
+        if ($website) {
+          Stop-Website -Name ${{ inputs.iis-app-name }}
+          Write-Host "Website '${{ inputs.iis-app-name }}' stopped."
+        } else {
+          Write-Host "Website '${{ inputs.iis-app-name }}' not found."
+        }
+
+    - name: Backup Website
+      shell: pwsh
+      run: |
+        Import-Module WebAdministration
+        $website = Get-Website | Where-Object {$_.Name -eq '${{ inputs.iis-app-name }}'}
+        if ($website) {
+          $sourcePath = $website.physicalPath
+          Copy-Item -Path $sourcePath\* -Destination '${{ inputs.backup-destination-path }}' -Recurse -Force
+          Write-Host "Website '${{ inputs.iis-app-name }}' backed up to ${{ inputs.backup-destination-path }}."
+        } else {
+          Write-Host "Website '${{ inputs.iis-app-name }}' not found."
+        }
+
+    - name: Remove Files from Website Directory
+      shell: pwsh
+      run: |
+        Import-Module WebAdministration
+        $website = Get-Website | Where-Object {$_.Name -eq '${{ inputs.iis-app-name }}'}
+        if ($website) {
+          $path = $website.physicalPath
+          Remove-Item -Path $path\* -Recurse -Force
+          Write-Host "Files removed from $path."
+        } else {
+          Write-Host "Website '${{ inputs.iis-app-name }}' not found."
+        }
+
+    - name: Copy Files to Website Directory
+      shell: pwsh
+      run: |
+        $appName = '${{ inputs.app-name }}'
+        $sourcePath = "D:\FE Versions\$appName"
+        Import-Module WebAdministration
+        $website = Get-Website | Where-Object {$_.Name -eq '${{ inputs.iis-app-name }}'}
+        if ($website) {
+          $destinationPath = $website.physicalPath
+          Copy-Item -Path $sourcePath\* -Destination $destinationPath -Recurse -Force
+          Write-Host "Files deployed to $destinationPath."
+        } else {
+          Write-Host "Website '${{ inputs.iis-app-name }}' not found."
+        }
+
+    - name: Start Website in IIS
+      shell: pwsh
+      run: |
+        Import-Module WebAdministration
+        $website = Get-Website | Where-Object {$_.Name -eq '${{ inputs.iis-app-name }}'}
+        if ($website) {
+          Start-Website -Name ${{ inputs.iis-app-name }}
+          Write-Host "Website '${{ inputs.iis-app-name }}' started."
+        } else {
+          Write-Host "Website '${{ inputs.iis-app-name }}' not found."
+        }
