@@ -3,14 +3,24 @@ name: Deploy app-hr app
 on:
   workflow_dispatch:
     inputs:
+      branch-name:
+        description: "Git branch to checkout (default is main)"
+        required: false
+        default: "main"
+
+      environment-name:
+        description: Environment name (cloud, development, stage, production)
+        required: true
+        type: choice
+        default: development
+        options:
+          - cloud
+          - development
+          - stage
+          - production
+
       app-name:
         description: "app-hr Deploy"
-        required: true
-        type: string
-        default: 'app-hr'
-
-      iis-app-name:
-        description: "Enter the IIS website name."
         required: true
         type: string
         default: 'app-hr'
@@ -19,10 +29,16 @@ jobs:
   trigger-deploy:
     runs-on: self-hosted
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.inputs.branch-name }}
+          fetch-depth: 0
+          
       - name: Call Reusable C Steps
         uses: ./.github/actions/fff/f.yml
         with:
           app-name: ${{ github.event.inputs.app-name }}
-          iis-app-name: ${{ github.event.inputs.iis-app-name }}
-          iis-app-root-folder: 'C:\inetpub\wwwroot\app-hr'
+          iis-app-name: 'app-hr' 
+          iis-app-root-folder: 'C:\inetpub\wwwroot\app-hr' 
           node-version: '18'
