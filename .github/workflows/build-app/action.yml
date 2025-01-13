@@ -11,7 +11,7 @@ inputs:
     required: true
     type: string
     default: development    
-    
+
   iis-app-name:
     required: true
     type: string
@@ -24,116 +24,92 @@ runs:
   using: 'composite'
 
   steps:
-      
-      - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-          ref: ${{ inputs.branch-name }}
-          fetch-depth: 0
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        ref: ${{ inputs.branch-name }}
+        fetch-depth: 0
 
-      - name: Set IIS Folder Variable
-        shell: pwsh
-        id: set_iis_folder
-        run: |
-            $currentDate = (Get-Date).ToString('yyyy-MM-dd_HH-mm')
-            echo "IIS_FOLDER=${{ inputs.iis-app-root-folder }}\\${{ inputs.iis-app-name }}_$currentDate" >> $env:GITHUB_ENV
- 
-      - name: Create IIS Folder
-        shell: pwsh
-        run: |
-          $folderPath = "$env:IIS_FOLDER"
-          New-Item -Path $folderPath -ItemType Directory
-          Write-Host "Created folder: $folderPath"
- 
+    - name: Set IIS Folder Variable
+      shell: pwsh
+      id: set_iis_folder
+      run: |
+          $currentDate = (Get-Date).ToString('yyyy-MM-dd_HH-mm')
+          echo "IIS_FOLDER=${{ inputs.iis-app-root-folder }}\\${{ inputs.iis-app-name }}_$currentDate" >> $env:GITHUB_ENV
 
-      - name: Set Release Variable
-        shell: pwsh
-        id: set_appName
-        run: echo "appName=${{ inputs.iis-app-name }}" >> $GITHUB_ENV
-  
-      - name: Setup .NET Core 8.0      
-        uses: actions/setup-dotnet@v2
-        with:
-          dotnet-version: "8.0.x"
-  
-      - name: Clean npm cache
-        shell: pwsh  
-        run: npm cache clean --force
+    - name: Create IIS Folder
+      shell: pwsh
+      run: |
+        $folderPath = "$env:IIS_FOLDER"
+        New-Item -Path $folderPath -ItemType Directory
+        Write-Host "Created folder: $folderPath"
 
+    - name: Setup .NET Core 8.0      
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: "8.0.x"
 
-      - name: Install dependencies
-        shell: pwsh  
-        run: |
-          npm config set legacy-peer-deps true
-          npm install --force --verbose
-          npm install @zxing/browser@latest @zxing/ngx-scanner@latest
-  
-  
-  
-      - name: Build App
-        shell: pwsh
-        run: |
-          $appName = '${{ inputs.iis-app-name }}'
-          $environmentName = "${{ inputs.environment-name }}"
-          Write-Host "Building app: $iis-app-name"
-          # Simulate build process
-          # Replace the below command with actual build steps if needed
-          # Example: `ng build $iis-app-name`
-          Write-Host "App $iis-app-name built successfully."
-  
-      - name: Copy Files to Website Directory
-        shell: pwsh
-        run: |
-          $appName = "${{ inputs.iis-app-name }}"
-          $sourcePath = "./publish/$appName"
-          $destinationPath = "$env:IIS_FOLDER"
-  
-          if (Test-Path $destinationPath) {
-            Remove-Item -Path $destinationPath -Recurse -Force
-            Write-Host "Removed existing destination path: $destinationPath"
-            } else {
-            Write-Host "Destination path '$destinationPath' does not exist."
-            }
-  
-            New-Item -Path $destinationPath -ItemType Directory -Force
-            Copy-Item -Path $sourcePath\* -Destination $destinationPath -Recurse -Force
-            Write-Host "Copied output to $destinationPath"
-  
-  
-      - name: Stop IIS Website
-        shell: powershell
-        run: |
-          Import-Module WebAdministration
-          $iisWebsiteName = '${{ inputs.iis-app-name }}'
-          if (Get-Website | Where-Object { $_.Name -eq $iisWebsiteName }) {
-            Stop-Website -Name $iisWebsiteName
-            Write-Host "Website '$iisWebsiteName' stopped."
-          } else {
-            Write-Error "IIS Website '$iisWebsiteName' not found."
-          }
-  
-  
-      - name: Set IIS Website Physical Path to New Version
-        shell: powershell
-        run: |
-          Import-Module WebAdministration
-          $iisWebsiteName = '${{ inputs.iis-app-name }}'
-          $newPath = "$env:IIS_FOLDER"
-          if (Get-Website | Where-Object { $_.Name -eq $iisWebsiteName }) {
-            Set-ItemProperty "IIS:\Sites\$iisWebsiteName" -Name physicalPath -Value $newPath
-            Write-Host "Set IIS Website '$iisWebsiteName' physical path to '$newPath'."
-          } else {
-            Write-Error "IIS Website '$iisWebsiteName' not found."
-          }
-  
-      - name: Start IIS Website
-        shell: powershell
-        run: |
-          Import-Module WebAdministration
-          $iisWebsiteName = '${{ inputs.iis-app-name }}'
-          if (Get-Website | Where-Object { $_.Name -eq $iisWebsiteName }) {
-            Start-Website -Name $iisWebsiteName
-            Write-Host "Started IIS Website: $iisWebsiteName"
-          } else {
-            Write-Error "IIS Website '$iisWebsiteName' not found."
-          }
+    - name: Build and Publish App
+      shell: pwsh
+      run: |
+        $appName = '${{ inputs.iis-app-name }}'
+        $environmentName = "${{ inputs.environment-name }}"
+        $publishPath = "./publish/$appName"
+        Write-Host "Building and publishing app: $appName for environment: $environmentName"
+        dotnet publish src/$appName -c Release -o $publishPath
+        Write-Host "App $appName published to $publishPath for environment $environmentName"
+
+    - name: Copy Files to Website Directory
+      shell: pwsh
+      run: |
+        $appName = "${{ inputs.iis-app-name }}"
+        $sourcePath = "./publish/$appName"
+        $destinationPath = "$env:IIS_FOLDER"
+
+        if (Test-Path $destinationPath) {
+          Remove-Item -Path $destinationPath -Recurse -Force
+          Write-Host "Removed existing destination path: $destinationPath"
+        } else {
+          Write-Host "Destination path '$destinationPath' does not exist."
+        }
+
+        New-Item -Path $destinationPath -ItemType Directory -Force
+        Copy-Item -Path "$sourcePath\*" -Destination $destinationPath -Recurse -Force
+        Write-Host "Copied output to $destinationPath"
+
+    - name: Stop IIS Website
+      shell: powershell
+      run: |
+        Import-Module WebAdministration
+        $iisWebsiteName = '${{ inputs.iis-app-name }}'
+        if (Get-Website | Where-Object { $_.Name -eq $iisWebsiteName }) {
+          Stop-Website -Name $iisWebsiteName
+          Write-Host "Website '$iisWebsiteName' stopped."
+        } else {
+          Write-Error "IIS Website '$iisWebsiteName' not found."
+        }
+
+    - name: Set IIS Website Physical Path to New Version
+      shell: powershell
+      run: |
+        Import-Module WebAdministration
+        $iisWebsiteName = '${{ inputs.iis-app-name }}'
+        $newPath = "$env:IIS_FOLDER"
+        if (Get-Website | Where-Object { $_.Name -eq $iisWebsiteName }) {
+          Set-ItemProperty "IIS:\Sites\$iisWebsiteName" -Name physicalPath -Value $newPath
+          Write-Host "Set IIS Website '$iisWebsiteName' physical path to '$newPath'."
+        } else {
+          Write-Error "IIS Website '$iisWebsiteName' not found."
+        }
+
+    - name: Start IIS Website
+      shell: powershell
+      run: |
+        Import-Module WebAdministration
+        $iisWebsiteName = '${{ inputs.iis-app-name }}'
+        if (Get-Website | Where-Object { $_.Name -eq $iisWebsiteName }) {
+          Start-Website -Name $iisWebsiteName
+          Write-Host "Started IIS Website: $iisWebsiteName"
+        } else {
+          Write-Error "IIS Website '$iisWebsiteName' not found."
+        }
