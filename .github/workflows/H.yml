@@ -1,4 +1,4 @@
-name: Deploy app-hr app
+name: Deploy hr app
 
 on:
   workflow_dispatch:
