@@ -65,7 +65,5 @@ runs:
       run: |
         $appName = '${{ inputs.iis-app-name }}'
         Write-Host "Building app: $appName"
-        # Simulate build process
-        # Replace the below command with actual build steps if needed
-        # Example: `ng build $appName`
+        ng build $appName
         Write-Host "App $appName built successfully."
