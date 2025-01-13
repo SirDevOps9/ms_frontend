@@ -31,7 +31,7 @@ jobs:
           fetch-depth: 0
 
       - name: Reusable Deploy Script
-        uses: ./.github/actions/fff/
+        uses: ./.github/actions/fff/f.yml
         with:
           branch-name: ${{ github.event.inputs.branch-name }}
           environment-name: ${{ github.event.inputs.environment-name }}
