@@ -63,9 +63,5 @@ runs:
     - name: Build App
       shell: pwsh
       run: |
-        $appName = '${{ inputs.iis-app-name }}'
-        Write-Host "Building app: $appName"
-        ng build $appName
-        Write-Host "App $appName built successfully."
-      env:
-        IIS_FOLDER: C:\inetpub\wwwroot\apps-hr\apps-hr_2025-01-13_14-51
+        Write-Host "Building app: ${{ matrix.iis-app-name }}"
+        ng build ${{ matrix.iis-app-name }}
