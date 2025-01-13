@@ -36,4 +36,4 @@ jobs:
           branch-name: ${{ github.event.inputs.branch-name }}
           environment-name: ${{ github.event.inputs.environment-name }}
           iis-app-name: "apps-hr"
-          iis-app-root-folder: 'C:\inetpub\wwwroot\app-hr'
+          iis-app-root-folder: 'C:\inetpub\wwwroot\apps-hr'
