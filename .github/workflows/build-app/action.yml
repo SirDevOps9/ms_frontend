@@ -63,5 +63,5 @@ runs:
     - name: Build App
       shell: pwsh
       run: |
-        Write-Host "Building app: ${{ matrix.iis-app-name }}"
-        ng build ${{ matrix.iis-app-name }}
+        Write-Host "Building app: ${{ inputs.iis-app-name }}"
+        ng build ${{ inputs.iis-app-name }}
