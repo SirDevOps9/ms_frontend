@@ -4,7 +4,7 @@ inputs:
   branch-name:
     required: false
     type: string
-    default: "main"
+    default: "DevOps"
 
   environment-name:
     description: Environment name
