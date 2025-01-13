@@ -19,12 +19,7 @@ on:
           - stage
           - production
 
-      iis-app-name:
-        description: 'IIS application name'
-        required: true
-      iis-app-root-folder:
-        description: 'Root folder for the IIS app'
-        required: true
+    
 
 jobs:
   build:
