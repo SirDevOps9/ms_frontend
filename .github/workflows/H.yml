@@ -38,6 +38,7 @@ jobs:
       - name: Call Reusable C Steps
         uses: ./.github/actions/fff/
         with:
+          branch-name: ${{ github.event.inputs.branch-name }}
           app-name: ${{ github.event.inputs.app-name }}
           iis-app-name: 'app-hr' 
           iis-app-root-folder: 'C:\inetpub\wwwroot\app-hr' 
